@@ -38,11 +38,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private readonly ICodeGenerationServiceProvider _iCodeGenerationServiceProvider;
 
         public CreateFileWithEntityMetadataCSharpHandler(
-            CreateFileCSharpConfiguration config
+            TextWriter writer
+            , CreateFileCSharpConfiguration config
             , IOrganizationServiceExtented service
             , IWriteToOutput iWriteToOutput
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        ) : base(config.TabSpacer, config.AllDescriptions)
+        ) : base(writer, config.TabSpacer, config.AllDescriptions)
         {
             this._config = config;
             this._service = service;
@@ -57,17 +58,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             this._descriptorHandler = new DependencyDescriptionHandler(_solutionComponentDescriptor);
         }
 
-        public Task CreateFileAsync(string filePath, string entityLogicalName)
+        public Task CreateFileAsync(string entityLogicalName)
         {
-            return Task.Run(async () => await CreateFile(filePath, entityLogicalName, null));
+            return Task.Run(async () => await CreateFile(entityLogicalName, null));
         }
 
-        public Task CreateFileAsync(string filePath, EntityMetadata entityMetadata)
+        public Task CreateFileAsync(EntityMetadata entityMetadata)
         {
-            return Task.Run(async () => await CreateFile(filePath, entityMetadata.LogicalName, entityMetadata));
+            return Task.Run(async () => await CreateFile(entityMetadata.LogicalName, entityMetadata));
         }
 
-        private async Task CreateFile(string filePath, string entityLogicalName, EntityMetadata entityMetadata)
+        private async Task CreateFile(string entityLogicalName, EntityMetadata entityMetadata)
         {
             if (entityMetadata == null)
             {
@@ -100,8 +101,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 _fieldHeader = "const";
             }
-
-            StartWriting(filePath);
 
             WriteLine();
 
@@ -185,8 +184,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 WriteLine("}");
             }
             Write("}");
-
-            EndWriting();
         }
 
         private HashSet<string> GetLinkedEntities(EntityMetadata entityMetadata)

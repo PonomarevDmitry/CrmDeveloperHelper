@@ -1568,5 +1568,13 @@
     <value>Changing {0} State completed.</value>
   </data>
   
+  
+
+  <data name="CopyingEntityJavaScriptContentOnFormCompletedFormat2" xml:space="preserve">
+    <value>Copying entity {0} javascript content based on form {1} completed.</value>
+  </data>
+  <data name="CopyingEntityJavaScriptContentOnFormFormat2" xml:space="preserve">
+    <value>Copying entity {0} javascript content based on form {1}...</value>
+  </data>
 
 </root>

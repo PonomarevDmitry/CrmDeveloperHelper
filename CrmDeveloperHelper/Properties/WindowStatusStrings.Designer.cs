@@ -853,6 +853,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copying entity {0} javascript content based on form {1} completed..
+        /// </summary>
+        internal static string CopyingEntityJavaScriptContentOnFormCompletedFormat2 {
+            get {
+                return ResourceManager.GetString("CopyingEntityJavaScriptContentOnFormCompletedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copying entity {0} javascript content based on form {1}....
+        /// </summary>
+        internal static string CopyingEntityJavaScriptContentOnFormFormat2 {
+            get {
+                return ResourceManager.GetString("CopyingEntityJavaScriptContentOnFormFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Creating description....
         /// </summary>
         internal static string CreatingDescription {

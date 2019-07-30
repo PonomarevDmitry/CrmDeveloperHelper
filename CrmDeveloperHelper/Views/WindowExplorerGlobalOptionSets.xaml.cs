@@ -426,9 +426,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     list = list
                     .Where(ent =>
                         ent.Name.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
-                        || 
+                        ||
                         (
-                            ent.DisplayName != null 
+                            ent.DisplayName != null
                             && ent.DisplayName.LocalizedLabels
                                 .Where(l => !string.IsNullOrEmpty(l.Label))
                                 .Any(lbl => lbl.Label.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1)
@@ -529,9 +529,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var config = CreateFileCSharpConfiguration.CreateForSchemaGlobalOptionSet(service.ConnectionData.NamespaceClassesCSharp, service.ConnectionData.NamespaceOptionSetsCSharp, service.ConnectionData.TypeConverterName, _commonConfig);
 
-                using (var handler = new CreateGlobalOptionSetsFileCSharpHandler(service, _iWriteToOutput, config))
+                using (var writer = new StreamWriter(filePath, false, new UTF8Encoding(false)))
                 {
-                    await handler.CreateFileAsync(filePath, optionSets);
+                    var handler = new CreateGlobalOptionSetsFileCSharpHandler(writer, service, _iWriteToOutput, config);
+
+                    await handler.CreateFileAsync(optionSets);
                 }
 
                 if (this._selectedItem != null)
@@ -622,14 +624,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     filePath = _filePath;
                 }
 
-                using (var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(
-                    service
-                    , _iWriteToOutput
-                    , _commonConfig.GetTabSpacer()
-                    , _commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents
-                ))
+                using (var writer = new StreamWriter(filePath, false, new UTF8Encoding(false)))
                 {
-                    await handler.CreateFileAsync(filePath, optionSets);
+                    var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(
+                        writer
+                        , service
+                        , _iWriteToOutput
+                        , _commonConfig.GetTabSpacer()
+                        , _commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents
+                    );
+                
+                    await handler.CreateFileAsync(optionSets);
                 }
 
                 if (this._selectedItem != null)

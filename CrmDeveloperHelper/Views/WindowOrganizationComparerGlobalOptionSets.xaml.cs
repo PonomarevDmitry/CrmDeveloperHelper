@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -404,9 +405,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     .Where(ent =>
                         ent.Name.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
 
-                        || 
+                        ||
                         (
-                            ent.OptionSetMetadata1 != null 
+                            ent.OptionSetMetadata1 != null
                             && ent.OptionSetMetadata1.DisplayName != null
                             && ent.OptionSetMetadata1.DisplayName.LocalizedLabels != null
                             && ent.OptionSetMetadata1.DisplayName.LocalizedLabels
@@ -414,10 +415,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                                 .Any(lbl => lbl.Label.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1)
                         )
 
-                        || 
+                        ||
                         (
-                            ent.OptionSetMetadata2 != null 
-                            && ent.OptionSetMetadata2.DisplayName != null 
+                            ent.OptionSetMetadata2 != null
+                            && ent.OptionSetMetadata2.DisplayName != null
                             && ent.OptionSetMetadata2.DisplayName.LocalizedLabels != null
                             && ent.OptionSetMetadata2.DisplayName.LocalizedLabels
                                 .Where(l => !string.IsNullOrEmpty(l.Label))
@@ -566,15 +567,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     var config1 = CreateFileCSharpConfiguration.CreateForSchemaGlobalOptionSet(service1.ConnectionData.NamespaceClassesCSharp, service1.ConnectionData.NamespaceOptionSetsCSharp, service1.ConnectionData.TypeConverterName, _commonConfig);
                     var config2 = CreateFileCSharpConfiguration.CreateForSchemaGlobalOptionSet(service2.ConnectionData.NamespaceClassesCSharp, service2.ConnectionData.NamespaceOptionSetsCSharp, service2.ConnectionData.TypeConverterName, _commonConfig);
 
-                    using (var handler1 = new CreateGlobalOptionSetsFileCSharpHandler(service1, _iWriteToOutput, config1))
+                    using (var writer1 = new StreamWriter(filePath1, false, new UTF8Encoding(false)))
                     {
-                        var task1 = handler1.CreateFileAsync(filePath1, optionSets1);
+                        var handler1 = new CreateGlobalOptionSetsFileCSharpHandler(writer1, service1, _iWriteToOutput, config1);
+
+                        var task1 = handler1.CreateFileAsync(optionSets1);
 
                         if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
                         {
-                            using (var handler2 = new CreateGlobalOptionSetsFileCSharpHandler(service2, _iWriteToOutput, config2))
+                            using (var writer2 = new StreamWriter(filePath2, false, new UTF8Encoding(false)))
                             {
-                                var task2 = handler2.CreateFileAsync(filePath2, optionSets2);
+                                var handler2 = new CreateGlobalOptionSetsFileCSharpHandler(writer2, service2, _iWriteToOutput, config2);
+
+                                var task2 = handler2.CreateFileAsync(optionSets2);
 
                                 await task2;
                             }
@@ -694,15 +699,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     var withDependentComponents = _commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents;
 
-                    using (var handler1 = new CreateGlobalOptionSetsFileJavaScriptHandler(service1, _iWriteToOutput, tabSpacer, withDependentComponents))
+                    using (var writer1 = new StreamWriter(filePath1, false, new UTF8Encoding(false)))
                     {
-                        var task1 = handler1.CreateFileAsync(filePath1, optionSets1);
+                        var handler1 = new CreateGlobalOptionSetsFileJavaScriptHandler(writer1, service1, _iWriteToOutput, tabSpacer, withDependentComponents);
+
+                        var task1 = handler1.CreateFileAsync(optionSets1);
 
                         if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
                         {
-                            using (var handler2 = new CreateGlobalOptionSetsFileJavaScriptHandler(service2, _iWriteToOutput, tabSpacer, withDependentComponents))
+                            using (var writer2 = new StreamWriter(filePath2, false, new UTF8Encoding(false)))
                             {
-                                var task2 = handler2.CreateFileAsync(filePath2, optionSets2);
+                                var handler2 = new CreateGlobalOptionSetsFileJavaScriptHandler(writer2, service2, _iWriteToOutput, tabSpacer, withDependentComponents);
+
+                                var task2 = handler2.CreateFileAsync(optionSets2);
 
                                 await task2;
                             }
@@ -827,9 +836,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var config = CreateFileCSharpConfiguration.CreateForSchemaGlobalOptionSet(service.ConnectionData.NamespaceClassesCSharp, service.ConnectionData.NamespaceOptionSetsCSharp, service.ConnectionData.TypeConverterName, _commonConfig);
 
-                using (var handler = new CreateGlobalOptionSetsFileCSharpHandler(service, _iWriteToOutput, config))
+                using (var writer = new StreamWriter(filePath, false, new UTF8Encoding(false)))
                 {
-                    await handler.CreateFileAsync(filePath, optionSets);
+                    var handler = new CreateGlobalOptionSetsFileCSharpHandler(writer, service, _iWriteToOutput, config);
+
+                    await handler.CreateFileAsync(optionSets);
                 }
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service.ConnectionData.Name, optionSetsName, filePath);
@@ -935,9 +946,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = CreateFileNameJavaScript(optionSets, service.ConnectionData);
 
-                using (var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(service, _iWriteToOutput, tabSpacer, withDependentComponents))
+                using (var writer = new StreamWriter(filePath, false, new UTF8Encoding(false)))
                 {
-                    await handler.CreateFileAsync(filePath, optionSets);
+                    var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(writer, service, _iWriteToOutput, tabSpacer, withDependentComponents);
+
+                    await handler.CreateFileAsync(optionSets);
                 }
 
                 var message = string.Empty;

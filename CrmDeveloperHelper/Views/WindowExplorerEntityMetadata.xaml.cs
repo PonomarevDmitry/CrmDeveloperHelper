@@ -810,9 +810,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ICodeGenerationServiceProvider codeGenerationServiceProvider = new CodeGenerationServiceProvider(typeMappingService, codeGenerationService, codeWriterFilterService, metadataProviderService, namingService);
 
-                using (var handler = new CreateFileWithEntityMetadataCSharpHandler(config, service, _iWriteToOutput, codeGenerationServiceProvider))
+                using (var writer = new StreamWriter(filePath, false, new UTF8Encoding(false)))
                 {
-                    await handler.CreateFileAsync(filePath, entityMetadata.EntityLogicalName);
+                    var handler = new CreateFileWithEntityMetadataCSharpHandler(writer, config, service, _iWriteToOutput, codeGenerationServiceProvider);
+
+                    await handler.CreateFileAsync(entityMetadata.EntityLogicalName);
                 }
 
                 if (this._selectedItem != null)
@@ -973,9 +975,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                using (var handler = new CreateFileWithEntityMetadataJavaScriptHandler(config, service, _iWriteToOutput))
+                using (var writer = new StreamWriter(filePath, false, new UTF8Encoding(false)))
                 {
-                    await handler.CreateFileAsync(filePath, entityMetadata.EntityLogicalName);
+                    var handler = new CreateFileWithEntityMetadataJavaScriptHandler(writer, config, service, _iWriteToOutput);
+                
+                    await handler.CreateFileAsync(entityMetadata.EntityLogicalName);
 
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, entityMetadata.EntityLogicalName, filePath);
 

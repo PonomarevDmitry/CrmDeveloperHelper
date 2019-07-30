@@ -424,9 +424,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         ICodeGenerationServiceProvider codeGenerationServiceProvider = new CodeGenerationServiceProvider(typeMappingService, codeGenerationService, codeWriterFilterService, metadataProviderService, namingService);
 
-                        using (var handler = new CreateFileWithEntityMetadataCSharpHandler(config, service, _iWriteToOutput, codeGenerationServiceProvider))
+                        using (var writer = new StreamWriter(filePath, false, new UTF8Encoding(false)))
                         {
-                            await handler.CreateFileAsync(filePath, entityMetadata);
+                            var handler = new CreateFileWithEntityMetadataCSharpHandler(writer, config, service, _iWriteToOutput, codeGenerationServiceProvider);
+
+                            await handler.CreateFileAsync(entityMetadata);
                         }
 
                         this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, connectionData.Name, entityMetadata.LogicalName, filePath);
@@ -675,9 +677,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
-                        using (var handler = new CreateFileWithEntityMetadataJavaScriptHandler(config, service, _iWriteToOutput))
+                        using (var writer = new StreamWriter(filePath, false, new UTF8Encoding(false)))
                         {
-                            await handler.CreateFileAsync(filePath, entityMetadata);
+                            var handler = new CreateFileWithEntityMetadataJavaScriptHandler(writer, config, service, _iWriteToOutput);
+
+                            await handler.CreateFileAsync(entityMetadata);
                         }
 
                         this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, connectionData.Name, entityMetadata.LogicalName, filePath);
@@ -791,9 +795,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         var config = CreateFileCSharpConfiguration.CreateForSchemaGlobalOptionSet(service.ConnectionData.NamespaceClassesCSharp, service.ConnectionData.NamespaceOptionSetsCSharp, service.ConnectionData.TypeConverterName, commonConfig);
 
-                        using (var handler = new CreateGlobalOptionSetsFileCSharpHandler(service, _iWriteToOutput, config))
+                        using (var writer = new StreamWriter(filePath, false, new UTF8Encoding(false)))
                         {
-                            await handler.CreateFileAsync(filePath, new[] { optionSetMetadata });
+                            var handler = new CreateGlobalOptionSetsFileCSharpHandler(writer, service, _iWriteToOutput, config);
+
+                            await handler.CreateFileAsync(new[] { optionSetMetadata });
                         }
 
                         this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service.ConnectionData.Name, optionSetMetadata.Name, filePath);
@@ -905,14 +911,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
-                        using (var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(
-                            service
-                            , _iWriteToOutput
-                            , commonConfig.GetTabSpacer()
-                            , commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents
-                        ))
+                        using (var writer = new StreamWriter(filePath, false, new UTF8Encoding(false)))
                         {
-                            await handler.CreateFileAsync(filePath, new[] { metadata });
+                            var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(
+                                writer
+                                , service
+                                , _iWriteToOutput
+                                , commonConfig.GetTabSpacer()
+                                , commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents
+                            );
+                        
+                            await handler.CreateFileAsync(new[] { metadata });
                         }
 
                         this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service.ConnectionData.Name, metadata.Name, filePath);
@@ -1006,14 +1015,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
-            using (var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(
-                service
-                , _iWriteToOutput
-                , commonConfig.GetTabSpacer()
-                , commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents
-            ))
+            using (var writer = new StreamWriter(selectedFile.FilePath, false, new UTF8Encoding(false)))
             {
-                await handler.CreateFileAsync(selectedFile.FilePath, optionSets.OrderBy(o => o.Name));
+                var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(
+                    writer
+                    , service
+                    , _iWriteToOutput
+                    , commonConfig.GetTabSpacer()
+                    , commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents
+                );
+
+                await handler.CreateFileAsync(optionSets.OrderBy(o => o.Name));
             }
 
             this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service.ConnectionData.Name, optionSetsName, selectedFile.FilePath);

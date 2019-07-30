@@ -1,11 +1,7 @@
-﻿using Microsoft.Xrm.Sdk;
-using Microsoft.Xrm.Sdk.Messages;
-using Microsoft.Xrm.Sdk.Metadata;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
+﻿using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -23,28 +19,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private readonly JavaScriptObjectType _javaScriptObjectType;
 
         public CreateFormTabsJavaScriptHandler(
-            CreateFileJavaScriptConfiguration config
+            TextWriter writer
+            , CreateFileJavaScriptConfiguration config
             , JavaScriptObjectType javaScriptObjectType
             , IOrganizationServiceExtented service
-        ) : base(config.TabSpacer, true)
+        ) : base(writer, config.TabSpacer, true)
         {
             this._config = config;
             this._service = service;
             this._javaScriptObjectType = javaScriptObjectType;
         }
 
-        public Task CreateFileAsync(string filePath, string entityLogicalName, List<FormTab> tabs)
+        public Task WriteContentAsync(string entityLogicalName, List<FormTab> tabs)
         {
-            return Task.Run(() => CreateFile(filePath, entityLogicalName, tabs));
+            return Task.Run(() => WriteContent(entityLogicalName, tabs));
         }
 
-        private void CreateFile(string filePath, string entityLogicalName, List<FormTab> tabs)
+        private void WriteContent(string entityLogicalName, List<FormTab> tabs)
         {
             var repository = new EntityMetadataRepository(_service);
 
             this._entityMetadata = repository.GetEntityMetadata(entityLogicalName);
-
-            StartWriting(filePath);
 
             WriteNamespace();
 
@@ -71,8 +66,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteConstantsAndFunctions(objectName);
 
             WriteObjectEnd(objectDeclaration, constructorName);
+        }
 
-            EndWriting();
+        public void WriteContentOnlyForm(List<FormTab> tabs)
+        {
+            WriteTabs(tabs);
+
+            WriteSubgrids(tabs);
+
+            WriteWebResources(tabs);
+
+            WriteQuickViewForms(tabs);
         }
 
         private void WriteConstantsAndFunctions(string objectName)

@@ -1112,7 +1112,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, name, "FormXml");
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, name, SystemForm.Schema.Headers.formxml);
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
             }
 
@@ -1206,7 +1206,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, name, "FormXml");
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, name, SystemForm.Schema.Headers.formxml);
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
             }
 
@@ -1327,9 +1327,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     string filePath = Path.Combine(folder, fileName);
 
-                    using (var handlerCreate = new CreateFormTabsJavaScriptHandler(config, javaScriptObjectType, service))
+                    using (var writer = new StreamWriter(filePath, false, new UTF8Encoding(false)))
                     {
-                        await handlerCreate.CreateFileAsync(filePath, entityName, tabs);
+                        var handlerCreate = new CreateFormTabsJavaScriptHandler(writer, config, javaScriptObjectType, service);
+
+                        await handlerCreate.WriteContentAsync(entityName, tabs);
                     }
 
                     if (this._selectedItem != null)
@@ -1359,7 +1361,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, name, "FormXml");
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, name, SystemForm.Schema.Headers.formxml);
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
             }
 
@@ -1997,6 +1999,89 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)
         {
             SetCurrentConnection(_iWriteToOutput, cmBCurrentConnection.SelectedItem as ConnectionData);
+        }
+
+        private void mISystemFormCopyJsonObject_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteJavaScriptObjectTypeAsync(entity.Id, entity.ObjectTypeCode, entity.Name, JavaScriptObjectType.JsonObject, PerformCopyBasedOnForm);
+        }
+
+        private void mISystemFormCopyConstructor_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteJavaScriptObjectTypeAsync(entity.Id, entity.ObjectTypeCode, entity.Name, JavaScriptObjectType.TypeConstructor, PerformCopyBasedOnForm);
+        }
+
+        private async Task PerformCopyBasedOnForm(string folder, Guid idSystemForm, string entityName, string name, JavaScriptObjectType javaScriptObjectType)
+        {
+            var service = await GetService();
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CopyingEntityJavaScriptContentOnFormFormat2, entityName, name);
+
+            var descriptor = GetDescriptor(service);
+            var handler = new FormDescriptionHandler(descriptor, new DependencyRepository(service));
+
+            var repository = new SystemFormRepository(service);
+
+            var systemForm = await repository.GetByIdAsync(idSystemForm, new ColumnSet(SystemForm.Schema.Attributes.formxml));
+
+            string formXml = systemForm.FormXml;
+
+            if (!string.IsNullOrEmpty(formXml))
+            {
+                try
+                {
+                    _commonConfig.Save();
+
+                    var config = new CreateFileJavaScriptConfiguration(
+                        _commonConfig.GetTabSpacer()
+                        , _commonConfig.GenerateSchemaEntityOptionSetsWithDependentComponents
+                        , _commonConfig.GenerateSchemaIntoSchemaClass
+                        , _commonConfig.GenerateSchemaGlobalOptionSet
+                    );
+
+                    var doc = XElement.Parse(formXml);
+
+                    var tabs = handler.GetFormTabs(doc);
+
+                    var text = new StringBuilder();
+
+                    using (var writer = new StringWriter(text))
+                    {
+                        var handlerCreate = new CreateFormTabsJavaScriptHandler(writer, config, javaScriptObjectType, service);
+
+                        handlerCreate.WriteContentOnlyForm(tabs);
+
+                        Clipboard.SetText(text.ToString().Trim(' ', '\r', '\n'));
+                    }
+
+                    //this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, name, "Entity Metadata", filePath);
+                }
+                catch (Exception ex)
+                {
+                    this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                }
+            }
+            else
+            {
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, name, SystemForm.Schema.Headers.formxml);
+                this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+            }
+
+            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CopyingEntityJavaScriptContentOnFormCompletedFormat2, entityName, name);
         }
     }
 }

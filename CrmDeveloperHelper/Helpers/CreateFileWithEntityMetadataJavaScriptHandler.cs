@@ -1,10 +1,10 @@
-using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,10 +27,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private readonly IWriteToOutput iWriteToOutput;
 
         public CreateFileWithEntityMetadataJavaScriptHandler(
-            CreateFileJavaScriptConfiguration config
+            TextWriter writer
+            , CreateFileJavaScriptConfiguration config
             , IOrganizationServiceExtented service
             , IWriteToOutput outputWindow
-        ) : base(config.TabSpacer, true)
+        ) : base(writer, config.TabSpacer, true)
         {
             this._config = config;
             this._service = service;
@@ -48,17 +49,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public Task CreateFileAsync(string filePath, string entityLogicalName)
+        public Task CreateFileAsync(string entityLogicalName)
         {
-            return Task.Run(async () => await CreateFile(filePath, entityLogicalName, null));
+            return Task.Run(async () => await CreateFile(entityLogicalName, null));
         }
 
-        public Task CreateFileAsync(string filePath, EntityMetadata entityMetadata)
+        public Task CreateFileAsync(EntityMetadata entityMetadata)
         {
-            return Task.Run(async () => await CreateFile(filePath, entityMetadata.LogicalName, entityMetadata));
+            return Task.Run(async () => await CreateFile(entityMetadata.LogicalName, entityMetadata));
         }
 
-        private async Task CreateFile(string filePath, string entityLogicalName, EntityMetadata entityMetadata)
+        private async Task CreateFile(string entityLogicalName, EntityMetadata entityMetadata)
         {
             if (entityMetadata == null)
             {
@@ -73,8 +74,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var repositoryStringMap = new StringMapRepository(_service);
             this._listStringMap = await repositoryStringMap.GetListAsync(this._entityMetadata.LogicalName);
-
-            StartWriting(filePath);
 
             string jsNamespace = this._service.ConnectionData.NamespaceClassesJavaScript;
             string className = (!string.IsNullOrEmpty(jsNamespace) ? jsNamespace + "." : string.Empty) + _entityMetadata.LogicalName;
@@ -98,8 +97,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             await WriteRegularOptionSets();
 
             Write("}");
-
-            EndWriting();
         }
 
         private void WriteNamespace(string jsNamespace)

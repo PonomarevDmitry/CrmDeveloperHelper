@@ -1,32 +1,35 @@
 ﻿using Microsoft.Xrm.Sdk;
-using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
-    public abstract class CreateFileHandler : IDisposable
+    public abstract class CreateFileHandler
     {
         private const string _defaultTabSpacer = "    ";
 
-        private StreamWriter _writer;
+        private readonly TextWriter _writer;
+
+        //protected void StartWriting(string filePath)
+        //{
+        //    var writer = new StreamWriter(filePath, false, new UTF8Encoding(false));
+        //}
 
         protected readonly string _tabSpacer;
         private readonly bool _allDescriptions;
 
         private int _tabCount = 0;
 
-        public CreateFileHandler(string tabSpacer, bool allDescriptions)
+        public CreateFileHandler(TextWriter writer, string tabSpacer, bool allDescriptions)
         {
+            this._writer = writer;
             this._tabSpacer = tabSpacer;
             this._allDescriptions = allDescriptions;
         }
@@ -82,16 +85,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 _writer.Write(this._tabSpacer);
             }
-        }
-
-        protected void StartWriting(string filePath)
-        {
-            this._writer = new StreamWriter(filePath, false, new UTF8Encoding(false));
-        }
-
-        protected void EndWriting()
-        {
-            this._writer.Close();
         }
 
         protected void Write(string str)
@@ -1606,45 +1599,5 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             return options;
         }
-
-        #region IDisposable Support
-        private bool disposedValue = false; // To detect redundant calls
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposedValue)
-            {
-                if (disposing)
-                {
-                    // TODO: dispose managed state (managed objects).
-                    if (_writer != null)
-                    {
-                        _writer.Dispose();
-                    }
-                }
-
-                // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-                // TODO: set large fields to null.
-
-                disposedValue = true;
-            }
-        }
-
-        // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
-        ~CreateFileHandler()
-        {
-            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-            Dispose(false);
-        }
-
-        // This code added to correctly implement the disposable pattern.
-        public void Dispose()
-        {
-            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-            Dispose(true);
-            // TODO: uncomment the following line if the finalizer is overridden above.
-            GC.SuppressFinalize(this);
-        }
-        #endregion IDisposable Support
     }
 }

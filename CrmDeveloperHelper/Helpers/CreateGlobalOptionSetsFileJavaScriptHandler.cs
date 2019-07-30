@@ -1,7 +1,5 @@
-﻿using Microsoft.Xrm.Sdk;
-using Microsoft.Xrm.Sdk.Metadata;
+﻿using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
@@ -27,11 +25,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private readonly IWriteToOutput _iWriteToOutput;
 
         public CreateGlobalOptionSetsFileJavaScriptHandler(
-            IOrganizationServiceExtented service
+            TextWriter writer
+            , IOrganizationServiceExtented service
             , IWriteToOutput iWriteToOutput
             , string tabSpacer
             , bool withDependentComponents
-        ) : base(tabSpacer, true)
+        ) : base(writer, tabSpacer, true)
         {
             this._service = service;
             this._iWriteToOutput = iWriteToOutput;
@@ -44,26 +43,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             this._repositoryStringMap = new StringMapRepository(_service);
         }
 
-        public Task CreateFileAsync(string filePath, IEnumerable<OptionSetMetadata> optionSets)
+        public Task CreateFileAsync(IEnumerable<OptionSetMetadata> optionSets)
         {
-            return Task.Run(async () => await this.CreateFile(filePath, optionSets));
+            return Task.Run(async () => await this.CreateFile(optionSets));
         }
 
-        private async Task CreateFile(string filePath, IEnumerable<OptionSetMetadata> optionSets)
+        private async Task CreateFile(IEnumerable<OptionSetMetadata> optionSets)
         {
             optionSets = optionSets
                .Where(e => e.Options.Any(o => o.Value.HasValue))
                .OrderBy(e => e.Name);
-
-            StartWriting(filePath);
 
             WriteNamespace();
 
             string tempNamespace = !string.IsNullOrEmpty(this._service.ConnectionData.NamespaceOptionSetsJavaScript) ? this._service.ConnectionData.NamespaceOptionSetsJavaScript + "." : string.Empty;
 
             await WriteRegularOptionSets(tempNamespace, optionSets);
-
-            EndWriting();
         }
 
         private void WriteNamespace()

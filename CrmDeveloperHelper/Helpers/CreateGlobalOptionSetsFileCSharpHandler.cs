@@ -1,8 +1,7 @@
-﻿using Microsoft.Xrm.Sdk;
-using Microsoft.Xrm.Sdk.Metadata;
+﻿using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.Generic;
@@ -29,10 +28,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private readonly IWriteToOutput _iWriteToOutput;
 
         public CreateGlobalOptionSetsFileCSharpHandler(
-            IOrganizationServiceExtented service
+            TextWriter writer
+            , IOrganizationServiceExtented service
             , IWriteToOutput iWriteToOutput
             , CreateFileCSharpConfiguration config
-        ) : base(config.TabSpacer, config.AllDescriptions)
+        ) : base(writer, config.TabSpacer, config.AllDescriptions)
         {
             this._service = service ?? throw new ArgumentNullException(nameof(service));
             this._iWriteToOutput = iWriteToOutput ?? throw new ArgumentNullException(nameof(iWriteToOutput));
@@ -58,18 +58,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public Task CreateFileAsync(string filePath, IEnumerable<OptionSetMetadata> optionSets)
+        public Task CreateFileAsync(IEnumerable<OptionSetMetadata> optionSets)
         {
-            return Task.Run(async () => await this.CreateFile(filePath, optionSets));
+            return Task.Run(async () => await this.CreateFile(optionSets));
         }
 
-        private async Task CreateFile(string filePath, IEnumerable<OptionSetMetadata> optionSets)
+        private async Task CreateFile(IEnumerable<OptionSetMetadata> optionSets)
         {
             optionSets = optionSets
                 .Where(e => e.Options.Any(o => o.Value.HasValue))
                 .OrderBy(e => e.Name);
-
-            StartWriting(filePath);
 
             WriteLine();
 
@@ -79,8 +77,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             await WriteRegularOptionSets(optionSets);
 
             Write("}");
-
-            EndWriting();
         }
 
         private async Task WriteRegularOptionSets(IEnumerable<OptionSetMetadata> optionSets)

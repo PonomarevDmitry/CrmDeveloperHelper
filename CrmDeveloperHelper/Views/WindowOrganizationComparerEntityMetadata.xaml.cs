@@ -330,9 +330,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         .Where(ent =>
                             ent.LogicalName.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
 
-                            || 
+                            ||
                             (
-                                ent.EntityMetadata1 != null 
+                                ent.EntityMetadata1 != null
                                 && ent.EntityMetadata1.DisplayName != null
                                 && ent.EntityMetadata1.DisplayName.LocalizedLabels != null
                                 && ent.EntityMetadata1.DisplayName.LocalizedLabels
@@ -340,9 +340,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                                     .Any(lbl => lbl.Label.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1)
                             )
 
-                            || 
+                            ||
                             (
-                                ent.EntityMetadata2 != null 
+                                ent.EntityMetadata2 != null
                                 && ent.EntityMetadata2.DisplayName != null
                                 && ent.EntityMetadata2.DisplayName.LocalizedLabels != null
                                 && ent.EntityMetadata2.DisplayName.LocalizedLabels
@@ -530,15 +530,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ICodeGenerationServiceProvider codeGenerationServiceProvider1 = new CodeGenerationServiceProvider(typeMappingService1, codeGenerationService1, codeWriterFilterService1, metadataProviderService1, namingService1);
             ICodeGenerationServiceProvider codeGenerationServiceProvider2 = new CodeGenerationServiceProvider(typeMappingService2, codeGenerationService2, codeWriterFilterService2, metadataProviderService2, namingService2);
 
-            using (var handler1 = new CreateFileWithEntityMetadataCSharpHandler(config1, service1, _iWriteToOutput, codeGenerationServiceProvider1))
+            using (var writer1 = new StreamWriter(filePath1, false, new UTF8Encoding(false)))
             {
-                var task1 = handler1.CreateFileAsync(filePath1, linkedEntityMetadata.LogicalName);
+                var handler1 = new CreateFileWithEntityMetadataCSharpHandler(writer1, config1, service1, _iWriteToOutput, codeGenerationServiceProvider1);
+
+                var task1 = handler1.CreateFileAsync(linkedEntityMetadata.LogicalName);
 
                 if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
                 {
-                    using (var handler2 = new CreateFileWithEntityMetadataCSharpHandler(config2, service2, _iWriteToOutput, codeGenerationServiceProvider2))
+                    using (var writer2 = new StreamWriter(filePath2, false, new UTF8Encoding(false)))
                     {
-                        await handler2.CreateFileAsync(filePath2, linkedEntityMetadata.LogicalName);
+                        var handler2 = new CreateFileWithEntityMetadataCSharpHandler(writer2, config2, service2, _iWriteToOutput, codeGenerationServiceProvider2);
+
+                        await handler2.CreateFileAsync(linkedEntityMetadata.LogicalName);
                     }
                 }
 
@@ -734,15 +738,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             string filePath1 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(filename1));
             string filePath2 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(filename2));
 
-            using (var handler1 = new CreateFileWithEntityMetadataJavaScriptHandler(config, service1, _iWriteToOutput))
+            using (var writer1 = new StreamWriter(filePath1, false, new UTF8Encoding(false)))
             {
-                var task1 = handler1.CreateFileAsync(filePath1, linkedEntityMetadata.LogicalName);
+                var handler1 = new CreateFileWithEntityMetadataJavaScriptHandler(writer1, config, service1, _iWriteToOutput);
+
+                var task1 = handler1.CreateFileAsync(linkedEntityMetadata.LogicalName);
 
                 if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
                 {
-                    using (var handler2 = new CreateFileWithEntityMetadataJavaScriptHandler(config, service2, _iWriteToOutput))
+                    using (var writer2 = new StreamWriter(filePath2, false, new UTF8Encoding(false)))
                     {
-                        await handler2.CreateFileAsync(filePath2, linkedEntityMetadata.LogicalName);
+                        var handler2 = new CreateFileWithEntityMetadataJavaScriptHandler(writer2, config, service2, _iWriteToOutput);
+
+                        await handler2.CreateFileAsync(linkedEntityMetadata.LogicalName);
                     }
                 }
 
@@ -853,9 +861,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ICodeGenerationServiceProvider codeGenerationServiceProvider = new CodeGenerationServiceProvider(typeMappingService, codeGenerationService, codeWriterFilterService, metadataProviderService, namingService);
 
-                using (var handler = new CreateFileWithEntityMetadataCSharpHandler(config, service, _iWriteToOutput, codeGenerationServiceProvider))
+                using (var writer = new StreamWriter(filePath, false, new UTF8Encoding(false)))
                 {
-                    await handler.CreateFileAsync(filePath, entityMetadata.LogicalName);
+                    var handler = new CreateFileWithEntityMetadataCSharpHandler(writer, config, service, _iWriteToOutput, codeGenerationServiceProvider);
+
+                    await handler.CreateFileAsync(entityMetadata.LogicalName);
                 }
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, entityMetadata.LogicalName, filePath);
@@ -1025,9 +1035,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                using (var handler = new CreateFileWithEntityMetadataJavaScriptHandler(config, service, _iWriteToOutput))
+                using (var writer = new StreamWriter(filePath, false, new UTF8Encoding(false)))
                 {
-                    await handler.CreateFileAsync(filePath, entityName);
+                    var handler = new CreateFileWithEntityMetadataJavaScriptHandler(writer, config, service, _iWriteToOutput);
+
+                    await handler.CreateFileAsync(entityName);
 
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, entityName, filePath);
 
