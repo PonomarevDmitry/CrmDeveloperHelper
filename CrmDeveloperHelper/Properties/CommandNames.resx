@@ -183,7 +183,7 @@
   <data name="CodeXmlShowDifferenceEntityRibbonDiffXmlCommandFormat1" xml:space="preserve">
     <value>Show Difference {0} RibbonDiffXml</value>
   </data>
-  <data name="CodeXmlShowDifferenceSavedQueryCommand" xml:space="preserve">
+  <data name="CodeXmlSavedQueryShowDifferenceCommand" xml:space="preserve">
     <value>Show Difference SavedQuery</value>
   </data>
   <data name="CodeXmlShowDifferenceSiteMapByNameCommandFormat1" xml:space="preserve">
@@ -207,7 +207,7 @@
   <data name="CodeXmlEntityRibbonExplorerCommand" xml:space="preserve">
     <value>Open Entity Explorer</value>
   </data>
-  <data name="CodeXmlUpdateSavedQueryCommand" xml:space="preserve">
+  <data name="CodeXmlSavedQueryUpdateCommand" xml:space="preserve">
     <value>Update SavedQuery</value>
   </data>
   <data name="CodeXmlUpdateSiteMapByNameCommandFormat1" xml:space="preserve">

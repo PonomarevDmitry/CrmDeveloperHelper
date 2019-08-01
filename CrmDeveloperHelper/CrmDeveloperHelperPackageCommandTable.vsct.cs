@@ -914,8 +914,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CodeXmlUpdateSiteMapInConnectionGroupCommandId = 0x1770;
         public const int CodeXmlSystemFormShowDifferenceInConnectionGroupCommandId = 0x17A2;
         public const int CodeXmlSystemFormUpdateInConnectionGroupCommandId = 0x17D4;
-        public const int CodeXmlShowDifferenceSavedQueryInConnectionGroupCommandId = 0x1806;
-        public const int CodeXmlUpdateSavedQueryInConnectionGroupCommandId = 0x1838;
+        public const int CodeXmlSavedQueryShowDifferenceInConnectionGroupCommandId = 0x1806;
+        public const int CodeXmlSavedQueryUpdateInConnectionGroupCommandId = 0x1838;
         public const int CommonSolutionExplorerInConnectionCommandId = 0x186A;
         public const int CommonCheckEntitiesOwnerShipsCommandId = 0x189C;
         public const int CommonCheckGlobalOptionSetDuplicateCommandId = 0x18CE;
@@ -1019,8 +1019,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CodeXmlSystemFormShowDifferenceCommandId = 0x2184;
         public const int CodeXmlSystemFormUpdateCommandId = 0x2185;
         public const int CodeXmlSavedQueryExplorerCommandId = 0x21A6;
-        public const int CodeXmlShowDifferenceSavedQueryCommandId = 0x2186;
-        public const int CodeXmlUpdateSavedQueryCommandId = 0x2187;
+        public const int CodeXmlSavedQueryShowDifferenceCommandId = 0x2186;
+        public const int CodeXmlSavedQueryUpdateCommandId = 0x2187;
         public const int CodeXmlRemoveXsdSchemaCommandId = 0x216E;
         public const int DocumentsXmlRemoveXsdSchemaCommandId = 0x2197;
         public const int FileXmlRemoveXsdSchemaCommandId = 0x2198;

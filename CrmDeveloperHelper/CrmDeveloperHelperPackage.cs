@@ -270,11 +270,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeXmlSavedQueryExplorerCommand.Initialize(commandService);
             CodeXmlSavedQueryOpenInWebCommand.Initialize(commandService);
 
-            CodeXmlShowDifferenceSavedQueryCommand.Initialize(commandService);
-            CodeXmlShowDifferenceSavedQueryInConnectionGroupCommand.Initialize(commandService);
+            CodeXmlSavedQueryShowDifferenceCommand.Initialize(commandService);
+            CodeXmlSavedQueryShowDifferenceInConnectionGroupCommand.Initialize(commandService);
 
-            CodeXmlUpdateSavedQueryCommand.Initialize(commandService);
-            CodeXmlUpdateSavedQueryInConnectionGroupCommand.Initialize(commandService);
+            CodeXmlSavedQueryUpdateCommand.Initialize(commandService);
+            CodeXmlSavedQueryUpdateInConnectionGroupCommand.Initialize(commandService);
 
             #endregion SavedQuery
 

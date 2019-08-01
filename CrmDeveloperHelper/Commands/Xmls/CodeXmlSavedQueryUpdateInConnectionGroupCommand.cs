@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
@@ -8,39 +7,44 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlShowDifferenceSavedQueryCommand : AbstractCommand
+    internal sealed class CodeXmlSavedQueryUpdateInConnectionGroupCommand : AbstractDynamicCommandByConnectionByGroupWithoutCurrent
     {
-        private CodeXmlShowDifferenceSavedQueryCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.CodeXmlShowDifferenceSavedQueryCommandId) { }
+        private CodeXmlSavedQueryUpdateInConnectionGroupCommand(OleMenuCommandService commandService)
+            : base(
+                commandService
+                , PackageIds.CodeXmlSavedQueryUpdateInConnectionGroupCommandId
+            )
+        {
 
-        public static CodeXmlShowDifferenceSavedQueryCommand Instance { get; private set; }
+        }
+
+        public static CodeXmlSavedQueryUpdateInConnectionGroupCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeXmlShowDifferenceSavedQueryCommand(commandService);
+            Instance = new CodeXmlSavedQueryUpdateInConnectionGroupCommand(commandService);
         }
 
-        protected override void CommandAction(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
             List<SelectedFile> selectedFiles = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsXmlType).Take(2).ToList();
 
             if (selectedFiles.Count == 1)
             {
-                helper.HandleSavedQueryDifferenceCommand(null, selectedFiles.FirstOrDefault());
+                helper.HandleSavedQueryUpdateCommand(connectionData, selectedFiles.FirstOrDefault());
             }
         }
 
-        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, ConnectionData connectionData, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(applicationObject, menuCommand
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(applicationObject
+                , menuCommand
                 , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSavedQueryId
                 , out var attribute
                 , AbstractDynamicCommandXsdSchemas.RootFetch
                 , AbstractDynamicCommandXsdSchemas.RootGrid
                 , AbstractDynamicCommandXsdSchemas.RootColumnSet
             );
-
-            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CodeXmlShowDifferenceSavedQueryCommand);
 
             if (attribute == null
                 || !Guid.TryParse(attribute.Value, out _)

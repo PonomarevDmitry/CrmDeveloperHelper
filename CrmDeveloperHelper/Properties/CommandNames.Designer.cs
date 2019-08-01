@@ -241,6 +241,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show Difference SavedQuery.
+        /// </summary>
+        internal static string CodeXmlSavedQueryShowDifferenceCommand {
+            get {
+                return ResourceManager.GetString("CodeXmlSavedQueryShowDifferenceCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update SavedQuery.
+        /// </summary>
+        internal static string CodeXmlSavedQueryUpdateCommand {
+            get {
+                return ResourceManager.GetString("CodeXmlSavedQueryUpdateCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show Difference ApplicationRibbon.
         /// </summary>
         internal static string CodeXmlShowDifferenceApplicationRibbonCommand {
@@ -273,15 +291,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string CodeXmlShowDifferenceEntityRibbonDiffXmlCommandFormat1 {
             get {
                 return ResourceManager.GetString("CodeXmlShowDifferenceEntityRibbonDiffXmlCommandFormat1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Show Difference SavedQuery.
-        /// </summary>
-        internal static string CodeXmlShowDifferenceSavedQueryCommand {
-            get {
-                return ResourceManager.GetString("CodeXmlShowDifferenceSavedQueryCommand", resourceCulture);
             }
         }
         
@@ -336,15 +345,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string CodeXmlUpdateEntityRibbonDiffXmlCommandFormat1 {
             get {
                 return ResourceManager.GetString("CodeXmlUpdateEntityRibbonDiffXmlCommandFormat1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Update SavedQuery.
-        /// </summary>
-        internal static string CodeXmlUpdateSavedQueryCommand {
-            get {
-                return ResourceManager.GetString("CodeXmlUpdateSavedQueryCommand", resourceCulture);
             }
         }
         
