@@ -4,6 +4,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
+using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -31,6 +33,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly CommonConfiguration _commonConfig;
 
         private readonly ObservableCollection<EntityViewItem> _itemsSource;
+
+        private readonly Popup _optionsPopup;
+
+        private readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.SetIntellisenseContext;
 
         public WindowOrganizationComparerWorkflow(
             IWriteToOutput iWriteToOutput
@@ -53,6 +59,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             InitializeComponent();
 
             LoadEntityNames(cmBEntityName, connection1, connection2);
+
+            var child = new ExportXmlOptionsControl(_commonConfig, _xmlOptions);
+            child.CloseClicked += Child_CloseClicked;
+            this._optionsPopup = new Popup
+            {
+                Child = child,
+
+                PlacementTarget = toolBarHeader,
+                Placement = PlacementMode.Bottom,
+                StaysOpen = false,
+                Focusable = true,
+            };
 
             cmBCategory.ItemsSource = new EnumBindingSourceExtension(typeof(Workflow.Schema.OptionSets.category?)).ProvideValue(null) as IEnumerable;
             cmBMode.ItemsSource = new EnumBindingSourceExtension(typeof(Workflow.Schema.OptionSets.mode?)).ProvideValue(null) as IEnumerable;
@@ -793,28 +811,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         string extension = "json";
 
+                        if (ContentCoparerHelper.TryParseXml(xml1, out var _))
                         {
-                            if (ContentCoparerHelper.TryParseXml(xml1, out var doc))
-                            {
-                                extension = "xml";
-                                xml1 = doc.ToString();
-                            }
-                            else
-                            {
-                                xml1 = ContentCoparerHelper.FormatJson(xml1);
-                            }
+                            extension = "xml";
+
+                            xml1 = ContentCoparerHelper.FormatXmlByConfiguration(xml1, _commonConfig, _xmlOptions
+                                , workflowId: linked.Entity1.Id
+                            );
+                        }
+                        else
+                        {
+                            xml1 = ContentCoparerHelper.FormatJson(xml1);
                         }
 
+                        if (ContentCoparerHelper.TryParseXml(xml2, out var _))
                         {
-                            if (ContentCoparerHelper.TryParseXml(xml2, out var doc))
-                            {
-                                extension = "xml";
-                                xml2 = doc.ToString();
-                            }
-                            else
-                            {
-                                xml2 = ContentCoparerHelper.FormatJson(xml2);
-                            }
+                            extension = "xml";
+
+                            xml2 = ContentCoparerHelper.FormatXmlByConfiguration(xml2, _commonConfig, _xmlOptions
+                                , workflowId: linked.Entity2.Id
+                            );
+                        }
+                        else
+                        {
+                            xml2 = ContentCoparerHelper.FormatJson(xml2);
                         }
 
                         string filePath1 = await CreateFileAsync(service1.ConnectionData, entityName1, category1, name1, fieldTitle, extension, xml1);
@@ -1116,11 +1136,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string extension = "json";
 
-                if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                if (ContentCoparerHelper.TryParseXml(xmlContent, out var _))
                 {
                     extension = "xml";
 
-                    xmlContent = doc.ToString();
+                    xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
+                        , workflowId: idWorflow
+                    );
                 }
                 else
                 {
@@ -1954,6 +1976,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (service != null)
             {
                 service.ConnectionData.OpenEntityInstanceListInWeb(Workflow.EntityLogicalName);
+            }
+        }
+
+        private void miOptions_Click(object sender, RoutedEventArgs e)
+        {
+            this._optionsPopup.IsOpen = true;
+            this._optionsPopup.Child.Focus();
+        }
+
+        private void Child_CloseClicked(object sender, EventArgs e)
+        {
+            if (_optionsPopup.IsOpen)
+            {
+                _optionsPopup.IsOpen = false;
+                this.Focus();
             }
         }
     }

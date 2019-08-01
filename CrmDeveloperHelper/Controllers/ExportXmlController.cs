@@ -1,4 +1,5 @@
 using Microsoft.Crm.Sdk.Messages;
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Commands;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
@@ -407,7 +408,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 string siteMapXml = siteMap.GetAttributeValue<string>(SiteMap.Schema.Attributes.sitemapxml);
 
-                string fieldTitle = "SiteMapXml BackUp";
+                string fieldTitle = SiteMap.Schema.Headers.sitemapxml + " BackUp";
 
                 string fileName = EntityFileNameFormatter.GetSiteMapFileName(connectionData.Name, siteMap.SiteMapName, siteMap.Id, fieldTitle, "xml");
                 string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -644,7 +645,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string formXml = systemForm.GetAttributeValue<string>(SystemForm.Schema.Attributes.formxml);
 
-            string fieldTitle = "FormXml";
+            string fieldTitle = SystemForm.Schema.Headers.formxml;
 
             string fileTitle2 = EntityFileNameFormatter.GetSystemFormFileName(connectionData.Name, systemForm.ObjectTypeCode, systemForm.Name, fieldTitle, "xml");
             string filePath2 = FileOperations.GetNewTempFilePath(Path.GetFileNameWithoutExtension(fileTitle2), Path.GetExtension(fileTitle2));
@@ -804,7 +805,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 string formXml = systemForm.GetAttributeValue<string>(SystemForm.Schema.Attributes.formxml);
 
-                string fieldTitle = "FormXml BackUp";
+                string fieldTitle = SystemForm.Schema.Headers.formxml + " BackUp";
 
                 string fileName = EntityFileNameFormatter.GetSystemFormFileName(connectionData.Name, systemForm.ObjectTypeCode, systemForm.Name, fieldTitle, "xml");
                 string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -1415,5 +1416,410 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         }
 
         #endregion SavedQuery
+
+        #region Workflow
+
+        public async Task ExecuteDifferenceWorkflow(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            string operation = string.Format(Properties.OperationNames.DifferenceWorkflowFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await DifferenceWorkflow(selectedFile, connectionData, commonConfig);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task DifferenceWorkflow(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            if (!File.Exists(selectedFile.FilePath))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
+                return;
+            }
+
+            string fileText = File.ReadAllText(selectedFile.FilePath);
+
+            if (!ContentCoparerHelper.TryParseXml(fileText, out var doc))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
+                return;
+            }
+
+            var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWorkflowId);
+
+            if (attribute == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotContainsXmlAttributeFormat2
+                    , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWorkflowId.ToString()
+                    , selectedFile.FilePath
+                );
+
+                return;
+            }
+
+            if (string.IsNullOrEmpty(attribute.Value)
+                || !Guid.TryParse(attribute.Value, out var workflowId)
+            )
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.XmlAttributeNotValidGuidFormat3
+                    , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWorkflowId.ToString()
+                    , attribute.Value
+                    , selectedFile.FilePath
+                );
+
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+
+            var repository = new WorkflowRepository(service);
+
+            var workflow = await repository.GetByIdAsync(workflowId, new ColumnSet(true));
+
+            if (workflow == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WorkflowNotFoundedFormat2, connectionData.Name, workflowId);
+                this._iWriteToOutput.ActivateOutputWindow(connectionData);
+                return;
+            }
+
+            string formXml = workflow.GetAttributeValue<string>(Workflow.Schema.Attributes.xaml);
+
+            string fieldTitle = Workflow.Schema.Headers.xaml;
+
+            string fileTitle2 = EntityFileNameFormatter.GetWorkflowFileName(connectionData.Name, workflow.PrimaryEntity, workflow.FormattedValues[Workflow.Schema.Attributes.category], workflow.Name, fieldTitle, "xml");
+            string filePath2 = FileOperations.GetNewTempFilePath(Path.GetFileNameWithoutExtension(fileTitle2), Path.GetExtension(fileTitle2));
+
+            if (!string.IsNullOrEmpty(formXml))
+            {
+                try
+                {
+                    formXml = ContentCoparerHelper.FormatXmlByConfiguration(formXml, commonConfig, WindowExplorerWorkflow._xmlOptions
+                        , workflowId: workflow.Id
+                    );
+
+                    File.WriteAllText(filePath2, formXml, new UTF8Encoding(false));
+
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, Workflow.Schema.EntityLogicalName, workflow.Name, fieldTitle, filePath2);
+                }
+                catch (Exception ex)
+                {
+                    this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+                }
+            }
+            else
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionData.Name, Workflow.Schema.EntityLogicalName, workflow.Name, fieldTitle);
+                this._iWriteToOutput.ActivateOutputWindow(connectionData);
+                return;
+            }
+
+            string filePath1 = selectedFile.FilePath;
+            string fileTitle1 = selectedFile.FileName;
+
+            this._iWriteToOutput.ProcessStartProgramComparer(filePath1, filePath2, fileTitle1, fileTitle2);
+        }
+
+        public async Task ExecuteUpdateWorkflow(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            string operation = string.Format(Properties.OperationNames.UpdatingWorkflowFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await UpdateWorkflow(selectedFile, connectionData, commonConfig);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task UpdateWorkflow(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            if (!File.Exists(selectedFile.FilePath))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
+                return;
+            }
+
+            string fileText = File.ReadAllText(selectedFile.FilePath);
+
+            if (!ContentCoparerHelper.TryParseXmlDocument(fileText, out var doc))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
+                return;
+            }
+
+            var attribute = doc.Root.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWorkflowId);
+
+            if (attribute == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotContainsXmlAttributeFormat2
+                    , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWorkflowId.ToString()
+                    , selectedFile.FilePath
+                    );
+
+                return;
+            }
+
+            if (string.IsNullOrEmpty(attribute.Value)
+                || !Guid.TryParse(attribute.Value, out var idWorkflow)
+                )
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.XmlAttributeNotValidGuidFormat3
+                    , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWorkflowId.ToString()
+                    , attribute.Value
+                    , selectedFile.FilePath
+                );
+
+                return;
+            }
+
+            ContentCoparerHelper.ClearRootWorkflow(doc);
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+
+            var repositoryWorkflow = new WorkflowRepository(service);
+
+            var workflow = await repositoryWorkflow.GetByIdAsync(idWorkflow, new ColumnSet(true));
+
+            if (workflow == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WorkflowNotFoundedFormat2, connectionData.Name, idWorkflow);
+                this._iWriteToOutput.ActivateOutputWindow(connectionData);
+                return;
+            }
+
+            {
+                string xaml = workflow.GetAttributeValue<string>(Workflow.Schema.Attributes.xaml);
+
+                string fieldTitle = Workflow.Schema.Headers.xaml + " BackUp";
+
+                string fileName = EntityFileNameFormatter.GetWorkflowFileName(connectionData.Name, workflow.PrimaryEntity, workflow.FormattedValues[Workflow.Schema.Attributes.category], workflow.Name, fieldTitle, "xml");
+                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                if (!string.IsNullOrEmpty(xaml))
+                {
+                    try
+                    {
+                        xaml = ContentCoparerHelper.FormatXmlByConfiguration(xaml, commonConfig, WindowExplorerWorkflow._xmlOptions
+                            , workflowId: workflow.Id
+                        );
+
+                        File.WriteAllText(filePath, xaml, new UTF8Encoding(false));
+
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, Workflow.Schema.EntityLogicalName, workflow.Name, fieldTitle, filePath);
+                    }
+                    catch (Exception ex)
+                    {
+                        this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+                    }
+                }
+                else
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionData.Name, Workflow.Schema.EntityLogicalName, workflow.Name, fieldTitle);
+                    this._iWriteToOutput.ActivateOutputWindow(connectionData);
+                }
+            }
+
+            if (workflow.StateCodeEnum == Workflow.Schema.OptionSets.statecode.Activated_1)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.DeactivatingWorkflowFormat2, connectionData.Name, workflow.Name);
+
+                await service.ExecuteAsync<SetStateResponse>(new SetStateRequest()
+                {
+                    EntityMoniker = workflow.ToEntityReference(),
+                    State = new OptionSetValue((int)Workflow.Schema.OptionSets.statecode.Draft_0),
+                    Status = new OptionSetValue((int)Workflow.Schema.OptionSets.statuscode.Draft_0_Draft_1),
+                });
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.UpdatingFieldFormat2, connectionData.Name, Workflow.Schema.Headers.xaml);
+
+            var newText = doc.ToString(SaveOptions.DisableFormatting);
+
+            var updateEntity = new Workflow
+            {
+                Id = idWorkflow
+            };
+            updateEntity.Attributes[Workflow.Schema.Attributes.xaml] = newText;
+
+            await service.UpdateAsync(updateEntity);
+
+            if (workflow.StateCodeEnum == Workflow.Schema.OptionSets.statecode.Activated_1)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ActivatingWorkflowFormat2, connectionData.Name, workflow.Name);
+
+                await service.ExecuteAsync<SetStateResponse>(new SetStateRequest()
+                {
+                    EntityMoniker = workflow.ToEntityReference(),
+                    State = new OptionSetValue((int)Workflow.Schema.OptionSets.statecode.Activated_1),
+                    Status = new OptionSetValue((int)Workflow.Schema.OptionSets.statuscode.Activated_1_Activated_2),
+                });
+            }
+        }
+
+        public async Task ExecuteOpenInWebWorkflow(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            string operation = string.Format(Properties.OperationNames.OpeningWorkflowInWebFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await OpenInWebWorkflow(selectedFile, connectionData, commonConfig);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task OpenInWebWorkflow(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            if (!File.Exists(selectedFile.FilePath))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+
+            string fileText = File.ReadAllText(selectedFile.FilePath);
+
+            if (!ContentCoparerHelper.TryParseXmlDocument(fileText, out var doc))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
+
+                WindowHelper.OpenWorkflowWindow(_iWriteToOutput, service, commonConfig);
+
+                return;
+            }
+
+            var attribute = doc.Root.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWorkflowId);
+
+            if (attribute == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData
+                    , Properties.OutputStrings.FileNotContainsXmlAttributeFormat2
+                    , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWorkflowId.ToString()
+                    , selectedFile.FilePath
+                );
+
+                WindowHelper.OpenWorkflowWindow(_iWriteToOutput, service, commonConfig);
+
+                return;
+            }
+
+            if (string.IsNullOrEmpty(attribute.Value)
+                || !Guid.TryParse(attribute.Value, out var formId)
+            )
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.XmlAttributeNotValidGuidFormat3
+                    , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWorkflowId.ToString()
+                    , attribute.Value
+                    , selectedFile.FilePath
+                );
+
+                WindowHelper.OpenWorkflowWindow(_iWriteToOutput, service, commonConfig);
+
+                return;
+            }
+
+            var repositoryWorkflow = new WorkflowRepository(service);
+
+            var workflow = await repositoryWorkflow.GetByIdAsync(formId, new ColumnSet(false));
+
+            if (workflow == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WorkflowNotFoundedFormat2, connectionData.Name, formId);
+                this._iWriteToOutput.ActivateOutputWindow(connectionData);
+
+                WindowHelper.OpenWorkflowWindow(_iWriteToOutput, service, commonConfig);
+
+                return;
+            }
+
+            service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.Workflow, workflow.Id);
+        }
+
+        #endregion Workflow
     }
 }

@@ -596,6 +596,19 @@
     <value>Checking WebResources...</value>
   </data>
 
-  
 
+
+  <data name="WorkflowNotFoundedFormat2" xml:space="preserve">
+    <value>{0}. Workflow with id '{1}' not founded.</value>
+  </data>
+
+  <data name="UpdatingFieldFormat2" xml:space="preserve">
+    <value>{0}. Updating Field {1}...</value>
+  </data>
+  <data name="ActivatingWorkflowFormat2" xml:space="preserve">
+    <value>{0}. Activating Workflow {1}...</value>
+  </data>
+  <data name="DeactivatingWorkflowFormat2" xml:space="preserve">
+    <value>{0}. Deactivating Workflow {1}...</value>
+  </data>
 </root>

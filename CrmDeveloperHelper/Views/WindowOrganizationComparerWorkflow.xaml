@@ -162,6 +162,9 @@
         </Grid.RowDefinitions>
 
         <ToolBar x:Name="toolBarHeader" Grid.Row="0">
+            <Button Content="Options" Click="miOptions_Click"/>
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
             <Menu Background="{x:Null}">
                 <MenuItem Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Get Entity Information {0}">
                     <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile1_Click"/>

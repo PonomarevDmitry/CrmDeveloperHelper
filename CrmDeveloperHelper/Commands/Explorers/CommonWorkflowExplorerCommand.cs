@@ -17,7 +17,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
 
         protected override void CommandAction(DTEHelper helper)
         {
-            helper.HandleExportWorkflows();
+            helper.HandleExplorerWorkflows();
         }
     }
 }

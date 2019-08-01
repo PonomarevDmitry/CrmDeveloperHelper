@@ -367,6 +367,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show Difference Workflow.
+        /// </summary>
+        internal static string CodeXmlWorkflowShowDifferenceCommand {
+            get {
+                return ResourceManager.GetString("CodeXmlWorkflowShowDifferenceCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Workflow.
+        /// </summary>
+        internal static string CodeXmlWorkflowUpdateCommand {
+            get {
+                return ResourceManager.GetString("CodeXmlWorkflowUpdateCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - {1}.
         /// </summary>
         internal static string CommandNameWithConnectionFormat2 {

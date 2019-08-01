@@ -18,7 +18,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.Explor
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
-            helper.HandleExportWorkflows(connectionData);
+            helper.HandleExplorerWorkflows(connectionData);
         }
     }
 }

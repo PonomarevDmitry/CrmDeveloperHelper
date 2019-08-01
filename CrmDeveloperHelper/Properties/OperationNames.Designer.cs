@@ -979,6 +979,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Difference Workflow.
+        /// </summary>
+        internal static string DifferenceWorkflowFormat1 {
+            get {
+                return ResourceManager.GetString("DifferenceWorkflowFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Editing CRM Objects by Id &apos;{1}&apos;, entityName &apos;{2}&apos;, entityTypeCode &apos;{3}&apos;.
         /// </summary>
         internal static string EditingCRMObjectsByIdEntityNameEntityTypeCodeFormat4 {
@@ -1501,6 +1510,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Opening Workflow in Web.
+        /// </summary>
+        internal static string OpeningWorkflowInWebFormat1 {
+            get {
+                return ResourceManager.GetString("OpeningWorkflowInWebFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Plugin Configuration Assembly Description.
         /// </summary>
         internal static string PluginConfigurationAssemblyDescription {
@@ -1920,6 +1938,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string UpdatingSystemFormFormat1 {
             get {
                 return ResourceManager.GetString("UpdatingSystemFormFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Updating Workflow.
+        /// </summary>
+        internal static string UpdatingWorkflowFormat1 {
+            get {
+                return ResourceManager.GetString("UpdatingWorkflowFormat1", resourceCulture);
             }
         }
     }

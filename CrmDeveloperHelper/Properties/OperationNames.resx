@@ -747,4 +747,15 @@
   <data name="ComparingEntitiesPrivilegesFormat3" xml:space="preserve">
     <value>{0} - Comparing RolePrivileges in {1} and {2}</value>
   </data>
+
+  <data name="DifferenceWorkflowFormat1" xml:space="preserve">
+    <value>{0} - Difference Workflow</value>
+  </data>
+  <data name="UpdatingWorkflowFormat1" xml:space="preserve">
+    <value>{0} - Updating Workflow</value>
+  </data>
+  <data name="OpeningWorkflowInWebFormat1" xml:space="preserve">
+    <value>{0} - Opening Workflow in Web</value>
+  </data>
+  
 </root>

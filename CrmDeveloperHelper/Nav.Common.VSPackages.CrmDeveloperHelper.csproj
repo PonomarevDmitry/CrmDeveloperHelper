@@ -361,6 +361,12 @@
     <Compile Include="Commands\CSharp\DocumentsCSharpUpdateEntityMetadataFileSchemaCommand.cs" />
     <Compile Include="Commands\CSharp\DocumentsCSharpUpdateGlobalOptionSetsFileCommand.cs" />
     <Compile Include="Commands\WebResources\DocumentsWebResourceUpdateContentPublishGroupConnectionCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlWorkflowExplorerCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlWorkflowOpenInWebCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlWorkflowShowDifferenceCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlWorkflowShowDifferenceInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlWorkflowUpdateCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlWorkflowUpdateInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Xmls\DocumentsXmlOpenXsdSchemaFolderCommand.cs" />
     <Compile Include="Commands\Xmls\DocumentsXmlRemoveXsdSchemaCommand.cs" />
     <Compile Include="Commands\Xmls\DocumentsXmlSetXsdSchemaCommand.cs" />

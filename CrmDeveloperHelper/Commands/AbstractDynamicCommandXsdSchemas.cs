@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
@@ -17,6 +18,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
         public const string RootColumnSet = "columnset";
 
         public const string RootSavedQuery = "savedquery";
+
+        public static readonly XName RootActivity = XNamespace.Get("http://schemas.microsoft.com/netfx/2009/xaml/activities") + "Activity";
 
         public const string RootForm = "form";
         public const string RootRibbonDiffXml = "RibbonDiffXml";

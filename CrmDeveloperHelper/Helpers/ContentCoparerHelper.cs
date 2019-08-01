@@ -825,6 +825,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             , Guid? formId = null
             , Guid? savedQueryId = null
             , Guid? customControlId = null
+            , Guid? workflowId = null
             , string webResourceName = null
         )
         {
@@ -874,6 +875,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 if (!string.IsNullOrEmpty(webResourceName))
                 {
                     result = ContentCoparerHelper.SetIntellisenseContextWebResourceName(result, webResourceName);
+                }
+
+                if (workflowId.HasValue)
+                {
+                    result = ContentCoparerHelper.SetIntellisenseContextWorkflowId(result, workflowId.Value);
                 }
             }
 
@@ -1090,6 +1096,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private static readonly string patternIntellisenseContextSiteMapNameUnique = string.Format(replaceIntellisenseContextSiteMapNameUniqueFormat1, "([^\"]*)");
         private const string replaceIntellisenseContextSiteMapNameUniqueFormat1 = " " + Intellisense.Model.IntellisenseContext.NameIntellisenseContextName + ":" + Intellisense.Model.IntellisenseContext.NameIntellisenseContextAttributeSiteMapNameUnique + "=\"{0}\"";
 
+        private static readonly string patternIntellisenseContextWorkflowId = string.Format(replaceIntellisenseContextWorkflowIdFormat1, "([^\"]*)");
+        private const string replaceIntellisenseContextWorkflowIdFormat1 = " " + Intellisense.Model.IntellisenseContext.NameIntellisenseContextName + ":" + Intellisense.Model.IntellisenseContext.NameIntellisenseContextAttributeWorkflowId + "=\"{0}\"";
+
         public static object VsShellAsyncUtilities { get; private set; }
 
         private static async System.Threading.Tasks.Task GetTextViewAndMakeAction(Document document, string operationName, Action<IWpfTextView> action)
@@ -1166,9 +1175,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return result;
         }
 
-        private static string SetIntellisenseContextFormId(string text, Guid formid)
+        private static string SetIntellisenseContextFormId(string text, Guid formId)
         {
-            var newEntityNameAttribute = string.Format(replaceIntellisenseContextFormIdFormat1, formid.ToString());
+            var newEntityNameAttribute = string.Format(replaceIntellisenseContextFormIdFormat1, formId.ToString());
 
             var intellisenseContextNamespace = string.Format(replaceIntellisenseContextNamespaceFormat1, Intellisense.Model.IntellisenseContext.IntellisenseContextNamespace.NamespaceName);
 
@@ -1237,6 +1246,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             result = ReplaceOrInsertAttribute(result, patternIntellisenseContext, intellisenseContextNamespace);
 
             result = ReplaceOrInsertAttribute(result, patternIntellisenseContextSiteMapNameUnique, newEntityNameAttribute);
+
+            return result;
+        }
+
+        private static string SetIntellisenseContextWorkflowId(string text, Guid workflowId)
+        {
+            var newEntityNameAttribute = string.Format(replaceIntellisenseContextWorkflowIdFormat1, workflowId.ToString());
+
+            var intellisenseContextNamespace = string.Format(replaceIntellisenseContextNamespaceFormat1, Intellisense.Model.IntellisenseContext.IntellisenseContextNamespace.NamespaceName);
+
+            string result = text;
+
+            result = ReplaceOrInsertAttribute(result, patternIntellisenseContext, intellisenseContextNamespace);
+
+            result = ReplaceOrInsertAttribute(result, patternIntellisenseContextWorkflowId, newEntityNameAttribute);
 
             return result;
         }
@@ -1592,6 +1616,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     || a.Name.Namespace == Intellisense.Model.IntellisenseContext.IntellisenseContextNamespace
                     || a.Name.Namespace == Intellisense.Model.IntellisenseContext.NamespaceXMLSchemaInstance
                     || a.Name.Namespace == XNamespace.Xmlns
+                )
+                .ToList();
+
+            foreach (var item in attributesToRemove)
+            {
+                item.Remove();
+            }
+        }
+
+        public static void ClearRootWorkflow(XDocument doc)
+        {
+            ClearRootWorkflow(doc.Root);
+        }
+
+        public static void ClearRootWorkflow(XElement doc)
+        {
+            var attributesToRemove = doc
+                .Attributes()
+                .Where(a =>
+                    a.Name.Namespace == Intellisense.Model.IntellisenseContext.IntellisenseContextNamespace
+                    || a.Name.Namespace == Intellisense.Model.IntellisenseContext.NamespaceXMLSchemaInstance
+                    || (a.Name.Namespace == XNamespace.Xmlns && a.Name.LocalName == Intellisense.Model.IntellisenseContext.NamespaceXMLSchemaInstance.NamespaceName)
                 )
                 .ToList();
 

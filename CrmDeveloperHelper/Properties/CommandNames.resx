@@ -219,6 +219,16 @@
   <data name="CodeXmlSystemFormUpdateCommand" xml:space="preserve">
     <value>Update SystemForm</value>
   </data>
+
+  <data name="CodeXmlWorkflowShowDifferenceCommand" xml:space="preserve">
+    <value>Show Difference Workflow</value>
+  </data>
+  <data name="CodeXmlWorkflowUpdateCommand" xml:space="preserve">
+    <value>Update Workflow</value>
+  </data>
+  
+  
+  
   <data name="CommandNameWithConnectionFormat2" xml:space="preserve">
     <value>{0} - {1}</value>
   </data>

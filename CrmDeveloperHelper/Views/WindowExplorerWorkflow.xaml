@@ -147,6 +147,9 @@
         </Grid.RowDefinitions>
 
         <ToolBar x:Name="toolBarHeader" Grid.Row="0">
+            <Button Content="Options" Click="miOptions_Click"/>
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
             <Menu Background="{x:Null}">
                 <MenuItem Header="Get Other Entity Information">
                     <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile_Click"/>

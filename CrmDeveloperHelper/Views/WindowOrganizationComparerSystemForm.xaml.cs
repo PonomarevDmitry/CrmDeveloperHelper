@@ -544,12 +544,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             action(linked, showAllways);
         }
 
-        private Task<string> CreateFileAsync(ConnectionData connectionData, Guid formId, string entityName, string name, string fieldTitle, string extension, string formXml)
+        private Task<string> CreateFileAsync(ConnectionData connectionData, Guid idSystemForm, string entityName, string name, string fieldTitle, string extension, string formXml)
         {
-            return Task.Run(() => CreateFile(connectionData, formId, entityName, name, fieldTitle, extension, formXml));
+            return Task.Run(() => CreateFile(connectionData, idSystemForm, entityName, name, fieldTitle, extension, formXml));
         }
 
-        private string CreateFile(ConnectionData connectionData, Guid formId, string entityName, string name, string fieldTitle, string extension, string formXml)
+        private string CreateFile(ConnectionData connectionData, Guid idSystemForm, string entityName, string name, string fieldTitle, string extension, string formXml)
         {
             string fileName = EntityFileNameFormatter.GetSystemFormFileName(connectionData.Name, entityName, name, fieldTitle, extension);
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -562,7 +562,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         formXml = ContentCoparerHelper.FormatXmlByConfiguration(formXml, _commonConfig, _xmlOptions
                             , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFormXml
-                            , formId: formId
+                            , formId: idSystemForm
                         );
                     }
                     else if (string.Equals(extension, "json", StringComparison.InvariantCultureIgnoreCase))

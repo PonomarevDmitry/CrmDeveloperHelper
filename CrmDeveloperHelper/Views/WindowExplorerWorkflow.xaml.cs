@@ -1,13 +1,13 @@
+using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk;
-using Microsoft.Xrm.Sdk.Metadata;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDescription;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
+using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,6 +19,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Xml.Linq;
@@ -36,6 +37,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly ObservableCollection<EntityViewItem> _itemsSource;
 
         private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
+
+        private readonly Popup _optionsPopup;
+
+        public static readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.SetIntellisenseContext;
 
         public WindowExplorerWorkflow(
              IWriteToOutput iWriteToOutput
@@ -59,6 +64,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             InitializeComponent();
 
             LoadEntityNames(cmBEntityName, service.ConnectionData);
+
+            var child = new ExportXmlOptionsControl(_commonConfig, _xmlOptions);
+            child.CloseClicked += Child_CloseClicked;
+            this._optionsPopup = new Popup
+            {
+                Child = child,
+
+                PlacementTarget = toolBarHeader,
+                Placement = PlacementMode.Bottom,
+                StaysOpen = false,
+                Focusable = true,
+            };
 
             cmBCategory.ItemsSource = new EnumBindingSourceExtension(typeof(Workflow.Schema.OptionSets.category?)).ProvideValue(null) as IEnumerable;
             cmBMode.ItemsSource = new EnumBindingSourceExtension(typeof(Workflow.Schema.OptionSets.mode?)).ProvideValue(null) as IEnumerable;
@@ -661,11 +678,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string extension = "json";
 
-                if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                if (ContentCoparerHelper.TryParseXml(xmlContent, out var _))
                 {
                     extension = "xml";
 
-                    xmlContent = doc.ToString();
+                    xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
+                        , workflowId: idWorkflow
+                    );
                 }
                 else
                 {
@@ -701,19 +720,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 WorkflowRepository repository = new WorkflowRepository(service);
 
-                Workflow workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(fieldName));
+                Workflow workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(true));
 
                 string xmlContent = workflow.GetAttributeValue<string>(fieldName);
 
                 string extension = "json";
 
                 {
-                    if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                    if (ContentCoparerHelper.TryParseXml(xmlContent, out var _))
                     {
-
                         extension = "xml";
 
-                        xmlContent = doc.ToString();
+                        xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
+                            , workflowId: idWorkflow
+                        );
                     }
                     else
                     {
@@ -744,9 +764,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     if (ContentCoparerHelper.TryParseXml(newText, out var doc))
                     {
+                        ContentCoparerHelper.ClearRootWorkflow(doc);
+
                         newText = doc.ToString(SaveOptions.DisableFormatting);
                     }
                 }
+
+                if (workflow.StateCodeEnum == Workflow.Schema.OptionSets.statecode.Activated_1)
+                {
+                    UpdateStatus(service.ConnectionData, Properties.OutputStrings.DeactivatingWorkflowFormat2, service.ConnectionData.Name, workflow.Name);
+
+                    await service.ExecuteAsync<SetStateResponse>(new SetStateRequest()
+                    {
+                        EntityMoniker = workflow.ToEntityReference(),
+                        State = new OptionSetValue((int)Workflow.Schema.OptionSets.statecode.Draft_0),
+                        Status = new OptionSetValue((int)Workflow.Schema.OptionSets.statuscode.Draft_0_Draft_1),
+                    });
+                }
+
+                UpdateStatus(service.ConnectionData, Properties.WindowStatusStrings.UpdatingFieldFormat2, service.ConnectionData.Name, fieldName);
 
                 var updateEntity = new Workflow
                 {
@@ -755,6 +791,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 updateEntity.Attributes[fieldName] = newText;
 
                 await service.UpdateAsync(updateEntity);
+
+                if (workflow.StateCodeEnum == Workflow.Schema.OptionSets.statecode.Activated_1)
+                {
+                    UpdateStatus(service.ConnectionData, Properties.OutputStrings.ActivatingWorkflowFormat2, service.ConnectionData.Name, workflow.Name);
+
+                    await service.ExecuteAsync<SetStateResponse>(new SetStateRequest()
+                    {
+                        EntityMoniker = workflow.ToEntityReference(),
+                        State = new OptionSetValue((int)Workflow.Schema.OptionSets.statecode.Activated_1),
+                        Status = new OptionSetValue((int)Workflow.Schema.OptionSets.statuscode.Activated_1_Activated_2),
+                    });
+                }
 
                 ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.UpdatingFieldCompletedFormat2, service.ConnectionData.Name, fieldName);
             }
@@ -784,6 +832,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 Workflow workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(fieldName));
 
                 string xmlContent = workflow.GetAttributeValue<string>(fieldName);
+
+                xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
+                    , workflowId: idWorkflow
+                );
 
                 string filePath = await CreateCorrectedFileAsync(folder, entityName, category, name, fieldTitle, xmlContent);
 
@@ -1158,10 +1210,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             string xmlContent = workflow.GetAttributeValue<string>(fieldName);
 
-            if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
-            {
-                xmlContent = doc.ToString();
-            }
+            xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
+                , workflowId: idWorkflow
+            );
 
             string filePath1 = await CreateFileAsync(folder, entityName, category, name, fieldTitle1, xmlContent, "xml");
             string filePath2 = await CreateCorrectedFileAsync(folder, entityName, category, name, fieldTitle2, xmlContent);
@@ -1313,6 +1364,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (connectionData != null)
             {
                 connectionData.OpenSolutionComponentDependentComponentsInWeb(ComponentType.Workflow, entity.Id);
+            }
+        }
+
+        private void miOptions_Click(object sender, RoutedEventArgs e)
+        {
+            this._optionsPopup.IsOpen = true;
+            this._optionsPopup.Child.Focus();
+        }
+
+        private void Child_CloseClicked(object sender, EventArgs e)
+        {
+            if (_optionsPopup.IsOpen)
+            {
+                _optionsPopup.IsOpen = false;
+                this.Focus();
             }
         }
 

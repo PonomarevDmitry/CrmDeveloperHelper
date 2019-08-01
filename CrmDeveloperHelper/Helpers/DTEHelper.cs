@@ -1505,6 +1505,117 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public void HandleWorkflowDifferenceCommand(ConnectionData connectionData, SelectedFile selectedFile)
+        {
+            if (selectedFile == null)
+            {
+                return;
+            }
+
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null && commonConfig != null)
+            {
+                ActivateOutputWindow(connectionData);
+                WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                try
+                {
+                    Controller.StartWorkflowDifference(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToOutput(connectionData, ex);
+                }
+            }
+        }
+
+        public void HandleWorkflowUpdateCommand(ConnectionData connectionData, SelectedFile selectedFile)
+        {
+            if (selectedFile == null)
+            {
+                return;
+            }
+
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null && commonConfig != null)
+            {
+                ActivateOutputWindow(connectionData);
+                WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                try
+                {
+                    Controller.StartWorkflowUpdate(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToOutput(connectionData, ex);
+                }
+            }
+        }
+
+        public void HandleWorkflowOpenInWebCommand(ConnectionData connectionData, SelectedFile selectedFile)
+        {
+            if (selectedFile == null)
+            {
+                return;
+            }
+
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null && commonConfig != null)
+            {
+                ActivateOutputWindow(connectionData);
+                WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                try
+                {
+                    Controller.StartWorkflowOpenInWeb(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToOutput(connectionData, ex);
+                }
+            }
+        }
+
         public void HandleRibbonDiffXmlDifferenceCommand(ConnectionData connectionData, SelectedFile selectedFile)
         {
             if (selectedFile == null)
@@ -4497,15 +4608,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleExportWorkflows()
+        public void HandleExplorerWorkflows()
         {
-            HandleExportWorkflows(null);
+            string selection = GetSelectedText();
+
+            HandleExplorerWorkflows(null, selection);
         }
 
-        public void HandleExportWorkflows(ConnectionData connectionData)
+        public void HandleExplorerWorkflows(string selection)
+        {
+            HandleExplorerWorkflows(null, selection);
+        }
+
+        public void HandleExplorerWorkflows(ConnectionData connectionData)
+        {
+            string selection = GetSelectedText();
+
+            HandleExplorerWorkflows(connectionData, selection);
+        }
+
+        public void HandleExplorerWorkflows(ConnectionData connectionData, string selection)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
-            string selection = GetSelectedText();
 
             if (connectionData == null)
             {

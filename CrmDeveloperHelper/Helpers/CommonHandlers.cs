@@ -152,6 +152,63 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return false;
         }
 
+        private static bool CheckActiveDocumentIsXmlWithRootWithAttribute(
+            EnvDTE80.DTE2 applicationObject
+            , XName attributeName
+            , out XAttribute attribute
+            , params XName[] rootNames
+        )
+        {
+            attribute = null;
+
+            if (applicationObject.ActiveWindow != null
+                && applicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeDocument
+                && applicationObject.ActiveWindow.Document != null
+            )
+            {
+                try
+                {
+                    string file = applicationObject.ActiveWindow.Document.FullName.ToString().ToLower();
+
+                    if (FileOperations.SupportsXmlType(file))
+                    {
+                        var objTextDoc = applicationObject.ActiveWindow.Document.Object("TextDocument");
+                        if (objTextDoc != null
+                            && objTextDoc is EnvDTE.TextDocument textDocument
+                        )
+                        {
+                            string text = textDocument.StartPoint.CreateEditPoint().GetText(textDocument.EndPoint);
+
+                            if (!string.IsNullOrEmpty(text))
+                            {
+                                if (ContentCoparerHelper.TryParseXml(text, out var doc))
+                                {
+                                    foreach (var rootName in rootNames)
+                                    {
+                                        if (rootName == doc.Name)
+                                        {
+                                            attribute = doc.Attribute(attributeName);
+
+                                            if (attribute != null)
+                                            {
+                                                return true;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(null, ex);
+                }
+            }
+
+            return false;
+        }
+
         private static bool CheckOpenedDocumentsExtension(EnvDTE80.DTE2 applicationObject, Func<string, bool> checker)
         {
             if (applicationObject.ActiveWindow != null
@@ -399,6 +456,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             , XName attributeName
             , out XAttribute attribute
             , params string[] rootNames
+        )
+        {
+            attribute = null;
+
+            bool visible = false;
+
+            visible = CheckActiveDocumentIsXmlWithRootWithAttribute(applicationObject, attributeName, out attribute, rootNames);
+
+            if (visible == false)
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
+        }
+
+        internal static void ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(
+            EnvDTE80.DTE2 applicationObject
+            , OleMenuCommand menuCommand
+            , XName attributeName
+            , out XAttribute attribute
+            , params XName[] rootNames
         )
         {
             attribute = null;

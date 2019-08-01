@@ -61,6 +61,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}. Activating Workflow {1}....
+        /// </summary>
+        internal static string ActivatingWorkflowFormat2 {
+            get {
+                return ResourceManager.GetString("ActivatingWorkflowFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Added into Publish List: {0}.
         /// </summary>
         internal static string AddedInPublishListFormat1 {
@@ -264,6 +273,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string CurrentServiceEndpointFormat1 {
             get {
                 return ResourceManager.GetString("CurrentServiceEndpointFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Deactivating Workflow {1}....
+        /// </summary>
+        internal static string DeactivatingWorkflowFormat2 {
+            get {
+                return ResourceManager.GetString("DeactivatingWorkflowFormat2", resourceCulture);
             }
         }
         
@@ -1240,6 +1258,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}. Updating Field {1}....
+        /// </summary>
+        internal static string UpdatingFieldFormat2 {
+            get {
+                return ResourceManager.GetString("UpdatingFieldFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to WebResource founded by name. WebResourceId: {0} Name: {1}.
         /// </summary>
         internal static string WebResourceFoundedByNameFormat2 {
@@ -1308,6 +1335,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string WhoAmIRequestExecutedSuccessfully {
             get {
                 return ResourceManager.GetString("WhoAmIRequestExecutedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Workflow with id &apos;{1}&apos; not founded..
+        /// </summary>
+        internal static string WorkflowNotFoundedFormat2 {
+            get {
+                return ResourceManager.GetString("WorkflowNotFoundedFormat2", resourceCulture);
             }
         }
         

@@ -294,6 +294,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             #endregion Ribbon
 
+            #region Workflow
+
+            CodeXmlWorkflowExplorerCommand.Initialize(commandService);
+            CodeXmlWorkflowOpenInWebCommand.Initialize(commandService);
+
+            CodeXmlWorkflowShowDifferenceCommand.Initialize(commandService);
+            CodeXmlWorkflowShowDifferenceInConnectionGroupCommand.Initialize(commandService);
+
+            CodeXmlWorkflowUpdateCommand.Initialize(commandService);
+            CodeXmlWorkflowUpdateInConnectionGroupCommand.Initialize(commandService);
+
+            #endregion Workflow
+
             CodeXmlOpenXsdSchemaFolderCommand.Initialize(commandService);
             CodeXmlSetXsdSchemaCommand.Initialize(commandService);
             CodeXmlRemoveXsdSchemaCommand.Initialize(commandService);

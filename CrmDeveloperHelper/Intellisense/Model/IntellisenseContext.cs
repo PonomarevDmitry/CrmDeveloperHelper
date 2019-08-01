@@ -18,6 +18,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
         public const string NameIntellisenseContextAttributeFormId = "formid";
         public const string NameIntellisenseContextAttributeCustomControlId = "customcontrolid";
         public const string NameIntellisenseContextAttributeWebResourceName = "webresourcename";
+        public const string NameIntellisenseContextAttributeWorkflowId = "workflowid";
 
         public static readonly XNamespace IntellisenseContextNamespace = "https://navicongroup.ru/XsdSchemas/IntellisenseContext";
 
@@ -27,6 +28,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
         public static readonly XName IntellisenseContextAttributeFormId = IntellisenseContextNamespace + NameIntellisenseContextAttributeFormId;
         public static readonly XName IntellisenseContextAttributeCustomControlId = IntellisenseContextNamespace + NameIntellisenseContextAttributeCustomControlId;
         public static readonly XName IntellisenseContextAttributeWebResourceName = IntellisenseContextNamespace + NameIntellisenseContextAttributeWebResourceName;
+        public static readonly XName IntellisenseContextAttributeWorkflowId = IntellisenseContextNamespace + NameIntellisenseContextAttributeWorkflowId;
 
         public static readonly XNamespace NamespaceXMLSchemaInstance = "http://www.w3.org/2001/XMLSchema-instance";
     }
