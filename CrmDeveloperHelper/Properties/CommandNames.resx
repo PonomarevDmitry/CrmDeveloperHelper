@@ -192,7 +192,7 @@
   <data name="CodeXmlShowDifferenceSiteMapCommand" xml:space="preserve">
     <value>Show Difference SiteMap Default</value>
   </data>
-  <data name="CodeXmlShowDifferenceSystemFormCommand" xml:space="preserve">
+  <data name="CodeXmlSystemFormShowDifferenceCommand" xml:space="preserve">
     <value>Show Difference SystemForm</value>
   </data>
   <data name="CodeXmlUpdateApplicationRibbonDiffXmlCommand" xml:space="preserve">
@@ -216,7 +216,7 @@
   <data name="CodeXmlUpdateSiteMapCommand" xml:space="preserve">
     <value>Update SiteMap Default</value>
   </data>
-  <data name="CodeXmlUpdateSystemFormCommand" xml:space="preserve">
+  <data name="CodeXmlSystemFormUpdateCommand" xml:space="preserve">
     <value>Update SystemForm</value>
   </data>
   <data name="CommandNameWithConnectionFormat2" xml:space="preserve">

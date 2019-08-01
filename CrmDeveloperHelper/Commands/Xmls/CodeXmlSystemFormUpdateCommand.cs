@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
@@ -8,16 +7,16 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlShowDifferenceSystemFormCommand : AbstractCommand
+    internal sealed class CodeXmlSystemFormUpdateCommand : AbstractCommand
     {
-        private CodeXmlShowDifferenceSystemFormCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.CodeXmlShowDifferenceSystemFormCommandId) { }
+        private CodeXmlSystemFormUpdateCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.CodeXmlSystemFormUpdateCommandId) { }
 
-        public static CodeXmlShowDifferenceSystemFormCommand Instance { get; private set; }
+        public static CodeXmlSystemFormUpdateCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeXmlShowDifferenceSystemFormCommand(commandService);
+            Instance = new CodeXmlSystemFormUpdateCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper)
@@ -26,7 +25,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 
             if (selectedFiles.Count == 1)
             {
-                helper.HandleSystemFormDifferenceCommand(null, selectedFiles.FirstOrDefault());
+                helper.HandleSystemFormUpdateCommand(null, selectedFiles.FirstOrDefault());
             }
         }
 
@@ -34,7 +33,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
         {
             CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(applicationObject, menuCommand, Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeFormId, out var attribute, AbstractDynamicCommandXsdSchemas.RootForm);
 
-            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CodeXmlShowDifferenceSystemFormCommand);
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CodeXmlSystemFormUpdateCommand);
 
             if (attribute == null
                 || !Guid.TryParse(attribute.Value, out _)

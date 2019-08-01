@@ -3231,7 +3231,7 @@
           <ButtonText>Open SystemForm Explorer</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="CodeXmlShowDifferenceSystemFormCommandId" priority="0x0100" type="Button">
+      <Button guid="guidCommandSet" id="CodeXmlSystemFormShowDifferenceCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -3241,7 +3241,7 @@
           <ButtonText>Show Difference SystemForm</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="CodeXmlShowDifferenceSystemFormInConnectionGroupCommandId" priority="0x0100" type="Button">
+      <Button guid="guidDynamicCommandSet" id="CodeXmlSystemFormShowDifferenceInConnectionGroupCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -3254,7 +3254,7 @@
       </Button>
 
 
-      <Button guid="guidCommandSet" id="CodeXmlUpdateSystemFormCommandId" priority="0x0100" type="Button">
+      <Button guid="guidCommandSet" id="CodeXmlSystemFormUpdateCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -3264,7 +3264,7 @@
           <ButtonText>Update SystemForm</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="CodeXmlUpdateSystemFormInConnectionGroupCommandId" priority="0x0100" type="Button">
+      <Button guid="guidDynamicCommandSet" id="CodeXmlSystemFormUpdateInConnectionGroupCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -11439,14 +11439,14 @@
     <CommandPlacement guid="guidCommandSet" id="CodeXmlSystemFormExplorerCommandId" priority="0x110">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceSystemForm" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CodeXmlShowDifferenceSystemFormCommandId" priority="0x120">
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlSystemFormShowDifferenceCommandId" priority="0x120">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceSystemForm" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceSystemForm_MenuConnectionDyn" priority="0x130">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceSystemForm" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidCommandSet" id="CodeXmlUpdateSystemFormCommandId" priority="0x107">
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlSystemFormUpdateCommandId" priority="0x107">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupUpdateSystemForm" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupUpdateSystemForm_MenuConnectionDyn" priority="0x108">
@@ -13249,14 +13249,14 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceSystemForm_MenuConnectionDyn_Group" priority="0x108">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceSystemForm_MenuConnectionDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlShowDifferenceSystemFormInConnectionGroupCommandId" priority="0x108">
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlSystemFormShowDifferenceInConnectionGroupCommandId" priority="0x108">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceSystemForm_MenuConnectionDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupUpdateSystemForm_MenuConnectionDyn_Group" priority="0x108">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupUpdateSystemForm_MenuConnectionDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlUpdateSystemFormInConnectionGroupCommandId" priority="0x108">
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlSystemFormUpdateInConnectionGroupCommandId" priority="0x108">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupUpdateSystemForm_MenuConnectionDyn_Group" />
     </CommandPlacement>
 
@@ -16293,8 +16293,8 @@
       <IDSymbol name="CodeXmlShowDifferenceSiteMapInConnectionGroupCommandId" value="5050" />
       <IDSymbol name="CodeXmlUpdateSiteMapInConnectionGroupCommandId" value="6000" />
 
-      <IDSymbol name="CodeXmlShowDifferenceSystemFormInConnectionGroupCommandId" value="6050" />
-      <IDSymbol name="CodeXmlUpdateSystemFormInConnectionGroupCommandId" value="6100" />
+      <IDSymbol name="CodeXmlSystemFormShowDifferenceInConnectionGroupCommandId" value="6050" />
+      <IDSymbol name="CodeXmlSystemFormUpdateInConnectionGroupCommandId" value="6100" />
 
       <IDSymbol name="CodeXmlShowDifferenceSavedQueryInConnectionGroupCommandId" value="6150" />
       <IDSymbol name="CodeXmlUpdateSavedQueryInConnectionGroupCommandId" value="6200" />
@@ -16465,8 +16465,8 @@
 
 
       <IDSymbol name="CodeXmlSystemFormExplorerCommandId" value="0x21A5" />
-      <IDSymbol name="CodeXmlShowDifferenceSystemFormCommandId" value="0x2184" />
-      <IDSymbol name="CodeXmlUpdateSystemFormCommandId" value="0x2185" />
+      <IDSymbol name="CodeXmlSystemFormShowDifferenceCommandId" value="0x2184" />
+      <IDSymbol name="CodeXmlSystemFormUpdateCommandId" value="0x2185" />
 
 
       <IDSymbol name="CodeXmlSavedQueryExplorerCommandId" value="0x21A6" />

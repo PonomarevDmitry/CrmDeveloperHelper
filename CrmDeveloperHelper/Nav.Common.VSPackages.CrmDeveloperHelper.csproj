@@ -260,8 +260,8 @@
     <Compile Include="Commands\Xmls\CodeXmlShowDifferenceSiteMapCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlShowDifferenceSiteMapDefaultCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlShowDifferenceSiteMapInConnectionGroupCommand.cs" />
-    <Compile Include="Commands\Xmls\CodeXmlShowDifferenceSystemFormCommand.cs" />
-    <Compile Include="Commands\Xmls\CodeXmlShowDifferenceSystemFormInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlSystemFormShowDifferenceCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlSystemFormShowDifferenceInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSiteMapExplorerCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSiteMapOpenInWebCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSystemFormExplorerCommand.cs" />
@@ -272,8 +272,8 @@
     <Compile Include="Commands\Xmls\CodeXmlUpdateSavedQueryInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlUpdateSiteMapCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlUpdateSiteMapInConnectionGroupCommand.cs" />
-    <Compile Include="Commands\Xmls\CodeXmlUpdateSystemFormCommand.cs" />
-    <Compile Include="Commands\Xmls\CodeXmlUpdateSystemFormInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlSystemFormUpdateCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlSystemFormUpdateInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Checks\CommonCheckComponentTypeEnumCommand.cs" />
     <Compile Include="Commands\FindEdit\CommonFindEntityObjectsByPrefixAndShowDependentComponentsCommand.cs" />
     <Compile Include="Commands\FindEdit\CommonFindEntityObjectsByPrefixCommand.cs" />
@@ -1640,6 +1640,7 @@
       <ResourceName>Menus.ctmenu</ResourceName>
       <SubType>Designer</SubType>
       <Generator>VsctGenerator</Generator>
+      <LastGenOutput>CrmDeveloperHelperPackageCommandTable.vsct.cs</LastGenOutput>
     </VSCTCompile>
     <Resource Include="Resources\16x16_refresh.ico" />
     <Resource Include="Resources\Add.png" />

@@ -7,22 +7,22 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlShowDifferenceSystemFormInConnectionGroupCommand : AbstractDynamicCommandByConnectionByGroupWithoutCurrent
+    internal sealed class CodeXmlSystemFormShowDifferenceInConnectionGroupCommand : AbstractDynamicCommandByConnectionByGroupWithoutCurrent
     {
-        private CodeXmlShowDifferenceSystemFormInConnectionGroupCommand(OleMenuCommandService commandService)
+        private CodeXmlSystemFormShowDifferenceInConnectionGroupCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CodeXmlShowDifferenceSystemFormInConnectionGroupCommandId
+                , PackageIds.CodeXmlSystemFormShowDifferenceInConnectionGroupCommandId
             )
         {
 
         }
 
-        public static CodeXmlShowDifferenceSystemFormInConnectionGroupCommand Instance { get; private set; }
+        public static CodeXmlSystemFormShowDifferenceInConnectionGroupCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeXmlShowDifferenceSystemFormInConnectionGroupCommand(commandService);
+            Instance = new CodeXmlSystemFormShowDifferenceInConnectionGroupCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)

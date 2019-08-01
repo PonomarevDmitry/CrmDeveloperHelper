@@ -912,8 +912,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CodeXmlUpdateRibbonDiffXmlInConnectionGroupCommandId = 0x1388;
         public const int CodeXmlShowDifferenceSiteMapInConnectionGroupCommandId = 0x13BA;
         public const int CodeXmlUpdateSiteMapInConnectionGroupCommandId = 0x1770;
-        public const int CodeXmlShowDifferenceSystemFormInConnectionGroupCommandId = 0x17A2;
-        public const int CodeXmlUpdateSystemFormInConnectionGroupCommandId = 0x17D4;
+        public const int CodeXmlSystemFormShowDifferenceInConnectionGroupCommandId = 0x17A2;
+        public const int CodeXmlSystemFormUpdateInConnectionGroupCommandId = 0x17D4;
         public const int CodeXmlShowDifferenceSavedQueryInConnectionGroupCommandId = 0x1806;
         public const int CodeXmlUpdateSavedQueryInConnectionGroupCommandId = 0x1838;
         public const int CommonSolutionExplorerInConnectionCommandId = 0x186A;
@@ -1016,8 +1016,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CodeXmlShowDifferenceRibbonDiffXmlCommandId = 0x217C;
         public const int CodeXmlUpdateRibbonDiffXmlCommandId = 0x217D;
         public const int CodeXmlSystemFormExplorerCommandId = 0x21A5;
-        public const int CodeXmlShowDifferenceSystemFormCommandId = 0x2184;
-        public const int CodeXmlUpdateSystemFormCommandId = 0x2185;
+        public const int CodeXmlSystemFormShowDifferenceCommandId = 0x2184;
+        public const int CodeXmlSystemFormUpdateCommandId = 0x2185;
         public const int CodeXmlSavedQueryExplorerCommandId = 0x21A6;
         public const int CodeXmlShowDifferenceSavedQueryCommandId = 0x2186;
         public const int CodeXmlUpdateSavedQueryCommandId = 0x2187;

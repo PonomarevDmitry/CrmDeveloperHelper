@@ -257,11 +257,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeXmlSystemFormExplorerCommand.Initialize(commandService);
             CodeXmlSystemFormOpenInWebCommand.Initialize(commandService);
 
-            CodeXmlShowDifferenceSystemFormCommand.Initialize(commandService);
-            CodeXmlShowDifferenceSystemFormInConnectionGroupCommand.Initialize(commandService);
+            CodeXmlSystemFormShowDifferenceCommand.Initialize(commandService);
+            CodeXmlSystemFormShowDifferenceInConnectionGroupCommand.Initialize(commandService);
 
-            CodeXmlUpdateSystemFormCommand.Initialize(commandService);
-            CodeXmlUpdateSystemFormInConnectionGroupCommand.Initialize(commandService);
+            CodeXmlSystemFormUpdateCommand.Initialize(commandService);
+            CodeXmlSystemFormUpdateInConnectionGroupCommand.Initialize(commandService);
 
             #endregion SystemForm
 

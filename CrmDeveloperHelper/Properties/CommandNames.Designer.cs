@@ -306,9 +306,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Show Difference SystemForm.
         /// </summary>
-        internal static string CodeXmlShowDifferenceSystemFormCommand {
+        internal static string CodeXmlSystemFormShowDifferenceCommand {
             get {
-                return ResourceManager.GetString("CodeXmlShowDifferenceSystemFormCommand", resourceCulture);
+                return ResourceManager.GetString("CodeXmlSystemFormShowDifferenceCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update SystemForm.
+        /// </summary>
+        internal static string CodeXmlSystemFormUpdateCommand {
+            get {
+                return ResourceManager.GetString("CodeXmlSystemFormUpdateCommand", resourceCulture);
             }
         }
         
@@ -354,15 +363,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string CodeXmlUpdateSiteMapCommand {
             get {
                 return ResourceManager.GetString("CodeXmlUpdateSiteMapCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Update SystemForm.
-        /// </summary>
-        internal static string CodeXmlUpdateSystemFormCommand {
-            get {
-                return ResourceManager.GetString("CodeXmlUpdateSystemFormCommand", resourceCulture);
             }
         }
         
