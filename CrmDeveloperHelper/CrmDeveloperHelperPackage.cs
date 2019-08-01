@@ -280,17 +280,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             #region Ribbon
 
-            CodeXmlEntityRibbonOpenInWebCommand.Initialize(commandService);
+            CodeXmlRibbonOpenInWebCommand.Initialize(commandService);
 
             CodeXmlRibbonExplorerCommand.Initialize(commandService);
 
-            CodeXmlShowDifferenceRibbonCommand.Initialize(commandService);
-            CodeXmlShowDifferenceRibbonInConnectionGroupCommand.Initialize(commandService);
-            CodeXmlShowDifferenceRibbonDiffXmlCommand.Initialize(commandService);
-            CodeXmlShowDifferenceRibbonDiffXmlInConnectionGroupCommand.Initialize(commandService);
+            CodeXmlRibbonShowDifferenceCommand.Initialize(commandService);
+            CodeXmlRibbonShowDifferenceInConnectionGroupCommand.Initialize(commandService);
+            CodeXmlRibbonDiffXmlShowDifferenceCommand.Initialize(commandService);
+            CodeXmlRibbonDiffXmlShowDifferenceInConnectionGroupCommand.Initialize(commandService);
 
-            CodeXmlUpdateRibbonDiffXmlCommand.Initialize(commandService);
-            CodeXmlUpdateRibbonDiffXmlInConnectionGroupCommand.Initialize(commandService);
+            CodeXmlRibbonDiffXmlUpdateCommand.Initialize(commandService);
+            CodeXmlRibbonDiffXmlUpdateInConnectionGroupCommand.Initialize(commandService);
 
             #endregion Ribbon
 

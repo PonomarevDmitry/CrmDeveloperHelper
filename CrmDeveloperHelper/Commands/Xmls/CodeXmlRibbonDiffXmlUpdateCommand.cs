@@ -7,16 +7,16 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlUpdateRibbonDiffXmlCommand : AbstractCommand
+    internal sealed class CodeXmlRibbonDiffXmlUpdateCommand : AbstractCommand
     {
-        private CodeXmlUpdateRibbonDiffXmlCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.CodeXmlUpdateRibbonDiffXmlCommandId) { }
+        private CodeXmlRibbonDiffXmlUpdateCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.CodeXmlRibbonDiffXmlUpdateCommandId) { }
 
-        public static CodeXmlUpdateRibbonDiffXmlCommand Instance { get; private set; }
+        public static CodeXmlRibbonDiffXmlUpdateCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeXmlUpdateRibbonDiffXmlCommand(commandService);
+            Instance = new CodeXmlRibbonDiffXmlUpdateCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper)
@@ -37,11 +37,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
             {
                 string entityName = attribute.Value;
 
-                string nameCommand = Properties.CommandNames.CodeXmlUpdateApplicationRibbonDiffXmlCommand;
+                string nameCommand = Properties.CommandNames.CodeXmlRibbonDiffXmlApplicationUpdateCommand;
 
                 if (!string.IsNullOrEmpty(entityName))
                 {
-                    nameCommand = string.Format(Properties.CommandNames.CodeXmlUpdateEntityRibbonDiffXmlCommandFormat1, entityName);
+                    nameCommand = string.Format(Properties.CommandNames.CodeXmlRibbonDiffXmlEntityUpdateCommandFormat1, entityName);
                 }
 
                 CommonHandlers.ActionBeforeQueryStatusConnectionIsNotReadOnly(applicationObject, menuCommand);

@@ -171,16 +171,16 @@
   <data name="CodeXmlExecuteFetchXmlRequestCommand" xml:space="preserve">
     <value>Execute Fetch Xml All</value>
   </data>
-  <data name="CodeXmlShowDifferenceApplicationRibbonCommand" xml:space="preserve">
+  <data name="CodeXmlRibbonApplicationShowDifferenceCommand" xml:space="preserve">
     <value>Show Difference ApplicationRibbon</value>
   </data>
-  <data name="CodeXmlShowDifferenceApplicationRibbonDiffXmlCommand" xml:space="preserve">
+  <data name="CodeXmlRibbonDiffXmlApplicationShowDifferenceCommand" xml:space="preserve">
     <value>Show Difference Application RibbonDiffXml</value>
   </data>
-  <data name="CodeXmlShowDifferenceEntityRibbonCommandFormat1" xml:space="preserve">
+  <data name="CodeXmlRibbonEntityShowDifferenceCommandFormat1" xml:space="preserve">
     <value>Show Difference {0} Ribbon</value>
   </data>
-  <data name="CodeXmlShowDifferenceEntityRibbonDiffXmlCommandFormat1" xml:space="preserve">
+  <data name="CodeXmlRibbonDiffXmlEntityShowDifferenceCommandFormat1" xml:space="preserve">
     <value>Show Difference {0} RibbonDiffXml</value>
   </data>
   <data name="CodeXmlSavedQueryShowDifferenceCommand" xml:space="preserve">
@@ -195,16 +195,16 @@
   <data name="CodeXmlSystemFormShowDifferenceCommand" xml:space="preserve">
     <value>Show Difference SystemForm</value>
   </data>
-  <data name="CodeXmlUpdateApplicationRibbonDiffXmlCommand" xml:space="preserve">
+  <data name="CodeXmlRibbonDiffXmlApplicationUpdateCommand" xml:space="preserve">
     <value>Update Application RibbonDiffXml</value>
   </data>
-  <data name="CodeXmlUpdateEntityRibbonDiffXmlCommandFormat1" xml:space="preserve">
+  <data name="CodeXmlRibbonDiffXmlEntityUpdateCommandFormat1" xml:space="preserve">
     <value>Update {0} RibbonDiffXml</value>
   </data>
-  <data name="CodeXmlApplicationRibbonExplorerCommand" xml:space="preserve">
+  <data name="CodeXmlRibbonApplicationExplorerCommand" xml:space="preserve">
     <value>Open ApplicationRibbon Explorer</value>
   </data>
-  <data name="CodeXmlEntityRibbonExplorerCommand" xml:space="preserve">
+  <data name="CodeXmlRibbonEntityExplorerCommand" xml:space="preserve">
     <value>Open Entity Explorer</value>
   </data>
   <data name="CodeXmlSavedQueryUpdateCommand" xml:space="preserve">

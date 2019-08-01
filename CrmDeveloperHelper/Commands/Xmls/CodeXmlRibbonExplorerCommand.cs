@@ -43,11 +43,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
             {
                 string entityName = attribute.Value;
 
-                string nameCommand = Properties.CommandNames.CodeXmlApplicationRibbonExplorerCommand;
+                string nameCommand = Properties.CommandNames.CodeXmlRibbonApplicationExplorerCommand;
 
                 if (!string.IsNullOrEmpty(entityName))
                 {
-                    nameCommand = Properties.CommandNames.CodeXmlEntityRibbonExplorerCommand;
+                    nameCommand = Properties.CommandNames.CodeXmlRibbonEntityExplorerCommand;
                 }
 
                 CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, nameCommand);

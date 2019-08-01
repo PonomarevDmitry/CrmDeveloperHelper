@@ -6,22 +6,22 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlUpdateRibbonDiffXmlInConnectionGroupCommand : AbstractDynamicCommandByConnectionByGroupWithoutCurrent
+    internal sealed class CodeXmlRibbonDiffXmlUpdateInConnectionGroupCommand : AbstractDynamicCommandByConnectionByGroupWithoutCurrent
     {
-        private CodeXmlUpdateRibbonDiffXmlInConnectionGroupCommand(OleMenuCommandService commandService)
+        private CodeXmlRibbonDiffXmlUpdateInConnectionGroupCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CodeXmlUpdateRibbonDiffXmlInConnectionGroupCommandId
+                , PackageIds.CodeXmlRibbonDiffXmlUpdateInConnectionGroupCommandId
             )
         {
 
         }
 
-        public static CodeXmlUpdateRibbonDiffXmlInConnectionGroupCommand Instance { get; private set; }
+        public static CodeXmlRibbonDiffXmlUpdateInConnectionGroupCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeXmlUpdateRibbonDiffXmlInConnectionGroupCommand(commandService);
+            Instance = new CodeXmlRibbonDiffXmlUpdateInConnectionGroupCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)

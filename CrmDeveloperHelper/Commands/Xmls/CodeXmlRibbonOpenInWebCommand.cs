@@ -1,4 +1,4 @@
-using Microsoft.VisualStudio.Shell;
+﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System.Collections.Generic;
@@ -6,22 +6,22 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlShowDifferenceRibbonDiffXmlInConnectionGroupCommand : AbstractDynamicCommandByConnectionByGroupWithoutCurrent
+    internal sealed class CodeXmlRibbonOpenInWebCommand : AbstractDynamicCommandByConnectionAll
     {
-        private CodeXmlShowDifferenceRibbonDiffXmlInConnectionGroupCommand(OleMenuCommandService commandService)
+        private CodeXmlRibbonOpenInWebCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CodeXmlShowDifferenceRibbonDiffXmlInConnectionGroupCommandId
+                , PackageIds.CodeXmlRibbonOpenInWebCommandId
             )
         {
 
         }
 
-        public static CodeXmlShowDifferenceRibbonDiffXmlInConnectionGroupCommand Instance { get; private set; }
+        public static CodeXmlRibbonOpenInWebCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeXmlShowDifferenceRibbonDiffXmlInConnectionGroupCommand(commandService);
+            Instance = new CodeXmlRibbonOpenInWebCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
@@ -30,17 +30,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 
             if (selectedFiles.Count == 1)
             {
-                helper.HandleRibbonDiffXmlDifferenceCommand(connectionData, selectedFiles.FirstOrDefault());
+                helper.HandleEntityRibbonOpenInWeb(connectionData, selectedFiles.FirstOrDefault());
             }
         }
 
         protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, ConnectionData connectionData, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(applicationObject
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(
+                applicationObject
                 , menuCommand
                 , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName
                 , out var attribute
                 , AbstractDynamicCommandXsdSchemas.RootRibbonDiffXml
+                , AbstractDynamicCommandXsdSchemas.RootRibbonDefinitions
             );
 
             if (attribute != null)
@@ -49,12 +51,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 
                 if (string.IsNullOrEmpty(entityName))
                 {
-                    entityName = "ApplicationRibbon";
+                    menuCommand.Enabled = menuCommand.Visible = false;
                 }
-
-                string nameCommand = string.Format(Properties.CommandNames.CommandNameWithConnectionFormat2, entityName, connectionData.Name);
-
-                menuCommand.Text = nameCommand;
             }
         }
     }

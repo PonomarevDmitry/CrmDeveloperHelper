@@ -907,9 +907,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int FolderWebResourceCompareWithDetailsInConnectionGroupCommandId = 0x128E;
         public const int ListForPublishCompareInConnectionGroupCommandId = 0x12C0;
         public const int ListForPublishCompareWithDetailsInConnectionGroupCommandId = 0x12F2;
-        public const int CodeXmlShowDifferenceRibbonInConnectionGroupCommandId = 0x1324;
-        public const int CodeXmlShowDifferenceRibbonDiffXmlInConnectionGroupCommandId = 0x1356;
-        public const int CodeXmlUpdateRibbonDiffXmlInConnectionGroupCommandId = 0x1388;
+        public const int CodeXmlRibbonShowDifferenceInConnectionGroupCommandId = 0x1324;
+        public const int CodeXmlRibbonDiffXmlShowDifferenceInConnectionGroupCommandId = 0x1356;
+        public const int CodeXmlRibbonDiffXmlUpdateInConnectionGroupCommandId = 0x1388;
         public const int CodeXmlSiteMapShowDifferenceInConnectionGroupCommandId = 0x13BA;
         public const int CodeXmlSiteMapUpdateInConnectionGroupCommandId = 0x1770;
         public const int CodeXmlSystemFormShowDifferenceInConnectionGroupCommandId = 0x17A2;
@@ -992,7 +992,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CodeXmlSiteMapOpenInWebCommandId = 0x2710;
         public const int CodeXmlSystemFormOpenInWebCommandId = 0x2742;
         public const int CodeXmlSavedQueryOpenInWebCommandId = 0x2774;
-        public const int CodeXmlEntityRibbonOpenInWebCommandId = 0x27A6;
+        public const int CodeXmlRibbonOpenInWebCommandId = 0x27A6;
         public const int OutputExportOpenLastSelectedSolutionInWebCommandId = 0x27D8;
         public const int OutputExportOpenLastSelectedSolutionInExplorerCommandId = 0x280A;
         public const int CommonCrmConnectionSelectFileCommandId = 0x283C;
@@ -1012,9 +1012,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CodeXmlSiteMapShowDifferenceCommandId = 0x217E;
         public const int CodeXmlSiteMapUpdateCommandId = 0x2183;
         public const int CodeXmlRibbonExplorerCommandId = 0x21A7;
-        public const int CodeXmlShowDifferenceRibbonCommandId = 0x217B;
-        public const int CodeXmlShowDifferenceRibbonDiffXmlCommandId = 0x217C;
-        public const int CodeXmlUpdateRibbonDiffXmlCommandId = 0x217D;
+        public const int CodeXmlRibbonShowDifferenceCommandId = 0x217B;
+        public const int CodeXmlRibbonDiffXmlShowDifferenceCommandId = 0x217C;
+        public const int CodeXmlRibbonDiffXmlUpdateCommandId = 0x217D;
         public const int CodeXmlSystemFormExplorerCommandId = 0x21A5;
         public const int CodeXmlSystemFormShowDifferenceCommandId = 0x2184;
         public const int CodeXmlSystemFormUpdateCommandId = 0x2185;

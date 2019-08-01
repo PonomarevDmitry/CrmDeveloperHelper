@@ -214,29 +214,83 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Execute Fetch Xml All.
+        /// </summary>
+        internal static string CodeXmlExecuteFetchXmlRequestCommand {
+            get {
+                return ResourceManager.GetString("CodeXmlExecuteFetchXmlRequestCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open ApplicationRibbon Explorer.
         /// </summary>
-        internal static string CodeXmlApplicationRibbonExplorerCommand {
+        internal static string CodeXmlRibbonApplicationExplorerCommand {
             get {
-                return ResourceManager.GetString("CodeXmlApplicationRibbonExplorerCommand", resourceCulture);
+                return ResourceManager.GetString("CodeXmlRibbonApplicationExplorerCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Difference ApplicationRibbon.
+        /// </summary>
+        internal static string CodeXmlRibbonApplicationShowDifferenceCommand {
+            get {
+                return ResourceManager.GetString("CodeXmlRibbonApplicationShowDifferenceCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Difference Application RibbonDiffXml.
+        /// </summary>
+        internal static string CodeXmlRibbonDiffXmlApplicationShowDifferenceCommand {
+            get {
+                return ResourceManager.GetString("CodeXmlRibbonDiffXmlApplicationShowDifferenceCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Application RibbonDiffXml.
+        /// </summary>
+        internal static string CodeXmlRibbonDiffXmlApplicationUpdateCommand {
+            get {
+                return ResourceManager.GetString("CodeXmlRibbonDiffXmlApplicationUpdateCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Difference {0} RibbonDiffXml.
+        /// </summary>
+        internal static string CodeXmlRibbonDiffXmlEntityShowDifferenceCommandFormat1 {
+            get {
+                return ResourceManager.GetString("CodeXmlRibbonDiffXmlEntityShowDifferenceCommandFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update {0} RibbonDiffXml.
+        /// </summary>
+        internal static string CodeXmlRibbonDiffXmlEntityUpdateCommandFormat1 {
+            get {
+                return ResourceManager.GetString("CodeXmlRibbonDiffXmlEntityUpdateCommandFormat1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Open Entity Explorer.
         /// </summary>
-        internal static string CodeXmlEntityRibbonExplorerCommand {
+        internal static string CodeXmlRibbonEntityExplorerCommand {
             get {
-                return ResourceManager.GetString("CodeXmlEntityRibbonExplorerCommand", resourceCulture);
+                return ResourceManager.GetString("CodeXmlRibbonEntityExplorerCommand", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Execute Fetch Xml All.
+        ///   Looks up a localized string similar to Show Difference {0} Ribbon.
         /// </summary>
-        internal static string CodeXmlExecuteFetchXmlRequestCommand {
+        internal static string CodeXmlRibbonEntityShowDifferenceCommandFormat1 {
             get {
-                return ResourceManager.GetString("CodeXmlExecuteFetchXmlRequestCommand", resourceCulture);
+                return ResourceManager.GetString("CodeXmlRibbonEntityShowDifferenceCommandFormat1", resourceCulture);
             }
         }
         
@@ -255,42 +309,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string CodeXmlSavedQueryUpdateCommand {
             get {
                 return ResourceManager.GetString("CodeXmlSavedQueryUpdateCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Show Difference ApplicationRibbon.
-        /// </summary>
-        internal static string CodeXmlShowDifferenceApplicationRibbonCommand {
-            get {
-                return ResourceManager.GetString("CodeXmlShowDifferenceApplicationRibbonCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Show Difference Application RibbonDiffXml.
-        /// </summary>
-        internal static string CodeXmlShowDifferenceApplicationRibbonDiffXmlCommand {
-            get {
-                return ResourceManager.GetString("CodeXmlShowDifferenceApplicationRibbonDiffXmlCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Show Difference {0} Ribbon.
-        /// </summary>
-        internal static string CodeXmlShowDifferenceEntityRibbonCommandFormat1 {
-            get {
-                return ResourceManager.GetString("CodeXmlShowDifferenceEntityRibbonCommandFormat1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Show Difference {0} RibbonDiffXml.
-        /// </summary>
-        internal static string CodeXmlShowDifferenceEntityRibbonDiffXmlCommandFormat1 {
-            get {
-                return ResourceManager.GetString("CodeXmlShowDifferenceEntityRibbonDiffXmlCommandFormat1", resourceCulture);
             }
         }
         
@@ -345,24 +363,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string CodeXmlSystemFormUpdateCommand {
             get {
                 return ResourceManager.GetString("CodeXmlSystemFormUpdateCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Update Application RibbonDiffXml.
-        /// </summary>
-        internal static string CodeXmlUpdateApplicationRibbonDiffXmlCommand {
-            get {
-                return ResourceManager.GetString("CodeXmlUpdateApplicationRibbonDiffXmlCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Update {0} RibbonDiffXml.
-        /// </summary>
-        internal static string CodeXmlUpdateEntityRibbonDiffXmlCommandFormat1 {
-            get {
-                return ResourceManager.GetString("CodeXmlUpdateEntityRibbonDiffXmlCommandFormat1", resourceCulture);
             }
         }
         

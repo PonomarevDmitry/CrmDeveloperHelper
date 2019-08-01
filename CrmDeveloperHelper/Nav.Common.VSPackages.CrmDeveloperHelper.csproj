@@ -239,7 +239,7 @@
     <Compile Include="Commands\WebResources\FolderWebResourceAddFilesIntoListForPublishCommand.cs" />
     <Compile Include="Commands\WebResources\FolderWebResourceMultiDifferenceCommand.cs" />
     <Compile Include="Commands\WebResources\FolderWebResourceOpenFilesCommand.cs" />
-    <Compile Include="Commands\Xmls\CodeXmlEntityRibbonOpenInWebCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlRibbonOpenInWebCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlRemoveXsdSchemaCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlConvertFetchXmlToJavaScriptCodeCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlExecuteFetchXmlRequestCommand.cs" />
@@ -251,10 +251,10 @@
     <Compile Include="Commands\Xmls\CodeXmlSavedQueryExplorerCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSavedQueryOpenInWebCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSetXsdSchemaCommand.cs" />
-    <Compile Include="Commands\Xmls\CodeXmlShowDifferenceRibbonCommand.cs" />
-    <Compile Include="Commands\Xmls\CodeXmlShowDifferenceRibbonDiffXmlCommand.cs" />
-    <Compile Include="Commands\Xmls\CodeXmlShowDifferenceRibbonDiffXmlInConnectionGroupCommand.cs" />
-    <Compile Include="Commands\Xmls\CodeXmlShowDifferenceRibbonInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlRibbonShowDifferenceCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlRibbonDiffXmlShowDifferenceCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlRibbonDiffXmlShowDifferenceInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlRibbonShowDifferenceInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSavedQueryShowDifferenceCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSavedQueryShowDifferenceInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSiteMapShowDifferenceCommand.cs" />
@@ -266,8 +266,8 @@
     <Compile Include="Commands\Xmls\CodeXmlSiteMapOpenInWebCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSystemFormExplorerCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSystemFormOpenInWebCommand.cs" />
-    <Compile Include="Commands\Xmls\CodeXmlUpdateRibbonDiffXmlCommand.cs" />
-    <Compile Include="Commands\Xmls\CodeXmlUpdateRibbonDiffXmlInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlRibbonDiffXmlUpdateCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlRibbonDiffXmlUpdateInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSavedQueryUpdateCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSavedQueryUpdateInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSiteMapUpdateCommand.cs" />
