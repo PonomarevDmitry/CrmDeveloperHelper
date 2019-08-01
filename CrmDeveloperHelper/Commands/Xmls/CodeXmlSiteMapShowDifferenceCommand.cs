@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
@@ -7,16 +7,16 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlUpdateSiteMapCommand : AbstractCommand
+    internal sealed class CodeXmlSiteMapShowDifferenceCommand : AbstractCommand
     {
-        private CodeXmlUpdateSiteMapCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.CodeXmlUpdateSiteMapCommandId) { }
+        private CodeXmlSiteMapShowDifferenceCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.CodeXmlSiteMapShowDifferenceCommandId) { }
 
-        public static CodeXmlUpdateSiteMapCommand Instance { get; private set; }
+        public static CodeXmlSiteMapShowDifferenceCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeXmlUpdateSiteMapCommand(commandService);
+            Instance = new CodeXmlSiteMapShowDifferenceCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper)
@@ -25,7 +25,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 
             if (selectedFiles.Count == 1)
             {
-                helper.HandleSiteMapUpdateCommand(null, selectedFiles.FirstOrDefault());
+                helper.HandleSiteMapDifferenceCommand(null, selectedFiles.FirstOrDefault());
             }
         }
 
@@ -35,13 +35,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 
             if (doc != null)
             {
-                string nameCommand = Properties.CommandNames.CodeXmlUpdateSiteMapCommand;
+                string nameCommand = Properties.CommandNames.CodeXmlSiteMapShowDifferenceCommand;
 
                 var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSiteMapNameUnique);
 
                 if (attribute != null && !string.IsNullOrEmpty(attribute.Value))
                 {
-                    nameCommand = string.Format(Properties.CommandNames.CodeXmlUpdateSiteMapByNameCommandFormat1, attribute.Value);
+                    nameCommand = string.Format(Properties.CommandNames.CodeXmlSiteMapShowDifferenceByNameCommandFormat1, attribute.Value);
                 }
 
                 CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, nameCommand);

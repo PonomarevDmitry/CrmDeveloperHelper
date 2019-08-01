@@ -257,9 +257,9 @@
     <Compile Include="Commands\Xmls\CodeXmlShowDifferenceRibbonInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSavedQueryShowDifferenceCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSavedQueryShowDifferenceInConnectionGroupCommand.cs" />
-    <Compile Include="Commands\Xmls\CodeXmlShowDifferenceSiteMapCommand.cs" />
-    <Compile Include="Commands\Xmls\CodeXmlShowDifferenceSiteMapDefaultCommand.cs" />
-    <Compile Include="Commands\Xmls\CodeXmlShowDifferenceSiteMapInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlSiteMapShowDifferenceCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlSiteMapShowDifferenceDefaultCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlSiteMapShowDifferenceInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSystemFormShowDifferenceCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSystemFormShowDifferenceInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSiteMapExplorerCommand.cs" />
@@ -270,8 +270,8 @@
     <Compile Include="Commands\Xmls\CodeXmlUpdateRibbonDiffXmlInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSavedQueryUpdateCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSavedQueryUpdateInConnectionGroupCommand.cs" />
-    <Compile Include="Commands\Xmls\CodeXmlUpdateSiteMapCommand.cs" />
-    <Compile Include="Commands\Xmls\CodeXmlUpdateSiteMapInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlSiteMapUpdateCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlSiteMapUpdateInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSystemFormUpdateCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSystemFormUpdateInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Checks\CommonCheckComponentTypeEnumCommand.cs" />

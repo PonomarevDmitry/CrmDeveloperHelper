@@ -243,12 +243,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeXmlSiteMapOpenInWebCommand.Initialize(commandService);
             CodeXmlSiteMapExplorerCommand.Initialize(commandService);
 
-            CodeXmlShowDifferenceSiteMapDefaultCommand.Initialize(commandService);
-            CodeXmlShowDifferenceSiteMapCommand.Initialize(commandService);
-            CodeXmlShowDifferenceSiteMapInConnectionGroupCommand.Initialize(commandService);
+            CodeXmlSiteMapShowDifferenceDefaultCommand.Initialize(commandService);
+            CodeXmlSiteMapShowDifferenceCommand.Initialize(commandService);
+            CodeXmlSiteMapShowDifferenceInConnectionGroupCommand.Initialize(commandService);
 
-            CodeXmlUpdateSiteMapCommand.Initialize(commandService);
-            CodeXmlUpdateSiteMapInConnectionGroupCommand.Initialize(commandService);
+            CodeXmlSiteMapUpdateCommand.Initialize(commandService);
+            CodeXmlSiteMapUpdateInConnectionGroupCommand.Initialize(commandService);
 
             #endregion SiteMap
 

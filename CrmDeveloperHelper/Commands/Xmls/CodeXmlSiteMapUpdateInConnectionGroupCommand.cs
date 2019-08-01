@@ -6,22 +6,22 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlUpdateSiteMapInConnectionGroupCommand : AbstractDynamicCommandByConnectionByGroupWithoutCurrent
+    internal sealed class CodeXmlSiteMapUpdateInConnectionGroupCommand : AbstractDynamicCommandByConnectionByGroupWithoutCurrent
     {
-        private CodeXmlUpdateSiteMapInConnectionGroupCommand(OleMenuCommandService commandService)
+        private CodeXmlSiteMapUpdateInConnectionGroupCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CodeXmlUpdateSiteMapInConnectionGroupCommandId
+                , PackageIds.CodeXmlSiteMapUpdateInConnectionGroupCommandId
             )
         {
 
         }
 
-        public static CodeXmlUpdateSiteMapInConnectionGroupCommand Instance { get; private set; }
+        public static CodeXmlSiteMapUpdateInConnectionGroupCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeXmlUpdateSiteMapInConnectionGroupCommand(commandService);
+            Instance = new CodeXmlSiteMapUpdateInConnectionGroupCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)

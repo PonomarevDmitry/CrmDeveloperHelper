@@ -895,7 +895,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int DocumentsXmlSetXsdSchemaCommandId = 0x2260;
         public const int FileXmlSetXsdSchemaCommandId = 0x2279;
         public const int FolderXmlSetXsdSchemaCommandId = 0x2292;
-        public const int CodeXmlShowDifferenceSiteMapDefaultCommandId = 0x1117;
+        public const int CodeXmlSiteMapShowDifferenceDefaultCommandId = 0x1117;
         public const int CommonCrmConnectionTestCommandId = 0x1130;
         public const int CommonCrmConnectionEditCommandId = 0x286E;
         public const int CodeWebResourceCompareWithDetailsInConnectionGroupCommandId = 0x1162;
@@ -910,8 +910,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CodeXmlShowDifferenceRibbonInConnectionGroupCommandId = 0x1324;
         public const int CodeXmlShowDifferenceRibbonDiffXmlInConnectionGroupCommandId = 0x1356;
         public const int CodeXmlUpdateRibbonDiffXmlInConnectionGroupCommandId = 0x1388;
-        public const int CodeXmlShowDifferenceSiteMapInConnectionGroupCommandId = 0x13BA;
-        public const int CodeXmlUpdateSiteMapInConnectionGroupCommandId = 0x1770;
+        public const int CodeXmlSiteMapShowDifferenceInConnectionGroupCommandId = 0x13BA;
+        public const int CodeXmlSiteMapUpdateInConnectionGroupCommandId = 0x1770;
         public const int CodeXmlSystemFormShowDifferenceInConnectionGroupCommandId = 0x17A2;
         public const int CodeXmlSystemFormUpdateInConnectionGroupCommandId = 0x17D4;
         public const int CodeXmlSavedQueryShowDifferenceInConnectionGroupCommandId = 0x1806;
@@ -1009,8 +1009,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CodeXmlRibbonDiffInsertIntellisenseContextCommandId = 0x2178;
         public const int CodeXmlRibbonDiffRemoveIntellisenseContextCommandId = 0x2179;
         public const int CodeXmlSiteMapExplorerCommandId = 0x21A4;
-        public const int CodeXmlShowDifferenceSiteMapCommandId = 0x217E;
-        public const int CodeXmlUpdateSiteMapCommandId = 0x2183;
+        public const int CodeXmlSiteMapShowDifferenceCommandId = 0x217E;
+        public const int CodeXmlSiteMapUpdateCommandId = 0x2183;
         public const int CodeXmlRibbonExplorerCommandId = 0x21A7;
         public const int CodeXmlShowDifferenceRibbonCommandId = 0x217B;
         public const int CodeXmlShowDifferenceRibbonDiffXmlCommandId = 0x217C;

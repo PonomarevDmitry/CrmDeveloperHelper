@@ -186,10 +186,10 @@
   <data name="CodeXmlSavedQueryShowDifferenceCommand" xml:space="preserve">
     <value>Show Difference SavedQuery</value>
   </data>
-  <data name="CodeXmlShowDifferenceSiteMapByNameCommandFormat1" xml:space="preserve">
+  <data name="CodeXmlSiteMapShowDifferenceByNameCommandFormat1" xml:space="preserve">
     <value>Show Difference SiteMap "{0}"</value>
   </data>
-  <data name="CodeXmlShowDifferenceSiteMapCommand" xml:space="preserve">
+  <data name="CodeXmlSiteMapShowDifferenceCommand" xml:space="preserve">
     <value>Show Difference SiteMap Default</value>
   </data>
   <data name="CodeXmlSystemFormShowDifferenceCommand" xml:space="preserve">
@@ -210,10 +210,10 @@
   <data name="CodeXmlSavedQueryUpdateCommand" xml:space="preserve">
     <value>Update SavedQuery</value>
   </data>
-  <data name="CodeXmlUpdateSiteMapByNameCommandFormat1" xml:space="preserve">
+  <data name="CodeXmlSiteMapUpdateByNameCommandFormat1" xml:space="preserve">
     <value>Update SiteMap "{0}"</value>
   </data>
-  <data name="CodeXmlUpdateSiteMapCommand" xml:space="preserve">
+  <data name="CodeXmlSiteMapUpdateCommand" xml:space="preserve">
     <value>Update SiteMap Default</value>
   </data>
   <data name="CodeXmlSystemFormUpdateCommand" xml:space="preserve">

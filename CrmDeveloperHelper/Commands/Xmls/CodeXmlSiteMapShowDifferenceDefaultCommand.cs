@@ -4,22 +4,22 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlShowDifferenceSiteMapDefaultCommand : AbstractDynamicCommandDefaultSiteMap
+    internal sealed class CodeXmlSiteMapShowDifferenceDefaultCommand : AbstractDynamicCommandDefaultSiteMap
     {
-        private CodeXmlShowDifferenceSiteMapDefaultCommand(OleMenuCommandService commandService)
+        private CodeXmlSiteMapShowDifferenceDefaultCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CodeXmlShowDifferenceSiteMapDefaultCommandId
+                , PackageIds.CodeXmlSiteMapShowDifferenceDefaultCommandId
             )
         {
 
         }
 
-        public static CodeXmlShowDifferenceSiteMapDefaultCommand Instance { get; private set; }
+        public static CodeXmlSiteMapShowDifferenceDefaultCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeXmlShowDifferenceSiteMapDefaultCommand(commandService);
+            Instance = new CodeXmlSiteMapShowDifferenceDefaultCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper, string selectedSitemap)
