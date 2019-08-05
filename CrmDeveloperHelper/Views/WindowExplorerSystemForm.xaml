@@ -216,7 +216,7 @@
             </Grid.RowDefinitions>
 
             <Label Content="Folder" Grid.Row="0" Grid.Column="0" />
-            <TextBox x:Name="txtBFolder" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding Path=FolderForExport, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+            <TextBox x:Name="txtBFolder" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" />
 
             <Label Content="Namespace Classes JavaScript" Grid.Row="1" Grid.Column="0" />
             <TextBox x:Name="txtBNamespaceClassesJavaScript" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding Path=SelectedItem.NamespaceClassesJavaScript, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />

@@ -153,8 +153,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             cmBFileAction.DataContext = _commonConfig;
 
-            txtBFolder.DataContext = _commonConfig;
-
             txtBNamespaceClassesJavaScript.DataContext = cmBCurrentConnection;
         }
 
