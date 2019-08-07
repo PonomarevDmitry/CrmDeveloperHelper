@@ -657,5 +657,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             comboBox.Text = text;
         }
+
+        protected static T GetItemFromRoutedDataContext<T>(RoutedEventArgs e) where T : class
+        {
+            if (e.OriginalSource is FrameworkElement frameworkElement)
+            {
+                if (frameworkElement.DataContext is T result)
+                {
+                    return result;
+                }
+            }
+            else if (e.OriginalSource is FrameworkContentElement frameworkContentElement)
+            {
+                if (frameworkContentElement.DataContext is T result)
+                {
+                    return result;
+                }
+            }
+
+            return null;
+        }
     }
 }

@@ -1713,29 +1713,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             SetCurrentConnection(_iWriteToOutput, cmBCurrentConnection.SelectedItem as ConnectionData);
         }
 
-        private EntityViewItem GetItemFromRoutedDataContext(RoutedEventArgs e)
-        {
-            if (e.OriginalSource is FrameworkElement frameworkElement)
-            {
-                if (frameworkElement.DataContext is EntityViewItem result)
-                {
-                    return result;
-                }
-            }
-            else if (e.OriginalSource is FrameworkContentElement frameworkContentElement)
-            {
-                if (frameworkContentElement.DataContext is EntityViewItem result)
-                {
-                    return result;
-                }
-            }
-
-            return null;
-        }
-
         private void hyperlinkFetchXml_Click(object sender, RoutedEventArgs e)
         {
-            EntityViewItem item = GetItemFromRoutedDataContext(e);
+            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
 
             if (item == null)
             {
@@ -1749,7 +1729,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void hyperlinkLayoutXml_Click(object sender, RoutedEventArgs e)
         {
-            EntityViewItem item = GetItemFromRoutedDataContext(e);
+            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
 
             if (item == null)
             {
@@ -1763,7 +1743,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void hyperlinkColumnSetXml_Click(object sender, RoutedEventArgs e)
         {
-            EntityViewItem item = GetItemFromRoutedDataContext(e);
+            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
 
             if (item == null)
             {
@@ -1777,7 +1757,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void hyperlinkLayoutJson_Click(object sender, RoutedEventArgs e)
         {
-            EntityViewItem item = GetItemFromRoutedDataContext(e);
+            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
 
             if (item == null)
             {
@@ -1791,7 +1771,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void hyperlinkOfflineSqlQuery_Click(object sender, RoutedEventArgs e)
         {
-            EntityViewItem item = GetItemFromRoutedDataContext(e);
+            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
 
             if (item == null)
             {
