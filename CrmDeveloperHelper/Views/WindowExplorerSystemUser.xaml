@@ -12,9 +12,11 @@
         <BooleanToVisibilityConverter x:Key="boolToVisibility"/>
 
         <ContextMenu x:Key="listContextMenuSystemUser">
-            <MenuItem Header="Open User in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceInWeb_Click" />
+            <MenuItem Header="Open User in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceInWeb_Click" FontWeight="Bold" />
+            
             <Separator/>
             <MenuItem Header="Open User List in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceListInWeb_Click" />
+            
             <Separator/>
             <MenuItem Header="Create User Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click" />
 
@@ -37,38 +39,49 @@
         </ContextMenu>
 
         <ContextMenu x:Key="listContextMenuRole" Opened="ContextMenuRole_Opened">
-            <MenuItem Header="Open Role in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceInWeb_Click" />
+            <MenuItem Header="Open Role in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceInWeb_Click" FontWeight="Bold" />
+            
             <Separator/>
             <MenuItem Header="Open Role List in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceListInWeb_Click" />
+            
             <Separator/>
             <MenuItem Header="Open Role Explorer" VerticalAlignment="Center" Click="mIOpenEntityExplorer_Click" />
+            
             <Separator/>
             <MenuItem Header="Create Role Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click" />
+            
             <Separator/>
             <MenuItem Header="Clipboard">
                 <MenuItem Header="Copy Role Id to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceIdToClipboard_Click" />
                 <MenuItem Header="Copy Role Url to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceUrlToClipboard_Click" />
             </MenuItem>
+            
             <Separator/>
             <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" VerticalAlignment="Center" />
             <MenuItem Header="Add to Crm Solution" VerticalAlignment="Center" Click="AddRoleToCrmSolution_Click" />
+            
             <Separator/>
             <MenuItem Header="Remove Role from User" VerticalAlignment="Center" Click="btnRemoveRoleFromUser_Click" />
         </ContextMenu>
 
         <ContextMenu x:Key="listContextMenuRoleByTeam" Opened="ContextMenuRoleByTeam_Opened">
-            <MenuItem Header="Open Role in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceInWeb_Click" />
+            <MenuItem Header="Open Role in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceInWeb_Click" FontWeight="Bold" />
+            
             <Separator/>
             <MenuItem Header="Open Role List in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceListInWeb_Click" />
+            
             <Separator/>
             <MenuItem Header="Open Role Explorer" VerticalAlignment="Center" Click="mIOpenEntityExplorer_Click" />
+            
             <Separator/>
             <MenuItem Header="Create Role Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click" />
+            
             <Separator/>
             <MenuItem Header="Clipboard">
                 <MenuItem Header="Copy Role Id to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceIdToClipboard_Click" />
                 <MenuItem Header="Copy Role Url to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceUrlToClipboard_Click" />
             </MenuItem>
+            
             <Separator/>
             <MenuItem Header="Team">
                 <MenuItem Header="Open Team in Web" VerticalAlignment="Center" Click="mIOpenRoleTeamInWeb_Click" />
@@ -80,30 +93,37 @@
                 <MenuItem Header="Copy Team Id to Clipboard" VerticalAlignment="Center" Click="mICopyRoleTeamIdToClipboard_Click" />
                 <MenuItem Header="Copy Team Url to Clipboard" VerticalAlignment="Center" Click="mICopyRoleTeamUrlToClipboard_Click" />
             </MenuItem>
+            
             <Separator/>
             <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" VerticalAlignment="Center" />
             <MenuItem Header="Add to Crm Solution" VerticalAlignment="Center" Click="AddRoleByTeamToCrmSolution_Click" />
         </ContextMenu>
 
         <ContextMenu x:Key="listContextMenuTeam">
-            <MenuItem Header="Open Team in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceInWeb_Click" />
+            <MenuItem Header="Open Team in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceInWeb_Click" FontWeight="Bold" />
+            
             <Separator/>
             <MenuItem Header="Open Team List in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceListInWeb_Click" />
+            
             <Separator/>
             <MenuItem Header="Open Team Explorer" VerticalAlignment="Center" Click="mIOpenEntityExplorer_Click" />
+            
             <Separator/>
             <MenuItem Header="Create Team Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click" />
+            
             <Separator/>
             <MenuItem Header="Clipboard">
                 <MenuItem Header="Copy Team Id to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceIdToClipboard_Click" />
                 <MenuItem Header="Copy Team Url to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceUrlToClipboard_Click" />
             </MenuItem>
+            
             <Separator/>
             <MenuItem Header="Remove User from Team" VerticalAlignment="Center" Click="btnRemoveUserFromTeam_Click" />
         </ContextMenu>
 
         <ContextMenu x:Key="listContextMenuEntityPrivileges" Opened="ContextMenuEntityPrivileges_Opened">
-            <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
+            <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" FontWeight="Bold" />
+            
             <Separator/>
             <MenuItem Header="Open Entity List in Web" VerticalAlignment="Center" Click="mIOpenEntityListInWeb_Click" />
 
@@ -125,14 +145,17 @@
 
             <Separator/>
             <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
+            
             <Separator/>
             <MenuItem Header="Open Solutions Containing Component in Explorer" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
+            
             <Separator/>
             <MenuItem Header="Dependent Components">
                 <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
                 <Separator/>
                 <MenuItem Header="Open Dependent Components in Explorer" VerticalAlignment="Center" Click="mIOpenDependentComponentsInExplorer_Click" />
             </MenuItem>
+            
             <Separator/>
             <MenuItem Header="Get Other Entity Information">
                 <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile_Click"/>
@@ -158,6 +181,7 @@
                 <MenuItem Header="Message Tree" Click="btnMessageTree_Click"/>
                 <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree_Click"/>
             </MenuItem>
+            
             <Separator/>
             <MenuItem Header="Compare Information with other Organization">
                 <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>

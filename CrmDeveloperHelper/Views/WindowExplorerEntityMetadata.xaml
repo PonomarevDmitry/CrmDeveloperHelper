@@ -37,7 +37,7 @@
                 <MenuItem Header="Create Entity New Instance" Click="miCreateNewEntityInstance_Click"/>
 
                 <Separator/>
-                <MenuItem Header="Create C# Metadata File" Click="miCreateCSharpFileSchemaMetadata_Click"/>
+                <MenuItem Header="Create C# Metadata File" Click="miCreateCSharpFileSchemaMetadata_Click" FontWeight="Bold"/>
                 <MenuItem Header="Create C# ProxyClass File" Click="miCreateCSharpFileProxyClass_Click"/>
 
                 <Separator/>

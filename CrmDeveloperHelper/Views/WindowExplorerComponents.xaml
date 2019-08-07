@@ -14,7 +14,7 @@
 
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-                <MenuItem Header="Open in Web" Click="mIOpenInWeb_Click" />
+                <MenuItem Header="Open in Web" Click="mIOpenInWeb_Click" FontWeight="Bold"/>
 
                 <Separator/>
                 <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>

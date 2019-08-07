@@ -14,7 +14,7 @@
             <BitmapImage x:Key="ImageRefresh" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Refresh_16.png" />
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-                <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
+                <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" FontWeight="Bold" />
                 
                 <Separator/>
                 <MenuItem Header="Open Entity List in Web" VerticalAlignment="Center" Click="mIOpenEntityListInWeb_Click" />
@@ -94,7 +94,7 @@
             </ContextMenu>
 
             <ContextMenu x:Key="listContextMenuEntityKey" Opened="ContextMenuEntityKey_Opened">
-                <MenuItem Header="Open EntityKey Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityKeyInWeb_Click" />
+                <MenuItem Header="Open EntityKey Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityKeyInWeb_Click" FontWeight="Bold" />
                 
                 <Separator/>
                 <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" VerticalAlignment="Center" />

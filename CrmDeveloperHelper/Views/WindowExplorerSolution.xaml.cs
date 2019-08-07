@@ -804,6 +804,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 Header = string.Format("Open Solution Components in Explorer for {0}", solution.UniqueNameEscapeUnderscore),
                 Tag = solution,
+                FontWeight = FontWeights.Bold,
             };
             mIOpenComponentsInExplorer.Click += mIOpenComponentsInExplorer_Click;
 

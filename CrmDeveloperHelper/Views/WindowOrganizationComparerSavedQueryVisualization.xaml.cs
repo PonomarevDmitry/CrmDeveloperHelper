@@ -461,9 +461,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (item != null)
                 {
-                    ExecuteAction(item.Link, false, PerformShowingDifferenceAllAsync);
+                    ExecuteAction(item.Link, false, PerformMouseDoubleClickAsync);
                 }
             }
+        }
+
+        private async Task PerformMouseDoubleClickAsync(LinkedEntities<SavedQueryVisualization> linked, bool showAllways)
+        {
+            await PerformShowingDifferenceDescriptionAsync(linked, true);
         }
 
         private void lstVwEntities_SelectionChanged(object sender, SelectionChangedEventArgs e)

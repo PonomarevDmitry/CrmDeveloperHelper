@@ -20,7 +20,7 @@
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
 
                 <MenuItem x:Uid="menuContextDifference" Header="Difference Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
-                <MenuItem x:Uid="menuContextDifference" Header="Difference Content" Click="mIShowDifferenceContent_Click"/>
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Content" Click="mIShowDifferenceContent_Click" FontWeight="Bold"/>
                 <MenuItem x:Uid="menuContextDifference" Header="Difference ContentJson" Click="mIShowDifferenceContentJson_Click"/>
                 <MenuItem x:Uid="menuContextDifference" Header="Difference Dependency Xml" Click="mIShowDifferenceDependencyXml_Click"/>
                 <Separator x:Uid="menuContextDifference"/>

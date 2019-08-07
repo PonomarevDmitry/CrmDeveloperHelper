@@ -12,7 +12,7 @@
             </ResourceDictionary.MergedDictionaries>
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-                <MenuItem Header="Open Workflow in Web" Click="mIOpenInWeb_Click" />
+                <MenuItem Header="Open Workflow in Web" Click="mIOpenInWeb_Click" FontWeight="Bold" />
 
                 <Separator/>
                 <MenuItem Header="Open Workflow List in Web" Click="mIOpenListInWeb_Click" />

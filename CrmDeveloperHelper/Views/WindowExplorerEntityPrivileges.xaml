@@ -18,7 +18,8 @@
         <BooleanToVisibilityConverter x:Key="boolToVisibility"/>
 
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-            <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
+            <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" FontWeight="Bold" />
+            
             <Separator/>
             <MenuItem Header="Open Entity List in Web" VerticalAlignment="Center" Click="mIOpenEntityListInWeb_Click" />
 
@@ -90,7 +91,7 @@
         </ContextMenu>
 
         <ContextMenu x:Key="listContextMenuSecurityRole" Opened="ContextMenuSecurityRole_Opened">
-            <MenuItem Header="Open Role in Web" VerticalAlignment="Center" Click="mIOpenSecurityRoleInWeb_Click" />
+            <MenuItem Header="Open Role in Web" VerticalAlignment="Center" Click="mIOpenSecurityRoleInWeb_Click" FontWeight="Bold" />
 
             <Separator/>
             <MenuItem Header="Open Role List in Web" VerticalAlignment="Center" Click="mIOpenSecurityRoleListInWeb_Click" />

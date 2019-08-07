@@ -17,7 +17,7 @@
             
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
 
-                <MenuItem x:Uid="menuContextDifference" Header="Difference C# File Single OptionSet" Click="btnDifferenceCSharpFileSingle_Click" />
+                <MenuItem x:Uid="menuContextDifference" Header="Difference C# File Single OptionSet" Click="btnDifferenceCSharpFileSingle_Click" FontWeight="Bold" />
                 <Separator x:Uid="menuContextDifference" />
                 
                 <MenuItem x:Uid="menuContextDifference" Header="Difference JavaScript File Json Object Single OptionSet" Click="btnDifferenceJavaScriptFileSingleJsonObject_Click" />

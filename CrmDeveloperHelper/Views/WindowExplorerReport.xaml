@@ -12,7 +12,7 @@
             </ResourceDictionary.MergedDictionaries>
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-                <MenuItem Header="Open Report in Web" Click="mIOpenInWeb_Click" />
+                <MenuItem Header="Open Report in Web" Click="mIOpenInWeb_Click" FontWeight="Bold" />
                 
                 <Separator/>
                 <MenuItem Header="Open Report List in Web" Click="mIOpenEntityListInWeb_Click" />

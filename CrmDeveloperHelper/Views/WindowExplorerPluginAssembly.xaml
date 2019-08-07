@@ -37,7 +37,7 @@
                 <MenuItem Header="Compare with Local Assembly" Click="mICompareWithLocalAssembly_Click" />
 
                 <Separator/>
-                <MenuItem Header="Plugin Assembly Description" Click="mICreatePluginAssemblyDescription_Click"/>
+                <MenuItem Header="Plugin Assembly Description" Click="mICreatePluginAssemblyDescription_Click" FontWeight="Bold"/>
                 <MenuItem Header="Export Assembly Binary Content" Click="mIExportPluginAssemblyBinaryContent_Click"/>
 
                 <Separator/>

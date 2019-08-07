@@ -17,7 +17,7 @@
             
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
 
-                <MenuItem x:Uid="menuContextDifference" Header="Difference C# Schema File" Click="btnDifferenceCSharpFileSchema_Click" />
+                <MenuItem x:Uid="menuContextDifference" Header="Difference C# Schema File" Click="btnDifferenceCSharpFileSchema_Click" FontWeight="Bold" />
                 <MenuItem x:Uid="menuContextDifference" Header="Difference C# Proxy Class" Click="btnDifferenceCSharpFileProxyClass_Click" />
                 
                 <Separator x:Uid="menuContextDifference" />

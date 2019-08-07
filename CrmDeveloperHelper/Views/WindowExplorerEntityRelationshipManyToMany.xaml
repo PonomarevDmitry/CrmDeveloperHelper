@@ -10,7 +10,8 @@
         <BitmapImage x:Key="ImageRefresh" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Refresh_16.png" />
 
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-            <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
+            <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" FontWeight="Bold" />
+            
             <Separator/>
             <MenuItem Header="Open Entity List in Web" VerticalAlignment="Center" Click="mIOpenEntityListInWeb_Click" />
 
@@ -32,14 +33,17 @@
 
             <Separator/>
             <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
+            
             <Separator/>
             <MenuItem Header="Open Solutions Containing Component in Explorer" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
+            
             <Separator/>
             <MenuItem Header="Dependent Components">
                 <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
                 <Separator/>
                 <MenuItem Header="Open Dependent Components in Explorer" VerticalAlignment="Center" Click="mIOpenDependentComponentsInExplorer_Click" />
             </MenuItem>
+            
             <Separator/>
             <MenuItem Header="Get Other Entity Information">
                 <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile_Click"/>
@@ -66,6 +70,7 @@
                 <MenuItem Header="Message Tree" Click="btnMessageTree_Click"/>
                 <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree_Click"/>
             </MenuItem>
+            
             <Separator/>
             <MenuItem Header="Compare Information with other Organization">
                 <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
@@ -85,12 +90,15 @@
         </ContextMenu>
 
         <ContextMenu x:Key="listContextMenuEntityRelationship" Opened="ContextMenuEntityRelationship_Opened">
-            <MenuItem Header="Open EntityRelationship Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityRelationshipInWeb_Click" />
+            <MenuItem Header="Open EntityRelationship Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityRelationshipInWeb_Click" FontWeight="Bold" />
+            
             <Separator/>
             <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" VerticalAlignment="Center" />
             <MenuItem Header="Add to Crm Solution" VerticalAlignment="Center" Click="AddEntityRelationshipToCrmSolution_Click" />
+            
             <Separator/>
             <MenuItem Header="Open Solutions Containing Component in Explorer" VerticalAlignment="Center" Click="mIEntityRelationshipOpenSolutionsContainingComponentInExplorer_Click" />
+            
             <Separator/>
             <MenuItem Header="Dependent Components">
                 <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIEntityRelationshipOpenDependentComponentsInWeb_Click" />

@@ -1171,6 +1171,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        private void mIOpenContent_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null || entity.WebResourceId == null)
+            {
+                return;
+            }
+
+            ExecuteAction(entity.WebResourceId.Value, entity.Name, PerformExportWebResourceContent);
+        }
+
         private void AddToCrmSolution_Click(object sender, RoutedEventArgs e)
         {
             AddToSolution(true, null);

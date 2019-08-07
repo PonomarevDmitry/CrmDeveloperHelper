@@ -437,9 +437,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (item != null)
                 {
-                    ExecuteAction(item.Link, false, PerformShowingDifferenceAllAsync);
+                    ExecuteAction(item.Link, false, PerformMouseDoubleClickAsync);
                 }
             }
+        }
+
+        private async Task PerformMouseDoubleClickAsync(LinkedEntities<SiteMap> linked, bool showAllways)
+        {
+            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, SiteMap.Schema.Attributes.sitemapxml, SiteMap.Schema.Headers.sitemapxml);
         }
 
         private void lstVwEntities_SelectionChanged(object sender, SelectionChangedEventArgs e)

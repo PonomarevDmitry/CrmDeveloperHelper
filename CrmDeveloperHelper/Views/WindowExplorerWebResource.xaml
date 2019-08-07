@@ -39,6 +39,9 @@
                 <MenuItem Header="Open WebResource in Web" Click="mIOpenInWeb_Click" />
 
                 <Separator/>
+                <MenuItem Header="Content" Click="mIOpenContent_Click" FontWeight="Bold" />
+
+                <Separator/>
                 <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
 
                 <Separator/>

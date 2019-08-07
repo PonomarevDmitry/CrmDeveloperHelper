@@ -12,7 +12,7 @@
             </ResourceDictionary.MergedDictionaries>
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-                <MenuItem Header="Open SystemForm in Web" Click="mIOpenInWeb_Click"/>
+                <MenuItem Header="Open SystemForm in Web" Click="mIOpenInWeb_Click" FontWeight="Bold"/>
 
                 <Separator/>
                 <MenuItem Header="Form Description" Click="mIExportSystemFormDescription_Click" />

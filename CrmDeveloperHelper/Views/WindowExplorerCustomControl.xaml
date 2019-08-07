@@ -12,7 +12,7 @@
             </ResourceDictionary.MergedDictionaries>
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-                <MenuItem Header="Open CustomControl in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click"/>
+                <MenuItem Header="Open CustomControl in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click" FontWeight="Bold"/>
 
                 <Separator/>
                 <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>

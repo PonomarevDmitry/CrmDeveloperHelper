@@ -19,7 +19,7 @@
                 <MenuItem Header="Add to Crm Solution" Click="AddToCrmSolution_Click" />
                 
                 <Separator/>
-                <MenuItem Header="Create C# File for OptionSet" Click="btnCreateCSharpFileForSingleOptionSet_Click" />
+                <MenuItem Header="Create C# File for OptionSet" Click="btnCreateCSharpFileForSingleOptionSet_Click" FontWeight="Bold" />
                 <MenuItem Header="Create JavaScript File Json Object for OptionSet" Click="btnCreateJavaScriptFileForSingleOptionSetJsonObject_Click" />
 
                 <Separator/>

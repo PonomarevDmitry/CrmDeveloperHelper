@@ -37,7 +37,7 @@
                 <MenuItem Header="Add Steps for PluginAssembly to Crm Solution" Click="mIAddAssemblyStepsToSolution_Click" />
                 
                 <Separator/>
-                <MenuItem Header="Plugin Type Description" Click="mICreatePluginTypeDescription_Click"/>
+                <MenuItem Header="Plugin Type Description" Click="mICreatePluginTypeDescription_Click" FontWeight="Bold"/>
                 <MenuItem Header="CustomWorkflowActivityInfo" Click="mIExportCustomWorkflowActivityInfo_Click"/>
                 
                 <Separator/>

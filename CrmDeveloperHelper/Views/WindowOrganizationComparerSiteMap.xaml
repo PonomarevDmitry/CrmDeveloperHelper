@@ -17,7 +17,7 @@
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
 
                 <MenuItem x:Uid="menuContextDifference" Header="Difference Entity Description" Click="mIShowDifferenceEntityDescription_Click" />
-                <MenuItem x:Uid="menuContextDifference" Header="Difference SiteMap XML" Click="mIShowDifferenceSiteMapXml_Click"/>
+                <MenuItem x:Uid="menuContextDifference" Header="Difference SiteMap XML" Click="mIShowDifferenceSiteMapXml_Click" FontWeight="Bold"/>
                 <Separator x:Uid="menuContextDifference"/>
                 <MenuItem x:Uid="menuContextDifference" Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
                 <Separator x:Uid="menuContextDifference"/>

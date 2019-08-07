@@ -27,7 +27,7 @@
                 </MenuItem>
                 
                 <Separator/>
-                <MenuItem Header="Edit" Click="tSBEdit_Click">
+                <MenuItem Header="Edit" Click="tSBEdit_Click" FontWeight="Bold">
                     <MenuItem.Icon>
                         <Image Width="16" Height="16" Source="{StaticResource ImageEdit}"/>
                     </MenuItem.Icon>
@@ -58,7 +58,7 @@
             </ContextMenu>
 
             <ContextMenu x:Key="listContextMenuArchive">
-                <MenuItem Header="Edit" Click="tSBArchiveEdit_Click"/>
+                <MenuItem Header="Edit" Click="tSBArchiveEdit_Click" FontWeight="Bold"/>
                 
                 <Separator/>
                 <MenuItem Header="Test Connection" Click="tSBArchiveTestConnection_Click"/>

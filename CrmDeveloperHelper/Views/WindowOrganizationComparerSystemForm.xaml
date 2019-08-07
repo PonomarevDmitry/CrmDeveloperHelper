@@ -16,11 +16,11 @@
             <clr:String x:Key="ConnectionName2">Connection 2</clr:String>
             
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-                
-                <MenuItem x:Uid="menuContextDifference" Header="Difference Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
-                <MenuItem x:Uid="menuContextDifference" Header="Difference Form Description" Click="mIShowDifferenceFormDescription_Click" />
-                <MenuItem x:Uid="menuContextDifference" Header="Difference Form XML" Click="mIShowDifferenceFormXml_Click" />
-                <MenuItem x:Uid="menuContextDifference" Header="Difference Form Json" Click="mIShowDifferenceFormJson_Click" />
+
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Entity Description" Click="mIShowDifferenceEntityDescription_Click" FontWeight="Bold" />
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Form Description" Click="mIShowDifferenceFormDescription_Click" FontWeight="Bold" />
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Form XML" Click="mIShowDifferenceFormXml_Click" FontWeight="Bold" />
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Form Json" Click="mIShowDifferenceFormJson_Click" FontWeight="Bold" />
                 <MenuItem x:Uid="menuContextDifference" Header="Difference Form WebResouces" Click="mIShowDifferenceWebResouces_Click" />
                 <Separator x:Uid="menuContextDifference"/>
 

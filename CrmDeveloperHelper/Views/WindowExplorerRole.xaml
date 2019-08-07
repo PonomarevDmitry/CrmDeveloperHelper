@@ -23,24 +23,29 @@
             <BooleanToVisibilityConverter x:Key="boolToVisibility"/>
 
             <ContextMenu x:Key="listContextMenuSystemUser">
-                <MenuItem Header="Open User in Web" Click="mIOpenEntityInstanceInWeb_Click" />
+                <MenuItem Header="Open User in Web" Click="mIOpenEntityInstanceInWeb_Click" FontWeight="Bold" />
+                
                 <Separator/>
                 <MenuItem Header="Open User List in Web" Click="mIOpenEntityInstanceListInWeb_Click" />
+                
                 <Separator/>
                 <MenuItem Header="Open User Explorer" Click="mIOpenEntityExplorer_Click" />
+                
                 <Separator/>
                 <MenuItem Header="Create User Entity Description" Click="mICreateEntityDescription_Click" />
+                
                 <Separator/>
                 <MenuItem Header="Clipboard">
                     <MenuItem Header="Copy User Id to Clipboard" Click="mICopyEntityInstanceIdToClipboard_Click" />
                     <MenuItem Header="Copy User Url to Clipboard" Click="mICopyEntityInstanceUrlToClipboard_Click" />
                 </MenuItem>
+                
                 <Separator/>
                 <MenuItem Header="Remove Role from User" Click="btnRemoveRoleFromUser_Click" />
             </ContextMenu>
 
             <ContextMenu x:Key="listContextMenuRole" Opened="ContextMenuRole_Opened">
-                <MenuItem Header="Open Role in Web" Click="mIOpenEntityInstanceInWeb_Click" />
+                <MenuItem Header="Open Role in Web" Click="mIOpenEntityInstanceInWeb_Click" FontWeight="Bold" />
 
                 <Separator/>
                 <MenuItem Header="Open Role List in Web" Click="mIOpenEntityInstanceListInWeb_Click" />
@@ -109,24 +114,30 @@
             </ContextMenu>
 
             <ContextMenu x:Key="listContextMenuTeam">
-                <MenuItem Header="Open Team in Web" Click="mIOpenEntityInstanceInWeb_Click" />
+                <MenuItem Header="Open Team in Web" Click="mIOpenEntityInstanceInWeb_Click" FontWeight="Bold" />
+                
                 <Separator/>
                 <MenuItem Header="Open Team List in Web" Click="mIOpenEntityInstanceListInWeb_Click" />
+                
                 <Separator/>
                 <MenuItem Header="Open Team Explorer" Click="mIOpenEntityExplorer_Click" />
+                
                 <Separator/>
                 <MenuItem Header="Create Team Entity Description" Click="mICreateEntityDescription_Click" />
+                
                 <Separator/>
                 <MenuItem Header="Clipboard">
                     <MenuItem Header="Copy User Id to Clipboard" Click="mICopyEntityInstanceIdToClipboard_Click" />
                     <MenuItem Header="Copy User Url to Clipboard" Click="mICopyEntityInstanceUrlToClipboard_Click" />
                 </MenuItem>
+                
                 <Separator/>
                 <MenuItem Header="Remove Role from Team" Click="btnRemoveRoleFromTeam_Click" />
             </ContextMenu>
 
             <ContextMenu x:Key="listContextMenuEntityPrivileges" Opened="ContextMenuEntityPrivileges_Opened">
-                <MenuItem Header="Open Entity Customization in Web" Click="mIOpenEntityInWeb_Click" />
+                <MenuItem Header="Open Entity Customization in Web" Click="mIOpenEntityInWeb_Click" FontWeight="Bold" />
+                
                 <Separator/>
                 <MenuItem Header="Open Entity List in Web" Click="mIOpenEntityListInWeb_Click" />
 
