@@ -52,26 +52,26 @@
 
                 <Separator/>
                 <MenuItem Header="Clipboard">
-                    <MenuItem Header="Copy Fetch XML in JavaScript to Clipboard" Click="mIExportSavedQueryFetchXmlIntoJavaScript_Click" />
-                    <MenuItem Header="Copy Layout XML in JavaScript to Clipboard" Click="mIExportSavedQueryLayoutXmlIntoJavaScript_Click" />
-                    <MenuItem Header="Copy ColumnSet XML in JavaScript to Clipboard" Click="mIExportSavedQueryColumnSetXmlIntoJavaScript_Click" />
+                    <MenuItem Header="Copy Fetch Xml in JavaScript to Clipboard" Click="mIExportSavedQueryFetchXmlIntoJavaScript_Click" />
+                    <MenuItem Header="Copy Layout Xml in JavaScript to Clipboard" Click="mIExportSavedQueryLayoutXmlIntoJavaScript_Click" />
+                    <MenuItem Header="Copy ColumnSet Xml in JavaScript to Clipboard" Click="mIExportSavedQueryColumnSetXmlIntoJavaScript_Click" />
 
                     <MenuItem Header="Copy Layout Json to Clipboard" Click="mICopyToClipboardLayoutJson_Click" />
                     <MenuItem Header="Copy Offline Sql Query to Clipboard" Click="mICopyToClipboardOfflineSqlQuery_Click" />
                 </MenuItem>
 
                 <Separator/>
-                <MenuItem Header="Fetch XML" Click="mIExportSavedQueryFetchXml_Click"/>
-                <MenuItem Header="Layout XML" Click="mIExportSavedQueryLayoutXml_Click"/>
-                <MenuItem Header="ColumnSet XML" Click="mIExportSavedQueryColumnSetXml_Click"/>
+                <MenuItem Header="Fetch Xml" Click="mIExportSavedQueryFetchXml_Click"/>
+                <MenuItem Header="Layout Xml" Click="mIExportSavedQueryLayoutXml_Click"/>
+                <MenuItem Header="ColumnSet Xml" Click="mIExportSavedQueryColumnSetXml_Click"/>
                 <MenuItem Header="Layout Json" Click="mIExportSavedQueryLayoutJson_Click"/>
                 <MenuItem Header="Offline Sql Query" Click="mIExportSavedQueryOfflineSqlQuery_Click"/>
 
                 <Separator x:Uid="controlChangeEntityAttribute"/>
                 <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SavedQuery Attribute">
-                    <MenuItem Header="Fetch XML" Click="mIUpdateSavedQueryFetchXml_Click"/>
-                    <MenuItem Header="Layout XML" Click="mIUpdateSavedQueryLayoutXml_Click"/>
-                    <MenuItem Header="ColumnSet XML" Click="mIUpdateSavedQueryColumnSetXml_Click"/>
+                    <MenuItem Header="Fetch Xml" Click="mIUpdateSavedQueryFetchXml_Click"/>
+                    <MenuItem Header="Layout Xml" Click="mIUpdateSavedQueryLayoutXml_Click"/>
+                    <MenuItem Header="ColumnSet Xml" Click="mIUpdateSavedQueryColumnSetXml_Click"/>
                     <MenuItem Header="Layout Json" Click="mIUpdateSavedQueryLayoutJson_Click"/>
                     <MenuItem Header="Offline Sql Query" Click="mIUpdateSavedQueryOfflineSqlQuery_Click"/>
                 </MenuItem>
@@ -131,6 +131,16 @@
                 <Separator/>
                 <MenuItem Header="Export All Saved Query Information" Click="btnExportAll_Click"/>
             </ContextMenu>
+
+            <Style x:Key="stLabel" TargetType="{x:Type Label}">
+
+                <Setter Property="Margin" Value="1"/>
+                <Setter Property="Padding" Value="1"/>
+
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+            </Style>
 
         </ResourceDictionary>
     </src:WindowBase.Resources>
@@ -240,6 +250,81 @@
 
                 <DataGridTextColumn Header="Status" Width="150" Binding="{Binding StatusCode}" />
 
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="F" Margin="0" Padding="0" ToolTip="Fetch Xml" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="Fetch Xml" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkFetchXml_Click">
+                                    <Run Text="F"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="LX" Margin="0" Padding="0" ToolTip="Layout Xml" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="Layout Xml" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkLayoutXml_Click">
+                                    <Run Text="LX"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="C" Margin="0" Padding="0" ToolTip="ColumnSet Xml" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="ColumnSet Xml" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkColumnSetXml_Click">
+                                    <Run Text="C"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="LJ" Margin="0" Padding="0" ToolTip="Layout Json" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="Layout Json" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkLayoutJson_Click">
+                                    <Run Text="LJ"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="S" Margin="0" Padding="0" ToolTip="Offline Sql Query" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="Offline Sql Query" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkOfflineSqlQuery_Click">
+                                    <Run Text="S"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
             </DataGrid.Columns>
         </DataGrid>
 
@@ -287,23 +372,23 @@
 
                             <Separator/>
                             <MenuItem Header="Clipboard">
-                                <MenuItem Header="Copy Fetch XML in JavaScript to Clipboard" Click="mIExportSavedQueryFetchXmlIntoJavaScript_Click" />
-                                <MenuItem Header="Copy Layout XML in JavaScript to Clipboard" Click="mIExportSavedQueryLayoutXmlIntoJavaScript_Click" />
-                                <MenuItem Header="Copy ColumnSet XML in JavaScript to Clipboard" Click="mIExportSavedQueryColumnSetXmlIntoJavaScript_Click" />
+                                <MenuItem Header="Copy Fetch Xml in JavaScript to Clipboard" Click="mIExportSavedQueryFetchXmlIntoJavaScript_Click" />
+                                <MenuItem Header="Copy Layout Xml in JavaScript to Clipboard" Click="mIExportSavedQueryLayoutXmlIntoJavaScript_Click" />
+                                <MenuItem Header="Copy ColumnSet Xml in JavaScript to Clipboard" Click="mIExportSavedQueryColumnSetXmlIntoJavaScript_Click" />
                             </MenuItem>
 
                             <Separator/>
-                            <MenuItem Header="Fetch XML" Click="mIExportSavedQueryFetchXml_Click"/>
-                            <MenuItem Header="Layout XML" Click="mIExportSavedQueryLayoutXml_Click"/>
-                            <MenuItem Header="ColumnSet XML" Click="mIExportSavedQueryColumnSetXml_Click"/>
+                            <MenuItem Header="Fetch Xml" Click="mIExportSavedQueryFetchXml_Click"/>
+                            <MenuItem Header="Layout Xml" Click="mIExportSavedQueryLayoutXml_Click"/>
+                            <MenuItem Header="ColumnSet Xml" Click="mIExportSavedQueryColumnSetXml_Click"/>
                             <MenuItem Header="Layout Json" Click="mIExportSavedQueryLayoutJson_Click"/>
                             <MenuItem Header="Offline Sql Query" Click="mIExportSavedQueryOfflineSqlQuery_Click"/>
 
                             <Separator x:Uid="controlChangeEntityAttribute"/>
                             <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SavedQuery Attribute">
-                                <MenuItem Header="Fetch XML" Click="mIUpdateSavedQueryFetchXml_Click"/>
-                                <MenuItem Header="Layout XML" Click="mIUpdateSavedQueryLayoutXml_Click"/>
-                                <MenuItem Header="ColumnSet XML" Click="mIUpdateSavedQueryColumnSetXml_Click"/>
+                                <MenuItem Header="Fetch Xml" Click="mIUpdateSavedQueryFetchXml_Click"/>
+                                <MenuItem Header="Layout Xml" Click="mIUpdateSavedQueryLayoutXml_Click"/>
+                                <MenuItem Header="ColumnSet Xml" Click="mIUpdateSavedQueryColumnSetXml_Click"/>
                                 <MenuItem Header="Layout Json" Click="mIUpdateSavedQueryLayoutJson_Click"/>
                                 <MenuItem Header="Offline Sql Query" Click="mIUpdateSavedQueryOfflineSqlQuery_Click"/>
                             </MenuItem>

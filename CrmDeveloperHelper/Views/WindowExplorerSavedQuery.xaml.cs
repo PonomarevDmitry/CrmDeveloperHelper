@@ -21,6 +21,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
@@ -1710,6 +1711,56 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)
         {
             SetCurrentConnection(_iWriteToOutput, cmBCurrentConnection.SelectedItem as ConnectionData);
+        }
+
+        private void hyperlinkFetchXml_Click(object sender, RoutedEventArgs e)
+        {
+            if (((Hyperlink)e.OriginalSource).DataContext is EntityViewItem item)
+            {
+                var entity = item.SavedQuery;
+
+                ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.fetchxml, SavedQuery.Schema.Headers.fetchxml, "xml", PerformExportXmlToFile);
+            }
+        }
+
+        private void hyperlinkLayoutXml_Click(object sender, RoutedEventArgs e)
+        {
+            if (((Hyperlink)e.OriginalSource).DataContext is EntityViewItem item)
+            {
+                var entity = item.SavedQuery;
+
+                ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.layoutxml, SavedQuery.Schema.Headers.layoutxml, "xml", PerformExportXmlToFile);
+            }
+        }
+
+        private void hyperlinkColumnSetXml_Click(object sender, RoutedEventArgs e)
+        {
+            if (((Hyperlink)e.OriginalSource).DataContext is EntityViewItem item)
+            {
+                var entity = item.SavedQuery;
+
+                ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.columnsetxml, SavedQuery.Schema.Headers.columnsetxml, "xml", PerformExportXmlToFile);
+            }
+        }
+
+        private void hyperlinkLayoutJson_Click(object sender, RoutedEventArgs e)
+        {
+            if (((Hyperlink)e.OriginalSource).DataContext is EntityViewItem item)
+            {
+                var entity = item.SavedQuery;
+
+                ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.layoutjson, SavedQuery.Schema.Headers.layoutjson, "json", PerformExportXmlToFile);
+            }
+        }
+
+        private void hyperlinkOfflineSqlQuery_Click(object sender, RoutedEventArgs e)
+        {
+            if (((Hyperlink)e.OriginalSource).DataContext is EntityViewItem item)
+            {
+                var entity = item.SavedQuery;
+
+                ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.offlinesqlquery, SavedQuery.Schema.Headers.offlinesqlquery, "sql", PerformExportXmlToFile);
+            }
         }
     }
 }
