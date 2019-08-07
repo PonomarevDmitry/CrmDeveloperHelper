@@ -71,6 +71,18 @@
                 <MenuItem Header="Return To Connection List" Click="tSBArchiveReturnToConnectionList_Click"/>
             </ContextMenu>
 
+            <Style x:Key="borderLime" TargetType="Border">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=IsCurrentConnection}" Value="True">
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <SolidColorBrush Color="Lime"/>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
         </ResourceDictionary>
         
     </src:WindowBase.Resources>
@@ -187,11 +199,11 @@
                                 
                                 <Separator/>
                                 <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                                    <MenuItem x:Name="miConnection" Header="Connection">
-
-                                    </MenuItem>
+                                    <MenuItem x:Name="miConnection" Header="Connection" />
                                 </Menu>
+                                
                             </ToolBarPanel>
+                            
                             <Button x:Name="tSBMoveToArchive" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" Click="tSBMoveToArchive_Click" >
                                 <StackPanel>
                                     <Image Width="16" Height="16"  Source="{StaticResource ImageDelete}"  />
@@ -213,20 +225,7 @@
                                 <GridViewColumn Width="Auto">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
-                                                <Border.Style>
-                                                    <Style TargetType="{x:Type Border}">
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding Path=IsCurrentConnection}" Value="True">
-                                                                <Setter Property="Background">
-                                                                    <Setter.Value>
-                                                                        <SolidColorBrush Color="Lime"/>
-                                                                    </Setter.Value>
-                                                                </Setter>
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </Border.Style>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3" Style="{StaticResource borderLime}">
                                                 <CheckBox IsChecked="{Binding IsReadOnly}" Margin="6,3" ToolTip="{Binding ToolTip}" IsEnabled="False" />
                                             </Border>
                                         </DataTemplate>
@@ -235,20 +234,7 @@
                                 <GridViewColumn Header="Name" Width="200">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
-                                                <Border.Style>
-                                                    <Style TargetType="{x:Type Border}">
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding Path=IsCurrentConnection}" Value="True">
-                                                                <Setter Property="Background">
-                                                                    <Setter.Value>
-                                                                        <SolidColorBrush Color="Lime"/>
-                                                                    </Setter.Value>
-                                                                </Setter>
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </Border.Style>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3" Style="{StaticResource borderLime}">
                                                 <TextBlock Text="{Binding Name}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
                                             </Border>
                                         </DataTemplate>
@@ -257,20 +243,7 @@
                                 <GridViewColumn Header="GroupName" Width="200">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
-                                                <Border.Style>
-                                                    <Style TargetType="{x:Type Border}">
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding Path=IsCurrentConnection}" Value="True">
-                                                                <Setter Property="Background">
-                                                                    <Setter.Value>
-                                                                        <SolidColorBrush Color="Lime"/>
-                                                                    </Setter.Value>
-                                                                </Setter>
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </Border.Style>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3" Style="{StaticResource borderLime}">
                                                 <TextBlock Text="{Binding GroupName}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
                                             </Border>
                                         </DataTemplate>
@@ -292,20 +265,7 @@
                                 <GridViewColumn Header="PublicUrl" Width="300">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
-                                                <Border.Style>
-                                                    <Style TargetType="{x:Type Border}">
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding Path=IsCurrentConnection}" Value="True">
-                                                                <Setter Property="Background">
-                                                                    <Setter.Value>
-                                                                        <SolidColorBrush Color="Lime"/>
-                                                                    </Setter.Value>
-                                                                </Setter>
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </Border.Style>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3" Style="{StaticResource borderLime}">
                                                 <TextBlock Text="{Binding PublicUrl}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
                                             </Border>
                                         </DataTemplate>
