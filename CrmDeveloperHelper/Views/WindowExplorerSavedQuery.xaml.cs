@@ -1713,54 +1713,94 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             SetCurrentConnection(_iWriteToOutput, cmBCurrentConnection.SelectedItem as ConnectionData);
         }
 
+        private EntityViewItem GetItemFromRoutedDataContext(RoutedEventArgs e)
+        {
+            if (e.OriginalSource is FrameworkElement frameworkElement)
+            {
+                if (frameworkElement.DataContext is EntityViewItem result)
+                {
+                    return result;
+                }
+            }
+            else if (e.OriginalSource is FrameworkContentElement frameworkContentElement)
+            {
+                if (frameworkContentElement.DataContext is EntityViewItem result)
+                {
+                    return result;
+                }
+            }
+
+            return null;
+        }
+
         private void hyperlinkFetchXml_Click(object sender, RoutedEventArgs e)
         {
-            if (((Hyperlink)e.OriginalSource).DataContext is EntityViewItem item)
-            {
-                var entity = item.SavedQuery;
+            EntityViewItem item = GetItemFromRoutedDataContext(e);
 
-                ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.fetchxml, SavedQuery.Schema.Headers.fetchxml, "xml", PerformExportXmlToFile);
+            if (item == null)
+            {
+                return;
             }
+
+            var entity = item.SavedQuery;
+
+            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.fetchxml, SavedQuery.Schema.Headers.fetchxml, "xml", PerformExportXmlToFile);
         }
 
         private void hyperlinkLayoutXml_Click(object sender, RoutedEventArgs e)
         {
-            if (((Hyperlink)e.OriginalSource).DataContext is EntityViewItem item)
-            {
-                var entity = item.SavedQuery;
+            EntityViewItem item = GetItemFromRoutedDataContext(e);
 
-                ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.layoutxml, SavedQuery.Schema.Headers.layoutxml, "xml", PerformExportXmlToFile);
+            if (item == null)
+            {
+                return;
             }
+
+            var entity = item.SavedQuery;
+
+            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.layoutxml, SavedQuery.Schema.Headers.layoutxml, "xml", PerformExportXmlToFile);
         }
 
         private void hyperlinkColumnSetXml_Click(object sender, RoutedEventArgs e)
         {
-            if (((Hyperlink)e.OriginalSource).DataContext is EntityViewItem item)
-            {
-                var entity = item.SavedQuery;
+            EntityViewItem item = GetItemFromRoutedDataContext(e);
 
-                ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.columnsetxml, SavedQuery.Schema.Headers.columnsetxml, "xml", PerformExportXmlToFile);
+            if (item == null)
+            {
+                return;
             }
+
+            var entity = item.SavedQuery;
+
+            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.columnsetxml, SavedQuery.Schema.Headers.columnsetxml, "xml", PerformExportXmlToFile);
         }
 
         private void hyperlinkLayoutJson_Click(object sender, RoutedEventArgs e)
         {
-            if (((Hyperlink)e.OriginalSource).DataContext is EntityViewItem item)
-            {
-                var entity = item.SavedQuery;
+            EntityViewItem item = GetItemFromRoutedDataContext(e);
 
-                ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.layoutjson, SavedQuery.Schema.Headers.layoutjson, "json", PerformExportXmlToFile);
+            if (item == null)
+            {
+                return;
             }
+
+            var entity = item.SavedQuery;
+
+            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.layoutjson, SavedQuery.Schema.Headers.layoutjson, "json", PerformExportXmlToFile);
         }
 
         private void hyperlinkOfflineSqlQuery_Click(object sender, RoutedEventArgs e)
         {
-            if (((Hyperlink)e.OriginalSource).DataContext is EntityViewItem item)
-            {
-                var entity = item.SavedQuery;
+            EntityViewItem item = GetItemFromRoutedDataContext(e);
 
-                ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.offlinesqlquery, SavedQuery.Schema.Headers.offlinesqlquery, "sql", PerformExportXmlToFile);
+            if (item == null)
+            {
+                return;
             }
+
+            var entity = item.SavedQuery;
+
+            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.offlinesqlquery, SavedQuery.Schema.Headers.offlinesqlquery, "sql", PerformExportXmlToFile);
         }
     }
 }
