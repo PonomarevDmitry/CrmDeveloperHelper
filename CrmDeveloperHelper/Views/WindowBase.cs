@@ -15,6 +15,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
     public abstract class WindowBase : Window
     {
+        private object _syncObject = new object();
+
         private bool loaded = false;
 
         private int _init = 0;
@@ -26,28 +28,43 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             LoadConfiguration(winConfig);
         }
 
-        protected bool IsControlsEnabled => this._init == 0;
+        protected bool IsControlsEnabled => this._init <= 0;
 
         protected void ChangeInitByEnabled(bool enabled)
         {
-            if (enabled)
+            lock (_syncObject)
             {
-                this._init++;
-            }
-            else
-            {
-                this._init--;
+                if (enabled)
+                {
+                    if (this._init > 0)
+                    {
+                        this._init--;
+                    }
+                }
+                else
+                {
+                    this._init++;
+                }
             }
         }
 
         protected void IncreaseInit()
         {
-            this._init++;
+            lock (_syncObject)
+            {
+                this._init++;
+            }
         }
 
         protected void DecreaseInit()
         {
-            this._init--;
+            lock (_syncObject)
+            {
+                if (this._init > 0)
+                {
+                    this._init--;
+                }
+            }
         }
 
         protected WindowSettings GetWindowsSettings()

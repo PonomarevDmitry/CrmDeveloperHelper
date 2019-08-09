@@ -776,6 +776,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (entityName.IsValidEntityName())
                 {
                     UpdateStatus(service.ConnectionData, Properties.WindowStatusStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
+
                     await repositoryPublish.PublishEntitiesAsync(new[] { entityName });
                 }
 
@@ -910,7 +911,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (entityName.IsValidEntityName())
                 {
                     UpdateStatus(service.ConnectionData, Properties.WindowStatusStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
-                    await repositoryPublish.PublishEntitiesAsync(new[] { entityName });
+
+                    try
+                    {
+                        await repositoryPublish.PublishEntitiesAsync(new[] { entityName });
+                    }
+                    catch (Exception ex)
+                    {
+                        _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                    }
                 }
 
                 ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ChangingEntityStateCompletedFormat1, SystemForm.EntityLogicalName);
@@ -997,6 +1006,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (entityName.IsValidEntityName())
             {
+                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
+
                 try
                 {
                     await repository.PublishEntitiesAsync(new[] { entityName });
