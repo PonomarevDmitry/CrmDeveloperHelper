@@ -242,14 +242,6 @@
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
 
-                <DataGridTextColumn Header="Entity Name" Width="260" Binding="{Binding ReturnedTypeCode}" />
-
-                <DataGridTextColumn Header="Type" Width="200" Binding="{Binding QueryType}" />
-
-                <DataGridTextColumn Header="Name" Width="200" Binding="{Binding Name}" />
-
-                <DataGridTextColumn Header="Status" Width="150" Binding="{Binding StatusCode}" />
-
                 <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
                     <DataGridTemplateColumn.Header>
                         <Label Content="F" Margin="0" Padding="0" ToolTip="Fetch Xml" />
@@ -279,6 +271,14 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+
+                <DataGridTextColumn Header="Entity Name" Width="260" Binding="{Binding ReturnedTypeCode}" />
+
+                <DataGridTextColumn Header="Type" Width="200" Binding="{Binding QueryType}" />
+
+                <DataGridTextColumn Header="Name" Width="200" Binding="{Binding Name}" />
+
+                <DataGridTextColumn Header="Status" Width="150" Binding="{Binding StatusCode}" />
 
                 <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
                     <DataGridTemplateColumn.Header>

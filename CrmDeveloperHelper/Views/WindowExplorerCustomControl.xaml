@@ -92,6 +92,16 @@
                 <MenuItem Header="Export All Form Information" Click="btnExportAll_Click"/>
             </ContextMenu>
 
+            <Style x:Key="stLabel" TargetType="{x:Type Label}">
+
+                <Setter Property="Margin" Value="1"/>
+                <Setter Property="Padding" Value="1"/>
+
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+            </Style>
+
         </ResourceDictionary>
     </src:WindowBase.Resources>
     <Grid>
@@ -185,6 +195,36 @@
                 </Style>
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
+
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="M" Margin="0" Padding="0" ToolTip="Manifest" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="Manifest" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkManifest_Click">
+                                    <Run Text="M"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="CJ" Margin="0" Padding="0" ToolTip="Client Json" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="Client Json" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkClientJson_Click">
+                                    <Run Text="CJ"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
                 <DataGridTextColumn Header="Name" Width="350" Binding="{Binding Name}" />
 

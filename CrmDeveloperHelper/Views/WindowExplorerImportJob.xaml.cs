@@ -1,6 +1,4 @@
 using Microsoft.Xrm.Sdk.Query;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Commands;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -743,6 +741,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)
         {
             SetCurrentConnection(_iWriteToOutput, cmBCurrentConnection.SelectedItem as ConnectionData);
+        }
+
+        private void hyperlinkData_Click(object sender, RoutedEventArgs e)
+        {
+            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+
+            if (item == null)
+            {
+                return;
+            }
+
+            var entity = item.ImportJob;
+
+            ExecuteActionEntity(entity.Id, entity.SolutionName, entity.CreatedOn, ImportJob.Schema.Attributes.data, ImportJob.Schema.Headers.data, PerformExportXmlToFile);
+        }
+
+        private void hyperlinkFormattedResults_Click(object sender, RoutedEventArgs e)
+        {
+            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+
+            if (item == null)
+            {
+                return;
+            }
+
+            var entity = item.ImportJob;
+
+            ExecuteAction(entity.Id, entity.SolutionName, entity.CreatedOn, PerformExportFormattedResults);
         }
     }
 }

@@ -115,6 +115,16 @@
                 <MenuItem Header="Export All Chart Information" Click="btnExportAll_Click"/>
             </ContextMenu>
 
+            <Style x:Key="stLabel" TargetType="{x:Type Label}">
+
+                <Setter Property="Margin" Value="1"/>
+                <Setter Property="Padding" Value="1"/>
+
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+            </Style>
+
         </ResourceDictionary>
     </src:WindowBase.Resources>
     <Grid>
@@ -226,6 +236,36 @@
                 </Style>
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
+
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="DD" Margin="0" Padding="0" ToolTip="Data Description" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="Data Description" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkDataDescription_Click">
+                                    <Run Text="DD"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="PD" Margin="0" Padding="0" ToolTip="Presentation Description" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="Presentation Description" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkPresentationDescription_Click">
+                                    <Run Text="PD"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
                 <DataGridTextColumn Header="Entity Name" Width="260" Binding="{Binding PrimaryEntityTypeCode}" />
 

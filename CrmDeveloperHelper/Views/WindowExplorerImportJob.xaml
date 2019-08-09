@@ -24,6 +24,16 @@
                 <MenuItem Header="FormattedResults" Click="mIExportImportJobFormattedResults_Click"/>
             </ContextMenu>
 
+            <Style x:Key="stLabel" TargetType="{x:Type Label}">
+
+                <Setter Property="Margin" Value="1"/>
+                <Setter Property="Padding" Value="1"/>
+
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+            </Style>
+
         </ResourceDictionary>
     </src:WindowBase.Resources>
     <Grid>
@@ -73,6 +83,36 @@
                 </Style>
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
+
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="D" Margin="0" Padding="0" ToolTip="Data" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="Data" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkData_Click">
+                                    <Run Text="D"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="FR" Margin="0" Padding="0" ToolTip="FormattedResults" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="FormattedResults" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkFormattedResults_Click">
+                                    <Run Text="FR"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
                 <DataGridTextColumn Header="Solution Name" Width="150" Binding="{Binding SolutionName}" />
 

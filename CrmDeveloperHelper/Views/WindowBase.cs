@@ -662,14 +662,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.OriginalSource is FrameworkElement frameworkElement)
             {
-                if (frameworkElement.DataContext is T result)
+                if (frameworkElement.DataContext != null && frameworkElement.DataContext is T result)
                 {
                     return result;
                 }
             }
             else if (e.OriginalSource is FrameworkContentElement frameworkContentElement)
             {
-                if (frameworkContentElement.DataContext is T result)
+                if (frameworkContentElement.DataContext != null && frameworkContentElement.DataContext is T result)
                 {
                     return result;
                 }

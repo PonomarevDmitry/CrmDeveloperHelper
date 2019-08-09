@@ -1441,5 +1441,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             SetCurrentConnection(_iWriteToOutput, cmBCurrentConnection.SelectedItem as ConnectionData);
         }
+
+        private void hyperlinkDataDescription_Click(object sender, RoutedEventArgs e)
+        {
+            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+
+            if (item == null)
+            {
+                return;
+            }
+
+            var entity = item.SavedQueryVisualization;
+
+            ExecuteActionEntity(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, SavedQueryVisualization.Schema.Attributes.datadescription, SavedQueryVisualization.Schema.Headers.datadescription, PerformExportXmlToFile);
+        }
+
+        private void hyperlinkPresentationDescription_Click(object sender, RoutedEventArgs e)
+        {
+            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+
+            if (item == null)
+            {
+                return;
+            }
+
+            var entity = item.SavedQueryVisualization;
+
+            ExecuteActionEntity(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, SavedQueryVisualization.Schema.Attributes.presentationdescription, SavedQueryVisualization.Schema.Headers.presentationdescription, PerformExportXmlToFile);
+        }
     }
 }

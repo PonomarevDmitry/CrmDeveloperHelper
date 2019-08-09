@@ -131,6 +131,16 @@
                 <MenuItem Header="Export All Workflow Information" Click="btnExportAll_Click"/>
             </ContextMenu>
 
+            <Style x:Key="stLabel" TargetType="{x:Type Label}">
+
+                <Setter Property="Margin" Value="1"/>
+                <Setter Property="Padding" Value="1"/>
+
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+            </Style>
+
         </ResourceDictionary>
     </src:WindowBase.Resources>
     <Grid>
@@ -241,6 +251,36 @@
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
 
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="XA" Margin="0" Padding="0" ToolTip="Xaml" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="Xaml" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkXaml_Click">
+                                    <Run Text="XA"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="CXA" Margin="0" Padding="0" ToolTip="Corrected Xaml" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="Corrected Xaml" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkCorrectedXaml_Click">
+                                    <Run Text="CXA"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
                 <DataGridTextColumn Header="PrimaryEntity" Width="260" Binding="{Binding PrimaryEntity}" />
 
                 <DataGridTextColumn Header="Category" Width="200" Binding="{Binding Category}" />
@@ -252,6 +292,66 @@
                 <DataGridTextColumn Header="Mode" Width="150" Binding="{Binding Mode}" />
 
                 <DataGridTextColumn Header="Status" Width="150" Binding="{Binding StatusCode}" />
+
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="IP" Margin="0" Padding="0" ToolTip="InputParameters" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="InputParameters" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkInputParameters_Click">
+                                    <Run Text="IP"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="CD" Margin="0" Padding="0" ToolTip="ClientData" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="ClientData" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkClientData_Click">
+                                    <Run Text="CD"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="UI" Margin="0" Padding="0" ToolTip="UIData" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="UIData" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkUIData_Click">
+                                    <Run Text="UI"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="PRA" Margin="0" Padding="0" ToolTip="ProcessRoleAssignment" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="ProcessRoleAssignment" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkProcessRoleAssignment_Click">
+                                    <Run Text="PRA"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
             </DataGrid.Columns>
         </DataGrid>

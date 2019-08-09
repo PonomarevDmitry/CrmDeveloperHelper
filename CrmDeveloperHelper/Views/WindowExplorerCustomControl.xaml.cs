@@ -1201,5 +1201,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             SetCurrentConnection(_iWriteToOutput, cmBCurrentConnection.SelectedItem as ConnectionData);
         }
+
+        private void hyperlinkManifest_Click(object sender, RoutedEventArgs e)
+        {
+            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+
+            if (item == null)
+            {
+                return;
+            }
+
+            var entity = item.CustomControl;
+
+            ExecuteActionEntityAsync(entity.Id, entity.Name, CustomControl.Schema.Attributes.manifest, CustomControl.Schema.Headers.manifest, "xml", PerformExportXmlToFileAsync);
+        }
+
+        private void hyperlinkClientJson_Click(object sender, RoutedEventArgs e)
+        {
+            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+
+            if (item == null)
+            {
+                return;
+            }
+
+            var entity = item.CustomControl;
+
+            ExecuteActionEntityAsync(entity.Id, entity.Name, CustomControl.Schema.Attributes.clientjson, CustomControl.Schema.Headers.clientjson, "json", PerformExportXmlToFileAsync);
+        }
     }
 }

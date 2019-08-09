@@ -36,7 +36,7 @@
                 <MenuItem Header="Original Body Text" Click="mIExportReportOriginalBodyText_Click"/>
                 <MenuItem Header="Default Filter" Click="mIExportReportDefaultFilter_Click"/>
                 <MenuItem Header="Custom Report Xml" Click="mIExportReportCustomReportXml_Click"/>
-                <MenuItem Header="ScheduleXml" Click="mIExportReportScheduleXml_Click"/>
+                <MenuItem Header="Schedule Xml" Click="mIExportReportScheduleXml_Click"/>
                 <MenuItem Header="Query Info" Click="mIExportReportQueryInfo_Click"/>
                 
                 <Separator/>
@@ -68,6 +68,16 @@
                 <Separator/>
                 <MenuItem Header="Export All Report Information" Click="btnExportAll_Click"/>
             </ContextMenu>
+
+            <Style x:Key="stLabel" TargetType="{x:Type Label}">
+
+                <Setter Property="Margin" Value="1"/>
+                <Setter Property="Padding" Value="1"/>
+
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+            </Style>
 
         </ResourceDictionary>
     </src:WindowBase.Resources>
@@ -126,6 +136,36 @@
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
 
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="BT" Margin="0" Padding="0" ToolTip="Body Text" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="Body Text" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkBodyText_Click">
+                                    <Run Text="BT"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="OBT" Margin="0" Padding="0" ToolTip="Original Body Text" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="Original Body Text" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkOriginalBodyText_Click">
+                                    <Run Text="OBT"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
                 <DataGridTextColumn Header="Report Name" Width="260" Binding="{Binding Name}" />
 
                 <DataGridTextColumn Header="File Name" Width="260" Binding="{Binding FileName}" />
@@ -141,6 +181,81 @@
                         <Label Content="D" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0" Padding="0" ToolTip="Description" />
                     </DataGridCheckBoxColumn.Header>
                 </DataGridCheckBoxColumn>
+
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="DF" Margin="0" Padding="0" ToolTip="Default Filter" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="Default Filter" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkDefaultFilter_Click">
+                                    <Run Text="DF"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="CRX" Margin="0" Padding="0" ToolTip="Custom Report Xml" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="Custom Report Xml" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkCustomReportXml_Click">
+                                    <Run Text="CRX"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="SX" Margin="0" Padding="0" ToolTip="Schedule Xml" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="Schedule Xml" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkScheduleXml_Click">
+                                    <Run Text="SX"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="QI" Margin="0" Padding="0" ToolTip="Query Info" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="Query Info" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkQueryInfo_Click">
+                                    <Run Text="QI"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="BB" Margin="0" Padding="0" ToolTip="Body Binary" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="Body Binary" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkBodyBinary_Click">
+                                    <Run Text="BB"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
             </DataGrid.Columns>
         </DataGrid>

@@ -135,6 +135,16 @@
                 <MenuItem Header="Export All Form Information" Click="btnExportAll_Click"/>
             </ContextMenu>
 
+            <Style x:Key="stLabel" TargetType="{x:Type Label}">
+
+                <Setter Property="Margin" Value="1"/>
+                <Setter Property="Padding" Value="1"/>
+
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+            </Style>
+
         </ResourceDictionary>
     </src:WindowBase.Resources>
     <Grid>
@@ -240,6 +250,51 @@
                 </Style>
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
+
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="FD" Margin="0" Padding="0" ToolTip="Form Description" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="Form Description" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkFormDescription_Click">
+                                    <Run Text="FD"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="FX" Margin="0" Padding="0" ToolTip="Form Xml" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="Form Xml" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkFormXml_Click">
+                                    <Run Text="FX"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="FJ" Margin="0" Padding="0" ToolTip="Form Json" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="Form Json" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkFormJson_Click">
+                                    <Run Text="FJ"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
                 <DataGridTextColumn Header="Entity Name" Width="150" Binding="{Binding ObjectTypeCode}" />
 

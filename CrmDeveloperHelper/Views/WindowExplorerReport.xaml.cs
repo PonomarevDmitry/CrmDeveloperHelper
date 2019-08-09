@@ -1083,5 +1083,103 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             SetCurrentConnection(_iWriteToOutput, cmBCurrentConnection.SelectedItem as ConnectionData);
         }
+
+        private void hyperlinkBodyText_Click(object sender, RoutedEventArgs e)
+        {
+            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+
+            if (item == null)
+            {
+                return;
+            }
+
+            var entity = item.Report;
+
+            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.bodytext, Report.Schema.Headers.bodytext, PerformExportXmlToFile);
+        }
+
+        private void hyperlinkOriginalBodyText_Click(object sender, RoutedEventArgs e)
+        {
+            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+
+            if (item == null)
+            {
+                return;
+            }
+
+            var entity = item.Report;
+
+            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.originalbodytext, Report.Schema.Headers.originalbodytext, PerformExportXmlToFile);
+        }
+
+        private void hyperlinkDefaultFilter_Click(object sender, RoutedEventArgs e)
+        {
+            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+
+            if (item == null)
+            {
+                return;
+            }
+
+            var entity = item.Report;
+
+            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.defaultfilter, Report.Schema.Headers.defaultfilter, PerformExportXmlToFile);
+        }
+
+        private void hyperlinkCustomReportXml_Click(object sender, RoutedEventArgs e)
+        {
+            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+
+            if (item == null)
+            {
+                return;
+            }
+
+            var entity = item.Report;
+
+            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.customreportxml, Report.Schema.Headers.customreportxml, PerformExportXmlToFile);
+        }
+
+        private void hyperlinkScheduleXml_Click(object sender, RoutedEventArgs e)
+        {
+            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+
+            if (item == null)
+            {
+                return;
+            }
+
+            var entity = item.Report;
+
+            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.schedulexml, Report.Schema.Headers.schedulexml, PerformExportXmlToFile);
+        }
+
+        private void hyperlinkQueryInfo_Click(object sender, RoutedEventArgs e)
+        {
+            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+
+            if (item == null)
+            {
+                return;
+            }
+
+            var entity = item.Report;
+
+            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.queryinfo, Report.Schema.Headers.queryinfo, PerformExportXmlToFile);
+        }
+
+        private void hyperlinkBodyBinary_Click(object sender, RoutedEventArgs e)
+        {
+            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+
+            if (item == null)
+            {
+                return;
+            }
+
+            var entity = item.Report;
+
+            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.bodybinary, Report.Schema.Headers.bodybinary, PerformExportBodyBinary);
+        }
     }
 }

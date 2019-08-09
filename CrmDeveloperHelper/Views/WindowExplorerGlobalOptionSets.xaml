@@ -105,7 +105,6 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <Label Content="Namespace OptionSets C#" Grid.Row="0" Grid.Column="0"/>
@@ -116,9 +115,6 @@
 
                 <Label Content="TypeConverter Name" Grid.Row="2" Grid.Column="0" />
                 <TextBox x:Name="txtBTypeConverterName" Grid.Row="2" Grid.Column="1" Text="{Binding Path=SelectedItem.TypeConverterName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
-
-                <Label Content="Folder" Grid.Row="3" Grid.Column="0" />
-                <TextBox x:Name="txtBFolder" Grid.Row="3" Grid.Column="1" />
 
             </Grid>
 
@@ -135,13 +131,17 @@
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Label Content="Filter" Grid.Row="0" Grid.Column="0" />
-            <TextBox x:Name="txtBFilter" Grid.Row="0" Grid.Column="1" KeyDown="txtBFilter_KeyDown" />
+            <Label Content="Folder" Grid.Row="0" Grid.Column="0" />
+            <TextBox x:Name="txtBFolder" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" />
 
-            <Label Content="Filter Entity" Grid.Row="0" Grid.Column="2" />
-            <ComboBox x:Name="cmBEntityName" Grid.Row="0" Grid.Column="3" KeyDown="txtBFilter_KeyDown" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" />
+            <Label Content="Filter" Grid.Row="1" Grid.Column="0" />
+            <TextBox x:Name="txtBFilter" Grid.Row="1" Grid.Column="1" KeyDown="txtBFilter_KeyDown" />
+
+            <Label Content="Filter Entity" Grid.Row="1" Grid.Column="2" />
+            <ComboBox x:Name="cmBEntityName" Grid.Row="1" Grid.Column="3" KeyDown="txtBFilter_KeyDown" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" />
         </Grid>
 
         <DataGrid x:Name="lstVwOptionSets" AutoGenerateColumns="False" Grid.Row="3" Margin="5" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwOptionSets_MouseDoubleClick" SelectionChanged="lstVwOptionSets_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">

@@ -22,12 +22,12 @@
                 <MenuItem Header="Add to Crm Solution" Click="AddToCrmSolution_Click" />
                 
                 <Separator/>
-                <MenuItem Header="SiteMap XML" Click="mIExportSiteMapXml_Click"/>
+                <MenuItem Header="SiteMap Xml" Click="mIExportSiteMapXml_Click"/>
                 
                 <Separator/>
                 <MenuItem Header="Change SiteMap in Editor" Click="mIChangeEntityInEditor_Click"/>
                 <MenuItem Header="Change SiteMap Attribute">
-                    <MenuItem Header="SiteMap XML" Click="mIUpdateSiteMapXml_Click"/>
+                    <MenuItem Header="SiteMap Xml" Click="mIUpdateSiteMapXml_Click"/>
                 </MenuItem>
                 
                 <Separator/>
@@ -161,11 +161,11 @@
                             <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
                             
                             <Separator/>
-                            <MenuItem Header="SiteMap XML" Click="mIExportSiteMapXml_Click"/>
+                            <MenuItem Header="SiteMap Xml" Click="mIExportSiteMapXml_Click"/>
                             
                             <Separator/>
                             <MenuItem Header="Change SiteMap Attribute">
-                                <MenuItem Header="SiteMap XML" Click="mIUpdateSiteMapXml_Click"/>
+                                <MenuItem Header="SiteMap Xml" Click="mIUpdateSiteMapXml_Click"/>
                             </MenuItem>
                             
                             <Separator/>

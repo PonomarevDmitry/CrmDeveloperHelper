@@ -463,10 +463,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async Task PerformExportMouseDoubleClickAsync(string folder, Guid idSystemForm, string entityName, string name)
-        {
-            await PerformExportFormDescriptionToFileAsync(folder, idSystemForm, entityName, name);
-        }
+        //private async Task PerformExportMouseDoubleClickAsync(string folder, Guid idSystemForm, string entityName, string name)
+        //{
+        //    await PerformExportFormDescriptionToFileAsync(folder, idSystemForm, entityName, name);
+        //}
 
         private void lstVwEntities_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -2080,6 +2080,48 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CopyingEntityJavaScriptContentOnFormCompletedFormat2, entityName, name);
+        }
+
+        private void hyperlinkFormDescription_Click(object sender, RoutedEventArgs e)
+        {
+            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+
+            if (item == null)
+            {
+                return;
+            }
+
+            var entity = item.SystemForm;
+
+            ExecuteActionAsync(entity.Id, entity.ObjectTypeCode, entity.Name, PerformExportFormDescriptionToFileAsync);
+        }
+
+        private void hyperlinkFormXml_Click(object sender, RoutedEventArgs e)
+        {
+            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+
+            if (item == null)
+            {
+                return;
+            }
+
+            var entity = item.SystemForm;
+
+            ExecuteActionEntityAsync(entity.Id, entity.ObjectTypeCode, entity.Name, SystemForm.Schema.Attributes.formxml, SystemForm.Schema.Headers.formxml, "xml", PerformExportXmlToFileAsync);
+        }
+
+        private void hyperlinkFormJson_Click(object sender, RoutedEventArgs e)
+        {
+            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+
+            if (item == null)
+            {
+                return;
+            }
+
+            var entity = item.SystemForm;
+
+            ExecuteActionEntityAsync(entity.Id, entity.ObjectTypeCode, entity.Name, SystemForm.Schema.Attributes.formjson, SystemForm.Schema.Headers.formjson, "json", PerformExportXmlToFileAsync);
         }
     }
 }
