@@ -1469,5 +1469,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ExecuteActionEntity(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, SavedQueryVisualization.Schema.Attributes.presentationdescription, SavedQueryVisualization.Schema.Headers.presentationdescription, PerformExportXmlToFile);
         }
+
+        private void hyperlinkPublishEntity_Click(object sender, RoutedEventArgs e)
+        {
+            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+
+            if (item == null)
+            {
+                return;
+            }
+
+            var entity = item.SavedQueryVisualization;
+
+            if (entity == null
+                || !entity.PrimaryEntityTypeCode.IsValidEntityName()
+            )
+            {
+                return;
+            }
+
+            ExecuteAction(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, PerformPublishEntityAsync);
+        }
     }
 }

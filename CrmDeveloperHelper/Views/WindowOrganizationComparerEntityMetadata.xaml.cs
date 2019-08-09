@@ -1040,11 +1040,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     var handler = new CreateFileWithEntityMetadataJavaScriptHandler(writer, config, service, _iWriteToOutput);
 
                     await handler.CreateFileAsync(entityName);
-
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, entityName, filePath);
-
-                    this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
                 }
+
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, entityName, filePath);
+
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat1, entityName);
             }

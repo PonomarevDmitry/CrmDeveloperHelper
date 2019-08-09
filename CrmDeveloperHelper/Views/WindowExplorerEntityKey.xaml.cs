@@ -274,7 +274,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         list = list
                         .Where(ent =>
                             ent.LogicalName.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
-                            || 
+                            ||
                             (
                                 ent.DisplayName != null && ent.EntityMetadata.DisplayName.LocalizedLabels
                                     .Where(l => !string.IsNullOrEmpty(l.Label))
@@ -436,9 +436,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     list = list
                     .Where(ent =>
                         ent.LogicalName.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
-                        || 
+                        ||
                         (
-                            ent.DisplayName != null 
+                            ent.DisplayName != null
                             && ent.EntityKeyMetadata.DisplayName.LocalizedLabels
                                 .Where(l => !string.IsNullOrEmpty(l.Label))
                                 .Any(lbl => lbl.Label.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1)
@@ -1351,6 +1351,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)
         {
             SetCurrentConnection(_iWriteToOutput, cmBCurrentConnection.SelectedItem as ConnectionData);
+        }
+
+        private void hyperlinkPublishEntity_Click(object sender, RoutedEventArgs e)
+        {
+            EntityMetadataViewItem entity = GetItemFromRoutedDataContext<EntityMetadataViewItem>(e);
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionAsync(new[] { entity.LogicalName }, PublishEntityAsync);
         }
     }
 }

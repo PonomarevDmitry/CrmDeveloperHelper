@@ -122,6 +122,17 @@
                 <MenuItem Header="Open Dependent Components in Explorer" VerticalAlignment="Center" Click="mISecurityRoleOpenDependentComponentsInExplorer_Click" />
             </MenuItem>
         </ContextMenu>
+
+        <Style x:Key="stLabel" TargetType="{x:Type Label}">
+
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        
     </src:WindowBase.Resources>
     <DockPanel LastChildFill="True">
 
@@ -132,6 +143,7 @@
             <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
             <StatusBarItem x:Name="stBIStatus"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
         </StatusBar>
+        
         <Grid Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" DockPanel.Dock="Bottom">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition x:Name="columnEntity" Width="600"/>
@@ -226,6 +238,21 @@
                         <DataGridTextColumn Header="Entity Name" Width="260" Binding="{Binding LogicalName, Mode=OneTime}" />
 
                         <DataGridTextColumn Header="Display Name" Width="260" Binding="{Binding DisplayName, Mode=OneTime}" />
+
+                        <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                            <DataGridTemplateColumn.Header>
+                                <Label Content="Pub" Margin="0" Padding="0" ToolTip="Publish Entity" />
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label ToolTip="Publish Entity" Style="{StaticResource stLabel}">
+                                        <Hyperlink Click="hyperlinkPublishEntity_Click">
+                                            <Run Text="Pub"/>
+                                        </Hyperlink>
+                                    </Label>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
                     </DataGrid.Columns>
                 </DataGrid>

@@ -1346,5 +1346,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             SetCurrentConnection(_iWriteToOutput, cmBCurrentConnection.SelectedItem as ConnectionData);
         }
+
+        private void hyperlinkPublishEntity_Click(object sender, RoutedEventArgs e)
+        {
+            EntityMetadataViewItem entity = GetItemFromRoutedDataContext<EntityMetadataViewItem>(e);
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionAsync(new[] { entity.LogicalName }, PublishEntityAsync);
+        }
     }
 }

@@ -633,7 +633,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , _commonConfig.GetTabSpacer()
                         , _commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents
                     );
-                
+
                     await handler.CreateFileAsync(optionSets);
                 }
 
@@ -673,17 +673,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                var item = ((FrameworkElement)e.OriginalSource).DataContext as OptionSetMetadataListViewItem;
+                var item = GetItemFromRoutedDataContext<OptionSetMetadataListViewItem>(e);
 
                 if (item != null)
                 {
-                    if (_isJavaScript && !string.IsNullOrEmpty(_filePath))
+                    ConnectionData connectionData = GetConnectionData();
+
+                    if (connectionData != null)
                     {
-                        CreateJavaScriptFile(new[] { item.OptionSetMetadata });
-                    }
-                    else
-                    {
-                        CreateCSharpFile(new[] { item.OptionSetMetadata });
+                        connectionData.OpenGlobalOptionSetInWeb(item.OptionSetMetadata.MetadataId.Value);
                     }
                 }
             }
@@ -1063,6 +1061,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)
         {
             SetCurrentConnection(_iWriteToOutput, GetConnectionData());
+        }
+
+        private void hyperlinkCSharp_Click(object sender, RoutedEventArgs e)
+        {
+            OptionSetMetadataListViewItem item = GetItemFromRoutedDataContext<OptionSetMetadataListViewItem>(e);
+
+            if (item == null)
+            {
+                return;
+            }
+
+            CreateCSharpFile(new[] { item.OptionSetMetadata });
+        }
+
+        private void hyperlinkJavaScript_Click(object sender, RoutedEventArgs e)
+        {
+            OptionSetMetadataListViewItem item = GetItemFromRoutedDataContext<OptionSetMetadataListViewItem>(e);
+
+            if (item == null)
+            {
+                return;
+            }
+
+            CreateJavaScriptFile(new[] { item.OptionSetMetadata });
+        }
+
+        private void hyperlinkPublishOptionSet_Click(object sender, RoutedEventArgs e)
+        {
+            OptionSetMetadataListViewItem item = GetItemFromRoutedDataContext<OptionSetMetadataListViewItem>(e);
+
+            if (item == null)
+            {
+                return;
+            }
+
+            PublishOptionSetAsync(item.OptionSetMetadata.Name);
         }
     }
 }

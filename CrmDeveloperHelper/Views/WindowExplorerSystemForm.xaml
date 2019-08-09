@@ -65,15 +65,15 @@
                     <MenuItem Header="Include As ShellOnly" Click="AddToCrmSolutionIncludeAsShellOnly_Click" />
                 </MenuItem>
 
-                <Separator x:Uid="contMnEntity"/>
-                <MenuItem x:Uid="contMnEntity" Header="Create Entity JavaScript File JsonObject based on Form" Click="mIExportSystemFormEntityJavaScriptFileJsonObject_Click" />
-                <MenuItem x:Uid="contMnEntity" Header="Create Entity JavaScript File AnonymousConstructor based on Form" Click="mIExportSystemFormEntityJavaScriptFileAnonymousConstructor_Click" />
-                <MenuItem x:Uid="contMnEntity" Header="Create Entity JavaScript File TypeConstructor based on Form" Click="mIExportSystemFormEntityJavaScriptFileTypeConstructor_Click" />
-
                 <Separator/>
-                <MenuItem Header="Clipboard">
-                    <MenuItem Header="Copy Constructor Attributes based on Form" Click="mISystemFormCopyConstructor_Click" />
-                    <MenuItem Header="Copy  JsonObject Attributes based on Form" Click="mISystemFormCopyJsonObject_Click" />
+                <MenuItem Header="Copy to Clipboard Constructor Attributes based on Form" Click="mISystemFormCopyConstructor_Click" />
+                <MenuItem Header="Copy to Clipboard JsonObject Attributes based on Form" Click="mISystemFormCopyJsonObject_Click" />
+
+                <Separator x:Uid="contMnEntity"/>
+                <MenuItem x:Uid="contMnEntity" Header="Create Entity JavaScript File">
+                    <MenuItem x:Uid="contMnEntity" Header="JsonObject based on Form" Click="mIExportSystemFormEntityJavaScriptFileJsonObject_Click" />
+                    <MenuItem x:Uid="contMnEntity" Header="AnonymousConstructor based on Form" Click="mIExportSystemFormEntityJavaScriptFileAnonymousConstructor_Click" />
+                    <MenuItem x:Uid="contMnEntity" Header="TypeConstructor based on Form" Click="mIExportSystemFormEntityJavaScriptFileTypeConstructor_Click" />
                 </MenuItem>
 
                 <Separator/>
@@ -137,8 +137,8 @@
 
             <Style x:Key="stLabel" TargetType="{x:Type Label}">
 
-                <Setter Property="Margin" Value="1"/>
-                <Setter Property="Padding" Value="1"/>
+                <Setter Property="Margin" Value="0"/>
+                <Setter Property="Padding" Value="0"/>
 
                 <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -303,6 +303,81 @@
                 <DataGridTextColumn Header="Name" Width="260" Binding="{Binding Name}" />
 
                 <DataGridTextColumn Header="State" Width="150" Binding="{Binding FormActivationState}" />
+
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="Json" Margin="0" Padding="0" ToolTip="Create Entity JavaScript File JsonObject based on Form" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="Create Entity JavaScript File JsonObject based on Form" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkJavaScriptFileJsonObject_Click">
+                                    <Run Text="Json"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="Anon" Margin="0" Padding="0" ToolTip="Create Entity JavaScript File AnonymousConstructor based on Form" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="Create Entity JavaScript File AnonymousConstructor based on Form" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkJavaScriptFileAnonymousConstructor_Click">
+                                    <Run Text="Anon"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="Type" Margin="0" Padding="0" ToolTip="Create Entity JavaScript File TypeConstructor based on Form" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="Create Entity JavaScript File TypeConstructor based on Form" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkJavaScriptFileTypeConstructor_Click">
+                                    <Run Text="Type"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="PubF" Margin="0" Padding="0" ToolTip="Publish SystemForm" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="Publish SystemForm" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkPublishSystemForm_Click">
+                                    <Run Text="PubF"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="PubE" Margin="0" Padding="0" ToolTip="Publish Entity" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="Publish Entity" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkPublishEntity_Click">
+                                    <Run Text="PubE"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
             </DataGrid.Columns>
         </DataGrid>

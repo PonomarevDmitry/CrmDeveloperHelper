@@ -117,8 +117,8 @@
 
             <Style x:Key="stLabel" TargetType="{x:Type Label}">
 
-                <Setter Property="Margin" Value="1"/>
-                <Setter Property="Padding" Value="1"/>
+                <Setter Property="Margin" Value="0"/>
+                <Setter Property="Padding" Value="0"/>
 
                 <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -270,6 +270,21 @@
                 <DataGridTextColumn Header="Entity Name" Width="260" Binding="{Binding PrimaryEntityTypeCode}" />
 
                 <DataGridTextColumn Header="Name" Width="260" Binding="{Binding Name}" />
+
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="Pub" Margin="0" Padding="0" ToolTip="Publish Entity" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="Publish Entity" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkPublishEntity_Click">
+                                    <Run Text="Pub"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
             </DataGrid.Columns>
         </DataGrid>

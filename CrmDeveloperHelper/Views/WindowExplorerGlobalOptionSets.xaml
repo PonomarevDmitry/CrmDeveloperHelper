@@ -12,14 +12,14 @@
             </ResourceDictionary.MergedDictionaries>
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-                <MenuItem Header="Open OptionSet Customization in Web" Click="mIOpenInWeb_Click" />
+                <MenuItem Header="Open OptionSet Customization in Web" Click="mIOpenInWeb_Click" FontWeight="Bold" />
                 
                 <Separator/>
                 <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution"  />
                 <MenuItem Header="Add to Crm Solution" Click="AddToCrmSolution_Click" />
                 
                 <Separator/>
-                <MenuItem Header="Create C# File for OptionSet" Click="btnCreateCSharpFileForSingleOptionSet_Click" FontWeight="Bold" />
+                <MenuItem Header="Create C# File for OptionSet" Click="btnCreateCSharpFileForSingleOptionSet_Click" />
                 <MenuItem Header="Create JavaScript File Json Object for OptionSet" Click="btnCreateJavaScriptFileForSingleOptionSetJsonObject_Click" />
 
                 <Separator/>
@@ -52,7 +52,18 @@
                     <MenuItem Header="ApplicationRibbon" Click="btnCompareApplicationRibbons_Click"/>
                 </MenuItem>
             </ContextMenu>
+
             <helpers:EnumToBooleanConverter x:Key="EnumToBooleanConverter"/>
+
+            <Style x:Key="stLabel" TargetType="{x:Type Label}">
+
+                <Setter Property="Margin" Value="0"/>
+                <Setter Property="Padding" Value="0"/>
+
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+            </Style>
 
         </ResourceDictionary>
     </src:WindowBase.Resources>
@@ -156,10 +167,55 @@
                 </Style>
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
+                
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="C#" Margin="0" Padding="0" ToolTip="Create C# File for OptionSet" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="Create C# File for OptionSet" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkCSharp_Click">
+                                    <Run Text="C#"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="JS" Margin="0" Padding="0" ToolTip="Create JavaScript File Json Object for OptionSet" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="Create JavaScript File Json Object for OptionSet" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkJavaScript_Click">
+                                    <Run Text="JS"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
                 <DataGridTextColumn Header="OptionSet Name" Width="260" Binding="{Binding LogicalName}" />
 
                 <DataGridTextColumn Header="Display Name" Width="260" Binding="{Binding DisplayName}" />
+
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="Pub" Margin="0" Padding="0" ToolTip="Publish OptionSet" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="Publish OptionSet" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkPublishOptionSet_Click">
+                                    <Run Text="Pub"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
             </DataGrid.Columns>
         </DataGrid>

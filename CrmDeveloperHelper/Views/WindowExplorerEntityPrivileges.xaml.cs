@@ -2057,5 +2057,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         }
 
         #endregion Set Attribute
+
+        private void hyperlinkPublishEntity_Click(object sender, RoutedEventArgs e)
+        {
+            EntityMetadataViewItem entity = GetItemFromRoutedDataContext<EntityMetadataViewItem>(e);
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionAsync(new[] { entity.LogicalName }, PublishEntityAsync);
+        }
     }
 }

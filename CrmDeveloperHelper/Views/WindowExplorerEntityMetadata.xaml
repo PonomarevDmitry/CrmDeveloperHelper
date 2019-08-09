@@ -12,7 +12,7 @@
             </ResourceDictionary.MergedDictionaries>
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-                <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="miOpenEntityInWeb_Click" />
+                <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="miOpenEntityInWeb_Click" FontWeight="Bold" />
 
                 <Separator/>
                 <MenuItem Header="Open Entity List in Web" VerticalAlignment="Center" Click="miOpenEntityListInWeb_Click" />
@@ -37,8 +37,8 @@
                 <MenuItem Header="Create Entity New Instance" Click="miCreateNewEntityInstance_Click"/>
 
                 <Separator/>
-                <MenuItem Header="Create C# Metadata File" Click="miCreateCSharpFileSchemaMetadata_Click" FontWeight="Bold"/>
-                <MenuItem Header="Create C# ProxyClass File" Click="miCreateCSharpFileProxyClass_Click"/>
+                <MenuItem Header="Create C# Metadata File" Click="miCreateCSharpFileSchemaMetadata_Click"/>
+                <MenuItem Header="Create C# Proxy Class File" Click="miCreateCSharpFileProxyClass_Click"/>
 
                 <Separator/>
                 <MenuItem Header="Create JavaScript Metadata File" Click="miCreateJavaScriptFile_Click"/>
@@ -116,6 +116,16 @@
                     <MenuItem Header="ApplicationRibbon" Click="miCompareApplicationRibbon_Click"/>
                 </MenuItem>
             </ContextMenu>
+
+            <Style x:Key="stLabel" TargetType="{x:Type Label}">
+
+                <Setter Property="Margin" Value="0"/>
+                <Setter Property="Padding" Value="0"/>
+
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+            </Style>
 
         </ResourceDictionary>
     </src:WindowBase.Resources>
@@ -286,7 +296,7 @@
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="miEntityOperations" Header="Entity Operations" VerticalAlignment="Center" VerticalContentAlignment="Center" Padding="3">
                             <MenuItem Header="Create C# Metadata File" Click="miCreateCSharpFileSchemaMetadata_Click" />
-                            <MenuItem Header="Create C# ProxyClass File" Click="miCreateCSharpFileProxyClass_Click"/>
+                            <MenuItem Header="Create C# Proxy Class File" Click="miCreateCSharpFileProxyClass_Click"/>
 
                             <Separator/>
                             <MenuItem Header="Create JavaScript Metadata File" Click="miCreateJavaScriptFile_Click"/>
@@ -327,10 +337,70 @@
                 </Style>
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
+                
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="Met" Margin="0" Padding="0" ToolTip="Create C# Metadata File" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="Create C# Metadata File" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkCSharpMetadata_Click">
+                                    <Run Text="Met"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="Prx" Margin="0" Padding="0" ToolTip="Create C# Proxy Class File" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="Create C# Proxy Class File" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkCSharpProxy_Click">
+                                    <Run Text="Prx"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="JS" Margin="0" Padding="0" ToolTip="Create JavaScript File Json Object for OptionSet" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="Create JavaScript File Json Object for OptionSet" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkJavaScript_Click">
+                                    <Run Text="JS"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
                 <DataGridTextColumn Header="Entity Name" Width="260" Binding="{Binding EntityLogicalName}" />
 
                 <DataGridTextColumn Header="Display Name" Width="260" Binding="{Binding DisplayName}" />
+
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="Pub" Margin="0" Padding="0" ToolTip="Publish Entity" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="Publish Entity" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkPublishEntity_Click">
+                                    <Run Text="Pub"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
             </DataGrid.Columns>
         </DataGrid>

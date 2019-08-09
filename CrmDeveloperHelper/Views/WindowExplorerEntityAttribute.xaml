@@ -112,6 +112,16 @@
                 </MenuItem>
             </ContextMenu>
 
+            <Style x:Key="stLabel" TargetType="{x:Type Label}">
+
+                <Setter Property="Margin" Value="0"/>
+                <Setter Property="Padding" Value="0"/>
+
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+            </Style>
+
         </ResourceDictionary>
     </src:WindowBase.Resources>
     <Grid>
@@ -299,6 +309,21 @@
                                 </Style>
                             </DataGridCheckBoxColumn.EditingElementStyle>
                         </DataGridCheckBoxColumn>
+
+                        <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                            <DataGridTemplateColumn.Header>
+                                <Label Content="Pub" Margin="0" Padding="0" ToolTip="Publish Entity" />
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label ToolTip="Publish Entity" Style="{StaticResource stLabel}">
+                                        <Hyperlink Click="hyperlinkPublishEntity_Click">
+                                            <Run Text="Pub"/>
+                                        </Hyperlink>
+                                    </Label>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
                     </DataGrid.Columns>
                 </DataGrid>

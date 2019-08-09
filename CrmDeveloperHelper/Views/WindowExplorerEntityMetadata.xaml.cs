@@ -324,9 +324,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         list = list
                         .Where(ent =>
                             ent.LogicalName.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
-                            || 
+                            ||
                             (
-                                ent.DisplayName != null 
+                                ent.DisplayName != null
                                 && ent.DisplayName.LocalizedLabels
                                     .Where(l => !string.IsNullOrEmpty(l.Label))
                                     .Any(lbl => lbl.Label.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1)
@@ -744,13 +744,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (entity != null)
                 {
-                    if (_isJavaScript && !string.IsNullOrEmpty(_filePath))
+                    ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+                    if (connectionData != null)
                     {
-                        ExecuteActionAsync(entity, CreateEntityMetadataFileJavaScriptAsync);
-                    }
-                    else
-                    {
-                        ExecuteActionAsync(entity, CreateEntityMetadataFileCSharpSchemaAsync);
+                        connectionData.OpenEntityMetadataInWeb(entity.EntityMetadata.MetadataId.Value);
                     }
                 }
             }
@@ -978,13 +976,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 using (var writer = new StreamWriter(filePath, false, new UTF8Encoding(false)))
                 {
                     var handler = new CreateFileWithEntityMetadataJavaScriptHandler(writer, config, service, _iWriteToOutput);
-                
+
                     await handler.CreateFileAsync(entityMetadata.EntityLogicalName);
-
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, entityMetadata.EntityLogicalName, filePath);
-
-                    this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
                 }
+
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, entityMetadata.EntityLogicalName, filePath);
+
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
                 if (this._selectedItem != null)
                 {
@@ -1754,6 +1752,54 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)
         {
             SetCurrentConnection(_iWriteToOutput, cmBCurrentConnection.SelectedItem as ConnectionData);
+        }
+
+        private void hyperlinkCSharpMetadata_Click(object sender, RoutedEventArgs e)
+        {
+            EntityMetadataListViewItem entity = GetItemFromRoutedDataContext<EntityMetadataListViewItem>(e);
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionAsync(entity, CreateEntityMetadataFileCSharpSchemaAsync);
+        }
+
+        private void hyperlinkCSharpProxy_Click(object sender, RoutedEventArgs e)
+        {
+            EntityMetadataListViewItem entity = GetItemFromRoutedDataContext<EntityMetadataListViewItem>(e);
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionAsync(entity, CreateEntityMetadataFileCSharpProxyClassAsync);
+        }
+
+        private void hyperlinkJavaScript_Click(object sender, RoutedEventArgs e)
+        {
+            EntityMetadataListViewItem entity = GetItemFromRoutedDataContext<EntityMetadataListViewItem>(e);
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionAsync(entity, CreateEntityMetadataFileJavaScriptAsync);
+        }
+
+        private void hyperlinkPublishEntity_Click(object sender, RoutedEventArgs e)
+        {
+            EntityMetadataListViewItem entity = GetItemFromRoutedDataContext<EntityMetadataListViewItem>(e);
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionAsync(entity, PublishEntityAsync);
         }
     }
 }
