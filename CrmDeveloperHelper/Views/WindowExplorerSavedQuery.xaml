@@ -16,6 +16,9 @@
                 <MenuItem Header="Open SavedQuery in Web" Click="mIOpenInWeb_Click" FontWeight="Bold"/>
 
                 <Separator/>
+                <MenuItem Header="Open SavedQuery List in Web" Click="mIOpenSavedQueryInWeb_Click" />
+
+                <Separator/>
                 <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
 
                 <Separator/>

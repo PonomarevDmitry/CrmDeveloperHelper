@@ -1100,6 +1100,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        private void mIOpenSavedQueryInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null
+                || !entity.ReturnedTypeCode.IsValidEntityName()
+            )
+            {
+                return;
+            }
+
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+            if (connectionData != null)
+            {
+                connectionData.OpenEntityInstanceListInWeb(entity.ReturnedTypeCode, entity.Id);
+            }
+        }
+
         private async void AddToCrmSolution_Click(object sender, RoutedEventArgs e)
         {
             await AddToSolution(true, null);

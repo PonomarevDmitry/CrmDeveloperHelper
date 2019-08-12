@@ -181,7 +181,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 return null;
             }
 
-            return publicUrl + string.Format("/tools/solution/edit.aspx?id={0}", idSolution);
+            return publicUrl + string.Format("/tools/solution/edit.aspx?id={0}", idSolution.ToString().ToUpper());
         }
 
         public void OpenSolutionCreateInWeb()
@@ -270,31 +270,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public void OpenEntityInstanceListInWeb(string entityName)
         {
-            string uri = GetEntityInstanceListUrl(entityName);
+            OpenEntityInstanceListInWeb(entityName, null);
+        }
+
+        public void OpenEntityInstanceListInWeb(string entityName, Guid? idView)
+        {
+            string uri = GetEntityInstanceListUrl(entityName, idView);
 
             if (!IsValidUri(uri)) return;
 
             System.Diagnostics.Process.Start(uri);
         }
 
-        public string GetEntityInstanceListUrl(string entityName)
-        {
-            return string.Format(GetEntityInstanceListUrlFormat(), entityName);
-        }
-
-        public string GetEntityInstanceListUrlFormat()
+        private string GetEntityInstanceListUrl(string entityName, Guid? idView)
         {
             if (!TryGetPublicUrl(out string publicUrl))
             {
                 return null;
             }
 
-            return publicUrl + "/main.aspx?etn={0}&pagetype=entitylist";
+            var result = new StringBuilder(publicUrl);
+
+            result.AppendFormat("/main.aspx?etn={0}&extraqs=%3fpagemode%3diframe&pagetype=entitylist", entityName);
+            
+            if (idView.HasValue)
+            {
+                result.AppendFormat("&viewid=%7b{0}%7d&viewtype=1039", idView.ToString().ToUpper());
+            }
+
+            return result.ToString();
         }
 
         public string GetEntityInstanceListRelativeUrl(string entityName)
         {
-            return string.Format("/main.aspx?etn={0}&pagetype=entitylist", entityName);
+            return string.Format("/main.aspx?etn={0}&extraqs=%3fpagemode%3diframe&pagetype=entitylist", entityName);
         }
 
         private static ComponentType? GetSolutionComponentType(string entityName)
@@ -392,7 +401,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public string GetAttributeMetadataRelativeUrl(Guid entityId, Guid attributeId)
         {
-            return $"/tools/systemcustomization/attributes/manageAttribute.aspx?attributeId={attributeId}&entityId={entityId}";
+            return $"/tools/systemcustomization/attributes/manageAttribute.aspx?attributeId={attributeId.ToString().ToUpper()}&entityId={entityId.ToString().ToUpper()}";
         }
 
         public void OpenEntityKeyMetadataInWeb(Guid entityId, Guid entityKeyId)
@@ -416,7 +425,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public string GetEntityKeyMetadataRelativeUrl(Guid entityId, Guid entityKeyId)
         {
-            return $"/tools/systemcustomization/AlternateKeys/manageAlternateKeys.aspx?entityId={entityId}&entityKeyId={entityKeyId}";
+            return $"/tools/systemcustomization/AlternateKeys/manageAlternateKeys.aspx?entityId={entityId.ToString().ToUpper()}&entityKeyId={entityKeyId.ToString().ToUpper()}";
         }
 
         public void OpenRelationshipMetadataInWeb(Guid entityId, Guid relationId)
@@ -440,7 +449,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public string GetRelationshipMetadataRelativeUrl(Guid entityId, Guid relationId)
         {
-            return $"/tools/systemcustomization/relationships/manageRelationship.aspx?entityId={entityId}&entityRelationshipId={relationId}";
+            return $"/tools/systemcustomization/relationships/manageRelationship.aspx?entityId={entityId.ToString().ToUpper()}&entityRelationshipId={relationId.ToString().ToUpper()}";
         }
 
         public void OpenGlobalOptionSetInWeb(Guid idGlobalOptionSet)
@@ -491,16 +500,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public string GetSolutionComponentRelativeUrl(ComponentType componentType, Guid objectId)
         {
+            var objectIdString = objectId.ToString().ToUpper();
+
             switch (componentType)
             {
                 case ComponentType.SavedQuery:
-                    return $"/tools/vieweditor/viewManager.aspx?id={objectId}";
+                    return $"/tools/vieweditor/viewManager.aspx?id={objectIdString}";
 
                 case ComponentType.Workflow:
-                    return $"/sfa/workflow/edit.aspx?id={objectId}";
+                    return $"/sfa/workflow/edit.aspx?id={objectIdString}";
 
                 case ComponentType.Entity:
-                    return $"/tools/systemcustomization/entities/manageentity.aspx?id={objectId}";
+                    return $"/tools/systemcustomization/entities/manageentity.aspx?id={objectIdString}";
 
                 case ComponentType.Attribute:
                     {
@@ -572,35 +583,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                     break;
 
                 case ComponentType.OptionSet:
-                    return $"/tools/systemcustomization/optionset/optionset.aspx?id={objectId}";
+                    return $"/tools/systemcustomization/optionset/optionset.aspx?id={objectIdString}";
 
                 case ComponentType.WebResource:
-                    return $"/main.aspx?etc=9333&id={objectId}&pagetype=webresourceedit";
+                    return $"/main.aspx?etc=9333&id={objectIdString}&pagetype=webresourceedit";
 
                 case ComponentType.Report:
-                    return $"/CRMReports/reportproperty.aspx?id={objectId}";
+                    return $"/CRMReports/reportproperty.aspx?id={objectIdString}";
 
                 case ComponentType.EntityMap:
-                    return $"/tools/systemcustomization/relationships/mappings/mappingList.aspx?mappingId={objectId}";
+                    return $"/tools/systemcustomization/relationships/mappings/mappingList.aspx?mappingId={objectIdString}";
 
                 case ComponentType.DisplayString:
-                    return $"/tools/systemcustomization/displaystrings/edit.aspx?id={objectId}";
+                    return $"/tools/systemcustomization/displaystrings/edit.aspx?id={objectIdString}";
 
                 case ComponentType.FieldSecurityProfile:
-                    return $"/biz/fieldsecurityprofiles/edit.aspx?id={objectId}";
+                    return $"/biz/fieldsecurityprofiles/edit.aspx?id={objectIdString}";
 
                 case ComponentType.Role:
-                    return $"/biz/roles/edit.aspx?id={objectId}";
+                    return $"/biz/roles/edit.aspx?id={objectIdString}";
 
                 case ComponentType.ConnectionRole:
-                    return $"/connections/connectionroles/edit.aspx?id={objectId}";
+                    return $"/connections/connectionroles/edit.aspx?id={objectIdString}";
             }
 
             SolutionComponent.GetComponentTypeEntityName((int)componentType, out string entityName, out string entityIdName);
 
             if (!string.IsNullOrEmpty(entityName))
             {
-                return string.Format(GetEntityInstanceRelativeUrlFormat(entityName), objectId);
+                return string.Format(GetEntityInstanceRelativeUrlFormat(entityName), objectId.ToString().ToUpper());
             }
 
             return null;
@@ -620,7 +631,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 return;
             }
 
-            var uri = publicUrl + $"/tools/dependency/dependencyviewdialog.aspx?dType=1&objectid={objectId}&objecttype={entityTypeCode}&operationtype=showdependency";
+            var uri = publicUrl + $"/tools/dependency/dependencyviewdialog.aspx?dType=1&objectid={objectId.ToString().ToUpper()}&objecttype={entityTypeCode}&operationtype=showdependency";
 
             if (!IsValidUri(uri)) { return; }
 
