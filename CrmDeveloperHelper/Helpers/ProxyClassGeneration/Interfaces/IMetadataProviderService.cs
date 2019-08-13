@@ -6,7 +6,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 {
     public interface IMetadataProviderService
     {
-        void StoreEntities(IEnumerable<string> entityList);
+        void RetrieveEntities(IEnumerable<string> entityList);
+
+        void StoreEntityMetadata(params EntityMetadata[] entityMetadataList);
+
+        void StoreEntityMetadata(IEnumerable<EntityMetadata> entityMetadataList);
 
         EntityMetadata GetEntityMetadata(string entityName);
     }

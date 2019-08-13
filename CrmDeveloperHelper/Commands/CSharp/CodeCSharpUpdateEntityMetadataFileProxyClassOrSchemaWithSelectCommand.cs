@@ -6,16 +6,16 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
-    internal sealed class CodeCSharpUpdateEntityMetadataFileProxyClassWithSelectCommand : AbstractCommand
+    internal sealed class CodeCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommand : AbstractCommand
     {
-        private CodeCSharpUpdateEntityMetadataFileProxyClassWithSelectCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.CodeCSharpUpdateEntityMetadataFileProxyClassWithSelectCommandId) { }
+        private CodeCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.CodeCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommandId) { }
 
-        public static CodeCSharpUpdateEntityMetadataFileProxyClassWithSelectCommand Instance { get; private set; }
+        public static CodeCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeCSharpUpdateEntityMetadataFileProxyClassWithSelectCommand(commandService);
+            Instance = new CodeCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper)
@@ -29,7 +29,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
         {
             CommonHandlers.ActionBeforeQueryStatusActiveDocumentCSharp(applicationObject, menuCommand);
 
-            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CodeCSharpUpdateEntityMetadataFileProxyClassWithSelectCommand);
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CodeCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommand);
         }
     }
 }

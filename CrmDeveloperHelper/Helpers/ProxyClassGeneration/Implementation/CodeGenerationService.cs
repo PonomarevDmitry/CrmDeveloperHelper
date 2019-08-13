@@ -369,7 +369,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
             if (linkedEntities.Any())
             {
-                iCodeGenerationServiceProvider.MetadataProviderService.StoreEntities(linkedEntities);
+                iCodeGenerationServiceProvider.MetadataProviderService.RetrieveEntities(linkedEntities);
             }
 
             var declarationCollection = new CodeTypeDeclarationCollection();

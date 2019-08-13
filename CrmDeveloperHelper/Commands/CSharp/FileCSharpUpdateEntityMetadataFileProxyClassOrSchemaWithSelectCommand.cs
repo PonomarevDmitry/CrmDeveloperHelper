@@ -1,22 +1,21 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
-    internal sealed class FileCSharpUpdateEntityMetadataFileProxyClassWithSelectCommand : AbstractCommand
+    internal sealed class FileCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommand : AbstractCommand
     {
-        private FileCSharpUpdateEntityMetadataFileProxyClassWithSelectCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.FileCSharpUpdateEntityMetadataFileProxyClassWithSelectCommandId) { }
+        private FileCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.FileCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommandId) { }
 
-        public static FileCSharpUpdateEntityMetadataFileProxyClassWithSelectCommand Instance { get; private set; }
+        public static FileCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new FileCSharpUpdateEntityMetadataFileProxyClassWithSelectCommand(commandService);
+            Instance = new FileCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper)
@@ -30,7 +29,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
         {
             CommonHandlers.ActionBeforeQueryStatusSolutionExplorerCSharpSingle(applicationObject, menuCommand);
 
-            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.FileCSharpUpdateEntityMetadataFileProxyClassWithSelectCommand);
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.FileCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommand);
         }
     }
 }

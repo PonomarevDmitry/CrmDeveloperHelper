@@ -32,7 +32,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return result;
         }
 
-        public void StoreEntities(IEnumerable<string> entityList)
+        public void RetrieveEntities(IEnumerable<string> entityList)
         {
             if (!entityList.Any())
             {
@@ -44,6 +44,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             foreach (var item in list)
             {
                 _cache[item.LogicalName] = item;
+            }
+        }
+
+        public void StoreEntityMetadata(params EntityMetadata[] entityMetadataList)
+        {
+            StoreEntityMetadataInternal(entityMetadataList);
+        }
+
+        public void StoreEntityMetadata(IEnumerable<EntityMetadata> entityMetadataList)
+        {
+            StoreEntityMetadataInternal(entityMetadataList);
+        }
+
+        private void StoreEntityMetadataInternal(IEnumerable<EntityMetadata> entityMetadataList)
+        {
+            if (!entityMetadataList.Any())
+            {
+                return;
+            }
+
+            foreach (var item in entityMetadataList)
+            {
+                if (!_cache.ContainsKey(item.LogicalName))
+                {
+                    _cache[item.LogicalName] = item;
+                }
             }
         }
     }

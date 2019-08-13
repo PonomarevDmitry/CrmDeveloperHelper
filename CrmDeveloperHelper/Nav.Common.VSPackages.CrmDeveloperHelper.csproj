@@ -113,7 +113,11 @@
     <Compile Include="Commands\CSharp\CodeCSharpProjectUpdatePluginAssemblyCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectUpdatePluginAssemblyInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpUpdateEntityMetadataFileProxyClassCommand.cs" />
-    <Compile Include="Commands\CSharp\CodeCSharpUpdateEntityMetadataFileProxyClassWithSelectCommand.cs" />
+    <Compile Include="Commands\CSharp\CodeCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommand.cs" />
+    <Compile Include="Commands\CSharp\CodeCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommand.cs" />
+    <Compile Include="Commands\CSharp\DocumentsCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommand.cs" />
+    <Compile Include="Commands\CSharp\FileCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommand.cs" />
+    <Compile Include="Commands\CSharp\FolderCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommand.cs" />
     <Compile Include="Commands\FindEdit\CommonFindEntityObjectsByNameInExplorerCommand.cs" />
     <Compile Include="Commands\FindEdit\CommonFindEntityObjectsByPrefixInExplorerCommand.cs" />
     <Compile Include="Commands\FindEdit\CommonFindEntityObjectsContainsStringInExplorerCommand.cs" />
@@ -225,7 +229,6 @@
     <Compile Include="Commands\Reports\CodeReportShowDifferenceCommand.cs" />
     <Compile Include="Commands\Reports\CodeReportExplorerCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpUpdateEntityMetadataFileSchemaCommand.cs" />
-    <Compile Include="Commands\CSharp\CodeCSharpUpdateEntityMetadataFileSchemaWithSelectCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpUpdateGlobalOptionSetsFileCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpUpdateGlobalOptionSetsFileWithSelectCommand.cs" />
     <Compile Include="Commands\WebResources\CodeWebResourceShowDifferenceInConnectionGroupCommand.cs" />
@@ -383,7 +386,7 @@
     <Compile Include="Commands\CSharp\FileCSharpProjectUpdatePluginAssemblyCommand.cs" />
     <Compile Include="Commands\CSharp\FileCSharpProjectUpdatePluginAssemblyInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\FileCSharpUpdateEntityMetadataFileProxyClassCommand.cs" />
-    <Compile Include="Commands\CSharp\FileCSharpUpdateEntityMetadataFileProxyClassWithSelectCommand.cs" />
+    <Compile Include="Commands\CSharp\FileCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommand.cs" />
     <Compile Include="Commands\JavaScripts\FileJavaScriptUpdateEntityMetadataFileCommand.cs" />
     <Compile Include="Commands\JavaScripts\FileJavaScriptUpdateEntityMetadataFileWithSelectCommand.cs" />
     <Compile Include="Commands\JavaScripts\FileJavaScriptUpdateGlobalOptionSetAllFileCommand.cs" />
@@ -458,7 +461,7 @@
     <Compile Include="Controllers\OpenFilesController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\SecurityController.cs" />
-    <Compile Include="CrmDeveloperHelperPackageCommandTable.vsct.cs">
+    <Compile Include="CrmDeveloperHelperPackageCommandTable.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CrmDeveloperHelperPackageCommandTable.vsct</DependentUpon>
@@ -634,7 +637,6 @@
     <Compile Include="Commands\WebResources\FileWebResourceUpdateContentPublishCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceUpdateContentPublishEqualByTextCommand.cs" />
     <Compile Include="Commands\CSharp\FileCSharpUpdateEntityMetadataFileSchemaCommand.cs" />
-    <Compile Include="Commands\CSharp\FileCSharpUpdateEntityMetadataFileSchemaWithSelectCommand.cs" />
     <Compile Include="Commands\CSharp\FileCSharpUpdateGlobalOptionSetsFileCommand.cs" />
     <Compile Include="Commands\CSharp\FileCSharpUpdateGlobalOptionSetsFileWithSelectCommand.cs" />
     <Compile Include="Commands\ListForPublish\ListForPublishClearListCommand.cs" />
@@ -1646,7 +1648,7 @@
       <ResourceName>Menus.ctmenu</ResourceName>
       <SubType>Designer</SubType>
       <Generator>VsctGenerator</Generator>
-      <LastGenOutput>CrmDeveloperHelperPackageCommandTable.vsct.cs</LastGenOutput>
+      <LastGenOutput>CrmDeveloperHelperPackageCommandTable.cs</LastGenOutput>
     </VSCTCompile>
     <Resource Include="Resources\16x16_refresh.ico" />
     <Resource Include="Resources\Add.png" />
