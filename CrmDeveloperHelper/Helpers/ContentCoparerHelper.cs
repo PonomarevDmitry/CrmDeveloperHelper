@@ -91,26 +91,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return list;
         }
 
-        public static string RemoveDiacritics(string s)
+        public static string RemoveDiacritics(string str)
         {
-            if (s == null)
+            if (str == null)
             {
                 return string.Empty;
             }
 
-            s = s.Normalize(NormalizationForm.FormD);
+            str = str.Normalize(NormalizationForm.FormC);
             StringBuilder sb = new StringBuilder();
 
-            for (int i = 0; i < s.Length; i++)
+            for (int index = 0; index < str.Length; index++)
             {
-                char ch = s[i];
+                char ch = str[index];
                 UnicodeCategory cat = CharUnicodeInfo.GetUnicodeCategory(ch);
 
                 if (cat != UnicodeCategory.NonSpacingMark
                     && cat != UnicodeCategory.Format
                     )
                 {
-                    sb.Append(s[i]);
+                    sb.Append(str[index]);
+                }
+                else
+                {
+                    
                 }
             }
 
