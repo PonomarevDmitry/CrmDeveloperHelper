@@ -73,6 +73,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
             {
                 txtBCurrentValue.Text = string.Format("{0} - {1}", CurrentValue.LogicalName, CurrentValue.Id.ToString());
             }
+
+            UpdateButtons();
+        }
+
+        private void UpdateButtons()
+        {
+            var hasValue = this.CurrentValue != null;
+
+            var separatorVisible = btnRestore.IsEnabled && hasValue;
+
+            sepCopy.IsEnabled = separatorVisible;
+            sepCopy.Visibility = separatorVisible ? Visibility.Visible : Visibility.Collapsed;
+
+            btnCopyEntityId.IsEnabled
+                = btnCopyEntityLogicalName.IsEnabled
+                = btnCopyEntityName.IsEnabled
+                = btnCopyEntityUrl.IsEnabled = hasValue;
+
+
+            btnCopyEntityId.Visibility
+                = btnCopyEntityLogicalName.Visibility
+                = btnCopyEntityName.Visibility
+                = btnCopyEntityUrl.Visibility = hasValue ? Visibility.Visible : Visibility.Collapsed;
         }
 
         protected override void OnGotFocus(RoutedEventArgs e)
@@ -102,6 +125,65 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
             }
 
             SetEntityReference(form.SelectedEntityReference);
+        }
+
+        private void btnActions_Click(object sender, RoutedEventArgs e)
+        {
+            if (btnActions.ContextMenu == null)
+            {
+                return;
+            }
+
+            //btnActions.ContextMenu.Width = btnActions.ActualWidth;
+
+            btnActions.ContextMenu.PlacementTarget = btnActions;
+            btnActions.ContextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
+
+            ContextMenuService.SetPlacement(btnActions, System.Windows.Controls.Primitives.PlacementMode.Bottom);
+
+            btnActions.ContextMenu.IsOpen = true;
+        }
+
+        private void btnCopyEntityLogicalName_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.CurrentValue == null)
+            {
+                return;
+            }
+
+            Clipboard.SetText(this.CurrentValue.LogicalName);
+        }
+
+        private void btnCopyEntityName_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.CurrentValue == null)
+            {
+                return;
+            }
+
+            Clipboard.SetText(this.CurrentValue.Name);
+        }
+
+        private void btnCopyEntityId_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.CurrentValue == null)
+            {
+                return;
+            }
+
+            Clipboard.SetText(this.CurrentValue.Id.ToString());
+        }
+
+        private void btnCopyEntityUrl_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.CurrentValue == null)
+            {
+                return;
+            }
+
+            var url = _service.ConnectionData.GetEntityInstanceUrl(this.CurrentValue.LogicalName, this.CurrentValue.Id);
+
+            Clipboard.SetText(url);
         }
     }
 }

@@ -41,7 +41,18 @@
 
             <Button x:Name="btnSetValue" Content="Set Value" Grid.Column="6" Click="btnSetValue_Click" IsTabStop="True" />
 
-            <Button x:Name="btnRestore" Content="Restore" Grid.Column="7" Click="btnRestore_Click" IsTabStop="False" />
+            <Button x:Name="btnActions" Grid.Column="5" Content="Actions" Click="btnActions_Click" IsTabStop="False">
+                <Button.ContextMenu>
+                    <ContextMenu >
+                        <MenuItem x:Name="btnRestore" Header="Restore" Click="btnRestore_Click" />
+                        <Separator x:Name="sepCopy" />
+                        <MenuItem x:Name="btnCopyEntityLogicalName" Header="Copy Entity LogicalName" Click="btnCopyEntityLogicalName_Click" />
+                        <MenuItem x:Name="btnCopyEntityName" Header="Copy Entity Name" Click="btnCopyEntityName_Click" />
+                        <MenuItem x:Name="btnCopyEntityId" Header="Copy Entity Id" Click="btnCopyEntityId_Click" />
+                        <MenuItem x:Name="btnCopyEntityUrl" Header="Copy Entity Url" Click="btnCopyEntityUrl_Click" />
+                    </ContextMenu>
+                </Button.ContextMenu>
+            </Button>
         </Grid>
     </GroupBox>
 </UserControl>

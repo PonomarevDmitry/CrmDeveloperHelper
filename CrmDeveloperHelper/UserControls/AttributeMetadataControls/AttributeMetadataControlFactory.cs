@@ -230,20 +230,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 
         public static void SetGroupBoxNameByAttributeMetadata(GroupBox gbAttribute, AttributeMetadata attributeMetadata)
         {
-            StringBuilder header = new StringBuilder();
-            header.Append(attributeMetadata.LogicalName.Replace("_", "__"));
+            StringBuilder header = new StringBuilder(attributeMetadata.LogicalName);
 
             var displayName = CreateFileHandler.GetLocalizedLabel(attributeMetadata.DisplayName);
             var description = CreateFileHandler.GetLocalizedLabel(attributeMetadata.Description);
 
+            if (attributeMetadata.AttributeTypeName != null && !string.IsNullOrEmpty(attributeMetadata.AttributeTypeName.Value))
+            {
+                header.AppendFormat(" - {0}", attributeMetadata.AttributeTypeName.Value);
+            }
+            else if (attributeMetadata.AttributeType.HasValue)
+            {
+                header.AppendFormat(" - {0}", attributeMetadata.AttributeType.ToString());
+            }
+
+            var attrType = attributeMetadata.GetType();
+
+            if (attrType != typeof(AttributeMetadata))
+            {
+                header.AppendFormat(" - {0}", attrType.Name);
+            }
+
             if (!string.IsNullOrEmpty(displayName))
             {
-                header.AppendFormat(" - {0}", displayName.Replace("_", "__"));
+                header.AppendFormat(" - {0}", displayName);
             }
             else if (!string.IsNullOrEmpty(description))
             {
-                header.AppendFormat(" - {0}", description.Replace("_", "__"));
+                header.AppendFormat(" - {0}", description);
             }
+
+            header.Replace("_", "__");
 
             gbAttribute.Header = header.ToString();
         }
