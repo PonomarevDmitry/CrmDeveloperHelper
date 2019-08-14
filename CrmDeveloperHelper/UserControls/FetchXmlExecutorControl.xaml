@@ -24,6 +24,9 @@
                 <MenuItem Header="Open Entity Explorer" Click="mIOpenEntityExplorer_Click"/>
 
                 <Separator/>
+                <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click"/>
+
+                <Separator/>
                 <MenuItem Header="Clipboard">
                     <MenuItem Header="Copy Entity Id" Click="mICopyEntityId_Click"/>
                     <MenuItem Header="Copy Entity Name" Click="mICopyEntityName_Click"/>
@@ -39,9 +42,7 @@
 
                 <Separator/>
                 <MenuItem Header="Change Entity">
-                    <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click"/>
-
-                    <Separator/>
+                    
                     <MenuItem Header="Assign Entity to User" Click="mIAssignEntityToUser_Click"/>
                     <MenuItem Header="Assign Entity to Team" Click="mIAssignEntityToTeam_Click"/>
 
@@ -53,6 +54,7 @@
 
                     <Separator/>
                     <MenuItem Header="Delete Entity" Click="mIDeleteEntity_Click"/>
+                    
                 </MenuItem>
 
             </ContextMenu>
@@ -101,6 +103,9 @@
                 <MenuItem Header="Open Entity Explorer" Click="mIOpenEntityExplorer_Click"/>
 
                 <Separator/>
+                <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click"/>
+
+                <Separator/>
                 <MenuItem Header="Clipboard">
                     <MenuItem Header="Copy Entity Id" Click="mICopyEntityId_Click"/>
                     <MenuItem Header="Copy Entity Name" Click="mICopyEntityName_Click"/>
@@ -116,9 +121,7 @@
 
                 <Separator/>
                 <MenuItem Header="Change Entity">
-                    <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click"/>
-
-                    <Separator/>
+                    
                     <MenuItem Header="Assign Entity to User" Click="mIAssignEntityToUser_Click"/>
                     <MenuItem Header="Assign Entity to Team" Click="mIAssignEntityToTeam_Click"/>
 
@@ -130,6 +133,7 @@
 
                     <Separator/>
                     <MenuItem Header="Delete Entity" Click="mIDeleteEntity_Click"/>
+                    
                 </MenuItem>
             </ContextMenu>
 
