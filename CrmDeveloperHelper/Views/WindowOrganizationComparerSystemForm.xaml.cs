@@ -504,7 +504,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                var item = ((FrameworkElement)e.OriginalSource).DataContext as EntityViewItem;
+                EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
 
                 if (item != null)
                 {
@@ -1874,7 +1874,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var linkedEntityMetadata = ((FrameworkElement)e.OriginalSource).DataContext as EntityViewItem;
+            EntityViewItem linkedEntityMetadata = GetItemFromRoutedDataContext<EntityViewItem>(e);
 
             var items = contextMenu.Items.OfType<Control>();
 

@@ -518,7 +518,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSBSelectConnectionFileInFolder_Click(object sender, RoutedEventArgs e)
         {
-            var connectionData = ((FrameworkElement)e.OriginalSource).DataContext as ConnectionData;
+            ConnectionData connectionData = GetItemFromRoutedDataContext<ConnectionData>(e);
 
             if (connectionData == null)
             {
@@ -530,7 +530,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSBCopyConnectionId_Click(object sender, RoutedEventArgs e)
         {
-            var connectionData = ((FrameworkElement)e.OriginalSource).DataContext as ConnectionData;
+            ConnectionData connectionData = GetItemFromRoutedDataContext<ConnectionData>(e);
 
             if (connectionData == null)
             {
@@ -2133,7 +2133,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                var item = ((FrameworkElement)e.OriginalSource).DataContext as ConnectionData;
+                ConnectionData item = GetItemFromRoutedDataContext<ConnectionData>(e);
 
                 if (item != null)
                 {

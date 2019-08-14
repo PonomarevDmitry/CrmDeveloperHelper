@@ -323,7 +323,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                var item = ((FrameworkElement)e.OriginalSource).DataContext as EntityViewItem;
+                EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
 
                 if (item != null)
                 {
@@ -950,7 +950,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             FillLastSolutionItems(connectionData, items, true, AddToCrmSolutionLast_Click, "contMnAddToSolutionLast");
 
-            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as EntityViewItem;
+            EntityViewItem nodeItem = GetItemFromRoutedDataContext<EntityViewItem>(e);
 
             ActivateControls(items, (nodeItem.Report.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
         }

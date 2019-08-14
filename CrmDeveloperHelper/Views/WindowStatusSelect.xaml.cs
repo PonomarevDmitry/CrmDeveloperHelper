@@ -301,7 +301,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                if (((FrameworkElement)e.OriginalSource).DataContext is StatusCodeViewItem item)
+                StatusCodeViewItem item = GetItemFromRoutedDataContext<StatusCodeViewItem>(e);
+
+                if (item != null)
                 {
                     SelectStatusCodeAction(item);
                 }

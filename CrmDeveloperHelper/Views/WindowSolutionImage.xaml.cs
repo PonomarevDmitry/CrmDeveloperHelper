@@ -391,7 +391,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                //var item = ((FrameworkElement)e.OriginalSource).DataContext as SolutionImageComponent;
+                //SolutionImageComponent item = GetItemFromRoutedDataContext<SolutionImageComponent>(e);
 
                 //if (item != null)
                 //{

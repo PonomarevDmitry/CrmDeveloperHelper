@@ -560,7 +560,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                if (((FrameworkElement)e.OriginalSource).DataContext is TraceRecord item)
+                TraceRecord item = GetItemFromRoutedDataContext<TraceRecord>(e);
+
+                if (item != null)
                 {
                     OpenTraceRecordDescription(item);
                 }

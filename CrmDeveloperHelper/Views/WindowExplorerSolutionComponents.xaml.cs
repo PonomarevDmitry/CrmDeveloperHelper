@@ -477,7 +477,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                if (((FrameworkElement)e.OriginalSource).DataContext is SolutionComponentViewItem item)
+                SolutionComponentViewItem item = GetItemFromRoutedDataContext<SolutionComponentViewItem>(e);
+
+                if (item != null)
                 {
                     ExecuteAction(item, PerformExportMouseDoubleClick);
                 }

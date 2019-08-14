@@ -229,7 +229,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                var item = ((FrameworkElement)e.OriginalSource).DataContext as PluginAssembly;
+                PluginAssembly item = GetItemFromRoutedDataContext<PluginAssembly>(e);
 
                 if (item != null)
                 {

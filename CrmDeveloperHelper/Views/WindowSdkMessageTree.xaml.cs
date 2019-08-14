@@ -595,7 +595,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void mIExpandNodes_Click(object sender, RoutedEventArgs e)
         {
-            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+            PluginTreeViewItem nodeItem = GetItemFromRoutedDataContext<PluginTreeViewItem>(e);
 
             if (nodeItem == null)
             {
@@ -607,7 +607,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void mICollapseNodes_Click(object sender, RoutedEventArgs e)
         {
-            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+            PluginTreeViewItem nodeItem = GetItemFromRoutedDataContext<PluginTreeViewItem>(e);
 
             if (nodeItem == null)
             {
@@ -814,7 +814,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+            PluginTreeViewItem nodeItem = GetItemFromRoutedDataContext<PluginTreeViewItem>(e);
 
             var items = contextMenu.Items.OfType<Control>();
 
@@ -854,7 +854,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void AddToCrmSolution_Click(object sender, RoutedEventArgs e)
         {
-            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+            PluginTreeViewItem nodeItem = GetItemFromRoutedDataContext<PluginTreeViewItem>(e);
 
             if (nodeItem == null)
             {
@@ -866,7 +866,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void AddToCrmSolutionLast_Click(object sender, RoutedEventArgs e)
         {
-            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+            PluginTreeViewItem nodeItem = GetItemFromRoutedDataContext<PluginTreeViewItem>(e);
 
             if (nodeItem == null)
             {
@@ -895,7 +895,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void AddMessageFilterToCrmSolution_Click(object sender, RoutedEventArgs e)
         {
-            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+            PluginTreeViewItem nodeItem = GetItemFromRoutedDataContext<PluginTreeViewItem>(e);
 
             if (nodeItem == null)
             {
@@ -907,7 +907,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void AddMessageFilterToCrmSolutionLast_Click(object sender, RoutedEventArgs e)
         {
-            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+            PluginTreeViewItem nodeItem = GetItemFromRoutedDataContext<PluginTreeViewItem>(e);
 
             if (nodeItem == null)
             {
@@ -933,7 +933,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void mIOpenSdkMessageRequestTree_Click(object sender, RoutedEventArgs e)
         {
-            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+            PluginTreeViewItem nodeItem = GetItemFromRoutedDataContext<PluginTreeViewItem>(e);
 
             string entityFilter = nodeItem?.EntityLogicalName;
             string messageFilter = nodeItem?.MessageName;
@@ -945,7 +945,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void mIOpenPluginTree_Click(object sender, RoutedEventArgs e)
         {
-            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+            PluginTreeViewItem nodeItem = GetItemFromRoutedDataContext<PluginTreeViewItem>(e);
 
             string entityFilter = nodeItem?.EntityLogicalName;
             string messageFilter = nodeItem?.MessageName;
@@ -957,7 +957,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void mICreateDescription_Click(object sender, RoutedEventArgs e)
         {
-            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+            PluginTreeViewItem nodeItem = GetItemFromRoutedDataContext<PluginTreeViewItem>(e);
 
             if (nodeItem == null)
             {
@@ -985,7 +985,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void miOpenSolutionsContainingComponentInExplorer_Click(object sender, RoutedEventArgs e)
         {
-            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+            PluginTreeViewItem nodeItem = GetItemFromRoutedDataContext<PluginTreeViewItem>(e);
 
             if (nodeItem == null)
             {
@@ -1021,7 +1021,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void mIOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)
         {
-            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+            PluginTreeViewItem nodeItem = GetItemFromRoutedDataContext<PluginTreeViewItem>(e);
 
             if (nodeItem == null)
             {
@@ -1046,7 +1046,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void mIOpenDependentComponentsInExplorer_Click(object sender, RoutedEventArgs e)
         {
-            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+            PluginTreeViewItem nodeItem = GetItemFromRoutedDataContext<PluginTreeViewItem>(e);
 
             if (nodeItem == null)
             {
@@ -1075,7 +1075,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void mIOpenEntityInWeb_Click(object sender, RoutedEventArgs e)
         {
-            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+            PluginTreeViewItem nodeItem = GetItemFromRoutedDataContext<PluginTreeViewItem>(e);
 
             if (nodeItem == null
                 || !nodeItem.EntityLogicalName.IsValidEntityName()
@@ -1094,7 +1094,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void mIOpenEntityListInWeb_Click(object sender, RoutedEventArgs e)
         {
-            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+            PluginTreeViewItem nodeItem = GetItemFromRoutedDataContext<PluginTreeViewItem>(e);
 
             if (nodeItem == null
                 || !nodeItem.EntityLogicalName.IsValidEntityName()
@@ -1113,7 +1113,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void mIOpenEntityExplorer_Click(object sender, RoutedEventArgs e)
         {
-            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+            PluginTreeViewItem nodeItem = GetItemFromRoutedDataContext<PluginTreeViewItem>(e);
 
             if (nodeItem == null
                 || !nodeItem.EntityLogicalName.IsValidEntityName()
@@ -1134,7 +1134,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnPublishEntity_Click(object sender, RoutedEventArgs e)
         {
-            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+            PluginTreeViewItem nodeItem = GetItemFromRoutedDataContext<PluginTreeViewItem>(e);
 
             if (nodeItem == null
                 || !nodeItem.EntityLogicalName.IsValidEntityName()
@@ -1176,7 +1176,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void miOpenEntitySolutionsContainingComponentInExplorer_Click(object sender, RoutedEventArgs e)
         {
-            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+            PluginTreeViewItem nodeItem = GetItemFromRoutedDataContext<PluginTreeViewItem>(e);
 
             if (nodeItem == null
                 || !nodeItem.EntityLogicalName.IsValidEntityName()
@@ -1220,7 +1220,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void miOpenEntityDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)
         {
-            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+            PluginTreeViewItem nodeItem = GetItemFromRoutedDataContext<PluginTreeViewItem>(e);
 
             if (nodeItem == null
                 || !nodeItem.EntityLogicalName.IsValidEntityName()
@@ -1253,7 +1253,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void miOpenEntityDependentComponentsInExplorer_Click(object sender, RoutedEventArgs e)
         {
-            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+            PluginTreeViewItem nodeItem = GetItemFromRoutedDataContext<PluginTreeViewItem>(e);
 
             if (nodeItem == null
                 || !nodeItem.EntityLogicalName.IsValidEntityName()
@@ -1338,7 +1338,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task AddEntityToSolution(RoutedEventArgs e, bool withSelect, string solutionUniqueName, SolutionComponent.Schema.OptionSets.rootcomponentbehavior rootComponentBehavior)
         {
-            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+            PluginTreeViewItem nodeItem = GetItemFromRoutedDataContext<PluginTreeViewItem>(e);
 
             if (nodeItem == null
                  || !nodeItem.EntityLogicalName.IsValidEntityName()

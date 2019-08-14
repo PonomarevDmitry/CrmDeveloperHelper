@@ -251,7 +251,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                var item = ((FrameworkElement)e.OriginalSource).DataContext as PluginTypeFullInfo;
+                PluginTypeFullInfo item = GetItemFromRoutedDataContext<PluginTypeFullInfo>(e);
 
                 if (item != null)
                 {

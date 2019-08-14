@@ -984,7 +984,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                if (((FrameworkElement)e.OriginalSource).DataContext is DataRowView item
+                DataRowView item = WindowBase.GetItemFromRoutedDataContext<DataRowView>(e);
+
+                if (item != null
                     && item[_columnOriginalEntity] != null
                     && item[_columnOriginalEntity] is Entity entity
                     )
@@ -1182,20 +1184,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
         {
             entity = null;
 
-            DataRowView item = null;
-
-            if (e.OriginalSource is FrameworkElement framework
-                && framework.DataContext is DataRowView dataRowView
-                )
-            {
-                item = dataRowView;
-            }
-            else if (e.OriginalSource is FrameworkContentElement frameworkContent
-                && frameworkContent.DataContext is DataRowView dataRowView2
-                )
-            {
-                item = dataRowView2;
-            }
+            DataRowView item = WindowBase.GetItemFromRoutedDataContext<DataRowView>(e);
 
             if (item != null
                 && item[_columnOriginalEntity] != null

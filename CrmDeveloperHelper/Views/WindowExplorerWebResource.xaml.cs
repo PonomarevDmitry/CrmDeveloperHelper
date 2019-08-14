@@ -694,7 +694,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                var item = ((FrameworkElement)e.OriginalSource).DataContext as EntityTreeViewItem;
+                EntityTreeViewItem item = GetItemFromRoutedDataContext<EntityTreeViewItem>(e);
 
                 if (item != null && item.WebResourceId.HasValue)
                 {
@@ -1115,7 +1115,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             FillLastSolutionItems(connectionData, items, true, AddToCrmSolutionLast_Click, "contMnAddToSolutionLast");
 
-            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as EntityTreeViewItem;
+            EntityTreeViewItem nodeItem = GetItemFromRoutedDataContext<EntityTreeViewItem>(e);
 
             ActivateControls(items, (nodeItem.WebResource?.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
         }
@@ -1431,7 +1431,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void mIExpandNodes_Click(object sender, RoutedEventArgs e)
         {
-            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as EntityTreeViewItem;
+            EntityTreeViewItem nodeItem = GetItemFromRoutedDataContext<EntityTreeViewItem>(e);
 
             if (nodeItem == null)
             {
@@ -1443,7 +1443,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void mICollapseNodes_Click(object sender, RoutedEventArgs e)
         {
-            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as EntityTreeViewItem;
+            EntityTreeViewItem nodeItem = GetItemFromRoutedDataContext<EntityTreeViewItem>(e);
 
             if (nodeItem == null)
             {

@@ -1027,7 +1027,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                var entity = ((FrameworkElement)e.OriginalSource).DataContext as Entity;
+                Entity entity = GetItemFromRoutedDataContext<Entity>(e);
 
                 if (entity != null)
                 {
@@ -1045,7 +1045,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                var item = ((FrameworkElement)e.OriginalSource).DataContext as EntityPrivilegeViewItem;
+                EntityPrivilegeViewItem item = GetItemFromRoutedDataContext<EntityPrivilegeViewItem>(e);
 
                 if (item != null)
                 {

@@ -740,7 +740,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                var entity = ((FrameworkElement)e.OriginalSource).DataContext as EntityMetadataListViewItem;
+                EntityMetadataListViewItem entity = GetItemFromRoutedDataContext<EntityMetadataListViewItem>(e);
 
                 if (entity != null)
                 {

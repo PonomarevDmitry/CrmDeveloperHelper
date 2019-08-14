@@ -270,7 +270,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                if (((FrameworkElement)e.OriginalSource).DataContext is EntityViewItem item)
+                EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+
+                if (item != null)
                 {
                     this.SelectedReportId = item.Report.Id;
 

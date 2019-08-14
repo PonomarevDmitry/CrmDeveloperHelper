@@ -968,7 +968,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                var item = ((FrameworkElement)e.OriginalSource).DataContext as EntityMetadataViewItem;
+                EntityMetadataViewItem item = GetItemFromRoutedDataContext<EntityMetadataViewItem>(e);
 
                 if (item != null)
                 {
@@ -1478,7 +1478,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         || cell.Column == colRoleTemplate
                         )
                     {
-                        var item = ((FrameworkElement)e.OriginalSource).DataContext as RolePrivilegeViewItem;
+                        RolePrivilegeViewItem item = GetItemFromRoutedDataContext<RolePrivilegeViewItem>(e);
 
                         if (item != null)
                         {

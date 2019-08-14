@@ -682,7 +682,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                var item = ((FrameworkElement)e.OriginalSource).DataContext as ConnectionData;
+                ConnectionData item = GetItemFromRoutedDataContext<ConnectionData>(e);
 
                 if (item != null)
                 {
@@ -731,7 +731,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                if (((FrameworkElement)e.OriginalSource).DataContext is ConnectionUserData user)
+                ConnectionUserData user = GetItemFromRoutedDataContext<ConnectionUserData>(e);
+
+                if (user != null)
                 {
                     CallUserEditForm(user);
                 }
@@ -970,7 +972,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                if (((FrameworkElement)e.OriginalSource).DataContext is ConnectionData item)
+                ConnectionData item = GetItemFromRoutedDataContext<ConnectionData>(e);
+
+                if (item != null)
                 {
                     CallEditArchiveConnection(item);
                 }
@@ -1014,7 +1018,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (sender is Button button)
             {
-                if (((FrameworkElement)e.OriginalSource).DataContext is ConnectionData connectionData)
+                ConnectionData connectionData = GetItemFromRoutedDataContext<ConnectionData>(e);
+
+                if (connectionData != null)
                 {
                     this._crmConfig.SetCurrentConnection(connectionData.ConnectionId);
 
@@ -1089,7 +1095,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (sender is Button button)
             {
-                if (((FrameworkElement)e.OriginalSource).DataContext is OrganizationDetailViewItem detail)
+                OrganizationDetailViewItem detail = GetItemFromRoutedDataContext<OrganizationDetailViewItem>(e);
+
+                if (detail != null)
                 {
                     OpenConnectionFormForOrganizationDetail(detail);
                 }
@@ -1228,7 +1236,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSBSelectConnectionFileInFolder_Click(object sender, RoutedEventArgs e)
         {
-            var connectionData = ((FrameworkElement)e.OriginalSource).DataContext as ConnectionData;
+            ConnectionData connectionData = GetItemFromRoutedDataContext<ConnectionData>(e);
 
             if (connectionData == null)
             {
@@ -1240,7 +1248,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSBCopyConnectionId_Click(object sender, RoutedEventArgs e)
         {
-            var connectionData = ((FrameworkElement)e.OriginalSource).DataContext as ConnectionData;
+            ConnectionData connectionData = GetItemFromRoutedDataContext<ConnectionData>(e);
 
             if (connectionData == null)
             {

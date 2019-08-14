@@ -117,7 +117,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                if (((FrameworkElement)e.OriginalSource).DataContext is Entity item)
+                Entity item = GetItemFromRoutedDataContext<Entity>(e);
+
+                if (item != null)
                 {
                     SelectEntityAction(item);
                 }

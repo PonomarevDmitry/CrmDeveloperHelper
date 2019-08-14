@@ -373,7 +373,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                if (((FrameworkElement)e.OriginalSource).DataContext is EntityTreeViewItem item && item.WebResourceId != null)
+                EntityTreeViewItem item = GetItemFromRoutedDataContext<EntityTreeViewItem>(e);
+
+                if (item != null && item.WebResourceId != null)
                 {
                     this.SelectedWebResourceId = item.WebResourceId;
 

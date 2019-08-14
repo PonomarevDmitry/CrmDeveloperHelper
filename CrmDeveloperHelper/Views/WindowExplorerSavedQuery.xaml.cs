@@ -388,7 +388,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                if (((FrameworkElement)e.OriginalSource).DataContext is EntityViewItem item)
+                EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+
+                if (item != null)
                 {
                     var service = await GetService();
 
@@ -1263,7 +1265,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             FillLastSolutionItems(connectionData, items, true, AddToCrmSolutionLast_Click, "contMnAddToSolutionLast");
 
-            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as EntityViewItem;
+            EntityViewItem nodeItem = GetItemFromRoutedDataContext<EntityViewItem>(e);
 
             ActivateControls(items, (nodeItem.SavedQuery.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
 

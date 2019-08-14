@@ -331,7 +331,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                if (((FrameworkElement)e.OriginalSource).DataContext is AttributeSelectItem item)
+                AttributeSelectItem item = GetItemFromRoutedDataContext<AttributeSelectItem>(e);
+
+                if (item != null)
                 {
                     SelectAttributeMetadataAction(item.AttributeMetadata);
                 }

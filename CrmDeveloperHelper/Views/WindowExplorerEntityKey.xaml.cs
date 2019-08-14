@@ -858,7 +858,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                var entity = ((FrameworkElement)e.OriginalSource).DataContext as EntityMetadataViewItem;
+                EntityMetadataViewItem entity = GetItemFromRoutedDataContext<EntityMetadataViewItem>(e);
                 ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
 
                 if (connectionData != null && entity != null)
@@ -876,7 +876,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var entity = GetSelectedEntity();
 
-                var entktyKey = ((FrameworkElement)e.OriginalSource).DataContext as EntityKeyMetadataViewItem;
+                EntityKeyMetadataViewItem entktyKey = GetItemFromRoutedDataContext<EntityKeyMetadataViewItem>(e);
 
                 if (connectionData != null
                     && entity != null
