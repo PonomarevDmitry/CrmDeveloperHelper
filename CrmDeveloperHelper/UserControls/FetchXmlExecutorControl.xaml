@@ -12,6 +12,9 @@
 
             <ContextMenu x:Key="listContextMenuEntity" Opened="ContextMenu_Opened">
 
+                <MenuItem Header="Open in Web" Click="mIOpenInstanceInWeb_Click" FontWeight="Bold" />
+
+                <Separator/>
                 <MenuItem Header="Open Entity Customization in Web" Click="mIOpenEntityInWeb_Click" />
 
                 <Separator/>
@@ -55,6 +58,10 @@
             </ContextMenu>
 
             <ContextMenu x:Key="listContextMenuEntityReference" Opened="ContextMenu_Opened">
+
+                <MenuItem Header="Open EntityReference in Web" Click="mIOpenEntityReferenceInWeb_Click" FontWeight="Bold" />
+
+                <Separator/>
                 <MenuItem Header="Open EntityReference Customization in Web" Click="mIOpenEntityReferenceCustomizationInWeb_Click" />
 
                 <Separator/>
@@ -80,6 +87,9 @@
 
                 <Separator/>
                 <MenuItem Header="Change EntityReference in Editor" Click="mIChangeEntityReferenceInEditor_Click"/>
+
+                <Separator/>
+                <MenuItem Header="Open in Web" Click="mIOpenInstanceInWeb_Click" />
 
                 <Separator/>
                 <MenuItem Header="Open Entity Customization in Web" Click="mIOpenEntityInWeb_Click" />

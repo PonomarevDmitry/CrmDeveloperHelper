@@ -1065,6 +1065,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             this.ConnectionData?.OpenEntityMetadataInWeb(entity.LogicalName);
         }
 
+        private void mIOpenInstanceInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            if (!TryFindEntityFromDataRowView(e, out var entity))
+            {
+                return;
+            }
+
+            this.ConnectionData?.OpenEntityInstanceInWeb(entity.LogicalName, entity.Id);
+        }
+
         private void mIOpenEntityListInWeb_Click(object sender, RoutedEventArgs e)
         {
             if (!TryFindEntityFromDataRowView(e, out var entity))
@@ -1208,6 +1218,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
 
             this.ConnectionData?.OpenEntityMetadataInWeb(entityReferenceView.LogicalName);
+        }
+
+        private void mIOpenEntityReferenceInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            if (!TryFindEntityReferenceViewFromRow(e, out var entityReferenceView))
+            {
+                return;
+            }
+
+            this.ConnectionData?.OpenEntityInstanceInWeb(entityReferenceView.LogicalName, entityReferenceView.Id);
         }
 
         private void mIOpenEntityReferenceListInWeb_Click(object sender, RoutedEventArgs e)
