@@ -522,20 +522,28 @@
 
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupWorkflows" priority="0x0603" />
+      
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership" priority="0x0604" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership_MenuDyn_Group" priority="0x0604" />
+      
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet" priority="0x0605" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuGlobalOptionSetDuplicateDyn_Group" priority="0x0605" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuComponentTypeEnumDyn_Group" priority="0x0605" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuCreateAllDependencyNodeDescriptionDyn_Group" priority="0x0605" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuUnknownFormControlTypesDyn_Group" priority="0x0605" />
+      
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupManagedEntities" priority="0x0606" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupManagedEntities_MenuDyn_Group" priority="0x0606" />
+      
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginDuplicates" priority="0x0607" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginDuplicates_MenuPluginStepsDyn_Group" priority="0x0607" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginDuplicates_MenuPluginImagesDyn_Group" priority="0x0607" />
+      
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents" priority="0x0608" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents_MenuPluginStepsDyn_Group" priority="0x0608" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents_MenuPluginImagesDyn_Group" priority="0x0608" />
+      
+      
 
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupFind" priority="0x0603" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupCrmObjects" priority="0x0602" />
@@ -1571,6 +1579,8 @@
           <MenuText>Entities Ownership</MenuText>
         </Strings>
       </Menu>
+      
+      
 
       <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuGlobalOptionSetDuplicateDyn" priority="0x0111" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -1593,6 +1603,17 @@
           <MenuText>Create All Dependency Nodes Description</MenuText>
         </Strings>
       </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuUnknownFormControlTypesDyn" priority="0x0111" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Unknow Form Control Types</ButtonText>
+          <MenuText>Unknow Form Control Types</MenuText>
+        </Strings>
+      </Menu>
+
+
+
+      
 
 
       <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupManagedEntities_MenuDyn" priority="0x0112" type="Menu">
@@ -7659,6 +7680,17 @@
           <ButtonText>Create All Dependency Nodes Description Placeholder</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidDynamicCommandSet" id="CommonCheckUnknownFormControlTypesId" priority="0x0111" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Unknown Form Control Types Placeholder</ButtonText>
+        </Strings>
+      </Button>
 
 
       <Button guid="guidDynamicCommandSet" id="CommonCheckManagedElementsCommandId" priority="0x0112" type="Button">
@@ -8862,6 +8894,15 @@
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
           <ButtonText>Create All Dependency Nodes Description</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommandSet" id="OutputCheckUnknownFormControlTypesId" priority="0x6000" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Unknown Form Control Types</ButtonText>
         </Strings>
       </Button>
 
@@ -11214,17 +11255,20 @@
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuGlobalOptionSetDuplicateDyn" priority="0x0111">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuGlobalOptionSetDuplicateDyn" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuComponentTypeEnumDyn" priority="0x0112">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuComponentTypeEnumDyn" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuCreateAllDependencyNodeDescriptionDyn" priority="0x0113">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuCreateAllDependencyNodeDescriptionDyn" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuUnknownFormControlTypesDyn" priority="0x06030">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet" />
     </CommandPlacement>
 
-
+    
 
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupManagedEntities_MenuDyn" priority="0x0112">
@@ -13206,6 +13250,9 @@
     <CommandPlacement guid="guidDynamicCommandSet" id="CommonCheckEntitiesOwnerShipsCommandId" priority="0x0110">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership_MenuDyn_Group" />
     </CommandPlacement>
+    
+    
+    
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuGlobalOptionSetDuplicateDyn_Group" priority="0x0111">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuGlobalOptionSetDuplicateDyn" />
@@ -13227,6 +13274,17 @@
     <CommandPlacement guid="guidDynamicCommandSet" id="CommonCheckCreateAllDependencyNodeDescriptionCommandId" priority="0x0113">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuCreateAllDependencyNodeDescriptionDyn_Group" />
     </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuUnknownFormControlTypesDyn_Group" priority="0x0112">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuUnknownFormControlTypesDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CommonCheckUnknownFormControlTypesId" priority="0x0112">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuUnknownFormControlTypesDyn_Group" />
+    </CommandPlacement>
+    
+    
+    
+    
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupManagedEntities_MenuDyn_Group" priority="0x0112">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupManagedEntities_MenuDyn" />
@@ -15028,18 +15086,30 @@
     <CommandPlacement guid="guidCommandSet" id="OutputCheckEntitiesOwnerShipsCommandId" priority="0x0110">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership" />
     </CommandPlacement>
+    
+    
+    
+    
 
-    <CommandPlacement guid="guidCommandSet" id="OutputCheckGlobalOptionSetDuplicateCommandId" priority="0x0111">
+    <CommandPlacement guid="guidCommandSet" id="OutputCheckGlobalOptionSetDuplicateCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidCommandSet" id="OutputCheckComponentTypeEnumCommandId" priority="0x0112">
+    <CommandPlacement guid="guidCommandSet" id="OutputCheckComponentTypeEnumCommandId" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidCommandSet" id="OutputCheckCreateAllDependencyNodeDescriptionCommandId" priority="0x0113">
+    <CommandPlacement guid="guidCommandSet" id="OutputCheckCreateAllDependencyNodeDescriptionCommandId" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet" />
     </CommandPlacement>
+
+    <CommandPlacement guid="guidCommandSet" id="OutputCheckUnknownFormControlTypesId" priority="0x06030">
+      <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet" />
+    </CommandPlacement>
+    
+    
+    
+    
 
     <CommandPlacement guid="guidCommandSet" id="OutputCheckManagedElementsCommandId" priority="0x0112">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupCheck_MenuCheck_GroupManagedEntities" />
@@ -16093,12 +16163,18 @@
       <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership_MenuDyn_Group" value="0x1260"/>
 
       <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet" value="0x10D7" />
+      
       <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuGlobalOptionSetDuplicateDyn" value="0x1261" />
       <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuGlobalOptionSetDuplicateDyn_Group" value="0x1262" />
+      
       <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuComponentTypeEnumDyn" value="0x1263" />
       <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuComponentTypeEnumDyn_Group" value="0x1264" />
+      
       <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuCreateAllDependencyNodeDescriptionDyn" value="0x1265" />
       <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuCreateAllDependencyNodeDescriptionDyn_Group" value="0x1266" />
+
+      <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuUnknownFormControlTypesDyn" value="0x1392" />
+      <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuUnknownFormControlTypesDyn_Group" value="0x1393" />
 
       <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupManagedEntities" value="0x10D8" />
       <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupManagedEntities_MenuDyn" value="0x1267" />
@@ -16738,7 +16814,9 @@
       <IDSymbol name="CodeXmlWorkflowShowDifferenceInConnectionGroupCommandId" value="10450" />
       <IDSymbol name="CodeXmlWorkflowUpdateInConnectionGroupCommandId" value="10500" />
 
-      <!-- 10750 -->
+      <IDSymbol name="CommonCheckUnknownFormControlTypesId" value="10750" />
+
+      <!-- 10800 -->
 
     </GuidSymbol>
 
@@ -17365,6 +17443,8 @@
       <IDSymbol name="OutputCheckPluginStepsRequiredComponentsCommandId" value="0x21D5" />
       <IDSymbol name="OutputCheckPluginImagesRequiredComponentsCommandId" value="0x21D6" />
 
+      <IDSymbol name="OutputCheckUnknownFormControlTypesId" value="0x220E" />
+
       <IDSymbol name="OutputImportJobExplorerInConnectionCommandId" value="0x21D7" />
 
 
@@ -17498,10 +17578,10 @@
 
 
     <!-- Groups and Menus -->
-    <!-- 0x1392 -->
+    <!-- 0x1394 -->
 
     <!-- Commands -->
-    <!-- 0x220E -->
+    <!-- 0x220F -->
 
 
   </Symbols>

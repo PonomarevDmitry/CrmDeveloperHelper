@@ -16,6 +16,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 {
@@ -1068,5 +1069,150 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         }
 
         #endregion Поиск несуществующих используемых в БП сущностей
+
+        public async Task ExecuteCheckingUnknownFormControlType(ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            string operation = string.Format(Properties.OperationNames.CheckingUnknownFormControlTypeFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await CheckingUnknownFormControlType(connectionData, commonConfig);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task CheckingUnknownFormControlType(ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            StringBuilder content = new StringBuilder();
+
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM));
+
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription()));
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
+
+            Dictionary<string, FormatTextTableHandler> dictUnknownControls = new Dictionary<string, FormatTextTableHandler>(StringComparer.InvariantCultureIgnoreCase);
+
+          
+
+            var descriptor = new SolutionComponentDescriptor(service);
+            var handler = new FormDescriptionHandler(descriptor, new DependencyRepository(service));
+
+            var repositorySystemForm = new SystemFormRepository(service);
+
+            var formList = await repositorySystemForm.GetListAsync(null, new ColumnSet(true));
+
+            foreach (var systemForm in formList
+                .OrderBy(f => f.ObjectTypeCode)
+                .ThenBy(f => f.Type?.Value)
+                .ThenBy(f => f.Name)
+            )
+            {
+                string formXml = systemForm.FormXml;
+
+                if (!string.IsNullOrEmpty(formXml))
+                {
+                    XElement doc = XElement.Parse(formXml);
+
+                    var tabs = handler.GetFormTabs(doc);
+
+                    var unknownControls = tabs.SelectMany(t => t.Sections).SelectMany(s => s.Controls).Where(c => c.GetControlType() == FormControl.FormControlType.UnknownControl);
+
+                    foreach (var control in unknownControls)
+                    {
+                        if (!dictUnknownControls.ContainsKey(control.ClassId))
+                        {
+                            FormatTextTableHandler tableUnknownControls = new FormatTextTableHandler();
+                            tableUnknownControls.SetHeader("Entity", "FormType", "Form", "State", "Attribute", "Form Url");
+
+                            dictUnknownControls[control.ClassId] = tableUnknownControls;
+                        }
+
+                        dictUnknownControls[control.ClassId].AddLine(
+                            systemForm.ObjectTypeCode
+                            , systemForm.FormattedValues[SystemForm.Schema.Attributes.type]
+                            , systemForm.Name
+                            , systemForm.FormattedValues[SystemForm.Schema.Attributes.formactivationstate]
+                            , control.Attribute
+                            , service.UrlGenerator.GetSolutionComponentUrl(ComponentType.SystemForm, systemForm.Id)
+                        );
+                    }
+                }
+            }
+
+            if (dictUnknownControls.Count > 0)
+            {
+                content.AppendLine().AppendLine();
+
+                content.AppendFormat("Unknown Form Control Types: {0}", dictUnknownControls.Count);
+
+                foreach (var classId in dictUnknownControls.Keys.OrderBy(s => s))
+                {
+                    content.AppendLine().AppendLine();
+
+                    content.AppendLine(classId);
+
+                    var tableUnknownControls = dictUnknownControls[classId];
+
+                    foreach (var str in tableUnknownControls.GetFormatedLines(false))
+                    {
+                        content.AppendLine(tabSpacer + str);
+                    }
+                }
+
+                string fileName = string.Format("{0}.Checking Unknown Form Control Types at {1}.txt"
+                    , connectionData.Name
+                    , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
+                );
+
+                if (string.IsNullOrEmpty(commonConfig.FolderForExport))
+                {
+                    _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                    commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+                }
+                else if (!Directory.Exists(commonConfig.FolderForExport))
+                {
+                    _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
+                    commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+                }
+
+                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+                this._iWriteToOutput.WriteToOutput(connectionData, "Unknown Form Control Types were exported to {0}", filePath);
+
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+            }
+            else
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, "No Unknown Form Control Types in CRM were founded.");
+                this._iWriteToOutput.ActivateOutputWindow(connectionData);
+            }
+        }
     }
 }

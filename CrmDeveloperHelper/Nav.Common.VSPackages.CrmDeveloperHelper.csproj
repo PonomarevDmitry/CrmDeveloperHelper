@@ -101,6 +101,7 @@
     <Compile Include="Commands\AbstractDynamicCommandXsdSchemas.cs" />
     <Compile Include="Commands\AbstractOutputWindowCommand.cs" />
     <Compile Include="Commands\AbstractOutputWindowDynamicCommand.cs" />
+    <Compile Include="Commands\Checks\CommonCheckUnknownFormControlTypes.cs" />
     <Compile Include="Commands\Connections\CommonCrmConnectionEditCommand.cs" />
     <Compile Include="Commands\Connections\CommonCrmConnectionSelectFileCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectPluginAssemblyAddToSolutionInConnectionCommand.cs" />
@@ -129,6 +130,7 @@
     <Compile Include="Commands\JavaScripts\CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand.cs" />
     <Compile Include="Commands\ListForPublish\ListForPublishMultiDifferenceCommand.cs" />
     <Compile Include="Commands\ListForPublish\ListForPublishOpenFilesCommand.cs" />
+    <Compile Include="Commands\OutputWindows\Checks\OutputCheckUnknownFormControlTypes.cs" />
     <Compile Include="Commands\OutputWindows\Checks\OutputCheckComponentTypeEnumCommand.cs" />
     <Compile Include="Commands\OutputWindows\Checks\OutputCheckCreateAllDependencyNodeDescriptionCommand.cs" />
     <Compile Include="Commands\OutputWindows\Checks\OutputCheckEntitiesOwnerShipsCommand.cs" />

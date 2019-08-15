@@ -577,6 +577,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             CommonCheckComponentTypeEnumCommand.Initialize(commandService);
             CommonCheckCreateAllDependencyNodeDescriptionCommand.Initialize(commandService);
+            CommonCheckUnknownFormControlTypes.Initialize(commandService);
 
             #endregion Common Check
 
@@ -774,6 +775,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             OutputCheckPluginStepsRequiredComponentsCommand.Initialize(commandService);
             OutputCheckWorkflowsUsedEntitiesCommand.Initialize(commandService);
             OutputCheckWorkflowsUsedNotExistsEntitiesCommand.Initialize(commandService);
+            OutputCheckUnknownFormControlTypes.Initialize(commandService);
+
             OutputCustomControlExplorerCommand.Initialize(commandService);
             OutputEntityAttributeExplorerCommand.Initialize(commandService);
             OutputEntityKeyExplorerCommand.Initialize(commandService);

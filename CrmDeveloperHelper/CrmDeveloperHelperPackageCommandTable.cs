@@ -598,6 +598,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuComponentTypeEnumDyn_Group = 0x1264;
         public const int commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuCreateAllDependencyNodeDescriptionDyn = 0x1265;
         public const int commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuCreateAllDependencyNodeDescriptionDyn_Group = 0x1266;
+        public const int commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuUnknownFormControlTypesDyn = 0x1392;
+        public const int commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuUnknownFormControlTypesDyn_Group = 0x1393;
         public const int commonMenu_GroupCheck_MenuCheck_GroupManagedEntities = 0x10D8;
         public const int commonMenu_GroupCheck_MenuCheck_GroupManagedEntities_MenuDyn = 0x1267;
         public const int commonMenu_GroupCheck_MenuCheck_GroupManagedEntities_MenuDyn_Group = 0x1268;
@@ -1017,6 +1019,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CodeXmlWorkflowOpenInWebCommandId = 0x28A0;
         public const int CodeXmlWorkflowShowDifferenceInConnectionGroupCommandId = 0x28D2;
         public const int CodeXmlWorkflowUpdateInConnectionGroupCommandId = 0x2904;
+        public const int CommonCheckUnknownFormControlTypesId = 0x29FE;
         public const int CodeWebResourceUpdateContentPublishCommandId = 0x2000;
         public const int CodeWebResourceShowDifferenceCommandId = 0x2001;
         public const int CodeWebResourceShowDifferenceCustomCommandId = 0x2002;
@@ -1383,6 +1386,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int OutputCheckPluginImagesCommandId = 0x21D4;
         public const int OutputCheckPluginStepsRequiredComponentsCommandId = 0x21D5;
         public const int OutputCheckPluginImagesRequiredComponentsCommandId = 0x21D6;
+        public const int OutputCheckUnknownFormControlTypesId = 0x220E;
         public const int OutputImportJobExplorerInConnectionCommandId = 0x21D7;
         public const int OutputFindEntityObjectsByPrefixCommandId = 0x21D8;
         public const int OutputFindEntityObjectsByPrefixInExplorerCommandId = 0x2202;

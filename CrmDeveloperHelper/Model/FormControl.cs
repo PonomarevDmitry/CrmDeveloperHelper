@@ -71,6 +71,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             MultiSelectPicklist,
 
             IFrame,
+
+            WebSiteUrl,
+
+            EmailAddress,
+
+            TickerSymbol,
+
+            Duration,
+
+            LanguageCode,
+
+            RelatedQuickViewForm,
+
+            PartyList,
+            RegardingObject,
         }
 
         public FormControlType GetControlType()
@@ -145,9 +160,63 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 {
                     return FormControlType.IFrame;
                 }
-                //else if (tempGuid == Guid.Parse())
+                else if (tempGuid == Guid.Parse("{71716B6C-711E-476c-8AB8-5D11542BFB47}"))
+                {
+                    return FormControlType.WebSiteUrl;
+                }
+                else if (tempGuid == Guid.Parse("{ADA2203E-B4CD-49be-9DDF-234642B43B52}"))
+                {
+                    return FormControlType.EmailAddress;
+                }
+                else if (tempGuid == Guid.Parse("{1E1FC551-F7A8-43af-AC34-A8DC35C7B6D4}"))
+                {
+                    return FormControlType.TickerSymbol;
+                }
+                else if (tempGuid == Guid.Parse("{AA987274-CE4E-4271-A803-66164311A958}"))
+                {
+                    return FormControlType.Duration;
+                }
+                else if (tempGuid == Guid.Parse("{B634828E-C390-444A-AFE6-E07315D9D970}"))
+                {
+                    return FormControlType.LanguageCode;
+                }
+                else if (tempGuid == Guid.Parse("{B68B05F0-A46D-43F8-843B-917920AF806A}"))
+                {
+                    return FormControlType.RelatedQuickViewForm;
+                }
+                else if (tempGuid == Guid.Parse("{CBFB742C-14E7-4a17-96BB-1A13F7F64AA2}"))
+                {
+                    return FormControlType.PartyList;
+                }
+                else if (tempGuid == Guid.Parse("{F3015350-44A2-4aa0-97B5-00166532B5E9}"))
+                {
+                    return FormControlType.RegardingObject;
+                }
+                //else if (tempGuid == Guid.Parse(""))
                 //{
+                //    return FormControlType.;
+                //}
+                //else if (tempGuid == Guid.Parse(""))
+                //{
+                //    return FormControlType.;
+                //}
+                //else if (tempGuid == Guid.Parse(""))
+                //{
+                //    return FormControlType.;
+                //}
+                //else if (tempGuid == Guid.Parse(""))
+                //{
+                //    return FormControlType.;
+                //}
+                //else if (tempGuid == Guid.Parse(""))
+                //{
+                //    return FormControlType.;
+                //}
 
+
+                //else if (tempGuid == Guid.Parse(""))
+                //{
+                //    return FormControlType.;
                 //}
             }
 

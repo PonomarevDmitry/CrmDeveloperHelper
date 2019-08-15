@@ -610,6 +610,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Checking Unknown Form Control Types.
+        /// </summary>
+        internal static string CheckingUnknownFormControlTypeFormat1 {
+            get {
+                return ResourceManager.GetString("CheckingUnknownFormControlTypeFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Checking WebResources in {0} and {1}.
         /// </summary>
         internal static string CheckingWebResourcesFormat2 {
