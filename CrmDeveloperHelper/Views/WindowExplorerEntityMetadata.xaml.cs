@@ -515,11 +515,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var entity = GetSelectedEntity();
 
-            if (entity == null)
-            {
-                return;
-            }
-
             var service = await GetService();
 
             _commonConfig.Save();
@@ -529,7 +524,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , service
                 , _commonConfig
                 , string.Empty
-                , entity.EntityLogicalName
+                , entity?.EntityLogicalName
+            );
+        }
+
+        private async void miGlobalOptionSetsSelectedItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (_selectedItem == null)
+            {
+                return;
+            }
+
+            var entity = GetSelectedEntity();
+
+            var service = await GetService();
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenGlobalOptionSetsWindow(
+                this._iWriteToOutput
+                , service
+                , _commonConfig
+                , null
+                , entity?.EntityLogicalName
+                , string.Empty
+                , string.Empty
+                , false
+                , _selectedItem
             );
         }
 
@@ -542,6 +563,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service = await GetService();
 
             WindowHelper.OpenSystemFormWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName);
+        }
+
+        private async void miSystemFormsSelectedItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (_selectedItem == null)
+            {
+                return;
+            }
+
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenSystemFormWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName, string.Empty, _selectedItem);
         }
 
         private async void miSavedQuery_Click(object sender, RoutedEventArgs e)
@@ -617,6 +654,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service = await GetService();
 
             WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName);
+        }
+
+        private async void miMessageRequestTreeSelectedItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (_selectedItem == null)
+            {
+                return;
+            }
+
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, service, _commonConfig, string.Empty, false, _selectedItem, entity?.EntityLogicalName, string.Empty);
         }
 
         private async void miOrganizationComparer_Click(object sender, RoutedEventArgs e)
@@ -1381,7 +1434,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 FillLastSolutionItems(connectionData, items, true, AddToCrmSolutionLastIncludeAsShellOnly_Click, "contMnAddToSolutionLastIncludeAsShellOnly");
 
                 ActivateControls(items, connectionData.LastSelectedSolutionsUniqueName != null && connectionData.LastSelectedSolutionsUniqueName.Any(), "contMnAddToSolutionLast");
+
+                ActivateControls(items, _selectedItem != null, "contMnSelectedItem");
             }
+        }
+
+        private void otherEntityInformation_SubmenuOpened(object sender, RoutedEventArgs e)
+        {
+            if (!(sender is MenuItem menuItem))
+            {
+                return;
+            }
+
+            var items = menuItem.Items.OfType<Control>();
+
+            ActivateControls(items, _selectedItem != null, "contMnSelectedItem");
         }
 
         private async void miOpenDependentComponentsInExplorer_Click(object sender, RoutedEventArgs e)

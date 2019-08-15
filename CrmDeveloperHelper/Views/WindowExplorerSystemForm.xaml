@@ -91,7 +91,7 @@
 
                 <Separator/>
                 <MenuItem Header="Get Other Entity Information">
-                    <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile_Click"/>
+                    <MenuItem Header="Entity Metadata" Click="btnEntityMetadataExplorer_Click"/>
                     <Separator/>
                     <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer_Click"/>
                     <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer_Click"/>
@@ -112,6 +112,9 @@
                     <MenuItem Header="Plugin Tree" Click="btnPluginTree_Click"/>
                     <MenuItem Header="Message Tree" Click="btnMessageTree_Click"/>
                     <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree_Click"/>
+
+                    <Separator x:Uid="contMnSelectedItem"/>
+                    <MenuItem x:Uid="contMnSelectedItem" Header="Entity Metadata in Addition Mode" Click="btnEntityMetadataExplorerSelectedItem_Click"/>
                 </MenuItem>
 
                 <Separator/>
@@ -166,7 +169,7 @@
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
             <Menu Background="{x:Null}">
                 <MenuItem Header="Get Other Entity Information">
-                    <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile_Click"/>
+                    <MenuItem Header="Entity Metadata" Click="btnEntityMetadataExplorer_Click"/>
                     <Separator/>
                     <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer_Click"/>
                     <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer_Click"/>
@@ -187,6 +190,9 @@
                     <MenuItem Header="Plugin Tree" Click="btnPluginTree_Click"/>
                     <MenuItem Header="Message Tree" Click="btnMessageTree_Click"/>
                     <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree_Click"/>
+
+                    <Separator x:Uid="contMnSelectedItem"/>
+                    <MenuItem x:Uid="contMnSelectedItem" Header="Entity Metadata in Addition Mode" Click="btnEntityMetadataExplorerSelectedItem_Click"/>
                 </MenuItem>
             </Menu>
 

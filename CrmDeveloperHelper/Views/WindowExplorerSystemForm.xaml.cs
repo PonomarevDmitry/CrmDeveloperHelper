@@ -1624,7 +1624,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         #region Кнопки открытия других форм с информация о сущности.
 
-        private async void btnCreateMetadataFile_Click(object sender, RoutedEventArgs e)
+        private async void btnEntityMetadataExplorer_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -2212,6 +2212,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             ExecuteActionAsync(entity.Id, entity.ObjectTypeCode, entity.Name, PerformPublishEntityAsync);
+        }
+
+        private async void btnEntityMetadataExplorerSelectedItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (_selectedItem == null)
+            {
+                return;
+            }
+
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, _commonConfig, entity?.ObjectTypeCode, _selectedItem);
         }
     }
 }

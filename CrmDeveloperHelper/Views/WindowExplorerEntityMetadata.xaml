@@ -97,6 +97,11 @@
                     <MenuItem Header="Plugin Tree" Click="miPluginTree_Click"/>
                     <MenuItem Header="Message Tree" Click="miMessageTree_Click"/>
                     <MenuItem Header="Message Request Tree" Click="miMessageRequestTree_Click"/>
+
+                    <Separator x:Uid="contMnSelectedItem"/>
+                    <MenuItem x:Uid="contMnSelectedItem" Header="Global OptionSets in Addition Mode" Click="miGlobalOptionSetsSelectedItem_Click"/>
+                    <MenuItem x:Uid="contMnSelectedItem" Header="Forms in Addition Mode" Click="miSystemFormsSelectedItem_Click"/>
+                    <MenuItem x:Uid="contMnSelectedItem" Header="Message Request Tree in Addition Mode" Click="miMessageRequestTreeSelectedItem_Click"/>
                 </MenuItem>
 
                 <Separator/>
@@ -137,7 +142,7 @@
                 <MenuItem Header="Options" Click="miExportEntityMetadataOptions_Click" />
                 
                 <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
-                <MenuItem Header="Open Entity Information" VerticalAlignment="Center">
+                <MenuItem Header="Open Entity Information" VerticalAlignment="Center" SubmenuOpened="otherEntityInformation_SubmenuOpened">
                     <MenuItem Header="Entity Attribute Explorer" Click="miEntityAttributeExplorer_Click"/>
                     <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="miEntityRelationshipOneToManyExplorer_Click"/>
                     <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="miEntityRelationshipManyToManyExplorer_Click"/>
@@ -160,6 +165,11 @@
                     <MenuItem Header="Plugin Tree" Click="miPluginTree_Click" />
                     <MenuItem Header="Message Tree" Click="miMessageTree_Click"/>
                     <MenuItem Header="Message Request Tree" Click="miMessageRequestTree_Click"/>
+
+                    <Separator x:Uid="contMnSelectedItem"/>
+                    <MenuItem x:Uid="contMnSelectedItem" Header="Global OptionSets in Addition Mode" Click="miGlobalOptionSetsSelectedItem_Click"/>
+                    <MenuItem x:Uid="contMnSelectedItem" Header="Forms in Addition Mode" Click="miSystemFormsSelectedItem_Click"/>
+                    <MenuItem x:Uid="contMnSelectedItem" Header="Message Request Tree in Addition Mode" Click="miMessageRequestTreeSelectedItem_Click"/>
                 </MenuItem>
                 
                 <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />

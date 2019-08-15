@@ -134,7 +134,6 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
@@ -155,16 +154,16 @@
                 <Label Content="Namespace Messages JavaScript" Grid.Row="2" Grid.Column="0" />
                 <TextBox x:Name="txtBNamespaceSdkMessagesJavaScript" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Path=SelectedItem.NamespaceSdkMessagesJavaScript, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
 
-                <Label Content="Folder" Grid.Row="3" Grid.Column="0" />
-                <TextBox x:Name="txtBFolder" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" />
-
             </Grid>
         </Expander>
 
         <Grid Grid.Row="1" Margin="5">
+            
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
+            
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="100*"/>
@@ -176,14 +175,17 @@
                 <ColumnDefinition Width="100*"/>
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Row="0" Grid.Column="0" Content="Entity Name"/>
-            <ComboBox Grid.Row="0" Grid.Column="1" x:Name="cmBEntityName" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" KeyDown="txtBFilter_KeyDown" />
+            <Label Content="Folder" Grid.Row="0" Grid.Column="0" />
+            <TextBox x:Name="txtBFolder" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5" />
 
-            <Label Grid.Row="0" Grid.Column="2" Content="Message"/>
-            <TextBox Grid.Row="0" Grid.Column="3" x:Name="txtBMessageFilter" TextWrapping="NoWrap" KeyDown="txtBFilter_KeyDown"/>
+            <Label Grid.Row="1" Grid.Column="0" Content="Entity Name"/>
+            <ComboBox Grid.Row="1" Grid.Column="1" x:Name="cmBEntityName" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" KeyDown="txtBFilter_KeyDown" />
 
-            <Label Grid.Row="0" Grid.Column="4" Content="Endpoint"/>
-            <TextBox Grid.Row="0" Grid.Column="5" x:Name="txtBEndpoint" TextWrapping="NoWrap" KeyDown="txtBFilter_KeyDown"/>
+            <Label Grid.Row="1" Grid.Column="2" Content="Message"/>
+            <TextBox Grid.Row="1" Grid.Column="3" x:Name="txtBMessageFilter" TextWrapping="NoWrap" KeyDown="txtBFilter_KeyDown"/>
+
+            <Label Grid.Row="1" Grid.Column="4" Content="Endpoint"/>
+            <TextBox Grid.Row="1" Grid.Column="5" x:Name="txtBEndpoint" TextWrapping="NoWrap" KeyDown="txtBFilter_KeyDown"/>
         </Grid>
 
         <GroupBox Header="Sdk Message Request Tree" Grid.Row="2" Margin="5">
