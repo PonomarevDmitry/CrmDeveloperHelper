@@ -1304,16 +1304,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var descriptor = GetDescriptor(service);
             var handler = new FormDescriptionHandler(descriptor, new DependencyRepository(service));
 
-            string fileName = string.Format("{0}.{1}_form_main.js", service.ConnectionData.Name, entityName);
+            var repository = new SystemFormRepository(service);
+
+            var systemForm = await repository.GetByIdAsync(idSystemForm, new ColumnSet(true));
+
+            CreateFormTabsJavaScriptHandler.GetTypeName(systemForm.TypeEnum, out var formTypeName, out var formTypeConstructorName);
+
+            string fileName = string.Format("{0}.{1}_form_{2}.js", service.ConnectionData.Name, entityName, formTypeName);
 
             if (this._selectedItem != null)
             {
-                fileName = string.Format("{0}_form_main.js", entityName);
+                fileName = string.Format("{0}_form_{1}.js", entityName, formTypeName);
             }
-
-            var repository = new SystemFormRepository(service);
-
-            var systemForm = await repository.GetByIdAsync(idSystemForm, new ColumnSet(SystemForm.Schema.Attributes.formxml));
 
             string formXml = systemForm.FormXml;
 
@@ -1340,7 +1342,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var handlerCreate = new CreateFormTabsJavaScriptHandler(writer, config, javaScriptObjectType, service);
 
-                        await handlerCreate.WriteContentAsync(entityName, tabs);
+                        await handlerCreate.WriteContentAsync(entityName, systemForm.TypeEnum, tabs);
                     }
 
                     if (this._selectedItem != null)

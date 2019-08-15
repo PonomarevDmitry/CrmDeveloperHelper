@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xrm.Sdk.Metadata;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -30,12 +32,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             this._javaScriptObjectType = javaScriptObjectType;
         }
 
-        public Task WriteContentAsync(string entityLogicalName, List<FormTab> tabs)
+        public Task WriteContentAsync(string entityLogicalName, SystemForm.Schema.OptionSets.type? formType, List<FormTab> tabs)
         {
-            return Task.Run(() => WriteContent(entityLogicalName, tabs));
+            return Task.Run(() => WriteContent(entityLogicalName, formType, tabs));
         }
 
-        private void WriteContent(string entityLogicalName, List<FormTab> tabs)
+        private void WriteContent(string entityLogicalName, SystemForm.Schema.OptionSets.type? formType, List<FormTab> tabs)
         {
             var repository = new EntityMetadataRepository(_service);
 
@@ -47,11 +49,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string tempNamespace = !string.IsNullOrEmpty(this._service.ConnectionData.NamespaceClassesJavaScript) ? this._service.ConnectionData.NamespaceClassesJavaScript + "." : string.Empty;
 
-            string objectName = string.Format("{0}{1}_form_main", tempNamespace, _entityMetadata.LogicalName);
+            GetTypeName(formType, out var formTypeName, out var formTypeConstructorName);
+
+            string objectName = string.Format("{0}{1}_form_{2}", tempNamespace, _entityMetadata.LogicalName, formTypeName);
+            string constructorName = string.Format("{0}Form{1}", _entityMetadata.LogicalName, formTypeConstructorName);
 
             string objectDeclaration = !string.IsNullOrEmpty(tempNamespace) ? objectName : "var " + objectName;
-
-            string constructorName = GetConstructorName(objectName);
 
             WriteObjectStart(objectDeclaration, constructorName);
 
@@ -66,6 +69,105 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteConstantsAndFunctions(objectName);
 
             WriteObjectEnd(objectDeclaration, constructorName);
+        }
+
+        public static void GetTypeName(SystemForm.Schema.OptionSets.type? formType, out string formTypeName, out string formTypeConstructorName)
+        {
+            formTypeName = "unknown";
+            formTypeConstructorName = "Unknown";
+
+            if (!formType.HasValue)
+            {
+                return;
+            }
+
+            switch (formType.Value)
+            {
+                case SystemForm.Schema.OptionSets.type.Dashboard_0:
+                    formTypeName = "dashboard";
+                    formTypeConstructorName = "Dashboard";
+                    break;
+
+                case SystemForm.Schema.OptionSets.type.AppointmentBook_1:
+                    formTypeName = "appointment_book";
+                    formTypeConstructorName = "AppointmentBook";
+                    break;
+
+                case SystemForm.Schema.OptionSets.type.Main_2:
+                    formTypeName = "main";
+                    formTypeConstructorName = "Main";
+                    break;
+
+                case SystemForm.Schema.OptionSets.type.MiniCampaignBO_3:
+                    formTypeName = "mini_campaign_bo";
+                    formTypeConstructorName = "MiniCampaignBO";
+                    break;
+
+                case SystemForm.Schema.OptionSets.type.Preview_4:
+                    formTypeName = "preview";
+                    formTypeConstructorName = "Preview";
+                    break;
+
+                case SystemForm.Schema.OptionSets.type.Mobile_Express_5:
+                    formTypeName = "mobile_express";
+                    formTypeConstructorName = "MobileExpress";
+                    break;
+
+                case SystemForm.Schema.OptionSets.type.Quick_View_Form_6:
+                    formTypeName = "quick_view";
+                    formTypeConstructorName = "QuickView";
+                    break;
+
+                case SystemForm.Schema.OptionSets.type.Quick_Create_7:
+                    formTypeName = "quick";
+                    formTypeConstructorName = "Quick";
+                    break;
+
+                case SystemForm.Schema.OptionSets.type.Dialog_8:
+                    formTypeName = "dialog";
+                    formTypeConstructorName = "Dialog";
+                    break;
+
+                case SystemForm.Schema.OptionSets.type.Task_Flow_Form_9:
+                    formTypeName = "task_flow";
+                    formTypeConstructorName = "TaskFlow";
+                    break;
+
+                case SystemForm.Schema.OptionSets.type.InteractionCentricDashboard_10:
+                    formTypeName = "interaction_centric_dashboard";
+                    formTypeConstructorName = "InteractionCentricDashboard";
+                    break;
+
+                case SystemForm.Schema.OptionSets.type.Card_11:
+                    formTypeName = "card";
+                    formTypeConstructorName = "Card";
+                    break;
+
+                case SystemForm.Schema.OptionSets.type.Main_Interactive_experience_12:
+                    formTypeName = "main_interactive_experience";
+                    formTypeConstructorName = "MainInteractiveExperience";
+                    break;
+
+                case SystemForm.Schema.OptionSets.type.Other_100:
+                    formTypeName = "other";
+                    formTypeConstructorName = "Other";
+                    break;
+
+                case SystemForm.Schema.OptionSets.type.MainBackup_101:
+                    formTypeName = "main_backup";
+                    formTypeConstructorName = "MainBackup";
+                    break;
+
+                case SystemForm.Schema.OptionSets.type.AppointmentBookBackup_102:
+                    formTypeName = "appointment_book_backup";
+                    formTypeConstructorName = "AppointmentBookBackup";
+                    break;
+
+                case SystemForm.Schema.OptionSets.type.Power_BI_Dashboard_103:
+                    formTypeName = "power_bi_dashboard";
+                    formTypeConstructorName = "PowerBIDashboard";
+                    break;
+            }
         }
 
         public void WriteContentOnlyForm(List<FormTab> tabs)
@@ -191,11 +293,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                     break;
             }
-        }
-
-        private string GetConstructorName(string objectName)
-        {
-            return string.Format("{0}FormMain", _entityMetadata.LogicalName);
         }
 
         private void WriteWebResources(List<FormTab> tabs)
