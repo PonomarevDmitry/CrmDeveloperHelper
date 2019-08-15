@@ -54,6 +54,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             SubGrid,
 
+            EditableSubGrid,
+
             Integer,
 
             WebResource,
@@ -67,6 +69,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             BooleanCheckBox,
 
             MultiSelectPicklist,
+
+            IFrame,
         }
 
         public FormControlType GetControlType()
@@ -136,6 +140,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 else if (tempGuid == Guid.Parse("{4AA28AB7-9C13-4F57-A73D-AD894D048B5F}"))
                 {
                     return FormControlType.MultiSelectPicklist;
+                }
+                else if (tempGuid == Guid.Parse("{FD2A7985-3187-444e-908D-6624B21F69C0}"))
+                {
+                    return FormControlType.IFrame;
                 }
                 //else if (tempGuid == Guid.Parse())
                 //{

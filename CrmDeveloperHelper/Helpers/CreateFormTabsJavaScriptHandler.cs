@@ -66,6 +66,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteQuickViewForms(tabs);
 
+            WriteIFrames(tabs);
+
             WriteConstantsAndFunctions(objectName);
 
             WriteObjectEnd(objectDeclaration, constructorName);
@@ -179,6 +181,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteWebResources(tabs);
 
             WriteQuickViewForms(tabs);
+
+            WriteIFrames(tabs);
         }
 
         private void WriteConstantsAndFunctions(string objectName)
@@ -335,6 +339,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteElementNameEnd();
         }
 
+        private void WriteIFrames(List<FormTab> tabs)
+        {
+            var webResouces = tabs.SelectMany(t => t.Sections).SelectMany(s => s.Controls).Where(c => c.GetControlType() == FormControl.FormControlType.IFrame);
+
+            if (!webResouces.Any())
+            {
+                return;
+            }
+
+            WriteLine();
+            WriteElementNameStart("IFrames", "{");
+
+            foreach (var control in webResouces)
+            {
+                WriteLine("'{0}': '{0}',", control.Name);
+            }
+
+            WriteElementNameEnd();
+        }
+
         private void WriteElementNameStart(string elementName, string elementExpression)
         {
             switch (this._javaScriptObjectType)
@@ -377,7 +401,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private void WriteSubgrids(List<FormTab> tabs)
         {
-            var subgrids = tabs.SelectMany(t => t.Sections).SelectMany(s => s.Controls).Where(c => c.GetControlType() == FormControl.FormControlType.SubGrid);
+            var subgrids = tabs.SelectMany(t => t.Sections).SelectMany(s => s.Controls).Where(c => c.GetControlType() == FormControl.FormControlType.SubGrid || c.GetControlType() == FormControl.FormControlType.EditableSubGrid);
 
             if (!subgrids.Any())
             {
