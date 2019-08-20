@@ -23,6 +23,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
@@ -1867,6 +1868,186 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             ExecuteActionAsync(entity, PublishEntityAsync);
+        }
+
+        private void mICreateFormEntityJavaScriptFileJsonObject_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteJavaScriptObjectTypeAsync(entity, JavaScriptObjectType.JsonObject, PerformCreateEntityJavaScriptFileForm);
+        }
+
+        private void mICreateFormEntityJavaScriptFileAnonymousConstructor_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteJavaScriptObjectTypeAsync(entity, JavaScriptObjectType.AnonymousConstructor, PerformCreateEntityJavaScriptFileForm);
+        }
+
+        private void mICreateFormEntityJavaScriptFileTypeConstructor_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteJavaScriptObjectTypeAsync(entity, JavaScriptObjectType.TypeConstructor, PerformCreateEntityJavaScriptFileForm);
+        }
+
+        private void mICreateRibbonEntityJavaScriptFileJsonObject_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteJavaScriptObjectTypeAsync(entity, JavaScriptObjectType.JsonObject, PerformCreateEntityJavaScriptFileRibbon);
+        }
+
+        private void mICreateRibbonEntityJavaScriptFileAnonymousConstructor_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteJavaScriptObjectTypeAsync(entity, JavaScriptObjectType.AnonymousConstructor, PerformCreateEntityJavaScriptFileRibbon);
+        }
+
+        private void mICreateRibbonEntityJavaScriptFileTypeConstructor_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteJavaScriptObjectTypeAsync(entity, JavaScriptObjectType.TypeConstructor, PerformCreateEntityJavaScriptFileRibbon);
+        }
+
+        private async Task ExecuteJavaScriptObjectTypeAsync(EntityMetadataListViewItem entityMetadata, JavaScriptObjectType javaScriptObjectType, Func<string, EntityMetadataListViewItem, JavaScriptObjectType, Task> action)
+        {
+            string folder = txtBFolder.Text.Trim();
+
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(folder))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+            else if (!Directory.Exists(folder))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+
+            await action(folder, entityMetadata, javaScriptObjectType);
+        }
+
+        private async Task PerformCreateEntityJavaScriptFileForm(string folder, EntityMetadataListViewItem entityMetadata, JavaScriptObjectType javaScriptObjectType)
+        {
+            string formTypeName = "form";
+            string formTypeConstructorName = "Form";
+
+            await PerformCreateEntityJavaScriptFile(folder, entityMetadata, javaScriptObjectType, formTypeName, formTypeConstructorName);
+        }
+
+        private async Task PerformCreateEntityJavaScriptFileRibbon(string folder, EntityMetadataListViewItem entityMetadata, JavaScriptObjectType javaScriptObjectType)
+        {
+            string formTypeName = "ribbon";
+            string formTypeConstructorName = "Ribbon";
+
+            await PerformCreateEntityJavaScriptFile(folder, entityMetadata, javaScriptObjectType, formTypeName, formTypeConstructorName);
+        }
+
+        private async Task PerformCreateEntityJavaScriptFile(string folder, EntityMetadataListViewItem entityMetadata, JavaScriptObjectType javaScriptObjectType, string formTypeName, string formTypeConstructorName)
+        {
+            var service = await GetService();
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingFileForEntityFormat1, entityMetadata.EntityLogicalName);
+
+            string objectName = string.Format("{0}_{1}", entityMetadata.EntityLogicalName, formTypeName);
+            string constructorName = string.Format("{0}{1}", entityMetadata.EntityLogicalName, formTypeConstructorName);
+
+            string fileName = string.Format("{0}.{1}_{2}.js", service.ConnectionData.Name, entityMetadata.EntityLogicalName, formTypeName);
+
+            if (this._selectedItem != null)
+            {
+                fileName = string.Format("{0}_{1}.js", entityMetadata.EntityLogicalName, formTypeName);
+            }
+
+            try
+            {
+                _commonConfig.Save();
+
+                var config = new CreateFileJavaScriptConfiguration(
+                    _commonConfig.GetTabSpacer()
+                    , _commonConfig.GenerateSchemaEntityOptionSetsWithDependentComponents
+                    , _commonConfig.GenerateSchemaIntoSchemaClass
+                    , _commonConfig.GenerateSchemaGlobalOptionSet
+                );
+
+                string filePath = Path.Combine(folder, fileName);
+
+                if (this._selectedItem != null)
+                {
+                    filePath = FileOperations.CheckFilePathUnique(filePath);
+                }
+
+                using (var writer = new StreamWriter(filePath, false, new UTF8Encoding(false)))
+                {
+                    var handlerCreate = new CreateFormTabsJavaScriptHandler(writer, config, javaScriptObjectType, service);
+
+                    await handlerCreate.WriteContentAsync(entityMetadata.EntityMetadata, objectName, constructorName, Enumerable.Empty<FormTab>());
+                }
+
+                if (this._selectedItem != null)
+                {
+                    if (_selectedItem.ProjectItem != null)
+                    {
+                        _selectedItem.ProjectItem.ProjectItems.AddFromFileCopy(filePath);
+
+                        _selectedItem.ProjectItem.ContainingProject.Save();
+                    }
+                    else if (_selectedItem.Project != null)
+                    {
+                        _selectedItem.Project.ProjectItems.AddFromFile(filePath);
+
+                        _selectedItem.Project.Save();
+                    }
+                }
+
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, entityMetadata.EntityLogicalName, filePath);
+
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+            }
+
+            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat1, entityMetadata.EntityLogicalName);
         }
     }
 }

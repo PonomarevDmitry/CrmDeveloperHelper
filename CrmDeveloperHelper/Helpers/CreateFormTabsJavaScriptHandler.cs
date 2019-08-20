@@ -32,29 +32,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             this._javaScriptObjectType = javaScriptObjectType;
         }
 
-        public Task WriteContentAsync(string entityLogicalName, SystemForm.Schema.OptionSets.type? formType, List<FormTab> tabs)
+        public Task WriteContentAsync(EntityMetadata entityMetadata, string objectName, string constructorName, IEnumerable<FormTab> tabs)
         {
-            return Task.Run(() => WriteContent(entityLogicalName, formType, tabs));
+            return Task.Run(() => WriteContent(entityMetadata, objectName, constructorName, tabs));
         }
 
-        private void WriteContent(string entityLogicalName, SystemForm.Schema.OptionSets.type? formType, List<FormTab> tabs)
+        private void WriteContent(EntityMetadata entityMetadata, string objectName, string constructorName, IEnumerable<FormTab> tabs)
+        {
+            this._entityMetadata = entityMetadata;
+
+            NewMethod(objectName, constructorName, tabs);
+        }
+
+        public Task WriteContentAsync(string entityLogicalName, string objectName, string constructorName, IEnumerable<FormTab> tabs)
+        {
+            return Task.Run(() => WriteContent(entityLogicalName, objectName, constructorName, tabs));
+        }
+
+        private void WriteContent(string entityLogicalName, string objectName, string constructorName, IEnumerable<FormTab> tabs)
         {
             var repository = new EntityMetadataRepository(_service);
-
             this._entityMetadata = repository.GetEntityMetadata(entityLogicalName);
 
+            NewMethod(objectName, constructorName, tabs);
+        }
+
+        private void NewMethod(string objectName, string constructorName, IEnumerable<FormTab> tabs)
+        {
             WriteNamespace();
 
             WriteLine();
 
             string tempNamespace = !string.IsNullOrEmpty(this._service.ConnectionData.NamespaceClassesJavaScript) ? this._service.ConnectionData.NamespaceClassesJavaScript + "." : string.Empty;
 
-            GetTypeName(formType, out var formTypeName, out var formTypeConstructorName);
-
-            string objectName = string.Format("{0}{1}_form_{2}", tempNamespace, _entityMetadata.LogicalName, formTypeName);
-            string constructorName = string.Format("{0}Form{1}", _entityMetadata.LogicalName, formTypeConstructorName);
-
-            string objectDeclaration = !string.IsNullOrEmpty(tempNamespace) ? objectName : "var " + objectName;
+            string objectDeclaration = !string.IsNullOrEmpty(tempNamespace) ? tempNamespace + objectName : "var " + objectName;
 
             WriteObjectStart(objectDeclaration, constructorName);
 
@@ -73,106 +84,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteObjectEnd(objectDeclaration, constructorName);
         }
 
-        public static void GetTypeName(SystemForm.Schema.OptionSets.type? formType, out string formTypeName, out string formTypeConstructorName)
-        {
-            formTypeName = "unknown";
-            formTypeConstructorName = "Unknown";
-
-            if (!formType.HasValue)
-            {
-                return;
-            }
-
-            switch (formType.Value)
-            {
-                case SystemForm.Schema.OptionSets.type.Dashboard_0:
-                    formTypeName = "dashboard";
-                    formTypeConstructorName = "Dashboard";
-                    break;
-
-                case SystemForm.Schema.OptionSets.type.AppointmentBook_1:
-                    formTypeName = "appointment_book";
-                    formTypeConstructorName = "AppointmentBook";
-                    break;
-
-                case SystemForm.Schema.OptionSets.type.Main_2:
-                    formTypeName = "main";
-                    formTypeConstructorName = "Main";
-                    break;
-
-                case SystemForm.Schema.OptionSets.type.MiniCampaignBO_3:
-                    formTypeName = "mini_campaign_bo";
-                    formTypeConstructorName = "MiniCampaignBO";
-                    break;
-
-                case SystemForm.Schema.OptionSets.type.Preview_4:
-                    formTypeName = "preview";
-                    formTypeConstructorName = "Preview";
-                    break;
-
-                case SystemForm.Schema.OptionSets.type.Mobile_Express_5:
-                    formTypeName = "mobile_express";
-                    formTypeConstructorName = "MobileExpress";
-                    break;
-
-                case SystemForm.Schema.OptionSets.type.Quick_View_Form_6:
-                    formTypeName = "quick_view";
-                    formTypeConstructorName = "QuickView";
-                    break;
-
-                case SystemForm.Schema.OptionSets.type.Quick_Create_7:
-                    formTypeName = "quick";
-                    formTypeConstructorName = "Quick";
-                    break;
-
-                case SystemForm.Schema.OptionSets.type.Dialog_8:
-                    formTypeName = "dialog";
-                    formTypeConstructorName = "Dialog";
-                    break;
-
-                case SystemForm.Schema.OptionSets.type.Task_Flow_Form_9:
-                    formTypeName = "task_flow";
-                    formTypeConstructorName = "TaskFlow";
-                    break;
-
-                case SystemForm.Schema.OptionSets.type.InteractionCentricDashboard_10:
-                    formTypeName = "interaction_centric_dashboard";
-                    formTypeConstructorName = "InteractionCentricDashboard";
-                    break;
-
-                case SystemForm.Schema.OptionSets.type.Card_11:
-                    formTypeName = "card";
-                    formTypeConstructorName = "Card";
-                    break;
-
-                case SystemForm.Schema.OptionSets.type.Main_Interactive_experience_12:
-                    formTypeName = "main_interactive_experience";
-                    formTypeConstructorName = "MainInteractiveExperience";
-                    break;
-
-                case SystemForm.Schema.OptionSets.type.Other_100:
-                    formTypeName = "other";
-                    formTypeConstructorName = "Other";
-                    break;
-
-                case SystemForm.Schema.OptionSets.type.MainBackup_101:
-                    formTypeName = "main_backup";
-                    formTypeConstructorName = "MainBackup";
-                    break;
-
-                case SystemForm.Schema.OptionSets.type.AppointmentBookBackup_102:
-                    formTypeName = "appointment_book_backup";
-                    formTypeConstructorName = "AppointmentBookBackup";
-                    break;
-
-                case SystemForm.Schema.OptionSets.type.Power_BI_Dashboard_103:
-                    formTypeName = "power_bi_dashboard";
-                    formTypeConstructorName = "PowerBIDashboard";
-                    break;
-            }
-        }
-
-        public void WriteContentOnlyForm(List<FormTab> tabs)
+        public void WriteContentOnlyForm(IEnumerable<FormTab> tabs)
         {
             WriteTabs(tabs);
 
@@ -299,7 +211,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        private void WriteWebResources(List<FormTab> tabs)
+        private void WriteWebResources(IEnumerable<FormTab> tabs)
         {
             var webResouces = tabs.SelectMany(t => t.Sections).SelectMany(s => s.Controls).Where(c => c.GetControlType() == FormControl.FormControlType.WebResource);
 
@@ -319,7 +231,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteElementNameEnd();
         }
 
-        private void WriteQuickViewForms(List<FormTab> tabs)
+        private void WriteQuickViewForms(IEnumerable<FormTab> tabs)
         {
             var webResouces = tabs.SelectMany(t => t.Sections).SelectMany(s => s.Controls).Where(c => c.GetControlType() == FormControl.FormControlType.QuickViewForm);
 
@@ -339,7 +251,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteElementNameEnd();
         }
 
-        private void WriteIFrames(List<FormTab> tabs)
+        private void WriteIFrames(IEnumerable<FormTab> tabs)
         {
             var webResouces = tabs.SelectMany(t => t.Sections).SelectMany(s => s.Controls).Where(c => c.GetControlType() == FormControl.FormControlType.IFrame);
 
@@ -399,7 +311,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        private void WriteSubgrids(List<FormTab> tabs)
+        private void WriteSubgrids(IEnumerable<FormTab> tabs)
         {
             var subgrids = tabs.SelectMany(t => t.Sections).SelectMany(s => s.Controls).Where(c => c.GetControlType() == FormControl.FormControlType.SubGrid || c.GetControlType() == FormControl.FormControlType.EditableSubGrid);
 
@@ -419,7 +331,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteElementNameEnd();
         }
 
-        private void WriteTabs(List<FormTab> tabs)
+        private void WriteTabs(IEnumerable<FormTab> tabs)
         {
             if (!tabs.Any())
             {

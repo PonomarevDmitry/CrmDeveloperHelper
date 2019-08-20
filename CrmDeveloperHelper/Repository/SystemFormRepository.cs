@@ -205,6 +205,105 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return string.Empty;
         }
 
+        public static void GetTypeName(SystemForm.Schema.OptionSets.type? formType, out string formTypeName, out string formTypeConstructorName)
+        {
+            formTypeName = "unknown";
+            formTypeConstructorName = "Unknown";
+
+            if (!formType.HasValue)
+            {
+                return;
+            }
+
+            switch (formType.Value)
+            {
+                case SystemForm.Schema.OptionSets.type.Dashboard_0:
+                    formTypeName = "dashboard";
+                    formTypeConstructorName = "Dashboard";
+                    break;
+
+                case SystemForm.Schema.OptionSets.type.AppointmentBook_1:
+                    formTypeName = "appointment_book";
+                    formTypeConstructorName = "AppointmentBook";
+                    break;
+
+                case SystemForm.Schema.OptionSets.type.Main_2:
+                    formTypeName = "main";
+                    formTypeConstructorName = "Main";
+                    break;
+
+                case SystemForm.Schema.OptionSets.type.MiniCampaignBO_3:
+                    formTypeName = "mini_campaign_bo";
+                    formTypeConstructorName = "MiniCampaignBO";
+                    break;
+
+                case SystemForm.Schema.OptionSets.type.Preview_4:
+                    formTypeName = "preview";
+                    formTypeConstructorName = "Preview";
+                    break;
+
+                case SystemForm.Schema.OptionSets.type.Mobile_Express_5:
+                    formTypeName = "mobile_express";
+                    formTypeConstructorName = "MobileExpress";
+                    break;
+
+                case SystemForm.Schema.OptionSets.type.Quick_View_Form_6:
+                    formTypeName = "quick_view";
+                    formTypeConstructorName = "QuickView";
+                    break;
+
+                case SystemForm.Schema.OptionSets.type.Quick_Create_7:
+                    formTypeName = "quick";
+                    formTypeConstructorName = "Quick";
+                    break;
+
+                case SystemForm.Schema.OptionSets.type.Dialog_8:
+                    formTypeName = "dialog";
+                    formTypeConstructorName = "Dialog";
+                    break;
+
+                case SystemForm.Schema.OptionSets.type.Task_Flow_Form_9:
+                    formTypeName = "task_flow";
+                    formTypeConstructorName = "TaskFlow";
+                    break;
+
+                case SystemForm.Schema.OptionSets.type.InteractionCentricDashboard_10:
+                    formTypeName = "interaction_centric_dashboard";
+                    formTypeConstructorName = "InteractionCentricDashboard";
+                    break;
+
+                case SystemForm.Schema.OptionSets.type.Card_11:
+                    formTypeName = "card";
+                    formTypeConstructorName = "Card";
+                    break;
+
+                case SystemForm.Schema.OptionSets.type.Main_Interactive_experience_12:
+                    formTypeName = "main_interactive_experience";
+                    formTypeConstructorName = "MainInteractiveExperience";
+                    break;
+
+                case SystemForm.Schema.OptionSets.type.Other_100:
+                    formTypeName = "other";
+                    formTypeConstructorName = "Other";
+                    break;
+
+                case SystemForm.Schema.OptionSets.type.MainBackup_101:
+                    formTypeName = "main_backup";
+                    formTypeConstructorName = "MainBackup";
+                    break;
+
+                case SystemForm.Schema.OptionSets.type.AppointmentBookBackup_102:
+                    formTypeName = "appointment_book_backup";
+                    formTypeConstructorName = "AppointmentBookBackup";
+                    break;
+
+                case SystemForm.Schema.OptionSets.type.Power_BI_Dashboard_103:
+                    formTypeName = "power_bi_dashboard";
+                    formTypeConstructorName = "PowerBIDashboard";
+                    break;
+            }
+        }
+
         public static Task<bool> ValidateXmlDocumentAsync(ConnectionData connectionData, IWriteToOutput iWriteToOutput, XDocument doc)
         {
             return Task.Run(() => ValidateXmlDocument(connectionData, iWriteToOutput, doc));

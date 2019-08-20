@@ -1308,7 +1308,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var systemForm = await repository.GetByIdAsync(idSystemForm, new ColumnSet(true));
 
-            CreateFormTabsJavaScriptHandler.GetTypeName(systemForm.TypeEnum, out var formTypeName, out var formTypeConstructorName);
+            SystemFormRepository.GetTypeName(systemForm.TypeEnum, out var formTypeName, out var formTypeConstructorName);
+
+            string objectName = string.Format("{0}_form_{1}", entityName, formTypeName);
+            string constructorName = string.Format("{0}Form{1}", entityName, formTypeConstructorName);
 
             string fileName = string.Format("{0}.{1}_form_{2}.js", service.ConnectionData.Name, entityName, formTypeName);
 
@@ -1338,11 +1341,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     string filePath = Path.Combine(folder, fileName);
 
+                    if (this._selectedItem != null)
+                    {
+                        filePath = FileOperations.CheckFilePathUnique(filePath);
+                    }
+
                     using (var writer = new StreamWriter(filePath, false, new UTF8Encoding(false)))
                     {
                         var handlerCreate = new CreateFormTabsJavaScriptHandler(writer, config, javaScriptObjectType, service);
 
-                        await handlerCreate.WriteContentAsync(entityName, systemForm.TypeEnum, tabs);
+                        await handlerCreate.WriteContentAsync(entityName, objectName, constructorName, tabs);
                     }
 
                     if (this._selectedItem != null)

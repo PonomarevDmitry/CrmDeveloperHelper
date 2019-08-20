@@ -477,5 +477,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             return result.ToString();
         }
+
+        internal static string CheckFilePathUnique(string filePath)
+        {
+            if (!File.Exists(filePath))
+            {
+                return filePath;
+            }
+
+            string folder = Path.GetDirectoryName(filePath);
+            string ext = Path.GetExtension(filePath);
+            string fileName = Path.GetFileNameWithoutExtension(filePath);
+
+            var index = 1;
+
+            do
+            {
+                filePath = Path.Combine(folder, string.Format("{0}_{1}{2}", fileName, index, ext));
+
+                index++;
+            } while (File.Exists(filePath));
+
+            return filePath;
+        }
     }
 }

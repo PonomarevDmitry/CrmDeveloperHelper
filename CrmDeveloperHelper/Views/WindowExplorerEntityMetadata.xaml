@@ -43,6 +43,20 @@
                 <Separator/>
                 <MenuItem Header="Create JavaScript Metadata File" Click="miCreateJavaScriptFile_Click"/>
 
+                <Separator />
+                <MenuItem Header="Create Empty Entity Form JavaScript File">
+                    <MenuItem Header="JsonObject based" Click="mICreateFormEntityJavaScriptFileJsonObject_Click" />
+                    <MenuItem Header="AnonymousConstructor based" Click="mICreateFormEntityJavaScriptFileAnonymousConstructor_Click" />
+                    <MenuItem Header="TypeConstructor based" Click="mICreateFormEntityJavaScriptFileTypeConstructor_Click" />
+                </MenuItem>
+
+                <Separator />
+                <MenuItem Header="Create Empty Entity Ribbon JavaScript File">
+                    <MenuItem Header="JsonObject based" Click="mICreateRibbonEntityJavaScriptFileJsonObject_Click" />
+                    <MenuItem Header="AnonymousConstructor based" Click="mICreateRibbonEntityJavaScriptFileAnonymousConstructor_Click" />
+                    <MenuItem Header="TypeConstructor based" Click="mICreateRibbonEntityJavaScriptFileTypeConstructor_Click" />
+                </MenuItem>
+
                 <Separator/>
                 <MenuItem Header="Create File with Attributes Dependent Components" Click="miCreateFileAttributesDependentComponents_Click"/>
 
