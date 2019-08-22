@@ -1,10 +1,8 @@
 ﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 {
@@ -80,10 +78,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         private string GetRelativeUrl(OpenCrmWebSiteType crmWebSiteType)
         {
+
+            // 
+
             switch (crmWebSiteType)
             {
                 case OpenCrmWebSiteType.AdvancedFind:
                     return "/main.aspx?pagetype=advancedfind";
+
+                case OpenCrmWebSiteType.Dashboards:
+                    return "/workplace/home_dashboards.aspx";
+
+                case OpenCrmWebSiteType.Activities:
+                    return "/_root/homepage.aspx?etc=4200";
+
+                case OpenCrmWebSiteType.TraceWall:
+                    return "/_root/tracewall.aspx";
+
+                case OpenCrmWebSiteType.DuplicateDetectionJobs:
+                    return "/tools/duplicatedetection/systemwideduplicatedetection/home_duplicatedetectionjobs.aspx";
+
+                case OpenCrmWebSiteType.News:
+                    return "/home/homepage/home_news.aspx";
 
                 case OpenCrmWebSiteType.Solutions:
                     //return "/tools/systemcustomization/systemCustomization.aspx?pid=11&web=true";
@@ -133,6 +149,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
                 case OpenCrmWebSiteType.DataManagement:
                     return "/tools/DataManagement/datamanagement.aspx";
+
+                case OpenCrmWebSiteType.DocumentManagement:
+                    return "/tools/documentmanagement/documentmanagement.aspx";
 
                 case OpenCrmWebSiteType.Social:
                     return "/tools/social/social_area.aspx";
@@ -292,7 +311,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             var result = new StringBuilder(publicUrl);
 
             result.AppendFormat("/main.aspx?etn={0}&extraqs=%3fpagemode%3diframe&pagetype=entitylist", entityName);
-            
+
             if (idView.HasValue)
             {
                 result.AppendFormat("&viewid=%7b{0}%7d&viewtype=1039", idView.ToString().ToUpper());

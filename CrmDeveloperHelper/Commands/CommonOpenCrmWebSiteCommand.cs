@@ -1,4 +1,4 @@
-using Microsoft.VisualStudio.Shell;
+﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System.Collections.Generic;
@@ -26,10 +26,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             {
                 new CommonOpenCrmWebSiteCommand(commandService, PackageIds.CommonOpenCrmWebSiteCommandId, OpenCrmWebSiteType.CrmWebApplication)
                 , new CommonOpenCrmWebSiteCommand(commandService, PackageIds.CommonOpenAdvancedFindCommandId, OpenCrmWebSiteType.AdvancedFind)
+                , new CommonOpenCrmWebSiteCommand(commandService, PackageIds.CommonOpenDashboardsCommandId, OpenCrmWebSiteType.Dashboards)
+                , new CommonOpenCrmWebSiteCommand(commandService, PackageIds.CommonOpenActivitiesCommandId, OpenCrmWebSiteType.Activities)
 
                 , new CommonOpenCrmWebSiteCommand(commandService, PackageIds.CommonOpenSolutionsCommandId, OpenCrmWebSiteType.Solutions)
                 , new CommonOpenCrmWebSiteCommand(commandService, PackageIds.CommonOpenWorkflowsCommandId, OpenCrmWebSiteType.Workflows)
                 , new CommonOpenCrmWebSiteCommand(commandService, PackageIds.CommonOpenSystemJobsCommandId, OpenCrmWebSiteType.SystemJobs)
+                , new CommonOpenCrmWebSiteCommand(commandService, PackageIds.CommonOpenTraceWallCommandId, OpenCrmWebSiteType.TraceWall)
                 , new CommonOpenCrmWebSiteCommand(commandService, PackageIds.CommonOpenCustomizationCommandId, OpenCrmWebSiteType.Customization)
 
                 , new CommonOpenCrmWebSiteCommand(commandService, PackageIds.CommonOpenSystemUsersCommandId, OpenCrmWebSiteType.SystemUsers)
@@ -45,6 +48,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                 , new CommonOpenCrmWebSiteCommand(commandService, PackageIds.CommonOpenProductCatalogCommandId, OpenCrmWebSiteType.ProductCatalog)
                 , new CommonOpenCrmWebSiteCommand(commandService, PackageIds.CommonOpenServiceManagementCommandId, OpenCrmWebSiteType.ServiceManagement)
                 , new CommonOpenCrmWebSiteCommand(commandService, PackageIds.CommonOpenDataManagementCommandId, OpenCrmWebSiteType.DataManagement)
+                , new CommonOpenCrmWebSiteCommand(commandService, PackageIds.CommonOpenDocumentManagementCommandId, OpenCrmWebSiteType.DocumentManagement)
+                , new CommonOpenCrmWebSiteCommand(commandService, PackageIds.CommonOpenDuplicateDetectionJobsCommandId, OpenCrmWebSiteType.DuplicateDetectionJobs)
                 , new CommonOpenCrmWebSiteCommand(commandService, PackageIds.CommonOpenSocialCommandId, OpenCrmWebSiteType.Social)
                 , new CommonOpenCrmWebSiteCommand(commandService, PackageIds.CommonOpenAuditCommandId, OpenCrmWebSiteType.Audit)
 
@@ -54,6 +59,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                 , new CommonOpenCrmWebSiteCommand(commandService, PackageIds.CommonOpenRelationshipIntelligenceCommandId, OpenCrmWebSiteType.RelationshipIntelligence)
                 , new CommonOpenCrmWebSiteCommand(commandService, PackageIds.CommonOpenMicrosoftFlowCommandId, OpenCrmWebSiteType.MicrosoftFlow)
                 , new CommonOpenCrmWebSiteCommand(commandService, PackageIds.CommonOpenAppModuleCommandId, OpenCrmWebSiteType.AppModule)
+                , new CommonOpenCrmWebSiteCommand(commandService, PackageIds.CommonOpenNewsCommandId, OpenCrmWebSiteType.News)
             });
         }
 

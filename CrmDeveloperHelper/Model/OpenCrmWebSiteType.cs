@@ -4,10 +4,13 @@
     {
         CrmWebApplication = 0,
         AdvancedFind,
+        Dashboards,
+        Activities,
 
         Solutions,
         Workflows,
         SystemJobs,
+        TraceWall,
         Customization,
 
         SystemUsers,
@@ -23,6 +26,8 @@
         ProductCatalog,
         ServiceManagement,
         DataManagement,
+        DocumentManagement,
+        DuplicateDetectionJobs,
         Social,
         Calendar,
         Audit,
@@ -34,6 +39,7 @@
         MicrosoftFlow,
         AppModule,
         AppointmentBook,
+        News,
 
     }
 }
