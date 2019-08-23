@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Folders
     internal sealed class FolderAddPluginConfigurationFileCommand : AbstractCommand
     {
         private FolderAddPluginConfigurationFileCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.FolderAddPluginConfigurationFileCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.FolderAddPluginConfigurationFileCommandId) { }
 
         public static FolderAddPluginConfigurationFileCommand Instance { get; private set; }
 

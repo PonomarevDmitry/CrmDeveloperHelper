@@ -10,7 +10,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
         private CodeXmlExecuteFetchXmlRequestInConnectionsCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CodeXmlExecuteFetchXmlRequestInConnectionsCommandId
+                , PackageIds.guidDynamicCommandSet.CodeXmlExecuteFetchXmlRequestInConnectionsCommandId
             )
         {
 

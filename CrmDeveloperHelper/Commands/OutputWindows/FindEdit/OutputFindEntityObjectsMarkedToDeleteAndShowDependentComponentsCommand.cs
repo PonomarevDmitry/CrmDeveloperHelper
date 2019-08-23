@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.FindEd
     internal sealed class OutputFindEntityObjectsMarkedToDeleteAndShowDependentComponentsCommand : AbstractOutputWindowCommand
     {
         private OutputFindEntityObjectsMarkedToDeleteAndShowDependentComponentsCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.OutputFindEntityObjectsMarkedToDeleteAndShowDependentComponentsCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.OutputFindEntityObjectsMarkedToDeleteAndShowDependentComponentsCommandId) { }
 
         public static OutputFindEntityObjectsMarkedToDeleteAndShowDependentComponentsCommand Instance { get; private set; }
 

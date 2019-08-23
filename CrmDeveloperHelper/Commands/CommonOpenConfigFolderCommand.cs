@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
     internal sealed class CommonOpenConfigFolderCommand : AbstractCommand
     {
         private CommonOpenConfigFolderCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.CommonOpenConfigFolderCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.CommonOpenConfigFolderCommandId) { }
 
         public static CommonOpenConfigFolderCommand Instance { get; private set; }
 

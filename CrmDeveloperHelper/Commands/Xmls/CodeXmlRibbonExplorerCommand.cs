@@ -10,7 +10,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
     internal sealed class CodeXmlRibbonExplorerCommand : AbstractCommand
     {
         private CodeXmlRibbonExplorerCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.CodeXmlRibbonExplorerCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.CodeXmlRibbonExplorerCommandId) { }
 
         public static CodeXmlRibbonExplorerCommand Instance { get; private set; }
 

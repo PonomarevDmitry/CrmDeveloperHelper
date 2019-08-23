@@ -11,7 +11,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
         private ListForPublishPerformPublishGroupConnectionCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.ListForPublishPerformPublishGroupConnectionCommandId
+                , PackageIds.guidDynamicCommandSet.ListForPublishPerformPublishGroupConnectionCommandId
             )
         {
 

@@ -10,7 +10,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
     internal sealed class CodeXmlConvertFetchXmlToJavaScriptCodeCommand : AbstractCommand
     {
         private CodeXmlConvertFetchXmlToJavaScriptCodeCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.CodeXmlConvertFetchXmlToJavaScriptCodeCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.CodeXmlConvertFetchXmlToJavaScriptCodeCommandId) { }
 
         public static CodeXmlConvertFetchXmlToJavaScriptCodeCommand Instance { get; private set; }
 

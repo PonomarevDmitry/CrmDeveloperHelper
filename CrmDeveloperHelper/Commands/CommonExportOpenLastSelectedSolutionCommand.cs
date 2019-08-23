@@ -23,9 +23,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            InstanceOpenInWeb = new CommonExportOpenLastSelectedSolutionCommand(commandService, PackageIds.CommonExportOpenLastSelectedSolutionInWebCommandId, ActionOpenComponent.OpenInWeb);
+            InstanceOpenInWeb = new CommonExportOpenLastSelectedSolutionCommand(commandService, PackageIds.guidDynamicCommandSet.CommonExportOpenLastSelectedSolutionInWebCommandId, ActionOpenComponent.OpenInWeb);
 
-            InstanceOpenInExplorer = new CommonExportOpenLastSelectedSolutionCommand(commandService, PackageIds.CommonExportOpenLastSelectedSolutionInExplorerCommandId, ActionOpenComponent.OpenInExplorer);
+            InstanceOpenInExplorer = new CommonExportOpenLastSelectedSolutionCommand(commandService, PackageIds.guidDynamicCommandSet.CommonExportOpenLastSelectedSolutionInExplorerCommandId, ActionOpenComponent.OpenInExplorer);
         }
 
         protected override void CommandAction(DTEHelper helper, string solutionUniqueName)

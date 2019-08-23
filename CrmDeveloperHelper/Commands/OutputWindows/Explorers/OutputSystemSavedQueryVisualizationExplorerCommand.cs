@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.Explor
     internal sealed class OutputSystemSavedQueryVisualizationExplorerCommand : AbstractOutputWindowCommand
     {
         private OutputSystemSavedQueryVisualizationExplorerCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.OutputSystemSavedQueryVisualizationExplorerCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.OutputSystemSavedQueryVisualizationExplorerCommandId) { }
 
         public static OutputSystemSavedQueryVisualizationExplorerCommand Instance { get; private set; }
 

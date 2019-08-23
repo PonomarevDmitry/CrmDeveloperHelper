@@ -14,7 +14,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
         private CodeReportUpdateCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CodeReportUpdateCommandId
+                , PackageIds.guidDynamicCommandSet.CodeReportUpdateCommandId
             )
         {
 

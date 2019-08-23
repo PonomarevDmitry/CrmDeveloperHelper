@@ -6,7 +6,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
     internal class CommonTraceExportFileCommand : AbstractCommand
     {
         private CommonTraceExportFileCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.CommonTraceExportFileCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.CommonTraceExportFileCommandId) { }
 
         public static CommonTraceExportFileCommand Instance { get; private set; }
 

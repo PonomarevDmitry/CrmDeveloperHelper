@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Connections
         private CommonCrmConnectionTestCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CommonCrmConnectionTestCommandId
+                , PackageIds.guidDynamicCommandSet.CommonCrmConnectionTestCommandId
             )
         {
 

@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
         private FileCSharpProjectCompareToCrmAssemblyInConnectionCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.FileCSharpProjectCompareToCrmAssemblyInConnectionCommandId
+                , PackageIds.guidDynamicCommandSet.FileCSharpProjectCompareToCrmAssemblyInConnectionCommandId
             )
         {
 

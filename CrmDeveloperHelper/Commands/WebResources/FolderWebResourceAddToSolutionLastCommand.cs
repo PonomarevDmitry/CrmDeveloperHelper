@@ -11,7 +11,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
         private FolderWebResourceAddToSolutionLastCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.FolderWebResourceAddToSolutionLastCommandId
+                , PackageIds.guidDynamicCommandSet.FolderWebResourceAddToSolutionLastCommandId
             )
         {
 

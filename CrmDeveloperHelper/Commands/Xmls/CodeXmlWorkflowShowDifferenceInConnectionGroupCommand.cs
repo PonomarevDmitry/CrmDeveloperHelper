@@ -12,7 +12,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
         private CodeXmlWorkflowShowDifferenceInConnectionGroupCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CodeXmlWorkflowShowDifferenceInConnectionGroupCommandId
+                , PackageIds.guidDynamicCommandSet.CodeXmlWorkflowShowDifferenceInConnectionGroupCommandId
             )
         {
 

@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Checks
         private CommonCheckComponentTypeEnumCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CommonCheckComponentTypeEnumCommandId
+                , PackageIds.guidDynamicCommandSet.CommonCheckComponentTypeEnumCommandId
             )
         {
 

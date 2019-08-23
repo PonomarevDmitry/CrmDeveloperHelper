@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.Explor
     internal sealed class OutputPluginTypeExplorerCommand : AbstractOutputWindowCommand
     {
         private OutputPluginTypeExplorerCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.OutputPluginTypeExplorerCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.OutputPluginTypeExplorerCommandId) { }
 
         public static OutputPluginTypeExplorerCommand Instance { get; private set; }
 

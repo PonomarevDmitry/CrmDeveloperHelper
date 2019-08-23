@@ -11,7 +11,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
         private CodeReportAddToSolutionInConnectionCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CodeReportAddToSolutionInConnectionCommandId
+                , PackageIds.guidDynamicCommandSet.CodeReportAddToSolutionInConnectionCommandId
             )
         {
 

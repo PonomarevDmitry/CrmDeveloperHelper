@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.Checks
         private OutputCheckPluginStepsRequiredComponentsCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.OutputCheckPluginStepsRequiredComponentsCommandId
+                , PackageIds.guidCommandSet.OutputCheckPluginStepsRequiredComponentsCommandId
             )
         {
 

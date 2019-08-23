@@ -27,13 +27,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            InstanceOpenInWeb = new CodeReportOpenInWebCommand(commandService, PackageIds.CodeReportOpenInWebCommandId, ActionOpenComponent.OpenInWeb);
+            InstanceOpenInWeb = new CodeReportOpenInWebCommand(commandService, PackageIds.guidDynamicCommandSet.CodeReportOpenInWebCommandId, ActionOpenComponent.OpenInWeb);
 
-            InstanceOpenDependentComponentsInWeb = new CodeReportOpenInWebCommand(commandService, PackageIds.CodeReportOpenDependentInWebCommandId, ActionOpenComponent.OpenDependentComponentsInWeb);
+            InstanceOpenDependentComponentsInWeb = new CodeReportOpenInWebCommand(commandService, PackageIds.guidDynamicCommandSet.CodeReportOpenDependentInWebCommandId, ActionOpenComponent.OpenDependentComponentsInWeb);
 
-            InstanceOpenDependentComponentsInExplorer = new CodeReportOpenInWebCommand(commandService, PackageIds.CodeReportOpenDependentInExplorerCommandId, ActionOpenComponent.OpenDependentComponentsInExplorer);
+            InstanceOpenDependentComponentsInExplorer = new CodeReportOpenInWebCommand(commandService, PackageIds.guidDynamicCommandSet.CodeReportOpenDependentInExplorerCommandId, ActionOpenComponent.OpenDependentComponentsInExplorer);
 
-            InstanceOpenSolutionsContainingComponentInExplorer = new CodeReportOpenInWebCommand(commandService, PackageIds.CodeReportOpenSolutionsContainingComponentInExplorerCommandId, ActionOpenComponent.OpenSolutionsContainingComponentInExplorer);
+            InstanceOpenSolutionsContainingComponentInExplorer = new CodeReportOpenInWebCommand(commandService, PackageIds.guidDynamicCommandSet.CodeReportOpenSolutionsContainingComponentInExplorerCommandId, ActionOpenComponent.OpenSolutionsContainingComponentInExplorer);
         }
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)

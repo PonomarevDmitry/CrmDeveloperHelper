@@ -11,7 +11,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
         private ListForPublishPerformPublishEqualByTextCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.ListForPublishPerformPublishEqualByTextCommandId
+                , PackageIds.guidDynamicCommandSet.ListForPublishPerformPublishEqualByTextCommandId
             )
         {
 

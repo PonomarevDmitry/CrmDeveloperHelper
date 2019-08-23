@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
         private CodeReportCreateCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CodeReportCreateCommandId
+                , PackageIds.guidDynamicCommandSet.CodeReportCreateCommandId
             )
         {
 

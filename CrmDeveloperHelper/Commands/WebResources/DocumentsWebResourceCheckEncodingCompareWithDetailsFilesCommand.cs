@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
     internal sealed class DocumentsWebResourceCheckEncodingCompareWithDetailsFilesCommand : AbstractCommand
     {
         private DocumentsWebResourceCheckEncodingCompareWithDetailsFilesCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.DocumentsWebResourceCheckEncodingCompareWithDetailsFilesCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.DocumentsWebResourceCheckEncodingCompareWithDetailsFilesCommandId) { }
 
         public static DocumentsWebResourceCheckEncodingCompareWithDetailsFilesCommand Instance { get; private set; }
 

@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
     internal sealed class CommonOrganizationExplorerCommand : AbstractCommand
     {
         private CommonOrganizationExplorerCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.CommonOrganizationExplorerCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.CommonOrganizationExplorerCommandId) { }
 
         public static CommonOrganizationExplorerCommand Instance { get; private set; }
 

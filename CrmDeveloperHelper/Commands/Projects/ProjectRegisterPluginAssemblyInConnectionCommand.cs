@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
         private ProjectRegisterPluginAssemblyInConnectionCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.ProjectRegisterPluginAssemblyInConnectionCommandId
+                , PackageIds.guidDynamicCommandSet.ProjectRegisterPluginAssemblyInConnectionCommandId
             )
         {
 

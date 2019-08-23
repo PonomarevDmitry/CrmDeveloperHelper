@@ -28,9 +28,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            InstanceOpenInWeb = new OutputExportOpenLastSelectedSolutionCommand(commandService, PackageIds.OutputExportOpenLastSelectedSolutionInWebCommandId, ActionOpenComponent.OpenInWeb);
+            InstanceOpenInWeb = new OutputExportOpenLastSelectedSolutionCommand(commandService, PackageIds.guidDynamicCommandSet.OutputExportOpenLastSelectedSolutionInWebCommandId, ActionOpenComponent.OpenInWeb);
 
-            InstanceOpenInExplorer = new OutputExportOpenLastSelectedSolutionCommand(commandService, PackageIds.OutputExportOpenLastSelectedSolutionInExplorerCommandId, ActionOpenComponent.OpenInExplorer);
+            InstanceOpenInExplorer = new OutputExportOpenLastSelectedSolutionCommand(commandService, PackageIds.guidDynamicCommandSet.OutputExportOpenLastSelectedSolutionInExplorerCommandId, ActionOpenComponent.OpenInExplorer);
         }
 
         protected override ICollection<string> GetElementSourceCollection(ConnectionData connectionData)

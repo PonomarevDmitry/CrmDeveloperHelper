@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
     internal sealed class CodeCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommand : AbstractCommand
     {
         private CodeCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.CodeCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.CodeCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommandId) { }
 
         public static CodeCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommand Instance { get; private set; }
 

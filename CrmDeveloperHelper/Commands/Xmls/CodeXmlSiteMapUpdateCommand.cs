@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
     internal sealed class CodeXmlSiteMapUpdateCommand : AbstractCommand
     {
         private CodeXmlSiteMapUpdateCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.CodeXmlSiteMapUpdateCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.CodeXmlSiteMapUpdateCommandId) { }
 
         public static CodeXmlSiteMapUpdateCommand Instance { get; private set; }
 

@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.Explor
     internal sealed class OutputApplicationRibbonExplorerCommand : AbstractOutputWindowCommand
     {
         private OutputApplicationRibbonExplorerCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.OutputApplicationRibbonExplorerCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.OutputApplicationRibbonExplorerCommandId) { }
 
         public static OutputApplicationRibbonExplorerCommand Instance { get; private set; }
 

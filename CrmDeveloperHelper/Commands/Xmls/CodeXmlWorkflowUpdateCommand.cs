@@ -11,7 +11,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
     internal sealed class CodeXmlWorkflowUpdateCommand : AbstractCommand
     {
         private CodeXmlWorkflowUpdateCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.CodeXmlWorkflowUpdateCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.CodeXmlWorkflowUpdateCommandId) { }
 
         public static CodeXmlWorkflowUpdateCommand Instance { get; private set; }
 

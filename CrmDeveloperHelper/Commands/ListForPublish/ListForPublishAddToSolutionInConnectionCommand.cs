@@ -11,7 +11,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
         private ListForPublishAddToSolutionInConnectionCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.ListForPublishAddToSolutionInConnectionCommandId
+                , PackageIds.guidDynamicCommandSet.ListForPublishAddToSolutionInConnectionCommandId
             )
         {
 

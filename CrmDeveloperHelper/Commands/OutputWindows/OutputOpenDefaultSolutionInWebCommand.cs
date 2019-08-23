@@ -12,7 +12,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows
         private OutputOpenDefaultSolutionInWebCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.OutputOpenDefaultSolutionInWebCommandId
+                , PackageIds.guidCommandSet.OutputOpenDefaultSolutionInWebCommandId
             )
         {
 

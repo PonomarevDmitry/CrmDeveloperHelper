@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
         private CommonExportXsdSchemasCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CommonExportXsdSchemasCommandId
+                , PackageIds.guidDynamicCommandSet.CommonExportXsdSchemasCommandId
             )
         {
 

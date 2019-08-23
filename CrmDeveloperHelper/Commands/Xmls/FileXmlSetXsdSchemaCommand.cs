@@ -10,7 +10,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
         private FileXmlSetXsdSchemaCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.FileXmlSetXsdSchemaCommandId
+                , PackageIds.guidDynamicCommandSet.FileXmlSetXsdSchemaCommandId
             )
         {
 

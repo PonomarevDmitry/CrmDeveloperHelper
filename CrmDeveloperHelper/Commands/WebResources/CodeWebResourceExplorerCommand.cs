@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
     internal sealed class CodeWebResourceExplorerCommand : AbstractCommand
     {
         private CodeWebResourceExplorerCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.CodeWebResourceExplorerCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.CodeWebResourceExplorerCommandId) { }
 
         public static CodeWebResourceExplorerCommand Instance { get; private set; }
 

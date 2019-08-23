@@ -6,7 +6,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.PluginConfigurations
     internal sealed class CommonPluginConfigurationComparerPluginAssemblyCommand : AbstractCommand
     {
         private CommonPluginConfigurationComparerPluginAssemblyCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.CommonPluginConfigurationComparerPluginAssemblyCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.CommonPluginConfigurationComparerPluginAssemblyCommandId) { }
 
         public static CommonPluginConfigurationComparerPluginAssemblyCommand Instance { get; private set; }
 

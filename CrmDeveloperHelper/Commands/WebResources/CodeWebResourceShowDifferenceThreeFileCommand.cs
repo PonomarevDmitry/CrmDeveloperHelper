@@ -27,11 +27,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            InstanceOneByOne = new CodeWebResourceShowDifferenceThreeFileCommand(commandService, PackageIds.CodeWebResourceShowDifferenceOneByOneCommandId, ShowDifferenceThreeFileType.OneByOne, Properties.CommandNames.ShowDifferenceOneByOneCommandFormat2);
+            InstanceOneByOne = new CodeWebResourceShowDifferenceThreeFileCommand(commandService, PackageIds.guidDynamicCommandSet.CodeWebResourceShowDifferenceOneByOneCommandId, ShowDifferenceThreeFileType.OneByOne, Properties.CommandNames.ShowDifferenceOneByOneCommandFormat2);
 
-            InstanceTwoConnections = new CodeWebResourceShowDifferenceThreeFileCommand(commandService, PackageIds.CodeWebResourceShowDifferenceTwoConnectionsCommandId, ShowDifferenceThreeFileType.TwoConnections, Properties.CommandNames.ShowDifferenceTwoConnectionsCommandFormat2);
+            InstanceTwoConnections = new CodeWebResourceShowDifferenceThreeFileCommand(commandService, PackageIds.guidDynamicCommandSet.CodeWebResourceShowDifferenceTwoConnectionsCommandId, ShowDifferenceThreeFileType.TwoConnections, Properties.CommandNames.ShowDifferenceTwoConnectionsCommandFormat2);
 
-            InstanceThreeWay = new CodeWebResourceShowDifferenceThreeFileCommand(commandService, PackageIds.CodeWebResourceShowDifferenceThreeWayCommandId, ShowDifferenceThreeFileType.ThreeWay, Properties.CommandNames.ShowDifferenceThreeWayCommandFormat2);
+            InstanceThreeWay = new CodeWebResourceShowDifferenceThreeFileCommand(commandService, PackageIds.guidDynamicCommandSet.CodeWebResourceShowDifferenceThreeWayCommandId, ShowDifferenceThreeFileType.ThreeWay, Properties.CommandNames.ShowDifferenceThreeWayCommandFormat2);
         }
 
         protected override void CommandAction(DTEHelper helper, Tuple<ConnectionData, ConnectionData> connectionDataPair)

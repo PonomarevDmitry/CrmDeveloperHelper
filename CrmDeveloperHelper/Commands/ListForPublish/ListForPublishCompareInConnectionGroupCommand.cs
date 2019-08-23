@@ -23,9 +23,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new ListForPublishCompareInConnectionGroupCommand(commandService, PackageIds.ListForPublishCompareInConnectionGroupCommandId, false);
+            Instance = new ListForPublishCompareInConnectionGroupCommand(commandService, PackageIds.guidDynamicCommandSet.ListForPublishCompareInConnectionGroupCommandId, false);
 
-            InstanceWithDetails = new ListForPublishCompareInConnectionGroupCommand(commandService, PackageIds.ListForPublishCompareWithDetailsInConnectionGroupCommandId, true);
+            InstanceWithDetails = new ListForPublishCompareInConnectionGroupCommand(commandService, PackageIds.guidDynamicCommandSet.ListForPublishCompareWithDetailsInConnectionGroupCommandId, true);
         }
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)

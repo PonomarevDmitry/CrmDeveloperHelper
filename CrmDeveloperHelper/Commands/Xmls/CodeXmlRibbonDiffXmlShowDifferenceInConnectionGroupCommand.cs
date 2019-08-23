@@ -11,7 +11,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
         private CodeXmlRibbonDiffXmlShowDifferenceInConnectionGroupCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CodeXmlRibbonDiffXmlShowDifferenceInConnectionGroupCommandId
+                , PackageIds.guidDynamicCommandSet.CodeXmlRibbonDiffXmlShowDifferenceInConnectionGroupCommandId
             )
         {
 

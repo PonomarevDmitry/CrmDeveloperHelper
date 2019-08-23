@@ -6,7 +6,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
     internal sealed class CommonExportFormEventsCommand : AbstractCommand
     {
         private CommonExportFormEventsCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.CommonExportFormEventsCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.CommonExportFormEventsCommandId) { }
 
         public static CommonExportFormEventsCommand Instance { get; private set; }
 

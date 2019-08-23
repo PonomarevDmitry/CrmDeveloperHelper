@@ -6,7 +6,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
     internal sealed class CommonOrganizationComparerCommand : AbstractCommand
     {
         private CommonOrganizationComparerCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.CommonOrganizationComparerCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.CommonOrganizationComparerCommandId) { }
 
         public static CommonOrganizationComparerCommand Instance { get; private set; }
 

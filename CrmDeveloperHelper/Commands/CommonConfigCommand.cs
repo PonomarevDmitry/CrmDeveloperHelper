@@ -6,7 +6,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
     internal sealed class CommonConfigCommand : AbstractCommand
     {
         private CommonConfigCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.CommonConfigCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.CommonConfigCommandId) { }
 
         public static CommonConfigCommand Instance { get; private set; }
 

@@ -8,7 +8,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
         private CommonExportDefaultSitemapsCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CommonExportDefaultSitemapsCommandId
+                , PackageIds.guidDynamicCommandSet.CommonExportDefaultSitemapsCommandId
             )
         {
 

@@ -27,13 +27,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            InstanceOpenInWeb = new FileWebResourceOpenInWebCommand(commandService, PackageIds.FileWebResourceOpenInWebCommandId, ActionOpenComponent.OpenInWeb);
+            InstanceOpenInWeb = new FileWebResourceOpenInWebCommand(commandService, PackageIds.guidDynamicCommandSet.FileWebResourceOpenInWebCommandId, ActionOpenComponent.OpenInWeb);
 
-            InstanceOpenDependentComponentsInWeb = new FileWebResourceOpenInWebCommand(commandService, PackageIds.FileWebResourceOpenDependentInWebCommandId, ActionOpenComponent.OpenDependentComponentsInWeb);
+            InstanceOpenDependentComponentsInWeb = new FileWebResourceOpenInWebCommand(commandService, PackageIds.guidDynamicCommandSet.FileWebResourceOpenDependentInWebCommandId, ActionOpenComponent.OpenDependentComponentsInWeb);
 
-            InstanceOpenDependentComponentsInExplorer = new FileWebResourceOpenInWebCommand(commandService, PackageIds.FileWebResourceOpenDependentInExplorerCommandId, ActionOpenComponent.OpenDependentComponentsInExplorer);
+            InstanceOpenDependentComponentsInExplorer = new FileWebResourceOpenInWebCommand(commandService, PackageIds.guidDynamicCommandSet.FileWebResourceOpenDependentInExplorerCommandId, ActionOpenComponent.OpenDependentComponentsInExplorer);
 
-            InstanceOpenSolutionsContainingComponentInExplorer = new FileWebResourceOpenInWebCommand(commandService, PackageIds.FileWebResourceOpenSolutionsContainingComponentInExplorerCommandId, ActionOpenComponent.OpenSolutionsContainingComponentInExplorer);
+            InstanceOpenSolutionsContainingComponentInExplorer = new FileWebResourceOpenInWebCommand(commandService, PackageIds.guidDynamicCommandSet.FileWebResourceOpenSolutionsContainingComponentInExplorerCommandId, ActionOpenComponent.OpenSolutionsContainingComponentInExplorer);
         }
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)

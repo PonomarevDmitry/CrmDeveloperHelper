@@ -12,7 +12,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
         private CodeXmlSystemFormUpdateInConnectionGroupCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CodeXmlSystemFormUpdateInConnectionGroupCommandId
+                , PackageIds.guidDynamicCommandSet.CodeXmlSystemFormUpdateInConnectionGroupCommandId
             )
         {
 

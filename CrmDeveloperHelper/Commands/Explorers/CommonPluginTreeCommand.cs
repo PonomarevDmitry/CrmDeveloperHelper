@@ -6,7 +6,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
     internal sealed class CommonPluginTreeCommand : AbstractCommand
     {
         private CommonPluginTreeCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.CommonPluginTreeCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.CommonPluginTreeCommandId) { }
 
         public static CommonPluginTreeCommand Instance { get; private set; }
 

@@ -26,41 +26,41 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
 
         private static TupleList<int, OpenFilesType, bool> _commandsListforPublish = new TupleList<int, OpenFilesType, bool>()
         {
-            { PackageIds.ListForPublishOpenFilesAllCommandId, OpenFilesType.All, false }
-            , { PackageIds.ListForPublishOpenFilesAllInTextEditorCommandId, OpenFilesType.All, true }
+            { PackageIds.guidCommandSet.ListForPublishOpenFilesAllCommandId, OpenFilesType.All, false }
+            , { PackageIds.guidCommandSet.ListForPublishOpenFilesAllInTextEditorCommandId, OpenFilesType.All, true }
 
-            , { PackageIds.ListForPublishOpenFilesNotEqualByTextCommandId, OpenFilesType.NotEqualByText, false }
-            , { PackageIds.ListForPublishOpenFilesNotEqualByTextInTextEditorCommandId, OpenFilesType.NotEqualByText, true }
+            , { PackageIds.guidCommandSet.ListForPublishOpenFilesNotEqualByTextCommandId, OpenFilesType.NotEqualByText, false }
+            , { PackageIds.guidCommandSet.ListForPublishOpenFilesNotEqualByTextInTextEditorCommandId, OpenFilesType.NotEqualByText, true }
 
-            , { PackageIds.ListForPublishOpenFilesEqualByTextCommandId, OpenFilesType.EqualByText, false }
-            , { PackageIds.ListForPublishOpenFilesEqualByTextInTextEditorCommandId, OpenFilesType.EqualByText, true }
+            , { PackageIds.guidCommandSet.ListForPublishOpenFilesEqualByTextCommandId, OpenFilesType.EqualByText, false }
+            , { PackageIds.guidCommandSet.ListForPublishOpenFilesEqualByTextInTextEditorCommandId, OpenFilesType.EqualByText, true }
 
-            , { PackageIds.ListForPublishOpenFilesNotExistsInCrmWithoutLinkCommandId, OpenFilesType.NotExistsInCrmWithoutLink, false }
-            , { PackageIds.ListForPublishOpenFilesNotExistsInCrmWithoutLinkInTextEditorCommandId, OpenFilesType.NotExistsInCrmWithoutLink, true }
+            , { PackageIds.guidCommandSet.ListForPublishOpenFilesNotExistsInCrmWithoutLinkCommandId, OpenFilesType.NotExistsInCrmWithoutLink, false }
+            , { PackageIds.guidCommandSet.ListForPublishOpenFilesNotExistsInCrmWithoutLinkInTextEditorCommandId, OpenFilesType.NotExistsInCrmWithoutLink, true }
 
-            , { PackageIds.ListForPublishOpenFilesNotExistsInCrmWithLinkCommandId, OpenFilesType.NotExistsInCrmWithLink, false }
-            , { PackageIds.ListForPublishOpenFilesNotExistsInCrmWithLinkInTextEditorCommandId, OpenFilesType.NotExistsInCrmWithLink, true }
+            , { PackageIds.guidCommandSet.ListForPublishOpenFilesNotExistsInCrmWithLinkCommandId, OpenFilesType.NotExistsInCrmWithLink, false }
+            , { PackageIds.guidCommandSet.ListForPublishOpenFilesNotExistsInCrmWithLinkInTextEditorCommandId, OpenFilesType.NotExistsInCrmWithLink, true }
 
-            , { PackageIds.ListForPublishOpenFilesWithInsertsCommandId, OpenFilesType.WithInserts, false }
-            , { PackageIds.ListForPublishOpenFilesWithInsertsInTextEditorCommandId, OpenFilesType.WithInserts, true }
+            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithInsertsCommandId, OpenFilesType.WithInserts, false }
+            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithInsertsInTextEditorCommandId, OpenFilesType.WithInserts, true }
 
-            , { PackageIds.ListForPublishOpenFilesWithDeletesCommandId, OpenFilesType.WithDeletes, false }
-            , { PackageIds.ListForPublishOpenFilesWithDeletesInTextEditorCommandId, OpenFilesType.WithDeletes, true }
+            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithDeletesCommandId, OpenFilesType.WithDeletes, false }
+            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithDeletesInTextEditorCommandId, OpenFilesType.WithDeletes, true }
 
-            , { PackageIds.ListForPublishOpenFilesWithComplexCommandId, OpenFilesType.WithComplex, false }
-            , { PackageIds.ListForPublishOpenFilesWithComplexInTextEditorCommandId, OpenFilesType.WithComplex, true }
+            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithComplexCommandId, OpenFilesType.WithComplex, false }
+            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithComplexInTextEditorCommandId, OpenFilesType.WithComplex, true }
 
-            , { PackageIds.ListForPublishOpenFilesWithMirrorCommandId, OpenFilesType.WithMirror, false }
-            , { PackageIds.ListForPublishOpenFilesWithMirrorInTextEditorCommandId, OpenFilesType.WithMirror, true }
+            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithMirrorCommandId, OpenFilesType.WithMirror, false }
+            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithMirrorInTextEditorCommandId, OpenFilesType.WithMirror, true }
 
-            , { PackageIds.ListForPublishOpenFilesWithMirrorInsertsCommandId, OpenFilesType.WithMirrorInserts, false }
-            , { PackageIds.ListForPublishOpenFilesWithMirrorInsertsInTextEditorCommandId, OpenFilesType.WithMirrorInserts, true }
+            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithMirrorInsertsCommandId, OpenFilesType.WithMirrorInserts, false }
+            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithMirrorInsertsInTextEditorCommandId, OpenFilesType.WithMirrorInserts, true }
 
-            , { PackageIds.ListForPublishOpenFilesWithMirrorDeletesCommandId, OpenFilesType.WithMirrorDeletes, false }
-            , { PackageIds.ListForPublishOpenFilesWithMirrorDeletesInTextEditorCommandId, OpenFilesType.WithMirrorDeletes, true }
+            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithMirrorDeletesCommandId, OpenFilesType.WithMirrorDeletes, false }
+            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithMirrorDeletesInTextEditorCommandId, OpenFilesType.WithMirrorDeletes, true }
 
-            , { PackageIds.ListForPublishOpenFilesWithMirrorComplexCommandId, OpenFilesType.WithMirrorComplex, false }
-            , { PackageIds.ListForPublishOpenFilesWithMirrorComplexInTextEditorCommandId, OpenFilesType.WithMirrorComplex, true }
+            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithMirrorComplexCommandId, OpenFilesType.WithMirrorComplex, false }
+            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithMirrorComplexInTextEditorCommandId, OpenFilesType.WithMirrorComplex, true }
         };
 
         private static ConcurrentDictionary<Tuple<OpenFilesType, bool>, ListForPublishOpenFilesCommand> _instances = new ConcurrentDictionary<Tuple<OpenFilesType, bool>, ListForPublishOpenFilesCommand>();

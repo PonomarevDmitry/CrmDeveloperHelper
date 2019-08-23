@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows
     internal class OutputTraceExportFileCommand : AbstractOutputWindowCommand
     {
         private OutputTraceExportFileCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.OutputTraceExportFileCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.OutputTraceExportFileCommandId) { }
 
         public static OutputTraceExportFileCommand Instance { get; private set; }
 

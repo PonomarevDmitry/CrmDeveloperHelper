@@ -14,7 +14,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
         private FolderCSharpProjectPluginTypeStepsAddToSolutionLastCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.FolderCSharpProjectPluginTypeStepsAddToSolutionLastCommandId
+                , PackageIds.guidDynamicCommandSet.FolderCSharpProjectPluginTypeStepsAddToSolutionLastCommandId
             )
         {
 

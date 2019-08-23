@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows
     internal sealed class OutputOpenOrganizationDifferenceImageCommand : AbstractOutputWindowCommand
     {
         private OutputOpenOrganizationDifferenceImageCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.OutputOpenOrganizationDifferenceImageCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.OutputOpenOrganizationDifferenceImageCommandId) { }
 
         public static OutputOpenOrganizationDifferenceImageCommand Instance { get; private set; }
 

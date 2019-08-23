@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
     internal sealed class CodeCSharpPluginAssemblyExplorerCommand : AbstractCommand
     {
         private CodeCSharpPluginAssemblyExplorerCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.CodeCSharpPluginAssemblyExplorerCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.CodeCSharpPluginAssemblyExplorerCommandId) { }
 
         public static CodeCSharpPluginAssemblyExplorerCommand Instance { get; private set; }
 

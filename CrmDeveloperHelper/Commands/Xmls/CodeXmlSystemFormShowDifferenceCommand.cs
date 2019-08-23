@@ -10,7 +10,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
     internal sealed class CodeXmlSystemFormShowDifferenceCommand : AbstractCommand
     {
         private CodeXmlSystemFormShowDifferenceCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.CodeXmlSystemFormShowDifferenceCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.CodeXmlSystemFormShowDifferenceCommandId) { }
 
         public static CodeXmlSystemFormShowDifferenceCommand Instance { get; private set; }
 

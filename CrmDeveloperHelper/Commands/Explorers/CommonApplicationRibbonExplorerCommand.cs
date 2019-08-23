@@ -6,7 +6,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
     internal sealed class CommonApplicationRibbonExplorerCommand : AbstractCommand
     {
         private CommonApplicationRibbonExplorerCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.CommonApplicationRibbonExplorerCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.CommonApplicationRibbonExplorerCommandId) { }
 
         public static CommonApplicationRibbonExplorerCommand Instance { get; private set; }
 

@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.Plugin
     internal sealed class OutputPluginConfigurationPluginTypeCommand : AbstractOutputWindowCommand
     {
         private OutputPluginConfigurationPluginTypeCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.OutputPluginConfigurationPluginTypeCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.OutputPluginConfigurationPluginTypeCommandId) { }
 
         public static OutputPluginConfigurationPluginTypeCommand Instance { get; private set; }
 

@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.Plugin
     internal sealed class OutputPluginConfigurationComparerPluginAssemblyCommand : AbstractOutputWindowCommand
     {
         private OutputPluginConfigurationComparerPluginAssemblyCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.OutputPluginConfigurationComparerPluginAssemblyCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.OutputPluginConfigurationComparerPluginAssemblyCommandId) { }
 
         public static OutputPluginConfigurationComparerPluginAssemblyCommand Instance { get; private set; }
 

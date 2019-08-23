@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
         private CodeCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CodeCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommandId
+                , PackageIds.guidDynamicCommandSet.CodeCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommandId
             )
         {
 

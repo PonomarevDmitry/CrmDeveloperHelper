@@ -12,7 +12,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
     internal sealed class CodeXmlSystemFormExplorerCommand : AbstractCommand
     {
         private CodeXmlSystemFormExplorerCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.CodeXmlSystemFormExplorerCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.CodeXmlSystemFormExplorerCommandId) { }
 
         public static CodeXmlSystemFormExplorerCommand Instance { get; private set; }
 

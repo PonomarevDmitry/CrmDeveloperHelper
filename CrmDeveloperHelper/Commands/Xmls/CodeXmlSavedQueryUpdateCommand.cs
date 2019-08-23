@@ -11,7 +11,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
     internal sealed class CodeXmlSavedQueryUpdateCommand : AbstractCommand
     {
         private CodeXmlSavedQueryUpdateCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.CodeXmlSavedQueryUpdateCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.CodeXmlSavedQueryUpdateCommandId) { }
 
         public static CodeXmlSavedQueryUpdateCommand Instance { get; private set; }
 

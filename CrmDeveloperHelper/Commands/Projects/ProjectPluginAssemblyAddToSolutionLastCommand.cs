@@ -10,7 +10,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
         private ProjectPluginAssemblyAddToSolutionLastCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.ProjectPluginAssemblyAddToSolutionLastCommandId
+                , PackageIds.guidDynamicCommandSet.ProjectPluginAssemblyAddToSolutionLastCommandId
             )
         {
 

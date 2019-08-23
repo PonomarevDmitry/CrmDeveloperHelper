@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
     internal sealed class FileWebResourceExplorerCommand : AbstractCommand
     {
         private FileWebResourceExplorerCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.FileWebResourceExplorerCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.FileWebResourceExplorerCommandId) { }
 
         public static FileWebResourceExplorerCommand Instance { get; private set; }
 

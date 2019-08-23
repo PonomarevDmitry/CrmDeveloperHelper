@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.Explor
     internal sealed class OutputSecurityRolesExplorerCommand : AbstractOutputWindowCommand
     {
         private OutputSecurityRolesExplorerCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.OutputSecurityRolesExplorerCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.OutputSecurityRolesExplorerCommandId) { }
 
         public static OutputSecurityRolesExplorerCommand Instance { get; private set; }
 

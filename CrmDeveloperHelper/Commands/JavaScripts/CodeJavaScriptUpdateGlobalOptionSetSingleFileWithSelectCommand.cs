@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.JavaScripts
     internal sealed class CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand : AbstractCommand
     {
         private CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommandId) { }
 
         public static CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand Instance { get; private set; }
 

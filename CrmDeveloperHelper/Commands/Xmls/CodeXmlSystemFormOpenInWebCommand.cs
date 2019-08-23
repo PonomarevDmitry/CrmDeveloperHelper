@@ -12,7 +12,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
         private CodeXmlSystemFormOpenInWebCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CodeXmlSystemFormOpenInWebCommandId
+                , PackageIds.guidDynamicCommandSet.CodeXmlSystemFormOpenInWebCommandId
             )
         {
 

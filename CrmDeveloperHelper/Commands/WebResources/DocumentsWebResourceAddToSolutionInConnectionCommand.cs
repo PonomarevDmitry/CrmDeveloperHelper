@@ -11,7 +11,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
         private DocumentsWebResourceAddToSolutionInConnectionCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.DocumentsWebResourceAddToSolutionInConnectionCommandId
+                , PackageIds.guidDynamicCommandSet.DocumentsWebResourceAddToSolutionInConnectionCommandId
             )
         {
 

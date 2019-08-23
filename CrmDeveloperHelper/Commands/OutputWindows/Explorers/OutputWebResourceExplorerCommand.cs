@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
     internal sealed class OutputWebResourceExplorerCommand : AbstractOutputWindowCommand
     {
         private OutputWebResourceExplorerCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.OutputWebResourceExplorerCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.OutputWebResourceExplorerCommandId) { }
 
         public static OutputWebResourceExplorerCommand Instance { get; private set; }
 

@@ -6,7 +6,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Checks
     internal sealed class CommonCheckWorkflowsUsedNotExistsEntitiesCommand : AbstractCommand
     {
         private CommonCheckWorkflowsUsedNotExistsEntitiesCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.CommonCheckWorkflowsUsedNotExistsEntitiesCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.CommonCheckWorkflowsUsedNotExistsEntitiesCommandId) { }
 
         public static CommonCheckWorkflowsUsedNotExistsEntitiesCommand Instance { get; private set; }
 

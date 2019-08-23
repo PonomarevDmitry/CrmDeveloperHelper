@@ -11,7 +11,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.JavaScripts
         private FileJavaScriptUpdateEntityMetadataFileCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.FileJavaScriptUpdateEntityMetadataFileCommandId
+                , PackageIds.guidDynamicCommandSet.FileJavaScriptUpdateEntityMetadataFileCommandId
             )
         {
 

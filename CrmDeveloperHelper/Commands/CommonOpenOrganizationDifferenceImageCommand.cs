@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
     internal sealed class CommonOpenOrganizationDifferenceImageCommand : AbstractCommand
     {
         private CommonOpenOrganizationDifferenceImageCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.CommonOpenOrganizationDifferenceImageCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.CommonOpenOrganizationDifferenceImageCommandId) { }
 
         public static CommonOpenOrganizationDifferenceImageCommand Instance { get; private set; }
 

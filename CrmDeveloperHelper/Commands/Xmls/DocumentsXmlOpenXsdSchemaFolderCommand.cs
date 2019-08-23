@@ -6,7 +6,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
     class DocumentsXmlOpenXsdSchemaFolderCommand : AbstractCommand
     {
         private DocumentsXmlOpenXsdSchemaFolderCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.DocumentsXmlOpenXsdSchemaFolderCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.DocumentsXmlOpenXsdSchemaFolderCommandId) { }
 
         public static DocumentsXmlOpenXsdSchemaFolderCommand Instance { get; private set; }
 

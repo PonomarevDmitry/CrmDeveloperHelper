@@ -11,7 +11,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
         private DocumentsCSharpUpdateGlobalOptionSetsFileCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.DocumentsCSharpUpdateGlobalOptionSetsFileCommandId
+                , PackageIds.guidDynamicCommandSet.DocumentsCSharpUpdateGlobalOptionSetsFileCommandId
             )
         {
 

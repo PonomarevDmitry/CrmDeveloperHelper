@@ -11,7 +11,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
         private DocumentsCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.DocumentsCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommandId
+                , PackageIds.guidDynamicCommandSet.DocumentsCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommandId
             )
         {
 

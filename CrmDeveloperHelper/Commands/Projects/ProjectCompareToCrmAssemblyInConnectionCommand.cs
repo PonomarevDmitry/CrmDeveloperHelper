@@ -8,7 +8,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
     internal sealed class ProjectCompareToCrmAssemblyInConnectionCommand : AbstractDynamicCommandByConnectionWithoutCurrent
     {
         private ProjectCompareToCrmAssemblyInConnectionCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.ProjectCompareToCrmAssemblyInConnectionCommandId)
+            : base(commandService, PackageIds.guidDynamicCommandSet.ProjectCompareToCrmAssemblyInConnectionCommandId)
         {
 
         }

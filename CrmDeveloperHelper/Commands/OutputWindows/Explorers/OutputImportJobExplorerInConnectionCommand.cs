@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.Explor
         private OutputImportJobExplorerInConnectionCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.OutputImportJobExplorerInConnectionCommandId
+                , PackageIds.guidCommandSet.OutputImportJobExplorerInConnectionCommandId
             )
         {
 

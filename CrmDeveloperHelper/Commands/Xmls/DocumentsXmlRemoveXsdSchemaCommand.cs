@@ -8,7 +8,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
     internal sealed class DocumentsXmlRemoveXsdSchemaCommand : AbstractCommand
     {
         private DocumentsXmlRemoveXsdSchemaCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.DocumentsXmlRemoveXsdSchemaCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.DocumentsXmlRemoveXsdSchemaCommandId) { }
 
         public static DocumentsXmlRemoveXsdSchemaCommand Instance { get; private set; }
 

@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Checks
         private CommonCheckEntitiesOwnerShipsCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CommonCheckEntitiesOwnerShipsCommandId
+                , PackageIds.guidDynamicCommandSet.CommonCheckEntitiesOwnerShipsCommandId
             )
         {
 

@@ -12,7 +12,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
         private CodeXmlSavedQueryOpenInWebCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CodeXmlSavedQueryOpenInWebCommandId
+                , PackageIds.guidDynamicCommandSet.CodeXmlSavedQueryOpenInWebCommandId
             )
         {
 

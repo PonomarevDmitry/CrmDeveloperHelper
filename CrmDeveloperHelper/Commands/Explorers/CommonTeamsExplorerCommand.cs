@@ -6,7 +6,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
     internal sealed class CommonTeamsExplorerCommand : AbstractCommand
     {
         private CommonTeamsExplorerCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.CommonTeamsExplorerCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.CommonTeamsExplorerCommandId) { }
 
         public static CommonTeamsExplorerCommand Instance { get; private set; }
 

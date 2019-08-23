@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
     internal sealed class CodeWebResourceShowDifferenceCommand : AbstractCommand
     {
         private CodeWebResourceShowDifferenceCommand(OleMenuCommandService commandService)
-          : base(commandService, PackageIds.CodeWebResourceShowDifferenceCommandId) { }
+          : base(commandService, PackageIds.guidCommandSet.CodeWebResourceShowDifferenceCommandId) { }
 
         public static CodeWebResourceShowDifferenceCommand Instance { get; private set; }
 

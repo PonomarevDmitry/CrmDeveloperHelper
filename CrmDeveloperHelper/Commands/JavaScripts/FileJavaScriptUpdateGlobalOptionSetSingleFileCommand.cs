@@ -11,7 +11,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.JavaScripts
         private FileJavaScriptUpdateGlobalOptionSetSingleFileCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.FileJavaScriptUpdateGlobalOptionSetSingleFileCommandId
+                , PackageIds.guidDynamicCommandSet.FileJavaScriptUpdateGlobalOptionSetSingleFileCommandId
             )
         {
 

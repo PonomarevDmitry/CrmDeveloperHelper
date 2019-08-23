@@ -6,7 +6,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
     internal sealed class CommonSecurityRolesExplorerCommand : AbstractCommand
     {
         private CommonSecurityRolesExplorerCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.CommonSecurityRolesExplorerCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.CommonSecurityRolesExplorerCommandId) { }
 
         public static CommonSecurityRolesExplorerCommand Instance { get; private set; }
 

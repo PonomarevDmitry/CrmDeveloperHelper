@@ -11,7 +11,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
         private CodeXmlSiteMapShowDifferenceInConnectionGroupCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CodeXmlSiteMapShowDifferenceInConnectionGroupCommandId
+                , PackageIds.guidDynamicCommandSet.CodeXmlSiteMapShowDifferenceInConnectionGroupCommandId
             )
         {
 

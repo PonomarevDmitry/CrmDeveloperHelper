@@ -12,7 +12,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
         private CodeXmlWorkflowOpenInWebCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CodeXmlWorkflowOpenInWebCommandId
+                , PackageIds.guidDynamicCommandSet.CodeXmlWorkflowOpenInWebCommandId
             )
         {
 

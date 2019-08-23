@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
     internal sealed class OutputReportExplorerCommand : AbstractOutputWindowCommand
     {
         private OutputReportExplorerCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.OutputReportExplorerCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.OutputReportExplorerCommandId) { }
 
         public static OutputReportExplorerCommand Instance { get; private set; }
 

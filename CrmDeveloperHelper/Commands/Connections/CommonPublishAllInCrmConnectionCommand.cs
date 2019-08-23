@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Connections
         private CommonPublishAllInCrmConnectionCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CommonPublishAllInCrmConnectionCommandId
+                , PackageIds.guidDynamicCommandSet.CommonPublishAllInCrmConnectionCommandId
             )
         {
 

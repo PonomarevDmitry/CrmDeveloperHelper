@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
     internal sealed class FileWebResourceLinkClearCommand : AbstractCommand
     {
         private FileWebResourceLinkClearCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.FileWebResourceLinkClearCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.FileWebResourceLinkClearCommandId) { }
 
         public static FileWebResourceLinkClearCommand Instance { get; private set; }
 

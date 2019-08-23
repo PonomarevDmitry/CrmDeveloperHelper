@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
         private CodeCSharpProjectPluginTypeStepsAddToSolutionLastCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CodeCSharpProjectPluginTypeStepsAddToSolutionLastCommandId
+                , PackageIds.guidDynamicCommandSet.CodeCSharpProjectPluginTypeStepsAddToSolutionLastCommandId
             )
         {
 

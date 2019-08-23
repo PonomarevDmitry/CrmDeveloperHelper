@@ -6,7 +6,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
     internal sealed class CodeReportExplorerCommand : AbstractCommand
     {
         private CodeReportExplorerCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.CodeReportExplorerCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.CodeReportExplorerCommandId) { }
 
         public static CodeReportExplorerCommand Instance { get; private set; }
 

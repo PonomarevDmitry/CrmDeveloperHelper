@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
         private CommonTraceReaderCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CommonTraceReaderCommandId
+                , PackageIds.guidDynamicCommandSet.CommonTraceReaderCommandId
             )
         {
 

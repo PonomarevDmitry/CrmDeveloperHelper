@@ -13,7 +13,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Folders
         private FolderAddEntityMetadataFileInConnectionCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.FolderAddEntityMetadataFileInConnectionCommandId
+                , PackageIds.guidDynamicCommandSet.FolderAddEntityMetadataFileInConnectionCommandId
             )
         {
 

@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Checks
         private CommonCheckManagedElementsCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CommonCheckManagedElementsCommandId
+                , PackageIds.guidDynamicCommandSet.CommonCheckManagedElementsCommandId
             )
         {
 

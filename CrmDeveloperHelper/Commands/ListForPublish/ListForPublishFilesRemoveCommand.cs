@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
     internal sealed class ListForPublishFilesRemoveCommand : AbstractCommand
     {
         private ListForPublishFilesRemoveCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.ListForPublishFilesRemoveCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.ListForPublishFilesRemoveCommandId) { }
 
         public static ListForPublishFilesRemoveCommand Instance { get; private set; }
 

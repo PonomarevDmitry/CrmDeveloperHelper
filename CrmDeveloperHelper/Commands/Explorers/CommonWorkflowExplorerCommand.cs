@@ -6,7 +6,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
     internal sealed class CommonWorkflowExplorerCommand : AbstractCommand
     {
         private CommonWorkflowExplorerCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.CommonWorkflowExplorerCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.CommonWorkflowExplorerCommandId) { }
 
         public static CommonWorkflowExplorerCommand Instance { get; private set; }
 

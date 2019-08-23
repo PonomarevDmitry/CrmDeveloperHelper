@@ -8,7 +8,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.Explor
     internal sealed class OutputEntityRelationshipOneToManyExplorerCommand : AbstractOutputWindowCommand
     {
         private OutputEntityRelationshipOneToManyExplorerCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.OutputEntityRelationshipOneToManyExplorerCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.OutputEntityRelationshipOneToManyExplorerCommandId) { }
 
         public static OutputEntityRelationshipOneToManyExplorerCommand Instance { get; private set; }
 

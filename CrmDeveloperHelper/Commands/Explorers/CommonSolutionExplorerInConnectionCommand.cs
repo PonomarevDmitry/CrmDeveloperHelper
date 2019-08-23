@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
         private CommonSolutionExplorerInConnectionCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CommonSolutionExplorerInConnectionCommandId
+                , PackageIds.guidDynamicCommandSet.CommonSolutionExplorerInConnectionCommandId
             )
         {
 

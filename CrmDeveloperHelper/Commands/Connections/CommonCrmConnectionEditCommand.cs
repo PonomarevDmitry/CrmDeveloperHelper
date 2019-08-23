@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Connections
         private CommonCrmConnectionEditCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CommonCrmConnectionEditCommandId
+                , PackageIds.guidDynamicCommandSet.CommonCrmConnectionEditCommandId
             )
         {
 

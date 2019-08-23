@@ -10,7 +10,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Folders
         private FolderAddGlobalOptionSetFileInConnectionCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.FolderAddGlobalOptionSetFileInConnectionCommandId
+                , PackageIds.guidDynamicCommandSet.FolderAddGlobalOptionSetFileInConnectionCommandId
             )
         {
 

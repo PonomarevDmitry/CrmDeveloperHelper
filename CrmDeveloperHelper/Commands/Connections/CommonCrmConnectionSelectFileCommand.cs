@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Connections
     internal sealed class CommonCrmConnectionSelectFileCommand : AbstractDynamicCommandByConnectionAll
     {
         private CommonCrmConnectionSelectFileCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.CommonCrmConnectionSelectFileCommandId)
+            : base(commandService, PackageIds.guidDynamicCommandSet.CommonCrmConnectionSelectFileCommandId)
         {
 
         }

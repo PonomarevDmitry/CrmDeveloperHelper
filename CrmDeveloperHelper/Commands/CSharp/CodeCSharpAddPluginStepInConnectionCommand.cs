@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
         private CodeCSharpAddPluginStepInConnectionCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CodeCSharpAddPluginStepInConnectionCommandId
+                , PackageIds.guidDynamicCommandSet.CodeCSharpAddPluginStepInConnectionCommandId
             )
         {
 

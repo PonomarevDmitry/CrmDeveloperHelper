@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Folders
     internal sealed class FolderAddSolutionFileCommand : AbstractCommand
     {
         private FolderAddSolutionFileCommand(OleMenuCommandService commandService)
-              : base(commandService, PackageIds.FolderAddSolutionFileCommandId) { }
+              : base(commandService, PackageIds.guidCommandSet.FolderAddSolutionFileCommandId) { }
 
         public static FolderAddSolutionFileCommand Instance { get; private set; }
 

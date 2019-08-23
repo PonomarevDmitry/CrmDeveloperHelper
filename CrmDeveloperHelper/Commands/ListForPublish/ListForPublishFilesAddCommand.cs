@@ -6,7 +6,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
     internal sealed class ListForPublishFilesAddCommand : AbstractCommand
     {
         private ListForPublishFilesAddCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.ListForPublishFilesAddCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.ListForPublishFilesAddCommandId) { }
 
         public static ListForPublishFilesAddCommand Instance { get; private set; }
 

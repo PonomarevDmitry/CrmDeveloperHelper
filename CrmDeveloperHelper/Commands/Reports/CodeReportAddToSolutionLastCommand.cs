@@ -11,7 +11,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
         private CodeReportAddToSolutionLastCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CodeReportAddToSolutionLastCommandId
+                , PackageIds.guidDynamicCommandSet.CodeReportAddToSolutionLastCommandId
             )
         {
 

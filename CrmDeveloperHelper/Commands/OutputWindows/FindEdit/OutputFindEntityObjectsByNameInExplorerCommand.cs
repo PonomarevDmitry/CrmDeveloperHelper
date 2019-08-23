@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.FindEd
     internal sealed class OutputFindEntityObjectsByNameInExplorerCommand : AbstractOutputWindowCommand
     {
         private OutputFindEntityObjectsByNameInExplorerCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.OutputFindEntityObjectsByNameInExplorerCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.OutputFindEntityObjectsByNameInExplorerCommandId) { }
 
         public static OutputFindEntityObjectsByNameInExplorerCommand Instance { get; private set; }
 

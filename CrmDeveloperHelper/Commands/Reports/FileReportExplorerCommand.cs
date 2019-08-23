@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
     internal sealed class FileReportExplorerCommand : AbstractCommand
     {
         private FileReportExplorerCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.FileReportExplorerCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.FileReportExplorerCommandId) { }
 
         public static FileReportExplorerCommand Instance { get; private set; }
 

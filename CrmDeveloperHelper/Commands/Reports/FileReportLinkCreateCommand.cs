@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
     internal sealed class FileReportLinkCreateCommand : AbstractCommand
     {
         private FileReportLinkCreateCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.FileReportLinkCreateCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.FileReportLinkCreateCommandId) { }
 
         public static FileReportLinkCreateCommand Instance { get; private set; }
 

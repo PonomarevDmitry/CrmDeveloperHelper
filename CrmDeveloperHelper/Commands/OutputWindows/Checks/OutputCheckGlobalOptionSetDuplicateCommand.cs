@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.Checks
         private OutputCheckGlobalOptionSetDuplicateCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.OutputCheckGlobalOptionSetDuplicateCommandId
+                , PackageIds.guidCommandSet.OutputCheckGlobalOptionSetDuplicateCommandId
             )
         {
 

@@ -38,7 +38,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
         {
             InstanceOriginalBodyText = new CodeReportShowDifferenceCommand(
                 commandService
-                , PackageIds.CodeReportShowDifferenceOriginalBodyTextCommandId
+                , PackageIds.guidCommandSet.CodeReportShowDifferenceOriginalBodyTextCommandId
                 , Report.Schema.Attributes.originalbodytext
                 , Report.Schema.Headers.originalbodytext
                 , false
@@ -46,7 +46,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 
             InstanceOriginalBodyTextCustom = new CodeReportShowDifferenceCommand(
                 commandService
-                , PackageIds.CodeReportShowDifferenceOriginalBodyTextCustomCommandId
+                , PackageIds.guidCommandSet.CodeReportShowDifferenceOriginalBodyTextCustomCommandId
                 , Report.Schema.Attributes.originalbodytext
                 , Report.Schema.Headers.originalbodytext
                 , true
@@ -54,7 +54,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 
             InstanceBodyText = new CodeReportShowDifferenceCommand(
                 commandService
-                , PackageIds.CodeReportShowDifferenceBodyTextCommandId
+                , PackageIds.guidCommandSet.CodeReportShowDifferenceBodyTextCommandId
                 , Report.Schema.Attributes.bodytext
                 , Report.Schema.Headers.bodytext
                 , false
@@ -62,7 +62,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 
             InstanceBodyTextCustom = new CodeReportShowDifferenceCommand(
                 commandService
-                , PackageIds.CodeReportShowDifferenceBodyTextCustomCommandId
+                , PackageIds.guidCommandSet.CodeReportShowDifferenceBodyTextCustomCommandId
                 , Report.Schema.Attributes.bodytext
                 , Report.Schema.Headers.bodytext
                 , true

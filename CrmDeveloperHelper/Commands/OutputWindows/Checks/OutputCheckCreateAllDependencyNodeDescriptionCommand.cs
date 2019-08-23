@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.Checks
         private OutputCheckCreateAllDependencyNodeDescriptionCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.OutputCheckCreateAllDependencyNodeDescriptionCommandId
+                , PackageIds.guidCommandSet.OutputCheckCreateAllDependencyNodeDescriptionCommandId
             )
         {
 

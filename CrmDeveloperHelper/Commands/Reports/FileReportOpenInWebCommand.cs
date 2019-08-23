@@ -27,13 +27,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            InstanceOpenInWeb = new FileReportOpenInWebCommand(commandService, PackageIds.FileReportOpenInWebCommandId, ActionOpenComponent.OpenInWeb);
+            InstanceOpenInWeb = new FileReportOpenInWebCommand(commandService, PackageIds.guidDynamicCommandSet.FileReportOpenInWebCommandId, ActionOpenComponent.OpenInWeb);
 
-            InstanceOpenDependentComponentsInWeb = new FileReportOpenInWebCommand(commandService, PackageIds.FileReportOpenDependentInWebCommandId, ActionOpenComponent.OpenDependentComponentsInWeb);
+            InstanceOpenDependentComponentsInWeb = new FileReportOpenInWebCommand(commandService, PackageIds.guidDynamicCommandSet.FileReportOpenDependentInWebCommandId, ActionOpenComponent.OpenDependentComponentsInWeb);
 
-            InstanceOpenDependentComponentsInExplorer = new FileReportOpenInWebCommand(commandService, PackageIds.FileReportOpenDependentInExplorerCommandId, ActionOpenComponent.OpenDependentComponentsInExplorer);
+            InstanceOpenDependentComponentsInExplorer = new FileReportOpenInWebCommand(commandService, PackageIds.guidDynamicCommandSet.FileReportOpenDependentInExplorerCommandId, ActionOpenComponent.OpenDependentComponentsInExplorer);
 
-            InstanceOpenSolutionsContainingComponentInExplorer = new FileReportOpenInWebCommand(commandService, PackageIds.FileReportOpenSolutionsContainingComponentInExplorerCommandId, ActionOpenComponent.OpenSolutionsContainingComponentInExplorer);
+            InstanceOpenSolutionsContainingComponentInExplorer = new FileReportOpenInWebCommand(commandService, PackageIds.guidDynamicCommandSet.FileReportOpenSolutionsContainingComponentInExplorerCommandId, ActionOpenComponent.OpenSolutionsContainingComponentInExplorer);
         }
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)

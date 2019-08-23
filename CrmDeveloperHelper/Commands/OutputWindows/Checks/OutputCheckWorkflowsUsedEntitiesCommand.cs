@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.Checks
     internal sealed class OutputCheckWorkflowsUsedEntitiesCommand : AbstractOutputWindowCommand
     {
         private OutputCheckWorkflowsUsedEntitiesCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.OutputCheckWorkflowsUsedEntitiesCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.OutputCheckWorkflowsUsedEntitiesCommandId) { }
 
         public static OutputCheckWorkflowsUsedEntitiesCommand Instance { get; private set; }
 

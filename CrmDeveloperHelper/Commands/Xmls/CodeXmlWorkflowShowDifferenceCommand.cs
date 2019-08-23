@@ -11,7 +11,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
     internal sealed class CodeXmlWorkflowShowDifferenceCommand : AbstractCommand
     {
         private CodeXmlWorkflowShowDifferenceCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.CodeXmlWorkflowShowDifferenceCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.CodeXmlWorkflowShowDifferenceCommandId) { }
 
         public static CodeXmlWorkflowShowDifferenceCommand Instance { get; private set; }
 

@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
     internal sealed class ProjectPluginTypeExplorerCommand : AbstractCommand
     {
         private ProjectPluginTypeExplorerCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.ProjectPluginTypeExplorerCommandId)
+            : base(commandService, PackageIds.guidCommandSet.ProjectPluginTypeExplorerCommandId)
         {
         }
 

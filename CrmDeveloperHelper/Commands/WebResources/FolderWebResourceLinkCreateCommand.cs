@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
     internal sealed class FolderWebResourceLinkCreateCommand : AbstractCommand
     {
         private FolderWebResourceLinkCreateCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.FolderWebResourceLinkCreateCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.FolderWebResourceLinkCreateCommandId) { }
 
         public static FolderWebResourceLinkCreateCommand Instance { get; private set; }
 

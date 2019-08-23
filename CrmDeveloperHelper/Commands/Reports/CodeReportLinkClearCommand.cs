@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
     internal sealed class CodeReportLinkClearCommand : AbstractCommand
     {
         private CodeReportLinkClearCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.CodeReportLinkClearCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.CodeReportLinkClearCommandId) { }
 
         public static CodeReportLinkClearCommand Instance { get; private set; }
 

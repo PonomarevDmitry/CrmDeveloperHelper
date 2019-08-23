@@ -10,7 +10,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
     internal sealed class CodeXmlSiteMapExplorerCommand : AbstractCommand
     {
         private CodeXmlSiteMapExplorerCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.CodeXmlSiteMapExplorerCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.CodeXmlSiteMapExplorerCommandId) { }
 
         public static CodeXmlSiteMapExplorerCommand Instance { get; private set; }
 

@@ -10,7 +10,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
     internal sealed class FolderWebResourceCompareCommand : AbstractCommand
     {
         private FolderWebResourceCompareCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.FolderWebResourceCompareCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.FolderWebResourceCompareCommandId) { }
 
         public static FolderWebResourceCompareCommand Instance { get; private set; }
 

@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Checks
         private CommonCheckPluginStepsRequiredComponentsCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CommonCheckPluginStepsRequiredComponentsCommandId
+                , PackageIds.guidDynamicCommandSet.CommonCheckPluginStepsRequiredComponentsCommandId
             )
         {
 

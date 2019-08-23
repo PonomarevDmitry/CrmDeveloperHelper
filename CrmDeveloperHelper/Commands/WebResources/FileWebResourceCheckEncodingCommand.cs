@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
     internal sealed class FileWebResourceCheckEncodingCommand : AbstractCommand
     {
         private FileWebResourceCheckEncodingCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.FileWebResourceCheckEncodingCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.FileWebResourceCheckEncodingCommandId) { }
 
         public static FileWebResourceCheckEncodingCommand Instance { get; private set; }
 

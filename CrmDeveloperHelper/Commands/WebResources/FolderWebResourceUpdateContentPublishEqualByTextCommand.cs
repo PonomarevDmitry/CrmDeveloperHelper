@@ -11,7 +11,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
         private FolderWebResourceUpdateContentPublishEqualByTextCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.FolderWebResourceUpdateContentPublishEqualByTextCommandId
+                , PackageIds.guidDynamicCommandSet.FolderWebResourceUpdateContentPublishEqualByTextCommandId
             )
         {
 

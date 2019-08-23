@@ -14,7 +14,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
         private ListForPublishAddToSolutionLastCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.ListForPublishAddToSolutionLastCommandId
+                , PackageIds.guidDynamicCommandSet.ListForPublishAddToSolutionLastCommandId
             )
         {
 

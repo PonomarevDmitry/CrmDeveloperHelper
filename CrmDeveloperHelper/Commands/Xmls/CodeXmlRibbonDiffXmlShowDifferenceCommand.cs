@@ -10,7 +10,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
     internal sealed class CodeXmlRibbonDiffXmlShowDifferenceCommand : AbstractCommand
     {
         private CodeXmlRibbonDiffXmlShowDifferenceCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.CodeXmlRibbonDiffXmlShowDifferenceCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.CodeXmlRibbonDiffXmlShowDifferenceCommandId) { }
 
         public static CodeXmlRibbonDiffXmlShowDifferenceCommand Instance { get; private set; }
 

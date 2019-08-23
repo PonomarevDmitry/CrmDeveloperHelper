@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
     internal sealed class CommonSolutionExplorerCommand : AbstractCommand
     {
         private CommonSolutionExplorerCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.CommonSolutionExplorerCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.CommonSolutionExplorerCommandId) { }
 
         public static CommonSolutionExplorerCommand Instance { get; private set; }
 

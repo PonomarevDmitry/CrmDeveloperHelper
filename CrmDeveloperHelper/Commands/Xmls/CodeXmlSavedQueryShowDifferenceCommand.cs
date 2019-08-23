@@ -11,7 +11,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
     internal sealed class CodeXmlSavedQueryShowDifferenceCommand : AbstractCommand
     {
         private CodeXmlSavedQueryShowDifferenceCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.CodeXmlSavedQueryShowDifferenceCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.CodeXmlSavedQueryShowDifferenceCommandId) { }
 
         public static CodeXmlSavedQueryShowDifferenceCommand Instance { get; private set; }
 

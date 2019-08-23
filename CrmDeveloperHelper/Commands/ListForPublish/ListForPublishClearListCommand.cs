@@ -8,7 +8,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
     internal sealed class ListForPublishClearListCommand : AbstractCommand
     {
         private ListForPublishClearListCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.ListForPublishClearListCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.ListForPublishClearListCommandId) { }
 
         public static ListForPublishClearListCommand Instance { get; private set; }
 

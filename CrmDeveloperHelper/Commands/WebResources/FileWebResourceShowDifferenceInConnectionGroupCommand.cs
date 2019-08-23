@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
         private FileWebResourceShowDifferenceInConnectionGroupCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.FileWebResourceShowDifferenceInConnectionGroupCommandId
+                , PackageIds.guidDynamicCommandSet.FileWebResourceShowDifferenceInConnectionGroupCommandId
             )
         {
 

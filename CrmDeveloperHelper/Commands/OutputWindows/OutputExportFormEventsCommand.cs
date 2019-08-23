@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows
     internal sealed class OutputExportFormEventsCommand : AbstractOutputWindowCommand
     {
         private OutputExportFormEventsCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.OutputExportFormEventsCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.OutputExportFormEventsCommandId) { }
 
         public static OutputExportFormEventsCommand Instance { get; private set; }
 

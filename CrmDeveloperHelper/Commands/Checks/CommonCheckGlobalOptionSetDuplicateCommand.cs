@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Checks
         private CommonCheckGlobalOptionSetDuplicateCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CommonCheckGlobalOptionSetDuplicateCommandId
+                , PackageIds.guidDynamicCommandSet.CommonCheckGlobalOptionSetDuplicateCommandId
             )
         {
 

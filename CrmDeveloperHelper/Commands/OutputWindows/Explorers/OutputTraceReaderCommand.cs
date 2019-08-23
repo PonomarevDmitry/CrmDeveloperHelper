@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.Explor
         private OutputTraceReaderCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.OutputTraceReaderCommandId
+                , PackageIds.guidCommandSet.OutputTraceReaderCommandId
             )
         {
 

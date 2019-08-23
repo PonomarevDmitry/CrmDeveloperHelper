@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
     internal sealed class CommonEntityRelationshipManyToManyExplorerCommand : AbstractCommand
     {
         private CommonEntityRelationshipManyToManyExplorerCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.CommonEntityRelationshipManyToManyExplorerCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.CommonEntityRelationshipManyToManyExplorerCommandId) { }
 
         public static CommonEntityRelationshipManyToManyExplorerCommand Instance { get; private set; }
 

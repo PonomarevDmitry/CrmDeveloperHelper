@@ -10,7 +10,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.JavaScripts
     internal sealed class FileJavaScriptUpdateEntityMetadataFileWithSelectCommand : AbstractCommand
     {
         private FileJavaScriptUpdateEntityMetadataFileWithSelectCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.FileJavaScriptUpdateEntityMetadataFileWithSelectCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.FileJavaScriptUpdateEntityMetadataFileWithSelectCommandId) { }
 
         public static FileJavaScriptUpdateEntityMetadataFileWithSelectCommand Instance { get; private set; }
 

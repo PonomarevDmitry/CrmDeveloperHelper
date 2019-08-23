@@ -12,7 +12,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
         private FolderCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.FolderCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommandId
+                , PackageIds.guidDynamicCommandSet.FolderCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommandId
             )
         {
 

@@ -10,7 +10,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Folders
         private FolderAddSystemFormJavaScriptFileInConnectionCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.FolderAddSystemFormJavaScriptFileInConnectionCommandId
+                , PackageIds.guidDynamicCommandSet.FolderAddSystemFormJavaScriptFileInConnectionCommandId
             )
         {
 

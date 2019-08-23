@@ -25,9 +25,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new FolderWebResourceCompareInConnectionGroupCommand(commandService, PackageIds.FolderWebResourceCompareInConnectionGroupCommandId, false);
+            Instance = new FolderWebResourceCompareInConnectionGroupCommand(commandService, PackageIds.guidDynamicCommandSet.FolderWebResourceCompareInConnectionGroupCommandId, false);
 
-            InstanceWithDetails = new FolderWebResourceCompareInConnectionGroupCommand(commandService, PackageIds.FolderWebResourceCompareWithDetailsInConnectionGroupCommandId, true);
+            InstanceWithDetails = new FolderWebResourceCompareInConnectionGroupCommand(commandService, PackageIds.guidDynamicCommandSet.FolderWebResourceCompareWithDetailsInConnectionGroupCommandId, true);
         }
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)

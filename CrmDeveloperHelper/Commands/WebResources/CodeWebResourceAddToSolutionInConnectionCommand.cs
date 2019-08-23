@@ -11,7 +11,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
         private CodeWebResourceAddToSolutionInConnectionCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CodeWebResourceAddToSolutionInConnectionCommandId
+                , PackageIds.guidDynamicCommandSet.CodeWebResourceAddToSolutionInConnectionCommandId
             )
         {
 

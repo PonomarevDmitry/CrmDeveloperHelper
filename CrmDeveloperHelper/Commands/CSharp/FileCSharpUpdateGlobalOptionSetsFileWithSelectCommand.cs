@@ -10,7 +10,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
     internal sealed class FileCSharpUpdateGlobalOptionSetsFileWithSelectCommand : AbstractCommand
     {
         private FileCSharpUpdateGlobalOptionSetsFileWithSelectCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.FileCSharpUpdateGlobalOptionSetsFileWithSelectCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.FileCSharpUpdateGlobalOptionSetsFileWithSelectCommandId) { }
 
         public static FileCSharpUpdateGlobalOptionSetsFileWithSelectCommand Instance { get; private set; }
 

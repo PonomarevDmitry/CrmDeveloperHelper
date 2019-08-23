@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Checks
         private CommonCheckUnknownFormControlTypes(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CommonCheckUnknownFormControlTypesId
+                , PackageIds.guidDynamicCommandSet.CommonCheckUnknownFormControlTypesId
             )
         {
 

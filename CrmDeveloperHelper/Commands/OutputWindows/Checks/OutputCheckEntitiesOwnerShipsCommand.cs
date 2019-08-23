@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.Checks
         private OutputCheckEntitiesOwnerShipsCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.OutputCheckEntitiesOwnerShipsCommandId
+                , PackageIds.guidCommandSet.OutputCheckEntitiesOwnerShipsCommandId
             )
         {
 

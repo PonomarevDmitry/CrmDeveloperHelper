@@ -8,7 +8,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
     internal sealed class FileCSharpPluginTreeCommand : AbstractCommand
     {
         private FileCSharpPluginTreeCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.FileCSharpPluginTreeCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.FileCSharpPluginTreeCommandId) { }
 
         public static FileCSharpPluginTreeCommand Instance { get; private set; }
 

@@ -8,7 +8,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
     internal sealed class FileCSharpAddPluginStepCommand : AbstractCommand
     {
         private FileCSharpAddPluginStepCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.FileCSharpAddPluginStepCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.FileCSharpAddPluginStepCommandId) { }
 
         public static FileCSharpAddPluginStepCommand Instance { get; private set; }
 

@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
     internal sealed class CodeXmlRibbonDiffInsertIntellisenseContextCommand : AbstractCommand
     {
         private CodeXmlRibbonDiffInsertIntellisenseContextCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.CodeXmlRibbonDiffInsertIntellisenseContextCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.CodeXmlRibbonDiffInsertIntellisenseContextCommandId) { }
 
         public static CodeXmlRibbonDiffInsertIntellisenseContextCommand Instance { get; private set; }
 

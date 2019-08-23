@@ -12,7 +12,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
         private CodeXmlWorkflowUpdateInConnectionGroupCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CodeXmlWorkflowUpdateInConnectionGroupCommandId
+                , PackageIds.guidDynamicCommandSet.CodeXmlWorkflowUpdateInConnectionGroupCommandId
             )
         {
 

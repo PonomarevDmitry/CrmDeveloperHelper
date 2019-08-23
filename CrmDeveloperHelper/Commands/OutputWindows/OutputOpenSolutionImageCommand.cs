@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows
     internal sealed class OutputOpenSolutionImageCommand : AbstractOutputWindowCommand
     {
         private OutputOpenSolutionImageCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.OutputOpenSolutionImageCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.OutputOpenSolutionImageCommandId) { }
 
         public static OutputOpenSolutionImageCommand Instance { get; private set; }
 

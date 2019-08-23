@@ -6,7 +6,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.FindEdit
     internal sealed class CommonFindEntityObjectsContainsStringCommand : AbstractCommand
     {
         private CommonFindEntityObjectsContainsStringCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.CommonFindEntityObjectsContainsStringCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.CommonFindEntityObjectsContainsStringCommandId) { }
 
         public static CommonFindEntityObjectsContainsStringCommand Instance { get; private set; }
 

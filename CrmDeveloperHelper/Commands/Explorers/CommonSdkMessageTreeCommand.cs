@@ -6,7 +6,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
     internal sealed class CommonSdkMessageTreeCommand : AbstractCommand
     {
         private CommonSdkMessageTreeCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.CommonSdkMessageTreeCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.CommonSdkMessageTreeCommandId) { }
 
         public static CommonSdkMessageTreeCommand Instance { get; private set; }
 

@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.FindEd
     internal sealed class OutputFindEntityObjectsMarkedToDeleteInExplorerCommand : AbstractOutputWindowCommand
     {
         private OutputFindEntityObjectsMarkedToDeleteInExplorerCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.OutputFindEntityObjectsMarkedToDeleteInExplorerCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.OutputFindEntityObjectsMarkedToDeleteInExplorerCommandId) { }
 
         public static OutputFindEntityObjectsMarkedToDeleteInExplorerCommand Instance { get; private set; }
 

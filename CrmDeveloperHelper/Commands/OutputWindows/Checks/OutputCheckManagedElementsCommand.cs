@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.Checks
         private OutputCheckManagedElementsCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.OutputCheckManagedElementsCommandId
+                , PackageIds.guidCommandSet.OutputCheckManagedElementsCommandId
             )
         {
 

@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.Explor
     internal sealed class OutputSdkMessageTreeCommand : AbstractOutputWindowCommand
     {
         private OutputSdkMessageTreeCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.OutputSdkMessageTreeCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.OutputSdkMessageTreeCommandId) { }
 
         public static OutputSdkMessageTreeCommand Instance { get; private set; }
 

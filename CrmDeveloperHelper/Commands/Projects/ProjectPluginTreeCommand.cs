@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
   internal sealed  class ProjectPluginTreeCommand : AbstractCommand
     {
         private ProjectPluginTreeCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.ProjectPluginTreeCommandId)
+            : base(commandService, PackageIds.guidCommandSet.ProjectPluginTreeCommandId)
         {
         }
 

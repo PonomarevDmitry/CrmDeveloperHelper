@@ -10,7 +10,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
     internal sealed class CodeXmlRibbonDiffXmlUpdateCommand : AbstractCommand
     {
         private CodeXmlRibbonDiffXmlUpdateCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.CodeXmlRibbonDiffXmlUpdateCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.CodeXmlRibbonDiffXmlUpdateCommandId) { }
 
         public static CodeXmlRibbonDiffXmlUpdateCommand Instance { get; private set; }
 

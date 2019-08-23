@@ -28,14 +28,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
         {
             InstanceOriginalBodyText = new CodeReportShowDifferenceInConnectionGroupCommand(
                 commandService
-                , PackageIds.CodeReportShowDifferenceOriginalBodyTextInConnectionGroupCommandId
+                , PackageIds.guidDynamicCommandSet.CodeReportShowDifferenceOriginalBodyTextInConnectionGroupCommandId
                 , Report.Schema.Attributes.originalbodytext
                 , Report.Schema.Headers.originalbodytext
             );
 
             InstanceBodyText = new CodeReportShowDifferenceInConnectionGroupCommand(
                commandService
-               , PackageIds.CodeReportShowDifferenceBodyTextInConnectionGroupCommandId
+               , PackageIds.guidDynamicCommandSet.CodeReportShowDifferenceBodyTextInConnectionGroupCommandId
                , Report.Schema.Attributes.bodytext
                , Report.Schema.Headers.bodytext
             );

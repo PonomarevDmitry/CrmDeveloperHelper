@@ -6,7 +6,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.FindEdit
     internal sealed class CommonFindEntityObjectsMarkedToDeleteAndShowDependentComponentsCommand : AbstractCommand
     {
         private CommonFindEntityObjectsMarkedToDeleteAndShowDependentComponentsCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.CommonFindEntityObjectsMarkedToDeleteAndShowDependentComponentsCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.CommonFindEntityObjectsMarkedToDeleteAndShowDependentComponentsCommandId) { }
 
         public static CommonFindEntityObjectsMarkedToDeleteAndShowDependentComponentsCommand Instance { get; private set; }
 

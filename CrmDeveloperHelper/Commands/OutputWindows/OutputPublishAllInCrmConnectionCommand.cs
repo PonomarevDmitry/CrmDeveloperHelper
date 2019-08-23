@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows
         private OutputPublishAllInCrmConnectionCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.OutputPublishAllInCrmConnectionCommandId
+                , PackageIds.guidCommandSet.OutputPublishAllInCrmConnectionCommandId
             )
         {
 

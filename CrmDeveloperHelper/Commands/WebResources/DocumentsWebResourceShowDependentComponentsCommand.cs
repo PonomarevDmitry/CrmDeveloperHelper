@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
     internal sealed class DocumentsWebResourceShowDependentComponentsCommand : AbstractCommand
     {
         private DocumentsWebResourceShowDependentComponentsCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.DocumentsWebResourceShowDependentComponentsCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.DocumentsWebResourceShowDependentComponentsCommandId) { }
 
         public static DocumentsWebResourceShowDependentComponentsCommand Instance { get; private set; }
 

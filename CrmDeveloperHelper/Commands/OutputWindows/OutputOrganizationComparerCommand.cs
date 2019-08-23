@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows
     internal sealed class OutputOrganizationComparerCommand : AbstractOutputWindowCommand
     {
         private OutputOrganizationComparerCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.OutputOrganizationComparerCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.OutputOrganizationComparerCommandId) { }
 
         public static OutputOrganizationComparerCommand Instance { get; private set; }
 

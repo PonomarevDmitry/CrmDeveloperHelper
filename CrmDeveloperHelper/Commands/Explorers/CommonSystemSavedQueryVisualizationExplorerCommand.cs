@@ -6,7 +6,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
     internal sealed class CommonSystemSavedQueryVisualizationExplorerCommand : AbstractCommand
     {
         private CommonSystemSavedQueryVisualizationExplorerCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.CommonSystemSavedQueryVisualizationExplorerCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.CommonSystemSavedQueryVisualizationExplorerCommandId) { }
 
         public static CommonSystemSavedQueryVisualizationExplorerCommand Instance { get; private set; }
 

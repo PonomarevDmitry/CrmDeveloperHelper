@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
         private FileReportUpdateCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.FileReportUpdateCommandId
+                , PackageIds.guidDynamicCommandSet.FileReportUpdateCommandId
             )
         {
 

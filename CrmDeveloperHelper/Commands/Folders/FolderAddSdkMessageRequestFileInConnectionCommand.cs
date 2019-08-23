@@ -11,7 +11,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Folders
         private FolderAddSdkMessageRequestFileInConnectionCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.FolderAddSdkMessageRequestFileInConnectionCommandId
+                , PackageIds.guidDynamicCommandSet.FolderAddSdkMessageRequestFileInConnectionCommandId
             )
         {
 

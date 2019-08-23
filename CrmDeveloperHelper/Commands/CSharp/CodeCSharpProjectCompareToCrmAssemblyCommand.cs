@@ -6,7 +6,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
     internal sealed class CodeCSharpProjectCompareToCrmAssemblyCommand : AbstractCommand
     {
         private CodeCSharpProjectCompareToCrmAssemblyCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.CodeCSharpProjectCompareToCrmAssemblyCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.CodeCSharpProjectCompareToCrmAssemblyCommandId) { }
 
         public static CodeCSharpProjectCompareToCrmAssemblyCommand Instance { get; private set; }
 

@@ -10,7 +10,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
     internal sealed class FolderWebResourceUpdateContentPublishCommand : AbstractCommand
     {
         private FolderWebResourceUpdateContentPublishCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.FolderWebResourceUpdateContentPublishCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.FolderWebResourceUpdateContentPublishCommandId) { }
 
         public static FolderWebResourceUpdateContentPublishCommand Instance { get; private set; }
 

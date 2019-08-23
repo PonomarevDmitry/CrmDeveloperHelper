@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.Explor
     internal sealed class OutputGlobalOptionSetsExplorerCommand : AbstractOutputWindowCommand
     {
         private OutputGlobalOptionSetsExplorerCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.OutputGlobalOptionSetsExplorerCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.OutputGlobalOptionSetsExplorerCommandId) { }
 
         public static OutputGlobalOptionSetsExplorerCommand Instance { get; private set; }
 

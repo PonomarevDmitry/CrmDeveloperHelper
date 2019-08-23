@@ -11,7 +11,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
         private FileWebResourceUpdateContentPublishEqualByTextCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.FileWebResourceUpdateContentPublishEqualByTextCommandId
+                , PackageIds.guidDynamicCommandSet.FileWebResourceUpdateContentPublishEqualByTextCommandId
             )
         {
 

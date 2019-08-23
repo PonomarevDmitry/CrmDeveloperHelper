@@ -11,7 +11,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
         private CodeWebResourceUpdateContentPublishGroupConnectionCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CodeWebResourceUpdateContentPublishGroupConnectionCommandId
+                , PackageIds.guidDynamicCommandSet.CodeWebResourceUpdateContentPublishGroupConnectionCommandId
             )
         {
 

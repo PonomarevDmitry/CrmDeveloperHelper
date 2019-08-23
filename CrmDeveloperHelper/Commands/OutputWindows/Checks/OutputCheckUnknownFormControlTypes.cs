@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.Checks
         private OutputCheckUnknownFormControlTypes(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.OutputCheckUnknownFormControlTypesId
+                , PackageIds.guidCommandSet.OutputCheckUnknownFormControlTypesId
             )
         {
 

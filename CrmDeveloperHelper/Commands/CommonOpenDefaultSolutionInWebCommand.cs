@@ -10,7 +10,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
         private CommonOpenDefaultSolutionInWebCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CommonOpenDefaultSolutionInWebCommandId
+                , PackageIds.guidDynamicCommandSet.CommonOpenDefaultSolutionInWebCommandId
             )
         {
 

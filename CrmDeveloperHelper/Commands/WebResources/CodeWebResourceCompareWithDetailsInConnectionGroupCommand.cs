@@ -11,7 +11,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
         private CodeWebResourceCompareWithDetailsInConnectionGroupCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CodeWebResourceCompareWithDetailsInConnectionGroupCommandId
+                , PackageIds.guidDynamicCommandSet.CodeWebResourceCompareWithDetailsInConnectionGroupCommandId
             )
         {
 

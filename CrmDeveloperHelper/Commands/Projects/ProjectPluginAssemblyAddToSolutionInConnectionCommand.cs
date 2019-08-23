@@ -10,7 +10,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
         private ProjectPluginAssemblyAddToSolutionInConnectionCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.ProjectPluginAssemblyAddToSolutionInConnectionCommandId
+                , PackageIds.guidDynamicCommandSet.ProjectPluginAssemblyAddToSolutionInConnectionCommandId
             )
         {
 

@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.Checks
         private OutputCheckPluginImagesCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.OutputCheckPluginImagesCommandId
+                , PackageIds.guidCommandSet.OutputCheckPluginImagesCommandId
             )
         {
 

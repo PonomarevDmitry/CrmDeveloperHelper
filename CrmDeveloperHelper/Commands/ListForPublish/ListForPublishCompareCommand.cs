@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
     internal sealed class ListForPublishCompareCommand : AbstractCommand
     {
         private ListForPublishCompareCommand(OleMenuCommandService commandService)
-          : base(commandService, PackageIds.ListForPublishCompareCommandId) { }
+          : base(commandService, PackageIds.guidCommandSet.ListForPublishCompareCommandId) { }
 
         public static ListForPublishCompareCommand Instance { get; private set; }
 

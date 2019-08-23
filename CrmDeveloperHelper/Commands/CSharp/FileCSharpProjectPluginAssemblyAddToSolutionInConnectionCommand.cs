@@ -11,7 +11,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
         private FileCSharpProjectPluginAssemblyAddToSolutionInConnectionCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.FileCSharpProjectPluginAssemblyAddToSolutionInConnectionCommandId
+                , PackageIds.guidDynamicCommandSet.FileCSharpProjectPluginAssemblyAddToSolutionInConnectionCommandId
             )
         {
 

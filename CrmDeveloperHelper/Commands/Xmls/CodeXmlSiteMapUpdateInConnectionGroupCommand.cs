@@ -11,7 +11,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
         private CodeXmlSiteMapUpdateInConnectionGroupCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CodeXmlSiteMapUpdateInConnectionGroupCommandId
+                , PackageIds.guidDynamicCommandSet.CodeXmlSiteMapUpdateInConnectionGroupCommandId
             )
         {
 

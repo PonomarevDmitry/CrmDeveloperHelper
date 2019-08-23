@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
     internal sealed class ProjectCompareToCrmAssemblyCommand : AbstractCommand
     {
         private ProjectCompareToCrmAssemblyCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.ProjectCompareToCrmAssemblyCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.ProjectCompareToCrmAssemblyCommandId) { }
 
         public static ProjectCompareToCrmAssemblyCommand Instance { get; private set; }
 

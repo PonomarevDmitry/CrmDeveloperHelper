@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
     internal sealed class FileCSharpPluginAssemblyExplorerCommand : AbstractCommand
     {
         private FileCSharpPluginAssemblyExplorerCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.FileCSharpPluginAssemblyExplorerCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.FileCSharpPluginAssemblyExplorerCommandId) { }
 
         public static FileCSharpPluginAssemblyExplorerCommand Instance { get; private set; }
 

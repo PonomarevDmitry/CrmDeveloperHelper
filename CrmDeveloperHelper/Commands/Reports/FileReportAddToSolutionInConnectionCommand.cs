@@ -11,7 +11,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
         private FileReportAddToSolutionInConnectionCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.FileReportAddToSolutionInConnectionCommandId
+                , PackageIds.guidDynamicCommandSet.FileReportAddToSolutionInConnectionCommandId
             )
         {
 

@@ -6,7 +6,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.FindEdit
     internal sealed class CommonFindEntitiesByUniqueidentifierCommand : AbstractCommand
     {
         private CommonFindEntitiesByUniqueidentifierCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.CommonFindEntitiesByUniqueidentifierCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.CommonFindEntitiesByUniqueidentifierCommandId) { }
 
         public static CommonFindEntitiesByUniqueidentifierCommand Instance { get; private set; }
 

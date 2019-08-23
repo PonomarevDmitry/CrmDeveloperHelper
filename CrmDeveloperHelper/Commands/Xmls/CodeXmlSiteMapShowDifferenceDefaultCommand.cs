@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
         private CodeXmlSiteMapShowDifferenceDefaultCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CodeXmlSiteMapShowDifferenceDefaultCommandId
+                , PackageIds.guidDynamicCommandSet.CodeXmlSiteMapShowDifferenceDefaultCommandId
             )
         {
 

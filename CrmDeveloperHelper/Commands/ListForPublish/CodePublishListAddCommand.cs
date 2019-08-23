@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
     internal sealed class CodePublishListAddCommand : AbstractCommand
     {
         private CodePublishListAddCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.CodePublishListAddCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.CodePublishListAddCommandId) { }
 
         public static CodePublishListAddCommand Instance { get; private set; }
 

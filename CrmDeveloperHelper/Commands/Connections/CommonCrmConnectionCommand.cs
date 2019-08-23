@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Connections
     internal sealed class CommonCrmConnectionCommand : AbstractCommand
     {
         private CommonCrmConnectionCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.CommonCrmConnectionCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.CommonCrmConnectionCommandId) { }
 
         public static CommonCrmConnectionCommand Instance { get; private set; }
 

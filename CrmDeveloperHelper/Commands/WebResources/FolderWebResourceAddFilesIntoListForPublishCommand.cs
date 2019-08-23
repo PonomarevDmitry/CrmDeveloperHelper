@@ -22,18 +22,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 
         private static TupleList<int, OpenFilesType> _commandsFolder = new TupleList<int, OpenFilesType>()
         {
-              { PackageIds.FolderWebResourceAddIntoPublishListFilesAllCommandId, OpenFilesType.All }
-            , { PackageIds.FolderWebResourceAddIntoPublishListFilesNotEqualByTextCommandId, OpenFilesType.NotEqualByText }
-            , { PackageIds.FolderWebResourceAddIntoPublishListFilesNotExistsInCrmWithoutLinkCommandId, OpenFilesType.NotExistsInCrmWithoutLink }
-            , { PackageIds.FolderWebResourceAddIntoPublishListFilesNotExistsInCrmWithLinkCommandId, OpenFilesType.NotExistsInCrmWithLink }
-            , { PackageIds.FolderWebResourceAddIntoPublishListFilesEqualByTextCommandId, OpenFilesType.EqualByText }
-            , { PackageIds.FolderWebResourceAddIntoPublishListFilesWithInsertsCommandId, OpenFilesType.WithInserts }
-            , { PackageIds.FolderWebResourceAddIntoPublishListFilesWithDeletesCommandId, OpenFilesType.WithDeletes }
-            , { PackageIds.FolderWebResourceAddIntoPublishListFilesWithComplexCommandId, OpenFilesType.WithComplex }
-            , { PackageIds.FolderWebResourceAddIntoPublishListFilesWithMirrorCommandId, OpenFilesType.WithMirror }
-            , { PackageIds.FolderWebResourceAddIntoPublishListFilesWithMirrorInsertsCommandId, OpenFilesType.WithMirrorInserts }
-            , { PackageIds.FolderWebResourceAddIntoPublishListFilesWithMirrorDeletesCommandId, OpenFilesType.WithMirrorDeletes }
-            , { PackageIds.FolderWebResourceAddIntoPublishListFilesWithMirrorComplexCommandId, OpenFilesType.WithMirrorComplex }
+              { PackageIds.guidCommandSet.FolderWebResourceAddIntoPublishListFilesAllCommandId, OpenFilesType.All }
+            , { PackageIds.guidCommandSet.FolderWebResourceAddIntoPublishListFilesNotEqualByTextCommandId, OpenFilesType.NotEqualByText }
+            , { PackageIds.guidCommandSet.FolderWebResourceAddIntoPublishListFilesNotExistsInCrmWithoutLinkCommandId, OpenFilesType.NotExistsInCrmWithoutLink }
+            , { PackageIds.guidCommandSet.FolderWebResourceAddIntoPublishListFilesNotExistsInCrmWithLinkCommandId, OpenFilesType.NotExistsInCrmWithLink }
+            , { PackageIds.guidCommandSet.FolderWebResourceAddIntoPublishListFilesEqualByTextCommandId, OpenFilesType.EqualByText }
+            , { PackageIds.guidCommandSet.FolderWebResourceAddIntoPublishListFilesWithInsertsCommandId, OpenFilesType.WithInserts }
+            , { PackageIds.guidCommandSet.FolderWebResourceAddIntoPublishListFilesWithDeletesCommandId, OpenFilesType.WithDeletes }
+            , { PackageIds.guidCommandSet.FolderWebResourceAddIntoPublishListFilesWithComplexCommandId, OpenFilesType.WithComplex }
+            , { PackageIds.guidCommandSet.FolderWebResourceAddIntoPublishListFilesWithMirrorCommandId, OpenFilesType.WithMirror }
+            , { PackageIds.guidCommandSet.FolderWebResourceAddIntoPublishListFilesWithMirrorInsertsCommandId, OpenFilesType.WithMirrorInserts }
+            , { PackageIds.guidCommandSet.FolderWebResourceAddIntoPublishListFilesWithMirrorDeletesCommandId, OpenFilesType.WithMirrorDeletes }
+            , { PackageIds.guidCommandSet.FolderWebResourceAddIntoPublishListFilesWithMirrorComplexCommandId, OpenFilesType.WithMirrorComplex }
         };
 
         private static ConcurrentDictionary<OpenFilesType, FolderWebResourceAddFilesIntoListForPublishCommand> _instances = new ConcurrentDictionary<OpenFilesType, FolderWebResourceAddFilesIntoListForPublishCommand>();

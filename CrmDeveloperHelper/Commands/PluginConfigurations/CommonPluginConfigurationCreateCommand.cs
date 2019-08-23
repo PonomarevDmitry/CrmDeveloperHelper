@@ -6,7 +6,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.PluginConfigurations
     internal sealed class CommonPluginConfigurationCreateCommand : AbstractCommand
     {
         private CommonPluginConfigurationCreateCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.CommonPluginConfigurationCreateCommandId) { }
+           : base(commandService, PackageIds.guidCommandSet.CommonPluginConfigurationCreateCommandId) { }
 
         public static CommonPluginConfigurationCreateCommand Instance { get; private set; }
 

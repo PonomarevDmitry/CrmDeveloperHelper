@@ -13,7 +13,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
     internal sealed class CodeWebResourceCompareWithDetailsCommand : AbstractCommand
     {
         private CodeWebResourceCompareWithDetailsCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.CodeWebResourceCompareWithDetailsCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.CodeWebResourceCompareWithDetailsCommandId) { }
 
         public static CodeWebResourceCompareWithDetailsCommand Instance { get; private set; }
 

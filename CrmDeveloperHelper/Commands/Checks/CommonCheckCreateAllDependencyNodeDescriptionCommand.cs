@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Checks
         private CommonCheckCreateAllDependencyNodeDescriptionCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.CommonCheckCreateAllDependencyNodeDescriptionCommandId
+                , PackageIds.guidDynamicCommandSet.CommonCheckCreateAllDependencyNodeDescriptionCommandId
             )
         {
 

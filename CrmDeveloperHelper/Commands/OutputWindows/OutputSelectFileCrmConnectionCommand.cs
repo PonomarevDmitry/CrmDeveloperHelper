@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows
         private OutputSelectFileCrmConnectionCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.OutputSelectFileCrmConnectionCommandId
+                , PackageIds.guidCommandSet.OutputSelectFileCrmConnectionCommandId
             )
         {
 

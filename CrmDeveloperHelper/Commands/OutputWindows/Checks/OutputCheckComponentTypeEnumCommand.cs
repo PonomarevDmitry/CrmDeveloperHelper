@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.Checks
         private OutputCheckComponentTypeEnumCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.OutputCheckComponentTypeEnumCommandId
+                , PackageIds.guidCommandSet.OutputCheckComponentTypeEnumCommandId
             )
         {
 

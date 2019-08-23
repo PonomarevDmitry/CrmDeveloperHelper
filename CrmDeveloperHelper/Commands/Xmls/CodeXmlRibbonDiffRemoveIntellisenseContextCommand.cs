@@ -8,7 +8,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
     internal sealed class CodeXmlRibbonDiffRemoveIntellisenseContextCommand : AbstractCommand
     {
         private CodeXmlRibbonDiffRemoveIntellisenseContextCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.CodeXmlRibbonDiffRemoveIntellisenseContextCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.CodeXmlRibbonDiffRemoveIntellisenseContextCommandId) { }
 
         public static CodeXmlRibbonDiffRemoveIntellisenseContextCommand Instance { get; private set; }
 

@@ -11,7 +11,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
         private FileWebResourceUpdateContentPublishGroupConnectionCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.FileWebResourceUpdateContentPublishGroupConnectionCommandId
+                , PackageIds.guidDynamicCommandSet.FileWebResourceUpdateContentPublishGroupConnectionCommandId
             )
         {
 

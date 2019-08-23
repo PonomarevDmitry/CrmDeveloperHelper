@@ -6,7 +6,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
     internal sealed class CodeCSharpProjectUpdatePluginAssemblyCommand : AbstractCommand
     {
         private CodeCSharpProjectUpdatePluginAssemblyCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.CodeCSharpProjectUpdatePluginAssemblyCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.CodeCSharpProjectUpdatePluginAssemblyCommandId) { }
 
         public static CodeCSharpProjectUpdatePluginAssemblyCommand Instance { get; private set; }
 
