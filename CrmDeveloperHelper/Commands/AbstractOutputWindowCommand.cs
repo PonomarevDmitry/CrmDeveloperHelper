@@ -27,7 +27,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                 {
                     menuCommand.Enabled = menuCommand.Visible = false;
 
-                    var applicationObject = CrmDeveloperHelperPackage.Singleton.ApplicationObject;
+                    var applicationObject = CrmDeveloperHelperPackage.Singleton?.ApplicationObject;
                     if (applicationObject == null)
                     {
                         return;
@@ -63,7 +63,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                     return;
                 }
 
-                var applicationObject = CrmDeveloperHelperPackage.Singleton.ApplicationObject;
+                var applicationObject = CrmDeveloperHelperPackage.Singleton?.ApplicationObject;
                 if (applicationObject == null)
                 {
                     return;

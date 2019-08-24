@@ -1120,6 +1120,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
+            if (CrmDeveloperHelperPackage.Singleton == null)
+            {
+                return;
+            }
+
             var componentModel = (IComponentModel)await CrmDeveloperHelperPackage.Singleton.GetServiceAsync(typeof(SComponentModel));
             var undoHistoryRegistry = componentModel.DefaultExportProvider.GetExportedValue<ITextUndoHistoryRegistry>();
 

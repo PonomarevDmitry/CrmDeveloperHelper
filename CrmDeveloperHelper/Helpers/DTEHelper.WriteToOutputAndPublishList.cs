@@ -1352,7 +1352,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     bool diffExecuted = false;
 
-                    var commandService = await CrmDeveloperHelperPackage.Singleton.GetServiceAsync(typeof(System.ComponentModel.Design.IMenuCommandService)) as Microsoft.VisualStudio.Shell.OleMenuCommandService;
+                    var commandService = await CrmDeveloperHelperPackage.Singleton?.GetServiceAsync(typeof(System.ComponentModel.Design.IMenuCommandService)) as Microsoft.VisualStudio.Shell.OleMenuCommandService;
                     if (commandService != null)
                     {
                         //Tools.DiffFiles

@@ -27,7 +27,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 if (_singleton == null)
                 {
-                    var applicationObject = CrmDeveloperHelperPackage.Singleton.ApplicationObject;
+                    var applicationObject = CrmDeveloperHelperPackage.Singleton?.ApplicationObject;
 
                     if (applicationObject != null)
                     {
