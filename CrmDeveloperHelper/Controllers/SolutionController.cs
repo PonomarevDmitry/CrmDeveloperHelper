@@ -1486,7 +1486,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, "{0}{1}", _tabSpacer, projectName);
                 }
 
-                WindowHelper.OpenPluginAssemblyWindow(
+                WindowHelper.OpenPluginAssemblyExplorer(
                     this._iWriteToOutput
                     , service
                     , commonConfig

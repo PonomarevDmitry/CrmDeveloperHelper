@@ -523,14 +523,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleUpdatingPluginAssemblyCommand(ConnectionData connectionData, EnvDTE.Project project)
+        public void HandleUpdatingPluginAssemblyCommand(ConnectionData connectionData, params EnvDTE.Project[] projectList)
         {
-            if (project == null)
-            {
-                return;
-            }
+            HandleUpdatingPluginAssemblyCommand(connectionData, projectList.ToList());
+        }
 
-            if (string.IsNullOrEmpty(project.Name))
+        public void HandleUpdatingPluginAssemblyCommand(ConnectionData connectionData, List<EnvDTE.Project> projectList)
+        {
+            if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
             {
                 return;
             }
@@ -554,11 +554,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 CheckWishToChangeCurrentConnection(connectionData);
 
-                var defaultOutputFilePath = PropertiesHelper.GetOutputFilePath(project);
-
                 try
                 {
-                    Controller.StartUpdatingPluginAssembly(connectionData, commonConfig, project, defaultOutputFilePath);
+                    Controller.StartUpdatingPluginAssembly(connectionData, commonConfig, projectList);
                 }
                 catch (Exception ex)
                 {
@@ -567,14 +565,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleRegisterPluginAssemblyCommand(ConnectionData connectionData, EnvDTE.Project project)
+        public void HandleRegisterPluginAssemblyCommand(ConnectionData connectionData, List<EnvDTE.Project> projectList)
         {
-            if (project == null)
-            {
-                return;
-            }
-
-            if (string.IsNullOrEmpty(project.Name))
+            if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
             {
                 return;
             }
@@ -598,11 +591,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 CheckWishToChangeCurrentConnection(connectionData);
 
-                var defaultOutputFilePath = PropertiesHelper.GetOutputFilePath(project);
-
                 try
                 {
-                    Controller.StartRegisterPluginAssembly(connectionData, commonConfig, project, defaultOutputFilePath);
+                    Controller.StartRegisterPluginAssembly(connectionData, commonConfig, projectList);
                 }
                 catch (Exception ex)
                 {

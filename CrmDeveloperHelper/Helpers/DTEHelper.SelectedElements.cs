@@ -419,10 +419,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         public EnvDTE.Project GetSelectedProject()
         {
             if (ApplicationObject.ActiveWindow != null
-                   && ApplicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeSolutionExplorer
+                   && ApplicationObject.ActiveWindow.Type == vsWindowType.vsWindowTypeSolutionExplorer
                    && ApplicationObject.SelectedItems != null)
             {
-                var items = ApplicationObject.SelectedItems.Cast<EnvDTE.SelectedItem>();
+                var items = ApplicationObject.SelectedItems.Cast<SelectedItem>();
 
                 if (items.Count() == 1)
                 {
@@ -446,8 +446,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 var items = ApplicationObject
                     .SelectedItems
-                    .Cast<EnvDTE.SelectedItem>()
-                    .Where(e => e.Project != null)
+                    .Cast<SelectedItem>()
+                    .Where(e => e.Project != null && !string.IsNullOrEmpty(e.Project.Name))
                     .Select(e => e.Project)
                     .Distinct()
                     ;

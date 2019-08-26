@@ -3287,7 +3287,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            WindowHelper.OpenPluginAssemblyWindow(this._iWriteToOutput, service, _commonConfig, null);
+            WindowHelper.OpenPluginAssemblyExplorer(this._iWriteToOutput, service, _commonConfig, null);
         }
 
         private async void btnPluginType_Click(object sender, RoutedEventArgs e)

@@ -816,7 +816,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService1();
 
-            WindowHelper.OpenPluginAssemblyWindow(this._iWriteToOutput, service, _commonConfig, entity?.Name ?? txtBFilter.Text);
+            WindowHelper.OpenPluginAssemblyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.Name ?? txtBFilter.Text);
         }
 
         private async void btnExportPluginAssembly2_Click(object sender, RoutedEventArgs e)
@@ -827,7 +827,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService2();
 
-            WindowHelper.OpenPluginAssemblyWindow(this._iWriteToOutput, service, _commonConfig, entity?.Name ?? txtBFilter.Text);
+            WindowHelper.OpenPluginAssemblyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.Name ?? txtBFilter.Text);
         }
 
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)

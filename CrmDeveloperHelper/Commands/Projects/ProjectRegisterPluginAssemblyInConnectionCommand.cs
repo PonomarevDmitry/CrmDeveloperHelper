@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
 {
@@ -24,14 +25,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
-            var project = helper.GetSelectedProject();
+            var projectList = helper.GetSelectedProjects().ToList();
 
-            helper.HandleRegisterPluginAssemblyCommand(connectionData, project);
+            helper.HandleRegisterPluginAssemblyCommand(connectionData, projectList);
         }
 
-        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, ConnectionData connectionData, OleMenuCommand menuCommand)
-        {
-            CommonHandlers.ActiveSolutionExplorerProjectSingle(applicationObject, menuCommand);
-        }
+        //protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, ConnectionData connectionData, OleMenuCommand menuCommand)
+        //{
+        //    CommonHandlers.ActiveSolutionExplorerProjectSingle(applicationObject, menuCommand);
+        //}
     }
 }

@@ -1704,13 +1704,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartUpdatingPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, EnvDTE.Project project, string defaultOutputFilePath)
+        public void StartUpdatingPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._pluginController.ExecuteUpdatingPluginAssembly(connectionData, commonConfig, project, defaultOutputFilePath);
+                    this._pluginController.ExecuteUpdatingPluginAssembly(connectionData, commonConfig, projectList);
                 }
                 catch (Exception ex)
                 {
@@ -1721,13 +1721,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartRegisterPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, EnvDTE.Project project, string defaultOutputFilePath)
+        public void StartRegisterPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._pluginController.ExecuteRegisterPluginAssembly(connectionData, commonConfig, project, defaultOutputFilePath);
+                    this._pluginController.ExecuteRegisterPluginAssembly(connectionData, commonConfig, projectList);
                 }
                 catch (Exception ex)
                 {

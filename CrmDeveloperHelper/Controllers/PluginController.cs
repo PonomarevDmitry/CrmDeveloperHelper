@@ -95,7 +95,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.PluginAssemblyNotFoundedByNameFormat1, projectName);
 
-                WindowHelper.OpenPluginAssemblyWindow(
+                WindowHelper.OpenPluginAssemblyExplorer(
                     this._iWriteToOutput
                     , service
                     , commonConfig
@@ -388,7 +388,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Обновление сборки плагинов.
 
-        public async Task ExecuteUpdatingPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, EnvDTE.Project project, string defaultOutputFilePath)
+        public async Task ExecuteUpdatingPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList)
         {
             string operation = string.Format(Properties.OperationNames.UpdatingPluginAssemblyFormat1, connectionData?.Name);
 
@@ -396,7 +396,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await UpdatingPluginAssembly(connectionData, commonConfig, project, defaultOutputFilePath);
+                await UpdatingPluginAssembly(connectionData, commonConfig, projectList);
             }
             catch (Exception ex)
             {
@@ -408,7 +408,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task UpdatingPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, EnvDTE.Project project, string defaultOutputFilePath)
+        private async Task UpdatingPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList)
         {
             if (connectionData == null)
             {
@@ -416,7 +416,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            if (project == null || string.IsNullOrEmpty(project.Name))
+            if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.AssemblyNameIsEmpty);
                 return;
@@ -439,51 +439,43 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var repositoryAssembly = new PluginAssemblyRepository(service);
 
-            var assembly = await repositoryAssembly.FindAssemblyAsync(project.Name);
-
-            if (assembly == null)
+            foreach (var project in projectList)
             {
-                assembly = await repositoryAssembly.FindAssemblyByLikeNameAsync(project.Name);
-            }
+                var assembly = await repositoryAssembly.FindAssemblyAsync(project.Name);
 
-            if (assembly == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.PluginAssemblyNotFoundedByNameFormat1, project.Name);
+                if (assembly == null)
+                {
+                    assembly = await repositoryAssembly.FindAssemblyByLikeNameAsync(project.Name);
+                }
 
-                WindowHelper.OpenPluginAssemblyWindow(
-                    this._iWriteToOutput
-                    , service
-                    , commonConfig
-                    , project.Name
+                if (assembly == null)
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.PluginAssemblyNotFoundedByNameFormat1, project.Name);
+
+                    WindowHelper.OpenPluginAssemblyExplorer(
+                        this._iWriteToOutput
+                        , service
+                        , commonConfig
+                        , project.Name
                     );
-
-                return;
+                }
+                else
+                {
+                    WindowHelper.OpenPluginAssemblyUpdateWindow(
+                        this._iWriteToOutput
+                        , service
+                        , assembly
+                        , project
+                    );
+                }
             }
-
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowPluginAssembly(_iWriteToOutput, service, assembly, defaultOutputFilePath, project);
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
         }
 
         #endregion Обновление сборки плагинов.
 
         #region Регистрация сборки плагинов.
 
-        public async Task ExecuteRegisterPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, EnvDTE.Project project, string defaultOutputFilePath)
+        public async Task ExecuteRegisterPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList)
         {
             string operation = string.Format(Properties.OperationNames.RegisteringPluginAssemblyFormat1, connectionData?.Name);
 
@@ -491,7 +483,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await RegisterPluginAssembly(connectionData, commonConfig, project, defaultOutputFilePath);
+                await RegisterPluginAssembly(connectionData, commonConfig, projectList);
             }
             catch (Exception ex)
             {
@@ -503,7 +495,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task RegisterPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, EnvDTE.Project project, string defaultOutputFilePath)
+        private async Task RegisterPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList)
         {
             if (connectionData == null)
             {
@@ -511,7 +503,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            if (project == null || string.IsNullOrEmpty(project.Name))
+            if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.AssemblyNameIsEmpty);
                 return;
@@ -532,25 +524,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-            var assembly = new PluginAssembly();
-
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
+            foreach (var project in projectList)
             {
-                try
-                {
-                    var form = new WindowPluginAssembly(_iWriteToOutput, service, assembly, defaultOutputFilePath, project);
+                var assembly = new PluginAssembly();
 
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+                WindowHelper.OpenPluginAssemblyUpdateWindow(
+                    this._iWriteToOutput
+                    , service
+                    , assembly
+                    , project
+                );
+            }
         }
 
         #endregion Регистрация сборки плагинов.

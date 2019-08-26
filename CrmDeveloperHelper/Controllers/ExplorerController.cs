@@ -666,7 +666,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-            WindowHelper.OpenPluginAssemblyWindow(
+            WindowHelper.OpenPluginAssemblyExplorer(
                 this._iWriteToOutput
                 , service
                 , commonConfig

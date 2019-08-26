@@ -771,23 +771,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var assembly = await repository.GetAssemblyByIdRetrieveRequestAsync(entity.Id);
 
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowPluginAssembly(_iWriteToOutput, service, assembly, null, null);
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            WindowHelper.OpenPluginAssemblyUpdateWindow(
+                this._iWriteToOutput
+                , service
+                , assembly
+                , null
+            );
         }
 
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)

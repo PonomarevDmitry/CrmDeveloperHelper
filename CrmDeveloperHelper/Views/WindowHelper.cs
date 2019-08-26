@@ -1387,7 +1387,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenPluginAssemblyWindow(
+        public static void OpenPluginAssemblyExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -1404,6 +1404,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , commonConfig
                         , selection
                     );
+
+                    form.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(null, ex);
+                }
+            });
+
+            worker.SetApartmentState(System.Threading.ApartmentState.STA);
+
+            worker.Start();
+        }
+
+        public static void OpenPluginAssemblyUpdateWindow(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, PluginAssembly assembly, EnvDTE.Project project)
+        {
+            System.Threading.Thread worker = new System.Threading.Thread(() =>
+            {
+                try
+                {
+                    string defaultOutputFilePath = null;
+
+                    if (project != null)
+                    {
+                        defaultOutputFilePath = PropertiesHelper.GetOutputFilePath(project);
+                    }
+
+                    var form = new WindowPluginAssembly(iWriteToOutput, service, assembly, defaultOutputFilePath, project);
 
                     form.ShowDialog();
                 }
@@ -2097,7 +2125,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     break;
 
                 case ComponentType.PluginAssembly:
-                    OpenPluginAssemblyWindow(iWriteToOutput, service, commonConfig, componentName);
+                    OpenPluginAssemblyExplorer(iWriteToOutput, service, commonConfig, componentName);
                     break;
 
                 case ComponentType.SdkMessageProcessingStep:
