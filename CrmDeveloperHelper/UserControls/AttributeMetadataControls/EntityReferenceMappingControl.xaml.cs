@@ -11,6 +11,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 {
     public partial class EntityReferenceMappingControl : UserControl
     {
+        private readonly IWriteToOutput _iWriteToOutput;
+
         private readonly IOrganizationServiceExtented _service;
 
         public LookupAttributeMetadata AttributeMetadata { get; }
@@ -21,7 +23,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 
         public EntityReference CurrentValue { get; private set; }
 
-        public EntityReferenceMappingControl(IOrganizationServiceExtented service
+        public EntityReferenceMappingControl(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
             , LookupAttributeMetadata attributeMetadata
             , EntityReference entityReferenceConnection1
             , EntityReference entityReferenceConnection2
@@ -31,6 +35,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 
             AttributeMetadataControlFactory.SetGroupBoxNameByAttributeMetadata(gbAttribute, attributeMetadata);
 
+            this._iWriteToOutput = iWriteToOutput;
             this._service = service;
 
             this._entityReferenceConnection1 = entityReferenceConnection1;
@@ -117,7 +122,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 
         private void btnSetValue_Click(object sender, RoutedEventArgs e)
         {
-            var form = new WindowSelectEntityReference(_service.ConnectionData, new[] { _entityReferenceConnection1.LogicalName });
+            var form = new WindowSelectEntityReference(this._iWriteToOutput, _service, new[] { _entityReferenceConnection1.LogicalName });
 
             if (!form.ShowDialog().GetValueOrDefault())
             {

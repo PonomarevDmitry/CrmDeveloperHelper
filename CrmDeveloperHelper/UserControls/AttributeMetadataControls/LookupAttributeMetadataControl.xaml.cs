@@ -11,6 +11,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 {
     public partial class LookupAttributeMetadataControl : UserControl, IAttributeMetadataControl<LookupAttributeMetadata>
     {
+        private readonly IWriteToOutput _iWriteToOutput;
         private readonly IOrganizationServiceExtented _service;
 
         public LookupAttributeMetadata AttributeMetadata { get; }
@@ -21,13 +22,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 
         private EntityReference currentValue;
 
-        public LookupAttributeMetadataControl(IOrganizationServiceExtented service, bool fillAllways, LookupAttributeMetadata attributeMetadata, EntityReference initialValue)
+        public LookupAttributeMetadataControl(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, bool fillAllways, LookupAttributeMetadata attributeMetadata, EntityReference initialValue)
         {
             InitializeComponent();
 
             AttributeMetadataControlFactory.SetGroupBoxNameByAttributeMetadata(gbAttribute, attributeMetadata);
 
             this._service = service;
+            this._iWriteToOutput = iWriteToOutput;
 
             this._initialValue = initialValue;
             this._fillAllways = fillAllways;
@@ -75,13 +77,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
             sepCopy.IsEnabled = separatorVisible;
             sepCopy.Visibility = separatorVisible ? Visibility.Visible : Visibility.Collapsed;
 
-            btnCopyEntityId.IsEnabled
+            btnOpenEntityInWeb.IsEnabled
+                = btnCopyEntityId.IsEnabled
                 = btnCopyEntityLogicalName.IsEnabled
                 = btnCopyEntityName.IsEnabled
                 = btnCopyEntityUrl.IsEnabled = hasValue;
 
-
-            btnCopyEntityId.Visibility
+            btnOpenEntityInWeb.Visibility
+                = btnCopyEntityId.Visibility
                 = btnCopyEntityLogicalName.Visibility
                 = btnCopyEntityName.Visibility
                 = btnCopyEntityUrl.Visibility = hasValue ? Visibility.Visible : Visibility.Collapsed;
@@ -148,7 +151,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
         {
             var targets = AttributeMetadata.Targets.OrderBy(s => s).ToList();
 
-            var form = new WindowSelectEntityReference(_service.ConnectionData, targets);
+            var form = new WindowSelectEntityReference(this._iWriteToOutput, _service, targets);
 
             if (!form.ShowDialog().GetValueOrDefault())
             {
@@ -227,6 +230,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
             var url = _service.ConnectionData.GetEntityInstanceUrl(this.currentValue.LogicalName, this.currentValue.Id);
 
             Clipboard.SetText(url);
+        }
+
+        private void btnOpenEntityInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.currentValue == null)
+            {
+                return;
+            }
+
+            _service.ConnectionData.OpenEntityInstanceInWeb(this.currentValue.LogicalName, this.currentValue.Id);
         }
     }
 }

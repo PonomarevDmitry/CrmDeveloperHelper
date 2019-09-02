@@ -11,7 +11,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 {
     public class AttributeMetadataControlFactory
     {
-        public UserControl CreateControlForAttribute(IOrganizationServiceExtented service, bool fillAllways, EntityMetadata entityMetadata, AttributeMetadata attributeMetadata, Entity entity, object value)
+        public UserControl CreateControlForAttribute(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , bool fillAllways
+            , EntityMetadata entityMetadata
+            , AttributeMetadata attributeMetadata
+            , Entity entity
+            , object value
+        )
         {
             if (attributeMetadata is MemoAttributeMetadata memoAttrib)
             {
@@ -196,7 +204,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                     initialValue = (EntityReference)value;
                 }
 
-                return new LookupAttributeMetadataControl(service, fillAllways, lookupAttrib, initialValue);
+                return new LookupAttributeMetadataControl(iWriteToOutput, service, fillAllways, lookupAttrib, initialValue);
             }
 
             if (attributeMetadata is EntityNameAttributeMetadata entityNameAttrib)

@@ -191,7 +191,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                             this.Dispatcher.Invoke(() =>
                             {
-                                control = new EntityReferenceMappingControl(_service, lookupAttributeMetadata, entityReference, targetEntityReference);
+                                control = new EntityReferenceMappingControl(this._iWriteToOutput, _service, lookupAttributeMetadata, entityReference, targetEntityReference);
                             });
 
                             _dictLookupMapping.Add(entityReference, control);

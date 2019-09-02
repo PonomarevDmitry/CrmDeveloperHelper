@@ -1042,6 +1042,7 @@
     <Compile Include="Model\EntityMetadataListViewItem.cs" />
     <Compile Include="Model\EntityMetadataViewItem.cs" />
     <Compile Include="Model\EntityPrivilegeViewItem.cs" />
+    <Compile Include="Model\EntityReferenceView.cs" />
     <Compile Include="Model\EntityTreeViewItem.cs" />
     <Compile Include="Model\ExportSolutionConfig.cs" />
     <Compile Include="Model\ExportSolutionOverrideInformation.cs" />
@@ -1080,6 +1081,7 @@
     <Compile Include="Model\PluginSearchResult.cs" />
     <Compile Include="Model\PluginStage.cs" />
     <Compile Include="Model\PluginTreeViewItem.cs" />
+    <Compile Include="Model\PrimaryGuidView.cs" />
     <Compile Include="Model\PrivilegeDepthExtended.cs" />
     <Compile Include="Model\ProxyClassAttributeEnums.cs" />
     <Compile Include="Model\ProxyClassAttributeEnumsGlobalOptionSetLocation.cs" />

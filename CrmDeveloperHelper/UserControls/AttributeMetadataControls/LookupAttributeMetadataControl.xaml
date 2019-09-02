@@ -42,6 +42,7 @@
                     <ContextMenu >
                         <MenuItem x:Name="btnRestore" Header="Restore" Click="btnRestore_Click" />
                         <Separator x:Name="sepCopy" />
+                        <MenuItem x:Name="btnOpenEntityInWeb" Header="Open Entity in Web" Click="btnOpenEntityInWeb_Click" />
                         <MenuItem x:Name="btnCopyEntityLogicalName" Header="Copy Entity LogicalName" Click="btnCopyEntityLogicalName_Click" />
                         <MenuItem x:Name="btnCopyEntityName" Header="Copy Entity Name" Click="btnCopyEntityName_Click" />
                         <MenuItem x:Name="btnCopyEntityId" Header="Copy Entity Id" Click="btnCopyEntityId_Click" />

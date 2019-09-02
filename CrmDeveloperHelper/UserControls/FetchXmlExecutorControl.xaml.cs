@@ -360,9 +360,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         private void LoadData(ConnectionData connectionData, EntityCollection entityCollection, XElement fetchXml)
         {
-            var columnsInFetch = GetColumns(connectionData, fetchXml);
+            var columnsInFetch = EntityDescriptionHandler.GetColumnsFromFetch(connectionData, fetchXml);
 
-            var dataTable = EntityCollectionToDataTable(connectionData, entityCollection, out Dictionary<string, string> columnMapping);
+            var dataTable = EntityDescriptionHandler.ConvertEntityCollectionToDataTable(connectionData, entityCollection, out Dictionary<string, string> columnMapping);
 
             this.Dispatcher.Invoke(() =>
             {
@@ -489,301 +489,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
         }
 
-        private List<string> GetColumns(ConnectionData connectionData, XElement fetchXml)
-        {
-            List<string> result = new List<string>();
-
-            var linkElements = fetchXml.DescendantsAndSelf().Where(n => IsLinkElement(n)).ToList();
-
-            {
-                var entityElements = fetchXml.DescendantsAndSelf().Where(IsAttributeOrAllElement).ToList();
-
-                foreach (var attributeNode in entityElements)
-                {
-                    if (IsAttributeElement(attributeNode))
-                    {
-                        var attrAlias = attributeNode.Attribute("alias");
-
-                        if (attrAlias != null && !string.IsNullOrEmpty(attrAlias.Value))
-                        {
-                            result.Add(attrAlias.Value);
-                        }
-                        else
-                        {
-                            string name = attributeNode.Attribute("name").Value;
-
-                            var parentElement = attributeNode.Ancestors().FirstOrDefault(IsEntityOrLinkElement);
-
-                            if (parentElement != null)
-                            {
-                                var parentAlias = parentElement.Attribute("alias");
-
-                                if (parentAlias != null && !string.IsNullOrEmpty(parentAlias.Value))
-                                {
-                                    name = parentAlias.Value + "." + name;
-                                }
-                                else if (IsLinkElement(parentElement))
-                                {
-                                    if (linkElements.Contains(parentElement))
-                                    {
-                                        var index = linkElements.IndexOf(parentElement) + 1;
-
-                                        name = parentElement.Attribute("name")?.Value + index.ToString() + "." + name;
-                                    }
-                                }
-                            }
-
-                            result.Add(name);
-                        }
-                    }
-                    else if (IsAllAttributesElement(attributeNode))
-                    {
-                        var parentElement = attributeNode.Ancestors().FirstOrDefault(IsEntityOrLinkElement);
-
-                        if (parentElement != null)
-                        {
-                            var parentAlias = parentElement.Attribute("alias");
-                            var parentEntityName = parentElement.Attribute("name");
-
-                            string parentPrefixName = string.Empty;
-
-                            if (parentAlias != null && !string.IsNullOrEmpty(parentAlias.Value))
-                            {
-                                parentPrefixName = parentAlias.Value + ".";
-                            }
-                            else if (IsLinkElement(parentElement))
-                            {
-                                if (linkElements.Contains(parentElement))
-                                {
-                                    var index = linkElements.IndexOf(parentElement) + 1;
-
-                                    parentPrefixName = parentElement.Attribute("name")?.Value + index.ToString();
-                                }
-                            }
-
-                            var intellisenseData = connectionData.IntellisenseData;
-
-                            if (intellisenseData != null
-                                && intellisenseData.Entities != null
-                                && intellisenseData.Entities.ContainsKey(parentEntityName.Value)
-                                && intellisenseData.Entities[parentEntityName.Value].Attributes != null
-                                )
-                            {
-                                foreach (var attrName in intellisenseData.Entities[parentEntityName.Value].Attributes.Keys)
-                                {
-                                    string name = parentPrefixName + attrName;
-
-                                    result.Add(name);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            return result;
-        }
-
-        private static bool IsEntityOrLinkElement(XElement element)
-        {
-            return string.Equals(element.Name.LocalName, "entity", StringComparison.InvariantCultureIgnoreCase)
-                || string.Equals(element.Name.LocalName, "link-entity", StringComparison.InvariantCultureIgnoreCase);
-        }
-
-        private static bool IsLinkElement(XElement element)
-        {
-            return string.Equals(element.Name.LocalName, "link-entity", StringComparison.InvariantCultureIgnoreCase);
-        }
-
-        private class PrimaryGuidView : IComparable, IComparable<PrimaryGuidView>, IEquatable<PrimaryGuidView>
-        {
-            public string LogicalName { get; private set; }
-
-            public Guid Id { get; private set; }
-
-            public ConnectionData ConnectionData { get; private set; }
-
-            public PrimaryGuidView(ConnectionData connectionData, string logicalName, Guid idValue)
-            {
-                this.ConnectionData = connectionData;
-                this.LogicalName = logicalName;
-                this.Id = idValue;
-            }
-
-            public string Url => this.ConnectionData.GetEntityInstanceUrl(this.LogicalName, this.Id);
-
-            public int CompareTo(PrimaryGuidView other)
-            {
-                if (other == null)
-                {
-                    return -1;
-                }
-
-                if (this.ConnectionData != other.ConnectionData)
-                {
-                    return this.ConnectionData.Name.CompareTo(other.ConnectionData.Name);
-                }
-
-                return this.Id.CompareTo(other.Id);
-            }
-
-            public int CompareTo(object obj)
-            {
-                return this.CompareTo(obj as PrimaryGuidView);
-            }
-
-            public bool Equals(PrimaryGuidView other)
-            {
-                if (this.ConnectionData != other.ConnectionData)
-                {
-                    return false;
-                }
-
-                if (other == null)
-                {
-                    return false;
-                }
-
-                return this.Id == other.Id;
-            }
-
-            public override string ToString()
-            {
-                return this.Id.ToString();
-            }
-        }
-
-        private class EntityReferenceView : PrimaryGuidView
-        {
-            public string Name { get; private set; }
-
-            public EntityReferenceView(ConnectionData connectionData, string logicalName, Guid idValue, string name)
-                : base(connectionData, logicalName, idValue)
-            {
-                this.Name = name;
-
-                if (string.IsNullOrEmpty(name))
-                {
-                    this.Name = string.Format("{0} - {1}", LogicalName, Id);
-                }
-            }
-
-            public override string ToString()
-            {
-                return this.Name;
-            }
-        }
-
-        private const string _columnOriginalEntity = "columnOriginalEntity______";
-
-        private static DataTable EntityCollectionToDataTable(ConnectionData connectionData, EntityCollection entityCollection, out Dictionary<string, string> columnMapping)
-        {
-            DataTable dataTable = new DataTable();
-
-            dataTable.Columns.Add(_columnOriginalEntity, typeof(Entity));
-
-            columnMapping = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
-
-            foreach (var entity in entityCollection.Entities)
-            {
-                DataRow row = dataTable.NewRow();
-
-                row[_columnOriginalEntity] = entity;
-
-                foreach (string attributeName in entity.Attributes.Keys)
-                {
-                    var value = entity.Attributes[attributeName];
-
-                    if (value == null || EntityDescriptionHandler.GetUnderlyingValue(value) == null)
-                    {
-                        continue;
-                    }
-
-                    if (connectionData.IntellisenseData != null
-                        && connectionData.IntellisenseData.Entities != null
-                        && connectionData.IntellisenseData.Entities.ContainsKey(entity.LogicalName)
-                        && value is Guid idValue
-                        && string.Equals(connectionData.IntellisenseData.Entities[entity.LogicalName].EntityPrimaryIdAttribute, attributeName, StringComparison.InvariantCultureIgnoreCase)
-                        )
-                    {
-                        value = new PrimaryGuidView(connectionData, entity.LogicalName, idValue);
-                    }
-
-                    string columnName = string.Format("{0}___{1}", entity.LogicalName, attributeName.Replace(".", "_"));
-
-                    if (value is AliasedValue aliasedValue)
-                    {
-                        columnName = string.Format("{0}___{1}___{2}", attributeName.Replace(".", "_"), aliasedValue.EntityLogicalName, aliasedValue.AttributeLogicalName);
-
-                        if (connectionData.IntellisenseData != null
-                            && connectionData.IntellisenseData.Entities != null
-                            && connectionData.IntellisenseData.Entities.ContainsKey(aliasedValue.EntityLogicalName)
-                            && aliasedValue.Value is Guid refIdValue
-                            && string.Equals(connectionData.IntellisenseData.Entities[aliasedValue.EntityLogicalName].EntityPrimaryIdAttribute, aliasedValue.AttributeLogicalName, StringComparison.InvariantCultureIgnoreCase)
-                        )
-                        {
-                            value = new PrimaryGuidView(connectionData, aliasedValue.EntityLogicalName, refIdValue);
-                        }
-                    }
-
-                    value = EntityDescriptionHandler.GetUnderlyingValue(value);
-
-                    if (value is EntityReference entityReference)
-                    {
-                        value = new EntityReferenceView(connectionData, entityReference.LogicalName, entityReference.Id, entityReference.Name);
-                    }
-
-                    if (value is Money money)
-                    {
-                        value = money.Value;
-                    }
-
-                    if (value is DateTime dateTime)
-                    {
-                        value = dateTime.ToLocalTime();
-                    }
-
-                    if (value is OptionSetValue optionSetValue)
-                    {
-                        value = (entity.FormattedValues != null && entity.FormattedValues.ContainsKey(attributeName) ? string.Format("{0} - ", entity.FormattedValues[attributeName]) : string.Empty) + optionSetValue.Value.ToString();
-                    }
-
-                    if (value is OptionSetValueCollection valueOptionSetValueCollection)
-                    {
-                        string valuesString = valueOptionSetValueCollection.Any() ? string.Join(",", valueOptionSetValueCollection.Select(o => o.Value).OrderBy(o => o)) : "none";
-
-                        value = (entity.FormattedValues != null && entity.FormattedValues.ContainsKey(attributeName) ? string.Format("{0} - ", entity.FormattedValues[attributeName]) : string.Empty) + valuesString;
-                    }
-
-                    if (value is BooleanManagedProperty booleanManagedProperty)
-                    {
-                        value = string.Format("{0,-5}        CanBeChanged = {1,-5}", booleanManagedProperty.Value, booleanManagedProperty.CanBeChanged);
-                    }
-
-                    if (value is EntityCollection valueEntityCollection)
-                    {
-                        value = string.Format("EnitityCollection {0}: {1}", valueEntityCollection.EntityName, (valueEntityCollection.Entities?.Count).GetValueOrDefault());
-                    }
-
-                    if (dataTable.Columns.IndexOf(columnName) == -1)
-                    {
-                        if (!columnMapping.ContainsKey(attributeName))
-                        {
-                            columnMapping.Add(attributeName, columnName);
-                        }
-
-                        dataTable.Columns.Add(columnName, value.GetType());
-                    }
-
-                    row[columnName] = value;
-                }
-
-                dataTable.Rows.Add(row);
-            }
-
-            return dataTable;
-        }
-
         private async Task<IOrganizationServiceExtented> GetServiceAsync(ConnectionData connectionData)
         {
             if (connectionData == null)
@@ -900,22 +605,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             return hasNew;
         }
 
-        private static bool IsAttributeOrAllElement(XElement element)
-        {
-            return string.Equals(element.Name.LocalName, "attribute", StringComparison.InvariantCultureIgnoreCase)
-                || string.Equals(element.Name.LocalName, "all-attributes", StringComparison.InvariantCultureIgnoreCase);
-        }
-
-        private static bool IsAttributeElement(XElement element)
-        {
-            return string.Equals(element.Name.LocalName, "attribute", StringComparison.InvariantCultureIgnoreCase);
-        }
-
-        private static bool IsAllAttributesElement(XElement element)
-        {
-            return string.Equals(element.Name.LocalName, "all-attributes", StringComparison.InvariantCultureIgnoreCase);
-        }
-
         private static bool IsConditonElement(XElement element)
         {
             return string.Equals(element.Name.LocalName, "condition", StringComparison.InvariantCultureIgnoreCase);
@@ -987,8 +676,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 DataRowView item = WindowBase.GetItemFromRoutedDataContext<DataRowView>(e);
 
                 if (item != null
-                    && item[_columnOriginalEntity] != null
-                    && item[_columnOriginalEntity] is Entity entity
+                    && item[EntityDescriptionHandler.ColumnOriginalEntity] != null
+                    && item[EntityDescriptionHandler.ColumnOriginalEntity] is Entity entity
                     )
                 {
                     this.ConnectionData?.OpenEntityInstanceInWeb(entity.LogicalName, entity.Id);
@@ -1187,8 +876,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             DataRowView item = WindowBase.GetItemFromRoutedDataContext<DataRowView>(e);
 
             if (item != null
-                && item[_columnOriginalEntity] != null
-                && item[_columnOriginalEntity] is Entity result
+                && item[EntityDescriptionHandler.ColumnOriginalEntity] != null
+                && item[EntityDescriptionHandler.ColumnOriginalEntity] is Entity result
                 )
             {
                 entity = result;
@@ -1450,8 +1139,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             foreach (var cell in selectedCells)
             {
                 if (cell.Item is DataRowView item
-                    && item[_columnOriginalEntity] != null
-                    && item[_columnOriginalEntity] is Entity entity
+                    && item[EntityDescriptionHandler.ColumnOriginalEntity] != null
+                    && item[EntityDescriptionHandler.ColumnOriginalEntity] is Entity entity
                     && entity.Id != Guid.Empty
                 )
                 {

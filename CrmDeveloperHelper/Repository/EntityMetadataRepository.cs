@@ -190,6 +190,59 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return response.EntityMetadata.OrderBy(ent => ent.LogicalName).ToList();
         }
 
+        public Task<List<EntityMetadata>> GetEntitiesWithAttributesFullAsync(IEnumerable<string> entityList)
+        {
+            return Task.Run(() => GetEntitiesWithAttributesFull(entityList));
+        }
+
+        private List<EntityMetadata> GetEntitiesWithAttributesFull(IEnumerable<string> entityList)
+        {
+            MetadataPropertiesExpression entityProperties = new MetadataPropertiesExpression
+            (
+                nameof(EntityMetadata.LogicalName)
+                , nameof(EntityMetadata.DisplayName)
+                , nameof(EntityMetadata.SchemaName)
+                , nameof(EntityMetadata.Description)
+                , nameof(EntityMetadata.DisplayCollectionName)
+                , nameof(EntityMetadata.OwnershipType)
+                , nameof(EntityMetadata.ObjectTypeCode)
+                , nameof(EntityMetadata.Attributes)
+            )
+            {
+                AllProperties = false,
+            };
+
+            EntityQueryExpression entityQueryExpression = new EntityQueryExpression()
+            {
+                Properties = entityProperties,
+
+                AttributeQuery = new AttributeQueryExpression()
+                {
+                    Properties = new MetadataPropertiesExpression()
+                    {
+                        AllProperties = true,
+                    },
+                },
+
+                Criteria = new MetadataFilterExpression(LogicalOperator.And)
+                {
+                    Conditions =
+                    {
+                        new MetadataConditionExpression(nameof(EntityMetadata.LogicalName), MetadataConditionOperator.In, entityList.ToArray()),
+                    },
+                },
+            };
+
+            RetrieveMetadataChangesRequest request = new RetrieveMetadataChangesRequest()
+            {
+                Query = entityQueryExpression,
+            };
+
+            RetrieveMetadataChangesResponse response = (RetrieveMetadataChangesResponse)_service.Execute(request);
+
+            return response.EntityMetadata.OrderBy(ent => ent.LogicalName).ToList();
+        }
+
         public Task<EntityMetadata> GetEntityMetadataAsync(string entityName)
         {
             return Task.Run(() => GetEntityMetadata(entityName));
@@ -241,9 +294,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         {
             try
             {
-                MetadataFilterExpression entityFilter = new MetadataFilterExpression(LogicalOperator.And);
-                entityFilter.Conditions.Add(new MetadataConditionExpression(nameof(EntityMetadata.LogicalName), MetadataConditionOperator.In, entityList.ToArray()));
-
                 var entityQueryExpression = new EntityQueryExpression()
                 {
                     Properties = new MetadataPropertiesExpression() { AllProperties = true },
@@ -251,7 +301,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     RelationshipQuery = new RelationshipQueryExpression() { Properties = new MetadataPropertiesExpression() { AllProperties = true } },
                     LabelQuery = new LabelQueryExpression(),
 
-                    Criteria = entityFilter,
+                    Criteria = new MetadataFilterExpression(LogicalOperator.And)
+                    {
+                        Conditions =
+                        {
+                            new MetadataConditionExpression(nameof(EntityMetadata.LogicalName), MetadataConditionOperator.In, entityList.ToArray()),
+                        },
+                    },
                 };
 
                 var isEntityKeyExists = _service.IsRequestExists(SdkMessageRequest.Instances.RetrieveEntityKeyRequest);

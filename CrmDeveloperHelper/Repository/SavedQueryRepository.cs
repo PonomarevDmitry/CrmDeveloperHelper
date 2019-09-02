@@ -84,6 +84,54 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return _service.RetrieveMultipleAll<SavedQuery>(query);
         }
 
+        public Task<List<SavedQuery>> GetListSearchQueriesAsync(string filterEntity, ColumnSet columnSet)
+        {
+            return Task.Run(() => GetListSearchQueries(filterEntity, columnSet));
+        }
+
+        /// <summary>
+        /// Получить все представления
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        private List<SavedQuery> GetListSearchQueries(string filterEntity, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                EntityName = SavedQuery.EntityLogicalName,
+
+                NoLock = true,
+
+                ColumnSet = columnSet ?? new ColumnSet(true),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(SavedQuery.Schema.Attributes.componentstate, ConditionOperator.In
+                            , (int)Entities.GlobalOptionSets.componentstate.Published_0
+                            , (int)Entities.GlobalOptionSets.componentstate.Unpublished_1
+                        ),
+
+                        new ConditionExpression(SavedQuery.Schema.Attributes.querytype, ConditionOperator.Equal, (int)SavedQueryQueryType.QuickFindSearch),
+                    },
+                },
+
+                Orders =
+                {
+                    new OrderExpression(SavedQuery.Schema.Attributes.returnedtypecode, OrderType.Ascending),
+                    new OrderExpression(SavedQuery.Schema.Attributes.name, OrderType.Ascending),
+                },
+            };
+
+            if (!string.IsNullOrEmpty(filterEntity))
+            {
+                query.Criteria.Conditions.Add(new ConditionExpression(SavedQuery.Schema.Attributes.returnedtypecode, ConditionOperator.Equal, filterEntity));
+            }
+
+            return _service.RetrieveMultipleAll<SavedQuery>(query);
+        }
+
         internal static string GetQueryTypeName(int queryType)
         {
             //public const int MainApplicationView = 0;
