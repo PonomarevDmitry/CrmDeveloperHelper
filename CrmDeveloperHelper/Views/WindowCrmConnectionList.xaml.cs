@@ -512,7 +512,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(connectionData, false, Properties.WindowStatusStrings.StartTestingConnectionFormat1, connectionData.Name);
 
-            var task = QuickConnection.TestConnectAsync(connectionData, this._iWriteToOutput);
+            var task = QuickConnection.TestConnectAsync(connectionData, this._iWriteToOutput, this);
 
             this.Focus();
             this.Activate();
@@ -869,7 +869,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(connectionData, false, Properties.WindowStatusStrings.StartTestingConnectionFormat1, connectionData.Name);
 
-            var task = QuickConnection.TestConnectAsync(connectionData, this._iWriteToOutput);
+            var task = QuickConnection.TestConnectAsync(connectionData, this._iWriteToOutput, this);
 
             this.Focus();
             this.Activate();

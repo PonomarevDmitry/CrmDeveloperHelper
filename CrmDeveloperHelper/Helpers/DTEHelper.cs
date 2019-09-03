@@ -2210,7 +2210,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 CheckWishToChangeCurrentConnection(connectionData);
 
-                QuickConnection.TestConnectAsync(connectionData, this);
+                QuickConnection.TestConnectAsync(connectionData, this, null);
             }
         }
 

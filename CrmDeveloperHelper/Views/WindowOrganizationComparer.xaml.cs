@@ -433,7 +433,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(null, false, Properties.WindowStatusStrings.StartTestingConnectionFormat1, connectionData.Name);
 
-            var testResult = await QuickConnection.TestConnectAsync(connectionData, this._iWriteToOutput);
+            var testResult = await QuickConnection.TestConnectAsync(connectionData, this._iWriteToOutput, this);
 
             if (testResult)
             {

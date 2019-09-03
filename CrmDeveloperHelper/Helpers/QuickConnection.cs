@@ -160,14 +160,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public static Task<bool> TestConnectAsync(ConnectionData connectionData, IWriteToOutput iWriteToOutput)
+        public static Task<bool> TestConnectAsync(ConnectionData connectionData, IWriteToOutput iWriteToOutput, System.Windows.Window window)
         {
-            return Task.Run(async () => await TestConnect(connectionData, iWriteToOutput));
+            return Task.Run(async () => await TestConnect(connectionData, iWriteToOutput, window));
         }
 
-        private static async Task<bool> TestConnect(ConnectionData connectionData, IWriteToOutput iWriteToOutput)
+        private static async Task<bool> TestConnect(ConnectionData connectionData, IWriteToOutput iWriteToOutput, System.Windows.Window window)
         {
-            iWriteToOutput.ActivateOutputWindow(connectionData);
+            iWriteToOutput.ActivateOutputWindow(connectionData, window);
 
             iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
 

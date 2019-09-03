@@ -495,8 +495,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         outputWindowLocal.Collection.Parent.Parent.SetFocus();
                         outputWindowLocal.Collection.Parent.Parent.Visible = true;
                     }
-
-                    ApplicationObject?.MainWindow?.Activate();
                 }
                 catch (Exception ex)
                 {

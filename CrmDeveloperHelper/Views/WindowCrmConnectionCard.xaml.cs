@@ -271,7 +271,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             SaveConnectionInformation(this.ConnectionData);
 
-            var testResult = await QuickConnection.TestConnectAsync(this.ConnectionData, this._iWriteToOutput);
+            var testResult = await QuickConnection.TestConnectAsync(this.ConnectionData, this._iWriteToOutput, this);
 
             if (testResult)
             {
