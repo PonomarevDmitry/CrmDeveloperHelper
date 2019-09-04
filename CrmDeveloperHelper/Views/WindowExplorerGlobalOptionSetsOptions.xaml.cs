@@ -32,7 +32,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             base.OnClosed(e);
 
-            this._fileGenerationOptions?.Configuration.Save();
+            FileGenerationConfiguration.SaveConfiguration();
         }
 
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)

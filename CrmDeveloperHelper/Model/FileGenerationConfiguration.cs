@@ -263,9 +263,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        public void Save()
+        private void Save()
         {
             this.Save(this.Path);
+        }
+
+        public static void SaveConfiguration()
+        {
+            _singleton?.Save();
         }
     }
 }

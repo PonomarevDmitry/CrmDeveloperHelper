@@ -108,6 +108,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         protected override void OnClosed(EventArgs e)
         {
             _commonConfig.Save();
+            FileGenerationConfiguration.SaveConfiguration();
 
             (cmBConnection1.SelectedItem as ConnectionData)?.Save();
             (cmBConnection2.SelectedItem as ConnectionData)?.Save();
