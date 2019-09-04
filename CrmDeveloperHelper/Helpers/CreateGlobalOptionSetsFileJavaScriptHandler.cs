@@ -24,17 +24,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private readonly IWriteToOutput _iWriteToOutput;
 
+        private readonly string _namespaceGlobalOptionSetsJavaScript;
+
         public CreateGlobalOptionSetsFileJavaScriptHandler(
             TextWriter writer
             , IOrganizationServiceExtented service
             , IWriteToOutput iWriteToOutput
             , string tabSpacer
             , bool withDependentComponents
+            , string namespaceGlobalOptionSetsJavaScript
         ) : base(writer, tabSpacer, true)
         {
             this._service = service;
             this._iWriteToOutput = iWriteToOutput;
             this._withDependentComponents = withDependentComponents;
+
+            this._namespaceGlobalOptionSetsJavaScript = namespaceGlobalOptionSetsJavaScript;
 
             this._descriptor = new SolutionComponentDescriptor(_service);
             this._dependencyRepository = new DependencyRepository(this._service);
@@ -56,19 +61,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteNamespace();
 
-            string tempNamespace = !string.IsNullOrEmpty(this._service.ConnectionData.NamespaceOptionSetsJavaScript) ? this._service.ConnectionData.NamespaceOptionSetsJavaScript + "." : string.Empty;
+            string tempNamespace = !string.IsNullOrEmpty(this._namespaceGlobalOptionSetsJavaScript) ? this._namespaceGlobalOptionSetsJavaScript + "." : string.Empty;
 
             await WriteRegularOptionSets(tempNamespace, optionSets);
         }
 
         private void WriteNamespace()
         {
-            if (string.IsNullOrEmpty(this._service.ConnectionData.NamespaceOptionSetsJavaScript))
+            if (string.IsNullOrEmpty(this._namespaceGlobalOptionSetsJavaScript))
             {
                 return;
             }
 
-            string[] split = this._service.ConnectionData.NamespaceOptionSetsJavaScript.Split('.');
+            string[] split = this._namespaceGlobalOptionSetsJavaScript.Split('.');
 
             StringBuilder str = new StringBuilder();
 

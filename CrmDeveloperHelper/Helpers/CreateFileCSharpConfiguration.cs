@@ -76,128 +76,111 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         }
 
-        public static CreateFileCSharpConfiguration CreateForSchemaGlobalOptionSet(
-            string namespaceClasses
-            , string namespaceGlobalOptionSets
-            , string typeConverterName
-            , CommonConfiguration commonConfig
-        )
+        public static CreateFileCSharpConfiguration CreateForSchemaGlobalOptionSet(FileGenerationOptions fileGenerationOptions)
         {
-            var result = CreateForSchemaEntity(namespaceClasses, namespaceGlobalOptionSets, typeConverterName, commonConfig);
+            var result = CreateForSchemaEntity(fileGenerationOptions);
 
-            result.WithDependentComponents = commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents;
+            result.WithDependentComponents = fileGenerationOptions.GenerateSchemaGlobalOptionSetsWithDependentComponents;
 
             //result.AddDescriptionAttribute = commonConfig.GenerateSchemaAddDescriptionAttribute;
 
             return result;
         }
 
-        public static CreateFileCSharpConfiguration CreateForSchemaEntity(
-            string namespaceClasses
-            , string namespaceGlobalOptionSets
-            , string typeConverterName
-            , CommonConfiguration commonConfig
-        )
+        public static CreateFileCSharpConfiguration CreateForSchemaEntity(FileGenerationOptions fileGenerationOptions)
         {
             var result = new CreateFileCSharpConfiguration
             {
-                TabSpacer = commonConfig.GetTabSpacer(),
+                TabSpacer = fileGenerationOptions.GetTabSpacer(),
 
-                NamespaceClasses = namespaceClasses,
-                NamespaceGlobalOptionSets = namespaceGlobalOptionSets,
+                NamespaceClasses = fileGenerationOptions.NamespaceClassesCSharp,
+                NamespaceGlobalOptionSets = fileGenerationOptions.NamespaceGlobalOptionSetsCSharp,
 
-                TypeConverterName = typeConverterName,
+                TypeConverterName = fileGenerationOptions.TypeConverterName,
 
-                GenerateAttributes = commonConfig.GenerateSchemaAttributes,
-                GenerateStatus = commonConfig.GenerateSchemaStatusOptionSet,
-                GenerateLocalOptionSet = commonConfig.GenerateSchemaLocalOptionSet,
-                GenerateGlobalOptionSet = commonConfig.GenerateSchemaGlobalOptionSet,
-                GenerateOneToMany = commonConfig.GenerateSchemaOneToMany,
-                GenerateManyToOne = commonConfig.GenerateSchemaManyToOne,
-                GenerateManyToMany = commonConfig.GenerateSchemaManyToMany,
-                GenerateKeys = commonConfig.GenerateSchemaKeys,
+                GenerateAttributes = fileGenerationOptions.GenerateSchemaAttributes,
+                GenerateStatus = fileGenerationOptions.GenerateSchemaStatusOptionSet,
+                GenerateLocalOptionSet = fileGenerationOptions.GenerateSchemaLocalOptionSet,
+                GenerateGlobalOptionSet = fileGenerationOptions.GenerateSchemaGlobalOptionSet,
+                GenerateOneToMany = fileGenerationOptions.GenerateSchemaOneToMany,
+                GenerateManyToOne = fileGenerationOptions.GenerateSchemaManyToOne,
+                GenerateManyToMany = fileGenerationOptions.GenerateSchemaManyToMany,
+                GenerateKeys = fileGenerationOptions.GenerateSchemaKeys,
 
-                AllDescriptions = commonConfig.GenerateCommonAllDescriptions,
-                WithDependentComponents = commonConfig.GenerateSchemaEntityOptionSetsWithDependentComponents,
-                ConstantType = commonConfig.GenerateSchemaConstantType,
-                OptionSetExportType = commonConfig.GenerateSchemaOptionSetExportType,
+                AllDescriptions = fileGenerationOptions.GenerateCommonAllDescriptions,
+                WithDependentComponents = fileGenerationOptions.GenerateSchemaEntityOptionSetsWithDependentComponents,
+                ConstantType = fileGenerationOptions.GenerateSchemaConstantType,
+                OptionSetExportType = fileGenerationOptions.GenerateSchemaOptionSetExportType,
 
-                GenerateSchemaIntoSchemaClass = commonConfig.GenerateSchemaIntoSchemaClass,
-                WithManagedInfo = commonConfig.SolutionComponentWithManagedInfo,
+                GenerateSchemaIntoSchemaClass = fileGenerationOptions.GenerateSchemaIntoSchemaClass,
 
-                AddDescriptionAttribute = commonConfig.GenerateSchemaAddDescriptionAttribute,
+                WithManagedInfo = fileGenerationOptions.SolutionComponentWithManagedInfo,
 
-                AddTypeConverterAttributeForEnums = commonConfig.GenerateSchemaAddTypeConverterAttributeForEnums,
+                AddDescriptionAttribute = fileGenerationOptions.GenerateSchemaAddDescriptionAttribute,
+
+                AddTypeConverterAttributeForEnums = fileGenerationOptions.GenerateSchemaAddTypeConverterAttributeForEnums,
             };
 
             return result;
         }
 
-        public static CreateFileCSharpConfiguration CreateForProxyClass(
-            string namespaceClasses
-            , string namespaceGlobalOptionSets
-            , CommonConfiguration commonConfig
-        )
+        public static CreateFileCSharpConfiguration CreateForProxyClass(FileGenerationOptions fileGenerationOptions)
         {
             var result = new CreateFileCSharpConfiguration
             {
-                TabSpacer = commonConfig.GetTabSpacer(),
+                TabSpacer = fileGenerationOptions.GetTabSpacer(),
 
-                NamespaceClasses = namespaceClasses,
-                NamespaceGlobalOptionSets = namespaceGlobalOptionSets,
+                NamespaceClasses = fileGenerationOptions.NamespaceClassesCSharp,
+                NamespaceGlobalOptionSets = fileGenerationOptions.NamespaceGlobalOptionSetsCSharp,
 
-                GenerateAttributes = commonConfig.GenerateProxyClassesAttributes,
-                GenerateAttributesWithNameOf = commonConfig.GenerateProxyClassesAttributesWithNameOf,
-                GenerateStatus = commonConfig.GenerateProxyClassesStatusOptionSet,
-                GenerateLocalOptionSet = commonConfig.GenerateProxyClassesLocalOptionSet,
-                GenerateGlobalOptionSet = commonConfig.GenerateProxyClassesGlobalOptionSet,
-                GenerateOneToMany = commonConfig.GenerateProxyClassesOneToMany,
-                GenerateManyToOne = commonConfig.GenerateProxyClassesManyToOne,
-                GenerateManyToMany = commonConfig.GenerateProxyClassesManyToMany,
+                GenerateAttributes = fileGenerationOptions.GenerateProxyClassesAttributes,
+                GenerateAttributesWithNameOf = fileGenerationOptions.GenerateProxyClassesAttributesWithNameOf,
+                GenerateStatus = fileGenerationOptions.GenerateProxyClassesStatusOptionSet,
+                GenerateLocalOptionSet = fileGenerationOptions.GenerateProxyClassesLocalOptionSet,
+                GenerateGlobalOptionSet = fileGenerationOptions.GenerateProxyClassesGlobalOptionSet,
+                GenerateOneToMany = fileGenerationOptions.GenerateProxyClassesOneToMany,
+                GenerateManyToOne = fileGenerationOptions.GenerateProxyClassesManyToOne,
+                GenerateManyToMany = fileGenerationOptions.GenerateProxyClassesManyToMany,
 
-                AllDescriptions = commonConfig.GenerateCommonAllDescriptions,
-                WithDependentComponents = commonConfig.GenerateSchemaEntityOptionSetsWithDependentComponents,
+                AllDescriptions = fileGenerationOptions.GenerateCommonAllDescriptions,
+                WithDependentComponents = fileGenerationOptions.GenerateSchemaEntityOptionSetsWithDependentComponents,
 
-                WithManagedInfo = commonConfig.SolutionComponentWithManagedInfo,
+                WithManagedInfo = fileGenerationOptions.SolutionComponentWithManagedInfo,
 
-                GenerateWithDebuggerNonUserCode = commonConfig.GenerateProxyClassesWithDebuggerNonUserCode,
-                UseSchemaConstInCSharpAttributes = commonConfig.GenerateProxyClassesUseSchemaConstInCSharpAttributes,
-                WithoutObsoleteAttribute = commonConfig.GenerateProxyClassesWithoutObsoleteAttribute,
-                MakeAllPropertiesEditable = commonConfig.GenerateProxyClassesMakeAllPropertiesEditable,
-                AddConstructorWithAnonymousTypeObject = commonConfig.GenerateProxyClassesAddConstructorWithAnonymousTypeObject,
+                GenerateWithDebuggerNonUserCode = fileGenerationOptions.GenerateProxyClassesWithDebuggerNonUserCode,
+                UseSchemaConstInCSharpAttributes = fileGenerationOptions.GenerateProxyClassesUseSchemaConstInCSharpAttributes,
+                WithoutObsoleteAttribute = fileGenerationOptions.GenerateProxyClassesWithoutObsoleteAttribute,
+                MakeAllPropertiesEditable = fileGenerationOptions.GenerateProxyClassesMakeAllPropertiesEditable,
+                AddConstructorWithAnonymousTypeObject = fileGenerationOptions.GenerateProxyClassesAddConstructorWithAnonymousTypeObject,
 
-                GenerateAttributesEnumsStateStatus = commonConfig.GenerateProxyClassesAttributesEnumsStateStatus,
-                GenerateAttributesEnumsLocal = commonConfig.GenerateProxyClassesAttributesEnumsLocal,
-                GenerateAttributesEnumsGlobal = commonConfig.GenerateProxyClassesAttributesEnumsGlobal,
+                GenerateAttributesEnumsStateStatus = fileGenerationOptions.GenerateProxyClassesAttributesEnumsStateStatus,
+                GenerateAttributesEnumsLocal = fileGenerationOptions.GenerateProxyClassesAttributesEnumsLocal,
+                GenerateAttributesEnumsGlobal = fileGenerationOptions.GenerateProxyClassesAttributesEnumsGlobal,
 
-                GenerateAttributesEnumsStateStatusUseSchemaEnum = commonConfig.GenerateProxyClassesAttributesEnumsUseSchemaStateStatusEnum,
-                GenerateAttributesEnumsLocalUseSchemaEnum = commonConfig.GenerateProxyClassesAttributesEnumsUseSchemaLocalEnum,
-                GenerateAttributesEnumsGlobalUseSchemaEnum = commonConfig.GenerateProxyClassesAttributesEnumsUseSchemaGlobalEnum,
+                GenerateAttributesEnumsStateStatusUseSchemaEnum = fileGenerationOptions.GenerateProxyClassesAttributesEnumsUseSchemaStateStatusEnum,
+                GenerateAttributesEnumsLocalUseSchemaEnum = fileGenerationOptions.GenerateProxyClassesAttributesEnumsUseSchemaLocalEnum,
+                GenerateAttributesEnumsGlobalUseSchemaEnum = fileGenerationOptions.GenerateProxyClassesAttributesEnumsUseSchemaGlobalEnum,
 
-                AddDescriptionAttribute = commonConfig.GenerateProxyClassesAddDescriptionAttribute,
+                AddDescriptionAttribute = fileGenerationOptions.GenerateProxyClassesAddDescriptionAttribute,
             };
 
             return result;
         }
 
-        public static CreateFileCSharpConfiguration CreateForSdkMessageRequest(
-            string namespaceClasses
-            , string namespaceGlobalOptionSets
-            , CommonConfiguration commonConfig
-        )
+        public static CreateFileCSharpConfiguration CreateForSdkMessageRequest(FileGenerationOptions fileGenerationOptions)
         {
             var result = new CreateFileCSharpConfiguration
             {
-                TabSpacer = commonConfig.GetTabSpacer(),
+                TabSpacer = fileGenerationOptions.GetTabSpacer(),
 
-                NamespaceClasses = namespaceClasses,
-                NamespaceGlobalOptionSets = namespaceGlobalOptionSets,
+                NamespaceClasses = fileGenerationOptions.NamespaceSdkMessagesCSharp,
+                NamespaceGlobalOptionSets = fileGenerationOptions.NamespaceGlobalOptionSetsCSharp,
 
-                GenerateAttributesWithNameOf = commonConfig.GenerateSdkMessageRequestAttributesWithNameOf,
+                GenerateAttributesWithNameOf = fileGenerationOptions.GenerateSdkMessageRequestAttributesWithNameOf,
 
-                GenerateWithDebuggerNonUserCode = commonConfig.GenerateSdkMessageRequestWithDebuggerNonUserCode,
+                GenerateWithDebuggerNonUserCode = fileGenerationOptions.GenerateSdkMessageRequestWithDebuggerNonUserCode,
 
-                MakeAllPropertiesEditable = commonConfig.GenerateSdkMessageRequestMakeAllPropertiesEditable,
+                MakeAllPropertiesEditable = fileGenerationOptions.GenerateSdkMessageRequestMakeAllPropertiesEditable,
             };
 
             return result;

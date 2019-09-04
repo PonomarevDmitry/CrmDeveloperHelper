@@ -153,8 +153,11 @@
         
         <ToolBar x:Name="toolBarHeader" DockPanel.Dock="Top">
             <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                <MenuItem Header="Options" Click="miExportEntityMetadataOptions_Click" />
                 
+                <MenuItem Header="Options" Click="miExportEntityMetadataOptions_Click" />
+
+                <MenuItem Header="File Options" ToolTip="File Generation Options" Click="miFileGenerationEntityMetadataOptions_Click" />
+
                 <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                 <MenuItem Header="Open Entity Information" VerticalAlignment="Center" SubmenuOpened="otherEntityInformation_SubmenuOpened">
                     <MenuItem Header="Entity Attribute Explorer" Click="miEntityAttributeExplorer_Click"/>
@@ -205,57 +208,7 @@
             </Menu>
         </ToolBar>
 
-        <Expander DockPanel.Dock="Top" Margin="10,5" Header="Namespaces">
-            <Grid>
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"  />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
-                <Grid.Resources>
-                    <Style TargetType="{x:Type Label}">
-                        <Setter Property="Padding" Value="2"/>
-                        <Setter Property="Margin" Value="0,3,3,3"/>
-
-                        <Setter Property="VerticalAlignment" Value="Stretch"/>
-                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                        <Setter Property="VerticalContentAlignment" Value="Center"/>
-                    </Style>
-                    <Style TargetType="{x:Type TextBox}">
-                        <Setter Property="Padding" Value="2"/>
-                        <Setter Property="Margin" Value="3,3,0,3"/>
-
-                        <Setter Property="VerticalAlignment" Value="Stretch"/>
-                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                        <Setter Property="VerticalContentAlignment" Value="Center"/>
-                    </Style>
-                </Grid.Resources>
-
-                <Label Content="Namespace Classes C#" Grid.Row="0" Grid.Column="0" />
-                <TextBox x:Name="txtBNamespaceClassesCSharp" Grid.Row="0" Grid.Column="1" Text="{Binding Path=SelectedItem.NamespaceClassesCSharp, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
-
-                <Label Content="Namespace Classes JavaScript" Grid.Row="1" Grid.Column="0" />
-                <TextBox x:Name="txtBNamespaceClassesJavaScript" Grid.Row="1" Grid.Column="1" Text="{Binding Path=SelectedItem.NamespaceClassesJavaScript, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
-
-                <Label Content="Namespace OptionSets C#" Grid.Row="2" Grid.Column="0" />
-                <TextBox x:Name="txtBNamespaceOptionSetsCSharp" Grid.Row="2" Grid.Column="1" Text="{Binding Path=SelectedItem.NamespaceOptionSetsCSharp, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
-
-                <Label Content="Namespace OptionSets JavaScript" Grid.Row="3" Grid.Column="0" />
-                <TextBox x:Name="txtBNamespaceOptionSetsJavaScript" Grid.Row="3" Grid.Column="1" Text="{Binding Path=SelectedItem.NamespaceOptionSetsJavaScript, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
-
-                <Label Content="TypeConverter Name" Grid.Row="4" Grid.Column="0" />
-                <TextBox x:Name="txtBTypeConverterName" Grid.Row="4" Grid.Column="1" Text="{Binding Path=SelectedItem.TypeConverterName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
-            </Grid>
-        </Expander>
+        
 
         <Grid Margin="10,5" DockPanel.Dock="Top">
 

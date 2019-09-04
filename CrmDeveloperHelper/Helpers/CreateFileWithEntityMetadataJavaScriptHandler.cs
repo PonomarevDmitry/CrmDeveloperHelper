@@ -75,7 +75,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var repositoryStringMap = new StringMapRepository(_service);
             this._listStringMap = await repositoryStringMap.GetListAsync(this._entityMetadata.LogicalName);
 
-            string jsNamespace = this._service.ConnectionData.NamespaceClassesJavaScript;
+            string jsNamespace = _config.NamespaceClassesJavaScript;
             string className = (!string.IsNullOrEmpty(jsNamespace) ? jsNamespace + "." : string.Empty) + _entityMetadata.LogicalName;
 
             if (_config.GenerateSchemaIntoSchemaClass)

@@ -377,7 +377,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task GenerateEntitySchemaFileAsync(IOrganizationServiceExtented service, IMetadataProviderService metadataProviderService, CommonConfiguration commonConfig, EntityMetadata entityMetadata, string filePath)
         {
-            var config = CreateFileCSharpConfiguration.CreateForSchemaEntity(service.ConnectionData.NamespaceClassesCSharp, service.ConnectionData.NamespaceOptionSetsCSharp, service.ConnectionData.TypeConverterName, commonConfig);
+            var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
+
+            var config = CreateFileCSharpConfiguration.CreateForSchemaEntity(fileGenerationOptions);
 
             string operation = string.Format(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
 
@@ -387,7 +389,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             ICodeGenerationService codeGenerationService = new CodeGenerationService(config);
             INamingService namingService = new NamingService(service.ConnectionData.ServiceContextName, config);
-            ITypeMappingService typeMappingService = new TypeMappingService(service.ConnectionData.NamespaceClassesCSharp);
+            ITypeMappingService typeMappingService = new TypeMappingService(fileGenerationOptions.NamespaceClassesCSharp);
             ICodeWriterFilterService codeWriterFilterService = new CodeWriterFilterService(config);
 
             ICodeGenerationServiceProvider codeGenerationServiceProvider = new CodeGenerationServiceProvider(typeMappingService, codeGenerationService, codeWriterFilterService, metadataProviderService, namingService);
@@ -408,7 +410,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task GenerateEntityProxyClassFileAsync(IOrganizationServiceExtented service, IMetadataProviderService metadataProviderService, CommonConfiguration commonConfig, EntityMetadata entityMetadata, string filePath)
         {
-            var config = CreateFileCSharpConfiguration.CreateForProxyClass(service.ConnectionData.NamespaceClassesCSharp, service.ConnectionData.NamespaceOptionSetsCSharp, commonConfig);
+            var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
+
+            var config = CreateFileCSharpConfiguration.CreateForProxyClass(fileGenerationOptions);
 
             string operation = string.Format(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
 
@@ -416,7 +420,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             ICodeGenerationService codeGenerationService = new CodeGenerationService(config);
             INamingService namingService = new NamingService(service.ConnectionData.ServiceContextName, config);
-            ITypeMappingService typeMappingService = new TypeMappingService(service.ConnectionData.NamespaceClassesCSharp);
+            ITypeMappingService typeMappingService = new TypeMappingService(fileGenerationOptions.NamespaceClassesCSharp);
             ICodeWriterFilterService codeWriterFilterService = new CodeWriterFilterService(config);
 
             ICodeGenerationServiceProvider codeGenerationServiceProvider = new CodeGenerationServiceProvider(typeMappingService, codeGenerationService, codeWriterFilterService, metadataProviderService, namingService);
@@ -428,7 +432,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 VerbatimOrder = true,
             };
 
-            await codeGenerationService.WriteEntityFileAsync(entityMetadata, filePath, service.ConnectionData.NamespaceClassesCSharp, options, codeGenerationServiceProvider);
+            await codeGenerationService.WriteEntityFileAsync(entityMetadata, filePath, fileGenerationOptions.NamespaceClassesCSharp, options, codeGenerationServiceProvider);
 
             this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, entityMetadata.LogicalName, filePath);
 
@@ -439,12 +443,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task GenerateEntityJavaScriptFileAsync(IOrganizationServiceExtented service, IMetadataProviderService metadataProviderService, CommonConfiguration commonConfig, EntityMetadata entityMetadata, string filePath)
         {
+            var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
+
             var config = new CreateFileJavaScriptConfiguration(
-                                        commonConfig.GetTabSpacer()
-                                        , commonConfig.GenerateSchemaEntityOptionSetsWithDependentComponents
-                                        , commonConfig.GenerateSchemaIntoSchemaClass
-                                        , commonConfig.GenerateSchemaGlobalOptionSet
-                                    );
+                fileGenerationOptions.GetTabSpacer()
+                , fileGenerationOptions.GenerateSchemaEntityOptionSetsWithDependentComponents
+                , fileGenerationOptions.GenerateSchemaIntoSchemaClass
+                , fileGenerationOptions.GenerateSchemaGlobalOptionSet
+                , fileGenerationOptions.NamespaceClassesJavaScript
+            );
 
             string operation = string.Format(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
 
@@ -647,7 +654,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operation);
 
-            var config = CreateFileCSharpConfiguration.CreateForSchemaGlobalOptionSet(service.ConnectionData.NamespaceClassesCSharp, service.ConnectionData.NamespaceOptionSetsCSharp, service.ConnectionData.TypeConverterName, commonConfig);
+            var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
+
+            var config = CreateFileCSharpConfiguration.CreateForSchemaGlobalOptionSet(fileGenerationOptions);
 
             using (var writer = new StreamWriter(filePath, false, new UTF8Encoding(false)))
             {
@@ -669,14 +678,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operation);
 
+            var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
+
             using (var writer = new StreamWriter(filePath, false, new UTF8Encoding(false)))
             {
                 var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(
                     writer
                     , service
                     , _iWriteToOutput
-                    , commonConfig.GetTabSpacer()
-                    , commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents
+                    , fileGenerationOptions.GetTabSpacer()
+                    , fileGenerationOptions.GenerateSchemaGlobalOptionSetsWithDependentComponents
+                    , fileGenerationOptions.NamespaceGlobalOptionSetsJavaScript
                 );
 
                 await handler.CreateFileAsync(new[] { metadata });
@@ -880,14 +892,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
+            var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
+
             using (var writer = new StreamWriter(selectedFile.FilePath, false, new UTF8Encoding(false)))
             {
                 var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(
                     writer
                     , service
                     , _iWriteToOutput
-                    , commonConfig.GetTabSpacer()
-                    , commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents
+                    , fileGenerationOptions.GetTabSpacer()
+                    , fileGenerationOptions.GenerateSchemaGlobalOptionSetsWithDependentComponents
+                    , fileGenerationOptions.NamespaceGlobalOptionSetsJavaScript
                 );
 
                 await handler.CreateFileAsync(optionSets.OrderBy(o => o.Name));

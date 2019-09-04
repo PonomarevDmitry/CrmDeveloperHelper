@@ -104,7 +104,7 @@
             </Menu>
         </ToolBar>
 
-        <Expander Grid.Row="1" Margin="5" Header="Namespaces and Export Folder">
+        <Expander Grid.Row="1" Margin="5" Header="Namespaces">
 
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -118,14 +118,7 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <Label Content="Namespace OptionSets C#" Grid.Row="0" Grid.Column="0"/>
-                <TextBox x:Name="txtBNamespaceOptionSetsCSharp" Grid.Row="0" Grid.Column="1" Text="{Binding Path=SelectedItem.NamespaceOptionSetsCSharp, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
-
-                <Label Content="Namespace OptionSets JavaScript" Grid.Row="1" Grid.Column="0"/>
-                <TextBox x:Name="txtBNamespaceOptionSetsJavaScript" Grid.Row="1" Grid.Column="1" Text="{Binding Path=SelectedItem.NamespaceOptionSetsJavaScript, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
-
-                <Label Content="TypeConverter Name" Grid.Row="2" Grid.Column="0" />
-                <TextBox x:Name="txtBTypeConverterName" Grid.Row="2" Grid.Column="1" Text="{Binding Path=SelectedItem.TypeConverterName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
+                
 
             </Grid>
 

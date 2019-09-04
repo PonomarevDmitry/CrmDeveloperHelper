@@ -1025,10 +1025,6 @@
     <Compile Include="Model\Backup\RolePrivilege.cs" />
     <Compile Include="Model\CommonConfiguration.cs" />
     <Compile Include="Model\CommonConfiguration.ExportRibbonSettings.cs" />
-    <Compile Include="Model\CommonConfiguration.GlobalOptionSetSchemaGeneration.cs" />
-    <Compile Include="Model\CommonConfiguration.ProxyClassGeneration.cs" />
-    <Compile Include="Model\CommonConfiguration.EntitySchemaGeneration.cs" />
-    <Compile Include="Model\CommonConfiguration.SdkMessageRequestGeneration.cs" />
     <Compile Include="Model\CommonConfiguration.XmlSettings.cs" />
     <Compile Include="Model\ConnectionConfiguration.cs" />
     <Compile Include="Model\ConnectionData.cs" />
@@ -1049,6 +1045,12 @@
     <Compile Include="Model\ExportSolutionProfile.cs" />
     <Compile Include="Model\FetchXmlRequestParameter.cs" />
     <Compile Include="Model\FileAction.cs" />
+    <Compile Include="Model\FileGenerationConfiguration.cs" />
+    <Compile Include="Model\FileGenerationOptions.cs" />
+    <Compile Include="Model\FileGenerationOptions.EntitySchemaGeneration.cs" />
+    <Compile Include="Model\FileGenerationOptions.GlobalOptionSetSchemaGeneration.cs" />
+    <Compile Include="Model\FileGenerationOptions.ProxyClassGeneration.cs" />
+    <Compile Include="Model\FileGenerationOptions.SdkMessageRequestGeneration.cs" />
     <Compile Include="Model\FileMapping.cs" />
     <Compile Include="Model\FormControl.cs" />
     <Compile Include="Model\FormSection.cs" />
@@ -1283,6 +1285,12 @@
     </Compile>
     <Compile Include="UserControls\FetchXmlExecutorControl.xaml.cs">
       <DependentUpon>FetchXmlExecutorControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\FileGenerationEntityMetadataOptionsControl.xaml.cs">
+      <DependentUpon>FileGenerationEntityMetadataOptionsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\FileGenerationSdkMessageRequestsOptionsControl.xaml.cs">
+      <DependentUpon>FileGenerationSdkMessageRequestsOptionsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowAttributeMultiSelect.xaml.cs">
       <DependentUpon>WindowAttributeMultiSelect.xaml</DependentUpon>
@@ -1988,6 +1996,14 @@
     <Page Include="UserControls\FetchXmlExecutorControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\FileGenerationEntityMetadataOptionsControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\FileGenerationSdkMessageRequestsOptionsControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\StyleWindows.xaml">
       <Generator>MSBuild:Compile</Generator>

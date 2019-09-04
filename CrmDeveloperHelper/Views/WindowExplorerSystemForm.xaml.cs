@@ -152,8 +152,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private void LoadFromConfig()
         {
             cmBFileAction.DataContext = _commonConfig;
-
-            txtBNamespaceClassesJavaScript.DataContext = cmBCurrentConnection;
         }
 
         protected override void OnClosed(EventArgs e)
@@ -1326,13 +1324,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    _commonConfig.Save();
+                    var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
 
                     var config = new CreateFileJavaScriptConfiguration(
-                        _commonConfig.GetTabSpacer()
-                        , _commonConfig.GenerateSchemaEntityOptionSetsWithDependentComponents
-                        , _commonConfig.GenerateSchemaIntoSchemaClass
-                        , _commonConfig.GenerateSchemaGlobalOptionSet
+                        fileGenerationOptions.GetTabSpacer()
+                        , fileGenerationOptions.GenerateSchemaEntityOptionSetsWithDependentComponents
+                        , fileGenerationOptions.GenerateSchemaIntoSchemaClass
+                        , fileGenerationOptions.GenerateSchemaGlobalOptionSet
+                        , fileGenerationOptions.NamespaceClassesJavaScript
                     );
 
                     XElement doc = XElement.Parse(formXml);
@@ -2063,13 +2062,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    _commonConfig.Save();
+                    var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
 
                     var config = new CreateFileJavaScriptConfiguration(
-                        _commonConfig.GetTabSpacer()
-                        , _commonConfig.GenerateSchemaEntityOptionSetsWithDependentComponents
-                        , _commonConfig.GenerateSchemaIntoSchemaClass
-                        , _commonConfig.GenerateSchemaGlobalOptionSet
+                        fileGenerationOptions.GetTabSpacer()
+                        , fileGenerationOptions.GenerateSchemaEntityOptionSetsWithDependentComponents
+                        , fileGenerationOptions.GenerateSchemaIntoSchemaClass
+                        , fileGenerationOptions.GenerateSchemaGlobalOptionSet
+                        , fileGenerationOptions.NamespaceClassesJavaScript
                     );
 
                     var doc = XElement.Parse(formXml);

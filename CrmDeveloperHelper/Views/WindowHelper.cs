@@ -116,7 +116,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     var form = new WindowExplorerEntityMetadataOptions(
                         iWriteToOutput
-                        , commonConfig
                         , connectionData
                     );
 
@@ -1228,7 +1227,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     var form = new WindowExplorerGlobalOptionSetsOptions(
                         iWriteToOutput
-                        , commonConfig
                         , connectionData
                     );
 

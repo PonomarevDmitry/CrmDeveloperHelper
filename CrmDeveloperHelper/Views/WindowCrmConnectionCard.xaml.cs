@@ -202,17 +202,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             connectionData.User = cmBUser.SelectedItem as ConnectionUserData;
 
-            connectionData.NamespaceClassesCSharp = this.txtBNamespaceClassesCSharp.Text.Trim();
-            connectionData.NamespaceClassesJavaScript = this.txtBNamespaceClassesJavaScript.Text.Trim();
-
-            connectionData.NamespaceOptionSetsCSharp = this.txtBNamespaceOptionSetsCSharp.Text.Trim();
-            connectionData.NamespaceOptionSetsJavaScript = this.txtBNamespaceOptionSetsJavaScript.Text.Trim();
-
-            connectionData.NamespaceSdkMessagesCSharp = this.txtBNamespaceSdkMessagesCSharp.Text.Trim();
-            connectionData.NamespaceSdkMessagesJavaScript = this.txtBNamespaceSdkMessagesJavaScript.Text.Trim();
-
-            connectionData.TypeConverterName = this.txtBTypeConverterName.Text.Trim();
-
             connectionData.IsReadOnly = chBIsReadOnly.IsChecked.GetValueOrDefault();
         }
 
@@ -223,19 +212,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             txtBDiscoveryUrl.Text = connectionData.DiscoveryUrl;
             txtBOrganizationServiceUrl.Text = connectionData.OrganizationUrl;
             txtBUniqueOrganizationName.Text = connectionData.UniqueOrgName;
-
-            txtBNamespaceClassesCSharp.Text = connectionData.NamespaceClassesCSharp;
-            txtBNamespaceClassesJavaScript.Text = connectionData.NamespaceClassesJavaScript;
-
-            txtBNamespaceOptionSetsCSharp.Text = connectionData.NamespaceOptionSetsCSharp;
-            txtBNamespaceOptionSetsJavaScript.Text = connectionData.NamespaceOptionSetsJavaScript;
-
-            txtBNamespaceSdkMessagesCSharp.Text = connectionData.NamespaceSdkMessagesCSharp;
-            txtBNamespaceSdkMessagesJavaScript.Text = connectionData.NamespaceSdkMessagesJavaScript;
-
-            txtBTypeConverterName.Text = connectionData.TypeConverterName;
-
-            connectionData.TypeConverterName = this.txtBTypeConverterName.Text.Trim();
 
             chBIsReadOnly.IsChecked = connectionData.IsReadOnly;
 

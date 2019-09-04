@@ -30,7 +30,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly IWriteToOutput _iWriteToOutput;
 
-        private readonly Popup _optionsPopup;
+        private readonly Popup _popupEntityMetadataOptions;
+        private readonly Popup _popupFileGenerationEntityMetadataOptions;
+        private readonly FileGenerationEntityMetadataOptionsControl _optionsControlFileGeneration;
 
         private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
         private readonly Dictionary<Guid, List<EntityMetadata>> _cacheEntityMetadata = new Dictionary<Guid, List<EntityMetadata>>();
@@ -59,10 +61,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             InitializeComponent();
 
             var child = new ExportEntityMetadataOptionsControl(_commonConfig);
-            child.CloseClicked += Child_CloseClicked;
-            this._optionsPopup = new Popup
+            child.CloseClicked += optionsEntityMetadata_CloseClicked;
+            this._popupEntityMetadataOptions = new Popup
             {
                 Child = child,
+
+                PlacementTarget = toolBarHeader,
+                Placement = PlacementMode.Bottom,
+                StaysOpen = false,
+                Focusable = true,
+            };
+
+            _optionsControlFileGeneration = new FileGenerationEntityMetadataOptionsControl();
+            _optionsControlFileGeneration.CloseClicked += this._optionsControlFileGeneration_CloseClicked;
+            this._popupFileGenerationEntityMetadataOptions = new Popup
+            {
+                Child = _optionsControlFileGeneration,
 
                 PlacementTarget = toolBarHeader,
                 Placement = PlacementMode.Bottom,
@@ -99,21 +113,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadFromConfig()
         {
-            txtBNamespaceClassesCSharp1.DataContext = cmBConnection1;
-            txtBNamespaceClassesCSharp2.DataContext = cmBConnection2;
-
-            txtBNamespaceClassesJavaScript1.DataContext = cmBConnection1;
-            txtBNamespaceClassesJavaScript2.DataContext = cmBConnection2;
-
-            txtBNamespaceOptionSetsCSharp1.DataContext = cmBConnection1;
-            txtBNamespaceOptionSetsCSharp2.DataContext = cmBConnection2;
-
-            txtBNamespaceOptionSetsJavaScript1.DataContext = cmBConnection1;
-            txtBNamespaceOptionSetsJavaScript2.DataContext = cmBConnection2;
-
-            txtBTypeConverterName1.DataContext = cmBConnection1;
-            txtBTypeConverterName2.DataContext = cmBConnection2;
-
             cmBFileAction.DataContext = _commonConfig;
         }
 
@@ -500,8 +499,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceEntityMetadataCSharpForEntityFormat1, linkedEntityMetadata.LogicalName);
 
-            CreateFileCSharpConfiguration config1 = GetCSharpConfigSchema(service1.ConnectionData);
-            CreateFileCSharpConfiguration config2 = GetCSharpConfigSchema(service2.ConnectionData);
+            var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
+
+            CreateFileCSharpConfiguration config = CreateFileCSharpConfiguration.CreateForSchemaEntity(fileGenerationOptions);
 
             string fileName1 = CreateFileWithEntityMetadataCSharpHandler.CreateFileNameForSchema(service1.ConnectionData, linkedEntityMetadata.EntityMetadata1.SchemaName, false);
             string fileName2 = CreateFileWithEntityMetadataCSharpHandler.CreateFileNameForSchema(service2.ConnectionData, linkedEntityMetadata.EntityMetadata2.SchemaName, false);
@@ -512,27 +512,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var repository1 = new EntityMetadataRepository(service1);
             var repository2 = new EntityMetadataRepository(service2);
 
-            ICodeGenerationService codeGenerationService1 = new CodeGenerationService(config1);
-            ICodeGenerationService codeGenerationService2 = new CodeGenerationService(config2);
+            ICodeGenerationService codeGenerationService = new CodeGenerationService(config);
 
-            ICodeWriterFilterService codeWriterFilterService1 = new CodeWriterFilterService(config1);
-            ICodeWriterFilterService codeWriterFilterService2 = new CodeWriterFilterService(config2);
+            ICodeWriterFilterService codeWriterFilterService = new CodeWriterFilterService(config);
 
-            INamingService namingService1 = new NamingService(service1.ConnectionData.ServiceContextName, config1);
-            INamingService namingService2 = new NamingService(service2.ConnectionData.ServiceContextName, config2);
+            INamingService namingService1 = new NamingService(service1.ConnectionData.ServiceContextName, config);
+            INamingService namingService2 = new NamingService(service2.ConnectionData.ServiceContextName, config);
 
-            ITypeMappingService typeMappingService1 = new TypeMappingService(service1.ConnectionData.NamespaceClassesCSharp);
-            ITypeMappingService typeMappingService2 = new TypeMappingService(service2.ConnectionData.NamespaceClassesCSharp);
+            ITypeMappingService typeMappingService = new TypeMappingService(fileGenerationOptions.NamespaceClassesCSharp);
 
             IMetadataProviderService metadataProviderService1 = new MetadataProviderService(repository1);
             IMetadataProviderService metadataProviderService2 = new MetadataProviderService(repository2);
 
-            ICodeGenerationServiceProvider codeGenerationServiceProvider1 = new CodeGenerationServiceProvider(typeMappingService1, codeGenerationService1, codeWriterFilterService1, metadataProviderService1, namingService1);
-            ICodeGenerationServiceProvider codeGenerationServiceProvider2 = new CodeGenerationServiceProvider(typeMappingService2, codeGenerationService2, codeWriterFilterService2, metadataProviderService2, namingService2);
+            ICodeGenerationServiceProvider codeGenerationServiceProvider1 = new CodeGenerationServiceProvider(typeMappingService, codeGenerationService, codeWriterFilterService, metadataProviderService1, namingService1);
+            ICodeGenerationServiceProvider codeGenerationServiceProvider2 = new CodeGenerationServiceProvider(typeMappingService, codeGenerationService, codeWriterFilterService, metadataProviderService2, namingService2);
 
             using (var writer1 = new StreamWriter(filePath1, false, new UTF8Encoding(false)))
             {
-                var handler1 = new CreateFileWithEntityMetadataCSharpHandler(writer1, config1, service1, _iWriteToOutput, codeGenerationServiceProvider1);
+                var handler1 = new CreateFileWithEntityMetadataCSharpHandler(writer1, config, service1, _iWriteToOutput, codeGenerationServiceProvider1);
 
                 var task1 = handler1.CreateFileAsync(linkedEntityMetadata.LogicalName);
 
@@ -540,7 +537,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     using (var writer2 = new StreamWriter(filePath2, false, new UTF8Encoding(false)))
                     {
-                        var handler2 = new CreateFileWithEntityMetadataCSharpHandler(writer2, config2, service2, _iWriteToOutput, codeGenerationServiceProvider2);
+                        var handler2 = new CreateFileWithEntityMetadataCSharpHandler(writer2, config, service2, _iWriteToOutput, codeGenerationServiceProvider2);
 
                         await handler2.CreateFileAsync(linkedEntityMetadata.LogicalName);
                     }
@@ -611,8 +608,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceEntityMetadataCSharpForEntityFormat1, linkedEntityMetadata.LogicalName);
 
-            CreateFileCSharpConfiguration config1 = GetCSharpConfigProxyClass(service1.ConnectionData, linkedEntityMetadata.LogicalName);
-            CreateFileCSharpConfiguration config2 = GetCSharpConfigProxyClass(service2.ConnectionData, linkedEntityMetadata.LogicalName);
+            var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
+
+            CreateFileCSharpConfiguration config = CreateFileCSharpConfiguration.CreateForProxyClass(fileGenerationOptions);
 
             string fileName1 = CreateFileWithEntityMetadataCSharpHandler.CreateFileNameForProxy(service1.ConnectionData, linkedEntityMetadata.EntityMetadata1.SchemaName, false);
             string fileName2 = CreateFileWithEntityMetadataCSharpHandler.CreateFileNameForProxy(service2.ConnectionData, linkedEntityMetadata.EntityMetadata2.SchemaName, false);
@@ -623,23 +621,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var repository1 = new EntityMetadataRepository(service1);
             var repository2 = new EntityMetadataRepository(service2);
 
-            ICodeGenerationService codeGenerationService1 = new CodeGenerationService(config1);
-            ICodeGenerationService codeGenerationService2 = new CodeGenerationService(config2);
+            ICodeGenerationService codeGenerationService = new CodeGenerationService(config);
 
-            ICodeWriterFilterService codeWriterFilterService1 = new CodeWriterFilterService(config1);
-            ICodeWriterFilterService codeWriterFilterService2 = new CodeWriterFilterService(config2);
+            ICodeWriterFilterService codeWriterFilterService = new CodeWriterFilterService(config);
 
-            INamingService namingService1 = new NamingService(service1.ConnectionData.ServiceContextName, config1);
-            INamingService namingService2 = new NamingService(service2.ConnectionData.ServiceContextName, config2);
+            INamingService namingService1 = new NamingService(service1.ConnectionData.ServiceContextName, config);
+            INamingService namingService2 = new NamingService(service2.ConnectionData.ServiceContextName, config);
 
-            ITypeMappingService typeMappingService1 = new TypeMappingService(service1.ConnectionData.NamespaceClassesCSharp);
-            ITypeMappingService typeMappingService2 = new TypeMappingService(service2.ConnectionData.NamespaceClassesCSharp);
+            ITypeMappingService typeMappingService = new TypeMappingService(fileGenerationOptions.NamespaceClassesCSharp);
 
             IMetadataProviderService metadataProviderService1 = new MetadataProviderService(repository1);
             IMetadataProviderService metadataProviderService2 = new MetadataProviderService(repository2);
 
-            ICodeGenerationServiceProvider codeGenerationServiceProvider1 = new CodeGenerationServiceProvider(typeMappingService1, codeGenerationService1, codeWriterFilterService1, metadataProviderService1, namingService1);
-            ICodeGenerationServiceProvider codeGenerationServiceProvider2 = new CodeGenerationServiceProvider(typeMappingService2, codeGenerationService2, codeWriterFilterService2, metadataProviderService2, namingService2);
+            ICodeGenerationServiceProvider codeGenerationServiceProvider1 = new CodeGenerationServiceProvider(typeMappingService, codeGenerationService, codeWriterFilterService, metadataProviderService1, namingService1);
+            ICodeGenerationServiceProvider codeGenerationServiceProvider2 = new CodeGenerationServiceProvider(typeMappingService, codeGenerationService, codeWriterFilterService, metadataProviderService2, namingService2);
 
             var entityMetadataFull1 = await repository1.GetEntityMetadataAsync(linkedEntityMetadata.LogicalName);
             var entityMetadataFull2 = await repository2.GetEntityMetadataAsync(linkedEntityMetadata.LogicalName);
@@ -651,11 +646,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 VerbatimOrder = true,
             };
 
-            var task1 = codeGenerationService1.WriteEntityFileAsync(entityMetadataFull1, filePath1, service1.ConnectionData.NamespaceClassesCSharp, options, codeGenerationServiceProvider1);
+            var task1 = codeGenerationService.WriteEntityFileAsync(entityMetadataFull1, filePath1, fileGenerationOptions.NamespaceClassesCSharp, options, codeGenerationServiceProvider1);
 
             if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
             {
-                await codeGenerationService2.WriteEntityFileAsync(entityMetadataFull2, filePath2, service2.ConnectionData.NamespaceClassesCSharp, options, codeGenerationServiceProvider2);
+                await codeGenerationService.WriteEntityFileAsync(entityMetadataFull2, filePath2, fileGenerationOptions.NamespaceClassesCSharp, options, codeGenerationServiceProvider2);
             }
 
             this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service1.ConnectionData.Name, linkedEntityMetadata.LogicalName, filePath1);
@@ -679,16 +674,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceEntityMetadataCSharpForEntityCompletedFormat1, linkedEntityMetadata.LogicalName);
 
             this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityConnectionsFormat3, linkedEntityMetadata.LogicalName, service1.ConnectionData.Name, service2.ConnectionData.Name);
-        }
-
-        private CreateFileCSharpConfiguration GetCSharpConfigSchema(ConnectionData connectionData)
-        {
-            return CreateFileCSharpConfiguration.CreateForSchemaEntity(connectionData.NamespaceClassesCSharp, connectionData.NamespaceOptionSetsCSharp, connectionData.TypeConverterName, _commonConfig);
-        }
-
-        private CreateFileCSharpConfiguration GetCSharpConfigProxyClass(ConnectionData connectionData, string entityName)
-        {
-            return CreateFileCSharpConfiguration.CreateForProxyClass(connectionData.NamespaceClassesCSharp, connectionData.NamespaceOptionSetsCSharp, _commonConfig);
         }
 
         private void btnDifferenceJavaScriptFile_Click(object sender, RoutedEventArgs e)
@@ -733,7 +718,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             string filename1 = string.Format("{0}.{1}.entitymetadata.generated.js", service1.ConnectionData.Name, linkedEntityMetadata.LogicalName);
             string filename2 = string.Format("{0}.{1}.entitymetadata.generated.js", service2.ConnectionData.Name, linkedEntityMetadata.LogicalName);
 
-            CreateFileJavaScriptConfiguration config = GetJavaScriptConfig(linkedEntityMetadata.LogicalName);
+            var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
+
+            CreateFileJavaScriptConfiguration config = GetJavaScriptConfig(fileGenerationOptions);
 
             string filePath1 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(filename1));
             string filePath2 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(filename2));
@@ -780,13 +767,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityConnectionsFormat3, linkedEntityMetadata.LogicalName, service1.ConnectionData.Name, service2.ConnectionData.Name);
         }
 
-        private CreateFileJavaScriptConfiguration GetJavaScriptConfig(string entityName)
+        private CreateFileJavaScriptConfiguration GetJavaScriptConfig(FileGenerationOptions fileGenerationOptions)
         {
             var result = new CreateFileJavaScriptConfiguration(
-                _commonConfig.GetTabSpacer()
-                , _commonConfig.GenerateSchemaEntityOptionSetsWithDependentComponents
-                , _commonConfig.GenerateSchemaIntoSchemaClass
-                , _commonConfig.GenerateSchemaGlobalOptionSet
+                fileGenerationOptions.GetTabSpacer()
+                , fileGenerationOptions.GenerateSchemaEntityOptionSetsWithDependentComponents
+                , fileGenerationOptions.GenerateSchemaIntoSchemaClass
+                , fileGenerationOptions.GenerateSchemaGlobalOptionSet
+                , fileGenerationOptions.NamespaceClassesJavaScript
             );
 
             return result;
@@ -844,7 +832,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat1, entityMetadata.LogicalName);
 
-            var config = GetCSharpConfigSchema(service.ConnectionData);
+            var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
+
+            var config = CreateFileCSharpConfiguration.CreateForSchemaEntity(fileGenerationOptions);
 
             string fileName = CreateFileWithEntityMetadataCSharpHandler.CreateFileNameForSchema(service.ConnectionData, entityMetadata.SchemaName, false);
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -855,7 +845,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ICodeGenerationService codeGenerationService = new CodeGenerationService(config);
                 INamingService namingService = new NamingService(service.ConnectionData.ServiceContextName, config);
-                ITypeMappingService typeMappingService = new TypeMappingService(service.ConnectionData.NamespaceClassesCSharp);
+                ITypeMappingService typeMappingService = new TypeMappingService(fileGenerationOptions.NamespaceClassesCSharp);
                 ICodeWriterFilterService codeWriterFilterService = new CodeWriterFilterService(config);
                 IMetadataProviderService metadataProviderService = new MetadataProviderService(repository);
 
@@ -936,7 +926,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat1, entityMetadata.LogicalName);
 
-            var config = GetCSharpConfigProxyClass(service.ConnectionData, entityMetadata.LogicalName);
+            var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
+
+            var config = CreateFileCSharpConfiguration.CreateForProxyClass(fileGenerationOptions);
 
             string fileName = CreateFileWithEntityMetadataCSharpHandler.CreateFileNameForProxy(service.ConnectionData, entityMetadata.SchemaName, false);
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -947,7 +939,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ICodeGenerationService codeGenerationService = new CodeGenerationService(config);
                 INamingService namingService = new NamingService(service.ConnectionData.ServiceContextName, config);
-                ITypeMappingService typeMappingService = new TypeMappingService(service.ConnectionData.NamespaceClassesCSharp);
+                ITypeMappingService typeMappingService = new TypeMappingService(fileGenerationOptions.NamespaceClassesCSharp);
                 ICodeWriterFilterService codeWriterFilterService = new CodeWriterFilterService(config);
                 IMetadataProviderService metadataProviderService = new MetadataProviderService(repository);
 
@@ -962,7 +954,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     VerbatimOrder = true,
                 };
 
-                await codeGenerationService.WriteEntityFileAsync(entityMetadataFull, filePath, service.ConnectionData.NamespaceClassesCSharp, options, codeGenerationServiceProvider);
+                await codeGenerationService.WriteEntityFileAsync(entityMetadataFull, filePath, fileGenerationOptions.NamespaceClassesCSharp, options, codeGenerationServiceProvider);
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, entityMetadata.LogicalName, filePath);
 
@@ -1028,7 +1020,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat1, entityName);
 
-            var config = GetJavaScriptConfig(entityName);
+            var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
+
+            var config = GetJavaScriptConfig(fileGenerationOptions);
 
             string filename = string.Format("{0}.{1}.entitymetadata.generated.js", service.ConnectionData.Name, entityName);
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(filename));
@@ -1073,9 +1067,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     || (e.Key == Key.W && e.KeyboardDevice != null && (e.KeyboardDevice.Modifiers & ModifierKeys.Control) != 0)
                     )
                 {
-                    if (_optionsPopup.IsOpen)
+                    if (_popupEntityMetadataOptions.IsOpen)
                     {
-                        _optionsPopup.IsOpen = false;
+                        _popupEntityMetadataOptions.IsOpen = false;
                         this.Focus();
                         e.Handled = true;
                     }
@@ -2120,15 +2114,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void miExportEntityMetadataOptions_Click(object sender, RoutedEventArgs e)
         {
-            _optionsPopup.IsOpen = true;
-            _optionsPopup.Child.Focus();
+            _popupEntityMetadataOptions.IsOpen = true;
+            _popupEntityMetadataOptions.Child.Focus();
         }
 
-        private void Child_CloseClicked(object sender, EventArgs e)
+        private void optionsEntityMetadata_CloseClicked(object sender, EventArgs e)
         {
-            if (_optionsPopup.IsOpen)
+            if (_popupEntityMetadataOptions.IsOpen)
             {
-                _optionsPopup.IsOpen = false;
+                _popupEntityMetadataOptions.IsOpen = false;
+                this.Focus();
+            }
+        }
+
+        private void miFileGenerationEntityMetadataOptions_Click(object sender, RoutedEventArgs e)
+        {
+            var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
+
+            this._optionsControlFileGeneration.BindFileGenerationOptions(fileGenerationOptions);
+
+            _popupFileGenerationEntityMetadataOptions.IsOpen = true;
+            _popupFileGenerationEntityMetadataOptions.Child.Focus();
+        }
+
+        private void _optionsControlFileGeneration_CloseClicked(object sender, EventArgs e)
+        {
+            if (_popupFileGenerationEntityMetadataOptions.IsOpen)
+            {
+                _popupFileGenerationEntityMetadataOptions.IsOpen = false;
                 this.Focus();
             }
         }

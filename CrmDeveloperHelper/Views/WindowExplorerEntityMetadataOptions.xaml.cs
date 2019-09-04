@@ -10,18 +10,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
     {
         private readonly IWriteToOutput _iWriteToOutput;
 
-        private readonly CommonConfiguration _commonConfig;
+        private readonly FileGenerationOptions _fileGenerationOptions;
 
-        public WindowExplorerEntityMetadataOptions(IWriteToOutput iWriteToOutput, CommonConfiguration commonConfig, ConnectionData connectionData)
+        public WindowExplorerEntityMetadataOptions(IWriteToOutput iWriteToOutput, ConnectionData connectionData)
         {
             InitializeComponent();
 
-            options.BindCommonConfiguration(commonConfig);
-
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
-            this._commonConfig = commonConfig;
             this._iWriteToOutput = iWriteToOutput;
+            this._fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
+
+            options.BindFileGenerationOptions(this._fileGenerationOptions);
 
             cmBCurrentConnection.ItemsSource = connectionData.ConnectionConfiguration.Connections;
             cmBCurrentConnection.SelectedItem = connectionData;

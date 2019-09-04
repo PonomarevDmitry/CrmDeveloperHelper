@@ -28,43 +28,11 @@
             <RowDefinition Height="100*" />
 
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <local:ExportEntityMetadataOptionsControl Grid.Row="0" x:Name="options" CloseClicked="options_CloseClicked" />
+        <local:FileGenerationEntityMetadataOptionsControl Grid.Row="0" x:Name="options" CloseClicked="options_CloseClicked" />
 
-        <Grid Grid.Row="1" Margin="5">
-
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"  />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-
-            <Label Content="Namespace Classes C#" Grid.Row="0" Grid.Column="0" />
-            <TextBox x:Name="txtBNamespaceClassesCSharp" Grid.Row="0" Grid.Column="1" Text="{Binding ElementName=cmBCurrentConnection, Path=SelectedItem.NamespaceClassesCSharp, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
-
-            <Label Content="Namespace Classes JavaScript" Grid.Row="1" Grid.Column="0" />
-            <TextBox x:Name="txtBNamespaceClassesJavaScript" Grid.Row="1" Grid.Column="1" Text="{Binding ElementName=cmBCurrentConnection, Path=SelectedItem.NamespaceClassesJavaScript, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
-
-            <Label Content="Namespace OptionSets C#" Grid.Row="2" Grid.Column="0" />
-            <TextBox x:Name="txtBNamespaceOptionSetsCSharp" Grid.Row="2" Grid.Column="1" Text="{Binding ElementName=cmBCurrentConnection, Path=SelectedItem.NamespaceOptionSetsCSharp, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
-
-            <Label Content="Namespace OptionSets JavaScript" Grid.Row="3" Grid.Column="0" />
-            <TextBox x:Name="txtBNamespaceOptionSetsJavaScript" Grid.Row="3" Grid.Column="1" Text="{Binding ElementName=cmBCurrentConnection, Path=SelectedItem.NamespaceOptionSetsJavaScript, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
-
-            <Label Content="TypeConverter Name" Grid.Row="4" Grid.Column="0" />
-            <TextBox x:Name="txtBTypeConverterName" Grid.Row="4" Grid.Column="1" Text="{Binding ElementName=cmBCurrentConnection, Path=SelectedItem.TypeConverterName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
-        </Grid>
-
-        <StatusBar Grid.Row="2">
+        <StatusBar Grid.Row="1">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" />
             <ComboBox x:Name="cmBCurrentConnection" IsReadOnly="True" Padding="10,0" />
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />

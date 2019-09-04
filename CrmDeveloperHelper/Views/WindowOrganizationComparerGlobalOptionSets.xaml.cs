@@ -38,6 +38,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly ObservableCollection<LinkedOptionSetMetadata> _itemsSource;
 
         private readonly Popup _optionsPopup;
+        private readonly ExportGlobalOptionSetMetadataOptionsControl _optionsControl;
 
         public WindowOrganizationComparerGlobalOptionSets(
           IWriteToOutput iWriteToOutput
@@ -60,11 +61,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadEntityNames(cmBEntityName, connection1, connection2);
 
-            var child = new ExportGlobalOptionSetMetadataOptionsControl(_commonConfig);
-            child.CloseClicked += Child_CloseClicked;
+            _optionsControl = new ExportGlobalOptionSetMetadataOptionsControl();
+            _optionsControl.CloseClicked += Child_CloseClicked;
             this._optionsPopup = new Popup
             {
-                Child = child,
+                Child = _optionsControl,
 
                 PlacementTarget = toolBarHeader,
                 Placement = PlacementMode.Bottom,
@@ -101,15 +102,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadFromConfig()
         {
-            txtBNamespaceCSharp1.DataContext = cmBConnection1;
-            txtBNamespaceCSharp2.DataContext = cmBConnection2;
-
-            txtBNamespaceJavaScript1.DataContext = cmBConnection1;
-            txtBNamespaceJavaScript2.DataContext = cmBConnection2;
-
-            txtBTypeConverterName1.DataContext = cmBConnection1;
-            txtBTypeConverterName2.DataContext = cmBConnection2;
-
             cmBFileAction.DataContext = _commonConfig;
         }
 
@@ -564,12 +556,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     string filePath1 = CreateFileNameCSharp(optionSets1, service1.ConnectionData);
                     string filePath2 = CreateFileNameCSharp(optionSets2, service2.ConnectionData);
 
-                    var config1 = CreateFileCSharpConfiguration.CreateForSchemaGlobalOptionSet(service1.ConnectionData.NamespaceClassesCSharp, service1.ConnectionData.NamespaceOptionSetsCSharp, service1.ConnectionData.TypeConverterName, _commonConfig);
-                    var config2 = CreateFileCSharpConfiguration.CreateForSchemaGlobalOptionSet(service2.ConnectionData.NamespaceClassesCSharp, service2.ConnectionData.NamespaceOptionSetsCSharp, service2.ConnectionData.TypeConverterName, _commonConfig);
+                    var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
+
+                    var config = CreateFileCSharpConfiguration.CreateForSchemaGlobalOptionSet(fileGenerationOptions);
 
                     using (var writer1 = new StreamWriter(filePath1, false, new UTF8Encoding(false)))
                     {
-                        var handler1 = new CreateGlobalOptionSetsFileCSharpHandler(writer1, service1, _iWriteToOutput, config1);
+                        var handler1 = new CreateGlobalOptionSetsFileCSharpHandler(writer1, service1, _iWriteToOutput, config);
 
                         var task1 = handler1.CreateFileAsync(optionSets1);
 
@@ -577,7 +570,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         {
                             using (var writer2 = new StreamWriter(filePath2, false, new UTF8Encoding(false)))
                             {
-                                var handler2 = new CreateGlobalOptionSetsFileCSharpHandler(writer2, service2, _iWriteToOutput, config2);
+                                var handler2 = new CreateGlobalOptionSetsFileCSharpHandler(writer2, service2, _iWriteToOutput, config);
 
                                 var task2 = handler2.CreateFileAsync(optionSets2);
 
@@ -694,14 +687,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     string filePath1 = CreateFileNameJavaScript(optionSets1, service1.ConnectionData);
                     string filePath2 = CreateFileNameJavaScript(optionSets2, service2.ConnectionData);
 
-                    string tabSpacer = _commonConfig.GetTabSpacer();
-                    var constantType = _commonConfig.GenerateSchemaConstantType;
+                    var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
 
-                    var withDependentComponents = _commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents;
+                    var tabSpacer = fileGenerationOptions.GetTabSpacer();
+                    var constantType = fileGenerationOptions.GenerateSchemaConstantType;
+                    var namespaceJavascript = fileGenerationOptions.NamespaceGlobalOptionSetsJavaScript;
+
+                    var withDependentComponents = fileGenerationOptions.GenerateSchemaGlobalOptionSetsWithDependentComponents;
 
                     using (var writer1 = new StreamWriter(filePath1, false, new UTF8Encoding(false)))
                     {
-                        var handler1 = new CreateGlobalOptionSetsFileJavaScriptHandler(writer1, service1, _iWriteToOutput, tabSpacer, withDependentComponents);
+                        var handler1 = new CreateGlobalOptionSetsFileJavaScriptHandler(writer1, service1, _iWriteToOutput, tabSpacer, withDependentComponents, namespaceJavascript);
 
                         var task1 = handler1.CreateFileAsync(optionSets1);
 
@@ -709,7 +705,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         {
                             using (var writer2 = new StreamWriter(filePath2, false, new UTF8Encoding(false)))
                             {
-                                var handler2 = new CreateGlobalOptionSetsFileJavaScriptHandler(writer2, service2, _iWriteToOutput, tabSpacer, withDependentComponents);
+                                var handler2 = new CreateGlobalOptionSetsFileJavaScriptHandler(writer2, service2, _iWriteToOutput, tabSpacer, withDependentComponents, namespaceJavascript);
 
                                 var task2 = handler2.CreateFileAsync(optionSets2);
 
@@ -834,7 +830,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = CreateFileNameCSharp(optionSets, service.ConnectionData);
 
-                var config = CreateFileCSharpConfiguration.CreateForSchemaGlobalOptionSet(service.ConnectionData.NamespaceClassesCSharp, service.ConnectionData.NamespaceOptionSetsCSharp, service.ConnectionData.TypeConverterName, _commonConfig);
+                var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
+
+                var config = CreateFileCSharpConfiguration.CreateForSchemaGlobalOptionSet(fileGenerationOptions);
 
                 using (var writer = new StreamWriter(filePath, false, new UTF8Encoding(false)))
                 {
@@ -938,9 +936,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                string tabSpacer = _commonConfig.GetTabSpacer();
+                var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
 
-                var withDependentComponents = _commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents;
+                string tabSpacer = fileGenerationOptions.GetTabSpacer();
+
+                var withDependentComponents = fileGenerationOptions.GenerateSchemaGlobalOptionSetsWithDependentComponents;
+
+                var namespaceJavaScript = fileGenerationOptions.NamespaceGlobalOptionSetsJavaScript;
 
                 var service = await getService();
 
@@ -948,7 +950,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 using (var writer = new StreamWriter(filePath, false, new UTF8Encoding(false)))
                 {
-                    var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(writer, service, _iWriteToOutput, tabSpacer, withDependentComponents);
+                    var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(writer, service, _iWriteToOutput, tabSpacer, withDependentComponents, namespaceJavaScript);
 
                     await handler.CreateFileAsync(optionSets);
                 }
@@ -1514,6 +1516,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void miOptions_Click(object sender, RoutedEventArgs e)
         {
+            var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
+
+            this._optionsControl.BindFileGenerationOptions(fileGenerationOptions);
+
             this._optionsPopup.IsOpen = true;
             this._optionsPopup.Child.Focus();
         }

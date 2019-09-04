@@ -242,7 +242,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                     return _singleton;
                 }
 
-                string filePath = FileOperations.GetConnectionConfigFilePath();
+                string filePath = FileOperations.GetConnectionConfigurationFilePath();
 
                 ConnectionConfiguration result = GetFromPath(filePath);
 

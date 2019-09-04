@@ -6,6 +6,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
+using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls;
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -63,6 +65,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly bool _isJavaScript;
         private readonly EnvDTE.SelectedItem _selectedItem;
 
+        private readonly Popup _optionsPopup;
+        private readonly FileGenerationSdkMessageRequestsOptionsControl _optionsControl;
+
         public WindowSdkMessageRequestTree(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
@@ -92,6 +97,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             BindingOperations.EnableCollectionSynchronization(service.ConnectionData.ConnectionConfiguration.Connections, sysObjectConnections);
 
             InitializeComponent();
+
+            _optionsControl = new FileGenerationSdkMessageRequestsOptionsControl();
+            _optionsControl.CloseClicked += Child_CloseClicked;
+            this._optionsPopup = new Popup
+            {
+                Child = _optionsControl,
+
+                PlacementTarget = toolBarHeader,
+                Placement = PlacementMode.Bottom,
+                StaysOpen = false,
+                Focusable = true,
+            };
 
             cmBEntityName.Text = entityFilter;
             txtBMessageFilter.Text = messageFilter;
@@ -163,14 +180,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadFromConfig()
         {
-            chBSdkMessageRequestAttributesWithNameOf.DataContext = _commonConfig;
-            chBSdkMessageRequestMakeAllPropertiesEditable.DataContext = _commonConfig;
-            chBSdkMessageRequestWithDebuggerNonUserCode.DataContext = _commonConfig;
-
             cmBFileAction.DataContext = _commonConfig;
-
-            txtBNamespaceSdkMessagesCSharp.DataContext = cmBCurrentConnection;
-            txtBNamespaceSdkMessagesJavaScript.DataContext = cmBCurrentConnection;
         }
 
         protected override void OnClosed(EventArgs e)
@@ -1961,7 +1971,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                var config = CreateFileCSharpConfiguration.CreateForSdkMessageRequest(service.ConnectionData.NamespaceClassesCSharp, service.ConnectionData.NamespaceOptionSetsCSharp, _commonConfig);
+                var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
+
+                var config = CreateFileCSharpConfiguration.CreateForSdkMessageRequest(fileGenerationOptions);
 
                 string fileName = string.Format("{0}.{1}.cs", service.ConnectionData.Name, codeMessagePair.Request.Name);
 
@@ -1981,7 +1993,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ICodeGenerationService codeGenerationService = new CodeGenerationService(config);
                 INamingService namingService = new NamingService(service.ConnectionData.ServiceContextName, config);
-                ITypeMappingService typeMappingService = new TypeMappingService(service.ConnectionData.NamespaceClassesCSharp);
+                ITypeMappingService typeMappingService = new TypeMappingService(fileGenerationOptions.NamespaceClassesCSharp);
                 ICodeWriterFilterService codeWriterFilterService = new CodeWriterFilterService(config);
                 IMetadataProviderService metadataProviderService = new MetadataProviderService(repository);
 
@@ -1994,7 +2006,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     VerbatimOrder = true,
                 };
 
-                await codeGenerationService.WriteSdkMessagePairAsync(codeMessagePair, filePath, service.ConnectionData.NamespaceSdkMessagesCSharp, options, codeGenerationServiceProvider);
+                await codeGenerationService.WriteSdkMessagePairAsync(codeMessagePair, filePath, fileGenerationOptions.NamespaceSdkMessagesCSharp, options, codeGenerationServiceProvider);
 
                 if (this._selectedItem != null)
                 {
@@ -2282,7 +2294,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                var config = CreateFileCSharpConfiguration.CreateForSdkMessageRequest(service.ConnectionData.NamespaceClassesCSharp, service.ConnectionData.NamespaceOptionSetsCSharp, _commonConfig);
+                var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
+
+                var config = CreateFileCSharpConfiguration.CreateForSdkMessageRequest(fileGenerationOptions);
 
                 string fileName = string.Format("{0}.{1}.cs", service.ConnectionData.Name, codeMessage.Name);
 
@@ -2302,7 +2316,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ICodeGenerationService codeGenerationService = new CodeGenerationService(config);
                 INamingService namingService = new NamingService(service.ConnectionData.ServiceContextName, config);
-                ITypeMappingService typeMappingService = new TypeMappingService(service.ConnectionData.NamespaceClassesCSharp);
+                ITypeMappingService typeMappingService = new TypeMappingService(fileGenerationOptions.NamespaceClassesCSharp);
                 ICodeWriterFilterService codeWriterFilterService = new CodeWriterFilterService(config);
                 IMetadataProviderService metadataProviderService = new MetadataProviderService(repository);
 
@@ -2315,7 +2329,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     VerbatimOrder = true,
                 };
 
-                await codeGenerationService.WriteSdkMessageAsync(codeMessage, filePath, service.ConnectionData.NamespaceSdkMessagesCSharp, options, codeGenerationServiceProvider);
+                await codeGenerationService.WriteSdkMessageAsync(codeMessage, filePath, fileGenerationOptions.NamespaceSdkMessagesCSharp, options, codeGenerationServiceProvider);
 
                 if (this._selectedItem != null)
                 {
@@ -2354,6 +2368,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private void tSBRefresh_Click(object sender, RoutedEventArgs e)
         {
             ShowExistingSdkMessageRequests();
+        }
+
+        private void miOptions_Click(object sender, RoutedEventArgs e)
+        {
+            var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
+
+            this._optionsControl.BindFileGenerationOptions(fileGenerationOptions);
+
+            this._optionsPopup.IsOpen = true;
+            this._optionsPopup.Child.Focus();
+        }
+
+        private void Child_CloseClicked(object sender, EventArgs e)
+        {
+            if (_optionsPopup.IsOpen)
+            {
+                _optionsPopup.IsOpen = false;
+                this.Focus();
+            }
         }
     }
 }

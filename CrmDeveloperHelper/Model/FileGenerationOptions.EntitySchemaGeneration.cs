@@ -2,7 +2,7 @@
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 {
-    public partial class CommonConfiguration
+    public partial class FileGenerationOptions
     {
         private const int _defaultGenerateCommonSpaceCount = 4;
 
@@ -92,7 +92,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private bool _GenerateCommonAllDescriptions;
+        private bool _GenerateCommonAllDescriptions = true;
         /// <summary>
         /// Генерировать все описания (description) или только первое по приоритету в файле с метаданными сущности
         /// </summary>
@@ -108,7 +108,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private bool _GenerateSchemaEntityOptionSetsWithDependentComponents;
+        private bool _GenerateSchemaEntityOptionSetsWithDependentComponents = true;
         [DataMember]
         public bool GenerateSchemaEntityOptionSetsWithDependentComponents
         {
@@ -272,7 +272,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private bool _GenerateSchemaIntoSchemaClass;
+        private bool _GenerateSchemaIntoSchemaClass = true;
         [DataMember]
         public bool GenerateSchemaIntoSchemaClass
         {
@@ -303,7 +303,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private void LoadFromDiskEntitySchema(CommonConfiguration diskData)
+        private void LoadFromDiskEntitySchema(FileGenerationOptions diskData)
         {
             this.GenerateCommonSpaceCount = diskData.GenerateCommonSpaceCount;
             this.GenerateCommonIndentType = diskData.GenerateCommonIndentType;

@@ -206,9 +206,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         #endregion Проверка расширений файлов.
 
-        public static string GetConnectionConfigFilePath()
+        public static string GetConnectionConfigurationFilePath()
         {
             return GetConfigurationFilePath(_programConnectionConfigFileName);
+        }
+
+        public static string GetFileGenerationConfigurationFilePath()
+        {
+            return GetConfigurationFilePath(_programFileGenerationConfigurationFileName);
         }
 
         public static string GetConnectionDataFilePath(Guid connectionId)
@@ -346,6 +351,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private const string _programConnectionConfigFileName = "ConnectionConfiguration.xml";
         private const string _programCommonConfigFileName = "CommonConfiguration.xml";
+        private const string _programFileGenerationConfigurationFileName = "FileGenerationConfiguration.xml";
 
 #if DEBUG
         private const string _folderConfiguratonSubdirectoryName = "CrmDeveloperHelperDEBUG";

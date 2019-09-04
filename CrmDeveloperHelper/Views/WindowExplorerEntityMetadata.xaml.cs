@@ -31,7 +31,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
     {
         private readonly object sysObjectConnections = new object();
 
-        private readonly Popup _optionsPopup;
+        private readonly Popup _popupEntityMetadataOptions;
+        private readonly Popup _popupFileGenerationEntityMetadataOptions;
+        private readonly FileGenerationEntityMetadataOptionsControl _optionsControlFileGeneration;
 
         private readonly IWriteToOutput _iWriteToOutput;
 
@@ -83,10 +85,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             InitializeComponent();
 
             var child = new ExportEntityMetadataOptionsControl(_commonConfig);
-            child.CloseClicked += Child_CloseClicked;
-            this._optionsPopup = new Popup
+            child.CloseClicked += optionsEntityMetadata_CloseClicked;
+            this._popupEntityMetadataOptions = new Popup
             {
                 Child = child,
+
+                PlacementTarget = toolBarHeader,
+                Placement = PlacementMode.Bottom,
+                StaysOpen = false,
+                Focusable = true,
+            };
+
+            _optionsControlFileGeneration = new FileGenerationEntityMetadataOptionsControl();
+            _optionsControlFileGeneration.CloseClicked += this._optionsControlFileGeneration_CloseClicked;
+            this._popupFileGenerationEntityMetadataOptions = new Popup
+            {
+                Child = _optionsControlFileGeneration,
 
                 PlacementTarget = toolBarHeader,
                 Placement = PlacementMode.Bottom,
@@ -174,14 +188,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadFromConfig()
         {
-            txtBNamespaceClassesCSharp.DataContext = cmBCurrentConnection;
-            txtBNamespaceClassesJavaScript.DataContext = cmBCurrentConnection;
-
-            txtBNamespaceOptionSetsCSharp.DataContext = cmBCurrentConnection;
-            txtBNamespaceOptionSetsJavaScript.DataContext = cmBCurrentConnection;
-
-            txtBTypeConverterName.DataContext = cmBCurrentConnection;
-
             cmBFileAction.DataContext = _commonConfig;
         }
 
@@ -841,7 +847,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                var config = CreateFileCSharpConfiguration.CreateForSchemaEntity(service.ConnectionData.NamespaceClassesCSharp, service.ConnectionData.NamespaceOptionSetsCSharp, service.ConnectionData.TypeConverterName, _commonConfig);
+                var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
+
+                var config = CreateFileCSharpConfiguration.CreateForSchemaEntity(fileGenerationOptions);
 
                 string fileName = CreateFileWithEntityMetadataCSharpHandler.CreateFileNameForSchema(service.ConnectionData, entityMetadata.EntityMetadata.SchemaName, this._selectedItem != null);
 
@@ -856,7 +864,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ICodeGenerationService codeGenerationService = new CodeGenerationService(config);
                 INamingService namingService = new NamingService(service.ConnectionData.ServiceContextName, config);
-                ITypeMappingService typeMappingService = new TypeMappingService(service.ConnectionData.NamespaceClassesCSharp);
+                ITypeMappingService typeMappingService = new TypeMappingService(fileGenerationOptions.NamespaceClassesCSharp);
                 ICodeWriterFilterService codeWriterFilterService = new CodeWriterFilterService(config);
                 IMetadataProviderService metadataProviderService = new MetadataProviderService(repository);
 
@@ -913,7 +921,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                var config = CreateFileCSharpConfiguration.CreateForProxyClass(service.ConnectionData.NamespaceClassesCSharp, service.ConnectionData.NamespaceOptionSetsCSharp, _commonConfig);
+                var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
+
+                var config = CreateFileCSharpConfiguration.CreateForProxyClass(fileGenerationOptions);
 
                 string fileName = CreateFileWithEntityMetadataCSharpHandler.CreateFileNameForProxy(service.ConnectionData, entityMetadata.EntityMetadata.SchemaName, this._selectedItem != null);
 
@@ -928,7 +938,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ICodeGenerationService codeGenerationService = new CodeGenerationService(config);
                 INamingService namingService = new NamingService(service.ConnectionData.ServiceContextName, config);
-                ITypeMappingService typeMappingService = new TypeMappingService(service.ConnectionData.NamespaceClassesCSharp);
+                ITypeMappingService typeMappingService = new TypeMappingService(fileGenerationOptions.NamespaceClassesCSharp);
                 ICodeWriterFilterService codeWriterFilterService = new CodeWriterFilterService(config);
                 IMetadataProviderService metadataProviderService = new MetadataProviderService(repository);
 
@@ -943,7 +953,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     VerbatimOrder = true,
                 };
 
-                await codeGenerationService.WriteEntityFileAsync(entityMetadataFull, filePath, service.ConnectionData.NamespaceClassesCSharp, options, codeGenerationServiceProvider);
+                await codeGenerationService.WriteEntityFileAsync(entityMetadataFull, filePath, fileGenerationOptions.NamespaceClassesCSharp, options, codeGenerationServiceProvider);
 
                 if (this._selectedItem != null)
                 {
@@ -1004,11 +1014,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingFileForEntityFormat1, entityMetadata.EntityLogicalName);
 
+            var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
+
             var config = new CreateFileJavaScriptConfiguration(
-                _commonConfig.GetTabSpacer()
-                , _commonConfig.GenerateSchemaEntityOptionSetsWithDependentComponents
-                , _commonConfig.GenerateSchemaIntoSchemaClass
-                , _commonConfig.GenerateSchemaGlobalOptionSet
+                fileGenerationOptions.GetTabSpacer()
+                , fileGenerationOptions.GenerateSchemaEntityOptionSetsWithDependentComponents
+                , fileGenerationOptions.GenerateSchemaIntoSchemaClass
+                , fileGenerationOptions.GenerateSchemaGlobalOptionSet
+                , fileGenerationOptions.NamespaceClassesJavaScript
             );
 
             string fileName = string.Format("{0}.{1}.entitymetadata.generated.js", service.ConnectionData.Name, entityMetadata.EntityLogicalName);
@@ -1280,9 +1293,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     || (e.Key == Key.W && e.KeyboardDevice != null && (e.KeyboardDevice.Modifiers & ModifierKeys.Control) != 0)
                     )
                 {
-                    if (_optionsPopup.IsOpen)
+                    if (_popupEntityMetadataOptions.IsOpen)
                     {
-                        _optionsPopup.IsOpen = false;
+                        _popupEntityMetadataOptions.IsOpen = false;
                         e.Handled = true;
                     }
                 }
@@ -1520,15 +1533,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void miExportEntityMetadataOptions_Click(object sender, RoutedEventArgs e)
         {
-            _optionsPopup.IsOpen = true;
-            _optionsPopup.Child.Focus();
+            _popupEntityMetadataOptions.IsOpen = true;
+            _popupEntityMetadataOptions.Child.Focus();
         }
 
-        private void Child_CloseClicked(object sender, EventArgs e)
+        private void optionsEntityMetadata_CloseClicked(object sender, EventArgs e)
         {
-            if (_optionsPopup.IsOpen)
+            if (_popupEntityMetadataOptions.IsOpen)
             {
-                _optionsPopup.IsOpen = false;
+                _popupEntityMetadataOptions.IsOpen = false;
+                this.Focus();
+            }
+        }
+
+        private void miFileGenerationEntityMetadataOptions_Click(object sender, RoutedEventArgs e)
+        {
+            var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
+
+            this._optionsControlFileGeneration.BindFileGenerationOptions(fileGenerationOptions);
+
+            _popupFileGenerationEntityMetadataOptions.IsOpen = true;
+            _popupFileGenerationEntityMetadataOptions.Child.Focus();
+        }
+
+        private void _optionsControlFileGeneration_CloseClicked(object sender, EventArgs e)
+        {
+            if (_popupFileGenerationEntityMetadataOptions.IsOpen)
+            {
+                _popupFileGenerationEntityMetadataOptions.IsOpen = false;
                 this.Focus();
             }
         }
@@ -1999,13 +2031,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                _commonConfig.Save();
+                var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
 
                 var config = new CreateFileJavaScriptConfiguration(
-                    _commonConfig.GetTabSpacer()
-                    , _commonConfig.GenerateSchemaEntityOptionSetsWithDependentComponents
-                    , _commonConfig.GenerateSchemaIntoSchemaClass
-                    , _commonConfig.GenerateSchemaGlobalOptionSet
+                    fileGenerationOptions.GetTabSpacer()
+                    , fileGenerationOptions.GenerateSchemaEntityOptionSetsWithDependentComponents
+                    , fileGenerationOptions.GenerateSchemaIntoSchemaClass
+                    , fileGenerationOptions.GenerateSchemaGlobalOptionSet
+                    , fileGenerationOptions.NamespaceClassesJavaScript
                 );
 
                 string filePath = Path.Combine(folder, fileName);

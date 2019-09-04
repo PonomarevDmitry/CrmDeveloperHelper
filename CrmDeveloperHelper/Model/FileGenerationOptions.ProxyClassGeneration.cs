@@ -2,7 +2,7 @@
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 {
-    public partial class CommonConfiguration
+    public partial class FileGenerationOptions
     {
         private bool _GenerateProxyClassesUseSchemaConstInCSharpAttributes = true;
         [DataMember]
@@ -30,7 +30,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private bool _GenerateProxyClassesMakeAllPropertiesEditable = true;
+        private bool _GenerateProxyClassesMakeAllPropertiesEditable = false;
         [DataMember]
         public bool GenerateProxyClassesMakeAllPropertiesEditable
         {
@@ -43,7 +43,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private bool _GenerateProxyClassesWithoutObsoleteAttribute = true;
+        private bool _GenerateProxyClassesWithoutObsoleteAttribute = false;
         [DataMember]
         public bool GenerateProxyClassesWithoutObsoleteAttribute
         {
@@ -111,7 +111,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private ProxyClassAttributeEnums _GenerateProxyClassesAttributesEnumsStateStatus = ProxyClassAttributeEnums.NotNeeded;
+        private ProxyClassAttributeEnums _GenerateProxyClassesAttributesEnumsStateStatus = ProxyClassAttributeEnums.AddWithNameAttributeEnum;
         [DataMember]
         public ProxyClassAttributeEnums GenerateProxyClassesAttributesEnumsStateStatus
         {
@@ -124,7 +124,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private ProxyClassAttributeEnums _GenerateProxyClassesAttributesEnumsLocal = ProxyClassAttributeEnums.NotNeeded;
+        private ProxyClassAttributeEnums _GenerateProxyClassesAttributesEnumsLocal = ProxyClassAttributeEnums.AddWithNameAttributeEnum;
         [DataMember]
         public ProxyClassAttributeEnums GenerateProxyClassesAttributesEnumsLocal
         {
@@ -137,7 +137,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private ProxyClassAttributeEnums _GenerateProxyClassesAttributesEnumsGlobal = ProxyClassAttributeEnums.NotNeeded;
+        private ProxyClassAttributeEnums _GenerateProxyClassesAttributesEnumsGlobal = ProxyClassAttributeEnums.AddWithNameAttributeEnum;
         [DataMember]
         public ProxyClassAttributeEnums GenerateProxyClassesAttributesEnumsGlobal
         {
@@ -221,7 +221,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private bool _GenerateProxyClassesManyToMany = true;
+        private bool _GenerateProxyClassesManyToMany = false;
         /// <summary>
         /// Генерировать Many To Many (N:N) в файле с метаданными сущности
         /// </summary>
@@ -237,7 +237,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private bool _GenerateProxyClassesLocalOptionSet = true;
+        private bool _GenerateProxyClassesLocalOptionSet = false;
         /// <summary>
         /// Генерировать enum для значений Picklist-ов в файле с метаданными сущности
         /// </summary>
@@ -282,7 +282,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private void LoadFromDiskProxyClass(CommonConfiguration diskData)
+        private void LoadFromDiskProxyClass(FileGenerationOptions diskData)
         {
             this.GenerateProxyClassesAttributes = diskData.GenerateProxyClassesAttributes;
             this.GenerateProxyClassesManyToOne = diskData.GenerateProxyClassesManyToOne;

@@ -1,0 +1,96 @@
+﻿<UserControl x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.FileGenerationSdkMessageRequestsOptionsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.UserControls"
+             xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
+             xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
+             mc:Ignorable="d" 
+             Focusable="True" 
+             BorderThickness="1"
+             BorderBrush="Black"
+             >
+    <UserControl.Resources>
+
+        <Style TargetType="{x:Type CheckBox}">
+            <Setter Property="Padding" Value="2"/>
+            <Setter Property="Margin" Value="3"/>
+
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="{x:Type ComboBox}">
+            <Setter Property="Padding" Value="2"/>
+            <Setter Property="Margin" Value="3"/>
+
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="{x:Type RadioButton}">
+            <Setter Property="Padding" Value="2"/>
+            <Setter Property="Margin" Value="3"/>
+
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="{x:Type StackPanel}">
+            <Setter Property="Margin" Value="0"/>
+        </Style>
+
+        <Style TargetType="{x:Type GroupBox}">
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="0"/>
+        </Style>
+
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Padding" Value="2"/>
+            <Setter Property="Margin" Value="3"/>
+
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+    </UserControl.Resources>
+
+    <StackPanel Orientation="Vertical" Background="White">
+
+        <GroupBox Header="File Generation Options" Margin="5">
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="100*" />
+                </Grid.ColumnDefinitions>
+
+                <CheckBox Grid.Row="0" Grid.Column="0" x:Name="chBSdkMessageRequestAttributesWithNameOf" d:DataContext="{x:Type model:FileGenerationOptions}" IsChecked="{Binding Path=GenerateSdkMessageRequestAttributesWithNameOf}" Content="Use nameof in Indexer" />
+
+                <CheckBox Grid.Row="0" Grid.Column="1" x:Name="chBSdkMessageRequestWithDebuggerNonUserCode" d:DataContext="{x:Type model:FileGenerationOptions}" IsChecked="{Binding Path=GenerateSdkMessageRequestWithDebuggerNonUserCode}" Content="Add DebuggerNonUserCode Attribute" />
+
+                <CheckBox Grid.Row="0" Grid.Column="2" x:Name="chBSdkMessageRequestMakeAllPropertiesEditable" d:DataContext="{x:Type model:FileGenerationOptions}" IsChecked="{Binding Path=GenerateSdkMessageRequestMakeAllPropertiesEditable}" Content="Make All Properties Editable" />
+
+                <Label Content="Namespace Messages C#" Grid.Row="1" Grid.Column="0" />
+                <TextBox x:Name="txtBNamespaceSdkMessagesCSharp" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" d:DataContext="{x:Type model:FileGenerationOptions}" Text="{Binding Path=NamespaceSdkMessagesCSharp, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
+
+                <Label Content="Namespace Messages JavaScript" Grid.Row="2" Grid.Column="0" />
+                <TextBox x:Name="txtBNamespaceSdkMessagesJavaScript" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" d:DataContext="{x:Type model:FileGenerationOptions}" Text="{Binding Path=NamespaceSdkMessagesJavaScript, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
+
+            </Grid>
+        </GroupBox>
+
+    </StackPanel>
+
+</UserControl>

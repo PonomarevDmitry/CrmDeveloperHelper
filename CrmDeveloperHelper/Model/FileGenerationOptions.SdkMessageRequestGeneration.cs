@@ -2,7 +2,7 @@
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 {
-    public partial class CommonConfiguration
+    public partial class FileGenerationOptions
     {
         private bool _GenerateSdkMessageRequestWithDebuggerNonUserCode = true;
         [DataMember]
@@ -17,7 +17,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private bool _GenerateSdkMessageRequestMakeAllPropertiesEditable = true;
+        private bool _GenerateSdkMessageRequestMakeAllPropertiesEditable = false;
         [DataMember]
         public bool GenerateSdkMessageRequestMakeAllPropertiesEditable
         {
@@ -43,7 +43,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private void LoadFromDiskSdkMessageRequest(CommonConfiguration diskData)
+        private void LoadFromDiskSdkMessageRequest(FileGenerationOptions diskData)
         {
             this.GenerateSdkMessageRequestWithDebuggerNonUserCode = diskData.GenerateSdkMessageRequestWithDebuggerNonUserCode;
 

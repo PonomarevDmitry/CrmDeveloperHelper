@@ -5,9 +5,6 @@ using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 {
-    /// <summary>
-    /// Interaction logic for ExportGlobalOptionSetMetadataOptionsControl.xaml
-    /// </summary>
     public partial class ExportGlobalOptionSetMetadataOptionsControl : UserControl
     {
         public ExportGlobalOptionSetMetadataOptionsControl()
@@ -15,34 +12,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             InitializeComponent();
         }
 
-        public ExportGlobalOptionSetMetadataOptionsControl(CommonConfiguration commonConfig)
-            : this()
+        public void BindFileGenerationOptions(FileGenerationOptions fileGenerationOptions)
         {
-            BindCommonConfiguration(commonConfig);
-        }
+            txtBSpaceCount.DataContext = fileGenerationOptions;
 
-        public void BindCommonConfiguration(CommonConfiguration commonConfig)
-        {
-            txtBSpaceCount.DataContext = commonConfig;
+            rBTab.DataContext = fileGenerationOptions;
+            rBSpaces.DataContext = fileGenerationOptions;
 
-            rBTab.DataContext = commonConfig;
-            rBSpaces.DataContext = commonConfig;
+            rBClasses.DataContext = fileGenerationOptions;
+            rBEnums.DataContext = fileGenerationOptions;
 
-            rBClasses.DataContext = commonConfig;
-            rBEnums.DataContext = commonConfig;
+            rBReadOnly.DataContext = fileGenerationOptions;
+            rBConst.DataContext = fileGenerationOptions;
 
-            rBReadOnly.DataContext = commonConfig;
-            rBConst.DataContext = commonConfig;
+            chBAllDescriptions.DataContext = fileGenerationOptions;
 
-            chBAllDescriptions.DataContext = commonConfig;
+            chBWithDependentComponents.DataContext = fileGenerationOptions;
 
-            chBWithDependentComponents.DataContext = commonConfig;
+            chBWithManagedInfo.DataContext = fileGenerationOptions;
 
-            chBWithManagedInfo.DataContext = commonConfig;
+            chBSchemaAddDescriptionAttribute.DataContext = fileGenerationOptions;
 
-            chBSchemaAddDescriptionAttribute.DataContext = commonConfig;
+            chBSchemaAddTypeConverterAttributeForEnums.DataContext = fileGenerationOptions;
 
-            chBSchemaAddTypeConverterAttributeForEnums.DataContext = commonConfig;
+            txtBNamespaceGlobalOptionSetsCSharp.DataContext = fileGenerationOptions;
+            txtBNamespaceGlobalOptionSetsJavaScript.DataContext = fileGenerationOptions;
+
+            txtBTypeConverterName.DataContext = fileGenerationOptions;
         }
 
         public event EventHandler<EventArgs> CloseClicked;

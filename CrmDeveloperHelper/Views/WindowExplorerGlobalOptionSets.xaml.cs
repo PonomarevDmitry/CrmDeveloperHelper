@@ -42,6 +42,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly Dictionary<Guid, IEnumerable<OptionSetMetadata>> _cacheOptionSetMetadata = new Dictionary<Guid, IEnumerable<OptionSetMetadata>>();
 
         private readonly Popup _optionsPopup;
+        private readonly ExportGlobalOptionSetMetadataOptionsControl _optionsControl;
 
         public WindowExplorerGlobalOptionSets(
             IWriteToOutput iWriteToOutput
@@ -78,11 +79,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadEntityNames(cmBEntityName, service.ConnectionData);
 
-            var child = new ExportGlobalOptionSetMetadataOptionsControl(_commonConfig);
-            child.CloseClicked += Child_CloseClicked;
+            _optionsControl = new ExportGlobalOptionSetMetadataOptionsControl();
+            _optionsControl.CloseClicked += Child_CloseClicked;
             this._optionsPopup = new Popup
             {
-                Child = child,
+                Child = _optionsControl,
 
                 PlacementTarget = toolBarHeader,
                 Placement = PlacementMode.Bottom,
@@ -161,11 +162,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadFromConfig()
         {
-            txtBNamespaceOptionSetsCSharp.DataContext = cmBCurrentConnection;
-            txtBNamespaceOptionSetsJavaScript.DataContext = cmBCurrentConnection;
-
-            txtBTypeConverterName.DataContext = cmBCurrentConnection;
-
             cmBFileAction.DataContext = _commonConfig;
         }
 
@@ -527,7 +523,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     filePath = _filePath;
                 }
 
-                var config = CreateFileCSharpConfiguration.CreateForSchemaGlobalOptionSet(service.ConnectionData.NamespaceClassesCSharp, service.ConnectionData.NamespaceOptionSetsCSharp, service.ConnectionData.TypeConverterName, _commonConfig);
+                var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
+
+                var config = CreateFileCSharpConfiguration.CreateForSchemaGlobalOptionSet(fileGenerationOptions);
 
                 using (var writer = new StreamWriter(filePath, false, new UTF8Encoding(false)))
                 {
@@ -624,14 +622,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     filePath = _filePath;
                 }
 
+                var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
+
                 using (var writer = new StreamWriter(filePath, false, new UTF8Encoding(false)))
                 {
                     var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(
                         writer
                         , service
                         , _iWriteToOutput
-                        , _commonConfig.GetTabSpacer()
-                        , _commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents
+                        , fileGenerationOptions.GetTabSpacer()
+                        , fileGenerationOptions.GenerateSchemaGlobalOptionSetsWithDependentComponents
+                        , fileGenerationOptions.NamespaceGlobalOptionSetsJavaScript
                     );
 
                     await handler.CreateFileAsync(optionSets);
@@ -1045,6 +1046,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void miOptions_Click(object sender, RoutedEventArgs e)
         {
+            var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
+
+            this._optionsControl.BindFileGenerationOptions(fileGenerationOptions);
+
             this._optionsPopup.IsOpen = true;
             this._optionsPopup.Child.Focus();
         }

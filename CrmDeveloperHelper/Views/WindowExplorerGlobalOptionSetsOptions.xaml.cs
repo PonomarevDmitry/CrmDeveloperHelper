@@ -1,5 +1,6 @@
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Input;
@@ -10,21 +11,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
     {
         private readonly IWriteToOutput _iWriteToOutput;
 
-        private readonly CommonConfiguration _commonConfig;
+        private readonly FileGenerationOptions _fileGenerationOptions;
 
-        public WindowExplorerGlobalOptionSetsOptions(IWriteToOutput iWriteToOutput, CommonConfiguration commonConfig, ConnectionData connectionData)
+        public WindowExplorerGlobalOptionSetsOptions(IWriteToOutput iWriteToOutput, ConnectionData connectionData)
         {
             InitializeComponent();
 
-            options.BindCommonConfiguration(commonConfig);
-
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
-            this._commonConfig = commonConfig;
+            this._fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
             this._iWriteToOutput = iWriteToOutput;
+
+            options.BindFileGenerationOptions(_fileGenerationOptions);
 
             cmBCurrentConnection.ItemsSource = connectionData.ConnectionConfiguration.Connections;
             cmBCurrentConnection.SelectedItem = connectionData;
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+
+            this._fileGenerationOptions?.Configuration.Save();
         }
 
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)

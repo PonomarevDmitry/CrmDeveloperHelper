@@ -63,7 +63,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteLine();
 
-            string tempNamespace = !string.IsNullOrEmpty(this._service.ConnectionData.NamespaceClassesJavaScript) ? this._service.ConnectionData.NamespaceClassesJavaScript + "." : string.Empty;
+            string tempNamespace = !string.IsNullOrEmpty(this._config.NamespaceClassesJavaScript) ? this._config.NamespaceClassesJavaScript + "." : string.Empty;
 
             string objectDeclaration = !string.IsNullOrEmpty(tempNamespace) ? tempNamespace + objectName : "var " + objectName;
 
@@ -391,12 +391,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private void WriteNamespace()
         {
-            if (string.IsNullOrEmpty(this._service.ConnectionData.NamespaceClassesJavaScript))
+            if (string.IsNullOrEmpty(this._config.NamespaceClassesJavaScript))
             {
                 return;
             }
 
-            string[] split = this._service.ConnectionData.NamespaceClassesJavaScript.Split('.');
+            string[] split = this._config.NamespaceClassesJavaScript.Split('.');
 
             StringBuilder str = new StringBuilder();
 

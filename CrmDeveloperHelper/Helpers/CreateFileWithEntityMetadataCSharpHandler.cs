@@ -104,7 +104,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteLine();
 
-            WriteLine("namespace {0}", this._service.ConnectionData.NamespaceClassesCSharp);
+            WriteLine("namespace {0}", _config.NamespaceClasses);
             WriteLine("{");
 
             if (!_config.GenerateSchemaIntoSchemaClass)
@@ -426,7 +426,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private void GenerateAttributeMetadata(AttributeMetadata attributeMetadata)
         {
-            List<string> footers = GetAttributeDescription(attributeMetadata, _config.AllDescriptions, _config.WithManagedInfo, this._solutionComponentDescriptor, _tabSpacer, _service.ConnectionData.NamespaceOptionSetsCSharp);
+            List<string> footers = GetAttributeDescription(attributeMetadata, _config.AllDescriptions, _config.WithManagedInfo, this._solutionComponentDescriptor, _tabSpacer, _config.NamespaceGlobalOptionSets);
 
             footers.AddRange(GetAttributeMetadataDescription(attributeMetadata));
 

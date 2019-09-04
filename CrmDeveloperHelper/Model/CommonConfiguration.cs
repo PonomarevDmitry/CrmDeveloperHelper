@@ -501,11 +501,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             this.LoadFromDiskXml(diskData);
 
-            this.LoadFromDiskEntitySchema(diskData);
-            this.LoadFromDiskGlobalOptionSetSchema(diskData);
-
-            this.LoadFromDiskProxyClass(diskData);
-
             this.DefaultFileAction = diskData.DefaultFileAction;
 
             this.FileActionsByExtensions.Clear();
@@ -530,11 +525,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             UpdateTextEditorProgramExists();
             UpdateDifferenceProgramExists();
             UpdateDifferenceThreeWayAvaliable();
-
-            if (this._GenerateCommonSpaceCount <= 0)
-            {
-                this._GenerateCommonSpaceCount = _defaultGenerateCommonSpaceCount;
-            }
         }
 
         /// <summary>

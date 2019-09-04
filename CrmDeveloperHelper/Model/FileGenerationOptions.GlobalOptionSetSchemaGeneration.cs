@@ -2,9 +2,9 @@
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 {
-    public partial class CommonConfiguration
+    public partial class FileGenerationOptions
     {
-        private bool _GenerateSchemaGlobalOptionSetsWithDependentComponents;
+        private bool _GenerateSchemaGlobalOptionSetsWithDependentComponents = true;
         [DataMember]
         public bool GenerateSchemaGlobalOptionSetsWithDependentComponents
         {
@@ -17,7 +17,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private void LoadFromDiskGlobalOptionSetSchema(CommonConfiguration diskData)
+        private void LoadFromDiskGlobalOptionSetSchema(FileGenerationOptions diskData)
         {
             this.GenerateSchemaGlobalOptionSetsWithDependentComponents = diskData.GenerateSchemaGlobalOptionSetsWithDependentComponents;
         }
