@@ -277,22 +277,20 @@
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-
-                    <CheckBox Grid.Column="0" x:Name="chBAttributesProxyClassEnumsUseSchemaStateStatusEnum" d:DataContext="{x:Type model:FileGenerationOptions}" IsChecked="{Binding Path=GenerateProxyClassesAttributesEnumsUseSchemaStateStatusEnum}" Content="Use Schema Enums for Status and StatusReason" />
-                    <CheckBox Grid.Column="1" x:Name="chBAttributesProxyClassEnumsUseSchemaLocalEnum" d:DataContext="{x:Type model:FileGenerationOptions}" IsChecked="{Binding Path=GenerateProxyClassesAttributesEnumsUseSchemaLocalEnum}" Content="Use Schema Enums for Local OptionSets" />
-                </Grid>
-
-                <Grid>
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="100*" />
                     </Grid.ColumnDefinitions>
 
-                    <Label Grid.Column="0" Content="Global OptionSets Enum:" />
-                    <ComboBox Grid.Column="1" x:Name="cmBAttributesProxyClassEnumsUseSchemaGlobalEnum" d:DataContext="{x:Type model:FileGenerationOptions}" SelectedItem="{Binding Path=GenerateProxyClassesAttributesEnumsUseSchemaGlobalEnum}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:ProxyClassAttributeEnumsGlobalOptionSetLocation}}}" />
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <CheckBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" x:Name="chBAttributesProxyClassEnumsUseSchemaStateStatusEnum" d:DataContext="{x:Type model:FileGenerationOptions}" IsChecked="{Binding Path=GenerateProxyClassesAttributesEnumsUseSchemaStateStatusEnum}" Content="Use Schema Enums for Status and StatusReason" />
+                    <CheckBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" x:Name="chBAttributesProxyClassEnumsUseSchemaLocalEnum" d:DataContext="{x:Type model:FileGenerationOptions}" IsChecked="{Binding Path=GenerateProxyClassesAttributesEnumsUseSchemaLocalEnum}" Content="Use Schema Enums for Local OptionSets" />
+
+                    <Label Grid.Row="2" Grid.Column="0" Content="Global OptionSets Enum:" />
+                    <ComboBox Grid.Row="2" Grid.Column="1" x:Name="cmBAttributesProxyClassEnumsUseSchemaGlobalEnum" d:DataContext="{x:Type model:FileGenerationOptions}" SelectedItem="{Binding Path=GenerateProxyClassesAttributesEnumsUseSchemaGlobalEnum}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:ProxyClassAttributeEnumsGlobalOptionSetLocation}}}" />
                 </Grid>
 
                 <Separator />
