@@ -1601,7 +1601,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService1();
 
-            WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityName);
+            WindowHelper.OpenEntityMetadataExplorer(this._iWriteToOutput, service, _commonConfig, entity?.EntityName);
         }
 
         private async void btnExportApplicationRibbon1_Click(object sender, RoutedEventArgs e)
@@ -1711,7 +1711,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService2();
 
-            WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityName);
+            WindowHelper.OpenEntityMetadataExplorer(this._iWriteToOutput, service, _commonConfig, entity?.EntityName);
         }
 
         private async void btnExportApplicationRibbon2_Click(object sender, RoutedEventArgs e)

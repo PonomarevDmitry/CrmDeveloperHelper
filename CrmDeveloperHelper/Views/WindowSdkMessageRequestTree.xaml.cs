@@ -1531,7 +1531,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var service = await GetService();
 
-                WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, _commonConfig, nodeItem.EntityLogicalName);
+                WindowHelper.OpenEntityMetadataExplorer(this._iWriteToOutput, service, _commonConfig, nodeItem.EntityLogicalName);
             }
         }
 

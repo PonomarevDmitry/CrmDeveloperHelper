@@ -12,26 +12,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
     public static class WindowHelper
     {
-        public static void OpenEntityMetadataWindow(
+        public static void OpenEntityMetadataExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
         )
         {
-            OpenEntityMetadataWindow(iWriteToOutput, service, commonConfig, null, null, null, false, null);
+            OpenEntityMetadataExplorer(iWriteToOutput, service, commonConfig, null, null, null, false, null);
         }
 
-        public static void OpenEntityMetadataWindow(
+        public static void OpenEntityMetadataExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
             , string filterEntityName
         )
         {
-            OpenEntityMetadataWindow(iWriteToOutput, service, commonConfig, null, filterEntityName, null, false, null);
+            OpenEntityMetadataExplorer(iWriteToOutput, service, commonConfig, null, filterEntityName, null, false, null);
         }
 
-        public static void OpenEntityMetadataWindow(
+        public static void OpenEntityMetadataExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -39,10 +39,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , EnvDTE.SelectedItem selectedItem
         )
         {
-            OpenEntityMetadataWindow(iWriteToOutput, service, commonConfig, null, filterEntityName, null, false, selectedItem);
+            OpenEntityMetadataExplorer(iWriteToOutput, service, commonConfig, null, filterEntityName, null, false, selectedItem);
         }
 
-        public static void OpenEntityMetadataWindow(
+        public static void OpenEntityMetadataExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -51,10 +51,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , bool isJavaScript
         )
         {
-            OpenEntityMetadataWindow(iWriteToOutput, service, commonConfig, null, filterEntityName, filePath, isJavaScript, null);
+            OpenEntityMetadataExplorer(iWriteToOutput, service, commonConfig, null, filterEntityName, filePath, isJavaScript, null);
         }
 
-        public static void OpenEntityMetadataWindow(
+        public static void OpenEntityMetadataExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -62,10 +62,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string filterEntityName
         )
         {
-            OpenEntityMetadataWindow(iWriteToOutput, service, commonConfig, entityMetadataList, filterEntityName, null, false, null);
+            OpenEntityMetadataExplorer(iWriteToOutput, service, commonConfig, entityMetadataList, filterEntityName, null, false, null);
         }
 
-        public static void OpenEntityMetadataWindow(
+        public static void OpenEntityMetadataExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -104,7 +104,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenEntityMetadataWindowOptions(
+        public static void OpenEntityMetadataFileGenerationOptions(
             IWriteToOutput iWriteToOutput
             , ConnectionData connectionData
             , CommonConfiguration commonConfig
@@ -2056,7 +2056,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             switch (componentType)
             {
                 case ComponentType.Entity:
-                    OpenEntityMetadataWindow(iWriteToOutput, service, commonConfig, null, componentName);
+                    OpenEntityMetadataExplorer(iWriteToOutput, service, commonConfig, null, componentName);
                     break;
 
                 case ComponentType.Attribute:

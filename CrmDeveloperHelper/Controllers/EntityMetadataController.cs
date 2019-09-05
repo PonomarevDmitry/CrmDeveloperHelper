@@ -275,7 +275,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-                WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, commonConfig, selection, selectedItem);
+                WindowHelper.OpenEntityMetadataExplorer(this._iWriteToOutput, service, commonConfig, selection, selectedItem);
             }
             catch (Exception ex)
             {
@@ -493,7 +493,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (!selectEntity && openOptions)
             {
-                WindowHelper.OpenEntityMetadataWindowOptions(_iWriteToOutput, connectionData, commonConfig);
+                WindowHelper.OpenEntityMetadataFileGenerationOptions(_iWriteToOutput, connectionData, commonConfig);
             }
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
@@ -559,7 +559,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         return;
                     }
 
-                    WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, tempService, commonConfig, selection, filePath, isJavaScript);
+                    WindowHelper.OpenEntityMetadataExplorer(this._iWriteToOutput, tempService, commonConfig, selection, filePath, isJavaScript);
                 }
             }
         }
@@ -1390,7 +1390,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (!string.IsNullOrEmpty(entityName))
             {
-                WindowHelper.OpenEntityMetadataWindow(_iWriteToOutput, service, commonConfig, entityName);
+                WindowHelper.OpenEntityMetadataExplorer(_iWriteToOutput, service, commonConfig, entityName);
             }
             else
             {
@@ -1458,7 +1458,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
                 _iWriteToOutput.ActivateOutputWindow(connectionData);
 
-                WindowHelper.OpenEntityMetadataWindow(_iWriteToOutput, service, commonConfig);
+                WindowHelper.OpenEntityMetadataExplorer(_iWriteToOutput, service, commonConfig);
 
                 return;
             }
@@ -1469,7 +1469,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotContainsXmlAttributeFormat2, Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName.ToString(), selectedFile.FilePath);
 
-                WindowHelper.OpenEntityMetadataWindow(_iWriteToOutput, service, commonConfig);
+                WindowHelper.OpenEntityMetadataExplorer(_iWriteToOutput, service, commonConfig);
 
                 return;
             }
@@ -1484,7 +1484,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     , selectedFile.FilePath
                 );
 
-                WindowHelper.OpenEntityMetadataWindow(_iWriteToOutput, service, commonConfig);
+                WindowHelper.OpenEntityMetadataExplorer(_iWriteToOutput, service, commonConfig);
 
                 return;
             }
@@ -1498,7 +1498,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityNotExistsInConnectionFormat2, entityName, connectionData.Name);
                 _iWriteToOutput.ActivateOutputWindow(connectionData);
 
-                WindowHelper.OpenEntityMetadataWindow(_iWriteToOutput, service, commonConfig, entityName);
+                WindowHelper.OpenEntityMetadataExplorer(_iWriteToOutput, service, commonConfig, entityName);
 
                 return;
             }

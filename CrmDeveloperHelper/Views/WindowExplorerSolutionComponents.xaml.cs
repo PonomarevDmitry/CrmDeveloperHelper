@@ -1370,7 +1370,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             _commonConfig.Save();
 
-            WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, _service, _commonConfig);
+            WindowHelper.OpenEntityMetadataExplorer(this._iWriteToOutput, _service, _commonConfig);
         }
 
         private void btnEntityAttributeExplorer_Click(object sender, RoutedEventArgs e)
