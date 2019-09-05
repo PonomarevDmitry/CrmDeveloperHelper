@@ -38,7 +38,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly ObservableCollection<LinkedOptionSetMetadata> _itemsSource;
 
         private readonly Popup _optionsPopup;
-        private readonly ExportGlobalOptionSetMetadataOptionsControl _optionsControl;
+        private readonly FileGenerationGlobalOptionSetMetadataOptionsControl _optionsControl;
 
         public WindowOrganizationComparerGlobalOptionSets(
           IWriteToOutput iWriteToOutput
@@ -61,7 +61,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadEntityNames(cmBEntityName, connection1, connection2);
 
-            _optionsControl = new ExportGlobalOptionSetMetadataOptionsControl();
+            _optionsControl = new FileGenerationGlobalOptionSetMetadataOptionsControl();
             _optionsControl.CloseClicked += Child_CloseClicked;
             this._optionsPopup = new Popup
             {

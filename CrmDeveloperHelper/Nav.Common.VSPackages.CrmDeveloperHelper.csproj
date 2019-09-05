@@ -1274,8 +1274,8 @@
     <Compile Include="UserControls\ExportEntityMetadataOptionsControl.xaml.cs">
       <DependentUpon>ExportEntityMetadataOptionsControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ExportGlobalOptionSetMetadataOptionsControl.xaml.cs">
-      <DependentUpon>ExportGlobalOptionSetMetadataOptionsControl.xaml</DependentUpon>
+    <Compile Include="UserControls\FileGenerationGlobalOptionSetMetadataOptionsControl.xaml.cs">
+      <DependentUpon>FileGenerationGlobalOptionSetMetadataOptionsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ExportXmlOptionsControl.xaml.cs">
       <DependentUpon>ExportXmlOptionsControl.xaml</DependentUpon>
@@ -1981,7 +1981,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\ExportGlobalOptionSetMetadataOptionsControl.xaml">
+    <Page Include="UserControls\FileGenerationGlobalOptionSetMetadataOptionsControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

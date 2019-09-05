@@ -30,7 +30,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <local:ExportGlobalOptionSetMetadataOptionsControl Grid.Row="0" x:Name="options" CloseClicked="options_CloseClicked" />
+        <local:FileGenerationGlobalOptionSetMetadataOptionsControl Grid.Row="0" x:Name="options" CloseClicked="options_CloseClicked" />
 
         <StatusBar Grid.Row="1">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" />

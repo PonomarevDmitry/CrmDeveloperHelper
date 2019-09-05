@@ -5,9 +5,9 @@ using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 {
-    public partial class ExportGlobalOptionSetMetadataOptionsControl : UserControl
+    public partial class FileGenerationGlobalOptionSetMetadataOptionsControl : UserControl
     {
-        public ExportGlobalOptionSetMetadataOptionsControl()
+        public FileGenerationGlobalOptionSetMetadataOptionsControl()
         {
             InitializeComponent();
         }

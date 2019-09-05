@@ -42,7 +42,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly Dictionary<Guid, IEnumerable<OptionSetMetadata>> _cacheOptionSetMetadata = new Dictionary<Guid, IEnumerable<OptionSetMetadata>>();
 
         private readonly Popup _optionsPopup;
-        private readonly ExportGlobalOptionSetMetadataOptionsControl _optionsControl;
+        private readonly FileGenerationGlobalOptionSetMetadataOptionsControl _optionsControl;
 
         public WindowExplorerGlobalOptionSets(
             IWriteToOutput iWriteToOutput
@@ -79,7 +79,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadEntityNames(cmBEntityName, service.ConnectionData);
 
-            _optionsControl = new ExportGlobalOptionSetMetadataOptionsControl();
+            _optionsControl = new FileGenerationGlobalOptionSetMetadataOptionsControl();
             _optionsControl.CloseClicked += Child_CloseClicked;
             this._optionsPopup = new Popup
             {
