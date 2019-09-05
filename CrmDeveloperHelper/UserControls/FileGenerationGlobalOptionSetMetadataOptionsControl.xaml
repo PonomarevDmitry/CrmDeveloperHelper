@@ -62,19 +62,38 @@
 
     <StackPanel Orientation="Vertical" Background="White">
 
+        <ToolBar>
+
+            <Button Content="Load Configuration" Click="btnLoadConfiguration_Click"/>
+
+            <Separator />
+
+            <Button Content="Save Configuration" Click="btnSaveConfiguration_Click"/>
+
+        </ToolBar>
+
         <GroupBox Header="Common File Generation Options" Margin="5">
 
-            <StackPanel Orientation="Vertical">
-                <StackPanel Orientation="Horizontal">
-                    <CheckBox x:Name="chBWithManagedInfo" d:DataContext="{x:Type model:FileGenerationOptions}" IsChecked="{Binding Path=SolutionComponentWithManagedInfo}" Content="With Managed Info" />
-                    <CheckBox x:Name="chBAllDescriptions" d:DataContext="{x:Type model:FileGenerationOptions}" IsChecked="{Binding Path=GenerateCommonAllDescriptions}" Content="All descriptions" />
+            <Grid>
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="100*" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Vertical" Grid.Column="0">
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox x:Name="chBWithManagedInfo" d:DataContext="{x:Type model:FileGenerationOptions}" IsChecked="{Binding Path=SolutionComponentWithManagedInfo}" Content="With Managed Info" />
+                        <CheckBox x:Name="chBAllDescriptions" d:DataContext="{x:Type model:FileGenerationOptions}" IsChecked="{Binding Path=GenerateCommonAllDescriptions}" Content="All descriptions" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox x:Name="chBWithDependentComponents" d:DataContext="{x:Type model:FileGenerationOptions}" IsChecked="{Binding Path=GenerateSchemaGlobalOptionSetsWithDependentComponents}" Content="With dependent components for Global OptionSets" />
+                    </StackPanel>
+
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal">
-                    <CheckBox x:Name="chBWithDependentComponents" d:DataContext="{x:Type model:FileGenerationOptions}" IsChecked="{Binding Path=GenerateSchemaGlobalOptionSetsWithDependentComponents}" Content="With dependent components for Global OptionSets" />
-                </StackPanel>
-
-                <GroupBox Header="Indent" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                <GroupBox Header="Indent" Grid.Column="1">
                     <Grid>
 
                         <Grid.ColumnDefinitions>
@@ -89,64 +108,54 @@
                     </Grid>
                 </GroupBox>
 
-            </StackPanel>
+            </Grid>
+            
         </GroupBox>
 
         <GroupBox Header="Namespaces" Margin="5">
 
-            <Grid>
+            <StackPanel Orientation="Vertical">
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
+                <Label Content="Namespace OptionSets C#" />
+                <TextBox x:Name="txtBNamespaceGlobalOptionSetsCSharp" d:DataContext="{x:Type model:FileGenerationOptions}" Text="{Binding Path=NamespaceGlobalOptionSetsCSharp, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"  />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
+                <Label Content="Namespace OptionSets JavaScript" />
+                <TextBox x:Name="txtBNamespaceGlobalOptionSetsJavaScript" d:DataContext="{x:Type model:FileGenerationOptions}" Text="{Binding Path=NamespaceGlobalOptionSetsJavaScript, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
 
-                <Label Content="Namespace OptionSets C#" Grid.Row="0" Grid.Column="0"/>
-                <TextBox x:Name="txtBNamespaceGlobalOptionSetsCSharp" Grid.Row="0" Grid.Column="1" d:DataContext="{x:Type model:FileGenerationOptions}" Text="{Binding Path=NamespaceGlobalOptionSetsCSharp, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
-
-                <Label Content="Namespace OptionSets JavaScript" Grid.Row="1" Grid.Column="0"/>
-                <TextBox x:Name="txtBNamespaceGlobalOptionSetsJavaScript" Grid.Row="1" Grid.Column="1" d:DataContext="{x:Type model:FileGenerationOptions}" Text="{Binding Path=NamespaceGlobalOptionSetsJavaScript, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
-
-                <Label Content="TypeConverter Name" Grid.Row="2" Grid.Column="0" />
-                <TextBox x:Name="txtBTypeConverterName" Grid.Row="2" Grid.Column="1" d:DataContext="{x:Type model:FileGenerationOptions}" Text="{Binding Path=TypeConverterName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
-            </Grid>
+                <Label Content="TypeConverter Name" />
+                <TextBox x:Name="txtBTypeConverterName" d:DataContext="{x:Type model:FileGenerationOptions}" Text="{Binding Path=TypeConverterName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
+            </StackPanel>
         </GroupBox>
 
         <GroupBox Header="Global OptionSets Metadata Options" Margin="5">
-            <StackPanel Orientation="Vertical" Background="White">
 
-                <CheckBox x:Name="chBSchemaAddDescriptionAttribute" d:DataContext="{x:Type model:FileGenerationOptions}" IsChecked="{Binding Path=GenerateSchemaAddDescriptionAttribute}" Content="Add Description Attribute" />
+            <StackPanel Orientation="Horizontal">
 
-                <CheckBox x:Name="chBSchemaAddTypeConverterAttributeForEnums" d:DataContext="{x:Type model:FileGenerationOptions}" IsChecked="{Binding Path=GenerateSchemaAddTypeConverterAttributeForEnums}" Content="Add TypeConverterAttribute for Enums" />
+                <StackPanel Orientation="Vertical" Background="White">
 
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
+                    <CheckBox x:Name="chBSchemaAddDescriptionAttribute" d:DataContext="{x:Type model:FileGenerationOptions}" IsChecked="{Binding Path=GenerateSchemaAddDescriptionAttribute}" Content="Add Description Attribute" />
 
-                    <GroupBox Header="Field Type" Grid.Column="0" HorizontalAlignment="Stretch">
-                        <StackPanel Orientation="Horizontal">
-                            <RadioButton x:Name="rBConst" d:DataContext="{x:Type model:FileGenerationOptions}" IsChecked="{Binding Path=GenerateSchemaConstantType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:ConstantType.Constant}}" GroupName="ConstantType" Content="Const"   />
-                            <RadioButton x:Name="rBReadOnly" d:DataContext="{x:Type model:FileGenerationOptions}" IsChecked="{Binding Path=GenerateSchemaConstantType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:ConstantType.ReadOnlyField}}" GroupName="ConstantType" Content="ReadOnly" />
-                        </StackPanel>
-                    </GroupBox>
+                    <CheckBox x:Name="chBSchemaAddTypeConverterAttributeForEnums" d:DataContext="{x:Type model:FileGenerationOptions}" IsChecked="{Binding Path=GenerateSchemaAddTypeConverterAttributeForEnums}" Content="Add TypeConverterAttribute for Enums" />
 
-                    <GroupBox Header="OptionSets Values" Grid.Column="1" HorizontalAlignment="Stretch">
-                        <StackPanel Orientation="Horizontal" >
-                            <RadioButton x:Name="rBEnums" d:DataContext="{x:Type model:FileGenerationOptions}" IsChecked="{Binding Path=GenerateSchemaOptionSetExportType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:OptionSetExportType.Enums}}" GroupName="OptionSets" Content="Enum" />
-                            <RadioButton x:Name="rBClasses" d:DataContext="{x:Type model:FileGenerationOptions}" IsChecked="{Binding Path=GenerateSchemaOptionSetExportType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:OptionSetExportType.Classes}}" GroupName="OptionSets" Content="Class"  />
-                        </StackPanel>
-                    </GroupBox>
-                </Grid>
+                </StackPanel>
+
+                <GroupBox Header="Field Type" Grid.Column="0" HorizontalAlignment="Stretch">
+                    <StackPanel Orientation="Horizontal">
+                        <RadioButton x:Name="rBConst" d:DataContext="{x:Type model:FileGenerationOptions}" IsChecked="{Binding Path=GenerateSchemaConstantType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:ConstantType.Constant}}" GroupName="ConstantType" Content="Const"   />
+                        <RadioButton x:Name="rBReadOnly" d:DataContext="{x:Type model:FileGenerationOptions}" IsChecked="{Binding Path=GenerateSchemaConstantType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:ConstantType.ReadOnlyField}}" GroupName="ConstantType" Content="ReadOnly" />
+                    </StackPanel>
+                </GroupBox>
+
+                <GroupBox Header="OptionSets Values" Grid.Column="1" HorizontalAlignment="Stretch">
+                    <StackPanel Orientation="Horizontal" >
+                        <RadioButton x:Name="rBEnums" d:DataContext="{x:Type model:FileGenerationOptions}" IsChecked="{Binding Path=GenerateSchemaOptionSetExportType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:OptionSetExportType.Enums}}" GroupName="OptionSets" Content="Enum" />
+                        <RadioButton x:Name="rBClasses" d:DataContext="{x:Type model:FileGenerationOptions}" IsChecked="{Binding Path=GenerateSchemaOptionSetExportType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:OptionSetExportType.Classes}}" GroupName="OptionSets" Content="Class"  />
+                    </StackPanel>
+                </GroupBox>
 
             </StackPanel>
+            
+            
         </GroupBox>
 
     </StackPanel>

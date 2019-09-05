@@ -10,7 +10,7 @@ using System.Xml;
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 {
     [DataContract]
-    public partial class FileGenerationOptions
+    public partial class FileGenerationOptions : INotifyPropertyChanging, INotifyPropertyChanged
     {
         public FileGenerationOptions()
         {
@@ -226,7 +226,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private void LoadFromDisk(FileGenerationOptions diskData)
+        public void LoadFromDisk(FileGenerationOptions diskData)
         {
             if (diskData == null)
             {
@@ -294,7 +294,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             return result;
         }
 
-        private void Save(string filePath)
+        public void Save(string filePath)
         {
             DataContractSerializer ser = new DataContractSerializer(typeof(FileGenerationOptions));
 

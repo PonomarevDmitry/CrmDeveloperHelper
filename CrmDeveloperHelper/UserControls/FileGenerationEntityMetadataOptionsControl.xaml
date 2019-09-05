@@ -62,6 +62,16 @@
 
     <StackPanel Orientation="Vertical" Background="White">
 
+        <ToolBar>
+
+            <Button Content="Load Configuration" Click="btnLoadConfiguration_Click"/>
+
+            <Separator />
+
+            <Button Content="Save Configuration" Click="btnSaveConfiguration_Click"/>
+
+        </ToolBar>
+
         <GroupBox Margin="5" Header="Common Generation File Options">
 
             <Grid>
