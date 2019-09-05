@@ -778,7 +778,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var contr = new EntityMetadataController(iWriteToOutput);
 
-                        contr.ExecuteCreatingFileWithEntityMetadata(string.Empty, null, connection, commonConfig);
+                        contr.ExecuteOpeningEntityMetadataExplorer(string.Empty, null, connection, commonConfig);
                     }
                     catch (Exception ex)
                     {

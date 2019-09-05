@@ -207,12 +207,19 @@
   <data name="CreatingAllDependencyNodesDescriptionFormat1" xml:space="preserve">
     <value>{0} - Creating all Dependency Nodes Description</value>
   </data>
-  <data name="CreatingFileWithEntityMetadataFormat1" xml:space="preserve">
-    <value>{0} - Creating File with Entity Metadata</value>
-  </data>
   <data name="CreatingFileWithGlobalOptionSetsFormat1" xml:space="preserve">
     <value>{0} - Creating File with Global OptionSets Metadata</value>
   </data>
+  
+  <data name="OpeningEntityMetadataExplorerFormat1" xml:space="preserve">
+    <value>{0} - Opening Entity Metadata Explorer</value>
+  </data>
+  <data name="OpeningGlobalOptionSetsExplorerFormat1" xml:space="preserve">
+    <value>{0} - Opening Global OptionSets Metadata Explorer</value>
+  </data>
+  
+  
+  
   <data name="CreatingLastLinkForReportFormat1" xml:space="preserve">
     <value>{0} - Creating Last Link for Report</value>
   </data>

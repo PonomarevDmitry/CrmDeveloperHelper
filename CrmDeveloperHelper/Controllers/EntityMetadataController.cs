@@ -246,9 +246,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Создание файла с мета-данными сущности.
 
-        public async Task ExecuteCreatingFileWithEntityMetadata(string selection, EnvDTE.SelectedItem selectedItem, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteOpeningEntityMetadataExplorer(string selection, EnvDTE.SelectedItem selectedItem, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            string operation = string.Format(Properties.OperationNames.CreatingFileWithEntityMetadataFormat1, connectionData?.Name);
+            string operation = string.Format(Properties.OperationNames.OpeningEntityMetadataExplorerFormat1, connectionData?.Name);
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
@@ -289,11 +289,71 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Создание файла с мета-данными сущности.
 
+        #region Opening Entity Metadata File Generation Options
+
+        public void ExecuteOpeningEntityMetadataFileGenerationOptions(ConnectionData connectionData)
+        {
+            string operation = string.Format(Properties.OperationNames.OpeningEntityMetadataExplorerFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                if (connectionData == null)
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                    return;
+                }
+
+                WindowHelper.OpenEntityMetadataFileGenerationOptions(this._iWriteToOutput, connectionData);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        #endregion Opening Entity Metadata File Generation Options
+
+        #region Opening Global OptionSets Metadata File Generation Options
+
+        public void ExecuteOpeningGlobalOptionSetsMetadataFileGenerationOptions(ConnectionData connectionData)
+        {
+            string operation = string.Format(Properties.OperationNames.OpeningEntityMetadataExplorerFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                if (connectionData == null)
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                    return;
+                }
+
+                WindowHelper.OpenGlobalOptionSetsFileGenerationOptions(this._iWriteToOutput, connectionData);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        #endregion Opening Global OptionSets Metadata File Generation Options
+
         #region Создание файла с глобальными OptionSet-ами.
 
         public async Task ExecuteCreatingFileWithGlobalOptionSets(ConnectionData connectionData, CommonConfiguration commonConfig, string selection, EnvDTE.SelectedItem selectedItem)
         {
-            string operation = string.Format(Properties.OperationNames.CreatingFileWithGlobalOptionSetsFormat1, connectionData?.Name);
+            string operation = string.Format(Properties.OperationNames.OpeningGlobalOptionSetsExplorerFormat1, connectionData?.Name);
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
@@ -493,7 +553,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (!selectEntity && openOptions)
             {
-                WindowHelper.OpenEntityMetadataFileGenerationOptions(_iWriteToOutput, connectionData, commonConfig);
+                WindowHelper.OpenEntityMetadataFileGenerationOptions(_iWriteToOutput, connectionData);
             }
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
@@ -723,7 +783,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (!withSelect && openOptions)
             {
-                WindowHelper.OpenGlobalOptionSetsWindowOptions(_iWriteToOutput, connectionData, commonConfig);
+                WindowHelper.OpenGlobalOptionSetsFileGenerationOptions(_iWriteToOutput, connectionData);
             }
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
@@ -864,7 +924,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (openOptions)
             {
-                WindowHelper.OpenGlobalOptionSetsWindowOptions(_iWriteToOutput, connectionData, commonConfig);
+                WindowHelper.OpenGlobalOptionSetsFileGenerationOptions(_iWriteToOutput, connectionData);
             }
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);

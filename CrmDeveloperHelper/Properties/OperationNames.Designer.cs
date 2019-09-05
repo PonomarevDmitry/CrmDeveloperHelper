@@ -826,15 +826,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Creating File with Entity Metadata.
-        /// </summary>
-        internal static string CreatingFileWithEntityMetadataFormat1 {
-            get {
-                return ResourceManager.GetString("CreatingFileWithEntityMetadataFormat1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0} - Creating File with Global OptionSets Metadata.
         /// </summary>
         internal static string CreatingFileWithGlobalOptionSetsFormat1 {
@@ -1366,6 +1357,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Opening Entity Metadata Explorer.
+        /// </summary>
+        internal static string OpeningEntityMetadataExplorerFormat1 {
+            get {
+                return ResourceManager.GetString("OpeningEntityMetadataExplorerFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Opening Entity Privileges Explorer.
         /// </summary>
         internal static string OpeningEntityPrivilegesExplorerFormat1 {
@@ -1407,6 +1407,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string OpeningFilesWithoutUTF8Encoding {
             get {
                 return ResourceManager.GetString("OpeningFilesWithoutUTF8Encoding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Opening Global OptionSets Metadata Explorer.
+        /// </summary>
+        internal static string OpeningGlobalOptionSetsExplorerFormat1 {
+            get {
+                return ResourceManager.GetString("OpeningGlobalOptionSetsExplorerFormat1", resourceCulture);
             }
         }
         

@@ -749,7 +749,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             worker.Start();
         }
-        
+
         public void StartFindEntityObjectsByPrefixAndShowDependentComponents(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
         {
             var worker = new Thread(() =>
@@ -1177,13 +1177,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartCreatingFileWithEntityMetadata(string selection, EnvDTE.SelectedItem selectedItem, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartOpeningEntityMetadataExplorer(string selection, EnvDTE.SelectedItem selectedItem, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._entityMetadataController.ExecuteCreatingFileWithEntityMetadata(selection, selectedItem, connectionData, commonConfig);
+                    this._entityMetadataController.ExecuteOpeningEntityMetadataExplorer(selection, selectedItem, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartOpeningEntityMetadataFileGenerationOptions(ConnectionData connectionData)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._entityMetadataController.ExecuteOpeningEntityMetadataFileGenerationOptions(connectionData);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartOpeningGlobalOptionSetsMetadataFileGenerationOptions(ConnectionData connectionData)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._entityMetadataController.ExecuteOpeningGlobalOptionSetsMetadataFileGenerationOptions(connectionData);
                 }
                 catch (Exception ex)
                 {

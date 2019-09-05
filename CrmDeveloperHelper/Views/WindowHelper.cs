@@ -107,7 +107,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         public static void OpenEntityMetadataFileGenerationOptions(
             IWriteToOutput iWriteToOutput
             , ConnectionData connectionData
-            , CommonConfiguration commonConfig
         )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
@@ -1215,10 +1214,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenGlobalOptionSetsWindowOptions(
+        public static void OpenGlobalOptionSetsFileGenerationOptions(
             IWriteToOutput iWriteToOutput
             , ConnectionData connectionData
-            , CommonConfiguration commonConfig
         )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
