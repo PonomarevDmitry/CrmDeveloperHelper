@@ -644,7 +644,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            WindowHelper.OpenGlobalOptionSetsWindow(
+            WindowHelper.OpenGlobalOptionSetsExplorer(
                 this._iWriteToOutput
                 , service
                 , _commonConfig

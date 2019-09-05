@@ -380,7 +380,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-                WindowHelper.OpenGlobalOptionSetsWindow(this._iWriteToOutput, service, commonConfig, selection, selectedItem);
+                WindowHelper.OpenGlobalOptionSetsExplorer(this._iWriteToOutput, service, commonConfig, selection, selectedItem);
             }
             catch (Exception ex)
             {
@@ -845,7 +845,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         return;
                     }
 
-                    WindowHelper.OpenGlobalOptionSetsWindow(this._iWriteToOutput, tempService, commonConfig, selection, filePath, isJavaScript);
+                    WindowHelper.OpenGlobalOptionSetsExplorer(this._iWriteToOutput, tempService, commonConfig, selection, filePath, isJavaScript);
                 }
             }
         }

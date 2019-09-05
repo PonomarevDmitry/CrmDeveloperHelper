@@ -1109,26 +1109,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenGlobalOptionSetsWindow(
+        public static void OpenGlobalOptionSetsExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
         )
         {
-            OpenGlobalOptionSetsWindow(iWriteToOutput, service, commonConfig, null, null, null, null, false, null);
+            OpenGlobalOptionSetsExplorer(iWriteToOutput, service, commonConfig, null, null, null, null, false, null);
         }
 
-        public static void OpenGlobalOptionSetsWindow(
+        public static void OpenGlobalOptionSetsExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
             , string filter
         )
         {
-            OpenGlobalOptionSetsWindow(iWriteToOutput, service, commonConfig, null, null, filter, null, false, null);
+            OpenGlobalOptionSetsExplorer(iWriteToOutput, service, commonConfig, null, null, filter, null, false, null);
         }
 
-        public static void OpenGlobalOptionSetsWindow(
+        public static void OpenGlobalOptionSetsExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -1136,10 +1136,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string filterEntityName
         )
         {
-            OpenGlobalOptionSetsWindow(iWriteToOutput, service, commonConfig, null, filterEntityName, filter, null, false, null);
+            OpenGlobalOptionSetsExplorer(iWriteToOutput, service, commonConfig, null, filterEntityName, filter, null, false, null);
         }
 
-        public static void OpenGlobalOptionSetsWindow(
+        public static void OpenGlobalOptionSetsExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -1147,10 +1147,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , EnvDTE.SelectedItem selectedItem
         )
         {
-            OpenGlobalOptionSetsWindow(iWriteToOutput, service, commonConfig, null, null, filter, null, false, selectedItem);
+            OpenGlobalOptionSetsExplorer(iWriteToOutput, service, commonConfig, null, null, filter, null, false, selectedItem);
         }
 
-        public static void OpenGlobalOptionSetsWindow(
+        public static void OpenGlobalOptionSetsExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -1159,10 +1159,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , bool isJavaScript
         )
         {
-            OpenGlobalOptionSetsWindow(iWriteToOutput, service, commonConfig, null, null, filter, filePath, isJavaScript, null);
+            OpenGlobalOptionSetsExplorer(iWriteToOutput, service, commonConfig, null, null, filter, filePath, isJavaScript, null);
         }
 
-        public static void OpenGlobalOptionSetsWindow(
+        public static void OpenGlobalOptionSetsExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -1170,10 +1170,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string filter
         )
         {
-            OpenGlobalOptionSetsWindow(iWriteToOutput, service, commonConfig, optionSets, null, filter, null, false, null);
+            OpenGlobalOptionSetsExplorer(iWriteToOutput, service, commonConfig, optionSets, null, filter, null, false, null);
         }
 
-        public static void OpenGlobalOptionSetsWindow(
+        public static void OpenGlobalOptionSetsExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -2062,7 +2062,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     break;
 
                 case ComponentType.OptionSet:
-                    OpenGlobalOptionSetsWindow(iWriteToOutput, service, commonConfig, componentName);
+                    OpenGlobalOptionSetsExplorer(iWriteToOutput, service, commonConfig, componentName);
                     break;
 
                 case ComponentType.EntityRelationship:
