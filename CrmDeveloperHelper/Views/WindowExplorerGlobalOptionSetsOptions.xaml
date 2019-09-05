@@ -8,7 +8,7 @@
                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                 mc:Ignorable="d"
                 
-                Title="EntityMetadata Options" 
+                Title="Global OptionSets File Generation Options" 
                 SizeToContent="WidthAndHeight"
                 ResizeMode="NoResize"
                 WindowStartupLocation="Manual">

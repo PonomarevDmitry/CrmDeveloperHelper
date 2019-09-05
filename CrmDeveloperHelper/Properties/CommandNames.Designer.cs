@@ -520,6 +520,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to EntityMetadata File Generation Options.
+        /// </summary>
+        internal static string CSharpEntityMetadataFileGenerationOptionsCommand {
+            get {
+                return ResourceManager.GetString("CSharpEntityMetadataFileGenerationOptionsCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Global OptionSets File Generation Options.
+        /// </summary>
+        internal static string CSharpGlobalOptionSetsMetadataFileGenerationOptionsCommand {
+            get {
+                return ResourceManager.GetString("CSharpGlobalOptionSetsMetadataFileGenerationOptionsCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Compare Files.
         /// </summary>
         internal static string DocumentsWebResourceCompareCommand {

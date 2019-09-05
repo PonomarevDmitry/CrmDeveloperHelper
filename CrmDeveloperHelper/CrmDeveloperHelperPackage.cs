@@ -389,6 +389,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             #region CodeCSharp
 
+            CodeCSharpEntityMetadataFileGenerationOptionsCommand.Initialize(commandService);
+            CodeCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommand.Initialize(commandService);
+
             CodeCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommand.Initialize(commandService);
             CodeCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommand.Initialize(commandService);
 
@@ -424,6 +427,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             #region DocumentsCSharp
 
+            DocumentsCSharpEntityMetadataFileGenerationOptionsCommand.Initialize(commandService);
+            DocumentsCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommand.Initialize(commandService);
+
             DocumentsCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommand.Initialize(commandService);
 
             DocumentsCSharpUpdateEntityMetadataFileSchemaCommand.Initialize(commandService);
@@ -443,6 +449,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             #endregion DocumentsCSharp
 
             #region FileCSharp
+
+            FileCSharpEntityMetadataFileGenerationOptionsCommand.Initialize(commandService);
+            FileCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommand.Initialize(commandService);
 
             FileCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommand.Initialize(commandService);
             FileCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommand.Initialize(commandService);
@@ -475,6 +484,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             #endregion FileCSharp
 
             #region FolderCSharp
+
+            FolderCSharpEntityMetadataFileGenerationOptionsCommand.Initialize(commandService);
+            FolderCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommand.Initialize(commandService);
 
             FolderCSharpProjectPluginAssemblyAddToSolutionInConnectionCommand.Initialize(commandService);
             FolderCSharpProjectPluginAssemblyAddToSolutionLastCommand.Initialize(commandService);

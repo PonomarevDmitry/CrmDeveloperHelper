@@ -394,4 +394,11 @@
   <data name="OutputEntityMetadataExplorerCommand" xml:space="preserve">
     <value>Entity Metadata</value>
   </data>
+
+  <data name="CSharpEntityMetadataFileGenerationOptionsCommand" xml:space="preserve">
+    <value>EntityMetadata File Generation Options</value>
+  </data>
+  <data name="CSharpGlobalOptionSetsMetadataFileGenerationOptionsCommand" xml:space="preserve">
+    <value>Global OptionSets File Generation Options</value>
+  </data>
 </root>

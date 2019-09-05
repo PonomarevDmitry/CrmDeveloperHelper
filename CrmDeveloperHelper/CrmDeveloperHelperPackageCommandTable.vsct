@@ -281,7 +281,9 @@
       <Group guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata_MenuProxyClassOrSchemaDyn_Group" priority="0x0602" />
       <Group guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata_MenuProxyClassDyn_Group" priority="0x0602" />
       <Group guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata_MenuSchemaDyn_Group" priority="0x0602" />
-      <Group guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata_MenuGlobalOptionSetsDyn_Group" priority="0x0602" />
+
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupGlobalOptionSets" priority="0x0602" />
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupGlobalOptionSets_MenuDyn_Group" priority="0x0602" />
 
       <!-- #endregion documentsMenuCSharp -->
 
@@ -489,7 +491,8 @@
       <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata_MenuProxyClassOrSchemaDyn_Group" priority="0x060A" />
       <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata_MenuProxyClassDyn_Group" priority="0x060A" />
       <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata_MenuSchemaDyn_Group" priority="0x060A" />
-      <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata_MenuGlobalOptionSetsDyn_Group" priority="0x060A" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupGlobalOptionSets" priority="0x060A" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupGlobalOptionSets_MenuDyn_Group" priority="0x060A" />
 
       <!-- #endregion folderMenuCSharp -->
 
@@ -1544,7 +1547,7 @@
           <MenuText>Update EntityMetadata Schema File</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata_MenuGlobalOptionSetsDyn" priority="0x0107" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupGlobalOptionSets_MenuDyn" priority="0x0107" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Update Global OptionSets File</ButtonText>
@@ -2134,7 +2137,7 @@
           <MenuText>Update EntityMetadata Schema Files (Recursive)</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata_MenuGlobalOptionSetsDyn" priority="0x0107" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupGlobalOptionSets_MenuDyn" priority="0x0107" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Update Global OptionSets Files (Recursive)</ButtonText>
@@ -4199,9 +4202,17 @@
       </Button>
 
 
-
-
-
+      
+      <Button guid="guidCommandSet" id="CodeCSharpEntityMetadataFileGenerationOptionsCommandId" priority="0x0102" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>EntityMetadata File Generation Options</ButtonText>
+        </Strings>
+      </Button>
       <Button guid="guidDynamicCommandSet" id="CodeCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommandId" priority="0x0101" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -4252,7 +4263,16 @@
 
 
 
-
+      <Button guid="guidCommandSet" id="CodeCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommandId" priority="0x0102" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Global OptionSets File Generation Options</ButtonText>
+        </Strings>
+      </Button>
       <Button guid="guidDynamicCommandSet" id="CodeCSharpUpdateGlobalOptionSetsFileCommandId" priority="0x0103" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -4836,7 +4856,16 @@
 
 
 
-
+      <Button guid="guidCommandSet" id="DocumentsCSharpEntityMetadataFileGenerationOptionsCommandId" priority="0x0102" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>EntityMetadata File Generation Options</ButtonText>
+        </Strings>
+      </Button>
       <Button guid="guidDynamicCommandSet" id="DocumentsCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommandId" priority="0x0111" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -4873,6 +4902,16 @@
         </Strings>
       </Button>
 
+      <Button guid="guidCommandSet" id="DocumentsCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommandId" priority="0x0102" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Global OptionSets File Generation Options</ButtonText>
+        </Strings>
+      </Button>
       <Button guid="guidDynamicCommandSet" id="DocumentsCSharpUpdateGlobalOptionSetsFileCommandId" priority="0x0113" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -5999,7 +6038,16 @@
 
 
 
-
+      <Button guid="guidCommandSet" id="FileCSharpEntityMetadataFileGenerationOptionsCommandId" priority="0x0102" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>EntityMetadata File Generation Options</ButtonText>
+        </Strings>
+      </Button>
       <Button guid="guidDynamicCommandSet" id="FileCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommandId" priority="0x0111" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -6051,7 +6099,16 @@
 
 
 
-
+      <Button guid="guidCommandSet" id="FileCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommandId" priority="0x0102" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Global OptionSets File Generation Options</ButtonText>
+        </Strings>
+      </Button>
       <Button guid="guidDynamicCommandSet" id="FileCSharpUpdateGlobalOptionSetsFileCommandId" priority="0x0113" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -6815,7 +6872,16 @@
 
 
 
-
+      <Button guid="guidCommandSet" id="FolderCSharpEntityMetadataFileGenerationOptionsCommandId" priority="0x0102" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>EntityMetadata File Generation Options</ButtonText>
+        </Strings>
+      </Button>
       <Button guid="guidDynamicCommandSet" id="FolderCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommandId" priority="0x011F" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -6857,7 +6923,16 @@
 
 
 
-
+      <Button guid="guidCommandSet" id="FolderCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommandId" priority="0x0102" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Global OptionSets File Generation Options</ButtonText>
+        </Strings>
+      </Button>
       <Button guid="guidDynamicCommandSet" id="FolderCSharpUpdateGlobalOptionSetsFileCommandId" priority="0x0120" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -10929,16 +11004,19 @@
 
     <!-- #region codeMenuCSharp_GroupEntityMetadata -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupEntityMetadata_MenuProxyClassOrSchemaDyn" priority="0x06000">
+    <CommandPlacement guid="guidCommandSet" id="CodeCSharpEntityMetadataFileGenerationOptionsCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupEntityMetadata" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CodeCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommandId" priority="0x06010">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupEntityMetadata_MenuProxyClassOrSchemaDyn" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupEntityMetadata" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupEntityMetadata_MenuProxyClassDyn" priority="0x06020">
+    <CommandPlacement guid="guidCommandSet" id="CodeCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommandId" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupEntityMetadata" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupEntityMetadata_MenuSchemaDyn" priority="0x06030">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupEntityMetadata_MenuProxyClassDyn" priority="0x06030">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupEntityMetadata" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupEntityMetadata_MenuSchemaDyn" priority="0x06040">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupEntityMetadata" />
     </CommandPlacement>
 
@@ -10946,10 +11024,13 @@
 
     <!-- #region codeMenuCSharp_GroupGlobalOptionSets -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupGlobalOptionSets_MenuConnectionDyn" priority="0x0103">
+    <CommandPlacement guid="guidCommandSet" id="CodeCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupGlobalOptionSets" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CodeCSharpUpdateGlobalOptionSetsFileWithSelectCommandId" priority="0x0104">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupGlobalOptionSets_MenuConnectionDyn" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupGlobalOptionSets" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CodeCSharpUpdateGlobalOptionSetsFileWithSelectCommandId" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupGlobalOptionSets" />
     </CommandPlacement>
 
@@ -11338,7 +11419,10 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupAddToSolution" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata" priority="0x06080">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupGlobalOptionSets" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp" />
     </CommandPlacement>
 
@@ -11391,23 +11475,33 @@
 
     <!-- #endregion documentsMenuCSharp_GroupAddToSolution_MenuAddPluginAssemblyStepsToSolution -->
 
-
     <!-- #region documentsMenuCSharp_GroupEntityMetadata -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata_MenuProxyClassOrSchemaDyn" priority="0x06000">
+    <CommandPlacement guid="guidCommandSet" id="CodeCSharpEntityMetadataFileGenerationOptionsCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata_MenuProxyClassDyn" priority="0x06010">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata_MenuProxyClassOrSchemaDyn" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata_MenuSchemaDyn" priority="0x06020">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata_MenuProxyClassDyn" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata_MenuGlobalOptionSetsDyn" priority="0x06030">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata_MenuSchemaDyn" priority="0x06030">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata" />
     </CommandPlacement>
 
     <!-- #endregion documentsMenuCSharp_GroupEntityMetadata -->
+
+    <!-- #region documentsMenuCSharp_GroupGlobalOptionSets -->
+
+    <CommandPlacement guid="guidCommandSet" id="CodeCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupGlobalOptionSets" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupGlobalOptionSets_MenuDyn" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupGlobalOptionSets" />
+    </CommandPlacement>
+
+    <!-- #endregion documentsMenuCSharp_GroupGlobalOptionSets -->
 
 
 
@@ -12158,16 +12252,19 @@
 
     <!-- #region fileMenuCSharp_GroupEntityMetadata -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata_MenuProxyClassOrSchemaDyn" priority="0x6000">
+    <CommandPlacement guid="guidCommandSet" id="FileCSharpEntityMetadataFileGenerationOptionsCommandId" priority="0x6000">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommandId" priority="0x6010">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata_MenuProxyClassOrSchemaDyn" priority="0x6010">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata_MenuProxyClassDyn" priority="0x6020">
+    <CommandPlacement guid="guidCommandSet" id="FileCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommandId" priority="0x6020">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata_MenuSchemaDyn" priority="0x6030">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata_MenuProxyClassDyn" priority="0x6030">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata_MenuSchemaDyn" priority="0x6040">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata" />
     </CommandPlacement>
 
@@ -12175,11 +12272,13 @@
 
     <!-- #region fileMenuCSharp_GroupGlobalOptionSets -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupGlobalOptionSets_MenuConnectionDyn" priority="0x6030">
+    <CommandPlacement guid="guidCommandSet" id="FileCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommandId" priority="0x6000">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupGlobalOptionSets" />
     </CommandPlacement>
-
-    <CommandPlacement guid="guidCommandSet" id="FileCSharpUpdateGlobalOptionSetsFileWithSelectCommandId" priority="0x6040">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupGlobalOptionSets_MenuConnectionDyn" priority="0x6010">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupGlobalOptionSets" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="FileCSharpUpdateGlobalOptionSetsFileWithSelectCommandId" priority="0x6020">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupGlobalOptionSets" />
     </CommandPlacement>
 
@@ -12724,20 +12823,31 @@
 
     <!-- #region folderMenuCSharp_GroupEntityMetadata -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata_MenuProxyClassOrSchemaDyn" priority="0x06000">
+    <CommandPlacement guid="guidCommandSet" id="FolderCSharpEntityMetadataFileGenerationOptionsCommandId" priority="0x6000">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata_MenuProxyClassDyn" priority="0x06010">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata_MenuProxyClassOrSchemaDyn" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata_MenuSchemaDyn" priority="0x06020">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata_MenuProxyClassDyn" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata_MenuGlobalOptionSetsDyn" priority="0x06030">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata_MenuSchemaDyn" priority="0x06030">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata" />
     </CommandPlacement>
 
     <!-- #endregion folderMenuCSharp_GroupEntityMetadata -->
+
+    <!-- #region folderMenuCSharp_GroupGlobalOptionSets -->
+
+    <CommandPlacement guid="guidCommandSet" id="FolderCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommandId" priority="0x6000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupGlobalOptionSets" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupGlobalOptionSets_MenuDyn" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupGlobalOptionSets" />
+    </CommandPlacement>
+
+    <!-- #endregion folderMenuCSharp_GroupGlobalOptionSets -->
 
 
 
@@ -15198,11 +15308,11 @@
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata_MenuSchemaDyn_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata_MenuGlobalOptionSetsDyn_Group" priority="0x0113">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata_MenuGlobalOptionSetsDyn" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupGlobalOptionSets_MenuDyn_Group" priority="0x0113">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupGlobalOptionSets_MenuDyn" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsCSharpUpdateGlobalOptionSetsFileCommandId" priority="0x0113">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata_MenuGlobalOptionSetsDyn_Group" />
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupGlobalOptionSets_MenuDyn_Group" />
     </CommandPlacement>
 
     <!-- #endregion DocumentsCSharp Dynamic -->
@@ -15632,11 +15742,11 @@
       <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata_MenuSchemaDyn_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata_MenuGlobalOptionSetsDyn_Group" priority="0x0120">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata_MenuGlobalOptionSetsDyn" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupGlobalOptionSets_MenuDyn_Group" priority="0x0120">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupGlobalOptionSets_MenuDyn" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="FolderCSharpUpdateGlobalOptionSetsFileCommandId" priority="0x0120">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata_MenuGlobalOptionSetsDyn_Group" />
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupGlobalOptionSets_MenuDyn_Group" />
     </CommandPlacement>
 
     <!-- #endregion FolderCSharp Dynamic -->
@@ -17072,8 +17182,10 @@
       <IDSymbol name="documentsMenuCSharp_GroupEntityMetadata_MenuSchemaDyn" value="0x127F" />
       <IDSymbol name="documentsMenuCSharp_GroupEntityMetadata_MenuSchemaDyn_Group" value="0x1280" />
 
-      <IDSymbol name="documentsMenuCSharp_GroupEntityMetadata_MenuGlobalOptionSetsDyn" value="0x1281" />
-      <IDSymbol name="documentsMenuCSharp_GroupEntityMetadata_MenuGlobalOptionSetsDyn_Group" value="0x1282" />
+      <IDSymbol name="documentsMenuCSharp_GroupGlobalOptionSets" value="0x13A0" />
+
+      <IDSymbol name="documentsMenuCSharp_GroupGlobalOptionSets_MenuDyn" value="0x1281" />
+      <IDSymbol name="documentsMenuCSharp_GroupGlobalOptionSets_MenuDyn_Group" value="0x1282" />
 
       <!-- #endregion documentsMenuCSharp -->
 
@@ -17433,8 +17545,10 @@
       <IDSymbol name="folderMenuCSharp_GroupEntityMetadata_MenuSchemaDyn" value="0x1283" />
       <IDSymbol name="folderMenuCSharp_GroupEntityMetadata_MenuSchemaDyn_Group" value="0x1284" />
 
-      <IDSymbol name="folderMenuCSharp_GroupEntityMetadata_MenuGlobalOptionSetsDyn" value="0x1285" />
-      <IDSymbol name="folderMenuCSharp_GroupEntityMetadata_MenuGlobalOptionSetsDyn_Group" value="0x1286" />
+      <IDSymbol name="folderMenuCSharp_GroupGlobalOptionSets" value="0x13A1" />
+
+      <IDSymbol name="folderMenuCSharp_GroupGlobalOptionSets_MenuDyn" value="0x1285" />
+      <IDSymbol name="folderMenuCSharp_GroupGlobalOptionSets_MenuDyn_Group" value="0x1286" />
 
       <!-- #endregion folderMenuCSharp -->
 
@@ -18487,6 +18601,9 @@
       <IDSymbol name="CodeCSharpPluginAssemblyExplorerCommandId" value="0x2135" />
       <IDSymbol name="CodeCSharpPluginTreeCommandId" value="0x2175" />
 
+      <IDSymbol name="CodeCSharpEntityMetadataFileGenerationOptionsCommandId" value="0x2215" />
+      <IDSymbol name="CodeCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommandId" value="0x2216" />
+
       <IDSymbol name="CodeCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommandId" value="0x219F" />
       <IDSymbol name="CodeCSharpUpdateGlobalOptionSetsFileWithSelectCommandId" value="0x2012" />
 
@@ -18554,6 +18671,13 @@
       <IDSymbol name="DocumentsReportLinkClearCommandId" value="0x20E7" />
 
       <!-- #endregion DocumentsReport -->
+
+      <!-- #region DocumentsCSharp -->
+
+      <IDSymbol name="DocumentsCSharpEntityMetadataFileGenerationOptionsCommandId" value="0x2217" />
+      <IDSymbol name="DocumentsCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommandId" value="0x2218" />
+
+      <!-- #endregion DocumentsCSharp -->
 
 
 
@@ -18666,8 +18790,13 @@
       <IDSymbol name="FileCSharpPluginAssemblyExplorerCommandId" value="0x2137" />
       <IDSymbol name="FileCSharpPluginTreeCommandId" value="0x2176" />
 
+      <IDSymbol name="FileCSharpEntityMetadataFileGenerationOptionsCommandId" value="0x2219" />
+      <IDSymbol name="FileCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommandId" value="0x221A" />
+
       <IDSymbol name="FileCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommandId" value="0x21A0" />
       <IDSymbol name="FileCSharpUpdateGlobalOptionSetsFileWithSelectCommandId" value="0x205C" />
+
+      <IDSymbol name="FileCSharpAddPluginStepCommandId" value="0x218D" />
 
       <!-- #endregion FileCSharp -->
 
@@ -18750,11 +18879,12 @@
 
       <!-- #endregion FolderXml -->
 
-      <!-- #region FileCSharp -->
+      <!-- #region FolderCSharp -->
 
-      <IDSymbol name="FileCSharpAddPluginStepCommandId" value="0x218D" />
+      <IDSymbol name="FolderCSharpEntityMetadataFileGenerationOptionsCommandId" value="0x221B" />
+      <IDSymbol name="FolderCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommandId" value="0x221C" />
 
-      <!-- #endregion FileCSharp -->
+      <!-- #endregion FolderCSharp -->
 
 
 
@@ -19105,11 +19235,11 @@
     </GuidSymbol>
 
 
-    <!-- Groups and -->
-    <!-- 0x13A0 -->
+    <!-- Groups and Menus -->
+    <!-- 0x13A2 -->
 
     <!-- -->
-    <!-- 0x2215 -->
+    <!-- 0x221D -->
 
 
   </Symbols>

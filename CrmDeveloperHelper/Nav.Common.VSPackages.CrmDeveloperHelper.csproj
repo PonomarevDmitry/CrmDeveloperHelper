@@ -104,6 +104,8 @@
     <Compile Include="Commands\Checks\CommonCheckUnknownFormControlTypes.cs" />
     <Compile Include="Commands\Connections\CommonCrmConnectionEditCommand.cs" />
     <Compile Include="Commands\Connections\CommonCrmConnectionSelectFileCommand.cs" />
+    <Compile Include="Commands\CSharp\CodeCSharpEntityMetadataFileGenerationOptionsCommand.cs" />
+    <Compile Include="Commands\CSharp\CodeCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectPluginAssemblyAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpAddPluginStepCommand.cs" />
@@ -116,8 +118,14 @@
     <Compile Include="Commands\CSharp\CodeCSharpUpdateEntityMetadataFileProxyClassCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommand.cs" />
+    <Compile Include="Commands\CSharp\DocumentsCSharpEntityMetadataFileGenerationOptionsCommand.cs" />
+    <Compile Include="Commands\CSharp\DocumentsCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommand.cs" />
     <Compile Include="Commands\CSharp\DocumentsCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommand.cs" />
+    <Compile Include="Commands\CSharp\FileCSharpEntityMetadataFileGenerationOptionsCommand.cs" />
+    <Compile Include="Commands\CSharp\FileCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommand.cs" />
     <Compile Include="Commands\CSharp\FileCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommand.cs" />
+    <Compile Include="Commands\CSharp\FolderCSharpEntityMetadataFileGenerationOptionsCommand.cs" />
+    <Compile Include="Commands\CSharp\FolderCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommand.cs" />
     <Compile Include="Commands\CSharp\FolderCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommand.cs" />
     <Compile Include="Commands\FindEdit\CommonFindEntityObjectsByNameInExplorerCommand.cs" />
     <Compile Include="Commands\FindEdit\CommonFindEntityObjectsByPrefixInExplorerCommand.cs" />
