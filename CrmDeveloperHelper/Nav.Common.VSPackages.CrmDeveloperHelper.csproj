@@ -1105,6 +1105,7 @@
     <Compile Include="Model\SolutionDifferenceImage.cs" />
     <Compile Include="Model\SolutionImage.cs" />
     <Compile Include="Model\SolutionImageComponent.cs" />
+    <Compile Include="Model\StatusCodeViewItem.cs" />
     <Compile Include="Model\TraceFile.cs" />
     <Compile Include="Model\TraceRecord.cs" />
     <Compile Include="Model\TraceRecordLevel.cs" />

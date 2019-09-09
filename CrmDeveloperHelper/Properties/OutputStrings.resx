@@ -408,21 +408,24 @@
   <data name="SavingChangesInRoleFormat1" xml:space="preserve">
     <value>Saving Changes in Role {0}...</value>
   </data>
-  <data name="ExecutingOnEntityWorkflowFormat1" xml:space="preserve">
-    <value>Executing on Entity Workflow {0}...</value>
+  <data name="ExecutingOnEntityWorkflowFormat3" xml:space="preserve">
+    <value>Executing on Entity Workflow {0} {1} of {2}...</value>
   </data>
   <data name="DeletingEntity" xml:space="preserve">
     <value>Deleting Entity...</value>
   </data>
-  <data name="AssigningEntityToUserFormat1" xml:space="preserve">
-    <value>Assigning Entity to User {0}...</value>
+  <data name="DeletingEntityInSetFormat2" xml:space="preserve">
+    <value>Deleting Entity {0} of {1}...</value>
   </data>
-  <data name="AssigningEntityToTeamFormat1" xml:space="preserve">
-    <value>Assigning Entity to Team {0}...</value>
+  <data name="AssigningEntityToUserFormat3" xml:space="preserve">
+    <value>Assigning Entity {0} of {1} to User {2}...</value>
+  </data>
+  <data name="AssigningEntityToTeamFormat3" xml:space="preserve">
+    <value>Assigning Entity {0} of {1} to Team {2}...</value>
   </data>
   
-  <data name="SettingEntityStateFormat2" xml:space="preserve">
-    <value>Setting Entity State {0} - {1}...</value>
+  <data name="SettingEntityStateFormat6" xml:space="preserve">
+    <value>Setting Entity {0} of {1} State {2} - {3} Status {4} - {5}...</value>
   </data>
 
   

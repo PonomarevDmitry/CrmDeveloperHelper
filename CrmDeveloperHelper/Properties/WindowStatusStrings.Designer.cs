@@ -169,38 +169,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Assigning Entities to Team {1} completed..
+        ///   Looks up a localized string similar to {0}. Assigning Entities {1} count {2} to Team {3} completed..
         /// </summary>
-        internal static string AssigningEntitiesToTeamCompletedFormat2 {
+        internal static string AssigningEntitiesToTeamCompletedFormat4 {
             get {
-                return ResourceManager.GetString("AssigningEntitiesToTeamCompletedFormat2", resourceCulture);
+                return ResourceManager.GetString("AssigningEntitiesToTeamCompletedFormat4", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Assigning Entities to Team {1}....
+        ///   Looks up a localized string similar to {0}. Assigning Entities {1} count {2} to Team {3}....
         /// </summary>
-        internal static string AssigningEntitiesToTeamFormat2 {
+        internal static string AssigningEntitiesToTeamFormat4 {
             get {
-                return ResourceManager.GetString("AssigningEntitiesToTeamFormat2", resourceCulture);
+                return ResourceManager.GetString("AssigningEntitiesToTeamFormat4", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Assigning Entities to User {1} completed..
+        ///   Looks up a localized string similar to {0}. Assigning Entities {1} count {2} to User {3} completed..
         /// </summary>
-        internal static string AssigningEntitiesToUserCompletedFormat2 {
+        internal static string AssigningEntitiesToUserCompletedFormat4 {
             get {
-                return ResourceManager.GetString("AssigningEntitiesToUserCompletedFormat2", resourceCulture);
+                return ResourceManager.GetString("AssigningEntitiesToUserCompletedFormat4", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Assigning Entities to User {1}....
+        ///   Looks up a localized string similar to {0}. Assigning Entities {1} count {2} to User {3}....
         /// </summary>
-        internal static string AssigningEntitiesToUserFormat2 {
+        internal static string AssigningEntitiesToUserFormat4 {
             get {
-                return ResourceManager.GetString("AssigningEntitiesToUserFormat2", resourceCulture);
+                return ResourceManager.GetString("AssigningEntitiesToUserFormat4", resourceCulture);
             }
         }
         
@@ -1366,29 +1366,56 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Deleting Entities {1} completed..
+        ///   Looks up a localized string similar to {0}. Deleting Entities {1} count {2 completed..
         /// </summary>
-        internal static string DeletingEntitiesCompletedFormat2 {
+        internal static string DeletingEntitiesSetCompletedFormat3 {
             get {
-                return ResourceManager.GetString("DeletingEntitiesCompletedFormat2", resourceCulture);
+                return ResourceManager.GetString("DeletingEntitiesSetCompletedFormat3", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Deleting Entities {1} failed..
+        ///   Looks up a localized string similar to {0}. Deleting Entities {1} count {2 failed..
         /// </summary>
-        internal static string DeletingEntitiesFailedFormat2 {
+        internal static string DeletingEntitiesSetFailedFormat3 {
             get {
-                return ResourceManager.GetString("DeletingEntitiesFailedFormat2", resourceCulture);
+                return ResourceManager.GetString("DeletingEntitiesSetFailedFormat3", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Deleting Entities {1}....
+        ///   Looks up a localized string similar to {0}. Deleting Entities {1} count {2}....
         /// </summary>
-        internal static string DeletingEntitiesFormat2 {
+        internal static string DeletingEntitiesSetFormat3 {
             get {
-                return ResourceManager.GetString("DeletingEntitiesFormat2", resourceCulture);
+                return ResourceManager.GetString("DeletingEntitiesSetFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Deleting Entity {1} completed..
+        /// </summary>
+        internal static string DeletingEntityCompletedFormat2 {
+            get {
+                return ResourceManager.GetString("DeletingEntityCompletedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Deleting Entity {1} failed..
+        /// </summary>
+        internal static string DeletingEntityFailedFormat2 {
+            get {
+                return ResourceManager.GetString("DeletingEntityFailedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Deleting Entity {1}....
+        /// </summary>
+        internal static string DeletingEntityFormat2 {
+            get {
+                return ResourceManager.GetString("DeletingEntityFormat2", resourceCulture);
             }
         }
         
@@ -1519,29 +1546,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Executing Workflow {0} completed..
+        ///   Looks up a localized string similar to Executing Workflow {0} on Entities {2} count {3} completed..
         /// </summary>
-        internal static string ExecutingWorkflowCompletedFormat2 {
+        internal static string ExecutingWorkflowCompletedFormat4 {
             get {
-                return ResourceManager.GetString("ExecutingWorkflowCompletedFormat2", resourceCulture);
+                return ResourceManager.GetString("ExecutingWorkflowCompletedFormat4", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Executing Workflow {0} failed..
+        ///   Looks up a localized string similar to Executing Workflow {0} on Entities {2} count {3} failed..
         /// </summary>
-        internal static string ExecutingWorkflowFailedFormat2 {
+        internal static string ExecutingWorkflowFailedFormat4 {
             get {
-                return ResourceManager.GetString("ExecutingWorkflowFailedFormat2", resourceCulture);
+                return ResourceManager.GetString("ExecutingWorkflowFailedFormat4", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Executing Workflow {0}....
+        ///   Looks up a localized string similar to {0}. Executing Workflow {1} on Entities {2} count {3}....
         /// </summary>
-        internal static string ExecutingWorkflowFormat2 {
+        internal static string ExecutingWorkflowFormat4 {
             get {
-                return ResourceManager.GetString("ExecutingWorkflowFormat2", resourceCulture);
+                return ResourceManager.GetString("ExecutingWorkflowFormat4", resourceCulture);
             }
         }
         
@@ -3517,20 +3544,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Setting Entities {1} State {2} - {3} completed..
+        ///   Looks up a localized string similar to {0}. Setting Entities {1} count {2} State {3} - {4} Status {5} - {6} completed..
         /// </summary>
-        internal static string SettingEntitiesStateCompletedFormat4 {
+        internal static string SettingEntitiesStateCompletedFormat7 {
             get {
-                return ResourceManager.GetString("SettingEntitiesStateCompletedFormat4", resourceCulture);
+                return ResourceManager.GetString("SettingEntitiesStateCompletedFormat7", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Setting Entities {1} State {2} - {3}....
+        ///   Looks up a localized string similar to {0}. Setting Entities {1} count {2} State {3} - {4} Status {5} - {6}....
         /// </summary>
-        internal static string SettingEntitiesStateFormat4 {
+        internal static string SettingEntitiesStateFormat7 {
             get {
-                return ResourceManager.GetString("SettingEntitiesStateFormat4", resourceCulture);
+                return ResourceManager.GetString("SettingEntitiesStateFormat7", resourceCulture);
             }
         }
         

@@ -1225,7 +1225,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            if (!entityIds.Any(id => id != Guid.Empty))
+            var listIds = entityIds.Where(e => e != Guid.Empty).Distinct().ToList();
+
+            if (!listIds.Any())
             {
                 return;
             }
@@ -1271,11 +1273,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             Workflow workflow = form.SelectedEntity;
 
-            string operationName = string.Format(Properties.OperationNames.ExecutingWorkflowFormat2, service.ConnectionData.Name, workflow.Name);
+            string operationName = string.Format(Properties.OperationNames.ExecutingWorkflowFormat4
+                , service.ConnectionData.Name
+                , workflow.Name
+                , entityName
+                , listIds.Count
+            );
 
             _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ExecutingWorkflowFormat2, service.ConnectionData.Name, workflow.Name);
+            ToggleControls(service.ConnectionData, false
+                , Properties.WindowStatusStrings.ExecutingWorkflowFormat4
+                , service.ConnectionData.Name
+                , workflow.Name
+                , entityName
+                , listIds.Count
+            );
 
             _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
@@ -1284,13 +1297,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 WorkflowId = workflow.Id,
             };
 
-            foreach (var id in entityIds.Where(e => e != Guid.Empty).Distinct())
+            int number = 1;
+
+            foreach (var id in listIds)
             {
                 try
                 {
                     request.EntityId = id;
 
-                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExecutingOnEntityWorkflowFormat1, workflow.Name);
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExecutingOnEntityWorkflowFormat3, workflow.Name, number, listIds.Count);
                     _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, entityName, id);
 
                     await service.ExecuteAsync<ExecuteWorkflowResponse>(request);
@@ -1301,9 +1316,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                     _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 }
+
+                number++;
             }
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ExecutingWorkflowCompletedFormat2, service.ConnectionData.Name, workflow.Name);
+            ToggleControls(service.ConnectionData, true
+                , Properties.WindowStatusStrings.ExecutingWorkflowCompletedFormat4
+                , service.ConnectionData.Name
+                , workflow.Name
+                , entityName
+                , listIds.Count
+            );
 
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
         }
@@ -1383,7 +1406,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            if (!entityIds.Any(id => id != Guid.Empty))
+            var listIds = entityIds.Where(e => e != Guid.Empty).Distinct().ToList();
+
+            if (!listIds.Any())
             {
                 return;
             }
@@ -1422,11 +1447,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             SystemUser user = form.SelectedEntity;
 
-            string operationName = string.Format(Properties.OperationNames.AssigningEntitiesToUserFormat2, service.ConnectionData.Name, user.FullName);
+            string operationName = string.Format(Properties.OperationNames.AssigningEntitiesToUserFormat4
+                , service.ConnectionData.Name
+                , entityName
+                , listIds.Count
+                , user.FullName
+            );
 
             _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.AssigningEntitiesToUserFormat2, service.ConnectionData.Name, user.FullName);
+            ToggleControls(service.ConnectionData, false
+                , service.ConnectionData.Name
+                , entityName
+                , listIds.Count
+                , user.FullName
+            );
 
             _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
@@ -1435,13 +1470,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 Assignee = user.ToEntityReference(),
             };
 
-            foreach (var id in entityIds.Where(e => e != Guid.Empty).Distinct())
+            int number = 1;
+
+            foreach (var id in listIds)
             {
                 try
                 {
                     request.Target = new EntityReference(entityName, id);
 
-                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.AssigningEntityToUserFormat1, user.FullName);
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.AssigningEntityToUserFormat3, number, listIds.Count, user.FullName);
                     _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, entityName, id);
 
                     await service.ExecuteAsync<AssignResponse>(request);
@@ -1452,9 +1489,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                     _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 }
+
+                number++;
             }
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.AssigningEntitiesToUserCompletedFormat2, service.ConnectionData.Name, user.FullName);
+            ToggleControls(service.ConnectionData, true
+                , Properties.WindowStatusStrings.AssigningEntitiesToUserCompletedFormat4
+                , service.ConnectionData.Name
+                , entityName
+                , listIds.Count
+                , user.FullName
+            );
 
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
         }
@@ -1534,6 +1579,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
+            var listIds = entityIds.Where(e => e != Guid.Empty).Distinct().ToList();
+
             if (!entityIds.Any(id => id != Guid.Empty))
             {
                 return;
@@ -1572,11 +1619,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             Team team = form.SelectedEntity;
 
-            string operationName = string.Format(Properties.OperationNames.AssigningEntitiesToTeamFormat2, service.ConnectionData.Name, team.Name);
+            string operationName = string.Format(Properties.OperationNames.AssigningEntitiesToTeamFormat4
+                , service.ConnectionData.Name
+                , entityName
+                , listIds.Count
+                , team.Name
+            );
 
             _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.AssigningEntitiesToTeamFormat2, service.ConnectionData.Name, team.Name);
+            ToggleControls(service.ConnectionData, false
+                , Properties.WindowStatusStrings.AssigningEntitiesToTeamFormat4
+                , service.ConnectionData.Name
+                , entityName
+                , listIds.Count
+                , team.Name
+            );
 
             _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
@@ -1585,13 +1643,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 Assignee = team.ToEntityReference(),
             };
 
+            int number = 1;
+
             foreach (var id in entityIds.Where(e => e != Guid.Empty).Distinct())
             {
                 try
                 {
                     request.Target = new EntityReference(entityName, id);
 
-                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.AssigningEntityToTeamFormat1, team.Name);
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.AssigningEntityToTeamFormat3, number, listIds.Count, team.Name);
                     _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, entityName, id);
 
                     await service.ExecuteAsync<AssignResponse>(request);
@@ -1602,9 +1662,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                     _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 }
+
+                number++;
             }
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.AssigningEntitiesToTeamCompletedFormat2, service.ConnectionData.Name, team.Name);
+            ToggleControls(service.ConnectionData, true
+                , Properties.WindowStatusStrings.AssigningEntitiesToTeamCompletedFormat4
+                , service.ConnectionData.Name
+                , entityName
+                , listIds.Count
+                , team.Name
+            );
 
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
         }
@@ -1846,7 +1914,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            if (!entityIds.Any(id => id != Guid.Empty))
+            var listIds = entityIds.Where(e => e != Guid.Empty).Distinct().ToList();
+
+            if (!listIds.Any())
             {
                 return;
             }
@@ -1867,34 +1937,64 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            if (form.SelectedStatusOptionMetadata == null)
+            if (form.SelectedStatusCodeViewItem == null)
             {
                 return;
             }
 
-            StatusOptionMetadata statusOptionMetadata = form.SelectedStatusOptionMetadata;
+            StatusCodeViewItem statusOption = form.SelectedStatusCodeViewItem;
 
-            string operationName = string.Format(Properties.OperationNames.SettingEntitiesStateFormat4, service.ConnectionData.Name, entityName, statusOptionMetadata.State, statusOptionMetadata.Value);
+            string operationName = string.Format(Properties.OperationNames.SettingEntitiesStateFormat7
+                , service.ConnectionData.Name
+                , entityName
+                , listIds.Count
+                , statusOption.StateCode
+                , statusOption.StateCodeName
+                , statusOption.StatusCode
+                , statusOption.StatusCodeName
+            );
 
             _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.SettingEntitiesStateFormat4, service.ConnectionData.Name, entityName, statusOptionMetadata.State, statusOptionMetadata.Value);
+            ToggleControls(service.ConnectionData, false
+                , Properties.WindowStatusStrings.SettingEntitiesStateFormat7
+                , service.ConnectionData.Name
+                , entityName
+                , listIds.Count
+                , statusOption.StateCode
+                , statusOption.StateCodeName
+                , statusOption.StatusCode
+                , statusOption.StatusCodeName
+            );
 
             _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
             var request = new SetStateRequest()
             {
-                State = new OptionSetValue(statusOptionMetadata.State.Value),
-                Status = new OptionSetValue(statusOptionMetadata.Value.Value),
+                State = new OptionSetValue(statusOption.StatusOptionMetadata.State.Value),
+                Status = new OptionSetValue(statusOption.StatusOptionMetadata.Value.Value),
             };
 
-            foreach (var id in entityIds.Where(e => e != Guid.Empty).Distinct())
+            int number = 1;
+
+            foreach (var id in listIds)
             {
                 try
                 {
                     request.EntityMoniker = new EntityReference(entityName, id);
 
-                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.SettingEntityStateFormat2, statusOptionMetadata.State, statusOptionMetadata.Value);
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData
+                        , Properties.OutputStrings.SettingEntityStateFormat6
+                        , number
+                        , listIds.Count
+
+                        , statusOption.StateCode
+                        , statusOption.StateCodeName
+
+                        , statusOption.StatusCode
+                        , statusOption.StatusCodeName
+                    );
+
                     _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, entityName, id);
 
                     await service.ExecuteAsync<SetStateResponse>(request);
@@ -1905,9 +2005,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                     _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 }
+
+                number++;
             }
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.SettingEntitiesStateCompletedFormat4, service.ConnectionData.Name, entityName, statusOptionMetadata.State, statusOptionMetadata.Value);
+            ToggleControls(service.ConnectionData, true
+                , Properties.WindowStatusStrings.SettingEntitiesStateCompletedFormat7
+                , service.ConnectionData.Name
+                , entityName
+                , listIds.Count
+                , statusOption.StateCode
+                , statusOption.StateCodeName
+                , statusOption.StatusCode
+                , statusOption.StatusCodeName
+            );
 
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
         }
@@ -2149,19 +2260,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            string operationName = string.Format(Properties.OperationNames.DeletingEntitiesFormat2, service.ConnectionData.Name, entityName);
+            string operationName = string.Format(Properties.OperationNames.DeletingEntitiesSetFormat3, service.ConnectionData.Name, entityName, listIds.Count);
 
             _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.DeletingEntitiesFormat2, service.ConnectionData.Name, entityName);
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.DeletingEntitiesSetFormat3, service.ConnectionData.Name, entityName, listIds.Count);
 
             _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+
+            int number = 1;
 
             foreach (var id in listIds)
             {
                 try
                 {
-                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.DeletingEntity);
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.DeletingEntityInSetFormat2, number, listIds.Count);
                     _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, entityName, id);
 
                     await service.DeleteAsync(entityName, id);
@@ -2172,9 +2285,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                     _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 }
+
+                number++;
             }
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.DeletingEntitiesCompletedFormat2, service.ConnectionData.Name, entityName);
+            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.DeletingEntitiesSetCompletedFormat3, service.ConnectionData.Name, entityName, listIds.Count);
 
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
         }

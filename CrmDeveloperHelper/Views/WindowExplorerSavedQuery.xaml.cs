@@ -983,7 +983,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var service = await GetService();
 
-                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.DeletingEntitiesFormat2, service.ConnectionData.Name, SavedQuery.EntityLogicalName);
+                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.DeletingEntityFormat2, service.ConnectionData.Name, SavedQuery.EntityLogicalName);
 
                 try
                 {
@@ -998,7 +998,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 }
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.DeletingEntitiesCompletedFormat2, service.ConnectionData.Name, SavedQuery.EntityLogicalName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.DeletingEntityCompletedFormat2, service.ConnectionData.Name, SavedQuery.EntityLogicalName);
 
                 ShowExistingSavedQueries();
             }

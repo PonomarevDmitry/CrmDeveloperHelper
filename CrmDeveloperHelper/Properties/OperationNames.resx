@@ -722,22 +722,25 @@
   <data name="ImportJobExplorerFormat1" xml:space="preserve">
     <value>{0} - ImportJob Explorer</value>
   </data>
-  <data name="AssigningEntitiesToTeamFormat2" xml:space="preserve">
-    <value>{0} - Assigning Entities to Team {1}</value>
+  <data name="AssigningEntitiesToTeamFormat4" xml:space="preserve">
+    <value>{0} - Assigning Entities {1} count {2} to Team {3}</value>
   </data>
 
-  <data name="SettingEntitiesStateFormat4" xml:space="preserve">
-    <value>{0} - Setting Entities {1} State {2} - {3}</value>
+  <data name="SettingEntitiesStateFormat7" xml:space="preserve">
+    <value>{0} - Setting Entities {1} count {2} State {3} - {4} Status {5} - {6}</value>
   </data>
   
-  <data name="AssigningEntitiesToUserFormat2" xml:space="preserve">
-    <value>{0} - Assigning Entities to User {1}</value>
+  <data name="AssigningEntitiesToUserFormat4" xml:space="preserve">
+    <value>{0} - Assigning Entities {1} count {2} to User {3}</value>
   </data>
-  <data name="ExecutingWorkflowFormat2" xml:space="preserve">
-    <value>{0} - Executing Workflow {1}</value>
+  <data name="ExecutingWorkflowFormat4" xml:space="preserve">
+    <value>{0} - Executing Workflow {1} on Entities {2} count {3}</value>
   </data>
-  <data name="DeletingEntitiesFormat2" xml:space="preserve">
-    <value>{0} - Deleting Entities {1}</value>
+  <data name="DeletingEntityFormat2" xml:space="preserve">
+    <value>{0} - Deleting Entity {1}</value>
+  </data>
+  <data name="DeletingEntitiesSetFormat3" xml:space="preserve">
+    <value>{0} - Deleting Entities {1} count {2}</value>
   </data>
   <data name="AddingNewPrivilegesFromRoleToRoleFormat3" xml:space="preserve">
     <value>{0} - Adding New Privileges from {1} to {2}</value>

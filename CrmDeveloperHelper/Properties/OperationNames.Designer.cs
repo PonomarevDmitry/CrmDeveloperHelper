@@ -196,20 +196,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Assigning Entities to Team {1}.
+        ///   Looks up a localized string similar to {0} - Assigning Entities {1} count {2} to Team {3}.
         /// </summary>
-        internal static string AssigningEntitiesToTeamFormat2 {
+        internal static string AssigningEntitiesToTeamFormat4 {
             get {
-                return ResourceManager.GetString("AssigningEntitiesToTeamFormat2", resourceCulture);
+                return ResourceManager.GetString("AssigningEntitiesToTeamFormat4", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Assigning Entities to User {1}.
+        ///   Looks up a localized string similar to {0} - Assigning Entities {1} count {2} to User {3}.
         /// </summary>
-        internal static string AssigningEntitiesToUserFormat2 {
+        internal static string AssigningEntitiesToUserFormat4 {
             get {
-                return ResourceManager.GetString("AssigningEntitiesToUserFormat2", resourceCulture);
+                return ResourceManager.GetString("AssigningEntitiesToUserFormat4", resourceCulture);
             }
         }
         
@@ -889,11 +889,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Deleting Entities {1}.
+        ///   Looks up a localized string similar to {0} - Deleting Entities {1} count {2}.
         /// </summary>
-        internal static string DeletingEntitiesFormat2 {
+        internal static string DeletingEntitiesSetFormat3 {
             get {
-                return ResourceManager.GetString("DeletingEntitiesFormat2", resourceCulture);
+                return ResourceManager.GetString("DeletingEntitiesSetFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Deleting Entity {1}.
+        /// </summary>
+        internal static string DeletingEntityFormat2 {
+            get {
+                return ResourceManager.GetString("DeletingEntityFormat2", resourceCulture);
             }
         }
         
@@ -997,11 +1006,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Executing Workflow {1}.
+        ///   Looks up a localized string similar to {0} - Executing Workflow {1} on Entities {2} count {3}.
         /// </summary>
-        internal static string ExecutingWorkflowFormat2 {
+        internal static string ExecutingWorkflowFormat4 {
             get {
-                return ResourceManager.GetString("ExecutingWorkflowFormat2", resourceCulture);
+                return ResourceManager.GetString("ExecutingWorkflowFormat4", resourceCulture);
             }
         }
         
@@ -1717,11 +1726,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Setting Entities {1} State {2} - {3}.
+        ///   Looks up a localized string similar to {0} - Setting Entities {1} count {2} State {3} - {4} Status {5} - {6}.
         /// </summary>
-        internal static string SettingEntitiesStateFormat4 {
+        internal static string SettingEntitiesStateFormat7 {
             get {
-                return ResourceManager.GetString("SettingEntitiesStateFormat4", resourceCulture);
+                return ResourceManager.GetString("SettingEntitiesStateFormat7", resourceCulture);
             }
         }
         

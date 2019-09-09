@@ -1369,44 +1369,54 @@
   <data name="LoadingImportJobsCompletedFormat1" xml:space="preserve">
     <value>{0} import jobs loaded.</value>
   </data>
-  <data name="AssigningEntitiesToTeamCompletedFormat2" xml:space="preserve">
-    <value>{0}. Assigning Entities to Team {1} completed.</value>
+  <data name="AssigningEntitiesToTeamCompletedFormat4" xml:space="preserve">
+    <value>{0}. Assigning Entities {1} count {2} to Team {3} completed.</value>
   </data>
-  <data name="AssigningEntitiesToTeamFormat2" xml:space="preserve">
-    <value>{0}. Assigning Entities to Team {1}...</value>
-  </data>
-
-  <data name="SettingEntitiesStateCompletedFormat4" xml:space="preserve">
-    <value>{0}. Setting Entities {1} State {2} - {3} completed.</value>
-  </data>
-  <data name="SettingEntitiesStateFormat4" xml:space="preserve">
-    <value>{0}. Setting Entities {1} State {2} - {3}...</value>
+  <data name="AssigningEntitiesToTeamFormat4" xml:space="preserve">
+    <value>{0}. Assigning Entities {1} count {2} to Team {3}...</value>
   </data>
 
-  <data name="AssigningEntitiesToUserCompletedFormat2" xml:space="preserve">
-    <value>{0}. Assigning Entities to User {1} completed.</value>
+  <data name="SettingEntitiesStateCompletedFormat7" xml:space="preserve">
+    <value>{0}. Setting Entities {1} count {2} State {3} - {4} Status {5} - {6} completed.</value>
   </data>
-  <data name="AssigningEntitiesToUserFormat2" xml:space="preserve">
-    <value>{0}. Assigning Entities to User {1}...</value>
-  </data>
-  <data name="ExecutingWorkflowCompletedFormat2" xml:space="preserve">
-    <value>Executing Workflow {0} completed.</value>
-  </data>
-  <data name="ExecutingWorkflowFailedFormat2" xml:space="preserve">
-    <value>Executing Workflow {0} failed.</value>
-  </data>
-  <data name="ExecutingWorkflowFormat2" xml:space="preserve">
-    <value>Executing Workflow {0}...</value>
+  <data name="SettingEntitiesStateFormat7" xml:space="preserve">
+    <value>{0}. Setting Entities {1} count {2} State {3} - {4} Status {5} - {6}...</value>
   </data>
 
-  <data name="DeletingEntitiesCompletedFormat2" xml:space="preserve">
-    <value>{0}. Deleting Entities {1} completed.</value>
+  <data name="AssigningEntitiesToUserCompletedFormat4" xml:space="preserve">
+    <value>{0}. Assigning Entities {1} count {2} to User {3} completed.</value>
   </data>
-  <data name="DeletingEntitiesFailedFormat2" xml:space="preserve">
-    <value>{0}. Deleting Entities {1} failed.</value>
+  <data name="AssigningEntitiesToUserFormat4" xml:space="preserve">
+    <value>{0}. Assigning Entities {1} count {2} to User {3}...</value>
   </data>
-  <data name="DeletingEntitiesFormat2" xml:space="preserve">
-    <value>{0}. Deleting Entities {1}...</value>
+  <data name="ExecutingWorkflowCompletedFormat4" xml:space="preserve">
+    <value>Executing Workflow {0} on Entities {2} count {3} completed.</value>
+  </data>
+  <data name="ExecutingWorkflowFailedFormat4" xml:space="preserve">
+    <value>Executing Workflow {0} on Entities {2} count {3} failed.</value>
+  </data>
+  <data name="ExecutingWorkflowFormat4" xml:space="preserve">
+    <value>{0}. Executing Workflow {1} on Entities {2} count {3}...</value>
+  </data>
+
+  <data name="DeletingEntityCompletedFormat2" xml:space="preserve">
+    <value>{0}. Deleting Entity {1} completed.</value>
+  </data>
+  <data name="DeletingEntityFailedFormat2" xml:space="preserve">
+    <value>{0}. Deleting Entity {1} failed.</value>
+  </data>
+  <data name="DeletingEntityFormat2" xml:space="preserve">
+    <value>{0}. Deleting Entity {1}...</value>
+  </data>
+
+  <data name="DeletingEntitiesSetCompletedFormat3" xml:space="preserve">
+    <value>{0}. Deleting Entities {1} count {2 completed.</value>
+  </data>
+  <data name="DeletingEntitiesSetFailedFormat3" xml:space="preserve">
+    <value>{0}. Deleting Entities {1} count {2 failed.</value>
+  </data>
+  <data name="DeletingEntitiesSetFormat3" xml:space="preserve">
+    <value>{0}. Deleting Entities {1} count {2}...</value>
   </data>
 
   <data name="NoPrivilegesToAdd" xml:space="preserve">

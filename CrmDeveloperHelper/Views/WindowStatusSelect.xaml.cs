@@ -32,7 +32,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly ObservableCollection<StatusCodeViewItem> _itemsSource = new ObservableCollection<StatusCodeViewItem>();
 
-        public StatusOptionMetadata SelectedStatusOptionMetadata { get; private set; }
+        public StatusCodeViewItem SelectedStatusCodeViewItem { get; private set; }
 
         public WindowStatusSelect(
             IWriteToOutput outputWindow
@@ -194,45 +194,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(true, Properties.WindowStatusStrings.FilteringStatusCodesCompletedFormat1, _entityName);
         }
 
-        private class StatusCodeViewItem
-        {
-            public int StateCode { get; private set; }
-
-            public string StateCodeName { get; private set; }
-
-            public int StatusCode { get; private set; }
-
-            public string StatusCodeName { get; private set; }
-
-            public Microsoft.Xrm.Sdk.Label StateCodeLabel { get; private set; }
-
-            public Microsoft.Xrm.Sdk.Label StatusCodeLabel { get; private set; }
-
-            public StatusOptionMetadata StatusOptionMetadata { get; private set; }
-
-            public StatusCodeViewItem(
-                int stateCode
-                , string stateCodeName
-                , int statusCode
-                , string statusCodeName
-                , Microsoft.Xrm.Sdk.Label stateCodeLabel
-                , Microsoft.Xrm.Sdk.Label statusCodeLabel
-                , StatusOptionMetadata statusOptionMetadata
-            )
-            {
-                this.StateCode = stateCode;
-                this.StateCodeName = stateCodeName;
-
-                this.StatusCode = statusCode;
-                this.StatusCodeName = statusCodeName;
-
-                this.StateCodeLabel = stateCodeLabel;
-                this.StatusCodeLabel = statusCodeLabel;
-
-                this.StatusOptionMetadata = statusOptionMetadata;
-            }
-        }
-
         protected void UpdateStatus(string format, params object[] args)
         {
             string message = format;
@@ -329,7 +290,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            this.SelectedStatusOptionMetadata = statusItem.StatusOptionMetadata;
+            this.SelectedStatusCodeViewItem = statusItem;
 
             this.DialogResult = true;
 
