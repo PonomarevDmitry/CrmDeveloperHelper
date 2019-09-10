@@ -243,7 +243,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     }
                 }
 
-                if (_controlsWithImagesXmlElements.Contains(currentNodeName) 
+                if (_controlsWithImagesXmlElements.Contains(currentNodeName)
                     && ImagesXmlAttributes.Contains(currentAttributeName)
                 )
                 {
@@ -280,6 +280,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     if (ribbonIntellisenseData != null)
                     {
                         FillRibbonSequences(completionSets, applicableTo, currentXmlNode, ribbonIntellisenseData.Locations, "Locations");
+                    }
+                }
+
+                if (string.Equals(currentAttributeName, "TemplateAlias", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    if (ribbonIntellisenseData != null)
+                    {
+                        FillRibbonTemplateAliases(completionSets, applicableTo, currentXmlNode, ribbonIntellisenseData.Locations, "TemplateAliases");
                     }
                 }
 
@@ -521,7 +529,56 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                         str.AppendLine().AppendFormat("Command:\t{0}", control.Command);
                     }
 
-                    list.Add(CreateCompletion(string.Format("{0} - {1}", control.Sequence, control.Id), control.Sequence, str.ToString(), _defaultGlyph, Enumerable.Empty<string>()));
+                    if (!string.IsNullOrEmpty(control.TemplateAlias))
+                    {
+                        str.AppendLine().AppendFormat("TemplateAlias:\t{0}", control.TemplateAlias);
+                    }
+
+                    list.Add(CreateCompletion(string.Format("{0} - {1} - {2}", control.Sequence, control.TemplateAlias, control.Id), control.Sequence, str.ToString(), _defaultGlyph, Enumerable.Empty<string>()));
+                }
+
+                completionSets.Add(new CrmCompletionSet(SourceNameMonikerRibbonSequences, name, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
+            }
+        }
+
+        private void FillRibbonTemplateAliases(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, XElement currentXmlNode, Dictionary<string, RibbonLocation> locations, string name)
+        {
+            if (locations == null || !locations.Any())
+            {
+                return;
+            }
+
+            RibbonLocation ribbonLocation = null;
+
+            var customAction = currentXmlNode.AncestorsAndSelf().FirstOrDefault(e => string.Equals(e.Name.LocalName, "CustomAction", StringComparison.InvariantCultureIgnoreCase));
+
+            if (customAction != null
+                && customAction.Attribute("Location") != null
+                )
+            {
+                var location = customAction.Attribute("Location").Value;
+
+                if (!string.IsNullOrEmpty(location))
+                {
+                    if (location.EndsWith("._children", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        location = Regex.Replace(location, @"\._children", string.Empty, RegexOptions.IgnoreCase);
+                    }
+
+                    if (locations.ContainsKey(location))
+                    {
+                        ribbonLocation = locations[location];
+                    }
+                }
+            }
+
+            if (ribbonLocation != null && ribbonLocation.Template != null && ribbonLocation.Template.TemplateAliases.Any())
+            {
+                List<CrmCompletion> list = new List<CrmCompletion>();
+
+                foreach (var alias in ribbonLocation.Template.TemplateAliases.OrderBy(s => s))
+                {
+                    list.Add(CreateCompletion(alias, alias, string.Empty, _defaultGlyph, Enumerable.Empty<string>()));
                 }
 
                 completionSets.Add(new CrmCompletionSet(SourceNameMonikerRibbonSequences, name, applicableTo, list, Enumerable.Empty<CrmCompletion>()));

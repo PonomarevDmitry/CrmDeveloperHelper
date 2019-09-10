@@ -17,5 +17,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
         public string LabelText { get; set; }
 
         public string Command { get; set; }
+
+        public string TemplateAlias { get; set; }
     }
 }

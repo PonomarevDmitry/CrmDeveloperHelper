@@ -999,6 +999,7 @@
     <Compile Include="Intellisense\CustomUrlTagger.cs" />
     <Compile Include="Intellisense\CustomUrlTagProvider.cs" />
     <Compile Include="Intellisense\Model\IntellisenseContext.cs" />
+    <Compile Include="Intellisense\Model\RibbonGroupTemplate.cs" />
     <Compile Include="Intellisense\Model\RibbonIntellisenseData.cs" />
     <Compile Include="Intellisense\Model\RibbonLocation.cs" />
     <Compile Include="Intellisense\Model\RibbonLocationControl.cs" />

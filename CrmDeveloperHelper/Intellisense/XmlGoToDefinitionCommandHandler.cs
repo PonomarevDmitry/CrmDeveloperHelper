@@ -176,6 +176,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             string currentNodeName = currentXmlNode.Name.LocalName;
             string currentAttributeName = currentAttr.Span.GetText();
 
+            #region Labels
+
             if (XmlCompletionSource.LabelXmlAttributes.Contains(currentAttributeName))
             {
                 bool isTitleElement = string.Equals(currentNodeName, "Title", StringComparison.InvariantCultureIgnoreCase)
@@ -221,6 +223,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     }
                 }
             }
+
+            #endregion Labels
+
+            #region Command Definitions
 
             if (XmlCompletionSource.CommandXmlAttributes.Contains(currentAttributeName))
             {
@@ -286,13 +292,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 }
             }
 
+            #endregion Command Definitions
+
+            #region Enable Rules
+
             if (string.Equals(currentNodeName, "EnableRule", StringComparison.InvariantCultureIgnoreCase)
-                    && string.Equals(currentAttributeName, "Id", StringComparison.InvariantCultureIgnoreCase)
-                    && currentXmlNode.Parent != null
-                    && string.Equals(currentXmlNode.Parent.Name.LocalName, "EnableRules", StringComparison.InvariantCultureIgnoreCase)
-                    && currentXmlNode.Parent.Parent != null
-                    && string.Equals(currentXmlNode.Parent.Parent.Name.LocalName, "CommandDefinition", StringComparison.InvariantCultureIgnoreCase)
-                    )
+                && string.Equals(currentAttributeName, "Id", StringComparison.InvariantCultureIgnoreCase)
+                && currentXmlNode.Parent != null
+                && string.Equals(currentXmlNode.Parent.Name.LocalName, "EnableRules", StringComparison.InvariantCultureIgnoreCase)
+                && currentXmlNode.Parent.Parent != null
+                && string.Equals(currentXmlNode.Parent.Parent.Name.LocalName, "CommandDefinition", StringComparison.InvariantCultureIgnoreCase)
+            )
             {
                 if (!string.IsNullOrEmpty(currentValue))
                 {
@@ -356,13 +366,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 }
             }
 
+            #endregion Enable Rules
+
+            #region Display Rules
+
             if (string.Equals(currentNodeName, "DisplayRule", StringComparison.InvariantCultureIgnoreCase)
                 && string.Equals(currentAttributeName, "Id", StringComparison.InvariantCultureIgnoreCase)
                 && currentXmlNode.Parent != null
                 && string.Equals(currentXmlNode.Parent.Name.LocalName, "DisplayRules", StringComparison.InvariantCultureIgnoreCase)
                 && currentXmlNode.Parent.Parent != null
                 && string.Equals(currentXmlNode.Parent.Parent.Name.LocalName, "CommandDefinition", StringComparison.InvariantCultureIgnoreCase)
-                )
+            )
             {
                 if (!string.IsNullOrEmpty(currentValue))
                 {
@@ -426,6 +440,134 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     }
                 }
             }
+
+            #endregion Display Rules
+
+            #region Templates
+
+            if (string.Equals(currentAttributeName, "Template", StringComparison.InvariantCultureIgnoreCase))
+            {
+                if (!string.IsNullOrEmpty(currentValue))
+                {
+                    {
+                        var elements = doc.XPathSelectElements("./Templates/RibbonTemplates/GroupTemplate").Where(e => e.Attribute("Id") != null && string.Equals(e.Attribute("Id").Value, currentValue, StringComparison.InvariantCultureIgnoreCase)).ToList();
+
+                        if (elements.Count == 1)
+                        {
+                            var xmlElement = elements[0];
+
+                            if (TryMoveToElement(snapshot, xmlElement))
+                            {
+                                return true;
+                            }
+                        }
+                    }
+
+                    {
+                        var elements = doc.XPathSelectElements("./RibbonDefinition/Templates/RibbonTemplates/GroupTemplate").Where(e => e.Attribute("Id") != null && string.Equals(e.Attribute("Id").Value, currentValue, StringComparison.InvariantCultureIgnoreCase)).ToList();
+
+                        if (elements.Count == 1)
+                        {
+                            var xmlElement = elements[0];
+
+                            if (TryMoveToElement(snapshot, xmlElement))
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    {
+                        var elements = doc.XPathSelectElements("./Templates/RibbonTemplates").ToList();
+
+                        if (elements.Count == 1)
+                        {
+                            var xmlElement = elements[0];
+
+                            if (TryMoveToElement(snapshot, xmlElement))
+                            {
+                                return true;
+                            }
+                        }
+                    }
+
+                    {
+                        var elements = doc.XPathSelectElements("./RibbonDefinition/Templates/RibbonTemplates").ToList();
+
+                        if (elements.Count == 1)
+                        {
+                            var xmlElement = elements[0];
+
+                            if (TryMoveToElement(snapshot, xmlElement))
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            #endregion Templates
+
+            #region Template Aliases
+
+            if (string.Equals(currentAttributeName, "TemplateAlias", StringComparison.InvariantCultureIgnoreCase)
+                && !string.Equals(currentNodeName, "OverflowSection", StringComparison.InvariantCultureIgnoreCase)
+            )
+            {
+                var templateName = currentXmlNode.AncestorsAndSelf().FirstOrDefault(e => e.Attribute("Template") != null)?.Attribute("Template")?.Value;
+
+                if (!string.IsNullOrEmpty(templateName))
+                {
+                    XElement templateXmlNode = null;
+
+                    {
+                        var elements = doc.XPathSelectElements("./Templates/RibbonTemplates/GroupTemplate").Where(e => e.Attribute("Id") != null && string.Equals(e.Attribute("Id").Value, templateName, StringComparison.InvariantCultureIgnoreCase)).ToList();
+
+                        if (elements.Count == 1)
+                        {
+                            templateXmlNode = elements[0];
+                        }
+                    }
+
+                    if (templateXmlNode == null)
+                    {
+                        var elements = doc.XPathSelectElements("./RibbonDefinition/Templates/RibbonTemplates/GroupTemplate").Where(e => e.Attribute("Id") != null && string.Equals(e.Attribute("Id").Value, templateName, StringComparison.InvariantCultureIgnoreCase)).ToList();
+
+                        if (elements.Count == 1)
+                        {
+                            templateXmlNode = elements[0];
+                        }
+                    }
+
+                    if (templateXmlNode != null)
+                    {
+                        if (!string.IsNullOrEmpty(currentValue))
+                        {
+                            var sectionWithAlias = templateXmlNode.XPathSelectElements("./Layout/OverflowSection").FirstOrDefault(e => e.Attribute("TemplateAlias") != null && string.Equals(e.Attribute("TemplateAlias").Value, currentValue, StringComparison.InvariantCultureIgnoreCase));
+
+                            if (sectionWithAlias != null)
+                            {
+                                if (TryMoveToElement(snapshot, sectionWithAlias))
+                                {
+                                    return true;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (TryMoveToElement(snapshot, templateXmlNode))
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            #endregion Template Aliases
 
             return false;
         }

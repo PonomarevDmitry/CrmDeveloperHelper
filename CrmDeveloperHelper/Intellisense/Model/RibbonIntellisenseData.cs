@@ -49,6 +49,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
         [DataMember]
         public Dictionary<string, RibbonLocation> Locations { get; private set; }
 
+        [DataMember]
+        public Dictionary<string, RibbonGroupTemplate> Templates { get; private set; }
+
         public RibbonIntellisenseData(Guid connectionId, string entityName)
         {
             this.ConnectionId = connectionId;
@@ -104,6 +107,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
             {
                 this.Locations = new Dictionary<string, RibbonLocation>(StringComparer.InvariantCultureIgnoreCase);
             }
+
+            if (Templates == null)
+            {
+                this.Templates = new Dictionary<string, RibbonGroupTemplate>(StringComparer.InvariantCultureIgnoreCase);
+            }
         }
 
         public void ClearData()
@@ -119,6 +127,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
             this.Libraries = new SortedSet<string>(StringComparer.InvariantCultureIgnoreCase);
             this.FunctionsNames = new SortedSet<string>(StringComparer.InvariantCultureIgnoreCase);
             this.Locations = new Dictionary<string, RibbonLocation>(StringComparer.InvariantCultureIgnoreCase);
+            this.Templates = new Dictionary<string, RibbonGroupTemplate>(StringComparer.InvariantCultureIgnoreCase);
         }
 
         public void LoadDataFromRibbon(XDocument docRibbon)
@@ -265,34 +274,69 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
             }
 
             {
+                var elementsGroupTemplates = docRibbon.XPathSelectElements("RibbonDefinitions/RibbonDefinition/Templates/RibbonTemplates/GroupTemplate");
+
+                foreach (var template in elementsGroupTemplates)
+                {
+                    var id = template.Attribute("Id")?.Value;
+
+                    if (!string.IsNullOrEmpty(id) && !this.Templates.ContainsKey(id))
+                    {
+                        var newItem = new RibbonGroupTemplate()
+                        {
+                            Id = id,
+                        };
+
+                        this.Templates.Add(id, newItem);
+
+                        foreach (var item in template.Descendants("OverflowSection"))
+                        {
+                            string alias = item.Attribute("TemplateAlias")?.Value;
+
+                            if (!string.IsNullOrEmpty(alias) && !newItem.TemplateAliases.Contains(alias))
+                            {
+                                newItem.TemplateAliases.Add(alias);
+                            }
+                        }
+                    }
+                }
+            }
+
+            {
                 var elementsControls = docRibbon.Descendants("Controls");
 
                 foreach (var controls in elementsControls)
                 {
                     var id = controls.Attribute("Id")?.Value;
 
-                    if (!string.IsNullOrEmpty(id))
+                    if (!string.IsNullOrEmpty(id) && !this.Locations.ContainsKey(id))
                     {
-                        if (!this.Locations.ContainsKey(id))
+                        var newItem = new RibbonLocation()
                         {
-                            var newItem = new RibbonLocation()
-                            {
-                                Id = id,
-                            };
+                            Id = id,
+                        };
 
-                            this.Locations.Add(id, newItem);
+                        var parentTemplateId = controls.AncestorsAndSelf().FirstOrDefault(e => e.Attribute("Template") != null)?.Attribute("Template")?.Value;
 
-                            foreach (var item in controls.Elements())
+                        if (!string.IsNullOrEmpty(parentTemplateId) && this.Templates.ContainsKey(parentTemplateId))
+                        {
+                            newItem.Template = this.Templates[parentTemplateId];
+                        }
+
+                        this.Locations.Add(id, newItem);
+
+                        foreach (var item in controls.Elements())
+                        {
+                            newItem.Controls.Add(new RibbonLocationControl()
                             {
-                                newItem.Controls.Add(new RibbonLocationControl()
-                                {
-                                    ControlType = item.Name.LocalName,
-                                    Id = item.Attribute("Id")?.Value,
-                                    Sequence = item.Attribute("Sequence")?.Value,
-                                    LabelText = item.Attribute("LabelText")?.Value,
-                                    Command = item.Attribute("Command")?.Value,
-                                });
-                            }
+                                ControlType = item.Name.LocalName,
+                                Id = item.Attribute("Id")?.Value,
+                                Sequence = item.Attribute("Sequence")?.Value,
+                                LabelText = item.Attribute("LabelText")?.Value,
+                                Command = item.Attribute("Command")?.Value,
+
+                                TemplateAlias = item.Attribute("TemplateAlias")?.Value,
+                            });
                         }
                     }
                 }
