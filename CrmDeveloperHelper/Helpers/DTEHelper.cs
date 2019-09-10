@@ -3657,65 +3657,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleEntityMetadataFileGenerationOptions(ConnectionData connectionData)
+        public void HandleEntityMetadataFileGenerationOptions()
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
-            if (connectionData == null)
-            {
-                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
-                {
-                    return;
-                }
 
-                connectionData = crmConfig.CurrentConnectionData;
+            ActivateOutputWindow(null);
+            WriteToOutputEmptyLines(null, commonConfig);
+
+            try
+            {
+                Controller.StartOpeningEntityMetadataFileGenerationOptions();
             }
-
-            if (connectionData != null)
+            catch (Exception ex)
             {
-                ActivateOutputWindow(connectionData);
-                WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                CheckWishToChangeCurrentConnection(connectionData);
-
-                try
-                {
-                    Controller.StartOpeningEntityMetadataFileGenerationOptions(connectionData);
-                }
-                catch (Exception ex)
-                {
-                    WriteErrorToOutput(connectionData, ex);
-                }
+                WriteErrorToOutput(null, ex);
             }
         }
 
-        public void HandleGlobalOptionSetsMetadataFileGenerationOptions(ConnectionData connectionData)
+        public void HandleGlobalOptionSetsMetadataFileGenerationOptions()
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
-            if (connectionData == null)
-            {
-                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
-                {
-                    return;
-                }
 
-                connectionData = crmConfig.CurrentConnectionData;
+            ActivateOutputWindow(null);
+            WriteToOutputEmptyLines(null, commonConfig);
+
+            try
+            {
+                Controller.StartOpeningGlobalOptionSetsMetadataFileGenerationOptions();
             }
-
-            if (connectionData != null)
+            catch (Exception ex)
             {
-                ActivateOutputWindow(connectionData);
-                WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                CheckWishToChangeCurrentConnection(connectionData);
-
-                try
-                {
-                    Controller.StartOpeningGlobalOptionSetsMetadataFileGenerationOptions(connectionData);
-                }
-                catch (Exception ex)
-                {
-                    WriteErrorToOutput(connectionData, ex);
-                }
+                WriteErrorToOutput(null, ex);
             }
         }
 

@@ -104,19 +104,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenEntityMetadataFileGenerationOptions(
-            IWriteToOutput iWriteToOutput
-            , ConnectionData connectionData
-        )
+        public static void OpenEntityMetadataFileGenerationOptions(FileGenerationOptions fileGenerationOptions)
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
                 try
                 {
-                    var form = new WindowExplorerEntityMetadataOptions(
-                        iWriteToOutput
-                        , connectionData
-                    );
+                    var form = new WindowExplorerEntityMetadataOptions(fileGenerationOptions);
 
                     form.ShowDialog();
                 }
@@ -1214,19 +1208,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenGlobalOptionSetsFileGenerationOptions(
-            IWriteToOutput iWriteToOutput
-            , ConnectionData connectionData
-        )
+        public static void OpenGlobalOptionSetsFileGenerationOptions(FileGenerationOptions fileGenerationOptions)
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
                 try
                 {
-                    var form = new WindowExplorerGlobalOptionSetsOptions(
-                        iWriteToOutput
-                        , connectionData
-                    );
+                    var form = new WindowExplorerGlobalOptionSetsOptions(fileGenerationOptions);
 
                     form.ShowDialog();
                 }

@@ -291,29 +291,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Opening Entity Metadata File Generation Options
 
-        public void ExecuteOpeningEntityMetadataFileGenerationOptions(ConnectionData connectionData)
+        public void ExecuteOpeningEntityMetadataFileGenerationOptions()
         {
-            string operation = string.Format(Properties.OperationNames.OpeningEntityMetadataExplorerFormat1, connectionData?.Name);
+            string operation = Properties.OperationNames.OpeningEntityMetadataFileGenerationOptions;
 
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(null, operation);
 
             try
             {
-                if (connectionData == null)
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                    return;
-                }
+                var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
 
-                WindowHelper.OpenEntityMetadataFileGenerationOptions(this._iWriteToOutput, connectionData);
+                WindowHelper.OpenEntityMetadataFileGenerationOptions(fileGenerationOptions);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+                this._iWriteToOutput.WriteErrorToOutput(null, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(null, operation);
             }
         }
 
@@ -321,29 +317,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Opening Global OptionSets Metadata File Generation Options
 
-        public void ExecuteOpeningGlobalOptionSetsMetadataFileGenerationOptions(ConnectionData connectionData)
+        public void ExecuteOpeningGlobalOptionSetsMetadataFileGenerationOptions()
         {
-            string operation = string.Format(Properties.OperationNames.OpeningEntityMetadataExplorerFormat1, connectionData?.Name);
+            string operation = Properties.OperationNames.OpeningGlobalOptionSetsFileGenerationOptions;
 
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+            this._iWriteToOutput.WriteToOutputStartOperation(null, operation);
 
             try
             {
-                if (connectionData == null)
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                    return;
-                }
+                var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
 
-                WindowHelper.OpenGlobalOptionSetsFileGenerationOptions(this._iWriteToOutput, connectionData);
+                WindowHelper.OpenGlobalOptionSetsFileGenerationOptions(fileGenerationOptions);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+                this._iWriteToOutput.WriteErrorToOutput(null, ex);
             }
             finally
             {
-                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+                this._iWriteToOutput.WriteToOutputEndOperation(null, operation);
             }
         }
 
@@ -553,7 +545,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (!selectEntity && openOptions)
             {
-                WindowHelper.OpenEntityMetadataFileGenerationOptions(_iWriteToOutput, connectionData);
+                var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
+
+                WindowHelper.OpenEntityMetadataFileGenerationOptions(fileGenerationOptions);
             }
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
@@ -783,7 +777,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (!withSelect && openOptions)
             {
-                WindowHelper.OpenGlobalOptionSetsFileGenerationOptions(_iWriteToOutput, connectionData);
+                var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
+
+                WindowHelper.OpenGlobalOptionSetsFileGenerationOptions(fileGenerationOptions);
             }
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
@@ -922,9 +918,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
+            var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
+
             if (openOptions)
             {
-                WindowHelper.OpenGlobalOptionSetsFileGenerationOptions(_iWriteToOutput, connectionData);
+                WindowHelper.OpenGlobalOptionSetsFileGenerationOptions(fileGenerationOptions);
             }
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
@@ -951,8 +949,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string operation = string.Format(Properties.OperationNames.CreatingFileWithGlobalOptionSetsFormat2, connectionData?.Name, optionSetsName);
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
-
-            var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
 
             using (var writer = new StreamWriter(selectedFile.FilePath, false, new UTF8Encoding(false)))
             {

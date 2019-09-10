@@ -23,7 +23,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 
         protected override void CommandAction(DTEHelper helper)
         {
-            helper.HandleEntityMetadataFileGenerationOptions(null);
+            helper.HandleEntityMetadataFileGenerationOptions();
         }
 
         protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)

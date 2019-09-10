@@ -1194,34 +1194,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartOpeningEntityMetadataFileGenerationOptions(ConnectionData connectionData)
+        public void StartOpeningEntityMetadataFileGenerationOptions()
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._entityMetadataController.ExecuteOpeningEntityMetadataFileGenerationOptions(connectionData);
+                    this._entityMetadataController.ExecuteOpeningEntityMetadataFileGenerationOptions();
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                    DTEHelper.WriteExceptionToOutput(null, ex);
                 }
             });
 
             worker.Start();
         }
 
-        public void StartOpeningGlobalOptionSetsMetadataFileGenerationOptions(ConnectionData connectionData)
+        public void StartOpeningGlobalOptionSetsMetadataFileGenerationOptions()
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._entityMetadataController.ExecuteOpeningGlobalOptionSetsMetadataFileGenerationOptions(connectionData);
+                    this._entityMetadataController.ExecuteOpeningGlobalOptionSetsMetadataFileGenerationOptions();
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                    DTEHelper.WriteExceptionToOutput(null, ex);
                 }
             });
 

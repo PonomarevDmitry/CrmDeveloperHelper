@@ -1375,6 +1375,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Opening Entity Metadata File Generation Options.
+        /// </summary>
+        internal static string OpeningEntityMetadataFileGenerationOptions {
+            get {
+                return ResourceManager.GetString("OpeningEntityMetadataFileGenerationOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Opening Entity Privileges Explorer.
         /// </summary>
         internal static string OpeningEntityPrivilegesExplorerFormat1 {
@@ -1425,6 +1434,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string OpeningGlobalOptionSetsExplorerFormat1 {
             get {
                 return ResourceManager.GetString("OpeningGlobalOptionSetsExplorerFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opening Global OptionSets Metadata File Generation Options.
+        /// </summary>
+        internal static string OpeningGlobalOptionSetsFileGenerationOptions {
+            get {
+                return ResourceManager.GetString("OpeningGlobalOptionSetsFileGenerationOptions", resourceCulture);
             }
         }
         

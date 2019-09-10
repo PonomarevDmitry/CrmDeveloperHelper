@@ -1,31 +1,23 @@
-using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Globalization;
-using System.Windows;
 using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
     public partial class WindowExplorerGlobalOptionSetsOptions : WindowBase
     {
-        private readonly IWriteToOutput _iWriteToOutput;
-
         private readonly FileGenerationOptions _fileGenerationOptions;
 
-        public WindowExplorerGlobalOptionSetsOptions(IWriteToOutput iWriteToOutput, ConnectionData connectionData)
+        public WindowExplorerGlobalOptionSetsOptions(FileGenerationOptions fileGenerationOptions)
         {
             InitializeComponent();
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
-            this._fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
-            this._iWriteToOutput = iWriteToOutput;
+            this._fileGenerationOptions = fileGenerationOptions;
 
             options.BindFileGenerationOptions(_fileGenerationOptions);
-
-            cmBCurrentConnection.ItemsSource = connectionData.ConnectionConfiguration.Connections;
-            cmBCurrentConnection.SelectedItem = connectionData;
         }
 
         protected override void OnClosed(EventArgs e)
@@ -33,11 +25,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             base.OnClosed(e);
 
             FileGenerationConfiguration.SaveConfiguration();
-        }
-
-        private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)
-        {
-            SetCurrentConnection(_iWriteToOutput, cmBCurrentConnection.SelectedItem as ConnectionData);
         }
 
         private void options_CloseClicked(object sender, System.EventArgs e)

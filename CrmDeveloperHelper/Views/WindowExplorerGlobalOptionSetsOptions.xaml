@@ -18,8 +18,6 @@
                 <ResourceDictionary Source="StyleWindows.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
-
-
         </ResourceDictionary>
     </src:WindowBase.Resources>
     <Grid>
@@ -33,11 +31,7 @@
         <local:FileGenerationGlobalOptionSetMetadataOptionsControl Grid.Row="0" x:Name="options" CloseClicked="options_CloseClicked" />
 
         <StatusBar Grid.Row="1">
-            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" />
-            <ComboBox x:Name="cmBCurrentConnection" IsReadOnly="True" Padding="10,0" />
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />
-            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
-            <StatusBarItem x:Name="stBIStatus" />
+            <StatusBarItem Content="" />
         </StatusBar>
 
     </Grid>

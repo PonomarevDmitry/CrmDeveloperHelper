@@ -214,8 +214,17 @@
   <data name="OpeningEntityMetadataExplorerFormat1" xml:space="preserve">
     <value>{0} - Opening Entity Metadata Explorer</value>
   </data>
+
+  <data name="OpeningEntityMetadataFileGenerationOptions" xml:space="preserve">
+    <value>Opening Entity Metadata File Generation Options</value>
+  </data>
+  
   <data name="OpeningGlobalOptionSetsExplorerFormat1" xml:space="preserve">
     <value>{0} - Opening Global OptionSets Metadata Explorer</value>
+  </data>
+
+  <data name="OpeningGlobalOptionSetsFileGenerationOptions" xml:space="preserve">
+    <value>Opening Global OptionSets Metadata File Generation Options</value>
   </data>
   
   
