@@ -7,16 +7,16 @@ using System.Windows;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlConvertFetchXmlToJavaScriptCodeCommand : AbstractCommand
+    internal sealed class CodeXmlFetchXmlConvertToJavaScriptCodeCommand : AbstractCommand
     {
-        private CodeXmlConvertFetchXmlToJavaScriptCodeCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.guidCommandSet.CodeXmlConvertFetchXmlToJavaScriptCodeCommandId) { }
+        private CodeXmlFetchXmlConvertToJavaScriptCodeCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.guidCommandSet.CodeXmlFetchXmlConvertToJavaScriptCodeCommandId) { }
 
-        public static CodeXmlConvertFetchXmlToJavaScriptCodeCommand Instance { get; private set; }
+        public static CodeXmlFetchXmlConvertToJavaScriptCodeCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeXmlConvertFetchXmlToJavaScriptCodeCommand(commandService);
+            Instance = new CodeXmlFetchXmlConvertToJavaScriptCodeCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper)

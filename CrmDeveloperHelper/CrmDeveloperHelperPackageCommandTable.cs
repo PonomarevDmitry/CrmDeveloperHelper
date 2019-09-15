@@ -1765,7 +1765,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeJavaScriptUpdateGlobalOptionSetAllFileCommandId = 0x2580;
 
-            public const int CodeXmlExecuteFetchXmlRequestInConnectionsCommandId = 0x109A;
+            public const int CodeXmlFetchXmlExecuteRequestInConnectionsCommandId = 0x109A;
 
             public const int CodeXmlSetXsdSchemaCommandId = 0x10FE;
 
@@ -2080,9 +2080,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommandId = 0x21A1;
 
-            public const int CodeXmlExecuteFetchXmlRequestCommandId = 0x2160;
+            public const int CodeXmlFetchXmlExecuteRequestCommandId = 0x2160;
 
-            public const int CodeXmlConvertFetchXmlToJavaScriptCodeCommandId = 0x2161;
+            public const int CodeXmlFetchXmlConvertToJavaScriptCodeCommandId = 0x2161;
 
             public const int CodeXmlRibbonDiffInsertIntellisenseContextCommandId = 0x2178;
 

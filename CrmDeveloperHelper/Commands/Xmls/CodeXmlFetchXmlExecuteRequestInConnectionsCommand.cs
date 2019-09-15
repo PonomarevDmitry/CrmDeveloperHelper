@@ -1,23 +1,29 @@
 using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlExecuteFetchXmlRequestCommand : AbstractCommand
+    internal sealed class CodeXmlFetchXmlExecuteRequestInConnectionsCommand : AbstractDynamicCommandByConnectionAll
     {
-        private CodeXmlExecuteFetchXmlRequestCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.guidCommandSet.CodeXmlExecuteFetchXmlRequestCommandId) { }
+        private CodeXmlFetchXmlExecuteRequestInConnectionsCommand(OleMenuCommandService commandService)
+            : base(
+                commandService
+                , PackageIds.guidDynamicCommandSet.CodeXmlFetchXmlExecuteRequestInConnectionsCommandId
+            )
+        {
 
-        public static CodeXmlExecuteFetchXmlRequestCommand Instance { get; private set; }
+        }
+
+        public static CodeXmlFetchXmlExecuteRequestInConnectionsCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeXmlExecuteFetchXmlRequestCommand(commandService);
+            Instance = new CodeXmlFetchXmlExecuteRequestInConnectionsCommand(commandService);
         }
 
-        protected override void CommandAction(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
             var selectedFile = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsXmlType).FirstOrDefault();
 
@@ -29,7 +35,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
             if (helper.ApplicationObject.ActiveWindow != null
                && helper.ApplicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeDocument
                && helper.ApplicationObject.ActiveWindow.Document != null
-               )
+            )
             {
                 if (!helper.ApplicationObject.ActiveWindow.Document.Saved)
                 {
@@ -37,14 +43,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                 }
             }
 
-            helper.HandleExecutingFetchXml(null, selectedFile, false);
+            helper.HandleExecutingFetchXml(connectionData, selectedFile, true);
         }
 
-        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, ConnectionData connectionData, OleMenuCommand menuCommand)
         {
             CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRoot(applicationObject, menuCommand, out _, AbstractDynamicCommandXsdSchemas.RootFetch);
-
-            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CodeXmlExecuteFetchXmlRequestCommand);
         }
     }
 }

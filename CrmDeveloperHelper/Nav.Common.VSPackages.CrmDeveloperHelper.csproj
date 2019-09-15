@@ -254,9 +254,9 @@
     <Compile Include="Commands\WebResources\FolderWebResourceOpenFilesCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlRibbonOpenInWebCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlRemoveXsdSchemaCommand.cs" />
-    <Compile Include="Commands\Xmls\CodeXmlConvertFetchXmlToJavaScriptCodeCommand.cs" />
-    <Compile Include="Commands\Xmls\CodeXmlExecuteFetchXmlRequestCommand.cs" />
-    <Compile Include="Commands\Xmls\CodeXmlExecuteFetchXmlRequestInConnectionsCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlFetchXmlConvertToJavaScriptCodeCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlFetchXmlExecuteRequestCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlFetchXmlExecuteRequestInConnectionsCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlOpenXsdSchemaFolderCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlRibbonDiffInsertIntellisenseContextCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlRibbonDiffRemoveIntellisenseContextCommand.cs" />

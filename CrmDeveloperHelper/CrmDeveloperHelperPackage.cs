@@ -232,9 +232,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             #region CodeXml
 
-            CodeXmlExecuteFetchXmlRequestCommand.Initialize(commandService);
-            CodeXmlExecuteFetchXmlRequestInConnectionsCommand.Initialize(commandService);
-            CodeXmlConvertFetchXmlToJavaScriptCodeCommand.Initialize(commandService);
+            CodeXmlFetchXmlExecuteRequestCommand.Initialize(commandService);
+            CodeXmlFetchXmlExecuteRequestInConnectionsCommand.Initialize(commandService);
+            CodeXmlFetchXmlConvertToJavaScriptCodeCommand.Initialize(commandService);
             CodeXmlRibbonDiffInsertIntellisenseContextCommand.Initialize(commandService);
             CodeXmlRibbonDiffRemoveIntellisenseContextCommand.Initialize(commandService);
 

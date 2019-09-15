@@ -3314,7 +3314,7 @@
 
       <!-- #region CodeXml -->
 
-      <Button guid="guidCommandSet" id="CodeXmlExecuteFetchXmlRequestCommandId" priority="0x00FF" type="Button">
+      <Button guid="guidCommandSet" id="CodeXmlFetchXmlExecuteRequestCommandId" priority="0x00FF" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -3324,7 +3324,7 @@
           <ButtonText>Execute Fetch Xml</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="CodeXmlExecuteFetchXmlRequestInConnectionsCommandId" priority="0x00FE" type="Button">
+      <Button guid="guidDynamicCommandSet" id="CodeXmlFetchXmlExecuteRequestInConnectionsCommandId" priority="0x00FE" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -3335,7 +3335,7 @@
           <ButtonText>Execute Fetch Xml In Connection Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="CodeXmlConvertFetchXmlToJavaScriptCodeCommandId" priority="0x0100" type="Button">
+      <Button guid="guidCommandSet" id="CodeXmlFetchXmlConvertToJavaScriptCodeCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -10463,7 +10463,7 @@
 
     <!-- #region codeMenuXml_GroupExecuteFetch -->
 
-    <CommandPlacement guid="guidCommandSet" id="CodeXmlExecuteFetchXmlRequestCommandId" priority="0x100">
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlFetchXmlExecuteRequestCommandId" priority="0x100">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupExecuteFetch" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupExecuteFetch_MenuConnectionDyn" priority="0x0101">
@@ -10474,7 +10474,7 @@
 
     <!-- #region codeMenuXml_GroupCopyFetch -->
 
-    <CommandPlacement guid="guidCommandSet" id="CodeXmlConvertFetchXmlToJavaScriptCodeCommandId" priority="0x105">
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlFetchXmlConvertToJavaScriptCodeCommandId" priority="0x105">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupCopyFetch" />
     </CommandPlacement>
 
@@ -14817,7 +14817,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupExecuteFetch_MenuConnectionDyn_Group" priority="0x0101">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupExecuteFetch_MenuConnectionDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlExecuteFetchXmlRequestInConnectionsCommandId" priority="0x0101">
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlFetchXmlExecuteRequestInConnectionsCommandId" priority="0x0101">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupExecuteFetch_MenuConnectionDyn_Group" />
     </CommandPlacement>
 
@@ -16705,7 +16705,7 @@
 
   <KeyBindings>
 
-    <KeyBinding guid="guidCommandSet" id="CodeXmlExecuteFetchXmlRequestCommandId" editor="guidVSStd97" mod1="Alt" key1="VK_F9" mod2="Alt" key2="VK_F9"/>
+    <KeyBinding guid="guidCommandSet" id="CodeXmlFetchXmlExecuteRequestCommandId" editor="guidVSStd97" mod1="Alt" key1="VK_F9" mod2="Alt" key2="VK_F9"/>
 
     <KeyBinding guid="guidCommandSet" id="CodeWebResourceUpdateContentPublishCommandId" editor="guidVSStd97" mod1="Alt" key1="C" mod2="Alt" key2="P"/>
 
@@ -18180,7 +18180,7 @@
 
       <!-- #region CodeXml -->
 
-      <IDSymbol name="CodeXmlExecuteFetchXmlRequestInConnectionsCommandId" value="4250" />
+      <IDSymbol name="CodeXmlFetchXmlExecuteRequestInConnectionsCommandId" value="4250" />
 
       <IDSymbol name="CodeXmlSetXsdSchemaCommandId" value="4350" />
 
@@ -18540,8 +18540,8 @@
 
       <!-- #region CodeXml -->
 
-      <IDSymbol name="CodeXmlExecuteFetchXmlRequestCommandId" value="0x2160" />
-      <IDSymbol name="CodeXmlConvertFetchXmlToJavaScriptCodeCommandId" value="0x2161" />
+      <IDSymbol name="CodeXmlFetchXmlExecuteRequestCommandId" value="0x2160" />
+      <IDSymbol name="CodeXmlFetchXmlConvertToJavaScriptCodeCommandId" value="0x2161" />
 
       <IDSymbol name="CodeXmlRibbonDiffInsertIntellisenseContextCommandId" value="0x2178" />
       <IDSymbol name="CodeXmlRibbonDiffRemoveIntellisenseContextCommandId" value="0x2179" />
