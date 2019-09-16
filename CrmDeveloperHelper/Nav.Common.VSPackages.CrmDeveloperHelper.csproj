@@ -252,6 +252,7 @@
     <Compile Include="Commands\WebResources\FolderWebResourceAddFilesIntoListForPublishCommand.cs" />
     <Compile Include="Commands\WebResources\FolderWebResourceMultiDifferenceCommand.cs" />
     <Compile Include="Commands\WebResources\FolderWebResourceOpenFilesCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlFetchXmlPasteFromClipboardCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlRibbonOpenInWebCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlRemoveXsdSchemaCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlFetchXmlConvertToJavaScriptCodeCommand.cs" />
@@ -851,6 +852,7 @@
     <Compile Include="Helpers\FileOperations.cs" />
     <Compile Include="Helpers\FormatTextTableHandler.cs" />
     <Compile Include="Helpers\FormDescriptionHandler.cs" />
+    <Compile Include="Helpers\JavaScriptFetchXmlParser.cs" />
     <Compile Include="Helpers\LabelComparer.cs" />
     <Compile Include="Helpers\LabelReplacer.cs" />
     <Compile Include="Helpers\NullableTypeExtension.cs" />
@@ -1734,6 +1736,9 @@
     </Reference>
     <Reference Include="extensibility, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Jint, Version=0.0.0.0, Culture=neutral, PublicKeyToken=2e92ba9c8d81157f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Jint.2.11.58\lib\net451\Jint.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Crm.Sdk.Proxy, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CrmSdk.CoreAssemblies.9.0.2.3\lib\net452\Microsoft.Crm.Sdk.Proxy.dll</HintPath>

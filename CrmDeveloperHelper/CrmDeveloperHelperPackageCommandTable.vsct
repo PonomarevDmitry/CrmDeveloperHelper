@@ -3335,6 +3335,18 @@
           <ButtonText>Execute Fetch Xml In Connection Placeholder</ButtonText>
         </Strings>
       </Button>
+
+
+      <Button guid="guidCommandSet" id="CodeXmlFetchXmlPasteFromClipboardCommandId" priority="0x00FF" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Paste Fetch Xml from JavaScript</ButtonText>
+        </Strings>
+      </Button>
       <Button guid="guidCommandSet" id="CodeXmlFetchXmlConvertToJavaScriptCodeCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -3345,6 +3357,7 @@
           <ButtonText>Copy JavaScript Fetch Xml to Clipboard</ButtonText>
         </Strings>
       </Button>
+
       <Button guid="guidCommandSet" id="CodeXmlOpenXsdSchemaFolderCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -4202,7 +4215,7 @@
       </Button>
 
 
-      
+
       <Button guid="guidCommandSet" id="CodeCSharpEntityMetadataFileGenerationOptionsCommandId" priority="0x0102" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -10463,10 +10476,10 @@
 
     <!-- #region codeMenuXml_GroupExecuteFetch -->
 
-    <CommandPlacement guid="guidCommandSet" id="CodeXmlFetchXmlExecuteRequestCommandId" priority="0x100">
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlFetchXmlExecuteRequestCommandId" priority="0x6000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupExecuteFetch" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupExecuteFetch_MenuConnectionDyn" priority="0x0101">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupExecuteFetch_MenuConnectionDyn" priority="0x6010">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupExecuteFetch" />
     </CommandPlacement>
 
@@ -10474,7 +10487,11 @@
 
     <!-- #region codeMenuXml_GroupCopyFetch -->
 
-    <CommandPlacement guid="guidCommandSet" id="CodeXmlFetchXmlConvertToJavaScriptCodeCommandId" priority="0x105">
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlFetchXmlPasteFromClipboardCommandId" priority="0x6000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupCopyFetch" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlFetchXmlConvertToJavaScriptCodeCommandId" priority="0x6010">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupCopyFetch" />
     </CommandPlacement>
 
@@ -18542,6 +18559,7 @@
 
       <IDSymbol name="CodeXmlFetchXmlExecuteRequestCommandId" value="0x2160" />
       <IDSymbol name="CodeXmlFetchXmlConvertToJavaScriptCodeCommandId" value="0x2161" />
+      <IDSymbol name="CodeXmlFetchXmlPasteFromClipboardCommandId" value="0x221D" />
 
       <IDSymbol name="CodeXmlRibbonDiffInsertIntellisenseContextCommandId" value="0x2178" />
       <IDSymbol name="CodeXmlRibbonDiffRemoveIntellisenseContextCommandId" value="0x2179" />
@@ -19239,7 +19257,7 @@
     <!-- 0x13A2 -->
 
     <!-- -->
-    <!-- 0x221D -->
+    <!-- 0x221E -->
 
 
   </Symbols>

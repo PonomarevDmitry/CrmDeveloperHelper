@@ -1288,6 +1288,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return (ConnectionConfiguration.Get().CurrentConnectionData?.IsReadOnly).GetValueOrDefault() == false;
         }
 
+        internal static void ActionBeforeQueryStatusClipboardIsText(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        {
+            bool visible = CacheValue(nameof(ActionBeforeQueryStatusClipboardIsText), applicationObject, ActionBeforeQueryStatusClipboardIsTextInternal);
+
+            if (visible == false)
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
+        }
+
+        private static bool ActionBeforeQueryStatusClipboardIsTextInternal(EnvDTE80.DTE2 applicationObject)
+        {
+            if (!System.Windows.Clipboard.ContainsText(System.Windows.TextDataFormat.Text)
+                && !System.Windows.Clipboard.ContainsText(System.Windows.TextDataFormat.UnicodeText)
+            )
+            {
+                return false;
+            }
+
+            string text = System.Windows.Clipboard.GetText();
+
+            return !string.IsNullOrEmpty(text);
+        }
+
+        #region Cache
+
         private static bool CacheValue(string cacheName, Func<bool> valueGetter)
         {
             bool result = false;
@@ -1379,5 +1405,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             return result;
         }
+
+        #endregion Cache
     }
 }

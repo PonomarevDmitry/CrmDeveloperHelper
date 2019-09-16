@@ -232,11 +232,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             #region CodeXml
 
+            #region FetchXml
+
             CodeXmlFetchXmlExecuteRequestCommand.Initialize(commandService);
             CodeXmlFetchXmlExecuteRequestInConnectionsCommand.Initialize(commandService);
+
             CodeXmlFetchXmlConvertToJavaScriptCodeCommand.Initialize(commandService);
-            CodeXmlRibbonDiffInsertIntellisenseContextCommand.Initialize(commandService);
-            CodeXmlRibbonDiffRemoveIntellisenseContextCommand.Initialize(commandService);
+
+            CodeXmlFetchXmlPasteFromClipboardCommand.Initialize(commandService);
+
+            #endregion FetchXml
 
             #region SiteMap
 
@@ -286,6 +291,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             CodeXmlRibbonShowDifferenceCommand.Initialize(commandService);
             CodeXmlRibbonShowDifferenceInConnectionGroupCommand.Initialize(commandService);
+
+            CodeXmlRibbonDiffInsertIntellisenseContextCommand.Initialize(commandService);
+            CodeXmlRibbonDiffRemoveIntellisenseContextCommand.Initialize(commandService);
+
             CodeXmlRibbonDiffXmlShowDifferenceCommand.Initialize(commandService);
             CodeXmlRibbonDiffXmlShowDifferenceInConnectionGroupCommand.Initialize(commandService);
 

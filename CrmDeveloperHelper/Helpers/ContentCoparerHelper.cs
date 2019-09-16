@@ -114,7 +114,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
                 else
                 {
-                    
+
                 }
             }
 
@@ -1105,7 +1105,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public static object VsShellAsyncUtilities { get; private set; }
 
-        private static async System.Threading.Tasks.Task GetTextViewAndMakeAction(Document document, string operationName, Action<IWpfTextView> action)
+        public static async System.Threading.Tasks.Task GetTextViewAndMakeActionAsync(Document document, string operationName, Action<IWpfTextView, int, int> action)
         {
             var vsTextView = GetIVsTextView(document.FullName);
 
@@ -1135,7 +1135,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 vsTextView.GetCaretPos(out var oldCaretLine, out var oldCaretColumn);
                 vsTextView.SetCaretPos(oldCaretLine, 0);
 
-                action(wpfTextView);
+                action(wpfTextView, oldCaretLine, oldCaretColumn);
 
                 vsTextView.GetCaretPos(out var newCaretLine, out var newCaretColumn);
                 vsTextView.SetCaretPos(newCaretLine, oldCaretColumn);
@@ -1307,7 +1307,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            GetTextViewAndMakeAction(document, Properties.OperationNames.AddXmlSchemaLocation, wpfTextView => ReplaceXsdSchemaInTextView(wpfTextView, schemas));
+            GetTextViewAndMakeActionAsync(document, Properties.OperationNames.AddXmlSchemaLocation, (wpfTextView, oldCaretLine, oldCaretColumn) => ReplaceXsdSchemaInTextView(wpfTextView, schemas));
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Microsoft.VisualStudio.Text.ITextEdit.Insert(System.Int32,System.String)")]
@@ -1376,7 +1376,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public static void InsertIntellisenseContextEntityNameInDocument(EnvDTE.Document document, string entityName)
         {
-            GetTextViewAndMakeAction(document, Properties.OperationNames.AddXmlSchemaLocation, wpfTextView => InsertIntellisenseContextEntityNameInTextView(wpfTextView, entityName));
+            GetTextViewAndMakeActionAsync(document, Properties.OperationNames.AddXmlSchemaLocation, (wpfTextView, oldCaretLine, oldCaretColumn) => InsertIntellisenseContextEntityNameInTextView(wpfTextView, entityName));
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Microsoft.VisualStudio.Text.ITextEdit.Insert(System.Int32,System.String)")]
@@ -1477,10 +1477,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public static void RemoveXsdSchemaInDocument(EnvDTE.Document document)
         {
-            GetTextViewAndMakeAction(document, Properties.OperationNames.RemoveXmlSchemaLocation, RemoveXsdSchemaInTextView);
+            GetTextViewAndMakeActionAsync(document, Properties.OperationNames.RemoveXmlSchemaLocation, RemoveXsdSchemaInTextView);
         }
 
-        private static void RemoveXsdSchemaInTextView(IWpfTextView wpfTextView)
+        private static void RemoveXsdSchemaInTextView(IWpfTextView wpfTextView, int oldCaretLine, int oldCaretColumn)
         {
             var snapshot = wpfTextView.TextSnapshot;
 
@@ -1517,10 +1517,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public static void RemoveIntellisenseContextEntityNameInDocument(EnvDTE.Document document)
         {
-            GetTextViewAndMakeAction(document, Properties.OperationNames.RemoveRibbonDiffIntellisenseContextEntityName, RemoveIntellisenseContextEntityNameInTextView);
+            GetTextViewAndMakeActionAsync(document, Properties.OperationNames.RemoveRibbonDiffIntellisenseContextEntityName, RemoveIntellisenseContextEntityNameInTextView);
         }
 
-        private static void RemoveIntellisenseContextEntityNameInTextView(IWpfTextView wpfTextView)
+        private static void RemoveIntellisenseContextEntityNameInTextView(IWpfTextView wpfTextView, int oldCaretLine, int oldCaretColumn)
         {
             var snapshot = wpfTextView.TextSnapshot;
 
