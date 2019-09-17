@@ -13,7 +13,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
     public abstract class CreateFileHandler
     {
-        private const string _defaultTabSpacer = "    ";
+        public const string _defaultTabSpacer = "    ";
 
         private readonly TextWriter _writer;
 
@@ -133,6 +133,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        protected void WriteLineIfHasLine(ref bool isFirstLineWrited)
+        {
+            if (isFirstLineWrited)
+            {
+                WriteLine();
+            }
+            else
+            {
+                isFirstLineWrited = true;
+            }
+        }
+
+        protected void WriteSummary(Label displayName, Label description, IEnumerable<string> headers, IEnumerable<string> footers)
+        {
+            var listStrings = UnionStrings(displayName, description, headers, footers, _allDescriptions, _tabSpacer);
+
+            WriteSummaryStrings(listStrings);
+        }
+
         protected virtual void WriteSummaryStrings(IEnumerable<string> listStrings)
         {
             if (!listStrings.Any())
@@ -185,13 +204,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             return listStrings;
-        }
-
-        protected void WriteSummary(Label displayName, Label description, IEnumerable<string> headers, IEnumerable<string> footers)
-        {
-            var listStrings = UnionStrings(displayName, description, headers, footers, _allDescriptions, _tabSpacer);
-
-            WriteSummaryStrings(listStrings);
         }
 
         private static readonly Regex rexReplaceNonAlpha = new Regex(@"[^a-zA-Z_0-9]", RegexOptions.Compiled);

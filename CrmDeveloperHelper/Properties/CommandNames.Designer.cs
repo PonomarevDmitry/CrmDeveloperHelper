@@ -214,6 +214,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy QueryExpression to Clipboard.
+        /// </summary>
+        internal static string CodeXmlFetchXmlConvertToQueryExpressionCommand {
+            get {
+                return ResourceManager.GetString("CodeXmlFetchXmlConvertToQueryExpressionCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open ApplicationRibbon Explorer.
         /// </summary>
         internal static string CodeXmlRibbonApplicationExplorerCommand {

@@ -1308,6 +1308,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        #region SystemForm
+
         public void HandleSystemFormDifferenceCommand(ConnectionData connectionData, SelectedFile selectedFile)
         {
             if (selectedFile == null)
@@ -1418,6 +1420,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
         }
+
+        #endregion SystemForm
+
+        //StartConvertingFetchXmlToQueryExpression
+
+        #region SavedQuery
 
         public void HandleSavedQueryDifferenceCommand(ConnectionData connectionData, SelectedFile selectedFile)
         {
@@ -1530,6 +1538,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        #endregion SavedQuery
+
+        #region FetchXml
+
+        public void HandleConvertingFetchXmlToQueryExpressionCommand(ConnectionData connectionData, string fetchXml)
+        {
+            if (string.IsNullOrEmpty(fetchXml))
+            {
+                return;
+            }
+
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null && commonConfig != null)
+            {
+                ActivateOutputWindow(connectionData);
+                WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                try
+                {
+                    Controller.StartConvertingFetchXmlToQueryExpression(fetchXml, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToOutput(connectionData, ex);
+                }
+            }
+        }
+
+        #endregion FetchXml
+
+        #region Workflow
+
         public void HandleWorkflowDifferenceCommand(ConnectionData connectionData, SelectedFile selectedFile)
         {
             if (selectedFile == null)
@@ -1641,6 +1694,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        #endregion Workflow
+
+        #region RibbonDiff
+
         public void HandleRibbonDiffXmlDifferenceCommand(ConnectionData connectionData, SelectedFile selectedFile)
         {
             if (selectedFile == null)
@@ -1730,6 +1787,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        #endregion RibbonDiff
+
+        #region Ribbon
+
         public void HandleEntityRibbonOpenInWeb(ConnectionData connectionData, SelectedFile selectedFile)
         {
             if (selectedFile == null)
@@ -1803,6 +1864,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
         }
+
+        #endregion Ribbon
 
         public void HandleWebResourceThreeFileDifferenceCommand(ConnectionData connectionData1, ConnectionData connectionData2, ShowDifferenceThreeFileType differenceType)
         {
@@ -2155,7 +2218,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartMultiDifferenceFiles(selectedFiles, openFilesType, connectionData, commonConfig);
+                    Controller.StartWebResourceMultiDifferenceFiles(selectedFiles, openFilesType, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {

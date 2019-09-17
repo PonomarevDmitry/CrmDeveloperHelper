@@ -3357,6 +3357,16 @@
           <ButtonText>Copy JavaScript Fetch Xml to Clipboard</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidCommandSet" id="CodeXmlFetchXmlConvertToQueryExpressionCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Copy QueryExpression to Clipboard</ButtonText>
+        </Strings>
+      </Button>
 
       <Button guid="guidCommandSet" id="CodeXmlOpenXsdSchemaFolderCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -10494,6 +10504,11 @@
     <CommandPlacement guid="guidCommandSet" id="CodeXmlFetchXmlConvertToJavaScriptCodeCommandId" priority="0x6010">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupCopyFetch" />
     </CommandPlacement>
+
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlFetchXmlConvertToQueryExpressionCommandId" priority="0x6020">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupCopyFetch" />
+    </CommandPlacement>
+    
 
     <!-- #endregion codeMenuXml_GroupCopyFetch -->
 
@@ -18558,8 +18573,10 @@
       <!-- #region CodeXml -->
 
       <IDSymbol name="CodeXmlFetchXmlExecuteRequestCommandId" value="0x2160" />
-      <IDSymbol name="CodeXmlFetchXmlConvertToJavaScriptCodeCommandId" value="0x2161" />
+      <IDSymbol name="CodeXmlFetchXmlConvertToQueryExpressionCommandId" value="0x221E" />
+
       <IDSymbol name="CodeXmlFetchXmlPasteFromClipboardCommandId" value="0x221D" />
+      <IDSymbol name="CodeXmlFetchXmlConvertToJavaScriptCodeCommandId" value="0x2161" />
 
       <IDSymbol name="CodeXmlRibbonDiffInsertIntellisenseContextCommandId" value="0x2178" />
       <IDSymbol name="CodeXmlRibbonDiffRemoveIntellisenseContextCommandId" value="0x2179" />
@@ -19256,8 +19273,8 @@
     <!-- Groups and Menus -->
     <!-- 0x13A2 -->
 
-    <!-- -->
-    <!-- 0x221E -->
+    <!-- Commands -->
+    <!-- 0x221F -->
 
 
   </Symbols>

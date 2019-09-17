@@ -252,6 +252,7 @@
     <Compile Include="Commands\WebResources\FolderWebResourceAddFilesIntoListForPublishCommand.cs" />
     <Compile Include="Commands\WebResources\FolderWebResourceMultiDifferenceCommand.cs" />
     <Compile Include="Commands\WebResources\FolderWebResourceOpenFilesCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlFetchXmlConvertToQueryExpressionCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlFetchXmlPasteFromClipboardCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlRibbonOpenInWebCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlRemoveXsdSchemaCommand.cs" />
@@ -899,6 +900,7 @@
     <Compile Include="Helpers\ProxyClassGeneration\CodeGenerationSdkMessageRequest.cs" />
     <Compile Include="Helpers\ProxyClassGeneration\CodeGenerationSdkMessageResponse.cs" />
     <Compile Include="Helpers\PublishManager.cs" />
+    <Compile Include="Helpers\QueryExpressionCodeGenerator.cs" />
     <Compile Include="Helpers\QuickConnection.cs" />
     <Compile Include="Helpers\RegistrerPluginHelper.cs" />
     <Compile Include="Helpers\RolePrivilegeComparerHelper.cs" />

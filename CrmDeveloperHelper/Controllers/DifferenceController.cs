@@ -525,7 +525,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Сравнение файлов и веб-ресурсов по разным параметрам.
 
-        public async Task ExecuteMultiDifferenceFiles(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteWebResourceMultiDifferenceFiles(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             string operation = string.Format(Properties.OperationNames.MultiDifferenceFormat2, connectionData?.Name, openFilesType.ToString());
 

@@ -61,6 +61,342 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._securityController = new SecurityController(outputWindow);
         }
 
+        #region SiteMap
+
+        public void StartSiteMapDifference(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._exportXmlController.ExecuteDifferenceSiteMap(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartSiteMapUpdate(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._exportXmlController.ExecuteUpdateSiteMap(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartSiteMapOpenInWeb(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._exportXmlController.ExecuteOpenInWebSiteMap(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        #endregion SiteMap
+
+        #region SystemForm
+
+        public void StartSystemFormDifference(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._exportXmlController.ExecuteDifferenceSystemForm(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartSystemFormUpdate(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._exportXmlController.ExecuteUpdateSystemForm(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartSystemFormOpenInWeb(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._exportXmlController.ExecuteOpenInWebSystemForm(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        #endregion SystemForm
+
+        #region SavedQuery
+
+        public void StartSavedQueryDifference(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._exportXmlController.ExecuteDifferenceSavedQuery(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartSavedQueryUpdate(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._exportXmlController.ExecuteUpdateSavedQuery(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartSavedQueryOpenInWeb(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._exportXmlController.ExecuteOpenInWebSavedQuery(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        #endregion SavedQuery
+
+        #region FetchXml
+
+        public void StartConvertingFetchXmlToQueryExpression(string fetchXml, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._exportXmlController.ExecuteConvertingFetchXmlToQueryExpression(fetchXml, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        #endregion FetchXml
+
+        #region Workflow
+
+        public void StartWorkflowDifference(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._exportXmlController.ExecuteDifferenceWorkflow(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartWorkflowUpdate(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._exportXmlController.ExecuteUpdateWorkflow(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartWorkflowOpenInWeb(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._exportXmlController.ExecuteOpenInWebWorkflow(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        #endregion Workflow
+
+        #region RibbonDiff
+
+        public void StartRibbonDiffXmlDifference(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._entityMetadataController.ExecuteDifferenceRibbonDiffXml(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartRibbonDiffXmlUpdate(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._entityMetadataController.ExecuteUpdateRibbonDiffXml(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        #endregion RibbonDiff
+
+        #region Ribbon
+
+        public void StartRibbonDifference(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._entityMetadataController.ExecuteDifferenceRibbon(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartEntityRibbonOpenInWeb(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._entityMetadataController.ExecuteEntityRibbonOpenInWeb(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartRibbonExplorer(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._entityMetadataController.ExecuteOpenRibbonExplorer(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        #endregion Ribbon
+
+        #region WebResource
+
         /// <summary>
         /// Старт публикации веб-ресурсов
         /// </summary>
@@ -144,40 +480,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void ExecuteCheckingWorkflowsUsedEntities(ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    this._checkController.ExecuteCheckingWorkflowsUsedEntities(connectionData, commonConfig);
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                }
-            });
-
-            worker.Start();
-        }
-
-        public void ExecuteCheckingWorkflowsNotExistingUsedEntities(ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    this._checkController.ExecuteCheckingWorkflowsNotExistingUsedEntities(connectionData, commonConfig);
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                }
-            });
-
-            worker.Start();
-        }
-
         public void StartComparingFilesWithWrongEncoding(List<SelectedFile> selectedFiles, ConnectionData connectionData, bool withDetails)
         {
             var worker = new Thread(() =>
@@ -219,296 +521,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartRibbonDifference(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    this._entityMetadataController.ExecuteDifferenceRibbon(selectedFile, connectionData, commonConfig);
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                }
-            });
-
-            worker.Start();
-        }
-
-        public void StartSiteMapDifference(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    this._exportXmlController.ExecuteDifferenceSiteMap(selectedFile, connectionData, commonConfig);
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                }
-            });
-
-            worker.Start();
-        }
-
-        public void StartSiteMapUpdate(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    this._exportXmlController.ExecuteUpdateSiteMap(selectedFile, connectionData, commonConfig);
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                }
-            });
-
-            worker.Start();
-        }
-
-        public void StartSiteMapOpenInWeb(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    this._exportXmlController.ExecuteOpenInWebSiteMap(selectedFile, connectionData, commonConfig);
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                }
-            });
-
-            worker.Start();
-        }
-
-        public void StartSystemFormDifference(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    this._exportXmlController.ExecuteDifferenceSystemForm(selectedFile, connectionData, commonConfig);
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                }
-            });
-
-            worker.Start();
-        }
-
-        public void StartSystemFormUpdate(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    this._exportXmlController.ExecuteUpdateSystemForm(selectedFile, connectionData, commonConfig);
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                }
-            });
-
-            worker.Start();
-        }
-
-        public void StartSystemFormOpenInWeb(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    this._exportXmlController.ExecuteOpenInWebSystemForm(selectedFile, connectionData, commonConfig);
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                }
-            });
-
-            worker.Start();
-        }
-
-        public void StartSavedQueryDifference(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    this._exportXmlController.ExecuteDifferenceSavedQuery(selectedFile, connectionData, commonConfig);
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                }
-            });
-
-            worker.Start();
-        }
-
-        public void StartSavedQueryUpdate(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    this._exportXmlController.ExecuteUpdateSavedQuery(selectedFile, connectionData, commonConfig);
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                }
-            });
-
-            worker.Start();
-        }
-
-        public void StartSavedQueryOpenInWeb(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    this._exportXmlController.ExecuteOpenInWebSavedQuery(selectedFile, connectionData, commonConfig);
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                }
-            });
-
-            worker.Start();
-        }
-
-        public void StartWorkflowDifference(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    this._exportXmlController.ExecuteDifferenceWorkflow(selectedFile, connectionData, commonConfig);
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                }
-            });
-
-            worker.Start();
-        }
-
-        public void StartWorkflowUpdate(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    this._exportXmlController.ExecuteUpdateWorkflow(selectedFile, connectionData, commonConfig);
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                }
-            });
-
-            worker.Start();
-        }
-
-        public void StartWorkflowOpenInWeb(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    this._exportXmlController.ExecuteOpenInWebWorkflow(selectedFile, connectionData, commonConfig);
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                }
-            });
-
-            worker.Start();
-        }
-
-        public void StartRibbonDiffXmlDifference(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    this._entityMetadataController.ExecuteDifferenceRibbonDiffXml(selectedFile, connectionData, commonConfig);
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                }
-            });
-
-            worker.Start();
-        }
-
-        public void StartRibbonDiffXmlUpdate(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    this._entityMetadataController.ExecuteUpdateRibbonDiffXml(selectedFile, connectionData, commonConfig);
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                }
-            });
-
-            worker.Start();
-        }
-
-
-        public void StartEntityRibbonOpenInWeb(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    this._entityMetadataController.ExecuteEntityRibbonOpenInWeb(selectedFile, connectionData, commonConfig);
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                }
-            });
-
-            worker.Start();
-        }
-
-        public void StartRibbonExplorer(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    this._entityMetadataController.ExecuteOpenRibbonExplorer(selectedFile, connectionData, commonConfig);
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                }
-            });
-
-            worker.Start();
-        }
-
         public void StartWebResourceThreeFileDifference(SelectedFile selectedFile, ConnectionData connectionData1, ConnectionData connectionData2, ShowDifferenceThreeFileType differenceType, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
@@ -525,6 +537,59 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             worker.Start();
         }
+
+        public void StartOpenWebResourceExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._explorerController.ExecuteOpeningWebResourceExplorer(connectionData, commonConfig, selection);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartWebResourceMultiDifferenceFiles(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._differenceController.ExecuteWebResourceMultiDifferenceFiles(selectedFiles, openFilesType, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartCreatingLastLinkWebResourceMultiple(List<SelectedFile> selectedFiles, ConnectionData connectionData)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._linkController.ExecuteCreatingLastLinkWebResourceMultiple(selectedFiles, connectionData);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        #endregion WebResource
 
         public void StartAddingIntoPublishListFilesByType(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
@@ -543,22 +608,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartMultiDifferenceFiles(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    this._differenceController.ExecuteMultiDifferenceFiles(selectedFiles, openFilesType, connectionData, commonConfig);
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                }
-            });
-
-            worker.Start();
-        }
+        #region Report
 
         /// <summary>
         /// Старт различия отчетов
@@ -618,23 +668,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartOpenWebResourceExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
-        {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    this._explorerController.ExecuteOpeningWebResourceExplorer(connectionData, commonConfig, selection);
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                }
-            });
-
-            worker.Start();
-        }
-
         public void StartOpenReportExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             var worker = new Thread(() =>
@@ -642,28 +675,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 try
                 {
                     this._explorerController.ExecuteOpeningReportExplorer(connectionData, commonConfig, selection);
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                }
-            });
-
-            worker.Start();
-        }
-
-        /// <summary>
-        /// Старт очистки старых линков
-        /// </summary>
-        /// <param name="selectedFiles"></param>
-        /// <param name="config"></param>
-        public void StartClearingLastLink(List<SelectedFile> selectedFiles, ConnectionData connectionData)
-        {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    this._linkController.ExecuteClearingLastLink(selectedFiles, connectionData);
                 }
                 catch (Exception ex)
                 {
@@ -691,13 +702,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartCreatingLastLinkWebResourceMultiple(List<SelectedFile> selectedFiles, ConnectionData connectionData)
+        #endregion Report
+
+        /// <summary>
+        /// Старт очистки старых линков
+        /// </summary>
+        /// <param name="selectedFiles"></param>
+        /// <param name="config"></param>
+        public void StartClearingLastLink(List<SelectedFile> selectedFiles, ConnectionData connectionData)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._linkController.ExecuteCreatingLastLinkWebResourceMultiple(selectedFiles, connectionData);
+                    this._linkController.ExecuteClearingLastLink(selectedFiles, connectionData);
                 }
                 catch (Exception ex)
                 {
@@ -886,7 +904,43 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
+        public void StartEditEntityById(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode, Guid entityId)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._findsController.ExecuteEditEntityById(connectionData, commonConfig, entityName, entityTypeCode, entityId);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartFindEntityByUniqueidentifier(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode, Guid entityId)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._findsController.ExecuteFindEntityByUniqueidentifier(connectionData, commonConfig, entityName, entityTypeCode, entityId);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
         #endregion Finds
+
+        #region Checks
 
         public void StartCheckPluginImages(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
@@ -1024,40 +1078,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartEditEntityById(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode, Guid entityId)
-        {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    this._findsController.ExecuteEditEntityById(connectionData, commonConfig, entityName, entityTypeCode, entityId);
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                }
-            });
-
-            worker.Start();
-        }
-
-        public void StartFindEntityByUniqueidentifier(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode, Guid entityId)
-        {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    this._findsController.ExecuteFindEntityByUniqueidentifier(connectionData, commonConfig, entityName, entityTypeCode, entityId);
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                }
-            });
-
-            worker.Start();
-        }
-
         public void StartCheckEntitiesOwnership(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
@@ -1074,6 +1094,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             worker.Start();
         }
+
+        public void ExecuteCheckingWorkflowsUsedEntities(ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._checkController.ExecuteCheckingWorkflowsUsedEntities(connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void ExecuteCheckingWorkflowsNotExistingUsedEntities(ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._checkController.ExecuteCheckingWorkflowsNotExistingUsedEntities(connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        #endregion Checks
 
         public void StartExportingFormEvents(ConnectionData connectionData, CommonConfiguration commonConfig)
         {

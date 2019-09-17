@@ -1,8 +1,5 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
-using System.IO;
-using System.Linq;
 using System.Windows;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls

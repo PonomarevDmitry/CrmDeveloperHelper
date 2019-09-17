@@ -2084,9 +2084,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         var handlerCreate = new CreateFormTabsJavaScriptHandler(writer, config, javaScriptObjectType, service);
 
                         handlerCreate.WriteContentOnlyForm(tabs);
-
-                        Clipboard.SetText(text.ToString().Trim(' ', '\r', '\n'));
                     }
+
+                    Clipboard.SetText(text.ToString().Trim(' ', '\r', '\n'));
 
                     //this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, name, "Entity Metadata", filePath);
                 }

@@ -2082,9 +2082,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeXmlFetchXmlExecuteRequestCommandId = 0x2160;
 
-            public const int CodeXmlFetchXmlConvertToJavaScriptCodeCommandId = 0x2161;
+            public const int CodeXmlFetchXmlConvertToQueryExpressionCommandId = 0x221E;
 
             public const int CodeXmlFetchXmlPasteFromClipboardCommandId = 0x221D;
+
+            public const int CodeXmlFetchXmlConvertToJavaScriptCodeCommandId = 0x2161;
 
             public const int CodeXmlRibbonDiffInsertIntellisenseContextCommandId = 0x2178;
 

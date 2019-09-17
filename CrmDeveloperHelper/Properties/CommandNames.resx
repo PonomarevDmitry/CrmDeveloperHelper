@@ -168,6 +168,9 @@
   <data name="CodeXmlExecuteFetchXmlRequestCommand" xml:space="preserve">
     <value>Execute Fetch Xml All</value>
   </data>
+  <data name="CodeXmlFetchXmlConvertToQueryExpressionCommand" xml:space="preserve">
+    <value>Copy QueryExpression to Clipboard</value>
+  </data>
   <data name="CodeXmlRibbonApplicationShowDifferenceCommand" xml:space="preserve">
     <value>Show Difference ApplicationRibbon</value>
   </data>

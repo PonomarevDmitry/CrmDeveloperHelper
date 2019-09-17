@@ -238,6 +238,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeXmlFetchXmlExecuteRequestInConnectionsCommand.Initialize(commandService);
 
             CodeXmlFetchXmlConvertToJavaScriptCodeCommand.Initialize(commandService);
+            CodeXmlFetchXmlConvertToQueryExpressionCommand.Initialize(commandService);
 
             CodeXmlFetchXmlPasteFromClipboardCommand.Initialize(commandService);
 
