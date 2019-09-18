@@ -1,5 +1,8 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using System.IO;
+using System.Text;
+using System.Windows;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
@@ -28,7 +31,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                 {
                     string fetchXml = textDocument.StartPoint.CreateEditPoint().GetText(textDocument.EndPoint);
 
-                    helper.HandleConvertingFetchXmlToQueryExpressionCommand(null, fetchXml);
+                    string codeCSharp = ContentCoparerHelper.ConvertFetchXmlToQueryExpression(fetchXml);
+
+                    Clipboard.SetText(codeCSharp);
                 }
             }
         }
@@ -36,8 +41,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
         protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
             CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRoot(applicationObject, menuCommand, out _, AbstractDynamicCommandXsdSchemas.RootFetch);
-
-            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CodeXmlFetchXmlConvertToQueryExpressionCommand);
         }
     }
 }

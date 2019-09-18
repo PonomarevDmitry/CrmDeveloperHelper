@@ -1056,6 +1056,7 @@
     <Compile Include="Model\ExportSolutionConfig.cs" />
     <Compile Include="Model\ExportSolutionOverrideInformation.cs" />
     <Compile Include="Model\ExportSolutionProfile.cs" />
+    <Compile Include="Model\FetchXml.Proxy.cs" />
     <Compile Include="Model\FetchXmlRequestParameter.cs" />
     <Compile Include="Model\FileAction.cs" />
     <Compile Include="Model\FileGenerationConfiguration.cs" />

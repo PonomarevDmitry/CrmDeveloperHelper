@@ -1540,47 +1540,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         #endregion SavedQuery
 
-        #region FetchXml
-
-        public void HandleConvertingFetchXmlToQueryExpressionCommand(ConnectionData connectionData, string fetchXml)
-        {
-            if (string.IsNullOrEmpty(fetchXml))
-            {
-                return;
-            }
-
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
-
-            if (connectionData == null)
-            {
-                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
-                {
-                    return;
-                }
-
-                connectionData = crmConfig.CurrentConnectionData;
-            }
-
-            if (connectionData != null && commonConfig != null)
-            {
-                ActivateOutputWindow(connectionData);
-                WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                CheckWishToChangeCurrentConnection(connectionData);
-
-                try
-                {
-                    Controller.StartConvertingFetchXmlToQueryExpression(fetchXml, connectionData, commonConfig);
-                }
-                catch (Exception ex)
-                {
-                    WriteErrorToOutput(connectionData, ex);
-                }
-            }
-        }
-
-        #endregion FetchXml
-
         #region Workflow
 
         public void HandleWorkflowDifferenceCommand(ConnectionData connectionData, SelectedFile selectedFile)

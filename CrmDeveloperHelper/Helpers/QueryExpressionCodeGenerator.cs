@@ -1,10 +1,9 @@
-﻿using Microsoft.Xrm.Sdk;
-using Microsoft.Xrm.Sdk.Query;
+﻿using Microsoft.Xrm.Sdk.Query;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
@@ -16,96 +15,124 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         }
 
-        public void WriteCSharpQueryExpression(QueryExpression query)
+        public void WriteCSharpQueryExpression(FetchType fetchXml)
         {
-            WriteLine("var query = new QueryExpression()");
+            WriteLine($"var query = new {nameof(QueryExpression)}()");
 
             WriteLine("{");
 
-            bool isFirstLineWrited = false;
+            var fetchEntity = fetchXml.Items.OfType<FetchEntityType>().FirstOrDefault();
 
-            if (query.NoLock)
+            if (fetchEntity != null)
             {
-                WriteLineIfHasLine(ref isFirstLineWrited);
-                WriteLine("NoLock = true,");
-            }
+                bool isFirstLineWrited = false;
 
-            if (query.Distinct)
-            {
-                WriteLineIfHasLine(ref isFirstLineWrited);
-                WriteLine("Distinct = true,");
-            }
-
-            if (query.TopCount.HasValue)
-            {
-                WriteLineIfHasLine(ref isFirstLineWrited);
-                WriteLine("TopCount = " + query.TopCount.ToString() + ",");
-            }
-
-            WriteLineIfHasLine(ref isFirstLineWrited);
-            WriteLine("EntityName = \"" + query.EntityName + "\",");
-
-            var columnSetDefinition = GetColumnSetDefinition(query.ColumnSet);
-
-            WriteLine();
-            WriteLine("ColumnSet = " + columnSetDefinition + ",");
-
-            if (IsFilterExpressionNotEmpty(query.Criteria))
-            {
-                WriteLine();
-
-                WriteLine("Criteria =");
-
-                WriteLine("{");
-
-                WriteFilterExpressionContent(query.Criteria);
-
-                WriteLine("},");
-            }
-
-            if (query.LinkEntities.Any())
-            {
-                WriteLine();
-
-                WriteLine("LinkEntities =");
-
-                WriteLine("{");
-
-                bool isFirstLinkWrited = false;
-
-                foreach (var link in query.LinkEntities)
+                if (fetchXml.nolock)
                 {
-                    WriteLineIfHasLine(ref isFirstLinkWrited);
-                    WriteLinkEntity(link);
+                    WriteLineIfHasLine(ref isFirstLineWrited);
+                    WriteLine($"{nameof(QueryExpression.NoLock)} = true,");
                 }
 
-                WriteLine("},");
-            }
-
-            if (query.Orders.Any())
-            {
-                WriteLine();
-
-                WriteLine("Orders =");
-
-                WriteLine("{");
-
-                foreach (var order in query.Orders)
+                if (fetchXml.distinct && fetchXml.distinctSpecified)
                 {
-                    WriteLine("new OrderExpression(\"" + order.AttributeName + "\", OrderType." + order.OrderType.ToString() + "),");
+                    WriteLineIfHasLine(ref isFirstLineWrited);
+                    WriteLine($"{nameof(QueryExpression.Distinct)} = true,");
                 }
 
-                WriteLine("},");
+                if (!string.IsNullOrEmpty(fetchXml.top) && int.TryParse(fetchXml.top, out int top))
+                {
+                    WriteLineIfHasLine(ref isFirstLineWrited);
+                    WriteLine($"{nameof(QueryExpression.TopCount)} = {top},");
+                }
+                else if (!string.IsNullOrEmpty(fetchXml.count) && int.TryParse(fetchXml.top, out int count))
+                {
+                    WriteLineIfHasLine(ref isFirstLineWrited);
+                    WriteLine($"{nameof(QueryExpression.TopCount)} = {count},");
+                }
+
+                WriteLineIfHasLine(ref isFirstLineWrited);
+                WriteLine($"{nameof(QueryExpression.EntityName)} = \"{fetchEntity.name}\",");
+
+                var columnSetDefinition = GetColumnSetDefinition(fetchEntity.Items);
+
+                WriteLine();
+                WriteLine($"{nameof(QueryExpression.ColumnSet)} = {columnSetDefinition},");
+
+                var criteria = fetchEntity.Items.OfType<filter>().Where(IsFilterExpressionNotEmpty).ToList();
+
+                if (criteria.Any())
+                {
+                    filter filter;
+
+                    if (criteria.Count == 1)
+                    {
+                        filter = criteria[0];
+                    }
+                    else
+                    {
+                        filter = new filter()
+                        {
+                            Items = criteria.ToArray(),
+                        };
+                    }
+
+                    WriteLine();
+
+                    WriteLine($"{nameof(QueryExpression.Criteria)} =");
+
+                    WriteLine("{");
+
+                    WriteFilterExpressionContent(filter);
+
+                    WriteLine("},");
+                }
+
+                if (fetchEntity.Items.OfType<FetchLinkEntityType>().Any())
+                {
+                    WriteLine();
+
+                    WriteLine($"{nameof(QueryExpression.LinkEntities)} =");
+
+                    WriteLine("{");
+
+                    bool isFirstLinkWrited = false;
+
+                    foreach (var link in fetchEntity.Items.OfType<FetchLinkEntityType>())
+                    {
+                        WriteLineIfHasLine(ref isFirstLinkWrited);
+                        WriteLinkEntity(fetchEntity.name, link);
+                    }
+
+                    WriteLine("},");
+                }
+
+                if (fetchEntity.Items.OfType<FetchOrderType>().Any())
+                {
+                    WriteLine();
+
+                    WriteLine($"{nameof(QueryExpression.Orders)} =");
+
+                    WriteLine("{");
+
+                    foreach (var order in fetchEntity.Items.OfType<FetchOrderType>())
+                    {
+                        var orderType = order.descending ? OrderType.Descending : OrderType.Ascending;
+
+                        WriteLine($"new {nameof(OrderExpression)}(\"{order.attribute}\", {nameof(OrderType)}.{orderType}),");
+                    }
+
+                    WriteLine("},");
+                }
             }
 
-            WriteLine("};");
+            Write("};");
         }
 
-        private bool IsColumnSetNotDefault(ColumnSet columnSet)
+        private static bool IsColumnSetNotDefault(object[] items)
         {
-            if (columnSet != null)
+            if (items != null)
             {
-                if (columnSet.AllColumns || columnSet.Columns.Any())
+                if (items.OfType<allattributes>().Any() || items.OfType<FetchAttributeType>().Any())
                 {
                     return true;
                 }
@@ -114,89 +141,105 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return false;
         }
 
-        private string GetColumnSetDefinition(ColumnSet columnSet)
+        private static string GetColumnSetDefinition(object[] items)
         {
-            if (columnSet != null)
+            if (items != null)
             {
-                if (columnSet.AllColumns)
+                if (items.OfType<allattributes>().Any())
                 {
-                    return "new ColumnSet(true)";
+                    return $"new {nameof(ColumnSet)}(true)";
                 }
-                else if (columnSet.Columns.Any())
+                else if (items.OfType<FetchAttributeType>().Any())
                 {
-                    var cols = "\"" + string.Join("\", \"", columnSet.Columns.OrderBy(s => s)) + "\"";
+                    var cols = "\"" + string.Join("\", \"", items.OfType<FetchAttributeType>().Select(a => a.name).OrderBy(s => s)) + "\"";
 
-                    return $"new ColumnSet({cols})";
+                    return $"new {nameof(ColumnSet)}({cols})";
                 }
             }
 
-            return "new ColumnSet(false)";
+            return $"new {nameof(ColumnSet)}(false)";
         }
 
-        private void WriteLinkEntity(LinkEntity link)
+        private void WriteLinkEntity(string parentEntityName, FetchLinkEntityType link)
         {
             bool isFirstLineWrited = false;
 
-            WriteLine("new LinkEntity()");
+            WriteLine($"new {nameof(LinkEntity)}()");
             WriteLine("{");
 
-            if (link.JoinOperator != JoinOperator.Inner)
+            if (string.Equals(link.linktype, "outer", StringComparison.InvariantCulture))
             {
                 WriteLineIfHasLine(ref isFirstLineWrited);
-                WriteLine($"JoinOperator = JoinOperator.{link.JoinOperator},");
+                WriteLine($"{nameof(LinkEntity.JoinOperator)} = {nameof(JoinOperator)}.{nameof(JoinOperator.LeftOuter)},");
             }
 
             WriteLineIfHasLine(ref isFirstLineWrited);
 
-            WriteLine($"LinkFromEntityName = \"{link.LinkFromEntityName}\",");
-            WriteLine($"LinkFromAttributeName = \"{link.LinkFromAttributeName}\",");
+            WriteLine($"{nameof(LinkEntity.LinkFromEntityName)} = \"{parentEntityName}\",");
+            WriteLine($"{nameof(LinkEntity.LinkFromAttributeName)} = \"{link.to}\",");
 
             WriteLine();
 
-            WriteLine($"LinkToEntityName = \"{link.LinkToEntityName}\",");
-            WriteLine($"LinkToAttributeName = \"{link.LinkToAttributeName}\",");
+            WriteLine($"{nameof(LinkEntity.LinkToEntityName)} = \"{link.name}\",");
+            WriteLine($"{nameof(LinkEntity.LinkToAttributeName)} = \"{link.from}\",");
 
-            if (!string.IsNullOrWhiteSpace(link.EntityAlias))
+            if (!string.IsNullOrEmpty(link.alias) && !string.IsNullOrWhiteSpace(link.alias))
             {
                 WriteLine();
-                WriteLine("EntityAlias = \"" + link.EntityAlias + "\",");
+                WriteLine($"{nameof(LinkEntity.EntityAlias)} = \"{link.alias}\",");
             }
 
-            if (IsColumnSetNotDefault(link.Columns))
+            if (IsColumnSetNotDefault(link.Items))
             {
-                var columnDefinition = GetColumnSetDefinition(link.Columns);
+                var columnDefinition = GetColumnSetDefinition(link.Items);
 
                 WriteLine();
-                WriteLine("Columns = " + columnDefinition + ",");
+                WriteLine($"{nameof(LinkEntity.Columns)} = {columnDefinition},");
             }
 
-            if (IsFilterExpressionNotEmpty(link.LinkCriteria))
+            var criteria = link.Items.OfType<filter>().Where(IsFilterExpressionNotEmpty).ToList();
+
+            if (criteria.Any())
             {
+                filter filter;
+
+                if (criteria.Count == 1)
+                {
+                    filter = criteria[0];
+                }
+                else
+                {
+                    filter = new filter()
+                    {
+                        Items = criteria.ToArray(),
+                    };
+                }
+
                 WriteLine();
 
-                WriteLine("LinkCriteria =");
+                WriteLine($"{nameof(LinkEntity.LinkCriteria)} =");
 
                 WriteLine("{");
 
-                WriteFilterExpressionContent(link.LinkCriteria);
+                WriteFilterExpressionContent(filter);
 
                 WriteLine("},");
             }
 
-            if (link.LinkEntities.Any())
+            if (link.Items.OfType<FetchLinkEntityType>().Any())
             {
                 WriteLine();
 
-                WriteLine("LinkEntities =");
+                WriteLine($"{nameof(LinkEntity.LinkEntities)} =");
 
                 WriteLine("{");
 
                 bool isFirstLinkWrited = false;
 
-                foreach (var sublink in link.LinkEntities)
+                foreach (var sublink in link.Items.OfType<FetchLinkEntityType>())
                 {
                     WriteLineIfHasLine(ref isFirstLinkWrited);
-                    WriteLinkEntity(sublink);
+                    WriteLinkEntity(link.name, sublink);
                 }
 
                 WriteLine("},");
@@ -205,17 +248,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteLine("},");
         }
 
-        private bool IsFilterExpressionNotEmpty(FilterExpression filterExpression)
+        private static bool IsFilterExpressionNotEmpty(filter filterExpression)
         {
-            if (filterExpression != null && filterExpression.Conditions.Count > 0 || filterExpression.Filters.Count > 0)
+            if (filterExpression != null)
             {
-                return true;
+                if (filterExpression.Items.OfType<condition>().Any()
+                    || filterExpression.Items.OfType<filter>().Any()
+                )
+                {
+                    return true;
+                }
             }
 
             return false;
         }
 
-        private void WriteFilterExpressionContent(FilterExpression filterExpression)
+        private void WriteFilterExpressionContent(filter filterExpression)
         {
             if (filterExpression == null)
             {
@@ -224,56 +272,60 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             bool isFirstLineWrited = false;
 
-            if (filterExpression.FilterOperator == LogicalOperator.Or)
+            if (filterExpression.type == filterType.or)
             {
                 WriteLineIfHasLine(ref isFirstLineWrited);
-                WriteLine("FilterOperator = LogicalOperator.Or,");
+                WriteLine($"{nameof(FilterExpression.FilterOperator)} = {nameof(LogicalOperator)}.{nameof(LogicalOperator.Or)},");
             }
 
-            if (filterExpression.Conditions.Any())
+            if (filterExpression.Items.OfType<condition>().Any())
             {
                 WriteLineIfHasLine(ref isFirstLineWrited);
 
-                WriteLine("Conditions =");
+                WriteLine($"{nameof(FilterExpression.Conditions)} =");
                 WriteLine("{");
 
-                foreach (var cond in filterExpression.Conditions)
+                foreach (var cond in filterExpression.Items.OfType<condition>())
                 {
-                    var entity = string.Empty;
-                    var values = string.Empty;
+                    var entityName = string.Empty;
+                    var valuesString = string.Empty;
 
-                    if (!string.IsNullOrWhiteSpace(cond.EntityName))
+                    if (!string.IsNullOrEmpty(cond.entityname) && !string.IsNullOrWhiteSpace(cond.entityname))
                     {
-                        entity = "\"" + cond.EntityName + "\", ";
+                        entityName = "\"" + cond.entityname + "\", ";
                     }
 
-                    if (cond.Values.Count > 0)
+                    List<object> values = GetConditionValues(cond);
+
+                    if (values.Count > 0)
                     {
-                        values = ", " + GetConditionValues(cond.Values);
+                        valuesString = ", " + GetConditionValues(values);
                     }
 
-                    WriteLine($"new ConditionExpression({entity}\"{cond.AttributeName}\", ConditionOperator.{cond.Operator.ToString()}{values}),");
+                    var conditionOperator = ConvertToConditionOperator(cond.@operator);
+
+                    WriteLine($"new {nameof(ConditionExpression)}({entityName}\"{cond.attribute}\", {nameof(ConditionOperator)}.{conditionOperator.ToString()}{valuesString}),");
                 }
 
                 WriteLine("},");
             }
 
-            if (filterExpression.Filters.Any())
+            if (filterExpression.Items.OfType<filter>().Any())
             {
                 WriteLineIfHasLine(ref isFirstLineWrited);
 
-                WriteLine("Filters =");
+                WriteLine($"{nameof(FilterExpression.Filters)} =");
                 WriteLine("{");
 
                 bool isFirstFilterWrited = false;
 
-                foreach (var subfilter in filterExpression.Filters)
+                foreach (var subfilter in filterExpression.Items.OfType<filter>())
                 {
                     if (IsFilterExpressionNotEmpty(subfilter))
                     {
                         WriteLineIfHasLine(ref isFirstFilterWrited);
 
-                        WriteLine("new FilterExpression()");
+                        WriteLine($"new {nameof(FilterExpression)}()");
                         WriteLine("{");
 
                         WriteFilterExpressionContent(subfilter);
@@ -286,7 +338,287 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        private string GetConditionValues(DataCollection<object> values)
+        private static ConditionOperator ConvertToConditionOperator(@operator @operator)
+        {
+            switch (@operator)
+            {
+                case @operator.eq:
+                    return ConditionOperator.Equal;
+
+                case @operator.neq:
+                case @operator.ne:
+                    return ConditionOperator.NotEqual;
+
+                case @operator.gt:
+                    return ConditionOperator.GreaterThan;
+
+                case @operator.ge:
+                    return ConditionOperator.GreaterEqual;
+
+                case @operator.le:
+                    return ConditionOperator.LessEqual;
+
+                case @operator.lt:
+                    return ConditionOperator.LessThan;
+
+                case @operator.like:
+                    return ConditionOperator.Like;
+
+                case @operator.notlike:
+                    return ConditionOperator.NotLike;
+
+                case @operator.@in:
+                    return ConditionOperator.In;
+
+                case @operator.notin:
+                    return ConditionOperator.NotIn;
+
+                case @operator.between:
+                    return ConditionOperator.Between;
+
+                case @operator.notbetween:
+                    return ConditionOperator.NotBetween;
+
+                case @operator.@null:
+                    return ConditionOperator.Null;
+
+                case @operator.notnull:
+                    return ConditionOperator.NotNull;
+
+                case @operator.yesterday:
+                    return ConditionOperator.Yesterday;
+
+                case @operator.today:
+                    return ConditionOperator.Today;
+
+                case @operator.tomorrow:
+                    return ConditionOperator.Tomorrow;
+
+                case @operator.lastsevendays:
+                    return ConditionOperator.Last7Days;
+
+                case @operator.nextsevendays:
+                    return ConditionOperator.Next7Days;
+
+                case @operator.lastweek:
+                    return ConditionOperator.LastWeek;
+
+                case @operator.thisweek:
+                    return ConditionOperator.ThisWeek;
+
+                case @operator.nextweek:
+                    return ConditionOperator.NextWeek;
+
+                case @operator.lastmonth:
+                    return ConditionOperator.LastMonth;
+
+                case @operator.thismonth:
+                    return ConditionOperator.ThisMonth;
+
+                case @operator.nextmonth:
+                    return ConditionOperator.NextMonth;
+
+                case @operator.on:
+                    return ConditionOperator.On;
+
+                case @operator.onorbefore:
+                    return ConditionOperator.OnOrBefore;
+
+                case @operator.onorafter:
+                    return ConditionOperator.OnOrAfter;
+
+                case @operator.lastyear:
+                    return ConditionOperator.LastYear;
+
+                case @operator.thisyear:
+                    return ConditionOperator.ThisYear;
+
+                case @operator.nextyear:
+                    return ConditionOperator.NextYear;
+
+                case @operator.lastxhours:
+                    return ConditionOperator.LastXHours;
+
+                case @operator.nextxhours:
+                    return ConditionOperator.NextXHours;
+
+                case @operator.lastxdays:
+                    return ConditionOperator.LastXDays;
+
+                case @operator.nextxdays:
+                    return ConditionOperator.NextXDays;
+
+                case @operator.lastxweeks:
+                    return ConditionOperator.LastXWeeks;
+
+                case @operator.nextxweeks:
+                    return ConditionOperator.NextXWeeks;
+
+                case @operator.lastxmonths:
+                    return ConditionOperator.LastXMonths;
+
+                case @operator.nextxmonths:
+                    return ConditionOperator.NextXMonths;
+
+                case @operator.olderthanxmonths:
+                    return ConditionOperator.OlderThanXMonths;
+
+                case @operator.olderthanxyears:
+                    return ConditionOperator.OlderThanXYears;
+
+                case @operator.olderthanxweeks:
+                    return ConditionOperator.OlderThanXWeeks;
+
+                case @operator.olderthanxdays:
+                    return ConditionOperator.OlderThanXDays;
+
+                case @operator.olderthanxhours:
+                    return ConditionOperator.OlderThanXHours;
+
+                case @operator.olderthanxminutes:
+                    return ConditionOperator.OlderThanXMinutes;
+
+                case @operator.lastxyears:
+                    return ConditionOperator.LastXYears;
+
+                case @operator.nextxyears:
+                    return ConditionOperator.NextXYears;
+
+                case @operator.equserid:
+                    return ConditionOperator.EqualUserId;
+
+                case @operator.neuserid:
+                    return ConditionOperator.NotEqualUserId;
+
+                case @operator.equserteams:
+                    return ConditionOperator.EqualUserTeams;
+
+                case @operator.equseroruserteams:
+                    return ConditionOperator.EqualUserOrUserTeams;
+
+                case @operator.equseroruserhierarchy:
+                    return ConditionOperator.EqualUserOrUserHierarchy;
+
+                case @operator.equseroruserhierarchyandteams:
+                    return ConditionOperator.EqualUserOrUserHierarchyAndTeams;
+
+                case @operator.eqbusinessid:
+                    return ConditionOperator.EqualBusinessId;
+
+                case @operator.nebusinessid:
+                    return ConditionOperator.NotEqualBusinessId;
+
+                case @operator.equserlanguage:
+                    return ConditionOperator.EqualUserLanguage;
+
+                case @operator.thisfiscalyear:
+                    return ConditionOperator.ThisFiscalYear;
+
+                case @operator.thisfiscalperiod:
+                    return ConditionOperator.ThisFiscalPeriod;
+
+                case @operator.nextfiscalyear:
+                    return ConditionOperator.NextFiscalYear;
+
+                case @operator.nextfiscalperiod:
+                    return ConditionOperator.NextFiscalPeriod;
+
+                case @operator.lastfiscalyear:
+                    return ConditionOperator.LastFiscalYear;
+
+                case @operator.lastfiscalperiod:
+                    return ConditionOperator.LastFiscalPeriod;
+
+                case @operator.lastxfiscalyears:
+                    return ConditionOperator.LastXFiscalYears;
+
+                case @operator.lastxfiscalperiods:
+                    return ConditionOperator.LastXFiscalPeriods;
+
+                case @operator.nextxfiscalyears:
+                    return ConditionOperator.NextXFiscalYears;
+
+                case @operator.nextxfiscalperiods:
+                    return ConditionOperator.NextXFiscalPeriods;
+
+                case @operator.infiscalyear:
+                    return ConditionOperator.InFiscalYear;
+
+                case @operator.infiscalperiod:
+                    return ConditionOperator.InFiscalPeriod;
+
+                case @operator.infiscalperiodandyear:
+                    return ConditionOperator.InFiscalPeriodAndYear;
+
+                case @operator.inorbeforefiscalperiodandyear:
+                    return ConditionOperator.InOrBeforeFiscalPeriodAndYear;
+
+                case @operator.inorafterfiscalperiodandyear:
+                    return ConditionOperator.InOrAfterFiscalPeriodAndYear;
+
+                case @operator.beginswith:
+                    return ConditionOperator.BeginsWith;
+
+                case @operator.notbeginwith:
+                    return ConditionOperator.DoesNotBeginWith;
+
+                case @operator.endswith:
+                    return ConditionOperator.EndsWith;
+
+                case @operator.notendwith:
+                    return ConditionOperator.DoesNotEndWith;
+
+                case @operator.under:
+                    return ConditionOperator.Under;
+
+                case @operator.eqorunder:
+                    return ConditionOperator.UnderOrEqual;
+
+                case @operator.notunder:
+                    return ConditionOperator.NotUnder;
+
+                case @operator.above:
+                    return ConditionOperator.Above;
+
+                case @operator.eqorabove:
+                    return ConditionOperator.AboveOrEqual;
+
+                case @operator.containvalues:
+                    return ConditionOperator.ContainValues;
+
+                case @operator.notcontainvalues:
+                    return ConditionOperator.DoesNotContainValues;
+
+                default:
+                    break;
+            }
+
+            return ConditionOperator.Equal;
+        }
+
+        private static List<object> GetConditionValues(condition cond)
+        {
+            List<object> result = new List<object>();
+
+            if (cond.Items != null && cond.Items.Any())
+            {
+                foreach (var item in cond.Items)
+                {
+                    if (!string.IsNullOrEmpty(item.Value))
+                    {
+                        result.Add(item.Value);
+                    }
+                }
+            }
+            else if (!string.IsNullOrEmpty(cond.value))
+            {
+                result.Add(cond.value);
+            }
+
+            return result;
+        }
+
+        private static string GetConditionValues(IEnumerable<object> values)
         {
             var strings = new List<string>();
 

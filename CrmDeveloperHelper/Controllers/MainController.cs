@@ -226,27 +226,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion SavedQuery
 
-        #region FetchXml
-
-        public void StartConvertingFetchXmlToQueryExpression(string fetchXml, ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    this._exportXmlController.ExecuteConvertingFetchXmlToQueryExpression(fetchXml, connectionData, commonConfig);
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                }
-            });
-
-            worker.Start();
-        }
-
-        #endregion FetchXml
-
         #region Workflow
 
         public void StartWorkflowDifference(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)

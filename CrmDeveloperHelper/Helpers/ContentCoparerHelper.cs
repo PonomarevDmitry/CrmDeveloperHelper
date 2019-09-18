@@ -20,6 +20,7 @@ using System.Windows;
 using System.Windows.Resources;
 using System.Xml;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 using System.Xml.XPath;
 using Ude;
 
@@ -175,10 +176,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     DTEHelper.WriteExceptionToOutput(null, ex);
 
 #if DEBUG
-                    if (System.Diagnostics.Debugger.IsAttached)
-                    {
-                        System.Diagnostics.Debugger.Break();
-                    }
+                    if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
 #endif
                 }
             }
@@ -385,10 +383,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 DTEHelper.WriteExceptionToOutput(null, ex);
 
 #if DEBUG
-                if (System.Diagnostics.Debugger.IsAttached)
-                {
-                    System.Diagnostics.Debugger.Break();
-                }
+                if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
 #endif
 
                 throw;
@@ -423,10 +418,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 DTEHelper.WriteExceptionToOutput(null, ex);
 
 #if DEBUG
-                if (System.Diagnostics.Debugger.IsAttached)
-                {
-                    System.Diagnostics.Debugger.Break();
-                }
+                if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
 #endif
 
                 throw;
@@ -527,10 +519,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 DTEHelper.WriteExceptionToOutput(null, ex);
 
 #if DEBUG
-                if (System.Diagnostics.Debugger.IsAttached)
-                {
-                    System.Diagnostics.Debugger.Break();
-                }
+                if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
 #endif
 
                 throw;
@@ -632,10 +621,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 DTEHelper.WriteExceptionToOutput(null, ex);
 
 #if DEBUG
-                if (System.Diagnostics.Debugger.IsAttached)
-                {
-                    System.Diagnostics.Debugger.Break();
-                }
+                if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
 #endif
 
                 throw;
@@ -1034,6 +1020,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             str.Append("].join('');");
 
             return str.ToString();
+        }
+
+        public static string ConvertFetchXmlToQueryExpression(string fetchXml)
+        {
+            var codeCSharp = new StringBuilder();
+
+            try
+            {
+                var serializer = new XmlSerializer(typeof(FetchType));
+
+                FetchType fetchXmlProxy;
+
+                using (TextReader reader = new StringReader(fetchXml))
+                {
+                    fetchXmlProxy = serializer.Deserialize(reader) as FetchType;
+                }
+
+                using (var writer = new StringWriter(codeCSharp))
+                {
+                    var codeGenerator = new QueryExpressionCodeGenerator(writer);
+
+                    codeGenerator.WriteCSharpQueryExpression(fetchXmlProxy);
+                }
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.WriteExceptionToOutput(null, ex);
+            }
+
+            return codeCSharp.ToString();
         }
 
         private static string HandleExportXsdSchemaIntoSchamasFolder(string[] fileNamesColl)
