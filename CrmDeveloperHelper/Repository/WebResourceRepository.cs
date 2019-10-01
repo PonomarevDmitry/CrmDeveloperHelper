@@ -92,7 +92,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private WebResource SearchSingle(string friendlyPath, string extension, int type)
         {
-            List<string> names = new List<string>();
+            var names = new List<string>();
 
             names.AddRange(GetSplitedNames(friendlyPath, extension));
 
@@ -161,12 +161,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             foreach (var item in names)
             {
-                list.AddRange(WebResourceRepository.GetSplitedNames(item, extension));
+                list.AddRange(GetSplitedNames(item, extension));
             }
 
             var webResourceCollection = SearchByName(type, list.ToArray(), columnSet);
 
-            Dictionary<string, WebResource> result = new Dictionary<string, WebResource>(StringComparer.InvariantCultureIgnoreCase);
+            var result = new Dictionary<string, WebResource>(StringComparer.InvariantCultureIgnoreCase);
 
             foreach (var ent in webResourceCollection)
             {
@@ -178,7 +178,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private List<WebResource> SearchByName(int type, IEnumerable<string> names, ColumnSet columnSet = null)
         {
-            List<WebResource> result = new List<WebResource>();
+            var result = new List<WebResource>();
 
             int count = 700;
 
@@ -194,7 +194,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private IEnumerable<WebResource> FindWebResourcesByNames(int type, IEnumerable<string> names, ColumnSet columnSet = null)
         {
-            QueryExpression query = new QueryExpression()
+            var query = new QueryExpression()
             {
                 NoLock = true,
 

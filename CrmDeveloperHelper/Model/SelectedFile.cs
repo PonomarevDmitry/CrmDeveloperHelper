@@ -43,13 +43,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         public SelectedFile(string filePath, string solutionDirectoryPath)
         {
             this.FilePath = filePath;
+            this.SolutionDirectoryPath = solutionDirectoryPath;
 
             this.FileName = Path.GetFileName(filePath);
             this.Name = Path.GetFileNameWithoutExtension(filePath);
 
-            string friendlyFilePath =
+            string friendlyFilePath = GetFriendlyPath(filePath, solutionDirectoryPath);
 
-            this.FriendlyFilePath = GetFriendlyPath(filePath, solutionDirectoryPath);
+            this.FriendlyFilePath = friendlyFilePath;
 
             this.UrlFriendlyFilePath = string.Format("{0}:///{1}", UrlCommandFilter.PrefixOpenInVisualStudioRelativePath, friendlyFilePath.Replace('\\', '/').TrimStart('/'));
 

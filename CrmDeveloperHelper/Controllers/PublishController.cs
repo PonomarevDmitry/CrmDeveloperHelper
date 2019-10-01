@@ -71,7 +71,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
-            
+
             if (connectionData.IsReadOnly)
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionIsReadOnlyFormat1, connectionData.Name);
@@ -123,11 +123,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         if (webresource != null)
                         {
-                            var webName = webresource.Name;
-
-                            this._iWriteToOutput.WriteToOutput(connectionData, "WebResource founded by name. WebResourceId: {0} Name: {1}", webresource.Id, webName);
+                            this._iWriteToOutput.WriteToOutput(connectionData, "WebResource founded by name. WebResourceId: {0} Name: {1}", webresource.Id, webresource.Name);
                         }
-                        else
+
+                        if (webresource == null)
+                        {
+                            if (selectedFile.FileName.StartsWith(connectionData.Name + "."))
+                            {
+                                string newFileName = selectedFile.FileName.Replace(connectionData.Name + ".", string.Empty);
+
+                                string newFilePath = Path.Combine(Path.GetDirectoryName(selectedFile.FilePath), newFileName);
+
+                                var newSelectedFile = new SelectedFile(newFilePath, selectedFile.SolutionDirectoryPath);
+
+                                var newDict = webResourceRepository.FindMultiple(newSelectedFile.Extension, new[] { newSelectedFile.FriendlyFilePath });
+
+                                webresource = WebResourceRepository.FindWebResourceInDictionary(newDict, newSelectedFile.FriendlyFilePath.ToLower(), newSelectedFile.Extension);
+
+                                if (webresource != null)
+                                {
+                                    this._iWriteToOutput.WriteToOutput(connectionData, "WebResource founded by name with Connection Prefix. WebResourceId: {0} Name: {1}", webresource.Id, webresource.Name);
+                                }
+                            }
+                        }
+
+                        if (webresource == null)
                         {
                             this._iWriteToOutput.WriteToOutput(connectionData, "WebResource not founded by name. FileName: {0}. Open linking dialog...", selectedFile.Name);
 
@@ -261,7 +281,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var compareResult = await CompareController.GetWebResourcesWithType(this._iWriteToOutput, selectedFiles, OpenFilesType.EqualByText, connectionData);
 
-            var filesToPublish = compareResult.Item2.Where(f => f.Item2 != null);            
+            var filesToPublish = compareResult.Item2.Where(f => f.Item2 != null);
 
             if (!filesToPublish.Any())
             {
