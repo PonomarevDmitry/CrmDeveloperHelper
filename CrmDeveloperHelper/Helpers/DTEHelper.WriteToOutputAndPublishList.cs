@@ -652,9 +652,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 WriteToOutput(connectionData, "Publish List: {0}", _ListForPublish.Count.ToString());
 
+                string solutionDirectoryPath = GetSolutionDirectory();
+
                 foreach (var path in _ListForPublish.OrderBy(s => s))
                 {
-                    WriteToOutput(connectionData, GetFriendlyPath(path));
+                    WriteToOutput(connectionData, SelectedFile.GetFriendlyPath(path, solutionDirectoryPath));
                 }
             }
             else
@@ -1093,7 +1095,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 connectionData = crmConfig.CurrentConnectionData;
             }
 
-            SelectedFile selectedFile = new SelectedFile(uri.LocalPath, GetFriendlyPath(uri.LocalPath));
+            string solutionDirectoryPath = GetSolutionDirectory();
+
+            SelectedFile selectedFile = new SelectedFile(uri.LocalPath, solutionDirectoryPath);
 
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
@@ -1120,6 +1124,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             return this;
+        }
+
+        private string GetSolutionDirectory()
+        {
+            string result = ApplicationObject?.Solution?.FullName;
+
+            if (!string.IsNullOrEmpty(result))
+            {
+                result = Path.GetDirectoryName(result);
+            }
+
+            return result;
         }
 
         public IWriteToOutput OpenSolution(Uri uri)

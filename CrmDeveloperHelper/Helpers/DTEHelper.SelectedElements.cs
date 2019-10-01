@@ -66,6 +66,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public IEnumerable<SelectedFile> GetOpenedFileInCodeWindow(Func<string, bool> checkerFunction)
         {
+            string solutionDirectoryPath = GetSolutionDirectory();
+
             if (ApplicationObject.ActiveWindow != null
                 && ApplicationObject.ActiveWindow.Type == vsWindowType.vsWindowTypeDocument
                 && ApplicationObject.ActiveWindow.Document != null
@@ -75,7 +77,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (checkerFunction(path))
                 {
-                    yield return new SelectedFile(path, GetFriendlyPath(path));
+                    yield return new SelectedFile(path, solutionDirectoryPath);
                 }
             }
         }
@@ -107,6 +109,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 && ApplicationObject.ActiveWindow.Document != null
             )
             {
+                string solutionDirectoryPath = GetSolutionDirectory();
+
                 foreach (var document in ApplicationObject.Documents.OfType<EnvDTE.Document>())
                 {
                     if (document.ActiveWindow == null
@@ -125,7 +129,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         if (checkerFunction(path))
                         {
-                            yield return new SelectedFile(path, GetFriendlyPath(path));
+                            yield return new SelectedFile(path, solutionDirectoryPath);
                         }
                     }
                 }
@@ -171,6 +175,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                && ApplicationObject.SelectedItems != null
             )
             {
+                string solutionDirectoryPath = GetSolutionDirectory();
+
                 var items = ApplicationObject.SelectedItems.Cast<SelectedItem>().ToList();
 
                 HashSet<string> hash = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
@@ -186,7 +192,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             && hash.Add(path)
                         )
                         {
-                            yield return new SelectedFile(path, GetFriendlyPath(path))
+                            yield return new SelectedFile(path, solutionDirectoryPath)
                             {
                                 Document = item.ProjectItem.Document,
                             };
@@ -216,6 +222,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             if (projectItems != null)
             {
+                string solutionDirectoryPath = GetSolutionDirectory();
+
                 foreach (ProjectItem projItem in projectItems)
                 {
                     string path = projItem.FileNames[1];
@@ -225,7 +233,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                           && hash.Add(path)
                     )
                     {
-                        yield return new SelectedFile(path, GetFriendlyPath(path))
+                        yield return new SelectedFile(path, solutionDirectoryPath)
                         {
                             Document = projItem.Document,
                         };
@@ -385,18 +393,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        private string GetFriendlyPath(string filePath)
-        {
-            string solutionPath = ApplicationObject?.Solution?.FullName;
-
-            if (!string.IsNullOrEmpty(solutionPath))
-            {
-                return filePath.Replace(Path.GetDirectoryName(solutionPath), string.Empty);
-            }
-
-            return filePath;
-        }
-
         public SelectedItem GetSelectedProjectItem()
         {
             SelectedItem result = null;
@@ -461,7 +457,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public IEnumerable<SelectedFile> GetSelectedFilesFromListForPublish()
         {
-            foreach (var item in _ListForPublish.Select(path => new SelectedFile(path, GetFriendlyPath(path))))
+            string solutionDirectoryPath = GetSolutionDirectory();
+
+            foreach (var item in _ListForPublish.Select(path => new SelectedFile(path, solutionDirectoryPath)))
             {
                 yield return item;
             }

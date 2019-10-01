@@ -36,21 +36,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public string UrlFriendlyFilePath { get; private set; }
 
+        public string SolutionDirectoryPath { get; private set; }
+
         public EnvDTE.Document Document { get; set; }
 
-        /// <summary>
-        /// Конструктор выбранного файла
-        /// </summary>
-        /// <param name="filePath"></param>
-        /// <param name="friendlyFilePath"></param>
-        public SelectedFile(string filePath, string friendlyFilePath)
+        public SelectedFile(string filePath, string solutionDirectoryPath)
         {
             this.FilePath = filePath;
+
             this.FileName = Path.GetFileName(filePath);
             this.Name = Path.GetFileNameWithoutExtension(filePath);
-            this.FriendlyFilePath = friendlyFilePath;
 
-            UrlFriendlyFilePath = string.Format("{0}:///{1}", UrlCommandFilter.PrefixOpenInVisualStudioRelativePath, friendlyFilePath.Replace('\\', '/').TrimStart('/'));
+            string friendlyFilePath =
+
+            this.FriendlyFilePath = GetFriendlyPath(filePath, solutionDirectoryPath);
+
+            this.UrlFriendlyFilePath = string.Format("{0}:///{1}", UrlCommandFilter.PrefixOpenInVisualStudioRelativePath, friendlyFilePath.Replace('\\', '/').TrimStart('/'));
 
             this.Extension = Path.GetExtension(filePath).ToLower();
         }
@@ -65,6 +66,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             {
                 return base.ToString();
             }
+        }
+
+        public static string GetFriendlyPath(string filePath, string solutionDirectoryPath)
+        {
+            if (!string.IsNullOrEmpty(solutionDirectoryPath)
+                && !string.IsNullOrEmpty(filePath)
+                && filePath.StartsWith(solutionDirectoryPath)
+            )
+            {
+                return filePath.Replace(solutionDirectoryPath, string.Empty);
+            }
+
+            return filePath;
         }
     }
 }
