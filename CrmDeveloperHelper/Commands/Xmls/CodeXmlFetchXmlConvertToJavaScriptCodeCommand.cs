@@ -29,7 +29,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                 {
                     string text = textDocument.StartPoint.CreateEditPoint().GetText(textDocument.EndPoint);
 
-                    string jsCode = ContentCoparerHelper.FormatToJavaScript("fetchXml", text);
+                    string jsCode = ContentCoparerHelper.FormatToJavaScript(Entities.SavedQuery.Schema.Attributes.fetchxml, text);
 
                     Clipboard.SetText(jsCode);
                 }

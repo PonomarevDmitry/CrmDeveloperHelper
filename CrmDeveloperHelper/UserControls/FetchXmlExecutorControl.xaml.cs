@@ -1125,7 +1125,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
         {
             var fileText = txtBFetchXml.Text.Trim();
 
-            string jsCode = ContentCoparerHelper.FormatToJavaScript("fetchXml", fileText);
+            string jsCode = ContentCoparerHelper.FormatToJavaScript(Entities.SavedQuery.Schema.Attributes.fetchxml, fileText);
 
             Clipboard.SetText(jsCode);
         }
