@@ -704,6 +704,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             , "ToolTipDescription"
         };
 
+        private static readonly List<string> _predefinedNamespacesOrder = new List<string>()
+        {
+            Intellisense.Model.IntellisenseContext.IntellisenseContextNamespace.NamespaceName
+        };
+
         private static void SortXmlAttributesInternal(XElement doc)
         {
             foreach (XElement element in doc.DescendantsAndSelf())
@@ -712,7 +717,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 element.RemoveAttributes();
 
-                foreach (XAttribute attr in attributes.OrderBy(a => a.Name, new XNameComparer(_predefinedAttributeOrder)))
+                foreach (XAttribute attr in attributes.OrderBy(a => a.Name, new XNameComparer(_predefinedAttributeOrder, _predefinedNamespacesOrder)))
                 {
                     element.Add(attr);
                 }
@@ -821,18 +826,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             var result = xml;
 
-            if ((xmlOptions & XmlOptionsControls.SetXmlSchemas) != 0
-                && commonConfig.SetXmlSchemasDuringExport
-                )
-            {
-                var schemasResources = AbstractDynamicCommandXsdSchemas.GetXsdSchemas(schemaName);
-
-                if (schemasResources != null)
-                {
-                    result = ContentCoparerHelper.SetXsdSchema(result, schemasResources);
-                }
-            }
-
             if ((xmlOptions & XmlOptionsControls.SetIntellisenseContext) != 0
                 && commonConfig.SetIntellisenseContext
                 )
@@ -870,6 +863,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 if (workflowId.HasValue)
                 {
                     result = ContentCoparerHelper.SetIntellisenseContextWorkflowId(result, workflowId.Value);
+                }
+            }
+
+            if ((xmlOptions & XmlOptionsControls.SetXmlSchemas) != 0
+                && commonConfig.SetXmlSchemasDuringExport
+                )
+            {
+                var schemasResources = AbstractDynamicCommandXsdSchemas.GetXsdSchemas(schemaName);
+
+                if (schemasResources != null)
+                {
+                    result = ContentCoparerHelper.SetXsdSchema(result, schemasResources);
                 }
             }
 
@@ -1193,9 +1198,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string result = text;
 
-            result = ReplaceOrInsertAttribute(result, patternIntellisenseContext, intellisenseContextNamespace);
-
             result = ReplaceOrInsertAttribute(result, patternIntellisenseContextEntityName, newEntityNameAttribute);
+
+            result = ReplaceOrInsertAttribute(result, patternIntellisenseContext, intellisenseContextNamespace);
 
             return result;
         }
@@ -1407,23 +1412,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 string text = snapshot.GetText();
 
                 {
-                    var match = Regex.Match(text, patternIntellisenseContext);
-                    if (!match.Success)
-                    {
-                        int? indexInsert = FindIndexToInsert(text);
-
-                        if (indexInsert.HasValue)
-                        {
-                            hasModifed = true;
-
-                            var intellisenseContextNamespace = string.Format(replaceIntellisenseContextNamespaceFormat1, Intellisense.Model.IntellisenseContext.IntellisenseContextNamespace.NamespaceName);
-
-                            edit.Insert(indexInsert.Value, intellisenseContextNamespace);
-                        }
-                    }
-                }
-
-                {
                     var match = Regex.Match(text, patternIntellisenseContextEntityName);
                     if (!match.Success)
                     {
@@ -1436,6 +1424,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             var newEntityNameAttribute = string.Format(replaceIntellisenseContextEntityNameFormat1, entityName);
 
                             edit.Insert(indexInsert.Value, newEntityNameAttribute);
+                        }
+                    }
+                }
+
+                {
+                    var match = Regex.Match(text, patternIntellisenseContext);
+                    if (!match.Success)
+                    {
+                        int? indexInsert = FindIndexToInsert(text);
+
+                        if (indexInsert.HasValue)
+                        {
+                            hasModifed = true;
+
+                            var intellisenseContextNamespace = string.Format(replaceIntellisenseContextNamespaceFormat1, Intellisense.Model.IntellisenseContext.IntellisenseContextNamespace.NamespaceName);
+
+                            edit.Insert(indexInsert.Value, intellisenseContextNamespace);
                         }
                     }
                 }
