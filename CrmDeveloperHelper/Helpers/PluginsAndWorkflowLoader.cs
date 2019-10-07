@@ -3,11 +3,20 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
     public sealed class PluginsAndWorkflowLoader
     {
+        private static readonly string[] AssemblyProbeSubdirectories = new string[4]
+        {
+            string.Empty,
+            "amd64",
+            "i386",
+            "$(VSCRMTFDEVTOOLSROOT)\\..\\private\\lib"
+        };
+
         private string _assemblyDirectory;
 
         public PluginsAndWorkflowLoader()
@@ -60,7 +69,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             HashSet<string> assemblyPlugins = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
             HashSet<string> assemblyWorkflow = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
-            Type[] loadedAssemblyTypes = assembly.GetTypes();
+            Type[] loadedAssemblyTypes = assembly.GetExportedTypes();
 
             if (loadedAssemblyTypes != null)
             {
@@ -95,6 +104,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private Assembly Domain_ReflectionOnlyAssemblyResolve(object sender, ResolveEventArgs args)
         {
+            var message = new StringBuilder();
+
+            message.AppendFormat("Resolve Assembly {0}", args.Name);
+
+            if (args.RequestingAssembly != null)
+            {
+                message
+                    .AppendLine()
+                    .AppendFormat("Requesting Assembly {0}", args.RequestingAssembly.FullName)
+                    ;
+            }
+
+            Assembly result = null;
+
             var assemblyName = new AssemblyName(args.Name);
 
             foreach (var knownedAssemblyName in _knownCrmAssemblies)
@@ -103,20 +126,81 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     var temp = Assembly.Load(knownedAssemblyName + ", Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL");
 
-                    return Assembly.ReflectionOnlyLoadFrom(temp.CodeBase);
+                    message
+                        .AppendLine()
+                        .AppendFormat("Resolving from Knowed Assembly {0}", temp.FullName)
+                        .AppendLine()
+                        .AppendFormat("Resolving from path {0}", temp.CodeBase)
+                        ;
+
+                    result = Assembly.ReflectionOnlyLoadFrom(temp.CodeBase);
                 }
             }
 
+            if (result == null)
             {
-                var filePath = Path.Combine(_assemblyDirectory, assemblyName.Name + ".dll");
+                string fileName = assemblyName.Name + ".dll";
 
-                if (File.Exists(filePath))
+                foreach (string probeSubdirectory in AssemblyProbeSubdirectories)
                 {
-                    return Assembly.ReflectionOnlyLoadFrom(filePath);
+                    string filePath = Path.Combine(Path.Combine(_assemblyDirectory, probeSubdirectory), fileName);
+
+                    if (File.Exists(filePath))
+                    {
+                        message
+                            .AppendLine()
+                            .AppendFormat("Resolving from File {0}", filePath)
+                            ;
+
+                        Assembly assembly2 = Assembly.Load(AssemblyName.GetAssemblyName(filePath));
+
+                        if (assembly2 != null)
+                        {
+                            message
+                                .AppendLine()
+                                .AppendFormat("Resolving from CodeBase : {0}", assembly2.CodeBase)
+                                ;
+
+                            result = Assembly.ReflectionOnlyLoadFrom(assembly2.CodeBase);
+                        }
+                    }
                 }
             }
 
-            return Assembly.ReflectionOnlyLoadFrom(Assembly.Load(args.Name).CodeBase);
+            if (result == null)
+            {
+                message
+                    .AppendLine()
+                    .Append("Resolving by Default")
+                    ;
+
+                var temp = Assembly.Load(args.Name);
+
+                if (temp != null)
+                {
+                    message
+                        .AppendLine()
+                        .AppendFormat("Resolving by Default from : {0}", temp.CodeBase)
+                        ;
+
+                    result = Assembly.ReflectionOnlyLoadFrom(temp.CodeBase);
+                }
+            }
+
+            message.AppendLine().AppendLine();
+
+            if (result != null)
+            {
+                message.Append("Assembly resolved.");
+            }
+            else
+            {
+                message.Append("Assembly NOT RESOLVED.");
+            }
+
+            DTEHelper.WriteToLog(message.ToString());
+
+            return result;
         }
 
         private static bool IsPluginClass(Type assemblyType)

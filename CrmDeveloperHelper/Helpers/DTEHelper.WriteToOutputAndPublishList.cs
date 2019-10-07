@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.ServiceModel;
 using System.Text;
@@ -285,6 +286,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public static void WriteToLog(string message = null, params object[] args)
+        {
+            if (!string.IsNullOrEmpty(message))
+            {
+                if (args != null && args.Length > 0)
+                {
+                    message = string.Format(message, args);
+                }
+
+                Log.Info(message);
+            }
+        }
+
         public static string GetExceptionDescription(Exception ex)
         {
             StringBuilder stringBuilder = new StringBuilder();
@@ -319,12 +333,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     stringBuilder.AppendFormat("FaultException.Message - {0}", fault.Message).AppendLine();
                 }
 
-
                 WriteFaultCodeInformation(fault.Code, "FaultException.Code", stringBuilder);
 
                 WriteFaultReasonInformation(fault.Reason, "FaultException.Reason", stringBuilder);
 
                 WriteOrganizationServiceFaultInformation(fault.Detail, "FaultException.Detail", stringBuilder);
+            }
+
+            if (ex is ReflectionTypeLoadException reflectionTypeLoadException)
+            {
+                if (reflectionTypeLoadException.Types != null && reflectionTypeLoadException.Types.Any())
+                {
+                    stringBuilder.AppendFormat("ReflectionTypeLoadException.Types : {0}", reflectionTypeLoadException.Types.Length).AppendLine();
+
+                    foreach (var loadType in reflectionTypeLoadException.Types)
+                    {
+                        if (loadType != null)
+                        {
+                            stringBuilder.AppendLine(loadType.FullName);
+                        }
+                    }
+                }
+
+                if (reflectionTypeLoadException.LoaderExceptions != null)
+                {
+                    foreach (var inner in reflectionTypeLoadException.LoaderExceptions)
+                    {
+                        if (inner != null)
+                        {
+                            FillExceptionInformation(inner, stringBuilder);
+                        }
+                    }
+                }
             }
 
             if (ex is AggregateException aggregateException)
