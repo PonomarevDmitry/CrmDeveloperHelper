@@ -2093,5 +2093,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat1, entityMetadata.EntityLogicalName);
         }
+
+        private void mIClearEntityCacheAndRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            ConnectionData connectionData = null;
+
+            cmBCurrentConnection.Dispatcher.Invoke(() =>
+            {
+                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            });
+
+            if (connectionData != null)
+            {
+                _cacheEntityMetadata.Remove(connectionData.ConnectionId);
+
+                UpdateButtonsEnable();
+
+                ShowExistingEntities();
+            }
+        }
     }
 }
