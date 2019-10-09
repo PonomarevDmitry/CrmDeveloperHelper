@@ -370,6 +370,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             return false;
         }
 
+        public void OpenEntityMetadataCreateUrlInWeb()
+        {
+            string uri = GetEntityMetadataCreateUrl();
+
+            if (!IsValidUri(uri)) return;
+
+            System.Diagnostics.Process.Start(uri);
+        }
+
+        public string GetEntityMetadataCreateUrl()
+        {
+            if (!TryGetPublicUrl(out string publicUrl))
+            {
+                return null;
+            }
+
+            return publicUrl + "/tools/systemcustomization/entities/manageentity.aspx";
+        }
+
         public void OpenEntityMetadataInWeb(Guid entityMetadataId)
         {
             string uri = GetEntityMetadataUrl(entityMetadataId);

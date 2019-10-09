@@ -1082,6 +1082,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.CreatingFileForEntityFormat2, service.ConnectionData.Name, entityMetadata.EntityLogicalName);
         }
 
+        private void miCreateNewEntity_Click(object sender, RoutedEventArgs e)
+        {
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+            if (connectionData != null)
+            {
+                connectionData.OpenEntityMetadataCreateUrlInWeb();
+            }
+        }
+
         private void miCreateNewEntityInstance_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
