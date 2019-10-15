@@ -26,5 +26,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             base.OnClosed(e);
         }
+
+        private void options_CloseClicked(object sender, System.EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
