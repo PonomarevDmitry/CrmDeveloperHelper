@@ -18,6 +18,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const string guid2String = "78f03954-2fb8-4087-8ce7-59d71710b3bb";
         public const string guid3String = "4c87b692-1202-46aa-b64c-ef01faec53da";
         public const string guidJsonString = "f718ca06-cf4f-4a0c-9106-e79e9ee5e7cd";
+        public const string guidAddString = "d309f791-903f-11d0-9efc-00a0c911004f";
         public const string guidGroupAndMenuSetString = "6a1a85fe-5657-4ae9-80fe-fa1277f6abc6";
         public const string guidDynamicCommandSetString = "f71ca58c-98fe-4935-a0cb-478a076b9821";
         public const string guidCommandSetString = "15ffcbd5-0856-4bda-b6c8-e6e0b635761d";
@@ -29,6 +30,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public static readonly System.Guid guid2 = new System.Guid(guid2String);
         public static readonly System.Guid guid3 = new System.Guid(guid3String);
         public static readonly System.Guid guidJson = new System.Guid(guidJsonString);
+        public static readonly System.Guid guidAdd = new System.Guid(guidAddString);
         public static readonly System.Guid guidGroupAndMenuSet = new System.Guid(guidGroupAndMenuSetString);
         public static readonly System.Guid guidDynamicCommandSet = new System.Guid(guidDynamicCommandSetString);
         public static readonly System.Guid guidCommandSet = new System.Guid(guidCommandSetString);
@@ -56,6 +58,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         internal static partial class guidJson
         {
             public const int guidJson_ContextMenu = 0x0003;
+        }
+
+        internal static partial class guidAdd
+        {
+            public const int guidAddProjectFolder_ContextMenu = 0x0352;
+
+            public const int guidAddSolutionForlder_ContextMenu = 0x0357;
         }
 
         internal static partial class guidGroupAndMenuSet
@@ -1075,6 +1084,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int folderMenuProject_GroupAddToSolution_MenuAddAssemblyStepsToSolution_GroupConnectionDyn = 0x12BB;
 
             public const int folderMenuProject_GroupDescription = 0x10FC;
+
+            public const int AddGroupFolder = 0x13A2;
+
+            public const int AddGroupMetadata = 0x13A3;
+
+            public const int AddGroupMetadata_MenuEntityDyn = 0x13A4;
+
+            public const int AddGroupMetadata_MenuEntityDyn_GroupConnection = 0x13A5;
+
+            public const int AddGroupMetadata_MenuSystemFormDyn = 0x13A6;
+
+            public const int AddGroupMetadata_MenuSystemFormDyn_GroupConnection = 0x13A7;
+
+            public const int AddGroupMetadata_MenuGlobalOptionSetDyn = 0x13A8;
+
+            public const int AddGroupMetadata_MenuGlobalOptionSetDyn_GroupConnection = 0x13A9;
+
+            public const int AddGroupMetadata_MenuSdkMessageRequestDyn = 0x13AA;
+
+            public const int AddGroupMetadata_MenuSdkMessageRequestDyn_GroupConnection = 0x13AB;
 
             public const int listForPublishMenu = 0x10A1;
 

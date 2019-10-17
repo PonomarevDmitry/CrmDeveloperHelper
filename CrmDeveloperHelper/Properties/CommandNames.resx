@@ -335,7 +335,7 @@
     <value>Publish Files</value>
   </data>
   <data name="FolderAddPluginConfigurationFileCommand" xml:space="preserve">
-    <value>Plugin Configuration</value>
+    <value>Crm Plugin Configuration</value>
   </data>
   <data name="FolderAddSolutionFileCommand" xml:space="preserve">
     <value>Crm Solution BackUp</value>

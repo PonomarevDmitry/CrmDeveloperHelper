@@ -718,7 +718,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Plugin Configuration.
+        ///   Looks up a localized string similar to Crm Plugin Configuration.
         /// </summary>
         internal static string FolderAddPluginConfigurationFileCommand {
             get {
