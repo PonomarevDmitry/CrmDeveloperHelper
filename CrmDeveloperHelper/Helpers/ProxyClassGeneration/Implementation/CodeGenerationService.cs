@@ -415,7 +415,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return declarationCollection;
         }
 
-        private static HashSet<string> GetLinkedEntities(EntityMetadata entityMetadata)
+        public static HashSet<string> GetLinkedEntities(EntityMetadata entityMetadata)
         {
             HashSet<string> result = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 

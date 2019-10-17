@@ -34,12 +34,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         public void RetrieveEntities(IEnumerable<string> entityList)
         {
-            if (!entityList.Any())
+            var filteredEntities = entityList.Where(n => !_cache.ContainsKey(n)).ToList();
+
+            if (!filteredEntities.Any())
             {
                 return;
             }
 
-            var list = _repository.GetEntityMetadataList(entityList);
+            var list = _repository.GetEntityMetadataList(filteredEntities);
 
             foreach (var item in list)
             {

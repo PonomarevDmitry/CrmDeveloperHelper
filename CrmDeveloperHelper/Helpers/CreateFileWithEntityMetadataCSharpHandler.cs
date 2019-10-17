@@ -496,7 +496,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (!string.IsNullOrEmpty(description))
                     {
-                        WriteLine("[System.ComponentModel.DescriptionAttribute(\"{0}\")]", description);
+                        WriteLine("[System.ComponentModel.DescriptionAttribute({0})]", ToCSharpLiteral(description));
                     }
                 }
             }
@@ -711,7 +711,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (!string.IsNullOrEmpty(description))
                 {
-                    WriteLine("[System.ComponentModel.DescriptionAttribute(\"{0}\")]", description);
+                    WriteLine("[System.ComponentModel.DescriptionAttribute({0})]", ToCSharpLiteral(description));
                 }
             }
 
@@ -719,7 +719,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 if (_config.AddTypeConverterAttributeForEnums && !string.IsNullOrEmpty(_config.TypeConverterName))
                 {
-                    WriteLine("[System.ComponentModel.TypeConverterAttribute(\"{0}\")]", _config.TypeConverterName);
+                    WriteLine("[System.ComponentModel.TypeConverterAttribute({0})]", ToCSharpLiteral(_config.TypeConverterName));
                 }
 
                 WriteLine("public enum statecode");
@@ -764,7 +764,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (!string.IsNullOrEmpty(description))
                     {
-                        WriteLine("[System.ComponentModel.DescriptionAttribute(\"{0}\")]", description);
+                        WriteLine("[System.ComponentModel.DescriptionAttribute({0})]", ToCSharpLiteral(description));
                     }
                 }
 
@@ -808,7 +808,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (!string.IsNullOrEmpty(description))
                 {
-                    WriteLine("[System.ComponentModel.DescriptionAttribute(\"{0}\")]", description);
+                    WriteLine("[System.ComponentModel.DescriptionAttribute({0})]", ToCSharpLiteral(description));
                 }
             }
 
@@ -816,7 +816,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 if (_config.AddTypeConverterAttributeForEnums && !string.IsNullOrEmpty(_config.TypeConverterName))
                 {
-                    WriteLine("[System.ComponentModel.TypeConverterAttribute(\"{0}\")]", _config.TypeConverterName);
+                    WriteLine("[System.ComponentModel.TypeConverterAttribute({0})]", ToCSharpLiteral(_config.TypeConverterName));
                 }
 
                 WriteLine("public enum statuscode");
@@ -861,7 +861,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (!string.IsNullOrEmpty(description))
                     {
-                        WriteLine("[System.ComponentModel.DescriptionAttribute(\"{0}\")]", description);
+                        WriteLine("[System.ComponentModel.DescriptionAttribute({0})]", ToCSharpLiteral(description));
                     }
                 }
 
@@ -978,13 +978,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         if (!string.IsNullOrEmpty(description))
                         {
-                            WriteLine("[System.ComponentModel.DescriptionAttribute(\"{0}\")]", description);
+                            WriteLine("[System.ComponentModel.DescriptionAttribute({0})]", ToCSharpLiteral(description));
                         }
                     }
 
                     if (_config.OptionSetExportType == OptionSetExportType.Enums && _config.AddTypeConverterAttributeForEnums && !string.IsNullOrEmpty(_config.TypeConverterName))
                     {
-                        WriteLine("[System.ComponentModel.TypeConverterAttribute(\"{0}\")]", _config.TypeConverterName);
+                        WriteLine("[System.ComponentModel.TypeConverterAttribute({0})]", ToCSharpLiteral(_config.TypeConverterName));
                     }
                 }
 
@@ -1057,7 +1057,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (!string.IsNullOrEmpty(description))
                     {
-                        WriteLine("[System.ComponentModel.DescriptionAttribute(\"{0}\")]", description);
+                        WriteLine("[System.ComponentModel.DescriptionAttribute({0})]", ToCSharpLiteral(description));
                     }
                 }
 
@@ -1197,7 +1197,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     if (!string.IsNullOrEmpty(relationDescription))
                     {
-                        WriteLine("[System.ComponentModel.DescriptionAttribute(\"{0}\")]", relationDescription);
+                        WriteLine("[System.ComponentModel.DescriptionAttribute({0})]", ToCSharpLiteral(relationDescription));
                     }
                 }
 
@@ -1435,7 +1435,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     if (!string.IsNullOrEmpty(relationDescription))
                     {
-                        WriteLine("[System.ComponentModel.DescriptionAttribute(\"{0}\")]", relationDescription);
+                        WriteLine("[System.ComponentModel.DescriptionAttribute({0})]", ToCSharpLiteral(relationDescription));
                     }
                 }
 
@@ -1625,7 +1625,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (!string.IsNullOrEmpty(description))
                     {
-                        WriteLine("[System.ComponentModel.DescriptionAttribute(\"{0}\")]", description);
+                        WriteLine("[System.ComponentModel.DescriptionAttribute({0})]", ToCSharpLiteral(description));
                     }
                 }
 

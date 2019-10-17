@@ -1611,5 +1611,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             return options;
         }
+
+        protected static string ToCSharpLiteral(string input)
+        {
+            using (var writer = new StringWriter())
+            {
+                using (var provider = System.CodeDom.Compiler.CodeDomProvider.CreateProvider("CSharp"))
+                {
+                    provider.GenerateCodeFromExpression(new System.CodeDom.CodePrimitiveExpression(input), writer, null);
+                    return writer.ToString();
+                }
+            }
+        }
     }
 }

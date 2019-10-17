@@ -570,6 +570,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             IMetadataProviderService metadataProviderService = new MetadataProviderService(new EntityMetadataRepository(service));
 
+            var unhandledFiles = new TupleList<string, string>();
+            var findedEntityMetadata = new TupleList<string, EntityMetadata>();
+
             foreach (var selFile in selectedFiles)
             {
                 var filePath = selFile.FilePath;
@@ -593,7 +596,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     {
                         metadataProviderService.StoreEntityMetadata(entityMetadata);
 
-                        await handler(service, metadataProviderService, commonConfig, entityMetadata, filePath);
+                        findedEntityMetadata.Add(filePath, entityMetadata);
 
                         continue;
                     }
@@ -605,15 +608,45 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (tempSelectEntity)
                 {
-                    var tempService = await QuickConnection.ConnectAsync(connectionData);
+                    unhandledFiles.Add(filePath, selection);
+                }
+            }
 
-                    if (tempService == null)
+            if (findedEntityMetadata.Any())
+            {
+                HashSet<string> linkedEntities = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+
+                foreach (var item in findedEntityMetadata)
+                {
+                    var temp = CodeGenerationService.GetLinkedEntities(item.Item2);
+
+                    foreach (var entityName in temp)
                     {
-                        _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                        return;
+                        linkedEntities.Add(entityName);
                     }
+                }
 
-                    WindowHelper.OpenEntityMetadataExplorer(this._iWriteToOutput, tempService, commonConfig, selection, filePath, isJavaScript);
+                metadataProviderService.RetrieveEntities(linkedEntities);
+
+                foreach (var item in findedEntityMetadata)
+                {
+                    await handler(service, metadataProviderService, commonConfig, item.Item2, item.Item1);
+                }
+            }
+
+            if (unhandledFiles.Any())
+            {
+                var tempService = await QuickConnection.ConnectAsync(connectionData);
+
+                if (tempService == null)
+                {
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                    return;
+                }
+
+                foreach (var item in unhandledFiles)
+                {
+                    WindowHelper.OpenEntityMetadataExplorer(this._iWriteToOutput, tempService, commonConfig, item.Item2, item.Item1, isJavaScript);
                 }
             }
         }
