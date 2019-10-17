@@ -72,7 +72,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             
             <RowDefinition Height="100*" />
             
@@ -104,27 +103,7 @@
             </Menu>
         </ToolBar>
 
-        <Expander Grid.Row="1" Margin="5" Header="Namespaces">
-
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="100*" />
-                </Grid.ColumnDefinitions>
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-
-                
-
-            </Grid>
-
-        </Expander>
-
-        <Grid Grid.Row="2" Margin="5">
+        <Grid Grid.Row="1" Margin="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="100*" />
@@ -148,7 +127,7 @@
             <ComboBox x:Name="cmBEntityName" Grid.Row="1" Grid.Column="3" KeyDown="txtBFilter_KeyDown" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" />
         </Grid>
 
-        <DataGrid x:Name="lstVwOptionSets" AutoGenerateColumns="False" Grid.Row="3" Margin="5" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwOptionSets_MouseDoubleClick" SelectionChanged="lstVwOptionSets_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+        <DataGrid x:Name="lstVwOptionSets" AutoGenerateColumns="False" Grid.Row="2" Margin="5" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwOptionSets_MouseDoubleClick" SelectionChanged="lstVwOptionSets_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -213,7 +192,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Grid Grid.Row="4" Margin="5">
+        <Grid Grid.Row="3" Margin="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="30*" />
@@ -228,7 +207,7 @@
             <ComboBox x:Name="cmBFileAction" Grid.Row="0" Grid.Column="1" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" SelectedIndex="0" />
         </Grid>
 
-        <ToolBar Grid.Row="5">
+        <ToolBar Grid.Row="4">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
                     <Setter Property="Orientation" Value="Vertical"/>
@@ -266,7 +245,7 @@
             </DockPanel>
         </ToolBar>
 
-        <StatusBar Grid.Row="6">
+        <StatusBar Grid.Row="5">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" />
             <ComboBox x:Name="cmBCurrentConnection" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="15"/>
