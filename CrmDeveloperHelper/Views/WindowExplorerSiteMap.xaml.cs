@@ -360,7 +360,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportMouseDoubleClick(string folder, Guid idSiteMap, string name, string nameUnique)
         {
-            await PerformExportXmlToFile(folder, idSiteMap, name, nameUnique, SiteMap.Schema.Attributes.sitemapxml, SiteMap.Schema.Headers.sitemapxml);
+            var service = await GetService();
+
+            if (service != null)
+            {
+                service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.SiteMap, idSiteMap);
+            }
         }
 
         private void lstVwEntities_SelectionChanged(object sender, SelectionChangedEventArgs e)
