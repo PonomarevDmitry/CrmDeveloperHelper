@@ -71,6 +71,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteTabs(tabs);
 
+            WriteSections(tabs);
+
             WriteSubgrids(tabs);
 
             WriteWebResources(tabs);
@@ -87,6 +89,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         public void WriteContentOnlyForm(IEnumerable<FormTab> tabs)
         {
             WriteTabs(tabs);
+
+            WriteSections(tabs);
 
             WriteSubgrids(tabs);
 
@@ -360,30 +364,55 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (tab.Sections.Any())
                 {
-                    WriteLine("'Sections': {");
+                    WriteLine("'Sections': [");
 
                     foreach (var section in tab.Sections)
                     {
-                        WriteLine("'{0}': {{", section.Name);
+                        WriteLine("'{0}',", section.Name);
+                    }
 
-                        WriteLine("'Name': '{0}',", section.Name);
+                    WriteLine("],");
+                }
 
-                        WriteLine("'DefaultShowLabel': {0},", section.ShowLabel);
+                WriteLine("},");
+            }
 
-                        WriteLine("'DefaultVisible': {0},", section.Visible);
+            WriteElementNameEnd();
+        }
 
-                        foreach (var label in section.Labels)
-                        {
-                            WriteLine("'Label{0}': '{1}',", label.LanguageCode, label.GetValueJavaScript());
-                        }
+        private void WriteSections(IEnumerable<FormTab> tabs)
+        {
+            var sections = tabs.SelectMany(t => t.Sections);
 
-                        WriteLine("},");
+            if (!sections.Any())
+            {
+                return;
+            }
+
+            WriteLine();
+            WriteElementNameStart("Sections", "{");
+
+            foreach (var tab in tabs)
+            {
+                foreach (var section in tab.Sections)
+                {
+                    WriteLine("'{0}': {{", section.Name);
+
+                    WriteLine("'Tab': '{0}',", section.Name);
+
+                    WriteLine("'Name': '{0}',", section.Name);
+
+                    WriteLine("'DefaultShowLabel': {0},", section.ShowLabel);
+
+                    WriteLine("'DefaultVisible': {0},", section.Visible);
+
+                    foreach (var label in section.Labels)
+                    {
+                        WriteLine("'Label{0}': '{1}',", label.LanguageCode, label.GetValueJavaScript());
                     }
 
                     WriteLine("},");
                 }
-
-                WriteLine("},");
             }
 
             WriteElementNameEnd();

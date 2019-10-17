@@ -532,150 +532,160 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             }
 
             {
-                string regionName = "Attributes";
+                var notPrimaryAttributes = entityMetadata.Attributes.Where(a =>
+                    !string.Equals(a.LogicalName, entityMetadata.PrimaryIdAttribute, StringComparison.InvariantCultureIgnoreCase)
+                    && !string.Equals(a.LogicalName, entityMetadata.PrimaryNameAttribute, StringComparison.InvariantCultureIgnoreCase)
+                );
 
-                CodeRegionDirective startCodeRegionDirective = null;
+                var oobAttributes = notPrimaryAttributes.Where(a => !a.IsCustomAttribute.GetValueOrDefault());
+                var customAttributes = notPrimaryAttributes.Where(a => a.IsCustomAttribute.GetValueOrDefault());
 
-                foreach (var attributeMetadata in entityMetadata.Attributes.OrderBy(metadata => metadata.LogicalName))
-                {
-                    if (iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateAttribute(attributeMetadata, iCodeGenerationServiceProvider)
-                        && !string.Equals(entityMetadata.PrimaryIdAttribute, attributeMetadata.LogicalName, StringComparison.InvariantCultureIgnoreCase)
-                        && !string.Equals(entityMetadata.PrimaryNameAttribute, attributeMetadata.LogicalName, StringComparison.InvariantCultureIgnoreCase)
-                    )
-                    {
-                        var attributeOptionSet = TypeMappingService.GetAttributeOptionSet(attributeMetadata);
+                WriteAttributeEnumeration(iCodeGenerationServiceProvider, declarationCollection, memberCollection, "OOB Attributes", entityMetadata, oobAttributes);
 
-                        if (attributeOptionSet != null
-                            && iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateOptionSet(attributeOptionSet, attributeMetadata, iCodeGenerationServiceProvider)
-                        )
-                        {
-                            CodeTypeDeclaration codeTypeDeclarationOptionSet = this.BuildOptionSet(entityMetadata, attributeOptionSet, iCodeGenerationServiceProvider);
-                            if (codeTypeDeclarationOptionSet != null)
-                            {
-                                declarationCollection.Add(codeTypeDeclarationOptionSet);
-                            }
-                        }
-
-                        string attributePropertyName = iCodeGenerationServiceProvider.NamingService.GetNameForAttribute(entityMetadata, attributeMetadata, iCodeGenerationServiceProvider);
-                        CodeExpression attributeNameRef = this.BuildAttributeNameRef(entityMetadata, attributePropertyName, attributeMetadata.LogicalName, iCodeGenerationServiceProvider);
-
-                        ProxyClassAttributeEnums proxyClassAttributeEnums = GetProxyClassAttributeEnums(attributeMetadata, attributeOptionSet);
-                        ProxyClassAttributeEnumsGlobalOptionSetLocation proxyClassAttributeEnumsGlobalOptionSetLocation = GetProxyClassAttributeEnumsGlobalOptionSetLocation(attributeMetadata, attributeOptionSet);
-
-                        if (attributeOptionSet == null
-                            || (attributeOptionSet != null && proxyClassAttributeEnums != Model.ProxyClassAttributeEnums.InsteadOfOptionSet)
-                        )
-                        {
-                            CodeMemberProperty attributeMember = this.BuildAttributePropertyOnBaseType(
-                                entityMetadata
-                                , attributeMetadata
-                                , attributeNameRef
-                                , iCodeGenerationServiceProvider
-                            );
-
-                            if (attributeMember != null)
-                            {
-                                if (startCodeRegionDirective == null)
-                                {
-                                    startCodeRegionDirective = new CodeRegionDirective(CodeRegionMode.Start, regionName);
-
-                                    memberCollection.Add(new CodeSnippetTypeMember(string.Empty)
-                                    {
-                                        StartDirectives =
-                                        {
-                                            startCodeRegionDirective,
-                                        },
-                                    });
-                                }
-
-                                memberCollection.Add(InsertInPropertyDebuggerNonUserCodeAttributeInGetAndSet(attributeMember));
-                            }
-                        }
-
-                        if (attributeOptionSet != null
-                            && !iCodeGenerationServiceProvider.CodeWriterFilterService.IgnoreOptionSet(attributeOptionSet, attributeMetadata, iCodeGenerationServiceProvider)
-                            && proxyClassAttributeEnums != Model.ProxyClassAttributeEnums.NotNeeded
-                        )
-                        {
-                            string baseAttributeName = string.Empty;
-
-                            if (proxyClassAttributeEnums == Model.ProxyClassAttributeEnums.AddWithNameAttributeEnum)
-                            {
-                                baseAttributeName = attributePropertyName;
-                                attributePropertyName += "Enum";
-                            }
-
-                            string enumTypeName = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForOptionSet(entityMetadata, attributeOptionSet, iCodeGenerationServiceProvider).BaseType;
-
-                            if (proxyClassAttributeEnumsGlobalOptionSetLocation == Model.ProxyClassAttributeEnumsGlobalOptionSetLocation.InClassSchema)
-                            {
-                                var typeRef = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForEntity(entityMetadata, iCodeGenerationServiceProvider);
-
-                                enumTypeName = $"{typeRef.BaseType}.Schema.OptionSets.";
-
-                                if (attributeOptionSet.IsGlobal.GetValueOrDefault())
-                                {
-                                    enumTypeName += attributeOptionSet.Name.ToLower();
-                                }
-                                else
-                                {
-                                    enumTypeName += attributeMetadata.LogicalName;
-                                }
-                            }
-                            else if (proxyClassAttributeEnumsGlobalOptionSetLocation == Model.ProxyClassAttributeEnumsGlobalOptionSetLocation.InGlobalOptionSetNamespace)
-                            {
-                                enumTypeName = attributeOptionSet.Name.ToLower();
-
-                                if (!string.IsNullOrEmpty(_config.NamespaceGlobalOptionSets))
-                                {
-                                    enumTypeName = $"{_config.NamespaceGlobalOptionSets}.{enumTypeName}";
-                                }
-                            }
-
-                            CodeMemberProperty attributeMember = this.BuildAttributePropertyOnEnum(
-                                entityMetadata
-                                , attributeMetadata
-                                , attributePropertyName
-                                , baseAttributeName
-                                , attributeNameRef
-                                , enumTypeName
-                                , iCodeGenerationServiceProvider
-                            );
-
-                            if (attributeMember != null)
-                            {
-                                if (startCodeRegionDirective == null)
-                                {
-                                    startCodeRegionDirective = new CodeRegionDirective(CodeRegionMode.Start, regionName);
-
-                                    memberCollection.Add(new CodeSnippetTypeMember(string.Empty)
-                                    {
-                                        StartDirectives =
-                                        {
-                                            startCodeRegionDirective,
-                                        },
-                                    });
-                                }
-
-                                memberCollection.Add(InsertInPropertyDebuggerNonUserCodeAttributeInGetAndSet(attributeMember));
-                            }
-                        }
-                    }
-                }
-
-                if (startCodeRegionDirective != null)
-                {
-                    memberCollection.Add(new CodeSnippetTypeMember(string.Empty)
-                    {
-                        EndDirectives =
-                        {
-                            new CodeRegionDirective(CodeRegionMode.End, regionName),
-                        },
-                    });
-                }
+                WriteAttributeEnumeration(iCodeGenerationServiceProvider, declarationCollection, memberCollection, "Custom Attributes", entityMetadata, customAttributes);
             }
 
             return memberCollection;
+        }
+
+        private void WriteAttributeEnumeration(ICodeGenerationServiceProvider iCodeGenerationServiceProvider, CodeTypeDeclarationCollection declarationCollection, CodeTypeMemberCollection memberCollection, string regionName, EntityMetadata entityMetadata, IEnumerable<AttributeMetadata> attributesEnumeration)
+        {
+            CodeRegionDirective startCodeRegionDirective = null;
+
+            foreach (var attributeMetadata in attributesEnumeration.OrderBy(metadata => metadata.LogicalName))
+            {
+                if (iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateAttribute(attributeMetadata, iCodeGenerationServiceProvider))
+                {
+                    var attributeOptionSet = TypeMappingService.GetAttributeOptionSet(attributeMetadata);
+
+                    if (attributeOptionSet != null
+                        && iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateOptionSet(attributeOptionSet, attributeMetadata, iCodeGenerationServiceProvider)
+                    )
+                    {
+                        CodeTypeDeclaration codeTypeDeclarationOptionSet = this.BuildOptionSet(entityMetadata, attributeOptionSet, iCodeGenerationServiceProvider);
+                        if (codeTypeDeclarationOptionSet != null)
+                        {
+                            declarationCollection.Add(codeTypeDeclarationOptionSet);
+                        }
+                    }
+
+                    string attributePropertyName = iCodeGenerationServiceProvider.NamingService.GetNameForAttribute(entityMetadata, attributeMetadata, iCodeGenerationServiceProvider);
+                    CodeExpression attributeNameRef = this.BuildAttributeNameRef(entityMetadata, attributePropertyName, attributeMetadata.LogicalName, iCodeGenerationServiceProvider);
+
+                    ProxyClassAttributeEnums proxyClassAttributeEnums = GetProxyClassAttributeEnums(attributeMetadata, attributeOptionSet);
+                    ProxyClassAttributeEnumsGlobalOptionSetLocation proxyClassAttributeEnumsGlobalOptionSetLocation = GetProxyClassAttributeEnumsGlobalOptionSetLocation(attributeMetadata, attributeOptionSet);
+
+                    if (attributeOptionSet == null
+                        || (attributeOptionSet != null && proxyClassAttributeEnums != Model.ProxyClassAttributeEnums.InsteadOfOptionSet)
+                    )
+                    {
+                        CodeMemberProperty attributeMember = this.BuildAttributePropertyOnBaseType(
+                            entityMetadata
+                            , attributeMetadata
+                            , attributeNameRef
+                            , iCodeGenerationServiceProvider
+                        );
+
+                        if (attributeMember != null)
+                        {
+                            if (startCodeRegionDirective == null)
+                            {
+                                startCodeRegionDirective = new CodeRegionDirective(CodeRegionMode.Start, regionName);
+
+                                memberCollection.Add(new CodeSnippetTypeMember(string.Empty)
+                                {
+                                    StartDirectives =
+                                        {
+                                            startCodeRegionDirective,
+                                        },
+                                });
+                            }
+
+                            memberCollection.Add(InsertInPropertyDebuggerNonUserCodeAttributeInGetAndSet(attributeMember));
+                        }
+                    }
+
+                    if (attributeOptionSet != null
+                        && !iCodeGenerationServiceProvider.CodeWriterFilterService.IgnoreOptionSet(attributeOptionSet, attributeMetadata, iCodeGenerationServiceProvider)
+                        && proxyClassAttributeEnums != Model.ProxyClassAttributeEnums.NotNeeded
+                    )
+                    {
+                        string baseAttributeName = string.Empty;
+
+                        if (proxyClassAttributeEnums == Model.ProxyClassAttributeEnums.AddWithNameAttributeEnum)
+                        {
+                            baseAttributeName = attributePropertyName;
+                            attributePropertyName += "Enum";
+                        }
+
+                        string enumTypeName = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForOptionSet(entityMetadata, attributeOptionSet, iCodeGenerationServiceProvider).BaseType;
+
+                        if (proxyClassAttributeEnumsGlobalOptionSetLocation == Model.ProxyClassAttributeEnumsGlobalOptionSetLocation.InClassSchema)
+                        {
+                            var typeRef = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForEntity(entityMetadata, iCodeGenerationServiceProvider);
+
+                            enumTypeName = $"{typeRef.BaseType}.Schema.OptionSets.";
+
+                            if (attributeOptionSet.IsGlobal.GetValueOrDefault())
+                            {
+                                enumTypeName += attributeOptionSet.Name.ToLower();
+                            }
+                            else
+                            {
+                                enumTypeName += attributeMetadata.LogicalName;
+                            }
+                        }
+                        else if (proxyClassAttributeEnumsGlobalOptionSetLocation == Model.ProxyClassAttributeEnumsGlobalOptionSetLocation.InGlobalOptionSetNamespace)
+                        {
+                            enumTypeName = attributeOptionSet.Name.ToLower();
+
+                            if (!string.IsNullOrEmpty(_config.NamespaceGlobalOptionSets))
+                            {
+                                enumTypeName = $"{_config.NamespaceGlobalOptionSets}.{enumTypeName}";
+                            }
+                        }
+
+                        CodeMemberProperty attributeMember = this.BuildAttributePropertyOnEnum(
+                            entityMetadata
+                            , attributeMetadata
+                            , attributePropertyName
+                            , baseAttributeName
+                            , attributeNameRef
+                            , enumTypeName
+                            , iCodeGenerationServiceProvider
+                        );
+
+                        if (attributeMember != null)
+                        {
+                            if (startCodeRegionDirective == null)
+                            {
+                                startCodeRegionDirective = new CodeRegionDirective(CodeRegionMode.Start, regionName);
+
+                                memberCollection.Add(new CodeSnippetTypeMember(string.Empty)
+                                {
+                                    StartDirectives =
+                                        {
+                                            startCodeRegionDirective,
+                                        },
+                                });
+                            }
+
+                            memberCollection.Add(InsertInPropertyDebuggerNonUserCodeAttributeInGetAndSet(attributeMember));
+                        }
+                    }
+                }
+            }
+
+            if (startCodeRegionDirective != null)
+            {
+                memberCollection.Add(new CodeSnippetTypeMember(string.Empty)
+                {
+                    EndDirectives =
+                        {
+                            new CodeRegionDirective(CodeRegionMode.End, regionName),
+                        },
+                });
+            }
         }
 
         private ProxyClassAttributeEnumsGlobalOptionSetLocation GetProxyClassAttributeEnumsGlobalOptionSetLocation(AttributeMetadata attributeMetadata, OptionSetMetadata attributeOptionSet)

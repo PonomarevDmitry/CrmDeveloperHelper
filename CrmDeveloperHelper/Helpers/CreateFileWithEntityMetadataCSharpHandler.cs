@@ -407,15 +407,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            foreach (AttributeMetadata attributeMetadata in _entityMetadata.Attributes
-                .Where(a => !string.Equals(a.LogicalName, _entityMetadata.PrimaryIdAttribute, StringComparison.InvariantCultureIgnoreCase)
-                    && !string.Equals(a.LogicalName, _entityMetadata.PrimaryNameAttribute, StringComparison.InvariantCultureIgnoreCase)
-                )
-                .OrderBy(attr => attr.LogicalName))
+            var notPrimaryAttributes = _entityMetadata.Attributes.Where(a => !string.Equals(a.LogicalName, _entityMetadata.PrimaryIdAttribute, StringComparison.InvariantCultureIgnoreCase)
+                    && !string.Equals(a.LogicalName, _entityMetadata.PrimaryNameAttribute, StringComparison.InvariantCultureIgnoreCase));
+
+            var oobAttributes = notPrimaryAttributes.Where(a => !a.IsCustomAttribute.GetValueOrDefault());
+            var customAttributes = notPrimaryAttributes.Where(a => a.IsCustomAttribute.GetValueOrDefault());
+
+            if (oobAttributes.Any())
             {
                 if (first) { first = false; } else { WriteLine(); }
+                WriteLine("#region OOB Attributes.");
 
-                GenerateAttributeMetadata(attributeMetadata);
+                foreach (AttributeMetadata attributeMetadata in oobAttributes.OrderBy(attr => attr.LogicalName))
+                {
+                    WriteLine();
+                    GenerateAttributeMetadata(attributeMetadata);
+                }
+
+                WriteLine();
+                WriteLine("#endregion OOB Attributes.");
+            }
+
+            if (customAttributes.Any())
+            {
+                if (first) { first = false; } else { WriteLine(); }
+                WriteLine("#region Custom Attributes.");
+
+                foreach (AttributeMetadata attributeMetadata in customAttributes.OrderBy(attr => attr.LogicalName))
+                {
+                    WriteLine();
+                    GenerateAttributeMetadata(attributeMetadata);
+                }
+
+                WriteLine();
+                WriteLine("#endregion Custom Attributes.");
             }
 
             WriteLine("}");

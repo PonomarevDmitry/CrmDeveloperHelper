@@ -133,8 +133,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            var attributes = _entityMetadata.Attributes
-                .Where(a => string.IsNullOrEmpty(a.AttributeOf));
+            var attributes = _entityMetadata.Attributes.Where(a => string.IsNullOrEmpty(a.AttributeOf));
 
             if (!attributes.Any())
             {
@@ -144,7 +143,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteLine();
             WriteLine("'Attributes': {");
 
-            foreach (AttributeMetadata attrib in attributes.OrderBy(attr => attr.LogicalName))
+            if (!string.IsNullOrEmpty(_entityMetadata.PrimaryIdAttribute))
+            {
+                AttributeMetadata attributeMetadata = attributes.FirstOrDefault(e => string.Equals(e.LogicalName, _entityMetadata.PrimaryIdAttribute, StringComparison.InvariantCultureIgnoreCase));
+
+                if (attributeMetadata != null
+                    && attributeMetadata.IsPrimaryId.GetValueOrDefault()
+                )
+                {
+                    WriteLine("'{0}': '{0}',", attributeMetadata.LogicalName.ToLower());
+                }
+            }
+
+            if (!string.IsNullOrEmpty(_entityMetadata.PrimaryNameAttribute))
+            {
+                AttributeMetadata attributeMetadata = attributes.FirstOrDefault(e => string.Equals(e.LogicalName, _entityMetadata.PrimaryNameAttribute, StringComparison.InvariantCultureIgnoreCase));
+
+                if (attributeMetadata != null
+                    && attributeMetadata.IsPrimaryName.GetValueOrDefault()
+                )
+                {
+                    WriteLine("'{0}': '{0}',", attributeMetadata.LogicalName.ToLower());
+                }
+            }
+
+            var notPrimaryAttributes = attributes.Where(a => !string.Equals(a.LogicalName, _entityMetadata.PrimaryIdAttribute, StringComparison.InvariantCultureIgnoreCase)
+                    && !string.Equals(a.LogicalName, _entityMetadata.PrimaryNameAttribute, StringComparison.InvariantCultureIgnoreCase));
+
+            var oobAttributes = notPrimaryAttributes.Where(a => !a.IsCustomAttribute.GetValueOrDefault());
+            var customAttributes = notPrimaryAttributes.Where(a => a.IsCustomAttribute.GetValueOrDefault());
+
+            foreach (AttributeMetadata attrib in oobAttributes.OrderBy(attr => attr.LogicalName))
+            {
+                WriteLine("'{0}': '{0}',", attrib.LogicalName.ToLower());
+            }
+
+            foreach (AttributeMetadata attrib in customAttributes.OrderBy(attr => attr.LogicalName))
             {
                 WriteLine("'{0}': '{0}',", attrib.LogicalName.ToLower());
             }
@@ -168,7 +202,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 await GenerateOptionSetEnums(new[] { attrib }, attrib.OptionSet);
             }
 
-            if(_config.GenerateGlobalOptionSets)
+            if (_config.GenerateGlobalOptionSets)
             {
                 var groups = picklists.Where(p => p.OptionSet.IsGlobal.GetValueOrDefault()).GroupBy(p => p.OptionSet.MetadataId, (k, g) => new { g.First().OptionSet, Attributes = g }).OrderBy(e => e.OptionSet.Name);
 
