@@ -431,7 +431,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ConnectionData connectionData = lstVwConnections.SelectedItems[0] as ConnectionData;
 
-            ToggleControls(null, false, Properties.WindowStatusStrings.StartTestingConnectionFormat1, connectionData.Name);
+            ToggleControls(null, false, Properties.OutputStrings.StartTestingConnectionFormat1, connectionData.Name);
 
             var testResult = await QuickConnection.TestConnectAsync(connectionData, this._iWriteToOutput, this);
 
@@ -440,11 +440,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 connectionData.Save();
                 this._crmConfig.Save();
 
-                ToggleControls(connectionData, true, Properties.WindowStatusStrings.ConnectedSuccessfullyFormat1, connectionData.Name);
+                ToggleControls(connectionData, true, Properties.OutputStrings.ConnectedSuccessfullyFormat1, connectionData.Name);
             }
             else
             {
-                ToggleControls(connectionData, true, Properties.WindowStatusStrings.ConnectionFailedFormat1, connectionData.Name);
+                ToggleControls(connectionData, true, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
             }
         }
 
@@ -554,7 +554,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         _crmConfig.SetCurrentConnection(null);
 
-                        _iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.ConnectionIsNotSelected);
+                        _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionIsNotSelected);
                         _iWriteToOutput.ActivateOutputWindow(null);
                     }
 
@@ -939,19 +939,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var source = CreateOrganizationComparerSource(connection1, connection2);
 
-                ToggleControls(null, false, Properties.WindowStatusStrings.ComparingConnectionsFormat2, connection1.Name, connection2.Name);
+                ToggleControls(null, false, Properties.OutputStrings.ComparingConnectionsFormat2, connection1.Name, connection2.Name);
 
                 OrganizationComparer comparer = new OrganizationComparer(source, this._iWriteToOutput, folder);
 
                 await MultipleAnalize(functions, comparer);
 
-                ToggleControls(null, true, Properties.WindowStatusStrings.ComparingConnectionsCompletedFormat2, connection1.Name, connection2.Name);
+                ToggleControls(null, true, Properties.OutputStrings.ComparingConnectionsCompletedFormat2, connection1.Name, connection2.Name);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(null, ex);
 
-                ToggleControls(null, true, Properties.WindowStatusStrings.ComparingConnectionsFailedFormat2, connection1.Name, connection2.Name);
+                ToggleControls(null, true, Properties.OutputStrings.ComparingConnectionsFailedFormat2, connection1.Name, connection2.Name);
             }
 
             this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.ComparingConnectionsFormat2, connection1.Name, connection2.Name);
@@ -976,7 +976,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingGlobalOptionSetsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.OutputStrings.CheckingGlobalOptionSetsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckGlobalOptionSetsAsync();
 
@@ -994,7 +994,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingSystemFormsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.OutputStrings.CheckingSystemFormsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckSystemFormsAsync();
 
@@ -1012,7 +1012,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingSystemSavedQueriesFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.OutputStrings.CheckingSystemSavedQueriesFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckSystemSavedQueriesAsync();
 
@@ -1030,7 +1030,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingSystemChartsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.OutputStrings.CheckingSystemChartsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckSystemSavedQueryVisualizationsAsync();
 
@@ -1048,7 +1048,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingConnectionRolesFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.OutputStrings.CheckingConnectionRolesFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckConnectionRolesAsync();
 
@@ -1066,7 +1066,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingConnectionRoleCategoriesFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.OutputStrings.CheckingConnectionRoleCategoriesFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckConnectionRoleCategoriesAsync();
 
@@ -1084,7 +1084,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingEntityRibbonsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.OutputStrings.CheckingEntityRibbonsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckEntityRibbonsAsync(false);
 
@@ -1102,7 +1102,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingEntityRibbonsWithDetailsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.OutputStrings.CheckingEntityRibbonsWithDetailsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckEntityRibbonsAsync(true);
 
@@ -1120,7 +1120,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingApplicationRibbonsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.OutputStrings.CheckingApplicationRibbonsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckApplicationRibbonsAsync(false);
 
@@ -1138,7 +1138,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingApplicationRibbonsWithDetailsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.OutputStrings.CheckingApplicationRibbonsWithDetailsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckApplicationRibbonsAsync(true);
 
@@ -1156,7 +1156,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingDisplayStringsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.OutputStrings.CheckingDisplayStringsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckDisplayStringsAsync();
 
@@ -1174,7 +1174,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingWebResourcesFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.OutputStrings.CheckingWebResourcesFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckWebResourcesAsync(false);
 
@@ -1192,7 +1192,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingWebResourcesWithDetailsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.OutputStrings.CheckingWebResourcesWithDetailsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckWebResourcesAsync(true);
 
@@ -1210,7 +1210,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingSitemapsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.OutputStrings.CheckingSitemapsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckSiteMapsAsync();
 
@@ -1228,7 +1228,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingSecurityRolesFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.OutputStrings.CheckingSecurityRolesFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckSecurityRolesAsync();
 
@@ -1246,7 +1246,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingWorkflowsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.OutputStrings.CheckingWorkflowsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckWorkflowsAsync(false);
 
@@ -1264,7 +1264,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingWorkflowsWithDetailsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.OutputStrings.CheckingWorkflowsWithDetailsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckWorkflowsAsync(true);
 
@@ -1282,7 +1282,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingWorkflowsStatesFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.OutputStrings.CheckingWorkflowsStatesFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckWorkflowsStatesAsync();
 
@@ -1300,7 +1300,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingReportsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.OutputStrings.CheckingReportsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckReportsAsync();
 
@@ -1318,7 +1318,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingEMailTemplatesFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.OutputStrings.CheckingEMailTemplatesFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckEMailTemplatesAsync();
 
@@ -1336,7 +1336,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingMailMergeTemplatesFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.OutputStrings.CheckingMailMergeTemplatesFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckMailMergeTemplatesAsync();
 
@@ -1354,7 +1354,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingKBArticleTemplatesFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.OutputStrings.CheckingKBArticleTemplatesFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckKBArticleTemplatesAsync();
 
@@ -1372,7 +1372,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingContractTemplatesFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.OutputStrings.CheckingContractTemplatesFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckContractTemplatesAsync();
 
@@ -1390,7 +1390,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingFieldSecurityProfilesFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.OutputStrings.CheckingFieldSecurityProfilesFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckFieldSecurityProfilesAsync();
 
@@ -1408,7 +1408,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingEntitiesFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.OutputStrings.CheckingEntitiesFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckEntitiesAsync();
 
@@ -1426,7 +1426,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingEntitiesByAuditFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.OutputStrings.CheckingEntitiesByAuditFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckEntitiesByAuditAsync();
 
@@ -1444,7 +1444,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingEntityLabelsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.OutputStrings.CheckingEntityLabelsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckEntityLabelsAsync();
 
@@ -1462,7 +1462,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingEntityMapsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.OutputStrings.CheckingEntityMapsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckEntityMapsAsync();
 
@@ -1480,7 +1480,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingPluginAssembliesFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.OutputStrings.CheckingPluginAssembliesFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckPluginAssembliesAsync();
 
@@ -1498,7 +1498,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingPluginTypesFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.OutputStrings.CheckingPluginTypesFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckPluginTypesAsync();
 
@@ -1516,7 +1516,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingPluginStepsByIdsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.OutputStrings.CheckingPluginStepsByIdsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckPluginStepsAsync();
 
@@ -1534,7 +1534,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingPluginStepsStatesFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.OutputStrings.CheckingPluginStepsStatesFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckPluginStepsStatesAsync();
 
@@ -1552,7 +1552,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingOrganizationsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.OutputStrings.CheckingOrganizationsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckOrganizationsAsync();
 
@@ -1570,7 +1570,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingDefaultTranslationsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.OutputStrings.CheckingDefaultTranslationsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckDefaultTranslationsAsync();
 
@@ -1588,7 +1588,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingFieldTranslationsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.OutputStrings.CheckingFieldTranslationsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckFieldTranslationsAsync();
 
@@ -1692,7 +1692,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.TransferingDataFormat2, connectionSource.Name, connectionTarget.Name);
 
-            ToggleControls(null, false, Properties.WindowStatusStrings.TransferingDataFormat2, connectionSource.Name, connectionTarget.Name);
+            ToggleControls(null, false, Properties.OutputStrings.TransferingDataFormat2, connectionSource.Name, connectionTarget.Name);
 
             try
             {
@@ -1702,13 +1702,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await function(trasnferHandler);
 
-                ToggleControls(null, true, Properties.WindowStatusStrings.TransferingDataCompletedFormat2, connectionSource.Name, connectionTarget.Name);
+                ToggleControls(null, true, Properties.OutputStrings.TransferingDataCompletedFormat2, connectionSource.Name, connectionTarget.Name);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(null, ex);
 
-                ToggleControls(null, true, Properties.WindowStatusStrings.TransferingDataFailedFormat2, connectionSource.Name, connectionTarget.Name);
+                ToggleControls(null, true, Properties.OutputStrings.TransferingDataFailedFormat2, connectionSource.Name, connectionTarget.Name);
             }
 
             this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.TransferingDataFormat2, connectionSource.Name, connectionTarget.Name);
@@ -1728,7 +1728,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.TransferingAuditFormat2, handler.ConnectionSource.Name, handler.ConnectionTarget.Name);
+                UpdateStatus(null, Properties.OutputStrings.TransferingAuditFormat2, handler.ConnectionSource.Name, handler.ConnectionTarget.Name);
 
                 string filePath = await handler.TrasnferAuditAsync();
 
@@ -1756,7 +1756,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.TransferingWorkflowsStatesFormat2, handler.ConnectionSource.Name, handler.ConnectionTarget.Name);
+                UpdateStatus(null, Properties.OutputStrings.TransferingWorkflowsStatesFormat2, handler.ConnectionSource.Name, handler.ConnectionTarget.Name);
 
                 string filePath = await handler.TrasnferWorkflowsStatesAsync();
 
@@ -1784,7 +1784,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.TransferingPluginStepsStatesFormat2, handler.ConnectionSource.Name, handler.ConnectionTarget.Name);
+                UpdateStatus(null, Properties.OutputStrings.TransferingPluginStepsStatesFormat2, handler.ConnectionSource.Name, handler.ConnectionTarget.Name);
 
                 string filePath = await handler.TrasnferPluginStepsStatesAsync();
 
@@ -1978,7 +1978,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(null, false, Properties.WindowStatusStrings.LoadingSolutionImage);
+            ToggleControls(null, false, Properties.OutputStrings.LoadingSolutionImage);
 
             SolutionImage solutionImage = null;
 
@@ -1995,13 +1995,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (solutionImage == null)
             {
-                ToggleControls(null, true, Properties.WindowStatusStrings.LoadingSolutionImageFailed);
+                ToggleControls(null, true, Properties.OutputStrings.LoadingSolutionImageFailed);
                 return;
             }
 
             _solutionImageList.Insert(0, solutionImage);
 
-            ToggleControls(null, true, Properties.WindowStatusStrings.LoadingSolutionImageCompleted);
+            ToggleControls(null, true, Properties.OutputStrings.LoadingSolutionImageCompleted);
 
             FillSolutionImages(solutionImage);
         }
@@ -2057,7 +2057,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                ToggleControls(service.ConnectionData, false, _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.WindowStatusStrings.CreatingSolutionImageFromZipFile));
+                ToggleControls(service.ConnectionData, false, _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatingSolutionImageFromZipFile));
 
                 var descriptor = new SolutionComponentDescriptor(service);
 
@@ -2067,7 +2067,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 solutionImage = await solutionDescriptor.CreateSolutionImageWithComponentsAsync(Path.GetFileNameWithoutExtension(filePath), components);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingSolutionImageFromZipFileCompleted);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingSolutionImageFromZipFileCompleted);
             }
             catch (Exception ex)
             {
@@ -2075,7 +2075,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingSolutionImageFromZipFileFailed);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingSolutionImageFromZipFileFailed);
             }
 
             if (solutionImage == null)
@@ -2097,7 +2097,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void FillSolutionImages(SolutionImage solutionImageForSelect = null)
         {
-            ToggleControls(null, false, Properties.WindowStatusStrings.LoadingSolutionImage);
+            ToggleControls(null, false, Properties.OutputStrings.LoadingSolutionImage);
 
             this.Dispatcher.Invoke(() =>
             {
@@ -2126,7 +2126,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(null, true, Properties.WindowStatusStrings.LoadingSolutionImageCompleted);
+            ToggleControls(null, true, Properties.OutputStrings.LoadingSolutionImageCompleted);
         }
 
         private void lstVwConnections_MouseDoubleClick(object sender, MouseButtonEventArgs e)

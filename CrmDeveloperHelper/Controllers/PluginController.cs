@@ -352,13 +352,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.GettingMessages);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.GettingMessages);
 
             var repositoryFilters = new SdkMessageFilterRepository(service);
 
             List<SdkMessageFilter> filters = await repositoryFilters.GetAllAsync(new ColumnSet(SdkMessageFilter.Schema.Attributes.sdkmessageid, SdkMessageFilter.Schema.Attributes.primaryobjecttypecode, SdkMessageFilter.Schema.Attributes.secondaryobjecttypecode, SdkMessageFilter.Schema.Attributes.availability));
 
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.GettingMessagesCompleted);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.GettingMessagesCompleted);
 
             var step = new SdkMessageProcessingStep()
             {
@@ -604,7 +604,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.LoadingAssemblyFromPathFormat1, defaultOutputFilePath);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.LoadingAssemblyFromPathFormat1, defaultOutputFilePath);
 
             AssemblyReaderResult assemblyLoad = null;
 
@@ -615,7 +615,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (assemblyLoad == null)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.LoadingAssemblyFromPathFailedFormat1, defaultOutputFilePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.LoadingAssemblyFromPathFailedFormat1, defaultOutputFilePath);
                 return;
             }
 
@@ -674,7 +674,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             service.ConnectionData.AddAssemblyMapping(assemblyLoad.Name, assemblyLoad.FilePath);
             service.ConnectionData.Save();
 
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.UpdatingPluginAssemblyFormat1, service.ConnectionData.Name);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.UpdatingPluginAssemblyFormat1, service.ConnectionData.Name);
 
             assembly.Content = Convert.ToBase64String(assemblyLoad.Content);
 
@@ -693,19 +693,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         var assemblyRef = assembly.ToEntityReference();
 
-                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.RegisteringNewPluginTypesFormat2, service.ConnectionData.Name, totalCount);
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.RegisteringNewPluginTypesFormat2, service.ConnectionData.Name, totalCount);
 
                         await RegisterNewPluginTypes(service, pluginsOnlyInLocalAssembly, assemblyRef, false, workflowActivityGroupName);
 
                         await RegisterNewPluginTypes(service, workflowOnlyInLocalAssembly, assemblyRef, true, workflowActivityGroupName);
 
-                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.RegisteringNewPluginTypesCompletedFormat2, service.ConnectionData.Name, totalCount);
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.RegisteringNewPluginTypesCompletedFormat2, service.ConnectionData.Name, totalCount);
                     }
                 }
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.UpdatingPluginAssemblyFailedFormat1, service.ConnectionData.Name);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.UpdatingPluginAssemblyFailedFormat1, service.ConnectionData.Name);
 
                 _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
                 _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
@@ -730,17 +730,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     pluginTypeEntity.WorkflowActivityGroupName = workflowActivityGroupName;
                 }
 
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.WindowStatusStrings.RegisteringPluginTypeFormat2, service.ConnectionData.Name, pluginType);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.RegisteringPluginTypeFormat2, service.ConnectionData.Name, pluginType);
 
                 try
                 {
                     pluginTypeEntity.Id = await service.CreateAsync(pluginTypeEntity);
 
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.WindowStatusStrings.RegisteringPluginTypeCompletedFormat2, service.ConnectionData.Name, pluginType);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.RegisteringPluginTypeCompletedFormat2, service.ConnectionData.Name, pluginType);
                 }
                 catch (Exception ex)
                 {
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.WindowStatusStrings.RegisteringPluginTypeFailedFormat2, service.ConnectionData.Name, pluginType);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.RegisteringPluginTypeFailedFormat2, service.ConnectionData.Name, pluginType);
 
                     _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
                     _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);

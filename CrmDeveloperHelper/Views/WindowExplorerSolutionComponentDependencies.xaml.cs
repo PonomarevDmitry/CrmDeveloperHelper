@@ -225,7 +225,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var list = new List<SolutionComponent>();
 
-            string formatResult = Properties.WindowStatusStrings.LoadingRequiredComponentsCompletedFormat1;
+            string formatResult = Properties.OutputStrings.LoadingRequiredComponentsCompletedFormat1;
 
             try
             {
@@ -236,8 +236,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     case DependencyType.RequiredComponents:
                     default:
                         {
-                            ToggleControls(false, Properties.WindowStatusStrings.LoadingRequiredComponents);
-                            formatResult = Properties.WindowStatusStrings.LoadingRequiredComponentsCompletedFormat1;
+                            ToggleControls(false, Properties.OutputStrings.LoadingRequiredComponents);
+                            formatResult = Properties.OutputStrings.LoadingRequiredComponentsCompletedFormat1;
 
                             IEnumerable<Dependency> temp = await repository.GetRequiredComponentsAsync(_componentType, _objectId);
 
@@ -254,8 +254,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     case DependencyType.DependentComponents:
                         {
-                            ToggleControls(false, Properties.WindowStatusStrings.LoadingDependentComponents);
-                            formatResult = Properties.WindowStatusStrings.LoadingDependentComponentsCompletedFormat1;
+                            ToggleControls(false, Properties.OutputStrings.LoadingDependentComponents);
+                            formatResult = Properties.OutputStrings.LoadingDependentComponentsCompletedFormat1;
 
                             IEnumerable<Dependency> temp = await repository.GetDependentComponentsAsync(_componentType, _objectId);
 
@@ -272,8 +272,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     case DependencyType.DependenciesForDelete:
                         {
-                            ToggleControls(false, Properties.WindowStatusStrings.LoadingDependenciesForDelete);
-                            formatResult = Properties.WindowStatusStrings.LoadingDependenciesForDeleteCompletedFormat1;
+                            ToggleControls(false, Properties.OutputStrings.LoadingDependenciesForDelete);
+                            formatResult = Properties.OutputStrings.LoadingDependenciesForDeleteCompletedFormat1;
 
                             IEnumerable<Dependency> temp = await repository.GetDependenciesForDeleteAsync(_componentType, _objectId);
 
@@ -526,7 +526,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this._iWriteToOutput.WriteToOutputStartOperation(_service.ConnectionData, Properties.OperationNames.CreatingEntityDescriptionFormat1, _service.ConnectionData.Name);
 
-            ToggleControls(false, Properties.WindowStatusStrings.CreatingEntityDescription);
+            ToggleControls(false, Properties.OutputStrings.CreatingEntityDescription);
 
             string fileName = GetDescriptor().GetFileName(_service.ConnectionData.Name, solutionComponentViewItem.SolutionComponent.ComponentType.Value, solutionComponentViewItem.SolutionComponent.ObjectId.Value, EntityFileNameFormatter.Headers.EntityDescription, "txt");
 
@@ -563,7 +563,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.PerformAction(_service.ConnectionData, filePath);
 
-            ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
+            ToggleControls(true, Properties.OutputStrings.CreatingEntityDescriptionCompleted);
 
             this._iWriteToOutput.WriteToOutputEndOperation(_service.ConnectionData, Properties.OperationNames.CreatingEntityDescriptionFormat1, _service.ConnectionData.Name);
         }
@@ -1432,7 +1432,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             string componentsName = GetDependencyType().ToString();
 
-            ToggleControls(false, Properties.WindowStatusStrings.CreatingTextFileWithComponentsFormat1, componentsName);
+            ToggleControls(false, Properties.OutputStrings.CreatingTextFileWithComponentsFormat1, componentsName);
 
             var description = await _descriptor.GetSolutionComponentsDescriptionAsync(list);
 
@@ -1445,7 +1445,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.PerformAction(_service.ConnectionData, filePath);
 
-            ToggleControls(true, Properties.WindowStatusStrings.CreatingTextFileWithComponentsCompletedFormat1, componentsName);
+            ToggleControls(true, Properties.OutputStrings.CreatingTextFileWithComponentsCompletedFormat1, componentsName);
         }
     }
 }

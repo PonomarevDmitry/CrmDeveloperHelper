@@ -101,7 +101,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             textBox.Text = string.Empty;
 
-            ToggleControls(false, Properties.WindowStatusStrings.LoadingPluginConfiguration);
+            ToggleControls(false, Properties.OutputStrings.LoadingPluginConfiguration);
 
             if (string.IsNullOrEmpty(filePath))
             {
@@ -142,7 +142,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingPluginConfigurationCompleted);
+            ToggleControls(true, Properties.OutputStrings.LoadingPluginConfigurationCompleted);
 
             ShowExistingAssemblies();
         }
@@ -164,7 +164,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this._itemsSource.Clear();
 
-            ToggleControls(false, Properties.WindowStatusStrings.LoadingPluginAssemblies);
+            ToggleControls(false, Properties.OutputStrings.LoadingPluginAssemblies);
 
             if (this._pluginDescription1 != null && this._pluginDescription2 != null)
             {
@@ -218,7 +218,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingPluginAssembliesCompletedFormat1, filter.Count());
+            ToggleControls(true, Properties.OutputStrings.LoadingPluginAssembliesCompletedFormat1, filter.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -337,7 +337,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferencePluginAssemblyDescriptionFormat1, linked.Entity1.Name);
+            ToggleControls(false, Properties.OutputStrings.ShowingDifferencePluginAssemblyDescriptionFormat1, linked.Entity1.Name);
 
             DateTime now = DateTime.Now;
 
@@ -361,7 +361,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferencePluginAssemblyDescriptionCompletedFormat1, linked.Entity1.Name);
+            ToggleControls(true, Properties.OutputStrings.ShowingDifferencePluginAssemblyDescriptionCompletedFormat1, linked.Entity1.Name);
         }
 
         private Task<string> CreateDescriptionFileAsync(string folder, string filePathConfiguration, string name, string description)
@@ -528,7 +528,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.CreatingDescription);
+            ToggleControls(false, Properties.OutputStrings.CreatingDescription);
 
             string description = await handler.CreateDescriptionAsync(assembly);
 
@@ -536,7 +536,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.PerformAction(null, filePath);
 
-            ToggleControls(true, Properties.WindowStatusStrings.CreatingDescriptionCompleted);
+            ToggleControls(true, Properties.OutputStrings.CreatingDescriptionCompleted);
         }
 
         private void tSMIShowDifferencePluginAssemblyDescription_Click(object sender, RoutedEventArgs e)

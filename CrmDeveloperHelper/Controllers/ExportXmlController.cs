@@ -359,7 +359,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (!validateResult)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.ValidatingXmlForFieldFailedFormat1, SiteMap.Schema.Attributes.sitemapxml);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ValidatingXmlForFieldFailedFormat1, SiteMap.Schema.Attributes.sitemapxml);
                 _iWriteToOutput.ActivateOutputWindow(connectionData);
 
                 var dialogResult = MessageBoxResult.Cancel;
@@ -450,7 +450,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             await service.UpdateAsync(updateEntity);
 
-            _iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.PublishingSiteMapFormat3, service.ConnectionData.Name, siteMap.SiteMapName, siteMap.Id.ToString());
+            _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.PublishingSiteMapFormat3, service.ConnectionData.Name, siteMap.SiteMapName, siteMap.Id.ToString());
 
             {
                 var repositoryPublish = new PublishActionsRepository(service);
@@ -748,7 +748,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.ValidatingXmlForFieldFormat1, SystemForm.Schema.Attributes.formxml);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ValidatingXmlForFieldFormat1, SystemForm.Schema.Attributes.formxml);
 
             ContentCoparerHelper.ClearRoot(doc);
 
@@ -756,7 +756,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (!validateResult)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.ValidatingXmlForFieldFailedFormat1, SystemForm.Schema.Attributes.formxml);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ValidatingXmlForFieldFailedFormat1, SystemForm.Schema.Attributes.formxml);
                 _iWriteToOutput.ActivateOutputWindow(connectionData);
 
                 var dialogResult = MessageBoxResult.Cancel;
@@ -847,12 +847,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var repositoryPublish = new PublishActionsRepository(service);
 
-            _iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.PublishingSystemFormFormat3, service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name);
+            _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.PublishingSystemFormFormat3, service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name);
             await repositoryPublish.PublishDashboardsAsync(new[] { formId });
 
             if (systemForm.ObjectTypeCode.IsValidEntityName())
             {
-                _iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, systemForm.ObjectTypeCode);
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, systemForm.ObjectTypeCode);
                 await repositoryPublish.PublishEntitiesAsync(new[] { systemForm.ObjectTypeCode });
             }
         }
@@ -1171,7 +1171,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string fieldName = SavedQueryRepository.GetFieldNameByXmlRoot(doc.Root.Name.ToString());
             string fieldTitle = SavedQueryRepository.GetFieldTitleByXmlRoot(doc.Root.Name.ToString());
 
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.ValidatingXmlForFieldFormat1, fieldTitle);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ValidatingXmlForFieldFormat1, fieldTitle);
 
             ContentCoparerHelper.ClearRoot(doc);
 
@@ -1179,7 +1179,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (!validateResult)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.ValidatingXmlForFieldFailedFormat1, fieldTitle);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ValidatingXmlForFieldFailedFormat1, fieldTitle);
                 _iWriteToOutput.ActivateOutputWindow(connectionData);
 
                 var dialogResult = MessageBoxResult.Cancel;
@@ -1279,7 +1279,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (string.Equals(fieldName, SavedQuery.Schema.Attributes.fetchxml, StringComparison.InvariantCulture))
             {
-                _iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.ExecutingValidateSavedQueryRequest);
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ExecutingValidateSavedQueryRequest);
 
                 var request = new ValidateSavedQueryRequest()
                 {
@@ -1298,7 +1298,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             await service.UpdateAsync(updateEntity);
 
-            _iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, savedQuery.ReturnedTypeCode);
+            _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, savedQuery.ReturnedTypeCode);
 
             {
                 var repositoryPublish = new PublishActionsRepository(service);

@@ -1229,7 +1229,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (ribbonCustomization == null)
                 {
-                    _iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.NotFoundedApplicationRibbonRibbonCustomization);
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NotFoundedApplicationRibbonRibbonCustomization);
                     _iWriteToOutput.ActivateOutputWindow(connectionData);
                     return;
                 }
@@ -1312,7 +1312,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             //fileText = ContentCoparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(fileText);
 
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.ValidatingRibbonDiffXml);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ValidatingRibbonDiffXml);
 
             if (!ContentCoparerHelper.TryParseXmlDocument(fileText, out var doc))
             {
@@ -1333,7 +1333,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (!validateResult)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.ValidatingRibbonDiffXmlFailed);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ValidatingRibbonDiffXmlFailed);
                 _iWriteToOutput.ActivateOutputWindow(connectionData);
 
                 var dialogResult = MessageBoxResult.Cancel;
@@ -1394,7 +1394,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (ribbonCustomization == null)
                 {
-                    _iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.NotFoundedApplicationRibbonRibbonCustomization);
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NotFoundedApplicationRibbonRibbonCustomization);
                     _iWriteToOutput.ActivateOutputWindow(connectionData);
                     return;
                 }

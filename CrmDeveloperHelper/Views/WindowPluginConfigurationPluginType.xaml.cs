@@ -95,7 +95,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.LoadingPluginConfiguration);
+            ToggleControls(false, Properties.OutputStrings.LoadingPluginConfiguration);
 
             try
             {
@@ -120,7 +120,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingPluginConfigurationCompleted);
+            ToggleControls(true, Properties.OutputStrings.LoadingPluginConfigurationCompleted);
 
             ShowExistingPluginTypes();
         }
@@ -138,7 +138,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this._itemsSource.Clear();
 
-            ToggleControls(false, Properties.WindowStatusStrings.LoadingPluginTypes);
+            ToggleControls(false, Properties.OutputStrings.LoadingPluginTypes);
 
             IEnumerable<PluginTypeFullInfo> filter = null;
 
@@ -176,7 +176,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _itemsSource.Add(plugintype);
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingPluginTypesCompletedFormat1, filter.Count());
+            ToggleControls(true, Properties.OutputStrings.LoadingPluginTypesCompletedFormat1, filter.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)

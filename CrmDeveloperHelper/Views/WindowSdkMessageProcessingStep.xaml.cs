@@ -557,17 +557,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     config.Id = this.Step.SdkMessageProcessingStepSecureConfigId.Id;
                 }
 
-                ToggleControls(false, Properties.WindowStatusStrings.UpdatingSdkMessageProcessingStepSecureConfigFormat1, _service.ConnectionData.Name);
+                ToggleControls(false, Properties.OutputStrings.UpdatingSdkMessageProcessingStepSecureConfigFormat1, _service.ConnectionData.Name);
 
                 try
                 {
                     config.Id = await _service.UpsertAsync(config);
 
-                    ToggleControls(true, Properties.WindowStatusStrings.UpdatingSdkMessageProcessingStepSecureConfigCompletedFormat1, _service.ConnectionData.Name);
+                    ToggleControls(true, Properties.OutputStrings.UpdatingSdkMessageProcessingStepSecureConfigCompletedFormat1, _service.ConnectionData.Name);
                 }
                 catch (Exception ex)
                 {
-                    ToggleControls(true, Properties.WindowStatusStrings.UpdatingSdkMessageProcessingStepSecureConfigFailedFormat1, _service.ConnectionData.Name);
+                    ToggleControls(true, Properties.OutputStrings.UpdatingSdkMessageProcessingStepSecureConfigFailedFormat1, _service.ConnectionData.Name);
 
                     _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
                     _iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
@@ -579,7 +579,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.UpdatingSdkMessageProcessingStepFormat1, _service.ConnectionData.Name);
+            ToggleControls(false, Properties.OutputStrings.UpdatingSdkMessageProcessingStepFormat1, _service.ConnectionData.Name);
 
             try
             {
@@ -587,24 +587,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (configToDelete != null)
                 {
-                    ToggleControls(false, Properties.WindowStatusStrings.DeletingSdkMessageProcessingStepSecureConfigFormat1, _service.ConnectionData.Name);
+                    ToggleControls(false, Properties.OutputStrings.DeletingSdkMessageProcessingStepSecureConfigFormat1, _service.ConnectionData.Name);
 
                     try
                     {
                         await _service.DeleteAsync(configToDelete.LogicalName, configToDelete.Id);
 
-                        ToggleControls(true, Properties.WindowStatusStrings.DeletingSdkMessageProcessingStepSecureConfigCompletedFormat1, _service.ConnectionData.Name);
+                        ToggleControls(true, Properties.OutputStrings.DeletingSdkMessageProcessingStepSecureConfigCompletedFormat1, _service.ConnectionData.Name);
                     }
                     catch (Exception ex)
                     {
-                        ToggleControls(true, Properties.WindowStatusStrings.DeletingSdkMessageProcessingStepSecureConfigFailedFormat1, _service.ConnectionData.Name);
+                        ToggleControls(true, Properties.OutputStrings.DeletingSdkMessageProcessingStepSecureConfigFailedFormat1, _service.ConnectionData.Name);
 
                         _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
                         _iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
                     }
                 }
 
-                ToggleControls(true, Properties.WindowStatusStrings.UpdatingSdkMessageProcessingStepCompletedFormat1, _service.ConnectionData.Name);
+                ToggleControls(true, Properties.OutputStrings.UpdatingSdkMessageProcessingStepCompletedFormat1, _service.ConnectionData.Name);
 
                 this.DialogResult = true;
 
@@ -612,7 +612,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                ToggleControls(true, Properties.WindowStatusStrings.UpdatingSdkMessageProcessingStepFailedFormat1, _service.ConnectionData.Name);
+                ToggleControls(true, Properties.OutputStrings.UpdatingSdkMessageProcessingStepFailedFormat1, _service.ConnectionData.Name);
 
                 _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
                 _iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
@@ -628,20 +628,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.GettingEntityMetadataFormat1, entityName);
+            ToggleControls(false, Properties.OutputStrings.GettingEntityMetadataFormat1, entityName);
 
             var repository = new EntityMetadataRepository(_service);
 
             var entityMetadata = await repository.GetEntityMetadataAsync(entityName);
 
-            ToggleControls(true, Properties.WindowStatusStrings.GettingEntityMetadataCompletedFormat1, entityName);
+            ToggleControls(true, Properties.OutputStrings.GettingEntityMetadataCompletedFormat1, entityName);
 
             if (entityMetadata == null)
             {
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.UpdatingStepFilteringAttributesFormat1, entityName);
+            ToggleControls(false, Properties.OutputStrings.UpdatingStepFilteringAttributesFormat1, entityName);
 
             var form = new WindowAttributeMultiSelect(_iWriteToOutput
                 , _service
@@ -654,7 +654,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 txtBFilteringBAttributes.Text = form.GetAttributes();
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.UpdatingStepFilteringAttributesCompletedFormat1, entityName);
+            ToggleControls(true, Properties.OutputStrings.UpdatingStepFilteringAttributesCompletedFormat1, entityName);
         }
 
         private void btnSetAllAttributes_Click(object sender, RoutedEventArgs e)

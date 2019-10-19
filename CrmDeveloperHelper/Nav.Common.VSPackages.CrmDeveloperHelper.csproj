@@ -1175,11 +1175,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>OutputStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\WindowStatusStrings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>WindowStatusStrings.resx</DependentUpon>
-    </Compile>
     <Compile Include="Repository\AppModuleRepository.cs" />
     <Compile Include="Repository\AttributeMapRepository.cs" />
     <Compile Include="Repository\ConnectionIntellisenseDataRepository.cs" />
@@ -2394,11 +2389,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>OutputStrings.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\WindowStatusStrings.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <SubType>Designer</SubType>
-      <LastGenOutput>WindowStatusStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="VSPackage.resx">
       <MergeWithCTO>true</MergeWithCTO>

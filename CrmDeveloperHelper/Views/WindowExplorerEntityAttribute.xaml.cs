@@ -191,7 +191,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.LoadingEntities);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingEntities);
 
             _itemsSourceEntityList.Clear();
             _itemsSourceAttributeList.Clear();
@@ -232,7 +232,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadEntities(list);
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.LoadingEntitiesCompletedFormat1, list.Count());
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingEntitiesCompletedFormat1, list.Count());
 
             ShowExistingAttributes();
         }
@@ -306,7 +306,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.LoadingAttributes);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingAttributes);
 
             string entityLogicalName = string.Empty;
 
@@ -380,7 +380,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadAttributes(list);
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.LoadingAttributesCompletedFormat1, list.Count());
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingAttributesCompletedFormat1, list.Count());
         }
 
         private static async Task GetEntityMetadataInformationAsync(IOrganizationServiceExtented service, string entityLogicalName, ConcurrentDictionary<string, IEnumerable<AttributeMetadataViewItem>> cacheAttribute, ConcurrentDictionary<string, Task> cacheMetadataTask)
@@ -925,7 +925,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
 
             try
             {
@@ -933,13 +933,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await repository.PublishEntitiesAsync(entityNames);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat2, service.ConnectionData.Name, entityNamesOrdered);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.PublishingEntitiesCompletedFormat2, service.ConnectionData.Name, entityNamesOrdered);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat2, service.ConnectionData.Name, entityNamesOrdered);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.PublishingEntitiesFailedFormat2, service.ConnectionData.Name, entityNamesOrdered);
             }
 
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
@@ -1355,7 +1355,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.SavingChangesFormat1, service.ConnectionData.Name);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.SavingChangesFormat1, service.ConnectionData.Name);
 
             HashSet<string> listForPublish = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
@@ -1426,7 +1426,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     var entityNamesOrdered = string.Join(",", listForPublish.OrderBy(s => s));
 
-                    UpdateStatus(service.ConnectionData, Properties.WindowStatusStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
+                    UpdateStatus(service.ConnectionData, Properties.OutputStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
 
                     var repositoryPublish = new PublishActionsRepository(service);
 
@@ -1461,13 +1461,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.SavingChangesCompletedFormat1, service.ConnectionData.Name);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.SavingChangesCompletedFormat1, service.ConnectionData.Name);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.SavingChangesFailedFormat1, service.ConnectionData.Name);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.SavingChangesFailedFormat1, service.ConnectionData.Name);
             }
 
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.SavingChangesFormat1, service.ConnectionData.Name);

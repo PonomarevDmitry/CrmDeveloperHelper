@@ -597,7 +597,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
             });
 
-            ToggleControls(connectionData, false, Properties.WindowStatusStrings.BuildingSdkMessageRequestTree);
+            ToggleControls(connectionData, false, Properties.OutputStrings.BuildingSdkMessageRequestTree);
 
             this.trVSdkMessageRequestTree.Dispatcher.Invoke(() =>
             {
@@ -623,7 +623,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 });
             }
 
-            ToggleControls(connectionData, true, Properties.WindowStatusStrings.BuildingSdkMessageRequestTreeCompleted);
+            ToggleControls(connectionData, true, Properties.OutputStrings.BuildingSdkMessageRequestTreeCompleted);
         }
 
         private async Task ShowExistingSdkMessageRequests()
@@ -635,7 +635,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.LoadingSdkMessageRequests);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingSdkMessageRequests);
 
             this.trVSdkMessageRequestTree.Dispatcher.Invoke(() =>
             {
@@ -679,7 +679,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             FillTree();
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.LoadingSdkMessageRequestsCompleted);
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingSdkMessageRequestsCompleted);
         }
 
         private class RequestGroupBuilder
@@ -1237,7 +1237,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.CreatingFileWithDescriptionFormat1, service.ConnectionData.Name);
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingDescription);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingDescription);
 
             StringBuilder result = new StringBuilder();
 
@@ -1364,7 +1364,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingDescriptionCompleted);
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingDescriptionCompleted);
 
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.CreatingFileWithDescriptionFormat1, service.ConnectionData.Name);
         }
@@ -1557,7 +1557,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
 
             try
             {
@@ -1565,13 +1565,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await repository.PublishEntitiesAsync(new[] { entityName });
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat2, service.ConnectionData.Name, entityName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.PublishingEntitiesCompletedFormat2, service.ConnectionData.Name, entityName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat2, service.ConnectionData.Name, entityName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.PublishingEntitiesFailedFormat2, service.ConnectionData.Name, entityName);
             }
 
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
@@ -1968,7 +1968,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operation);
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingFileForSdkMessageRequestFormat1, codeMessagePair.Request.Name);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingFileForSdkMessageRequestFormat1, codeMessagePair.Request.Name);
 
             try
             {
@@ -2031,13 +2031,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingFileForSdkMessageRequestCompletedFormat1, codeMessagePair.Request.Name);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingFileForSdkMessageRequestCompletedFormat1, codeMessagePair.Request.Name);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingFileForSdkMessageRequestFailedFormat1, codeMessagePair.Request.Name);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingFileForSdkMessageRequestFailedFormat1, codeMessagePair.Request.Name);
             }
 
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operation);
@@ -2291,7 +2291,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operation);
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingFileForSdkMessageRequestFormat1, codeMessage.Name);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingFileForSdkMessageRequestFormat1, codeMessage.Name);
 
             try
             {
@@ -2354,13 +2354,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingFileForSdkMessageRequestCompletedFormat1, codeMessage.Name);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingFileForSdkMessageRequestCompletedFormat1, codeMessage.Name);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingFileForSdkMessageRequestFailedFormat1, codeMessage.Name);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingFileForSdkMessageRequestFailedFormat1, codeMessage.Name);
             }
 
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operation);

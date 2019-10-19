@@ -98,25 +98,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                ToggleControls(false, Properties.WindowStatusStrings.GettingEntityMetadataFormat1, _entityName);
+                ToggleControls(false, Properties.OutputStrings.GettingEntityMetadataFormat1, _entityName);
 
                 var repositoryEntityMetadata = new EntityMetadataRepository(_service);
 
                 this._entityMetadata = await repositoryEntityMetadata.GetEntityMetadataWithAttributesAsync(_entityName);
 
-                ToggleControls(true, Properties.WindowStatusStrings.GettingEntityMetadataCompletedFormat1, _entityName);
+                ToggleControls(true, Properties.OutputStrings.GettingEntityMetadataCompletedFormat1, _entityName);
 
                 if (this._entityMetadata != null)
                 {
                     if (_entityId != Guid.Empty)
                     {
-                        ToggleControls(false, Properties.WindowStatusStrings.GettingEntityFormat1, _entityId);
+                        ToggleControls(false, Properties.OutputStrings.GettingEntityFormat1, _entityId);
 
                         var repositoryGeneric = new GenericRepository(_service, this._entityMetadata);
 
                         this._entityInstance = await repositoryGeneric.GetEntityByIdAsync(_entityId, new ColumnSet(true));
 
-                        ToggleControls(true, Properties.WindowStatusStrings.GettingEntityCompletedFormat1, _entityId);
+                        ToggleControls(true, Properties.OutputStrings.GettingEntityCompletedFormat1, _entityId);
 
                         if (this._entityInstance != null)
                         {
@@ -184,7 +184,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void FilterEntityAttributes(UserControl selectedControl)
         {
-            ToggleControls(false, Properties.WindowStatusStrings.FilteringAttributesFormat1, _entityName);
+            ToggleControls(false, Properties.OutputStrings.FilteringAttributesFormat1, _entityName);
 
             this.lstVwAttributes.Dispatcher.Invoke(() =>
             {
@@ -293,7 +293,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, Properties.WindowStatusStrings.FilteringAttributesCompletedFormat1, _entityName);
+            ToggleControls(true, Properties.OutputStrings.FilteringAttributesCompletedFormat1, _entityName);
         }
 
         protected void UpdateStatus(string format, params object[] args)
@@ -372,7 +372,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 updateEntity.Id = _entityId;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.SavingEntityFormat1, _entityName);
+            ToggleControls(false, Properties.OutputStrings.SavingEntityFormat1, _entityName);
 
             if (_entityInstance != null)
             {
@@ -387,13 +387,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 _iWriteToOutput.WriteToOutputEntityInstance(_service.ConnectionData, _entityName, tempEntityId);
 
-                ToggleControls(true, Properties.WindowStatusStrings.SavingEntityCompletedFormat1, _entityName);
+                ToggleControls(true, Properties.OutputStrings.SavingEntityCompletedFormat1, _entityName);
 
                 this.Close();
             }
             catch (Exception ex)
             {
-                ToggleControls(true, Properties.WindowStatusStrings.SavingEntityFailedFormat1, _entityName);
+                ToggleControls(true, Properties.OutputStrings.SavingEntityFailedFormat1, _entityName);
 
                 _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
             }
@@ -417,7 +417,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.SavingEntityFormat1, _entityName);
+            ToggleControls(false, Properties.OutputStrings.SavingEntityFormat1, _entityName);
 
             if (_entityInstance != null)
             {
@@ -432,11 +432,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 _iWriteToOutput.WriteToOutputEntityInstance(_service.ConnectionData, _entityName, tempEntityId);
 
-                ToggleControls(true, Properties.WindowStatusStrings.SavingEntityCompletedFormat1, _entityName);
+                ToggleControls(true, Properties.OutputStrings.SavingEntityCompletedFormat1, _entityName);
             }
             catch (Exception ex)
             {
-                ToggleControls(true, Properties.WindowStatusStrings.SavingEntityFailedFormat1, _entityName);
+                ToggleControls(true, Properties.OutputStrings.SavingEntityFailedFormat1, _entityName);
 
                 _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
             }

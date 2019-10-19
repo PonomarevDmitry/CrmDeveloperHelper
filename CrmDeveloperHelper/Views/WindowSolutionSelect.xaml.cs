@@ -83,7 +83,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.LoadingSolutions);
+            ToggleControls(false, Properties.OutputStrings.LoadingSolutions);
 
             this._itemsSource.Clear();
 
@@ -140,7 +140,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadSolutions(list);
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingSolutionsCompletedFormat1, list.Count());
+            ToggleControls(true, Properties.OutputStrings.LoadingSolutionsCompletedFormat1, list.Count());
         }
 
         private class EntityViewItem
@@ -402,7 +402,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             try
             {
 
-                ToggleControls(false, Properties.WindowStatusStrings.ClearingSolutionFormat2, _service.ConnectionData.Name, solution.UniqueName);
+                ToggleControls(false, Properties.OutputStrings.ClearingSolutionFormat2, _service.ConnectionData.Name, solution.UniqueName);
 
                 var commonConfig = CommonConfiguration.Get();
 
@@ -447,13 +447,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 SolutionComponentRepository repository = new SolutionComponentRepository(_service);
                 await repository.ClearSolutionAsync(solution.UniqueName);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ClearingSolutionCompletedFormat2, _service.ConnectionData.Name, solution.UniqueName);
+                ToggleControls(true, Properties.OutputStrings.ClearingSolutionCompletedFormat2, _service.ConnectionData.Name, solution.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ClearingSolutionFailedFormat2, _service.ConnectionData.Name, solution.UniqueName);
+                ToggleControls(true, Properties.OutputStrings.ClearingSolutionFailedFormat2, _service.ConnectionData.Name, solution.UniqueName);
             }
         }
     }

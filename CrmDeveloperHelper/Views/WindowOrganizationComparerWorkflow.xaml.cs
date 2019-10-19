@@ -218,7 +218,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.LoadingWorkflows);
+            ToggleControls(false, Properties.OutputStrings.LoadingWorkflows);
 
             this._itemsSource.Clear();
 
@@ -449,7 +449,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingWorkflowsCompletedFormat1, results.Count());
+            ToggleControls(true, Properties.OutputStrings.LoadingWorkflowsCompletedFormat1, results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -780,7 +780,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceXmlForFieldFormat1, fieldName);
+            ToggleControls(false, Properties.OutputStrings.ShowingDifferenceXmlForFieldFormat1, fieldName);
 
             try
             {
@@ -865,13 +865,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
 
-                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceXmlForFieldCompletedFormat1, fieldName);
+                ToggleControls(true, Properties.OutputStrings.ShowingDifferenceXmlForFieldCompletedFormat1, fieldName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(null, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceXmlForFieldFailedFormat1, fieldName);
+                ToggleControls(true, Properties.OutputStrings.ShowingDifferenceXmlForFieldFailedFormat1, fieldName);
             }
         }
 
@@ -882,7 +882,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceForCorrectedFieldFormat1, fieldTitle);
+            ToggleControls(false, Properties.OutputStrings.ShowingDifferenceForCorrectedFieldFormat1, fieldTitle);
 
             var service1 = await GetService1();
             var service2 = await GetService2();
@@ -943,7 +943,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceForCorrectedFieldCompletedFormat1, fieldTitle);
+            ToggleControls(true, Properties.OutputStrings.ShowingDifferenceForCorrectedFieldCompletedFormat1, fieldTitle);
         }
 
         private void mIExportWorkflow1Xaml_Click(object sender, RoutedEventArgs e)
@@ -1118,7 +1118,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.ExportingXmlFieldToFileFormat1, fieldTitle);
+            ToggleControls(false, Properties.OutputStrings.ExportingXmlFieldToFileFormat1, fieldTitle);
 
             var service = await getService();
 
@@ -1160,7 +1160,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileCompletedFormat1, fieldTitle);
+            ToggleControls(true, Properties.OutputStrings.ExportingXmlFieldToFileCompletedFormat1, fieldTitle);
         }
 
         private async Task PerformExportCorrectedToFileAsync(Guid idWorflow, Func<Task<IOrganizationServiceExtented>> getService, string fieldName, string fieldTitle)
@@ -1170,7 +1170,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.ExportingCorrectedXmlFieldToFileFormat1, fieldTitle);
+            ToggleControls(false, Properties.OutputStrings.ExportingCorrectedXmlFieldToFileFormat1, fieldTitle);
 
             var service = await getService();
 
@@ -1201,7 +1201,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.ExportingCorrectedXmlFieldToFileCompletedFormat1, fieldTitle);
+            ToggleControls(true, Properties.OutputStrings.ExportingCorrectedXmlFieldToFileCompletedFormat1, fieldTitle);
         }
 
         private void mIShowDifferenceEntityDescription_Click(object sender, RoutedEventArgs e)
@@ -1223,7 +1223,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceEntityDescriptions);
+            ToggleControls(false, Properties.OutputStrings.ShowingDifferenceEntityDescriptions);
 
             var service1 = await GetService1();
             var service2 = await GetService2();
@@ -1266,7 +1266,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceEntityDescriptionsCompleted);
+            ToggleControls(true, Properties.OutputStrings.ShowingDifferenceEntityDescriptionsCompleted);
         }
 
         private void ExecuteActionDescription(Guid idWorflow, Func<Task<IOrganizationServiceExtented>> getService, Func<Guid, Func<Task<IOrganizationServiceExtented>>, Task> action)
@@ -1297,7 +1297,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.CreatingDescription);
+            ToggleControls(false, Properties.OutputStrings.CreatingDescription);
 
             var service = await getService();
 
@@ -1318,7 +1318,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.CreatingDescriptionCompleted);
+            ToggleControls(true, Properties.OutputStrings.CreatingDescriptionCompleted);
         }
 
         private void mIExportWorkflow1EntityDescription_Click(object sender, RoutedEventArgs e)

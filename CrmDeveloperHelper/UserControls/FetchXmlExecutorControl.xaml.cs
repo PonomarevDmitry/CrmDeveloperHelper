@@ -196,19 +196,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            ToggleControls(this.ConnectionData, false, Properties.WindowStatusStrings.ExecutingFetch);
+            ToggleControls(this.ConnectionData, false, Properties.OutputStrings.ExecutingFetch);
 
             ClearGridAndTextBox();
 
             if (!TryLoadFileText())
             {
-                ToggleControls(this.ConnectionData, true, Properties.WindowStatusStrings.FileNotExists);
+                ToggleControls(this.ConnectionData, true, Properties.OutputStrings.FileNotExists);
                 return;
             }
 
             if (!(cmBCurrentConnection.SelectedItem is ConnectionData connectionData))
             {
-                txtBErrorText.Text = Properties.WindowStatusStrings.ConnectionIsNotSelected;
+                txtBErrorText.Text = Properties.OutputStrings.ConnectionIsNotSelected;
 
                 tbErrorText.IsEnabled = true;
                 tbErrorText.Visibility = Visibility.Visible;
@@ -218,7 +218,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                 this._selectedItem = tbErrorText;
 
-                ToggleControls(this.ConnectionData, true, Properties.WindowStatusStrings.ConnectionIsNotSelected);
+                ToggleControls(this.ConnectionData, true, Properties.OutputStrings.ConnectionIsNotSelected);
 
                 return;
             }
@@ -229,7 +229,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             {
                 StringBuilder text = new StringBuilder();
 
-                text.AppendLine(Properties.WindowStatusStrings.FileTextIsNotValidXml);
+                text.AppendLine(Properties.OutputStrings.FileTextIsNotValidXml);
                 text.AppendFormat("File: {0}", this.FilePath).AppendLine();
                 text.AppendLine();
                 text.AppendLine();
@@ -248,7 +248,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                 this._selectedItem = tbErrorText;
 
-                ToggleControls(this.ConnectionData, true, Properties.WindowStatusStrings.FileTextIsNotValidXml);
+                ToggleControls(this.ConnectionData, true, Properties.OutputStrings.FileTextIsNotValidXml);
 
                 return;
             }
@@ -257,7 +257,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             if (CheckParametersAndReturnHasNew(doc, connectionData))
             {
-                ToggleControls(this.ConnectionData, true, Properties.WindowStatusStrings.FillNewParameters);
+                ToggleControls(this.ConnectionData, true, Properties.OutputStrings.FillNewParameters);
 
                 return;
             }
@@ -266,7 +266,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             FillParametersValues(doc, connectionData);
 
-            UpdateStatus(this.ConnectionData, Properties.WindowStatusStrings.ExecutingFetch);
+            UpdateStatus(this.ConnectionData, Properties.OutputStrings.ExecutingFetch);
 
             await ExecuteFetchAsync(doc, connectionData);
         }
@@ -285,7 +285,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                 this._selectedItem = tbErrorText;
 
-                UpdateStatus(this.ConnectionData, Properties.WindowStatusStrings.FileNotExists);
+                UpdateStatus(this.ConnectionData, Properties.OutputStrings.FileNotExists);
 
                 return false;
             }
@@ -326,7 +326,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                 LoadData(connectionData, this._entityCollection, fetchXml);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.FetchQueryExecutedSuccessfullyFormat1, this._entityCollection.Entities.Count);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.FetchQueryExecutedSuccessfullyFormat1, this._entityCollection.Entities.Count);
             }
             catch (Exception ex)
             {
@@ -334,7 +334,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 {
                     StringBuilder text = new StringBuilder();
 
-                    text.AppendLine(Properties.WindowStatusStrings.FetchExecutionError);
+                    text.AppendLine(Properties.OutputStrings.FetchExecutionError);
                     text.AppendLine();
 
                     var description = DTEHelper.GetExceptionDescription(ex);
@@ -351,7 +351,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                     this._selectedItem = tbErrorText;
 
-                    ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.FetchExecutionError);
+                    ToggleControls(service.ConnectionData, true, Properties.OutputStrings.FetchExecutionError);
                 });
 
                 return;
@@ -1283,7 +1283,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
 
             ToggleControls(service.ConnectionData, false
-                , Properties.WindowStatusStrings.ExecutingWorkflowFormat4
+                , Properties.OutputStrings.ExecutingWorkflowFormat4
                 , service.ConnectionData.Name
                 , workflow.Name
                 , entityName
@@ -1321,7 +1321,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
 
             ToggleControls(service.ConnectionData, true
-                , Properties.WindowStatusStrings.ExecutingWorkflowCompletedFormat4
+                , Properties.OutputStrings.ExecutingWorkflowCompletedFormat4
                 , service.ConnectionData.Name
                 , workflow.Name
                 , entityName
@@ -1494,7 +1494,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
 
             ToggleControls(service.ConnectionData, true
-                , Properties.WindowStatusStrings.AssigningEntitiesToUserCompletedFormat4
+                , Properties.OutputStrings.AssigningEntitiesToUserCompletedFormat4
                 , service.ConnectionData.Name
                 , entityName
                 , listIds.Count
@@ -1629,7 +1629,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
 
             ToggleControls(service.ConnectionData, false
-                , Properties.WindowStatusStrings.AssigningEntitiesToTeamFormat4
+                , Properties.OutputStrings.AssigningEntitiesToTeamFormat4
                 , service.ConnectionData.Name
                 , entityName
                 , listIds.Count
@@ -1667,7 +1667,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
 
             ToggleControls(service.ConnectionData, true
-                , Properties.WindowStatusStrings.AssigningEntitiesToTeamCompletedFormat4
+                , Properties.OutputStrings.AssigningEntitiesToTeamCompletedFormat4
                 , service.ConnectionData.Name
                 , entityName
                 , listIds.Count
@@ -1957,7 +1957,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
 
             ToggleControls(service.ConnectionData, false
-                , Properties.WindowStatusStrings.SettingEntitiesStateFormat7
+                , Properties.OutputStrings.SettingEntitiesStateFormat7
                 , service.ConnectionData.Name
                 , entityName
                 , listIds.Count
@@ -2010,7 +2010,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
 
             ToggleControls(service.ConnectionData, true
-                , Properties.WindowStatusStrings.SettingEntitiesStateCompletedFormat7
+                , Properties.OutputStrings.SettingEntitiesStateCompletedFormat7
                 , service.ConnectionData.Name
                 , entityName
                 , listIds.Count
@@ -2145,13 +2145,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            ToggleControls(targetService.ConnectionData, false, Properties.WindowStatusStrings.GettingEntityMetadataFormat1, _entityCollection.EntityName);
+            ToggleControls(targetService.ConnectionData, false, Properties.OutputStrings.GettingEntityMetadataFormat1, _entityCollection.EntityName);
 
             EntityMetadataRepository repository = new EntityMetadataRepository(targetService);
 
             var targetEntityMetadata = await repository.GetEntityMetadataAsync(_entityCollection.EntityName);
 
-            ToggleControls(targetService.ConnectionData, true, Properties.WindowStatusStrings.GettingEntityMetadataCompletedFormat1, _entityCollection.EntityName);
+            ToggleControls(targetService.ConnectionData, true, Properties.OutputStrings.GettingEntityMetadataCompletedFormat1, _entityCollection.EntityName);
 
             if (targetEntityMetadata == null)
             {
@@ -2264,7 +2264,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.DeletingEntitiesSetFormat3, service.ConnectionData.Name, entityName, listIds.Count);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.DeletingEntitiesSetFormat3, service.ConnectionData.Name, entityName, listIds.Count);
 
             _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
@@ -2289,7 +2289,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 number++;
             }
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.DeletingEntitiesSetCompletedFormat3, service.ConnectionData.Name, entityName, listIds.Count);
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.DeletingEntitiesSetCompletedFormat3, service.ConnectionData.Name, entityName, listIds.Count);
 
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
         }

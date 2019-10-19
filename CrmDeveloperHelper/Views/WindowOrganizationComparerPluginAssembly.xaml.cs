@@ -189,7 +189,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.LoadingPluginAssemblies);
+            ToggleControls(false, Properties.OutputStrings.LoadingPluginAssemblies);
 
             this._itemsSource.Clear();
 
@@ -290,7 +290,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingPluginAssembliesCompletedFormat1, results.Count());
+            ToggleControls(true, Properties.OutputStrings.LoadingPluginAssembliesCompletedFormat1, results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -442,7 +442,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferencePluginAssemblyDescriptionFormat1, linked.Entity1.Name);
+            ToggleControls(false, Properties.OutputStrings.ShowingDifferencePluginAssemblyDescriptionFormat1, linked.Entity1.Name);
 
             var service1 = await GetService1();
             var service2 = await GetService2();
@@ -475,7 +475,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferencePluginAssemblyDescriptionCompletedFormat1, linked.Entity1.Name);
+            ToggleControls(true, Properties.OutputStrings.ShowingDifferencePluginAssemblyDescriptionCompletedFormat1, linked.Entity1.Name);
         }
 
         private void mIShowDifferenceEntityDescription_Click(object sender, RoutedEventArgs e)
@@ -497,7 +497,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceEntityDescription);
+            ToggleControls(false, Properties.OutputStrings.ShowingDifferenceEntityDescription);
 
             try
             {
@@ -533,13 +533,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
 
-                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceEntityDescriptionCompleted);
+                ToggleControls(true, Properties.OutputStrings.ShowingDifferenceEntityDescriptionCompleted);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(null, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceEntityDescriptionFailed);
+                ToggleControls(true, Properties.OutputStrings.ShowingDifferenceEntityDescriptionFailed);
             }
         }
 
@@ -599,7 +599,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.CreatingPluginAssebmltyDescriptionFormat1, assemblyName);
+            ToggleControls(false, Properties.OutputStrings.CreatingPluginAssebmltyDescriptionFormat1, assemblyName);
 
             var service = await getService();
 
@@ -618,7 +618,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.CreatingPluginAssebmltyDescriptionCompletedFormat1, assemblyName);
+            ToggleControls(true, Properties.OutputStrings.CreatingPluginAssebmltyDescriptionCompletedFormat1, assemblyName);
         }
 
         private void mIExportPluginAssembly1EntityDescription_Click(object sender, RoutedEventArgs e)
@@ -671,7 +671,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformDownloadBinaryContent(Guid pluginAssemblyId, string assemblyName, Func<Task<IOrganizationServiceExtented>> getService)
         {
-            ToggleControls(false, Properties.WindowStatusStrings.ExportingPluginAssemblyBodyBinaryFormat1, assemblyName);
+            ToggleControls(false, Properties.OutputStrings.ExportingPluginAssemblyBodyBinaryFormat1, assemblyName);
 
             var service = await getService();
 
@@ -699,7 +699,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.ExportingPluginAssemblyBodyBinaryCompletedFormat1, assemblyName);
+            ToggleControls(true, Properties.OutputStrings.ExportingPluginAssemblyBodyBinaryCompletedFormat1, assemblyName);
         }
 
         private async Task PerformExportEntityDescriptionToFileAsync(Guid pluginAssemblyId, string assemblyName, Func<Task<IOrganizationServiceExtented>> getService)
@@ -709,7 +709,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.CreatingEntityDescription);
+            ToggleControls(false, Properties.OutputStrings.CreatingEntityDescription);
 
             var service = await getService();
 
@@ -726,7 +726,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
+            ToggleControls(true, Properties.OutputStrings.CreatingEntityDescriptionCompleted);
         }
 
         private Task<string> CreateDescriptionFileAsync(ConnectionData connectionData, string name, string fieldTitle, string description)

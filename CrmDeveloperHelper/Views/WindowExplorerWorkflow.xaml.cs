@@ -248,7 +248,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.LoadingWorkflows);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingWorkflows);
 
             this._itemsSource.Clear();
 
@@ -323,7 +323,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadWorkflows(list);
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.LoadingWorkflowsCompletedFormat1, list.Count());
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingWorkflowsCompletedFormat1, list.Count());
         }
 
         private static IEnumerable<Workflow> FilterList(IEnumerable<Workflow> list, string textName)
@@ -666,7 +666,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ExportingXmlFieldToFileFormat1, fieldTitle);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ExportingXmlFieldToFileFormat1, fieldTitle);
 
             try
             {
@@ -695,13 +695,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ExportingXmlFieldToFileCompletedFormat1, fieldName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ExportingXmlFieldToFileCompletedFormat1, fieldName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ExportingXmlFieldToFileFailedFormat1, fieldName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ExportingXmlFieldToFileFailedFormat1, fieldName);
             }
         }
 
@@ -714,7 +714,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.UpdatingFieldFormat2, service.ConnectionData.Name, fieldName);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.UpdatingFieldFormat2, service.ConnectionData.Name, fieldName);
 
             try
             {
@@ -757,7 +757,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (dialogResult.GetValueOrDefault() == false)
                 {
-                    ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.UpdatingFieldFailedFormat2, service.ConnectionData.Name, fieldName);
+                    ToggleControls(service.ConnectionData, true, Properties.OutputStrings.UpdatingFieldFailedFormat2, service.ConnectionData.Name, fieldName);
                     return;
                 }
 
@@ -782,7 +782,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     });
                 }
 
-                UpdateStatus(service.ConnectionData, Properties.WindowStatusStrings.UpdatingFieldFormat2, service.ConnectionData.Name, fieldName);
+                UpdateStatus(service.ConnectionData, Properties.OutputStrings.UpdatingFieldFormat2, service.ConnectionData.Name, fieldName);
 
                 var updateEntity = new Workflow
                 {
@@ -804,13 +804,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     });
                 }
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.UpdatingFieldCompletedFormat2, service.ConnectionData.Name, fieldName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.UpdatingFieldCompletedFormat2, service.ConnectionData.Name, fieldName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.UpdatingFieldFailedFormat2, service.ConnectionData.Name, fieldName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.UpdatingFieldFailedFormat2, service.ConnectionData.Name, fieldName);
             }
         }
 
@@ -823,7 +823,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ExportingCorrectedXmlFieldToFileFormat1, fieldTitle);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ExportingCorrectedXmlFieldToFileFormat1, fieldTitle);
 
             try
             {
@@ -841,13 +841,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ExportingCorrectedXmlFieldToFileCompletedFormat1, fieldTitle);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ExportingCorrectedXmlFieldToFileCompletedFormat1, fieldTitle);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ExportingCorrectedXmlFieldToFileFailedFormat1, fieldTitle);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ExportingCorrectedXmlFieldToFileFailedFormat1, fieldTitle);
             }
         }
 
@@ -860,7 +860,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.AnalizingWorkflowFormat2, entityName, name);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.AnalizingWorkflowFormat2, entityName, name);
 
             try
             {
@@ -893,13 +893,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 }
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.AnalizingWorkflowCompletedFormat2, entityName, name);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.AnalizingWorkflowCompletedFormat2, entityName, name);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.AnalizingWorkflowFailedFormat2, entityName, name);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.AnalizingWorkflowFailedFormat2, entityName, name);
             }
         }
 
@@ -912,7 +912,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.AnalizingWorkflowFormat2, entityName, name);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.AnalizingWorkflowFormat2, entityName, name);
 
             try
             {
@@ -945,13 +945,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 }
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.AnalizingWorkflowCompletedFormat2, entityName, name);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.AnalizingWorkflowCompletedFormat2, entityName, name);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.AnalizingWorkflowFailedFormat2, entityName, name);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.AnalizingWorkflowFailedFormat2, entityName, name);
             }
         }
 
@@ -964,7 +964,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.AnalizingWorkflowFormat2, entityName, name);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.AnalizingWorkflowFormat2, entityName, name);
 
             try
             {
@@ -997,13 +997,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 }
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.AnalizingWorkflowCompletedFormat2, entityName, name);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.AnalizingWorkflowCompletedFormat2, entityName, name);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.AnalizingWorkflowFailedFormat2, entityName, name);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.AnalizingWorkflowFailedFormat2, entityName, name);
             }
         }
 
@@ -1202,7 +1202,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ShowingDifferenceForCorrectedFieldFormat1, fieldName);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ShowingDifferenceForCorrectedFieldFormat1, fieldName);
 
             WorkflowRepository repository = new WorkflowRepository(service);
 
@@ -1228,14 +1228,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath2);
             }
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ShowingDifferenceForCorrectedFieldCompletedFormat1, fieldName);
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ShowingDifferenceForCorrectedFieldCompletedFormat1, fieldName);
         }
 
         private async Task PerformExportEntityDescription(string folder, Guid idWorkflow, string entityName, string name, string category)
         {
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingEntityDescription);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingEntityDescription);
 
             try
             {
@@ -1255,13 +1255,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingEntityDescriptionCompleted);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingEntityDescriptionFailed);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingEntityDescriptionFailed);
             }
         }
 
@@ -1282,7 +1282,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var service = await GetService();
 
-                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.DeletingEntityFormat2, service.ConnectionData.Name, Workflow.EntityLogicalName);
+                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.DeletingEntityFormat2, service.ConnectionData.Name, Workflow.EntityLogicalName);
 
                 try
                 {
@@ -1297,7 +1297,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 }
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.DeletingEntityCompletedFormat2, service.ConnectionData.Name, Workflow.EntityLogicalName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.DeletingEntityCompletedFormat2, service.ConnectionData.Name, Workflow.EntityLogicalName);
 
                 ShowExistingWorkflows();
             }
@@ -1307,7 +1307,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ChangingEntityStateFormat1, Workflow.EntityLogicalName);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ChangingEntityStateFormat1, Workflow.EntityLogicalName);
 
             var repository = new WorkflowRepository(service);
 
@@ -1325,11 +1325,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     Status = new OptionSetValue(status),
                 });
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ChangingEntityStateCompletedFormat1, Workflow.EntityLogicalName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ChangingEntityStateCompletedFormat1, Workflow.EntityLogicalName);
             }
             catch (Exception ex)
             {
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ChangingEntityStateFailedFormat1, Workflow.EntityLogicalName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ChangingEntityStateFailedFormat1, Workflow.EntityLogicalName);
 
                 _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
                 _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);

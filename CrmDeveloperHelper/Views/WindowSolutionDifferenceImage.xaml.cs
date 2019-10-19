@@ -256,7 +256,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(null, false, Properties.WindowStatusStrings.LoadingSolutionDifferenceImage);
+            ToggleControls(null, false, Properties.OutputStrings.LoadingSolutionDifferenceImage);
 
             try
             {
@@ -283,11 +283,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (this._SolutionDifferenceImage == null)
             {
-                ToggleControls(null, true, Properties.WindowStatusStrings.LoadingSolutionDifferenceImageFailed);
+                ToggleControls(null, true, Properties.OutputStrings.LoadingSolutionDifferenceImageFailed);
                 return;
             }
 
-            ToggleControls(null, true, Properties.WindowStatusStrings.LoadingSolutionDifferenceImageCompleted);
+            ToggleControls(null, true, Properties.OutputStrings.LoadingSolutionDifferenceImageCompleted);
 
             FilteringSolutionDifferenceImageComponents();
         }
@@ -301,7 +301,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._itemsSource?.Clear();
 
-            ToggleControls(null, false, Properties.WindowStatusStrings.FilteringSolutionDifferenceImageComponents);
+            ToggleControls(null, false, Properties.OutputStrings.FilteringSolutionDifferenceImageComponents);
 
             IEnumerable<SolutionImageComponent> filter = Enumerable.Empty<SolutionImageComponent>();
 
@@ -370,7 +370,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _itemsSource?.Add(component);
             }
 
-            ToggleControls(null, true, Properties.WindowStatusStrings.FilteringSolutionDifferenceImageComponentsCompletedFormat1, filter.Count());
+            ToggleControls(null, true, Properties.OutputStrings.FilteringSolutionDifferenceImageComponentsCompletedFormat1, filter.Count());
         }
 
         private void UpdateStatus(ConnectionData connectionData, string format, params object[] args)

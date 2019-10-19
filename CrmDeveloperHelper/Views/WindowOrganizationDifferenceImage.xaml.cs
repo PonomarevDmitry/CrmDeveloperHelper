@@ -256,7 +256,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(null, false, Properties.WindowStatusStrings.LoadingOrganizationDifferenceImage);
+            ToggleControls(null, false, Properties.OutputStrings.LoadingOrganizationDifferenceImage);
 
             try
             {
@@ -283,11 +283,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (this._OrganizationDifferenceImage == null)
             {
-                ToggleControls(null, true, Properties.WindowStatusStrings.LoadingOrganizationDifferenceImageFailed);
+                ToggleControls(null, true, Properties.OutputStrings.LoadingOrganizationDifferenceImageFailed);
                 return;
             }
 
-            ToggleControls(null, true, Properties.WindowStatusStrings.LoadingOrganizationDifferenceImageCompleted);
+            ToggleControls(null, true, Properties.OutputStrings.LoadingOrganizationDifferenceImageCompleted);
 
             FilteringOrganizationDifferenceImageComponents();
         }
@@ -301,7 +301,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._itemsSource?.Clear();
 
-            ToggleControls(null, false, Properties.WindowStatusStrings.FilteringOrganizationDifferenceImageComponents);
+            ToggleControls(null, false, Properties.OutputStrings.FilteringOrganizationDifferenceImageComponents);
 
             IEnumerable<SolutionImageComponent> filter = Enumerable.Empty<SolutionImageComponent>();
 
@@ -370,7 +370,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _itemsSource?.Add(component);
             }
 
-            ToggleControls(null, true, Properties.WindowStatusStrings.FilteringOrganizationDifferenceImageComponentsCompletedFormat1, filter.Count());
+            ToggleControls(null, true, Properties.OutputStrings.FilteringOrganizationDifferenceImageComponentsCompletedFormat1, filter.Count());
         }
 
         private void UpdateStatus(ConnectionData connectionData, string format, params object[] args)

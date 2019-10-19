@@ -201,13 +201,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.Image.ImageType = new OptionSetValue(imageType);
 
-            ToggleControls(false, Properties.WindowStatusStrings.UpdatingSdkMessageProcessingStepImageFormat1, _service.ConnectionData.Name);
+            ToggleControls(false, Properties.OutputStrings.UpdatingSdkMessageProcessingStepImageFormat1, _service.ConnectionData.Name);
 
             try
             {
                 this.Image.Id = await _service.UpsertAsync(this.Image);
 
-                ToggleControls(true, Properties.WindowStatusStrings.UpdatingSdkMessageProcessingStepImageCompletedFormat1, _service.ConnectionData.Name);
+                ToggleControls(true, Properties.OutputStrings.UpdatingSdkMessageProcessingStepImageCompletedFormat1, _service.ConnectionData.Name);
 
                 this.DialogResult = true;
 
@@ -215,7 +215,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                ToggleControls(true, Properties.WindowStatusStrings.UpdatingSdkMessageProcessingStepImageFailedFormat1, _service.ConnectionData.Name);
+                ToggleControls(true, Properties.OutputStrings.UpdatingSdkMessageProcessingStepImageFailedFormat1, _service.ConnectionData.Name);
 
                 _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
                 _iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
@@ -274,13 +274,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (_entityMetadata == null)
             {
-                ToggleControls(false, Properties.WindowStatusStrings.GettingEntityMetadataFormat1, this._entityName);
+                ToggleControls(false, Properties.OutputStrings.GettingEntityMetadataFormat1, this._entityName);
 
                 var repository = new EntityMetadataRepository(_service);
 
                 _entityMetadata = await repository.GetEntityMetadataAsync(_entityName);
 
-                ToggleControls(true, Properties.WindowStatusStrings.GettingEntityMetadataCompletedFormat1, this._entityName);
+                ToggleControls(true, Properties.OutputStrings.GettingEntityMetadataCompletedFormat1, this._entityName);
             }
 
             if (_entityMetadata == null)
@@ -288,7 +288,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.UpdatingImageAttributesFormat1, this._entityName);
+            ToggleControls(false, Properties.OutputStrings.UpdatingImageAttributesFormat1, this._entityName);
 
             var form = new WindowAttributeMultiSelect(_iWriteToOutput
                 , _service
@@ -301,7 +301,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 txtBAttributes.Text = form.GetAttributes();
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.UpdatingImageAttributesCompletedFormat1, this._entityName);
+            ToggleControls(true, Properties.OutputStrings.UpdatingImageAttributesCompletedFormat1, this._entityName);
         }
 
         private void btnSetAllAttributes_Click(object sender, RoutedEventArgs e)

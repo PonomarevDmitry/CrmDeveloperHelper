@@ -179,7 +179,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.LoadingPluginAssemblies);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingPluginAssemblies);
 
             this._itemsSource.Clear();
 
@@ -226,7 +226,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadPluginAssemblies(list);
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.LoadingPluginAssembliesCompletedFormat1, list.Count());
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingPluginAssembliesCompletedFormat1, list.Count());
         }
 
         private class EntityViewItem
@@ -499,7 +499,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingPluginAssebmltyDescriptionFormat1, name);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingPluginAssebmltyDescriptionFormat1, name);
 
             string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(service.ConnectionData.Name, name, "Description", "txt");
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
@@ -512,14 +512,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingPluginAssebmltyDescriptionCompletedFormat1, name);
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingPluginAssebmltyDescriptionCompletedFormat1, name);
         }
 
         private async Task PerformExportEntityDescription(string folder, Guid idPluginAssembly, string name)
         {
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingEntityDescription);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingEntityDescription);
 
             var repository = new PluginAssemblyRepository(service);
 
@@ -537,7 +537,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingEntityDescriptionCompleted);
         }
 
         private async Task PerformEntityEditor(string folder, Guid idPluginAssembly, string name)
@@ -557,7 +557,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var service = await GetService();
 
-                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.DeletingEntityFormat2, service.ConnectionData.Name, PluginAssembly.EntityLogicalName);
+                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.DeletingEntityFormat2, service.ConnectionData.Name, PluginAssembly.EntityLogicalName);
 
                 try
                 {
@@ -572,7 +572,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 }
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.DeletingEntityCompletedFormat2, service.ConnectionData.Name, PluginAssembly.EntityLogicalName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.DeletingEntityCompletedFormat2, service.ConnectionData.Name, PluginAssembly.EntityLogicalName);
 
                 ShowExistingPluginAssemblies();
             }
@@ -582,7 +582,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ExportingPluginAssemblyBodyBinaryFormat1, name);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ExportingPluginAssemblyBodyBinaryFormat1, name);
 
             var repository = new PluginAssemblyRepository(service);
 
@@ -605,7 +605,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ExportingPluginAssemblyBodyBinaryCompletedFormat1, name);
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ExportingPluginAssemblyBodyBinaryCompletedFormat1, name);
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -745,7 +745,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ComparingPluginAssemblyWithLocalAssemblyFormat1, name);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ComparingPluginAssemblyWithLocalAssemblyFormat1, name);
 
             var controller = new PluginController(_iWriteToOutput);
 
@@ -753,7 +753,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ComparingPluginAssemblyWithLocalAssemblyCompletedFormat1, name);
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ComparingPluginAssemblyWithLocalAssemblyCompletedFormat1, name);
         }
 
         private async void mIUpdatePluginAssembly_Click(object sender, RoutedEventArgs e)

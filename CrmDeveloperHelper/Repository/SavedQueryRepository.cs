@@ -408,13 +408,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (savedQuery.ReturnedTypeCode.IsValidEntityName())
             {
-                updateStatus(string.Format(Properties.WindowStatusStrings.PublishingEntitiesFormat2, _service.ConnectionData.Name, savedQuery.ReturnedTypeCode));
+                updateStatus(string.Format(Properties.OutputStrings.PublishingEntitiesFormat2, _service.ConnectionData.Name, savedQuery.ReturnedTypeCode));
 
                 var repositoryPublish = new PublishActionsRepository(_service);
 
                 await repositoryPublish.PublishEntitiesAsync(new[] { savedQuery.ReturnedTypeCode });
 
-                updateStatus(string.Format(Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat2, _service.ConnectionData.Name, savedQuery.ReturnedTypeCode));
+                updateStatus(string.Format(Properties.OutputStrings.PublishingEntitiesCompletedFormat2, _service.ConnectionData.Name, savedQuery.ReturnedTypeCode));
             }
 
             return idEntity;

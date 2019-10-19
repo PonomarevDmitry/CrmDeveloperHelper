@@ -229,7 +229,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.LoadingRoleSystemUsers);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingRoleSystemUsers);
 
             string textName = string.Empty;
 
@@ -277,7 +277,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.LoadingRoleSystemUsersCompletedFormat1, list.Count());
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingRoleSystemUsersCompletedFormat1, list.Count());
         }
 
         private async Task ShowExistingRoles()
@@ -289,7 +289,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.LoadingSecurityRoles);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingSecurityRoles);
 
             string filterRole = string.Empty;
 
@@ -339,7 +339,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.LoadingSecurityRolesCompletedFormat1, list.Count());
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingSecurityRolesCompletedFormat1, list.Count());
 
             await RefreshRoleInfo();
         }
@@ -353,7 +353,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.LoadingRoleTeams);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingRoleTeams);
 
             string filterTeam = string.Empty;
 
@@ -403,7 +403,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.LoadingRoleTeamsCompletedFormat1, list.Count());
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingRoleTeamsCompletedFormat1, list.Count());
         }
 
         private async Task ShowRoleEntityPrivileges()
@@ -415,7 +415,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.LoadingEntities);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingEntities);
 
             this.Dispatcher.Invoke(() =>
             {
@@ -509,7 +509,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.LoadingEntitiesCompletedFormat1, entityMetadataList.Count());
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingEntitiesCompletedFormat1, entityMetadataList.Count());
         }
 
         private async Task<IEnumerable<Privilege>> GetPrivileges(IOrganizationServiceExtented service)
@@ -1136,7 +1136,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
 
             try
             {
@@ -1144,13 +1144,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await repository.PublishEntitiesAsync(entityNames);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat2, service.ConnectionData.Name, entityNamesOrdered);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.PublishingEntitiesCompletedFormat2, service.ConnectionData.Name, entityNamesOrdered);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat2, service.ConnectionData.Name, entityNamesOrdered);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.PublishingEntitiesFailedFormat2, service.ConnectionData.Name, entityNamesOrdered);
             }
 
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
@@ -1804,7 +1804,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.AssigningRolesToUsersFormat3, service.ConnectionData.Name, rolesName, usersName);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.AssigningRolesToUsersFormat3, service.ConnectionData.Name, rolesName, usersName);
 
             try
             {
@@ -1819,7 +1819,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.AssigningRolesToUsersCompletedFormat3, service.ConnectionData.Name, rolesName, usersName);
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.AssigningRolesToUsersCompletedFormat3, service.ConnectionData.Name, rolesName, usersName);
 
             RefreshRoleInfo();
         }
@@ -1851,7 +1851,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.RemovingRolesFromUsersFormat3, service.ConnectionData.Name, rolesName, usersName);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.RemovingRolesFromUsersFormat3, service.ConnectionData.Name, rolesName, usersName);
 
             try
             {
@@ -1869,7 +1869,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.RemovingRolesFromUsersCompletedFormat3, service.ConnectionData.Name, rolesName, usersName);
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.RemovingRolesFromUsersCompletedFormat3, service.ConnectionData.Name, rolesName, usersName);
 
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
 
@@ -1933,7 +1933,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.AssigningRolesToTeamsFormat3, service.ConnectionData.Name, rolesName, teamsName);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.AssigningRolesToTeamsFormat3, service.ConnectionData.Name, rolesName, teamsName);
 
             try
             {
@@ -1946,7 +1946,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.AssigningRolesToTeamsCompletedFormat3, service.ConnectionData.Name, rolesName, teamsName);
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.AssigningRolesToTeamsCompletedFormat3, service.ConnectionData.Name, rolesName, teamsName);
 
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
 
@@ -1980,7 +1980,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.RemovingRolesFromTeamsFormat3, service.ConnectionData.Name, rolesName, teamsName);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.RemovingRolesFromTeamsFormat3, service.ConnectionData.Name, rolesName, teamsName);
 
             try
             {
@@ -1998,7 +1998,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.RemovingRolesFromTeamsCompletedFormat3, service.ConnectionData.Name, rolesName, teamsName);
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.RemovingRolesFromTeamsCompletedFormat3, service.ConnectionData.Name, rolesName, teamsName);
 
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
 
@@ -2160,7 +2160,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.SavingChangesInRolesFormat1, service.ConnectionData.Name);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.SavingChangesInRolesFormat1, service.ConnectionData.Name);
 
             var rolePrivileges = new RolePrivilegesRepository(service);
 
@@ -2176,7 +2176,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.SavingChangesInRolesCompletedFormat1, service.ConnectionData.Name);
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.SavingChangesInRolesCompletedFormat1, service.ConnectionData.Name);
 
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
 
@@ -2216,7 +2216,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingRoleBackupFormat2, service.ConnectionData.Name, role.Name);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingRoleBackupFormat2, service.ConnectionData.Name, role.Name);
 
             var repositoryRolePrivileges = new RolePrivilegesRepository(service);
             var repositoryPrivileges = new PrivilegeRepository(service);
@@ -2247,7 +2247,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _iWriteToOutput.WriteToOutputFilePathUri(service.ConnectionData, filePath);
             }
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingRoleBackupCompletedFormat2, service.ConnectionData.Name, role.Name);
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingRoleBackupCompletedFormat2, service.ConnectionData.Name, role.Name);
 
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
         }
@@ -2463,7 +2463,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
 
-                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingRoleBackupFormat2, service.ConnectionData.Name, role.Name);
+                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingRoleBackupFormat2, service.ConnectionData.Name, role.Name);
 
                 var repositoryPrivileges = new PrivilegeRepository(service);
 
@@ -2487,7 +2487,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 _iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingRoleBackupCompletedFormat2, service.ConnectionData.Name, role.Name);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingRoleBackupCompletedFormat2, service.ConnectionData.Name, role.Name);
 
                 _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
             }
@@ -2497,11 +2497,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
 
-                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ClearingRolePrivilegesFormat2, service.ConnectionData.Name, role.Name);
+                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ClearingRolePrivilegesFormat2, service.ConnectionData.Name, role.Name);
 
                 await repositoryRolePrivileges.ModifyRolePrivilegesAsync(role.Id, null, rolePrivileges);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ClearingRolePrivilegesCompletedFormat2, service.ConnectionData.Name, role.Name);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ClearingRolePrivilegesCompletedFormat2, service.ConnectionData.Name, role.Name);
 
                 _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
             }
@@ -2667,7 +2667,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var repositoryRolePrivileges = new RolePrivilegesRepository(service);
             var repositoryPrivileges = new PrivilegeRepository(service);
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.AnalizingRolesFormat2, sourceRole.Name, targetRole.Name);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.AnalizingRolesFormat2, sourceRole.Name, targetRole.Name);
 
             IEnumerable<Microsoft.Crm.Sdk.Messages.RolePrivilege> newRolePrivileges = Enumerable.Empty<Microsoft.Crm.Sdk.Messages.RolePrivilege>();
 
@@ -2681,7 +2681,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!newRolePrivileges.Any())
             {
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.NoPrivilegesToAdd);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.NoPrivilegesToAdd);
                 return;
             }
 
@@ -2692,7 +2692,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
 
-                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.AddingNewPrivilegesFromRoleToRoleFormat3, service.ConnectionData.Name, targetRole.Name);
+                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.AddingNewPrivilegesFromRoleToRoleFormat3, service.ConnectionData.Name, targetRole.Name);
 
                 var sourcePrivileges = await repositoryPrivileges.GetListForRoleAsync(sourceRole.Id);
 
@@ -2714,7 +2714,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 _iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.AddingNewPrivilegesFromRoleToRoleCompletedFormat3, service.ConnectionData.Name, sourceRole.Name);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.AddingNewPrivilegesFromRoleToRoleCompletedFormat3, service.ConnectionData.Name, sourceRole.Name);
 
                 _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
             }
@@ -2725,7 +2725,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var repositoryRolePrivileges = new RolePrivilegesRepository(service);
             var repositoryPrivileges = new PrivilegeRepository(service);
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.AnalizingRolesFormat2, sourceRole.Name, targetRole.Name);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.AnalizingRolesFormat2, sourceRole.Name, targetRole.Name);
 
             IEnumerable<Microsoft.Crm.Sdk.Messages.RolePrivilege> newRolePrivileges = Enumerable.Empty<Microsoft.Crm.Sdk.Messages.RolePrivilege>();
 
@@ -2739,7 +2739,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!newRolePrivileges.Any())
             {
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.NoPrivilegesToChange);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.NoPrivilegesToChange);
                 return;
             }
 
@@ -2750,7 +2750,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
 
-                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.MergingPrivilegesToMaximumFromRoleToRoleFormat3, service.ConnectionData.Name, targetRole.Name);
+                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.MergingPrivilegesToMaximumFromRoleToRoleFormat3, service.ConnectionData.Name, targetRole.Name);
 
                 var sourcePrivileges = await repositoryPrivileges.GetListForRoleAsync(sourceRole.Id);
 
@@ -2772,7 +2772,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 _iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.MergingPrivilegesToMaximumFromRoleToRoleCompletedFormat3, service.ConnectionData.Name, sourceRole.Name);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.MergingPrivilegesToMaximumFromRoleToRoleCompletedFormat3, service.ConnectionData.Name, sourceRole.Name);
 
                 _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
             }
@@ -2804,7 +2804,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
 
-                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ReplacingPrivilegesFromRoleToRoleFormat3, service.ConnectionData.Name, targetRole.Name);
+                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ReplacingPrivilegesFromRoleToRoleFormat3, service.ConnectionData.Name, targetRole.Name);
 
                 var repositoryRolePrivileges = new RolePrivilegesRepository(service);
                 var repositoryPrivileges = new PrivilegeRepository(service);
@@ -2830,7 +2830,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 _iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ReplacingPrivilegesFromRoleToRoleCompletedFormat3, service.ConnectionData.Name, sourceRole.Name);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ReplacingPrivilegesFromRoleToRoleCompletedFormat3, service.ConnectionData.Name, sourceRole.Name);
 
                 _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
             }
@@ -3155,7 +3155,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operation));
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ComparingEntitiesPrivilegesFormat2, name1, name2);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ComparingEntitiesPrivilegesFormat2, name1, name2);
 
             var repositoryRolePrivileges = new RolePrivilegesRepository(service);
 
@@ -3177,7 +3177,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             content.AppendLine();
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ComparingEntitiesPrivilegesCompletedFormat2, name1, name2);
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ComparingEntitiesPrivilegesCompletedFormat2, name1, name2);
 
             content.AppendLine(_iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operation));
 
@@ -3248,7 +3248,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operation));
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ComparingEntitiesPrivilegesFormat2, name1, name2);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ComparingEntitiesPrivilegesFormat2, name1, name2);
 
             var repositoryRolePrivileges = new RolePrivilegesRepository(service);
 
@@ -3270,7 +3270,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             content.AppendLine();
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ComparingEntitiesPrivilegesCompletedFormat2, name1, name2);
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ComparingEntitiesPrivilegesCompletedFormat2, name1, name2);
 
             content.AppendLine(_iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operation));
 
@@ -3340,7 +3340,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operation));
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ComparingEntitiesPrivilegesFormat2, name1, name2);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ComparingEntitiesPrivilegesFormat2, name1, name2);
 
             var repositoryRolePrivileges = new RolePrivilegesRepository(service);
 
@@ -3362,7 +3362,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             content.AppendLine();
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ComparingEntitiesPrivilegesCompletedFormat2, name1, name2);
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ComparingEntitiesPrivilegesCompletedFormat2, name1, name2);
 
             content.AppendLine(_iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operation));
 

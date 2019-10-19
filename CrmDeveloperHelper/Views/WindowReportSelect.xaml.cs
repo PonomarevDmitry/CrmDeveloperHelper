@@ -89,7 +89,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.LoadingReports);
+            ToggleControls(false, Properties.OutputStrings.LoadingReports);
 
             this._itemsSource.Clear();
 
@@ -195,7 +195,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingReportsCompletedFormat1, results.Count());
+            ToggleControls(true, Properties.OutputStrings.LoadingReportsCompletedFormat1, results.Count());
         }
 
         private void UpdateStatus(string format, params object[] args)

@@ -82,13 +82,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                ToggleControls(false, Properties.WindowStatusStrings.GettingEntityMetadataFormat1, _entityName);
+                ToggleControls(false, Properties.OutputStrings.GettingEntityMetadataFormat1, _entityName);
 
                 var repositoryEntityMetadata = new EntityMetadataRepository(_service);
 
                 this._entityMetadata = await repositoryEntityMetadata.GetEntityMetadataAsync(_entityName);
 
-                ToggleControls(true, Properties.WindowStatusStrings.GettingEntityMetadataCompletedFormat1, _entityName);
+                ToggleControls(true, Properties.OutputStrings.GettingEntityMetadataCompletedFormat1, _entityName);
 
                 FilterEntityAttributes(null);
             }
@@ -100,7 +100,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void FilterEntityAttributes(UserControl selectedControl)
         {
-            ToggleControls(false, Properties.WindowStatusStrings.FilteringAttributesFormat1, _entityName);
+            ToggleControls(false, Properties.OutputStrings.FilteringAttributesFormat1, _entityName);
 
             this.lstVwAttributes.Dispatcher.Invoke(() =>
             {
@@ -209,7 +209,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, Properties.WindowStatusStrings.FilteringAttributesCompletedFormat1, _entityName);
+            ToggleControls(true, Properties.OutputStrings.FilteringAttributesCompletedFormat1, _entityName);
         }
 
         protected void UpdateStatus(string format, params object[] args)
@@ -283,7 +283,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.SavingEntitiesFormat1, _entityName);
+            ToggleControls(false, Properties.OutputStrings.SavingEntitiesFormat1, _entityName);
 
             bool hasError = false;
 
@@ -303,7 +303,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 try
                 {
-                    _iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.WindowStatusStrings.SavingEntityInstanceFormat2, _entityName, id);
+                    _iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.SavingEntityInstanceFormat2, _entityName, id);
 
                     _iWriteToOutput.WriteToOutputEntityInstance(_service.ConnectionData, updateEntity);
 
@@ -313,11 +313,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     hasError = true;
 
-                    _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex, Properties.WindowStatusStrings.SavingEntityInstanceFailedFormat2, _entityName, id);
+                    _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex, Properties.OutputStrings.SavingEntityInstanceFailedFormat2, _entityName, id);
                 }
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.SavingEntitiesCompletedFormat1, _entityName);
+            ToggleControls(true, Properties.OutputStrings.SavingEntitiesCompletedFormat1, _entityName);
 
             if (!hasError)
             {

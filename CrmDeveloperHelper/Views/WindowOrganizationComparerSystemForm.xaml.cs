@@ -225,7 +225,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.LoadingForms);
+            ToggleControls(false, Properties.OutputStrings.LoadingForms);
 
             this._itemsSource.Clear();
 
@@ -325,7 +325,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadEntities(list);
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingFormsCompletedFormat1, list.Count());
+            ToggleControls(true, Properties.OutputStrings.LoadingFormsCompletedFormat1, list.Count());
         }
 
         private static IEnumerable<LinkedEntities<SystemForm>> FilterList(IEnumerable<LinkedEntities<SystemForm>> list, string textName)
@@ -665,7 +665,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceEntityDescription);
+            ToggleControls(false, Properties.OutputStrings.ShowingDifferenceEntityDescription);
 
             try
             {
@@ -701,13 +701,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
 
-                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceEntityDescriptionCompleted);
+                ToggleControls(true, Properties.OutputStrings.ShowingDifferenceEntityDescriptionCompleted);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(null, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceEntityDescriptionFailed);
+                ToggleControls(true, Properties.OutputStrings.ShowingDifferenceEntityDescriptionFailed);
             }
         }
 
@@ -730,7 +730,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceFormDescriptionFormat2, linked.Entity1.ObjectTypeCode, linked.Entity1.Name);
+            ToggleControls(false, Properties.OutputStrings.ShowingDifferenceFormDescriptionFormat2, linked.Entity1.ObjectTypeCode, linked.Entity1.Name);
 
             var service1 = await GetService1();
             var service2 = await GetService2();
@@ -778,7 +778,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceFormDescriptionCompletedFormat2, linked.Entity1.ObjectTypeCode, linked.Entity1.Name);
+            ToggleControls(true, Properties.OutputStrings.ShowingDifferenceFormDescriptionCompletedFormat2, linked.Entity1.ObjectTypeCode, linked.Entity1.Name);
         }
 
         private void mIShowDifferenceFormXml_Click(object sender, RoutedEventArgs e)
@@ -838,7 +838,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceXmlForFieldFormat1, fieldName);
+            ToggleControls(false, Properties.OutputStrings.ShowingDifferenceXmlForFieldFormat1, fieldName);
 
             try
             {
@@ -886,14 +886,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
 
-                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceXmlForFieldCompletedFormat1, fieldName);
+                ToggleControls(true, Properties.OutputStrings.ShowingDifferenceXmlForFieldCompletedFormat1, fieldName);
 
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(null, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceXmlForFieldFailedFormat1, fieldName);
+                ToggleControls(true, Properties.OutputStrings.ShowingDifferenceXmlForFieldFailedFormat1, fieldName);
             }
         }
 
@@ -916,7 +916,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceFormWebResourcesFormat2, linked.Entity1.ObjectTypeCode, linked.Entity1.Name);
+            ToggleControls(false, Properties.OutputStrings.ShowingDifferenceFormWebResourcesFormat2, linked.Entity1.ObjectTypeCode, linked.Entity1.Name);
 
             var service1 = await GetService1();
             var service2 = await GetService2();
@@ -992,7 +992,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceFormWebResourcesCompletedFormat2, linked.Entity1.ObjectTypeCode, linked.Entity1.Name);
+            ToggleControls(true, Properties.OutputStrings.ShowingDifferenceFormWebResourcesCompletedFormat2, linked.Entity1.ObjectTypeCode, linked.Entity1.Name);
         }
 
         private Task<string> CreateWebResourceAsync(string folder, ConnectionData connectionData, string resName, WebResource webresource)
@@ -1055,7 +1055,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.ExportingXmlFieldToFileFormat1, fieldTitle);
+            ToggleControls(false, Properties.OutputStrings.ExportingXmlFieldToFileFormat1, fieldTitle);
 
             var service = await getService();
 
@@ -1078,7 +1078,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileCompletedFormat1, fieldName);
+            ToggleControls(true, Properties.OutputStrings.ExportingXmlFieldToFileCompletedFormat1, fieldName);
         }
 
         private void ExecuteActionEntityDescription(Guid idSystemForm, Func<Task<IOrganizationServiceExtented>> getService, Func<Guid, Func<Task<IOrganizationServiceExtented>>, Task> action)
@@ -1109,7 +1109,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.CreatingEntityDescription);
+            ToggleControls(false, Properties.OutputStrings.CreatingEntityDescription);
 
             var service = await getService();
 
@@ -1126,7 +1126,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
+            ToggleControls(true, Properties.OutputStrings.CreatingEntityDescriptionCompleted);
         }
 
         private void mIExportSystemForm1EntityDescription_Click(object sender, RoutedEventArgs e)
@@ -1184,7 +1184,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.CreatingSystemFormDescriptionFormat2, entityName, name);
+            ToggleControls(false, Properties.OutputStrings.CreatingSystemFormDescriptionFormat2, entityName, name);
 
             var service = await getService();
             var descriptor = GetDescriptor(service);
@@ -1225,7 +1225,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.CreatingSystemFormDescriptionCompletedFormat2, entityName, name);
+            ToggleControls(true, Properties.OutputStrings.CreatingSystemFormDescriptionCompletedFormat2, entityName, name);
         }
 
         private void mIExportSystemForm1FormXml_Click(object sender, RoutedEventArgs e)
@@ -1328,7 +1328,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformDownloadWebResourcesAsync(Guid systemFormId, string entityName, string name, Func<Task<IOrganizationServiceExtented>> getService)
         {
-            ToggleControls(false, Properties.WindowStatusStrings.DownloadingSystemFormWebResourcesFormat2, entityName, name);
+            ToggleControls(false, Properties.OutputStrings.DownloadingSystemFormWebResourcesFormat2, entityName, name);
 
             var service = await getService();
             var descriptor = GetDescriptor(service);
@@ -1382,7 +1382,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.DownloadingSystemFormWebResourcesCompletedFormat2, entityName, name);
+            ToggleControls(true, Properties.OutputStrings.DownloadingSystemFormWebResourcesCompletedFormat2, entityName, name);
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

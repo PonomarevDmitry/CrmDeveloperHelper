@@ -223,7 +223,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(null, false, Properties.WindowStatusStrings.LoadingSolutionImage);
+            ToggleControls(null, false, Properties.OutputStrings.LoadingSolutionImage);
 
             try
             {
@@ -250,11 +250,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (this._solutionImage == null)
             {
-                ToggleControls(null, true, Properties.WindowStatusStrings.LoadingSolutionImageFailed);
+                ToggleControls(null, true, Properties.OutputStrings.LoadingSolutionImageFailed);
                 return;
             }
 
-            ToggleControls(null, true, Properties.WindowStatusStrings.LoadingSolutionImageCompleted);
+            ToggleControls(null, true, Properties.OutputStrings.LoadingSolutionImageCompleted);
 
             FilteringSolutionImageComponents();
         }
@@ -268,7 +268,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._itemsSource.Clear();
 
-            ToggleControls(null, false, Properties.WindowStatusStrings.FilteringSolutionImageComponents);
+            ToggleControls(null, false, Properties.OutputStrings.FilteringSolutionImageComponents);
 
             IEnumerable<SolutionImageComponent> filter = null;
 
@@ -316,7 +316,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _itemsSource.Add(component);
             }
 
-            ToggleControls(null, true, Properties.WindowStatusStrings.FilteringSolutionImageComponentsCompletedFormat1, filter.Count());
+            ToggleControls(null, true, Properties.OutputStrings.FilteringSolutionImageComponentsCompletedFormat1, filter.Count());
         }
 
         private void UpdateStatus(ConnectionData connectionData, string format, params object[] args)

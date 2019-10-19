@@ -677,11 +677,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             var repositoryPublish = new PublishActionsRepository(_service);
 
-            updateStatus(string.Format(Properties.WindowStatusStrings.PublishingWebResourceFormat2, _service.ConnectionData.Name, webResource.Name));
+            updateStatus(string.Format(Properties.OutputStrings.PublishingWebResourceFormat2, _service.ConnectionData.Name, webResource.Name));
 
             await repositoryPublish.PublishWebResourcesAsync(new[] { idEntity });
 
-            updateStatus(string.Format(Properties.WindowStatusStrings.PublishingWebResourceCompletedFormat2, _service.ConnectionData.Name, webResource.Name));
+            updateStatus(string.Format(Properties.OutputStrings.PublishingWebResourceCompletedFormat2, _service.ConnectionData.Name, webResource.Name));
 
             return idEntity;
         }

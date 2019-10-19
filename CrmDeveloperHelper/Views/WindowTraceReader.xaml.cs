@@ -181,7 +181,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.LoadingTraceFiles);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingTraceFiles);
 
             this._itemsSource.Clear();
 
@@ -206,7 +206,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _loadedRecords = await taskFiles;
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.LoadingTraceFilesCompletedFormat1, _loadedRecords.Count());
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingTraceFilesCompletedFormat1, _loadedRecords.Count());
 
             await FilterExistingTraceRecords();
         }
@@ -227,7 +227,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
             });
 
-            ToggleControls(connectionData, false, Properties.WindowStatusStrings.FilteringTraceFiles);
+            ToggleControls(connectionData, false, Properties.OutputStrings.FilteringTraceFiles);
 
             IEnumerable<TraceRecord> list = Enumerable.Empty<TraceRecord>();
 
@@ -291,7 +291,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadTraceRecords(list, dictUsers);
 
-            ToggleControls(connectionData, true, Properties.WindowStatusStrings.FilteringTraceFilesCompletedFormat1, list.Count());
+            ToggleControls(connectionData, true, Properties.OutputStrings.FilteringTraceFilesCompletedFormat1, list.Count());
         }
 
         private Task<IEnumerable<TraceRecord>> FilterTraceRecordsAsync(IEnumerable<TraceRecord> list, string textName, Guid? requestId, Guid? activityId, int? threadNumber)

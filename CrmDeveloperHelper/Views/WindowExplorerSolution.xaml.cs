@@ -281,7 +281,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.LoadingSolutions);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingSolutions);
 
             this._itemsSource.Clear();
 
@@ -310,7 +310,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadSolutions(list);
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.LoadingSolutionsCompletedFormat1, list.Count());
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingSolutionsCompletedFormat1, list.Count());
         }
 
         private class EntityViewItem
@@ -1036,7 +1036,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service = await GetService();
             var descriptor = GetDescriptor(service);
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.GettingAllRequiredComponentsFormat1, solution.UniqueName);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.GettingAllRequiredComponentsFormat1, solution.UniqueName);
 
             DependencyRepository repository = new DependencyRepository(service);
 
@@ -1044,9 +1044,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             await descriptor.GetSolutionImageComponentsListAsync(fullMissingComponents);
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.GettingAllRequiredComponentsCompletedFormat1, solution.UniqueName);
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.GettingAllRequiredComponentsCompletedFormat1, solution.UniqueName);
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.RemovingComponentsExistingInTargetFormat1, targetConnectionData.Name);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.RemovingComponentsExistingInTargetFormat1, targetConnectionData.Name);
 
             var targetService = await GetService(targetConnectionData);
             var targetDescription = GetDescriptor(targetService);
@@ -1081,11 +1081,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 fullMissingComponents.Remove(item);
             }
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.RemovingComponentsExistingInTargetCompletedFormat1, targetConnectionData.Name);
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.RemovingComponentsExistingInTargetCompletedFormat1, targetConnectionData.Name);
 
             if (!fullMissingComponents.Any())
             {
-                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.WindowStatusStrings.AllRequiredComponentsExistsInTargetFormat1, targetConnectionData.Name);
+                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.AllRequiredComponentsExistsInTargetFormat1, targetConnectionData.Name);
                 _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
                 return true;
@@ -1224,7 +1224,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ExportingSolutionFormat1, solution.UniqueName);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ExportingSolutionFormat1, solution.UniqueName);
 
             try
             {
@@ -1305,14 +1305,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Cannot get Service.");
                 }
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ExportingSolutionCompletedFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ExportingSolutionCompletedFormat1, solution.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ExportingSolutionFailedFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ExportingSolutionFailedFormat1, solution.UniqueName);
             }
         }
 
@@ -1495,7 +1495,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingFileWithSolutionImageFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingFileWithSolutionImageFormat1, solution.UniqueName);
                 var descriptor = GetDescriptor(service);
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
@@ -1517,13 +1517,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingFileWithSolutionImageCompletedFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingFileWithSolutionImageCompletedFormat1, solution.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingFileWithSolutionImageFailedFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingFileWithSolutionImageFailedFormat1, solution.UniqueName);
             }
         }
 
@@ -1533,7 +1533,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingFileWithSolutionImageFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingFileWithSolutionImageFormat1, solution.UniqueName);
 
                 var descriptor = GetDescriptor(service);
 
@@ -1545,13 +1545,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 WindowHelper.OpenOrganizationComparerWindow(_iWriteToOutput, service.ConnectionData.ConnectionConfiguration, _commonConfig, solutionImage);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingFileWithSolutionImageCompletedFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingFileWithSolutionImageCompletedFormat1, solution.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingFileWithSolutionImageFailedFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingFileWithSolutionImageFailedFormat1, solution.UniqueName);
             }
         }
 
@@ -1561,7 +1561,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingTextFileWithComponentsFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingTextFileWithComponentsFormat1, solution.UniqueName);
                 var descriptor = GetDescriptor(service);
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
@@ -1580,13 +1580,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingTextFileWithComponentsCompletedFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingTextFileWithComponentsCompletedFormat1, solution.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingTextFileWithComponentsFailedFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingTextFileWithComponentsFailedFormat1, solution.UniqueName);
             }
         }
 
@@ -1641,7 +1641,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingTextFileWithMissingDependenciesFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingTextFileWithMissingDependenciesFormat1, solution.UniqueName);
                 var descriptor = GetDescriptor(service);
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
@@ -1675,13 +1675,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingTextFileWithMissingDependenciesCompletedFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingTextFileWithMissingDependenciesCompletedFormat1, solution.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingTextFileWithMissingDependenciesFailedFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingTextFileWithMissingDependenciesFailedFormat1, solution.UniqueName);
             }
         }
 
@@ -1691,7 +1691,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingTextFileWithDependenciesForUninstallFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingTextFileWithDependenciesForUninstallFormat1, solution.UniqueName);
                 var descriptor = GetDescriptor(service);
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
@@ -1725,13 +1725,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingTextFileWithDependenciesForUninstallCompletedFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingTextFileWithDependenciesForUninstallCompletedFormat1, solution.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingTextFileWithDependenciesForUninstallFailedFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingTextFileWithDependenciesForUninstallFailedFormat1, solution.UniqueName);
             }
         }
 
@@ -1842,7 +1842,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ComparingSolutionsFormat2, solution1.UniqueName, solution2.UniqueName);
+                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ComparingSolutionsFormat2, solution1.UniqueName, solution2.UniqueName);
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
@@ -1853,13 +1853,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await solutionDescriptor.FindUniqueComponentsInSolutionsAsync(solution1.Id, solution2.Id);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ComparingSolutionsCompletedFormat2, solution1.UniqueName, solution2.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ComparingSolutionsCompletedFormat2, solution1.UniqueName, solution2.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ComparingSolutionsFailedFormat2, solution1.UniqueName, solution2.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ComparingSolutionsFailedFormat2, solution1.UniqueName, solution2.UniqueName);
             }
         }
 
@@ -1869,7 +1869,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ComparingSolutionsFormat2, solution1.UniqueName, solution2.UniqueName);
+                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ComparingSolutionsFormat2, solution1.UniqueName, solution2.UniqueName);
 
                 var descriptor = GetDescriptor(service);
 
@@ -1890,13 +1890,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ComparingSolutionsCompletedFormat2, solution1.UniqueName, solution2.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ComparingSolutionsCompletedFormat2, solution1.UniqueName, solution2.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ComparingSolutionsFailedFormat2, solution1.UniqueName, solution2.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ComparingSolutionsFailedFormat2, solution1.UniqueName, solution2.UniqueName);
             }
         }
 
@@ -2008,7 +2008,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CopingSolutionComponentsToFromFormat2, solutionSource.UniqueName, solutionTarget.UniqueName);
+                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CopingSolutionComponentsToFromFormat2, solutionSource.UniqueName, solutionTarget.UniqueName);
 
                 var descriptor = GetDescriptor(service);
 
@@ -2103,13 +2103,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, "All Solution Components '{0}' already added to '{1}'.", solutionSource.UniqueName, solutionTarget.UniqueName);
                 }
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CopingSolutionComponentsToFromCompletedFormat2, solutionSource.UniqueName, solutionTarget.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CopingSolutionComponentsToFromCompletedFormat2, solutionSource.UniqueName, solutionTarget.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CopingSolutionComponentsToFromFailedFormat2, solutionSource.UniqueName, solutionTarget.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CopingSolutionComponentsToFromFailedFormat2, solutionSource.UniqueName, solutionTarget.UniqueName);
             }
         }
 
@@ -2121,7 +2121,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CopingSolutionComponentsToFromFormat2, solutionTarget.UniqueName, sourceName);
+                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CopingSolutionComponentsToFromFormat2, solutionTarget.UniqueName, sourceName);
 
                 var descriptor = GetDescriptor(service);
 
@@ -2242,13 +2242,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, "All Solution Components '{0}' already added to '{1}'.", sourceName, solutionTarget.UniqueName);
                 }
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CopingSolutionComponentsToFromCompletedFormat2, solutionTarget.UniqueName, sourceName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CopingSolutionComponentsToFromCompletedFormat2, solutionTarget.UniqueName, sourceName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CopingSolutionComponentsToFromFailedFormat2, solutionTarget.UniqueName, sourceName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CopingSolutionComponentsToFromFailedFormat2, solutionTarget.UniqueName, sourceName);
             }
         }
 
@@ -2258,7 +2258,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.RemovingSolutionComponentsFromOwnedByFormat2, solutionSource.UniqueName, solutionTarget.UniqueName);
+                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.RemovingSolutionComponentsFromOwnedByFormat2, solutionSource.UniqueName, solutionTarget.UniqueName);
 
                 var descriptor = GetDescriptor(service);
 
@@ -2353,13 +2353,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, "There are No Common Solution Components in '{0}' and '{1}'.", solutionSource.UniqueName, solutionTarget.UniqueName);
                 }
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.RemovingSolutionComponentsFromOwnedByCompletedFormat2, solutionSource.UniqueName, solutionTarget.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.RemovingSolutionComponentsFromOwnedByCompletedFormat2, solutionSource.UniqueName, solutionTarget.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.RemovingSolutionComponentsFromOwnedByFailedFormat2, solutionSource.UniqueName, solutionTarget.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.RemovingSolutionComponentsFromOwnedByFailedFormat2, solutionSource.UniqueName, solutionTarget.UniqueName);
             }
         }
 
@@ -2371,7 +2371,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.RemovingSolutionComponentsFromOwnedByFormat2, solutionTarget.UniqueName, sourceName);
+                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.RemovingSolutionComponentsFromOwnedByFormat2, solutionTarget.UniqueName, sourceName);
 
                 var descriptor = GetDescriptor(service);
 
@@ -2492,13 +2492,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, "There are No Common Solution Components in '{0}' and '{1}'.", sourceName, solutionTarget.UniqueName);
                 }
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.RemovingSolutionComponentsFromOwnedByCompletedFormat2, solutionTarget.UniqueName, sourceName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.RemovingSolutionComponentsFromOwnedByCompletedFormat2, solutionTarget.UniqueName, sourceName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.RemovingSolutionComponentsFromOwnedByFailedFormat2, solutionTarget.UniqueName, sourceName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.RemovingSolutionComponentsFromOwnedByFailedFormat2, solutionTarget.UniqueName, sourceName);
             }
         }
 
@@ -2564,7 +2564,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ClearingSolutionFormat2, service.ConnectionData.Name, solution.UniqueName);
+                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ClearingSolutionFormat2, service.ConnectionData.Name, solution.UniqueName);
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
 
@@ -2606,13 +2606,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 SolutionComponentRepository repository = new SolutionComponentRepository(service);
                 await repository.ClearSolutionAsync(solution.UniqueName);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ClearingSolutionCompletedFormat2, service.ConnectionData.Name, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ClearingSolutionCompletedFormat2, service.ConnectionData.Name, solution.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ClearingSolutionFailedFormat2, service.ConnectionData.Name, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ClearingSolutionFailedFormat2, service.ConnectionData.Name, solution.UniqueName);
             }
         }
 
@@ -2697,7 +2697,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingEntityDescription);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingEntityDescription);
 
             try
             {
@@ -2724,13 +2724,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingEntityDescriptionCompleted);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingEntityDescriptionFailed);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingEntityDescriptionFailed);
             }
         }
 
@@ -2740,7 +2740,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingFileWithUsedEntitiesInWorkflowsFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingFileWithUsedEntitiesInWorkflowsFormat1, solution.UniqueName);
 
                 var descriptor = GetDescriptor(service);
 
@@ -2764,13 +2764,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingFileWithUsedEntitiesInWorkflowsCompletedFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingFileWithUsedEntitiesInWorkflowsCompletedFormat1, solution.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingFileWithUsedEntitiesInWorkflowsFailedFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingFileWithUsedEntitiesInWorkflowsFailedFormat1, solution.UniqueName);
             }
         }
 
@@ -2780,7 +2780,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingFileWithUsedNotExistsEntitiesInWorkflowsFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingFileWithUsedNotExistsEntitiesInWorkflowsFormat1, solution.UniqueName);
 
                 var descriptor = GetDescriptor(service);
 
@@ -2804,13 +2804,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingFileWithUsedNotExistsEntitiesInWorkflowsCompletedFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingFileWithUsedNotExistsEntitiesInWorkflowsCompletedFormat1, solution.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingFileWithUsedNotExistsEntitiesInWorkflowsFailedFormat1, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingFileWithUsedNotExistsEntitiesInWorkflowsFailedFormat1, solution.UniqueName);
             }
         }
 
@@ -3042,7 +3042,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                ToggleControls(service.ConnectionData, false, _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.WindowStatusStrings.CreatingSolutionImageFromZipFile));
+                ToggleControls(service.ConnectionData, false, _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatingSolutionImageFromZipFile));
 
                 var descriptor = GetDescriptor(service);
 
@@ -3067,13 +3067,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingSolutionImageFromZipFileCompleted);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingSolutionImageFromZipFileCompleted);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingSolutionImageFromZipFileFailed);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingSolutionImageFromZipFileFailed);
             }
         }
 

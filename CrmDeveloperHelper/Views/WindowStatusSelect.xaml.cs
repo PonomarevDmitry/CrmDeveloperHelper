@@ -72,13 +72,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                ToggleControls(false, Properties.WindowStatusStrings.GettingEntityMetadataFormat1, _entityName);
+                ToggleControls(false, Properties.OutputStrings.GettingEntityMetadataFormat1, _entityName);
 
                 var repositoryEntityMetadata = new EntityMetadataRepository(_service);
 
                 this._entityMetadata = await repositoryEntityMetadata.GetEntityMetadataWithAttributesAsync(_entityName);
 
-                ToggleControls(true, Properties.WindowStatusStrings.GettingEntityMetadataCompletedFormat1, _entityName);
+                ToggleControls(true, Properties.OutputStrings.GettingEntityMetadataCompletedFormat1, _entityName);
 
                 if (this._entityMetadata != null
                     && this._entityMetadata.Attributes != null
@@ -137,7 +137,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void FilterStatusCodes()
         {
-            ToggleControls(false, Properties.WindowStatusStrings.FilteringStatusCodesFormat1, _entityName);
+            ToggleControls(false, Properties.OutputStrings.FilteringStatusCodesFormat1, _entityName);
 
             this.lstVwStatusCodes.Dispatcher.Invoke(() =>
             {
@@ -191,7 +191,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, Properties.WindowStatusStrings.FilteringStatusCodesCompletedFormat1, _entityName);
+            ToggleControls(true, Properties.OutputStrings.FilteringStatusCodesCompletedFormat1, _entityName);
         }
 
         protected void UpdateStatus(string format, params object[] args)

@@ -1494,7 +1494,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.LoadingPlugins);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingPlugins);
 
             this.trVPluginTree.Dispatcher.Invoke(() =>
             {
@@ -1552,7 +1552,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this.trVPluginTree.EndInit();
             });
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.LoadingPluginsCompleted);
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingPluginsCompleted);
         }
 
         private async Task GetSdkMessageFiltersAsync(IOrganizationServiceExtented service)
@@ -2267,7 +2267,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.CreatingFileWithDescriptionFormat1, service.ConnectionData.Name);
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingDescription);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingDescription);
 
             StringBuilder result = new StringBuilder();
 
@@ -2568,7 +2568,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingDescriptionCompleted);
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingDescriptionCompleted);
 
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.CreatingFileWithDescriptionFormat1, service.ConnectionData.Name);
         }
@@ -2820,7 +2820,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
 
             try
             {
@@ -2828,13 +2828,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await repository.PublishEntitiesAsync(new[] { entityName });
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat2, service.ConnectionData.Name, entityName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.PublishingEntitiesCompletedFormat2, service.ConnectionData.Name, entityName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat2, service.ConnectionData.Name, entityName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.PublishingEntitiesFailedFormat2, service.ConnectionData.Name, entityName);
             }
 
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
@@ -3438,11 +3438,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _cacheTaskGettingMessageFilters[service.ConnectionData.ConnectionId] = GetSdkMessageFiltersAsync(service);
                 }
 
-                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.GettingMessages);
+                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.GettingMessages);
 
                 await _cacheTaskGettingMessageFilters[service.ConnectionData.ConnectionId];
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.GettingMessagesCompleted);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.GettingMessagesCompleted);
             }
 
             filters = _cacheMessageFilters[service.ConnectionData.ConnectionId];
@@ -3568,11 +3568,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         _cacheTaskGettingMessageFilters[service.ConnectionData.ConnectionId] = GetSdkMessageFiltersAsync(service);
                     }
 
-                    ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.GettingMessages);
+                    ToggleControls(service.ConnectionData, false, Properties.OutputStrings.GettingMessages);
 
                     await _cacheTaskGettingMessageFilters[service.ConnectionData.ConnectionId];
 
-                    ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.GettingMessagesCompleted);
+                    ToggleControls(service.ConnectionData, true, Properties.OutputStrings.GettingMessagesCompleted);
                 }
 
                 filters = _cacheMessageFilters[service.ConnectionData.ConnectionId];
@@ -3663,7 +3663,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var service = await GetService();
 
-                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ChangingEntityStateFormat1, referenceToChangeState.LogicalName);
+                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ChangingEntityStateFormat1, referenceToChangeState.LogicalName);
 
                 try
                 {
@@ -3678,11 +3678,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     nodeItem.CorrectImage();
 
-                    ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ChangingEntityStateCompletedFormat1, referenceToChangeState.LogicalName);
+                    ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ChangingEntityStateCompletedFormat1, referenceToChangeState.LogicalName);
                 }
                 catch (Exception ex)
                 {
-                    ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ChangingEntityStateFailedFormat1, referenceToChangeState.LogicalName);
+                    ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ChangingEntityStateFailedFormat1, referenceToChangeState.LogicalName);
 
                     _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
                     _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
@@ -3820,7 +3820,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ComparingPluginAssemblyWithLocalAssemblyFormat1, nodeItem.Name);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ComparingPluginAssemblyWithLocalAssemblyFormat1, nodeItem.Name);
 
             var controller = new PluginController(_iWriteToOutput);
 
@@ -3828,7 +3828,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ComparingPluginAssemblyWithLocalAssemblyCompletedFormat1, nodeItem.Name);
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ComparingPluginAssemblyWithLocalAssemblyCompletedFormat1, nodeItem.Name);
         }
 
         private async void tSBRegisterAssembly_Click(object sender, RoutedEventArgs e)

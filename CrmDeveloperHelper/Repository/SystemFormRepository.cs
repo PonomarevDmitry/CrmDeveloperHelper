@@ -435,19 +435,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             var repositoryPublish = new PublishActionsRepository(_service);
 
-            updateStatus(string.Format(Properties.WindowStatusStrings.PublishingSystemFormFormat3, _service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name));
+            updateStatus(string.Format(Properties.OutputStrings.PublishingSystemFormFormat3, _service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name));
 
             await repositoryPublish.PublishDashboardsAsync(new[] { idEntity });
 
-            updateStatus(string.Format(Properties.WindowStatusStrings.PublishingSystemFormCompletedFormat3, _service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name));
+            updateStatus(string.Format(Properties.OutputStrings.PublishingSystemFormCompletedFormat3, _service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name));
 
             if (systemForm.ObjectTypeCode.IsValidEntityName())
             {
-                updateStatus(string.Format(Properties.WindowStatusStrings.PublishingEntitiesFormat2, _service.ConnectionData.Name, systemForm.ObjectTypeCode));
+                updateStatus(string.Format(Properties.OutputStrings.PublishingEntitiesFormat2, _service.ConnectionData.Name, systemForm.ObjectTypeCode));
 
                 await repositoryPublish.PublishEntitiesAsync(new[] { systemForm.ObjectTypeCode });
 
-                updateStatus(string.Format(Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat2, _service.ConnectionData.Name, systemForm.ObjectTypeCode));
+                updateStatus(string.Format(Properties.OutputStrings.PublishingEntitiesCompletedFormat2, _service.ConnectionData.Name, systemForm.ObjectTypeCode));
             }
 
             return idEntity;

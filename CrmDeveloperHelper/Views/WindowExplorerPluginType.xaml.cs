@@ -167,7 +167,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.LoadingPluginTypes);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingPluginTypes);
 
             this._itemsSource.Clear();
 
@@ -209,7 +209,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadPluginTypes(list);
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.LoadingPluginTypesCompletedFormat1, list.Count());
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingPluginTypesCompletedFormat1, list.Count());
         }
 
         private class EntityViewItem
@@ -452,7 +452,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ExportingXmlFieldToFileFormat1, fieldTitle);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ExportingXmlFieldToFileFormat1, fieldTitle);
 
             try
             {
@@ -466,13 +466,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ExportingXmlFieldToFileCompletedFormat1, fieldName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ExportingXmlFieldToFileCompletedFormat1, fieldName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ExportingXmlFieldToFileFailedFormat1, fieldName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ExportingXmlFieldToFileFailedFormat1, fieldName);
             }
         }
 
@@ -565,7 +565,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingPluginTypeDescriptionFormat1, name);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingPluginTypeDescriptionFormat1, name);
 
             string fileName = EntityFileNameFormatter.GetPluginTypeFileName(service.ConnectionData.Name, name, "Description");
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
@@ -600,7 +600,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
             }
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingPluginTypeDescriptionCompletedFormat1, name);
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingPluginTypeDescriptionCompletedFormat1, name);
         }
 
         private async Task PerformEntityEditor(string folder, Guid idPluginType, string name)
@@ -620,7 +620,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var service = await GetService();
 
-                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.DeletingEntityFormat2, service.ConnectionData.Name, PluginType.EntityLogicalName);
+                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.DeletingEntityFormat2, service.ConnectionData.Name, PluginType.EntityLogicalName);
 
                 try
                 {
@@ -635,7 +635,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 }
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.DeletingEntityCompletedFormat2, service.ConnectionData.Name, PluginType.EntityLogicalName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.DeletingEntityCompletedFormat2, service.ConnectionData.Name, PluginType.EntityLogicalName);
 
                 ShowExistingPluginTypes();
             }
@@ -645,7 +645,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingEntityDescription);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingEntityDescription);
 
             string fileName = EntityFileNameFormatter.GetPluginTypeFileName(service.ConnectionData.Name, name, EntityFileNameFormatter.Headers.EntityDescription);
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
@@ -663,7 +663,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingEntityDescriptionCompleted);
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -993,11 +993,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _cacheTaskGettingMessageFilters[service.ConnectionData.ConnectionId] = GetSdkMessageFiltersAsync(service);
                 }
 
-                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.GettingMessages);
+                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.GettingMessages);
 
                 await _cacheTaskGettingMessageFilters[service.ConnectionData.ConnectionId];
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.GettingMessagesCompleted);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.GettingMessagesCompleted);
             }
 
             filters = _cacheMessageFilters[service.ConnectionData.ConnectionId];

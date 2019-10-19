@@ -253,7 +253,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(null, false, Properties.WindowStatusStrings.LoadingPluginConfiguration);
+            ToggleControls(null, false, Properties.OutputStrings.LoadingPluginConfiguration);
 
             this.trVPluginTree.ItemsSource = null;
             this.trVPluginTree.Items.Clear();
@@ -272,7 +272,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 });
             }
 
-            ToggleControls(null, true, Properties.WindowStatusStrings.LoadingPluginConfigurationCompleted);
+            ToggleControls(null, true, Properties.OutputStrings.LoadingPluginConfigurationCompleted);
         }
 
         public List<PluginStage> GetStages()
@@ -1236,7 +1236,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.CreatingFileWithDescription);
 
-            ToggleControls(null, false, Properties.WindowStatusStrings.CreatingDescription);
+            ToggleControls(null, false, Properties.OutputStrings.CreatingDescription);
 
             StringBuilder result = new StringBuilder();
 
@@ -1276,7 +1276,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(null, filePath);
             }
 
-            ToggleControls(null, true, Properties.WindowStatusStrings.CreatingDescriptionCompleted);
+            ToggleControls(null, true, Properties.OutputStrings.CreatingDescriptionCompleted);
 
             this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.CreatingFileWithDescription);
         }
@@ -1374,7 +1374,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(connectionData, false, Properties.WindowStatusStrings.RegisteringPluginStepsFormat1, connectionData.Name);
+            ToggleControls(connectionData, false, Properties.OutputStrings.RegisteringPluginStepsFormat1, connectionData.Name);
 
             if (connectionData != null && connectionData.IsReadOnly == false)
             {
@@ -1410,7 +1410,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(connectionData, true, Properties.WindowStatusStrings.RegisteringPluginStepsCompletedFormat1, connectionData.Name);
+            ToggleControls(connectionData, true, Properties.OutputStrings.RegisteringPluginStepsCompletedFormat1, connectionData.Name);
         }
 
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)

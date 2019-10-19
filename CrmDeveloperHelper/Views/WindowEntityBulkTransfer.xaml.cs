@@ -81,7 +81,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 foreach (var entity in _entityCollection)
                 {
-                    ToggleControls(false, Properties.WindowStatusStrings.FilteringEntityInstanceAttributesFormat2, _entityMetadata.LogicalName, entity.Id);
+                    ToggleControls(false, Properties.OutputStrings.FilteringEntityInstanceAttributesFormat2, _entityMetadata.LogicalName, entity.Id);
 
                     foreach (var attributeKey in entity.Attributes.Keys.ToList())
                     {
@@ -133,7 +133,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                             if (targetEntityReference == null)
                             {
-                                ToggleControls(false, Properties.WindowStatusStrings.TryingToFindEntityByIdFormat2, entityReference.LogicalName, entityReference.Id);
+                                ToggleControls(false, Properties.OutputStrings.TryingToFindEntityByIdFormat2, entityReference.LogicalName, entityReference.Id);
 
                                 var targetEntity = await repositoryGeneric.GetEntityByIdAsync(entityReference.Id, columnSet);
 
@@ -150,11 +150,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                                         targetEntityReference.Name = entityReferenceName;
                                     }
 
-                                    ToggleControls(true, Properties.WindowStatusStrings.TryingToFindEntityByIdFoundedFormat2, entityReference.LogicalName, entityReference.Id);
+                                    ToggleControls(true, Properties.OutputStrings.TryingToFindEntityByIdFoundedFormat2, entityReference.LogicalName, entityReference.Id);
                                 }
                                 else
                                 {
-                                    ToggleControls(true, Properties.WindowStatusStrings.TryingToFindEntityByIdNotFoundedFormat2, entityReference.LogicalName, entityReference.Id);
+                                    ToggleControls(true, Properties.OutputStrings.TryingToFindEntityByIdNotFoundedFormat2, entityReference.LogicalName, entityReference.Id);
                                 }
                             }
 
@@ -163,7 +163,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                                 && !string.IsNullOrEmpty(entityReference.Name)
                             )
                             {
-                                ToggleControls(false, Properties.WindowStatusStrings.TryingToFindEntityByNameFormat4, entityReference.LogicalName, entityReference.Id, targetEntityMetadata.PrimaryNameAttribute, entityReference.Name);
+                                ToggleControls(false, Properties.OutputStrings.TryingToFindEntityByNameFormat4, entityReference.LogicalName, entityReference.Id, targetEntityMetadata.PrimaryNameAttribute, entityReference.Name);
 
                                 var targetEntity = await repositoryGeneric.GetEntityByNameFieldAsync(entityReference.Name, columnSet);
 
@@ -179,11 +179,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                                         targetEntityReference.Name = entityReferenceName;
                                     }
 
-                                    ToggleControls(true, Properties.WindowStatusStrings.TryingToFindEntityByNameFoundedFormat4, entityReference.LogicalName, entityReference.Id, targetEntityMetadata.PrimaryNameAttribute, entityReference.Name);
+                                    ToggleControls(true, Properties.OutputStrings.TryingToFindEntityByNameFoundedFormat4, entityReference.LogicalName, entityReference.Id, targetEntityMetadata.PrimaryNameAttribute, entityReference.Name);
                                 }
                                 else
                                 {
-                                    ToggleControls(true, Properties.WindowStatusStrings.TryingToFindEntityByNameNotFoundedFormat4, entityReference.LogicalName, entityReference.Id, targetEntityMetadata.PrimaryNameAttribute, entityReference.Name);
+                                    ToggleControls(true, Properties.OutputStrings.TryingToFindEntityByNameNotFoundedFormat4, entityReference.LogicalName, entityReference.Id, targetEntityMetadata.PrimaryNameAttribute, entityReference.Name);
                                 }
                             }
 
@@ -199,7 +199,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         }
                     }
 
-                    ToggleControls(true, Properties.WindowStatusStrings.FilteringEntityInstanceAttributesCompletedFormat2, _entityMetadata.LogicalName, entity.Id);
+                    ToggleControls(true, Properties.OutputStrings.FilteringEntityInstanceAttributesCompletedFormat2, _entityMetadata.LogicalName, entity.Id);
                 }
 
                 this.lstVwLookupMapping.Dispatcher.Invoke(() =>
@@ -248,11 +248,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var repositoryEntityMetadata = new EntityMetadataRepository(_service);
 
-            ToggleControls(false, Properties.WindowStatusStrings.GettingEntityMetadataFormat1, entityName);
+            ToggleControls(false, Properties.OutputStrings.GettingEntityMetadataFormat1, entityName);
 
             var entityMetadata = await repositoryEntityMetadata.GetEntityMetadataAsync(entityName);
 
-            ToggleControls(true, Properties.WindowStatusStrings.GettingEntityMetadataCompletedFormat1, entityName);
+            ToggleControls(true, Properties.OutputStrings.GettingEntityMetadataCompletedFormat1, entityName);
 
             if (entityMetadata != null)
             {
@@ -318,7 +318,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.SavingEntitiesFormat1, _entityMetadata.LogicalName);
+            ToggleControls(false, Properties.OutputStrings.SavingEntitiesFormat1, _entityMetadata.LogicalName);
 
             bool hasError = false;
 
@@ -348,7 +348,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 try
                 {
-                    _iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.WindowStatusStrings.SavingEntityInstanceFormat2, _entityMetadata.LogicalName, entity.Id);
+                    _iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.SavingEntityInstanceFormat2, _entityMetadata.LogicalName, entity.Id);
 
                     _iWriteToOutput.WriteToOutputEntityInstance(_service.ConnectionData, updateEntity);
 
@@ -358,11 +358,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     hasError = true;
 
-                    _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex, Properties.WindowStatusStrings.SavingEntityInstanceFailedFormat2, _entityMetadata.LogicalName, entity.Id);
+                    _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex, Properties.OutputStrings.SavingEntityInstanceFailedFormat2, _entityMetadata.LogicalName, entity.Id);
                 }
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.SavingEntitiesCompletedFormat1, _entityMetadata.LogicalName);
+            ToggleControls(true, Properties.OutputStrings.SavingEntitiesCompletedFormat1, _entityMetadata.LogicalName);
 
             if (!hasError)
             {

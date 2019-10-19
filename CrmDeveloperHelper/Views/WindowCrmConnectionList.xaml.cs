@@ -510,7 +510,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ConnectionData connectionData = lstVwConnections.SelectedItems[0] as ConnectionData;
 
-            ToggleControls(connectionData, false, Properties.WindowStatusStrings.StartTestingConnectionFormat1, connectionData.Name);
+            ToggleControls(connectionData, false, Properties.OutputStrings.StartTestingConnectionFormat1, connectionData.Name);
 
             var task = QuickConnection.TestConnectAsync(connectionData, this._iWriteToOutput, this);
 
@@ -526,11 +526,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 connectionData.Save();
                 this._crmConfig.Save();
 
-                ToggleControls(connectionData, true, Properties.WindowStatusStrings.ConnectedSuccessfullyFormat1, connectionData.Name);
+                ToggleControls(connectionData, true, Properties.OutputStrings.ConnectedSuccessfullyFormat1, connectionData.Name);
             }
             else
             {
-                ToggleControls(connectionData, true, Properties.WindowStatusStrings.ConnectionFailedFormat1, connectionData.Name);
+                ToggleControls(connectionData, true, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
             }
         }
 
@@ -660,7 +660,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         _crmConfig.SetCurrentConnection(null);
 
-                        _iWriteToOutput.WriteToOutput(null, Properties.WindowStatusStrings.ConnectionIsNotSelected);
+                        _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.ConnectionIsNotSelected);
                         _iWriteToOutput.ActivateOutputWindow(null, this);
                     }
 
@@ -867,7 +867,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ConnectionData connectionData = lstVwArchiveConnections.SelectedItems[0] as ConnectionData;
 
-            ToggleControls(connectionData, false, Properties.WindowStatusStrings.StartTestingConnectionFormat1, connectionData.Name);
+            ToggleControls(connectionData, false, Properties.OutputStrings.StartTestingConnectionFormat1, connectionData.Name);
 
             var task = QuickConnection.TestConnectAsync(connectionData, this._iWriteToOutput, this);
 
@@ -881,11 +881,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 connectionData.Save();
                 this._crmConfig.Save();
 
-                ToggleControls(connectionData, true, Properties.WindowStatusStrings.ConnectedSuccessfullyFormat1, connectionData.Name);
+                ToggleControls(connectionData, true, Properties.OutputStrings.ConnectedSuccessfullyFormat1, connectionData.Name);
             }
             else
             {
-                ToggleControls(connectionData, true, Properties.WindowStatusStrings.ConnectionFailedFormat1, connectionData.Name);
+                ToggleControls(connectionData, true, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
             }
         }
 
@@ -1171,12 +1171,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!Uri.TryCreate(discoveryServiceUrl, UriKind.Absolute, out Uri discoveryServiceUri))
             {
-                _iWriteToOutput.WriteToOutput(null, Properties.WindowStatusStrings.DiscoveryServiceCouldNotBeReceived);
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.DiscoveryServiceCouldNotBeReceived);
                 _iWriteToOutput.ActivateOutputWindow(null, this);
                 return;
             }
 
-            ToggleControls(null, false, Properties.WindowStatusStrings.DiscoveringOrganizations);
+            ToggleControls(null, false, Properties.OutputStrings.DiscoveringOrganizations);
 
             try
             {
@@ -1186,7 +1186,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (serviceManagement == null)
                 {
-                    ToggleControls(null, true, Properties.WindowStatusStrings.DiscoveryServiceConfigurationCouldNotBeReceived);
+                    ToggleControls(null, true, Properties.OutputStrings.DiscoveryServiceConfigurationCouldNotBeReceived);
                     _iWriteToOutput.ActivateOutputWindow(null, this);
                     return;
                 }
@@ -1197,7 +1197,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (discoveryService == null)
                 {
-                    ToggleControls(null, true, Properties.WindowStatusStrings.DiscoveryServiceCouldNotBeReceived);
+                    ToggleControls(null, true, Properties.OutputStrings.DiscoveryServiceCouldNotBeReceived);
                     _iWriteToOutput.ActivateOutputWindow(null, this);
                     return;
                 }
@@ -1215,11 +1215,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this._itemsSource.Add(viewItem);
                 }
 
-                ToggleControls(null, true, Properties.WindowStatusStrings.DiscoveringOrganizationsCompleted);
+                ToggleControls(null, true, Properties.OutputStrings.DiscoveringOrganizationsCompleted);
             }
             catch (Exception ex)
             {
-                ToggleControls(null, true, Properties.WindowStatusStrings.DiscoveringOrganizationsFailed);
+                ToggleControls(null, true, Properties.OutputStrings.DiscoveringOrganizationsFailed);
                 _iWriteToOutput.WriteErrorToOutput(null, ex);
             }
         }

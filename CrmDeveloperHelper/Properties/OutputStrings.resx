@@ -635,4 +635,1474 @@
   <data name="CannotUpdatePluginAssemblyFormat1" xml:space="preserve">
     <value>Cannot update PluginAssembly {0}.</value>
   </data>
+
+  <data name="AddingComponentsToSolutionFormat3" xml:space="preserve">
+    <value>{0}. Adding {1} components to Solution {2}...</value>
+  </data>
+  <data name="AddingInSolutionApplicationRibbonFormat2" xml:space="preserve">
+    <value>{0}. Adding to solution {1} ApplicationRibbon...</value>
+  </data>
+  <data name="AddingInSolutionEntityFormat3" xml:space="preserve">
+    <value>{0}. Adding to solution {1} entity {2}...</value>
+  </data>
+  <data name="ComparingSolutionsCompletedFormat2" xml:space="preserve">
+    <value>Comparing solutions {0} and {1} completed.</value>
+  </data>
+  <data name="ComparingSolutionsFailedFormat2" xml:space="preserve">
+    <value>Comparing solutions {0} and {1} failed.</value>
+  </data>
+  <data name="ComparingSolutionsFormat2" xml:space="preserve">
+    <value>Comparing solutions {0} and {1}...</value>
+  </data>
+  <data name="AnalizingWorkflowCompletedFormat2" xml:space="preserve">
+    <value>Analizing Workflow {0} - {1} completed.</value>
+  </data>
+  <data name="AnalizingWorkflowFailedFormat2" xml:space="preserve">
+    <value>Analizing Workflow {0} - {1} failed.</value>
+  </data>
+  <data name="AnalizingWorkflowFormat2" xml:space="preserve">
+    <value>Analizing Workflow {0} - {1}...</value>
+  </data>
+  <data name="CheckingConnectionRoleCategoriesFormat2" xml:space="preserve">
+    <value>Checking ConnectionRole Categories in {0} and {1}...</value>
+  </data>
+  <data name="CheckingConnectionRolesFormat2" xml:space="preserve">
+    <value>Checking ConnectionRoles in {0} and {1}...</value>
+  </data>
+  <data name="CheckingContractTemplatesFormat2" xml:space="preserve">
+    <value>Checking Contract Templates in {0} and {1}...</value>
+  </data>
+  <data name="CheckingDefaultTranslationsFormat2" xml:space="preserve">
+    <value>Checking Default Translations in {0} and {1}...</value>
+  </data>
+  <data name="CheckingDisplayStringsFormat2" xml:space="preserve">
+    <value>Checking DisplayStrings in {0} and {1}...</value>
+  </data>
+  <data name="CheckingEMailTemplatesFormat2" xml:space="preserve">
+    <value>Checking E-Mail Templates in {0} and {1}...</value>
+  </data>
+  <data name="CheckingEntitiesFormat2" xml:space="preserve">
+    <value>Checking Entities in {0} and {1}...</value>
+  </data>
+  <data name="CheckingEntityLabelsFormat2" xml:space="preserve">
+    <value>Checking Entity Labels in {0} and {1}...</value>
+  </data>
+  <data name="CheckingEntityMapsFormat2" xml:space="preserve">
+    <value>Checking EntityMaps in {0} and {1}...</value>
+  </data>
+  <data name="CheckingFieldSecurityProfilesFormat2" xml:space="preserve">
+    <value>Checking FieldSecurityProfiles in {0} and {1}...</value>
+  </data>
+  <data name="CheckingFieldTranslationsFormat2" xml:space="preserve">
+    <value>Checking Field Translations in {0} and {1}...</value>
+  </data>
+  <data name="CheckingGlobalOptionSetsFormat2" xml:space="preserve">
+    <value>Checking Global OptionSets in {0} and {1}...</value>
+  </data>
+  <data name="CheckingKBArticleTemplatesFormat2" xml:space="preserve">
+    <value>Checking KB Article Templates in {0} and {1}...</value>
+  </data>
+  <data name="CheckingMailMergeTemplatesFormat2" xml:space="preserve">
+    <value>Checking Mail Merge Templates in {0} and {1}...</value>
+  </data>
+  <data name="CheckingOrganizationsFormat2" xml:space="preserve">
+    <value>Checking Organizations in {0} and {1}...</value>
+  </data>
+  <data name="CheckingPluginAssembliesFormat2" xml:space="preserve">
+    <value>Checking PluginAssemblies in {0} and {1}...</value>
+  </data>
+  <data name="CheckingPluginStepsByIdsFormat2" xml:space="preserve">
+    <value>Checking Plugin Steps by Ids in {0} and {1}...</value>
+  </data>
+  <data name="CheckingPluginStepsByPluginTypeNamesFormat2" xml:space="preserve">
+    <value>Checking Plugin Steps by PluginType Names in {0} and {1}...</value>
+  </data>
+  <data name="CheckingPluginTypesFormat2" xml:space="preserve">
+    <value>Checking PluginTypes in {0} and {1}...</value>
+  </data>
+  <data name="CheckingReportsFormat2" xml:space="preserve">
+    <value>Checking Reports in {0} and {1}...</value>
+  </data>
+
+  <data name="CheckingEntityRibbonsFormat2" xml:space="preserve">
+    <value>Checking Entity Ribbons in {0} and {1}...</value>
+  </data>
+  <data name="CheckingApplicationRibbonsFormat2" xml:space="preserve">
+    <value>Checking Application Ribbons in {0} and {1}...</value>
+  </data>
+
+  <data name="CheckingEntityRibbonsWithDetailsFormat2" xml:space="preserve">
+    <value>Checking Entity Ribbons with details in {0} and {1}...</value>
+  </data>
+  <data name="CheckingApplicationRibbonsWithDetailsFormat2" xml:space="preserve">
+    <value>Checking Application Ribbons with details in {0} and {1}...</value>
+  </data>
+
+  <data name="CheckingSecurityRolesFormat2" xml:space="preserve">
+    <value>Checking SecurityRoles in {0} and {1}...</value>
+  </data>
+  <data name="CheckingSitemapsFormat2" xml:space="preserve">
+    <value>Checking SiteMaps in {0} and {1}...</value>
+  </data>
+  <data name="CheckingSystemChartsFormat2" xml:space="preserve">
+    <value>Checking System Charts in {0} and {1}...</value>
+  </data>
+  <data name="CheckingSystemFormsFormat2" xml:space="preserve">
+    <value>Checking System Forms in {0} and {1}...</value>
+  </data>
+  <data name="CheckingSystemSavedQueriesFormat2" xml:space="preserve">
+    <value>Checking SavedQueries in {0} and {1}...</value>
+  </data>
+  <data name="CheckingWebResourcesFormat2" xml:space="preserve">
+    <value>Checking WebResources in {0} and {1}...</value>
+  </data>
+  <data name="CheckingWebResourcesWithDetailsFormat2" xml:space="preserve">
+    <value>Checking WebResources in {0} and {1}...</value>
+  </data>
+  <data name="CheckingWorkflowsFormat2" xml:space="preserve">
+    <value>Checking Workflows in {0} and {1}...</value>
+  </data>
+  <data name="CheckingWorkflowsWithDetailsFormat2" xml:space="preserve">
+    <value>Checking Workflows with details in {0} and {1}...</value>
+  </data>
+  <data name="ClearingSolutionCompletedFormat2" xml:space="preserve">
+    <value>{0}. Clearing solution {1} completed.</value>
+  </data>
+  <data name="ClearingSolutionFailedFormat2" xml:space="preserve">
+    <value>{0}. Clearing solution {1} failed.</value>
+  </data>
+  <data name="ClearingSolutionFormat2" xml:space="preserve">
+    <value>{0}. Clearing solution {1}...</value>
+  </data>
+  <data name="ComparingConnectionsCompletedFormat2" xml:space="preserve">
+    <value>Comparing Connections {0} and {1} completed.</value>
+  </data>
+  <data name="ComparingConnectionsFailedFormat2" xml:space="preserve">
+    <value>Comparing Connections {0} and {1} failed.</value>
+  </data>
+  <data name="ComparingConnectionsFormat2" xml:space="preserve">
+    <value>Comparing Connections {0} and {1}...</value>
+  </data>
+  <data name="ComparingPluginAssemblyWithLocalAssemblyCompletedFormat1" xml:space="preserve">
+    <value>Comparing PluginAssembly with local Assembly for {0} completed.</value>
+  </data>
+  <data name="ComparingPluginAssemblyWithLocalAssemblyFormat1" xml:space="preserve">
+    <value>Comparing PluginAssembly with local Assembly for {0}...</value>
+  </data>
+  <data name="ConnectedSuccessfullyFormat1" xml:space="preserve">
+    <value>Connected successfully to {0}.</value>
+  </data>
+  <data name="ConnectionFailedFormat1" xml:space="preserve">
+    <value>Connection to {0} failed. See Error in Output.</value>
+  </data>
+  <data name="ConnectionIsNotSelected" xml:space="preserve">
+    <value>Connection is not selected.</value>
+  </data>
+  <data name="CopingSolutionComponentsToFromCompletedFormat2" xml:space="preserve">
+    <value>Coping solution components to {0} from {1} completed.</value>
+  </data>
+  <data name="CopingSolutionComponentsToFromFailedFormat2" xml:space="preserve">
+    <value>Coping solution components to {0} from {1} failed.</value>
+  </data>
+  <data name="CopingSolutionComponentsToFromFormat2" xml:space="preserve">
+    <value>Coping solution components to {0} from {1}...</value>
+  </data>
+  <data name="CopingXmlFieldToClipboardCompletedFormat1" xml:space="preserve">
+    <value>Coping Xml {0} to Clipboard completed.</value>
+  </data>
+  <data name="CopingXmlFieldToClipboardFailedFormat1" xml:space="preserve">
+    <value>Coping Xml {0} to Clipboard failed.</value>
+  </data>
+  <data name="CopingXmlFieldToClipboardFormat1" xml:space="preserve">
+    <value>Coping Xml {0} to Clipboard...</value>
+  </data>
+  <data name="CreatingDescription" xml:space="preserve">
+    <value>Creating description...</value>
+  </data>
+  <data name="CreatingDescriptionCompleted" xml:space="preserve">
+    <value>Creating description completed.</value>
+  </data>
+  <data name="CreatingEntityDescription" xml:space="preserve">
+    <value>Creating Entity Description...</value>
+  </data>
+  <data name="CreatingEntityDescriptionCompleted" xml:space="preserve">
+    <value>Creating Entity Description completed.</value>
+  </data>
+  <data name="CreatingEntityDescriptionFailed" xml:space="preserve">
+    <value>Creating Entity Description failed.</value>
+  </data>
+  <data name="CreatingEntityJavaScriptFileOnFormCompletedFormat2" xml:space="preserve">
+    <value>Creating entity {0} javascript file based on form {1} completed.</value>
+  </data>
+  <data name="CreatingEntityJavaScriptFileOnFormFormat2" xml:space="preserve">
+    <value>Creating entity {0} javascript file based on form {1}...</value>
+  </data>
+  <data name="CreatingFileForEntityCompletedFormat1" xml:space="preserve">
+    <value>Creating File for Entity {0} completed.</value>
+  </data>
+  <data name="CreatingFileForEntityFailedFormat1" xml:space="preserve">
+    <value>Creating File for Entity {0} failed.</value>
+  </data>
+  <data name="CreatingFileForEntityFormat1" xml:space="preserve">
+    <value>Creating File for Entity {0}...</value>
+  </data>
+
+  <data name="CreatingFileForSdkMessageRequestCompletedFormat1" xml:space="preserve">
+    <value>Creating File for SdkMessageRequest {0} completed.</value>
+  </data>
+  <data name="CreatingFileForSdkMessageRequestFailedFormat1" xml:space="preserve">
+    <value>Creating File for SdkMessageRequest {0} failed.</value>
+  </data>
+  <data name="CreatingFileForSdkMessageRequestFormat1" xml:space="preserve">
+    <value>Creating File for SdkMessageRequest {0}...</value>
+  </data>
+
+  <data name="CreatingFileForOptionSetsCompletedFormat1" xml:space="preserve">
+    <value>Creating File for OptionSets completed: {0}.</value>
+  </data>
+  <data name="CreatingFileForOptionSetsFailedFormat1" xml:space="preserve">
+    <value>Creating File for OptionSets failed: {0}.</value>
+  </data>
+  <data name="CreatingFileForOptionSetsForConnectionsCompletedFormat3" xml:space="preserve">
+    <value>Creating File for OptionSets in {0} and {1}: {2} completed.</value>
+  </data>
+  <data name="CreatingFileForOptionSetsForConnectionsFailedFormat3" xml:space="preserve">
+    <value>Creating File for OptionSets in {0} and {1}: {2} failed.</value>
+  </data>
+  <data name="CreatingFileForOptionSetsForConnectionsFormat3" xml:space="preserve">
+    <value>Creating File for OptionSets in {0} and {1}: {2}...</value>
+  </data>
+  <data name="CreatingFileForOptionSetsFormat1" xml:space="preserve">
+    <value>Creating File for OptionSets: {0}...</value>
+  </data>
+  <data name="CreatingFileWithSolutionImageCompletedFormat1" xml:space="preserve">
+    <value>Creating file with Solution Image for {0} completed.</value>
+  </data>
+  <data name="CreatingFileWithSolutionImageFailedFormat1" xml:space="preserve">
+    <value>Creating file with Solution Image for {0} failed.</value>
+  </data>
+  <data name="CreatingFileWithSolutionImageFormat1" xml:space="preserve">
+    <value>Creating file with Solution Image for {0}...</value>
+  </data>
+  <data name="CreatingFileWithUsedEntitiesInWorkflowsCompletedFormat1" xml:space="preserve">
+    <value>Creating file with Used Entities in Workflows for {0} completed.</value>
+  </data>
+  <data name="CreatingFileWithUsedEntitiesInWorkflowsFailedFormat1" xml:space="preserve">
+    <value>Creating file with Used Entities in Workflows for {0} failed.</value>
+  </data>
+  <data name="CreatingFileWithUsedEntitiesInWorkflowsFormat1" xml:space="preserve">
+    <value>Creating file with Used Entities in Workflows for {0}...</value>
+  </data>
+  <data name="CreatingFileWithUsedNotExistsEntitiesInWorkflowsCompletedFormat1" xml:space="preserve">
+    <value>Creating file with Used Not Exists Entities in Workflows for {0} completed.</value>
+  </data>
+  <data name="CreatingFileWithUsedNotExistsEntitiesInWorkflowsFailedFormat1" xml:space="preserve">
+    <value>Creating file with Used Not Exists Entities in Workflows for {0} failed.</value>
+  </data>
+  <data name="CreatingFileWithUsedNotExistsEntitiesInWorkflowsFormat1" xml:space="preserve">
+    <value>Creating file with Used Not Exists Entities in Workflows for {0}...</value>
+  </data>
+  <data name="CreatingNewSolutionFormat1" xml:space="preserve">
+    <value>Creating new Solution {0}...</value>
+  </data>
+  <data name="CreatingNewWebResourceCanceled" xml:space="preserve">
+    <value>Creating new WebResource canceled.</value>
+  </data>
+  <data name="CreatingNewWebResourceCompletedFormat1" xml:space="preserve">
+    <value>Creating new WebResource {0} completed.</value>
+  </data>
+  <data name="CreatingNewWebResourceDeniedFormat1" xml:space="preserve">
+    <value>Creating new WebResource with extension {0} denied.</value>
+  </data>
+  <data name="CreatingNewWebResourceFailed" xml:space="preserve">
+    <value>Creating new WebResource failed.</value>
+  </data>
+  <data name="CreatingNewWebResourceFormat1" xml:space="preserve">
+    <value>Creating new WebResource {0}...</value>
+  </data>
+  <data name="CreatingPluginAssebmltyDescriptionCompletedFormat1" xml:space="preserve">
+    <value>Creating PluginAssembly Description for {0} completed.</value>
+  </data>
+  <data name="CreatingPluginAssebmltyDescriptionFormat1" xml:space="preserve">
+    <value>Creating PluginAssembly Description for {0}...</value>
+  </data>
+  <data name="CreatingPluginTypeDescriptionCompletedFormat1" xml:space="preserve">
+    <value>Creating PluginType Description for {0} completed.</value>
+  </data>
+  <data name="CreatingPluginTypeDescriptionFormat1" xml:space="preserve">
+    <value>Creating PluginType Description for {0}...</value>
+  </data>
+  <data name="CreatingSolutionImageFromZipFileCompleted" xml:space="preserve">
+    <value>Creating Solution Image from zip-file completed.</value>
+  </data>
+  <data name="CreatingSolutionImageFromZipFileFailed" xml:space="preserve">
+    <value>Creating Solution Image from zip-file failed.</value>
+  </data>
+  <data name="CreatingSolutionImageFromZipFile" xml:space="preserve">
+    <value>Creating Solution Image from zip-file...</value>
+  </data>
+  <data name="CreatingSystemFormDescriptionCompletedFormat2" xml:space="preserve">
+    <value>Creating SystemForm Description for {0} - {1} completed.</value>
+  </data>
+  <data name="CreatingSystemFormDescriptionFailedFormat2" xml:space="preserve">
+    <value>Creating SystemForm Description for {0} - {1} failed.</value>
+  </data>
+  <data name="CreatingSystemFormDescriptionFormat2" xml:space="preserve">
+    <value>Creating SystemForm Description for {0} - {1}...</value>
+  </data>
+  <data name="CreatingTextFileWithComponentsCompletedFormat1" xml:space="preserve">
+    <value>Creating text file with Components for {0} completed.</value>
+  </data>
+  <data name="CreatingTextFileWithComponentsFailedFormat1" xml:space="preserve">
+    <value>Creating text file with Components for {0} failed.</value>
+  </data>
+  <data name="CreatingTextFileWithComponentsFormat1" xml:space="preserve">
+    <value>Creating text file with Components for {0}...</value>
+  </data>
+  <data name="CreatingTextFileWithDependenciesForUninstallCompletedFormat1" xml:space="preserve">
+    <value>Creating text file with Dependencies for Uninstall for {0} completed.</value>
+  </data>
+  <data name="CreatingTextFileWithDependenciesForUninstallFailedFormat1" xml:space="preserve">
+    <value>Creating text file with Dependencies for Uninstall for {0} failed.</value>
+  </data>
+  <data name="CreatingTextFileWithDependenciesForUninstallFormat1" xml:space="preserve">
+    <value>Creating text file with Dependencies for Uninstall for {0}...</value>
+  </data>
+  <data name="CreatingTextFileWithMissingDependenciesCompletedFormat1" xml:space="preserve">
+    <value>Creating text file with Missing Dependencies for {0} completed.</value>
+  </data>
+  <data name="CreatingTextFileWithMissingDependenciesFailedFormat1" xml:space="preserve">
+    <value>Creating text file with Missing Dependencies for {0} failed.</value>
+  </data>
+  <data name="CreatingTextFileWithMissingDependenciesFormat1" xml:space="preserve">
+    <value>Creating text file with Missing Dependencies for {0}...</value>
+  </data>
+  <data name="DeletingSolutionFormat1" xml:space="preserve">
+    <value>Deleting solution {0}...</value>
+  </data>
+  <data name="DownloadingSystemFormWebResourcesCompletedFormat2" xml:space="preserve">
+    <value>Downloading SystemForm's WebResources for {0} - {1} completed.</value>
+  </data>
+  <data name="DownloadingSystemFormWebResourcesFormat2" xml:space="preserve">
+    <value>Downloading SystemForm's WebResources for {0} - {1}...</value>
+  </data>
+  <data name="ExecutingFetch" xml:space="preserve">
+    <value>Executing Fetch...</value>
+  </data>
+  <data name="ExecutingValidateSavedQueryRequest" xml:space="preserve">
+    <value>Executing ValidateSavedQueryRequest...</value>
+  </data>
+  <data name="ExportingApplicationRibbon" xml:space="preserve">
+    <value>Exporting Application Ribbon...</value>
+  </data>
+  <data name="ExportingApplicationRibbonCompleted" xml:space="preserve">
+    <value>Exporting Application Ribbon completed.</value>
+  </data>
+  <data name="ExportingApplicationRibbonDiffXml" xml:space="preserve">
+    <value>Exporting Application RibbonDiffXml...</value>
+  </data>
+  <data name="ExportingApplicationRibbonDiffXmlCompleted" xml:space="preserve">
+    <value>Exporting Application RibbonDiffXml completed.</value>
+  </data>
+  <data name="ExportingApplicationRibbonDiffXmlFailed" xml:space="preserve">
+    <value>Exporting Application RibbonDiffXml failed.</value>
+  </data>
+  <data name="ExportingBodyBinaryForFieldCompletedFormat1" xml:space="preserve">
+    <value>Exporting BodyBinary {0} to File completed.</value>
+  </data>
+  <data name="ExportingBodyBinaryForFieldFailedFormat1" xml:space="preserve">
+    <value>Exporting BodyBinary {0} to File failed.</value>
+  </data>
+  <data name="ExportingBodyBinaryForFieldFormat1" xml:space="preserve">
+    <value>Exporting BodyBinary {0} to File...</value>
+  </data>
+  <data name="ExportingCorrectedXmlFieldToFileCompletedFormat1" xml:space="preserve">
+    <value>Exporting Corrected Xml {0} to File completed.</value>
+  </data>
+  <data name="ExportingCorrectedXmlFieldToFileFailedFormat1" xml:space="preserve">
+    <value>Exporting Corrected Xml {0} to File failed.</value>
+  </data>
+  <data name="ExportingCorrectedXmlFieldToFileFormat1" xml:space="preserve">
+    <value>Exporting Corrected Xml {0} to File...</value>
+  </data>
+  <data name="ExportingPluginAssemblyBodyBinaryCompletedFormat1" xml:space="preserve">
+    <value>Exporting PluginAssembly Body Binary for {0} completed.</value>
+  </data>
+  <data name="ExportingPluginAssemblyBodyBinaryFormat1" xml:space="preserve">
+    <value>Exporting PluginAssembly Body Binary for {0}...</value>
+  </data>
+  <data name="ExportingRibbonDiffXmlForEntityCompletedFormat1" xml:space="preserve">
+    <value>Exporting RibbonDiffXml for {0} completed.</value>
+  </data>
+  <data name="ExportingRibbonDiffXmlForEntityFailedFormat1" xml:space="preserve">
+    <value>Exporting RibbonDiffXml for {0} failed.</value>
+  </data>
+  <data name="ExportingRibbonDiffXmlForEntityFormat1" xml:space="preserve">
+    <value>Exporting RibbonDiffXml for {0}...</value>
+  </data>
+  <data name="ExportingRibbonForEntityCompletedFormat1" xml:space="preserve">
+    <value>Exporting Ribbon for {0} completed.</value>
+  </data>
+  <data name="ExportingRibbonForEntityFailedFormat1" xml:space="preserve">
+    <value>Exporting Ribbon for {0} failed.</value>
+  </data>
+  <data name="ExportingRibbonForEntityFormat1" xml:space="preserve">
+    <value>Exporting Ribbon for {0}...</value>
+  </data>
+  <data name="ExportingSolutionAndExtractingApplicationRibbonDiffXmlFormat1" xml:space="preserve">
+    <value>Exporting solution {0} and extracting Application RibbonDiffXml...</value>
+  </data>
+  <data name="ExportingSolutionAndExtractingRibbonDiffXmlForEntityFormat2" xml:space="preserve">
+    <value>Exporting solution {0} and extracting RibbonDiffXml for {1}...</value>
+  </data>
+  <data name="ExportingSolutionCompletedFormat1" xml:space="preserve">
+    <value>Exporting solution {0} completed.</value>
+  </data>
+  <data name="ExportingSolutionFailedFormat1" xml:space="preserve">
+    <value>Exporting solution {0} failed.</value>
+  </data>
+  <data name="ExportingSolutionFormat1" xml:space="preserve">
+    <value>Exporting solution {0}...</value>
+  </data>
+  <data name="ExportingWebResourceContentCompletedFormat1" xml:space="preserve">
+    <value>Exporting WebResource Content {0} completed.</value>
+  </data>
+  <data name="ExportingWebResourceContentFailedFormat1" xml:space="preserve">
+    <value>Exporting WebResource Content {0} failed.</value>
+  </data>
+  <data name="ExportingWebResourceContentFormat1" xml:space="preserve">
+    <value>Exporting WebResource Content {0}...</value>
+  </data>
+  <data name="ExportingXmlFieldToFileCompletedFormat1" xml:space="preserve">
+    <value>Exporting Xml {0} to File completed.</value>
+  </data>
+  <data name="ExportingXmlFieldToFileFailedFormat1" xml:space="preserve">
+    <value>Exporting Xml {0} to File failed.</value>
+  </data>
+  <data name="ExportingXmlFieldToFileFormat1" xml:space="preserve">
+    <value>Exporting Xml {0} to File...</value>
+  </data>
+  <data name="FetchExecutionError" xml:space="preserve">
+    <value>Fetch Execution Error.</value>
+  </data>
+  <data name="FetchQueryExecutedSuccessfullyFormat1" xml:space="preserve">
+    <value>Fetch Query executed successfully. Records count: {0}.</value>
+  </data>
+  <data name="FileNotExists" xml:space="preserve">
+    <value>File not exists.</value>
+  </data>
+  <data name="FileTextIsNotValidXml" xml:space="preserve">
+    <value>File text is not valid xml.</value>
+  </data>
+  <data name="FillNewParameters" xml:space="preserve">
+    <value>Please, Fill New Parameters.</value>
+  </data>
+  <data name="FilteringOrganizationDifferenceImageComponents" xml:space="preserve">
+    <value>Filtering OrganizationDifferenceImage Components...</value>
+  </data>
+  <data name="FilteringOrganizationDifferenceImageComponentsCompletedFormat1" xml:space="preserve">
+    <value>{0} OrganizationDifferenceImage Components loaded.</value>
+  </data>
+
+  <data name="FilteringSolutionDifferenceImageComponents" xml:space="preserve">
+    <value>Filtering SolutionDifferenceImage Components...</value>
+  </data>
+  <data name="FilteringSolutionDifferenceImageComponentsCompletedFormat1" xml:space="preserve">
+    <value>{0} SolutionDifferenceImage Components loaded.</value>
+  </data>
+
+  <data name="FilteringSolutionImageComponents" xml:space="preserve">
+    <value>Filtering SolutionImage Components...</value>
+  </data>
+  <data name="FilteringSolutionImageComponentsCompletedFormat1" xml:space="preserve">
+    <value>{0} SolutionImage Components loaded.</value>
+  </data>
+  <data name="FilteringTraceFiles" xml:space="preserve">
+    <value>Filtering trace records...</value>
+  </data>
+  <data name="FilteringTraceFilesCompletedFormat1" xml:space="preserve">
+    <value>{0} trace records filtered.</value>
+  </data>
+  <data name="ImportingSolutionFormat1" xml:space="preserve">
+    <value>Importing solution {0}...</value>
+  </data>
+  <data name="LoadedComponentsFromSolutionImageFormat1" xml:space="preserve">
+    <value>Loaded {0} components from SolutionImage.</value>
+  </data>
+  <data name="LoadedComponentsFromZipFileFormat1" xml:space="preserve">
+    <value>Loaded {0} components from Zip-file.</value>
+  </data>
+  <data name="LoadingAttributesCompletedFormat1" xml:space="preserve">
+    <value>{0} attributes loaded.</value>
+  </data>
+  <data name="LoadingAttributes" xml:space="preserve">
+    <value>Loading attributes...</value>
+  </data>
+  <data name="LoadingManyToManyRelationships" xml:space="preserve">
+    <value>Loading many-to-many relationships...</value>
+  </data>
+  <data name="LoadingManyToManyRelationshipsCompletedFormat1" xml:space="preserve">
+    <value>{0} many-to-many relationships loaded.</value>
+  </data>
+  <data name="LoadingOneToManyRelationships" xml:space="preserve">
+    <value>Loading one-to-many relationships...</value>
+  </data>
+  <data name="LoadingOneToManyRelationshipsCompletedFormat1" xml:space="preserve">
+    <value>{0} one-to-many relationships loaded.</value>
+  </data>
+  <data name="LoadingCharts" xml:space="preserve">
+    <value>Loading charts...</value>
+  </data>
+  <data name="LoadingChartsCompletedFormat1" xml:space="preserve">
+    <value>{0} charts loaded.</value>
+  </data>
+  <data name="LoadingComponentsFromSolutionImage" xml:space="preserve">
+    <value>Loading components from Solution Image...</value>
+  </data>
+  <data name="LoadingComponentsFromSolutionImageCompleted" xml:space="preserve">
+    <value>Loading components from Solution Image completed.</value>
+  </data>
+  <data name="LoadingComponentsFromSolutionImageFailed" xml:space="preserve">
+    <value>Loading components from Solution Image failed.</value>
+  </data>
+  <data name="LoadingComponentsFromZipFile" xml:space="preserve">
+    <value>Loading Components from zip-file...</value>
+  </data>
+  <data name="LoadingComponentsFromZipFileCompleted" xml:space="preserve">
+    <value>Loading Components from zip-file completed.</value>
+  </data>
+  <data name="LoadingComponentsFromZipFileFailed" xml:space="preserve">
+    <value>Loading Components from zip-file failed.</value>
+  </data>
+  <data name="LoadingDependenciesForDelete" xml:space="preserve">
+    <value>Loading Dependencies For Delete...</value>
+  </data>
+  <data name="LoadingDependenciesForDeleteCompletedFormat1" xml:space="preserve">
+    <value>{0} dependencies for delete loaded.</value>
+  </data>
+  <data name="LoadingDependentComponents" xml:space="preserve">
+    <value>Loading Dependent Components...</value>
+  </data>
+  <data name="LoadingDependentComponentsCompletedFormat1" xml:space="preserve">
+    <value>{0} dependent components loaded.</value>
+  </data>
+  <data name="LoadingEntitiesCompletedFormat1" xml:space="preserve">
+    <value>{0} entities loaded.</value>
+  </data>
+  <data name="LoadingEntities" xml:space="preserve">
+    <value>Loading entities...</value>
+  </data>
+  <data name="LoadingEntityKeys" xml:space="preserve">
+    <value>Loading entity keys...</value>
+  </data>
+  <data name="LoadingEntityKeysCompletedFormat1" xml:space="preserve">
+    <value>{0} entity keys loaded.</value>
+  </data>
+  <data name="LoadingForms" xml:space="preserve">
+    <value>Loading forms...</value>
+  </data>
+  <data name="LoadingFormsCompletedFormat1" xml:space="preserve">
+    <value>{0} forms loaded.</value>
+  </data>
+  <data name="LoadingMissingComponents" xml:space="preserve">
+    <value>Loading Missing Components...</value>
+  </data>
+  <data name="LoadingMissingComponentsCompletedFormat1" xml:space="preserve">
+    <value>{0} missing components loaded.</value>
+  </data>
+  <data name="LoadingOptionSets" xml:space="preserve">
+    <value>Loading OptionSets...</value>
+  </data>
+  <data name="LoadingOptionSetsCompletedFormat1" xml:space="preserve">
+    <value>{0} OptionSets loaded.</value>
+  </data>
+  <data name="LoadingOrganizationDifferenceImage" xml:space="preserve">
+    <value>Loading OrganizationDifference Image...</value>
+  </data>
+  <data name="LoadingOrganizationDifferenceImageCompleted" xml:space="preserve">
+    <value>Loading OrganizationDifference Image completed.</value>
+  </data>
+  <data name="LoadingOrganizationDifferenceImageFailed" xml:space="preserve">
+    <value>Loading OrganizationDifference Image failed.</value>
+  </data>
+
+  <data name="LoadingSolutionDifferenceImage" xml:space="preserve">
+    <value>Loading SolutionDifference Image...</value>
+  </data>
+  <data name="LoadingSolutionDifferenceImageCompleted" xml:space="preserve">
+    <value>Loading SolutionDifference Image completed.</value>
+  </data>
+  <data name="LoadingSolutionDifferenceImageFailed" xml:space="preserve">
+    <value>Loading SolutionDifference Image failed.</value>
+  </data>
+
+  <data name="LoadingOrganizations" xml:space="preserve">
+    <value>Loading organizations...</value>
+  </data>
+  <data name="LoadingOrganizationsCompletedFormat1" xml:space="preserve">
+    <value>{0} organizations loaded.</value>
+  </data>
+  <data name="LoadingPluginAssemblies" xml:space="preserve">
+    <value>Loading Plugin Assemblies...</value>
+  </data>
+  <data name="LoadingPluginAssembliesCompletedFormat1" xml:space="preserve">
+    <value>{0} Plugin Assemblies loaded.</value>
+  </data>
+  <data name="LoadingPluginConfiguration" xml:space="preserve">
+    <value>Loading PluginConfiguration...</value>
+  </data>
+  <data name="LoadingPluginConfigurationCompleted" xml:space="preserve">
+    <value>Loading PluginConfiguration completed.</value>
+  </data>
+  <data name="LoadingPlugins" xml:space="preserve">
+    <value>Loading Plugins...</value>
+  </data>
+  <data name="LoadingPluginsCompleted" xml:space="preserve">
+    <value>Loading Plugins completed.</value>
+  </data>
+  <data name="LoadingPluginTypes" xml:space="preserve">
+    <value>Loading Plugin Types...</value>
+  </data>
+  <data name="LoadingPluginTypesCompletedFormat1" xml:space="preserve">
+    <value>{0} Plugin Types loaded.</value>
+  </data>
+  <data name="LoadingReports" xml:space="preserve">
+    <value>Loading Reports...</value>
+  </data>
+  <data name="LoadingReportsCompletedFormat1" xml:space="preserve">
+    <value>{0} Reports loaded.</value>
+  </data>
+  <data name="LoadingRequiredComponents" xml:space="preserve">
+    <value>Loading Required Components...</value>
+  </data>
+  <data name="LoadingRequiredComponentsCompletedFormat1" xml:space="preserve">
+    <value>{0} required components loaded.</value>
+  </data>
+
+  <data name="LoadingComponents" xml:space="preserve">
+    <value>Loading Components...</value>
+  </data>
+  <data name="LoadingComponentsCompletedFormat1" xml:space="preserve">
+    <value>{0} components loaded.</value>
+  </data>
+
+  <data name="LoadingSavedQueries" xml:space="preserve">
+    <value>Loading saved queries...</value>
+  </data>
+  <data name="LoadingSavedQueriesCompletedFormat1" xml:space="preserve">
+    <value>{0} saved queries loaded.</value>
+  </data>
+  <data name="LoadingSdkMessage" xml:space="preserve">
+    <value>Loading Sdk Messages...</value>
+  </data>
+  <data name="LoadingSdkMessageCompleted" xml:space="preserve">
+    <value>Loading Sdk Messages completed.</value>
+  </data>
+  <data name="LoadingSdkMessageRequests" xml:space="preserve">
+    <value>Loading Sdk Message Requests...</value>
+  </data>
+  <data name="LoadingSdkMessageRequestsCompleted" xml:space="preserve">
+    <value>Loading Sdk Message Requests completed.</value>
+  </data>
+
+  <data name="BuildingSdkMessageRequestTree" xml:space="preserve">
+    <value>Building Sdk Message Request Tree...</value>
+  </data>
+  <data name="BuildingSdkMessageRequestTreeCompleted" xml:space="preserve">
+    <value>Building Sdk Message Request Tree completed.</value>
+  </data>
+
+  <data name="LoadingSiteMaps" xml:space="preserve">
+    <value>Loading SiteMaps...</value>
+  </data>
+  <data name="LoadingSiteMapsCompletedFormat1" xml:space="preserve">
+    <value>{0} sitemaps loaded.</value>
+  </data>
+  <data name="LoadingSolutionComponents" xml:space="preserve">
+    <value>Loading Solution Components...</value>
+  </data>
+  <data name="LoadingSolutionComponentsCompletedFormat1" xml:space="preserve">
+    <value>{0} solution components loaded.</value>
+  </data>
+  <data name="LoadingSolutionImage" xml:space="preserve">
+    <value>Loading Solution Image...</value>
+  </data>
+  <data name="LoadingSolutionImageCompleted" xml:space="preserve">
+    <value>Loading Solution Image completed.</value>
+  </data>
+  <data name="LoadingSolutionImageFailed" xml:space="preserve">
+    <value>Loading Solution Image failed.</value>
+  </data>
+  <data name="LoadingSolutions" xml:space="preserve">
+    <value>Loading solutions...</value>
+  </data>
+  <data name="LoadingSolutionsCompletedFormat1" xml:space="preserve">
+    <value>{0} solutions loaded.</value>
+  </data>
+  <data name="LoadingTraceFiles" xml:space="preserve">
+    <value>Loading trace files...</value>
+  </data>
+  <data name="LoadingTraceFilesCompletedFormat1" xml:space="preserve">
+    <value>{0} trace records loaded.</value>
+  </data>
+  <data name="LoadingUninstallComponents" xml:space="preserve">
+    <value>Loading Uninstall Components...</value>
+  </data>
+  <data name="LoadingUninstallComponentsCompletedFormat1" xml:space="preserve">
+    <value>{0} uninstall components loaded.</value>
+  </data>
+  <data name="LoadingWebResources" xml:space="preserve">
+    <value>Loading WebResources...</value>
+  </data>
+  <data name="LoadingWebResourcesCompletedFormat1" xml:space="preserve">
+    <value>{0} WebResources loaded.</value>
+  </data>
+  <data name="LoadingWorkflows" xml:space="preserve">
+    <value>Loading workflows...</value>
+  </data>
+  <data name="LoadingWorkflowsCompletedFormat1" xml:space="preserve">
+    <value>{0} workflows loaded.</value>
+  </data>
+  <data name="NoComponentsToAdd" xml:space="preserve">
+    <value>No components to add.</value>
+  </data>
+  <data name="PreparingCreatingNewWebResource" xml:space="preserve">
+    <value>Preparing for creating new WebResource...</value>
+  </data>
+  <data name="PublishingApplicationRibbonFormat1" xml:space="preserve">
+    <value>{0}. Publishing Application Ribbon...</value>
+  </data>
+  <data name="PublishingApplicationRibbonCompletedFormat1" xml:space="preserve">
+    <value>{0}. Publishing Application Ribbon completed.</value>
+  </data>
+  <data name="PublishingApplicationRibbonFailedFormat1" xml:space="preserve">
+    <value>{0}. Publishing Application Ribbon failed.</value>
+  </data>
+  <data name="PublishingEntitiesCompletedFormat2" xml:space="preserve">
+    <value>{0}. Published Entities: {1}.</value>
+  </data>
+  <data name="PublishingEntitiesFailedFormat2" xml:space="preserve">
+    <value>{0}. Publishing Entities: {1} failed.</value>
+  </data>
+  <data name="PublishingEntitiesFormat2" xml:space="preserve">
+    <value>{0}. Publishing Entities: {1}...</value>
+  </data>
+  <data name="PublishingOptionSetCompletedFormat2" xml:space="preserve">
+    <value>{0}. Publishing OptionSet {1} completed.</value>
+  </data>
+  <data name="PublishingOptionSetFailedFormat2" xml:space="preserve">
+    <value>{0}. Publishing OptionSet {1} failed.</value>
+  </data>
+  <data name="PublishingOptionSetFormat2" xml:space="preserve">
+    <value>{0}. Publishing OptionSet {1}...</value>
+  </data>
+  <data name="PublishingSiteMapCompletedFormat3" xml:space="preserve">
+    <value>{0}. Publishing SiteMap{1} {2} completed.</value>
+  </data>
+  <data name="PublishingSiteMapFailedFormat3" xml:space="preserve">
+    <value>{0}. Publishing SiteMap{1} {2} failed.</value>
+  </data>
+  <data name="PublishingSiteMapFormat3" xml:space="preserve">
+    <value>{0}. Publishing SiteMap{1} {2}...</value>
+  </data>
+  <data name="PublishingSystemFormCompletedFormat3" xml:space="preserve">
+    <value>{0}. Publishing SystemForm {1} - {2} completed.</value>
+  </data>
+  <data name="PublishingSystemFormFailedFormat3" xml:space="preserve">
+    <value>{0}. Publishing SystemForm {1} - {2} failed.</value>
+  </data>
+  <data name="PublishingSystemFormFormat3" xml:space="preserve">
+    <value>{0}. Publishing SystemForm {1} - {2}...</value>
+  </data>
+  <data name="PublishingWebResourceCompletedFormat2" xml:space="preserve">
+    <value>{0}. Publishing WebResource {1} completed.</value>
+  </data>
+  <data name="PublishingWebResourceFailedFormat2" xml:space="preserve">
+    <value>{0}. Publishing WebResource {1} failed.</value>
+  </data>
+  <data name="PublishingWebResourceFormat2" xml:space="preserve">
+    <value>{0}. Publishing WebResource {1}...</value>
+  </data>
+  <data name="RegisteringPluginStepsFormat1" xml:space="preserve">
+    <value>{0}. Registering Plugin Steps...</value>
+  </data>
+  <data name="RegisteringPluginStepsCompletedFormat1" xml:space="preserve">
+    <value>{0}. Registering Plugin Steps completed.</value>
+  </data>
+  <data name="RemovingSolutionComponentsFromSolutionCompletedFormat2" xml:space="preserve">
+    <value>{0}. Removing solution components from {1} completed.</value>
+  </data>
+  <data name="RemovingSolutionComponentsFromSolutionFailedFormat2" xml:space="preserve">
+    <value>{0}. Removing solution components from {1} failed.</value>
+  </data>
+  <data name="RemovingSolutionComponentsFromSolutionFormat2" xml:space="preserve">
+    <value>{0}. Removing solution components from {1}...</value>
+  </data>
+  <data name="SavingChangesFormat1" xml:space="preserve">
+    <value>{0}. Saving Changes...</value>
+  </data>
+  <data name="SavingChangesCompletedFormat1" xml:space="preserve">
+    <value>{0}. Changes saved.</value>
+  </data>
+  <data name="SavingChangesFailedFormat1" xml:space="preserve">
+    <value>{0}. Saving Changes failed.</value>
+  </data>
+  <data name="ShowingDifferenceApplicationRibbons" xml:space="preserve">
+    <value>Showing Difference for ApplicationRibbons...</value>
+  </data>
+  <data name="ShowingDifferenceApplicationRibbonsCompleted" xml:space="preserve">
+    <value>Showing Difference for ApplicationRibbons completed.</value>
+  </data>
+  <data name="ShowingDifferenceApplicationRibbonsDiffXml" xml:space="preserve">
+    <value>Showing Difference for Applications RibbonDiffXml...</value>
+  </data>
+  <data name="ShowingDifferenceApplicationRibbonsDiffXmlCompleted" xml:space="preserve">
+    <value>Showing Difference for Applications RibbonDiffXml completed.</value>
+  </data>
+  <data name="ShowingDifferenceApplicationRibbonsDiffXmlFailed" xml:space="preserve">
+    <value>Showing Difference for Applications RibbonDiffXml failed.</value>
+  </data>
+  <data name="ShowingDifferenceEntityDescription" xml:space="preserve">
+    <value>Showing Difference Entity Description...</value>
+  </data>
+  <data name="ShowingDifferenceEntityDescriptionCompleted" xml:space="preserve">
+    <value>Showing Difference Entity Description completed.</value>
+  </data>
+  <data name="ShowingDifferenceEntityDescriptionFailed" xml:space="preserve">
+    <value>Showing Difference Entity Description failed.</value>
+  </data>
+  <data name="ShowingDifferenceEntityDescriptions" xml:space="preserve">
+    <value>Showing Difference EntityDescriptions...</value>
+  </data>
+  <data name="ShowingDifferenceEntityDescriptionsCompleted" xml:space="preserve">
+    <value>Showing Difference EntityDescriptions completed.</value>
+  </data>
+  <data name="ShowingDifferenceEntityMetadataCSharpForEntityCompletedFormat1" xml:space="preserve">
+    <value>Showing Difference C# Files for {0} completed.</value>
+  </data>
+  <data name="ShowingDifferenceEntityMetadataCSharpForEntityFormat1" xml:space="preserve">
+    <value>Showing Difference C# Files for {0}...</value>
+  </data>
+  <data name="ShowingDifferenceEntityMetadataJavaScriptForEntityCompletedFormat1" xml:space="preserve">
+    <value>Showing Difference JavaScript Files for {0} completed.</value>
+  </data>
+  <data name="ShowingDifferenceEntityMetadataJavaScriptForEntityFormat1" xml:space="preserve">
+    <value>Showing Difference JavaScript Files for {0}...</value>
+  </data>
+  <data name="ShowingDifferenceForCorrectedFieldCompletedFormat1" xml:space="preserve">
+    <value>Showing Difference for Corrected Xml {0} completed.</value>
+  </data>
+  <data name="ShowingDifferenceForCorrectedFieldFailedFormat1" xml:space="preserve">
+    <value>Showing Difference for Corrected Xml {0} failed.</value>
+  </data>
+  <data name="ShowingDifferenceForCorrectedFieldFormat1" xml:space="preserve">
+    <value>Showing Difference for Corrected Xml {0}...</value>
+  </data>
+  <data name="ShowingDifferenceForFieldsCompletedFormat2" xml:space="preserve">
+    <value>Showing Difference for {0} and {1} completed.</value>
+  </data>
+  <data name="ShowingDifferenceForFieldsFormat2" xml:space="preserve">
+    <value>Showing Difference for {0} and {1}...</value>
+  </data>
+  <data name="ShowingDifferenceFormDescriptionCompletedFormat2" xml:space="preserve">
+    <value>Showing Difference Forms Descriptions for {0} - {1} completed.</value>
+  </data>
+  <data name="ShowingDifferenceFormDescriptionFormat2" xml:space="preserve">
+    <value>Showing Difference Forms Descriptions for {0} - {1}...</value>
+  </data>
+  <data name="ShowingDifferenceFormWebResourcesCompletedFormat2" xml:space="preserve">
+    <value>Showing Difference Forms WebResources for {0} - {1} completed.</value>
+  </data>
+  <data name="ShowingDifferenceFormWebResourcesFormat2" xml:space="preserve">
+    <value>Showing Difference Forms WebResources for {0} - {1}...</value>
+  </data>
+  <data name="ShowingDifferencePluginAssemblyDescriptionCompletedFormat1" xml:space="preserve">
+    <value>Showing Difference PluginAssembly Description for {0} completed.</value>
+  </data>
+  <data name="ShowingDifferencePluginAssemblyDescriptionFormat1" xml:space="preserve">
+    <value>Showing Difference PluginAssembly Description for {0}...</value>
+  </data>
+  <data name="ShowingDifferenceRibbonDiffXmlForEntityCompletedFormat1" xml:space="preserve">
+    <value>Showing Difference RibbonDiffXml for {0} completed.</value>
+  </data>
+  <data name="ShowingDifferenceRibbonDiffXmlForEntityFailedFormat1" xml:space="preserve">
+    <value>Showing Difference RibbonDiffXml for {0} failed.</value>
+  </data>
+  <data name="ShowingDifferenceRibbonDiffXmlForEntityFormat1" xml:space="preserve">
+    <value>Showing Difference RibbonDiffXml for {0}...</value>
+  </data>
+  <data name="ShowingDifferenceRibbonForEntityCompletedFormat1" xml:space="preserve">
+    <value>Showing Difference Ribbon for {0} completed.</value>
+  </data>
+  <data name="ShowingDifferenceRibbonForEntityFailedFormat1" xml:space="preserve">
+    <value>Showing Difference Ribbon for {0} failed.</value>
+  </data>
+  <data name="ShowingDifferenceRibbonForEntityFormat1" xml:space="preserve">
+    <value>Showing Difference Ribbon for {0}...</value>
+  </data>
+  <data name="ShowingDifferenceWebResourcesCompletedFormat1" xml:space="preserve">
+    <value>Showing Difference WebResources {0} completed.</value>
+  </data>
+  <data name="ShowingDifferenceWebResourcesFormat1" xml:space="preserve">
+    <value>Showing Difference WebResources {0}...</value>
+  </data>
+  <data name="ShowingDifferenceXmlForFieldCompletedFormat1" xml:space="preserve">
+    <value>Showing Difference Xml {0} completed.</value>
+  </data>
+  <data name="ShowingDifferenceXmlForFieldFailedFormat1" xml:space="preserve">
+    <value>Showing Difference Xml {0} failed.</value>
+  </data>
+  <data name="ShowingDifferenceXmlForFieldFormat1" xml:space="preserve">
+    <value>Showing Difference Xml {0}...</value>
+  </data>
+  <data name="SolutionForCreatingNewWebResouceNotSelected" xml:space="preserve">
+    <value>Solution for creating new WebResource not selected. Creating new WebResource denied.</value>
+  </data>
+  <data name="StartTestingConnectionFormat1" xml:space="preserve">
+    <value>Start Testing Connection {0}...</value>
+  </data>
+  <data name="TextIsNotValidXml" xml:space="preserve">
+    <value>Text is not valid xml.</value>
+  </data>
+  <data name="TransferingAuditFormat2" xml:space="preserve">
+    <value>Transferfing Audit from {0} to {1}...</value>
+  </data>
+  <data name="TransferingDataCompletedFormat2" xml:space="preserve">
+    <value>Transferfing Data from {0} to {1} completed.</value>
+  </data>
+  <data name="TransferingDataFailedFormat2" xml:space="preserve">
+    <value>Transferfing Data from {0} to {1} failed.</value>
+  </data>
+  <data name="TransferingDataFormat2" xml:space="preserve">
+    <value>Transferfing Data from {0} to {1}...</value>
+  </data>
+  <data name="UpdatingApplicationRibbonDiffXmlFormat1" xml:space="preserve">
+    <value>{0}. Updating Application RibbonDiffXml...</value>
+  </data>
+  <data name="UpdatingApplicationRibbonDiffXmlCanceledFormat1" xml:space="preserve">
+    <value>{0}. Updating Application RibbonDiffXml canceled.</value>
+  </data>
+  <data name="UpdatingApplicationRibbonDiffXmlCompletedFormat1" xml:space="preserve">
+    <value>{0}. Updating Application RibbonDiffXml completed.</value>
+  </data>
+  <data name="UpdatingApplicationRibbonDiffXmlFailedFormat1" xml:space="preserve">
+    <value>{0}. Updating Application RibbonDiffXml failed.</value>
+  </data>
+  <data name="UpdatingFieldCanceledFormat2" xml:space="preserve">
+    <value>{0}. Updating Field {1} canceled.</value>
+  </data>
+  <data name="UpdatingFieldCompletedFormat2" xml:space="preserve">
+    <value>{0}. Updating Field {1} completed.</value>
+  </data>
+  <data name="UpdatingFieldFailedFormat2" xml:space="preserve">
+    <value>{0}. Updating Field {1} failed.</value>
+  </data>
+  <data name="UpdatingFieldFormat2" xml:space="preserve">
+    <value>{0}. Updating Field {1}...</value>
+  </data>
+  <data name="UpdatingRibbonDiffXmlForEntityCanceledFormat2" xml:space="preserve">
+    <value>{0}. Updating RibbonDiffXml for {1} canceled.</value>
+  </data>
+  <data name="UpdatingRibbonDiffXmlForEntityCompletedFormat2" xml:space="preserve">
+    <value>{0}. Updating RibbonDiffXml for {1} completed.</value>
+  </data>
+  <data name="UpdatingRibbonDiffXmlForEntityFailedFormat2" xml:space="preserve">
+    <value>{0}. Updating RibbonDiffXml for {1} failed.</value>
+  </data>
+  <data name="UpdatingRibbonDiffXmlForEntityFormat2" xml:space="preserve">
+    <value>{0}. Updating RibbonDiffXml for {1}...</value>
+  </data>
+  <data name="ValidatingApplicationRibbonDiffXml" xml:space="preserve">
+    <value>Validating Application RibbonDiffXml...</value>
+  </data>
+  <data name="ValidatingApplicationRibbonDiffXmlFailed" xml:space="preserve">
+    <value>Validating Application RibbonDiffXml failed.</value>
+  </data>
+  <data name="ValidatingRibbonDiffXmlForEntityFailedFormat1" xml:space="preserve">
+    <value>Validating RibbonDiffXml for {0} failed.</value>
+  </data>
+  <data name="ValidatingRibbonDiffXmlForEntityFormat1" xml:space="preserve">
+    <value>Validating RibbonDiffXml for {0}...</value>
+  </data>
+  <data name="ValidatingXmlForFieldFailedFormat1" xml:space="preserve">
+    <value>Validating Xml for Field {0} failed.</value>
+  </data>
+  <data name="ValidatingXmlForFieldFormat1" xml:space="preserve">
+    <value>Validating Xml for Field {0}...</value>
+  </data>
+  <data name="NotFoundedDefaultPublisher" xml:space="preserve">
+    <value>NOT FOUNDED Default Publisher.</value>
+  </data>
+  <data name="NotFoundedApplicationRibbonRibbonCustomization" xml:space="preserve">
+    <value>NOT FOUNDED ApplicationRibbon RibbonCustomization entity.</value>
+  </data>
+  <data name="ValidatingRibbonDiffXml" xml:space="preserve">
+    <value>Validating RibbonDiffXml...</value>
+  </data>
+  <data name="ValidatingRibbonDiffXmlFailed" xml:space="preserve">
+    <value>Validating RibbonDiffXml failed.</value>
+  </data>
+  <data name="DeletingSolutionFailedFormat1" xml:space="preserve">
+    <value>Deleting solution {0} failed.</value>
+  </data>
+  <data name="LoadingEntityPrivileges" xml:space="preserve">
+    <value>Loading entity security roles...</value>
+  </data>
+  <data name="LoadingEntityPrivilegesCompletedFormat1" xml:space="preserve">
+    <value>{0} security roles loaded.</value>
+  </data>
+  <data name="LoadingSystemUsers" xml:space="preserve">
+    <value>Loading system users...</value>
+  </data>
+  <data name="LoadingSystemUsersCompletedFormat1" xml:space="preserve">
+    <value>{0} system users loaded.</value>
+  </data>
+  <data name="LoadingSystemUserSecurityRoles" xml:space="preserve">
+    <value>Loading user security roles...</value>
+  </data>
+  <data name="LoadingSystemUserSecurityRolesCompleted" xml:space="preserve">
+    <value>User security roles loaded.</value>
+  </data>
+  <data name="LoadingSystemUserTeams" xml:space="preserve">
+    <value>Loading user teams...</value>
+  </data>
+  <data name="LoadingSystemUserTeamsCompletedFormat1" xml:space="preserve">
+    <value>{0} user teams loaded.</value>
+  </data>
+  <data name="LoadingTeams" xml:space="preserve">
+    <value>Loading teams...</value>
+  </data>
+  <data name="LoadingTeamsCompletedFormat1" xml:space="preserve">
+    <value>{0} teams loaded.</value>
+  </data>
+  <data name="LoadingTeamSecurityRoles" xml:space="preserve">
+    <value>Loading team security roles...</value>
+  </data>
+  <data name="LoadingTeamSecurityRolesCompletedFormat1" xml:space="preserve">
+    <value>{0} user security roles loaded.</value>
+  </data>
+  <data name="LoadingTeamSystemUsers" xml:space="preserve">
+    <value>Loading team members...</value>
+  </data>
+  <data name="LoadingTeamSystemUsersCompletedFormat1" xml:space="preserve">
+    <value>{0} team members loaded.</value>
+  </data>
+  <data name="LoadingRoleSystemUsers" xml:space="preserve">
+    <value>Loading security role users...</value>
+  </data>
+  <data name="LoadingRoleSystemUsersCompletedFormat1" xml:space="preserve">
+    <value>{0} security role users loaded.</value>
+  </data>
+  <data name="LoadingSecurityRoles" xml:space="preserve">
+    <value>Loading security roles...</value>
+  </data>
+  <data name="LoadingSecurityRolesCompletedFormat1" xml:space="preserve">
+    <value>{0} security roles loaded.</value>
+  </data>
+  <data name="LoadingRoleTeams" xml:space="preserve">
+    <value>Loading security role teams...</value>
+  </data>
+  <data name="LoadingRoleTeamsCompletedFormat1" xml:space="preserve">
+    <value>{0} security role teams loaded.</value>
+  </data>
+  <data name="RemovingRolesFromUsersCompletedFormat3" xml:space="preserve">
+    <value>{0}. Removing roles {1} from users {2} completed.</value>
+  </data>
+  <data name="RemovingRolesFromUsersFormat3" xml:space="preserve">
+    <value>{0}. Removing roles {1} from users {2}...</value>
+  </data>
+  <data name="RemovingRolesFromTeamsCompletedFormat3" xml:space="preserve">
+    <value>{0}. Removing roles {1} from team {2} completed.</value>
+  </data>
+  <data name="RemovingRolesFromTeamsFormat3" xml:space="preserve">
+    <value>{0}. Removing roles {1} from teams {2}...</value>
+  </data>
+  <data name="RemovingUsersFromTeamsCompletedFormat3" xml:space="preserve">
+    <value>{0}. Removing users {1} from teams {2} completed.</value>
+  </data>
+  <data name="RemovingUsersFromTeamsFormat3" xml:space="preserve">
+    <value>{0}. Removing users {1} from teams {2}...</value>
+  </data>
+  <data name="AddingUsersToTeamsCompletedFormat3" xml:space="preserve">
+    <value>{0}. Adding users {1} to teams {2} completed.</value>
+  </data>
+  <data name="AddingUsersToTeamsFormat3" xml:space="preserve">
+    <value>{0}. Adding users {1} to teams {2}...</value>
+  </data>
+  <data name="AssigningRolesToTeamsCompletedFormat3" xml:space="preserve">
+    <value>{0}. Assigning roles {1} to teams {2} completed.</value>
+  </data>
+  <data name="AssigningRolesToTeamsFormat3" xml:space="preserve">
+    <value>{0}. Assigning roles {1} to teams {2}...</value>
+  </data>
+  <data name="AssigningRolesToUsersCompletedFormat3" xml:space="preserve">
+    <value>{0}. Assigning roles {1} to users {2} completed.</value>
+  </data>
+  <data name="AssigningRolesToUsersFormat3" xml:space="preserve">
+    <value>{0}. Assigning roles {1} to users {2}...</value>
+  </data>
+  <data name="SavingChangesInRolesCompletedFormat1" xml:space="preserve">
+    <value>{0}. Saving Changes in Roles completed.</value>
+  </data>
+  <data name="SavingChangesInRolesFormat1" xml:space="preserve">
+    <value>{0}. Saving Changes in Roles...</value>
+  </data>
+  <data name="CheckingWorkflowsStatesFormat2" xml:space="preserve">
+    <value>Checking Workflows states in {0} and {1}...</value>
+  </data>
+  <data name="TransferingWorkflowsStatesFormat2" xml:space="preserve">
+    <value>Transferfing Workflows States from {0} to {1}...</value>
+  </data>
+  <data name="CheckingPluginStepsStatesFormat2" xml:space="preserve">
+    <value>Checking Plugin Steps States in {0} and {1}...</value>
+  </data>
+  <data name="TransferingPluginStepsStatesFormat2" xml:space="preserve">
+    <value>Transferfing Plugin Steps States from {0} to {1}...</value>
+  </data>
+  <data name="CheckingEntitiesByAuditFormat2" xml:space="preserve">
+    <value>Checking Entities by Audit in {0} and {1}...</value>
+  </data>
+  <data name="RemovingSolutionComponentsFromOwnedByCompletedFormat2" xml:space="preserve">
+    <value>Removing solution components from {0} owned by {1} completed</value>
+  </data>
+  <data name="RemovingSolutionComponentsFromOwnedByFailedFormat2" xml:space="preserve">
+    <value>Removing solution components from {0} owned by {1} failed.</value>
+  </data>
+  <data name="RemovingSolutionComponentsFromOwnedByFormat2" xml:space="preserve">
+    <value>Removing solution components from {0} owned by {1}...</value>
+  </data>
+  <data name="DiscoveryServiceConfigurationCouldNotBeReceived" xml:space="preserve">
+    <value>DiscoveryService Configuration could not be received.</value>
+  </data>
+  <data name="DiscoveryServiceCouldNotBeReceived" xml:space="preserve">
+    <value>DiscoveryService could not be received.</value>
+  </data>
+  <data name="DeletingSdkMessageProcessingStepSecureConfigCompletedFormat1" xml:space="preserve">
+    <value>{0}. Deleting Plugin Step SecureConfiguration completed.</value>
+  </data>
+  <data name="DeletingSdkMessageProcessingStepSecureConfigFailedFormat1" xml:space="preserve">
+    <value>{0}. Deleting Plugin Step SecureConfiguration failed.</value>
+  </data>
+  <data name="DeletingSdkMessageProcessingStepSecureConfigFormat1" xml:space="preserve">
+    <value>{0}. Deleting Plugin Step SecureConfiguration...</value>
+  </data>
+  <data name="UpdatingSdkMessageProcessingStepCompletedFormat1" xml:space="preserve">
+    <value>{0}. Updating Plugin Step completed.</value>
+  </data>
+  <data name="UpdatingSdkMessageProcessingStepFailedFormat1" xml:space="preserve">
+    <value>{0}. Updating Plugin Step failed.</value>
+  </data>
+  <data name="UpdatingSdkMessageProcessingStepFormat1" xml:space="preserve">
+    <value>{0}. Updating Plugin Step...</value>
+  </data>
+  <data name="UpdatingSdkMessageProcessingStepSecureConfigCompletedFormat1" xml:space="preserve">
+    <value>{0}. Updating Plugin Step SecureConfiguration completed.</value>
+  </data>
+  <data name="UpdatingSdkMessageProcessingStepSecureConfigFailedFormat1" xml:space="preserve">
+    <value>{0}. Updating Plugin Step SecureConfiguration failed.</value>
+  </data>
+  <data name="UpdatingSdkMessageProcessingStepSecureConfigFormat1" xml:space="preserve">
+    <value>{0}. Updating Plugin Step SecureConfiguration...</value>
+  </data>
+  <data name="UpdatingSdkMessageProcessingStepImageCompletedFormat1" xml:space="preserve">
+    <value>{0}. Updating Plugin Step Image completed.</value>
+  </data>
+  <data name="UpdatingSdkMessageProcessingStepImageFailedFormat1" xml:space="preserve">
+    <value>{0}. Updating Plugin Step Image failed.</value>
+  </data>
+  <data name="UpdatingSdkMessageProcessingStepImageFormat1" xml:space="preserve">
+    <value>{0}. Updating Plugin Step Image...</value>
+  </data>
+  <data name="GettingMessages" xml:space="preserve">
+    <value>Getting messages...</value>
+  </data>
+  <data name="GettingMessagesCompleted" xml:space="preserve">
+    <value>Getting messages completed.</value>
+  </data>
+  <data name="UpdatingPluginAssemblyCompletedFormat1" xml:space="preserve">
+    <value>{0}. Updating Plugin Assembly completed.</value>
+  </data>
+  <data name="UpdatingPluginAssemblyFailedFormat1" xml:space="preserve">
+    <value>{0}. Updating Plugin Assembly failed.</value>
+  </data>
+  <data name="UpdatingPluginAssemblyFormat1" xml:space="preserve">
+    <value>{0}. Updating Plugin Assembly...</value>
+  </data>
+  <data name="RegisteringPluginTypeFailedFormat2" xml:space="preserve">
+    <value>{0}. Registering PluginType {1} failed.</value>
+  </data>
+  <data name="RegisteringPluginTypeFormat2" xml:space="preserve">
+    <value>{0}. Registering PluginType {1}...</value>
+  </data>
+  <data name="RegisteringNewPluginTypesCompletedFormat2" xml:space="preserve">
+    <value>{0}. Registering {1} New PluginTypes completed.</value>
+  </data>
+  <data name="RegisteringNewPluginTypesFormat2" xml:space="preserve">
+    <value>{0}. Registering {1} New PluginTypes...</value>
+  </data>
+  <data name="LoadingAssemblyFromPathCompletedFormat1" xml:space="preserve">
+    <value>Loading Assembly completed from path {0}</value>
+  </data>
+  <data name="LoadingAssemblyFromPathFailedFormat1" xml:space="preserve">
+    <value>Loading Assembly failed from path {0}</value>
+  </data>
+  <data name="LoadingAssemblyFromPathFormat1" xml:space="preserve">
+    <value>Loading Assembly from path {0}</value>
+  </data>
+  <data name="CreatingRoleBackupCompletedFormat2" xml:space="preserve">
+    <value>{0}. Creating Role backup {1} completed.</value>
+  </data>
+  <data name="CreatingRoleBackupFormat2" xml:space="preserve">
+    <value>{0}. Creating Role backup {1}...</value>
+  </data>
+  <data name="GettingAllRequiredComponentsCompletedFormat1" xml:space="preserve">
+    <value>Getting all required components for solution {0} completed.</value>
+  </data>
+  <data name="GettingAllRequiredComponentsFormat1" xml:space="preserve">
+    <value>Getting all required components for solution {0}...</value>
+  </data>
+  <data name="AllRequiredComponentsExistsInTargetFormat1" xml:space="preserve">
+    <value>All required components exists in {0}.</value>
+  </data>
+  <data name="RemovingComponentsExistingInTargetCompletedFormat1" xml:space="preserve">
+    <value>Removing components existing in {0} completed.</value>
+  </data>
+  <data name="RemovingComponentsExistingInTargetFormat1" xml:space="preserve">
+    <value>Removing components existing in {0}...</value>
+  </data>
+  <data name="RegisteringPluginTypeCompletedFormat2" xml:space="preserve">
+    <value>{0}. Registering PluginType {1} completed.</value>
+  </data>
+  <data name="BuildingProjectCompletedFormat1" xml:space="preserve">
+    <value>Building Project {0} completed.</value>
+  </data>
+  <data name="BuildingProjectFailedFormat1" xml:space="preserve">
+    <value>Building Project {0} failed.</value>
+  </data>
+  <data name="BuildingProjectFormat1" xml:space="preserve">
+    <value>Building Project {0}...</value>
+  </data>
+  <data name="LoadingImportJobs" xml:space="preserve">
+    <value>Loading import jobs...</value>
+  </data>
+  <data name="LoadingImportJobsCompletedFormat1" xml:space="preserve">
+    <value>{0} import jobs loaded.</value>
+  </data>
+  <data name="AssigningEntitiesToTeamCompletedFormat4" xml:space="preserve">
+    <value>{0}. Assigning Entities {1} count {2} to Team {3} completed.</value>
+  </data>
+  <data name="AssigningEntitiesToTeamFormat4" xml:space="preserve">
+    <value>{0}. Assigning Entities {1} count {2} to Team {3}...</value>
+  </data>
+
+  <data name="SettingEntitiesStateCompletedFormat7" xml:space="preserve">
+    <value>{0}. Setting Entities {1} count {2} State {3} - {4} Status {5} - {6} completed.</value>
+  </data>
+  <data name="SettingEntitiesStateFormat7" xml:space="preserve">
+    <value>{0}. Setting Entities {1} count {2} State {3} - {4} Status {5} - {6}...</value>
+  </data>
+
+  <data name="AssigningEntitiesToUserCompletedFormat4" xml:space="preserve">
+    <value>{0}. Assigning Entities {1} count {2} to User {3} completed.</value>
+  </data>
+  <data name="AssigningEntitiesToUserFormat4" xml:space="preserve">
+    <value>{0}. Assigning Entities {1} count {2} to User {3}...</value>
+  </data>
+  <data name="ExecutingWorkflowCompletedFormat4" xml:space="preserve">
+    <value>Executing Workflow {0} on Entities {2} count {3} completed.</value>
+  </data>
+  <data name="ExecutingWorkflowFailedFormat4" xml:space="preserve">
+    <value>Executing Workflow {0} on Entities {2} count {3} failed.</value>
+  </data>
+  <data name="ExecutingWorkflowFormat4" xml:space="preserve">
+    <value>{0}. Executing Workflow {1} on Entities {2} count {3}...</value>
+  </data>
+
+  <data name="DeletingEntityCompletedFormat2" xml:space="preserve">
+    <value>{0}. Deleting Entity {1} completed.</value>
+  </data>
+  <data name="DeletingEntityFailedFormat2" xml:space="preserve">
+    <value>{0}. Deleting Entity {1} failed.</value>
+  </data>
+  <data name="DeletingEntityFormat2" xml:space="preserve">
+    <value>{0}. Deleting Entity {1}...</value>
+  </data>
+
+  <data name="DeletingEntitiesSetCompletedFormat3" xml:space="preserve">
+    <value>{0}. Deleting Entities {1} count {2 completed.</value>
+  </data>
+  <data name="DeletingEntitiesSetFailedFormat3" xml:space="preserve">
+    <value>{0}. Deleting Entities {1} count {2 failed.</value>
+  </data>
+  <data name="DeletingEntitiesSetFormat3" xml:space="preserve">
+    <value>{0}. Deleting Entities {1} count {2}...</value>
+  </data>
+
+  <data name="NoPrivilegesToAdd" xml:space="preserve">
+    <value>No Privileges to add.</value>
+  </data>
+  <data name="ReplacingPrivilegesFromRoleToRoleCompletedFormat3" xml:space="preserve">
+    <value>{0}. Replacing Privileges from {1} to {2} completed.</value>
+  </data>
+  <data name="ReplacingPrivilegesFromRoleToRoleFormat3" xml:space="preserve">
+    <value>{0}. Replacing Privileges from {1} to {2}...</value>
+  </data>
+  <data name="AnalizingRolesFormat2" xml:space="preserve">
+    <value>Analizing Roles {0} and {1}...</value>
+  </data>
+  <data name="AddingNewPrivilegesFromRoleToRoleCompletedFormat3" xml:space="preserve">
+    <value>{0}. Add New Privileges from {1} to {2} completed.</value>
+  </data>
+  <data name="AddingNewPrivilegesFromRoleToRoleFormat3" xml:space="preserve">
+    <value>{0}. Add New Privileges from {1} to {2}...</value>
+  </data>
+  <data name="ClearingRolePrivilegesCompletedFormat2" xml:space="preserve">
+    <value>{0}. Clearing Role Privileges {1} completed.</value>
+  </data>
+  <data name="ClearingRolePrivilegesFormat2" xml:space="preserve">
+    <value>{0}. Clearing Role Privileges {1}...</value>
+  </data>
+  <data name="MergingPrivilegesToMaximumFromRoleToRoleCompletedFormat3" xml:space="preserve">
+    <value>{0}. Merging Privileges to Maximum from {1} to {2} completed.</value>
+  </data>
+  <data name="MergingPrivilegesToMaximumFromRoleToRoleFormat3" xml:space="preserve">
+    <value>{0}. Merging Privileges to Maximum from {1} to {2}...</value>
+  </data>
+  <data name="NoPrivilegesToChange" xml:space="preserve">
+    <value>No Privileges to change.</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>{0}. Clearing Role Privileges {1}...</value>
+  </data>
+
+  <data name="GettingEntityMetadataCompletedFormat1" xml:space="preserve">
+    <value>Getting EntityMetadata {0} completed.</value>
+  </data>
+  <data name="GettingEntityMetadataFormat1" xml:space="preserve">
+    <value>Getting EntityMetadata {0}...</value>
+  </data>
+
+  <data name="UpdatingImageAttributesCompletedFormat1" xml:space="preserve">
+    <value>Updating Image {0} Attributes completed.</value>
+  </data>
+  <data name="UpdatingImageAttributesFormat1" xml:space="preserve">
+    <value>Updating Image {0} Attributes...</value>
+  </data>
+
+  <data name="UpdatingStepFilteringAttributesCompletedFormat1" xml:space="preserve">
+    <value>Updating Step {0} Filtering Attributes completed.</value>
+  </data>
+  <data name="UpdatingStepFilteringAttributesFormat1" xml:space="preserve">
+    <value>Updating Step {0} Filtering Attributes...</value>
+  </data>
+
+  <data name="ComparingEntitiesPrivilegesCompletedFormat2" xml:space="preserve">
+    <value>Comparing RolePrivileges in {0} and {1} completed.</value>
+  </data>
+  <data name="ComparingEntitiesPrivilegesFormat2" xml:space="preserve">
+    <value>Comparing RolePrivileges in {0} and {1}...</value>
+  </data>
+
+  <data name="FilteringAttributesCompletedFormat1" xml:space="preserve">
+    <value>Filtering Attributes {0} completed.</value>
+  </data>
+  <data name="FilteringAttributesFormat1" xml:space="preserve">
+    <value>Filtering Attributes {0}...</value>
+  </data>
+
+  <data name="FilteringEntityInstanceAttributesCompletedFormat2" xml:space="preserve">
+    <value>Filtering Entity {0} Instance {1} Attributes completed.</value>
+  </data>
+  <data name="FilteringEntityInstanceAttributesFormat2" xml:space="preserve">
+    <value>Filtering Entity {0} Instance {1} Attributes...</value>
+  </data>
+
+  <data name="TryingToFindEntityByIdFoundedFormat2" xml:space="preserve">
+    <value>Founded EntityReference {0} - {1} by Id.</value>
+  </data>
+  <data name="TryingToFindEntityByIdNotFoundedFormat2" xml:space="preserve">
+    <value>NOT FOUNDED EntityReference {0} - {1} by Id.</value>
+  </data>
+  <data name="TryingToFindEntityByIdFormat2" xml:space="preserve">
+    <value>Trying to Find EntityReference {0} - {1} by Id...</value>
+  </data>
+
+  <data name="TryingToFindEntityByNameFoundedFormat4" xml:space="preserve">
+    <value>Founded EntityReference {0} - {1} by {2} attribute with value {3}.</value>
+  </data>
+  <data name="TryingToFindEntityByNameNotFoundedFormat4" xml:space="preserve">
+    <value>NOT FOUNDED EntityReference {0} - {1} by {2} attribute with value {3}.</value>
+  </data>
+  <data name="TryingToFindEntityByNameFormat4" xml:space="preserve">
+    <value>Trying to Find EntityReference {0} - {1} by {2} attribute with value {3}...</value>
+  </data>
+
+  <data name="FilteringStatusCodesCompletedFormat1" xml:space="preserve">
+    <value>Filtering {0} Status Codes completed.</value>
+  </data>
+  <data name="FilteringStatusCodesFormat1" xml:space="preserve">
+    <value>Filtering {0} Status Codes...</value>
+  </data>
+
+  <data name="GettingEntityCompletedFormat1" xml:space="preserve">
+    <value>Getting Entity {0} completed.</value>
+  </data>
+  <data name="GettingEntityFormat1" xml:space="preserve">
+    <value>Getting Entity {0}...</value>
+  </data>
+
+
+
+  <data name="SavingEntityCompletedFormat1" xml:space="preserve">
+    <value>Saving Entity {0} completed.</value>
+  </data>
+  <data name="SavingEntityFailedFormat1" xml:space="preserve">
+    <value>Saving Entity {0} failed.</value>
+  </data>
+  <data name="SavingEntityFormat1" xml:space="preserve">
+    <value>Saving Entity {0}...</value>
+  </data>
+
+  <data name="SavingEntitiesCompletedFormat1" xml:space="preserve">
+    <value>Saving Entities {0} completed.</value>
+  </data>
+  <data name="SavingEntitiesFormat1" xml:space="preserve">
+    <value>Saving Entities {0}...</value>
+  </data>
+
+  <data name="SavingEntityInstanceFailedFormat2" xml:space="preserve">
+    <value>Saving Entity Instance {0} - {1} failed.</value>
+  </data>
+  <data name="SavingEntityInstanceFormat2" xml:space="preserve">
+    <value>Saving Entity Instance {0} - {1}...</value>
+  </data>
+
+  <data name="DiscoveringOrganizations" xml:space="preserve">
+    <value>Discovering Organizations...</value>
+  </data>
+  <data name="DiscoveringOrganizationsCompleted" xml:space="preserve">
+    <value>Discovering Organizations completed.</value>
+  </data>
+  <data name="DiscoveringOrganizationsFailed" xml:space="preserve">
+    <value>Discovering Organizations failed.</value>
+  </data>
+
+  <data name="ChangingEntityStateFormat1" xml:space="preserve">
+    <value>Changing {0} State...</value>
+  </data>
+  <data name="ChangingEntityStateFailedFormat1" xml:space="preserve">
+    <value>Changing {0} State failed.</value>
+  </data>
+  <data name="ChangingEntityStateCompletedFormat1" xml:space="preserve">
+    <value>Changing {0} State completed.</value>
+  </data>
+
+
+
+  <data name="CopyingEntityJavaScriptContentOnFormCompletedFormat2" xml:space="preserve">
+    <value>Copying entity {0} javascript content based on form {1} completed.</value>
+  </data>
+  <data name="CopyingEntityJavaScriptContentOnFormFormat2" xml:space="preserve">
+    <value>Copying entity {0} javascript content based on form {1}...</value>
+  </data>
 </root>

@@ -270,7 +270,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _service.ConnectionData.AddAssemblyMapping(_assemblyLoad.Name, _assemblyLoad.FilePath);
             _service.ConnectionData.Save();
 
-            ToggleControls(false, Properties.WindowStatusStrings.UpdatingPluginAssemblyFormat1, _service.ConnectionData.Name);
+            ToggleControls(false, Properties.OutputStrings.UpdatingPluginAssemblyFormat1, _service.ConnectionData.Name);
 
             try
             {
@@ -280,7 +280,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     var assemblyRef = this.PluginAssembly.ToEntityReference();
 
-                    ToggleControls(false, Properties.WindowStatusStrings.RegisteringNewPluginTypesFormat2, _service.ConnectionData.Name, listToRegister.Count);
+                    ToggleControls(false, Properties.OutputStrings.RegisteringNewPluginTypesFormat2, _service.ConnectionData.Name, listToRegister.Count);
 
                     foreach (var pluginType in listToRegister)
                     {
@@ -298,27 +298,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             pluginTypeEntity.WorkflowActivityGroupName = workflowActivityGroupName;
                         }
 
-                        ToggleControls(false, Properties.WindowStatusStrings.RegisteringPluginTypeFormat2, _service.ConnectionData.Name, pluginType.Name);
+                        ToggleControls(false, Properties.OutputStrings.RegisteringPluginTypeFormat2, _service.ConnectionData.Name, pluginType.Name);
 
                         try
                         {
                             pluginTypeEntity.Id = await _service.CreateAsync(pluginTypeEntity);
 
-                            ToggleControls(true, Properties.WindowStatusStrings.RegisteringPluginTypeCompletedFormat2, _service.ConnectionData.Name, pluginType.Name);
+                            ToggleControls(true, Properties.OutputStrings.RegisteringPluginTypeCompletedFormat2, _service.ConnectionData.Name, pluginType.Name);
                         }
                         catch (Exception ex)
                         {
-                            ToggleControls(true, Properties.WindowStatusStrings.RegisteringPluginTypeFailedFormat2, _service.ConnectionData.Name, pluginType.Name);
+                            ToggleControls(true, Properties.OutputStrings.RegisteringPluginTypeFailedFormat2, _service.ConnectionData.Name, pluginType.Name);
 
                             _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
                             _iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
                         }
                     }
 
-                    ToggleControls(true, Properties.WindowStatusStrings.RegisteringNewPluginTypesCompletedFormat2, _service.ConnectionData.Name, listToRegister.Count);
+                    ToggleControls(true, Properties.OutputStrings.RegisteringNewPluginTypesCompletedFormat2, _service.ConnectionData.Name, listToRegister.Count);
                 }
 
-                ToggleControls(true, Properties.WindowStatusStrings.UpdatingPluginAssemblyCompletedFormat1, _service.ConnectionData.Name);
+                ToggleControls(true, Properties.OutputStrings.UpdatingPluginAssemblyCompletedFormat1, _service.ConnectionData.Name);
 
                 this.DialogResult = true;
 
@@ -326,7 +326,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                ToggleControls(true, Properties.WindowStatusStrings.UpdatingPluginAssemblyFailedFormat1, _service.ConnectionData.Name);
+                ToggleControls(true, Properties.OutputStrings.UpdatingPluginAssemblyFailedFormat1, _service.ConnectionData.Name);
 
                 _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
                 _iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
@@ -501,7 +501,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                || !File.Exists(assemblyPath)
             )
             {
-                UpdateStatus(Properties.WindowStatusStrings.FileNotExists);
+                UpdateStatus(Properties.OutputStrings.FileNotExists);
                 return;
             }
 
@@ -510,7 +510,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.LoadingAssemblyFromPathFormat1, assemblyPath);
+            ToggleControls(false, Properties.OutputStrings.LoadingAssemblyFromPathFormat1, assemblyPath);
 
             AssemblyReaderResult assemblyCheck = null;
 
@@ -521,7 +521,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (assemblyCheck == null)
             {
-                ToggleControls(true, Properties.WindowStatusStrings.LoadingAssemblyFromPathFailedFormat1, assemblyPath);
+                ToggleControls(true, Properties.OutputStrings.LoadingAssemblyFromPathFailedFormat1, assemblyPath);
                 return;
             }
 
@@ -637,7 +637,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this.trVPluginTreeMissing.UpdateLayout();
             });
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingAssemblyFromPathCompletedFormat1, assemblyPath);
+            ToggleControls(true, Properties.OutputStrings.LoadingAssemblyFromPathCompletedFormat1, assemblyPath);
         }
 
         private async void btnBuildProject_Click(object sender, RoutedEventArgs e)
@@ -652,17 +652,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.BuildingProjectFormat1, _project.Name);
+            ToggleControls(false, Properties.OutputStrings.BuildingProjectFormat1, _project.Name);
 
             var buildResult = await _iWriteToOutput.BuildProjectAsync(_project);
 
             if (buildResult == 0)
             {
-                ToggleControls(true, Properties.WindowStatusStrings.BuildingProjectCompletedFormat1, _project.Name);
+                ToggleControls(true, Properties.OutputStrings.BuildingProjectCompletedFormat1, _project.Name);
             }
             else
             {
-                ToggleControls(true, Properties.WindowStatusStrings.BuildingProjectFailedFormat1, _project.Name);
+                ToggleControls(true, Properties.OutputStrings.BuildingProjectFailedFormat1, _project.Name);
             }
         }
 

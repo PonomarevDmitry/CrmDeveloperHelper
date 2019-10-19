@@ -598,7 +598,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 if (publisherDefault == null)
                 {
-                    iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.WindowStatusStrings.NotFoundedDefaultPublisher);
+                    iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.NotFoundedDefaultPublisher);
                     iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
                     return;
                 }
@@ -619,7 +619,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 Version = "1.0.0.0",
             };
 
-            iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.WindowStatusStrings.CreatingNewSolutionFormat1, solutionUniqueName);
+            iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.CreatingNewSolutionFormat1, solutionUniqueName);
 
             solution.Id = await _service.CreateAsync(solution);
 
@@ -630,7 +630,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 if (entityMetadata != null)
                 {
 
-                    iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.WindowStatusStrings.AddingInSolutionEntityFormat3, _service.ConnectionData.Name, solutionUniqueName, entityMetadata.LogicalName);
+                    iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.AddingInSolutionEntityFormat3, _service.ConnectionData.Name, solutionUniqueName, entityMetadata.LogicalName);
 
                     {
                         var repositorySolutionComponent = new SolutionComponentRepository(_service);
@@ -643,11 +643,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         }});
                     }
 
-                    iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.WindowStatusStrings.ExportingSolutionAndExtractingRibbonDiffXmlForEntityFormat2, solutionUniqueName, entityMetadata.LogicalName);
+                    iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.ExportingSolutionAndExtractingRibbonDiffXmlForEntityFormat2, solutionUniqueName, entityMetadata.LogicalName);
                 }
                 else if (ribbonCustomization != null)
                 {
-                    iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.WindowStatusStrings.AddingInSolutionApplicationRibbonFormat2, _service.ConnectionData.Name, solutionUniqueName);
+                    iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.AddingInSolutionApplicationRibbonFormat2, _service.ConnectionData.Name, solutionUniqueName);
 
                     {
                         var repositorySolutionComponent = new SolutionComponentRepository(_service);
@@ -660,7 +660,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         }});
                     }
 
-                    iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.WindowStatusStrings.ExportingSolutionAndExtractingApplicationRibbonDiffXmlFormat1, solutionUniqueName);
+                    iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.ExportingSolutionAndExtractingApplicationRibbonDiffXmlFormat1, solutionUniqueName);
                 }
 
 
@@ -742,7 +742,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     iWriteToOutput.WriteToOutputFilePathUri(_service.ConnectionData, filePath);
                 }
 
-                iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.WindowStatusStrings.ImportingSolutionFormat1, solutionUniqueName);
+                iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.ImportingSolutionFormat1, solutionUniqueName);
 
                 await repository.ImportSolutionAsync(solutionBodyBinary);
 
@@ -753,13 +753,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                     if (entityMetadata != null)
                     {
-                        iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.WindowStatusStrings.PublishingEntitiesFormat2, _service.ConnectionData.Name, entityMetadata.LogicalName);
+                        iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.PublishingEntitiesFormat2, _service.ConnectionData.Name, entityMetadata.LogicalName);
 
                         await repositoryPublish.PublishEntitiesAsync(new[] { entityMetadata.LogicalName });
                     }
                     else if (ribbonCustomization != null)
                     {
-                        iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.WindowStatusStrings.PublishingApplicationRibbonFormat1, _service.ConnectionData.Name);
+                        iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.PublishingApplicationRibbonFormat1, _service.ConnectionData.Name);
 
                         await repositoryPublish.PublishApplicationRibbonAsync();
                     }
@@ -788,7 +788,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 if (publisherDefault == null)
                 {
-                    iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.WindowStatusStrings.NotFoundedDefaultPublisher);
+                    iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.NotFoundedDefaultPublisher);
                     iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
                     return null;
                 }
@@ -809,7 +809,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 Version = "1.0.0.0",
             };
 
-            iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.WindowStatusStrings.CreatingNewSolutionFormat1, solutionUniqueName);
+            iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.CreatingNewSolutionFormat1, solutionUniqueName);
 
             solution.Id = await _service.CreateAsync(solution);
 
@@ -819,7 +819,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 if (entityMetadata != null)
                 {
-                    iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.WindowStatusStrings.AddingInSolutionEntityFormat3, _service.ConnectionData.Name, solutionUniqueName, entityMetadata.LogicalName);
+                    iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.AddingInSolutionEntityFormat3, _service.ConnectionData.Name, solutionUniqueName, entityMetadata.LogicalName);
 
                     {
                         var repositorySolutionComponent = new SolutionComponentRepository(_service);
@@ -832,11 +832,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                             }});
                     }
 
-                    iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.WindowStatusStrings.ExportingSolutionAndExtractingRibbonDiffXmlForEntityFormat2, solutionUniqueName, entityMetadata.LogicalName);
+                    iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.ExportingSolutionAndExtractingRibbonDiffXmlForEntityFormat2, solutionUniqueName, entityMetadata.LogicalName);
                 }
                 else if (ribbonCustomization != null)
                 {
-                    iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.WindowStatusStrings.AddingInSolutionApplicationRibbonFormat2, _service.ConnectionData.Name, solutionUniqueName);
+                    iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.AddingInSolutionApplicationRibbonFormat2, _service.ConnectionData.Name, solutionUniqueName);
 
                     {
                         var repositorySolutionComponent = new SolutionComponentRepository(_service);
@@ -849,7 +849,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         }});
                     }
 
-                    iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.WindowStatusStrings.ExportingSolutionAndExtractingApplicationRibbonDiffXmlFormat1, solutionUniqueName);
+                    iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.ExportingSolutionAndExtractingApplicationRibbonDiffXmlFormat1, solutionUniqueName);
                 }
 
                 var repository = new ExportSolutionHelper(_service);
@@ -886,13 +886,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             try
             {
-                iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.WindowStatusStrings.DeletingSolutionFormat1, solution.UniqueName);
+                iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.DeletingSolutionFormat1, solution.UniqueName);
                 await _service.DeleteAsync(solution.LogicalName, solution.Id);
                 solution.Id = Guid.Empty;
             }
             catch (Exception ex)
             {
-                iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex, Properties.WindowStatusStrings.DeletingSolutionFailedFormat1, solution.UniqueName);
+                iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex, Properties.OutputStrings.DeletingSolutionFailedFormat1, solution.UniqueName);
             }
         }
     }

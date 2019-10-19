@@ -45,7 +45,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.LoadingEntities);
+            ToggleControls(false, Properties.OutputStrings.LoadingEntities);
 
             this._itemsSource.Clear();
 
@@ -87,7 +87,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingEntitiesCompletedFormat1, list.Count());
+            ToggleControls(true, Properties.OutputStrings.LoadingEntitiesCompletedFormat1, list.Count());
         }
 
         private T GetSelectedEntity()

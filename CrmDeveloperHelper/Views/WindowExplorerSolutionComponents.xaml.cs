@@ -209,7 +209,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var list = new List<SolutionComponent>();
 
-            string formatResult = Properties.WindowStatusStrings.LoadingRequiredComponentsCompletedFormat1;
+            string formatResult = Properties.OutputStrings.LoadingRequiredComponentsCompletedFormat1;
 
             try
             {
@@ -247,8 +247,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         case SolutionComponentsType.SolutionComponents:
                         default:
                             {
-                                ToggleControls(false, Properties.WindowStatusStrings.LoadingSolutionComponents);
-                                formatResult = Properties.WindowStatusStrings.LoadingSolutionComponentsCompletedFormat1;
+                                ToggleControls(false, Properties.OutputStrings.LoadingSolutionComponents);
+                                formatResult = Properties.OutputStrings.LoadingSolutionComponentsCompletedFormat1;
 
                                 var repository = new SolutionComponentRepository(this._service);
 
@@ -258,8 +258,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         case SolutionComponentsType.MissingComponents:
                             {
-                                ToggleControls(false, Properties.WindowStatusStrings.LoadingMissingComponents);
-                                formatResult = Properties.WindowStatusStrings.LoadingMissingComponentsCompletedFormat1;
+                                ToggleControls(false, Properties.OutputStrings.LoadingMissingComponents);
+                                formatResult = Properties.OutputStrings.LoadingMissingComponentsCompletedFormat1;
 
                                 var repository = new DependencyRepository(this._service);
 
@@ -286,8 +286,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         case SolutionComponentsType.UninstallComponents:
                             {
-                                ToggleControls(false, Properties.WindowStatusStrings.LoadingUninstallComponents);
-                                formatResult = Properties.WindowStatusStrings.LoadingUninstallComponentsCompletedFormat1;
+                                ToggleControls(false, Properties.OutputStrings.LoadingUninstallComponents);
+                                formatResult = Properties.OutputStrings.LoadingUninstallComponentsCompletedFormat1;
 
                                 var repository = new DependencyRepository(this._service);
 
@@ -550,7 +550,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportEntityDescription(string folder, SolutionComponentViewItem solutionComponentViewItem)
         {
-            ToggleControls(false, Properties.WindowStatusStrings.CreatingEntityDescription);
+            ToggleControls(false, Properties.OutputStrings.CreatingEntityDescription);
 
             string fileName = _descriptor.GetFileName(_service.ConnectionData.Name, solutionComponentViewItem.SolutionComponent.ComponentType.Value, solutionComponentViewItem.SolutionComponent.ObjectId.Value, EntityFileNameFormatter.Headers.EntityDescription, "txt");
 
@@ -587,7 +587,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.PerformAction(_service.ConnectionData, filePath);
 
-            ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
+            ToggleControls(true, Properties.OutputStrings.CreatingEntityDescriptionCompleted);
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -1213,7 +1213,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                ToggleControls(false, Properties.WindowStatusStrings.RemovingSolutionComponentsFromSolutionFormat2, _service.ConnectionData.Name, _solution.UniqueName);
+                ToggleControls(false, Properties.OutputStrings.RemovingSolutionComponentsFromSolutionFormat2, _service.ConnectionData.Name, _solution.UniqueName);
 
                 _commonConfig.Save();
 
@@ -1276,13 +1276,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 });
 
-                ToggleControls(true, Properties.WindowStatusStrings.RemovingSolutionComponentsFromSolutionCompletedFormat2, _service.ConnectionData.Name, _solution.UniqueName);
+                ToggleControls(true, Properties.OutputStrings.RemovingSolutionComponentsFromSolutionCompletedFormat2, _service.ConnectionData.Name, _solution.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.RemovingSolutionComponentsFromSolutionFailedFormat2, _service.ConnectionData.Name, _solution.UniqueName);
+                ToggleControls(true, Properties.OutputStrings.RemovingSolutionComponentsFromSolutionFailedFormat2, _service.ConnectionData.Name, _solution.UniqueName);
             }
         }
 
@@ -1297,7 +1297,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                ToggleControls(false, Properties.WindowStatusStrings.ClearingSolutionFormat2, _service.ConnectionData.Name, _solution.UniqueName);
+                ToggleControls(false, Properties.OutputStrings.ClearingSolutionFormat2, _service.ConnectionData.Name, _solution.UniqueName);
 
                 _commonConfig.Save();
 
@@ -1342,13 +1342,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _itemsSource.Clear();
                 });
 
-                ToggleControls(true, Properties.WindowStatusStrings.ClearingSolutionCompletedFormat2, _service.ConnectionData.Name, _solution.UniqueName);
+                ToggleControls(true, Properties.OutputStrings.ClearingSolutionCompletedFormat2, _service.ConnectionData.Name, _solution.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.ClearingSolutionFailedFormat2, _service.ConnectionData.Name, _solution.UniqueName);
+                ToggleControls(true, Properties.OutputStrings.ClearingSolutionFailedFormat2, _service.ConnectionData.Name, _solution.UniqueName);
             }
         }
 
@@ -1578,7 +1578,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformSolutionEntityDescription(string folder, Solution solution)
         {
-            ToggleControls(false, Properties.WindowStatusStrings.CreatingEntityDescription);
+            ToggleControls(false, Properties.OutputStrings.CreatingEntityDescription);
 
             try
             {
@@ -1605,13 +1605,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(_service.ConnectionData, filePath);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
+                ToggleControls(true, Properties.OutputStrings.CreatingEntityDescriptionCompleted);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionFailed);
+                ToggleControls(true, Properties.OutputStrings.CreatingEntityDescriptionFailed);
             }
         }
 
@@ -1619,7 +1619,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                ToggleControls(false, Properties.WindowStatusStrings.CreatingFileWithUsedEntitiesInWorkflowsFormat1, solution.UniqueName);
+                ToggleControls(false, Properties.OutputStrings.CreatingFileWithUsedEntitiesInWorkflowsFormat1, solution.UniqueName);
 
                 var workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, _service, _descriptor);
 
@@ -1641,13 +1641,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(_service.ConnectionData, filePath);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithUsedEntitiesInWorkflowsCompletedFormat1, solution.UniqueName);
+                ToggleControls(true, Properties.OutputStrings.CreatingFileWithUsedEntitiesInWorkflowsCompletedFormat1, solution.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithUsedEntitiesInWorkflowsFailedFormat1, solution.UniqueName);
+                ToggleControls(true, Properties.OutputStrings.CreatingFileWithUsedEntitiesInWorkflowsFailedFormat1, solution.UniqueName);
             }
         }
 
@@ -1655,7 +1655,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                ToggleControls(false, Properties.WindowStatusStrings.CreatingFileWithUsedNotExistsEntitiesInWorkflowsFormat1, solution.UniqueName);
+                ToggleControls(false, Properties.OutputStrings.CreatingFileWithUsedNotExistsEntitiesInWorkflowsFormat1, solution.UniqueName);
 
                 var workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, _service, _descriptor);
 
@@ -1677,13 +1677,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(_service.ConnectionData, filePath);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithUsedNotExistsEntitiesInWorkflowsCompletedFormat1, solution.UniqueName);
+                ToggleControls(true, Properties.OutputStrings.CreatingFileWithUsedNotExistsEntitiesInWorkflowsCompletedFormat1, solution.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithUsedNotExistsEntitiesInWorkflowsFailedFormat1, solution.UniqueName);
+                ToggleControls(true, Properties.OutputStrings.CreatingFileWithUsedNotExistsEntitiesInWorkflowsFailedFormat1, solution.UniqueName);
             }
         }
 
@@ -1747,7 +1747,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                ToggleControls(false, Properties.WindowStatusStrings.CreatingFileWithSolutionImageFormat1, solution.UniqueName);
+                ToggleControls(false, Properties.OutputStrings.CreatingFileWithSolutionImageFormat1, solution.UniqueName);
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, _service, _descriptor);
 
@@ -1768,13 +1768,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(_service.ConnectionData, filePath);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithSolutionImageCompletedFormat1, solution.UniqueName);
+                ToggleControls(true, Properties.OutputStrings.CreatingFileWithSolutionImageCompletedFormat1, solution.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithSolutionImageFailedFormat1, solution.UniqueName);
+                ToggleControls(true, Properties.OutputStrings.CreatingFileWithSolutionImageFailedFormat1, solution.UniqueName);
             }
         }
 
@@ -1782,7 +1782,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                ToggleControls(false, Properties.WindowStatusStrings.CreatingFileWithSolutionImageFormat1, solution.UniqueName);
+                ToggleControls(false, Properties.OutputStrings.CreatingFileWithSolutionImageFormat1, solution.UniqueName);
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, _service, _descriptor);
 
@@ -1792,13 +1792,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 WindowHelper.OpenOrganizationComparerWindow(_iWriteToOutput, _service.ConnectionData.ConnectionConfiguration, _commonConfig, solutionImage);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithSolutionImageCompletedFormat1, solution.UniqueName);
+                ToggleControls(true, Properties.OutputStrings.CreatingFileWithSolutionImageCompletedFormat1, solution.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithSolutionImageFailedFormat1, solution.UniqueName);
+                ToggleControls(true, Properties.OutputStrings.CreatingFileWithSolutionImageFailedFormat1, solution.UniqueName);
             }
         }
 
@@ -1839,7 +1839,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     return;
                 }
 
-                ToggleControls(false, Properties.WindowStatusStrings.LoadingComponentsFromSolutionImage);
+                ToggleControls(false, Properties.OutputStrings.LoadingComponentsFromSolutionImage);
 
                 SolutionImage solutionImage = null;
 
@@ -1856,25 +1856,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (solutionImage == null)
                 {
-                    ToggleControls(true, Properties.WindowStatusStrings.LoadingSolutionImageFailed);
+                    ToggleControls(true, Properties.OutputStrings.LoadingSolutionImageFailed);
                     return;
                 }
 
-                UpdateStatus(Properties.WindowStatusStrings.LoadedComponentsFromSolutionImageFormat1, solutionImage.Components.Count);
+                UpdateStatus(Properties.OutputStrings.LoadedComponentsFromSolutionImageFormat1, solutionImage.Components.Count);
 
                 if (solutionImage.Components.Count == 0)
                 {
-                    ToggleControls(true, Properties.WindowStatusStrings.NoComponentsToAdd);
+                    ToggleControls(true, Properties.OutputStrings.NoComponentsToAdd);
                     return;
                 }
 
                 var solutionComponents = await _descriptor.GetSolutionComponentsListAsync(solutionImage.Components);
 
-                UpdateStatus(Properties.WindowStatusStrings.AddingComponentsToSolutionFormat3, _service.ConnectionData.Name, solutionComponents.Count, _solution.UniqueName);
+                UpdateStatus(Properties.OutputStrings.AddingComponentsToSolutionFormat3, _service.ConnectionData.Name, solutionComponents.Count, _solution.UniqueName);
 
                 if (solutionComponents.Count == 0)
                 {
-                    ToggleControls(true, Properties.WindowStatusStrings.NoComponentsToAdd);
+                    ToggleControls(true, Properties.OutputStrings.NoComponentsToAdd);
                     return;
                 }
 
@@ -1884,13 +1884,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await SolutionController.AddSolutionComponentsCollectionToSolution(_iWriteToOutput, _service, _descriptor, _commonConfig, _solution.UniqueName, solutionComponents, false);
 
-                ToggleControls(true, Properties.WindowStatusStrings.LoadingComponentsFromSolutionImageCompleted);
+                ToggleControls(true, Properties.OutputStrings.LoadingComponentsFromSolutionImageCompleted);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.LoadingComponentsFromSolutionImageFailed);
+                ToggleControls(true, Properties.OutputStrings.LoadingComponentsFromSolutionImageFailed);
             }
         }
 
@@ -1931,31 +1931,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     return;
                 }
 
-                ToggleControls(false, Properties.WindowStatusStrings.LoadingComponentsFromZipFile);
+                ToggleControls(false, Properties.OutputStrings.LoadingComponentsFromZipFile);
 
                 List<SolutionComponent> solutionComponents = await _descriptor.LoadSolutionComponentsFromZipFileAsync(selectedPath);
 
-                UpdateStatus(Properties.WindowStatusStrings.LoadedComponentsFromZipFileFormat1, solutionComponents.Count);
+                UpdateStatus(Properties.OutputStrings.LoadedComponentsFromZipFileFormat1, solutionComponents.Count);
 
                 if (solutionComponents.Count == 0)
                 {
-                    ToggleControls(true, Properties.WindowStatusStrings.NoComponentsToAdd);
+                    ToggleControls(true, Properties.OutputStrings.NoComponentsToAdd);
                     return;
                 }
 
-                UpdateStatus(Properties.WindowStatusStrings.AddingComponentsToSolutionFormat3, _service.ConnectionData.Name, solutionComponents.Count, _solution.UniqueName);
+                UpdateStatus(Properties.OutputStrings.AddingComponentsToSolutionFormat3, _service.ConnectionData.Name, solutionComponents.Count, _solution.UniqueName);
 
                 this._iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
 
                 await SolutionController.AddSolutionComponentsCollectionToSolution(_iWriteToOutput, _service, _descriptor, _commonConfig, _solution.UniqueName, solutionComponents, false);
 
-                ToggleControls(true, Properties.WindowStatusStrings.LoadingComponentsFromZipFileCompleted);
+                ToggleControls(true, Properties.OutputStrings.LoadingComponentsFromZipFileCompleted);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.LoadingComponentsFromZipFileFailed);
+                ToggleControls(true, Properties.OutputStrings.LoadingComponentsFromZipFileFailed);
             }
         }
 
@@ -1963,7 +1963,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                ToggleControls(false, Properties.WindowStatusStrings.CreatingTextFileWithComponentsFormat1, solution.UniqueName);
+                ToggleControls(false, Properties.OutputStrings.CreatingTextFileWithComponentsFormat1, solution.UniqueName);
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, _service, _descriptor);
 
@@ -1981,13 +1981,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(_service.ConnectionData, filePath);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingTextFileWithComponentsCompletedFormat1, solution.UniqueName);
+                ToggleControls(true, Properties.OutputStrings.CreatingTextFileWithComponentsCompletedFormat1, solution.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingTextFileWithComponentsFailedFormat1, solution.UniqueName);
+                ToggleControls(true, Properties.OutputStrings.CreatingTextFileWithComponentsFailedFormat1, solution.UniqueName);
             }
         }
 
@@ -1995,7 +1995,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                ToggleControls(false, Properties.WindowStatusStrings.CreatingTextFileWithMissingDependenciesFormat1, solution.UniqueName);
+                ToggleControls(false, Properties.OutputStrings.CreatingTextFileWithMissingDependenciesFormat1, solution.UniqueName);
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, _service, _descriptor);
 
@@ -2028,13 +2028,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(_service.ConnectionData, filePath);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingTextFileWithMissingDependenciesCompletedFormat1, solution.UniqueName);
+                ToggleControls(true, Properties.OutputStrings.CreatingTextFileWithMissingDependenciesCompletedFormat1, solution.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingTextFileWithMissingDependenciesFailedFormat1, solution.UniqueName);
+                ToggleControls(true, Properties.OutputStrings.CreatingTextFileWithMissingDependenciesFailedFormat1, solution.UniqueName);
             }
         }
 
@@ -2042,7 +2042,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                ToggleControls(false, Properties.WindowStatusStrings.CreatingTextFileWithDependenciesForUninstallFormat1, solution.UniqueName);
+                ToggleControls(false, Properties.OutputStrings.CreatingTextFileWithDependenciesForUninstallFormat1, solution.UniqueName);
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, _service, _descriptor);
 
@@ -2075,13 +2075,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(_service.ConnectionData, filePath);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingTextFileWithDependenciesForUninstallCompletedFormat1, solution.UniqueName);
+                ToggleControls(true, Properties.OutputStrings.CreatingTextFileWithDependenciesForUninstallCompletedFormat1, solution.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingTextFileWithDependenciesForUninstallFailedFormat1, solution.UniqueName);
+                ToggleControls(true, Properties.OutputStrings.CreatingTextFileWithDependenciesForUninstallFailedFormat1, solution.UniqueName);
             }
         }
 
