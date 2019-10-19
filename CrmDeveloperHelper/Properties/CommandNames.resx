@@ -126,6 +126,15 @@
   <data name="CodeCSharpProjectUpdatePluginAssemblyCommand" xml:space="preserve">
     <value>Update PluginAssembly</value>
   </data>
+
+  <data name="CodeCSharpProjectBuildLoadUpdatePluginAssemblyCommand" xml:space="preserve">
+    <value>Build Project and Update PluginAssembly</value>
+  </data>
+
+  <data name="CodeCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand" xml:space="preserve">
+    <value>Build Project, Update PluginAssembly and Register New Plugins</value>
+  </data>
+  
   <data name="CodeCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommand" xml:space="preserve">
     <value>Update EntityMetadata Proxy Class or Schema File with Select Entity</value>
   </data>
@@ -295,9 +304,19 @@
   <data name="FileCSharpProjectCompareToCrmAssemblyCommand" xml:space="preserve">
     <value>Compare with Crm PluginAssembly</value>
   </data>
+  
   <data name="FileCSharpProjectUpdatePluginAssemblyCommand" xml:space="preserve">
     <value>Update PluginAssembly</value>
   </data>
+
+  <data name="FileCSharpProjectBuildLoadUpdatePluginAssemblyCommand" xml:space="preserve">
+    <value>Build Project and Update PluginAssembly</value>
+  </data>
+
+  <data name="FileCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand" xml:space="preserve">
+    <value>Build Project, Update PluginAssembly and Register New Plugins</value>
+  </data>
+  
   <data name="FileCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommand" xml:space="preserve">
     <value>Update EntityMetadata Proxy Class or Schema File with Select Entity</value>
   </data>
@@ -364,9 +383,19 @@
   <data name="ProjectCompareToCrmAssemblyCommand" xml:space="preserve">
     <value>Compare with Crm PluginAssembly</value>
   </data>
+  
   <data name="ProjectUpdatePluginAssemblyCommand" xml:space="preserve">
     <value>Update PluginAssembly</value>
   </data>
+
+  <data name="ProjectBuildLoadUpdatePluginAssemblyCommand" xml:space="preserve">
+    <value>Build Project and Update PluginAssembly</value>
+  </data>
+
+  <data name="ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand" xml:space="preserve">
+    <value>Build Project, Update PluginAssembly and Register New Plugins</value>
+  </data>
+  
   <data name="ShowDifferenceOneByOneCommandFormat2" xml:space="preserve">
     <value>Local File &lt;-&gt; {0}      Local File &lt;-&gt; {1}      {0} &lt;-&gt; {1}</value>
   </data>

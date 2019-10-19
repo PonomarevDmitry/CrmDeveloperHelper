@@ -170,7 +170,13 @@
       <!-- #endregion codeMenuReport -->
 
       <!-- #region codeMenuCSharp -->
-
+      
+      <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyBuildUpdate" priority="0x0600" />
+      <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyBuildUpdate_MenuConnectionDyn_Group" priority="0x0600" />
+      
+      <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyBuildUpdateRegister" priority="0x0600" />
+      <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyBuildUpdate_MenuConnectionDyn_Group" priority="0x0600" />
+      
       <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyUpdate" priority="0x0600" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyUpdate_MenuConnectionDyn_Group" priority="0x0600" />
 
@@ -377,6 +383,12 @@
       <!-- #endregion fileMenuReport -->
 
       <!-- #region fileMenuCSharp -->
+      
+      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyBuildUpdate" priority="0x0600" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyBuildUpdate_MenuConnectionDyn_Group" priority="0x0600" />
+      
+      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyBuildUpdateRegister" priority="0x0600" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyBuildUpdateRegister_MenuConnectionDyn_Group" priority="0x0600" />
 
       <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyUpdate" priority="0x0600" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyUpdate_MenuConnectionDyn_Group" priority="0x0600" />
@@ -509,6 +521,12 @@
       <!-- #endregion folderMenuFolder -->
 
       <!-- #region folderMenuProject -->
+
+      <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupBuildUpdate" priority="0x0600" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupBuildUpdate_MenuConnectionDyn_Group" priority="0x0600" />
+
+      <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupBuildUpdateRegister" priority="0x0600" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupBuildUpdateRegister_MenuConnectionDyn_Group" priority="0x0600" />
 
       <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupUpdate" priority="0x060B" />
       <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupUpdate_MenuConnectionDyn_Group" priority="0x060B" />
@@ -1331,7 +1349,23 @@
         </Strings>
       </Menu>
 
-      <Menu guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyUpdate_MenuConnectionDyn" priority="0x0107" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyBuildUpdate_MenuConnectionDyn" priority="0x0600" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Build Project and Update PluginAssembly in Connection</ButtonText>
+          <MenuText>Build Project and Update PluginAssembly in Connection</MenuText>
+        </Strings>
+      </Menu>
+
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyBuildUpdateRegister_MenuConnectionDyn" priority="0x0600" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Build Project, Update PluginAssembly and Register New Plugins in Connection</ButtonText>
+          <MenuText>Build Project, Update PluginAssembly and Register New Plugins in Connection</MenuText>
+        </Strings>
+      </Menu>
+
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyUpdate_MenuConnectionDyn" priority="0x0600" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Update PluginAssembly in Connection</ButtonText>
@@ -1934,6 +1968,22 @@
           <MenuText>Compare with Crm PluginAssembly in Connection</MenuText>
         </Strings>
       </Menu>
+      
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyBuildUpdate_MenuConnectionDyn" priority="0x0600" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Build Project and Update PluginAssembly in Connection</ButtonText>
+          <MenuText>Build Project and Update PluginAssembly in Connection</MenuText>
+        </Strings>
+      </Menu>
+
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyBuildUpdateRegister_MenuConnectionDyn" priority="0x0600" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Build Project, Update PluginAssembly and Register New Plugins in Connection</ButtonText>
+          <MenuText>Build Project, Update PluginAssembly and Register New Plugins in Connection</MenuText>
+        </Strings>
+      </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyUpdate_MenuConnectionDyn" priority="0x0107" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -2239,6 +2289,7 @@
           <MenuText>Last Selected Crm Solution</MenuText>
         </Strings>
       </Menu>
+
       <Menu guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompare_MenuConnectionDyn" priority="0x0107" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
@@ -2246,6 +2297,23 @@
           <MenuText>Compare with Crm PluginAssembly in Connection</MenuText>
         </Strings>
       </Menu>
+
+      <Menu guid="guidGroupAndMenuSet" id="folderMenuProject_GroupBuildUpdate_MenuConnectionDyn" priority="0x0100" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Build Project and Update PluginAssembly in Connection</ButtonText>
+          <MenuText>Build Project and Update PluginAssembly in Connection</MenuText>
+        </Strings>
+      </Menu>
+
+      <Menu guid="guidGroupAndMenuSet" id="folderMenuProject_GroupBuildUpdateRegister_MenuConnectionDyn" priority="0x0100" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Build Project, Update PluginAssembly and Register New Plugins in Connection</ButtonText>
+          <MenuText>Build Project, Update PluginAssembly and Register New Plugins in Connection</MenuText>
+        </Strings>
+      </Menu>
+
       <Menu guid="guidGroupAndMenuSet" id="folderMenuProject_GroupUpdate_MenuConnectionDyn" priority="0x0107" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
@@ -2253,6 +2321,7 @@
           <MenuText>Update PluginAssembly in Connection</MenuText>
         </Strings>
       </Menu>
+
       <Menu guid="guidGroupAndMenuSet" id="folderMenuProject_GroupRegister_MenuConnectionDyn" priority="0x0107" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
@@ -4106,6 +4175,50 @@
       <!-- #endregion CodeReport -->
 
       <!-- #region CodeCSharp -->
+      
+      <Button guid="guidCommandSet" id="CodeCSharpProjectBuildLoadUpdatePluginAssemblyCommandId" priority="0x0121" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Build Project and Update PluginAssembly</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="CodeCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Build Project and Update PluginAssembly in Connection Placeholder</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidCommandSet" id="CodeCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommandId" priority="0x0121" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Build Project, Update PluginAssembly and Register New Plugins</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="CodeCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Build Project, Update PluginAssembly and Register New Plugins in Connection Placeholder</ButtonText>
+        </Strings>
+      </Button>
 
       <Button guid="guidCommandSet" id="CodeCSharpProjectUpdatePluginAssemblyCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -5943,6 +6056,50 @@
       <!-- #endregion FileReport -->
 
       <!-- #region FileCSharp -->
+      
+      <Button guid="guidCommandSet" id="FileCSharpProjectBuildLoadUpdatePluginAssemblyCommandId" priority="0x0121" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Build Project and Update PluginAssembly</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="FileCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Build Project and Update PluginAssembly in Connection Placeholder</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidCommandSet" id="FileCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommandId" priority="0x0121" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Build Project, Update PluginAssembly and Register New Plugins</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="FileCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Build Project, Update PluginAssembly and Register New Plugins in Connection Placeholder</ButtonText>
+        </Strings>
+      </Button>
 
       <Button guid="guidCommandSet" id="FileCSharpProjectUpdatePluginAssemblyCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -7093,6 +7250,50 @@
 
 
       <!-- #region Project -->
+
+      <Button guid="guidCommandSet" id="ProjectBuildLoadUpdatePluginAssemblyCommandId" priority="0x0121" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Build Project and Update PluginAssembly</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="ProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Build Project and Update PluginAssembly in Connection Placeholder</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidCommandSet" id="ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommandId" priority="0x0121" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Build Project, Update PluginAssembly and Register New Plugins</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Build Project, Update PluginAssembly and Register New Plugins in Connection Placeholder</ButtonText>
+        </Strings>
+      </Button>
 
       <Button guid="guidCommandSet" id="ProjectUpdatePluginAssemblyCommandId" priority="0x0121" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -10952,29 +11153,57 @@
 
     <!-- #region codeMenuCSharp -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyUpdate" priority="0x0600">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyBuildUpdate" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyCompare" priority="0x0610">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyBuildUpdateRegister" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupAddToSolution" priority="0x0620">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyUpdate" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginDescription" priority="0x0630">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyCompare" priority="0x06030">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupAddPluginStep" priority="0x0640">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupAddToSolution" priority="0x06040">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupEntityMetadata" priority="0x0650">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginDescription" priority="0x06050">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupGlobalOptionSets" priority="0x0660">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupAddPluginStep" priority="0x06060">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupEntityMetadata" priority="0x06070">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupGlobalOptionSets" priority="0x06080">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
     </CommandPlacement>
 
     <!-- #endregion codeMenuCSharp -->
+
+    <!-- #region codeMenuCSharp_GroupPluginAssemblyBuildUpdate -->
+
+    <CommandPlacement guid="guidCommandSet" id="CodeCSharpProjectBuildLoadUpdatePluginAssemblyCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyBuildUpdate" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyBuildUpdate_MenuConnectionDyn" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyBuildUpdate" />
+    </CommandPlacement>
+
+    <!-- #endregion codeMenuCSharp_GroupPluginAssemblyBuildUpdate -->
+
+    <!-- #region codeMenuCSharp_GroupPluginAssemblyBuildUpdateRegister -->
+
+    <CommandPlacement guid="guidCommandSet" id="CodeCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyBuildUpdateRegister" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyBuildUpdateRegister_MenuConnectionDyn" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyBuildUpdateRegister" />
+    </CommandPlacement>
+
+    <!-- #endregion codeMenuCSharp_GroupPluginAssemblyBuildUpdateRegister -->
 
     <!-- #region codeMenuCSharp_GroupPluginAssemblyUpdate -->
 
@@ -12229,36 +12458,64 @@
 
     <!-- #region fileMenuCSharp -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyUpdate" priority="0x0600">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyBuildUpdate" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyCompare" priority="0x0610">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyBuildUpdateRegister" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddToSolution" priority="0x0620">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyUpdate" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginDescription" priority="0x0630">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyCompare" priority="0x06030">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddPluginStep" priority="0x0640">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddToSolution" priority="0x06040">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata" priority="0x0650">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginDescription" priority="0x06050">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupGlobalOptionSets" priority="0x0670">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddPluginStep" priority="0x06060">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadata" priority="0x06070">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupGlobalOptionSets" priority="0x06080">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp" />
     </CommandPlacement>
 
     <!-- #endregion fileMenuCSharp -->
 
+    <!-- #region fileMenuCSharp_GroupPluginAssemblyBuildUpdate -->
+
+    <CommandPlacement guid="guidCommandSet" id="FileCSharpProjectBuildLoadUpdatePluginAssemblyCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyBuildUpdate" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyBuildUpdate_MenuConnectionDyn" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyBuildUpdate" />
+    </CommandPlacement>
+
+    <!-- #endregion fileMenuCSharp_GroupPluginAssemblyBuildUpdate -->
+
+    <!-- #region fileMenuCSharp_GroupPluginAssemblyBuildUpdateRegister -->
+
+    <CommandPlacement guid="guidCommandSet" id="FileCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyBuildUpdateRegister" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyBuildUpdateRegister_MenuConnectionDyn" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyBuildUpdateRegister" />
+    </CommandPlacement>
+
+    <!-- #endregion fileMenuCSharp_GroupPluginAssemblyBuildUpdateRegister -->
+
     <!-- #region fileMenuCSharp_GroupPluginAssemblyUpdate -->
 
-    <CommandPlacement guid="guidCommandSet" id="FileCSharpProjectUpdatePluginAssemblyCommandId" priority="0x0110">
+    <CommandPlacement guid="guidCommandSet" id="FileCSharpProjectUpdatePluginAssemblyCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyUpdate" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyUpdate_MenuConnectionDyn" priority="0x0111">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyUpdate_MenuConnectionDyn" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyUpdate" />
     </CommandPlacement>
 
@@ -13046,31 +13303,59 @@
 
     <!-- #region folderMenuProject -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupUpdate" priority="0x0600">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupBuildUpdate" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompare" priority="0x0610">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupBuildUpdateRegister" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupRegister" priority="0x0620">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupUpdate" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompare" priority="0x06030">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupRegister" priority="0x06040">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupAddToSolution" priority="0x0630">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupAddToSolution" priority="0x06050">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupDescription" priority="0x0640">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupDescription" priority="0x06060">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject" />
     </CommandPlacement>
 
     <!-- #endregion folderMenuProject -->
 
+    <!-- #region folderMenuProject_GroupBuildUpdate -->
+
+    <CommandPlacement guid="guidCommandSet" id="ProjectBuildLoadUpdatePluginAssemblyCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupBuildUpdate" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupBuildUpdate_MenuConnectionDyn" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupBuildUpdate" />
+    </CommandPlacement>
+
+    <!-- #endregion folderMenuProject_GroupBuildUpdate -->
+
+    <!-- #region folderMenuProject_GroupBuildUpdateRegister -->
+
+    <CommandPlacement guid="guidCommandSet" id="ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupBuildUpdateRegister" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupBuildUpdateRegister_MenuConnectionDyn" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupBuildUpdateRegister" />
+    </CommandPlacement>
+
+    <!-- #endregion folderMenuProject_GroupBuildUpdateRegister -->
+
     <!-- #region folderMenuProject_GroupUpdate -->
 
-    <CommandPlacement guid="guidCommandSet" id="ProjectUpdatePluginAssemblyCommandId" priority="0x0120">
+    <CommandPlacement guid="guidCommandSet" id="ProjectUpdatePluginAssemblyCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupUpdate" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupUpdate_MenuConnectionDyn" priority="0x0121">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupUpdate_MenuConnectionDyn" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupUpdate" />
     </CommandPlacement>
 
@@ -15204,10 +15489,24 @@
 
     <!-- #region CodeCSharp Dynamic -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyUpdate_MenuConnectionDyn_Group" priority="0x0101">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyBuildUpdate_MenuConnectionDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyBuildUpdate_MenuConnectionDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyBuildUpdate_MenuConnectionDyn_Group" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyBuildUpdateRegister_MenuConnectionDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyBuildUpdateRegister_MenuConnectionDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyBuildUpdateRegister_MenuConnectionDyn_Group" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyUpdate_MenuConnectionDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyUpdate_MenuConnectionDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeCSharpProjectUpdatePluginAssemblyInConnectionCommandId" priority="0x0101">
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeCSharpProjectUpdatePluginAssemblyInConnectionCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyUpdate_MenuConnectionDyn_Group" />
     </CommandPlacement>
 
@@ -15641,10 +15940,24 @@
 
     <!-- #region FileCSharp Dynamic -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyUpdate_MenuConnectionDyn_Group" priority="0x0111">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyBuildUpdate_MenuConnectionDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyBuildUpdate_MenuConnectionDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyBuildUpdate_MenuConnectionDyn_Group" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyBuildUpdateRegister_MenuConnectionDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyBuildUpdateRegister_MenuConnectionDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyBuildUpdateRegister_MenuConnectionDyn_Group" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyUpdate_MenuConnectionDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyUpdate_MenuConnectionDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FileCSharpProjectUpdatePluginAssemblyInConnectionCommandId" priority="0x0111">
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileCSharpProjectUpdatePluginAssemblyInConnectionCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyUpdate_MenuConnectionDyn_Group" />
     </CommandPlacement>
 
@@ -15916,17 +16229,31 @@
 
     <!-- #region Project Dynamic -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupUpdate_MenuConnectionDyn_Group" priority="0x0121">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupBuildUpdate_MenuConnectionDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupBuildUpdate_MenuConnectionDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="ProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupBuildUpdate_MenuConnectionDyn_Group" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupBuildUpdateRegister_MenuConnectionDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupBuildUpdateRegister_MenuConnectionDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupBuildUpdateRegister_MenuConnectionDyn_Group" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupUpdate_MenuConnectionDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupUpdate_MenuConnectionDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="ProjectUpdatePluginAssemblyInConnectionCommandId" priority="0x0121">
+    <CommandPlacement guid="guidDynamicCommandSet" id="ProjectUpdatePluginAssemblyInConnectionCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupUpdate_MenuConnectionDyn_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompare_MenuConnectionDyn_Group" priority="0x0121">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompare_MenuConnectionDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompare_MenuConnectionDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="ProjectCompareToCrmAssemblyInConnectionCommandId" priority="0x0121">
+    <CommandPlacement guid="guidDynamicCommandSet" id="ProjectCompareToCrmAssemblyInConnectionCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompare_MenuConnectionDyn_Group" />
     </CommandPlacement>
 
@@ -17185,6 +17512,14 @@
       <IDSymbol name="codeMenuCSharp_GroupGlobalOptionSets" value="0x100A" />
       <IDSymbol name="codeMenuCSharp_GroupGlobalOptionSets_MenuConnectionDyn" value="0x1279" />
       <IDSymbol name="codeMenuCSharp_GroupGlobalOptionSets_MenuConnectionDyn_Group" value="0x127A" />
+      
+      <IDSymbol name="codeMenuCSharp_GroupPluginAssemblyBuildUpdate" value="0x13B2" />
+      <IDSymbol name="codeMenuCSharp_GroupPluginAssemblyBuildUpdate_MenuConnectionDyn" value="0x13B3" />
+      <IDSymbol name="codeMenuCSharp_GroupPluginAssemblyBuildUpdate_MenuConnectionDyn_Group" value="0x13B4" />
+      
+      <IDSymbol name="codeMenuCSharp_GroupPluginAssemblyBuildUpdateRegister" value="0x13B5" />
+      <IDSymbol name="codeMenuCSharp_GroupPluginAssemblyBuildUpdateRegister_MenuConnectionDyn" value="0x13B6" />
+      <IDSymbol name="codeMenuCSharp_GroupPluginAssemblyBuildUpdateRegister_MenuConnectionDyn_Group" value="0x13B7" />
 
       <IDSymbol name="codeMenuCSharp_GroupPluginAssemblyUpdate" value="0x1287" />
       <IDSymbol name="codeMenuCSharp_GroupPluginAssemblyUpdate_MenuConnectionDyn" value="0x1288" />
@@ -17552,6 +17887,14 @@
       <IDSymbol name="fileMenuCSharp_GroupGlobalOptionSets" value="0x102D" />
       <IDSymbol name="fileMenuCSharp_GroupGlobalOptionSets_MenuConnectionDyn" value="0x127D" />
       <IDSymbol name="fileMenuCSharp_GroupGlobalOptionSets_MenuConnectionDyn_Group" value="0x127E" />
+      
+      <IDSymbol name="fileMenuCSharp_GroupPluginAssemblyBuildUpdate" value="0x13B8" />
+      <IDSymbol name="fileMenuCSharp_GroupPluginAssemblyBuildUpdate_MenuConnectionDyn" value="0x13B9" />
+      <IDSymbol name="fileMenuCSharp_GroupPluginAssemblyBuildUpdate_MenuConnectionDyn_Group" value="0x13BA" />
+      
+      <IDSymbol name="fileMenuCSharp_GroupPluginAssemblyBuildUpdateRegister" value="0x13BB" />
+      <IDSymbol name="fileMenuCSharp_GroupPluginAssemblyBuildUpdateRegister_MenuConnectionDyn" value="0x13BC" />
+      <IDSymbol name="fileMenuCSharp_GroupPluginAssemblyBuildUpdateRegister_MenuConnectionDyn_Group" value="0x13BD" />
 
       <IDSymbol name="fileMenuCSharp_GroupPluginAssemblyUpdate" value="0x128A" />
       <IDSymbol name="fileMenuCSharp_GroupPluginAssemblyUpdate_MenuConnectionDyn" value="0x128B" />
@@ -17749,6 +18092,14 @@
       <!-- #region folderMenuProject -->
 
       <IDSymbol name="folderMenuProject" value="0x10F9" />
+
+      <IDSymbol name="folderMenuProject_GroupBuildUpdate" value="0x13AC" />
+      <IDSymbol name="folderMenuProject_GroupBuildUpdate_MenuConnectionDyn" value="0x13AD" />
+      <IDSymbol name="folderMenuProject_GroupBuildUpdate_MenuConnectionDyn_Group" value="0x13AE" />
+
+      <IDSymbol name="folderMenuProject_GroupBuildUpdateRegister" value="0x13AF" />
+      <IDSymbol name="folderMenuProject_GroupBuildUpdateRegister_MenuConnectionDyn" value="0x13B0" />
+      <IDSymbol name="folderMenuProject_GroupBuildUpdateRegister_MenuConnectionDyn_Group" value="0x13B1" />
 
       <IDSymbol name="folderMenuProject_GroupUpdate" value="0x128D" />
       <IDSymbol name="folderMenuProject_GroupUpdate_MenuConnectionDyn" value="0x128E" />
@@ -18448,6 +18799,8 @@
       <IDSymbol name="CodeCSharpUpdateGlobalOptionSetsFileCommandId" value="7050" />
 
       <IDSymbol name="CodeCSharpProjectUpdatePluginAssemblyInConnectionCommandId" value="7250" />
+      <IDSymbol name="CodeCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId" value="11200" />
+      <IDSymbol name="CodeCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId" value="11250" />
 
       <IDSymbol name="CodeCSharpProjectPluginAssemblyAddToSolutionInConnectionCommandId" value="7950" />
       <IDSymbol name="CodeCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommandId" value="8000" />
@@ -18584,6 +18937,8 @@
       <IDSymbol name="FileCSharpUpdateGlobalOptionSetsFileCommandId" value="7150" />
 
       <IDSymbol name="FileCSharpProjectUpdatePluginAssemblyInConnectionCommandId" value="7300" />
+      <IDSymbol name="FileCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId" value="11300" />
+      <IDSymbol name="FileCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId" value="11350" />
 
       <IDSymbol name="FileCSharpProjectPluginAssemblyAddToSolutionInConnectionCommandId" value="8100" />
       <IDSymbol name="FileCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommandId" value="8150" />
@@ -18684,6 +19039,9 @@
       <IDSymbol name="ProjectPluginAssemblyAddToSolutionInConnectionCommandId" value="7850" />
       <IDSymbol name="ProjectPluginAssemblyStepsAddToSolutionInConnectionCommandId" value="7900" />
 
+      <IDSymbol name="ProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId" value="11100" />
+      <IDSymbol name="ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId" value="11150" />
+
       <!-- #endregion Project -->
 
 
@@ -18697,7 +19055,7 @@
 
 
 
-      <!-- 11100 -->
+      <!-- 11400 -->
 
     </GuidSymbol>
 
@@ -18791,6 +19149,8 @@
       <!-- #region CodeCSharp -->
 
       <IDSymbol name="CodeCSharpProjectUpdatePluginAssemblyCommandId" value="0x2192" />
+      <IDSymbol name="CodeCSharpProjectBuildLoadUpdatePluginAssemblyCommandId" value="0x2221" />
+      <IDSymbol name="CodeCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommandId" value="0x2222" />
 
       <IDSymbol name="CodeCSharpProjectCompareToCrmAssemblyCommandId" value="0x2140" />
 
@@ -18980,6 +19340,8 @@
       <!-- #region FileCSharp -->
 
       <IDSymbol name="FileCSharpProjectUpdatePluginAssemblyCommandId" value="0x2193" />
+      <IDSymbol name="FileCSharpProjectBuildLoadUpdatePluginAssemblyCommandId" value="0x2223" />
+      <IDSymbol name="FileCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommandId" value="0x2224" />
 
       <IDSymbol name="FileCSharpProjectCompareToCrmAssemblyCommandId" value="0x2141" />
 
@@ -19103,6 +19465,9 @@
       <IDSymbol name="ProjectPluginTypeExplorerCommandId" value="0x2163" />
       <IDSymbol name="ProjectPluginAssemblyExplorerCommandId" value="0x2164" />
       <IDSymbol name="ProjectPluginTreeCommandId" value="0x2177" />
+
+      <IDSymbol name="ProjectBuildLoadUpdatePluginAssemblyCommandId" value="0x221F" />
+      <IDSymbol name="ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommandId" value="0x2220" />
 
       <!-- #endregion Project -->
 
@@ -19433,10 +19798,10 @@
 
 
     <!-- Groups and Menus -->
-    <!-- 0x13AC -->
+    <!-- 0x13BE -->
 
     <!-- Commands -->
-    <!-- 0x221F -->
+    <!-- 0x2225 -->
 
 
   </Symbols>

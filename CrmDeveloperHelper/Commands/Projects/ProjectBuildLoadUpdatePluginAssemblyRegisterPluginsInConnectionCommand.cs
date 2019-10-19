@@ -1,0 +1,33 @@
+﻿using Microsoft.VisualStudio.Shell;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+using System.Linq;
+
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
+{
+    internal sealed class ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommand : AbstractDynamicCommandByConnectionWithoutCurrent
+    {
+        private ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommand(OleMenuCommandService commandService)
+            : base(
+                commandService
+                , PackageIds.guidDynamicCommandSet.ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId
+            )
+        {
+
+        }
+
+        public static ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommand Instance { get; private set; }
+
+        public static void Initialize(OleMenuCommandService commandService)
+        {
+            Instance = new ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommand(commandService);
+        }
+
+        protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
+        {
+            var projectList = helper.GetSelectedProjects().ToList();
+
+            helper.HandleBuildProjectUpdatePluginAssemblyCommand(connectionData, true, projectList);
+        }
+    }
+}

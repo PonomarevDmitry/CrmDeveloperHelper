@@ -124,6 +124,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Building Project {0} completed..
+        /// </summary>
+        internal static string BuildingProjectCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("BuildingProjectCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Building Project {0} failed..
+        /// </summary>
+        internal static string BuildingProjectFailedFormat1 {
+            get {
+                return ResourceManager.GetString("BuildingProjectFailedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Building Project {0}....
+        /// </summary>
+        internal static string BuildingProjectFormat1 {
+            get {
+                return ResourceManager.GetString("BuildingProjectFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot update PluginAssembly {0}..
+        /// </summary>
+        internal static string CannotUpdatePluginAssemblyFormat1 {
+            get {
+                return ResourceManager.GetString("CannotUpdatePluginAssemblyFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}. Role {1} Changed Privileges exported to file: {2}.
         /// </summary>
         internal static string ChangedPrivilegesForConnectionFormat3 {
@@ -979,6 +1015,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Plugin Types exists ONLY in CRM: {0}..
+        /// </summary>
+        internal static string PluginTypesExistsOnlyInCRMFormat1 {
+            get {
+                return ResourceManager.GetString("PluginTypesExistsOnlyInCRMFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PluginTypes not founded by name {0}..
         /// </summary>
         internal static string PluginTypesNotFoundedByNameFormat1 {
@@ -1353,6 +1398,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string WorkflowNotFoundedFormat2 {
             get {
                 return ResourceManager.GetString("WorkflowNotFoundedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Workflow Types exists ONLY in CRM: {0}..
+        /// </summary>
+        internal static string WorkflowTypesExistsOnlyInCRMFormat1 {
+            get {
+                return ResourceManager.GetString("WorkflowTypesExistsOnlyInCRMFormat1", resourceCulture);
             }
         }
         

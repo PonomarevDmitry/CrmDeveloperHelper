@@ -232,6 +232,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Building Project and Updating PluginAssembly.
+        /// </summary>
+        internal static string BuildingProjectAndUpdatingPluginAssemblyFormat1 {
+            get {
+                return ResourceManager.GetString("BuildingProjectAndUpdatingPluginAssemblyFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Building Project {1} and Updating PluginAssembly.
+        /// </summary>
+        internal static string BuildingProjectAndUpdatingPluginAssemblyFormat2 {
+            get {
+                return ResourceManager.GetString("BuildingProjectAndUpdatingPluginAssemblyFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Building Project, Updating PluginAssembly and Registering New Plugins.
+        /// </summary>
+        internal static string BuildingProjectUpdatingPluginAssemblyRegisteringPluginsFormat1 {
+            get {
+                return ResourceManager.GetString("BuildingProjectUpdatingPluginAssemblyRegisteringPluginsFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Building Project {1}, Updating PluginAssembly and Registering New Plugins.
+        /// </summary>
+        internal static string BuildingProjectUpdatingPluginAssemblyRegisteringPluginsFormat2 {
+            get {
+                return ResourceManager.GetString("BuildingProjectUpdatingPluginAssemblyRegisteringPluginsFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Checking Application Ribbons in {0} and {1}.
         /// </summary>
         internal static string CheckingApplicationRibbonsFormat2 {

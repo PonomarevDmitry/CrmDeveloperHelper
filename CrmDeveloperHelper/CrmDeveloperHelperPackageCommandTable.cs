@@ -397,6 +397,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuCSharp_GroupGlobalOptionSets_MenuConnectionDyn_Group = 0x127A;
 
+            public const int codeMenuCSharp_GroupPluginAssemblyBuildUpdate = 0x13B2;
+
+            public const int codeMenuCSharp_GroupPluginAssemblyBuildUpdate_MenuConnectionDyn = 0x13B3;
+
+            public const int codeMenuCSharp_GroupPluginAssemblyBuildUpdate_MenuConnectionDyn_Group = 0x13B4;
+
+            public const int codeMenuCSharp_GroupPluginAssemblyBuildUpdateRegister = 0x13B5;
+
+            public const int codeMenuCSharp_GroupPluginAssemblyBuildUpdateRegister_MenuConnectionDyn = 0x13B6;
+
+            public const int codeMenuCSharp_GroupPluginAssemblyBuildUpdateRegister_MenuConnectionDyn_Group = 0x13B7;
+
             public const int codeMenuCSharp_GroupPluginAssemblyUpdate = 0x1287;
 
             public const int codeMenuCSharp_GroupPluginAssemblyUpdate_MenuConnectionDyn = 0x1288;
@@ -821,6 +833,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int fileMenuCSharp_GroupGlobalOptionSets_MenuConnectionDyn_Group = 0x127E;
 
+            public const int fileMenuCSharp_GroupPluginAssemblyBuildUpdate = 0x13B8;
+
+            public const int fileMenuCSharp_GroupPluginAssemblyBuildUpdate_MenuConnectionDyn = 0x13B9;
+
+            public const int fileMenuCSharp_GroupPluginAssemblyBuildUpdate_MenuConnectionDyn_Group = 0x13BA;
+
+            public const int fileMenuCSharp_GroupPluginAssemblyBuildUpdateRegister = 0x13BB;
+
+            public const int fileMenuCSharp_GroupPluginAssemblyBuildUpdateRegister_MenuConnectionDyn = 0x13BC;
+
+            public const int fileMenuCSharp_GroupPluginAssemblyBuildUpdateRegister_MenuConnectionDyn_Group = 0x13BD;
+
             public const int fileMenuCSharp_GroupPluginAssemblyUpdate = 0x128A;
 
             public const int fileMenuCSharp_GroupPluginAssemblyUpdate_MenuConnectionDyn = 0x128B;
@@ -1042,6 +1066,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int folderMenuFolder_GroupMetadata_MenuSdkMessageRequestDyn_GroupConnection = 0x1329;
 
             public const int folderMenuProject = 0x10F9;
+
+            public const int folderMenuProject_GroupBuildUpdate = 0x13AC;
+
+            public const int folderMenuProject_GroupBuildUpdate_MenuConnectionDyn = 0x13AD;
+
+            public const int folderMenuProject_GroupBuildUpdate_MenuConnectionDyn_Group = 0x13AE;
+
+            public const int folderMenuProject_GroupBuildUpdateRegister = 0x13AF;
+
+            public const int folderMenuProject_GroupBuildUpdateRegister_MenuConnectionDyn = 0x13B0;
+
+            public const int folderMenuProject_GroupBuildUpdateRegister_MenuConnectionDyn_Group = 0x13B1;
 
             public const int folderMenuProject_GroupUpdate = 0x128D;
 
@@ -1884,6 +1920,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeCSharpProjectUpdatePluginAssemblyInConnectionCommandId = 0x1C52;
 
+            public const int CodeCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId = 0x2BC0;
+
+            public const int CodeCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId = 0x2BF2;
+
             public const int CodeCSharpProjectPluginAssemblyAddToSolutionInConnectionCommandId = 0x1F0E;
 
             public const int CodeCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommandId = 0x1F40;
@@ -2004,6 +2044,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FileCSharpProjectUpdatePluginAssemblyInConnectionCommandId = 0x1C84;
 
+            public const int FileCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId = 0x2C24;
+
+            public const int FileCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId = 0x2C56;
+
             public const int FileCSharpProjectPluginAssemblyAddToSolutionInConnectionCommandId = 0x1FA4;
 
             public const int FileCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommandId = 0x1FD6;
@@ -2081,6 +2125,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int ProjectPluginAssemblyAddToSolutionInConnectionCommandId = 0x1EAA;
 
             public const int ProjectPluginAssemblyStepsAddToSolutionInConnectionCommandId = 0x1EDC;
+
+            public const int ProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId = 0x2B5C;
+
+            public const int ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId = 0x2B8E;
 
             public const int OutputExportOpenLastSelectedSolutionInWebCommandId = 0x27D8;
 
@@ -2172,6 +2220,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int CodeReportExplorerCommandId = 0x200D;
 
             public const int CodeCSharpProjectUpdatePluginAssemblyCommandId = 0x2192;
+
+            public const int CodeCSharpProjectBuildLoadUpdatePluginAssemblyCommandId = 0x2221;
+
+            public const int CodeCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommandId = 0x2222;
 
             public const int CodeCSharpProjectCompareToCrmAssemblyCommandId = 0x2140;
 
@@ -2399,6 +2451,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FileCSharpProjectUpdatePluginAssemblyCommandId = 0x2193;
 
+            public const int FileCSharpProjectBuildLoadUpdatePluginAssemblyCommandId = 0x2223;
+
+            public const int FileCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommandId = 0x2224;
+
             public const int FileCSharpProjectCompareToCrmAssemblyCommandId = 0x2141;
 
             public const int FileCSharpPluginTypeExplorerCommandId = 0x2136;
@@ -2550,6 +2606,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int ProjectPluginAssemblyExplorerCommandId = 0x2164;
 
             public const int ProjectPluginTreeCommandId = 0x2177;
+
+            public const int ProjectBuildLoadUpdatePluginAssemblyCommandId = 0x221F;
+
+            public const int ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommandId = 0x2220;
 
             public const int ListForPublishCompareCommandId = 0x2015;
 

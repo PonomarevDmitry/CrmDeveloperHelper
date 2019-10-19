@@ -128,6 +128,14 @@
     <Compile Include="Commands\CSharp\FolderCSharpEntityMetadataFileGenerationOptionsCommand.cs" />
     <Compile Include="Commands\CSharp\FolderCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommand.cs" />
     <Compile Include="Commands\CSharp\FolderCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommand.cs" />
+    <Compile Include="Commands\CSharp\CodeCSharpProjectBuildLoadUpdatePluginAssemblyCommand.cs" />
+    <Compile Include="Commands\CSharp\CodeCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommand.cs" />
+    <Compile Include="Commands\CSharp\CodeCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand.cs" />
+    <Compile Include="Commands\CSharp\CodeCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommand.cs" />
+    <Compile Include="Commands\CSharp\FileCSharpProjectBuildLoadUpdatePluginAssemblyCommand.cs" />
+    <Compile Include="Commands\CSharp\FileCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommand.cs" />
+    <Compile Include="Commands\CSharp\FileCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand.cs" />
+    <Compile Include="Commands\CSharp\FileCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommand.cs" />
     <Compile Include="Commands\FindEdit\CommonFindEntityObjectsByNameInExplorerCommand.cs" />
     <Compile Include="Commands\FindEdit\CommonFindEntityObjectsByPrefixInExplorerCommand.cs" />
     <Compile Include="Commands\FindEdit\CommonFindEntityObjectsContainsStringInExplorerCommand.cs" />
@@ -210,6 +218,10 @@
     <Compile Include="Commands\OutputWindows\PluginConfigurations\OutputPluginConfigurationPluginAssemblyCommand.cs" />
     <Compile Include="Commands\OutputWindows\PluginConfigurations\OutputPluginConfigurationPluginTreeCommand.cs" />
     <Compile Include="Commands\OutputWindows\PluginConfigurations\OutputPluginConfigurationPluginTypeCommand.cs" />
+    <Compile Include="Commands\Projects\ProjectBuildLoadUpdatePluginAssemblyCommand.cs" />
+    <Compile Include="Commands\Projects\ProjectBuildLoadUpdatePluginAssemblyInConnectionCommand.cs" />
+    <Compile Include="Commands\Projects\ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand.cs" />
+    <Compile Include="Commands\Projects\ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommand.cs" />
     <Compile Include="Commands\Reports\CodeReportAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\Reports\CodeReportCreateCommand.cs" />
     <Compile Include="Commands\Reports\CodeReportShowDifferenceInConnectionGroupCommand.cs" />

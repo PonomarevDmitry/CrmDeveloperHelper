@@ -70,6 +70,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Build Project and Update PluginAssembly.
+        /// </summary>
+        internal static string CodeCSharpProjectBuildLoadUpdatePluginAssemblyCommand {
+            get {
+                return ResourceManager.GetString("CodeCSharpProjectBuildLoadUpdatePluginAssemblyCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Build Project, Update PluginAssembly and Register New Plugins.
+        /// </summary>
+        internal static string CodeCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand {
+            get {
+                return ResourceManager.GetString("CodeCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Compare with Crm PluginAssembly.
         /// </summary>
         internal static string CodeCSharpProjectCompareToCrmAssemblyCommand {
@@ -592,6 +610,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Build Project and Update PluginAssembly.
+        /// </summary>
+        internal static string FileCSharpProjectBuildLoadUpdatePluginAssemblyCommand {
+            get {
+                return ResourceManager.GetString("FileCSharpProjectBuildLoadUpdatePluginAssemblyCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Build Project, Update PluginAssembly and Register New Plugins.
+        /// </summary>
+        internal static string FileCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand {
+            get {
+                return ResourceManager.GetString("FileCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Compare with Crm PluginAssembly.
         /// </summary>
         internal static string FileCSharpProjectCompareToCrmAssemblyCommand {
@@ -849,6 +885,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string OutputTestCrmConnectionCommand {
             get {
                 return ResourceManager.GetString("OutputTestCrmConnectionCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Build Project and Update PluginAssembly.
+        /// </summary>
+        internal static string ProjectBuildLoadUpdatePluginAssemblyCommand {
+            get {
+                return ResourceManager.GetString("ProjectBuildLoadUpdatePluginAssemblyCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Build Project, Update PluginAssembly and Register New Plugins.
+        /// </summary>
+        internal static string ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand {
+            get {
+                return ResourceManager.GetString("ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand", resourceCulture);
             }
         }
         

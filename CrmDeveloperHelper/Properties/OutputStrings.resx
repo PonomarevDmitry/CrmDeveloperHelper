@@ -614,4 +614,25 @@
   <data name="DeactivatingWorkflowFormat2" xml:space="preserve">
     <value>{0}. Deactivating Workflow {1}...</value>
   </data>
+
+  <data name="BuildingProjectCompletedFormat1" xml:space="preserve">
+    <value>Building Project {0} completed.</value>
+  </data>
+  <data name="BuildingProjectFailedFormat1" xml:space="preserve">
+    <value>Building Project {0} failed.</value>
+  </data>
+  <data name="BuildingProjectFormat1" xml:space="preserve">
+    <value>Building Project {0}...</value>
+  </data>
+
+  <data name="PluginTypesExistsOnlyInCRMFormat1" xml:space="preserve">
+    <value>Plugin Types exists ONLY in CRM: {0}.</value>
+  </data>
+  <data name="WorkflowTypesExistsOnlyInCRMFormat1" xml:space="preserve">
+    <value>Workflow Types exists ONLY in CRM: {0}.</value>
+  </data>
+  
+  <data name="CannotUpdatePluginAssemblyFormat1" xml:space="preserve">
+    <value>Cannot update PluginAssembly {0}.</value>
+  </data>
 </root>

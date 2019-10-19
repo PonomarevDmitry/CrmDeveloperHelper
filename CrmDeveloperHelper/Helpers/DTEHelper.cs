@@ -565,6 +565,48 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public void HandleBuildProjectUpdatePluginAssemblyCommand(ConnectionData connectionData, bool registerPlugins, params EnvDTE.Project[] projectList)
+        {
+            HandleBuildProjectUpdatePluginAssemblyCommand(connectionData, registerPlugins, projectList.ToList());
+        }
+
+        public void HandleBuildProjectUpdatePluginAssemblyCommand(ConnectionData connectionData, bool registerPlugins, List<Project> projectList)
+        {
+            if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
+            {
+                return;
+            }
+
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null && commonConfig != null)
+            {
+                ActivateOutputWindow(connectionData);
+                WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                try
+                {
+                    Controller.StartBuildProjectUpdatePluginAssembly(connectionData, commonConfig, projectList, registerPlugins);
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToOutput(connectionData, ex);
+                }
+            }
+        }
+
         public void HandleRegisterPluginAssemblyCommand(ConnectionData connectionData, List<EnvDTE.Project> projectList)
         {
             if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))

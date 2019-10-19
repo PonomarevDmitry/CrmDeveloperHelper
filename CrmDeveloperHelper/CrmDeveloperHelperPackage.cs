@@ -411,6 +411,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeCSharpUpdateGlobalOptionSetsFileCommand.Initialize(commandService);
             CodeCSharpUpdateGlobalOptionSetsFileWithSelectCommand.Initialize(commandService);
 
+            CodeCSharpProjectBuildLoadUpdatePluginAssemblyCommand.Initialize(commandService);
+            CodeCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommand.Initialize(commandService);
+
+            CodeCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand.Initialize(commandService);
+            CodeCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommand.Initialize(commandService);
+
             CodeCSharpProjectUpdatePluginAssemblyCommand.Initialize(commandService);
             CodeCSharpProjectUpdatePluginAssemblyInConnectionCommand.Initialize(commandService);
 
@@ -472,8 +478,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FileCSharpUpdateGlobalOptionSetsFileCommand.Initialize(commandService);
             FileCSharpUpdateGlobalOptionSetsFileWithSelectCommand.Initialize(commandService);
             FileCSharpPluginAssemblyExplorerCommand.Initialize(commandService);
+
+            FileCSharpProjectBuildLoadUpdatePluginAssemblyCommand.Initialize(commandService);
+            FileCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommand.Initialize(commandService);
+
+            FileCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand.Initialize(commandService);
+            FileCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommand.Initialize(commandService);
+
             FileCSharpProjectUpdatePluginAssemblyCommand.Initialize(commandService);
             FileCSharpProjectUpdatePluginAssemblyInConnectionCommand.Initialize(commandService);
+
             FileCSharpProjectCompareToCrmAssemblyCommand.Initialize(commandService);
             FileCSharpProjectCompareToCrmAssemblyInConnectionCommand.Initialize(commandService);
             FileCSharpPluginTypeExplorerCommand.Initialize(commandService);
@@ -528,6 +542,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             #endregion FolderAdd
 
             #region Project
+
+            ProjectBuildLoadUpdatePluginAssemblyCommand.Initialize(commandService);
+            ProjectBuildLoadUpdatePluginAssemblyInConnectionCommand.Initialize(commandService);
+
+            ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand.Initialize(commandService);
+            ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommand.Initialize(commandService);
 
             ProjectUpdatePluginAssemblyCommand.Initialize(commandService);
             ProjectUpdatePluginAssemblyInConnectionCommand.Initialize(commandService);

@@ -473,6 +473,283 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Обновление сборки плагинов.
 
+        #region Building Project, Updating Assembly and Register New Plugins
+
+        public async Task ExecuteBuildingProjectAndUpdatingPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList, bool registerPlugins)
+        {
+            string operation = string.Format(registerPlugins ? Properties.OperationNames.BuildingProjectAndUpdatingPluginAssemblyFormat1 : Properties.OperationNames.BuildingProjectUpdatingPluginAssemblyRegisteringPluginsFormat1
+                , connectionData?.Name
+            );
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await BuildingProjectAndUpdatingPluginAssembly(connectionData, commonConfig, projectList, registerPlugins);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task BuildingProjectAndUpdatingPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList, bool registerPlugins)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.AssemblyNameIsEmpty);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+
+            var repositoryAssembly = new PluginAssemblyRepository(service);
+            var repositoryType = new PluginTypeRepository(service);
+
+            foreach (var project in projectList)
+            {
+                string operation = string.Format(registerPlugins ? Properties.OperationNames.BuildingProjectAndUpdatingPluginAssemblyFormat2 : Properties.OperationNames.BuildingProjectUpdatingPluginAssemblyRegisteringPluginsFormat2
+                    , connectionData?.Name
+                    , project.Name
+                );
+
+                this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+                try
+                {
+                    await BuildProjectUpdatePluginAssembly(connectionData, commonConfig, service, repositoryAssembly, repositoryType, project, registerPlugins);
+                }
+                catch (Exception ex)
+                {
+                    this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+                }
+                finally
+                {
+                    this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+                }
+            }
+        }
+
+        private async Task BuildProjectUpdatePluginAssembly(
+            ConnectionData connectionData
+            , CommonConfiguration commonConfig
+            , IOrganizationServiceExtented service
+            , PluginAssemblyRepository repositoryAssembly
+            , PluginTypeRepository repositoryType
+            , EnvDTE.Project project
+            , bool registerPlugins
+        )
+        {
+            var assembly = await repositoryAssembly.FindAssemblyAsync(project.Name);
+
+            if (assembly == null)
+            {
+                assembly = await repositoryAssembly.FindAssemblyByLikeNameAsync(project.Name);
+            }
+
+            if (assembly == null)
+            {
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PluginAssemblyNotFoundedByNameFormat1, project.Name);
+
+                WindowHelper.OpenPluginAssemblyExplorer(
+                    this._iWriteToOutput
+                    , service
+                    , commonConfig
+                    , project.Name
+                );
+
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.BuildingProjectFormat1, project.Name);
+
+            var buildResult = await _iWriteToOutput.BuildProjectAsync(project);
+
+            if (buildResult != 0)
+            {
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.BuildingProjectFailedFormat1, project.Name);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.BuildingProjectCompletedFormat1, project.Name);
+
+            string defaultOutputFilePath = PropertiesHelper.GetOutputFilePath(project);
+
+            if (!File.Exists(defaultOutputFilePath))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, defaultOutputFilePath);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.LoadingAssemblyFromPathFormat1, defaultOutputFilePath);
+
+            AssemblyReaderResult assemblyLoad = null;
+
+            using (var reader = new AssemblyReader())
+            {
+                assemblyLoad = reader.ReadAssembly(defaultOutputFilePath);
+            }
+
+            if (assemblyLoad == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.LoadingAssemblyFromPathFailedFormat1, defaultOutputFilePath);
+                return;
+            }
+
+            assemblyLoad.Content = File.ReadAllBytes(defaultOutputFilePath);
+
+            var crmPlugins = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+            var crmWorkflows = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+
+            var pluginTypes = await repositoryType.GetPluginTypesAsync(assembly.Id);
+
+            foreach (var item in pluginTypes.Where(e => !e.IsWorkflowActivity.GetValueOrDefault()).Select(e => e.TypeName))
+            {
+                crmPlugins.Add(item);
+            }
+
+            foreach (var item in pluginTypes.Where(e => e.IsWorkflowActivity.GetValueOrDefault()).Select(e => e.TypeName))
+            {
+                crmWorkflows.Add(item);
+            }
+
+            HashSet<string> assemblyPlugins = new HashSet<string>(assemblyLoad.Plugins, StringComparer.InvariantCultureIgnoreCase);
+            HashSet<string> assemblyWorkflows = new HashSet<string>(assemblyLoad.Workflows, StringComparer.InvariantCultureIgnoreCase);
+
+            var pluginsOnlyInCrm = crmPlugins.Except(assemblyPlugins, StringComparer.InvariantCultureIgnoreCase).ToList();
+            var workflowOnlyInCrm = crmWorkflows.Except(assemblyWorkflows, StringComparer.InvariantCultureIgnoreCase).ToList();
+
+            if (pluginsOnlyInCrm.Any() || workflowOnlyInCrm.Any())
+            {
+                if (pluginsOnlyInCrm.Any())
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.PluginTypesExistsOnlyInCRMFormat1, pluginsOnlyInCrm.Count);
+
+                    foreach (var item in pluginsOnlyInCrm.OrderBy(s => s))
+                    {
+                        this._iWriteToOutput.WriteToOutput(connectionData, _tabspacer + item);
+                    }
+                }
+
+                if (workflowOnlyInCrm.Any())
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WorkflowTypesExistsOnlyInCRMFormat1, workflowOnlyInCrm.Count);
+
+                    foreach (var item in workflowOnlyInCrm.OrderBy(s => s))
+                    {
+                        this._iWriteToOutput.WriteToOutput(connectionData, _tabspacer + item);
+                    }
+                }
+
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CannotUpdatePluginAssemblyFormat1, assembly.Name);
+
+                return;
+            }
+
+            string workflowActivityGroupName = string.Format("{0} ({1})", assemblyLoad.Name, assemblyLoad.Version);
+
+            service.ConnectionData.AddAssemblyMapping(assemblyLoad.Name, assemblyLoad.FilePath);
+            service.ConnectionData.Save();
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.UpdatingPluginAssemblyFormat1, service.ConnectionData.Name);
+
+            assembly.Content = Convert.ToBase64String(assemblyLoad.Content);
+
+            try
+            {
+                await service.UpdateAsync(assembly);
+
+                if (registerPlugins)
+                {
+                    var pluginsOnlyInLocalAssembly = assemblyPlugins.Except(crmPlugins, StringComparer.InvariantCultureIgnoreCase);
+                    var workflowOnlyInLocalAssembly = assemblyWorkflows.Except(crmWorkflows, StringComparer.InvariantCultureIgnoreCase);
+
+                    if (pluginsOnlyInLocalAssembly.Any() || workflowOnlyInLocalAssembly.Any())
+                    {
+                        int totalCount = pluginsOnlyInLocalAssembly.Count() + workflowOnlyInLocalAssembly.Count();
+
+                        var assemblyRef = assembly.ToEntityReference();
+
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.RegisteringNewPluginTypesFormat2, service.ConnectionData.Name, totalCount);
+
+                        await RegisterNewPluginTypes(service, pluginsOnlyInLocalAssembly, assemblyRef, false, workflowActivityGroupName);
+
+                        await RegisterNewPluginTypes(service, workflowOnlyInLocalAssembly, assemblyRef, true, workflowActivityGroupName);
+
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.RegisteringNewPluginTypesCompletedFormat2, service.ConnectionData.Name, totalCount);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.UpdatingPluginAssemblyFailedFormat1, service.ConnectionData.Name);
+
+                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+            }
+        }
+
+        private async Task RegisterNewPluginTypes(IOrganizationServiceExtented service, IEnumerable<string> typesToRegister, EntityReference assemblyRef, bool isWorkflowActivity, string workflowActivityGroupName)
+        {
+            foreach (var pluginType in typesToRegister.OrderBy(s => s))
+            {
+                var pluginTypeEntity = new PluginType()
+                {
+                    Name = pluginType,
+                    TypeName = pluginType,
+                    FriendlyName = pluginType,
+
+                    PluginAssemblyId = assemblyRef,
+                };
+
+                if (isWorkflowActivity)
+                {
+                    pluginTypeEntity.WorkflowActivityGroupName = workflowActivityGroupName;
+                }
+
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.WindowStatusStrings.RegisteringPluginTypeFormat2, service.ConnectionData.Name, pluginType);
+
+                try
+                {
+                    pluginTypeEntity.Id = await service.CreateAsync(pluginTypeEntity);
+
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.WindowStatusStrings.RegisteringPluginTypeCompletedFormat2, service.ConnectionData.Name, pluginType);
+                }
+                catch (Exception ex)
+                {
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.WindowStatusStrings.RegisteringPluginTypeFailedFormat2, service.ConnectionData.Name, pluginType);
+
+                    _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                    _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                }
+            }
+        }
+
+        #endregion Building Project, Updating Assembly and Register New Plugins
+
         #region Регистрация сборки плагинов.
 
         public async Task ExecuteRegisterPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList)

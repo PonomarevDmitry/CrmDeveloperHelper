@@ -1790,6 +1790,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
+        public void StartBuildProjectUpdatePluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList, bool registerPlugins)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._pluginController.ExecuteBuildingProjectAndUpdatingPluginAssembly(connectionData, commonConfig, projectList, registerPlugins);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
         public void StartRegisterPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList)
         {
             var worker = new Thread(() =>
