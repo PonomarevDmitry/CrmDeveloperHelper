@@ -151,6 +151,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All Files has UTF8 Encoding: {0}.
+        /// </summary>
+        internal static string AllFilesHasUTF8EncodingFormat1 {
+            get {
+                return ResourceManager.GetString("AllFilesHasUTF8EncodingFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}. Role {1} All New Privileges exported to file: {2}.
         /// </summary>
         internal static string AllNewPrivilegesForConnectionFormat3 {
@@ -1024,6 +1033,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Created file with Checking Global OptionSet Duplicates on Entity: {0}.
+        /// </summary>
+        internal static string CreatedFileWithCheckingGlobalOptionSetDuplicatesOnEntityFormat1 {
+            get {
+                return ResourceManager.GetString("CreatedFileWithCheckingGlobalOptionSetDuplicatesOnEntityFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created file with Entities with Ownership: {0}.
+        /// </summary>
+        internal static string CreatedFileWithEntitiesOwnershipFormat1 {
+            get {
+                return ResourceManager.GetString("CreatedFileWithEntitiesOwnershipFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created file with web-resources dependent components: {0}.
+        /// </summary>
+        internal static string CreatedFileWithWebResourcesDependentComponentsFormat1 {
+            get {
+                return ResourceManager.GetString("CreatedFileWithWebResourcesDependentComponentsFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}. For Global OptionSet &apos;{1}&apos; created file with Metadata: {2}.
         /// </summary>
         internal static string CreatedGlobalOptionSetMetadataFileForConnectionFormat3 {
@@ -1816,6 +1852,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Entities with Ownership {0}: {1}.
+        /// </summary>
+        internal static string EntitiesWithOwnershipFormat2 {
+            get {
+                return ResourceManager.GetString("EntitiesWithOwnershipFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Entity Attribute {0}.{1} NOT EXISTS in {2}.
         /// </summary>
         internal static string EntityAttributeNotExistsInConnectionFormat3 {
@@ -2329,6 +2374,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} has encoding {1}.
+        /// </summary>
+        internal static string FileHasEncodingFormat2 {
+            get {
+                return ResourceManager.GetString("FileHasEncodingFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File does not contain Xml Attribute {0}: {1}.
         /// </summary>
         internal static string FileNotContainsXmlAttributeFormat2 {
@@ -2361,6 +2415,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string FilesAlreadyInPublishListFormat1 {
             get {
                 return ResourceManager.GetString("FilesAlreadyInPublishListFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File complies multiple Encoding WITHOUT UTF8 in list: {0}.
+        /// </summary>
+        internal static string FilesCompliesMultipleEncodingWithoutUTF8Format1 {
+            get {
+                return ResourceManager.GetString("FilesCompliesMultipleEncodingWithoutUTF8Format1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Files complies multiple Encoding with UTF8 in list: {0}.
+        /// </summary>
+        internal static string FilesCompliesMultipleEncodingWithUTF8Format1 {
+            get {
+                return ResourceManager.GetString("FilesCompliesMultipleEncodingWithUTF8Format1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Files does not have encoding: {0}.
+        /// </summary>
+        internal static string FilesDoesNotHaveEncodingFormat1 {
+            get {
+                return ResourceManager.GetString("FilesDoesNotHaveEncodingFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Files has UTF8 Encoding: {0}.
+        /// </summary>
+        internal static string FilesHasUTF8EncodingFormat1 {
+            get {
+                return ResourceManager.GetString("FilesHasUTF8EncodingFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Files has wrong Encoding: {0}.
+        /// </summary>
+        internal static string FilesHasWrongEncodingFormat1 {
+            get {
+                return ResourceManager.GetString("FilesHasWrongEncodingFormat1", resourceCulture);
             }
         }
         

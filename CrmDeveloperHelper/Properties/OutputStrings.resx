@@ -2105,4 +2105,99 @@
   <data name="CopyingEntityJavaScriptContentOnFormFormat2" xml:space="preserve">
     <value>Copying entity {0} javascript content based on form {1}...</value>
   </data>
+
+  <data name="EntitiesWithOwnershipFormat2" xml:space="preserve">
+    <value>Entities with Ownership {0}: {1}</value>
+  </data>
+  <data name="CreatedFileWithEntitiesOwnershipFormat1" xml:space="preserve">
+    <value>Created file with Entities with Ownership: {0}</value>
+  </data>
+  <data name="FileHasEncodingFormat2" xml:space="preserve">
+    <value>{0} has encoding {1}</value>
+  </data>
+  <data name="FilesDoesNotHaveEncodingFormat1" xml:space="preserve">
+    <value>Files does not have encoding: {0}</value>
+  </data>
+  
+  <data name="FilesHasWrongEncodingFormat1" xml:space="preserve">
+    <value>Files has wrong Encoding: {0}</value>
+  </data>
+  
+  <data name="FilesCompliesMultipleEncodingWithUTF8Format1" xml:space="preserve">
+    <value>Files complies multiple Encoding with UTF8 in list: {0}</value>
+  </data>
+  
+  <data name="FilesCompliesMultipleEncodingWithoutUTF8Format1" xml:space="preserve">
+    <value>File complies multiple Encoding WITHOUT UTF8 in list: {0}</value>
+  </data>
+  
+  <data name="FilesHasUTF8EncodingFormat1" xml:space="preserve">
+    <value>Files has UTF8 Encoding: {0}</value>
+  </data>
+  
+  <data name="AllFilesHasUTF8EncodingFormat1" xml:space="preserve">
+    <value>All Files has UTF8 Encoding: {0}</value>
+  </data>
+  
+  <data name="CreatedFileWithWebResourcesDependentComponentsFormat1" xml:space="preserve">
+    <value>Created file with web-resources dependent components: {0}</value>
+  </data>
+  
+  <data name="CreatedFileWithCheckingGlobalOptionSetDuplicatesOnEntityFormat1" xml:space="preserve">
+    <value>Created file with Checking Global OptionSet Duplicates on Entity: {0}</value>
+  </data>
+  
+  <!--
+  <data name="111111" xml:space="preserve">
+    <value>2222222</value>
+  </data>
+  
+  <data name="111111" xml:space="preserve">
+    <value>2222222</value>
+  </data>
+  
+  <data name="111111" xml:space="preserve">
+    <value>2222222</value>
+  </data>
+  
+  <data name="111111" xml:space="preserve">
+    <value>2222222</value>
+  </data>
+  
+  <data name="111111" xml:space="preserve">
+    <value>2222222</value>
+  </data>
+  
+  <data name="111111" xml:space="preserve">
+    <value>2222222</value>
+  </data>
+  
+  <data name="111111" xml:space="preserve">
+    <value>2222222</value>
+  </data>
+  
+  <data name="111111" xml:space="preserve">
+    <value>2222222</value>
+  </data>
+  
+  <data name="111111" xml:space="preserve">
+    <value>2222222</value>
+  </data>
+  
+  <data name="111111" xml:space="preserve">
+    <value>2222222</value>
+  </data>
+  
+  <data name="111111" xml:space="preserve">
+    <value>2222222</value>
+  </data>
+  
+  <data name="111111" xml:space="preserve">
+    <value>2222222</value>
+  </data>
+  
+  <data name="111111" xml:space="preserve">
+    <value>2222222</value>
+  </data>
+  -->
 </root>

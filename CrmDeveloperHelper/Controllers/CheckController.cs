@@ -22,7 +22,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 {
     public class CheckController
     {
-        private const string tabSpacer = "    ";
+        private const string _tabSpacer = "    ";
 
         private readonly IWriteToOutput _iWriteToOutput = null;
 
@@ -97,9 +97,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     name = gr.Key.Value.ToString();
                 }
 
-                content.AppendFormat("Entities with Ownership {0}: {1}", name, count).AppendLine();
+                content.AppendFormat(Properties.OutputStrings.EntitiesWithOwnershipFormat2, name, count).AppendLine();
 
-                gr.OrderBy(ent => ent.LogicalName).ToList().ForEach(ent => content.AppendLine(tabSpacer + ent.LogicalName));
+                gr.OrderBy(ent => ent.LogicalName).ToList().ForEach(ent => content.AppendLine(_tabSpacer + ent.LogicalName));
             }
 
             string fileName = string.Format("{0}.Entities with Ownership at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
@@ -119,7 +119,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
-            this._iWriteToOutput.WriteToOutput(connectionData, "Created file with Entities with Ownership: {0}", filePath);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CreatedFileWithEntitiesOwnershipFormat1, filePath);
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
         }
@@ -180,7 +180,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             }
                             else
                             {
-                                listWrongEncoding.Add(string.Format("{0} has encoding {1}", selectedFile.FriendlyFilePath, encodings[0].EncodingName));
+                                listWrongEncoding.Add(string.Format(Properties.OutputStrings.FileHasEncodingFormat2, selectedFile.FriendlyFilePath, encodings[0].EncodingName));
 
                                 filesWithoutUTF8Encoding.Add(selectedFile);
                             }
@@ -209,11 +209,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                             if (hasUTF8)
                             {
-                                listMultipleEncodingHasUTF8.Add(string.Format("{0} has encoding {1}", selectedFile.FriendlyFilePath, str.ToString()));
+                                listMultipleEncodingHasUTF8.Add(string.Format(Properties.OutputStrings.FileHasEncodingFormat2, selectedFile.FriendlyFilePath, str.ToString()));
                             }
                             else
                             {
-                                listMultipleEncodingHasNotUTF8.Add(string.Format("{0} has encoding {1}", selectedFile.FriendlyFilePath, str.ToString()));
+                                listMultipleEncodingHasNotUTF8.Add(string.Format(Properties.OutputStrings.FileHasEncodingFormat2, selectedFile.FriendlyFilePath, str.ToString()));
                             }
                         }
                     }
@@ -233,7 +233,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (listNotHaveBOM.Count > 0)
             {
                 iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                iWriteToOutput.WriteToOutput(connectionData, "File does not have encoding: {0}", listNotHaveBOM.Count);
+                iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FilesDoesNotHaveEncodingFormat1, listNotHaveBOM.Count);
 
                 listNotHaveBOM.Sort();
 
@@ -243,7 +243,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (listWrongEncoding.Count > 0)
             {
                 iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                iWriteToOutput.WriteToOutput(connectionData, "File has wrong Encoding: {0}", listWrongEncoding.Count);
+                iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FilesHasWrongEncodingFormat1, listWrongEncoding.Count);
 
                 listWrongEncoding.Sort();
 
@@ -253,7 +253,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (listMultipleEncodingHasUTF8.Count > 0)
             {
                 iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                iWriteToOutput.WriteToOutput(connectionData, "File complies multiple Encoding with UTF8 in list: {0}", listMultipleEncodingHasUTF8.Count);
+                iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FilesCompliesMultipleEncodingWithUTF8Format1, listMultipleEncodingHasUTF8.Count);
 
                 listMultipleEncodingHasUTF8.Sort();
 
@@ -263,7 +263,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (listMultipleEncodingHasNotUTF8.Count > 0)
             {
                 iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                iWriteToOutput.WriteToOutput(connectionData, "File complies multiple Encoding WITHOUT UTF8 in list: {0}", listMultipleEncodingHasNotUTF8.Count);
+                iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FilesCompliesMultipleEncodingWithoutUTF8Format1, listMultipleEncodingHasNotUTF8.Count);
 
                 listMultipleEncodingHasNotUTF8.Sort();
 
@@ -279,18 +279,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 listNotExistsOnDisk.ForEach(item => iWriteToOutput.WriteToOutput(connectionData, item));
             }
-
+            
             if (countWithUTF8Encoding > 0)
             {
                 if (countWithUTF8Encoding == selectedFiles.Count())
                 {
                     iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                    iWriteToOutput.WriteToOutput(connectionData, "All Files has UTF8 Encoding: {0}", countWithUTF8Encoding);
+                    iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.AllFilesHasUTF8EncodingFormat1, countWithUTF8Encoding);
                 }
                 else
                 {
                     iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                    iWriteToOutput.WriteToOutput(connectionData, "Files has UTF8 Encoding: {0}", countWithUTF8Encoding);
+                    iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FilesHasUTF8EncodingFormat1, countWithUTF8Encoding);
                 }
             }
         }
@@ -507,8 +507,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
-
-            this._iWriteToOutput.WriteToOutput(connectionData, "Created file with web-resources dependent components: {0}", filePath);
+            
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CreatedFileWithWebResourcesDependentComponentsFormat1, filePath);
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
         }
@@ -638,8 +638,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
-
-            this._iWriteToOutput.WriteToOutput(connectionData, "Created file with Checking Global OptionSet Duplicates on Entity: {0}", filePath);
+            
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CreatedFileWithCheckingGlobalOptionSetDuplicatesOnEntityFormat1, filePath);
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
         }
@@ -759,7 +759,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     foreach (var item in gr.OrderBy(e => e.Item2))
                     {
-                        content.AppendFormat(tabSpacer + item.Item1.ToString() + tabSpacer + item.Item2.ToString()).AppendLine();
+                        content.AppendFormat(_tabSpacer + item.Item1.ToString() + _tabSpacer + item.Item2.ToString()).AppendLine();
                     }
                 }
 
@@ -1117,7 +1117,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             Dictionary<string, FormatTextTableHandler> dictUnknownControls = new Dictionary<string, FormatTextTableHandler>(StringComparer.InvariantCultureIgnoreCase);
 
-          
+
 
             var descriptor = new SolutionComponentDescriptor(service);
             var handler = new FormDescriptionHandler(descriptor, new DependencyRepository(service));
@@ -1180,7 +1180,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     foreach (var str in tableUnknownControls.GetFormatedLines(false))
                     {
-                        content.AppendLine(tabSpacer + str);
+                        content.AppendLine(_tabSpacer + str);
                     }
                 }
 
