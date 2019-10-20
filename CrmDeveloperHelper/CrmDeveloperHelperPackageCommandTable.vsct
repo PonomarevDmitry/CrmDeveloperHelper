@@ -1368,8 +1368,8 @@
       <Menu guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyUpdate_MenuConnectionDyn" priority="0x0600" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Update PluginAssembly in Connection</ButtonText>
-          <MenuText>Update PluginAssembly in Connection</MenuText>
+          <ButtonText>Update PluginAssembly in Window in Connection</ButtonText>
+          <MenuText>Update PluginAssembly in Window in Connection</MenuText>
         </Strings>
       </Menu>
 
@@ -1988,8 +1988,8 @@
       <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyUpdate_MenuConnectionDyn" priority="0x0107" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Update PluginAssembly in Connection</ButtonText>
-          <MenuText>Update PluginAssembly in Connection</MenuText>
+          <ButtonText>Update PluginAssembly in Window in Connection</ButtonText>
+          <MenuText>Update PluginAssembly in Window in Connection</MenuText>
         </Strings>
       </Menu>
 
@@ -2301,24 +2301,24 @@
       <Menu guid="guidGroupAndMenuSet" id="folderMenuProject_GroupBuildUpdate_MenuConnectionDyn" priority="0x0100" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Build Project and Update PluginAssembly in Connection</ButtonText>
-          <MenuText>Build Project and Update PluginAssembly in Connection</MenuText>
+          <ButtonText>Build Projects and Update PluginAssemblies in Connection</ButtonText>
+          <MenuText>Build Projects and Update PluginAssemblies in Connection</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="folderMenuProject_GroupBuildUpdateRegister_MenuConnectionDyn" priority="0x0100" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Build Project, Update PluginAssembly and Register New Plugins in Connection</ButtonText>
-          <MenuText>Build Project, Update PluginAssembly and Register New Plugins in Connection</MenuText>
+          <ButtonText>Build Projects, Update PluginAssemblies and Register New Plugins in Connection</ButtonText>
+          <MenuText>Build Projects, Update PluginAssemblies and Register New Plugins in Connection</MenuText>
         </Strings>
       </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="folderMenuProject_GroupUpdate_MenuConnectionDyn" priority="0x0107" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Update PluginAssembly in Connection</ButtonText>
-          <MenuText>Update PluginAssembly in Connection</MenuText>
+          <ButtonText>Update PluginAssemblies in Window in Connection</ButtonText>
+          <MenuText>Update PluginAssemblies in Window in Connection</MenuText>
         </Strings>
       </Menu>
 
@@ -3169,7 +3169,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Publish File Placeholder</ButtonText>
+          <ButtonText>CodeWebResourceUpdateContentPublishGroupConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -3201,7 +3201,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Show Difference in Connection Group Placeholder</ButtonText>
+          <ButtonText>CodeWebResourceShowDifferenceInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CodeWebResourceShowDifferenceTwoConnectionsCommandId" priority="0x0103" type="Button">
@@ -3212,7 +3212,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Show Difference in Two Connections Placeholder</ButtonText>
+          <ButtonText>CodeWebResourceShowDifferenceTwoConnectionsCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CodeWebResourceShowDifferenceOneByOneCommandId" priority="0x0103" type="Button">
@@ -3223,7 +3223,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Show Difference Local File and Two Connections One by One Placeholder</ButtonText>
+          <ButtonText>CodeWebResourceShowDifferenceOneByOneCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CodeWebResourceShowDifferenceThreeWayCommandId" priority="0x0103" type="Button">
@@ -3234,7 +3234,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Show Three Way Difference Placeholder</ButtonText>
+          <ButtonText>CodeWebResourceShowDifferenceThreeWayCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="CodeWebResourceCompareWithDetailsCommandId" priority="0x0103" type="Button">
@@ -3256,7 +3256,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Compare File with details in Connection Group Placeholder</ButtonText>
+          <ButtonText>CodeWebResourceCompareWithDetailsInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -3289,7 +3289,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Open WebResource in Web Placeholder</ButtonText>
+          <ButtonText>CodeWebResourceOpenInWebCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CodeWebResourceOpenDependentInWebCommandId" priority="0x0106" type="Button">
@@ -3300,7 +3300,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Open WebResource Dependent Components in Web Placeholder</ButtonText>
+          <ButtonText>CodeWebResourceOpenDependentInWebCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CodeWebResourceOpenDependentInExplorerCommandId" priority="0x0107" type="Button">
@@ -3311,7 +3311,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Open WebResource Dependent Components in Explorer Placeholder</ButtonText>
+          <ButtonText>CodeWebResourceOpenDependentInExplorerCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CodeWebResourceOpenSolutionsContainingComponentInExplorerCommandId" priority="0x0106" type="Button">
@@ -3322,7 +3322,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Open Solutions Containing WebResource in Explorer Placeholder</ButtonText>
+          <ButtonText>CodeWebResourceOpenSolutionsContainingComponentInExplorerCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -3334,7 +3334,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Last Crm Solution Placeholder</ButtonText>
+          <ButtonText>CodeWebResourceAddToSolutionLastCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CodeWebResourceAddToSolutionInConnectionCommandId" priority="0x0105" type="Button">
@@ -3345,7 +3345,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Crm Solution in Connection Placeholder</ButtonText>
+          <ButtonText>CodeWebResourceAddToSolutionInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -3380,7 +3380,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update EntityMetadata File Placeholder</ButtonText>
+          <ButtonText>CodeJavaScriptUpdateEntityMetadataFileCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="CodeJavaScriptUpdateEntityMetadataFileWithSelectCommandId" priority="0x0102" type="Button">
@@ -3402,7 +3402,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update Single Global OptionSet File Placeholder</ButtonText>
+          <ButtonText>CodeJavaScriptUpdateGlobalOptionSetSingleFileCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommandId" priority="0x0102" type="Button">
@@ -3424,7 +3424,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update All Global OptionSets File Placeholder</ButtonText>
+          <ButtonText>CodeJavaScriptUpdateGlobalOptionSetAllFileCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -3450,7 +3450,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Execute Fetch Xml In Connection Placeholder</ButtonText>
+          <ButtonText>CodeXmlFetchXmlExecuteRequestInConnectionsCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -3504,7 +3504,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Set Xsd Schema Placeholder</ButtonText>
+          <ButtonText>CodeXmlSetXsdSchemaCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="CodeXmlRemoveXsdSchemaCommandId" priority="0x0100" type="Button">
@@ -3544,7 +3544,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Open SiteMap in Web Placeholder</ButtonText>
+          <ButtonText>CodeXmlSiteMapOpenInWebCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="CodeXmlSiteMapExplorerCommandId" priority="0x0100" type="Button">
@@ -3575,7 +3575,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Show Difference SiteMap Placeholder</ButtonText>
+          <ButtonText>CodeXmlSiteMapShowDifferenceInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -3587,7 +3587,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Show Difference with Default SiteMap Placeholder</ButtonText>
+          <ButtonText>CodeXmlSiteMapShowDifferenceDefaultCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -3609,7 +3609,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update SiteMap in Connection Group Placeholder</ButtonText>
+          <ButtonText>CodeXmlSiteMapUpdateInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -3623,7 +3623,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Open SystemForm in Web Placeholder</ButtonText>
+          <ButtonText>CodeXmlSystemFormOpenInWebCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="CodeXmlSystemFormExplorerCommandId" priority="0x0100" type="Button">
@@ -3654,7 +3654,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Show Difference SystemForm Placeholder</ButtonText>
+          <ButtonText>CodeXmlSystemFormShowDifferenceInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -3677,7 +3677,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update SystemForm in Connection Group Placeholder</ButtonText>
+          <ButtonText>CodeXmlSystemFormUpdateInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -3691,7 +3691,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Open Workflow in Web Placeholder</ButtonText>
+          <ButtonText>CodeXmlWorkflowOpenInWebCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="CodeXmlWorkflowExplorerCommandId" priority="0x0100" type="Button">
@@ -3722,7 +3722,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Show Difference Workflow Placeholder</ButtonText>
+          <ButtonText>CodeXmlWorkflowShowDifferenceInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -3745,7 +3745,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update Workflow in Connection Group Placeholder</ButtonText>
+          <ButtonText>CodeXmlWorkflowUpdateInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -3760,7 +3760,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Open SavedQuery in Web Placeholder</ButtonText>
+          <ButtonText>CodeXmlSavedQueryOpenInWebCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="CodeXmlSavedQueryExplorerCommandId" priority="0x0100" type="Button">
@@ -3791,7 +3791,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Show Difference SavedQuery Placeholder</ButtonText>
+          <ButtonText>CodeXmlSavedQueryShowDifferenceInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -3814,7 +3814,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update SavedQuery in Connection Group Placeholder</ButtonText>
+          <ButtonText>CodeXmlSavedQueryUpdateInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -3834,7 +3834,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Open Entity in Web Placeholder</ButtonText>
+          <ButtonText>CodeXmlRibbonOpenInWebCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="CodeXmlRibbonExplorerCommandId" priority="0x0100" type="Button">
@@ -3865,7 +3865,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Show Difference Ribbon in Connection Group Placeholder</ButtonText>
+          <ButtonText>CodeXmlRibbonShowDifferenceInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -3887,7 +3887,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Show Difference RibbonDiffXml in Connection Group Placeholder</ButtonText>
+          <ButtonText>CodeXmlRibbonDiffXmlShowDifferenceInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -3909,7 +3909,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update RibbonDiffXml in Connection Group Placeholder</ButtonText>
+          <ButtonText>CodeXmlRibbonDiffXmlUpdateInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -3925,7 +3925,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update Report in Crm Placeholder</ButtonText>
+          <ButtonText>CodeReportUpdateCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -3937,7 +3937,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Create Report in Crm Placeholder</ButtonText>
+          <ButtonText>CodeReportCreateCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -3969,7 +3969,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Show Difference OriginalBodyText in Connection Group Placeholder</ButtonText>
+          <ButtonText>CodeReportShowDifferenceOriginalBodyTextInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CodeReportShowDifferenceOriginalBodyTextTwoConnectionsCommandId" priority="0x0103" type="Button">
@@ -3980,7 +3980,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Show Difference OriginalBodyText in Two Connections Placeholder</ButtonText>
+          <ButtonText>CodeReportShowDifferenceOriginalBodyTextTwoConnectionsCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CodeReportShowDifferenceOriginalBodyTextOneByOneCommandId" priority="0x0103" type="Button">
@@ -3991,7 +3991,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Show Difference OriginalBodyText Local File and Two Connections One by One Placeholder</ButtonText>
+          <ButtonText>CodeReportShowDifferenceOriginalBodyTextOneByOneCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CodeReportShowDifferenceOriginalBodyTextThreeWayCommandId" priority="0x0103" type="Button">
@@ -4002,7 +4002,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Show Three Way Difference OriginalBodyText Placeholder</ButtonText>
+          <ButtonText>CodeReportShowDifferenceOriginalBodyTextThreeWayCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -4034,7 +4034,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Show Difference BodyText in Connection Group Placeholder</ButtonText>
+          <ButtonText>CodeReportShowDifferenceBodyTextInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CodeReportShowDifferenceBodyTextTwoConnectionsCommandId" priority="0x0103" type="Button">
@@ -4045,7 +4045,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Show Difference BodyText in Two Connections Placeholder</ButtonText>
+          <ButtonText>CodeReportShowDifferenceBodyTextTwoConnectionsCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CodeReportShowDifferenceBodyTextOneByOneCommandId" priority="0x0103" type="Button">
@@ -4056,7 +4056,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Show Difference BodyText Local File and Two Connections One by One Placeholder</ButtonText>
+          <ButtonText>CodeReportShowDifferenceBodyTextOneByOneCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CodeReportShowDifferenceBodyTextThreeWayCommandId" priority="0x0103" type="Button">
@@ -4067,7 +4067,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Show Three Way Difference BodyText Placeholder</ButtonText>
+          <ButtonText>CodeReportShowDifferenceBodyTextThreeWayCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -4090,7 +4090,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Opent Report in Web Placeholder</ButtonText>
+          <ButtonText>CodeReportOpenInWebCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CodeReportOpenDependentInWebCommandId" priority="0x0106" type="Button">
@@ -4101,7 +4101,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Open Report Dependent Components in Web Placeholder</ButtonText>
+          <ButtonText>CodeReportOpenDependentInWebCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CodeReportOpenDependentInExplorerCommandId" priority="0x0107" type="Button">
@@ -4112,7 +4112,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Open Report Dependent Components in Explorer Placeholder</ButtonText>
+          <ButtonText>CodeReportOpenDependentInExplorerCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CodeReportOpenSolutionsContainingComponentInExplorerCommandId" priority="0x0107" type="Button">
@@ -4123,7 +4123,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Open Solutions Containing Report in Explorer Placeholder</ButtonText>
+          <ButtonText>CodeReportOpenSolutionsContainingComponentInExplorerCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -4136,7 +4136,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Last Crm Solution Placeholder</ButtonText>
+          <ButtonText>CodeReportAddToSolutionLastCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CodeReportAddToSolutionInConnectionCommandId" priority="0x0102" type="Button">
@@ -4147,7 +4147,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Crm Solution in Connection Placeholder</ButtonText>
+          <ButtonText>CodeReportAddToSolutionInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -4194,7 +4194,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Build Project and Update PluginAssembly in Connection Placeholder</ButtonText>
+          <ButtonText>CodeCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -4216,7 +4216,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Build Project, Update PluginAssembly and Register New Plugins in Connection Placeholder</ButtonText>
+          <ButtonText>CodeCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -4238,7 +4238,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update in Connection Placeholder</ButtonText>
+          <ButtonText>CodeCSharpProjectUpdatePluginAssemblyInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -4261,7 +4261,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Compare with Crm PluginAssembly in Connection Placeholder</ButtonText>
+          <ButtonText>CodeCSharpProjectCompareToCrmAssemblyInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -4273,7 +4273,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Add PluginAssembly to Last Crm Solution Placeholder</ButtonText>
+          <ButtonText>CodeCSharpProjectPluginAssemblyAddToSolutionLastCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CodeCSharpProjectPluginAssemblyAddToSolutionInConnectionCommandId" priority="0x0122" type="Button">
@@ -4284,7 +4284,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Add PluginAssembly to Crm Solution in Connection Placeholder</ButtonText>
+          <ButtonText>CodeCSharpProjectPluginAssemblyAddToSolutionInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -4297,7 +4297,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Add Steps for PluginAssembly to Last Crm Solution Placeholder</ButtonText>
+          <ButtonText>CodeCSharpProjectPluginAssemblyStepsAddToSolutionLastCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CodeCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommandId" priority="0x0126" type="Button">
@@ -4308,7 +4308,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Add Steps for PluginAssembly to Crm Solution in Connection Placeholder</ButtonText>
+          <ButtonText>CodeCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -4321,7 +4321,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Add Steps for PluginType to Last Crm Solution Placeholder</ButtonText>
+          <ButtonText>CodeCSharpProjectPluginTypeStepsAddToSolutionLastCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CodeCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommandId" priority="0x0124" type="Button">
@@ -4332,7 +4332,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Add Steps for PluginType to Crm Solution in Connection Placeholder</ButtonText>
+          <ButtonText>CodeCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -4382,7 +4382,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Add Plugin Step Placeholder</ButtonText>
+          <ButtonText>CodeCSharpAddPluginStepInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -4406,7 +4406,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update EntityMetadata Proxy Class or Schema Placeholder</ButtonText>
+          <ButtonText>CodeCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -4429,7 +4429,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update EntityMetadata Schema File Placeholder</ButtonText>
+          <ButtonText>CodeCSharpUpdateEntityMetadataFileSchemaCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -4441,7 +4441,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update EntityMetadata Proxy Class Placeholder</ButtonText>
+          <ButtonText>CodeCSharpUpdateEntityMetadataFileProxyClassCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -4466,7 +4466,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update Global OptionSets File Placeholder</ButtonText>
+          <ButtonText>CodeCSharpUpdateGlobalOptionSetsFileCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="CodeCSharpUpdateGlobalOptionSetsFileWithSelectCommandId" priority="0x0104" type="Button">
@@ -4519,7 +4519,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Publish Files Placeholder</ButtonText>
+          <ButtonText>DocumentsWebResourceUpdateContentPublishGroupConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="DocumentsWebResourceUpdateContentPublishEqualByTextCommandId" priority="0x0111" type="Button">
@@ -4530,7 +4530,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Publish equal by Text Placeholder</ButtonText>
+          <ButtonText>DocumentsWebResourceUpdateContentPublishEqualByTextCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -4572,7 +4572,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Compare Files in Connection Group Placeholder</ButtonText>
+          <ButtonText>DocumentsWebResourceCompareInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="DocumentsWebResourceCompareWithDetailsInConnectionGroupCommandId" priority="0x0111" type="Button">
@@ -4583,7 +4583,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Compare Files with details in Connection Group Placeholder</ButtonText>
+          <ButtonText>DocumentsWebResourceCompareWithDetailsInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -4628,7 +4628,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Last Crm Solution Placeholder</ButtonText>
+          <ButtonText>DocumentsWebResourceAddToSolutionLastCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="DocumentsWebResourceAddToSolutionInConnectionCommandId" priority="0x0112" type="Button">
@@ -4639,7 +4639,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Crm Solution in Connection Placeholder</ButtonText>
+          <ButtonText>DocumentsWebResourceAddToSolutionInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -4876,7 +4876,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update EntityMetadata File Placeholder</ButtonText>
+          <ButtonText>DocumentsJavaScriptUpdateEntityMetadataFileCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -4888,7 +4888,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update Single Global OptionSet File Placeholder</ButtonText>
+          <ButtonText>DocumentsJavaScriptUpdateGlobalOptionSetSingleFileCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -4914,7 +4914,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Set Xsd Schema Placeholder</ButtonText>
+          <ButtonText>DocumentsXmlSetXsdSchemaCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="DocumentsXmlRemoveXsdSchemaCommandId" priority="0x0100" type="Button">
@@ -4939,7 +4939,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Last Crm Solution Placeholder</ButtonText>
+          <ButtonText>DocumentsReportAddToSolutionLastCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="DocumentsReportAddToSolutionInConnectionCommandId" priority="0x0111" type="Button">
@@ -4950,7 +4950,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Crm Solution in Connection Placeholder</ButtonText>
+          <ButtonText>DocumentsReportAddToSolutionInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -4977,7 +4977,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Last Crm Solution Placeholder</ButtonText>
+          <ButtonText>DocumentsCSharpProjectPluginAssemblyAddToSolutionLastCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="DocumentsCSharpProjectPluginAssemblyAddToSolutionInConnectionCommandId" priority="0x0122" type="Button">
@@ -4988,7 +4988,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Crm Solution in Connection Placeholder</ButtonText>
+          <ButtonText>DocumentsCSharpProjectPluginAssemblyAddToSolutionInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -5000,7 +5000,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Last Crm Solution Placeholder</ButtonText>
+          <ButtonText>DocumentsCSharpProjectPluginAssemblyStepsAddToSolutionLastCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="DocumentsCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommandId" priority="0x0124" type="Button">
@@ -5011,7 +5011,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Crm Solution in Connection Placeholder</ButtonText>
+          <ButtonText>DocumentsCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -5023,7 +5023,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Last Crm Solution Placeholder</ButtonText>
+          <ButtonText>DocumentsCSharpProjectPluginTypeStepsAddToSolutionLastCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="DocumentsCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommandId" priority="0x0124" type="Button">
@@ -5034,7 +5034,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Crm Solution in Connection Placeholder</ButtonText>
+          <ButtonText>DocumentsCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -5059,7 +5059,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update EntityMetadata Proxy Class or Schema Placeholder</ButtonText>
+          <ButtonText>DocumentsCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -5071,7 +5071,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update EntityMetadata Schema File Placeholder</ButtonText>
+          <ButtonText>DocumentsCSharpUpdateEntityMetadataFileSchemaCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -5083,7 +5083,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update EntityMetadata Proxy Class Placeholder</ButtonText>
+          <ButtonText>DocumentsCSharpUpdateEntityMetadataFileProxyClassCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -5105,7 +5105,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update Global OptionSets File Placeholder</ButtonText>
+          <ButtonText>DocumentsCSharpUpdateGlobalOptionSetsFileCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -5135,7 +5135,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Publish Files Placeholder</ButtonText>
+          <ButtonText>FileWebResourceUpdateContentPublishGroupConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="FileWebResourceUpdateContentPublishEqualByTextCommandId" priority="0x0111" type="Button">
@@ -5146,7 +5146,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Publish equal by Text Placeholder</ButtonText>
+          <ButtonText>FileWebResourceUpdateContentPublishEqualByTextCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -5178,7 +5178,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Show Difference in Connection Group Placeholder</ButtonText>
+          <ButtonText>FileWebResourceShowDifferenceInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="FileWebResourceShowDifferenceTwoConnectionsCommandId" priority="0x0103" type="Button">
@@ -5189,7 +5189,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Show Difference in Two Connections Placeholder</ButtonText>
+          <ButtonText>FileWebResourceShowDifferenceTwoConnectionsCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="FileWebResourceShowDifferenceOneByOneCommandId" priority="0x0103" type="Button">
@@ -5200,7 +5200,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Show Difference Local File and Two Connections One by One Placeholder</ButtonText>
+          <ButtonText>FileWebResourceShowDifferenceOneByOneCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="FileWebResourceShowDifferenceThreeWayCommandId" priority="0x0113" type="Button">
@@ -5211,7 +5211,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Show Three Way Difference Placeholder</ButtonText>
+          <ButtonText>FileWebResourceShowDifferenceThreeWayCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -5253,7 +5253,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Compare Files in Connection Group Placeholder</ButtonText>
+          <ButtonText>FileWebResourceCompareInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="FileWebResourceCompareWithDetailsInConnectionGroupCommandId" priority="0x0111" type="Button">
@@ -5264,7 +5264,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Compare Files with details in Connection Group Placeholder</ButtonText>
+          <ButtonText>FileWebResourceCompareWithDetailsInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -5326,7 +5326,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Open WebResource in Web Placeholder</ButtonText>
+          <ButtonText>FileWebResourceOpenInWebCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="FileWebResourceOpenDependentInWebCommandId" priority="0x0110" type="Button">
@@ -5337,7 +5337,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Open WebResource Dependent Components in Web Placeholder</ButtonText>
+          <ButtonText>FileWebResourceOpenDependentInWebCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="FileWebResourceOpenDependentInExplorerCommandId" priority="0x0110" type="Button">
@@ -5348,7 +5348,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Open WebResource Dependent Components in Explorer Placeholder</ButtonText>
+          <ButtonText>FileWebResourceOpenDependentInExplorerCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="FileWebResourceOpenSolutionsContainingComponentInExplorerCommandId" priority="0x0110" type="Button">
@@ -5359,7 +5359,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Open Solutions Containing WebResource in Explorer Placeholder</ButtonText>
+          <ButtonText>FileWebResourceOpenSolutionsContainingComponentInExplorerCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -5372,7 +5372,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Last Crm Solution Placeholder</ButtonText>
+          <ButtonText>FileWebResourceAddToSolutionLastCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="FileWebResourceAddToSolutionInConnectionCommandId" priority="0x0110" type="Button">
@@ -5383,7 +5383,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Crm Solution in Connection Placeholder</ButtonText>
+          <ButtonText>FileWebResourceAddToSolutionInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -5843,7 +5843,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update EntityMetadata File Placeholder</ButtonText>
+          <ButtonText>FileJavaScriptUpdateEntityMetadataFileCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="FileJavaScriptUpdateEntityMetadataFileWithSelectCommandId" priority="0x0112" type="Button">
@@ -5865,7 +5865,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update Single Global OptionSet File Placeholder</ButtonText>
+          <ButtonText>FileJavaScriptUpdateGlobalOptionSetSingleFileCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="FileJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommandId" priority="0x0112" type="Button">
@@ -5887,7 +5887,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update All Global OptionSets File Placeholder</ButtonText>
+          <ButtonText>FileJavaScriptUpdateGlobalOptionSetAllFileCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -5913,7 +5913,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Set Xsd Schema Placeholder</ButtonText>
+          <ButtonText>FileXmlSetXsdSchemaCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="FileXmlRemoveXsdSchemaCommandId" priority="0x0100" type="Button">
@@ -5938,7 +5938,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update Report in Crm Placeholder</ButtonText>
+          <ButtonText>FileReportUpdateCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="FileReportCreateCommandId" priority="0x0110" type="Button">
@@ -5949,7 +5949,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Create Report in Crm Placeholder</ButtonText>
+          <ButtonText>FileReportCreateCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="FileReportExplorerCommandId" priority="0x0110" type="Button">
@@ -5971,7 +5971,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Open Report in Web Placeholder</ButtonText>
+          <ButtonText>FileReportOpenInWebCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="FileReportOpenDependentInWebCommandId" priority="0x0111" type="Button">
@@ -5982,7 +5982,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Open Report Dependent Components in Web Placeholder</ButtonText>
+          <ButtonText>FileReportOpenDependentInWebCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="FileReportOpenDependentInExplorerCommandId" priority="0x0112" type="Button">
@@ -5993,7 +5993,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Open Report Dependent Components in Explorer Placeholder</ButtonText>
+          <ButtonText>FileReportOpenDependentInExplorerCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="FileReportOpenSolutionsContainingComponentInExplorerCommandId" priority="0x0113" type="Button">
@@ -6004,7 +6004,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Open Solutions Containing Report in Explorer Placeholder</ButtonText>
+          <ButtonText>FileReportOpenSolutionsContainingComponentInExplorerCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -6016,7 +6016,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Last Crm Solution Placeholder</ButtonText>
+          <ButtonText>FileReportAddToSolutionLastCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="FileReportAddToSolutionInConnectionCommandId" priority="0x0110" type="Button">
@@ -6027,7 +6027,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Crm Solution Placeholder</ButtonText>
+          <ButtonText>FileReportAddToSolutionInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -6075,7 +6075,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Build Project and Update PluginAssembly in Connection Placeholder</ButtonText>
+          <ButtonText>FileCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -6097,7 +6097,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Build Project, Update PluginAssembly and Register New Plugins in Connection Placeholder</ButtonText>
+          <ButtonText>FileCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -6119,7 +6119,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update PluginAssembly in Connection Placeholder</ButtonText>
+          <ButtonText>FileCSharpProjectUpdatePluginAssemblyInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -6141,7 +6141,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Compare with Crm PluginAssembly in Connection Placeholder</ButtonText>
+          <ButtonText>FileCSharpProjectCompareToCrmAssemblyInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -6153,7 +6153,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Last Crm Solution Placeholder</ButtonText>
+          <ButtonText>FileCSharpProjectPluginAssemblyAddToSolutionLastCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="FileCSharpProjectPluginAssemblyAddToSolutionInConnectionCommandId" priority="0x0122" type="Button">
@@ -6164,7 +6164,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Crm Solution in Connection Placeholder</ButtonText>
+          <ButtonText>FileCSharpProjectPluginAssemblyAddToSolutionInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -6176,7 +6176,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Last Crm Solution Placeholder</ButtonText>
+          <ButtonText>FileCSharpProjectPluginAssemblyStepsAddToSolutionLastCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="FileCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommandId" priority="0x0124" type="Button">
@@ -6187,7 +6187,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Crm Solution in Connection Placeholder</ButtonText>
+          <ButtonText>FileCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -6199,7 +6199,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Last Crm Solution Placeholder</ButtonText>
+          <ButtonText>FileCSharpProjectPluginTypeStepsAddToSolutionLastCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="FileCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommandId" priority="0x0124" type="Button">
@@ -6210,7 +6210,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Crm Solution in Connection Placeholder</ButtonText>
+          <ButtonText>FileCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -6260,7 +6260,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Add Plugin Step Placeholder</ButtonText>
+          <ButtonText>FileCSharpAddPluginStepInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -6285,7 +6285,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update EntityMetadata Proxy Class or Schema Placeholder</ButtonText>
+          <ButtonText>FileCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -6308,7 +6308,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update EntityMetadata Schema File Placeholder</ButtonText>
+          <ButtonText>FileCSharpUpdateEntityMetadataFileSchemaCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -6320,7 +6320,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update EntityMetadata Proxy Class Placeholder</ButtonText>
+          <ButtonText>FileCSharpUpdateEntityMetadataFileProxyClassCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -6346,7 +6346,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update Global OptionSets File Placeholder</ButtonText>
+          <ButtonText>FileCSharpUpdateGlobalOptionSetsFileCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -6389,7 +6389,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Publish Files (Recursive) Placeholder</ButtonText>
+          <ButtonText>FolderWebResourceUpdateContentPublishGroupConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="FolderWebResourceUpdateContentPublishEqualByTextCommandId" priority="0x0111" type="Button">
@@ -6400,7 +6400,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Publish equal by Text (Recursive) Placeholder</ButtonText>
+          <ButtonText>FolderWebResourceUpdateContentPublishEqualByTextCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -6443,7 +6443,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Compare Files (Recursive) in Connection Group Placeholder</ButtonText>
+          <ButtonText>FolderWebResourceCompareInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="FolderWebResourceCompareWithDetailsInConnectionGroupCommandId" priority="0x0111" type="Button">
@@ -6454,7 +6454,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Compare Files with details (Recursive) in Connection Group Placeholder</ButtonText>
+          <ButtonText>FolderWebResourceCompareWithDetailsInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -6504,7 +6504,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Last Crm Solution (Recursive) Placeholder</ButtonText>
+          <ButtonText>FolderWebResourceAddToSolutionLastCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="FolderWebResourceAddToSolutionInConnectionCommandId" priority="0x011C" type="Button">
@@ -6515,7 +6515,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Crm Solution (Recursive) in Connection Placeholder</ButtonText>
+          <ButtonText>FolderWebResourceAddToSolutionInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -6974,7 +6974,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update EntityMetadata File (Recursive) Placeholder</ButtonText>
+          <ButtonText>FolderJavaScriptUpdateEntityMetadataFileCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -6986,7 +6986,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update Single Global OptionSet File (Recursive) Placeholder</ButtonText>
+          <ButtonText>FolderJavaScriptUpdateGlobalOptionSetSingleFileCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -7012,7 +7012,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Set Xsd Schema Placeholder</ButtonText>
+          <ButtonText>FolderXmlSetXsdSchemaCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="FolderXmlRemoveXsdSchemaCommandId" priority="0x0100" type="Button">
@@ -7037,7 +7037,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Last Crm Solution (Recursive) Placeholder</ButtonText>
+          <ButtonText>FolderCSharpProjectPluginAssemblyAddToSolutionLastCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="FolderCSharpProjectPluginAssemblyAddToSolutionInConnectionCommandId" priority="0x0122" type="Button">
@@ -7048,7 +7048,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Crm Solution in Connection (Recursive) Placeholder</ButtonText>
+          <ButtonText>FolderCSharpProjectPluginAssemblyAddToSolutionInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -7060,7 +7060,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Last Crm Solution (Recursive) Placeholder</ButtonText>
+          <ButtonText>FolderCSharpProjectPluginAssemblyStepsAddToSolutionLastCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="FolderCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommandId" priority="0x0124" type="Button">
@@ -7071,7 +7071,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Crm Solution in Connection (Recursive) Placeholder</ButtonText>
+          <ButtonText>FolderCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -7083,7 +7083,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Last Crm Solution (Recursive) Placeholder</ButtonText>
+          <ButtonText>FolderCSharpProjectPluginTypeStepsAddToSolutionLastCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="FolderCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommandId" priority="0x0124" type="Button">
@@ -7094,7 +7094,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Crm Solution in Connection (Recursive) Placeholder</ButtonText>
+          <ButtonText>FolderCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -7119,7 +7119,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update EntityMetadata Proxy Class or Schema (Recursive) Placeholder</ButtonText>
+          <ButtonText>FolderCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -7131,7 +7131,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update EntityMetadata Schema File (Recursive) Placeholder</ButtonText>
+          <ButtonText>FolderCSharpUpdateEntityMetadataFileSchemaCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -7143,7 +7143,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update EntityMetadata Proxy Class (Recursive) Placeholder</ButtonText>
+          <ButtonText>FolderCSharpUpdateEntityMetadataFileProxyClassCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -7170,7 +7170,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update Global OptionSets Files (Recursive) Placeholder</ButtonText>
+          <ButtonText>FolderCSharpUpdateGlobalOptionSetsFileCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -7206,7 +7206,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>EntityMetadata File Placeholder</ButtonText>
+          <ButtonText>FolderAddEntityMetadataFileInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="FolderAddSystemFormJavaScriptFileInConnectionCommandId" priority="0x0120" type="Button">
@@ -7217,7 +7217,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>SystemForm JavaScript File Placeholder</ButtonText>
+          <ButtonText>FolderAddSystemFormJavaScriptFileInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="FolderAddGlobalOptionSetFileInConnectionCommandId" priority="0x0120" type="Button">
@@ -7228,7 +7228,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Global OptionSet File Placeholder</ButtonText>
+          <ButtonText>FolderAddGlobalOptionSetFileInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="FolderAddSdkMessageRequestFileInConnectionCommandId" priority="0x0120" type="Button">
@@ -7239,7 +7239,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>SdkMessageRequest File Placeholder</ButtonText>
+          <ButtonText>FolderAddSdkMessageRequestFileInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -7269,7 +7269,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Build Projects and Update PluginAssemblies in Connection Placeholder</ButtonText>
+          <ButtonText>ProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -7291,7 +7291,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Build Projects, Update PluginAssemblies and Register New Plugins in Connection Placeholder</ButtonText>
+          <ButtonText>ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -7313,7 +7313,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update PluginAssemblies in Window in Connection Placeholder</ButtonText>
+          <ButtonText>ProjectUpdatePluginAssemblyInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -7325,7 +7325,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Register PluginAssembly in Connection Placeholder</ButtonText>
+          <ButtonText>ProjectRegisterPluginAssemblyInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -7347,7 +7347,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Compare with Crm PluginAssembly in Connection Placeholder</ButtonText>
+          <ButtonText>ProjectCompareToCrmAssemblyInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -7360,7 +7360,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Last Crm Solution Placeholder</ButtonText>
+          <ButtonText>ProjectPluginAssemblyAddToSolutionLastCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="ProjectPluginAssemblyAddToSolutionInConnectionCommandId" priority="0x0122" type="Button">
@@ -7371,7 +7371,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Crm Solution in Connection Placeholder</ButtonText>
+          <ButtonText>ProjectPluginAssemblyAddToSolutionInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -7387,7 +7387,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Last Crm Solution Placeholder</ButtonText>
+          <ButtonText>ProjectPluginAssemblyStepsAddToSolutionLastCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="ProjectPluginAssemblyStepsAddToSolutionInConnectionCommandId" priority="0x0125" type="Button">
@@ -7398,7 +7398,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Crm Solution in Connection Placeholder</ButtonText>
+          <ButtonText>ProjectPluginAssemblyStepsAddToSolutionInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -7468,7 +7468,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Compare Files in Connection Group Placeholder</ButtonText>
+          <ButtonText>ListForPublishCompareInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="ListForPublishCompareWithDetailsInConnectionGroupCommandId" priority="0x0111" type="Button">
@@ -7479,7 +7479,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Compare Files with details in Connection Group Placeholder</ButtonText>
+          <ButtonText>ListForPublishCompareWithDetailsInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -7815,7 +7815,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Last Crm Solution Placeholder</ButtonText>
+          <ButtonText>ListForPublishAddToSolutionLastCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="ListForPublishAddToSolutionInConnectionCommandId" priority="0x0107" type="Button">
@@ -7826,7 +7826,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>To Crm Solution in Connection Placeholder</ButtonText>
+          <ButtonText>ListForPublishAddToSolutionInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -7868,7 +7868,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Publish Files Placeholder</ButtonText>
+          <ButtonText>ListForPublishPerformPublishGroupConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="ListForPublishPerformPublishEqualByTextCommandId" priority="0x010B" type="Button">
@@ -7879,7 +7879,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Publish Files equal by Text Placeholder</ButtonText>
+          <ButtonText>ListForPublishPerformPublishEqualByTextCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -8036,7 +8036,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Entities Ownership Placeholder</ButtonText>
+          <ButtonText>CommonCheckEntitiesOwnerShipsCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -8048,7 +8048,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Global OptionSet Duplicates on Entity Placeholder</ButtonText>
+          <ButtonText>CommonCheckGlobalOptionSetDuplicateCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CommonCheckComponentTypeEnumCommandId" priority="0x0111" type="Button">
@@ -8059,7 +8059,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Solution ComponentType Enum Placeholder</ButtonText>
+          <ButtonText>CommonCheckComponentTypeEnumCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CommonCheckCreateAllDependencyNodeDescriptionCommandId" priority="0x0111" type="Button">
@@ -8070,7 +8070,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Create All Dependency Nodes Description Placeholder</ButtonText>
+          <ButtonText>CommonCheckCreateAllDependencyNodeDescriptionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CommonCheckUnknownFormControlTypesId" priority="0x0111" type="Button">
@@ -8081,7 +8081,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Unknown Form Control Types Placeholder</ButtonText>
+          <ButtonText>CommonCheckUnknownFormControlTypesId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -8094,7 +8094,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Check Managed Entities in CRM Placeholder</ButtonText>
+          <ButtonText>CommonCheckManagedElementsCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -8106,7 +8106,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Plugin Steps Duplicates Placeholder</ButtonText>
+          <ButtonText>CommonCheckPluginStepsCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CommonCheckPluginImagesCommandId" priority="0x0114" type="Button">
@@ -8117,7 +8117,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Plugin Images Duplicates Placeholder</ButtonText>
+          <ButtonText>CommonCheckPluginImagesCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -8129,7 +8129,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Plugin Steps Required Components Placeholder</ButtonText>
+          <ButtonText>CommonCheckPluginStepsRequiredComponentsCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CommonCheckPluginImagesRequiredComponentsCommandId" priority="0x0116" type="Button">
@@ -8140,7 +8140,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Plugin Images Required Components Placeholder</ButtonText>
+          <ButtonText>CommonCheckPluginImagesRequiredComponentsCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -8479,7 +8479,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Solution Explorer in Connection Placeholder</ButtonText>
+          <ButtonText>CommonSolutionExplorerInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -8491,7 +8491,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>ImportJob Explorer in Connection Placeholder</ButtonText>
+          <ButtonText>CommonImportJobExplorerInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -8527,7 +8527,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Open Solution in Web Placeholder</ButtonText>
+          <ButtonText>CommonExportOpenLastSelectedSolutionInWebCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CommonExportOpenLastSelectedSolutionInExplorerCommandId" priority="0x012C" type="Button">
@@ -8538,7 +8538,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Open Solution in Explorer Placeholder</ButtonText>
+          <ButtonText>CommonExportOpenLastSelectedSolutionInExplorerCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -8550,7 +8550,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Export Default Sitemaps Placeholder</ButtonText>
+          <ButtonText>CommonExportDefaultSitemapsCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CommonExportXsdSchemasCommandId" priority="0x012C" type="Button">
@@ -8561,7 +8561,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Export Xsd Schemas Placeholder</ButtonText>
+          <ButtonText>CommonExportXsdSchemasCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="CommonOpenXsdSchemaFolderCommandId" priority="0x0100" type="Button">
@@ -8593,7 +8593,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Trace Reader Placeholder</ButtonText>
+          <ButtonText>CommonTraceReaderCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -8626,7 +8626,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Crm WebApplication Placeholder</ButtonText>
+          <ButtonText>CommonOpenCrmWebSiteCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CommonOpenAdvancedFindCommandId" priority="0x012E" type="Button">
@@ -8637,7 +8637,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Advanced Find Placeholder</ButtonText>
+          <ButtonText>CommonOpenAdvancedFindCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CommonOpenDashboardsCommandId" priority="0x012E" type="Button">
@@ -8648,7 +8648,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Dashboards Placeholder</ButtonText>
+          <ButtonText>CommonOpenDashboardsCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CommonOpenActivitiesCommandId" priority="0x012E" type="Button">
@@ -8659,7 +8659,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Activities Placeholder</ButtonText>
+          <ButtonText>CommonOpenActivitiesCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -8671,7 +8671,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Solutions Placeholder</ButtonText>
+          <ButtonText>CommonOpenSolutionsCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CommonOpenWorkflowsCommandId" priority="0x012E" type="Button">
@@ -8682,7 +8682,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Workflows Placeholder</ButtonText>
+          <ButtonText>CommonOpenWorkflowsCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CommonOpenSystemJobsCommandId" priority="0x012E" type="Button">
@@ -8693,7 +8693,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>System Jobs Placeholder</ButtonText>
+          <ButtonText>CommonOpenSystemJobsCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CommonOpenTraceWallCommandId" priority="0x012E" type="Button">
@@ -8704,7 +8704,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>TraceWall Placeholder</ButtonText>
+          <ButtonText>CommonOpenTraceWallCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CommonOpenCustomizationCommandId" priority="0x012E" type="Button">
@@ -8715,7 +8715,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Customization Placeholder</ButtonText>
+          <ButtonText>CommonOpenCustomizationCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CommonOpenDefaultSolutionInWebCommandId" priority="0x012E" type="Button">
@@ -8726,7 +8726,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Default Solution Placeholder</ButtonText>
+          <ButtonText>CommonOpenDefaultSolutionInWebCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -8741,7 +8741,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>System Users Placeholder</ButtonText>
+          <ButtonText>CommonOpenSystemUsersCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CommonOpenTeamsCommandId" priority="0x012E" type="Button">
@@ -8752,7 +8752,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Teams Placeholder</ButtonText>
+          <ButtonText>CommonOpenTeamsCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CommonOpenRolesCommandId" priority="0x012E" type="Button">
@@ -8763,7 +8763,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Security Roles Placeholder</ButtonText>
+          <ButtonText>CommonOpenRolesCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CommonOpenAdministrationCommandId" priority="0x012E" type="Button">
@@ -8774,7 +8774,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Administration Placeholder</ButtonText>
+          <ButtonText>CommonOpenAdministrationCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CommonOpenSecurityCommandId" priority="0x012E" type="Button">
@@ -8785,7 +8785,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Security Placeholder</ButtonText>
+          <ButtonText>CommonOpenSecurityCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -8797,7 +8797,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Engagement Hub Placeholder</ButtonText>
+          <ButtonText>CommonOpenEngagementHubCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -8809,7 +8809,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Business Management Placeholder</ButtonText>
+          <ButtonText>CommonOpenBusinessCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CommonOpenTemplatesCommandId" priority="0x012E" type="Button">
@@ -8820,7 +8820,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Templates Placeholder</ButtonText>
+          <ButtonText>CommonOpenTemplatesCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CommonOpenProductCatalogCommandId" priority="0x012E" type="Button">
@@ -8831,7 +8831,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Product Catalog Placeholder</ButtonText>
+          <ButtonText>CommonOpenProductCatalogCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CommonOpenServiceManagementCommandId" priority="0x012E" type="Button">
@@ -8842,7 +8842,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Service Management Placeholder</ButtonText>
+          <ButtonText>CommonOpenServiceManagementCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CommonOpenDataManagementCommandId" priority="0x012E" type="Button">
@@ -8853,7 +8853,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Data Management Placeholder</ButtonText>
+          <ButtonText>CommonOpenDataManagementCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CommonOpenDocumentManagementCommandId" priority="0x012E" type="Button">
@@ -8864,7 +8864,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Document Management Placeholder</ButtonText>
+          <ButtonText>CommonOpenDocumentManagementCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CommonOpenDuplicateDetectionJobsCommandId" priority="0x012E" type="Button">
@@ -8875,7 +8875,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Duplicate Detection Jobs Placeholder</ButtonText>
+          <ButtonText>CommonOpenDuplicateDetectionJobsCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CommonOpenSocialCommandId" priority="0x012E" type="Button">
@@ -8886,7 +8886,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Social Placeholder</ButtonText>
+          <ButtonText>CommonOpenSocialCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CommonOpenAuditCommandId" priority="0x012E" type="Button">
@@ -8897,7 +8897,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Audit Placeholder</ButtonText>
+          <ButtonText>CommonOpenAuditCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -8909,7 +8909,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Mobile Offline Placeholder</ButtonText>
+          <ButtonText>CommonOpenMobileOfflineCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CommonOpenExternAppManagementCommandId" priority="0x012E" type="Button">
@@ -8920,7 +8920,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Extern App Management Placeholder</ButtonText>
+          <ButtonText>CommonOpenExternAppManagementCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CommonOpenAppsForCrmCommandId" priority="0x012E" type="Button">
@@ -8931,7 +8931,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Apps for Crm Placeholder</ButtonText>
+          <ButtonText>CommonOpenAppsForCrmCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CommonOpenRelationshipIntelligenceCommandId" priority="0x012E" type="Button">
@@ -8942,7 +8942,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Relationship Intelligence Placeholder</ButtonText>
+          <ButtonText>CommonOpenRelationshipIntelligenceCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CommonOpenMicrosoftFlowCommandId" priority="0x012E" type="Button">
@@ -8953,7 +8953,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Microsoft Flow Placeholder</ButtonText>
+          <ButtonText>CommonOpenMicrosoftFlowCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CommonOpenAppModuleCommandId" priority="0x012E" type="Button">
@@ -8964,7 +8964,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>App Module Placeholder</ButtonText>
+          <ButtonText>CommonOpenAppModuleCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CommonOpenNewsCommandId" priority="0x012E" type="Button">
@@ -8975,7 +8975,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>News Placeholder</ButtonText>
+          <ButtonText>CommonOpenNewsCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -9012,7 +9012,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Publish All In Connection Placeholder</ButtonText>
+          <ButtonText>CommonPublishAllInCrmConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -9024,7 +9024,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Select Connection File in Folder Placeholder</ButtonText>
+          <ButtonText>CommonCrmConnectionSelectFileCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CommonCrmConnectionEditCommandId" priority="0x012F" type="Button">
@@ -9035,7 +9035,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Edit Connection Placeholder</ButtonText>
+          <ButtonText>CommonCrmConnectionEditCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CommonCrmConnectionTestCommandId" priority="0x012F" type="Button">
@@ -9046,7 +9046,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Test Connection Placeholder</ButtonText>
+          <ButtonText>CommonCrmConnectionTestCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CommonSelectCrmConnectionCommandId" priority="0x012F" type="Button">
@@ -9057,7 +9057,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Select Connection Placeholder</ButtonText>
+          <ButtonText>CommonSelectCrmConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="CommonCrmConnectionCommandId" priority="0x012F" type="Button">
@@ -9154,7 +9154,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Open Solution in Web Placeholder</ButtonText>
+          <ButtonText>OutputExportOpenLastSelectedSolutionInWebCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="OutputExportOpenLastSelectedSolutionInExplorerCommandId" priority="0x6000" type="Button">
@@ -9165,7 +9165,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Open Solution in Explorer Placeholder</ButtonText>
+          <ButtonText>OutputExportOpenLastSelectedSolutionInExplorerCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
