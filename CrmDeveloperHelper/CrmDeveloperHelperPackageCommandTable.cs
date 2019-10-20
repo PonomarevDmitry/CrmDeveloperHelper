@@ -5,7 +5,7 @@
 // ------------------------------------------------------------------------------
 namespace Nav.Common.VSPackages.CrmDeveloperHelper
 {
-    
+
     /// <summary>
     /// Helper static class that exposes all GUIDs used across VS Package.
     /// </summary>

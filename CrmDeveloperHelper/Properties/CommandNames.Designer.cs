@@ -889,7 +889,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Build Project and Update PluginAssembly.
+        ///   Looks up a localized string similar to Build Projects and Update PluginAssemblies.
         /// </summary>
         internal static string ProjectBuildLoadUpdatePluginAssemblyCommand {
             get {
@@ -898,7 +898,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Build Project, Update PluginAssembly and Register New Plugins.
+        ///   Looks up a localized string similar to Build Projects, Update PluginAssemblies and Register New Plugins.
         /// </summary>
         internal static string ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand {
             get {
@@ -916,7 +916,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Update PluginAssembly.
+        ///   Looks up a localized string similar to Update PluginAssemblies in Window.
         /// </summary>
         internal static string ProjectUpdatePluginAssemblyCommand {
             get {

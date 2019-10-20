@@ -385,15 +385,15 @@
   </data>
   
   <data name="ProjectUpdatePluginAssemblyCommand" xml:space="preserve">
-    <value>Update PluginAssembly</value>
+    <value>Update PluginAssemblies in Window</value>
   </data>
 
   <data name="ProjectBuildLoadUpdatePluginAssemblyCommand" xml:space="preserve">
-    <value>Build Project and Update PluginAssembly</value>
+    <value>Build Projects and Update PluginAssemblies</value>
   </data>
 
   <data name="ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand" xml:space="preserve">
-    <value>Build Project, Update PluginAssembly and Register New Plugins</value>
+    <value>Build Projects, Update PluginAssemblies and Register New Plugins</value>
   </data>
   
   <data name="ShowDifferenceOneByOneCommandFormat2" xml:space="preserve">

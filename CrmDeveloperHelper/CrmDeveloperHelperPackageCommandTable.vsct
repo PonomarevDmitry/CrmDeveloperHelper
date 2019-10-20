@@ -7258,7 +7258,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Build Project and Update PluginAssembly</ButtonText>
+          <ButtonText>Build Projects and Update PluginAssemblies</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="ProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId" priority="0x0100" type="Button">
@@ -7269,7 +7269,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Build Project and Update PluginAssembly in Connection Placeholder</ButtonText>
+          <ButtonText>Build Projects and Update PluginAssemblies in Connection Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -7280,7 +7280,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Build Project, Update PluginAssembly and Register New Plugins</ButtonText>
+          <ButtonText>Build Projects, Update PluginAssemblies and Register New Plugins</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId" priority="0x0100" type="Button">
@@ -7291,7 +7291,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Build Project, Update PluginAssembly and Register New Plugins in Connection Placeholder</ButtonText>
+          <ButtonText>Build Projects, Update PluginAssemblies and Register New Plugins in Connection Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -7302,7 +7302,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update PluginAssembly</ButtonText>
+          <ButtonText>Update PluginAssemblies in Window</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="ProjectUpdatePluginAssemblyInConnectionCommandId" priority="0x0100" type="Button">
@@ -7313,7 +7313,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Update PluginAssembly in Connection Placeholder</ButtonText>
+          <ButtonText>Update PluginAssemblies in Window in Connection Placeholder</ButtonText>
         </Strings>
       </Button>
 
