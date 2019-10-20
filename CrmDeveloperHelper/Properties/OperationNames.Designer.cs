@@ -232,7 +232,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Building Project and Updating PluginAssembly.
+        ///   Looks up a localized string similar to {0} - Building Project List and Updating PluginAssemblies.
         /// </summary>
         internal static string BuildingProjectAndUpdatingPluginAssemblyFormat1 {
             get {
@@ -241,7 +241,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Building Project {1} and Updating PluginAssembly.
+        ///   Looks up a localized string similar to {0} - Project {1} - Building Project and Updating PluginAssembly.
         /// </summary>
         internal static string BuildingProjectAndUpdatingPluginAssemblyFormat2 {
             get {
@@ -250,7 +250,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Building Project, Updating PluginAssembly and Registering New Plugins.
+        ///   Looks up a localized string similar to {0} - Building Project List, Updating PluginAssemblies and Registering New Plugins.
         /// </summary>
         internal static string BuildingProjectUpdatingPluginAssemblyRegisteringPluginsFormat1 {
             get {
@@ -259,7 +259,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Building Project {1}, Updating PluginAssembly and Registering New Plugins.
+        ///   Looks up a localized string similar to {0} - Project {1} - Building Project, Updating PluginAssembly and Registering New Plugins.
         /// </summary>
         internal static string BuildingProjectUpdatingPluginAssemblyRegisteringPluginsFormat2 {
             get {
@@ -1960,11 +1960,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Updating PluginAssembly.
+        ///   Looks up a localized string similar to {0} - Updating PluginAssemblies in Window.
         /// </summary>
-        internal static string UpdatingPluginAssemblyFormat1 {
+        internal static string UpdatingPluginAssemblyInWindowFormat1 {
             get {
-                return ResourceManager.GetString("UpdatingPluginAssemblyFormat1", resourceCulture);
+                return ResourceManager.GetString("UpdatingPluginAssemblyInWindowFormat1", resourceCulture);
             }
         }
         

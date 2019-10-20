@@ -1773,13 +1773,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartUpdatingPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList)
+        public void StartUpdatingPluginAssembliesInWindow(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._pluginController.ExecuteUpdatingPluginAssembly(connectionData, commonConfig, projectList);
+                    this._pluginController.ExecuteUpdatingPluginAssembliesInWindow(connectionData, commonConfig, projectList);
                 }
                 catch (Exception ex)
                 {

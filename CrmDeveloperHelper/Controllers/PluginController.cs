@@ -388,15 +388,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Обновление сборки плагинов.
 
-        public async Task ExecuteUpdatingPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList)
+        public async Task ExecuteUpdatingPluginAssembliesInWindow(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList)
         {
-            string operation = string.Format(Properties.OperationNames.UpdatingPluginAssemblyFormat1, connectionData?.Name);
+            string operation = string.Format(Properties.OperationNames.UpdatingPluginAssemblyInWindowFormat1, connectionData?.Name);
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
-                await UpdatingPluginAssembly(connectionData, commonConfig, projectList);
+                await UpdatingPluginAssembliesInWindow(connectionData, commonConfig, projectList);
             }
             catch (Exception ex)
             {
@@ -408,7 +408,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task UpdatingPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList)
+        private async Task UpdatingPluginAssembliesInWindow(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList)
         {
             if (connectionData == null)
             {

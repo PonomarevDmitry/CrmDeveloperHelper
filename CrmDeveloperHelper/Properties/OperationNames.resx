@@ -719,20 +719,20 @@
   <data name="AddingPluginStepFormat1" xml:space="preserve">
     <value>{0} - Adding Plugin Step</value>
   </data>
-  <data name="UpdatingPluginAssemblyFormat1" xml:space="preserve">
-    <value>{0} - Updating PluginAssembly</value>
+  <data name="UpdatingPluginAssemblyInWindowFormat1" xml:space="preserve">
+    <value>{0} - Updating PluginAssemblies in Window</value>
   </data>
   <data name="BuildingProjectAndUpdatingPluginAssemblyFormat1" xml:space="preserve">
-    <value>{0} - Building Project and Updating PluginAssembly</value>
+    <value>{0} - Building Project List and Updating PluginAssemblies</value>
   </data>
   <data name="BuildingProjectAndUpdatingPluginAssemblyFormat2" xml:space="preserve">
-    <value>{0} - Building Project {1} and Updating PluginAssembly</value>
+    <value>{0} - Project {1} - Building Project and Updating PluginAssembly</value>
   </data>
   <data name="BuildingProjectUpdatingPluginAssemblyRegisteringPluginsFormat1" xml:space="preserve">
-    <value>{0} - Building Project, Updating PluginAssembly and Registering New Plugins</value>
+    <value>{0} - Building Project List, Updating PluginAssemblies and Registering New Plugins</value>
   </data>
   <data name="BuildingProjectUpdatingPluginAssemblyRegisteringPluginsFormat2" xml:space="preserve">
-    <value>{0} - Building Project {1}, Updating PluginAssembly and Registering New Plugins</value>
+    <value>{0} - Project {1} - Building Project, Updating PluginAssembly and Registering New Plugins</value>
   </data>
   <data name="RegisteringPluginAssemblyFormat1" xml:space="preserve">
     <value>{0} - Registering PluginAssembly</value>

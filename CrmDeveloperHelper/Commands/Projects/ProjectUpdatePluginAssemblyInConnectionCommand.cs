@@ -27,7 +27,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
         {
             var projectList = helper.GetSelectedProjects().ToList();
 
-            helper.HandleUpdatingPluginAssemblyCommand(connectionData, projectList);
+            helper.HandleUpdatingPluginAssembliesInWindowCommand(connectionData, projectList);
         }
     }
 }

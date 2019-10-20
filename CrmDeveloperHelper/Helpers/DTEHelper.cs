@@ -523,12 +523,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleUpdatingPluginAssemblyCommand(ConnectionData connectionData, params EnvDTE.Project[] projectList)
+        public void HandleUpdatingPluginAssembliesInWindowCommand(ConnectionData connectionData, params EnvDTE.Project[] projectList)
         {
-            HandleUpdatingPluginAssemblyCommand(connectionData, projectList.ToList());
+            HandleUpdatingPluginAssembliesInWindowCommand(connectionData, projectList.ToList());
         }
 
-        public void HandleUpdatingPluginAssemblyCommand(ConnectionData connectionData, List<EnvDTE.Project> projectList)
+        public void HandleUpdatingPluginAssembliesInWindowCommand(ConnectionData connectionData, List<EnvDTE.Project> projectList)
         {
             if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
             {
@@ -556,7 +556,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartUpdatingPluginAssembly(connectionData, commonConfig, projectList);
+                    Controller.StartUpdatingPluginAssembliesInWindow(connectionData, commonConfig, projectList);
                 }
                 catch (Exception ex)
                 {
