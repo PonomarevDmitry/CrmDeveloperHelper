@@ -11,6 +11,8 @@ using System;
 using System.Collections.Concurrent;
 using System.Linq;
 using System.Net;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
@@ -23,12 +25,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private static ConcurrentDictionary<Uri, IServiceManagement<IDiscoveryService>> _cacheDiscoveryServiceManagement = new ConcurrentDictionary<Uri, IServiceManagement<IDiscoveryService>>();
         private static ConcurrentDictionary<Uri, IServiceManagement<IOrganizationService>> _cacheOrganizationServiceManagement = new ConcurrentDictionary<Uri, IServiceManagement<IOrganizationService>>();
 
+        private static bool AcceptAllCertifications(object sender, X509Certificate certification, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+        {
+            return true;
+        }
+
         private static IServiceManagement<IDiscoveryService> GetDiscoveryServiceConfiguration(ConnectionData connectionData, Uri uri)
         {
             if (_cacheDiscoveryServiceManagement.ContainsKey(uri))
             {
                 return _cacheDiscoveryServiceManagement[uri];
             }
+
+            IgnoreCertificateValidation();
 
             if (!UrlIsAvailable(uri))
             {
@@ -61,6 +70,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return _cacheOrganizationServiceManagement[uri];
             }
 
+            IgnoreCertificateValidation();
+
             if (!UrlIsAvailable(uri))
             {
                 return null;
@@ -85,12 +96,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return null;
         }
 
+        private static void IgnoreCertificateValidation()
+        {
+            if (ServicePointManager.ServerCertificateValidationCallback == null)
+            {
+                ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(AcceptAllCertifications);
+            }
+        }
+
         public static bool UrlIsAvailable(Uri uri)
         {
             try
             {
                 var request = WebRequest.Create(uri) as HttpWebRequest;
                 request.Timeout = 5000;
+
+                request.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(AcceptAllCertifications);
 
                 using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
                 {
@@ -359,8 +380,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             ConnectionData connectionData
             , bool withDiscoveryRequest
             , out OrganizationDetail organizationDetail
-            )
+        )
         {
+            IgnoreCertificateValidation();
+
             organizationDetail = null;
 
             Uri orgUri = null;
@@ -445,6 +468,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private static DiscoveryServiceProxy CreateDiscoveryService(ConnectionData connectionData, Uri discoveryUrl, string username, string password)
         {
+            IgnoreCertificateValidation();
+
             try
             {
                 var serviceManagement = GetDiscoveryServiceConfiguration(connectionData, discoveryUrl);
@@ -464,6 +489,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public static DiscoveryServiceProxy CreateDiscoveryService(IServiceManagement<IDiscoveryService> serviceManagement, string username, string password)
         {
+            IgnoreCertificateValidation();
+
             DiscoveryServiceProxy service = null;
 
             var credentials = GetCredentials(serviceManagement, username, password);
