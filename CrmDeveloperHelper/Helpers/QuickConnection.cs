@@ -25,11 +25,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private static ConcurrentDictionary<Uri, IServiceManagement<IDiscoveryService>> _cacheDiscoveryServiceManagement = new ConcurrentDictionary<Uri, IServiceManagement<IDiscoveryService>>();
         private static ConcurrentDictionary<Uri, IServiceManagement<IOrganizationService>> _cacheOrganizationServiceManagement = new ConcurrentDictionary<Uri, IServiceManagement<IOrganizationService>>();
 
-        private static bool AcceptAllCertifications(object sender, X509Certificate certification, X509Chain chain, SslPolicyErrors sslPolicyErrors)
-        {
-            return true;
-        }
-
         private static IServiceManagement<IDiscoveryService> GetDiscoveryServiceConfiguration(ConnectionData connectionData, Uri uri)
         {
             if (_cacheDiscoveryServiceManagement.ContainsKey(uri))
@@ -102,6 +97,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(AcceptAllCertifications);
             }
+        }
+
+        private static bool AcceptAllCertifications(object sender, X509Certificate certification, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+        {
+            return true;
         }
 
         public static bool UrlIsAvailable(Uri uri)
