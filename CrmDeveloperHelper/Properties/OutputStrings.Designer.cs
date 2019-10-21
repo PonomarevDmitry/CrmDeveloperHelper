@@ -2374,6 +2374,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File Extension {0} not allowed..
+        /// </summary>
+        internal static string FileExtentionsNotAllowedFormat1 {
+            get {
+                return ResourceManager.GetString("FileExtentionsNotAllowedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} has encoding {1}.
         /// </summary>
         internal static string FileHasEncodingFormat2 {

@@ -81,7 +81,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             extension = extension.ToLower();
 
             if (!Types.ContainsKey(extension))
-                throw new Exception("File Extension " + extension + " is not allowed");
+            {
+                throw new ArgumentException(string.Format(Properties.OutputStrings.FileExtentionsNotAllowedFormat1, extension), nameof(extension));
+            }
 
             var type = Types[extension];
 
@@ -100,7 +102,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 var webResourceCollection = SearchByName(type, names.ToArray());
 
-                return webResourceCollection.SingleOrDefault();
+                return webResourceCollection.Count == 1 ? webResourceCollection.SingleOrDefault() : null;
             }
 
             return null;
@@ -153,7 +155,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             extension = extension.ToLower();
 
             if (!Types.ContainsKey(extension))
-                throw new Exception("File Extension " + extension + " is not allowed");
+            {
+                throw new ArgumentException(string.Format(Properties.OutputStrings.FileExtentionsNotAllowedFormat1, extension), nameof(extension));
+            }
 
             var type = Types[extension];
 
@@ -448,11 +452,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
 
             MetadataFilterExpression entityFilter = new MetadataFilterExpression(LogicalOperator.And);
-            entityFilter.Conditions.Add(new MetadataConditionExpression("LogicalName", MetadataConditionOperator.Equals, WebResource.EntityLogicalName));
+            entityFilter.Conditions.Add(new MetadataConditionExpression(nameof(Entity.LogicalName), MetadataConditionOperator.Equals, WebResource.EntityLogicalName));
 
             var entityQueryExpression = new EntityQueryExpression()
             {
-                Properties = new MetadataPropertiesExpression("Attributes"),
+                Properties = new MetadataPropertiesExpression(nameof(Entity.Attributes)),
                 AttributeQuery = new AttributeQueryExpression() { Properties = new MetadataPropertiesExpression() { AllProperties = true } },
 
                 Criteria = entityFilter,

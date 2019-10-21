@@ -2147,11 +2147,11 @@
     <value>Created file with Checking Global OptionSet Duplicates on Entity: {0}</value>
   </data>
   
-  <!--
-  <data name="111111" xml:space="preserve">
-    <value>2222222</value>
+  <data name="FileExtentionsNotAllowedFormat1" xml:space="preserve">
+    <value>File Extension {0} not allowed.</value>
   </data>
   
+  <!--
   <data name="111111" xml:space="preserve">
     <value>2222222</value>
   </data>
