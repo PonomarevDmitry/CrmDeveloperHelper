@@ -124,7 +124,7 @@
     <value>Compare with Crm PluginAssembly</value>
   </data>
   <data name="CodeCSharpProjectUpdatePluginAssemblyCommand" xml:space="preserve">
-    <value>Update PluginAssembly</value>
+    <value>Update PluginAssembly in Window</value>
   </data>
 
   <data name="CodeCSharpProjectBuildLoadUpdatePluginAssemblyCommand" xml:space="preserve">
@@ -306,7 +306,7 @@
   </data>
   
   <data name="FileCSharpProjectUpdatePluginAssemblyCommand" xml:space="preserve">
-    <value>Update PluginAssembly</value>
+    <value>Update PluginAssembly in Window</value>
   </data>
 
   <data name="FileCSharpProjectBuildLoadUpdatePluginAssemblyCommand" xml:space="preserve">

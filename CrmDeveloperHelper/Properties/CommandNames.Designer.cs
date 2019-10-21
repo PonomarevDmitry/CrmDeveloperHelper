@@ -97,7 +97,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Update PluginAssembly.
+        ///   Looks up a localized string similar to Update PluginAssembly in Window.
         /// </summary>
         internal static string CodeCSharpProjectUpdatePluginAssemblyCommand {
             get {
@@ -637,7 +637,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Update PluginAssembly.
+        ///   Looks up a localized string similar to Update PluginAssembly in Window.
         /// </summary>
         internal static string FileCSharpProjectUpdatePluginAssemblyCommand {
             get {
