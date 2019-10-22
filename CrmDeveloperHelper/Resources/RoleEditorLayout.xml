@@ -1,0 +1,386 @@
+<RoleEditorLayout>
+  <Tabs>
+    <Tab id="tab1" Name="Core Records" LocId="Tab_Label_CoreRecords">
+      <Entity EntityCode="1" Name="Account" LocId="" />
+      <Entity EntityCode="1071" Name="customeraddress" SharesPrivilegesWith="1" LocId="" />
+
+      <Entity EntityCode="2" Name="Contact" LocId="" />
+      <Entity EntityCode="4" Name="Lead" LocId="" />
+      <Entity EntityCode="3" Name="Opportunity" LocId="" />
+      <Entity EntityCode="4200" Name="Activity" LocId="" />
+      <Entity EntityCode="4250" Name="recurrencerule" SharesPrivilegesWith="4200" LocId="" />
+      <Entity EntityCode="4206" Name="resourcespec" SharesPrivilegesWith="4200" LocId="" />
+
+      <Entity EntityCode="5" Name="Note" LocId="" />
+      <Entity EntityCode="2010" Name="E-mailTemplate" LocId="" />
+      <Entity EntityCode="9997" Name="EmailSignature" LocId="" />
+      <Entity EntityCode="132" Name="Announcement" LocId="" />
+      <Entity EntityCode="129" Name="Subject" LocId="" />
+      <Entity EntityCode="2020" Name="Queue" LocId="" />
+      <Entity EntityCode="4230" Name="UserQuery" LocId="" />
+      <Entity EntityCode="9100" Name="Report" LocId="" />
+      <Entity EntityCode="4414" Name="DuplicateRule" LocId="" />
+      <Entity EntityCode="4410" Name="Import" LocId="" />
+      <Entity EntityCode="4411" Name="ImportMap" LocId="" />
+      <Entity EntityCode="3231" Name="ConnectionRole" LocId="" />
+      <Entity EntityCode="3234" Name="Connection" LocId="" />
+      <Entity EntityCode="4503" Name="CustomerOpportunityRole" LocId="" />
+      <Entity EntityCode="4500" Name="RelationshipRole" LocId="" />
+      <Entity EntityCode="4502" Name="CustomerRelationship" LocId="" />
+      <Entity EntityCode="9106" Name="MailMergeTemplate" LocId="" />
+      <Entity EntityCode="1031" Name="userform" LocId="" />
+      <Entity EntityCode="4800" Name="WebWizard" LocId="" />
+      <Entity EntityCode="4803" Name="WizardAccessPriv" LocId="" />
+      <Entity EntityCode="4802" Name="WizardPage" LocId="" />
+      <Entity EntityCode="9957" Name="LanguageLocale" LocId="" />
+      <Entity EntityCode="9958" Name="Feedback" LocId="" />
+      <Entity EntityCode="1112" Name="UserQueryVisualization" LocId="" />
+      <Entity EntityCode="4450" Name="DataPerformance" LocId="" />
+      <Entity EntityCode="9962" Name="ActionCard" LocId="" />
+      <Entity EntityCode="9983" Name="CardType" LocId="" />
+      <Entity EntityCode="9973" Name="ActionCardUserSettings" LocId="" />
+      <Entity EntityCode="9986" Name="InteractionForEmail" LocId="" />
+      <Entity EntityCode="8040" Name="ACIViewMapper" LocId="" />
+      <!--Missing Entities-->
+      <Entity EntityCode="4412" Name="importfile" LocId="" />
+      <Entity EntityCode="4413" Name="importdata" SharesPrivilegesWith="4412" LocId="" />
+      <Entity EntityCode="4423" Name="importlog" SharesPrivilegesWith="4412" LocId="" />
+      <Entity EntityCode="4707" Name="ApplicationFile" LocId="" />
+      <Entity EntityCode="2500" Name="UserEntityUISettings"  LocId="" />
+      <Entity EntityCode="2501" Name="UserEntityInstanceData"  LocId="" />
+      <Entity EntityCode="9502" Name="sharepointsite" LocId="" />
+      <Entity EntityCode="9508" Name="sharepointdocumentlocation" LocId="" />
+      <Entity EntityCode="2016" Name="UserMapping" LocId="" />
+      <Entity EntityCode="9950" Name="officegraphdocument" LocId="" />
+      <Entity EntityCode="9951" Name="SimilarityRule" LocId="" />
+      <Entity EntityCode="1189" Name="RecommendedDocument" LocId="" />
+      <Entity EntityCode="1190" Name="SuggestionCardTemplate" LocId="" />
+      <!--R7 Entities-->
+      <Entity EntityCode="8000" Name="Post" LocId="" />
+      <Entity EntityCode="8003" Name="PostFollow" LocId="" />
+      <!--R9 Entities-->
+      <Entity EntityCode="8050" Name="TraceLog" LocId="" />
+      <Entity EntityCode="99" Name="SocialProfile" LocId="" />
+
+      <Entity EntityCode="9866" Name="MobileOfflineProfile" LocId="" />
+      <Entity EntityCode="9867" Name="MobileOfflineProfileItem" LocId="" />
+      <Entity EntityCode="9869" Name="SyncError" LocId="" />
+      <Entity EntityCode="1309" Name="SavedOrgInsightsConfiguration" LocId="" />
+      <Entity EntityCode="9699" Name="OrgInsightsMetric" SharesPrivilegesWith="1309" LocId="" />
+      <Entity EntityCode="9690" Name="OrgInsightsNotification" SharesPrivilegesWith="1309" LocId="" />
+
+      <!--Azure Machine Learning Entities-->
+      <Entity EntityCode="9936" Name="AzureServiceConnection" LocId="" />
+      <Entity EntityCode="9933" Name="RecommendationModel" LocId="" />
+      <Entity EntityCode="9934" Name="RecommendationModelMapping" SharesPrivilegesWith="9933" LocId="" />
+      <Entity EntityCode="9935" Name="RecommendationModelVersion" SharesPrivilegesWith="9933" LocId="" />
+      <Entity EntityCode="9937" Name="RecommendationModelVersionHistory" SharesPrivilegesWith="9933" LocId="" />
+      <Entity EntityCode="9949" Name="AdvancedSimilarityRule" LocId="" />
+      <Entity EntityCode="9945" Name="TextAnalyticsEntityMapping" LocId="" />
+
+      <Entity EntityCode="9959" Name="Category" LocId="" />
+      <MiscellaneousSection>
+        <Privilege id="{01750F14-3320-49CC-A7D1-52502CDCD16D}" Name="CreateOrgEmailTemplates" LocId="Web.Biz.Roles.edit_role.aspx_644" />
+        <Privilege id="{6C835796-0A87-4790-A6BA-E72651427EC1}" Name="PublishRSReport" LocId="Role_Editor_Row_Name_Publish_RS_Reports" />
+        <Privilege id="{7497D08B-CB4C-49AE-A1F0-47F21CACA6B8}" Name="PublishOrgReport" LocId="Role_Editor_Row_Name_Publish_Org_Reports" />
+        <Privilege id="{AC3CC10E-F735-4F34-95E4-097EC2AB478B}" Name="PublishOrgMailMergeTemplate" LocId="Role_Editor_Row_Name_Publish_Org_MailMergeTemplates" />
+        <Privilege id="{5A9F6284-E81F-4294-9C63-D68052189B87}" Name="PublishDuplicateRule" LocId="Role_Editor_Row_Name_Publish_DuplicateRule" />
+        <Privilege id="{B75A726F-E7AA-44ae-9282-F8776D913BBB}" Name="BulkDelete" LocId="Role_Editor_Row_Name_BulkDelete" />
+        <Privilege id="{7E4BC779-574D-4BA3-A855-57BDA98662D4}" Name="prvConfigureSharePoint" LocId="RoleEditor_MiscPriv_ConfigureSharePoint" />
+        <Privilege id="{676ba2b0-c2dc-4d6d-8821-9cb8faed7538}" Name="prvOneDrive" LocId="RoleEditor_MiscPriv_OneDrive" />
+        <Privilege id="{1877be10-41c1-4187-aaf4-e0c12bd11a9f}" Name="PromoteToAdmin" LocId="RoleEditor_MiscPriv_PromoteTOAdmin" />
+        <Privilege id="{ACE2496F-3E7B-4293-AC3F-C0FEE0C9B05E}" Name="TurnDevErrorOnOff" LocId="RoleEditor_MiscPriv_TurnDevErrorsOnOff" />
+        <Privilege id="{C2CBE3DB-62C8-4661-9AC5-7691C83242F5}" Name="prvReadAuditSummary" LocId="RoleEditor_MiscPriv_ReadAuditSummary" />
+        <Privilege id="{1CD608FD-160C-45E5-9AEE-52E8066E9EF6}" Name="prvReadRecordAuditHistory" LocId="RoleEditor_MiscPriv_ReadRecordAuditHistory" />
+        <Privilege id="{06709AF3-4AEC-442c-94E3-7998BBF1835B}" Name="prvReadAuditPartitions" LocId="RoleEditor_MiscPriv_ReadAuditPartitions" />
+        <Privilege id="{1AE83C2F-82D2-474d-91B2-5C77B2BB86CD}" Name="prvDeleteAuditPartitions" LocId="RoleEditor_MiscPriv_DeleteAuditPartitions" />
+        <Privilege id="{2CAA63A2-07D6-42DD-9262-358C6B61EE01}" Name="prvDeleteRecordChangeHistory" LocId="RoleEditor_MiscPriv_DeleteRecordChangeHistory" />
+        <Privilege id="{A43380C1-F71D-4ac6-B050-5F67A706B520}" Name="prvAdminFilter" LocId="RoleEditor_MiscPriv_AdminFilter" />
+        <Privilege id="{3DBA2D71-FE0A-4152-ADF3-F82BBFFA9EDE}" Name="prvReadSqlEncryptionKey" LocId="RoleEditor_MiscPriv_ReadSqlEncryptionKey" />
+        <Privilege id="{D8C367AE-28EC-4A77-949D-7FD28ABEA4F3}" Name="prvChangeSqlEncryptionKey" LocId="RoleEditor_MiscPriv_ChangeSqlEncryptionKey" />
+        <Privilege id="{90E9705B-1FE8-40C2-B2EE-3930C44FC76D}" Name="prvRestoreSqlEncryptionKey" LocId="RoleEditor_MiscPriv_RestoreSqlEncryptionKey" />
+      </MiscellaneousSection>
+    </Tab>
+    <Tab id="tab2" Name="Marketing" LocId="Tab_Label_Marketing">
+      <Entity EntityCode="4300" Name="List" LocId="" />
+      <Entity EntityCode="4400" Name="Campaign" LocId="" />
+      <MiscellaneousSection>
+        <Privilege id="{5677ECB3-A34D-4ac5-99CE-9E2DBF2B3246}" Name="AllowQuickCampaign" LocId="Role_Editor_Row_Name_quick_campaign" />
+        <Privilege id="{0452A809-CEAF-4AE9-AAB5-C74D42BB5773}" Name="prvConfigureInternetMarketing" LocId="RoleEditor_MiscPriv_ConfigureInternetMarketing" />
+        <Privilege id="{3D1DDB18-3709-4A30-93DE-51C95C28D00C}" Name="prvUseInternetMarketing" LocId="RoleEditor_MiscPriv_UseInternetMarketing" />
+
+      </MiscellaneousSection>
+    </Tab>
+    <Tab id="tab3" Name="Sales" LocId="Tab_Label_Sales">
+      <Entity EntityCode="1024" Name="Product" LocId="" />
+      <Entity EntityCode="1080" Name="discounttype" SharesPrivilegesWith="1024" LocId="" />
+      <Entity EntityCode="1056" Name="uomschedule" SharesPrivilegesWith="1024" LocId="" />
+      <Entity EntityCode="1022" Name="pricelevel" SharesPrivilegesWith="1024" LocId="" />
+      <Entity EntityCode="1048" Name="DynamicProperty" LocId="" />
+      <Entity EntityCode="1333" Name="DynamicPropertyInstance" LocId="" />
+      <Entity EntityCode="1235" Name="DynamicPropertyAssociation" LocId="" />
+      <Entity EntityCode="1049" Name="DynamicPropertyOptionSetItem" LocId="" />
+      <Entity EntityCode="123" Name="Competitor" LocId="" />
+      <Entity EntityCode="1038" Name="SalesLiterature" LocId="" />
+      <Entity EntityCode="1084" Name="Quote" LocId="" />
+      <Entity EntityCode="1088" Name="SalesOrder" LocId="" />
+      <Entity EntityCode="1090" Name="Invoice" LocId="" />
+      <Entity EntityCode="2013" Name="Territory" LocId="" />
+      <MiscellaneousSection>
+        <Privilege id="{45C781DA-DB3E-439B-9EFE-D1B5484B832F}" Name="OverridePriceEngineQuote" LocId="Web.Biz.Roles.edit_role.aspx_788" />
+        <Privilege id="{0186F903-2B6A-4230-9838-0B64080A7568}" Name="OverridePriceEngineOrder" LocId="Web.Biz.Roles.edit_role.aspx_791" />
+        <Privilege id="{748F74BF-055C-4FD3-835F-A9ECB7449315}" Name="OverridePriceEngineInvoice" LocId="Web.Biz.Roles.edit_role.aspx_795" />
+        <Privilege id="{0FE2F754-3531-4670-8A8D-B3D7EB49321E}" Name="OverridePriceEngineOpportunity" LocId="Web.Biz.Roles.edit_role.aspx_796" />
+        <Privilege id="{80DF41D9-C44C-44A1-A6A6-26DF453B274C}" Name="QOIOverrideDelete" LocId="RoleEditor_MiscPriv_QOIOverrideDelete" />
+      </MiscellaneousSection>
+    </Tab>
+    <Tab id="tab4" Name="Service" LocId="Tab_Label_Service">
+      <Entity EntityCode="1152" Name="BookingStatus" LocId="" />
+      <Entity EntityCode="1151" Name="BookableResourceGroup" LocId="" />
+      <Entity EntityCode="1150" Name="BookableResource" LocId="" />
+      <Entity EntityCode="1149" Name="BookableResourceCategoryAssn" LocId="" />
+      <Entity EntityCode="1148" Name="BookableResourceCharacteristic" LocId="" />
+      <Entity EntityCode="1147" Name="BookableResourceCategory" LocId="" />
+      <Entity EntityCode="1146" Name="BookableResourceBookingHeader" LocId="" />
+      <Entity EntityCode="1145" Name="BookableResourceBooking" LocId="" />
+      <Entity EntityCode="1144" Name="RatingModel" LocId="" />
+      <Entity EntityCode="1142" Name="RatingValue" LocId="" />
+      <Entity EntityCode="1141" Name="Characteristic" LocId="" />
+      <Entity EntityCode="127" Name="Article" LocId="" />
+      <Entity EntityCode="1016" Name="Atricle Template" LocId="" />
+      <Entity EntityCode="112" Name="Case" LocId="" />
+      <Entity EntityCode="1010" Name="Contract" LocId="" />
+      <Entity EntityCode="2011" Name="Contract Template" LocId="" />
+      <Entity EntityCode="9953" Name="Knowledge Article" LocId="" />
+      <Entity EntityCode="9955" Name="Knowledge Article Views" LocId="" />
+      <MiscellaneousSection>
+        <Privilege id="{4EA4A25D-D0B9-427D-BC53-C82A0E983C7F}" Name="PublishArticle" LocId="Web.Biz.Roles.edit_role.aspx_896" />
+        <Privilege id="{7c538e3d-8e82-4f73-922e-471472954c52}" Name="prvPublishKnowledgeArticle" LocId="RoleEditor_MiscPriv_PublishKnowledgeArticles" />
+        <Privilege id="{bdf910f7-0c80-4e7b-8ac2-12e75790319f}" Name="prvApproveKnowledgeArticle" LocId="RoleEditor_MiscPriv_ApproveKnowledgeArticles" />
+      </MiscellaneousSection>
+    </Tab>
+    <Tab id="tab5" Name="Business Management" LocId="Tab_Label_BusinessManagement">
+      <Entity EntityCode="1019" Name="Organization Settings" LocId="" />
+      <Entity EntityCode="10" Name="Business Unit" LocId="" />
+      <Entity EntityCode="8" Name="User" LocId="" />
+      <Entity EntityCode="150" Name="User Settings" LocId="" />
+      <Entity EntityCode="9" Name="Team" LocId="" />
+      <Entity EntityCode="50" Name="Position" LocId="" />
+      <Entity EntityCode="1036" Name="Role" LocId="" />
+      <Entity EntityCode="2027" Name="License" LocId="" />
+      <Entity EntityCode="9105" Name="Currency" LocId="" />
+      <Entity EntityCode="1200" Name="Field Security Profile" LocId="" />
+      <Entity EntityCode="44" Name="Secured Field Access" LocId="" />
+      <Entity EntityCode="1234" Name="Channel Property Group" LocId="" />
+      <Entity EntityCode="1236" Name="Channel Property" LocId="" />
+      <Entity EntityCode="92" Name="teamtemplate" SharesPrivilegesWith="9" LocId="" />
+      <Entity EntityCode="9600" Name="Goal" LocId="" />
+      <Entity EntityCode="9602" Name="Roll-Up Query" LocId="" />
+      <Entity EntityCode="9603" Name="Goal Metric" LocId="" />
+      <Entity EntityCode="9605" Name="Email Server Profile" LocId="" />
+      <Entity EntityCode="9606" Name="Mailbox" LocId="" />
+      <Entity EntityCode="1400" Name="SyncAttributeMappingProfile" LocId="" />
+      <Entity EntityCode="1404" Name="PrincipalSyncAttributeMap" LocId="" />
+      <Entity EntityCode="9608" Name="MailboxTrackingFolder" LocId="" />
+      <Entity EntityCode="9609" Name="MailboxTrackingCategory" LocId="" />
+      <Entity EntityCode="9400" Name="ChannelAccessProfileRule" LocId="" />
+      <Entity EntityCode="9401" Name="ChannelAccessProfileRuleItem" SharesPrivilegesWith="9400" LocId="" />
+      <Entity EntityCode="3005" Name="ChannelAccessProfile" LocId="" />
+      <Entity EntityCode="3008" Name="ExternalParty" LocId="" />
+      <Entity EntityCode="9987" Name="ExternalPartyItem" SharesPrivilegesWith="3008" LocId="" />
+      <Entity EntityCode="9941" Name="Personal Document Template" LocId="" />
+      <Entity EntityCode="9940" Name="Document Template" LocId="" />
+      <MiscellaneousSection>
+        <Privilege id="{D5B32FC2-2F74-486B-A2D5-7A2506D1E580}" Name="AssignTerritory" LocId="Web.Biz.Roles.edit_role.aspx_1032" />
+        <Privilege id="{04BC1454-E9A4-4DB8-8499-064E9452176E}" Name="BulkEdit" LocId="Role_Editor_Row_Name_Bulk_Edit" />
+        <Privilege id="{06DD57D4-75B4-40C0-B6E1-3A7C2C06CD10}" Name="UseTabletApp" LocId="Role_Editor_Row_Name_Use_Tablet_App" />
+        <Privilege id="{4DB9FAAE-7B17-4BAD-A284-68D4C3831C13}" Name="Print" LocId="Role_Editor_Row_Name_Print" />
+        <Privilege id="{1EAD6FEA-946C-4D28-9374-2FA637D71BCC}" Name="ExportToExcel" LocId="Role_Editor_Row_Name_Export_To_Excel" />
+        <Privilege id="{E7DD3E1D-F4F3-49B8-AD29-72B45106D3B4}" Name="DocumentGeneration" LocId="Role_Editor_Row_Name_Document_Generation" />
+        <Privilege id="{1091144B-3E20-4B68-B107-EB597E963CD9}" Name="Merge" LocId="Role_Editor_Row_Name_Merge" />
+        <Privilege id="{9293EEB5-1EFA-48C2-AE83-56FB180539EE}" Name="MailMerge" LocId="Role_Editor_Row_Name_Mail_Merge" />
+        <Privilege id="{38162BD3-4B5E-4434-89B3-FE9DF1F5F43A}" Name="GoOffline" LocId="Role_Editor_Row_Name_Go_Offline" />
+        <Privilege id="{50D9FDD3-8CC6-4774-A661-79822061BFEF}" Name="WebMailMerge" LocId="Role_Editor_Row_Name_Web_Mail_Merge" />
+        <Privilege id="{98626BA2-D256-40BA-9729-ADA88ACC9D10}" Name="AddressBook" LocId="Role_Editor_Row_Name_Address_Book" />
+        <Privilege id="{DAAAB59C-0D93-492E-B25E-C9A2E19497ED}" Name="SyncToOutlook" LocId="Role_Editor_Row_Name_Sync_To_Outlook" />
+        <Privilege id="{31053C34-0B1F-4EB5-A15A-C5BBF4C79CA1}" Name="prvUseOfficeApps" LocId="MoCA_OWA_Office_Apps_Permission" />
+        <Privilege id="{A0D4FB1E-96CB-4ED6-9FE2-675DDDDA8378}" Name="WriteBusinessClosureCalendar" LocId="Role_Editor_Row_Name_Write_Business_Closure_Calendar" />
+        <Privilege id="{6FD3EB4F-66E3-4587-B4AB-C064F03AD783}" Name="SendAsUser" LocId="Role_Editor_Row_Name_Send_As_User" />
+        <Privilege id="{4717A50B-A7F7-4a1f-A7FD-ED9DFE8A3F09}" Name="LanguageSettings" LocId="Role_Editor_Row_Name_LanguageSettings" />
+        <Privilege id="{B5C6CE9F-6ED4-4330-BF1E-24B146573CAE}" Name="SendInviteForLive" LocId="Role_Editor_Row_Name_Send_Invite" />
+        <Privilege id="{D48CF22F-F8C2-4E16-89EB-49F8281DE4EA}" Name="OverrideCreatedOnCreatedBy" LocId="RoleEditor_MiscPriv_OverrideCreatedOnCreatedBy" />
+        <Privilege id="{1C29D21F-C8A6-427B-B470-26E282BC47E7}" Name="Enable/Disable Business Unit" LocId="RoleEditor_MiscPriv_EnableDisableBU" />
+        <Privilege id="{095860D1-42DE-4EFC-8D53-4B60E74D3D26}" Name="Enable/Disable User" LocId="RoleEditor_MiscPriv_EnableDisableUser" />
+        <!--BusinessManagement-->
+        <Privilege id="{28C3A786-82A5-4FF6-8D54-4876DB4BA2F8}" Name="prvAssignManager" LocId="RoleEditor_MiscPriv_AssignManager" />
+        <Privilege id="{8a9f2ef3-a914-4c9d-9f1a-2c359d31ddc5}" Name="prvAssignPosition" LocId="RoleEditor_MiscPriv_AssignPosition" />
+        <Privilege id="{9C8710DB-5260-4DFE-91A3-983B81F1B4D6}" Name="prvReparentBusinessUnit" LocId="RoleEditor_MiscPriv_ReparentBU" />
+        <Privilege id="{E6672D30-ED9E-4A1D-847D-7B1D05CD12E2}" Name="prvReparentTeam" LocId="RoleEditor_MiscPriv_ReparentTeam" />
+        <Privilege id="{2759A407-C37F-4955-AA64-05F44BB88402}" Name="prvReparentUser" LocId="RoleEditor_MiscPriv_ReparentUser" />
+        <Privilege id="{B93E1FC6-E58C-4F0F-B0C8-59161EDF0455}" Name="prvReadLicense" LocId="RoleEditor_MiscPriv_ReadLicense" />
+        <Privilege id="{AE5C41F0-E823-4CB9-B25A-8EF020201973}" Name="prvActOnBehalfOfAnotherUser" LocId="RoleEditor_MiscPriv_ActOnBehalfOfAnotherUse" />
+        <Privilege id="{EE5C41F0-E823-4CB9-B25A-8EF020301983}" Name="prvActOnBehalfOfExternalParty" LocId="RoleEditor_MiscPriv_ActOnBehalfOfExternalParty" />
+        <Privilege id="{54E8C67E-9CC2-441B-802F-788F93E977D6}" Name="prvApproveRejectEmailAddress" LocId="RoleEditor_MiscPriv_ApproveOrRejectEmailAddress" />
+        <Privilege id="{EF70AE80-3A6E-405A-8BB2-1619CED3D9C4}" Name="RollupGoal" LocId="RoleEditor_MiscPriv_AllowSyncRollups" />
+        <Privilege id="{ea835fee-87a8-47d9-90dc-4461f7df3bf9}" Name="prvWriteHierarchicalSecurityConfiguration" LocId="RoleEditor_MiscPriv_WriteHierarchicalSecurityConfiguration" />
+        <Privilege id="{df360ebe-f9a9-4dee-b5fa-03c414ac3080}" Name="prvSendNotifications" LocId="RoleEditor_MiscPriv_SendNotifications" />
+      </MiscellaneousSection>
+    </Tab>
+    <Tab id="tab6" Name="Service Management" LocId="Tab_Label_ServiceManagement">
+      <Entity EntityCode="4003" Name="Calendar" LocId="" />
+      <Entity EntityCode="1086" Name="My Work Hours" LocId="" />
+      <Entity EntityCode="4001" Name="Service" LocId="" />
+      <Entity EntityCode="4007" Name="constraintbasedgroup" SharesPrivilegesWith="4001" LocId="" />
+      <Entity EntityCode="4005" Name="resourcegroup" SharesPrivilegesWith="4001" LocId="" />
+      <Entity EntityCode="4006" Name="resourcespec" SharesPrivilegesWith="4001" LocId="" />
+      <Entity EntityCode="4002" Name="resource" SharesPrivilegesWith="4001" LocId="" />
+
+      <Entity EntityCode="4000" Name="Facility/Equipment" LocId="" />
+      <Entity EntityCode="4009" Name="Site" LocId="" />
+      <Entity EntityCode="9700" Name="Entitlement" LocId="" />
+      <Entity EntityCode="9701" Name="Entitlement Channel" SharesPrivilegesWith="9700" LocId="" />
+      <Entity EntityCode="9702" Name="Entitlement Template" LocId="" />
+      <Entity EntityCode="9703" Name="Entitlement Template Channel" SharesPrivilegesWith="9702" LocId="" />
+      <Entity EntityCode="8181" Name="RoutingRule" LocId="" />
+      <Entity EntityCode="8199" Name="RoutingRuleItem" SharesPrivilegesWith="8181" LocId="" />
+      <Entity EntityCode="9750" Name="SLA" LocId="" />
+      <Entity EntityCode="9751" Name="SLAItem" SharesPrivilegesWith="9750" LocId="" />
+      <Entity EntityCode="9752" Name="SLAKPIInstance" LocId="" />
+      <Entity EntityCode="9930" Name="KnowledgeBaseRecord" LocId="" />
+      <Entity EntityCode="9300" Name="ConvertRule" LocId="" />
+      <Entity EntityCode="9301" Name="ConvertRuleItem" SharesPrivilegesWith="9300" LocId="" />
+      <Entity EntityCode="9944" Name="TopicModel" LocId="" />
+      <Entity EntityCode="9942" Name="TopicModelConfiguration" SharesPrivilegesWith="9944" LocId="" />
+      <Entity EntityCode="9943" Name="TopicModelExecutionHistory" SharesPrivilegesWith="9944" LocId="" />
+      <Entity EntityCode="9947" Name="KnowledgeSearchModel" LocId="" />
+
+      <MiscellaneousSection>
+        <Privilege id="{F1249A6E-33E2-45FE-903B-F4C50810EE58}" Name="SearchAvailability" LocId="Role_Editor_Row_Name_Search_Availability" />
+        <Privilege id="{6A1EC3DF-8499-4D68-87E3-2DF1DD5C00EE}" Name="BrowseAvailability" LocId="Role_Editor_Row_Name_Browse_Availability" />
+        <Privilege id="{2D1C11DA-219E-4A6A-A8EC-C75FDB6AA6ED}" Name="prvCreateOwnCalendar" LocId="RoleEditor_MiscPriv_CreateOwnCalendar" />
+        <Privilege id="{2C6D0819-62DA-4A2D-8DD7-66DA14677252}" Name="prvDeleteOwnCalendar" LocId="RoleEditor_MiscPriv_DeleteOwnCalendar" />
+        <Privilege id="{499485BC-A445-423B-B5F6-1519042EBF33}" Name="prvReadOwnCalendar" LocId="RoleEditor_MiscPriv_ReadOwnCalendar" />
+        <Privilege id="{D0A7B73E-425C-472E-9DA0-56EC580C65A9}" Name="prvWriteOwnCalendar" LocId="RoleEditor_MiscPriv_WriteOwnCalendar" />
+        <Privilege id="{559290EA-3AB9-4681-9B8A-F3C7F9C67046}" Name="WriteHolidayScheduleCalendar" LocId="Role_Editor_Row_Name_Write_Holiday_Schedule_Calendar" />
+        <Privilege id="{bc51fa7a-b030-423f-bc2a-97630060baf4}" Name="ControlDecrementTerm" LocId="RoleEditor_MiscPriv_CONTROL_DECREMENT_TERMS" />
+      </MiscellaneousSection>
+    </Tab>
+    <Tab id="tab8" Name="Customization" LocId="Tab_Label_Customization">
+      <!--Making this as parent for all entities sharing customization privileges-->
+      <Entity EntityCode="4102" Name="displaystring" LocId="Role_Editor_Row_Name_Customizations" />
+      <Entity EntityCode="1120" Name="ribboncustomization" SharesPrivilegesWith="4102" LocId="" />
+      <Entity EntityCode="4705" Name="isvconfig" SharesPrivilegesWith="4102" LocId="" />
+      <Entity EntityCode="1117" Name="ribbonrule" SharesPrivilegesWith="4102" LocId="" />
+      <Entity EntityCode="1130" Name="ribbondiff" SharesPrivilegesWith="4102" LocId="" />
+      <Entity EntityCode="1113" Name="ribbontabtocommandmap" SharesPrivilegesWith="4102" LocId="" />
+      <Entity EntityCode="1115" Name="ribboncontextgroup" SharesPrivilegesWith="4102" LocId="" />
+      <Entity EntityCode="1116" Name="ribboncommand" SharesPrivilegesWith="4102" LocId="" />
+      <Entity EntityCode="4709" Name="sitemap" SharesPrivilegesWith="4102" LocId="" />
+
+      <Entity EntityCode="85" Name="entitydatasource" LocId="" />
+      <Entity EntityCode="2015" Name="theme" LocId="" />
+      <Entity EntityCode="1030" Name="systemform" LocId="" />
+      <Entity EntityCode="8840" Name="hierarchyrule" LocId="" />
+      <Entity EntityCode="9333" Name="webresource" LocId="" />
+      <Entity EntityCode="9107" Name="importjob" LocId="" />
+      <Entity EntityCode="4601" Name="AttributeMap" LocId="" />
+      <Entity EntityCode="4600" Name="EntityMap" LocId="" />
+      <Entity EntityCode="4605" Name="PluginAssembly"  LocId="" />
+      <Entity EntityCode="4602" Name="PluginType"  LocId="" />
+      <Entity EntityCode="4618" Name="ServiceEndpoint"  LocId="" />
+      <Entity EntityCode="4603" Name="PluginTypeStatistic" SharesPrivilegesWith="4602" LocId="" />
+      <Entity EntityCode="4608" Name="SDKMessageProcessingStep"  LocId="" />
+      <Entity EntityCode="4615" Name="SDKMessageProcessingStepImage"  LocId="" />
+      <Entity EntityCode="4616" Name="SDKMessageProcessingStepSecureConfig"  LocId="" />
+      <Entity EntityCode="4619" Name="PluginTraceLog"  LocId="" />
+      <Entity EntityCode="4606" Name="SDKMessage"  LocId="" />
+      <Entity EntityCode="9006" Name="AppModule"  LocId="" />
+      <Entity EntityCode="9900" Name="NavigationSetting"  LocId="" />
+      <Entity EntityCode="4607" Name="sdkmessagefilter" SharesPrivilegesWith="4606" LocId="" />
+      <Entity EntityCode="4610" Name="sdkmessageresponse" SharesPrivilegesWith="4606" LocId="" />
+      <Entity EntityCode="4614" Name="sdkmessagerequestfield" SharesPrivilegesWith="4606" LocId="" />
+      <Entity EntityCode="4612" Name="sdkmessagerequestinput" SharesPrivilegesWith="4606" LocId="" />
+      <Entity EntityCode="4611" Name="sdkmessageresponsefield" SharesPrivilegesWith="4606" LocId="" />
+      <Entity EntityCode="4609" Name="sdkmessagerequest" SharesPrivilegesWith="4606" LocId="" />
+      <Entity EntityCode="4613" Name="sdkmessagepair" SharesPrivilegesWith="4606" LocId="" />
+
+      <Entity EntityCode="4703" Name="Workflow" LocId="" />
+      <Entity EntityCode="4710" Name="ProcessSession" LocId="" />
+
+      <Entity EntityCode="4700" Name="AsyncOperation" LocId="" />
+      <Entity EntityCode="4711" Name="ExpanderEvent" LocId="" />
+      <Entity EntityCode="32" Name="salesprocessinstance" SharesPrivilegesWith="4700" LocId="" />
+
+      <Entity EntityCode="7100" Name="Solution" LocId="" />
+      <Entity EntityCode="7103" Name="SolutionComponent" SharesPrivilegesWith="7100" LocId="" />
+      <Entity EntityCode="1039" Name="SavedQuery" LocId="" />
+      <Entity EntityCode="1111" Name="SavedQueryVisualization" LocId="" />
+      <Entity EntityCode="7101" Name="Publisher" LocId="" />
+      <Entity EntityCode="7102" Name="PublisherAddress" SharesPrivilegesWith="7101" LocId="" />
+      <Entity EntityCode="9650" Name="ComplexControl" LocId="" />
+      <Entity EntityCode="9755" Name="CustomControlDefaultConfig" LocId="" />
+      <Entity EntityCode="9753" Name="CustomControl" LocId="" />
+      <Entity EntityCode="9754" Name="CustomControlResource" LocId="" />
+      <Entity EntityCode="7000" Name="SystemApplicationMetadata" LocId="" />
+      <Entity EntityCode="7001" Name="UserApplicationMetadata" LocId="" />
+      <Entity EntityCode="7200" Name="RuntimeDependency" LocId="" />
+      <Entity EntityCode="9011" Name="AppConfigMaster"  LocId="" />
+      <Entity EntityCode="9012" Name="AppConfig"  LocId="" />
+      <Entity EntityCode="9013" Name="AppConfigInstance"  LocId="" />
+      <HardCodedRow id="entity" Name="Entity" LocId="Web.Biz.Roles.edit_role.aspx_entity">
+        <Privileges>
+          <Privilege id="{341E3EBF-74B8-4335-84F3-7F617BB7D081}" Name="CreateEntity" LocId="" />
+          <Privilege id="{A3311F47-2134-44EE-A258-6774018D4BC3}" Name="ReadEntity" LocId="" />
+          <Privilege id="{2A4E96D7-7BF9-4578-9D4E-1E494C33C1BF}" Name="WriteEntity" LocId="" />
+          <Privilege id="{4FC61517-8B33-463E-90BB-061B3655D3AE}" Name="DeleteEntity" LocId="" />
+        </Privileges>
+      </HardCodedRow>
+      <HardCodedRow id="attribute" Name="Attribute" LocId="Web.Biz.Roles.edit_role.aspx_attribute">
+        <Privileges>
+          <Privilege id="{210DFCD8-6B62-423E-AA40-A5A003DEDD57}" Name="CreateAttribute" LocId="" />
+          <Privilege id="{B8CAEA5D-F379-4295-AA59-38ADEB73E853}" Name="ReadAttribute" LocId="" />
+          <Privilege id="{6FA055D5-E524-4EED-A48E-8AF713F83FF4}" Name="WriteAttribute" LocId="" />
+          <Privilege id="{0B74C137-D835-422D-A170-846E43E64F80}" Name="DeleteAttribute" LocId="" />
+        </Privileges>
+      </HardCodedRow>
+      <HardCodedRow id="entitykey" Name="EntityKey" LocId="Web.Biz.Roles.edit_role.aspx_entitykey">
+        <Privileges>
+          <Privilege id="{FB2A3C67-3F2B-4903-8276-6D535D678A65}" Name="CreateEntityKey" LocId="" />
+          <Privilege id="{1AE48019-2AD5-4A28-8482-9542AE96C4E7}" Name="ReadEntityKey" LocId="" />
+          <Privilege id="{55E1CEFF-83E8-4D0F-9C09-49D5A73B085A}" Name="DeleteEntityKey" LocId="" />
+        </Privileges>
+      </HardCodedRow>
+      <HardCodedRow id="relationship" Name="Relationship" LocId="Web.Biz.Roles.edit_role.aspx_relationship">
+        <Privileges>
+          <Privilege id="{3D0EE664-5A08-419E-AE62-C473C68B089D}" Name="CreateRelationship" LocId="" />
+          <Privilege id="{AA38BF03-556F-418E-AE55-A3E8FBBC0F2D}" Name="ReadRelationship" LocId="" />
+          <Privilege id="{92C5F167-3B51-40FE-BFDF-DBF9FD94706D}" Name="WriteRelationship" LocId="" />
+          <Privilege id="{F6091AE5-DC57-4B87-86D0-151C7EB022E3}" Name="DeleteRelationship" LocId="" />
+        </Privileges>
+      </HardCodedRow>
+      <HardCodedRow id="optionset" Name="OptionSet" LocId="Web.Biz.Roles.edit_role.aspx_optionset">
+        <Privileges>
+          <Privilege id="{E62439F6-3666-4C0A-A732-BDE205D8E938}" Name="CreateOptionSet" LocId="" />
+          <Privilege id="{E3F45B8E-4872-4BB5-8B84-01EE8F9C9DA1}" Name="ReadOptionSet" LocId="" />
+          <Privilege id="{2493B394-F9D7-4604-A6CB-13E1F240450D}" Name="WriteOptionSet" LocId="" />
+          <Privilege id="{F36FF7E9-72B9-4882-AFB6-F947DE984F72}" Name="DeleteOptionSet" LocId="" />
+        </Privileges>
+      </HardCodedRow>
+      <MiscellaneousSection>
+        <Privilege id="{D337DD0C-26D3-45A3-9F84-3B6FC1482DE2}" Name="ISVExtensions" LocId="Role_Editor_Row_Name_ISV_Extensions" />
+        <Privilege id="{B56C6B1D-EFB6-49C3-A18C-97A8B59E10BF}" Name="WorkflowExecution" LocId="Role_Editor_Row_Name_ExecuteWorkflowInstance" />
+        <Privilege id="{A8AACFE1-0FB0-4A29-B2D9-4D38220FEADE}" Name="ExportCustomization" LocId="Role_Editor_Row_Name_ExportCustomization" />
+        <Privilege id="{42B6CF1E-9B5A-4e30-9AC9-9D928564190D}" Name="ImportCustomization" LocId="Role_Editor_Row_Name_ImportCustomization" />
+        <Privilege id="{37F0513B-51D5-4935-8A62-27E7931AD91B}" Name="prvAppendConstraint" LocId="RoleEditor_MiscPriv_AppendConstraint" />
+        <Privilege id="{B5360D1D-733E-4127-A267-0559E098380D}" Name="prvPublishCustomization" LocId="RoleEditor_MiscPriv_PublishCustomizations" />
+        <Privilege id="{79C8BB80-8C98-4B4B-907E-B82CC1F1EE6E}" Name="prvConfigureYammer" LocId="RoleEditor_MiscPriv_ConfigureYammer" />
+        <Privilege id="{9B71EAAA-6B6A-4C96-AEFE-675BA31A88F3}" Name="prvFlow" LocId="RoleEditor_MiscPriv_ConfigureFlows" />
+        <Privilege id="{DD55297D-5AAA-4645-8EF5-A2348EAB3460}" Name="prvActivateSynchronousWorkflow" LocId="RoleEditor_MiscPriv_ActivateSyncWorkflow" />
+        <Privilege id="{BA9320A1-C6A6-4AD3-8565-4A206B402B14}" Name="prvActivateBusinessRule" LocId="RoleEditor_MiscPriv_ActivateBusinessRule" />
+        <Privilege id="{91F7F37A-1429-40AB-88B0-E816EDDF62C3}" Name="prvActivateBusinessProcessFlow" LocId="RoleEditor_MiscPriv_ActivateBusinessProcessFlow" />
+        <Privilege id="{39B96544-6403-4670-A72F-0DC697715E0F}" Name="prvRetrieveMultipleSocialInsights" LocId="RoleEditor_MiscPriv_Retrieve_Multiple_Social_Insights" />
+        <Privilege id="{9FD3540F-E2C1-4EEA-B7E2-620C3719DDC5}" Name="prvLearningPathContent" LocId="RoleEditor_MiscPriv_Learning_Path_Content" />
+      </MiscellaneousSection>
+    </Tab>
+  </Tabs >
+</RoleEditorLayout>

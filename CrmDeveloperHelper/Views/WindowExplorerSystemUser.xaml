@@ -475,13 +475,22 @@
                         </ToolBar>
 
                         <Grid VerticalAlignment="Top" DockPanel.Dock="Top">
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="50*"/>
                             </Grid.ColumnDefinitions>
 
-                            <Label Content="Filter" HorizontalAlignment="Left" VerticalAlignment="Stretch" Padding="0" Margin="5" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="0"/>
-                            <TextBox x:Name="txtBEntityFilter"  Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBEntityFilter_KeyDown" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="1" />
+                            <Label Content="Entities List" Grid.Row="0" Grid.Column="0" Padding="0" Margin="5" />
+                            <ComboBox x:Name="cmBRoleEditorLayoutTabsEntities" IsReadOnly="True" Grid.Row="0" Grid.Column="1" Padding="0" Margin="5" SelectionChanged="cmBRoleEditorLayoutTabs_SelectionChanged" />
+
+                            <Label Content="Filter" HorizontalAlignment="Left" VerticalAlignment="Stretch" Padding="0" Margin="5" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="0"/>
+                            <TextBox x:Name="txtBEntityFilter"  Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBEntityFilter_KeyDown" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="1" />
                         </Grid>
 
                         <DataGrid x:Name="lstVwEntityPrivileges" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" MouseDoubleClick="LstVwEntityPrivileges_MouseDoubleClick"  Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
@@ -606,13 +615,22 @@
                         </ToolBar>
 
                         <Grid VerticalAlignment="Top" DockPanel.Dock="Top">
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="50*"/>
                             </Grid.ColumnDefinitions>
 
-                            <Label Content="Filter" HorizontalAlignment="Left" VerticalAlignment="Stretch" Padding="0" Margin="5" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="0"/>
-                            <TextBox x:Name="txtBOtherPrivilegesFilter"  Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBEntityFilter_KeyDown" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="1" />
+                            <Label Content="Privileges List" Grid.Row="0" Grid.Column="0" Padding="0" Margin="5" />
+                            <ComboBox x:Name="cmBRoleEditorLayoutTabsPrivileges" IsReadOnly="True" Grid.Row="0" Grid.Column="1" Padding="0" Margin="5" SelectionChanged="cmBRoleEditorLayoutTabs_SelectionChanged" />
+
+                            <Label Content="Filter" HorizontalAlignment="Left" VerticalAlignment="Stretch" Padding="0" Margin="5" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="0"/>
+                            <TextBox x:Name="txtBOtherPrivilegesFilter"  Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBEntityFilter_KeyDown" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="1" />
                         </Grid>
 
                         <DataGrid x:Name="lstVwOtherPrivileges" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">

@@ -108,6 +108,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 Focusable = true,
             };
 
+            FillRoleEditorLayoutTabs();
+
             LoadFromConfig();
 
             txtBFilterEnitity.Text = filterEntity;
@@ -176,7 +178,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var list = allEntities.AsEnumerable();
 
-                list = FilterList(list, filterEntity);
+                list = FilterList(list, filterEntity, null);
 
                 LoadEntities(list);
             }
@@ -184,6 +186,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ShowExistingEntities();
             }
+        }
+
+        private void FillRoleEditorLayoutTabs()
+        {
+            cmBRoleEditorLayoutTabs.Items.Clear();
+
+            cmBRoleEditorLayoutTabs.Items.Add("All");
+
+            var tabs = RoleEditorLayoutTab.GetTabs();
+
+            foreach (var tab in tabs)
+            {
+                cmBRoleEditorLayoutTabs.Items.Add(tab);
+            }
+
+            cmBRoleEditorLayoutTabs.SelectedIndex = 0;
         }
 
         private void LoadFromConfig()
@@ -298,21 +316,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             string textName = string.Empty;
+            RoleEditorLayoutTab selectedTab = null;
 
-            txtBFilterEnitity.Dispatcher.Invoke(() =>
+            this.Dispatcher.Invoke(() =>
             {
                 textName = txtBFilterEnitity.Text.Trim().ToLower();
+                selectedTab = cmBRoleEditorLayoutTabs.SelectedItem as RoleEditorLayoutTab;
             });
 
-            list = FilterList(list, textName);
+            list = FilterList(list, textName, selectedTab);
 
             LoadEntities(list);
 
             ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingEntitiesCompletedFormat1, list.Count());
         }
 
-        private static IEnumerable<EntityMetadata> FilterList(IEnumerable<EntityMetadata> list, string textName)
+        private static IEnumerable<EntityMetadata> FilterList(IEnumerable<EntityMetadata> list, string textName, RoleEditorLayoutTab selectedTab)
         {
+            if (selectedTab != null)
+            {
+                list = list.Where(ent => ent.ObjectTypeCode.HasValue && selectedTab.EntitiesHash.Contains(ent.ObjectTypeCode.Value));
+            }
+
             if (!string.IsNullOrEmpty(textName))
             {
                 textName = textName.ToLower();
@@ -2111,6 +2136,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ShowExistingEntities();
             }
+        }
+
+        private void cmBRoleEditorLayoutTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ShowExistingEntities();
         }
     }
 }

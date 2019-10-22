@@ -236,6 +236,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -265,8 +266,11 @@
             <Label Content="Folder" Grid.Row="0" Grid.Column="0" />
             <TextBox x:Name="txtBFolder" Grid.Row="0" Grid.Column="1" />
 
-            <Label Content="Filter"  Grid.Row="1" Grid.Column="0" />
-            <TextBox x:Name="txtBFilterEnitity" Grid.Row="1" Grid.Column="1" KeyDown="txtBFilterEnitity_KeyDown" />
+            <Label Content="Entities List" Grid.Row="1" Grid.Column="0" />
+            <ComboBox x:Name="cmBRoleEditorLayoutTabs" IsReadOnly="True" Grid.Row="1" Grid.Column="1" SelectionChanged="cmBRoleEditorLayoutTabs_SelectionChanged" />
+
+            <Label Content="Filter" Grid.Row="2" Grid.Column="0" />
+            <TextBox x:Name="txtBFilterEnitity" Grid.Row="2" Grid.Column="1" KeyDown="txtBFilterEnitity_KeyDown" />
         </Grid>
 
         <StatusBar DockPanel.Dock="Bottom">

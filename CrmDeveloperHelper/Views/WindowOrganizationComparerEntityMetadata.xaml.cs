@@ -87,6 +87,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Resources["ConnectionName1"] = connection1.Name;
             this.Resources["ConnectionName2"] = connection2.Name;
 
+            FillRoleEditorLayoutTabs();
+
             LoadFromConfig();
 
             txtBFilter.Text = entityFilter;
@@ -114,6 +116,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private void LoadFromConfig()
         {
             cmBFileAction.DataContext = _commonConfig;
+        }
+
+        private void FillRoleEditorLayoutTabs()
+        {
+            cmBRoleEditorLayoutTabs.Items.Clear();
+
+            cmBRoleEditorLayoutTabs.Items.Add("All");
+
+            var tabs = RoleEditorLayoutTab.GetTabs();
+
+            foreach (var tab in tabs)
+            {
+                cmBRoleEditorLayoutTabs.Items.Add(tab);
+            }
+
+            cmBRoleEditorLayoutTabs.SelectedIndex = 0;
         }
 
         protected override void OnClosed(EventArgs e)
@@ -294,19 +312,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             string textName = string.Empty;
+            RoleEditorLayoutTab selectedTab = null;
 
-            txtBFilter.Dispatcher.Invoke(() =>
+            this.Dispatcher.Invoke(() =>
             {
                 textName = txtBFilter.Text.Trim().ToLower();
+                selectedTab = cmBRoleEditorLayoutTabs.SelectedItem as RoleEditorLayoutTab;
             });
 
-            list = FilterList(list, textName);
+            list = FilterList(list, textName, selectedTab);
 
             LoadEntities(list);
         }
 
-        private static IEnumerable<LinkedEntityMetadata> FilterList(IEnumerable<LinkedEntityMetadata> list, string textName)
+        private static IEnumerable<LinkedEntityMetadata> FilterList(IEnumerable<LinkedEntityMetadata> list, string textName, RoleEditorLayoutTab selectedTab)
         {
+            if (selectedTab != null)
+            {
+                list = list.Where(ent => ent.EntityMetadata1.ObjectTypeCode.HasValue && selectedTab.EntitiesHash.Contains(ent.EntityMetadata1.ObjectTypeCode.Value));
+            }
+
             if (!string.IsNullOrEmpty(textName))
             {
                 textName = textName.ToLower();
@@ -430,6 +455,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ShowExistingEntities();
             }
+        }
+
+        private void cmBRoleEditorLayoutTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ShowExistingEntities();
         }
 
         private LinkedEntityMetadata GetSelectedLinkedEntityMetadata()

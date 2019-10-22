@@ -758,13 +758,22 @@
                         </ToolBar>
 
                         <Grid Grid.Row="1" Margin="0">
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="50*"/>
                             </Grid.ColumnDefinitions>
 
-                            <Label Content="Filter" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0"/>
-                            <TextBox x:Name="txtBEntityFilter" KeyDown="txtBEntityFilter_KeyDown" Grid.Row="0" Grid.Column="1" />
+                            <Label Content="Entities List" Grid.Row="0" Grid.Column="0" />
+                            <ComboBox x:Name="cmBRoleEditorLayoutTabsEntities" IsReadOnly="True" Grid.Row="0" Grid.Column="1" SelectionChanged="cmBRoleEditorLayoutTabs_SelectionChanged" />
+
+                            <Label Content="Filter" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0"/>
+                            <TextBox x:Name="txtBEntityFilter" KeyDown="txtBEntityFilter_KeyDown" Grid.Row="1" Grid.Column="1" />
                         </Grid>
 
                         <DataGrid x:Name="lstVwEntityPrivileges" Grid.Row="2" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" MouseDoubleClick="LstVwEntityPrivileges_MouseDoubleClick" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
@@ -1001,13 +1010,22 @@
                         </ToolBar>
 
                         <Grid Grid.Row="1" Margin="0">
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="50*"/>
                             </Grid.ColumnDefinitions>
 
-                            <Label Content="Filter" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0"/>
-                            <TextBox x:Name="txtBOtherPrivilegesFilter" KeyDown="txtBEntityFilter_KeyDown" Grid.Row="0" Grid.Column="1" />
+                            <Label Content="Privileges List" Grid.Row="0" Grid.Column="0" />
+                            <ComboBox x:Name="cmBRoleEditorLayoutTabsPrivileges" IsReadOnly="True" Grid.Row="0" Grid.Column="1" SelectionChanged="cmBRoleEditorLayoutTabs_SelectionChanged" />
+
+                            <Label Content="Filter" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0"/>
+                            <TextBox x:Name="txtBOtherPrivilegesFilter" KeyDown="txtBEntityFilter_KeyDown" Grid.Row="1" Grid.Column="1" />
                         </Grid>
 
                         <DataGrid x:Name="lstVwOtherPrivileges" Grid.Row="2" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">

@@ -82,6 +82,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InitializeComponent();
 
+            FillRoleEditorLayoutTabs();
+
             LoadFromConfig();
 
             txtBFilterRole.Text = filterEntity;
@@ -103,6 +105,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.DecreaseInit();
 
             ShowExistingRoles();
+        }
+
+        private void FillRoleEditorLayoutTabs()
+        {
+            var tabs = RoleEditorLayoutTab.GetTabs();
+
+            cmBRoleEditorLayoutTabsEntities.Items.Clear();
+
+            cmBRoleEditorLayoutTabsEntities.Items.Add("All");
+
+            foreach (var tab in tabs)
+            {
+                cmBRoleEditorLayoutTabsEntities.Items.Add(tab);
+            }
+
+            cmBRoleEditorLayoutTabsEntities.SelectedIndex = 0;
+
+            cmBRoleEditorLayoutTabsPrivileges.Items.Clear();
+
+            cmBRoleEditorLayoutTabsPrivileges.Items.Add("All");
+
+            foreach (var tab in tabs)
+            {
+                cmBRoleEditorLayoutTabsPrivileges.Items.Add(tab);
+            }
+
+            cmBRoleEditorLayoutTabsPrivileges.SelectedIndex = 0;
         }
 
         private void LoadFromConfig()
@@ -447,15 +476,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         string filterEntity = string.Empty;
                         string filterOtherPrivilege = string.Empty;
+                        RoleEditorLayoutTab selectedTabEntities = null;
+                        RoleEditorLayoutTab selectedTabPrivileges = null;
 
                         this.Dispatcher.Invoke(() =>
                         {
                             filterEntity = txtBEntityFilter.Text.Trim().ToLower();
                             filterOtherPrivilege = txtBOtherPrivilegesFilter.Text.Trim().ToLower();
+
+                            selectedTabEntities = cmBRoleEditorLayoutTabsEntities.SelectedItem as RoleEditorLayoutTab;
+                            selectedTabPrivileges = cmBRoleEditorLayoutTabsPrivileges.SelectedItem as RoleEditorLayoutTab;
                         });
 
-                        entityMetadataList = FilterEntityList(entityMetadataList, filterEntity);
-                        otherPrivileges = FilterPrivilegeList(otherPrivileges, filterOtherPrivilege);
+                        entityMetadataList = FilterEntityList(entityMetadataList, filterEntity, selectedTabEntities);
+                        otherPrivileges = FilterPrivilegeList(otherPrivileges, filterOtherPrivilege, selectedTabPrivileges);
 
                         if (entityMetadataList.Any() || otherPrivileges.Any())
                         {
@@ -560,8 +594,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private static IEnumerable<EntityMetadata> FilterEntityList(IEnumerable<EntityMetadata> list, string textName)
+        private static IEnumerable<EntityMetadata> FilterEntityList(IEnumerable<EntityMetadata> list, string textName, RoleEditorLayoutTab selectedTab)
         {
+            if (selectedTab != null)
+            {
+                list = list.Where(e => e.ObjectTypeCode.HasValue && selectedTab.EntitiesHash.Contains(e.ObjectTypeCode.Value));
+            }
+
             if (!string.IsNullOrEmpty(textName))
             {
                 textName = textName.ToLower();
@@ -596,8 +635,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return list;
         }
 
-        private static IEnumerable<Privilege> FilterPrivilegeList(IEnumerable<Privilege> list, string textName)
+        private static IEnumerable<Privilege> FilterPrivilegeList(IEnumerable<Privilege> list, string textName, RoleEditorLayoutTab selectedTab)
         {
+            if (selectedTab != null)
+            {
+                list = list.Where(p => p.PrivilegeId.HasValue && selectedTab.PrivilegesHash.Contains(p.PrivilegeId.Value));
+            }
+
             if (!string.IsNullOrEmpty(textName))
             {
                 textName = textName.ToLower();
@@ -674,6 +718,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ShowRoleEntityPrivileges();
             }
+        }
+
+        private void cmBRoleEditorLayoutTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ShowRoleEntityPrivileges();
         }
 
         private void txtBFilterTeams_KeyDown(object sender, KeyEventArgs e)
