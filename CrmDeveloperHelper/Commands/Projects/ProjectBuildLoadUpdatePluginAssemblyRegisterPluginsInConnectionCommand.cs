@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.Shell;
+﻿using EnvDTE80;
+using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System.Linq;
@@ -28,6 +29,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
             var projectList = helper.GetSelectedProjects().ToList();
 
             helper.HandleBuildProjectUpdatePluginAssemblyCommand(connectionData, true, projectList);
+        }
+
+        protected override void CommandBeforeQueryStatus(DTE2 applicationObject, ConnectionData element, OleMenuCommand menuCommand)
+        {
+            CommonHandlers.ActiveSolutionExplorerProjectAny(applicationObject, menuCommand);
         }
     }
 }

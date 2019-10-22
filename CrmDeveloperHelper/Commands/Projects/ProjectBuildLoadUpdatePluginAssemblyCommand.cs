@@ -25,6 +25,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
 
         protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            CommonHandlers.ActiveSolutionExplorerProjectAny(applicationObject, menuCommand);
+
             CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.ProjectBuildLoadUpdatePluginAssemblyCommand);
         }
     }

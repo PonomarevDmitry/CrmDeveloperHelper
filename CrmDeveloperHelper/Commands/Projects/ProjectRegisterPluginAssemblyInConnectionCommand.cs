@@ -30,9 +30,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
             helper.HandleRegisterPluginAssemblyCommand(connectionData, projectList);
         }
 
-        //protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, ConnectionData connectionData, OleMenuCommand menuCommand)
-        //{
-        //    CommonHandlers.ActiveSolutionExplorerProjectSingle(applicationObject, menuCommand);
-        //}
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, ConnectionData connectionData, OleMenuCommand menuCommand)
+        {
+            CommonHandlers.ActiveSolutionExplorerProjectAny(applicationObject, menuCommand);
+        }
     }
 }

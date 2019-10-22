@@ -29,5 +29,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
 
             helper.HandleUpdatingPluginAssembliesInWindowCommand(connectionData, projectList);
         }
+
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, ConnectionData connectionData, OleMenuCommand menuCommand)
+        {
+            CommonHandlers.ActiveSolutionExplorerProjectAny(applicationObject, menuCommand);
+        }
     }
 }
