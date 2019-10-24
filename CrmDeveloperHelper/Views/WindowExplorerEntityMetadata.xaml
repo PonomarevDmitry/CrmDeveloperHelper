@@ -104,8 +104,10 @@
                     <MenuItem Header="SecurityRoles Explorer" Click="miSecurityRolesExplorer_Click"/>
                     <Separator/>
                     <MenuItem Header="Global OptionSets" Click="miGlobalOptionSets_Click"/>
+                    <MenuItem x:Uid="contMnSelectedItem" Header="Global OptionSets in Addition Mode" Click="miGlobalOptionSetsSelectedItem_Click"/>
                     <Separator/>
                     <MenuItem Header="Forms" Click="miSystemForms_Click"/>
+                    <MenuItem x:Uid="contMnSelectedItem" Header="Forms in Addition Mode" Click="miSystemFormsSelectedItem_Click"/>
                     <MenuItem Header="Views" Click="miSavedQuery_Click"/>
                     <MenuItem Header="Charts" Click="miSavedChart_Click"/>
                     <Separator/>
@@ -116,10 +118,6 @@
                     <MenuItem Header="Plugin Tree" Click="miPluginTree_Click"/>
                     <MenuItem Header="Message Tree" Click="miMessageTree_Click"/>
                     <MenuItem Header="Message Request Tree" Click="miMessageRequestTree_Click"/>
-
-                    <Separator x:Uid="contMnSelectedItem"/>
-                    <MenuItem x:Uid="contMnSelectedItem" Header="Global OptionSets in Addition Mode" Click="miGlobalOptionSetsSelectedItem_Click"/>
-                    <MenuItem x:Uid="contMnSelectedItem" Header="Forms in Addition Mode" Click="miSystemFormsSelectedItem_Click"/>
                     <MenuItem x:Uid="contMnSelectedItem" Header="Message Request Tree in Addition Mode" Click="miMessageRequestTreeSelectedItem_Click"/>
                 </MenuItem>
 
@@ -189,23 +187,21 @@
                     <Separator/>
                     <MenuItem Header="SecurityRoles Explorer" Click="miSecurityRolesExplorer_Click"/>
                     <Separator/>
-                    <MenuItem Header="Global OptionSets" Click="miGlobalOptionSets_Click" />
+                    <MenuItem Header="Global OptionSets" Click="miGlobalOptionSets_Click"/>
+                    <MenuItem x:Uid="contMnSelectedItem" Header="Global OptionSets in Addition Mode" Click="miGlobalOptionSetsSelectedItem_Click"/>
                     <Separator/>
-                    <MenuItem Header="Forms" Click="miSystemForms_Click" />
-                    <MenuItem Header="Views" Click="miSavedQuery_Click" />
-                    <MenuItem Header="Charts" Click="miSavedChart_Click" />
+                    <MenuItem Header="Forms" Click="miSystemForms_Click"/>
+                    <MenuItem x:Uid="contMnSelectedItem" Header="Forms in Addition Mode" Click="miSystemFormsSelectedItem_Click"/>
+                    <MenuItem Header="Views" Click="miSavedQuery_Click"/>
+                    <MenuItem Header="Charts" Click="miSavedChart_Click"/>
                     <Separator/>
-                    <MenuItem Header="Workflows" Click="miWorkflows_Click" />
+                    <MenuItem Header="Workflows" Click="miWorkflows_Click"/>
                     <Separator/>
                     <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon_Click"/>
                     <Separator/>
-                    <MenuItem Header="Plugin Tree" Click="miPluginTree_Click" />
+                    <MenuItem Header="Plugin Tree" Click="miPluginTree_Click"/>
                     <MenuItem Header="Message Tree" Click="miMessageTree_Click"/>
                     <MenuItem Header="Message Request Tree" Click="miMessageRequestTree_Click"/>
-
-                    <Separator x:Uid="contMnSelectedItem"/>
-                    <MenuItem x:Uid="contMnSelectedItem" Header="Global OptionSets in Addition Mode" Click="miGlobalOptionSetsSelectedItem_Click"/>
-                    <MenuItem x:Uid="contMnSelectedItem" Header="Forms in Addition Mode" Click="miSystemFormsSelectedItem_Click"/>
                     <MenuItem x:Uid="contMnSelectedItem" Header="Message Request Tree in Addition Mode" Click="miMessageRequestTreeSelectedItem_Click"/>
                 </MenuItem>
             </Menu>
