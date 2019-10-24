@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -23,6 +24,148 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         public EntityMetadataRepository(IOrganizationServiceExtented service)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
+        }
+
+        private static string[] _baseEntityMetadataAttributes =
+        {
+            nameof(EntityMetadata.IsQuickCreateEnabled)
+            , nameof(EntityMetadata.IsReadingPaneEnabled)
+            , nameof(EntityMetadata.IsValidForAdvancedFind)
+            , nameof(EntityMetadata.IsEnabledForTrace)
+            , nameof(EntityMetadata.IsEnabledForCharts)
+            , nameof(EntityMetadata.IsManaged)
+            , nameof(EntityMetadata.IsIntersect)
+            , nameof(EntityMetadata.IsImportable)
+            , nameof(EntityMetadata.ChangeTrackingEnabled)
+            , nameof(EntityMetadata.IsOptimisticConcurrencyEnabled)
+            , nameof(EntityMetadata.HasActivities)
+            , nameof(EntityMetadata.HasNotes)
+            , nameof(EntityMetadata.IsLogicalEntity)
+            , nameof(EntityMetadata.UsesBusinessDataLabelTable)
+            , nameof(EntityMetadata.IsPrivate)
+            , nameof(EntityMetadata.IsEnabledForExternalChannels)
+            , nameof(EntityMetadata.EnforceStateTransitions)
+            , nameof(EntityMetadata.IsStateModelAware)
+            , nameof(EntityMetadata.SyncToExternalSearchIndex)
+            , nameof(EntityMetadata.IsActivity)
+            , nameof(EntityMetadata.AutoCreateAccessTeams)
+            , nameof(EntityMetadata.IsMSTeamsIntegrationEnabled)
+            , nameof(EntityMetadata.IsDocumentRecommendationsEnabled)
+            , nameof(EntityMetadata.IsBPFEntity)
+            , nameof(EntityMetadata.IsSLAEnabled)
+            , nameof(EntityMetadata.IsKnowledgeManagementEnabled)
+            , nameof(EntityMetadata.IsInteractionCentricEnabled)
+            , nameof(EntityMetadata.IsOneNoteIntegrationEnabled)
+            , nameof(EntityMetadata.IsDocumentManagementEnabled)
+            , nameof(EntityMetadata.EntityHelpUrlEnabled)
+            , nameof(EntityMetadata.CanTriggerWorkflow)
+            , nameof(EntityMetadata.AutoRouteToOwnerQueue)
+            , nameof(EntityMetadata.IsActivityParty)
+            , nameof(EntityMetadata.IsAvailableOffline)
+            , nameof(EntityMetadata.IsChildEntity)
+            , nameof(EntityMetadata.HasFeedback)
+            , nameof(EntityMetadata.IsBusinessProcessEnabled)
+            , nameof(EntityMetadata.IsCustomEntity)
+            , nameof(EntityMetadata.IsAIRUpdated)
+            , nameof(EntityMetadata.IsSolutionAware)
+
+            , nameof(EntityMetadata.IsOfflineInMobileClient)
+            , nameof(EntityMetadata.IsReadOnlyInMobileClient)
+            , nameof(EntityMetadata.IsVisibleInMobileClient)
+            , nameof(EntityMetadata.IsVisibleInMobile)
+            , nameof(EntityMetadata.IsMailMergeEnabled)
+            , nameof(EntityMetadata.CanChangeTrackingBeEnabled)
+            , nameof(EntityMetadata.CanChangeHierarchicalRelationship)
+            , nameof(EntityMetadata.CanModifyAdditionalSettings)
+            , nameof(EntityMetadata.IsAuditEnabled)
+            , nameof(EntityMetadata.CanEnableSyncToExternalSearchIndex)
+            , nameof(EntityMetadata.CanBeInCustomEntityAssociation)
+            , nameof(EntityMetadata.CanBeInManyToMany)
+            , nameof(EntityMetadata.CanBePrimaryEntityInRelationship)
+            , nameof(EntityMetadata.CanBeRelatedEntityInRelationship)
+            , nameof(EntityMetadata.CanCreateCharts)
+            , nameof(EntityMetadata.CanCreateViews)
+            , nameof(EntityMetadata.CanCreateForms)
+            , nameof(EntityMetadata.CanCreateAttributes)
+            , nameof(EntityMetadata.IsDuplicateDetectionEnabled)
+            , nameof(EntityMetadata.IsMappable)
+            , nameof(EntityMetadata.IsCustomizable)
+            , nameof(EntityMetadata.IsConnectionsEnabled)
+            , nameof(EntityMetadata.IsValidForQueue)
+            , nameof(EntityMetadata.IsRenameable)
+        };
+
+        private static string[] GetEntityMetadataAttributes(IOrganizationServiceExtented service)
+        {
+            if (service.ConnectionData.EntityMetadataProperties != null)
+            {
+                return service.ConnectionData.EntityMetadataProperties;
+            }
+
+            var list = new List<string>(_baseEntityMetadataAttributes);
+
+            RemoveWrongEntityMetadataAttributes(service, list);
+
+            service.ConnectionData.EntityMetadataProperties = list.ToArray();
+
+            return service.ConnectionData.EntityMetadataProperties;
+        }
+
+        private static void RemoveWrongEntityMetadataAttributes(IOrganizationServiceExtented service, List<string> list)
+        {
+            bool executeAgain = true;
+
+            while (executeAgain)
+            {
+                executeAgain = false;
+
+                try
+                {
+                    MetadataFilterExpression entityFilter = new MetadataFilterExpression(LogicalOperator.And);
+                    entityFilter.Conditions.Add(new MetadataConditionExpression(nameof(EntityMetadata.LogicalName), MetadataConditionOperator.Equals, SystemUser.EntityLogicalName));
+
+                    var entityQueryExpression = new EntityQueryExpression()
+                    {
+                        Properties = new MetadataPropertiesExpression(nameof(EntityMetadata.LogicalName)),
+
+                        Criteria = entityFilter,
+                    };
+
+                    entityQueryExpression.Properties.PropertyNames.AddRange(list);
+
+                    var response = (RetrieveMetadataChangesResponse)service.Execute(
+                        new RetrieveMetadataChangesRequest()
+                        {
+                            ClientVersionStamp = null,
+                            Query = entityQueryExpression,
+                        }
+                    );
+                }
+                catch (FaultException<OrganizationServiceFault> fex)
+                {
+                    if (fex.Detail != null
+                        && fex.Detail.ErrorCode == -2147204733
+                        && fex.Detail.InnerFault != null
+                        && fex.Detail.InnerFault.InnerFault != null
+                        && fex.Detail.InnerFault.InnerFault.Message.StartsWith("The type EntityMetadata does not have a property named ", StringComparison.InvariantCultureIgnoreCase)
+                    )
+                    {
+                        var propertyName = fex.Detail.InnerFault.InnerFault.Message.Replace("The type EntityMetadata does not have a property named ", string.Empty);
+
+                        list.Remove(propertyName);
+
+                        executeAgain = true;
+                    }
+                    else
+                    {
+                        DTEHelper.WriteExceptionToLog(fex);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToLog(ex);
+                }
+            }
         }
 
         public Task<List<EntityMetadata>> GetEntitiesDisplayNameAsync()
@@ -40,12 +183,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 , nameof(EntityMetadata.Description)
                 , nameof(EntityMetadata.DisplayCollectionName)
                 , nameof(EntityMetadata.OwnershipType)
-                , nameof(EntityMetadata.IsIntersect)
                 , nameof(EntityMetadata.ObjectTypeCode)
             )
             {
                 AllProperties = false
             };
+
+            entityProperties.PropertyNames.AddRange(GetEntityMetadataAttributes(_service));
 
             EntityQueryExpression entityQueryExpression = new EntityQueryExpression()
             {
@@ -157,6 +301,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 AllProperties = false
             };
 
+            entityProperties.PropertyNames.AddRange(GetEntityMetadataAttributes(_service));
+
             MetadataPropertiesExpression attributeProperties = new MetadataPropertiesExpression
             (
                 nameof(AttributeMetadata.LogicalName)
@@ -211,6 +357,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 AllProperties = false,
             };
+
+            entityProperties.PropertyNames.AddRange(GetEntityMetadataAttributes(_service));
 
             EntityQueryExpression entityQueryExpression = new EntityQueryExpression()
             {
@@ -284,7 +432,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
             catch (Exception ex)
             {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
+                DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
 
                 return null;
             }
@@ -359,6 +507,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 AllProperties = false
             };
+
+            entityProperties.PropertyNames.AddRange(GetEntityMetadataAttributes(_service));
 
             MetadataPropertiesExpression attributeProperties = new MetadataPropertiesExpression()
             {
@@ -619,6 +769,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 AllProperties = false
             };
 
+            entityProperties.PropertyNames.AddRange(GetEntityMetadataAttributes(_service));
+
             EntityQueryExpression entityQueryExpression = new EntityQueryExpression()
             {
                 Properties = entityProperties,
@@ -650,6 +802,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 AllProperties = false
             };
+
+            entityProperties.PropertyNames.AddRange(GetEntityMetadataAttributes(_service));
 
             MetadataPropertiesExpression attributeProperties = new MetadataPropertiesExpression
             (

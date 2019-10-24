@@ -774,6 +774,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         private ConcurrentDictionary<string, bool> _knownRequests = new ConcurrentDictionary<string, bool>(StringComparer.InvariantCultureIgnoreCase);
 
+        public string[] PluginAssemblyProperties { get; set; }
+
+        public string[] EntityMetadataProperties { get; set; }
+
         /// <summary>
         /// Конструктор данных
         /// </summary>

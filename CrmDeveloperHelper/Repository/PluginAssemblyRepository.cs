@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Messages;
+using Microsoft.Xrm.Sdk.Metadata;
 using Microsoft.Xrm.Sdk.Metadata.Query;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
@@ -27,8 +28,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
-        private static string[] _fields = null;
-
         public static Task<string[]> GetAttributesAsync(IOrganizationServiceExtented service)
         {
             return Task.Run(() => GetAttributes(service));
@@ -36,18 +35,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private static string[] GetAttributes(IOrganizationServiceExtented service)
         {
-            if (_fields != null)
+            if (service.ConnectionData.PluginAssemblyProperties != null)
             {
-                return _fields;
+                return service.ConnectionData.PluginAssemblyProperties;
             }
 
             MetadataFilterExpression entityFilter = new MetadataFilterExpression(LogicalOperator.And);
-            entityFilter.Conditions.Add(new MetadataConditionExpression("LogicalName", MetadataConditionOperator.Equals, PluginAssembly.EntityLogicalName));
+            entityFilter.Conditions.Add(new MetadataConditionExpression(nameof(EntityMetadata.LogicalName), MetadataConditionOperator.Equals, PluginAssembly.EntityLogicalName));
 
             var entityQueryExpression = new EntityQueryExpression()
             {
-                Properties = new MetadataPropertiesExpression("LogicalName", "Attributes"),
-                AttributeQuery = new AttributeQueryExpression() { Properties = new MetadataPropertiesExpression() { PropertyNames = { "LogicalName", "AttributeOf", "IsValidForRead" } } },
+                Properties = new MetadataPropertiesExpression(nameof(EntityMetadata.LogicalName), nameof(EntityMetadata.Attributes)),
+                AttributeQuery = new AttributeQueryExpression() { Properties = new MetadataPropertiesExpression() { PropertyNames = { nameof(AttributeMetadata.LogicalName), nameof(AttributeMetadata.AttributeOf), nameof(AttributeMetadata.IsValidForRead) } } },
 
                 Criteria = entityFilter,
             };
@@ -64,8 +63,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (metadata == null)
             {
-                _fields = new string[0];
-                return _fields;
+                service.ConnectionData.PluginAssemblyProperties = new string[0];
+                return service.ConnectionData.PluginAssemblyProperties;
             }
 
             var list = new List<string>();
@@ -97,9 +96,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
             }
 
-            _fields = list.ToArray();
+            service.ConnectionData.PluginAssemblyProperties = list.ToArray();
 
-            return _fields;
+            return service.ConnectionData.PluginAssemblyProperties;
         }
 
         public Task<List<PluginAssembly>> GetPluginAssembliesAsync(string name = null, ColumnSet columnSet = null)

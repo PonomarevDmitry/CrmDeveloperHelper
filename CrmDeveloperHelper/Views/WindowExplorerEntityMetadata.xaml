@@ -237,7 +237,8 @@
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"  />
-                <ColumnDefinition />
+                <ColumnDefinition Width="100*" />
+                <ColumnDefinition Width="30*"  />
             </Grid.ColumnDefinitions>
 
             <Grid.Resources>
@@ -260,13 +261,14 @@
             </Grid.Resources>
 
             <Label Content="Folder" Grid.Row="0" Grid.Column="0" />
-            <TextBox x:Name="txtBFolder" Grid.Row="0" Grid.Column="1" />
+            <TextBox x:Name="txtBFolder" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" />
 
-            <Label Content="Entities List" Grid.Row="1" Grid.Column="0" />
+            <Label Content="Entities List" Grid.Row="1" Grid.Column="0" x:Name="lblEntitiesList" />
             <ComboBox x:Name="cmBRoleEditorLayoutTabs" IsReadOnly="True" Grid.Row="1" Grid.Column="1" SelectionChanged="cmBRoleEditorLayoutTabs_SelectionChanged" />
+            <Button x:Name="btnEntityMetadataFilter" Grid.Row="1" Grid.Column="2" Content="Filter" Click="btnEntityMetadataFilter_Click" IsTabStop="False" />
 
             <Label Content="Filter" Grid.Row="2" Grid.Column="0" />
-            <TextBox x:Name="txtBFilterEnitity" Grid.Row="2" Grid.Column="1" KeyDown="txtBFilterEnitity_KeyDown" />
+            <TextBox x:Name="txtBFilterEnitity" Grid.Row="2" Grid.Column="1" KeyDown="txtBFilterEnitity_KeyDown" Grid.ColumnSpan="2" />
         </Grid>
 
         <StatusBar DockPanel.Dock="Bottom">

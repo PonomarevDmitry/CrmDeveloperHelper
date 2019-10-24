@@ -6,6 +6,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDescript
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
+using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -23,6 +25,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
     public partial class WindowExplorerEntityRelationshipOneToMany : WindowBase
     {
         private readonly object sysObjectConnections = new object();
+
+        private readonly Popup _popupEntityMetadataFilter;
+        private readonly EntityMetadataFilter _entityMetadataFilter;
 
         private readonly IWriteToOutput _iWriteToOutput;
 
@@ -62,6 +67,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InitializeComponent();
 
+            _entityMetadataFilter = new EntityMetadataFilter();
+            _entityMetadataFilter.CloseClicked += this._entityMetadataFilter_CloseClicked;
+            this._popupEntityMetadataFilter = new Popup
+            {
+                Child = _entityMetadataFilter,
+
+                PlacementTarget = lblEntitiesList,
+                Placement = PlacementMode.Bottom,
+                StaysOpen = false,
+                Focusable = true,
+            };
+            _popupEntityMetadataFilter.Closed += this._popupEntityMetadataFilter_Closed;
+
             FillRoleEditorLayoutTabs();
 
             LoadFromConfig();
@@ -93,6 +111,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowSettings winConfig = GetWindowsSettings();
 
             LoadFormSettings(winConfig);
+        }
+
+        private void btnEntityMetadataFilter_Click(object sender, RoutedEventArgs e)
+        {
+            _popupEntityMetadataFilter.IsOpen = true;
+            _popupEntityMetadataFilter.Child.Focus();
+        }
+
+        private void _popupEntityMetadataFilter_Closed(object sender, EventArgs e)
+        {
+            if (_entityMetadataFilter.FilterChanged)
+            {
+                ShowExistingEntities();
+            }
+        }
+
+        private void _entityMetadataFilter_CloseClicked(object sender, EventArgs e)
+        {
+            if (_popupEntityMetadataFilter.IsOpen)
+            {
+                _popupEntityMetadataFilter.IsOpen = false;
+                this.Focus();
+            }
         }
 
         private void FillRoleEditorLayoutTabs()
@@ -290,8 +331,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ShowExistingEntityRelationships();
         }
 
-        private static IEnumerable<EntityMetadataViewItem> FilterEntityList(IEnumerable<EntityMetadataViewItem> list, string textName, RoleEditorLayoutTab selectedTab)
+        private IEnumerable<EntityMetadataViewItem> FilterEntityList(IEnumerable<EntityMetadataViewItem> list, string textName, RoleEditorLayoutTab selectedTab)
         {
+            list = _entityMetadataFilter.FilterList(list, i => i.EntityMetadata);
+
             if (selectedTab != null)
             {
                 list = list.Where(ent => ent.EntityMetadata.ObjectTypeCode.HasValue && selectedTab.EntitiesHash.Contains(ent.EntityMetadata.ObjectTypeCode.Value));

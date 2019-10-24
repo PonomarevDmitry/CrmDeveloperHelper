@@ -435,6 +435,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             stringBuilder.AppendFormat("{0}.ErrorCode - {1}", prefix, fault.ErrorCode).AppendLine();
             stringBuilder.AppendFormat("{0}.Timestamp - {1}", prefix, fault.Timestamp).AppendLine();
+            stringBuilder.AppendFormat("{0}.ActivityId - {1}", prefix, fault.ActivityId).AppendLine();
 
             if (fault.ErrorDetails != null && fault.ErrorDetails.Any())
             {

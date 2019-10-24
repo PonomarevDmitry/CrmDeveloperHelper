@@ -408,14 +408,16 @@
                             
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="50*"/>
+                                <ColumnDefinition Width="100*"/>
+                                <ColumnDefinition Width="30*"/>
                             </Grid.ColumnDefinitions>
 
-                            <Label Content="Entities List" Grid.Row="0" Grid.Column="0" Padding="0" Margin="5" />
+                            <Label x:Name="lblEntitiesList" Content="Entities List" Grid.Row="0" Grid.Column="0" Padding="0" Margin="5" />
                             <ComboBox x:Name="cmBRoleEditorLayoutTabsEntities" IsReadOnly="True" Grid.Row="0" Grid.Column="1" Padding="0" Margin="5" SelectionChanged="cmBRoleEditorLayoutTabs_SelectionChanged" />
+                            <Button x:Name="btnEntityMetadataFilter" Grid.Row="0" Grid.Column="2" Content="Filter" Padding="0" Margin="5" Click="btnEntityMetadataFilter_Click" IsTabStop="False" />
 
                             <Label Content="Filter" HorizontalAlignment="Left" VerticalAlignment="Stretch" Padding="0" Margin="5" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="0"/>
-                            <TextBox x:Name="txtBEntityFilter"  Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBEntityFilter_KeyDown" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="1" />
+                            <TextBox x:Name="txtBEntityFilter"  Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBEntityFilter_KeyDown" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" />
                         </Grid>
 
                         <DataGrid x:Name="lstVwEntityPrivileges" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" MouseDoubleClick="LstVwEntityPrivileges_MouseDoubleClick"  Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">

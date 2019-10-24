@@ -9,6 +9,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDescript
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
+using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,6 +20,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -29,6 +31,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private string _tabSpacer = "    ";
 
         private readonly object sysObjectConnections = new object();
+
+        private readonly Popup _popupEntityMetadataFilter;
+        private readonly EntityMetadataFilter _entityMetadataFilter;
 
         private readonly IWriteToOutput _iWriteToOutput;
 
@@ -82,6 +87,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InitializeComponent();
 
+            _entityMetadataFilter = new EntityMetadataFilter();
+            _entityMetadataFilter.CloseClicked += this._entityMetadataFilter_CloseClicked;
+            this._popupEntityMetadataFilter = new Popup
+            {
+                Child = _entityMetadataFilter,
+
+                PlacementTarget = lblEntitiesList,
+                Placement = PlacementMode.Bottom,
+                StaysOpen = false,
+                Focusable = true,
+            };
+            _popupEntityMetadataFilter.Closed += this._popupEntityMetadataFilter_Closed;
+
             FillRoleEditorLayoutTabs();
 
             LoadFromConfig();
@@ -105,6 +123,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.DecreaseInit();
 
             ShowExistingRoles();
+        }
+
+        private void LoadFromConfig()
+        {
+            WindowSettings winConfig = GetWindowsSettings();
+
+            LoadFormSettings(winConfig);
         }
 
         private void FillRoleEditorLayoutTabs()
@@ -134,11 +159,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBRoleEditorLayoutTabsPrivileges.SelectedIndex = 0;
         }
 
-        private void LoadFromConfig()
+        private void btnEntityMetadataFilter_Click(object sender, RoutedEventArgs e)
         {
-            WindowSettings winConfig = GetWindowsSettings();
+            _popupEntityMetadataFilter.IsOpen = true;
+            _popupEntityMetadataFilter.Child.Focus();
+        }
 
-            LoadFormSettings(winConfig);
+        private void _popupEntityMetadataFilter_Closed(object sender, EventArgs e)
+        {
+            if (_entityMetadataFilter.FilterChanged)
+            {
+                ShowRoleEntityPrivileges();
+            }
+        }
+
+        private void _entityMetadataFilter_CloseClicked(object sender, EventArgs e)
+        {
+            if (_popupEntityMetadataFilter.IsOpen)
+            {
+                _popupEntityMetadataFilter.IsOpen = false;
+                this.Focus();
+            }
         }
 
         protected override void LoadConfigurationInternal(WindowSettings winConfig)
@@ -594,8 +635,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private static IEnumerable<EntityMetadata> FilterEntityList(IEnumerable<EntityMetadata> list, string textName, RoleEditorLayoutTab selectedTab)
+        private IEnumerable<EntityMetadata> FilterEntityList(IEnumerable<EntityMetadata> list, string textName, RoleEditorLayoutTab selectedTab)
         {
+            list = _entityMetadataFilter.FilterList(list);
+
             if (selectedTab != null)
             {
                 list = list.Where(e => e.ObjectTypeCode.HasValue && selectedTab.EntitiesHash.Contains(e.ObjectTypeCode.Value));

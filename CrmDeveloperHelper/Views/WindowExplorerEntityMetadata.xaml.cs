@@ -34,6 +34,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly Popup _popupEntityMetadataOptions;
         private readonly Popup _popupFileGenerationEntityMetadataOptions;
         private readonly FileGenerationEntityMetadataOptionsControl _optionsControlFileGeneration;
+        private readonly Popup _popupEntityMetadataFilter;
+        private readonly EntityMetadataFilter _entityMetadataFilter;
 
         private readonly IWriteToOutput _iWriteToOutput;
 
@@ -107,6 +109,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 StaysOpen = false,
                 Focusable = true,
             };
+
+            _entityMetadataFilter = new EntityMetadataFilter();
+            _entityMetadataFilter.CloseClicked += this._entityMetadataFilter_CloseClicked;
+            this._popupEntityMetadataFilter = new Popup
+            {
+                Child = _entityMetadataFilter,
+
+                PlacementTarget = lblEntitiesList,
+                Placement = PlacementMode.Bottom,
+                StaysOpen = false,
+                Focusable = true,
+            };
+            _popupEntityMetadataFilter.Closed += this._popupEntityMetadataFilter_Closed;
 
             FillRoleEditorLayoutTabs();
 
@@ -331,8 +346,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingEntitiesCompletedFormat1, list.Count());
         }
 
-        private static IEnumerable<EntityMetadata> FilterList(IEnumerable<EntityMetadata> list, string textName, RoleEditorLayoutTab selectedTab)
+        private IEnumerable<EntityMetadata> FilterList(IEnumerable<EntityMetadata> list, string textName, RoleEditorLayoutTab selectedTab)
         {
+            list = _entityMetadataFilter.FilterList(list);
+
             if (selectedTab != null)
             {
                 list = list.Where(ent => ent.ObjectTypeCode.HasValue && selectedTab.EntitiesHash.Contains(ent.ObjectTypeCode.Value));
@@ -1597,6 +1614,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (_popupFileGenerationEntityMetadataOptions.IsOpen)
             {
                 _popupFileGenerationEntityMetadataOptions.IsOpen = false;
+                this.Focus();
+            }
+        }
+
+        private void btnEntityMetadataFilter_Click(object sender, RoutedEventArgs e)
+        {
+            _popupEntityMetadataFilter.IsOpen = true;
+            _popupEntityMetadataFilter.Child.Focus();
+        }
+
+        private void _popupEntityMetadataFilter_Closed(object sender, EventArgs e)
+        {
+            if (_entityMetadataFilter.FilterChanged)
+            {
+                ShowExistingEntities();
+            }
+        }
+
+        private void _entityMetadataFilter_CloseClicked(object sender, EventArgs e)
+        {
+            if (_popupEntityMetadataFilter.IsOpen)
+            {
+                _popupEntityMetadataFilter.IsOpen = false;
                 this.Focus();
             }
         }

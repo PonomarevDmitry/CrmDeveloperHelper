@@ -1297,6 +1297,9 @@
     <Compile Include="UserControls\DateTimePicker.xaml.cs">
       <DependentUpon>DateTimePicker.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\EntityMetadataFilter.xaml.cs">
+      <DependentUpon>EntityMetadataFilter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ExportEntityMetadataOptionsControl.xaml.cs">
       <DependentUpon>ExportEntityMetadataOptionsControl.xaml</DependentUpon>
     </Compile>
@@ -2004,6 +2007,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\DateTimePicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\EntityMetadataFilter.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
