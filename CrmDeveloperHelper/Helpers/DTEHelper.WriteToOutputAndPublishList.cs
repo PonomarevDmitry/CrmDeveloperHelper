@@ -36,9 +36,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private const int _timeDelay = 2000;
 
-        private static readonly Guid ToolsDiffCommandGuid = new Guid("5D4C0442-C0A2-4BE8-9B4D-AB1C28450942");
-        private const int ToolsDiffCommandId = 256;
+        private static readonly Guid Tools_DiffFilesCommandGuid = new Guid("5D4C0442-C0A2-4BE8-9B4D-AB1C28450942");
+        private const int Tools_DiffFilesCommandId = 256;
 
+        private System.ComponentModel.Design.CommandID ToolsDiffCommand = new System.ComponentModel.Design.CommandID(Tools_DiffFilesCommandGuid, Tools_DiffFilesCommandId);
 
         private static readonly ConcurrentDictionary<string, Logger> _loggersOutputCache = new ConcurrentDictionary<string, Logger>(StringComparer.InvariantCultureIgnoreCase);
 
@@ -1344,7 +1345,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return this;
         }
 
-        public async void ProcessStartProgramComparer(string filePath1, string filePath2, string fileTitle1, string fileTitle2)
+        public async Task ProcessStartProgramComparerAsync(string filePath1, string filePath2, string fileTitle1, string fileTitle2)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
@@ -1407,24 +1408,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     bool diffExecuted = false;
 
-                    var commandService = await CrmDeveloperHelperPackage.Singleton?.GetServiceAsync(typeof(System.ComponentModel.Design.IMenuCommandService)) as Microsoft.VisualStudio.Shell.OleMenuCommandService;
-                    if (commandService != null)
+                    if (CrmDeveloperHelperPackage.Singleton != null)
                     {
-                        //Tools.DiffFiles
-                        var args = $"\"{filePath1}\" \"{filePath2}\" \"{fileTitle1}\" \"{fileTitle2}\"";
-                        diffExecuted = commandService.GlobalInvoke(new System.ComponentModel.Design.CommandID(ToolsDiffCommandGuid, ToolsDiffCommandId), args);
-
-                        if (diffExecuted)
+                        try
                         {
-                            this.ActivateVisualStudioWindow();
+                            //Tools.DiffFiles
+                            var args = $"\"{filePath1}\" \"{filePath2}\" \"{fileTitle1}\" \"{fileTitle2}\"";
+
+                            var commandService = await CrmDeveloperHelperPackage.Singleton?.GetServiceAsync(typeof(System.ComponentModel.Design.IMenuCommandService)) as Microsoft.VisualStudio.Shell.OleMenuCommandService;
+                            if (commandService != null)
+                            {
+                                await CrmDeveloperHelperPackage.Singleton.JoinableTaskFactory.SwitchToMainThreadAsync();
+
+                                diffExecuted = commandService.GlobalInvoke(ToolsDiffCommand, args);
+                            }
+                            else
+                            {
+                                this.WriteToOutput(null, "Cannot get OleMenuCommandService.");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            this.WriteErrorToOutput(null, ex);
                         }
                     }
-                    else
-                    {
-                        this.WriteToOutput(null, "Cannot get OleMenuCommandService.");
-                    }
 
-                    if (!diffExecuted)
+                    if (diffExecuted)
+                    {
+                        this.ActivateVisualStudioWindow();
+                    }
+                    else
                     {
                         this.WriteToOutput(null, "Cannot execute Visual Studio Diff Program.");
                     }

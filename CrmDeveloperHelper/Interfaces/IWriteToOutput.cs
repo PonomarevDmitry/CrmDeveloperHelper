@@ -170,13 +170,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
         IWriteToOutput SelectFileInFolder(ConnectionData connectionData, string filePath);
 
         /// <summary>
-        /// <see cref="Helpers.DTEHelper.ProcessStartProgramComparer(string, string, string, string)"/>
+        /// <see cref="Helpers.DTEHelper.ProcessStartProgramComparerAsync(string, string, string, string)"/>
         /// </summary>
         /// <param name="file1"></param>
         /// <param name="file2"></param>
         /// <param name="fileTitle1"></param>
         /// <param name="fileTitle2"></param>
-        void ProcessStartProgramComparer(string file1, string file2, string fileTitle1, string fileTitle2);
+        Task ProcessStartProgramComparerAsync(string file1, string file2, string fileTitle1, string fileTitle2);
 
         /// <summary>
         /// <see cref="Helpers.DTEHelper.ProcessStartProgramComparerThreeWayFile(string, string, string, string, string, string)"/>

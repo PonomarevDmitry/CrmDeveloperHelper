@@ -5154,7 +5154,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 this.WriteToOutputFilePathUri(null, filePath);
 
-                this.ProcessStartProgramComparer(selectedFile.FilePath, filePath, selectedFile.FileName, fileName);
+                this.ProcessStartProgramComparerAsync(selectedFile.FilePath, filePath, selectedFile.FileName, fileName);
             }
             catch (Exception ex)
             {

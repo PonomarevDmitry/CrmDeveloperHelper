@@ -298,7 +298,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string filePath1 = selectedFile.FilePath;
             string fileTitle1 = selectedFile.FileName;
 
-            this._iWriteToOutput.ProcessStartProgramComparer(filePath1, filePath2, fileTitle1, fileTitle2);
+            this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, fileTitle1, fileTitle2);
         }
 
         public async Task ExecuteUpdateSiteMap(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
@@ -678,7 +678,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string filePath1 = selectedFile.FilePath;
             string fileTitle1 = selectedFile.FileName;
 
-            this._iWriteToOutput.ProcessStartProgramComparer(filePath1, filePath2, fileTitle1, fileTitle2);
+            this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, fileTitle1, fileTitle2);
         }
 
         public async Task ExecuteUpdateSystemForm(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
@@ -1098,7 +1098,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string filePath1 = selectedFile.FilePath;
             string fileTitle1 = selectedFile.FileName;
 
-            this._iWriteToOutput.ProcessStartProgramComparer(filePath1, filePath2, fileTitle1, fileTitle2);
+            this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, fileTitle1, fileTitle2);
         }
 
         public async Task ExecuteUpdateSavedQuery(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
@@ -1546,7 +1546,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string filePath1 = selectedFile.FilePath;
             string fileTitle1 = selectedFile.FileName;
 
-            this._iWriteToOutput.ProcessStartProgramComparer(filePath1, filePath2, fileTitle1, fileTitle2);
+            this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, fileTitle1, fileTitle2);
         }
 
         public async Task ExecuteUpdateWorkflow(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
