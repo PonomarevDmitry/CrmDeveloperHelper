@@ -95,23 +95,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             , nameof(EntityMetadata.IsRenameable)
         };
 
-        private static string[] GetEntityMetadataAttributes(IOrganizationServiceExtented service)
+        private static void FillAdditionalEntityProperties(IOrganizationServiceExtented service, MetadataPropertiesExpression entityProperties)
         {
             if (service.ConnectionData.EntityMetadataProperties != null)
             {
-                return service.ConnectionData.EntityMetadataProperties;
+                entityProperties.PropertyNames.AddRange(service.ConnectionData.EntityMetadataProperties);
             }
 
             var list = new List<string>(_baseEntityMetadataAttributes);
 
-            RemoveWrongEntityMetadataAttributes(service, list);
+            if (RemoveWrongEntityMetadataAttributes(service, list))
+            {
+                service.ConnectionData.EntityMetadataProperties = list.ToArray();
 
-            service.ConnectionData.EntityMetadataProperties = list.ToArray();
-
-            return service.ConnectionData.EntityMetadataProperties;
+                entityProperties.PropertyNames.AddRange(service.ConnectionData.EntityMetadataProperties);
+            }
         }
 
-        private static void RemoveWrongEntityMetadataAttributes(IOrganizationServiceExtented service, List<string> list)
+        private static bool RemoveWrongEntityMetadataAttributes(IOrganizationServiceExtented service, List<string> list)
         {
             bool executeAgain = true;
 
@@ -140,6 +141,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                             Query = entityQueryExpression,
                         }
                     );
+
+                    return true;
                 }
                 catch (FaultException<OrganizationServiceFault> fex)
                 {
@@ -166,6 +169,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     DTEHelper.WriteExceptionToLog(ex);
                 }
             }
+
+            return false;
         }
 
         public Task<List<EntityMetadata>> GetEntitiesDisplayNameAsync()
@@ -186,10 +191,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 , nameof(EntityMetadata.ObjectTypeCode)
             )
             {
-                AllProperties = false
+                AllProperties = false,
             };
 
-            entityProperties.PropertyNames.AddRange(GetEntityMetadataAttributes(_service));
+            FillAdditionalEntityProperties(_service, entityProperties);
 
             EntityQueryExpression entityQueryExpression = new EntityQueryExpression()
             {
@@ -298,10 +303,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 , nameof(EntityMetadata.Attributes)
             )
             {
-                AllProperties = false
+                AllProperties = false,
             };
 
-            entityProperties.PropertyNames.AddRange(GetEntityMetadataAttributes(_service));
+            FillAdditionalEntityProperties(_service, entityProperties);
 
             MetadataPropertiesExpression attributeProperties = new MetadataPropertiesExpression
             (
@@ -358,7 +363,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 AllProperties = false,
             };
 
-            entityProperties.PropertyNames.AddRange(GetEntityMetadataAttributes(_service));
+            FillAdditionalEntityProperties(_service, entityProperties);
 
             EntityQueryExpression entityQueryExpression = new EntityQueryExpression()
             {
@@ -505,10 +510,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 , nameof(EntityMetadata.Attributes)
             )
             {
-                AllProperties = false
+                AllProperties = false,
             };
 
-            entityProperties.PropertyNames.AddRange(GetEntityMetadataAttributes(_service));
+            FillAdditionalEntityProperties(_service, entityProperties);
 
             MetadataPropertiesExpression attributeProperties = new MetadataPropertiesExpression()
             {
@@ -766,10 +771,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 , nameof(EntityMetadata.Privileges)
             )
             {
-                AllProperties = false
+                AllProperties = false,
             };
 
-            entityProperties.PropertyNames.AddRange(GetEntityMetadataAttributes(_service));
+            FillAdditionalEntityProperties(_service, entityProperties);
 
             EntityQueryExpression entityQueryExpression = new EntityQueryExpression()
             {
@@ -800,10 +805,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 , nameof(EntityMetadata.Attributes)
             )
             {
-                AllProperties = false
+                AllProperties = false,
             };
 
-            entityProperties.PropertyNames.AddRange(GetEntityMetadataAttributes(_service));
+            FillAdditionalEntityProperties(_service, entityProperties);
 
             MetadataPropertiesExpression attributeProperties = new MetadataPropertiesExpression
             (

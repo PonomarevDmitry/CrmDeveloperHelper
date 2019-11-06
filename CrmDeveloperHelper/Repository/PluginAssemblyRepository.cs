@@ -46,7 +46,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             var entityQueryExpression = new EntityQueryExpression()
             {
                 Properties = new MetadataPropertiesExpression(nameof(EntityMetadata.LogicalName), nameof(EntityMetadata.Attributes)),
-                AttributeQuery = new AttributeQueryExpression() { Properties = new MetadataPropertiesExpression() { PropertyNames = { nameof(AttributeMetadata.LogicalName), nameof(AttributeMetadata.AttributeOf), nameof(AttributeMetadata.IsValidForRead) } } },
+                AttributeQuery = new AttributeQueryExpression()
+                {
+                    Properties = new MetadataPropertiesExpression()
+                    {
+                        PropertyNames =
+                        {
+                            nameof(AttributeMetadata.LogicalName), nameof(AttributeMetadata.AttributeOf), nameof(AttributeMetadata.IsValidForRead)
+                        }
+                    }
+                },
 
                 Criteria = entityFilter,
             };
@@ -63,8 +72,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (metadata == null)
             {
-                service.ConnectionData.PluginAssemblyProperties = new string[0];
-                return service.ConnectionData.PluginAssemblyProperties;
+                return null;
             }
 
             var list = new List<string>();
