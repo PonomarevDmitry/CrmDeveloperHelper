@@ -10334,52 +10334,62 @@
 
     <!-- #region mainGroup -->
 
-    <CommandPlacement guid="guidCommandSet" id="FileWebResourceUpdateContentPublishCommandId" priority="0x100">
+    <CommandPlacement guid="guidCommandSet" id="FileWebResourceUpdateContentPublishCommandId" priority="0x6000">
       <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FolderWebResourceUpdateContentPublishCommandId" priority="0x110">
-      <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
-    </CommandPlacement>
-
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource" priority="0x120">
-      <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource" priority="0x130">
+    <CommandPlacement guid="guidCommandSet" id="FolderWebResourceUpdateContentPublishCommandId" priority="0x6010">
       <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuXml" priority="0x140">
+    <CommandPlacement guid="guidCommandSet" id="ProjectBuildLoadUpdatePluginAssemblyCommandId" priority="0x6020">
       <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuXml" priority="0x150">
+    <CommandPlacement guid="guidCommandSet" id="ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommandId" priority="0x6030">
       <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
     </CommandPlacement>
-
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport" priority="0x160">
-      <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
-    </CommandPlacement>
-
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp" priority="0x170">
-      <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp" priority="0x180">
+    <CommandPlacement guid="guidCommandSet" id="ProjectUpdatePluginAssemblyCommandId" priority="0x6040">
       <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject" priority="0x190">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource" priority="0x6050">
+      <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource" priority="0x6060">
       <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu" priority="0x1A0">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuXml" priority="0x6070">
       <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="openCrmSiteMenu" priority="0x1B0">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuXml" priority="0x6080">
       <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonCurrentConnectionCommandId" priority="0x1C0">
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport" priority="0x6090">
       <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu" priority="0x1D0">
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp" priority="0x60A0">
+      <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp" priority="0x60B0">
+      <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject" priority="0x60C0">
+      <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu" priority="0x60D0">
+      <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="openCrmSiteMenu" priority="0x60E0">
+      <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CommonCurrentConnectionCommandId" priority="0x60F0">
+      <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu" priority="0x6100">
       <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
     </CommandPlacement>
 
@@ -10404,56 +10414,66 @@
 
     <!-- #region mainGroupSolutionFolder -->
 
-    <CommandPlacement guid="guidCommandSet" id="FileWebResourceUpdateContentPublishCommandId" priority="0x100">
+    <CommandPlacement guid="guidCommandSet" id="FileWebResourceUpdateContentPublishCommandId" priority="0x6000">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FolderWebResourceUpdateContentPublishCommandId" priority="0x110">
-      <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
-    </CommandPlacement>
-
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource" priority="0x120">
-      <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource" priority="0x130">
+    <CommandPlacement guid="guidCommandSet" id="FolderWebResourceUpdateContentPublishCommandId" priority="0x6010">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuXml" priority="0x140">
+    <CommandPlacement guid="guidCommandSet" id="ProjectBuildLoadUpdatePluginAssemblyCommandId" priority="0x6020">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuXml" priority="0x150">
+    <CommandPlacement guid="guidCommandSet" id="ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommandId" priority="0x6030">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
     </CommandPlacement>
-
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport" priority="0x160">
-      <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
-    </CommandPlacement>
-
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp" priority="0x170">
-      <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp" priority="0x180">
+    <CommandPlacement guid="guidCommandSet" id="ProjectUpdatePluginAssemblyCommandId" priority="0x6040">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject" priority="0x190">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource" priority="0x6050">
+      <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource" priority="0x6060">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuFolder" priority="0x1A0">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuXml" priority="0x6070">
+      <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuXml" priority="0x6080">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu" priority="0x1B0">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport" priority="0x6090">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="openCrmSiteMenu" priority="0x1C0">
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp" priority="0x60A0">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonCurrentConnectionCommandId" priority="0x1D0">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp" priority="0x60B0">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu" priority="0x1E0">
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject" priority="0x60C0">
+      <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuFolder" priority="0x60D0">
+      <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu" priority="0x60E0">
+      <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="openCrmSiteMenu" priority="0x60F0">
+      <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CommonCurrentConnectionCommandId" priority="0x6100">
+      <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu" priority="0x6110">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
     </CommandPlacement>
 
