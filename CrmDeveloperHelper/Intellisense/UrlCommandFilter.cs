@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Tagging;
 using Microsoft.VisualStudio.TextManager.Interop;
+using Microsoft.VisualStudio.Threading;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
@@ -227,13 +228,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 return true;
             }
 
-            IVsWebBrowsingService service = _provider.ServiceProvider.GetService(typeof(SVsWebBrowsingService)) as IVsWebBrowsingService;
-            if (service != null)
+            if (_provider.ServiceProvider.GetService(typeof(SVsWebBrowsingService)) is IVsWebBrowsingService service)
             {
                 var createFlags = __VSCREATEWEBBROWSER.VSCWB_AutoShow;
                 var resolution = VSPREVIEWRESOLUTION.PR_Default;
 
-                int result = ErrorHandler.CallWithCOMConvention(() => service.CreateExternalWebBrowser((uint)createFlags, resolution, uri.AbsoluteUri));
+                int result = ErrorHandler.CallWithCOMConvention(() =>
+                {
+                    service.CreateExternalWebBrowser((uint)createFlags, resolution, uri.AbsoluteUri);
+                });
 
                 if (ErrorHandler.Succeeded(result))
                     return true;
