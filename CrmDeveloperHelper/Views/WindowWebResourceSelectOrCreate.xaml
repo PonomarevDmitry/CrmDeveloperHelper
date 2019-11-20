@@ -3,21 +3,187 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
         xmlns:mine="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
         Title="Select WebResource" Height="531.662" Width="705" WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
-        <BitmapImage x:Key="ImageCss" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_css.ico" />
-        <BitmapImage x:Key="ImageHtml" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_html.ico" />
-        <BitmapImage x:Key="ImageJS" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_js.ico" />
-        <BitmapImage x:Key="ImageImages" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_images.ico" />
-        <BitmapImage x:Key="ImageXml" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_xml.ico" />
-        <BitmapImage x:Key="ImageSilverlight" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_silverlight.ico" />
-        <BitmapImage x:Key="ImageFolder" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_folder.ico" />
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="StyleWindows.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <BitmapImage x:Key="ImageCss" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_css.ico" />
+            <BitmapImage x:Key="ImageHtml" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_html.ico" />
+            <BitmapImage x:Key="ImageJS" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_js.ico" />
+            <BitmapImage x:Key="ImageImages" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_images.ico" />
+            <BitmapImage x:Key="ImageXml" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_xml.ico" />
+            <BitmapImage x:Key="ImageSilverlight" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_silverlight.ico" />
+            <BitmapImage x:Key="ImageFolder" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_folder.ico" />
+
+            <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
+
+                <MenuItem Header="Expand Nodes" Click="mIExpandNodes_Click" />
+                <MenuItem Header="Collapse Nodes" Click="mICollapseNodes_Click" />
+
+                <Separator/>
+                <MenuItem Header="Select WebResource" Click="btnSelectWebResource_Click" FontWeight="Bold" />
+
+                <Separator/>
+                <MenuItem Header="Open WebResource in Web" Click="mIOpenInWeb_Click" />
+
+                <Separator/>
+                <MenuItem Header="Content" Click="mIOpenContent_Click" />
+
+                <Separator/>
+                <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
+
+                <Separator/>
+                <MenuItem Header="Change WebResource in Editor" Click="mIChangeEntityInEditor_Click"/>
+                <MenuItem Header="Delete WebResource" Click="mIDeleteWebResource_Click" />
+
+                <Separator/>
+                <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" />
+                <MenuItem Header="Add to Crm Solution" Click="AddToCrmSolution_Click" />
+
+                <Separator/>
+                <MenuItem Header="Content Json" Click="mIExportWebResourceContentJson_Click" />
+                <MenuItem Header="Dependency Xml" Click="mIExportWebResourceDependencyXml_Click" />
+
+                <Separator x:Uid="controlChangeEntityAttribute"/>
+                <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change WebResource Attribute">
+                    <MenuItem Header="Content" Click="mIUpdateWebResourceContent_Click" />
+                    <MenuItem Header="Content from File" Click="mIUpdateWebResourceContentFromFile_Click" />
+                    <MenuItem Header="Content Json" Click="mIUpdateWebResourceContentJson_Click" />
+                    <MenuItem Header="Dependency Xml" Click="mIUpdateWebResourceDependencyXml_Click" />
+                </MenuItem>
+
+                <Separator/>
+                <MenuItem Header="Publish WebResource" Click="btnPublishWebResource_Click"/>
+
+                <Separator/>
+                <MenuItem Header="Open Solutions Containing Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
+
+                <Separator/>
+                <MenuItem Header="Dependent Components">
+                    <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />
+                    <Separator/>
+                    <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
+                </MenuItem>
+
+                <Separator/>
+                <MenuItem Header="Compare Information with other Organization">
+                    <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
+                    <Separator/>
+                    <MenuItem Header="WebResources" Click="btnCompareWebResources_Click"/>
+                </MenuItem>
+
+                <Separator/>
+                <MenuItem Header="Export All WebResource Information" Click="btnExportAll_Click"/>
+            </ContextMenu>
+
+        </ResourceDictionary>
     </src:WindowBase.Resources>
     <Grid>
-        <TextBox x:Name="txtBCurrentFile" Height="49" Margin="10,10,10,0"   VerticalAlignment="Top" IsReadOnlyCaretVisible="True" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
-        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,64,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="txtBFilter" Height="26" Margin="58,64,10,0"   VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
-        <TreeView x:Name="trVWebResources" Margin="10,95,10,93" SelectedItemChanged="trVWebResources_SelectedItemChanged" MouseDoubleClick="trVWebResources_MouseDoubleClick">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+
+            <RowDefinition Height="100*" />
+
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBox x:Name="txtBCurrentFile" Grid.Row="0" Margin="5" Height="50" TextWrapping="Wrap" IsReadOnlyCaretVisible="True" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
+
+        <GridSplitter Grid.Row="1" Height="5" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+
+        <Grid Grid.Row="2" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="100*" />
+
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Label Content="Folder" Grid.Row="0" Grid.Column="0" />
+            <TextBox x:Name="txtBFolder" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="7" Text="{Binding Path=FolderForExport, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+
+            <Label Content="Filter" Grid.Row="1" Grid.Column="0" />
+            <TextBox x:Name="txtBFilter" Grid.Row="1" Grid.Column="1" KeyDown="txtBFilterEnitity_KeyDown" />
+
+            <Label Content="Type" Grid.Row="1" Grid.Column="2" />
+            <ComboBox x:Name="cmBType" Grid.Row="1" Grid.Column="3" SelectionChanged="comboBox_SelectionChanged" />
+
+            <Label Content="Managed" Grid.Row="1" Grid.Column="4" />
+            <ComboBox x:Name="cmBManaged" Grid.Row="1" Grid.Column="5" IsEditable="False" SelectedIndex="0" SelectionChanged="comboBox_SelectionChanged" Width="Auto">
+                <ComboBoxItem Content="All" />
+                <ComboBoxItem Content="Managed">
+                    <ComboBoxItem.Tag>
+                        <system:Boolean>True</system:Boolean>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+                <ComboBoxItem Content="UnManaged">
+                    <ComboBoxItem.Tag>
+                        <system:Boolean>False</system:Boolean>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+            </ComboBox>
+
+            <Label Content="Hidden" Grid.Row="1" Grid.Column="6" />
+            <ComboBox x:Name="cmBHidden" Grid.Row="1" Grid.Column="7" IsEditable="False" SelectedIndex="0" SelectionChanged="comboBox_SelectionChanged" Width="Auto">
+                <ComboBoxItem Content="All" />
+                <ComboBoxItem Content="Hidden">
+                    <ComboBoxItem.Tag>
+                        <system:Boolean>True</system:Boolean>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+                <ComboBoxItem Content="Visible">
+                    <ComboBoxItem.Tag>
+                        <system:Boolean>False</system:Boolean>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+            </ComboBox>
+
+        </Grid>
+
+        <Grid Grid.Row="3" Margin="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="10*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Column="0">
+                <Hyperlink x:Name="hypLinkExpandAll" NavigateUri="www.microsoftdynamicscrm.com" RequestNavigate="hypLinkExpandAll_RequestNavigate">
+                    <Run Text="Expand All"/>
+                </Hyperlink>
+            </Label>
+
+            <Label Grid.Column="2">
+                <Hyperlink x:Name="hypLinkCollapseAll" NavigateUri="www.microsoftdynamicscrm.com" RequestNavigate="hypLinkCollapseAll_RequestNavigate" >
+                    <Run Text="Collapse All"/>
+                </Hyperlink>
+            </Label>
+        </Grid>
+
+        <TreeView x:Name="trVWebResources" Grid.Row="4" Margin="5" SelectedItemChanged="trVWebResources_SelectedItemChanged" MouseDoubleClick="trVWebResources_MouseDoubleClick">
             <TreeView.Resources>
                 <HierarchicalDataTemplate DataType="{x:Type mine:EntityTreeViewItem}" ItemsSource="{Binding Path=Items}">
                     <Grid>
@@ -34,19 +200,34 @@
             </TreeView.Resources>
             <TreeView.ItemContainerStyle>
                 <Style TargetType="TreeViewItem">
-                    <Setter Property="IsSelected" Value="{Binding IsSelected}" />
-                    <Setter Property="IsExpanded" Value="{Binding IsExpanded}" />
+                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
                 </Style>
             </TreeView.ItemContainerStyle>
         </TreeView>
-        <Label x:Name="lblLastLink" Content="Last Link" HorizontalAlignment="Left" Margin="10,0,0,62" VerticalAlignment="Bottom" IsEnabled="False" Visibility="Collapsed" />
-        <TextBox x:Name="txtBLastLink" Height="26" Margin="71,0,10,62"   VerticalAlignment="Bottom" IsReadOnlyCaretVisible="True" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" IsEnabled="False" Visibility="Collapsed" />
-        <ToolBar Margin="0,0,0,24" VerticalAlignment="Bottom" Height="33">
+
+        <Grid Grid.Row="5" Margin="5" x:Name="gridLastLink" Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="100*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Label Content="Last Link" Grid.Row="0" Grid.Column="0" />
+            <TextBox x:Name="txtBLastLink" Grid.Row="0" Grid.Column="1" IsReadOnlyCaretVisible="True" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
+        </Grid>
+
+        <ToolBar Grid.Row="6">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
                     <Setter Property="Orientation" Value="Vertical"/>
                 </Style>
             </ToolBar.Resources>
+            
             <DockPanel>
                 <DockPanel.Resources>
                     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
@@ -56,19 +237,25 @@
                 </DockPanel.Resources>
                 <ToolBarPanel x:Name="toolStrip" Orientation="Horizontal" >
                     <Button x:Name="btnSelectWebResource" Content="Select WebResource" Click="btnSelectWebResource_Click" />
+                    
                     <Separator x:Name="sepCreateNewWebResource" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="20,0,20,0" IsEnabled="False" Visibility="Collapsed"/>
                     <Button x:Name="btnCreateNewWebResource" Content="Create New WebResource" IsEnabled="False" Visibility="Collapsed" Click="btnCreateNewWebResource_Click"/>
+                    
                     <Separator x:Name="sepLastLink" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="20,0,20,0" IsEnabled="False" Visibility="Collapsed"/>
                     <Button x:Name="btnSelectLastLink" Content="Select Last Link" IsEnabled="False" Visibility="Collapsed" Click="btnSelectLastLink_Click"/>
                 </ToolBarPanel>
+                
                 <Button Content="Cancel" Click="Button_Click" HorizontalContentAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                
                 <Separator x:Name="sepSkipFile" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="20,0,20,0" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" Visibility="Collapsed" />
                 <Button x:Name="btnSkipFile" Content="Skip File" HorizontalContentAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" Visibility="Collapsed" Click="btnSkipFile_Click"/>
+                
             </DockPanel>
         </ToolBar>
-        <StatusBar Height="24" VerticalAlignment="Bottom">
+
+        <StatusBar Grid.Row="7">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName" VerticalAlignment="Center"/>
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
             <StatusBarItem x:Name="stBIStatus"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
         </StatusBar>
     </Grid>

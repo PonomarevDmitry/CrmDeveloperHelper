@@ -1,5 +1,8 @@
 using Microsoft.Xrm.Sdk.Query;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Commands;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
@@ -7,12 +10,15 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
@@ -20,10 +26,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
     {
         private readonly IWriteToOutput _iWriteToOutput;
 
-        /// <summary>
-        /// Сервис CRM
-        /// </summary>
-        private IOrganizationServiceExtented _service;
+        private readonly IOrganizationServiceExtented _service;
+
+        private readonly CommonConfiguration _commonConfig;
 
         private string _fileExtension;
 
@@ -37,7 +42,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         /// </summary>
         private WebResource _lastWebResource;
 
-
         /// <summary>
         /// ИД залинкованного веб-ресурса
         /// </summary>
@@ -47,30 +51,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         public bool ForAllOther { get; private set; }
 
-        private readonly ConnectionData _connectionData;
+        private readonly ObservableCollection<EntityTreeViewItem> _webResourceTree = new ObservableCollection<EntityTreeViewItem>();
+
+        public static readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.XmlFull;
 
         public WindowWebResourceSelectOrCreate(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
-            , ConnectionData connectionData
             , SelectedFile selectedFile
             , Guid? lastLinkedWebResource
-            )
+        )
         {
+            this.IncreaseInit();
+
             InitializeComponent();
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
-            btnSelectLastLink.IsEnabled = lblLastLink.IsEnabled = txtBLastLink.IsEnabled = sepLastLink.IsEnabled = false;
-            btnSelectLastLink.Visibility = lblLastLink.Visibility = txtBLastLink.Visibility = sepLastLink.Visibility = Visibility.Collapsed;
+            btnSelectLastLink.IsEnabled = gridLastLink.IsEnabled = sepLastLink.IsEnabled = false;
+            btnSelectLastLink.Visibility = gridLastLink.Visibility = sepLastLink.Visibility = Visibility.Collapsed;
 
             this._iWriteToOutput = iWriteToOutput;
             this._service = service;
             this._file = selectedFile;
             this._fileExtension = selectedFile.Extension;
-            this._connectionData = connectionData;
+            this._commonConfig = CommonConfiguration.Get();
 
-            this.tSSLblConnectionName.Content = this._connectionData.Name;
+            this.tSSLblConnectionName.Content = this._service.ConnectionData.Name;
 
             txtBCurrentFile.Text = selectedFile.FriendlyFilePath;
 
@@ -81,7 +88,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             txtBFilter.SelectionLength = 0;
             txtBFilter.SelectionStart = txtBFilter.Text.Length;
 
+            trVWebResources.ItemsSource = _webResourceTree;
+
             txtBFilter.Focus();
+
+            this.DecreaseInit();
 
             if (_service != null)
             {
@@ -123,15 +134,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.trVWebResources.Dispatcher.Invoke(() =>
             {
-                this.trVWebResources.ItemsSource = null;
-                this.trVWebResources.Items.Clear();
+                _webResourceTree.Clear();
             });
 
             string textName = string.Empty;
+            bool? hidden = null;
+            bool? managed = null;
+            int? webResourceType = null;
 
-            txtBFilter.Dispatcher.Invoke(() =>
+            this.Dispatcher.Invoke(() =>
             {
                 textName = txtBFilter.Text.Trim().ToLower();
+
+                if (cmBManaged.SelectedItem is ComboBoxItem comboBoxItemManaged
+                    && comboBoxItemManaged.Tag != null
+                    && comboBoxItemManaged.Tag is bool boolManaged
+                )
+                {
+                    managed = boolManaged;
+                }
+
+                if (cmBHidden.SelectedItem is ComboBoxItem comboBoxItemHidden
+                    && comboBoxItemHidden.Tag != null
+                    && comboBoxItemHidden.Tag is bool boolHidden
+                )
+                {
+                    hidden = boolHidden;
+                }
+
+                if (cmBType.SelectedItem is WebResource.Schema.OptionSets.webresourcetype webresourcetype)
+                {
+                    webResourceType = (int)webresourcetype;
+                }
             });
 
             List<WebResource> list = null;
@@ -140,7 +174,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                list = await repository.GetListAllAsync(textName, new ColumnSet(WebResource.Schema.Attributes.name, WebResource.Schema.Attributes.webresourcetype, WebResource.Schema.Attributes.ismanaged, WebResource.Schema.Attributes.ishidden));
+                list = await repository.GetListAllAsync(
+                    textName
+                    , webResourceType
+                    , managed
+                    , hidden
+                    , new ColumnSet
+                    (
+                        WebResource.Schema.Attributes.name
+                        , WebResource.Schema.Attributes.webresourcetype
+                        , WebResource.Schema.Attributes.ismanaged
+                        , WebResource.Schema.Attributes.ishidden
+                    )
+                );
 
                 if (lastLinkedWebResource.HasValue && this._lastWebResource == null)
                 {
@@ -156,8 +202,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         txtBLastLink.Text = name;
 
-                        btnSelectLastLink.IsEnabled = lblLastLink.IsEnabled = txtBLastLink.IsEnabled = sepLastLink.IsEnabled = isEnabled;
-                        btnSelectLastLink.Visibility = lblLastLink.Visibility = txtBLastLink.Visibility = sepLastLink.Visibility = visibility;
+                        btnSelectLastLink.IsEnabled = gridLastLink.IsEnabled = sepLastLink.IsEnabled = isEnabled;
+                        btnSelectLastLink.Visibility = gridLastLink.Visibility = sepLastLink.Visibility = visibility;
 
                         toolStrip.UpdateLayout();
                     });
@@ -177,7 +223,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadWebResources(IEnumerable<WebResource> results)
         {
-            ObservableCollection<EntityTreeViewItem> list = new ObservableCollection<EntityTreeViewItem>();
+            this.trVWebResources.Dispatcher.Invoke(() =>
+            {
+                this.trVWebResources.BeginInit();
+            });
 
             var groupList = results
                     .GroupBy(a => a.WebResourceType.Value)
@@ -200,17 +249,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 FullfillTreeNode(node, nodeEntity, image);
 
-                list.Add(node);
+                this.trVWebResources.Dispatcher.Invoke(() =>
+                {
+                    _webResourceTree.Add(node);
+                });
             }
 
-            ExpandNode(list);
+            ExpandNode(_webResourceTree);
 
             this.trVWebResources.Dispatcher.Invoke(() =>
             {
-                this.trVWebResources.BeginInit();
-
-                this.trVWebResources.ItemsSource = list;
-
                 this.trVWebResources.EndInit();
             });
         }
@@ -306,7 +354,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(tSProgressBar);
+            ToggleControl(tSProgressBar
+                , cmBType
+                , cmBManaged
+                , cmBHidden
+            );
 
             UpdateButtonsEnable();
         }
@@ -345,18 +397,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private Guid? GetSelectedEntity()
+        private EntityTreeViewItem GetSelectedEntity()
         {
-            Guid? result = null;
-
             if (this.trVWebResources.SelectedItem != null
-                && this.trVWebResources.SelectedItem is EntityTreeViewItem
-                )
+                && this.trVWebResources.SelectedItem is EntityTreeViewItem entity
+            )
             {
-                result = (this.trVWebResources.SelectedItem as EntityTreeViewItem).WebResourceId;
+                return entity;
             }
 
-            return result;
+            return null;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -386,14 +436,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void btnSelectWebResource_Click(object sender, RoutedEventArgs e)
         {
-            var idWebResource = GetSelectedEntity();
+            var webResource = GetSelectedEntity();
 
-            if (idWebResource == null)
+            if (webResource == null || !webResource.WebResourceId.HasValue)
             {
                 return;
             }
 
-            this.SelectedWebResourceId = idWebResource.Value;
+            this.SelectedWebResourceId = webResource.WebResourceId.Value;
 
             this.DialogResult = true;
         }
@@ -421,11 +471,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             Solution solution = null;
 
-            if (!string.IsNullOrEmpty(_connectionData.LastSelectedSolutionsUniqueName.FirstOrDefault()) && this.ForAllOther)
+            if (!string.IsNullOrEmpty(_service.ConnectionData.LastSelectedSolutionsUniqueName.FirstOrDefault()) && this.ForAllOther)
             {
                 var repositorySolution = new SolutionRepository(_service);
 
-                solution = await repositorySolution.GetSolutionByUniqueNameAsync(_connectionData.LastSelectedSolutionsUniqueName.FirstOrDefault());
+                solution = await repositorySolution.GetSolutionByUniqueNameAsync(_service.ConnectionData.LastSelectedSolutionsUniqueName.FirstOrDefault());
             }
 
             if (solution == null)
@@ -435,7 +485,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var dialogResult = formSelectSolution.ShowDialog().GetValueOrDefault();
 
-                _connectionData.AddLastSelectedSolution(formSelectSolution.SelectedSolution?.UniqueName);
+                _service.ConnectionData.AddLastSelectedSolution(formSelectSolution.SelectedSolution?.UniqueName);
 
                 if (!dialogResult)
                 {
@@ -447,8 +497,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 solution = formSelectSolution.SelectedSolution;
 
-                _connectionData.AddLastSelectedSolution(solution?.UniqueName);
-                this.ForAllOther = !string.IsNullOrEmpty(_connectionData.LastSelectedSolutionsUniqueName.FirstOrDefault()) && formSelectSolution.ForAllOther;
+                _service.ConnectionData.AddLastSelectedSolution(solution?.UniqueName);
+                this.ForAllOther = !string.IsNullOrEmpty(_service.ConnectionData.LastSelectedSolutionsUniqueName.FirstOrDefault()) && formSelectSolution.ForAllOther;
             }
 
             if (solution == null)
@@ -459,7 +509,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutputSolutionUri(_connectionData, solution.UniqueName, solution.Id);
+            this._iWriteToOutput.WriteToOutputSolutionUri(_service.ConnectionData, solution.UniqueName, solution.Id);
 
             var formWebResourceInfo = new WindowWebResourceCreate(_file.FileName, _file.FriendlyFilePath, solution.UniqueName, solution.PublisherCustomizationPrefix);
 
@@ -547,5 +597,883 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             base.OnKeyDown(e);
         }
+
+        private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            ShowExistingWebResources();
+        }
+
+        #region Expand
+
+        private void mIExpandNodes_Click(object sender, RoutedEventArgs e)
+        {
+            EntityTreeViewItem nodeItem = GetItemFromRoutedDataContext<EntityTreeViewItem>(e);
+
+            if (nodeItem == null)
+            {
+                return;
+            }
+
+            ChangeExpandedInTreeViewItems(new[] { nodeItem }, true);
+        }
+
+        private void mICollapseNodes_Click(object sender, RoutedEventArgs e)
+        {
+            EntityTreeViewItem nodeItem = GetItemFromRoutedDataContext<EntityTreeViewItem>(e);
+
+            if (nodeItem == null)
+            {
+                return;
+            }
+
+            ChangeExpandedInTreeViewItems(new[] { nodeItem }, false);
+        }
+
+        private void hypLinkExpandAll_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            ChangeExpandedInTreeViewItems(_webResourceTree, true);
+        }
+
+        private void hypLinkCollapseAll_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            ChangeExpandedInTreeViewItems(_webResourceTree, false);
+        }
+
+        private void ChangeExpandedInTreeViewItems(IEnumerable<EntityTreeViewItem> items, bool isExpanded)
+        {
+            if (items == null || !items.Any())
+            {
+                return;
+            }
+
+            this.trVWebResources.Dispatcher.Invoke(() =>
+            {
+                this.trVWebResources.BeginInit();
+            });
+
+            foreach (var item in items)
+            {
+                item.IsExpanded = isExpanded;
+
+                ChangeExpandedInTreeViewItemsRecursive(item.Items, isExpanded);
+            }
+
+            this.trVWebResources.Dispatcher.Invoke(() =>
+            {
+                this.trVWebResources.EndInit();
+            });
+        }
+
+        private void ChangeExpandedInTreeViewItemsRecursive(IEnumerable<EntityTreeViewItem> items, bool isExpanded)
+        {
+            if (items == null || !items.Any())
+            {
+                return;
+            }
+
+            foreach (var item in items)
+            {
+                item.IsExpanded = isExpanded;
+
+                ChangeExpandedInTreeViewItemsRecursive(item.Items, isExpanded);
+            }
+        }
+
+        #endregion
+
+        #region Context Menu
+
+        private void ContextMenu_Opened(object sender, RoutedEventArgs e)
+        {
+            if (!(sender is ContextMenu contextMenu))
+            {
+                return;
+            }
+
+            if (contextMenu.PlacementTarget is TreeViewItem node)
+            {
+                node.IsSelected = true;
+            }
+
+            var items = contextMenu.Items.OfType<Control>();
+
+            FillLastSolutionItems(_service.ConnectionData, items, true, AddToCrmSolutionLast_Click, "contMnAddToSolutionLast");
+
+            EntityTreeViewItem nodeItem = GetItemFromRoutedDataContext<EntityTreeViewItem>(e);
+
+            ActivateControls(items, (nodeItem.WebResource?.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
+        }
+
+        private void mIOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            if (!entity.WebResourceId.HasValue)
+            {
+                return;
+            }
+
+            _service.ConnectionData.OpenSolutionComponentDependentComponentsInWeb(ComponentType.WebResource, entity.WebResourceId.Value);
+        }
+
+        private async void mIOpenInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            if (!entity.WebResourceId.HasValue)
+            {
+                return;
+            }
+
+            _service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.WebResource, entity.WebResourceId.Value);
+        }
+
+        private void mIOpenContent_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null || entity.WebResourceId == null)
+            {
+                return;
+            }
+
+            ExecuteAction(entity.WebResourceId.Value, entity.Name, PerformExportWebResourceContent);
+        }
+
+        private async Task ExecuteAction(Guid idWebResource, string name, Func<string, Guid, string, Task> action)
+        {
+            string folder = txtBFolder.Text.Trim();
+
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(folder))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+            else if (!Directory.Exists(folder))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+
+            await action(folder, idWebResource, name);
+        }
+
+        private async Task ExecuteActionEntity(Guid idWebResource, string name, string fieldName, string fieldTitle, string extension, Func<string, Guid, string, string, string, string, Task> action)
+        {
+            string folder = txtBFolder.Text.Trim();
+
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(folder))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+            else if (!Directory.Exists(folder))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+
+            await action(folder, idWebResource, name, fieldName, fieldTitle, extension);
+        }
+
+        private async Task PerformExportWebResourceContent(string folder, Guid idWebResource, string name)
+        {
+            ToggleControls(false, Properties.OutputStrings.ExportingWebResourceContentFormat1, name);
+
+            try
+            {
+                WebResourceRepository webResourceRepository = new WebResourceRepository(_service);
+
+                var webresource = await webResourceRepository.GetByIdAsync(idWebResource, new ColumnSet(WebResource.Schema.Attributes.content, WebResource.Schema.Attributes.name, WebResource.Schema.Attributes.webresourcetype));
+
+                if (webresource != null && !string.IsNullOrEmpty(webresource.Content))
+                {
+                    this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "Starting downloading {0}", name);
+
+                    string webResourceFileName = WebResourceRepository.GetWebResourceFileName(webresource);
+
+                    var contentWebResource = webresource.Content ?? string.Empty;
+
+                    var array = Convert.FromBase64String(contentWebResource);
+
+                    string fileName = string.Format("{0}.{1}", _service.ConnectionData.Name, webResourceFileName);
+                    string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                    File.WriteAllBytes(filePath, array);
+
+                    this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "Web-resource '{0}' has downloaded to {1}.", name, filePath);
+
+                    this._iWriteToOutput.PerformAction(_service.ConnectionData, filePath);
+                }
+                else
+                {
+                    this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "Web-resource not founded in CRM: {0}", name);
+                }
+
+                ToggleControls(true, Properties.OutputStrings.ExportingWebResourceContentCompletedFormat1, name);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
+
+                ToggleControls(true, Properties.OutputStrings.ExportingWebResourceContentFailedFormat1, name);
+            }
+        }
+
+        private void AddToCrmSolution_Click(object sender, RoutedEventArgs e)
+        {
+            AddToSolution(true, null);
+        }
+
+        private void AddToCrmSolutionLast_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+                && menuItem.Tag != null
+                && menuItem.Tag is string solutionUniqueName
+                )
+            {
+                AddToSolution(false, solutionUniqueName);
+            }
+        }
+
+        private async Task AddToSolution(bool withSelect, string solutionUniqueName)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
+
+            var descriptor = new SolutionComponentDescriptor(_service);
+
+            try
+            {
+                this._iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
+
+                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, _service, descriptor, _commonConfig, solutionUniqueName, ComponentType.WebResource, new[] { entity.WebResourceId.Value }, null, withSelect);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
+            }
+        }
+
+        private async void mIOpenDependentComponentsInExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null || !entity.WebResourceId.HasValue)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
+
+            var descriptor = new SolutionComponentDescriptor(_service);
+
+            WindowHelper.OpenSolutionComponentDependenciesWindow(
+                _iWriteToOutput
+                , _service
+                , descriptor
+                , _commonConfig
+                , (int)ComponentType.WebResource
+                , entity.WebResourceId.Value
+                , null
+                );
+        }
+
+        private void mIExportWebResourceDependencyXml_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null || entity.WebResourceId == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.dependencyxml, WebResource.Schema.Headers.dependencyxml, "xml", PerformExportXmlToFile);
+        }
+
+        private void mIExportWebResourceContentJson_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null || entity.WebResourceId == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.contentjson, WebResource.Schema.Headers.contentjson, "json", PerformExportXmlToFile);
+        }
+
+        private async Task PerformExportXmlToFile(string folder, Guid idWebResource, string name, string fieldName, string fieldTitle, string extension)
+        {
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            ToggleControls(false, Properties.OutputStrings.ExportingXmlFieldToFileFormat1, fieldTitle);
+
+            try
+            {
+                WebResourceRepository webResourceRepository = new WebResourceRepository(_service);
+
+                var webresource = await webResourceRepository.GetByIdAsync(idWebResource, new ColumnSet(true));
+
+                string xmlContent = webresource.GetAttributeValue<string>(fieldName);
+
+                if (!string.IsNullOrEmpty(xmlContent))
+                {
+                    _commonConfig.Save();
+
+                    if (string.Equals(fieldName, WebResource.Schema.Attributes.dependencyxml, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
+                            , schemaName: AbstractDynamicCommandXsdSchemas.SchemaDependencyXml
+                           , webResourceName: webresource.Name
+                        );
+                    }
+                    else if (string.Equals(fieldName, WebResource.Schema.Attributes.contentjson, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        xmlContent = ContentCoparerHelper.FormatJson(xmlContent);
+                    }
+                }
+
+                string filePath = await CreateFileAsync(folder, name, fieldTitle, xmlContent, extension);
+
+                this._iWriteToOutput.PerformAction(_service.ConnectionData, filePath);
+
+                ToggleControls(true, Properties.OutputStrings.ExportingXmlFieldToFileCompletedFormat1, fieldTitle);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
+
+                ToggleControls(true, Properties.OutputStrings.ExportingXmlFieldToFileFailedFormat1, fieldTitle);
+            }
+        }
+
+        private async Task PerformUpdateEntityField(string folder, Guid idWebResource, string name, string fieldName, string fieldTitle, string extension)
+        {
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            ToggleControls(false, Properties.OutputStrings.UpdatingFieldFormat2, _service.ConnectionData.Name, fieldName);
+
+            try
+            {
+                _commonConfig.Save();
+
+                WebResourceRepository webResourceRepository = new WebResourceRepository(_service);
+
+                var webresource = await webResourceRepository.GetByIdAsync(idWebResource, new ColumnSet(true));
+
+                string xmlContent = webresource.GetAttributeValue<string>(fieldName);
+
+                if (string.Equals(fieldName, WebResource.Schema.Attributes.content, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    string webResourceFileName = WebResourceRepository.GetWebResourceFileName(webresource);
+
+                    var contentWebResource = webresource.Content ?? string.Empty;
+
+                    var array = Convert.FromBase64String(contentWebResource);
+
+                    string fileName = string.Format("{0}.{1} BackUp at {2}{3}", _service.ConnectionData.Name, Path.GetFileNameWithoutExtension(webResourceFileName), DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"), Path.GetExtension(webResourceFileName));
+                    string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                    File.WriteAllBytes(filePath, array);
+
+                    var encodings = ContentCoparerHelper.GetFileEncoding(array);
+
+                    xmlContent = encodings.First().GetString(array);
+                }
+                else
+                {
+                    if (string.Equals(fieldName, WebResource.Schema.Attributes.dependencyxml, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions);
+                    }
+
+                    await CreateFileAsync(folder, name, fieldTitle + " BackUp", xmlContent, extension);
+                }
+
+                var newText = string.Empty;
+                bool? dialogResult = false;
+
+                this.Dispatcher.Invoke(() =>
+                {
+                    var form = new WindowTextField("Enter " + fieldTitle, fieldTitle, xmlContent);
+
+                    dialogResult = form.ShowDialog();
+
+                    newText = form.FieldText;
+                });
+
+                if (dialogResult.GetValueOrDefault() == false)
+                {
+                    ToggleControls(true, Properties.OutputStrings.UpdatingFieldFailedFormat2, _service.ConnectionData.Name, fieldName);
+                    return;
+                }
+
+                if (string.Equals(fieldName, WebResource.Schema.Attributes.content, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    var encoding = new UTF8Encoding(false);
+
+                    var bytes = encoding.GetBytes(newText);
+
+                    newText = Convert.ToBase64String(bytes);
+                }
+                else
+                {
+                    if (string.Equals(fieldName, WebResource.Schema.Attributes.dependencyxml, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        newText = ContentCoparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(newText);
+
+                        if (ContentCoparerHelper.TryParseXml(newText, out var doc))
+                        {
+                            newText = doc.ToString(SaveOptions.DisableFormatting);
+                        }
+                    }
+                }
+
+                var updateEntity = new WebResource
+                {
+                    Id = idWebResource
+                };
+                updateEntity.Attributes[fieldName] = newText;
+
+                await _service.UpdateAsync(updateEntity);
+
+                UpdateStatus(Properties.OutputStrings.PublishingWebResourceFormat2, _service.ConnectionData.Name, name);
+
+                {
+                    var repositoryPublish = new PublishActionsRepository(_service);
+
+                    await repositoryPublish.PublishWebResourcesAsync(new[] { idWebResource });
+                }
+
+                ToggleControls(true, Properties.OutputStrings.UpdatingFieldCompletedFormat2, _service.ConnectionData.Name, fieldName);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
+
+                ToggleControls(true, Properties.OutputStrings.UpdatingFieldFailedFormat2, _service.ConnectionData.Name, fieldName);
+            }
+        }
+
+        private async Task PerformUpdateEntityFieldFromFile(string folder, Guid idWebResource, string name, string fieldName, string fieldTitle, string extension)
+        {
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            ToggleControls(false, Properties.OutputStrings.UpdatingFieldFormat2, _service.ConnectionData.Name, fieldName);
+
+            try
+            {
+                WebResourceRepository webResourceRepository = new WebResourceRepository(_service);
+
+                var webresource = await webResourceRepository.GetByIdAsync(idWebResource, new ColumnSet(true));
+
+                var allExtensions = WebResourceRepository.GetTypeAllExtensions(webresource.WebResourceType.Value);
+
+                string filter = string.Format("({0})|{1}"
+                    , string.Join(";", allExtensions.Select(s => string.Format("{0}", s)))
+                    , string.Join(";", allExtensions.Select(s => string.Format("*{0}", s)))
+                );
+
+                bool? dialogResult = false;
+                string selectedFilePath = string.Empty;
+
+                this.Dispatcher.Invoke(() =>
+                {
+                    var openFileDialog1 = new Microsoft.Win32.OpenFileDialog
+                    {
+                        Filter = filter,
+                        FilterIndex = 1,
+                        RestoreDirectory = true,
+                        Multiselect = false,
+                    };
+
+                    dialogResult = openFileDialog1.ShowDialog();
+
+                    selectedFilePath = openFileDialog1.FileName;
+                });
+
+                if (string.IsNullOrEmpty(selectedFilePath)
+                    || dialogResult.GetValueOrDefault() == false
+                    || !File.Exists(selectedFilePath)
+                )
+                {
+                    ToggleControls(true, Properties.OutputStrings.UpdatingFieldFailedFormat2, _service.ConnectionData.Name, fieldName);
+                    return;
+                }
+
+                byte[] bytes = File.ReadAllBytes(selectedFilePath);
+
+                {
+                    string webResourceFileName = WebResourceRepository.GetWebResourceFileName(webresource);
+
+                    var contentWebResource = webresource.Content ?? string.Empty;
+
+                    var array = Convert.FromBase64String(contentWebResource);
+
+                    string fileName = string.Format("{0}.{1} BackUp at {2}{3}", _service.ConnectionData.Name, Path.GetFileNameWithoutExtension(webResourceFileName), DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"), Path.GetExtension(webResourceFileName));
+                    string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                    File.WriteAllBytes(filePath, array);
+                }
+
+
+                var updateEntity = new WebResource
+                {
+                    Id = idWebResource
+                };
+                updateEntity.Attributes[fieldName] = Convert.ToBase64String(bytes);
+
+                await _service.UpdateAsync(updateEntity);
+
+                UpdateStatus(Properties.OutputStrings.PublishingWebResourceFormat2, _service.ConnectionData.Name, name);
+
+                {
+                    var repositoryPublish = new PublishActionsRepository(_service);
+
+                    await repositoryPublish.PublishWebResourcesAsync(new[] { idWebResource });
+                }
+
+                ToggleControls(true, Properties.OutputStrings.UpdatingFieldCompletedFormat2, _service.ConnectionData.Name, fieldName);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
+
+                ToggleControls(true, Properties.OutputStrings.UpdatingFieldFailedFormat2, _service.ConnectionData.Name, fieldName);
+            }
+        }
+
+        private Task<string> CreateFileAsync(string folder, string name, string fieldTitle, string xmlContent, string extension)
+        {
+            return Task.Run(() => CreateFile(folder, name, fieldTitle, xmlContent, extension));
+        }
+
+        private string CreateFile(string folder, string name, string fieldTitle, string xmlContent, string extension)
+        {
+            name = Path.GetFileName(name);
+
+            string fileName = EntityFileNameFormatter.GetWebResourceFileName(_service.ConnectionData.Name, name, fieldTitle, extension);
+            string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+            if (!string.IsNullOrEmpty(xmlContent))
+            {
+                try
+                {
+                    File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
+
+                    this._iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, _service.ConnectionData.Name, WebResource.Schema.EntityLogicalName, name, fieldTitle, filePath);
+                }
+                catch (Exception ex)
+                {
+                    this._iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
+                }
+            }
+            else
+            {
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, _service.ConnectionData.Name, WebResource.Schema.EntityLogicalName, name, fieldTitle);
+                this._iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
+            }
+
+            return filePath;
+        }
+
+        private void mIUpdateWebResourceDependencyXml_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null || entity.WebResourceId == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.dependencyxml, WebResource.Schema.Headers.dependencyxml, "xml", PerformUpdateEntityField);
+        }
+
+        private void mIUpdateWebResourceContent_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null || entity.WebResourceId == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.content, WebResource.Schema.Headers.content, "js", PerformUpdateEntityField);
+        }
+
+        private void mIUpdateWebResourceContentFromFile_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null || entity.WebResourceId == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.content, WebResource.Schema.Headers.content, "js", PerformUpdateEntityFieldFromFile);
+        }
+
+        private void mIUpdateWebResourceContentJson_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null || entity.WebResourceId == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.contentjson, WebResource.Schema.Headers.contentjson, "json", PerformUpdateEntityField);
+        }
+
+        private void btnPublishWebResource_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null || entity.WebResourceId == null)
+            {
+                return;
+            }
+
+            ExecuteAction(entity.WebResourceId.Value, entity.Name, PerformPublishWebResource);
+        }
+
+        private async Task PerformPublishWebResource(string folder, Guid idWebResource, string name)
+        {
+            this._iWriteToOutput.WriteToOutputStartOperation(_service.ConnectionData, Properties.OperationNames.PublishingWebResourceFormat2, _service.ConnectionData.Name, name);
+
+            ToggleControls(false, Properties.OutputStrings.PublishingWebResourceFormat2, _service.ConnectionData.Name, name);
+
+            try
+            {
+                var repository = new PublishActionsRepository(_service);
+
+                await repository.PublishWebResourcesAsync(new[] { idWebResource });
+
+                ToggleControls(true, Properties.OutputStrings.PublishingWebResourceCompletedFormat2, _service.ConnectionData.Name, name);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
+
+                ToggleControls(true, Properties.OutputStrings.PublishingWebResourceFailedFormat2, _service.ConnectionData.Name, name);
+            }
+
+            this._iWriteToOutput.WriteToOutputEndOperation(_service.ConnectionData, Properties.OperationNames.PublishingWebResourceFormat2, _service.ConnectionData.Name, name);
+        }
+
+        private async void btnOrganizationComparer_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            WindowHelper.OpenOrganizationComparerWindow(this._iWriteToOutput, _service.ConnectionData.ConnectionConfiguration, _commonConfig);
+        }
+
+        private async void btnCompareWebResources_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenOrganizationComparerWebResourcesWindow(
+                _iWriteToOutput
+                , _commonConfig
+                , _service.ConnectionData
+                , _service.ConnectionData
+                , entity?.WebResource?.Name ?? txtBFilter.Text
+            );
+        }
+
+        private async void mIOpenSolutionsContainingComponentInExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null || !entity.WebResourceId.HasValue)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenExplorerSolutionWindow(
+                _iWriteToOutput
+                , _service
+                , _commonConfig
+                , (int)ComponentType.WebResource
+                , entity.WebResourceId.Value
+                , null
+            );
+        }
+
+        private void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null || entity.WebResourceId == null)
+            {
+                return;
+            }
+
+            ExecuteAction(entity.WebResourceId.Value, entity.Name, PerformExportEntityDescription);
+        }
+
+        private void mIChangeEntityInEditor_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null || entity.WebResourceId == null)
+            {
+                return;
+            }
+
+            ExecuteAction(entity.WebResourceId.Value, entity.Name, PerformEntityEditor);
+        }
+
+        private void mIDeleteWebResource_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null || entity.WebResourceId == null)
+            {
+                return;
+            }
+
+            ExecuteAction(entity.WebResourceId.Value, entity.Name, PerformDeleteWebResource);
+        }
+
+        private async Task PerformExportEntityDescription(string folder, Guid idWebResource, string name)
+        {
+            ToggleControls(false, Properties.OutputStrings.CreatingEntityDescription);
+
+            try
+            {
+                WebResourceRepository webResourceRepository = new WebResourceRepository(_service);
+
+                var webresource = await webResourceRepository.GetByIdAsync(idWebResource, new ColumnSet(true));
+
+                string fileName = EntityFileNameFormatter.GetWebResourceFileName(_service.ConnectionData.Name, name, EntityFileNameFormatter.Headers.EntityDescription, "txt");
+                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, webresource, EntityFileNameFormatter.WebResourceIgnoreFields, _service.ConnectionData);
+
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData
+                    , Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
+                    , _service.ConnectionData.Name
+                    , webresource.LogicalName
+                    , filePath
+                );
+
+                this._iWriteToOutput.PerformAction(_service.ConnectionData, filePath);
+
+                ToggleControls(true, Properties.OutputStrings.CreatingEntityDescriptionCompleted);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
+
+                ToggleControls(true, Properties.OutputStrings.CreatingEntityDescriptionFailed);
+            }
+        }
+
+        private async Task PerformEntityEditor(string folder, Guid idWebResource, string name)
+        {
+            _commonConfig.Save();
+
+            var repositoryPublish = new PublishActionsRepository(_service);
+
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, _service, _commonConfig, WebResource.EntityLogicalName, idWebResource);
+        }
+
+        private async Task PerformDeleteWebResource(string folder, Guid idWebResource, string name)
+        {
+            string message = string.Format(Properties.MessageBoxStrings.AreYouSureDeleteSdkObjectFormat2, WebResource.EntityLogicalName, name);
+
+            if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            {
+                ToggleControls(false, Properties.OutputStrings.DeletingEntityFormat2, _service.ConnectionData.Name, WebResource.EntityLogicalName);
+
+                try
+                {
+                    _iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.DeletingEntity);
+                    _iWriteToOutput.WriteToOutputEntityInstance(_service.ConnectionData, WebResource.EntityLogicalName, idWebResource);
+
+                    await _service.DeleteAsync(WebResource.EntityLogicalName, idWebResource);
+                }
+                catch (Exception ex)
+                {
+                    _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
+                    _iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
+                }
+
+                ToggleControls(true, Properties.OutputStrings.DeletingEntityCompletedFormat2, _service.ConnectionData.Name, WebResource.EntityLogicalName);
+
+                ShowExistingWebResources();
+            }
+        }
+
+        private void btnExportAll_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null || entity.WebResourceId == null)
+            {
+                return;
+            }
+
+            ExecuteAction(entity.WebResourceId.Value, entity.Name, PerformExportAllXml);
+        }
+
+        private async Task PerformExportAllXml(string folder, Guid idWebResource, string name)
+        {
+            await PerformExportEntityDescription(folder, idWebResource, name);
+
+            await PerformExportWebResourceContent(folder, idWebResource, name);
+
+            await PerformExportXmlToFile(folder, idWebResource, name, WebResource.Schema.Attributes.dependencyxml, WebResource.Schema.Headers.dependencyxml, "xml");
+
+            await PerformExportXmlToFile(folder, idWebResource, name, WebResource.Schema.Attributes.contentjson, WebResource.Schema.Headers.contentjson, "json");
+        }
+
+        #endregion Context Menu
     }
 }

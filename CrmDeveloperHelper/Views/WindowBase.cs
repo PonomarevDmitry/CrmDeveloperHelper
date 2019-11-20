@@ -19,7 +19,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private bool loaded = false;
 
-        private int _init = 0;
+        private int _initCounter = 0;
 
         public WindowBase()
         {
@@ -28,7 +28,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             LoadConfiguration(winConfig);
         }
 
-        protected bool IsControlsEnabled => this._init <= 0;
+        protected bool IsControlsEnabled => this._initCounter <= 0;
 
         protected void ChangeInitByEnabled(bool enabled)
         {
@@ -36,14 +36,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (enabled)
                 {
-                    if (this._init > 0)
+                    if (this._initCounter > 0)
                     {
-                        this._init--;
+                        this._initCounter--;
                     }
                 }
                 else
                 {
-                    this._init++;
+                    this._initCounter++;
                 }
             }
         }
@@ -52,7 +52,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             lock (_syncObject)
             {
-                this._init++;
+                this._initCounter++;
             }
         }
 
@@ -60,9 +60,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             lock (_syncObject)
             {
-                if (this._init > 0)
+                if (this._initCounter > 0)
                 {
-                    this._init--;
+                    this._initCounter--;
                 }
             }
         }

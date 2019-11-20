@@ -160,7 +160,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             {
                                 try
                                 {
-                                    var form = new Views.WindowWebResourceSelectOrCreate(this._iWriteToOutput, service, connectionData, selectedFile, webId);
+                                    var form = new Views.WindowWebResourceSelectOrCreate(this._iWriteToOutput, service, selectedFile, webId);
                                     form.ShowCreateButton(allForOther);
 
                                     dialogResult = form.ShowDialog();
