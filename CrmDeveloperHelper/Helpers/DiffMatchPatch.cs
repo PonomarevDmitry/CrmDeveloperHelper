@@ -315,15 +315,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             // Trim off common prefix (speedup).
             int commonlength = diff_commonPrefix(text1, text2);
-            string commonprefix = text1.Substring(0, commonlength);
-            text1 = text1.Substring(commonlength);
-            text2 = text2.Substring(commonlength);
+            string commonprefix = string.Empty;
+
+            if (commonlength >= 0)
+            {
+                commonprefix = text1.Substring(0, commonlength);
+                text1 = text1.Substring(commonlength);
+                text2 = text2.Substring(commonlength);
+            }
 
             // Trim off common suffix (speedup).
             commonlength = diff_commonSuffix(text1, text2);
-            string commonsuffix = text1.Substring(text1.Length - commonlength);
-            text1 = text1.Substring(0, text1.Length - commonlength);
-            text2 = text2.Substring(0, text2.Length - commonlength);
+            string commonsuffix = string.Empty;
+
+            if (commonlength >= 0)
+            {
+                commonsuffix = text1.Substring(text1.Length - commonlength);
+                text1 = text1.Substring(0, text1.Length - commonlength);
+                text2 = text2.Substring(0, text2.Length - commonlength);
+            }
 
             // Compute the diff on the middle block.
             diffs = diff_compute(text1, text2, checklines, deadline);
@@ -800,10 +810,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
          */
         public static int diff_commonSuffix(string text1, string text2)
         {
+            if (text1 == null)
+            {
+                text1 = string.Empty;
+            }
+
+            if (text2 == null)
+            {
+                text2 = string.Empty;
+            }
+
             // Performance analysis: http://neil.fraser.name/news/2007/10/09/
             int text1_length = text1.Length;
             int text2_length = text2.Length;
-            int n = Math.Min(text1.Length, text2.Length);
+
+            int n = Math.Min(text1_length, text2_length);
+
             for (int i = 1; i <= n; i++)
             {
                 if (text1[text1_length - i] != text2[text2_length - i])
@@ -1402,34 +1424,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             {
                                 // Factor out any common prefixies.
                                 commonlength = diff_commonPrefix(text_insert, text_delete);
-                                if (commonlength != 0)
+                                if (commonlength >= 0)
                                 {
-                                    if ((pointer - count_delete - count_insert) > 0 &&
-                                      diffs[pointer - count_delete - count_insert - 1].operation
-                                          == Operation.EQUAL)
+                                    if ((pointer - count_delete - count_insert) > 0
+                                        && diffs[pointer - count_delete - count_insert - 1].operation == Operation.EQUAL
+                                    )
                                     {
-                                        diffs[pointer - count_delete - count_insert - 1].text
-                                            += text_insert.Substring(0, commonlength);
+                                        diffs[pointer - count_delete - count_insert - 1].text += text_insert.Substring(0, commonlength);
                                     }
                                     else
                                     {
-                                        diffs.Insert(0, new Diff(Operation.EQUAL,
-                                            text_insert.Substring(0, commonlength)));
+                                        diffs.Insert(0, new Diff(Operation.EQUAL, text_insert.Substring(0, commonlength)));
                                         pointer++;
                                     }
+
                                     text_insert = text_insert.Substring(commonlength);
                                     text_delete = text_delete.Substring(commonlength);
                                 }
+
                                 // Factor out any common suffixies.
                                 commonlength = diff_commonSuffix(text_insert, text_delete);
-                                if (commonlength != 0)
+                                if (commonlength >= 0)
                                 {
-                                    diffs[pointer].text = text_insert.Substring(text_insert.Length
-                                        - commonlength) + diffs[pointer].text;
-                                    text_insert = text_insert.Substring(0, text_insert.Length
-                                        - commonlength);
-                                    text_delete = text_delete.Substring(0, text_delete.Length
-                                        - commonlength);
+                                    diffs[pointer].text = text_insert.Substring(text_insert.Length - commonlength) + diffs[pointer].text;
+                                    text_insert = text_insert.Substring(0, text_insert.Length - commonlength);
+                                    text_delete = text_delete.Substring(0, text_delete.Length - commonlength);
                                 }
                             }
                             // Delete the offending records and add the merged ones.
@@ -1486,24 +1505,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             // Intentionally ignore the first and last element (don't need checking).
             while (pointer < (diffs.Count - 1))
             {
-                if (diffs[pointer - 1].operation == Operation.EQUAL &&
-                  diffs[pointer + 1].operation == Operation.EQUAL)
+                if (diffs[pointer - 1].operation == Operation.EQUAL && diffs[pointer + 1].operation == Operation.EQUAL)
                 {
                     // This is a single edit surrounded by equalities.
-                    if (diffs[pointer].text.EndsWith(diffs[pointer - 1].text,
-                        StringComparison.InvariantCultureIgnoreCase))
+                    if (diffs[pointer].text.EndsWith(diffs[pointer - 1].text, StringComparison.InvariantCultureIgnoreCase))
                     {
                         // Shift the edit over the previous equality.
-                        diffs[pointer].text = diffs[pointer - 1].text +
-                            diffs[pointer].text.Substring(0, diffs[pointer].text.Length -
-                                                          diffs[pointer - 1].text.Length);
-                        diffs[pointer + 1].text = diffs[pointer - 1].text
-                            + diffs[pointer + 1].text;
+                        diffs[pointer].text = diffs[pointer - 1].text
+                            + diffs[pointer].text.Substring(0, diffs[pointer].text.Length - diffs[pointer - 1].text.Length);
+
+                        diffs[pointer + 1].text = diffs[pointer - 1].text + diffs[pointer + 1].text;
+
                         diffs.Splice(pointer - 1, 1);
                         changes = true;
                     }
-                    else if (diffs[pointer].text.StartsWith(diffs[pointer + 1].text,
-                      StringComparison.InvariantCultureIgnoreCase))
+                    else if (diffs[pointer].text.StartsWith(diffs[pointer + 1].text, StringComparison.InvariantCultureIgnoreCase))
                     {
                         // Shift the edit over the next equality.
                         diffs[pointer - 1].text += diffs[pointer + 1].text;
