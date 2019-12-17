@@ -1,5 +1,6 @@
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Metadata;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Views;
 using System;
@@ -197,7 +198,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                 return;
             }
 
-            Clipboard.SetText(this.currentValue.LogicalName);
+            ClipboardHelper.SetText(this.currentValue.LogicalName);
         }
 
         private void btnCopyEntityName_Click(object sender, RoutedEventArgs e)
@@ -207,7 +208,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                 return;
             }
 
-            Clipboard.SetText(this.currentValue.Name);
+            ClipboardHelper.SetText(this.currentValue.Name);
         }
 
         private void btnCopyEntityId_Click(object sender, RoutedEventArgs e)
@@ -217,7 +218,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                 return;
             }
 
-            Clipboard.SetText(this.currentValue.Id.ToString());
+            ClipboardHelper.SetText(this.currentValue.Id.ToString());
         }
 
         private void btnCopyEntityUrl_Click(object sender, RoutedEventArgs e)
@@ -229,7 +230,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 
             var url = _service.ConnectionData.GetEntityInstanceUrl(this.currentValue.LogicalName, this.currentValue.Id);
 
-            Clipboard.SetText(url);
+            ClipboardHelper.SetText(url);
         }
 
         private void btnOpenEntityInWeb_Click(object sender, RoutedEventArgs e)

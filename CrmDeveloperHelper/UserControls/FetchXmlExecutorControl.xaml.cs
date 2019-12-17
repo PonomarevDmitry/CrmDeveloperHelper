@@ -805,7 +805,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            Clipboard.SetText(entity.Id.ToString());
+            ClipboardHelper.SetText(entity.Id.ToString());
         }
 
         private void mICopyEntityName_Click(object sender, RoutedEventArgs e)
@@ -815,7 +815,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            Clipboard.SetText(entity.LogicalName);
+            ClipboardHelper.SetText(entity.LogicalName);
         }
 
         private void mICopyEntityUrl_Click(object sender, RoutedEventArgs e)
@@ -827,7 +827,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             var url = this.ConnectionData?.GetEntityInstanceUrl(entity.LogicalName, entity.Id);
 
-            Clipboard.SetText(url);
+            ClipboardHelper.SetText(url);
         }
 
         private async void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
@@ -947,7 +947,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            Clipboard.SetText(entityReferenceView.Id.ToString());
+            ClipboardHelper.SetText(entityReferenceView.Id.ToString());
         }
 
         private void mICopyEntityReferenceEntityName_Click(object sender, RoutedEventArgs e)
@@ -957,7 +957,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            Clipboard.SetText(entityReferenceView.LogicalName);
+            ClipboardHelper.SetText(entityReferenceView.LogicalName);
         }
 
         private void mICopyEntityReferenceName_Click(object sender, RoutedEventArgs e)
@@ -967,7 +967,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            Clipboard.SetText(entityReferenceView.Name);
+            ClipboardHelper.SetText(entityReferenceView.Name);
         }
 
         private void mICopyEntityReferenceUrl_Click(object sender, RoutedEventArgs e)
@@ -977,7 +977,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            Clipboard.SetText(navigateUri.AbsoluteUri);
+            ClipboardHelper.SetText(navigateUri.AbsoluteUri);
         }
 
         private async void mICreateEntityReferenceDescription_Click(object sender, RoutedEventArgs e)
@@ -1127,7 +1127,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             string jsCode = ContentCoparerHelper.FormatToJavaScript(Entities.SavedQuery.Schema.Attributes.fetchxml, fileText);
 
-            Clipboard.SetText(jsCode);
+            ClipboardHelper.SetText(jsCode);
         }
 
         private IEnumerable<Entity> GetSelectedEntities()

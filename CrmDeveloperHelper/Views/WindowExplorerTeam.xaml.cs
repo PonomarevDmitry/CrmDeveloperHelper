@@ -1598,7 +1598,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            Clipboard.SetText(entity.Id.ToString());
+            ClipboardHelper.SetText(entity.Id.ToString());
         }
 
         private void mICopyEntityInstanceUrlToClipboard_Click(object sender, RoutedEventArgs e)
@@ -1621,7 +1621,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var url = connectionData.GetEntityInstanceUrl(entity.LogicalName, entity.Id);
 
-                Clipboard.SetText(url);
+                ClipboardHelper.SetText(url);
             }
         }
 

@@ -1179,7 +1179,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            Clipboard.SetText(role.Role.Id.ToString());
+            ClipboardHelper.SetText(role.Role.Id.ToString());
         }
 
         private void mICopyEntityInstanceUrlToClipboard_Click(object sender, RoutedEventArgs e)
@@ -1197,7 +1197,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var url = connectionData.GetEntityInstanceUrl(role.Role.LogicalName, role.Role.Id);
 
-                Clipboard.SetText(url);
+                ClipboardHelper.SetText(url);
             }
         }
 

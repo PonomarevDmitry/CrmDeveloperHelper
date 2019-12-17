@@ -2,6 +2,7 @@ using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Metadata;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
@@ -471,7 +472,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            Clipboard.SetText(_entityId.ToString());
+            ClipboardHelper.SetText(_entityId.ToString());
         }
 
         private void mICopyEntityInstanceUrlToClipboard_Click(object sender, RoutedEventArgs e)
@@ -483,7 +484,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var url = _service.ConnectionData.GetEntityInstanceUrl(_entityName, _entityId);
 
-            Clipboard.SetText(url);
+            ClipboardHelper.SetText(url);
         }
 
         private void mIOpenEntityInstanceCustomizationInWeb_Click(object sender, RoutedEventArgs e)

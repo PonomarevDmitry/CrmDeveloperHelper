@@ -1558,7 +1558,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            Clipboard.SetText(entity.Id.ToString());
+            ClipboardHelper.SetText(entity.Id.ToString());
         }
 
         private void mICopyEntityInstanceUrlToClipboard_Click(object sender, RoutedEventArgs e)
@@ -1581,7 +1581,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var url = connectionData.GetEntityInstanceUrl(entity.LogicalName, entity.Id);
 
-                Clipboard.SetText(url);
+                ClipboardHelper.SetText(url);
             }
         }
 
@@ -1721,7 +1721,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            Clipboard.SetText(role.TeamId.Value.ToString());
+            ClipboardHelper.SetText(role.TeamId.Value.ToString());
         }
 
         private void mICopyRoleTeamUrlToClipboard_Click(object sender, RoutedEventArgs e)
@@ -1745,7 +1745,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var url = connectionData.GetEntityInstanceUrl(Team.EntityLogicalName, role.TeamId.Value);
 
-                Clipboard.SetText(url);
+                ClipboardHelper.SetText(url);
             }
         }
 

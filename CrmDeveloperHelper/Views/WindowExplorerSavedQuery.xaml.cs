@@ -601,7 +601,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     xmlContent = ContentCoparerHelper.FormatJson(xmlContent);
                 }
 
-                Clipboard.SetText(xmlContent);
+                ClipboardHelper.SetText(xmlContent);
 
                 ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CopingXmlFieldToClipboardCompletedFormat1, fieldTitle);
             }

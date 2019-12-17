@@ -537,7 +537,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            Clipboard.SetText(connectionData.ConnectionId.ToString());
+            ClipboardHelper.SetText(connectionData.ConnectionId.ToString());
         }
 
         private void tSBMoveToArchive_Click(object sender, RoutedEventArgs e)

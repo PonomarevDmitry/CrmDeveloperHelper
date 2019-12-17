@@ -1263,7 +1263,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         if (exportSolutionProfile.IsCopyFileToClipBoard)
                         {
-                            Clipboard.SetFileDropList(new System.Collections.Specialized.StringCollection() { filePath });
+                            ClipboardHelper.SetFileDropList(new System.Collections.Specialized.StringCollection() { filePath });
                         }
                     });
 

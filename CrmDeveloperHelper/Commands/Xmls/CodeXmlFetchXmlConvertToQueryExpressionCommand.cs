@@ -33,7 +33,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 
                     string codeCSharp = ContentCoparerHelper.ConvertFetchXmlToQueryExpression(fetchXml);
 
-                    Clipboard.SetText(codeCSharp);
+                    ClipboardHelper.SetText(codeCSharp);
                 }
             }
         }

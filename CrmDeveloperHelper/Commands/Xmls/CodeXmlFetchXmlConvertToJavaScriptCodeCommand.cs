@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using System.Windows;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
@@ -31,7 +30,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 
                     string jsCode = ContentCoparerHelper.FormatToJavaScript(Entities.SavedQuery.Schema.Attributes.fetchxml, text);
 
-                    Clipboard.SetText(jsCode);
+                    ClipboardHelper.SetText(jsCode);
                 }
             }
         }

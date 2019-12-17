@@ -2086,7 +2086,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         handlerCreate.WriteContentOnlyForm(tabs);
                     }
 
-                    Clipboard.SetText(text.ToString().Trim(' ', '\r', '\n'));
+                    ClipboardHelper.SetText(text.ToString().Trim(' ', '\r', '\n'));
 
                     //this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, name, "Entity Metadata", filePath);
                 }
