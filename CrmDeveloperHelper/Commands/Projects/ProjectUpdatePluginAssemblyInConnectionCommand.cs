@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
 {
-    internal sealed class ProjectUpdatePluginAssemblyInConnectionCommand : AbstractDynamicCommandByConnectionWithoutCurrent
+    internal sealed class ProjectUpdatePluginAssemblyInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
         private ProjectUpdatePluginAssemblyInConnectionCommand(OleMenuCommandService commandService)
             : base(

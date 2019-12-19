@@ -10280,7 +10280,7 @@
       <Parent guid="guidGroupAndMenuSet" id="mainGroupCode" />
     </CommandPlacement>
     <CommandPlacement guid="guidCommandSet" id="CodeWebResourceShowDifferenceCommandId" priority="0x6010">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference" />
+      <Parent guid="guidGroupAndMenuSet" id="mainGroupCode" />
     </CommandPlacement>
     <CommandPlacement guid="guidCommandSet" id="CodeXmlFetchXmlExecuteRequestCommandId" priority="0x6020">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupCode" />
