@@ -7,6 +7,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -137,6 +138,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             FillEntityNames(service.ConnectionData);
 
+            cmBStatusCode.ItemsSource = new EnumBindingSourceExtension(typeof(SdkMessageProcessingStep.Schema.OptionSets.statuscode?)).ProvideValue(null) as IEnumerable;
+
             LoadImages();
 
             LoadConfiguration();
@@ -186,6 +189,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private const string paramPostAsynchStage = "PostAsynchStage";
         private const string paramBusinessRules = "BusinessRules";
         private const string paramBusinessProcesses = "BusinessProcesses";
+        private const string paramStatusCode = "StatusCode";
 
         private const string paramGrouping = "Grouping";
 
@@ -211,6 +215,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.chBBusinessRules.IsChecked = winConfig.GetValueBool(paramBusinessRules).GetValueOrDefault();
 
             this.chBBusinessProcesses.IsChecked = winConfig.GetValueBool(paramBusinessProcesses).GetValueOrDefault();
+
+            var statusValue = winConfig.GetValueInt(paramStatusCode);
+            if (statusValue != -1)
+            {
+                var item = cmBStatusCode.Items.OfType<SdkMessageProcessingStep.Schema.OptionSets.statuscode?>().FirstOrDefault(e => (int)e == statusValue);
+                if (item != null)
+                {
+                    cmBStatusCode.SelectedItem = item;
+                }
+            }
 
             {
                 var tempGroupingName = winConfig.GetValueString(paramGrouping);
@@ -264,6 +278,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             winConfig.DictBool[paramBusinessProcesses] = this.chBBusinessProcesses.IsChecked.GetValueOrDefault();
 
             winConfig.DictString[paramGrouping] = string.Join(",", _currentGrouping.Select(g => g.ToString()));
+
+            var statusValue = -1;
+
+            {
+                if (cmBStatusCode.SelectedItem is SdkMessageProcessingStep.Schema.OptionSets.statuscode comboBoxItem)
+                {
+                    statusValue = (int)comboBoxItem;
+                }
+            }
+
+            winConfig.DictInt[paramStatusCode] = statusValue;
         }
 
         private void LoadImages()
@@ -695,6 +720,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , string
                 , string
                 , string
+                , SdkMessageProcessingStep.Schema.OptionSets.statuscode?
                 , IEnumerable<RequestGroupBuilder>
 
                 , Task> // Func Result
@@ -723,12 +749,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string pluginTypeNameFilter
             , string messageNameFilter
             , string entityNameFilter
+            , SdkMessageProcessingStep.Schema.OptionSets.statuscode? statuscode
             , IEnumerable<RequestGroupBuilder> requestGroups
         )
         {
             PluginSearchRepository repository = new PluginSearchRepository(service);
 
-            PluginSearchResult search = await repository.FindAllAsync(stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter);
+            PluginSearchResult search = await repository.FindAllAsync(stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter, statuscode);
 
             foreach (var nodeEntity in GroupStepsByEntity(
                 service
@@ -930,12 +957,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string pluginTypeNameFilter
             , string messageNameFilter
             , string entityNameFilter
+            , SdkMessageProcessingStep.Schema.OptionSets.statuscode? statuscode
             , IEnumerable<RequestGroupBuilder> requestGroups
         )
         {
             PluginSearchRepository repository = new PluginSearchRepository(service);
 
-            PluginSearchResult search = await repository.FindAllAsync(stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter);
+            PluginSearchResult search = await repository.FindAllAsync(stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter, statuscode);
 
             foreach (var nodeMessage in GroupStepsByMessage(
                 service
@@ -999,12 +1027,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string pluginTypeNameFilter
             , string messageNameFilter
             , string entityNameFilter
+            , SdkMessageProcessingStep.Schema.OptionSets.statuscode? statuscode
             , IEnumerable<RequestGroupBuilder> requestGroups
         )
         {
             PluginSearchRepository repository = new PluginSearchRepository(service);
 
-            PluginSearchResult search = await repository.FindAllAsync(stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter);
+            PluginSearchResult search = await repository.FindAllAsync(stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter, statuscode);
 
             foreach (var nodeEntity in GroupStepsByMessageCategory(
                 service
@@ -1064,6 +1093,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string pluginTypeNameFilter
             , string messageNameFilter
             , string entityNameFilter
+            , SdkMessageProcessingStep.Schema.OptionSets.statuscode? statuscode
             , IEnumerable<RequestGroupBuilder> requestGroups
         )
         {
@@ -1071,7 +1101,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var pluginTypeList = await repositoryPluginType.GetPluginTypesAsync(pluginTypeNameFilter, null);
 
             var repository = new PluginSearchRepository(service);
-            PluginSearchResult search = await repository.FindAllAsync(stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter);
+            PluginSearchResult search = await repository.FindAllAsync(stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter, statuscode);
 
             var groupAssemblyList = pluginTypeList.GroupBy(p => new { p.PluginAssemblyId.Id, Name = p.AssemblyName }).OrderBy(a => a.Key.Name);
 
@@ -1195,6 +1225,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string pluginTypeNameFilter
             , string messageNameFilter
             , string entityNameFilter
+            , SdkMessageProcessingStep.Schema.OptionSets.statuscode? statuscode
             , IEnumerable<RequestGroupBuilder> requestGroups
         )
         {
@@ -1202,7 +1233,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var pluginTypeList = await repositoryPluginType.GetPluginTypesAsync(pluginTypeNameFilter, null);
 
             var repository = new PluginSearchRepository(service);
-            PluginSearchResult search = await repository.FindAllAsync(stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter);
+            PluginSearchResult search = await repository.FindAllAsync(stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter, statuscode);
 
             var stepsByPluginTypeDict = search.SdkMessageProcessingStep.GroupBy(s => s.EventHandler.Id).ToDictionary(s => s.Key);
 
@@ -1308,12 +1339,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string pluginTypeNameFilter
             , string messageNameFilter
             , string entityNameFilter
+            , SdkMessageProcessingStep.Schema.OptionSets.statuscode? statuscode
             , IEnumerable<RequestGroupBuilder> requestGroups
         )
         {
             PluginSearchRepository repository = new PluginSearchRepository(service);
 
-            PluginSearchResult search = await repository.FindAllAsync(stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter);
+            PluginSearchResult search = await repository.FindAllAsync(stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter, statuscode);
 
             foreach (var grStage in GroupStepsByStage(
                 service
@@ -1371,12 +1403,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string pluginTypeNameFilter
             , string messageNameFilter
             , string entityNameFilter
+            , SdkMessageProcessingStep.Schema.OptionSets.statuscode? statuscode
             , IEnumerable<RequestGroupBuilder> requestGroups
         )
         {
             PluginSearchRepository repository = new PluginSearchRepository(service);
 
-            PluginSearchResult search = await repository.FindAllAsync(stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter);
+            PluginSearchResult search = await repository.FindAllAsync(stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter, statuscode);
 
             foreach (var grMode in GroupStepsByMode(
                 service
@@ -1509,6 +1542,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             bool withBusinessRules = false;
             bool withBusinessProcesses = false;
+            SdkMessageProcessingStep.Schema.OptionSets.statuscode? statuscode = null;
 
             this.Dispatcher.Invoke(() =>
             {
@@ -1517,6 +1551,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 pluginTypeName = txtBPluginTypeFilter.Text.Trim();
                 withBusinessRules = chBBusinessRules.IsChecked.GetValueOrDefault();
                 withBusinessProcesses = chBBusinessProcesses.IsChecked.GetValueOrDefault();
+
+                if (cmBStatusCode.SelectedItem is SdkMessageProcessingStep.Schema.OptionSets.statuscode comboBoxItem)
+                {
+                    statuscode = comboBoxItem;
+                }
             });
 
             var stages = GetStages();
@@ -1529,7 +1568,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     var first = requestGroups.First();
 
-                    await first.FillTree(service, stages, pluginTypeName, messageName, entityName, requestGroups.Skip(1));
+                    await first.FillTree(service, stages, pluginTypeName, messageName, entityName, statuscode, requestGroups.Skip(1));
 
                     ExpandNodes(_pluginTree);
 
@@ -2123,6 +2162,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ShowExistingPlugins();
             }
+        }
+
+        private void cmBStatusCode_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ShowExistingPlugins();
         }
 
         private PluginTreeViewItem GetSelectedEntity()

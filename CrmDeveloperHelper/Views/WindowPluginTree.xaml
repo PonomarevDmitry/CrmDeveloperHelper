@@ -160,10 +160,15 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="10*"/>
+                
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="20*"/>
+                
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="10*"/>
+
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
             <Label Grid.Row="0" Grid.Column="0" Content="Entity Name"/>
@@ -174,6 +179,9 @@
 
             <Label Grid.Row="0" Grid.Column="4" Content="Message"/>
             <TextBox Grid.Row="0" Grid.Column="5" x:Name="txtBMessageFilter" TextWrapping="NoWrap" KeyDown="txtBFilter_KeyDown" />
+
+            <Label Content="Status" Grid.Row="0" Grid.Column="6" />
+            <ComboBox x:Name="cmBStatusCode" Grid.Row="0" Grid.Column="7" IsEditable="False" SelectionChanged="cmBStatusCode_SelectionChanged" HorizontalContentAlignment="Stretch" />
         </Grid>
 
         <Grid Grid.Row="1" Margin="5">

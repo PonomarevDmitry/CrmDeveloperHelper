@@ -28,12 +28,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
-        public Task<List<SdkMessageProcessingStep>> GetAllSdkMessageProcessingStepAsync(List<PluginStage> list, string pluginName, string messageName)
+        public Task<List<SdkMessageProcessingStep>> GetAllSdkMessageProcessingStepAsync(List<PluginStage> list, string pluginName, string messageName, SdkMessageProcessingStep.Schema.OptionSets.statuscode? statuscode)
         {
-            return Task.Run(() => GetAllSdkMessageProcessingStep(list, pluginName, messageName));
+            return Task.Run(() => GetAllSdkMessageProcessingStep(list, pluginName, messageName, statuscode));
         }
 
-        private List<SdkMessageProcessingStep> GetAllSdkMessageProcessingStep(List<PluginStage> list, string pluginName, string messageName)
+        private List<SdkMessageProcessingStep> GetAllSdkMessageProcessingStep(List<PluginStage> list, string pluginName, string messageName, SdkMessageProcessingStep.Schema.OptionSets.statuscode? statuscode)
         {
             var linkPluginType = new LinkEntity()
             {
@@ -99,6 +99,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     },
                 },
             };
+
+            if (statuscode.HasValue)
+            {
+                query.Criteria.Conditions.Add(new ConditionExpression(SdkMessageProcessingStep.Schema.Attributes.statuscode, ConditionOperator.Equal, (int)statuscode.Value));
+            }
 
             if (!string.IsNullOrEmpty(pluginName))
             {

@@ -413,7 +413,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         protected virtual Task<List<SdkMessageProcessingStep>> GetSdkMessageProcessingStepAsync(IOrganizationServiceExtented service)
         {
-            return new SdkMessageProcessingStepRepository(service).GetAllSdkMessageProcessingStepAsync(null, null, null);
+            return new SdkMessageProcessingStepRepository(service).GetAllSdkMessageProcessingStepAsync(null, null, null, null);
         }
 
         public Task<List<SdkMessageProcessingStepImage>> GetSdkMessageProcessingStepImage1Async()

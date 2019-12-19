@@ -153,7 +153,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var repository = new PluginSearchRepository(service);
 
-            var search = await repository.FindAllAsync(null, string.Empty, string.Empty, string.Empty);
+            var search = await repository.FindAllAsync(null, null, null, null, null);
 
             var querySteps = search.SdkMessageProcessingStep
                             .OrderBy(ent => ent.EventHandler?.Name ?? "Unknown")
@@ -305,7 +305,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var repository = new PluginSearchRepository(service);
 
-            var search = await repository.FindAllAsync(null, string.Empty, string.Empty, string.Empty);
+            var search = await repository.FindAllAsync(null, null, null, null, null);
 
             var querySteps = search.SdkMessageProcessingStep
                             .OrderBy(ent => ent.EventHandler?.Name ?? "Unknown")
@@ -467,7 +467,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var repository = new PluginSearchRepository(service);
 
-            var search = await repository.FindAllAsync(new List<PluginStage>(), string.Empty, string.Empty, string.Empty);
+            var search = await repository.FindAllAsync(null, null, null, null, null);
 
             var querySteps = search.SdkMessageProcessingStep
                             .OrderBy(ent => ent.EventHandler.Name)

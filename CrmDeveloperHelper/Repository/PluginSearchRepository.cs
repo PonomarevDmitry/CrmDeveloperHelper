@@ -30,7 +30,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             this._repositoryStep = new SdkMessageProcessingStepRepository(service);
         }
 
-        public async Task<PluginSearchResult> FindAllAsync(List<PluginStage> list, string pluginName, string messageName, string entityName)
+        public async Task<PluginSearchResult> FindAllAsync(List<PluginStage> list, string pluginName, string messageName, string entityName, Entities.SdkMessageProcessingStep.Schema.OptionSets.statuscode? statuscode)
         {
             PluginSearchResult result = new PluginSearchResult();
 
@@ -40,7 +40,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             //result.SdkMessageFilter = GetAllSdkMessageFilter();
             //result.SdkMessageProcessingStepSecureConfig = GetAllSdkMessageProcessingStepSecureConfig();
 
-            var listSteps = await _repositoryStep.GetAllSdkMessageProcessingStepAsync(list, pluginName, messageName);
+            var listSteps = await _repositoryStep.GetAllSdkMessageProcessingStepAsync(list, pluginName, messageName, statuscode);
 
             if (string.IsNullOrEmpty(entityName))
             {
