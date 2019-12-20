@@ -418,7 +418,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string searchText = txtBFilter.Text.Trim();
 
-                if (!ContentCoparerHelper.TryParseXml(savedQuery.SavedQuery.FetchXml, out _, out var fetchXmlDoc))
+                if (!ContentComparerHelper.TryParseXml(savedQuery.SavedQuery.FetchXml, out _, out var fetchXmlDoc))
                 {
                     return;
                 }

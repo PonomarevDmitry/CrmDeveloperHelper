@@ -26,13 +26,13 @@ using Ude;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
-    internal static class ContentCoparerHelper
+    internal static class ContentComparerHelper
     {
         private static readonly List<Encoding> encodings;
 
         private const float Diff_Timeout = 60;
 
-        static ContentCoparerHelper()
+        static ContentComparerHelper()
         {
             List<Encoding> list = new List<Encoding>() { Encoding.Unicode, Encoding.UTF32, Encoding.ASCII, Encoding.UTF8, Encoding.UTF7 };
 
@@ -251,7 +251,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             diff_match_patch match = new diff_match_patch
             {
-                Diff_Timeout = ContentCoparerHelper.Diff_Timeout
+                Diff_Timeout = ContentComparerHelper.Diff_Timeout
             };
             //match.Patch_Margin
 
@@ -356,7 +356,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 xml = xml ?? string.Empty;
 
-                xml = ContentCoparerHelper.RemoveDiacritics(xml);
+                xml = ContentComparerHelper.RemoveDiacritics(xml);
 
                 if (!TryParseXml(xml, out XElement doc))
                 {
@@ -396,7 +396,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 xml = xml ?? string.Empty;
 
-                xml = ContentCoparerHelper.RemoveDiacritics(xml);
+                xml = ContentComparerHelper.RemoveDiacritics(xml);
 
                 if (!TryParseXml(xml, out XElement doc))
                 {
@@ -432,12 +432,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 xml1 = xml1 ?? string.Empty;
                 xml2 = xml2 ?? string.Empty;
 
-                xml1 = ContentCoparerHelper.RemoveDiacritics(xml1);
-                xml2 = ContentCoparerHelper.RemoveDiacritics(xml2);
+                xml1 = ContentComparerHelper.RemoveDiacritics(xml1);
+                xml2 = ContentComparerHelper.RemoveDiacritics(xml2);
 
                 diff_match_patch match = new diff_match_patch
                 {
-                    Diff_Timeout = ContentCoparerHelper.Diff_Timeout
+                    Diff_Timeout = ContentComparerHelper.Diff_Timeout
                 };
 
                 if (string.IsNullOrEmpty(xml1) && string.IsNullOrEmpty(xml2))
@@ -533,12 +533,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 xml1 = xml1 ?? string.Empty;
                 xml2 = xml2 ?? string.Empty;
 
-                xml1 = ContentCoparerHelper.RemoveDiacritics(xml1);
-                xml2 = ContentCoparerHelper.RemoveDiacritics(xml2);
+                xml1 = ContentComparerHelper.RemoveDiacritics(xml1);
+                xml2 = ContentComparerHelper.RemoveDiacritics(xml2);
 
                 diff_match_patch match = new diff_match_patch
                 {
-                    Diff_Timeout = ContentCoparerHelper.Diff_Timeout
+                    Diff_Timeout = ContentComparerHelper.Diff_Timeout
                 };
 
                 if (string.IsNullOrEmpty(xml1) && string.IsNullOrEmpty(xml2))
@@ -832,37 +832,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 if (ribbonEntityName != null)
                 {
-                    result = ContentCoparerHelper.SetIntellisenseContextRibbonDiffXmlEntityName(result, ribbonEntityName);
+                    result = ContentComparerHelper.SetIntellisenseContextRibbonDiffXmlEntityName(result, ribbonEntityName);
                 }
 
                 if (siteMapUniqueName != null)
                 {
-                    result = ContentCoparerHelper.SetIntellisenseContextSiteMapNameUnique(result, siteMapUniqueName);
+                    result = ContentComparerHelper.SetIntellisenseContextSiteMapNameUnique(result, siteMapUniqueName);
                 }
 
                 if (savedQueryId.HasValue)
                 {
-                    result = ContentCoparerHelper.SetIntellisenseContextSavedQueryId(result, savedQueryId.Value);
+                    result = ContentComparerHelper.SetIntellisenseContextSavedQueryId(result, savedQueryId.Value);
                 }
 
                 if (formId.HasValue)
                 {
-                    result = ContentCoparerHelper.SetIntellisenseContextFormId(result, formId.Value);
+                    result = ContentComparerHelper.SetIntellisenseContextFormId(result, formId.Value);
                 }
 
                 if (customControlId.HasValue)
                 {
-                    result = ContentCoparerHelper.SetIntellisenseContextCustomControlId(result, customControlId.Value);
+                    result = ContentComparerHelper.SetIntellisenseContextCustomControlId(result, customControlId.Value);
                 }
 
                 if (!string.IsNullOrEmpty(webResourceName))
                 {
-                    result = ContentCoparerHelper.SetIntellisenseContextWebResourceName(result, webResourceName);
+                    result = ContentComparerHelper.SetIntellisenseContextWebResourceName(result, webResourceName);
                 }
 
                 if (workflowId.HasValue)
                 {
-                    result = ContentCoparerHelper.SetIntellisenseContextWorkflowId(result, workflowId.Value);
+                    result = ContentComparerHelper.SetIntellisenseContextWorkflowId(result, workflowId.Value);
                 }
             }
 
@@ -874,7 +874,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (schemasResources != null)
                 {
-                    result = ContentCoparerHelper.SetXsdSchema(result, schemasResources);
+                    result = ContentComparerHelper.SetXsdSchema(result, schemasResources);
                 }
             }
 
@@ -960,12 +960,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             text1 = text1 ?? string.Empty;
             text2 = text2 ?? string.Empty;
 
-            text1 = ContentCoparerHelper.RemoveDiacritics(text1);
-            text2 = ContentCoparerHelper.RemoveDiacritics(text2);
+            text1 = ContentComparerHelper.RemoveDiacritics(text1);
+            text2 = ContentComparerHelper.RemoveDiacritics(text2);
 
             diff_match_patch match = new diff_match_patch
             {
-                Diff_Timeout = ContentCoparerHelper.Diff_Timeout
+                Diff_Timeout = ContentComparerHelper.Diff_Timeout
             };
 
             if (string.IsNullOrEmpty(text1) && string.IsNullOrEmpty(text2))

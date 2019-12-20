@@ -534,7 +534,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private static bool ValidateXmlDocument(ConnectionData connectionData, IWriteToOutput iWriteToOutput, XDocument doc)
         {
-            ContentCoparerHelper.ClearRoot(doc);
+            ContentComparerHelper.ClearRoot(doc);
 
             XmlSchemaSet schemas = new XmlSchemaSet();
 
@@ -588,7 +588,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 throw new ArgumentException("entityMetadata or ribbonCustomization");
             }
 
-            ContentCoparerHelper.ClearRoot(doc);
+            ContentComparerHelper.ClearRoot(doc);
 
             Publisher publisherDefault = null;
 
@@ -695,7 +695,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     ribbonDiffXml = ExportSolutionHelper.GetApplicationRibbonDiffXmlFromSolutionBody(solutionBodyBinary);
                 }
 
-                ribbonDiffXml = ContentCoparerHelper.FormatXmlByConfiguration(ribbonDiffXml, commonConfig, XmlOptionsControls.RibbonFull
+                ribbonDiffXml = ContentComparerHelper.FormatXmlByConfiguration(ribbonDiffXml, commonConfig, XmlOptionsControls.RibbonFull
                     , schemaName: AbstractDynamicCommandXsdSchemas.SchemaRibbonXml
                     , ribbonEntityName: entityMetadata?.LogicalName ?? string.Empty
                     );

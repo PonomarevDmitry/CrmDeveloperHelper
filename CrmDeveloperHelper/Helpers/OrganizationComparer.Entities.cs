@@ -1095,15 +1095,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             xml1 = Encoding.UTF8.GetString(array1);
                             xml2 = Encoding.UTF8.GetString(array2);
 
-                            xml1 = ContentCoparerHelper.RemoveDiacritics(xml1);
-                            xml2 = ContentCoparerHelper.RemoveDiacritics(xml2);
+                            xml1 = ContentComparerHelper.RemoveDiacritics(xml1);
+                            xml2 = ContentComparerHelper.RemoveDiacritics(xml2);
                         }
                         catch (Exception ex)
                         {
                             this._iWriteToOutput.WriteErrorToOutput(null, ex);
                         }
 
-                        ContentCopareResult compare = ContentCoparerHelper.CompareXML(xml1, xml2, withDetails);
+                        ContentCopareResult compare = ContentComparerHelper.CompareXML(xml1, xml2, withDetails);
 
                         if (!compare.IsEqual)
                         {

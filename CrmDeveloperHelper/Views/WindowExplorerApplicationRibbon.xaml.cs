@@ -442,7 +442,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string ribbonXml = await repository.ExportApplicationRibbonAsync();
 
-                ribbonXml = ContentCoparerHelper.FormatXmlByConfiguration(ribbonXml, _commonConfig, _xmlOptions
+                ribbonXml = ContentComparerHelper.FormatXmlByConfiguration(ribbonXml, _commonConfig, _xmlOptions
                     , ribbonEntityName: string.Empty
                     );
 
@@ -561,7 +561,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     return;
                 }
 
-                ribbonDiffXml = ContentCoparerHelper.FormatXmlByConfiguration(ribbonDiffXml, _commonConfig, _xmlOptions
+                ribbonDiffXml = ContentComparerHelper.FormatXmlByConfiguration(ribbonDiffXml, _commonConfig, _xmlOptions
                     , schemaName: AbstractDynamicCommandXsdSchemas.SchemaRibbonXml
                     , ribbonEntityName: string.Empty
                     );
@@ -629,11 +629,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            newText = ContentCoparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(newText);
+            newText = ContentComparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(newText);
 
             UpdateStatus(service.ConnectionData, Properties.OutputStrings.ValidatingApplicationRibbonDiffXml);
 
-            if (!ContentCoparerHelper.TryParseXmlDocument(newText, out var doc))
+            if (!ContentComparerHelper.TryParseXmlDocument(newText, out var doc))
             {
                 ToggleControls(service.ConnectionData, true, Properties.OutputStrings.TextIsNotValidXml);
 

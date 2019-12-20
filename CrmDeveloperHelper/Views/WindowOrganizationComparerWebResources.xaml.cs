@@ -902,20 +902,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     string xml1 = webResource1.GetAttributeValue<string>(fieldName);
                     string xml2 = webResource2.GetAttributeValue<string>(fieldName);
 
-                    if (showAllways || !ContentCoparerHelper.CompareXML(xml1, xml2, false).IsEqual)
+                    if (showAllways || !ContentComparerHelper.CompareXML(xml1, xml2, false).IsEqual)
                     {
                         if (!string.IsNullOrEmpty(xml1))
                         {
                             if (string.Equals(fieldName, WebResource.Schema.Attributes.dependencyxml, StringComparison.InvariantCultureIgnoreCase))
                             {
-                                xml1 = ContentCoparerHelper.FormatXmlByConfiguration(xml1, _commonConfig, _xmlOptions
+                                xml1 = ContentComparerHelper.FormatXmlByConfiguration(xml1, _commonConfig, _xmlOptions
                                     , schemaName: AbstractDynamicCommandXsdSchemas.SchemaDependencyXml
                                    , webResourceName: webResource1.Name
                                 );
                             }
                             else if (string.Equals(fieldName, WebResource.Schema.Attributes.contentjson, StringComparison.InvariantCultureIgnoreCase))
                             {
-                                xml1 = ContentCoparerHelper.FormatJson(xml1);
+                                xml1 = ContentComparerHelper.FormatJson(xml1);
                             }
                         }
 
@@ -923,14 +923,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         {
                             if (string.Equals(fieldName, WebResource.Schema.Attributes.dependencyxml, StringComparison.InvariantCultureIgnoreCase))
                             {
-                                xml2 = ContentCoparerHelper.FormatXmlByConfiguration(xml2, _commonConfig, _xmlOptions
+                                xml2 = ContentComparerHelper.FormatXmlByConfiguration(xml2, _commonConfig, _xmlOptions
                                     , schemaName: AbstractDynamicCommandXsdSchemas.SchemaDependencyXml
                                    , webResourceName: webResource2.Name
                                 );
                             }
                             else if (string.Equals(fieldName, WebResource.Schema.Attributes.contentjson, StringComparison.InvariantCultureIgnoreCase))
                             {
-                                xml2 = ContentCoparerHelper.FormatJson(xml2);
+                                xml2 = ContentComparerHelper.FormatJson(xml2);
                             }
                         }
 
@@ -1249,14 +1249,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     if (string.Equals(fieldName, WebResource.Schema.Attributes.dependencyxml, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
+                        xmlContent = ContentComparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
                             , schemaName: AbstractDynamicCommandXsdSchemas.SchemaDependencyXml
                            , webResourceName: webResource.Name
                         );
                     }
                     else if (string.Equals(fieldName, WebResource.Schema.Attributes.contentjson, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        xmlContent = ContentCoparerHelper.FormatJson(xmlContent);
+                        xmlContent = ContentComparerHelper.FormatJson(xmlContent);
                     }
                 }
 

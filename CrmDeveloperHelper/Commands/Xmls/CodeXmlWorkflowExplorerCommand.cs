@@ -27,7 +27,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
             {
                 string fileText = File.ReadAllText(selectedFiles[0].FilePath);
 
-                if (ContentCoparerHelper.TryParseXml(fileText, out var doc))
+                if (ContentComparerHelper.TryParseXml(fileText, out var doc))
                 {
                     var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWorkflowId);
 

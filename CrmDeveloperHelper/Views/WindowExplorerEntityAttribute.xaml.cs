@@ -1886,7 +1886,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             foreach (var form in list)
             {
-                if (!string.IsNullOrEmpty(form.FormXml) && ContentCoparerHelper.TryParseXml(form.FormXml, out var doc))
+                if (!string.IsNullOrEmpty(form.FormXml) && ContentComparerHelper.TryParseXml(form.FormXml, out var doc))
                 {
                     var elements = doc.DescendantsAndSelf("control");
 

@@ -180,7 +180,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     foreach (var fieldName in fieldsToCompare)
                     {
-                        if (ContentCoparerHelper.IsEntityDifferentInField(commonItem.Entity1, commonItem.Entity2, fieldName))
+                        if (ContentComparerHelper.IsEntityDifferentInField(commonItem.Entity1, commonItem.Entity2, fieldName))
                         {
                             var str1 = EntityDescriptionHandler.GetAttributeString(commonItem.Entity1, fieldName, Connection1);
                             var str2 = EntityDescriptionHandler.GetAttributeString(commonItem.Entity2, fieldName, Connection2);

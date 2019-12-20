@@ -68,7 +68,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                             if (!string.IsNullOrEmpty(text))
                             {
-                                if (ContentCoparerHelper.TryParseXml(text, out doc))
+                                if (ContentComparerHelper.TryParseXml(text, out doc))
                                 {
                                     string docRootName = doc.Name.ToString();
 
@@ -122,7 +122,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                             if (!string.IsNullOrEmpty(text))
                             {
-                                if (ContentCoparerHelper.TryParseXml(text, out var doc))
+                                if (ContentComparerHelper.TryParseXml(text, out var doc))
                                 {
                                     string docRootName = doc.Name.ToString();
 
@@ -181,7 +181,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                             if (!string.IsNullOrEmpty(text))
                             {
-                                if (ContentCoparerHelper.TryParseXml(text, out var doc))
+                                if (ContentComparerHelper.TryParseXml(text, out var doc))
                                 {
                                     foreach (var rootName in rootNames)
                                     {
@@ -522,7 +522,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                             if (!string.IsNullOrEmpty(text))
                             {
-                                if (ContentCoparerHelper.TryParseXml(text, out var doc))
+                                if (ContentComparerHelper.TryParseXml(text, out var doc))
                                 {
                                     if (string.Equals(doc.Name.ToString(), Commands.AbstractDynamicCommandXsdSchemas.RootFetch, StringComparison.InvariantCultureIgnoreCase)
                                         || string.Equals(doc.Name.ToString(), Commands.AbstractDynamicCommandXsdSchemas.RootGrid, StringComparison.InvariantCultureIgnoreCase)

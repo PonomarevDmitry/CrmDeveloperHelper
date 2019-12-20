@@ -31,7 +31,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                 {
                     string fetchXml = textDocument.StartPoint.CreateEditPoint().GetText(textDocument.EndPoint);
 
-                    string codeCSharp = ContentCoparerHelper.ConvertFetchXmlToQueryExpression(fetchXml);
+                    string codeCSharp = ContentComparerHelper.ConvertFetchXmlToQueryExpression(fetchXml);
 
                     ClipboardHelper.SetText(codeCSharp);
                 }

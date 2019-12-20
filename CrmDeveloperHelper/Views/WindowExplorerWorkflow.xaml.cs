@@ -589,7 +589,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     var replacer = new LabelReplacer(await TranslationRepository.GetDefaultTranslationFromCacheAsync(service.ConnectionData.ConnectionId, service));
 
-                    xmlContent = ContentCoparerHelper.GetCorrectedXaml(xmlContent, replacer);
+                    xmlContent = ContentComparerHelper.GetCorrectedXaml(xmlContent, replacer);
 
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
 
@@ -678,17 +678,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string extension = "json";
 
-                if (ContentCoparerHelper.TryParseXml(xmlContent, out var _))
+                if (ContentComparerHelper.TryParseXml(xmlContent, out var _))
                 {
                     extension = "xml";
 
-                    xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
+                    xmlContent = ContentComparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
                         , workflowId: idWorkflow
                     );
                 }
                 else
                 {
-                    xmlContent = ContentCoparerHelper.FormatJson(xmlContent);
+                    xmlContent = ContentComparerHelper.FormatJson(xmlContent);
                 }
 
                 string filePath = await CreateFileAsync(folder, entityName, category, name, fieldTitle, xmlContent, extension);
@@ -727,17 +727,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 string extension = "json";
 
                 {
-                    if (ContentCoparerHelper.TryParseXml(xmlContent, out var _))
+                    if (ContentComparerHelper.TryParseXml(xmlContent, out var _))
                     {
                         extension = "xml";
 
-                        xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
+                        xmlContent = ContentComparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
                             , workflowId: idWorkflow
                         );
                     }
                     else
                     {
-                        xmlContent = ContentCoparerHelper.FormatJson(xmlContent);
+                        xmlContent = ContentComparerHelper.FormatJson(xmlContent);
                     }
 
                     await CreateFileAsync(folder, entityName, category, name, fieldTitle + " BackUp", xmlContent, extension);
@@ -762,9 +762,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
 
                 {
-                    if (ContentCoparerHelper.TryParseXml(newText, out var doc))
+                    if (ContentComparerHelper.TryParseXml(newText, out var doc))
                     {
-                        ContentCoparerHelper.ClearRootWorkflow(doc);
+                        ContentComparerHelper.ClearRootWorkflow(doc);
 
                         newText = doc.ToString(SaveOptions.DisableFormatting);
                     }
@@ -833,7 +833,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string xmlContent = workflow.GetAttributeValue<string>(fieldName);
 
-                xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
+                xmlContent = ContentComparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
                     , workflowId: idWorkflow
                 );
 
@@ -870,7 +870,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string xmlContent = workflow.GetAttributeValue<string>(fieldName);
 
-                if (!string.IsNullOrEmpty(xmlContent) && ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                if (!string.IsNullOrEmpty(xmlContent) && ContentComparerHelper.TryParseXml(xmlContent, out var doc))
                 {
                     string fileName = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, entityName, category, name, fieldTitle, "txt");
                     string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
@@ -922,7 +922,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string xmlContent = workflow.GetAttributeValue<string>(fieldName);
 
-                if (!string.IsNullOrEmpty(xmlContent) && ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                if (!string.IsNullOrEmpty(xmlContent) && ContentComparerHelper.TryParseXml(xmlContent, out var doc))
                 {
                     string fileName = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, entityName, category, name, fieldTitle, "txt");
                     string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
@@ -974,7 +974,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string xmlContent = workflow.GetAttributeValue<string>(fieldName);
 
-                if (!string.IsNullOrEmpty(xmlContent) && ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                if (!string.IsNullOrEmpty(xmlContent) && ContentComparerHelper.TryParseXml(xmlContent, out var doc))
                 {
                     string fileName = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, entityName, category, name, fieldTitle, "txt");
                     string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
@@ -1210,7 +1210,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             string xmlContent = workflow.GetAttributeValue<string>(fieldName);
 
-            xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
+            xmlContent = ContentComparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
                 , workflowId: idWorkflow
             );
 

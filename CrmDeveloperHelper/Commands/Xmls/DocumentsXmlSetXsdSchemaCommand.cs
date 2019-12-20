@@ -31,7 +31,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
             {
                 foreach (var document in listDocuments)
                 {
-                    ContentCoparerHelper.ReplaceXsdSchemaInDocument(document, schemas.Item2);
+                    ContentComparerHelper.ReplaceXsdSchemaInDocument(document, schemas.Item2);
                 }
             }
         }

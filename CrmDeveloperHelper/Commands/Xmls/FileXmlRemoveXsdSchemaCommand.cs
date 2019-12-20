@@ -25,12 +25,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
             {
                 foreach (var document in listFiles.Where(s => s.Document != null && s.Document.ActiveWindow != null && s.Document.ActiveWindow.Visible).Select(s => s.Document))
                 {
-                    ContentCoparerHelper.RemoveXsdSchemaInDocument(document);
+                    ContentComparerHelper.RemoveXsdSchemaInDocument(document);
                 }
 
                 foreach (var filePath in listFiles.Where(s => !(s.Document != null && s.Document.ActiveWindow != null && s.Document.ActiveWindow.Visible)).Select(s => s.FilePath))
                 {
-                    ContentCoparerHelper.RemoveXsdSchemaInFile(filePath);
+                    ContentComparerHelper.RemoveXsdSchemaInFile(filePath);
                 }
             }
         }

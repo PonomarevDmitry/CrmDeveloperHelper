@@ -838,7 +838,7 @@
     <Compile Include="Entities\Workflow.Proxy.cs" />
     <Compile Include="Entities\Workflow.Schema.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Helpers\ContentCoparerHelper.cs" />
+    <Compile Include="Helpers\ContentComparerHelper.cs" />
     <Compile Include="Helpers\CreateFileHandler.cs" />
     <Compile Include="Helpers\CreateFileCSharpConfiguration.cs" />
     <Compile Include="Helpers\CreateFileWithEntityMetadataCSharpHandler.cs" />

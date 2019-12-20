@@ -224,7 +224,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 string fileText = File.ReadAllText(selectedFile.FilePath);
 
-                if (ContentCoparerHelper.TryParseXml(fileText, out var doc))
+                if (ContentComparerHelper.TryParseXml(fileText, out var doc))
                 {
                     var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSiteMapNameUnique);
 
@@ -272,7 +272,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    siteMapXml = ContentCoparerHelper.FormatXmlByConfiguration(siteMapXml
+                    siteMapXml = ContentComparerHelper.FormatXmlByConfiguration(siteMapXml
                         , commonConfig
                         , WindowExplorerSiteMap._xmlOptions
                        , schemaName: AbstractDynamicCommandXsdSchemas.SchemaSiteMapXml
@@ -337,7 +337,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string fileText = File.ReadAllText(selectedFile.FilePath);
 
-            if (!ContentCoparerHelper.TryParseXmlDocument(fileText, out var doc))
+            if (!ContentComparerHelper.TryParseXmlDocument(fileText, out var doc))
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
                 _iWriteToOutput.ActivateOutputWindow(connectionData);
@@ -353,7 +353,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 siteMapNameUnique = attribute.Value;
             }
 
-            ContentCoparerHelper.ClearRoot(doc);
+            ContentComparerHelper.ClearRoot(doc);
 
             bool validateResult = await SitemapRepository.ValidateXmlDocumentAsync(connectionData, _iWriteToOutput, doc);
 
@@ -417,7 +417,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     try
                     {
-                        siteMapXml = ContentCoparerHelper.FormatXmlByConfiguration(siteMapXml
+                        siteMapXml = ContentComparerHelper.FormatXmlByConfiguration(siteMapXml
                             , commonConfig
                             , WindowExplorerSiteMap._xmlOptions
                             , schemaName: AbstractDynamicCommandXsdSchemas.SchemaSiteMapXml
@@ -510,7 +510,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string fileText = File.ReadAllText(selectedFile.FilePath);
 
-            if (!ContentCoparerHelper.TryParseXmlDocument(fileText, out var doc))
+            if (!ContentComparerHelper.TryParseXmlDocument(fileText, out var doc))
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
                 _iWriteToOutput.ActivateOutputWindow(connectionData);
@@ -586,7 +586,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string fileText = File.ReadAllText(selectedFile.FilePath);
 
-            if (!ContentCoparerHelper.TryParseXml(fileText, out var doc))
+            if (!ContentComparerHelper.TryParseXml(fileText, out var doc))
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
                 return;
@@ -654,7 +654,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    formXml = ContentCoparerHelper.FormatXmlByConfiguration(formXml, commonConfig, WindowExplorerSystemForm._xmlOptions
+                    formXml = ContentComparerHelper.FormatXmlByConfiguration(formXml, commonConfig, WindowExplorerSystemForm._xmlOptions
                         , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFormXml
                         , formId: systemForm.Id
                     );
@@ -717,7 +717,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string fileText = File.ReadAllText(selectedFile.FilePath);
 
-            if (!ContentCoparerHelper.TryParseXmlDocument(fileText, out var doc))
+            if (!ContentComparerHelper.TryParseXmlDocument(fileText, out var doc))
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
                 return;
@@ -750,7 +750,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ValidatingXmlForFieldFormat1, SystemForm.Schema.Attributes.formxml);
 
-            ContentCoparerHelper.ClearRoot(doc);
+            ContentComparerHelper.ClearRoot(doc);
 
             bool validateResult = await SystemFormRepository.ValidateXmlDocumentAsync(connectionData, _iWriteToOutput, doc);
 
@@ -814,7 +814,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     try
                     {
-                        formXml = ContentCoparerHelper.FormatXmlByConfiguration(formXml, commonConfig, WindowExplorerSystemForm._xmlOptions
+                        formXml = ContentComparerHelper.FormatXmlByConfiguration(formXml, commonConfig, WindowExplorerSystemForm._xmlOptions
                             , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFormXml
                             , formId: systemForm.Id
                         );
@@ -908,7 +908,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string fileText = File.ReadAllText(selectedFile.FilePath);
 
-            if (!ContentCoparerHelper.TryParseXmlDocument(fileText, out var doc))
+            if (!ContentComparerHelper.TryParseXmlDocument(fileText, out var doc))
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
 
@@ -1004,7 +1004,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string fileText = File.ReadAllText(selectedFile.FilePath);
 
-            if (!ContentCoparerHelper.TryParseXml(fileText, out var doc))
+            if (!ContentComparerHelper.TryParseXml(fileText, out var doc))
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
                 return;
@@ -1074,7 +1074,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, commonConfig, WindowExplorerSavedQuery._xmlOptions
+                    xmlContent = ContentComparerHelper.FormatXmlByConfiguration(xmlContent, commonConfig, WindowExplorerSavedQuery._xmlOptions
                         , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFetch
                         , savedQueryId: savedQueryId
                     );
@@ -1137,7 +1137,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string fileText = File.ReadAllText(selectedFile.FilePath);
 
-            if (!ContentCoparerHelper.TryParseXmlDocument(fileText, out var doc))
+            if (!ContentComparerHelper.TryParseXmlDocument(fileText, out var doc))
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
                 return;
@@ -1173,7 +1173,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ValidatingXmlForFieldFormat1, fieldTitle);
 
-            ContentCoparerHelper.ClearRoot(doc);
+            ContentComparerHelper.ClearRoot(doc);
 
             bool validateResult = await SavedQueryRepository.ValidateXmlDocumentAsync(connectionData, _iWriteToOutput, doc, fieldTitle);
 
@@ -1254,7 +1254,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     try
                     {
-                        xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, commonConfig, WindowExplorerSavedQuery._xmlOptions
+                        xmlContent = ContentComparerHelper.FormatXmlByConfiguration(xmlContent, commonConfig, WindowExplorerSavedQuery._xmlOptions
                             , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFetch
                             , savedQueryId: savedQueryId
                         );
@@ -1358,7 +1358,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string fileText = File.ReadAllText(selectedFile.FilePath);
 
-            if (!ContentCoparerHelper.TryParseXmlDocument(fileText, out var doc))
+            if (!ContentComparerHelper.TryParseXmlDocument(fileText, out var doc))
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
 
@@ -1455,7 +1455,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string fileText = File.ReadAllText(selectedFile.FilePath);
 
-            if (!ContentCoparerHelper.TryParseXml(fileText, out var doc))
+            if (!ContentComparerHelper.TryParseXml(fileText, out var doc))
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
                 return;
@@ -1523,7 +1523,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    formXml = ContentCoparerHelper.FormatXmlByConfiguration(formXml, commonConfig, WindowExplorerWorkflow._xmlOptions
+                    formXml = ContentComparerHelper.FormatXmlByConfiguration(formXml, commonConfig, WindowExplorerWorkflow._xmlOptions
                         , workflowId: workflow.Id
                     );
 
@@ -1585,7 +1585,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string fileText = File.ReadAllText(selectedFile.FilePath);
 
-            if (!ContentCoparerHelper.TryParseXmlDocument(fileText, out var doc))
+            if (!ContentComparerHelper.TryParseXmlDocument(fileText, out var doc))
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
                 return;
@@ -1616,7 +1616,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            ContentCoparerHelper.ClearRootWorkflow(doc);
+            ContentComparerHelper.ClearRootWorkflow(doc);
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
 
@@ -1656,7 +1656,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     try
                     {
-                        xaml = ContentCoparerHelper.FormatXmlByConfiguration(xaml, commonConfig, WindowExplorerWorkflow._xmlOptions
+                        xaml = ContentComparerHelper.FormatXmlByConfiguration(xaml, commonConfig, WindowExplorerWorkflow._xmlOptions
                             , workflowId: workflow.Id
                         );
 
@@ -1764,7 +1764,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string fileText = File.ReadAllText(selectedFile.FilePath);
 
-            if (!ContentCoparerHelper.TryParseXmlDocument(fileText, out var doc))
+            if (!ContentComparerHelper.TryParseXmlDocument(fileText, out var doc))
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
 

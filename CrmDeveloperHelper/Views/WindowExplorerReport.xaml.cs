@@ -396,7 +396,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                    if (ContentComparerHelper.TryParseXml(xmlContent, out var doc))
                     {
                         xmlContent = doc.ToString();
                     }
@@ -524,7 +524,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 string xmlContent = report.GetAttributeValue<string>(fieldName);
 
                 {
-                    if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                    if (ContentComparerHelper.TryParseXml(xmlContent, out var doc))
                     {
                         xmlContent = doc.ToString();
                     }
@@ -550,10 +550,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     return;
                 }
 
-                newText = ContentCoparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(newText);
+                newText = ContentComparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(newText);
 
                 {
-                    if (ContentCoparerHelper.TryParseXml(newText, out var doc))
+                    if (ContentComparerHelper.TryParseXml(newText, out var doc))
                     {
                         newText = doc.ToString(SaveOptions.DisableFormatting);
                     }

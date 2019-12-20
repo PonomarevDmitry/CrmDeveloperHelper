@@ -548,14 +548,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     if (string.Equals(extension, "xml", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
+                        xmlContent = ContentComparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
                             , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFetch
                             , savedQueryId: savedQueryId
                         );
                     }
                     else if (string.Equals(extension, "json", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        xmlContent = ContentCoparerHelper.FormatJson(xmlContent);
+                        xmlContent = ContentComparerHelper.FormatJson(xmlContent);
                     }
 
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
@@ -627,7 +627,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, SavedQuery.Schema.Attributes.fetchxml, SavedQuery.Schema.Headers.fetchxml, "xml");
 
-            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, SavedQuery.Schema.Attributes.layoutxml, SavedQuery.Schema.Headers.layoutxml, "xml", ContentCoparerHelper.RemoveLayoutObjectCode);
+            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, SavedQuery.Schema.Attributes.layoutxml, SavedQuery.Schema.Headers.layoutxml, "xml", ContentComparerHelper.RemoveLayoutObjectCode);
 
             await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, SavedQuery.Schema.Attributes.columnsetxml, SavedQuery.Schema.Headers.columnsetxml, "xml");
 
@@ -657,7 +657,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionLinked(link.Link, true, SavedQuery.Schema.Attributes.layoutxml, SavedQuery.Schema.Headers.layoutxml, "xml", PerformShowingDifferenceSingleXmlAsync, ContentCoparerHelper.RemoveLayoutObjectCode);
+            ExecuteActionLinked(link.Link, true, SavedQuery.Schema.Attributes.layoutxml, SavedQuery.Schema.Headers.layoutxml, "xml", PerformShowingDifferenceSingleXmlAsync, ContentComparerHelper.RemoveLayoutObjectCode);
         }
 
         private void mIShowDifferenceColumnSetXml_Click(object sender, RoutedEventArgs e)
@@ -747,7 +747,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     string xml1 = savedQuery1.GetAttributeValue<string>(fieldName);
                     string xml2 = savedQuery2.GetAttributeValue<string>(fieldName);
 
-                    if (showAllways || !ContentCoparerHelper.CompareXML(xml1, xml2, false, action).IsEqual)
+                    if (showAllways || !ContentComparerHelper.CompareXML(xml1, xml2, false, action).IsEqual)
                     {
                         string filePath1 = await CreateFileAsync(service1.ConnectionData, savedQuery1.Id, savedQuery1.ReturnedTypeCode, savedQuery1.Name, fieldTitle, extension, xml1);
                         string filePath2 = await CreateFileAsync(service2.ConnectionData, savedQuery2.Id, savedQuery2.ReturnedTypeCode, savedQuery2.Name, fieldTitle, extension, xml2);

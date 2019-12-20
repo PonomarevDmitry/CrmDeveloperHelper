@@ -514,7 +514,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     //siteMapXml = ContentCoparerHelper.FormatXml(siteMapXml, _commonConfig.ExportXmlAttributeOnNewLine);
 
-                    siteMapXml = ContentCoparerHelper.FormatXmlByConfiguration(siteMapXml, _commonConfig, _xmlOptions
+                    siteMapXml = ContentComparerHelper.FormatXmlByConfiguration(siteMapXml, _commonConfig, _xmlOptions
                         , schemaName: AbstractDynamicCommandXsdSchemas.SchemaSiteMapXml
                         , siteMapUniqueName: nameUnique ?? string.Empty
                         );
@@ -652,7 +652,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     string xml1 = sitemap1.GetAttributeValue<string>(fieldName);
                     string xml2 = sitemap2.GetAttributeValue<string>(fieldName);
 
-                    if (showAllways || !ContentCoparerHelper.CompareXML(xml1, xml2).IsEqual)
+                    if (showAllways || !ContentComparerHelper.CompareXML(xml1, xml2).IsEqual)
                     {
                         string filePath1 = await CreateFileAsync(service1.ConnectionData, sitemap1.SiteMapName, sitemap1.SiteMapNameUnique, sitemap1.Id, fieldTitle, xml1);
 

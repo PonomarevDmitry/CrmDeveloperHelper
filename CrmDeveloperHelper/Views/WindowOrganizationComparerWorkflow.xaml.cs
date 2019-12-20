@@ -585,14 +585,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     if (string.Equals(extension, "xml", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                        if (ContentComparerHelper.TryParseXml(xmlContent, out var doc))
                         {
                             xmlContent = doc.ToString();
                         }
                     }
                     else if (string.Equals(extension, "xml", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        xmlContent = ContentCoparerHelper.FormatJson(xmlContent);
+                        xmlContent = ContentComparerHelper.FormatJson(xmlContent);
                     }
 
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
@@ -798,7 +798,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     string xml1 = workflow1.GetAttributeValue<string>(fieldName);
                     string xml2 = workflow2.GetAttributeValue<string>(fieldName);
 
-                    if (showAllways || !ContentCoparerHelper.CompareXML(xml1, xml2).IsEqual)
+                    if (showAllways || !ContentComparerHelper.CompareXML(xml1, xml2).IsEqual)
                     {
                         string entityName1 = workflow1.PrimaryEntity;
                         string entityName2 = workflow2.PrimaryEntity;
@@ -811,30 +811,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         string extension = "json";
 
-                        if (ContentCoparerHelper.TryParseXml(xml1, out var _))
+                        if (ContentComparerHelper.TryParseXml(xml1, out var _))
                         {
                             extension = "xml";
 
-                            xml1 = ContentCoparerHelper.FormatXmlByConfiguration(xml1, _commonConfig, _xmlOptions
+                            xml1 = ContentComparerHelper.FormatXmlByConfiguration(xml1, _commonConfig, _xmlOptions
                                 , workflowId: linked.Entity1.Id
                             );
                         }
                         else
                         {
-                            xml1 = ContentCoparerHelper.FormatJson(xml1);
+                            xml1 = ContentComparerHelper.FormatJson(xml1);
                         }
 
-                        if (ContentCoparerHelper.TryParseXml(xml2, out var _))
+                        if (ContentComparerHelper.TryParseXml(xml2, out var _))
                         {
                             extension = "xml";
 
-                            xml2 = ContentCoparerHelper.FormatXmlByConfiguration(xml2, _commonConfig, _xmlOptions
+                            xml2 = ContentComparerHelper.FormatXmlByConfiguration(xml2, _commonConfig, _xmlOptions
                                 , workflowId: linked.Entity2.Id
                             );
                         }
                         else
                         {
-                            xml2 = ContentCoparerHelper.FormatJson(xml2);
+                            xml2 = ContentComparerHelper.FormatJson(xml2);
                         }
 
                         string filePath1 = await CreateFileAsync(service1.ConnectionData, entityName1, category1, name1, fieldTitle, extension, xml1);
@@ -901,10 +901,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var replacer1 = new LabelReplacer(await TranslationRepository.GetDefaultTranslationFromCacheAsync(service1.ConnectionData.ConnectionId, service1));
                 var replacer2 = new LabelReplacer(await TranslationRepository.GetDefaultTranslationFromCacheAsync(service2.ConnectionData.ConnectionId, service2));
 
-                xml1 = ContentCoparerHelper.GetCorrectedXaml(xml1, replacer1);
-                xml2 = ContentCoparerHelper.GetCorrectedXaml(xml2, replacer2);
+                xml1 = ContentComparerHelper.GetCorrectedXaml(xml1, replacer1);
+                xml2 = ContentComparerHelper.GetCorrectedXaml(xml2, replacer2);
 
-                if (showAllways || !ContentCoparerHelper.CompareXML(xml1, xml2).IsEqual)
+                if (showAllways || !ContentComparerHelper.CompareXML(xml1, xml2).IsEqual)
                 {
                     string entityName1 = workflow1.PrimaryEntity;
                     string entityName2 = workflow2.PrimaryEntity;
@@ -1136,17 +1136,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string extension = "json";
 
-                if (ContentCoparerHelper.TryParseXml(xmlContent, out var _))
+                if (ContentComparerHelper.TryParseXml(xmlContent, out var _))
                 {
                     extension = "xml";
 
-                    xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
+                    xmlContent = ContentComparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
                         , workflowId: idWorflow
                     );
                 }
                 else
                 {
-                    xmlContent = ContentCoparerHelper.FormatJson(xmlContent);
+                    xmlContent = ContentComparerHelper.FormatJson(xmlContent);
                 }
 
                 string filePath = await CreateFileAsync(service.ConnectionData, entityName, category, name, fieldTitle, extension, xmlContent);
@@ -1184,7 +1184,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var replacer = new LabelReplacer(await TranslationRepository.GetDefaultTranslationFromCacheAsync(service.ConnectionData.ConnectionId, service));
 
-                xmlContent = ContentCoparerHelper.GetCorrectedXaml(xmlContent, replacer);
+                xmlContent = ContentComparerHelper.GetCorrectedXaml(xmlContent, replacer);
 
                 string entityName = workflow.PrimaryEntity;
                 string name = workflow.Name;

@@ -763,7 +763,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var textReport = reportEntity.GetAttributeValue<string>(fieldName);
 
-            if (ContentCoparerHelper.TryParseXml(textReport, out var doc))
+            if (ContentComparerHelper.TryParseXml(textReport, out var doc))
             {
                 textReport = doc.ToString();
             }
@@ -966,7 +966,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 var textReport = reportEntity1.GetAttributeValue<string>(fieldName);
 
-                if (ContentCoparerHelper.TryParseXml(textReport, out var doc))
+                if (ContentComparerHelper.TryParseXml(textReport, out var doc))
                 {
                     textReport = doc.ToString();
                 }
@@ -983,7 +983,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 var textReport = reportEntity2.GetAttributeValue<string>(fieldName);
 
-                if (ContentCoparerHelper.TryParseXml(textReport, out var doc))
+                if (ContentComparerHelper.TryParseXml(textReport, out var doc))
                 {
                     textReport = doc.ToString();
                 }

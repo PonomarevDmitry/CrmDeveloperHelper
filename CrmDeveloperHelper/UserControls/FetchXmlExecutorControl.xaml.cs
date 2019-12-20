@@ -225,7 +225,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             var fileText = txtBFetchXml.Text.Trim();
 
-            if (!ContentCoparerHelper.TryParseXml(fileText, out var exception, out var doc))
+            if (!ContentComparerHelper.TryParseXml(fileText, out var exception, out var doc))
             {
                 StringBuilder text = new StringBuilder();
 
@@ -1125,7 +1125,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
         {
             var fileText = txtBFetchXml.Text.Trim();
 
-            string jsCode = ContentCoparerHelper.FormatToJavaScript(Entities.SavedQuery.Schema.Attributes.fetchxml, fileText);
+            string jsCode = ContentComparerHelper.FormatToJavaScript(Entities.SavedQuery.Schema.Attributes.fetchxml, fileText);
 
             ClipboardHelper.SetText(jsCode);
         }

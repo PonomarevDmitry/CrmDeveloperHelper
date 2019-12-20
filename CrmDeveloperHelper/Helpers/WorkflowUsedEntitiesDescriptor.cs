@@ -74,7 +74,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             continue;
                         }
 
-                        var xmlContent = ContentCoparerHelper.RemoveDiacritics(item.Xaml);
+                        var xmlContent = ContentComparerHelper.RemoveDiacritics(item.Xaml);
 
                         var doc = XElement.Parse(xmlContent);
 
@@ -116,7 +116,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         {
                             if (!string.IsNullOrEmpty(item.Xaml) && !workflowsWithEntities.Contains(item.Id))
                             {
-                                var xmlContent = ContentCoparerHelper.RemoveDiacritics(item.Xaml);
+                                var xmlContent = ContentComparerHelper.RemoveDiacritics(item.Xaml);
 
                                 var doc = XElement.Parse(xmlContent);
 
@@ -194,7 +194,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     foreach (var item in workflows)
                     {
-                        var xmlContent = ContentCoparerHelper.RemoveDiacritics(item.Xaml);
+                        var xmlContent = ContentComparerHelper.RemoveDiacritics(item.Xaml);
 
                         var doc = XElement.Parse(xmlContent);
 
@@ -236,7 +236,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         {
                             if (!string.IsNullOrEmpty(item.Xaml) && !workflowsWithEntities.Contains(item.Id))
                             {
-                                var xmlContent = ContentCoparerHelper.RemoveDiacritics(item.Xaml);
+                                var xmlContent = ContentComparerHelper.RemoveDiacritics(item.Xaml);
 
                                 var doc = XElement.Parse(xmlContent);
 
@@ -313,7 +313,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             continue;
                         }
 
-                        var xmlContent = ContentCoparerHelper.RemoveDiacritics(item.Xaml);
+                        var xmlContent = ContentComparerHelper.RemoveDiacritics(item.Xaml);
 
                         var doc = XElement.Parse(xmlContent);
 
@@ -549,7 +549,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     foreach (var item in workflows)
                     {
-                        var xmlContent = ContentCoparerHelper.RemoveDiacritics(item.Xaml);
+                        var xmlContent = ContentComparerHelper.RemoveDiacritics(item.Xaml);
 
                         var doc = XElement.Parse(xmlContent);
 
@@ -752,7 +752,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 var workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(true));
 
-                string xmlContent = ContentCoparerHelper.RemoveDiacritics(workflow.Xaml);
+                string xmlContent = ContentComparerHelper.RemoveDiacritics(workflow.Xaml);
 
                 var doc = XElement.Parse(xmlContent);
 
@@ -788,7 +788,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 var workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(true));
 
-                string xmlContent = ContentCoparerHelper.RemoveDiacritics(workflow.Xaml);
+                string xmlContent = ContentComparerHelper.RemoveDiacritics(workflow.Xaml);
 
                 var doc = XElement.Parse(xmlContent);
 
@@ -824,7 +824,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 var workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(true));
 
-                string xmlContent = ContentCoparerHelper.RemoveDiacritics(workflow.Xaml);
+                string xmlContent = ContentComparerHelper.RemoveDiacritics(workflow.Xaml);
 
                 var doc = XElement.Parse(xmlContent);
 

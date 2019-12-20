@@ -31,12 +31,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
             {
                 foreach (var document in listFiles.Where(s => s.Document != null && s.Document.ActiveWindow != null && s.Document.ActiveWindow.Visible).Select(s => s.Document))
                 {
-                    ContentCoparerHelper.ReplaceXsdSchemaInDocument(document, schemas.Item2);
+                    ContentComparerHelper.ReplaceXsdSchemaInDocument(document, schemas.Item2);
                 }
 
                 foreach (var filePath in listFiles.Where(s => !(s.Document != null && s.Document.ActiveWindow != null && s.Document.ActiveWindow.Visible)).Select(s => s.FilePath))
                 {
-                    ContentCoparerHelper.ReplaceXsdSchemaInFile(filePath, schemas.Item2);
+                    ContentComparerHelper.ReplaceXsdSchemaInFile(filePath, schemas.Item2);
                 }
             }
         }

@@ -586,7 +586,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     foreach (var fieldName in fieldsToCompare)
                     {
-                        if (ContentCoparerHelper.IsEntityDifferentInField(commonStep.Entity1, commonStep.Entity2, fieldName))
+                        if (ContentComparerHelper.IsEntityDifferentInField(commonStep.Entity1, commonStep.Entity2, fieldName))
                         {
                             var str1 = EntityDescriptionHandler.GetAttributeString(commonStep.Entity1, fieldName, Connection1);
                             var str2 = EntityDescriptionHandler.GetAttributeString(commonStep.Entity2, fieldName, Connection2);
@@ -878,7 +878,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     foreach (var fieldName in fieldsToCompare)
                     {
-                        if (ContentCoparerHelper.IsEntityDifferentInField(commonImage.Entity1, commonImage.Entity2, fieldName))
+                        if (ContentComparerHelper.IsEntityDifferentInField(commonImage.Entity1, commonImage.Entity2, fieldName))
                         {
                             var str1 = EntityDescriptionHandler.GetAttributeString(commonImage.Entity1, fieldName, Connection1);
                             var str2 = EntityDescriptionHandler.GetAttributeString(commonImage.Entity2, fieldName, Connection2);

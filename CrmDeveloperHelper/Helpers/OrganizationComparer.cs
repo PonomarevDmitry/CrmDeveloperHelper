@@ -479,7 +479,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         string extension = WebResourceRepository.GetTypeMainExtension(type1);
 
-                        ContentCopareResult compare = ContentCoparerHelper.CompareByteArrays(extension, array1, array2, withDetails);
+                        ContentCopareResult compare = ContentComparerHelper.CompareByteArrays(extension, array1, array2, withDetails);
 
                         if (compare.IsEqual)
                         {
@@ -817,7 +817,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 foreach (string fieldName in _fieldsToCompareSiteMapOrdinal)
                 {
-                    if (ContentCoparerHelper.IsEntityDifferentInField(sitemap1, sitemap2, fieldName))
+                    if (ContentComparerHelper.IsEntityDifferentInField(sitemap1, sitemap2, fieldName))
                     {
                         string str1 = EntityDescriptionHandler.GetAttributeString(sitemap1, fieldName, Connection1);
                         string str2 = EntityDescriptionHandler.GetAttributeString(sitemap2, fieldName, Connection2);
@@ -832,11 +832,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     string xml1 = sitemap1.GetAttributeValue<string>(fieldName) ?? string.Empty;
                     string xml2 = sitemap2.GetAttributeValue<string>(fieldName) ?? string.Empty;
 
-                    if (!ContentCoparerHelper.CompareXML(xml1, xml2).IsEqual)
+                    if (!ContentComparerHelper.CompareXML(xml1, xml2).IsEqual)
                     {
                         string reason = string.Empty;
 
-                        ContentCopareResult compare = ContentCoparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
+                        ContentCopareResult compare = ContentComparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
 
                         if (!compare.IsEqual)
                         {
@@ -1021,7 +1021,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         continue;
                     }
 
-                    if (ContentCoparerHelper.IsEntityDifferentInField(organization1, organization2, fieldName))
+                    if (ContentComparerHelper.IsEntityDifferentInField(organization1, organization2, fieldName))
                     {
                         string str1 = EntityDescriptionHandler.GetAttributeString(organization1, fieldName, Connection1);
                         string str2 = EntityDescriptionHandler.GetAttributeString(organization2, fieldName, Connection2);
@@ -1042,9 +1042,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     string xml1 = organization1.GetAttributeValue<string>(fieldName) ?? string.Empty;
                     string xml2 = organization2.GetAttributeValue<string>(fieldName) ?? string.Empty;
 
-                    if (!ContentCoparerHelper.CompareXML(xml1, xml2).IsEqual)
+                    if (!ContentComparerHelper.CompareXML(xml1, xml2).IsEqual)
                     {
-                        ContentCopareResult compare = ContentCoparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
+                        ContentCopareResult compare = ContentComparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
 
                         string reason = string.Empty;
 
@@ -1439,7 +1439,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     foreach (string fieldName in fieldsToCompare)
                     {
-                        if (ContentCoparerHelper.IsEntityDifferentInField(commonItem.Entity1, commonItem.Entity2, fieldName))
+                        if (ContentComparerHelper.IsEntityDifferentInField(commonItem.Entity1, commonItem.Entity2, fieldName))
                         {
                             if (string.Equals(fieldName, Report.Schema.Attributes.bodybinary, StringComparison.InvariantCultureIgnoreCase))
                             {
@@ -1473,11 +1473,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         string xml1 = commonItem.Entity1.GetAttributeValue<string>(fieldName) ?? string.Empty;
                         string xml2 = commonItem.Entity2.GetAttributeValue<string>(fieldName) ?? string.Empty;
 
-                        if (!ContentCoparerHelper.CompareXML(xml1, xml2).IsEqual)
+                        if (!ContentComparerHelper.CompareXML(xml1, xml2).IsEqual)
                         {
                             string reason = string.Empty;
 
-                            ContentCopareResult compare = ContentCoparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
+                            ContentCopareResult compare = ContentComparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
 
                             if (!compare.IsEqual)
                             {
@@ -1668,7 +1668,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         foreach (string fieldName in fieldsToCompare)
                         {
-                            if (ContentCoparerHelper.IsEntityDifferentInField(workflow.Entity1, workflow.Entity2, fieldName))
+                            if (ContentComparerHelper.IsEntityDifferentInField(workflow.Entity1, workflow.Entity2, fieldName))
                             {
                                 string str1 = EntityDescriptionHandler.GetAttributeString(workflow.Entity1, fieldName, Connection1);
                                 string str2 = EntityDescriptionHandler.GetAttributeString(workflow.Entity2, fieldName, Connection2);
@@ -1692,11 +1692,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             string xml1 = workflow.Entity1.GetAttributeValue<string>(fieldName) ?? string.Empty;
                             string xml2 = workflow.Entity2.GetAttributeValue<string>(fieldName) ?? string.Empty;
 
-                            if (!ContentCoparerHelper.CompareWorkflowXAML(xml1, xml2, labelReplacer1, labelReplacer2).IsEqual)
+                            if (!ContentComparerHelper.CompareWorkflowXAML(xml1, xml2, labelReplacer1, labelReplacer2).IsEqual)
                             {
                                 string reason = string.Empty;
 
-                                ContentCopareResult compare = ContentCoparerHelper.CompareWorkflowXAML(xml1.ToLower(), xml2.ToLower(), labelReplacer1, labelReplacer2, withDetails);
+                                ContentCopareResult compare = ContentComparerHelper.CompareWorkflowXAML(xml1.ToLower(), xml2.ToLower(), labelReplacer1, labelReplacer2, withDetails);
 
                                 if (compare.IsEqual)
                                 {
@@ -2104,15 +2104,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 xml1 = Encoding.UTF8.GetString(array1);
                 xml2 = Encoding.UTF8.GetString(array2);
 
-                xml1 = ContentCoparerHelper.RemoveDiacritics(xml1);
-                xml2 = ContentCoparerHelper.RemoveDiacritics(xml2);
+                xml1 = ContentComparerHelper.RemoveDiacritics(xml1);
+                xml2 = ContentComparerHelper.RemoveDiacritics(xml2);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(null, ex);
             }
 
-            ContentCopareResult compare = ContentCoparerHelper.CompareXML(xml1, xml2, withDetails);
+            ContentCopareResult compare = ContentComparerHelper.CompareXML(xml1, xml2, withDetails);
 
             if (!compare.IsEqual)
             {

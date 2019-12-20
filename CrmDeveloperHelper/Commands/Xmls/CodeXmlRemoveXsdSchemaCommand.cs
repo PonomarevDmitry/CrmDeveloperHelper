@@ -21,7 +21,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 
             if (document != null)
             {
-                ContentCoparerHelper.RemoveXsdSchemaInDocument(document);
+                ContentComparerHelper.RemoveXsdSchemaInDocument(document);
             }
         }
 

@@ -397,7 +397,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         schemaName = AbstractDynamicCommandXsdSchemas.SchemaSiteMapXml;
                     }
 
-                    siteMapXml = ContentCoparerHelper.FormatXmlByConfiguration(siteMapXml, _commonConfig, _xmlOptions
+                    siteMapXml = ContentComparerHelper.FormatXmlByConfiguration(siteMapXml, _commonConfig, _xmlOptions
                         , schemaName: schemaName
                         );
 
@@ -543,9 +543,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     return;
                 }
 
-                newText = ContentCoparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(newText);
+                newText = ContentComparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(newText);
 
-                if (ContentCoparerHelper.TryParseXml(newText, out var doc))
+                if (ContentComparerHelper.TryParseXml(newText, out var doc))
                 {
                     newText = doc.ToString(SaveOptions.DisableFormatting);
                 }

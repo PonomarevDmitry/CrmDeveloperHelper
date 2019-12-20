@@ -22,7 +22,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 
             if (document != null)
             {
-                ContentCoparerHelper.InsertIntellisenseContextEntityNameInDocument(document, string.Empty);
+                ContentComparerHelper.InsertIntellisenseContextEntityNameInDocument(document, string.Empty);
             }
         }
 

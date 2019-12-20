@@ -168,7 +168,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     var arrayFile = File.ReadAllBytes(selectedFile.FilePath);
 
-                    var encodings = ContentCoparerHelper.GetFileEncoding(arrayFile);
+                    var encodings = ContentComparerHelper.GetFileEncoding(arrayFile);
 
                     if (encodings.Count > 0)
                     {

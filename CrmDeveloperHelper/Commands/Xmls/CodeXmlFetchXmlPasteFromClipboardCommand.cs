@@ -29,7 +29,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                 {
                     JavaScriptFetchXmlParser parser = new JavaScriptFetchXmlParser(helper, javaScriptCode);
 
-                    ContentCoparerHelper.GetTextViewAndMakeActionAsync(document, "Pasting FetchXml from JavaScript", parser.PasteFetchXml);
+                    ContentComparerHelper.GetTextViewAndMakeActionAsync(document, "Pasting FetchXml from JavaScript", parser.PasteFetchXml);
                 }
             }
         }

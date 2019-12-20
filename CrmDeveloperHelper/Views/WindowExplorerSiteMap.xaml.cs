@@ -444,7 +444,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     //siteMapXml = ContentCoparerHelper.FormatXml(siteMapXml, _commonConfig.ExportXmlAttributeOnNewLine);
 
-                    siteMapXml = ContentCoparerHelper.FormatXmlByConfiguration(siteMapXml, _commonConfig, _xmlOptions
+                    siteMapXml = ContentComparerHelper.FormatXmlByConfiguration(siteMapXml, _commonConfig, _xmlOptions
                        , schemaName: AbstractDynamicCommandXsdSchemas.SchemaSiteMapXml
                        , siteMapUniqueName: nameUnique ?? string.Empty
                        );
@@ -584,11 +584,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
 
-                newText = ContentCoparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(newText);
+                newText = ContentComparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(newText);
 
                 UpdateStatus(service.ConnectionData, Properties.OutputStrings.ValidatingXmlForFieldFormat1, fieldName);
 
-                if (!ContentCoparerHelper.TryParseXmlDocument(newText, out var doc))
+                if (!ContentComparerHelper.TryParseXmlDocument(newText, out var doc))
                 {
                     ToggleControls(service.ConnectionData, true, Properties.OutputStrings.TextIsNotValidXml);
 

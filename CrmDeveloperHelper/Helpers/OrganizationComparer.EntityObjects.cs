@@ -151,7 +151,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         foreach (var fieldName in fieldsToCompare)
                         {
-                            if (ContentCoparerHelper.IsEntityDifferentInField(form.Entity1, form.Entity2, fieldName))
+                            if (ContentComparerHelper.IsEntityDifferentInField(form.Entity1, form.Entity2, fieldName))
                             {
                                 var str1 = EntityDescriptionHandler.GetAttributeString(form.Entity1, fieldName, Connection1);
                                 var str2 = EntityDescriptionHandler.GetAttributeString(form.Entity2, fieldName, Connection2);
@@ -176,18 +176,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             string formXml1 = form.Entity1.GetAttributeValue<string>(fieldName) ?? string.Empty;
                             string formXml2 = form.Entity2.GetAttributeValue<string>(fieldName) ?? string.Empty;
 
-                            if (!ContentCoparerHelper.CompareXML(formXml1, formXml2).IsEqual)
+                            if (!ContentComparerHelper.CompareXML(formXml1, formXml2).IsEqual)
                             {
                                 string descReason = string.Empty;
 
-                                if (ContentCoparerHelper.TryParseXml(formXml1, out var doc1) && ContentCoparerHelper.TryParseXml(formXml2, out var doc2))
+                                if (ContentComparerHelper.TryParseXml(formXml1, out var doc1) && ContentComparerHelper.TryParseXml(formXml2, out var doc2))
                                 {
                                     string desc1 = await handler1.GetFormDescriptionAsync(doc1, form.Entity1.ObjectTypeCode, form.Entity1.Id, form.Entity1.Name, typeName1);
                                     string desc2 = await handler2.GetFormDescriptionAsync(doc2, form.Entity2.ObjectTypeCode, form.Entity2.Id, form.Entity2.Name, typeName2);
 
                                     if (!string.Equals(desc1, desc2))
                                     {
-                                        var compare = ContentCoparerHelper.CompareText(desc1.ToLower(), desc2.ToLower());
+                                        var compare = ContentComparerHelper.CompareText(desc1.ToLower(), desc2.ToLower());
 
                                         if (compare.IsEqual)
                                         {
@@ -203,20 +203,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                                 string formReason = string.Empty;
 
                                 {
-                                    if (ContentCoparerHelper.TryParseXml(formXml1, out var docCorrected1)
-                                        && ContentCoparerHelper.TryParseXml(formXml2, out var docCorrected2)
+                                    if (ContentComparerHelper.TryParseXml(formXml1, out var docCorrected1)
+                                        && ContentComparerHelper.TryParseXml(formXml2, out var docCorrected2)
                                         )
                                     {
                                         handler1.ReplaceRoleToRoleTemplates(docCorrected1);
                                         handler2.ReplaceRoleToRoleTemplates(docCorrected2);
 
-                                        if (ContentCoparerHelper.CompareXML(docCorrected1.ToString(), docCorrected2.ToString()).IsEqual)
+                                        if (ContentComparerHelper.CompareXML(docCorrected1.ToString(), docCorrected2.ToString()).IsEqual)
                                         {
                                             formReason = string.Empty;
                                         }
                                         else
                                         {
-                                            var compare = ContentCoparerHelper.CompareXML(docCorrected1.ToString().ToLower(), docCorrected2.ToString().ToLower(), true);
+                                            var compare = ContentComparerHelper.CompareXML(docCorrected1.ToString().ToLower(), docCorrected2.ToString().ToLower(), true);
 
                                             if (compare.IsEqual)
                                             {
@@ -230,7 +230,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                                     }
                                     else
                                     {
-                                        var compare = ContentCoparerHelper.CompareXML(formXml1.ToLower(), formXml2.ToLower(), true);
+                                        var compare = ContentComparerHelper.CompareXML(formXml1.ToLower(), formXml2.ToLower(), true);
 
                                         if (compare.IsEqual)
                                         {
@@ -510,7 +510,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         foreach (var fieldName in fieldsToCompare)
                         {
-                            if (ContentCoparerHelper.IsEntityDifferentInField(query.Entity1, query.Entity2, fieldName))
+                            if (ContentComparerHelper.IsEntityDifferentInField(query.Entity1, query.Entity2, fieldName))
                             {
                                 var str1 = EntityDescriptionHandler.GetAttributeString(query.Entity1, fieldName, Connection1);
                                 var str2 = EntityDescriptionHandler.GetAttributeString(query.Entity2, fieldName, Connection2);
@@ -535,17 +535,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                             if (string.Equals(fieldName, SavedQuery.Schema.Attributes.layoutxml))
                             {
-                                action = ContentCoparerHelper.RemoveLayoutObjectCode;
+                                action = ContentComparerHelper.RemoveLayoutObjectCode;
                             }
 
                             string xml1 = query.Entity1.GetAttributeValue<string>(fieldName) ?? string.Empty;
                             string xml2 = query.Entity2.GetAttributeValue<string>(fieldName) ?? string.Empty;
 
-                            if (!ContentCoparerHelper.CompareXML(xml1, xml2, false, action).IsEqual)
+                            if (!ContentComparerHelper.CompareXML(xml1, xml2, false, action).IsEqual)
                             {
                                 string reason = string.Empty;
 
-                                var compare = ContentCoparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true, action);
+                                var compare = ContentComparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true, action);
 
                                 if (compare.IsEqual)
                                 {
@@ -791,7 +791,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         foreach (var fieldName in fieldsToCompare)
                         {
-                            if (ContentCoparerHelper.IsEntityDifferentInField(chart1, chart2, fieldName))
+                            if (ContentComparerHelper.IsEntityDifferentInField(chart1, chart2, fieldName))
                             {
                                 var str1 = EntityDescriptionHandler.GetAttributeString(chart1, fieldName, Connection1);
                                 var str2 = EntityDescriptionHandler.GetAttributeString(chart2, fieldName, Connection2);
@@ -817,11 +817,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             string xml1 = chart1.GetAttributeValue<string>(fieldName) ?? string.Empty;
                             string xml2 = chart2.GetAttributeValue<string>(fieldName) ?? string.Empty;
 
-                            if (!ContentCoparerHelper.CompareXML(xml1, xml2).IsEqual)
+                            if (!ContentComparerHelper.CompareXML(xml1, xml2).IsEqual)
                             {
                                 string reason = string.Empty;
 
-                                var compare = ContentCoparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
+                                var compare = ContentComparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
 
                                 if (compare.IsEqual)
                                 {

@@ -155,7 +155,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 foreach (string fieldName in _fieldsToCompareMailMergeTemplateOrdinal)
                 {
-                    if (ContentCoparerHelper.IsEntityDifferentInField(template1, template2, fieldName))
+                    if (ContentComparerHelper.IsEntityDifferentInField(template1, template2, fieldName))
                     {
                         string str1 = EntityDescriptionHandler.GetAttributeString(template1, fieldName, Connection1);
                         string str2 = EntityDescriptionHandler.GetAttributeString(template2, fieldName, Connection2);
@@ -170,11 +170,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     string xml1 = template1.GetAttributeValue<string>(fieldName) ?? string.Empty;
                     string xml2 = template2.GetAttributeValue<string>(fieldName) ?? string.Empty;
 
-                    if (!ContentCoparerHelper.CompareXML(xml1, xml2).IsEqual)
+                    if (!ContentComparerHelper.CompareXML(xml1, xml2).IsEqual)
                     {
                         string reason = string.Empty;
 
-                        ContentCopareResult compare = ContentCoparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
+                        ContentCopareResult compare = ContentComparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
 
                         if (!compare.IsEqual)
                         {
@@ -415,7 +415,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     foreach (string fieldName in fieldsToCompare)
                     {
-                        if (ContentCoparerHelper.IsEntityDifferentInField(template1, template2, fieldName))
+                        if (ContentComparerHelper.IsEntityDifferentInField(template1, template2, fieldName))
                         {
                             string str1 = EntityDescriptionHandler.GetAttributeString(template1, fieldName, Connection1);
                             string str2 = EntityDescriptionHandler.GetAttributeString(template2, fieldName, Connection2);
@@ -440,11 +440,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         string xml1 = template1.GetAttributeValue<string>(fieldName) ?? string.Empty;
                         string xml2 = template2.GetAttributeValue<string>(fieldName) ?? string.Empty;
 
-                        if (!ContentCoparerHelper.CompareXML(xml1, xml2).IsEqual)
+                        if (!ContentComparerHelper.CompareXML(xml1, xml2).IsEqual)
                         {
                             string reason = string.Empty;
 
-                            ContentCopareResult compare = ContentCoparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
+                            ContentCopareResult compare = ContentComparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
 
                             if (!compare.IsEqual)
                             {
@@ -665,7 +665,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 foreach (string fieldName in fieldsToCompare)
                 {
-                    if (ContentCoparerHelper.IsEntityDifferentInField(template1, template2, fieldName))
+                    if (ContentComparerHelper.IsEntityDifferentInField(template1, template2, fieldName))
                     {
                         string str1 = EntityDescriptionHandler.GetAttributeString(template1, fieldName, Connection1);
                         string str2 = EntityDescriptionHandler.GetAttributeString(template2, fieldName, Connection2);
@@ -680,11 +680,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     string xml1 = template1.GetAttributeValue<string>(fieldName) ?? string.Empty;
                     string xml2 = template2.GetAttributeValue<string>(fieldName) ?? string.Empty;
 
-                    if (!ContentCoparerHelper.CompareXML(xml1, xml2).IsEqual)
+                    if (!ContentComparerHelper.CompareXML(xml1, xml2).IsEqual)
                     {
                         string reason = string.Empty;
 
-                        ContentCopareResult compare = ContentCoparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
+                        ContentCopareResult compare = ContentComparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
 
                         if (!compare.IsEqual)
                         {
@@ -924,7 +924,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 foreach (string fieldName in fieldsToCompare)
                 {
-                    if (ContentCoparerHelper.IsEntityDifferentInField(template1, template2, fieldName))
+                    if (ContentComparerHelper.IsEntityDifferentInField(template1, template2, fieldName))
                     {
                         string str1 = EntityDescriptionHandler.GetAttributeString(template1, fieldName, Connection1);
                         string str2 = EntityDescriptionHandler.GetAttributeString(template2, fieldName, Connection2);
@@ -939,11 +939,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     string xml1 = template1.GetAttributeValue<string>(fieldName) ?? string.Empty;
                     string xml2 = template2.GetAttributeValue<string>(fieldName) ?? string.Empty;
 
-                    if (!ContentCoparerHelper.CompareXML(xml1, xml2).IsEqual)
+                    if (!ContentComparerHelper.CompareXML(xml1, xml2).IsEqual)
                     {
                         string reason = string.Empty;
 
-                        ContentCopareResult compare = ContentCoparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
+                        ContentCopareResult compare = ContentComparerHelper.CompareXML(xml1.ToLower(), xml2.ToLower(), true);
 
                         if (!compare.IsEqual)
                         {

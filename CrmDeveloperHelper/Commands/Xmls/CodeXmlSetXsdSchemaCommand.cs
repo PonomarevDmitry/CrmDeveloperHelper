@@ -28,7 +28,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 
             if (document != null)
             {
-                ContentCoparerHelper.ReplaceXsdSchemaInDocument(document, schemas.Item2);
+                ContentComparerHelper.ReplaceXsdSchemaInDocument(document, schemas.Item2);
             }
         }
 

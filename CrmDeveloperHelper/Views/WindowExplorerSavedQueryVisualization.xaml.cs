@@ -465,7 +465,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     //    xmlContent = doc.ToString();
                     //}
 
-                    xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
+                    xmlContent = ContentComparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
                           , schemaName: AbstractDynamicCommandXsdSchemas.SchemaVisualizationDataDescription
                           );
 
@@ -584,7 +584,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 string xmlContent = savedQueryVisualization.GetAttributeValue<string>(fieldName);
 
                 {
-                    if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                    if (ContentComparerHelper.TryParseXml(xmlContent, out var doc))
                     {
                         xmlContent = doc.ToString();
                     }
@@ -610,10 +610,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     return;
                 }
 
-                newText = ContentCoparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(newText);
+                newText = ContentComparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(newText);
 
                 {
-                    if (ContentCoparerHelper.TryParseXml(newText, out var doc))
+                    if (ContentComparerHelper.TryParseXml(newText, out var doc))
                     {
                         newText = doc.ToString(SaveOptions.DisableFormatting);
                     }

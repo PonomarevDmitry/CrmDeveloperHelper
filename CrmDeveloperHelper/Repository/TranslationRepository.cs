@@ -153,7 +153,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 var traslationFileBytes = FileOperations.UnzipCrmTranslations(traslationZipFile, "/CrmTranslations.xml");
 
                 string xml = Encoding.UTF8.GetString(traslationFileBytes);
-                xml = ContentCoparerHelper.RemoveDiacritics(xml);
+                xml = ContentComparerHelper.RemoveDiacritics(xml);
 
                 XElement doc = XElement.Parse(xml);
 
@@ -184,7 +184,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 var traslationFileBytes = FileOperations.UnzipCrmTranslations(traslationZipFile, "/CrmFieldTranslations.xml");
 
                 string xml = Encoding.UTF8.GetString(traslationFileBytes);
-                xml = ContentCoparerHelper.RemoveDiacritics(xml);
+                xml = ContentComparerHelper.RemoveDiacritics(xml);
 
                 result = new Translation();
 

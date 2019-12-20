@@ -957,14 +957,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (string.Equals(fieldName, WebResource.Schema.Attributes.dependencyxml, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
+                        xmlContent = ContentComparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
                             , schemaName: AbstractDynamicCommandXsdSchemas.SchemaDependencyXml
                            , webResourceName: webresource.Name
                         );
                     }
                     else if (string.Equals(fieldName, WebResource.Schema.Attributes.contentjson, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        xmlContent = ContentCoparerHelper.FormatJson(xmlContent);
+                        xmlContent = ContentComparerHelper.FormatJson(xmlContent);
                     }
                 }
 
@@ -1014,7 +1014,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     File.WriteAllBytes(filePath, array);
 
-                    var encodings = ContentCoparerHelper.GetFileEncoding(array);
+                    var encodings = ContentComparerHelper.GetFileEncoding(array);
 
                     xmlContent = encodings.First().GetString(array);
                 }
@@ -1022,7 +1022,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     if (string.Equals(fieldName, WebResource.Schema.Attributes.dependencyxml, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions);
+                        xmlContent = ContentComparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions);
                     }
 
                     await CreateFileAsync(folder, name, fieldTitle + " BackUp", xmlContent, extension);
@@ -1058,9 +1058,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     if (string.Equals(fieldName, WebResource.Schema.Attributes.dependencyxml, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        newText = ContentCoparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(newText);
+                        newText = ContentComparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(newText);
 
-                        if (ContentCoparerHelper.TryParseXml(newText, out var doc))
+                        if (ContentComparerHelper.TryParseXml(newText, out var doc))
                         {
                             newText = doc.ToString(SaveOptions.DisableFormatting);
                         }

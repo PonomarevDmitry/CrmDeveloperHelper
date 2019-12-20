@@ -1271,7 +1271,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public static string GetOptionSetValueName(string label, int value)
         {
-            var result = ContentCoparerHelper.RemoveDiacritics(label);
+            var result = ContentComparerHelper.RemoveDiacritics(label);
 
             result = Translit(result);
 

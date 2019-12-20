@@ -629,14 +629,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (string.Equals(fieldName, SystemForm.Schema.Attributes.formxml, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
+                    xmlContent = ContentComparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
                         , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFormXml
                         , formId: idSystemForm
                     );
                 }
                 else if (string.Equals(fieldName, SystemForm.Schema.Attributes.formjson, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    xmlContent = ContentCoparerHelper.FormatJson(xmlContent);
+                    xmlContent = ContentComparerHelper.FormatJson(xmlContent);
                 }
 
                 string filePath = await CreateFileAsync(folder, idSystemForm, entityName, name, fieldTitle, extension, xmlContent);
@@ -674,14 +674,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (string.Equals(fieldName, SystemForm.Schema.Attributes.formxml, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    if (ContentCoparerHelper.TryParseXml(xmlContent, out var tempDoc))
+                    if (ContentComparerHelper.TryParseXml(xmlContent, out var tempDoc))
                     {
                         xmlContent = tempDoc.ToString();
                     }
                 }
                 else if (string.Equals(fieldName, SystemForm.Schema.Attributes.formjson, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    xmlContent = ContentCoparerHelper.FormatJson(xmlContent);
+                    xmlContent = ContentComparerHelper.FormatJson(xmlContent);
                 }
 
                 {
@@ -689,14 +689,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (string.Equals(fieldName, SystemForm.Schema.Attributes.formxml, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        backUpXmlContent = ContentCoparerHelper.FormatXmlByConfiguration(backUpXmlContent, _commonConfig, _xmlOptions
+                        backUpXmlContent = ContentComparerHelper.FormatXmlByConfiguration(backUpXmlContent, _commonConfig, _xmlOptions
                             , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFormXml
                             , formId: idSystemForm
                         );
                     }
                     else if (string.Equals(fieldName, SystemForm.Schema.Attributes.formjson, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        backUpXmlContent = ContentCoparerHelper.FormatJson(backUpXmlContent);
+                        backUpXmlContent = ContentComparerHelper.FormatJson(backUpXmlContent);
                     }
 
                     await CreateFileAsync(folder, idSystemForm, entityName, name, fieldTitle + " BackUp", extension, backUpXmlContent);
@@ -725,11 +725,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (string.Equals(fieldName, SystemForm.Schema.Attributes.formxml))
                 {
-                    newText = ContentCoparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(newText);
+                    newText = ContentComparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(newText);
 
                     UpdateStatus(service.ConnectionData, Properties.OutputStrings.ValidatingXmlForFieldFormat1, fieldName);
 
-                    if (!ContentCoparerHelper.TryParseXmlDocument(newText, out var doc))
+                    if (!ContentComparerHelper.TryParseXmlDocument(newText, out var doc))
                     {
                         ToggleControls(service.ConnectionData, true, Properties.OutputStrings.TextIsNotValidXml);
 

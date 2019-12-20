@@ -25,7 +25,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
             {
                 foreach (var document in listDocuments)
                 {
-                    ContentCoparerHelper.RemoveXsdSchemaInDocument(document);
+                    ContentComparerHelper.RemoveXsdSchemaInDocument(document);
                 }
             }
         }

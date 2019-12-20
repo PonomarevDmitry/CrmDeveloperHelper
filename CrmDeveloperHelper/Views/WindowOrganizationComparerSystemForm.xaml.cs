@@ -560,14 +560,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     if (string.Equals(extension, "xml", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        formXml = ContentCoparerHelper.FormatXmlByConfiguration(formXml, _commonConfig, _xmlOptions
+                        formXml = ContentComparerHelper.FormatXmlByConfiguration(formXml, _commonConfig, _xmlOptions
                             , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFormXml
                             , formId: idSystemForm
                         );
                     }
                     else if (string.Equals(extension, "json", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        formXml = ContentCoparerHelper.FormatJson(formXml);
+                        formXml = ContentComparerHelper.FormatJson(formXml);
                     }
 
                     File.WriteAllText(filePath, formXml, new UTF8Encoding(false));
@@ -856,7 +856,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     string xml1 = systemForm1.GetAttributeValue<string>(fieldName);
                     string xml2 = systemForm2.GetAttributeValue<string>(fieldName);
 
-                    if (showAllways || !ContentCoparerHelper.CompareXML(xml1, xml2, false, action).IsEqual)
+                    if (showAllways || !ContentComparerHelper.CompareXML(xml1, xml2, false, action).IsEqual)
                     {
                         string filePath1 = await CreateFileAsync(service1.ConnectionData, linked.Entity1.Id, linked.Entity1.ObjectTypeCode, linked.Entity1.Name, fieldTitle, extension, xml1);
                         string filePath2 = await CreateFileAsync(service2.ConnectionData, linked.Entity2.Id, linked.Entity2.ObjectTypeCode, linked.Entity2.Name, fieldTitle, extension, xml2);

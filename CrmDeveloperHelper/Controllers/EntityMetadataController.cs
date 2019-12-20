@@ -1044,7 +1044,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string fileText = File.ReadAllText(selectedFile.FilePath);
 
-            if (!ContentCoparerHelper.TryParseXml(fileText, out var doc))
+            if (!ContentComparerHelper.TryParseXml(fileText, out var doc))
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
                 return;
@@ -1102,7 +1102,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 string ribbonXml = await repositoryRibbon.ExportEntityRibbonAsync(entityName, Microsoft.Crm.Sdk.Messages.RibbonLocationFilters.All);
 
-                ribbonXml = ContentCoparerHelper.FormatXmlByConfiguration(ribbonXml, commonConfig, XmlOptionsControls.RibbonFull
+                ribbonXml = ContentComparerHelper.FormatXmlByConfiguration(ribbonXml, commonConfig, XmlOptionsControls.RibbonFull
                    , ribbonEntityName: entityName ?? string.Empty
                 );
 
@@ -1118,7 +1118,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 string ribbonXml = await repositoryRibbon.ExportApplicationRibbonAsync();
 
-                ribbonXml = ContentCoparerHelper.FormatXmlByConfiguration(ribbonXml, commonConfig, XmlOptionsControls.RibbonFull
+                ribbonXml = ContentComparerHelper.FormatXmlByConfiguration(ribbonXml, commonConfig, XmlOptionsControls.RibbonFull
                    , ribbonEntityName: entityName ?? string.Empty
                 );
 
@@ -1174,7 +1174,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string fileText = File.ReadAllText(selectedFile.FilePath);
 
-            if (!ContentCoparerHelper.TryParseXml(fileText, out var doc))
+            if (!ContentComparerHelper.TryParseXml(fileText, out var doc))
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
                 return;
@@ -1243,7 +1243,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string ribbonDiffXml = await repositoryRibbonCustomization.GetRibbonDiffXmlAsync(_iWriteToOutput, entityMetadata, ribbonCustomization);
 
-            ribbonDiffXml = ContentCoparerHelper.FormatXmlByConfiguration(ribbonDiffXml, commonConfig, XmlOptionsControls.RibbonFull
+            ribbonDiffXml = ContentComparerHelper.FormatXmlByConfiguration(ribbonDiffXml, commonConfig, XmlOptionsControls.RibbonFull
                 , schemaName: AbstractDynamicCommandXsdSchemas.SchemaRibbonXml
                 , ribbonEntityName: entityName ?? string.Empty
                 );
@@ -1314,7 +1314,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ValidatingRibbonDiffXml);
 
-            if (!ContentCoparerHelper.TryParseXmlDocument(fileText, out var doc))
+            if (!ContentComparerHelper.TryParseXmlDocument(fileText, out var doc))
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
                 _iWriteToOutput.ActivateOutputWindow(connectionData);
@@ -1443,7 +1443,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string fileText = File.ReadAllText(selectedFile.FilePath);
 
-            if (!ContentCoparerHelper.TryParseXmlDocument(fileText, out var doc))
+            if (!ContentComparerHelper.TryParseXmlDocument(fileText, out var doc))
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
                 _iWriteToOutput.ActivateOutputWindow(connectionData);
@@ -1542,7 +1542,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string fileText = File.ReadAllText(selectedFile.FilePath);
 
-            if (!ContentCoparerHelper.TryParseXmlDocument(fileText, out var doc))
+            if (!ContentComparerHelper.TryParseXmlDocument(fileText, out var doc))
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
                 _iWriteToOutput.ActivateOutputWindow(connectionData);

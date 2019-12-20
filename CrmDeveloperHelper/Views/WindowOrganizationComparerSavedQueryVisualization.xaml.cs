@@ -516,7 +516,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
+                    xmlContent = ContentComparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
                         , schemaName: AbstractDynamicCommandXsdSchemas.SchemaVisualizationDataDescription
                     );
 
@@ -668,7 +668,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     string xml1 = chart1.GetAttributeValue<string>(fieldName);
                     string xml2 = chart2.GetAttributeValue<string>(fieldName);
 
-                    if (showAllways || !ContentCoparerHelper.CompareXML(xml1, xml2).IsEqual)
+                    if (showAllways || !ContentComparerHelper.CompareXML(xml1, xml2).IsEqual)
                     {
                         string filePath1 = await CreateFileAsync(service1.ConnectionData, chart1.PrimaryEntityTypeCode, chart1.Name, fieldTitle, xml1);
                         string filePath2 = await CreateFileAsync(service2.ConnectionData, chart2.PrimaryEntityTypeCode, chart2.Name, fieldTitle, xml2);

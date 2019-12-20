@@ -473,7 +473,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                    if (ContentComparerHelper.TryParseXml(xmlContent, out var doc))
                     {
                         xmlContent = doc.ToString();
                     }
@@ -680,7 +680,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     string xml1 = report1.GetAttributeValue<string>(fieldName);
                     string xml2 = report2.GetAttributeValue<string>(fieldName);
 
-                    if (showAllways || !ContentCoparerHelper.CompareXML(xml1, xml2).IsEqual)
+                    if (showAllways || !ContentComparerHelper.CompareXML(xml1, xml2).IsEqual)
                     {
                         string filePath1 = await CreateFileAsync(service1.ConnectionData, report1.Name, report1.Id, fieldTitle, xml1);
 

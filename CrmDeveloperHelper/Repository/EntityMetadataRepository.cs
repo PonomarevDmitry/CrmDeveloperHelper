@@ -651,7 +651,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 var text = response.Results["EntityXml"].ToString();
 
-                if (ContentCoparerHelper.TryParseXml(text, out var doc))
+                if (ContentComparerHelper.TryParseXml(text, out var doc))
                 {
                     text = doc.ToString();
                 }

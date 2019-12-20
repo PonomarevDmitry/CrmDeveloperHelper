@@ -226,7 +226,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                             var nameWebResource = webresource.Name;
 
-                            var compare = ContentCoparerHelper.CompareByteArrays(selectedFile.Extension, arrayFile, arrayWebResource, withDetails);
+                            var compare = ContentComparerHelper.CompareByteArrays(selectedFile.Extension, arrayFile, arrayWebResource, withDetails);
 
                             if (compare.IsEqual)
                             {
@@ -326,7 +326,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                                 {
                                     var arrayWebResource = Convert.FromBase64String(contentWebResource);
 
-                                    var compare = ContentCoparerHelper.CompareByteArrays(selectedFile.Extension, arrayFile, arrayWebResource);
+                                    var compare = ContentComparerHelper.CompareByteArrays(selectedFile.Extension, arrayFile, arrayWebResource);
 
                                     if (compare.IsEqual)
                                     {

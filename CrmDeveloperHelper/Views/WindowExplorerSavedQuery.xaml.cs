@@ -457,14 +457,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     if (string.Equals(extension, "xml", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
+                        xmlContent = ContentComparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
                            , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFetch
                            , savedQueryId: savedQueryId
                         );
                     }
                     else if (string.Equals(extension, "json", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        xmlContent = ContentCoparerHelper.FormatJson(xmlContent);
+                        xmlContent = ContentComparerHelper.FormatJson(xmlContent);
                     }
 
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
@@ -589,16 +589,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (string.Equals(extension, "xml", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                    if (ContentComparerHelper.TryParseXml(xmlContent, out var doc))
                     {
                         xmlContent = doc.ToString();
 
-                        xmlContent = ContentCoparerHelper.FormatToJavaScript(fieldName, xmlContent);
+                        xmlContent = ContentComparerHelper.FormatToJavaScript(fieldName, xmlContent);
                     }
                 }
                 else if (string.Equals(extension, "json", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    xmlContent = ContentCoparerHelper.FormatJson(xmlContent);
+                    xmlContent = ContentComparerHelper.FormatJson(xmlContent);
                 }
 
                 ClipboardHelper.SetText(xmlContent);
@@ -654,11 +654,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
 
-                newText = ContentCoparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(newText);
+                newText = ContentComparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(newText);
 
                 UpdateStatus(service.ConnectionData, Properties.OutputStrings.ValidatingXmlForFieldFormat1, fieldTitle);
 
-                if (!ContentCoparerHelper.TryParseXmlDocument(newText, out var doc))
+                if (!ContentComparerHelper.TryParseXmlDocument(newText, out var doc))
                 {
                     ToggleControls(service.ConnectionData, true, Properties.OutputStrings.TextIsNotValidXml);
 

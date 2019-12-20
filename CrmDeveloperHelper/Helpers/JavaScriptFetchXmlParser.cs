@@ -122,7 +122,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         var commonConfig = Model.CommonConfiguration.Get();
 
-                        result = ContentCoparerHelper.FormatXmlByConfiguration(result
+                        result = ContentComparerHelper.FormatXmlByConfiguration(result
                             , commonConfig
                             , Model.XmlOptionsControls.XmlSimple
                            , schemaName: Commands.AbstractDynamicCommandXsdSchemas.SchemaFetch

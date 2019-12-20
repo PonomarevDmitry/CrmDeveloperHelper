@@ -184,7 +184,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                             continue;
                         }
 
-                        if (ContentCoparerHelper.TryParseXmlDocument(item.SiteMapXml, out var doc))
+                        if (ContentComparerHelper.TryParseXmlDocument(item.SiteMapXml, out var doc))
                         {
                             _siteMapIntellisenseData.LoadDataFromSiteMap(doc);
                         }
@@ -201,7 +201,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     {
                         if (!string.IsNullOrEmpty(organization.ReferenceSiteMapXml))
                         {
-                            if (ContentCoparerHelper.TryParseXmlDocument(organization.ReferenceSiteMapXml, out var doc))
+                            if (ContentComparerHelper.TryParseXmlDocument(organization.ReferenceSiteMapXml, out var doc))
                             {
                                 _siteMapIntellisenseData.LoadDataFromSiteMap(doc);
                             }
@@ -209,7 +209,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                         if (!string.IsNullOrEmpty(organization.SiteMapXml))
                         {
-                            if (ContentCoparerHelper.TryParseXmlDocument(organization.SiteMapXml, out var doc))
+                            if (ContentComparerHelper.TryParseXmlDocument(organization.SiteMapXml, out var doc))
                             {
                                 _siteMapIntellisenseData.LoadDataFromSiteMap(doc);
                             }
