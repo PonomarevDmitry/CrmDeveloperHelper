@@ -10819,15 +10819,15 @@
 
     <!-- #region codeMenuXml_GroupCopyFetch -->
 
-    <CommandPlacement guid="guidCommandSet" id="CodeXmlFetchXmlPasteFromClipboardCommandId" priority="0x6000">
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlFetchXmlConvertToJavaScriptCodeCommandId" priority="0x6000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupCopyFetch" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidCommandSet" id="CodeXmlFetchXmlConvertToJavaScriptCodeCommandId" priority="0x6010">
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlFetchXmlConvertToQueryExpressionCommandId" priority="0x6010">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupCopyFetch" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidCommandSet" id="CodeXmlFetchXmlConvertToQueryExpressionCommandId" priority="0x6020">
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlFetchXmlPasteFromClipboardCommandId" priority="0x6020">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupCopyFetch" />
     </CommandPlacement>
 

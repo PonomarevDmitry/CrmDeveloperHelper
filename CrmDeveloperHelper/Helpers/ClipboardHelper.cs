@@ -12,7 +12,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var thread = new Thread(() => Clipboard.SetText(text));
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
-            thread.Join();
         }
 
         public static void SetFileDropList(StringCollection stringCollection)
@@ -20,7 +19,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var thread = new Thread(() => Clipboard.SetFileDropList(stringCollection));
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
-            thread.Join();
         }
     }
 }
