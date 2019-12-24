@@ -76,7 +76,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this._ShareRight = this._initialShare = GetPrivilegeLevel(rolePrivileges, PrivilegeType.Share);
             this._AssignRight = this._initialAssign = GetPrivilegeLevel(rolePrivileges, PrivilegeType.Assign);
 
-            this._IsChanged = false;
+            this.OnPropertyChanging(nameof(IsChanged));
+            this.IsChanged = false;
+            this.OnPropertyChanged(nameof(IsChanged));
         }
 
         private PrivilegeDepthExtended GetPrivilegeLevel(IEnumerable<RolePrivilege> rolePrivileges, PrivilegeType privilegeType)
@@ -115,7 +117,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             if (!string.Equals(propertyName, nameof(IsChanged)))
             {
-                this.IsChanged = CalculateIsChanged();
+                var val = CalculateIsChanged();
+
+                if (val != this.IsChanged)
+                {
+                    this.OnPropertyChanging(nameof(IsChanged));
+                    this.IsChanged = val;
+                    this.OnPropertyChanged(nameof(IsChanged));
+                }
             }
         }
 
@@ -169,22 +178,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(propertyName));
         }
 
-        private bool _IsChanged = false;
-        public bool IsChanged
-        {
-            get => _IsChanged;
-            set
-            {
-                if (_IsChanged == value)
-                {
-                    return;
-                }
-
-                this.OnPropertyChanging(nameof(IsChanged));
-                this._IsChanged = value;
-                this.OnPropertyChanged(nameof(IsChanged));
-            }
-        }
+        public bool IsChanged { get; private set; }
 
         //public PrivilegeDepthExtended CreateRight
 

@@ -260,7 +260,7 @@
                     </DataGrid.ItemContainerStyle>
                     <DataGrid.Columns>
 
-                        <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsChanged, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True">
+                        <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsChanged, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsReadOnly="True">
                             <DataGridCheckBoxColumn.Header>
                                 <Label Content="Ch" Margin="0" Padding="0" ToolTip="Is Changed" />
                             </DataGridCheckBoxColumn.Header>
@@ -508,7 +508,7 @@
                     </DataGrid.ItemContainerStyle>
                     <DataGrid.Columns>
 
-                        <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsChanged, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True">
+                        <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsChanged, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsReadOnly="True">
                             <DataGridCheckBoxColumn.Header>
                                 <Label Content="Ch" Margin="0" Padding="0" ToolTip="Is Changed" />
                             </DataGridCheckBoxColumn.Header>

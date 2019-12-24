@@ -791,7 +791,7 @@
                             </DataGrid.ItemContainerStyle>
                             <DataGrid.Columns>
 
-                                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsChanged, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True">
+                                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsChanged, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsReadOnly="True">
                                     <DataGridCheckBoxColumn.ElementStyle>
                                         <Style TargetType="CheckBox">
                                             <Setter Property="VerticalAlignment" Value="Center"/>
@@ -1038,7 +1038,7 @@
                             </DataGrid.Resources>
                             <DataGrid.Columns>
 
-                                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsChanged, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True">
+                                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsChanged, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsReadOnly="True">
                                     <DataGridCheckBoxColumn.ElementStyle>
                                         <Style TargetType="CheckBox">
                                             <Setter Property="VerticalAlignment" Value="Center"/>

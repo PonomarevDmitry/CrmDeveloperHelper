@@ -57,7 +57,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             this.EntityKeyMetadata = EntityKeyMetadata;
 
-            this._IsChanged = false;
+            this.OnPropertyChanging(nameof(IsChanged));
+            this.IsChanged = false;
+            this.OnPropertyChanged(nameof(IsChanged));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -70,7 +72,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             if (!string.Equals(propertyName, nameof(IsChanged)))
             {
-                this.IsChanged = CalculateIsChanged();
+                var val = CalculateIsChanged();
+
+                if (val != this.IsChanged)
+                {
+                    this.OnPropertyChanging(nameof(IsChanged));
+                    this.IsChanged = val;
+                    this.OnPropertyChanged(nameof(IsChanged));
+                }
             }
         }
 
@@ -99,22 +108,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(propertyName));
         }
 
-        private bool _IsChanged = false;
-        public bool IsChanged
-        {
-            get => _IsChanged;
-            set
-            {
-                if (_IsChanged == value)
-                {
-                    return;
-                }
-
-                this.OnPropertyChanging(nameof(IsChanged));
-                this._IsChanged = value;
-                this.OnPropertyChanged(nameof(IsChanged));
-            }
-        }
+        public bool IsChanged { get; private set; }
 
         public bool IsCustomizableCanBeChanged => (EntityKeyMetadata.IsCustomizable?.CanBeChanged).GetValueOrDefault();
 
