@@ -9,14 +9,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
     {
         public static void SetText(string text)
         {
-            var thread = new Thread(() => Clipboard.SetText(text));
+            var thread = new Thread(() =>
+            {
+                try
+                {
+                    Clipboard.SetText(text);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(null, ex);
+                }
+            });
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
         }
 
         public static void SetFileDropList(StringCollection stringCollection)
         {
-            var thread = new Thread(() => Clipboard.SetFileDropList(stringCollection));
+            var thread = new Thread(() =>
+            {
+                try
+                {
+                    Clipboard.SetFileDropList(stringCollection);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(null, ex);
+                }
+            });
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
         }

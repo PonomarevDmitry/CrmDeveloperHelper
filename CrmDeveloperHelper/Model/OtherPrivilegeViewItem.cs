@@ -124,7 +124,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        public void FillChangedPrivileges(List<RolePrivilege> privilegesAdd, List<RolePrivilege> privilegesRemove)
+        public void FillChangedPrivileges(Dictionary<Guid, PrivilegeDepth> privilegesAdd, HashSet<Guid> privilegesRemove)
         {
             if (this._Right == this._initialRight)
             {
@@ -133,18 +133,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             if (this._Right == PrivilegeDepthExtended.None)
             {
-                privilegesRemove.Add(new RolePrivilege()
-                {
-                    PrivilegeId = Privilege.PrivilegeId.Value,
-                });
+                privilegesRemove.Add(Privilege.PrivilegeId.Value);
             }
             else
             {
-                privilegesAdd.Add(new RolePrivilege()
+                if (privilegesAdd.ContainsKey(Privilege.PrivilegeId.Value))
                 {
-                    PrivilegeId = Privilege.PrivilegeId.Value,
-                    Depth = (PrivilegeDepth)this._Right,
-                });
+                    privilegesAdd[Privilege.PrivilegeId.Value] = (PrivilegeDepth)Math.Max((int)this._Right, (int)privilegesAdd[Privilege.PrivilegeId.Value]);
+                }
+                else
+                {
+                    privilegesAdd.Add(Privilege.PrivilegeId.Value, (PrivilegeDepth)this._Right);
+                }
             }
         }
 

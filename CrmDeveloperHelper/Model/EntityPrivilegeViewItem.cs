@@ -325,7 +325,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        public void FillChangedPrivileges(List<RolePrivilege> privilegesAdd, List<RolePrivilege> privilegesRemove)
+        public void FillChangedPrivileges(Dictionary<Guid, PrivilegeDepth> privilegesAdd, HashSet<Guid> privilegesRemove)
         {
             SetPrivilegeLevel(this._initialCreate, this._CreateRight, PrivilegeType.Create, privilegesAdd, privilegesRemove);
             SetPrivilegeLevel(this._initialRead, this._ReadRight, PrivilegeType.Read, privilegesAdd, privilegesRemove);
@@ -342,8 +342,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         private void SetPrivilegeLevel(PrivilegeDepthExtended initialValue
             , PrivilegeDepthExtended currentValue
             , PrivilegeType privilegeType
-            , List<RolePrivilege> privilegesAdd
-            , List<RolePrivilege> privilegesRemove
+            , Dictionary<Guid, PrivilegeDepth> privilegesAdd
+            , HashSet<Guid> privilegesRemove
             )
         {
             if (currentValue == initialValue)
@@ -367,18 +367,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             if (currentValue == PrivilegeDepthExtended.None)
             {
-                privilegesRemove.Add(new RolePrivilege()
-                {
-                    PrivilegeId = privilege.PrivilegeId,
-                });
+                privilegesRemove.Add(privilege.PrivilegeId);
             }
             else
             {
-                privilegesAdd.Add(new RolePrivilege()
+                if (privilegesAdd.ContainsKey(privilege.PrivilegeId))
                 {
-                    PrivilegeId = privilege.PrivilegeId,
-                    Depth = (PrivilegeDepth)currentValue,
-                });
+                    privilegesAdd[privilege.PrivilegeId] = (PrivilegeDepth)Math.Max((int)currentValue, (int)privilegesAdd[privilege.PrivilegeId]);
+                }
+                else
+                {
+                    privilegesAdd.Add(privilege.PrivilegeId, (PrivilegeDepth)currentValue);
+                }
             }
         }
 

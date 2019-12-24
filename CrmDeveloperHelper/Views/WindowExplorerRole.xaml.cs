@@ -663,9 +663,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         list = list
                         .Where(ent =>
                             ent.LogicalName.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
-                            || 
+                            ||
                             (
-                                ent.DisplayName != null 
+                                ent.DisplayName != null
                                 && ent.DisplayName.LocalizedLabels
                                     .Where(l => !string.IsNullOrEmpty(l.Label))
                                     .Any(lbl => lbl.Label.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1)
@@ -2220,14 +2220,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            List<Microsoft.Crm.Sdk.Messages.RolePrivilege> privilegesAdd = new List<Microsoft.Crm.Sdk.Messages.RolePrivilege>();
-            List<Microsoft.Crm.Sdk.Messages.RolePrivilege> privilegesRemove = new List<Microsoft.Crm.Sdk.Messages.RolePrivilege>();
+            Dictionary<Guid, PrivilegeDepth> dictPrivilegesAdd = new Dictionary<Guid, PrivilegeDepth>();
+            HashSet<Guid> hashPrivilegesRemove = new HashSet<Guid>();
 
             if (changedEntitesList != null)
             {
                 foreach (var ent in changedEntitesList)
                 {
-                    ent.FillChangedPrivileges(privilegesAdd, privilegesRemove);
+                    ent.FillChangedPrivileges(dictPrivilegesAdd, hashPrivilegesRemove);
                 }
             }
 
@@ -2235,16 +2235,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 foreach (var ent in changedOtherList)
                 {
-                    ent.FillChangedPrivileges(privilegesAdd, privilegesRemove);
+                    ent.FillChangedPrivileges(dictPrivilegesAdd, hashPrivilegesRemove);
                 }
             }
 
-            if (!privilegesAdd.Any()
-                && !privilegesRemove.Any()
+            if (!dictPrivilegesAdd.Any()
+                && !hashPrivilegesRemove.Any()
                 )
             {
                 return;
             }
+
+            var privilegesAdd = dictPrivilegesAdd.Select(d => new RolePrivilege()
+            {
+                PrivilegeId = d.Key,
+                Depth = d.Value,
+            }).ToList();
+
+            var privilegesRemove = hashPrivilegesRemove.Select(p => new RolePrivilege()
+            {
+                PrivilegeId = p,
+            }).ToList();
 
             var service = await GetService();
 

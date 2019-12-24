@@ -406,7 +406,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public List<RolePrivilege> GetAddRolePrivilege()
         {
-            List<RolePrivilege> result = new List<RolePrivilege>();
+            Dictionary<Guid, PrivilegeDepth> result = new Dictionary<Guid, PrivilegeDepth>();
 
             FillAddPrivilege(this._initialCreate, this._CreateRight, PrivilegeType.Create, result);
             FillAddPrivilege(this._initialRead, this._ReadRight, PrivilegeType.Read, result);
@@ -417,14 +417,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             FillAddPrivilege(this._initialAssign, this._AssignRight, PrivilegeType.Assign, result);
             FillAddPrivilege(this._initialShare, this._ShareRight, PrivilegeType.Share, result);
 
-            return result;
+            return result.Select(d => new RolePrivilege()
+            {
+                PrivilegeId = d.Key,
+                Depth = d.Value,
+            }).ToList();
         }
 
         private void FillAddPrivilege(PrivilegeDepthExtended initialValue
             , PrivilegeDepthExtended currentValue
             , PrivilegeType privilegeType
-            , List<RolePrivilege> privilegesAdd
-            )
+            , Dictionary<Guid, PrivilegeDepth> privilegesAdd
+        )
         {
             if (currentValue == initialValue)
             {
@@ -448,17 +452,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             if (currentValue != PrivilegeDepthExtended.None)
             {
-                privilegesAdd.Add(new RolePrivilege()
+                if (privilegesAdd.ContainsKey(privilege.PrivilegeId))
                 {
-                    PrivilegeId = privilege.PrivilegeId,
-                    Depth = (PrivilegeDepth)currentValue,
-                });
+                    privilegesAdd[privilege.PrivilegeId] = (PrivilegeDepth)Math.Max((int)currentValue, (int)privilegesAdd[privilege.PrivilegeId]);
+                }
+                else
+                {
+                    privilegesAdd.Add(privilege.PrivilegeId, (PrivilegeDepth)currentValue);
+                }
             }
         }
 
         public List<RolePrivilege> GetRemoveRolePrivilege()
         {
-            List<RolePrivilege> result = new List<RolePrivilege>();
+            HashSet<Guid> result = new HashSet<Guid>();
 
             FillRemovePrivilege(this._initialCreate, this._CreateRight, PrivilegeType.Create, result);
             FillRemovePrivilege(this._initialRead, this._ReadRight, PrivilegeType.Read, result);
@@ -469,13 +476,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             FillRemovePrivilege(this._initialAssign, this._AssignRight, PrivilegeType.Assign, result);
             FillRemovePrivilege(this._initialShare, this._ShareRight, PrivilegeType.Share, result);
 
-            return result;
+            return result.Select(p => new RolePrivilege()
+            {
+                PrivilegeId = p,
+            }).ToList();
         }
 
         private void FillRemovePrivilege(PrivilegeDepthExtended initialValue
             , PrivilegeDepthExtended currentValue
             , PrivilegeType privilegeType
-            , List<RolePrivilege> privilegesRemove
+            , HashSet<Guid> privilegesRemove
             )
         {
             if (currentValue == initialValue)
@@ -500,10 +510,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             if (currentValue == PrivilegeDepthExtended.None)
             {
-                privilegesRemove.Add(new RolePrivilege()
-                {
-                    PrivilegeId = privilege.PrivilegeId,
-                });
+                privilegesRemove.Add(privilege.PrivilegeId);
             }
         }
     }
