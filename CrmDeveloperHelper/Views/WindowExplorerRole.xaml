@@ -796,6 +796,7 @@
                                         <Style TargetType="CheckBox">
                                             <Setter Property="VerticalAlignment" Value="Center"/>
                                             <Setter Property="HorizontalAlignment" Value="Center"/>
+                                            <Setter Property="IsEnabled" Value="False"/>
                                         </Style>
                                     </DataGridCheckBoxColumn.ElementStyle>
                                     <DataGridCheckBoxColumn.Header>
@@ -1043,6 +1044,7 @@
                                         <Style TargetType="CheckBox">
                                             <Setter Property="VerticalAlignment" Value="Center"/>
                                             <Setter Property="HorizontalAlignment" Value="Center"/>
+                                            <Setter Property="IsEnabled" Value="False"/>
                                         </Style>
                                     </DataGridCheckBoxColumn.ElementStyle>
                                     <DataGridCheckBoxColumn.Header>
