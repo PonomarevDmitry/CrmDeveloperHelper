@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
-    public class FileOperations
+    public static class FileOperations
     {
         public static string RemoveWrongSymbols(string name)
         {
