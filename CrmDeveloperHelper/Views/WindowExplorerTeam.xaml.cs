@@ -508,11 +508,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (service != null)
                 {
-                    var taskEntityMetadata = GetEntityMetadataEnumerable(service);
-                    var taskPrivileges = GetPrivileges(service);
-
-                    entityMetadataList = await taskEntityMetadata;
-                    var otherPrivileges = await taskPrivileges;
+                    var otherPrivileges = await GetPrivileges(service);
+                    entityMetadataList = await GetEntityMetadataEnumerable(service);
 
                     entityMetadataList = entityMetadataList.Where(e => e.Privileges != null && e.Privileges.Any(p => p.PrivilegeType != PrivilegeType.None));
 
