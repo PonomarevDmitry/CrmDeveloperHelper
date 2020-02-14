@@ -477,6 +477,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             FileCSharpUpdateGlobalOptionSetsFileCommand.Initialize(commandService);
             FileCSharpUpdateGlobalOptionSetsFileWithSelectCommand.Initialize(commandService);
+
             FileCSharpPluginAssemblyExplorerCommand.Initialize(commandService);
 
             FileCSharpProjectBuildLoadUpdatePluginAssemblyCommand.Initialize(commandService);
@@ -524,6 +525,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FolderCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommand.Initialize(commandService);
             FolderCSharpUpdateEntityMetadataFileSchemaCommand.Initialize(commandService);
             FolderCSharpUpdateEntityMetadataFileProxyClassCommand.Initialize(commandService);
+
             FolderCSharpUpdateGlobalOptionSetsFileCommand.Initialize(commandService);
 
             #endregion FolderCSharp

@@ -13175,10 +13175,13 @@
 
     <!-- #region folderMenuCSharp -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupAddToSolution" priority="0x06080">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupAddToSolution" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata" priority="0x06090">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupEntityMetadata" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp_GroupGlobalOptionSets" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp" />
     </CommandPlacement>
 
