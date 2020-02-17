@@ -91,7 +91,10 @@
             
             <Separator/>
             <MenuItem Header="Open Entity List in Web" VerticalAlignment="Center" Click="mIOpenEntityListInWeb_Click" />
-            
+
+            <Separator/>
+            <MenuItem Header="Entity Privileges Explorer" Click="miEntityPrivilegesExplorer_Click"/>
+
             <Separator/>
             <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution">
                 <MenuItem x:Uid="contMnAddToSolutionLastIncludeSubcomponents" Header="Include Subcomponents" />
