@@ -485,20 +485,19 @@ throw e;
 'dirty': 'dirty'";
 
         public const string JavaScriptFunctionsHandleError =
-@"if (!e.HandledByConsole) {{
+@"if (e && !e.HandledByConsole) {{
 
 if (typeof window != 'undefined' && typeof window.console != 'undefined' && typeof window.console.error == 'function') {{
 
-if (typeof e.name == 'string') {{ {0}(e.name); }}
-if (typeof e.fileName == 'string') {{ {0}(e.fileName); }}
-if (typeof e.lineNumber != 'undefined') {{ {0}(e.lineNumber); }}
-if (typeof e.message == 'string') {{ {0}(e.message); }}
-if (typeof e.description == 'string') {{ {0}(e.description); }}
-if (typeof e.stack == 'string') {{ {0}(e.stack); }}
+{0}(e);
 
 e.HandledByConsole = true;
 
 debugger;
+
+if (typeof e == 'string' && e != '') {{
+var message = e;
+}}
 
 if (typeof e.message == 'string' && e.message != '') {{
 var message = e.message;
