@@ -32,17 +32,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                 return;
             }
 
-            if (helper.ApplicationObject.ActiveWindow != null
-               && helper.ApplicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeDocument
-               && helper.ApplicationObject.ActiveWindow.Document != null
-            )
-            {
-                if (!helper.ApplicationObject.ActiveWindow.Document.Saved)
-                {
-                    helper.ApplicationObject.ActiveWindow.Document.Save();
-                }
-            }
-
             helper.HandleExecutingFetchXml(connectionData, selectedFile, true);
         }
 

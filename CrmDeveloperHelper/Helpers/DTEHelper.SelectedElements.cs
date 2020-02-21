@@ -1,4 +1,3 @@
-using EnvDTE;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
@@ -15,28 +14,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (ApplicationObject.ActiveWindow != null
                 && ApplicationObject.ActiveWindow.Selection != null
-                && ApplicationObject.ActiveWindow.Selection is TextSelection
-                )
+                && ApplicationObject.ActiveWindow.Selection is EnvDTE.TextSelection textSelection
+            )
             {
-                result = ((TextSelection)ApplicationObject.ActiveWindow.Selection).Text;
+                result = textSelection.Text;
             }
             else if (ApplicationObject.ActiveWindow.Object != null
-                && ApplicationObject.ActiveWindow.Object is OutputWindow)
+                && ApplicationObject.ActiveWindow.Object is EnvDTE.OutputWindow outputWindow
+                && outputWindow.ActivePane != null
+                && outputWindow.ActivePane.TextDocument != null
+                && outputWindow.ActivePane.TextDocument.Selection != null
+            )
             {
-                var outputWindow = (OutputWindow)ApplicationObject.ActiveWindow.Object;
-
-                if (outputWindow.ActivePane != null
-                    && outputWindow.ActivePane.TextDocument != null
-                    && outputWindow.ActivePane.TextDocument.Selection != null)
-                {
-                    result = outputWindow.ActivePane.TextDocument.Selection.Text;
-                }
+                result = outputWindow.ActivePane.TextDocument.Selection.Text;
             }
             else if (ApplicationObject.ActiveWindow != null
-               && ApplicationObject.ActiveWindow.Type == vsWindowType.vsWindowTypeSolutionExplorer
-               && ApplicationObject.SelectedItems != null)
+                && ApplicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeSolutionExplorer
+                && ApplicationObject.SelectedItems != null
+            )
             {
-                var items = ApplicationObject.SelectedItems.Cast<SelectedItem>().Take(2).ToList();
+                var items = ApplicationObject.SelectedItems.OfType<EnvDTE.SelectedItem>().Take(2).ToList();
 
                 if (items.Count == 1)
                 {
@@ -69,7 +66,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             string solutionDirectoryPath = GetSolutionDirectory();
 
             if (ApplicationObject.ActiveWindow != null
-                && ApplicationObject.ActiveWindow.Type == vsWindowType.vsWindowTypeDocument
+                && ApplicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeDocument
                 && ApplicationObject.ActiveWindow.Document != null
                 )
             {
@@ -77,6 +74,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (checkerFunction(path))
                 {
+                    if (!ApplicationObject.ActiveWindow.Document.Saved)
+                    {
+                        ApplicationObject.ActiveWindow.Document.Save();
+                    }
+
                     yield return new SelectedFile(path, solutionDirectoryPath);
                 }
             }
@@ -87,14 +89,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             EnvDTE.Document result = null;
 
             if (ApplicationObject.ActiveWindow != null
-                && ApplicationObject.ActiveWindow.Type == vsWindowType.vsWindowTypeDocument
+                && ApplicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeDocument
                 && ApplicationObject.ActiveWindow.Document != null
-                )
+            )
             {
                 string path = ApplicationObject.ActiveWindow.Document.FullName;
 
                 if (checkerFunction(path))
                 {
+                    if (!ApplicationObject.ActiveWindow.Document.Saved)
+                    {
+                        ApplicationObject.ActiveWindow.Document.Save();
+                    }
+
                     result = ApplicationObject.ActiveWindow.Document;
                 }
             }
@@ -105,7 +112,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         public IEnumerable<SelectedFile> GetOpenedDocuments(Func<string, bool> checkerFunction)
         {
             if (ApplicationObject.ActiveWindow != null
-                && ApplicationObject.ActiveWindow.Type == vsWindowType.vsWindowTypeDocument
+                && ApplicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeDocument
                 && ApplicationObject.ActiveWindow.Document != null
             )
             {
@@ -116,19 +123,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     if (document.ActiveWindow == null
                         || document.ActiveWindow.Type != EnvDTE.vsWindowType.vsWindowTypeDocument
                         || document.ActiveWindow.Visible == false
-                        )
+                    )
                     {
                         continue;
                     }
 
                     if (ApplicationObject.ItemOperations.IsFileOpen(document.FullName, EnvDTE.Constants.vsViewKindTextView)
                         || ApplicationObject.ItemOperations.IsFileOpen(document.FullName, EnvDTE.Constants.vsViewKindCode)
-                        )
+                    )
                     {
                         string path = document.FullName;
 
                         if (checkerFunction(path))
                         {
+                            if (!document.Saved)
+                            {
+                                document.Save();
+                            }
+
                             yield return new SelectedFile(path, solutionDirectoryPath);
                         }
                     }
@@ -139,28 +151,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         public IEnumerable<EnvDTE.Document> GetOpenedDocumentsAsDocument(Func<string, bool> checkerFunction)
         {
             if (ApplicationObject.ActiveWindow != null
-                && ApplicationObject.ActiveWindow.Type == vsWindowType.vsWindowTypeDocument
+                && ApplicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeDocument
                 && ApplicationObject.ActiveWindow.Document != null
             )
             {
                 foreach (var document in ApplicationObject.Documents.OfType<EnvDTE.Document>())
                 {
                     if (document.ActiveWindow == null
-                      || document.ActiveWindow.Type != EnvDTE.vsWindowType.vsWindowTypeDocument
-                      || document.ActiveWindow.Visible == false
-                      )
+                        || document.ActiveWindow.Type != EnvDTE.vsWindowType.vsWindowTypeDocument
+                        || document.ActiveWindow.Visible == false
+                    )
                     {
                         continue;
                     }
 
                     if (ApplicationObject.ItemOperations.IsFileOpen(document.FullName, EnvDTE.Constants.vsViewKindTextView)
                         || ApplicationObject.ItemOperations.IsFileOpen(document.FullName, EnvDTE.Constants.vsViewKindCode)
-                        )
+                    )
                     {
                         string path = document.FullName;
 
                         if (checkerFunction(path))
                         {
+                            if (!document.Saved)
+                            {
+                                document.Save();
+                            }
+
                             yield return document;
                         }
                     }
@@ -171,13 +188,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         public IEnumerable<SelectedFile> GetSelectedFilesInSolutionExplorer(Func<string, bool> checkerFunction, bool recursive)
         {
             if (ApplicationObject.ActiveWindow != null
-               && ApplicationObject.ActiveWindow.Type == vsWindowType.vsWindowTypeSolutionExplorer
+               && ApplicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeSolutionExplorer
                && ApplicationObject.SelectedItems != null
             )
             {
                 string solutionDirectoryPath = GetSolutionDirectory();
 
-                var items = ApplicationObject.SelectedItems.Cast<SelectedItem>().ToList();
+                var items = ApplicationObject.SelectedItems.OfType<EnvDTE.SelectedItem>().ToList();
 
                 HashSet<string> hash = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
@@ -192,6 +209,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             && hash.Add(path)
                         )
                         {
+                            if (!item.ProjectItem.Document.Saved)
+                            {
+                                item.ProjectItem.Document.Save();
+                            }
+
                             yield return new SelectedFile(path, solutionDirectoryPath)
                             {
                                 Document = item.ProjectItem.Document,
@@ -218,21 +240,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        private IEnumerable<SelectedFile> FillHashSubProjectItems(HashSet<string> hash, ProjectItems projectItems, Func<string, bool> checkerFunction)
+        private IEnumerable<SelectedFile> FillHashSubProjectItems(HashSet<string> hash, EnvDTE.ProjectItems projectItems, Func<string, bool> checkerFunction)
         {
             if (projectItems != null)
             {
                 string solutionDirectoryPath = GetSolutionDirectory();
 
-                foreach (ProjectItem projItem in projectItems)
+                foreach (EnvDTE.ProjectItem projItem in projectItems)
                 {
                     string path = projItem.FileNames[1];
 
                     if (!string.IsNullOrEmpty(path)
-                          && checkerFunction(path)
-                          && hash.Add(path)
+                        && checkerFunction(path)
+                        && hash.Add(path)
                     )
                     {
+                        if (!projItem.Document.Saved)
+                        {
+                            projItem.Document.Save();
+                        }
+
                         yield return new SelectedFile(path, solutionDirectoryPath)
                         {
                             Document = projItem.Document,
@@ -255,16 +282,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public ProjectItem GetSingleSelectedProjectItemInSolutionExplorer(Func<string, bool> checkerFunction)
+        public EnvDTE.ProjectItem GetSingleSelectedProjectItemInSolutionExplorer(Func<string, bool> checkerFunction)
         {
-            ProjectItem result = null;
+            EnvDTE.ProjectItem result = null;
 
             if (ApplicationObject.ActiveWindow != null
-               && ApplicationObject.ActiveWindow.Type == vsWindowType.vsWindowTypeSolutionExplorer
+               && ApplicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeSolutionExplorer
                && ApplicationObject.SelectedItems != null
             )
             {
-                var items = ApplicationObject.SelectedItems.Cast<SelectedItem>().ToList();
+                var items = ApplicationObject.SelectedItems.OfType<EnvDTE.SelectedItem>().ToList();
 
                 var filtered = items.Where(a =>
                 {
@@ -289,14 +316,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return result;
         }
 
-        public IEnumerable<ProjectItem> GetSelectedProjectItemsInSolutionExplorer(Func<string, bool> checkerFunction, bool recursive)
+        public IEnumerable<EnvDTE.ProjectItem> GetSelectedProjectItemsInSolutionExplorer(Func<string, bool> checkerFunction, bool recursive)
         {
             if (ApplicationObject.ActiveWindow != null
-                && ApplicationObject.ActiveWindow.Type == vsWindowType.vsWindowTypeSolutionExplorer
+                && ApplicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeSolutionExplorer
                 && ApplicationObject.SelectedItems != null
             )
             {
-                var items = ApplicationObject.SelectedItems.Cast<SelectedItem>().ToList();
+                var items = ApplicationObject.SelectedItems.OfType<EnvDTE.SelectedItem>().ToList();
 
                 HashSet<string> hash = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
@@ -339,14 +366,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public IEnumerable<ProjectItem> GetSubProjectItems(HashSet<string> hash, ProjectItems projectItems, Func<string, bool> checkerFunction)
+        private IEnumerable<EnvDTE.ProjectItem> GetSubProjectItems(HashSet<string> hash, EnvDTE.ProjectItems projectItems, Func<string, bool> checkerFunction)
         {
             if (projectItems == null)
             {
                 yield break;
             }
 
-            foreach (ProjectItem projItem in projectItems)
+            foreach (EnvDTE.ProjectItem projItem in projectItems)
             {
                 string path = projItem.FileNames[1];
 
@@ -393,15 +420,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public SelectedItem GetSelectedProjectItem()
+        public EnvDTE.SelectedItem GetSelectedProjectItem()
         {
-            SelectedItem result = null;
+            EnvDTE.SelectedItem result = null;
 
             if (ApplicationObject.ActiveWindow != null
-                && ApplicationObject.ActiveWindow.Type == vsWindowType.vsWindowTypeSolutionExplorer
-                && ApplicationObject.SelectedItems != null)
+                && ApplicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeSolutionExplorer
+                && ApplicationObject.SelectedItems != null
+            )
             {
-                var items = ApplicationObject.SelectedItems.Cast<SelectedItem>().Take(2).ToList();
+                var items = ApplicationObject.SelectedItems.OfType<EnvDTE.SelectedItem>().Take(2).ToList();
 
                 if (items.Count == 1)
                 {
@@ -415,10 +443,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         public EnvDTE.Project GetSelectedProject()
         {
             if (ApplicationObject.ActiveWindow != null
-                   && ApplicationObject.ActiveWindow.Type == vsWindowType.vsWindowTypeSolutionExplorer
-                   && ApplicationObject.SelectedItems != null)
+                && ApplicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeSolutionExplorer
+                && ApplicationObject.SelectedItems != null
+            )
             {
-                var items = ApplicationObject.SelectedItems.Cast<SelectedItem>();
+                var items = ApplicationObject.SelectedItems.OfType<EnvDTE.SelectedItem>();
 
                 if (items.Count() == 1)
                 {
@@ -437,12 +466,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         public IEnumerable<EnvDTE.Project> GetSelectedProjects()
         {
             if (ApplicationObject.ActiveWindow != null
-                   && ApplicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeSolutionExplorer
-                   && ApplicationObject.SelectedItems != null)
+                && ApplicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeSolutionExplorer
+                && ApplicationObject.SelectedItems != null
+            )
             {
                 var items = ApplicationObject
                     .SelectedItems
-                    .Cast<SelectedItem>()
+                    .OfType<EnvDTE.SelectedItem>()
                     .Where(e => e.Project != null && !string.IsNullOrEmpty(e.Project.Name))
                     .Select(e => e.Project)
                     .Distinct()
@@ -468,7 +498,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         public ConnectionData GetOutputWindowConnection()
         {
             if (ApplicationObject.ActiveWindow.Object != null
-                && ApplicationObject.ActiveWindow.Object is OutputWindow outputWindow
+                && ApplicationObject.ActiveWindow.Object is EnvDTE.OutputWindow outputWindow
                 && outputWindow.ActivePane != null
             )
             {
