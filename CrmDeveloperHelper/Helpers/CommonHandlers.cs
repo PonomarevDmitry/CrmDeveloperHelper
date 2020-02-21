@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.Shell;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
@@ -62,7 +61,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         var objTextDoc = applicationObject.ActiveWindow.Document.Object("TextDocument");
                         if (objTextDoc != null
                             && objTextDoc is EnvDTE.TextDocument textDocument
-                            )
+                        )
                         {
                             string text = textDocument.StartPoint.CreateEditPoint().GetText(textDocument.EndPoint);
 
@@ -222,7 +221,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         || document.ActiveWindow == null
                         || document.ActiveWindow.Type != EnvDTE.vsWindowType.vsWindowTypeDocument
                         || document.ActiveWindow.Visible == false
-                        )
+                    )
                     {
                         continue;
                     }
@@ -604,7 +603,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             var helper = DTEHelper.Create(applicationObject);
 
-            var document = helper.GetOpenedDocumentInCodeWindow(FileOperations.SupportsCSharpType);
+            var document = helper.GetOpenedDocumentInCodeWindow(FileOperations.SupportsCSharpType, false);
 
             return document != null
                 && document.ProjectItem != null
@@ -1206,12 +1205,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             var helper = DTEHelper.Create(applicationObject);
 
-            return helper.GetSelectedFilesAll(FileOperations.SupportsWebResourceType, true).Any();
+            return helper.GetSelectedFilesAll(FileOperations.SupportsWebResourceType, true, false).Any();
         }
 
         internal static IEnumerable<SelectedFile> GetOpenedDocuments(DTEHelper helper)
         {
-            return helper.GetOpenedDocuments(FileOperations.SupportsWebResourceTextType);
+            return helper.GetOpenedDocuments(FileOperations.SupportsWebResourceTextType, false);
         }
 
         internal static IEnumerable<SelectedFile> GetSelectedFiles(DTEHelper helper)

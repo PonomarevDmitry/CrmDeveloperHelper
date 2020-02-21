@@ -63,18 +63,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public IEnumerable<SelectedFile> GetOpenedFileInCodeWindow(Func<string, bool> checkerFunction)
         {
+            return GetOpenedFileInCodeWindow(checkerFunction, true);
+        }
+
+        public IEnumerable<SelectedFile> GetOpenedFileInCodeWindow(Func<string, bool> checkerFunction, bool saveIfNeeded)
+        {
             string solutionDirectoryPath = GetSolutionDirectory();
 
             if (ApplicationObject.ActiveWindow != null
                 && ApplicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeDocument
                 && ApplicationObject.ActiveWindow.Document != null
-                )
+            )
             {
                 string path = ApplicationObject.ActiveWindow.Document.FullName;
 
                 if (checkerFunction(path))
                 {
-                    if (!ApplicationObject.ActiveWindow.Document.Saved)
+                    if (saveIfNeeded && !ApplicationObject.ActiveWindow.Document.Saved)
                     {
                         ApplicationObject.ActiveWindow.Document.Save();
                     }
@@ -85,6 +90,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         }
 
         public EnvDTE.Document GetOpenedDocumentInCodeWindow(Func<string, bool> checkerFunction)
+        {
+            return GetOpenedDocumentInCodeWindow(checkerFunction, true);
+        }
+
+        public EnvDTE.Document GetOpenedDocumentInCodeWindow(Func<string, bool> checkerFunction, bool saveIfNeeded)
         {
             EnvDTE.Document result = null;
 
@@ -97,7 +107,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (checkerFunction(path))
                 {
-                    if (!ApplicationObject.ActiveWindow.Document.Saved)
+                    if (saveIfNeeded && !ApplicationObject.ActiveWindow.Document.Saved)
                     {
                         ApplicationObject.ActiveWindow.Document.Save();
                     }
@@ -110,6 +120,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         }
 
         public IEnumerable<SelectedFile> GetOpenedDocuments(Func<string, bool> checkerFunction)
+        {
+            return GetOpenedDocuments(checkerFunction, true);
+        }
+
+        public IEnumerable<SelectedFile> GetOpenedDocuments(Func<string, bool> checkerFunction, bool saveIfNeeded)
         {
             if (ApplicationObject.ActiveWindow != null
                 && ApplicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeDocument
@@ -136,7 +151,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         if (checkerFunction(path))
                         {
-                            if (!document.Saved)
+                            if (saveIfNeeded && !document.Saved)
                             {
                                 document.Save();
                             }
@@ -149,6 +164,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         }
 
         public IEnumerable<EnvDTE.Document> GetOpenedDocumentsAsDocument(Func<string, bool> checkerFunction)
+        {
+            return GetOpenedDocumentsAsDocument(checkerFunction, true);
+        }
+
+        public IEnumerable<EnvDTE.Document> GetOpenedDocumentsAsDocument(Func<string, bool> checkerFunction, bool saveIfNeeded)
         {
             if (ApplicationObject.ActiveWindow != null
                 && ApplicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeDocument
@@ -173,7 +193,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         if (checkerFunction(path))
                         {
-                            if (!document.Saved)
+                            if (saveIfNeeded && !document.Saved)
                             {
                                 document.Save();
                             }
@@ -186,6 +206,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         }
 
         public IEnumerable<SelectedFile> GetSelectedFilesInSolutionExplorer(Func<string, bool> checkerFunction, bool recursive)
+        {
+            return GetSelectedFilesInSolutionExplorer(checkerFunction, recursive, true);
+        }
+
+        public IEnumerable<SelectedFile> GetSelectedFilesInSolutionExplorer(Func<string, bool> checkerFunction, bool recursive, bool saveIfNeeded)
         {
             if (ApplicationObject.ActiveWindow != null
                && ApplicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeSolutionExplorer
@@ -209,7 +234,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             && hash.Add(path)
                         )
                         {
-                            if (!item.ProjectItem.Document.Saved)
+                            if (saveIfNeeded && !item.ProjectItem.Document.Saved)
                             {
                                 item.ProjectItem.Document.Save();
                             }
@@ -222,7 +247,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         if (recursive)
                         {
-                            foreach (var subItem in FillHashSubProjectItems(hash, item.ProjectItem.ProjectItems, checkerFunction))
+                            foreach (var subItem in FillHashSubProjectItems(hash, item.ProjectItem.ProjectItems, checkerFunction, saveIfNeeded))
                             {
                                 yield return subItem;
                             }
@@ -231,7 +256,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (recursive && item.Project != null)
                     {
-                        foreach (var subItem in FillHashSubProjectItems(hash, item.Project.ProjectItems, checkerFunction))
+                        foreach (var subItem in FillHashSubProjectItems(hash, item.Project.ProjectItems, checkerFunction, saveIfNeeded))
                         {
                             yield return subItem;
                         }
@@ -240,7 +265,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        private IEnumerable<SelectedFile> FillHashSubProjectItems(HashSet<string> hash, EnvDTE.ProjectItems projectItems, Func<string, bool> checkerFunction)
+        private IEnumerable<SelectedFile> FillHashSubProjectItems(HashSet<string> hash, EnvDTE.ProjectItems projectItems, Func<string, bool> checkerFunction, bool saveIfNeeded)
         {
             if (projectItems != null)
             {
@@ -255,7 +280,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         && hash.Add(path)
                     )
                     {
-                        if (!projItem.Document.Saved)
+                        if (saveIfNeeded && !projItem.Document.Saved)
                         {
                             projItem.Document.Save();
                         }
@@ -266,14 +291,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         };
                     }
 
-                    foreach (var subItem in FillHashSubProjectItems(hash, projItem.ProjectItems, checkerFunction))
+                    foreach (var subItem in FillHashSubProjectItems(hash, projItem.ProjectItems, checkerFunction, saveIfNeeded))
                     {
                         yield return subItem;
                     }
 
                     if (projItem.SubProject != null)
                     {
-                        foreach (var subItem in FillHashSubProjectItems(hash, projItem.SubProject.ProjectItems, checkerFunction))
+                        foreach (var subItem in FillHashSubProjectItems(hash, projItem.SubProject.ProjectItems, checkerFunction, saveIfNeeded))
                         {
                             yield return subItem;
                         }
@@ -403,18 +428,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public IEnumerable<SelectedFile> GetSelectedFilesAll(Func<string, bool> checkerFunction, bool recursive)
+        {
+            return GetSelectedFilesAll(checkerFunction, recursive, true);
+        }
+
         /// <summary>
         /// Файл в окне редактирования или выделенные файлы в Solution Explorer.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<SelectedFile> GetSelectedFilesAll(Func<string, bool> checkerFunction, bool recursive)
+        public IEnumerable<SelectedFile> GetSelectedFilesAll(Func<string, bool> checkerFunction, bool recursive, bool saveIfNeeded)
         {
-            foreach (var item in GetOpenedFileInCodeWindow(checkerFunction))
+            foreach (var item in GetOpenedFileInCodeWindow(checkerFunction, saveIfNeeded))
             {
                 yield return item;
             }
 
-            foreach (var item in GetSelectedFilesInSolutionExplorer(checkerFunction, recursive))
+            foreach (var item in GetSelectedFilesInSolutionExplorer(checkerFunction, recursive, saveIfNeeded))
             {
                 yield return item;
             }
