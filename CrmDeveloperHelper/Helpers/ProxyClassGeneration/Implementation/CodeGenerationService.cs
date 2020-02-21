@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
@@ -104,11 +105,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
             options.IndentString = _config.TabSpacer;
 
-            using (var streamWriter = new StreamWriter(outputFilePath))
+            using (var memoryStream = new MemoryStream())
             {
-                using (var provider = CodeDomProvider.CreateProvider(CSharpLanguage))
+                using (var streamWriter = new StreamWriter(memoryStream, new UTF8Encoding(false)))
                 {
-                    provider.GenerateCodeFromCompileUnit(codeCompileUnit, streamWriter, options);
+                    using (var provider = CodeDomProvider.CreateProvider(CSharpLanguage))
+                    {
+                        provider.GenerateCodeFromCompileUnit(codeCompileUnit, streamWriter, options);
+                    }
+
+                    try
+                    {
+                        memoryStream.Flush();
+
+                        memoryStream.Seek(0, SeekOrigin.Begin);
+
+                        var fileBody = memoryStream.ToArray();
+
+                        File.WriteAllBytes(outputFilePath, fileBody);
+                    }
+                    catch (Exception ex)
+                    {
+                        DTEHelper.WriteExceptionToOutput(null, ex);
+                    }
                 }
             }
         }
@@ -142,11 +161,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
             options.IndentString = _config.TabSpacer;
 
-            using (var streamWriter = new StreamWriter(outputFilePath))
+            using (var memoryStream = new MemoryStream())
             {
-                using (var provider = CodeDomProvider.CreateProvider(CSharpLanguage))
+                using (var streamWriter = new StreamWriter(memoryStream, new UTF8Encoding(false)))
                 {
-                    provider.GenerateCodeFromCompileUnit(codeCompileUnit, streamWriter, options);
+                    using (var provider = CodeDomProvider.CreateProvider(CSharpLanguage))
+                    {
+                        provider.GenerateCodeFromCompileUnit(codeCompileUnit, streamWriter, options);
+                    }
+
+                    try
+                    {
+                        memoryStream.Flush();
+
+                        memoryStream.Seek(0, SeekOrigin.Begin);
+
+                        var fileBody = memoryStream.ToArray();
+
+                        File.WriteAllBytes(outputFilePath, fileBody);
+                    }
+                    catch (Exception ex)
+                    {
+                        DTEHelper.WriteExceptionToOutput(null, ex);
+                    }
                 }
             }
         }
@@ -180,11 +217,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
             options.IndentString = _config.TabSpacer;
 
-            using (var streamWriter = new StreamWriter(outputFilePath))
+            using (var memoryStream = new MemoryStream())
             {
-                using (var provider = CodeDomProvider.CreateProvider(CSharpLanguage))
+                using (var streamWriter = new StreamWriter(memoryStream, new UTF8Encoding(false)))
                 {
-                    provider.GenerateCodeFromCompileUnit(codeCompileUnit, streamWriter, options);
+                    using (var provider = CodeDomProvider.CreateProvider(CSharpLanguage))
+                    {
+                        provider.GenerateCodeFromCompileUnit(codeCompileUnit, streamWriter, options);
+                    }
+
+                    try
+                    {
+                        memoryStream.Flush();
+
+                        memoryStream.Seek(0, SeekOrigin.Begin);
+
+                        var fileBody = memoryStream.ToArray();
+
+                        File.WriteAllBytes(outputFilePath, fileBody);
+                    }
+                    catch (Exception ex)
+                    {
+                        DTEHelper.WriteExceptionToOutput(null, ex);
+                    }
                 }
             }
         }
@@ -218,11 +273,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
             options.IndentString = _config.TabSpacer;
 
-            using (var streamWriter = new StreamWriter(outputFilePath))
+            using (var memoryStream = new MemoryStream())
             {
-                using (var provider = CodeDomProvider.CreateProvider(CSharpLanguage))
+                using (var streamWriter = new StreamWriter(memoryStream, new UTF8Encoding(false)))
                 {
-                    provider.GenerateCodeFromCompileUnit(codeCompileUnit, streamWriter, options);
+                    using (var provider = CodeDomProvider.CreateProvider(CSharpLanguage))
+                    {
+                        provider.GenerateCodeFromCompileUnit(codeCompileUnit, streamWriter, options);
+                    }
+
+                    try
+                    {
+                        memoryStream.Flush();
+
+                        memoryStream.Seek(0, SeekOrigin.Begin);
+
+                        var fileBody = memoryStream.ToArray();
+
+                        File.WriteAllBytes(outputFilePath, fileBody);
+                    }
+                    catch (Exception ex)
+                    {
+                        DTEHelper.WriteExceptionToOutput(null, ex);
+                    }
                 }
             }
         }

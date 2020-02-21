@@ -528,11 +528,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var config = CreateFileCSharpConfiguration.CreateForSchemaGlobalOptionSet(fileGenerationOptions);
 
-                using (var writer = new StreamWriter(filePath, false, new UTF8Encoding(false)))
+                using (var memoryStream = new MemoryStream())
                 {
-                    var handler = new CreateGlobalOptionSetsFileCSharpHandler(writer, service, _iWriteToOutput, config);
+                    using (var streamWriter = new StreamWriter(memoryStream, new UTF8Encoding(false)))
+                    {
+                        var handler = new CreateGlobalOptionSetsFileCSharpHandler(streamWriter, service, _iWriteToOutput, config);
 
-                    await handler.CreateFileAsync(optionSets);
+                        await handler.CreateFileAsync(optionSets);
+
+                        try
+                        {
+                            await memoryStream.FlushAsync();
+
+                            memoryStream.Seek(0, SeekOrigin.Begin);
+
+                            var fileBody = memoryStream.ToArray();
+
+                            File.WriteAllBytes(filePath, fileBody);
+                        }
+                        catch (Exception ex)
+                        {
+                            DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
+                        }
+                    }
                 }
 
                 if (this._selectedItem != null)
@@ -625,18 +643,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
 
-                using (var writer = new StreamWriter(filePath, false, new UTF8Encoding(false)))
+                using (var memoryStream = new MemoryStream())
                 {
-                    var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(
-                        writer
-                        , service
-                        , _iWriteToOutput
-                        , fileGenerationOptions.GetTabSpacer()
-                        , fileGenerationOptions.GenerateSchemaGlobalOptionSetsWithDependentComponents
-                        , fileGenerationOptions.NamespaceGlobalOptionSetsJavaScript
-                    );
+                    using (var streamWriter = new StreamWriter(memoryStream, new UTF8Encoding(false)))
+                    {
+                        var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(
+                            streamWriter
+                            , service
+                            , _iWriteToOutput
+                            , fileGenerationOptions.GetTabSpacer()
+                            , fileGenerationOptions.GenerateSchemaGlobalOptionSetsWithDependentComponents
+                            , fileGenerationOptions.NamespaceGlobalOptionSetsJavaScript
+                        );
 
-                    await handler.CreateFileAsync(optionSets);
+                        await handler.CreateFileAsync(optionSets);
+
+                        try
+                        {
+                            await memoryStream.FlushAsync();
+
+                            memoryStream.Seek(0, SeekOrigin.Begin);
+
+                            var fileBody = memoryStream.ToArray();
+
+                            File.WriteAllBytes(filePath, fileBody);
+                        }
+                        catch (Exception ex)
+                        {
+                            DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
+                        }
+                    }
                 }
 
                 if (this._selectedItem != null)

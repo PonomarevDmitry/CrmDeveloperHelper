@@ -558,23 +558,59 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ICodeGenerationServiceProvider codeGenerationServiceProvider1 = new CodeGenerationServiceProvider(typeMappingService, codeGenerationService, codeWriterFilterService, metadataProviderService1, namingService1);
             ICodeGenerationServiceProvider codeGenerationServiceProvider2 = new CodeGenerationServiceProvider(typeMappingService, codeGenerationService, codeWriterFilterService, metadataProviderService2, namingService2);
 
-            using (var writer1 = new StreamWriter(filePath1, false, new UTF8Encoding(false)))
+            using (var memoryStream1 = new MemoryStream())
             {
-                var handler1 = new CreateFileWithEntityMetadataCSharpHandler(writer1, config, service1, _iWriteToOutput, codeGenerationServiceProvider1);
-
-                var task1 = handler1.CreateFileAsync(linkedEntityMetadata.LogicalName);
-
-                if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
+                using (var streamWriter1 = new StreamWriter(memoryStream1, new UTF8Encoding(false)))
                 {
-                    using (var writer2 = new StreamWriter(filePath2, false, new UTF8Encoding(false)))
-                    {
-                        var handler2 = new CreateFileWithEntityMetadataCSharpHandler(writer2, config, service2, _iWriteToOutput, codeGenerationServiceProvider2);
+                    var handler1 = new CreateFileWithEntityMetadataCSharpHandler(streamWriter1, config, service1, _iWriteToOutput, codeGenerationServiceProvider1);
 
-                        await handler2.CreateFileAsync(linkedEntityMetadata.LogicalName);
+                    var task1 = handler1.CreateFileAsync(linkedEntityMetadata.LogicalName);
+
+                    if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
+                    {
+                        using (var memoryStream2 = new MemoryStream())
+                        {
+                            using (var streamWriter2 = new StreamWriter(memoryStream2, new UTF8Encoding(false)))
+                            {
+                                var handler2 = new CreateFileWithEntityMetadataCSharpHandler(streamWriter2, config, service2, _iWriteToOutput, codeGenerationServiceProvider2);
+
+                                await handler2.CreateFileAsync(linkedEntityMetadata.LogicalName);
+
+                                try
+                                {
+                                    await memoryStream2.FlushAsync();
+
+                                    memoryStream2.Seek(0, SeekOrigin.Begin);
+
+                                    var fileBody = memoryStream2.ToArray();
+
+                                    File.WriteAllBytes(filePath2, fileBody);
+                                }
+                                catch (Exception ex)
+                                {
+                                    DTEHelper.WriteExceptionToOutput(service2.ConnectionData, ex);
+                                }
+                            }
+                        }
+                    }
+
+                    await task1;
+
+                    try
+                    {
+                        await memoryStream1.FlushAsync();
+
+                        memoryStream1.Seek(0, SeekOrigin.Begin);
+
+                        var fileBody = memoryStream1.ToArray();
+
+                        File.WriteAllBytes(filePath1, fileBody);
+                    }
+                    catch (Exception ex)
+                    {
+                        DTEHelper.WriteExceptionToOutput(service1.ConnectionData, ex);
                     }
                 }
-
-                await task1;
             }
 
             this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service1.ConnectionData.Name, linkedEntityMetadata.LogicalName, filePath1);
@@ -756,23 +792,59 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             string filePath1 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(filename1));
             string filePath2 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(filename2));
 
-            using (var writer1 = new StreamWriter(filePath1, false, new UTF8Encoding(false)))
+            using (var memoryStream1 = new MemoryStream())
             {
-                var handler1 = new CreateFileWithEntityMetadataJavaScriptHandler(writer1, config, service1, _iWriteToOutput);
-
-                var task1 = handler1.CreateFileAsync(linkedEntityMetadata.LogicalName);
-
-                if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
+                using (var streamWriter1 = new StreamWriter(memoryStream1, new UTF8Encoding(false)))
                 {
-                    using (var writer2 = new StreamWriter(filePath2, false, new UTF8Encoding(false)))
-                    {
-                        var handler2 = new CreateFileWithEntityMetadataJavaScriptHandler(writer2, config, service2, _iWriteToOutput);
+                    var handler1 = new CreateFileWithEntityMetadataJavaScriptHandler(streamWriter1, config, service1, _iWriteToOutput);
 
-                        await handler2.CreateFileAsync(linkedEntityMetadata.LogicalName);
+                    var task1 = handler1.CreateFileAsync(linkedEntityMetadata.LogicalName);
+
+                    if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
+                    {
+                        using (var memoryStream2 = new MemoryStream())
+                        {
+                            using (var streamWriter2 = new StreamWriter(memoryStream2, new UTF8Encoding(false)))
+                            {
+                                var handler2 = new CreateFileWithEntityMetadataJavaScriptHandler(streamWriter2, config, service2, _iWriteToOutput);
+
+                                await handler2.CreateFileAsync(linkedEntityMetadata.LogicalName);
+
+                                try
+                                {
+                                    await memoryStream2.FlushAsync();
+
+                                    memoryStream2.Seek(0, SeekOrigin.Begin);
+
+                                    var fileBody = memoryStream2.ToArray();
+
+                                    File.WriteAllBytes(filePath2, fileBody);
+                                }
+                                catch (Exception ex)
+                                {
+                                    DTEHelper.WriteExceptionToOutput(service2.ConnectionData, ex);
+                                }
+                            }
+                        }
+                    }
+
+                    await task1;
+
+                    try
+                    {
+                        await memoryStream1.FlushAsync();
+
+                        memoryStream1.Seek(0, SeekOrigin.Begin);
+
+                        var fileBody = memoryStream1.ToArray();
+
+                        File.WriteAllBytes(filePath1, fileBody);
+                    }
+                    catch (Exception ex)
+                    {
+                        DTEHelper.WriteExceptionToOutput(service1.ConnectionData, ex);
                     }
                 }
-
-                await task1;
             }
 
             this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service1.ConnectionData.Name, linkedEntityMetadata.LogicalName, filePath1);
@@ -882,11 +954,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ICodeGenerationServiceProvider codeGenerationServiceProvider = new CodeGenerationServiceProvider(typeMappingService, codeGenerationService, codeWriterFilterService, metadataProviderService, namingService);
 
-                using (var writer = new StreamWriter(filePath, false, new UTF8Encoding(false)))
+                using (var memoryStream = new MemoryStream())
                 {
-                    var handler = new CreateFileWithEntityMetadataCSharpHandler(writer, config, service, _iWriteToOutput, codeGenerationServiceProvider);
+                    using (var streamWriter = new StreamWriter(memoryStream, new UTF8Encoding(false)))
+                    {
+                        var handler = new CreateFileWithEntityMetadataCSharpHandler(streamWriter, config, service, _iWriteToOutput, codeGenerationServiceProvider);
 
-                    await handler.CreateFileAsync(entityMetadata.LogicalName);
+                        await handler.CreateFileAsync(entityMetadata.LogicalName);
+
+                        try
+                        {
+                            await memoryStream.FlushAsync();
+
+                            memoryStream.Seek(0, SeekOrigin.Begin);
+
+                            var fileBody = memoryStream.ToArray();
+
+                            File.WriteAllBytes(filePath, fileBody);
+                        }
+                        catch (Exception ex)
+                        {
+                            DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
+                        }
+                    }
                 }
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, entityMetadata.LogicalName, filePath);
@@ -1060,11 +1150,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                using (var writer = new StreamWriter(filePath, false, new UTF8Encoding(false)))
+                using (var memoryStream = new MemoryStream())
                 {
-                    var handler = new CreateFileWithEntityMetadataJavaScriptHandler(writer, config, service, _iWriteToOutput);
+                    using (var streamWriter = new StreamWriter(memoryStream, new UTF8Encoding(false)))
+                    {
+                        var handler = new CreateFileWithEntityMetadataJavaScriptHandler(streamWriter, config, service, _iWriteToOutput);
 
-                    await handler.CreateFileAsync(entityName);
+                        await handler.CreateFileAsync(entityName);
+
+                        try
+                        {
+                            await memoryStream.FlushAsync();
+
+                            memoryStream.Seek(0, SeekOrigin.Begin);
+
+                            var fileBody = memoryStream.ToArray();
+
+                            File.WriteAllBytes(filePath, fileBody);
+                        }
+                        catch (Exception ex)
+                        {
+                            DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
+                        }
+                    }
                 }
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, entityName, filePath);

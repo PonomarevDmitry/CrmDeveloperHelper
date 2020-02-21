@@ -190,7 +190,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             XDocument doc = null;
 
-            using (MemoryStream memStream = new MemoryStream())
+            using (var memStream = new MemoryStream())
             {
                 memStream.Write(arrayXml, 0, arrayXml.Length);
 
@@ -403,7 +403,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             XElement doc = null;
 
-            using (MemoryStream memStream = new MemoryStream())
+            using (var memStream = new MemoryStream())
             {
                 memStream.Write(byteXml, 0, byteXml.Length);
 
@@ -428,7 +428,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             XElement doc = null;
 
-            using (MemoryStream memStream = new MemoryStream())
+            using (var memStream = new MemoryStream())
             {
                 memStream.Write(byteXml, 0, byteXml.Length);
 

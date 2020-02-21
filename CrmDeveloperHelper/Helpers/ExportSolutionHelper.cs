@@ -131,7 +131,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private byte[] OverrideSolutionInformation(byte[] fileBody, ExportSolutionOverrideInformation solutionInfo)
         {
-            using (MemoryStream memStream = new MemoryStream())
+            using (var memStream = new MemoryStream())
             {
                 memStream.Write(fileBody, 0, fileBody.Length);
 
@@ -268,7 +268,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             string result = string.Empty;
 
-            using (MemoryStream memStream = new MemoryStream())
+            using (var memStream = new MemoryStream())
             {
                 memStream.Write(fileBody, 0, fileBody.Length);
 
@@ -327,7 +327,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             string result = string.Empty;
 
-            using (MemoryStream memStream = new MemoryStream())
+            using (var memStream = new MemoryStream())
             {
                 memStream.Write(fileBody, 0, fileBody.Length);
 
@@ -359,7 +359,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public static byte[] ReplaceRibbonDiffXmlForEntityInSolutionBody(string entityLogicalName, byte[] solutionBodyBinary, XElement newRibbonDiffXml)
         {
-            using (MemoryStream memStream = new MemoryStream())
+            using (var memStream = new MemoryStream())
             {
                 memStream.Write(solutionBodyBinary, 0, solutionBodyBinary.Length);
 
@@ -422,7 +422,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public static byte[] ReplaceApplicationRibbonDiffXmlInSolutionBody(byte[] solutionBodyBinary, XElement newRibbonDiffXml)
         {
-            using (MemoryStream memStream = new MemoryStream())
+            using (var memStream = new MemoryStream())
             {
                 memStream.Write(solutionBodyBinary, 0, solutionBodyBinary.Length);
 

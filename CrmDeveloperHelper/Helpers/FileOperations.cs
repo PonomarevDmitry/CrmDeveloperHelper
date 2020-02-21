@@ -60,7 +60,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public static byte[] UnzipRibbon(byte[] data)
         {
-            using (MemoryStream memStream = new MemoryStream())
+            using (var memStream = new MemoryStream())
             {
                 memStream.Write(data, 0, data.Length);
 
@@ -81,7 +81,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public static byte[] UnzipCrmTranslations(byte[] data, string filepath)
         {
-            using (MemoryStream memStream = new MemoryStream())
+            using (var memStream = new MemoryStream())
             {
                 memStream.Write(data, 0, data.Length);
 

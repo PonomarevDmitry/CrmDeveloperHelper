@@ -17,11 +17,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private readonly TextWriter _writer;
 
-        //protected void StartWriting(string filePath)
-        //{
-        //    var writer = new StreamWriter(filePath, false, new UTF8Encoding(false));
-        //}
-
         protected readonly string _tabSpacer;
         private readonly bool _allDescriptions;
 

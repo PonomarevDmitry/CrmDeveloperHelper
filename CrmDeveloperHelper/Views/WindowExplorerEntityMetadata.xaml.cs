@@ -913,11 +913,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ICodeGenerationServiceProvider codeGenerationServiceProvider = new CodeGenerationServiceProvider(typeMappingService, codeGenerationService, codeWriterFilterService, metadataProviderService, namingService);
 
-                using (var writer = new StreamWriter(filePath, false, new UTF8Encoding(false)))
+                using (var memoryStream = new MemoryStream())
                 {
-                    var handler = new CreateFileWithEntityMetadataCSharpHandler(writer, config, service, _iWriteToOutput, codeGenerationServiceProvider);
+                    using (var streamWriter = new StreamWriter(memoryStream, new UTF8Encoding(false)))
+                    {
+                        var handler = new CreateFileWithEntityMetadataCSharpHandler(streamWriter, config, service, _iWriteToOutput, codeGenerationServiceProvider);
 
-                    await handler.CreateFileAsync(entityMetadata.EntityLogicalName);
+                        await handler.CreateFileAsync(entityMetadata.EntityLogicalName);
+
+                        try
+                        {
+                            await memoryStream.FlushAsync();
+
+                            memoryStream.Seek(0, SeekOrigin.Begin);
+
+                            var fileBody = memoryStream.ToArray();
+
+                            File.WriteAllBytes(filePath, fileBody);
+                        }
+                        catch (Exception ex)
+                        {
+                            DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
+                        }
+                    }
                 }
 
                 if (this._selectedItem != null)
@@ -1083,11 +1101,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                using (var writer = new StreamWriter(filePath, false, new UTF8Encoding(false)))
+                using (var memoryStream = new MemoryStream())
                 {
-                    var handler = new CreateFileWithEntityMetadataJavaScriptHandler(writer, config, service, _iWriteToOutput);
+                    using (var streamWriter = new StreamWriter(memoryStream, new UTF8Encoding(false)))
+                    {
+                        var handler = new CreateFileWithEntityMetadataJavaScriptHandler(streamWriter, config, service, _iWriteToOutput);
 
-                    await handler.CreateFileAsync(entityMetadata.EntityLogicalName);
+                        await handler.CreateFileAsync(entityMetadata.EntityLogicalName);
+
+                        try
+                        {
+                            await memoryStream.FlushAsync();
+
+                            memoryStream.Seek(0, SeekOrigin.Begin);
+
+                            var fileBody = memoryStream.ToArray();
+
+                            File.WriteAllBytes(filePath, fileBody);
+                        }
+                        catch (Exception ex)
+                        {
+                            DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
+                        }
+                    }
                 }
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, entityMetadata.EntityLogicalName, filePath);
@@ -2124,11 +2160,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     filePath = FileOperations.CheckFilePathUnique(filePath);
                 }
 
-                using (var writer = new StreamWriter(filePath, false, new UTF8Encoding(false)))
+                using (var memoryStream = new MemoryStream())
                 {
-                    var handlerCreate = new CreateFormTabsJavaScriptHandler(writer, config, javaScriptObjectType, service);
+                    using (var streamWriter = new StreamWriter(memoryStream, new UTF8Encoding(false)))
+                    {
+                        var handler = new CreateFormTabsJavaScriptHandler(streamWriter, config, javaScriptObjectType, service);
 
-                    await handlerCreate.WriteContentAsync(entityMetadata.EntityMetadata, objectName, constructorName, Enumerable.Empty<FormTab>());
+                        await handler.WriteContentAsync(entityMetadata.EntityMetadata, objectName, constructorName, Enumerable.Empty<FormTab>());
+
+                        try
+                        {
+                            await memoryStream.FlushAsync();
+
+                            memoryStream.Seek(0, SeekOrigin.Begin);
+
+                            var fileBody = memoryStream.ToArray();
+
+                            File.WriteAllBytes(filePath, fileBody);
+                        }
+                        catch (Exception ex)
+                        {
+                            DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
+                        }
+                    }
                 }
 
                 if (this._selectedItem != null)

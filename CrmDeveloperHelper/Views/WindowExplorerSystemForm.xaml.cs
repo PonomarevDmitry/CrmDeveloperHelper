@@ -1346,11 +1346,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         filePath = FileOperations.CheckFilePathUnique(filePath);
                     }
 
-                    using (var writer = new StreamWriter(filePath, false, new UTF8Encoding(false)))
+                    using (var memoryStream = new MemoryStream())
                     {
-                        var handlerCreate = new CreateFormTabsJavaScriptHandler(writer, config, javaScriptObjectType, service);
+                        using (var streamWriter = new StreamWriter(memoryStream, new UTF8Encoding(false)))
+                        {
+                            var handlerCreate = new CreateFormTabsJavaScriptHandler(streamWriter, config, javaScriptObjectType, service);
 
-                        await handlerCreate.WriteContentAsync(entityName, objectName, constructorName, tabs);
+                            await handlerCreate.WriteContentAsync(entityName, objectName, constructorName, tabs);
+                        }
+
+                        try
+                        {
+                            await memoryStream.FlushAsync();
+
+                            memoryStream.Seek(0, SeekOrigin.Begin);
+
+                            var fileBody = memoryStream.ToArray();
+
+                            File.WriteAllBytes(filePath, fileBody);
+                        }
+                        catch (Exception ex)
+                        {
+                            DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
+                        }
                     }
 
                     if (this._selectedItem != null)
