@@ -10,6 +10,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -97,7 +98,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             };
             _popupEntityMetadataFilter.Closed += this._popupEntityMetadataFilter_Closed;
 
+            cmBTeamType.ItemsSource = new EnumBindingSourceExtension(typeof(Team.Schema.OptionSets.teamtype?)).ProvideValue(null) as IEnumerable;
+
             FillRoleEditorLayoutTabs();
+            FillIsDefaultComboBox();
 
             LoadFromConfig();
 
@@ -177,6 +181,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             cmBRoleEditorLayoutTabsPrivileges.SelectedIndex = 0;
+        }
+
+        private void FillIsDefaultComboBox()
+        {
+            cmBIsDefault.Items.Clear();
+            cmBIsDefault.Items.Add(string.Empty);
+            cmBIsDefault.Items.Add(false);
+            cmBIsDefault.Items.Add(true);
         }
 
         protected override void LoadConfigurationInternal(WindowSettings winConfig)
@@ -419,6 +431,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingTeams);
 
             string filterTeam = string.Empty;
+            Team.Schema.OptionSets.teamtype? teamType = null;
+            bool? isDefault = null;
 
             this.Dispatcher.Invoke(() =>
             {
@@ -430,6 +444,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _itemsSourceOtherPrivileges.Clear();
 
                 filterTeam = txtBFilterTeams.Text.Trim().ToLower();
+
+                {
+                    if (cmBTeamType.SelectedItem is Team.Schema.OptionSets.teamtype comboBoxItem)
+                    {
+                        teamType = comboBoxItem;
+                    }
+                }
+
+                if (cmBIsDefault.SelectedItem is bool value)
+                {
+                    isDefault = value;
+                }
             });
 
             IEnumerable<Team> list = Enumerable.Empty<Team>();
@@ -441,14 +467,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     TeamRepository repository = new TeamRepository(service);
 
                     list = await repository.GetListAsync(filterTeam
-                        , new ColumnSet(
-                                Team.Schema.Attributes.name
-                                , Team.Schema.Attributes.businessunitid
-                                , Team.Schema.Attributes.teamtype
-                                , Team.Schema.Attributes.regardingobjectid
-                                , Team.Schema.Attributes.teamtemplateid
-                                , Team.Schema.Attributes.isdefault
-                                ));
+                        , isDefault
+                        , teamType
+                        , new ColumnSet
+                        (
+                            Team.Schema.Attributes.name
+                            , Team.Schema.Attributes.businessunitid
+                            , Team.Schema.Attributes.teamtype
+                            , Team.Schema.Attributes.regardingobjectid
+                            , Team.Schema.Attributes.teamtemplateid
+                            , Team.Schema.Attributes.isdefault
+                        )
+                    );
                 }
             }
             catch (Exception ex)
@@ -745,6 +775,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ShowExistingTeams();
             }
+        }
+
+        private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ShowExistingTeams();
         }
 
         private void txtBFilterRole_KeyDown(object sender, KeyEventArgs e)

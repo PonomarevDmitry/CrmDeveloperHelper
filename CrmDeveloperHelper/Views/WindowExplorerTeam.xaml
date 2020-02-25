@@ -199,10 +199,22 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="50*"/>
+
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
                     <Label Content="Filter" HorizontalAlignment="Left" VerticalAlignment="Stretch" Padding="0" Margin="5" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="0"/>
                     <TextBox x:Name="txtBFilterTeams"  Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBFilterTeams_KeyDown" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="1" />
+
+                    <Label Content="Type" Grid.Row="1" Grid.Column="2" />
+                    <ComboBox x:Name="cmBTeamType" Grid.Row="1" Grid.Column="3" IsEditable="False" SelectionChanged="comboBox_SelectionChanged" HorizontalContentAlignment="Stretch" />
+
+                    <Label Content="Default" Grid.Row="1" Grid.Column="4" />
+                    <ComboBox x:Name="cmBIsDefault" Grid.Row="1" Grid.Column="5" IsEditable="False" SelectionChanged="comboBox_SelectionChanged" HorizontalContentAlignment="Stretch" />
                 </Grid>
 
                 <DataGrid x:Name="lstVwTeams" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" MouseDoubleClick="lstVwEntity_MouseDoubleClick" SelectionChanged="lstVwTeam_SelectionChanged" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">

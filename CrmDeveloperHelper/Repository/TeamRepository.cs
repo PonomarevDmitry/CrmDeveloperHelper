@@ -29,9 +29,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
-        public Task<List<Team>> GetListAsync(string filter, ColumnSet columnSet)
+        public Task<List<Team>> GetListAsync(string filter, bool? isDefault, Team.Schema.OptionSets.teamtype? teamType, ColumnSet columnSet)
         {
-            return Task.Run(() => GetList(filter, columnSet));
+            return Task.Run(() => GetList(filter, isDefault, teamType, columnSet));
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        private List<Team> GetList(string filter, ColumnSet columnSet)
+        private List<Team> GetList(string filter, bool? isDefault, Team.Schema.OptionSets.teamtype? teamType, ColumnSet columnSet)
         {
             QueryExpression query = new QueryExpression()
             {
@@ -78,6 +78,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     query.Criteria.Conditions.Add(new ConditionExpression(Team.Schema.Attributes.name, ConditionOperator.Like, "%" + filter + "%"));
                 }
+            }
+
+            if (isDefault.HasValue)
+            {
+                query.Criteria.Conditions.Add(new ConditionExpression(Team.Schema.Attributes.isdefault, ConditionOperator.Equal, isDefault.Value));
+            }
+
+            if (teamType.HasValue)
+            {
+                query.Criteria.Conditions.Add(new ConditionExpression(Team.Schema.Attributes.teamtype, ConditionOperator.Equal, (int)teamType.Value));
             }
 
             return _service.RetrieveMultipleAll<Team>(query);
