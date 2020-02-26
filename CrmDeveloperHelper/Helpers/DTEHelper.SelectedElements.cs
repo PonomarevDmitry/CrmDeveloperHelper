@@ -234,7 +234,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             && hash.Add(path)
                         )
                         {
-                            if (saveIfNeeded && !item.ProjectItem.Document.Saved)
+                            if (saveIfNeeded 
+                                && item.ProjectItem.Document != null 
+                                && !item.ProjectItem.Document.Saved
+                            )
                             {
                                 item.ProjectItem.Document.Save();
                             }
@@ -280,7 +283,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         && hash.Add(path)
                     )
                     {
-                        if (saveIfNeeded && !projItem.Document.Saved)
+                        if (saveIfNeeded && projItem.Document != null && !projItem.Document.Saved)
                         {
                             projItem.Document.Save();
                         }
