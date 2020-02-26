@@ -116,6 +116,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
                     try
                     {
+                        streamWriter.Flush();
                         memoryStream.Flush();
 
                         memoryStream.Seek(0, SeekOrigin.Begin);
@@ -172,6 +173,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
                     try
                     {
+                        streamWriter.Flush();
                         memoryStream.Flush();
 
                         memoryStream.Seek(0, SeekOrigin.Begin);
@@ -228,6 +230,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
                     try
                     {
+                        streamWriter.Flush();
                         memoryStream.Flush();
 
                         memoryStream.Seek(0, SeekOrigin.Begin);
@@ -284,6 +287,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
                     try
                     {
+                        streamWriter.Flush();
                         memoryStream.Flush();
 
                         memoryStream.Seek(0, SeekOrigin.Begin);

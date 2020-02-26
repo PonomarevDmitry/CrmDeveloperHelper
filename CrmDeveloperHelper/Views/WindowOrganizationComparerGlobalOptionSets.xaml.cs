@@ -583,6 +583,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                                         try
                                         {
+                                            await streamWriter2.FlushAsync();
                                             await memoryStream2.FlushAsync();
 
                                             memoryStream2.Seek(0, SeekOrigin.Begin);
@@ -603,6 +604,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                             try
                             {
+                                await streamWriter1.FlushAsync();
                                 await memoryStream1.FlushAsync();
 
                                 memoryStream1.Seek(0, SeekOrigin.Begin);
@@ -754,6 +756,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                                         try
                                         {
+                                            await streamWriter2.FlushAsync();
                                             await memoryStream2.FlushAsync();
 
                                             memoryStream2.Seek(0, SeekOrigin.Begin);
@@ -774,6 +777,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                             try
                             {
+                                await streamWriter1.FlushAsync();
                                 await memoryStream1.FlushAsync();
 
                                 memoryStream1.Seek(0, SeekOrigin.Begin);
@@ -917,6 +921,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         try
                         {
+                            await streamWriter.FlushAsync();
                             await memoryStream.FlushAsync();
 
                             memoryStream.Seek(0, SeekOrigin.Begin);
@@ -1049,6 +1054,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         try
                         {
+                            await streamWriter.FlushAsync();
                             await memoryStream.FlushAsync();
 
                             memoryStream.Seek(0, SeekOrigin.Begin);

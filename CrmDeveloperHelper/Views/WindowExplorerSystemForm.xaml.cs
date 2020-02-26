@@ -1353,21 +1353,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             var handlerCreate = new CreateFormTabsJavaScriptHandler(streamWriter, config, javaScriptObjectType, service);
 
                             await handlerCreate.WriteContentAsync(entityName, objectName, constructorName, tabs);
-                        }
 
-                        try
-                        {
-                            await memoryStream.FlushAsync();
+                            try
+                            {
+                                await streamWriter.FlushAsync();
+                                await memoryStream.FlushAsync();
 
-                            memoryStream.Seek(0, SeekOrigin.Begin);
+                                memoryStream.Seek(0, SeekOrigin.Begin);
 
-                            var fileBody = memoryStream.ToArray();
+                                var fileBody = memoryStream.ToArray();
 
-                            File.WriteAllBytes(filePath, fileBody);
-                        }
-                        catch (Exception ex)
-                        {
-                            DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
+                                File.WriteAllBytes(filePath, fileBody);
+                            }
+                            catch (Exception ex)
+                            {
+                                DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
+                            }
                         }
                     }
 

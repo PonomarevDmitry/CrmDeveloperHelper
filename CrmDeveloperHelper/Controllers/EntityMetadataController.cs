@@ -456,6 +456,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     try
                     {
+                        await streamWriter.FlushAsync();
                         await memoryStream.FlushAsync();
 
                         memoryStream.Seek(0, SeekOrigin.Begin);
@@ -537,6 +538,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     try
                     {
+                        await streamWriter.FlushAsync();
                         await memoryStream.FlushAsync();
 
                         memoryStream.Seek(0, SeekOrigin.Begin);
@@ -791,6 +793,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     try
                     {
+                        await streamWriter.FlushAsync();
                         await memoryStream.FlushAsync();
 
                         memoryStream.Seek(0, SeekOrigin.Begin);
@@ -838,6 +841,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     try
                     {
+                        await streamWriter.FlushAsync();
                         await memoryStream.FlushAsync();
 
                         memoryStream.Seek(0, SeekOrigin.Begin);
@@ -1072,6 +1076,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     try
                     {
+                        await streamWriter.FlushAsync();
                         await memoryStream.FlushAsync();
 
                         memoryStream.Seek(0, SeekOrigin.Begin);

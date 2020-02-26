@@ -923,6 +923,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         try
                         {
+                            await streamWriter.FlushAsync();
                             await memoryStream.FlushAsync();
 
                             memoryStream.Seek(0, SeekOrigin.Begin);
@@ -1111,6 +1112,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         try
                         {
+                            await streamWriter.FlushAsync();
                             await memoryStream.FlushAsync();
 
                             memoryStream.Seek(0, SeekOrigin.Begin);
@@ -2170,6 +2172,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         try
                         {
+                            await streamWriter.FlushAsync();
                             await memoryStream.FlushAsync();
 
                             memoryStream.Seek(0, SeekOrigin.Begin);
