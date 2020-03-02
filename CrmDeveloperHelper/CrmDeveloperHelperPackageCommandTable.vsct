@@ -3432,6 +3432,27 @@
 
       <!-- #region CodeXml -->
 
+      <Button guid="guidCommandSet" id="CodeXmlCommonShowDifferenceCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Show Difference Common</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommandSet" id="CodeXmlCommonUpdateCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Update Common</ButtonText>
+        </Strings>
+      </Button>
+
       <Button guid="guidCommandSet" id="CodeXmlFetchXmlExecuteRequestCommandId" priority="0x00FF" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -10282,24 +10303,25 @@
     <CommandPlacement guid="guidCommandSet" id="CodeWebResourceShowDifferenceCommandId" priority="0x6010">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupCode" />
     </CommandPlacement>
+
     <CommandPlacement guid="guidCommandSet" id="CodeXmlFetchXmlExecuteRequestCommandId" priority="0x6020">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupCode" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CodeXmlSiteMapUpdateCommandId" priority="0x6030">
+    
+    
+
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlCommonUpdateCommandId" priority="0x6030">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupCode" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CodeXmlRibbonDiffXmlUpdateCommandId" priority="0x6040">
+
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlCommonShowDifferenceCommandId" priority="0x6040">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupCode" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CodeXmlSystemFormUpdateCommandId" priority="0x6050">
-      <Parent guid="guidGroupAndMenuSet" id="mainGroupCode" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CodeXmlSavedQueryUpdateCommandId" priority="0x6060">
-      <Parent guid="guidGroupAndMenuSet" id="mainGroupCode" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CodeXmlWorkflowUpdateCommandId" priority="0x6070">
-      <Parent guid="guidGroupAndMenuSet" id="mainGroupCode" />
-    </CommandPlacement>
+    
+    
+    
+    
+
     <CommandPlacement guid="guidCommandSet" id="CodeCSharpProjectBuildLoadUpdatePluginAssemblyCommandId" priority="0x6080">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupCode" />
     </CommandPlacement>
@@ -19151,6 +19173,9 @@
 
       <!-- #region CodeXml -->
 
+      <IDSymbol name="CodeXmlCommonUpdateCommandId" value="0x2225" />
+      <IDSymbol name="CodeXmlCommonShowDifferenceCommandId" value="0x2226" />
+
       <IDSymbol name="CodeXmlFetchXmlExecuteRequestCommandId" value="0x2160" />
       <IDSymbol name="CodeXmlFetchXmlConvertToQueryExpressionCommandId" value="0x221E" />
 
@@ -19860,7 +19885,7 @@
     <!-- 0x13BE -->
 
     <!-- Commands -->
-    <!-- 0x2225 -->
+    <!-- 0x2227 -->
 
 
   </Symbols>

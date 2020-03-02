@@ -288,6 +288,7 @@
     <Compile Include="Commands\Xmls\CodeXmlSiteMapShowDifferenceCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSiteMapShowDifferenceDefaultCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSiteMapShowDifferenceInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlCommonShowDifferenceCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSystemFormShowDifferenceCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSystemFormShowDifferenceInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSiteMapExplorerCommand.cs" />
@@ -300,6 +301,7 @@
     <Compile Include="Commands\Xmls\CodeXmlSavedQueryUpdateInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSiteMapUpdateCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSiteMapUpdateInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlCommonUpdateCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSystemFormUpdateCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSystemFormUpdateInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Checks\CommonCheckComponentTypeEnumCommand.cs" />

@@ -219,20 +219,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
+            string fileText = File.ReadAllText(selectedFile.FilePath);
+
+            if (!ContentComparerHelper.TryParseXmlDocument(fileText, out var doc))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
+                _iWriteToOutput.ActivateOutputWindow(connectionData);
+                return;
+            }
+
+            await DifferenceSiteMap(doc, selectedFile.FilePath, connectionData, commonConfig);
+        }
+
+        public async Task ExecuteDifferenceSiteMap(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            string operation = string.Format(Properties.OperationNames.DifferenceSiteMapFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await DifferenceSiteMap(doc, filePath, connectionData, commonConfig);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task DifferenceSiteMap(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
             string siteMapNameUnique = string.Empty;
 
+            var attribute = doc.Root.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSiteMapNameUnique);
+
+            if (attribute != null && !string.IsNullOrEmpty(attribute.Value))
             {
-                string fileText = File.ReadAllText(selectedFile.FilePath);
-
-                if (ContentComparerHelper.TryParseXml(fileText, out var doc))
-                {
-                    var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSiteMapNameUnique);
-
-                    if (attribute != null && !string.IsNullOrEmpty(attribute.Value))
-                    {
-                        siteMapNameUnique = attribute.Value;
-                    }
-                }
+                siteMapNameUnique = attribute.Value;
             }
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
@@ -295,8 +322,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            string filePath1 = selectedFile.FilePath;
-            string fileTitle1 = selectedFile.FileName;
+            string filePath1 = filePath;
+            string fileTitle1 = Path.GetFileName(filePath);
 
             this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, fileTitle1, fileTitle2);
         }
@@ -341,6 +368,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
                 _iWriteToOutput.ActivateOutputWindow(connectionData);
+                return;
+            }
+
+            await UpdateSiteMap(doc, selectedFile.FilePath, connectionData, commonConfig);
+        }
+
+        public async Task ExecuteUpdateSiteMap(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            string operation = string.Format(Properties.OperationNames.UpdatingSiteMapFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await UpdateSiteMap(doc, filePath, connectionData, commonConfig);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task UpdateSiteMap(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
@@ -410,8 +468,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 string fieldTitle = SiteMap.Schema.Headers.sitemapxml + " BackUp";
 
-                string fileName = EntityFileNameFormatter.GetSiteMapFileName(connectionData.Name, siteMap.SiteMapName, siteMap.Id, fieldTitle, "xml");
-                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+                string fileNameBackUp = EntityFileNameFormatter.GetSiteMapFileName(connectionData.Name, siteMap.SiteMapName, siteMap.Id, fieldTitle, "xml");
+                string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
 
                 if (!string.IsNullOrEmpty(siteMapXml))
                 {
@@ -424,9 +482,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             , siteMapUniqueName: siteMap.SiteMapNameUnique ?? string.Empty
                         );
 
-                        File.WriteAllText(filePath, siteMapXml, new UTF8Encoding(false));
+                        File.WriteAllText(filePathBackUp, siteMapXml, new UTF8Encoding(false));
 
-                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, SiteMap.Schema.EntityLogicalName, siteMap.SiteMapNameUnique, fieldTitle, filePath);
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, SiteMap.Schema.EntityLogicalName, siteMap.SiteMapNameUnique, fieldTitle, filePathBackUp);
                     }
                     catch (Exception ex)
                     {
@@ -452,11 +510,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.PublishingSiteMapFormat3, service.ConnectionData.Name, siteMap.SiteMapName, siteMap.Id.ToString());
 
-            {
-                var repositoryPublish = new PublishActionsRepository(service);
+            var repositoryPublish = new PublishActionsRepository(service);
 
-                await repositoryPublish.PublishSiteMapsAsync(new[] { siteMap.Id });
-            }
+            await repositoryPublish.PublishSiteMapsAsync(new[] { siteMap.Id });
         }
 
         public async Task ExecuteOpenInWebSiteMap(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
@@ -586,19 +642,50 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string fileText = File.ReadAllText(selectedFile.FilePath);
 
-            if (!ContentComparerHelper.TryParseXml(fileText, out var doc))
+            if (!ContentComparerHelper.TryParseXmlDocument(fileText, out var doc))
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
                 return;
             }
 
-            var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeFormId);
+            await DifferenceSystemForm(doc, selectedFile.FilePath, connectionData, commonConfig);
+        }
+
+        public async Task ExecuteDifferenceSystemForm(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            string operation = string.Format(Properties.OperationNames.DifferenceSystemFormFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await DifferenceSystemForm(doc, filePath, connectionData, commonConfig);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task DifferenceSystemForm(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            var attribute = doc.Root.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeFormId);
 
             if (attribute == null)
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotContainsXmlAttributeFormat2
                     , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeFormId.ToString()
-                    , selectedFile.FilePath
+                    , filePath
                 );
 
                 return;
@@ -611,7 +698,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.XmlAttributeNotValidGuidFormat3
                     , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeFormId.ToString()
                     , attribute.Value
-                    , selectedFile.FilePath
+                    , filePath
                 );
 
                 return;
@@ -675,8 +762,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            string filePath1 = selectedFile.FilePath;
-            string fileTitle1 = selectedFile.FileName;
+            string filePath1 = filePath;
+            string fileTitle1 = Path.GetFileName(filePath);
 
             this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, fileTitle1, fileTitle2);
         }
@@ -723,14 +810,45 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
+            await UpdateSystemForm(doc, selectedFile.FilePath, connectionData, commonConfig);
+        }
+
+        public async Task ExecuteUpdateSystemForm(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            string operation = string.Format(Properties.OperationNames.UpdatingSystemFormFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await UpdateSystemForm(doc, filePath, connectionData, commonConfig);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task UpdateSystemForm(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
             var attribute = doc.Root.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeFormId);
 
             if (attribute == null)
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotContainsXmlAttributeFormat2
                     , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeFormId.ToString()
-                    , selectedFile.FilePath
-                    );
+                    , filePath
+                );
 
                 return;
             }
@@ -742,7 +860,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.XmlAttributeNotValidGuidFormat3
                     , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeFormId.ToString()
                     , attribute.Value
-                    , selectedFile.FilePath
+                    , filePath
                 );
 
                 return;
@@ -807,8 +925,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 string fieldTitle = SystemForm.Schema.Headers.formxml + " BackUp";
 
-                string fileName = EntityFileNameFormatter.GetSystemFormFileName(connectionData.Name, systemForm.ObjectTypeCode, systemForm.Name, fieldTitle, "xml");
-                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+                string fileNameBackUp = EntityFileNameFormatter.GetSystemFormFileName(connectionData.Name, systemForm.ObjectTypeCode, systemForm.Name, fieldTitle, "xml");
+                string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
 
                 if (!string.IsNullOrEmpty(formXml))
                 {
@@ -819,9 +937,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             , formId: systemForm.Id
                         );
 
-                        File.WriteAllText(filePath, formXml, new UTF8Encoding(false));
+                        File.WriteAllText(filePathBackUp, formXml, new UTF8Encoding(false));
 
-                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, SystemForm.Schema.EntityLogicalName, systemForm.Name, fieldTitle, filePath);
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, SystemForm.Schema.EntityLogicalName, systemForm.Name, fieldTitle, filePathBackUp);
                     }
                     catch (Exception ex)
                     {
@@ -1004,20 +1122,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string fileText = File.ReadAllText(selectedFile.FilePath);
 
-            if (!ContentComparerHelper.TryParseXml(fileText, out var doc))
+            if (!ContentComparerHelper.TryParseXmlDocument(fileText, out var doc))
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
                 return;
             }
 
-            var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSavedQueryId);
+            await DifferenceSavedQuery(doc, selectedFile.FilePath, connectionData, commonConfig);
+        }
+
+        public async Task ExecuteDifferenceSavedQuery(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            string operation = string.Format(Properties.OperationNames.DifferenceSavedQueryFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await DifferenceSavedQuery(doc, filePath, connectionData, commonConfig);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task DifferenceSavedQuery(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            var attribute = doc.Root.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSavedQueryId);
 
             if (attribute == null)
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotContainsXmlAttributeFormat2
                     , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSavedQueryId.ToString()
-                    , selectedFile.FilePath
-                    );
+                    , filePath
+                );
 
                 return;
             }
@@ -1030,7 +1179,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     , Properties.OutputStrings.XmlAttributeNotValidGuidFormat3
                     , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSavedQueryId.ToString()
                     , attribute.Value
-                    , selectedFile.FilePath
+                    , filePath
                 );
 
                 return;
@@ -1062,8 +1211,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            string fieldName = SavedQueryRepository.GetFieldNameByXmlRoot(doc.Name.ToString());
-            string fieldTitle = SavedQueryRepository.GetFieldTitleByXmlRoot(doc.Name.ToString());
+            string fieldName = SavedQueryRepository.GetFieldNameByXmlRoot(doc.Root.Name.ToString());
+            string fieldTitle = SavedQueryRepository.GetFieldTitleByXmlRoot(doc.Root.Name.ToString());
 
             string xmlContent = savedQuery.GetAttributeValue<string>(fieldName);
 
@@ -1095,8 +1244,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            string filePath1 = selectedFile.FilePath;
-            string fileTitle1 = selectedFile.FileName;
+            string filePath1 = filePath;
+            string fileTitle1 = Path.GetFileName(filePath);
 
             this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, fileTitle1, fileTitle2);
         }
@@ -1143,14 +1292,45 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
+            await UpdateSavedQuery(doc, selectedFile.FilePath, connectionData, commonConfig);
+        }
+
+        public async Task ExecuteUpdateSavedQuery(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            string operation = string.Format(Properties.OperationNames.UpdatingSavedQueryFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await UpdateSavedQuery(doc, filePath, connectionData, commonConfig);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task UpdateSavedQuery(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
             var attribute = doc.Root.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSavedQueryId);
 
             if (attribute == null)
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotContainsXmlAttributeFormat2
                     , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSavedQueryId.ToString()
-                    , selectedFile.FilePath
-                    );
+                    , filePath
+                );
 
                 return;
             }
@@ -1162,8 +1342,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.XmlAttributeNotValidGuidFormat3
                     , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSavedQueryId.ToString()
                     , attribute.Value
-                    , selectedFile.FilePath
-                    );
+                    , filePath
+                );
 
                 return;
             }
@@ -1247,8 +1427,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 fieldTitle += " BackUp";
 
-                string fileName = EntityFileNameFormatter.GetSavedQueryFileName(connectionData.Name, savedQuery.ReturnedTypeCode, savedQuery.Name, fieldTitle, "xml");
-                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+                string fileNameBackUp = EntityFileNameFormatter.GetSavedQueryFileName(connectionData.Name, savedQuery.ReturnedTypeCode, savedQuery.Name, fieldTitle, "xml");
+                string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
 
                 if (!string.IsNullOrEmpty(xmlContent))
                 {
@@ -1259,9 +1439,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             , savedQueryId: savedQueryId
                         );
 
-                        File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
+                        File.WriteAllText(filePathBackUp, xmlContent, new UTF8Encoding(false));
 
-                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, SavedQuery.Schema.EntityLogicalName, savedQuery.Name, fieldTitle, filePath);
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, SavedQuery.Schema.EntityLogicalName, savedQuery.Name, fieldTitle, filePathBackUp);
                     }
                     catch (Exception ex)
                     {
@@ -1455,19 +1635,50 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string fileText = File.ReadAllText(selectedFile.FilePath);
 
-            if (!ContentComparerHelper.TryParseXml(fileText, out var doc))
+            if (!ContentComparerHelper.TryParseXmlDocument(fileText, out var doc))
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
                 return;
             }
 
-            var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWorkflowId);
+            await DifferenceWorkflow(doc, selectedFile.FilePath, connectionData, commonConfig);
+        }
+
+        public async Task ExecuteDifferenceWorkflow(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            string operation = string.Format(Properties.OperationNames.DifferenceWorkflowFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await DifferenceWorkflow(doc, filePath, connectionData, commonConfig);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task DifferenceWorkflow(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            var attribute = doc.Root.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWorkflowId);
 
             if (attribute == null)
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotContainsXmlAttributeFormat2
                     , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWorkflowId.ToString()
-                    , selectedFile.FilePath
+                    , filePath
                 );
 
                 return;
@@ -1480,7 +1691,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.XmlAttributeNotValidGuidFormat3
                     , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWorkflowId.ToString()
                     , attribute.Value
-                    , selectedFile.FilePath
+                    , filePath
                 );
 
                 return;
@@ -1543,8 +1754,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            string filePath1 = selectedFile.FilePath;
-            string fileTitle1 = selectedFile.FileName;
+            string filePath1 = filePath;
+            string fileTitle1 = Path.GetFileName(filePath);
 
             this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, fileTitle1, fileTitle2);
         }
@@ -1591,14 +1802,45 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
+            await UpdateWorkflow(doc, selectedFile.FilePath, connectionData, commonConfig);
+        }
+
+        public async Task ExecuteUpdateWorkflow(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            string operation = string.Format(Properties.OperationNames.UpdatingWorkflowFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await UpdateWorkflow(doc, filePath, connectionData, commonConfig);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task UpdateWorkflow(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
             var attribute = doc.Root.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWorkflowId);
 
             if (attribute == null)
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotContainsXmlAttributeFormat2
                     , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWorkflowId.ToString()
-                    , selectedFile.FilePath
-                    );
+                    , filePath
+                );
 
                 return;
             }
@@ -1610,7 +1852,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.XmlAttributeNotValidGuidFormat3
                     , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWorkflowId.ToString()
                     , attribute.Value
-                    , selectedFile.FilePath
+                    , filePath
                 );
 
                 return;
@@ -1649,8 +1891,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 string fieldTitle = Workflow.Schema.Headers.xaml + " BackUp";
 
-                string fileName = EntityFileNameFormatter.GetWorkflowFileName(connectionData.Name, workflow.PrimaryEntity, workflow.FormattedValues[Workflow.Schema.Attributes.category], workflow.Name, fieldTitle, "xml");
-                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+                string fileNameBackUp = EntityFileNameFormatter.GetWorkflowFileName(connectionData.Name, workflow.PrimaryEntity, workflow.FormattedValues[Workflow.Schema.Attributes.category], workflow.Name, fieldTitle, "xml");
+                string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
 
                 if (!string.IsNullOrEmpty(xaml))
                 {
@@ -1660,9 +1902,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             , workflowId: workflow.Id
                         );
 
-                        File.WriteAllText(filePath, xaml, new UTF8Encoding(false));
+                        File.WriteAllText(filePathBackUp, xaml, new UTF8Encoding(false));
 
-                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, Workflow.Schema.EntityLogicalName, workflow.Name, fieldTitle, filePath);
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, Workflow.Schema.EntityLogicalName, workflow.Name, fieldTitle, filePathBackUp);
                     }
                     catch (Exception ex)
                     {

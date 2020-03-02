@@ -4,6 +4,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 {
@@ -80,6 +81,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
+        public void StartSiteMapDifference(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._exportXmlController.ExecuteDifferenceSiteMap(doc, filePath, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
         public void StartSiteMapUpdate(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
@@ -96,6 +114,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             worker.Start();
         }
+        public void StartSiteMapUpdate(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._exportXmlController.ExecuteUpdateSiteMap(doc, filePath, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
 
         public void StartSiteMapOpenInWeb(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
@@ -135,6 +170,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
+        public void StartSystemFormDifference(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._exportXmlController.ExecuteDifferenceSystemForm(doc, filePath, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
         public void StartSystemFormUpdate(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
@@ -142,6 +194,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 try
                 {
                     this._exportXmlController.ExecuteUpdateSystemForm(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartSystemFormUpdate(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._exportXmlController.ExecuteUpdateSystemForm(doc, filePath, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {
@@ -190,6 +259,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
+        public void StartSavedQueryDifference(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._exportXmlController.ExecuteDifferenceSavedQuery(doc, filePath, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
         public void StartSavedQueryUpdate(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
@@ -197,6 +283,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 try
                 {
                     this._exportXmlController.ExecuteUpdateSavedQuery(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartSavedQueryUpdate(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._exportXmlController.ExecuteUpdateSavedQuery(doc, filePath, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {
@@ -245,6 +348,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
+        public void StartWorkflowDifference(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._exportXmlController.ExecuteDifferenceWorkflow(doc, filePath, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
         public void StartWorkflowUpdate(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
@@ -252,6 +372,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 try
                 {
                     this._exportXmlController.ExecuteUpdateWorkflow(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartWorkflowUpdate(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._exportXmlController.ExecuteUpdateWorkflow(doc, filePath, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {
@@ -300,6 +437,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
+        public void StartRibbonDiffXmlDifference(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._entityMetadataController.ExecuteDifferenceRibbonDiffXml(doc, filePath, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
         public void StartRibbonDiffXmlUpdate(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
@@ -307,6 +461,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 try
                 {
                     this._entityMetadataController.ExecuteUpdateRibbonDiffXml(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartRibbonDiffXmlUpdate(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._entityMetadataController.ExecuteUpdateRibbonDiffXml(doc, filePath, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {
@@ -328,6 +499,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 try
                 {
                     this._entityMetadataController.ExecuteDifferenceRibbon(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartRibbonDifference(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._entityMetadataController.ExecuteDifferenceRibbon(doc, filePath, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {

@@ -16,6 +16,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 {
@@ -1139,17 +1140,48 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string fileText = File.ReadAllText(selectedFile.FilePath);
 
-            if (!ContentComparerHelper.TryParseXml(fileText, out var doc))
+            if (!ContentComparerHelper.TryParseXmlDocument(fileText, out var doc))
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
                 return;
             }
 
-            var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName);
+            await DifferenceRibbon(doc, selectedFile.FilePath, connectionData, commonConfig);
+        }
+
+        public async Task ExecuteDifferenceRibbon(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            string operation = string.Format(Properties.OperationNames.DifferenceRibbonFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await DifferenceRibbon(doc, filePath, connectionData, commonConfig);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task DifferenceRibbon(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            var attribute = doc.Root.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName);
 
             if (attribute == null)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotContainsXmlAttributeFormat2, Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName.ToString(), selectedFile.FilePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotContainsXmlAttributeFormat2, Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName.ToString(), filePath);
                 return;
             }
 
@@ -1185,8 +1217,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 entityName = entityMetadata.LogicalName;
             }
 
-            string filePath1 = selectedFile.FilePath;
-            string fileTitle1 = selectedFile.FileName;
+            string filePath1 = filePath;
+            string fileTitle1 = Path.GetFileName(filePath);
 
             string filePath2 = string.Empty;
             string fileTitle2 = string.Empty;
@@ -1269,17 +1301,48 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string fileText = File.ReadAllText(selectedFile.FilePath);
 
-            if (!ContentComparerHelper.TryParseXml(fileText, out var doc))
+            if (!ContentComparerHelper.TryParseXmlDocument(fileText, out var doc))
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
                 return;
             }
 
-            var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName);
+            await DifferenceRibbonDiffXml(doc, selectedFile.FilePath, connectionData, commonConfig);
+        }
+
+        public async Task ExecuteDifferenceRibbonDiffXml(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            string operation = string.Format(Properties.OperationNames.DifferenceRibbonDiffXmlFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await DifferenceRibbonDiffXml(doc, filePath, connectionData, commonConfig);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task DifferenceRibbonDiffXml(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            var attribute = doc.Root.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName);
 
             if (attribute == null)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotContainsXmlAttributeFormat2, Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName.ToString(), selectedFile.FilePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotContainsXmlAttributeFormat2, Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName.ToString(), filePath);
                 return;
             }
 
@@ -1330,8 +1393,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             }
 
-            string filePath1 = selectedFile.FilePath;
-            string fileTitle1 = selectedFile.FileName;
+            string filePath1 = filePath;
+            string fileTitle1 = Path.GetFileName(filePath);
 
             string filePath2 = string.Empty;
             string fileTitle2 = string.Empty;
@@ -1405,8 +1468,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string fileText = File.ReadAllText(selectedFile.FilePath);
 
-            //fileText = ContentCoparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(fileText);
-
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ValidatingRibbonDiffXml);
 
             if (!ContentComparerHelper.TryParseXmlDocument(fileText, out var doc))
@@ -1416,11 +1477,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
+            await UpdateRibbonDiffXml(doc, selectedFile.FilePath, connectionData, commonConfig);
+        }
+
+        public async Task ExecuteUpdateRibbonDiffXml(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            string operation = string.Format(Properties.OperationNames.UpdatingRibbonFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await UpdateRibbonDiffXml(doc, filePath, connectionData, commonConfig);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task UpdateRibbonDiffXml(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
             var attribute = doc.Root.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName);
 
             if (attribute == null)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotContainsXmlAttributeFormat2, Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName.ToString(), selectedFile.FilePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotContainsXmlAttributeFormat2, Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName.ToString(), filePath);
                 return;
             }
 

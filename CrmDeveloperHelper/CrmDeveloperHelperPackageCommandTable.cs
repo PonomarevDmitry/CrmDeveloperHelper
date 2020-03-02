@@ -2157,6 +2157,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommandId = 0x21A1;
 
+            public const int CodeXmlCommonUpdateCommandId = 0x2225;
+
+            public const int CodeXmlCommonShowDifferenceCommandId = 0x2226;
+
             public const int CodeXmlFetchXmlExecuteRequestCommandId = 0x2160;
 
             public const int CodeXmlFetchXmlConvertToQueryExpressionCommandId = 0x221E;

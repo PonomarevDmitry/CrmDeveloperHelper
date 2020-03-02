@@ -38,6 +38,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return result;
         }
 
+        private static bool CheckActiveDocumentIsXml(EnvDTE80.DTE2 applicationObject, out XElement doc)
+        {
+            doc = null;
+
+            if (applicationObject.ActiveWindow != null
+                && applicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeDocument
+                && applicationObject.ActiveWindow.Document != null
+            )
+            {
+                try
+                {
+                    string file = applicationObject.ActiveWindow.Document.FullName.ToString().ToLower();
+
+                    if (FileOperations.SupportsXmlType(file))
+                    {
+                        var objTextDoc = applicationObject.ActiveWindow.Document.Object("TextDocument");
+                        if (objTextDoc != null
+                            && objTextDoc is EnvDTE.TextDocument textDocument
+                        )
+                        {
+                            string text = textDocument.StartPoint.CreateEditPoint().GetText(textDocument.EndPoint);
+
+                            if (!string.IsNullOrEmpty(text))
+                            {
+                                if (ContentComparerHelper.TryParseXml(text, out doc))
+                                {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(null, ex);
+                }
+            }
+
+            return false;
+        }
+
         private static bool CheckActiveDocumentIsXmlWithRoot(EnvDTE80.DTE2 applicationObject, out XElement doc, params string[] rootNames)
         {
             doc = null;
@@ -435,6 +476,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return CheckActiveDocumentExtension(applicationObject, FileOperations.SupportsXmlType);
         }
 
+        internal static void ActionBeforeQueryStatusActiveDocumentIsXml(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand, out XElement doc)
+        {
+            doc = null;
+
+            bool visible = false;
+
+            visible = CheckActiveDocumentIsXml(applicationObject, out doc);
+
+            if (visible == false)
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
+        }
+
         internal static void ActionBeforeQueryStatusActiveDocumentIsXmlWithRoot(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand, out XElement doc, params string[] rootNames)
         {
             doc = null;
@@ -487,61 +542,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 menuCommand.Enabled = menuCommand.Visible = false;
             }
-        }
-
-        internal static void ActionBeforeQueryStatusActiveDocumentIsFetchOrGrid(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
-        {
-            bool visible = CacheValue(nameof(ActionBeforeQueryStatusActiveDocumentIsFetchOrGrid), applicationObject, ActionBeforeQueryStatusActiveDocumentIsFetchOrGridInternal);
-
-            if (visible == false)
-            {
-                menuCommand.Enabled = menuCommand.Visible = false;
-            }
-        }
-
-        private static bool ActionBeforeQueryStatusActiveDocumentIsFetchOrGridInternal(EnvDTE80.DTE2 applicationObject)
-        {
-            if (applicationObject.ActiveWindow != null
-                && applicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeDocument
-                && applicationObject.ActiveWindow.Document != null
-            )
-            {
-                try
-                {
-                    string file = applicationObject.ActiveWindow.Document.FullName.ToString().ToLower();
-
-                    if (FileOperations.SupportsXmlType(file))
-                    {
-                        var objTextDoc = applicationObject.ActiveWindow.Document.Object("TextDocument");
-                        if (objTextDoc != null
-                            && objTextDoc is EnvDTE.TextDocument textDocument
-                            )
-                        {
-                            string text = textDocument.StartPoint.CreateEditPoint().GetText(textDocument.EndPoint);
-
-                            if (!string.IsNullOrEmpty(text))
-                            {
-                                if (ContentComparerHelper.TryParseXml(text, out var doc))
-                                {
-                                    if (string.Equals(doc.Name.ToString(), Commands.AbstractDynamicCommandXsdSchemas.RootFetch, StringComparison.InvariantCultureIgnoreCase)
-                                        || string.Equals(doc.Name.ToString(), Commands.AbstractDynamicCommandXsdSchemas.RootGrid, StringComparison.InvariantCultureIgnoreCase)
-                                        || string.Equals(doc.Name.ToString(), Commands.AbstractDynamicCommandXsdSchemas.RootSavedQuery, StringComparison.InvariantCultureIgnoreCase)
-                                    )
-                                    {
-                                        return true;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            }
-
-            return false;
         }
 
         internal static void ActionBeforeQueryStatusActiveDocumentReport(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)

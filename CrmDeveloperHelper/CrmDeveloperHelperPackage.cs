@@ -317,6 +317,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             #endregion Workflow
 
+            CodeXmlCommonUpdateCommand.Initialize(commandService);
+            CodeXmlCommonShowDifferenceCommand.Initialize(commandService);
+
             CodeXmlOpenXsdSchemaFolderCommand.Initialize(commandService);
             CodeXmlSetXsdSchemaCommand.Initialize(commandService);
             CodeXmlRemoveXsdSchemaCommand.Initialize(commandService);
