@@ -298,17 +298,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             pluginTypeEntity.WorkflowActivityGroupName = workflowActivityGroupName;
                         }
 
-                        ToggleControls(false, Properties.OutputStrings.RegisteringPluginTypeFormat2, _service.ConnectionData.Name, pluginType.Name);
+                        UpdateStatus(pluginType.Name);
 
                         try
                         {
                             pluginTypeEntity.Id = await _service.CreateAsync(pluginTypeEntity);
-
-                            ToggleControls(true, Properties.OutputStrings.RegisteringPluginTypeCompletedFormat2, _service.ConnectionData.Name, pluginType.Name);
                         }
                         catch (Exception ex)
                         {
-                            ToggleControls(true, Properties.OutputStrings.RegisteringPluginTypeFailedFormat2, _service.ConnectionData.Name, pluginType.Name);
+                            ToggleControls(false, Properties.OutputStrings.RegisteringPluginTypeFailedFormat2, _service.ConnectionData.Name, pluginType.Name);
 
                             _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
                             _iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);

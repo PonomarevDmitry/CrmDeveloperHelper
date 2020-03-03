@@ -1831,9 +1831,6 @@
   <data name="RegisteringPluginTypeFailedFormat2" xml:space="preserve">
     <value>{0}. Registering PluginType {1} failed.</value>
   </data>
-  <data name="RegisteringPluginTypeFormat2" xml:space="preserve">
-    <value>{0}. Registering PluginType {1}...</value>
-  </data>
   <data name="RegisteringNewPluginTypesCompletedFormat2" xml:space="preserve">
     <value>{0}. Registering {1} New PluginTypes completed.</value>
   </data>
@@ -1869,9 +1866,6 @@
   </data>
   <data name="RemovingComponentsExistingInTargetFormat1" xml:space="preserve">
     <value>Removing components existing in {0}...</value>
-  </data>
-  <data name="RegisteringPluginTypeCompletedFormat2" xml:space="preserve">
-    <value>{0}. Registering PluginType {1} completed.</value>
   </data>
   <data name="BuildingProjectCompletedFormat1" xml:space="preserve">
     <value>Building Project {0} completed.</value>

@@ -730,13 +730,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     pluginTypeEntity.WorkflowActivityGroupName = workflowActivityGroupName;
                 }
 
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.RegisteringPluginTypeFormat2, service.ConnectionData.Name, pluginType);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, pluginType);
 
                 try
                 {
                     pluginTypeEntity.Id = await service.CreateAsync(pluginTypeEntity);
-
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.RegisteringPluginTypeCompletedFormat2, service.ConnectionData.Name, pluginType);
                 }
                 catch (Exception ex)
                 {

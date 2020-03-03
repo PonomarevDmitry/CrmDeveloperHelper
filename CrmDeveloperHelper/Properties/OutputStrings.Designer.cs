@@ -4390,29 +4390,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Registering PluginType {1} completed..
-        /// </summary>
-        internal static string RegisteringPluginTypeCompletedFormat2 {
-            get {
-                return ResourceManager.GetString("RegisteringPluginTypeCompletedFormat2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0}. Registering PluginType {1} failed..
         /// </summary>
         internal static string RegisteringPluginTypeFailedFormat2 {
             get {
                 return ResourceManager.GetString("RegisteringPluginTypeFailedFormat2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}. Registering PluginType {1}....
-        /// </summary>
-        internal static string RegisteringPluginTypeFormat2 {
-            get {
-                return ResourceManager.GetString("RegisteringPluginTypeFormat2", resourceCulture);
             }
         }
         
