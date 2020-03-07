@@ -734,12 +734,46 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 string defaultFormValue = string.Format("DefaultFormValue = {0}", statusAttrib.DefaultFormValue.HasValue ? statusAttrib.DefaultFormValue.ToString() : "Null");
                 AddStringIntoList(result, tabSpacer, defaultFormValue);
+
+                string managedStr = string.Empty;
+                string seeLink = string.Format("<see cref=\"OptionSets.{0}\"/>", statusAttrib.LogicalName);
+
+                if (withManagedInfo)
+                {
+                    managedStr = " " + (statusAttrib.OptionSet.IsManaged.GetValueOrDefault() ? "Managed" : "Unmanaged");
+                }
+
+                string temp = string.Format("Local {0} {1} OptionSet {2} {3}"
+                      , statusAttrib.OptionSet.IsCustomOptionSet.GetValueOrDefault() ? "Custom" : "System"
+                      , managedStr
+                      , statusAttrib.OptionSet.Name
+                      , seeLink
+                );
+
+                AddStringIntoList(result, tabSpacer, temp);
             }
 
             if (attrib is StateAttributeMetadata stateAttrib)
             {
                 string defaultFormValue = string.Format("DefaultFormValue = {0}", stateAttrib.DefaultFormValue.HasValue ? stateAttrib.DefaultFormValue.ToString() : "Null");
                 AddStringIntoList(result, tabSpacer, defaultFormValue);
+
+                string managedStr = string.Empty;
+                string seeLink = string.Format("<see cref=\"OptionSets.{0}\"/>", stateAttrib.LogicalName);
+
+                if (withManagedInfo)
+                {
+                    managedStr = " " + (stateAttrib.OptionSet.IsManaged.GetValueOrDefault() ? "Managed" : "Unmanaged");
+                }
+
+                string temp = string.Format("Local {0} {1} OptionSet {2} {3}"
+                      , stateAttrib.OptionSet.IsCustomOptionSet.GetValueOrDefault() ? "Custom" : "System"
+                      , managedStr
+                      , stateAttrib.OptionSet.Name
+                      , seeLink
+                );
+
+                AddStringIntoList(result, tabSpacer, temp);
             }
 
             if (attrib is EntityNameAttributeMetadata entityNameAttrib)

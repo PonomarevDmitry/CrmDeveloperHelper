@@ -179,10 +179,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             await WriteManyToMany(_entityMetadata.ManyToManyRelationships);
 
             WriteLine("}");
+
             if (_config.GenerateSchemaIntoSchemaClass)
             {
                 WriteLine("}");
             }
+
             Write("}");
         }
 
