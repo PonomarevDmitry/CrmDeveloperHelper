@@ -368,6 +368,45 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return false;
         }
 
+        private static bool CheckInSolutionExplorerAny(EnvDTE80.DTE2 applicationObject, Func<EnvDTE.ProjectItem, bool> checker)
+        {
+            if (applicationObject.ActiveWindow != null
+                && applicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeSolutionExplorer
+                && applicationObject.SelectedItems != null
+            )
+            {
+                try
+                {
+                    var items = applicationObject.SelectedItems.Cast<EnvDTE.SelectedItem>();
+
+                    return items.Any(selectedItem =>
+                    {
+                        try
+                        {
+                            if (selectedItem.ProjectItem != null)
+                            {
+                                return checker(selectedItem.ProjectItem);
+                            }
+
+                            return false;
+                        }
+                        catch (Exception ex)
+                        {
+                            DTEHelper.WriteExceptionToOutput(null, ex);
+
+                            return false;
+                        }
+                    });
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(null, ex);
+                }
+            }
+
+            return false;
+        }
+
         private static bool CheckInSolutionExplorerRecursive(EnvDTE80.DTE2 applicationObject, Func<string, bool> checker)
         {
             if (applicationObject.ActiveWindow != null
@@ -409,6 +448,67 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     string path = projItem.FileNames[1];
 
                     if (checker(path))
+                    {
+                        return true;
+                    }
+
+                    if (FillListProjectItems(projItem.ProjectItems, checker))
+                    {
+                        return true;
+                    }
+
+                    if (projItem.SubProject != null)
+                    {
+                        if (FillListProjectItems(projItem.SubProject.ProjectItems, checker))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        private static bool CheckInSolutionExplorerRecursive(EnvDTE80.DTE2 applicationObject, Func<EnvDTE.ProjectItem, bool> checker)
+        {
+            if (applicationObject.ActiveWindow != null
+                && applicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeSolutionExplorer
+                && applicationObject.SelectedItems != null
+                )
+            {
+                var items = applicationObject.SelectedItems.Cast<EnvDTE.SelectedItem>().ToList();
+
+                foreach (var item in items)
+                {
+                    if (item.ProjectItem != null)
+                    {
+                        if (FillListProjectItems(item.ProjectItem.ProjectItems, checker))
+                        {
+                            return true;
+                        }
+                    }
+
+                    if (item.Project != null)
+                    {
+                        if (FillListProjectItems(item.Project.ProjectItems, checker))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        private static bool FillListProjectItems(EnvDTE.ProjectItems projectItems, Func<EnvDTE.ProjectItem, bool> checker)
+        {
+            if (projectItems != null)
+            {
+                foreach (EnvDTE.ProjectItem projItem in projectItems)
+                {
+                    if (checker(projItem))
                     {
                         return true;
                     }
@@ -630,9 +730,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return projectItem != null && projectItem.ContainingProject != null;
         }
 
-        internal static void ActionBeforeQueryStatusSolutionExplorerAnyItemContainsProject(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand, bool recursive)
+        internal static void ActionBeforeQueryStatusSolutionExplorerItemContainsProjectAny(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            bool visible = CacheValue(nameof(ActionBeforeQueryStatusSolutionExplorerAnyItemContainsProject), applicationObject, recursive, ActionBeforeQueryStatusSolutionExplorerAnyItemContainsProjectInternal);
+            bool visible = CacheValue(nameof(ActionBeforeQueryStatusSolutionExplorerItemContainsProjectAny), applicationObject, ActionBeforeQueryStatusSolutionExplorerItemContainsProjectAnyInternal);
 
             if (visible == false)
             {
@@ -640,13 +740,41 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        private static bool ActionBeforeQueryStatusSolutionExplorerAnyItemContainsProjectInternal(EnvDTE80.DTE2 applicationObject, bool recursive)
+        private static bool ActionBeforeQueryStatusSolutionExplorerItemContainsProjectAnyInternal(EnvDTE80.DTE2 applicationObject)
         {
-            var helper = DTEHelper.Create(applicationObject);
+            return CheckInSolutionExplorerAny(applicationObject, SelectedItemCSharpWithProject);
+        }
 
-            var list = helper.GetSelectedProjectItemsInSolutionExplorer(FileOperations.SupportsCSharpType, recursive);
+        internal static void ActionBeforeQueryStatusSolutionExplorerItemContainsProjectRecursive(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        {
+            bool visible = CacheValue(nameof(ActionBeforeQueryStatusSolutionExplorerItemContainsProjectRecursive), applicationObject, ActionBeforeQueryStatusSolutionExplorerItemContainsProjectRecursiveInternal);
 
-            return list.Any(item => item != null && item.ContainingProject != null);
+            if (visible == false)
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
+        }
+
+        private static bool ActionBeforeQueryStatusSolutionExplorerItemContainsProjectRecursiveInternal(EnvDTE80.DTE2 applicationObject)
+        {
+            return CheckInSolutionExplorerRecursive(applicationObject, SelectedItemCSharpWithProject);
+        }
+
+        private static bool SelectedItemCSharpWithProject(EnvDTE.ProjectItem item)
+        {
+            if (item != null
+                && item.ContainingProject != null
+            )
+            {
+                string path = item.FileNames[1];
+
+                if (!string.IsNullOrEmpty(path) && FileOperations.SupportsCSharpType(path))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         internal static void ActionBeforeQueryStatusOpenedDocumentsWebResourceText(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
