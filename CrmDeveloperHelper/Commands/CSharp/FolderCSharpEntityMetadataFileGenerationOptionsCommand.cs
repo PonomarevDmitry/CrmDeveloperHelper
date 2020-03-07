@@ -26,7 +26,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
             helper.HandleEntityMetadataFileGenerationOptions();
         }
 
-        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject,  OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
             CommonHandlers.ActionBeforeQueryStatusSolutionExplorerCSharpRecursive(applicationObject, menuCommand);
 
