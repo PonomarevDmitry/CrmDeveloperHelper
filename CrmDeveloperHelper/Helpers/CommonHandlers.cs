@@ -62,7 +62,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                             if (!string.IsNullOrEmpty(text))
                             {
-                                if (ContentComparerHelper.TryParseXml(text, out doc))
+                                if (TryParseXml(text, out doc))
                                 {
                                     return true;
                                 }
@@ -108,7 +108,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                             if (!string.IsNullOrEmpty(text))
                             {
-                                if (ContentComparerHelper.TryParseXml(text, out doc))
+                                if (TryParseXml(text, out doc))
                                 {
                                     string docRootName = doc.Name.ToString();
 
@@ -162,7 +162,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                             if (!string.IsNullOrEmpty(text))
                             {
-                                if (ContentComparerHelper.TryParseXml(text, out var doc))
+                                if (TryParseXml(text, out var doc))
                                 {
                                     string docRootName = doc.Name.ToString();
 
@@ -221,7 +221,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                             if (!string.IsNullOrEmpty(text))
                             {
-                                if (ContentComparerHelper.TryParseXml(text, out var doc))
+                                if (TryParseXml(text, out var doc))
                                 {
                                     foreach (var rootName in rootNames)
                                     {
@@ -247,6 +247,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             return false;
+        }
+
+        private static bool TryParseXml(string text, out XElement doc)
+        {
+            var parseResult = CacheValueTyped<bool, XElement, string>(nameof(TryParseXml), text, TryParseXmlInternal);
+
+            doc = parseResult.Item2;
+
+            return parseResult.Item1;
+        }
+
+        private static Tuple<bool, XElement> TryParseXmlInternal(string text)
+        {
+            var result = ContentComparerHelper.TryParseXml(text, out var doc);
+
+            return Tuple.Create(result, doc);
         }
 
         private static bool CheckOpenedDocumentsExtension(EnvDTE80.DTE2 applicationObject, Func<string, bool> checker)
@@ -1523,6 +1539,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             else
             {
                 result = valueGetter(arg1, arg2, arg3);
+
+                cache.Set(cacheName, result, new CacheItemPolicy()
+                {
+                    AbsoluteExpiration = DateTimeOffset.Now.Add(_cacheItemSpan),
+                });
+            }
+
+            return result;
+        }
+
+        private static Tuple<T1, T2> CacheValueTyped<T1, T2, T3>(string cacheName, T3 arg1, Func<T3, Tuple<T1, T2>> valueGetter)
+        {
+            Tuple<T1, T2> result = null;
+
+            ObjectCache cache = MemoryCache.Default;
+
+            if (cache.Contains(cacheName))
+            {
+                var cacheValue = cache.Get(cacheName);
+
+                if (cacheValue != null && cacheValue is Tuple<T1, T2> cacheTyped)
+                {
+                    result = cacheTyped;
+                }
+            }
+
+            if (result == null)
+            {
+                result = valueGetter(arg1);
 
                 cache.Set(cacheName, result, new CacheItemPolicy()
                 {
