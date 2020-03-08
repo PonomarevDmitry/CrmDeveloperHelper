@@ -47,7 +47,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private static readonly Logger Log;
 
-        private static readonly string _logLayout = new string('-', 150) + "${newline}${newline}${newline}${newline}${newline}${newline}${longdate}|${level}${newline}${message}${newline}${newline}${exception}${newline}${newline}${stacktrace:format=Raw:topFrames=10}${newline}" + new string('-', 150);
+        private static readonly string _logLayoutHeader = new string('-', 150) + "${newline}${newline}";
+        private static readonly string _logLayoutFooter = "${newline}${newline}" + new string('-', 150);
+        private static readonly string _logLayout = "$${longdate}|${level}${newline}${message}${newline}${newline}${exception}${newline}${newline}${stacktrace:format=Flat:topFrames=10000}${newline}${newline}${exception:format=toString,Data:exceptionDataSeparator=\r\n}${newline}${newline}";
 
         private readonly HashSet<string> _ListForPublish = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
@@ -59,7 +61,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             LogManager.Configuration = new LoggingConfiguration();
 
-            FileTarget targetGenFile = new FileTarget()
+            var targetGenFile = new FileTarget()
             {
                 Name = _loggerErrors + "Target",
                 LineEnding = LineEndingMode.CRLF,
@@ -67,7 +69,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 WriteBom = true,
                 CreateDirs = true,
                 FileName = Path.Combine(FileOperations.GetLogsFilePath(), @"Log ${date:format=yyyy-MM-dd}.log"),
+
                 Layout = _logLayout,
+                Header = _logLayoutHeader,
+                Footer = _logLayoutFooter,
             };
 
             LogManager.Configuration.AddTarget(targetGenFile);
