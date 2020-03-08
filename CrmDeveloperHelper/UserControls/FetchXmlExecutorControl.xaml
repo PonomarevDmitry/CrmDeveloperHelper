@@ -207,14 +207,14 @@
 
                     <ToolBar Grid.Row="0">
                         <Button x:Name="btnExecuteFetchXml2" Content="Execute Fetch Xml" Click="btnExecuteFetchXml_Click"/>
-                        
-                        <Separator/>
+
+                        <Separator Margin="10,0"/>
                         <Button Content="Copy JavaScript FetchXml to Clipboard" Click="btnCopyJavaScriptToClipboardCode_Click"/>
 
-                        <Separator/>
+                        <Separator Margin="10,0"/>
                         <Button x:Name="btnCreateEntityInstance" Content="Create Entity Instance" Click="btnCreateEntityInstance_Click"/>
 
-                        <Separator/>
+                        <Separator Margin="10,0"/>
                         <Menu x:Name="menuSelectedEntities" Background="{x:Null}">
                             <MenuItem Header="Selected Entities" SubmenuOpened="SelectedEntities_SubmenuOpened">
                                 <MenuItem Header="Bulk Edit Selected Entities" Click="miBulkEditSelectedEntites_Click"/>
@@ -230,15 +230,15 @@
                                 <MenuItem Header="Execute Workflow on Selected Entities" Click="miExecuteWorkflowOnSelectedEntites_Click"/>
 
                                 <Separator x:Uid="contMnAddToSolution" />
-                                <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution"  />
-                                <MenuItem x:Uid="contMnAddToSolution" Header="Add to Crm Solution" Click="AddToCrmSolutionSelectedEntities_Click" />
+                                <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add Selected Entities to Last Crm Solution"  />
+                                <MenuItem x:Uid="contMnAddToSolution" Header="Add Selected Entities to Crm Solution" Click="AddToCrmSolutionSelectedEntities_Click" />
 
                                 <Separator/>
-                                <MenuItem Header="Delete Selected Entity" Click="mIDeleteSelectedEntity_Click"/>
+                                <MenuItem Header="Delete Selected Entities" Click="mIDeleteSelectedEntity_Click"/>
                             </MenuItem>
                         </Menu>
 
-                        <Separator/>
+                        <Separator Margin="10,0"/>
                         <Menu x:Name="menuAllEntities" Background="{x:Null}">
                             <MenuItem Header="All Entities" SubmenuOpened="AllEntities_SubmenuOpened">
                                 <MenuItem Header="Bulk Edit All Entities" Click="miBulkEditAllEntites_Click"/>
@@ -248,21 +248,21 @@
                                 <MenuItem Header="Assign All Entities to Team" Click="miAssignToTeamAllEntites_Click"/>
                                 
                                 <Separator/>
-                                <MenuItem Header="Set State Selected Entities" Click="mISetStateAllEntites_Click"/>
+                                <MenuItem Header="Set State All Entities" Click="mISetStateAllEntites_Click"/>
                                 
                                 <Separator />
                                 <MenuItem Header="Execute Workflow on All Entities" Click="miExecuteWorkflowOnAllEntites_Click"/>
 
                                 <Separator x:Uid="contMnAddToSolution" />
-                                <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution"  />
-                                <MenuItem x:Uid="contMnAddToSolution" Header="Add to Crm Solution" Click="AddToCrmSolutionAllEntities_Click" />
+                                <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add All Entities to Last Crm Solution"  />
+                                <MenuItem x:Uid="contMnAddToSolution" Header="Add All Entities to Crm Solution" Click="AddToCrmSolutionAllEntities_Click" />
                                 
                                 <Separator/>
-                                <MenuItem Header="Delete All Entity" Click="mIDeleteAllEntity_Click"/>
+                                <MenuItem Header="Delete All Entities" Click="mIDeleteAllEntity_Click"/>
                             </MenuItem>
                         </Menu>
 
-                        <Separator/>
+                        <Separator Margin="10,0"/>
                         <Menu x:Name="menuTransferToConnection" Background="{x:Null}">
                             <MenuItem x:Name="mITransferToConnection" Header="Transfer to Connection" SubmenuOpened="mITransferToConnection_SubmenuOpened">
                                 <MenuItem x:Name="mITransferSelectedEntitiesToConnection" Header="Transfer Selected Entities to Connection" />
