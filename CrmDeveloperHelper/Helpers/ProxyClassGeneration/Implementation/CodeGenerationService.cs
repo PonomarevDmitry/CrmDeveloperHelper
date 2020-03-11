@@ -57,6 +57,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         private const string MethodOnPropertyChanged = "OnPropertyChanged";
         private const string MethodOnPropertyChanging = "OnPropertyChanging";
 
+        private const string MethodSetAttributeValue = "SetAttributeValue";
+
+        private const string MethodGetRelatedEntities = "GetRelatedEntities";
+        private const string MethodSetRelatedEntities = "SetRelatedEntities";
+
+        private const string MethodGetRelatedEntity = "GetRelatedEntity";
+        private const string MethodSetRelatedEntity = "SetRelatedEntity";
+
+        private const string MethodCreateQuery = "CreateQuery";
+
+        private const string VariableNameValue = "value";
+        private const string VariableNamePropertyName = "propertyName";
+        private const string VariableNameCollection = "collection";
+        private const string VariableNameOptionSetValue = "optionSetValue";
+        private const string VariableNameOptionSetValueCollection = "optionSetValueCollection";
+        private const string VariableNameService = "service";
+
         private readonly CreateFileCSharpConfiguration _config;
 
         public CodeGenerationService(CreateFileCSharpConfiguration config)
@@ -528,7 +545,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
             {
                 CodeRegionDirective startCodeRegionDirective = null;
-                string regionName = "Primary Attributes";
+                const string regionName = "Primary Attributes";
 
                 if (!string.IsNullOrEmpty(entityMetadata.PrimaryIdAttribute))
                 {
@@ -869,7 +886,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
                 entityClass.Members.Add(this.EntityConstructorAnonymousObject(entityMetadata, iCodeGenerationServiceProvider));
             }
 
-            string regionName = "NotifyProperty Events";
+            const string regionName = "NotifyProperty Events";
 
             entityClass.Members.Add(new CodeSnippetTypeMember(string.Empty)
             {
@@ -1186,16 +1203,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             , CodeTypeReference propertyType
         )
         {
-            const string collectionVariable = "collection";
-            var collectionVarRef = VarRef(collectionVariable);
+
+            var collectionVarRef = VarRef(VariableNameCollection);
 
             return new CodeStatementCollection()
             {
-                Var(propertyType, collectionVariable, ThisMethodInvoke(nameof(Entity.GetAttributeValue), propertyType, attributeNameRef)),
-                If(ExpressionNull(collectionVarRef), new CodeStatement[]
+                Var(propertyType, VariableNameCollection, ThisMethodInvoke(nameof(Entity.GetAttributeValue), propertyType, attributeNameRef)),
+                If(IsExpressionNull(collectionVarRef), new CodeStatement[]
                 {
                     AssignValue(collectionVarRef, New(propertyType)),
-                    new CodeExpressionStatement(ThisMethodInvoke("SetAttributeValue", attributeNameRef, collectionVarRef)),
+                    new CodeExpressionStatement(ThisMethodInvoke(MethodSetAttributeValue, attributeNameRef, collectionVarRef)),
                 }),
                 Return(collectionVarRef),
             };
@@ -1208,7 +1225,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             , CodeExpression attributeNameRef
         )
         {
-            var valueVarRef = VarRef("value");
+            var valueVarRef = VarRef(VariableNameValue);
             var basePropId = BaseProp(nameof(Entity.Id));
 
             var statementCollection = new CodeStatementCollection
@@ -1222,7 +1239,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             }
             else
             {
-                statementCollection.Add(ThisMethodInvoke("SetAttributeValue", attributeNameRef, valueVarRef));
+                statementCollection.Add(ThisMethodInvoke(MethodSetAttributeValue, attributeNameRef, valueVarRef));
             }
 
             if (entityMetadata.PrimaryIdAttribute == attributeMetadata.LogicalName && attributeMetadata.IsPrimaryId.GetValueOrDefault())
@@ -1249,11 +1266,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         {
             if (this._config.GenerateAttributesWithNameOf)
             {
-                return ThisMethodInvoke(methodName, new CodeSnippetExpression($"nameof({propertyName})"));
+                return ThisMethodInvoke(methodName, NameOfPropertyExpression(propertyName));
             }
             else
             {
-                return ThisMethodInvoke(methodName, (CodeExpression)StringLiteral(propertyName));
+                return ThisMethodInvoke(methodName, StringLiteral(propertyName));
             }
         }
 
@@ -1262,27 +1279,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             , CodeTypeReference propertyType
         )
         {
-            const string variableCollection = "collection";
-            var variableCollectionRef = VarRef(variableCollection);
+            var variableCollectionRef = VarRef(VariableNameCollection);
 
             return new CodeStatementCollection()
             {
-                Var(typeof(EntityCollection), variableCollection, ThisMethodInvoke(nameof(Entity.GetAttributeValue), TypeRef(typeof(EntityCollection)), attributeNameRef))
+                Var(typeof(EntityCollection), VariableNameCollection, ThisMethodInvoke(nameof(Entity.GetAttributeValue), TypeRef(typeof(EntityCollection)), attributeNameRef))
                 , If(
-                    And(NotNull(variableCollectionRef), NotNull(PropRef(variableCollectionRef, nameof(EntityCollection.Entities))))
+                    And(IsNotNull(variableCollectionRef), IsNotNull(PropRef(variableCollectionRef, nameof(EntityCollection.Entities))))
                     , Return(StaticMethodInvoke(typeof(Enumerable), nameof(Enumerable.Cast), propertyType.TypeArguments[0], (CodeExpression)PropRef(variableCollectionRef, nameof(EntityCollection.Entities))))
-                    , Return(Null())
+                    , Return(StaticMethodInvoke(typeof(Enumerable), nameof(Enumerable.Empty), propertyType.TypeArguments[0]))
                 )
             };
         }
 
         private static CodeStatement BuildEntityCollectionAttributeSet(CodeExpression attributeNameRef)
         {
-            var valueRef = VarRef("value");
+            var valueRef = VarRef(VariableNameValue);
 
-            return If(ValueNull()
-                , ThisMethodInvoke("SetAttributeValue", attributeNameRef, valueRef)
-                , ThisMethodInvoke("SetAttributeValue", attributeNameRef
+            return If(IsValueNull()
+                , ThisMethodInvoke(MethodSetAttributeValue, attributeNameRef, valueRef)
+                , ThisMethodInvoke(MethodSetAttributeValue, attributeNameRef
                     , New(TypeRef(typeof(EntityCollection)), (CodeExpression)New(TypeRef(typeof(List<Entity>)), (CodeExpression)valueRef))
             ));
         }
@@ -1325,7 +1341,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
             codeMemberProperty.GetStatements.Add(Return(BaseProp(nameof(Entity.Id))));
 
-            var valueVarRef = VarRef("value");
+            var valueVarRef = VarRef(VariableNameValue);
 
             if (codeMemberProperty.HasSet)
             {
@@ -1346,15 +1362,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             , CodeTypeReference enumTypeRef
         )
         {
-            const string optionSetValueVariableName = "optionSetValue";
-            var optionSetValueVarRef = VarRef(optionSetValueVariableName);
+            var optionSetValueVarRef = VarRef(VariableNameOptionSetValue);
 
             return new CodeStatementCollection(new CodeStatement[2]
             {
-                Var(typeof(OptionSetValue), optionSetValueVariableName, ThisMethodInvoke(nameof(Entity.GetAttributeValue), TypeRef(typeof(OptionSetValue)), attributeNameRef)),
-                If(And(NotNull(optionSetValueVarRef), EnumIsDefined(enumTypeRef, optionSetValueVariableName))
-                    , Return(Cast(enumTypeRef, ConvertEnum(enumTypeRef, optionSetValueVariableName)))
-                    , Return(Null())
+                Var(typeof(OptionSetValue), VariableNameOptionSetValue, ThisMethodInvoke(nameof(Entity.GetAttributeValue), TypeRef(typeof(OptionSetValue)), attributeNameRef)),
+                If(And(IsNotNull(optionSetValueVarRef), EnumIsDefined(enumTypeRef, VariableNameOptionSetValue))
+                    , Return(Cast(enumTypeRef, ConvertEnum(enumTypeRef, VariableNameOptionSetValue)))
+                    , Return(DefaultTypeValue(TypeRef(typeof(Nullable<>), enumTypeRef)))
                 ),
             });
         }
@@ -1376,9 +1391,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             }
 
             result.Add(If(
-                    ValueNull()
-                    , ThisMethodInvoke("SetAttributeValue", attributeNameRef, Null())
-                    , ThisMethodInvoke("SetAttributeValue", attributeNameRef, New(TypeRef(typeof(OptionSetValue)), (CodeExpression)Cast(TypeRef(typeof(int)), VarRef("value"))))
+                    IsValueNull()
+                    , ThisMethodInvoke(MethodSetAttributeValue, attributeNameRef, Null())
+                    , ThisMethodInvoke(MethodSetAttributeValue, attributeNameRef, New(TypeRef(typeof(OptionSetValue)), (CodeExpression)Cast(TypeRef(typeof(int)), VarRef(VariableNameValue))))
                 )
             );
 
@@ -1397,17 +1412,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             , CodeTypeReference enumTypeRef
         )
         {
-            const string optionSetValueCollectionVarName = "optionSetValueCollection";
-
-            var optionSetValueCollectionVarRef = VarRef(optionSetValueCollectionVarName);
+            var optionSetValueCollectionVarRef = VarRef(VariableNameOptionSetValueCollection);
 
             var listType = TypeRef(typeof(List<>), enumTypeRef);
 
             return new CodeStatementCollection(new CodeStatement[]
             {
-                Var(typeof(OptionSetValueCollection), optionSetValueCollectionVarName, ThisMethodInvoke(nameof(Entity.GetAttributeValue), TypeRef(typeof(OptionSetValueCollection)), attributeNameRef)),
+                Var(typeof(OptionSetValueCollection), VariableNameOptionSetValueCollection, ThisMethodInvoke(nameof(Entity.GetAttributeValue), TypeRef(typeof(OptionSetValueCollection)), attributeNameRef)),
 
-                If(NotNull(optionSetValueCollectionVarRef)
+                If(IsNotNull(optionSetValueCollectionVarRef)
 
                     , Return(New(TypeRef(typeof(List<>), enumTypeRef)
                         , StaticMethodInvoke(typeof(Enumerable), nameof(Enumerable.Distinct), enumTypeRef
@@ -1443,15 +1456,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
                 result.Add(this.InvokeOnPropertyChanging(baseAttributeName));
             }
 
-            result.Add(If(Or(ValueNull(), Equal(StaticMethodInvoke(typeof(Enumerable), nameof(Enumerable.Any), enumTypeRef, VarRef("value")), False()))
-                , ThisMethodInvoke("SetAttributeValue", attributeNameRef, Null())
+            result.Add(If(Or(IsValueNull(), Equal(StaticMethodInvoke(typeof(Enumerable), nameof(Enumerable.Any), enumTypeRef, VarRef(VariableNameValue)), False()))
+                , ThisMethodInvoke(MethodSetAttributeValue, attributeNameRef, Null())
 
-                , ThisMethodInvoke("SetAttributeValue", attributeNameRef
+                , ThisMethodInvoke(MethodSetAttributeValue, attributeNameRef
                     , New(TypeRef(typeof(OptionSetValueCollection))
                         , New(TypeRef(typeof(List<OptionSetValue>))
                             , StaticMethodInvoke(typeof(Enumerable), nameof(Enumerable.Select), new[] { enumTypeRef, TypeRef(typeof(OptionSetValue)) }
                                 , StaticMethodInvoke(typeof(Enumerable), nameof(Enumerable.Distinct), enumTypeRef
-                                    , VarRef("value")
+                                    , VarRef(VariableNameValue)
                                 )
                                 , new CodeSnippetExpression($"o => new Microsoft.Xrm.Sdk.OptionSetValue((int)o)")
                             )
@@ -1613,8 +1626,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
             var relationshipNameRef = this.BuildRelationshipNameRef(entityMetadata, "OneToMany", oneToMany.SchemaName, iCodeGenerationServiceProvider);
 
-            codeMemberProperty.GetStatements.Add(BuildRelationshipGet("GetRelatedEntities", relationshipNameRef, typeForRelationship, entityRole));
-            codeMemberProperty.SetStatements.AddRange(this.BuildRelationshipSet("SetRelatedEntities", relationshipNameRef, typeForRelationship, codeMemberProperty.Name, entityRole));
+            codeMemberProperty.GetStatements.Add(BuildRelationshipGet(MethodGetRelatedEntities, relationshipNameRef, typeForRelationship, entityRole));
+            codeMemberProperty.SetStatements.AddRange(this.BuildRelationshipSet(MethodSetRelatedEntities, relationshipNameRef, typeForRelationship, codeMemberProperty.Name, entityRole));
 
             codeMemberProperty.CustomAttributes.Add(BuildRelationshipSchemaNameAttribute(relationshipNameRef, entityRole));
 
@@ -1765,8 +1778,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
             var relationshipNameRef = this.BuildRelationshipNameRef(entityMetadata, "ManyToMany", manyToMany.SchemaName, iCodeGenerationServiceProvider);
 
-            codeMemberProperty.GetStatements.Add(BuildRelationshipGet("GetRelatedEntities", relationshipNameRef, typeForRelationship, entityRole));
-            codeMemberProperty.SetStatements.AddRange(this.BuildRelationshipSet("SetRelatedEntities", relationshipNameRef, typeForRelationship, propertyName, entityRole));
+            codeMemberProperty.GetStatements.Add(BuildRelationshipGet(MethodGetRelatedEntities, relationshipNameRef, typeForRelationship, entityRole));
+            codeMemberProperty.SetStatements.AddRange(this.BuildRelationshipSet(MethodSetRelatedEntities, relationshipNameRef, typeForRelationship, propertyName, entityRole));
 
             codeMemberProperty.CustomAttributes.Add(BuildRelationshipSchemaNameAttribute(relationshipNameRef, entityRole));
 
@@ -1874,14 +1887,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
             var codeMemberProperty = this.BuildClassProperty(typeForRelationship, iCodeGenerationServiceProvider.NamingService.GetNameForRelationship(entityMetadata, manyToOne, entityRole, iCodeGenerationServiceProvider));
 
-            codeMemberProperty.GetStatements.Add(BuildRelationshipGet("GetRelatedEntity", relationshipNameRef, typeForRelationship, entityRole));
+            codeMemberProperty.GetStatements.Add(BuildRelationshipGet(MethodGetRelatedEntity, relationshipNameRef, typeForRelationship, entityRole));
 
             if (_config.MakeAllPropertiesEditable
                 || attributeMetadata.IsValidForCreate.GetValueOrDefault()
                 || attributeMetadata.IsValidForUpdate.GetValueOrDefault()
             )
             {
-                codeMemberProperty.SetStatements.AddRange(this.BuildRelationshipSet("SetRelatedEntity", relationshipNameRef, typeForRelationship, codeMemberProperty.Name, entityRole));
+                codeMemberProperty.SetStatements.AddRange(this.BuildRelationshipSet(MethodSetRelatedEntity, relationshipNameRef, typeForRelationship, codeMemberProperty.Name, entityRole));
             }
 
             string attributePropertyName = iCodeGenerationServiceProvider.NamingService.GetNameForAttribute(entityMetadata, attributeMetadata, iCodeGenerationServiceProvider);
@@ -1937,7 +1950,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             var codeExpression = entityRole.HasValue ? FieldRef(typeof(EntityRole), entityRole.ToString()) : (CodeExpression)Null();
 
             statementCollection.Add(this.InvokeOnPropertyChanging(propertyName));
-            statementCollection.Add(ThisMethodInvoke(methodName, targetType, relationshipNameRef, codeExpression, VarRef("value")));
+            statementCollection.Add(ThisMethodInvoke(methodName, targetType, relationshipNameRef, codeExpression, VarRef(VariableNameValue)));
             statementCollection.Add(this.InvokeOnPropertyChanged(propertyName));
 
             return statementCollection;
@@ -1993,11 +2006,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         private CodeTypeMember ServiceContextConstructor(ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
         {
-            const string serviceVarName = "service";
+            var codeConstructor = this.Constructor(Param(TypeRef(typeof(IOrganizationService)), VariableNameService));
 
-            var codeConstructor = this.Constructor(Param(TypeRef(typeof(IOrganizationService)), serviceVarName));
-
-            codeConstructor.BaseConstructorArgs.Add(VarRef(serviceVarName));
+            codeConstructor.BaseConstructorArgs.Add(VarRef(VariableNameService));
 
             codeConstructor.Comments.AddRange(CommentSummary(iCodeGenerationServiceProvider.NamingService.GetCommentsForServiceContextConstructor(iCodeGenerationServiceProvider)));
 
@@ -2011,7 +2022,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         {
             var typeForEntity = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForEntity(entity, iCodeGenerationServiceProvider);
 
-            var codeMemberProperty = this.BuildClassProperty(IQueryable(typeForEntity), iCodeGenerationServiceProvider.NamingService.GetNameForEntitySet(entity, iCodeGenerationServiceProvider), (CodeStatement)Return(ThisMethodInvoke("CreateQuery", typeForEntity)));
+            var codeMemberProperty = this.BuildClassProperty(IQueryable(typeForEntity), iCodeGenerationServiceProvider.NamingService.GetNameForEntitySet(entity, iCodeGenerationServiceProvider), (CodeStatement)Return(ThisMethodInvoke(MethodCreateQuery, typeForEntity)));
 
             var comments = iCodeGenerationServiceProvider.NamingService.GetCommentsForEntitySet(entity, iCodeGenerationServiceProvider);
 
@@ -2252,7 +2263,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
             if (_config.GenerateAttributesWithNameOf)
             {
-                properyNameRef = new CodeSnippetExpression($"nameof({propertyName})");
+                properyNameRef = NameOfPropertyExpression(propertyName);
             }
 
             var codeMemberProperty = this.BuildClassProperty(typeForRequestField, propertyName);
@@ -2295,7 +2306,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
             if (_config.GenerateAttributesWithNameOf)
             {
-                properyNameRef = new CodeSnippetExpression($"nameof({propertyName})");
+                properyNameRef = NameOfPropertyExpression(propertyName);
             }
 
             var codeMemberProperty = this.BuildClassProperty(forResponseField, propertyName);
@@ -2487,14 +2498,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         }
 
         private CodeMemberProperty BuildClassProperty(
-            CodeTypeReference type
+            CodeTypeReference typeRef
             , string propertyName
             , params CodeStatement[] stmts
         )
         {
             var codeMemberProperty = new CodeMemberProperty
             {
-                Type = type,
+                Type = typeRef,
                 Name = propertyName,
                 Attributes = MemberAttributes.Public | MemberAttributes.Final,
                 HasGet = true,
@@ -2538,13 +2549,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
                 Name = methodName
             };
 
-            codeMemberMethod.Parameters.Add(Param(TypeRef(typeof(string)), "propertyName"));
+            codeMemberMethod.Parameters.Add(Param(TypeRef(typeof(string)), VariableNamePropertyName));
 
             var referenceExpression = new CodeEventReferenceExpression(This(), eventName);
-            codeMemberMethod.Statements.Add(If(NotNull(referenceExpression), new CodeDelegateInvokeExpression(referenceExpression, new CodeExpression[2]
+            codeMemberMethod.Statements.Add(If(IsNotNull(referenceExpression), new CodeDelegateInvokeExpression(referenceExpression, new CodeExpression[2]
             {
                 This(),
-                New(TypeRef(eventArgsType), (CodeExpression) VarRef("propertyName"))
+                New(TypeRef(eventArgsType), (CodeExpression) VarRef(VariableNamePropertyName))
             })));
 
             if (this._config.GenerateWithDebuggerNonUserCode)
@@ -2809,7 +2820,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         private static CodeAssignStatement AssignValue(CodeExpression target)
         {
-            return AssignValue(target, new CodeVariableReferenceExpression("value"));
+            return AssignValue(target, new CodeVariableReferenceExpression(VariableNameValue));
         }
 
         private static CodeAssignStatement AssignValue(CodeExpression target, CodeExpression value)
@@ -2923,6 +2934,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return result;
         }
 
+        private static CodeSnippetExpression NameOfPropertyExpression(string propertyName)
+        {
+            return new CodeSnippetExpression($"nameof({propertyName})");
+        }
+
         private static CodePrimitiveExpression StringLiteral(string value)
         {
             return new CodePrimitiveExpression(value);
@@ -2936,6 +2952,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         private static CodeMethodReturnStatement Return(CodeExpression expression)
         {
             return new CodeMethodReturnStatement(expression);
+        }
+
+        private static CodeDefaultValueExpression DefaultTypeValue(CodeTypeReference typeRef)
+        {
+            return new CodeDefaultValueExpression(typeRef);
         }
 
         private static CodeMethodInvokeExpression EnumIsDefined(CodeTypeReference type, string variableName)
@@ -2956,9 +2977,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             });
         }
 
-        private static CodeExpression ValueNull()
+        private static CodeExpression IsValueNull()
         {
-            return new CodeBinaryOperatorExpression(VarRef("value"), CodeBinaryOperatorType.IdentityEquality, Null());
+            return new CodeBinaryOperatorExpression(VarRef(VariableNameValue), CodeBinaryOperatorType.IdentityEquality, Null());
         }
 
         private static CodePrimitiveExpression Null()
@@ -2966,12 +2987,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return new CodePrimitiveExpression(null);
         }
 
-        private static CodeBinaryOperatorExpression NotNull(CodeExpression expression)
+        private static CodeBinaryOperatorExpression IsNotNull(CodeExpression expression)
         {
             return new CodeBinaryOperatorExpression(expression, CodeBinaryOperatorType.IdentityInequality, Null());
         }
 
-        private static CodeBinaryOperatorExpression ExpressionNull(CodeExpression expression)
+        private static CodeBinaryOperatorExpression IsExpressionNull(CodeExpression expression)
         {
             return new CodeBinaryOperatorExpression(expression, CodeBinaryOperatorType.IdentityEquality, Null());
         }
