@@ -10,6 +10,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -63,6 +64,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             InitializeComponent();
 
             LoadEntityNames(cmBEntityName, service.ConnectionData);
+
+            cmBStatusCode.ItemsSource = new EnumBindingSourceExtension(typeof(SavedQuery.Schema.OptionSets.statuscode?)).ProvideValue(null) as IEnumerable;
+            cmBStatusCode.SelectedItem = SavedQuery.Schema.OptionSets.statuscode.Active_0_Active_1;
 
             var child = new ExportXmlOptionsControl(_commonConfig, _xmlOptions);
             child.CloseClicked += Child_CloseClicked;
@@ -193,6 +197,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._itemsSource.Clear();
 
             string entityName = string.Empty;
+            SavedQuery.Schema.OptionSets.statuscode? statuscode = null;
 
             this.Dispatcher.Invoke(() =>
             {
@@ -201,6 +206,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 )
                 {
                     entityName = cmBEntityName.Text.Trim().ToLower();
+                }
+
+                if (cmBStatusCode.SelectedItem is SavedQuery.Schema.OptionSets.statuscode comboBoxItem)
+                {
+                    statuscode = comboBoxItem;
                 }
             });
 
@@ -220,13 +230,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     var repository = new SavedQueryRepository(service);
 
                     list = await repository.GetListAsync(filterEntity
-                        , new ColumnSet(
+                        , statuscode
+                        , new ColumnSet
+                        (
                             SavedQuery.Schema.Attributes.name
                             , SavedQuery.Schema.Attributes.returnedtypecode
                             , SavedQuery.Schema.Attributes.querytype
                             , SavedQuery.Schema.Attributes.iscustomizable
                             , SavedQuery.Schema.Attributes.statuscode
-                    ));
+                        )
+                    );
                 }
             }
             catch (Exception ex)
@@ -370,6 +383,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ShowExistingSavedQueries();
             }
+        }
+
+        private void cmBStatusCode_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ShowExistingSavedQueries();
         }
 
         private SavedQuery GetSelectedEntity()

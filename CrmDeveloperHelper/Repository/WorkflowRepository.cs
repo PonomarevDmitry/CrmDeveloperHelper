@@ -28,12 +28,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
-        public Task<IEnumerable<Workflow>> GetListAsync(string filterEntity, int? category, int? mode, ColumnSet columnSet)
+        public Task<IEnumerable<Workflow>> GetListAsync(string filterEntity, Workflow.Schema.OptionSets.category? category, Workflow.Schema.OptionSets.mode? mode, Workflow.Schema.OptionSets.statuscode? statuscode, ColumnSet columnSet)
         {
-            return Task.Run(() => GetList(filterEntity, category, mode, columnSet));
+            return Task.Run(() => GetList(filterEntity, category, mode, statuscode, columnSet));
         }
 
-        private IEnumerable<Workflow> GetList(string filterEntity, int? category, int? mode, ColumnSet columnSet)
+        private IEnumerable<Workflow> GetList(string filterEntity, Workflow.Schema.OptionSets.category? category, Workflow.Schema.OptionSets.mode? mode, Workflow.Schema.OptionSets.statuscode? statuscode, ColumnSet columnSet)
         {
             QueryExpression query = new QueryExpression()
             {
@@ -41,7 +41,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 NoLock = true,
 
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                ColumnSet = columnSet ?? new ColumnSet(false),
 
                 Criteria =
                 {
@@ -69,12 +69,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (category.HasValue)
             {
-                query.Criteria.Conditions.Add(new ConditionExpression(Workflow.Schema.Attributes.category, ConditionOperator.Equal, category.Value));
+                query.Criteria.Conditions.Add(new ConditionExpression(Workflow.Schema.Attributes.category, ConditionOperator.Equal, (int)category.Value));
             }
 
             if (mode.HasValue)
             {
-                query.Criteria.Conditions.Add(new ConditionExpression(Workflow.Schema.Attributes.mode, ConditionOperator.Equal, mode.Value));
+                query.Criteria.Conditions.Add(new ConditionExpression(Workflow.Schema.Attributes.mode, ConditionOperator.Equal, (int)mode.Value));
+            }
+
+            if (statuscode.HasValue)
+            {
+                query.Criteria.Conditions.Add(new ConditionExpression(Workflow.Schema.Attributes.statuscode, ConditionOperator.Equal, (int)statuscode.Value));
             }
 
             return _service.RetrieveMultipleAll<Workflow>(query);

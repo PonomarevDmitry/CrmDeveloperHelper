@@ -1245,7 +1245,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 entityName
                 , (int)Workflow.Schema.OptionSets.category.Workflow_0
                 , null
-                , new ColumnSet(
+                , null
+                , new ColumnSet
+                (
                     Workflow.Schema.Attributes.workflowid
                     , Workflow.Schema.Attributes.category
                     , Workflow.Schema.Attributes.name

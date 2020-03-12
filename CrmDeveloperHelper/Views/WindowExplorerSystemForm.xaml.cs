@@ -9,6 +9,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -68,6 +69,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             InitializeComponent();
 
             LoadEntityNames(cmBEntityName, service.ConnectionData);
+
+            cmBFormActivationState.ItemsSource = new EnumBindingSourceExtension(typeof(SystemForm.Schema.OptionSets.formactivationstate?)).ProvideValue(null) as IEnumerable;
+            cmBFormActivationState.SelectedItem = SystemForm.Schema.OptionSets.formactivationstate.Active_1;
 
             var child = new ExportXmlOptionsControl(_commonConfig, _xmlOptions);
             child.CloseClicked += Child_CloseClicked;
@@ -255,6 +259,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             string filterEntity = null;
 
             string entityName = string.Empty;
+            SystemForm.Schema.OptionSets.formactivationstate? state = null;
 
             this.Dispatcher.Invoke(() =>
             {
@@ -263,6 +268,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 )
                 {
                     entityName = cmBEntityName.Text.Trim().ToLower();
+                }
+
+                if (cmBFormActivationState.SelectedItem is SystemForm.Schema.OptionSets.formactivationstate comboBoxItem)
+                {
+                    state = comboBoxItem;
                 }
             });
 
@@ -280,13 +290,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     var repository = new SystemFormRepository(service);
 
                     list = await repository.GetListAsync(filterEntity
-                        , new ColumnSet(
+                        , state
+                        , new ColumnSet
+                        (
                             SystemForm.Schema.Attributes.name
                             , SystemForm.Schema.Attributes.objecttypecode
                             , SystemForm.Schema.Attributes.type
                             , SystemForm.Schema.Attributes.iscustomizable
                             , SystemForm.Schema.Attributes.formactivationstate
-                    ));
+                        )
+                    );
                 }
             }
             catch (Exception ex)
@@ -431,6 +444,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ShowExistingSystemForms();
             }
+        }
+
+        private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ShowExistingSystemForms();
         }
 
         private SystemForm GetSelectedEntity()

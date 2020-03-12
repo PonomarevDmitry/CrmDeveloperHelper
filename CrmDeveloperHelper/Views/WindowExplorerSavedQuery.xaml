@@ -215,6 +215,9 @@
 
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="100*" />
+
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
@@ -230,6 +233,9 @@
 
             <Label Content="Filter Entity" Grid.Row="1" Grid.Column="2" />
             <ComboBox x:Name="cmBEntityName" Grid.Row="1" Grid.Column="3" KeyDown="txtBFilterEnitity_KeyDown" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" />
+
+            <Label Content="Status" Grid.Row="1" Grid.Column="4" />
+            <ComboBox x:Name="cmBStatusCode" Grid.Row="1" Grid.Column="5" IsEditable="False" SelectionChanged="cmBStatusCode_SelectionChanged" HorizontalContentAlignment="Stretch" />
         </Grid>
 
         <DataGrid x:Name="lstVwSavedQueries" Grid.Row="2" AutoGenerateColumns="False" Margin="5" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">

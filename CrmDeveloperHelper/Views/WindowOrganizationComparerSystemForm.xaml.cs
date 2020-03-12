@@ -239,6 +239,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (service1 != null && service2 != null)
                 {
                     string entityName = string.Empty;
+                    SystemForm.Schema.OptionSets.formactivationstate? state = null;
 
                     this.Dispatcher.Invoke(() =>
                     {
@@ -247,6 +248,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         )
                         {
                             entityName = cmBEntityName.Text.Trim().ToLower();
+                        }
+
+                        if (cmBFormActivationState.SelectedItem is SystemForm.Schema.OptionSets.formactivationstate comboBoxItem)
+                        {
+                            state = comboBoxItem;
                         }
                     });
 
@@ -259,7 +265,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         filterEntity = entityName;
                     }
 
-                    var columnSet = new ColumnSet(SystemForm.Schema.Attributes.name
+                    var columnSet = new ColumnSet
+                    (
+                        SystemForm.Schema.Attributes.name
                         , SystemForm.Schema.Attributes.objecttypecode
                         , SystemForm.Schema.Attributes.type
                         , SystemForm.Schema.Attributes.formactivationstate
@@ -272,8 +280,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         var repository1 = new SystemFormRepository(service1);
                         var repository2 = new SystemFormRepository(service2);
 
-                        var task1 = repository1.GetListAsync(filterEntity, columnSet);
-                        var task2 = repository2.GetListAsync(filterEntity, columnSet);
+                        var task1 = repository1.GetListAsync(filterEntity, state, columnSet);
+                        var task2 = repository2.GetListAsync(filterEntity, state, columnSet);
 
                         var list1 = await task1;
                         var list2 = await task2;
@@ -296,7 +304,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var repository1 = new SystemFormRepository(service1);
 
-                        var list1 = await repository1.GetListAsync(filterEntity, columnSet);
+                        var list1 = await repository1.GetListAsync(filterEntity, state, columnSet);
 
                         foreach (var form1 in list1)
                         {
@@ -487,6 +495,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ShowExistingSystemForms();
             }
+        }
+
+        private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ShowExistingSystemForms();
         }
 
         private EntityViewItem GetSelectedEntity()

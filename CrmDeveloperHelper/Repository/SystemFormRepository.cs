@@ -34,9 +34,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
-        public Task<List<SystemForm>> GetListAsync(string filterEntity = null, ColumnSet columnSet = null)
+        public Task<List<SystemForm>> GetListAsync(string filterEntity = null, SystemForm.Schema.OptionSets.formactivationstate? state = null, ColumnSet columnSet = null)
         {
-            return Task.Run(() => GetList(filterEntity, columnSet));
+            return Task.Run(() => GetList(filterEntity, state, columnSet));
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        private List<SystemForm> GetList(string filterEntity, ColumnSet columnSet)
+        private List<SystemForm> GetList(string filterEntity, SystemForm.Schema.OptionSets.formactivationstate? state, ColumnSet columnSet)
         {
             QueryExpression query = new QueryExpression()
             {
@@ -76,6 +76,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             if (!string.IsNullOrEmpty(filterEntity))
             {
                 query.Criteria.Conditions.Add(new ConditionExpression(SystemForm.Schema.Attributes.objecttypecode, ConditionOperator.Equal, filterEntity));
+            }
+
+            if (state.HasValue)
+            {
+                query.Criteria.Conditions.Add(new ConditionExpression(SystemForm.Schema.Attributes.formactivationstate, ConditionOperator.Equal, (int)state.Value));
             }
 
             return _service.RetrieveMultipleAll<SystemForm>(query);

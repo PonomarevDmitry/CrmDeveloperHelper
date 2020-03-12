@@ -74,6 +74,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             cmBCategory.ItemsSource = new EnumBindingSourceExtension(typeof(Workflow.Schema.OptionSets.category?)).ProvideValue(null) as IEnumerable;
             cmBMode.ItemsSource = new EnumBindingSourceExtension(typeof(Workflow.Schema.OptionSets.mode?)).ProvideValue(null) as IEnumerable;
+            cmBStatusCode.ItemsSource = new EnumBindingSourceExtension(typeof(Workflow.Schema.OptionSets.statuscode?)).ProvideValue(null) as IEnumerable;
 
             this._iWriteToOutput = iWriteToOutput;
 
@@ -222,23 +223,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._itemsSource.Clear();
 
-            int? category = null;
+            Workflow.Schema.OptionSets.category? category = null;
+            Workflow.Schema.OptionSets.mode? mode = null;
+            Workflow.Schema.OptionSets.statuscode? statuscode = null;
 
-            cmBCategory.Dispatcher.Invoke(() =>
+            this.Dispatcher.Invoke(() =>
             {
-                if (cmBCategory.SelectedItem is Workflow.Schema.OptionSets.category comboBoxItem)
                 {
-                    category = (int)comboBoxItem;
+                    if (cmBCategory.SelectedItem is Workflow.Schema.OptionSets.category comboBoxItem)
+                    {
+                        category = comboBoxItem;
+                    }
                 }
-            });
 
-            int? mode = null;
-
-            cmBMode.Dispatcher.Invoke(() =>
-            {
-                if (cmBMode.SelectedItem is Workflow.Schema.OptionSets.mode comboBoxItem)
                 {
-                    mode = (int)comboBoxItem;
+                    if (cmBMode.SelectedItem is Workflow.Schema.OptionSets.mode comboBoxItem)
+                    {
+                        mode = comboBoxItem;
+                    }
+                }
+
+                {
+                    if (cmBStatusCode.SelectedItem is Workflow.Schema.OptionSets.statuscode comboBoxItem)
+                    {
+                        statuscode = comboBoxItem;
+                    }
                 }
             });
 
@@ -290,8 +299,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         var repository1 = new WorkflowRepository(service1);
                         var repository2 = new WorkflowRepository(service2);
 
-                        var task1 = repository1.GetListAsync(filterEntity, category, mode, columnSet);
-                        var task2 = repository2.GetListAsync(filterEntity, category, mode, columnSet);
+                        var task1 = repository1.GetListAsync(filterEntity, category, mode, statuscode, columnSet);
+                        var task2 = repository2.GetListAsync(filterEntity, category, mode, statuscode, columnSet);
 
                         TranslationRepository.GetDefaultTranslationFromCacheAsync(service1.ConnectionData.ConnectionId, service1);
                         TranslationRepository.GetDefaultTranslationFromCacheAsync(service2.ConnectionData.ConnectionId, service2);
@@ -315,7 +324,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var repository1 = new WorkflowRepository(service1);
 
-                        var task1 = repository1.GetListAsync(filterEntity, category, mode, columnSet);
+                        var task1 = repository1.GetListAsync(filterEntity, category, mode, statuscode, columnSet);
 
                         TranslationRepository.GetDefaultTranslationFromCacheAsync(service1.ConnectionData.ConnectionId, service1);
 

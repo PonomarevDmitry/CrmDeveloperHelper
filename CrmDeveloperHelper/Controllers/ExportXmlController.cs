@@ -91,7 +91,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var repository = new SystemFormRepository(service);
 
-            var allForms = (await repository.GetListAsync(string.Empty))
+            var allForms = (await repository.GetListAsync())
                 .OrderBy(ent => ent.ObjectTypeCode)
                 .ThenBy(ent => ent.Type.Value)
                 .ThenBy(ent => ent.Name)

@@ -7,6 +7,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -60,6 +61,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             InitializeComponent();
 
             LoadEntityNames(cmBEntityName, connection1, connection2);
+
+            cmBStatusCode.ItemsSource = new EnumBindingSourceExtension(typeof(SavedQuery.Schema.OptionSets.statuscode?)).ProvideValue(null) as IEnumerable;
+            cmBStatusCode.SelectedItem = SavedQuery.Schema.OptionSets.statuscode.Active_0_Active_1;
 
             var child = new ExportXmlOptionsControl(_commonConfig, _xmlOptions);
             child.CloseClicked += Child_CloseClicked;
@@ -228,6 +232,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (service1 != null && service2 != null)
                 {
                     string entityName = string.Empty;
+                    SavedQuery.Schema.OptionSets.statuscode? statuscode = null;
 
                     this.Dispatcher.Invoke(() =>
                     {
@@ -236,6 +241,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         )
                         {
                             entityName = cmBEntityName.Text.Trim().ToLower();
+                        }
+
+                        if (cmBStatusCode.SelectedItem is SavedQuery.Schema.OptionSets.statuscode comboBoxItem)
+                        {
+                            statuscode = comboBoxItem;
                         }
                     });
 
@@ -262,8 +272,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         SavedQueryRepository repository1 = new SavedQueryRepository(service1);
                         SavedQueryRepository repository2 = new SavedQueryRepository(service2);
 
-                        var task1 = repository1.GetListAsync(filterEntity, columnsSet);
-                        var task2 = repository2.GetListAsync(filterEntity, columnsSet);
+                        var task1 = repository1.GetListAsync(filterEntity, statuscode, columnsSet);
+                        var task2 = repository2.GetListAsync(filterEntity, statuscode, columnsSet);
 
                         var list1 = await task1;
                         var list2 = await task2;
@@ -284,7 +294,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         SavedQueryRepository repository1 = new SavedQueryRepository(service1);
 
-                        var task1 = repository1.GetListAsync(filterEntity, columnsSet);
+                        var task1 = repository1.GetListAsync(filterEntity, statuscode, columnsSet);
 
                         var list1 = await task1;
 
@@ -475,6 +485,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ShowExistingSavedQueries();
             }
+        }
+
+        private void cmBStatusCode_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ShowExistingSavedQueries();
         }
 
         private EntityViewItem GetSelectedEntity()

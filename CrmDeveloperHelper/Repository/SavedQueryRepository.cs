@@ -38,9 +38,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
-        public Task<List<SavedQuery>> GetListAsync(string filterEntity, ColumnSet columnSet)
+        public Task<List<SavedQuery>> GetListAsync(string filterEntity, SavedQuery.Schema.OptionSets.statuscode? statuscode, ColumnSet columnSet)
         {
-            return Task.Run(() => GetList(filterEntity, columnSet));
+            return Task.Run(() => GetList(filterEntity, statuscode, columnSet));
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        private List<SavedQuery> GetList(string filterEntity, ColumnSet columnSet)
+        private List<SavedQuery> GetList(string filterEntity, SavedQuery.Schema.OptionSets.statuscode? statuscode, ColumnSet columnSet)
         {
             QueryExpression query = new QueryExpression()
             {
@@ -56,7 +56,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 NoLock = true,
 
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                ColumnSet = columnSet ?? new ColumnSet(false),
 
                 Criteria =
                 {
@@ -79,6 +79,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             if (!string.IsNullOrEmpty(filterEntity))
             {
                 query.Criteria.Conditions.Add(new ConditionExpression(SavedQuery.Schema.Attributes.returnedtypecode, ConditionOperator.Equal, filterEntity));
+            }
+
+            if (statuscode.HasValue)
+            {
+                query.Criteria.Conditions.Add(new ConditionExpression(SavedQuery.Schema.Attributes.statuscode, ConditionOperator.Equal, (int)statuscode.Value));
             }
 
             return _service.RetrieveMultipleAll<SavedQuery>(query);

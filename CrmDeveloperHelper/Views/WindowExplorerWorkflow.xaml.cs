@@ -79,6 +79,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             cmBCategory.ItemsSource = new EnumBindingSourceExtension(typeof(Workflow.Schema.OptionSets.category?)).ProvideValue(null) as IEnumerable;
             cmBMode.ItemsSource = new EnumBindingSourceExtension(typeof(Workflow.Schema.OptionSets.mode?)).ProvideValue(null) as IEnumerable;
+            cmBStatusCode.ItemsSource = new EnumBindingSourceExtension(typeof(Workflow.Schema.OptionSets.statuscode?)).ProvideValue(null) as IEnumerable;
 
             LoadFromConfig();
 
@@ -120,6 +121,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private const string paramCategory = "Category";
         private const string paramMode = "Mode";
+        private const string paramStatusCode = "StatusCode";
 
         private void LoadConfiguration()
         {
@@ -142,6 +144,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (item != null)
                 {
                     cmBMode.SelectedItem = item;
+                }
+            }
+
+            var modeStatusCodeValue = winConfig.GetValueInt(paramStatusCode);
+            if (modeStatusCodeValue != -1)
+            {
+                var item = cmBStatusCode.Items.OfType<Workflow.Schema.OptionSets.statuscode?>().FirstOrDefault(e => (int)e == modeStatusCodeValue);
+                if (item != null)
+                {
+                    cmBStatusCode.SelectedItem = item;
                 }
             }
         }
@@ -168,8 +180,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
+            var modeStatusCodeValue = -1;
+
+            {
+                if (cmBStatusCode.SelectedItem is Workflow.Schema.OptionSets.statuscode comboBoxItem)
+                {
+                    modeStatusCodeValue = (int)comboBoxItem;
+                }
+            }
+
             winConfig.DictInt[paramCategory] = categoryValue;
             winConfig.DictInt[paramMode] = modeValue;
+            winConfig.DictInt[paramStatusCode] = modeValue;
         }
 
         protected override void OnClosed(EventArgs e)
@@ -253,22 +275,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._itemsSource.Clear();
 
             string entityName = string.Empty;
-            int? category = null;
-            int? mode = null;
+            Workflow.Schema.OptionSets.category? category = null;
+            Workflow.Schema.OptionSets.mode? mode = null;
+            Workflow.Schema.OptionSets.statuscode? statuscode = null;
 
             this.Dispatcher.Invoke(() =>
             {
                 {
                     if (cmBCategory.SelectedItem is Workflow.Schema.OptionSets.category comboBoxItem)
                     {
-                        category = (int)comboBoxItem;
+                        category = comboBoxItem;
                     }
                 }
 
                 {
                     if (cmBMode.SelectedItem is Workflow.Schema.OptionSets.mode comboBoxItem)
                     {
-                        mode = (int)comboBoxItem;
+                        mode = comboBoxItem;
+                    }
+                }
+
+                {
+                    if (cmBMode.SelectedItem is Workflow.Schema.OptionSets.statuscode comboBoxItem)
+                    {
+                        statuscode = comboBoxItem;
                     }
                 }
 
@@ -294,7 +324,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (service != null)
                 {
                     WorkflowRepository repository = new WorkflowRepository(service);
-                    list = await repository.GetListAsync(filterEntity, category, mode
+                    list = await repository.GetListAsync(
+                        filterEntity
+                        , category
+                        , mode
+                        , statuscode
                         , new ColumnSet(
                             Workflow.Schema.Attributes.category
                             , Workflow.Schema.Attributes.name

@@ -1124,7 +1124,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var repositorySystemForm = new SystemFormRepository(service);
 
-            var formList = await repositorySystemForm.GetListAsync(null, new ColumnSet(true));
+            var formList = await repositorySystemForm.GetListAsync(null, null, new ColumnSet(true));
 
             foreach (var systemForm in formList
                 .OrderBy(f => f.ObjectTypeCode)

@@ -323,7 +323,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         protected virtual Task<IEnumerable<Workflow>> GetWorkflowAsync(IOrganizationServiceExtented service, ColumnSet columnSet)
         {
-            return new WorkflowRepository(service).GetListAsync(null, null, null, columnSet);
+            return new WorkflowRepository(service).GetListAsync(null, null, null, null, columnSet);
         }
 
         public Task<List<SystemForm>> GetSystemForm1Async()
@@ -338,7 +338,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         protected virtual Task<List<SystemForm>> GetSystemFormAsync(IOrganizationServiceExtented service)
         {
-            return new SystemFormRepository(service).GetListAsync(null, null);
+            return new SystemFormRepository(service).GetListAsync();
         }
 
         public Task<List<SavedQuery>> GetSavedQuery1Async()
@@ -353,7 +353,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         protected virtual Task<List<SavedQuery>> GetSavedQueryAsync(IOrganizationServiceExtented service)
         {
-            return new SavedQueryRepository(service).GetListAsync(null, null);
+            return new SavedQueryRepository(service).GetListAsync(null, null, new ColumnSet(true));
         }
 
         public Task<List<SavedQueryVisualization>> GetSavedQueryVisualization1Async()
