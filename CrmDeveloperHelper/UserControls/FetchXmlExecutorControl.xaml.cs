@@ -1,7 +1,6 @@
 using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Messages;
-using Microsoft.Xrm.Sdk.Metadata;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
@@ -268,7 +267,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             UpdateStatus(this.ConnectionData, Properties.OutputStrings.ExecutingFetch);
 
-            await ExecuteFetchAsync(doc, connectionData);
+            try
+            {
+                await ExecuteFetchAsync(doc, connectionData);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
         }
 
         private bool TryLoadFileText()
@@ -1171,7 +1178,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            await ExecuteWorkflowOnEntities(entity.LogicalName, new[] { entity.Id });
+            try
+            {
+                await ExecuteWorkflowOnEntities(entity.LogicalName, new[] { entity.Id });
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
         }
 
         private async void miExecuteWorkflowOnAllEntites_Click(object sender, RoutedEventArgs e)
@@ -1191,7 +1206,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             IEnumerable<Guid> selectedEntityIds = _entityCollection.Entities.Where(en => en.Id != Guid.Empty).Select(en => en.Id);
 
-            await ExecuteWorkflowOnEntities(_entityCollection.EntityName, selectedEntityIds);
+            try
+            {
+                await ExecuteWorkflowOnEntities(_entityCollection.EntityName, selectedEntityIds);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
         }
 
         private async void miExecuteWorkflowOnSelectedEntites_Click(object sender, RoutedEventArgs e)
@@ -1215,7 +1238,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            await ExecuteWorkflowOnEntities(_entityCollection.EntityName, selectedEntityIds);
+            try
+            {
+                await ExecuteWorkflowOnEntities(_entityCollection.EntityName, selectedEntityIds);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
         }
 
         private async Task ExecuteWorkflowOnEntities(string entityName, IEnumerable<Guid> entityIds)
@@ -1354,7 +1385,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            await AssignEntitiesToUser(entity.LogicalName, new[] { entity.Id });
+            try
+            {
+                await AssignEntitiesToUser(entity.LogicalName, new[] { entity.Id });
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
         }
 
         private async void miAssignToUserAllEntites_Click(object sender, RoutedEventArgs e)
@@ -1374,7 +1413,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             IEnumerable<Guid> selectedEntityIds = _entityCollection.Entities.Where(en => en.Id != Guid.Empty).Select(en => en.Id);
 
-            await AssignEntitiesToUser(_entityCollection.EntityName, selectedEntityIds);
+            try
+            {
+                await AssignEntitiesToUser(_entityCollection.EntityName, selectedEntityIds);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
         }
 
         private async void miAssignToUserSelectedEntites_Click(object sender, RoutedEventArgs e)
@@ -1398,7 +1445,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            await AssignEntitiesToUser(_entityCollection.EntityName, selectedEntityIds);
+            try
+            {
+                await AssignEntitiesToUser(_entityCollection.EntityName, selectedEntityIds);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
         }
 
         private async Task AssignEntitiesToUser(string entityName, IEnumerable<Guid> entityIds)
@@ -1527,7 +1582,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            await AssignEntitiesToTeam(entity.LogicalName, new[] { entity.Id });
+            try
+            {
+                await AssignEntitiesToTeam(entity.LogicalName, new[] { entity.Id });
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
         }
 
         private async void miAssignToTeamAllEntites_Click(object sender, RoutedEventArgs e)
@@ -1547,7 +1610,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             IEnumerable<Guid> selectedEntityIds = _entityCollection.Entities.Where(en => en.Id != Guid.Empty).Select(en => en.Id);
 
-            await AssignEntitiesToTeam(_entityCollection.EntityName, selectedEntityIds);
+            try
+            {
+                await AssignEntitiesToTeam(_entityCollection.EntityName, selectedEntityIds);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
         }
 
         private async void miAssignToTeamSelectedEntites_Click(object sender, RoutedEventArgs e)
@@ -1571,7 +1642,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            await AssignEntitiesToTeam(_entityCollection.EntityName, selectedEntityIds);
+            try
+            {
+                await AssignEntitiesToTeam(_entityCollection.EntityName, selectedEntityIds);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
         }
 
         private async Task AssignEntitiesToTeam(string entityName, IEnumerable<Guid> entityIds)
@@ -1788,7 +1867,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             IEnumerable<Guid> selectedEntityIds = _entityCollection.Entities.Where(en => en.Id != Guid.Empty).Select(en => en.Id);
 
-            await BulkEditEntities(_entityCollection.EntityName, selectedEntityIds);
+            try
+            {
+                await BulkEditEntities(_entityCollection.EntityName, selectedEntityIds);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
         }
 
         private async void miBulkEditSelectedEntites_Click(object sender, RoutedEventArgs e)
@@ -1812,7 +1899,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            await BulkEditEntities(_entityCollection.EntityName, selectedEntityIds);
+            try
+            {
+                await BulkEditEntities(_entityCollection.EntityName, selectedEntityIds);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
         }
 
         private async Task BulkEditEntities(string entityName, IEnumerable<Guid> entityIds)
@@ -1862,7 +1957,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            await SetStateEntities(entity.LogicalName, new[] { entity.Id });
+            try
+            {
+                await SetStateEntities(entity.LogicalName, new[] { entity.Id });
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
         }
 
         private async void mISetStateSelectedEntites_Click(object sender, RoutedEventArgs e)
@@ -1886,7 +1989,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            await SetStateEntities(_entityCollection.EntityName, selectedEntityIds);
+            try
+            {
+                await SetStateEntities(_entityCollection.EntityName, selectedEntityIds);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
         }
 
         private async void mISetStateAllEntites_Click(object sender, RoutedEventArgs e)
@@ -1906,7 +2017,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             IEnumerable<Guid> selectedEntityIds = _entityCollection.Entities.Where(en => en.Id != Guid.Empty).Select(en => en.Id);
 
-            await SetStateEntities(_entityCollection.EntityName, selectedEntityIds);
+            try
+            {
+                await SetStateEntities(_entityCollection.EntityName, selectedEntityIds);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
         }
 
         private async Task SetStateEntities(string entityName, IEnumerable<Guid> entityIds)
@@ -2103,7 +2222,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            await TransferEntities(targetConnectionData, _entityCollection.EntityName, _entityCollection.Entities.Where(en => en.Id != Guid.Empty));
+            try
+            {
+                await TransferEntities(targetConnectionData, _entityCollection.EntityName, _entityCollection.Entities.Where(en => en.Id != Guid.Empty));
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
         }
 
         private async void mITransferSelectedEntitiesToConnection_Click(object sender, RoutedEventArgs e)
@@ -2135,7 +2262,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            await TransferEntities(targetConnectionData, _entityCollection.EntityName, selectedEntities);
+            try
+            {
+                await TransferEntities(targetConnectionData, _entityCollection.EntityName, selectedEntities);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
         }
 
         private async Task TransferEntities(ConnectionData targetConnectionData, string entityName, IEnumerable<Entity> entities)
@@ -2187,7 +2322,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            await DeleteEntities(entity.LogicalName, new[] { entity.Id });
+            try
+            {
+                await DeleteEntities(entity.LogicalName, new[] { entity.Id });
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
         }
 
         private async void mIDeleteSelectedEntity_Click(object sender, RoutedEventArgs e)
@@ -2211,7 +2354,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            await DeleteEntities(_entityCollection.EntityName, selectedEntityIds);
+            try
+            {
+                await DeleteEntities(_entityCollection.EntityName, selectedEntityIds);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
         }
 
         private async void mIDeleteAllEntity_Click(object sender, RoutedEventArgs e)
@@ -2231,7 +2382,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             IEnumerable<Guid> selectedEntityIds = _entityCollection.Entities.Where(en => en.Id != Guid.Empty).Select(en => en.Id);
 
-            await DeleteEntities(_entityCollection.EntityName, selectedEntityIds);
+            try
+            {
+                await DeleteEntities(_entityCollection.EntityName, selectedEntityIds);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
         }
 
         private async Task DeleteEntities(string entityName, IEnumerable<Guid> entityIds)
@@ -2322,7 +2481,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            await AddToSolution(componentType, new[] { entity.Id }, true, null);
+            try
+            {
+                await AddToSolution(componentType, new[] { entity.Id }, true, null);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
         }
 
         private async void AddToCrmSolutionEntityLast_Click(object sender, RoutedEventArgs e)
@@ -2352,7 +2519,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                && menuItem.Tag is string solutionUniqueName
             )
             {
-                await AddToSolution(componentType, new[] { entity.Id }, false, solutionUniqueName);
+                try
+                {
+                    await AddToSolution(componentType, new[] { entity.Id }, false, solutionUniqueName);
+                }
+                catch (Exception ex)
+                {
+                    _iWriteToOutput.WriteErrorToOutput(null, ex);
+                    _iWriteToOutput.ActivateOutputWindow(null);
+                }
             }
         }
 
@@ -2378,7 +2553,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            await AddToSolution(componentType, new[] { entity.Id }, true, null);
+            try
+            {
+                await AddToSolution(componentType, new[] { entity.Id }, true, null);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
         }
 
         private async void AddToCrmSolutionEntityReferenceLast_Click(object sender, RoutedEventArgs e)
@@ -2408,7 +2591,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                && menuItem.Tag is string solutionUniqueName
             )
             {
-                await AddToSolution(componentType, new[] { entity.Id }, false, solutionUniqueName);
+                try
+                {
+                    await AddToSolution(componentType, new[] { entity.Id }, false, solutionUniqueName);
+                }
+                catch (Exception ex)
+                {
+                    _iWriteToOutput.WriteErrorToOutput(null, ex);
+                    _iWriteToOutput.ActivateOutputWindow(null);
+                }
             }
         }
 
@@ -2438,7 +2629,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            await AddToSolution(componentType, selectedEntityIds, true, null);
+            try
+            {
+                await AddToSolution(componentType, selectedEntityIds, true, null);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
         }
 
         private async void AddToCrmSolutionSelectedEntitiesLast_Click(object sender, RoutedEventArgs e)
@@ -2472,7 +2671,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                && menuItem.Tag is string solutionUniqueName
             )
             {
-                await AddToSolution(componentType, selectedEntityIds, false, solutionUniqueName);
+                try
+                {
+                    await AddToSolution(componentType, selectedEntityIds, false, solutionUniqueName);
+                }
+                catch (Exception ex)
+                {
+                    _iWriteToOutput.WriteErrorToOutput(null, ex);
+                    _iWriteToOutput.ActivateOutputWindow(null);
+                }
             }
         }
 
@@ -2502,7 +2709,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            await AddToSolution(componentType, selectedEntityIds, true, null);
+            try
+            {
+                await AddToSolution(componentType, selectedEntityIds, true, null);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+                _iWriteToOutput.ActivateOutputWindow(null);
+            }
         }
 
         private async void AddToCrmSolutionAllEntitiesLast_Click(object sender, RoutedEventArgs e)
@@ -2536,7 +2751,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                && menuItem.Tag is string solutionUniqueName
             )
             {
-                await AddToSolution(componentType, selectedEntityIds, false, solutionUniqueName);
+                try
+                {
+                    await AddToSolution(componentType, selectedEntityIds, false, solutionUniqueName);
+                }
+                catch (Exception ex)
+                {
+                    _iWriteToOutput.WriteErrorToOutput(null, ex);
+                    _iWriteToOutput.ActivateOutputWindow(null);
+                }
             }
         }
 

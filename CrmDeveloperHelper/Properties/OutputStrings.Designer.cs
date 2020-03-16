@@ -1645,7 +1645,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Deleting Entities {1} count {2 completed..
+        ///   Looks up a localized string similar to {0}. Deleting Entities {1} count {2} completed..
         /// </summary>
         internal static string DeletingEntitiesSetCompletedFormat3 {
             get {
@@ -1654,7 +1654,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Deleting Entities {1} count {2 failed..
+        ///   Looks up a localized string similar to {0}. Deleting Entities {1} count {2} failed..
         /// </summary>
         internal static string DeletingEntitiesSetFailedFormat3 {
             get {
