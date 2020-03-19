@@ -1065,7 +1065,7 @@
     <Compile Include="Model\ElementForPublish.cs" />
     <Compile Include="Model\EntityKeyMetadataViewItem.cs" />
     <Compile Include="Model\EntityMetadataListViewItem.cs" />
-    <Compile Include="Model\EntityMetadataViewItem.cs" />
+    <Compile Include="Model\EntityMetadataAuditViewItem.cs" />
     <Compile Include="Model\EntityPrivilegeViewItem.cs" />
     <Compile Include="Model\EntityReferenceView.cs" />
     <Compile Include="Model\EntityTreeViewItem.cs" />

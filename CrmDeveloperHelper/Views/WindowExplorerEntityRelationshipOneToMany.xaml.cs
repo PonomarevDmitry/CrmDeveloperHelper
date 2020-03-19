@@ -33,7 +33,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly CommonConfiguration _commonConfig;
 
-        private readonly ObservableCollection<EntityMetadataViewItem> _itemsSourceEntityList;
+        private readonly ObservableCollection<EntityMetadataListViewItem> _itemsSourceEntityList;
 
         private readonly ObservableCollection<OneToManyRelationshipMetadataViewItem> _itemsSourceEntityRelationshipList;
 
@@ -90,7 +90,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             txtBFilterEnitity.Focus();
 
-            _itemsSourceEntityList = new ObservableCollection<EntityMetadataViewItem>();
+            _itemsSourceEntityList = new ObservableCollection<EntityMetadataListViewItem>();
             lstVwEntities.ItemsSource = _itemsSourceEntityList;
 
             _itemsSourceEntityRelationshipList = new ObservableCollection<OneToManyRelationshipMetadataViewItem>();
@@ -290,7 +290,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _itemsSourceEntityList.Clear();
             _itemsSourceEntityRelationshipList.Clear();
 
-            IEnumerable<EntityMetadataViewItem> list = Enumerable.Empty<EntityMetadataViewItem>();
+            IEnumerable<EntityMetadataListViewItem> list = Enumerable.Empty<EntityMetadataListViewItem>();
 
             try
             {
@@ -305,7 +305,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         _cacheEntityMetadata.Add(service.ConnectionData.ConnectionId, temp);
                     }
 
-                    list = _cacheEntityMetadata[service.ConnectionData.ConnectionId].Select(e => new EntityMetadataViewItem(e)).ToList();
+                    list = _cacheEntityMetadata[service.ConnectionData.ConnectionId].Select(e => new EntityMetadataListViewItem(e)).ToList();
                 }
             }
             catch (Exception ex)
@@ -331,7 +331,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ShowExistingEntityRelationships();
         }
 
-        private IEnumerable<EntityMetadataViewItem> FilterEntityList(IEnumerable<EntityMetadataViewItem> list, string textName, RoleEditorLayoutTab selectedTab)
+        private IEnumerable<EntityMetadataListViewItem> FilterEntityList(IEnumerable<EntityMetadataListViewItem> list, string textName, RoleEditorLayoutTab selectedTab)
         {
             list = _entityMetadataFilter.FilterList(list, i => i.EntityMetadata);
 
@@ -382,7 +382,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return list;
         }
 
-        private void LoadEntities(IEnumerable<EntityMetadataViewItem> results)
+        private void LoadEntities(IEnumerable<EntityMetadataListViewItem> results)
         {
             this.lstVwEntities.Dispatcher.Invoke(() =>
             {
@@ -676,15 +676,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private EntityMetadataViewItem GetSelectedEntity()
+        private EntityMetadataListViewItem GetSelectedEntity()
         {
-            return this.lstVwEntities.SelectedItems.OfType<EntityMetadataViewItem>().Count() == 1
-                ? this.lstVwEntities.SelectedItems.OfType<EntityMetadataViewItem>().SingleOrDefault() : null;
+            return this.lstVwEntities.SelectedItems.OfType<EntityMetadataListViewItem>().Count() == 1
+                ? this.lstVwEntities.SelectedItems.OfType<EntityMetadataListViewItem>().SingleOrDefault() : null;
         }
 
-        private List<EntityMetadataViewItem> GetSelectedEntities()
+        private List<EntityMetadataListViewItem> GetSelectedEntities()
         {
-            List<EntityMetadataViewItem> result = this.lstVwEntities.SelectedItems.OfType<EntityMetadataViewItem>().ToList();
+            List<EntityMetadataListViewItem> result = this.lstVwEntities.SelectedItems.OfType<EntityMetadataListViewItem>().ToList();
 
             return result;
         }
@@ -994,7 +994,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                EntityMetadataViewItem entity = GetItemFromRoutedDataContext<EntityMetadataViewItem>(e);
+                EntityMetadataListViewItem entity = GetItemFromRoutedDataContext<EntityMetadataListViewItem>(e);
                 ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
 
                 if (connectionData != null && entity != null)
@@ -1499,7 +1499,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void hyperlinkPublishEntity_Click(object sender, RoutedEventArgs e)
         {
-            EntityMetadataViewItem entity = GetItemFromRoutedDataContext<EntityMetadataViewItem>(e);
+            EntityMetadataListViewItem entity = GetItemFromRoutedDataContext<EntityMetadataListViewItem>(e);
 
             if (entity == null)
             {

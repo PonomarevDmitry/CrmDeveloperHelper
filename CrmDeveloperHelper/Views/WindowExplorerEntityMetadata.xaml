@@ -383,7 +383,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTextColumn Header="Entity Name" Width="260" Binding="{Binding EntityLogicalName}" />
+                <DataGridTextColumn Header="Entity Name" Width="260" Binding="{Binding LogicalName}" />
 
                 <DataGridTextColumn Header="Display Name" Width="260" Binding="{Binding DisplayName}" />
 

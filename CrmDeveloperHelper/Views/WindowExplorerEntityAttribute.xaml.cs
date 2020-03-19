@@ -33,13 +33,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly CommonConfiguration _commonConfig;
 
-        private readonly ObservableCollection<EntityMetadataViewItem> _itemsSourceEntityList;
+        private readonly ObservableCollection<EntityMetadataAuditViewItem> _itemsSourceEntityList;
 
         private readonly ObservableCollection<AttributeMetadataViewItem> _itemsSourceAttributeList;
 
         private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
 
-        private readonly Dictionary<Guid, IEnumerable<EntityMetadataViewItem>> _cacheEntityMetadata = new Dictionary<Guid, IEnumerable<EntityMetadataViewItem>>();
+        private readonly Dictionary<Guid, IEnumerable<EntityMetadataAuditViewItem>> _cacheEntityMetadata = new Dictionary<Guid, IEnumerable<EntityMetadataAuditViewItem>>();
 
         private readonly Dictionary<Guid, ConcurrentDictionary<string, Task>> _cacheMetadataTask = new Dictionary<Guid, ConcurrentDictionary<string, Task>>();
 
@@ -88,7 +88,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             txtBFilterEnitity.Focus();
 
-            _itemsSourceEntityList = new ObservableCollection<EntityMetadataViewItem>();
+            _itemsSourceEntityList = new ObservableCollection<EntityMetadataAuditViewItem>();
             lstVwEntities.ItemsSource = _itemsSourceEntityList;
 
             _itemsSourceAttributeList = new ObservableCollection<AttributeMetadataViewItem>();
@@ -255,7 +255,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _itemsSourceEntityList.Clear();
             _itemsSourceAttributeList.Clear();
 
-            IEnumerable<EntityMetadataViewItem> list = Enumerable.Empty<EntityMetadataViewItem>();
+            IEnumerable<EntityMetadataAuditViewItem> list = Enumerable.Empty<EntityMetadataAuditViewItem>();
 
             try
             {
@@ -269,7 +269,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         var temp = await task;
 
-                        _cacheEntityMetadata.Add(service.ConnectionData.ConnectionId, temp.Select(e => new EntityMetadataViewItem(e)).ToList());
+                        _cacheEntityMetadata.Add(service.ConnectionData.ConnectionId, temp.Select(e => new EntityMetadataAuditViewItem(e)).ToList());
                     }
 
                     list = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
@@ -298,7 +298,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ShowExistingAttributes();
         }
 
-        private IEnumerable<EntityMetadataViewItem> FilterEntityList(IEnumerable<EntityMetadataViewItem> list, string textName, RoleEditorLayoutTab selectedTab)
+        private IEnumerable<EntityMetadataAuditViewItem> FilterEntityList(IEnumerable<EntityMetadataAuditViewItem> list, string textName, RoleEditorLayoutTab selectedTab)
         {
             list = _entityMetadataFilter.FilterList(list, i => i.EntityMetadata);
 
@@ -349,7 +349,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return list;
         }
 
-        private void LoadEntities(IEnumerable<EntityMetadataViewItem> results)
+        private void LoadEntities(IEnumerable<EntityMetadataAuditViewItem> results)
         {
             this.lstVwEntities.Dispatcher.Invoke(() =>
             {
@@ -596,15 +596,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private EntityMetadataViewItem GetSelectedEntity()
+        private EntityMetadataAuditViewItem GetSelectedEntity()
         {
-            return this.lstVwEntities.SelectedItems.OfType<EntityMetadataViewItem>().Count() == 1
-                ? this.lstVwEntities.SelectedItems.OfType<EntityMetadataViewItem>().SingleOrDefault() : null;
+            return this.lstVwEntities.SelectedItems.OfType<EntityMetadataAuditViewItem>().Count() == 1
+                ? this.lstVwEntities.SelectedItems.OfType<EntityMetadataAuditViewItem>().SingleOrDefault() : null;
         }
 
-        private List<EntityMetadataViewItem> GetSelectedEntities()
+        private List<EntityMetadataAuditViewItem> GetSelectedEntities()
         {
-            List<EntityMetadataViewItem> result = this.lstVwEntities.SelectedItems.OfType<EntityMetadataViewItem>().ToList();
+            List<EntityMetadataAuditViewItem> result = this.lstVwEntities.SelectedItems.OfType<EntityMetadataAuditViewItem>().ToList();
 
             return result;
         }
@@ -914,7 +914,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         || cell.Column == colEntityDisplayName
                     )
                     {
-                        EntityMetadataViewItem entity = GetItemFromRoutedDataContext<EntityMetadataViewItem>(e);
+                        EntityMetadataAuditViewItem entity = GetItemFromRoutedDataContext<EntityMetadataAuditViewItem>(e);
                         ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
 
                         if (connectionData != null && entity != null)
@@ -1436,7 +1436,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                var listEntitiesToChange = new List<EntityMetadataViewItem>();
+                var listEntitiesToChange = new List<EntityMetadataAuditViewItem>();
                 var listAttributesToChange = new List<AttributeMetadataViewItem>();
 
                 if (_cacheEntityMetadata.ContainsKey(service.ConnectionData.ConnectionId))
@@ -1914,9 +1914,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         #region Select Entities
 
-        private void ExecuteSelectEntities(Func<EntityMetadataViewItem, bool> checker)
+        private void ExecuteSelectEntities(Func<EntityMetadataAuditViewItem, bool> checker)
         {
-            var list = lstVwEntities.Items.OfType<EntityMetadataViewItem>().Where(i => checker(i)).ToList();
+            var list = lstVwEntities.Items.OfType<EntityMetadataAuditViewItem>().Where(i => checker(i)).ToList();
 
             foreach (var item in list)
             {
@@ -1943,9 +1943,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         #region Set Entity Properties
 
-        private void ExecuteOnSelectedEntities(Action<EntityMetadataViewItem> action)
+        private void ExecuteOnSelectedEntities(Action<EntityMetadataAuditViewItem> action)
         {
-            var list = lstVwEntities.SelectedItems.OfType<EntityMetadataViewItem>().ToList();
+            var list = lstVwEntities.SelectedItems.OfType<EntityMetadataAuditViewItem>().ToList();
 
             foreach (var item in list)
             {
@@ -1972,7 +1972,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void hyperlinkPublishEntity_Click(object sender, RoutedEventArgs e)
         {
-            EntityMetadataViewItem entity = GetItemFromRoutedDataContext<EntityMetadataViewItem>(e);
+            EntityMetadataAuditViewItem entity = GetItemFromRoutedDataContext<EntityMetadataAuditViewItem>(e);
 
             if (entity == null)
             {

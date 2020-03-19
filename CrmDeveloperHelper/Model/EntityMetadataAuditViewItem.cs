@@ -4,24 +4,12 @@ using System.ComponentModel;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 {
-    public class EntityMetadataViewItem : INotifyPropertyChanging, INotifyPropertyChanged
+    public class EntityMetadataAuditViewItem : INotifyPropertyChanging, INotifyPropertyChanged
     {
         private static string[] _names =
         {
             nameof(IsChanged)
             , nameof(IsAuditEnabled)
-            //, nameof(IsGlobalFilterEnabled)
-            //, nameof(IsSortableEnabled)
-            //, nameof(IsCustomizable)
-            //, nameof(IsRenameable)
-            //, nameof(IsValidForAdvancedFind)
-            //, nameof(IsValidForForm)
-            //, nameof(IsRequiredForForm)
-            //, nameof(IsValidForGrid)
-            //, nameof(RequiredLevel)
-            //, nameof(CanModifyAdditionalSettings)
-            //, nameof(IsDataSourceSecret)
-            //, nameof(IsSecured)
         };
 
         private EntityMetadata _EntityMetadata;
@@ -47,7 +35,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         private bool? _initialIsAuditEnabled;
 
-        public EntityMetadataViewItem(EntityMetadata entityMetadata)
+        public EntityMetadataAuditViewItem(EntityMetadata entityMetadata)
         {
             LoadMetadata(entityMetadata);
         }
