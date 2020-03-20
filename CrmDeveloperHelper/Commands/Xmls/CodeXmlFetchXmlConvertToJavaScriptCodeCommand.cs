@@ -28,7 +28,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                 {
                     string text = textDocument.StartPoint.CreateEditPoint().GetText(textDocument.EndPoint);
 
-                    string jsCode = ContentComparerHelper.FormatToJavaScript(Entities.SavedQuery.Schema.Attributes.fetchxml, text);
+                    string jsCode = ContentComparerHelper.FormatToJavaScript(Entities.SavedQuery.Schema.Variables.fetchxml, text);
 
                     ClipboardHelper.SetText(jsCode);
                 }

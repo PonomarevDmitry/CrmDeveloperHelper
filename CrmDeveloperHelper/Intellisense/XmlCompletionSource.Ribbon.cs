@@ -1,6 +1,5 @@
 using Microsoft.VisualStudio.Language.Intellisense;
 using Microsoft.VisualStudio.Text;
-using Microsoft.VisualStudio.Text.Classification;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model;
@@ -114,109 +113,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             , "ScaleCommand"
         };
 
-        private void FillSessionForRibbonDiffXml(
-            SnapshotPoint triggerPoint
-            , ICompletionSession session
-            , IList<CompletionSet> completionSets
-            , ITextSnapshot snapshot
+        private void FillSessionForRibbonDiffXmlCompletionSet(
+            IList<CompletionSet> completionSets
             , XElement doc
             , ConnectionData connectionData
             , ConnectionIntellisenseDataRepository repositoryEntities
             , WebResourceIntellisenseDataRepository repositoryWebResource
             , RibbonIntellisenseDataRepository repositoryRibbon
+            , XElement currentXmlNode
+            , string currentNodeName
+            , string currentAttributeName
+            , ITrackingSpan applicableTo
         )
         {
-            SnapshotPoint currentPoint = (session.TextView.Caret.Position.BufferPosition) - 1;
-
-            var spans = _classifier.GetClassificationSpans(new SnapshotSpan(snapshot, 0, snapshot.Length));
-
-            var firstSpans = spans
-                .Where(s => s.Span.Start <= currentPoint.Position)
-                .OrderByDescending(s => s.Span.Start.Position)
-                .ToList();
-
-            var firstDelimiter = firstSpans.FirstOrDefault(s => s.ClassificationType.IsOfType("XML Attribute Quotes"));
-
-            var lastSpans = spans
-                .Where(s => s.Span.Start > currentPoint.Position)
-                .OrderBy(s => s.Span.Start.Position)
-                .ToList();
-
-            var lastDelimiter = lastSpans.FirstOrDefault(s => s.ClassificationType.IsOfType("XML Attribute Quotes"));
-
-            SnapshotSpan? extentTemp = null;
-
-            if (firstDelimiter != null && firstDelimiter.Span.GetText() == "\"\"")
-            {
-                extentTemp = new SnapshotSpan(firstDelimiter.Span.Start.Add(1), firstDelimiter.Span.Start.Add(1));
-            }
-            else if (firstDelimiter != null && lastDelimiter != null && firstDelimiter.Span.GetText() == "\"" && lastDelimiter.Span.GetText() == "\"")
-            {
-                extentTemp = new SnapshotSpan(firstDelimiter.Span.End, lastDelimiter.Span.Start);
-            }
-
-            if (!extentTemp.HasValue)
-            {
-                return;
-            }
-
-            var extent = extentTemp.Value;
-
-            {
-                var extentText = extent.GetText();
-
-                if (extentText == ",\"")
-                {
-                    extent = new SnapshotSpan(extent.Snapshot, extent.Start, extent.Length - 1);
-                }
-            }
-
-            var currentXmlNode = GetCurrentXmlNode(doc, extent);
-
-            if (currentXmlNode == null)
-            {
-                return;
-            }
-
-            var containingAttributeSpans = spans
-                .Where(s => s.Span.Contains(extent.Start)
-                    && s.Span.Contains(extent)
-                    && s.ClassificationType.IsOfType("XML Attribute Value"))
-                .OrderByDescending(s => s.Span.Start.Position)
-                .ToList();
-
-            var containingAttributeValue = containingAttributeSpans.FirstOrDefault();
-
-            if (containingAttributeValue == null)
-            {
-                containingAttributeValue = spans
-                    .Where(s => s.Span.Contains(extent.Start)
-                        && s.Span.Contains(extent)
-                        && s.ClassificationType.IsOfType("XML Attribute Quotes")
-                        && s.Span.GetText() == "\"\""
-                    )
-                    .OrderByDescending(s => s.Span.Start.Position)
-                    .FirstOrDefault();
-            }
-
-            if (containingAttributeValue == null)
-            {
-                return;
-            }
-
-            ClassificationSpan currentAttr = GetCurrentXmlAttributeName(snapshot, containingAttributeValue, spans);
-
-            if (currentAttr == null)
-            {
-                return;
-            }
-
-            string currentNodeName = currentXmlNode.Name.LocalName;
-
-            string currentAttributeName = currentAttr.Span.GetText();
-
-            ITrackingSpan applicableTo = snapshot.CreateTrackingSpan(extent, SpanTrackingMode.EdgeInclusive);
-
             try
             {
                 RibbonIntellisenseData ribbonIntellisenseData = null;

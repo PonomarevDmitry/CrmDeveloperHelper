@@ -730,6 +730,7 @@
     <Compile Include="Entities\DuplicateRule.Schema.cs" />
     <Compile Include="Entities\DuplicateRuleCondition.Proxy.cs" />
     <Compile Include="Entities\DuplicateRuleCondition.Schema.cs" />
+    <Compile Include="Helpers\ContentComparerHelper.Xml.cs" />
     <Compile Include="Helpers\EntityExtensions.cs" />
     <Compile Include="Entities\EntityMap.Proxy.cs" />
     <Compile Include="Entities\EntityMap.Schema.cs" />
@@ -1066,6 +1067,7 @@
     <Compile Include="Model\EntityKeyMetadataViewItem.cs" />
     <Compile Include="Model\EntityMetadataListViewItem.cs" />
     <Compile Include="Model\EntityMetadataAuditViewItem.cs" />
+    <Compile Include="Model\EntityMetadataPropertiesViewItem.cs" />
     <Compile Include="Model\EntityPrivilegeViewItem.cs" />
     <Compile Include="Model\EntityReferenceView.cs" />
     <Compile Include="Model\EntityTreeViewItem.cs" />

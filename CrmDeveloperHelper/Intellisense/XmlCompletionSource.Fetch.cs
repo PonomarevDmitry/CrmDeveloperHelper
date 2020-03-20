@@ -1,6 +1,5 @@
 using Microsoft.VisualStudio.Language.Intellisense;
 using Microsoft.VisualStudio.Text;
-using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model;
@@ -15,367 +14,78 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 {
     public sealed partial class XmlCompletionSource
     {
-        private void FillSessionForFetchXml(ICompletionSession session
-            , IList<CompletionSet> completionSets
-            , ITextSnapshot snapshot
-            , XElement doc
-            , ConnectionData connectionData
-            , ConnectionIntellisenseDataRepository repository
-        )
+        private void FillSessionForFetchXmlCompletionSet(IList<CompletionSet> completionSets, XElement doc, ConnectionData connectionData, ConnectionIntellisenseDataRepository repository, XElement currentXmlNode, string currentNodeName, string currentAttributeName, ITrackingSpan applicableTo)
         {
+            try
             {
-                HashSet<string> usedEntities = GetUsedEntities(doc);
-
-                if (usedEntities.Any())
+                if (string.Equals(currentNodeName, "entity", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    repository.GetEntityDataForNamesAsync(usedEntities);
-                }
-            }
-
-            SnapshotPoint currentPoint = (session.TextView.Caret.Position.BufferPosition) - 1;
-
-            var spans = _classifier.GetClassificationSpans(new SnapshotSpan(snapshot, 0, snapshot.Length));
-
-            var firstSpans = spans.Where(s =>
-                    s.Span.Start <= currentPoint.Position
-                    )
-                    .OrderByDescending(s => s.Span.Start.Position)
-                    .ToList();
-
-            var lastSpans = spans.Where(s =>
-                    s.Span.Start > currentPoint.Position
-                    )
-                    .OrderBy(s => s.Span.Start.Position)
-                    .ToList();
-
-            SnapshotSpan? extentTemp = null;
-
-            if (!extentTemp.HasValue)
-            {
-                var firstDelimiter = firstSpans.FirstOrDefault(s => s.ClassificationType.IsOfType("XML Attribute Quotes"));
-
-                if (firstDelimiter != null && firstDelimiter.Span.GetText() == "\"\"")
-                {
-                    extentTemp = new SnapshotSpan(firstDelimiter.Span.Start.Add(1), firstDelimiter.Span.Start.Add(1));
-                }
-            }
-
-            if (!extentTemp.HasValue)
-            {
-                var firstDelimiter = firstSpans.FirstOrDefault(s => s.ClassificationType.IsOfType("XML Attribute Quotes"));
-                var lastDelimiter = lastSpans.FirstOrDefault(s => s.ClassificationType.IsOfType("XML Attribute Quotes"));
-
-                if (firstDelimiter != null && lastDelimiter != null && firstDelimiter.Span.GetText() == "\"" && lastDelimiter.Span.GetText() == "\"")
-                {
-                    extentTemp = new SnapshotSpan(firstDelimiter.Span.End, lastDelimiter.Span.Start);
-                }
-            }
-
-            if (extentTemp.HasValue)
-            {
-                var extent = extentTemp.Value;
-
-                {
-                    var extentText = extent.GetText();
-
-                    if (extentText == ",\"")
+                    if (string.Equals(currentAttributeName, "name", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        extent = new SnapshotSpan(extent.Snapshot, extent.Start, extent.Length - 1);
+                        FillEntityNamesInList(completionSets, applicableTo, repository, false);
                     }
                 }
-
-                var currentXmlNode = GetCurrentXmlNode(doc, extent);
-
-                if (currentXmlNode == null)
+                else if (string.Equals(currentNodeName, "attribute", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    return;
-                }
-
-                var containingAttributeSpans = spans
-                    .Where(s => s.Span.Contains(extent.Start)
-                    && s.Span.Contains(extent)
-                    && s.ClassificationType.IsOfType("XML Attribute Value"))
-                    .OrderByDescending(s => s.Span.Start.Position)
-                    .ToList();
-
-                var containingAttributeValue = containingAttributeSpans.FirstOrDefault();
-
-                if (containingAttributeValue == null)
-                {
-                    containingAttributeValue = spans
-                        .Where(s => s.Span.Contains(extent.Start)
-                        && s.Span.Contains(extent)
-                        && s.ClassificationType.IsOfType("XML Attribute Quotes")
-                        && s.Span.GetText() == "\"\""
-                        )
-                        .OrderByDescending(s => s.Span.Start.Position)
-                        .FirstOrDefault();
-                }
-
-                if (containingAttributeValue != null)
-                {
-                    ClassificationSpan currentAttr = GetCurrentXmlAttributeName(snapshot, containingAttributeValue, spans);
-
-                    if (currentAttr == null)
+                    if (string.Equals(currentAttributeName, "name", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        return;
+                        Dictionary<string, string> aliases = GetEntityAliases(doc);
+
+                        FillEntityAttributesInList(completionSets, applicableTo, repository, currentXmlNode, aliases);
                     }
-
-                    string currentNodeName = currentXmlNode.Name.LocalName;
-
-                    string currentAttributeName = currentAttr.Span.GetText();
-
-                    ITrackingSpan applicableTo = snapshot.CreateTrackingSpan(extent, SpanTrackingMode.EdgeInclusive);
-
-                    try
+                }
+                else if (string.Equals(currentNodeName, "order", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    if (string.Equals(currentAttributeName, "attribute", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        if (string.Equals(currentNodeName, "entity", StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            if (string.Equals(currentAttributeName, "name", StringComparison.InvariantCultureIgnoreCase))
-                            {
-                                FillEntityNamesInList(completionSets, applicableTo, repository, false);
-                            }
-                        }
-                        else if (string.Equals(currentNodeName, "attribute", StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            if (string.Equals(currentAttributeName, "name", StringComparison.InvariantCultureIgnoreCase))
-                            {
-                                Dictionary<string, string> aliases = GetEntityAliases(doc);
+                        Dictionary<string, string> aliases = GetEntityAliases(doc);
 
-                                FillEntityAttributesInList(completionSets, applicableTo, repository, currentXmlNode, aliases);
-                            }
-                        }
-                        else if (string.Equals(currentNodeName, "order", StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            if (string.Equals(currentAttributeName, "attribute", StringComparison.InvariantCultureIgnoreCase))
-                            {
-                                Dictionary<string, string> aliases = GetEntityAliases(doc);
-
-                                FillEntityAttributesInList(completionSets, applicableTo, repository, currentXmlNode, aliases);
-                            }
-                        }
-                        else if (string.Equals(currentNodeName, "condition", StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            Dictionary<string, string> aliases = GetEntityAliases(doc);
-
-                            if (string.Equals(currentAttributeName, "attribute", StringComparison.InvariantCultureIgnoreCase))
-                            {
-                                FillEntityAttributesInList(completionSets, applicableTo, repository, currentXmlNode, aliases);
-                            }
-                            else if (string.Equals(currentAttributeName, "value", StringComparison.InvariantCultureIgnoreCase))
-                            {
-                                FillEntityAttributeValuesInList(completionSets, applicableTo, repository, currentXmlNode, aliases);
-                            }
-                            else if (string.Equals(currentAttributeName, "entityname", StringComparison.InvariantCultureIgnoreCase))
-                            {
-                                FillAliases(completionSets, applicableTo, aliases);
-                            }
-                        }
-                        else if (string.Equals(currentNodeName, "link-entity", StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            if (string.Equals(currentAttributeName, "name", StringComparison.InvariantCultureIgnoreCase))
-                            {
-                                FillLinkedEntityNames(completionSets, applicableTo, repository, currentXmlNode);
-
-                                FillEntityNamesInList(completionSets, applicableTo, repository, false);
-                            }
-                            else if (string.Equals(currentAttributeName, "from", StringComparison.InvariantCultureIgnoreCase))
-                            {
-                                FillLinkedEntityFromField(completionSets, applicableTo, repository, currentXmlNode);
-                            }
-                            else if (string.Equals(currentAttributeName, "to", StringComparison.InvariantCultureIgnoreCase))
-                            {
-                                FillLinkedEntityToField(completionSets, applicableTo, repository, currentXmlNode);
-                            }
-                        }
+                        FillEntityAttributesInList(completionSets, applicableTo, repository, currentXmlNode, aliases);
                     }
-                    catch (Exception ex)
+                }
+                else if (string.Equals(currentNodeName, "condition", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    Dictionary<string, string> aliases = GetEntityAliases(doc);
+
+                    if (string.Equals(currentAttributeName, "attribute", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                        FillEntityAttributesInList(completionSets, applicableTo, repository, currentXmlNode, aliases);
+                    }
+                    else if (string.Equals(currentAttributeName, "value", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillEntityAttributeValuesInList(completionSets, applicableTo, repository, currentXmlNode, aliases);
+                    }
+                    else if (string.Equals(currentAttributeName, "entityname", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillAliases(completionSets, applicableTo, aliases);
+                    }
+                }
+                else if (string.Equals(currentNodeName, "link-entity", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    if (string.Equals(currentAttributeName, "name", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillLinkedEntityNames(completionSets, applicableTo, repository, currentXmlNode);
+
+                        FillEntityNamesInList(completionSets, applicableTo, repository, false);
+                    }
+                    else if (string.Equals(currentAttributeName, "from", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillLinkedEntityFromField(completionSets, applicableTo, repository, currentXmlNode);
+                    }
+                    else if (string.Equals(currentAttributeName, "to", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillLinkedEntityToField(completionSets, applicableTo, repository, currentXmlNode);
                     }
                 }
             }
-            else
+            catch (Exception ex)
             {
-                extentTemp = null;
-
-                if (!extentTemp.HasValue)
-                {
-                    var firstDelimiter = firstSpans.FirstOrDefault(s => s.ClassificationType.IsOfType("XML Delimiter") && s.Span.GetText().EndsWith("></"));
-
-                    if (firstDelimiter != null && firstDelimiter.Span.GetText() == "></")
-                    {
-                        extentTemp = new SnapshotSpan(firstDelimiter.Span.Start.Add(1), firstDelimiter.Span.Start.Add(1));
-                    }
-                }
-
-                if (!extentTemp.HasValue)
-                {
-                    var firstDelimiter = firstSpans.FirstOrDefault(s => s.ClassificationType.IsOfType("XML Delimiter") && s.Span.GetText().Trim().EndsWith(">"));
-                    var lastDelimiter = lastSpans.FirstOrDefault(s => s.ClassificationType.IsOfType("XML Delimiter") && s.Span.GetText().Trim().StartsWith("</"));
-
-                    if (firstDelimiter != null && lastDelimiter != null)
-                    {
-                        var temp = new SnapshotSpan(firstDelimiter.Span.End, lastDelimiter.Span.Start);
-
-                        if (string.IsNullOrWhiteSpace(temp.GetText()))
-                        {
-                            extentTemp = new SnapshotSpan(firstDelimiter.Span.End, 0);
-                        }
-                        else
-                        {
-                            int spacesStart = temp.GetText().TakeWhile(ch => char.IsWhiteSpace(ch)).Count();
-                            int spacesEnd = temp.GetText().Reverse().TakeWhile(ch => char.IsWhiteSpace(ch)).Count();
-
-                            extentTemp = new SnapshotSpan(firstDelimiter.Span.End.Add(spacesStart), lastDelimiter.Span.Start.Add(-spacesEnd));
-                        }
-                    }
-                }
-
-                if (!extentTemp.HasValue)
-                {
-                    return;
-                }
-
-                var extent = extentTemp.Value;
-
-                var currentXmlNode = GetCurrentXmlNode(doc, extent);
-
-                if (currentXmlNode == null)
-                {
-                    return;
-                }
-
-                if (!string.Equals(currentXmlNode.Name.LocalName, "value", StringComparison.InvariantCultureIgnoreCase))
-                {
-                    return;
-                }
-
-                var nodeCondition = currentXmlNode.Parent;
-
-                if (nodeCondition == null || !string.Equals(nodeCondition.Name.LocalName, "condition", StringComparison.InvariantCultureIgnoreCase))
-                {
-                    return;
-                }
-
-                ITrackingSpan applicableTo = snapshot.CreateTrackingSpan(extent.Span, SpanTrackingMode.EdgeInclusive);
-
-                Dictionary<string, string> aliases = GetEntityAliases(doc);
-
-                FillEntityAttributeValuesInList(completionSets, applicableTo, repository, nodeCondition, aliases);
+                DTEHelper.WriteExceptionToOutput(connectionData, ex);
             }
         }
 
-        private void FillSessionForGridXml(ICompletionSession session
-            , IList<CompletionSet> completionSets
-            , ITextSnapshot snapshot
-            , XElement doc
-            , ConnectionData connectionData
-            , ConnectionIntellisenseDataRepository repository
-        )
+        private void FillSessionForGridXmlCompletionSet(IList<CompletionSet> completionSets, ConnectionData connectionData, ConnectionIntellisenseDataRepository repository, XElement currentXmlNode, string currentNodeName, string currentAttributeName, ITrackingSpan applicableTo)
         {
-            {
-                HashSet<int> usedEntityCodes = GetUsedEntityObjectTypeCodes(doc);
-
-                if (usedEntityCodes.Any())
-                {
-                    repository.GetEntityDataForObjectTypeCodesAsync(usedEntityCodes);
-                }
-            }
-
-            SnapshotPoint currentPoint = (session.TextView.Caret.Position.BufferPosition) - 1;
-
-            var spans = _classifier.GetClassificationSpans(new SnapshotSpan(snapshot, 0, snapshot.Length));
-
-            var firstSpans = spans.Where(s =>
-                    s.Span.Start <= currentPoint.Position
-                    )
-                    .OrderByDescending(s => s.Span.Start.Position)
-                    .ToList();
-
-            var firstDelimiter = firstSpans.FirstOrDefault(s => s.ClassificationType.IsOfType("XML Attribute Quotes"));
-
-            var lastSpans = spans.Where(s =>
-                    s.Span.Start > currentPoint.Position
-                    )
-                    .OrderBy(s => s.Span.Start.Position)
-                    .ToList();
-
-            var lastDelimiter = lastSpans.FirstOrDefault(s => s.ClassificationType.IsOfType("XML Attribute Quotes"));
-
-            SnapshotSpan? extentTemp = null;
-
-            if (firstDelimiter != null && firstDelimiter.Span.GetText() == "\"\"")
-            {
-                extentTemp = new SnapshotSpan(firstDelimiter.Span.Start.Add(1), firstDelimiter.Span.Start.Add(1));
-            }
-            else if (firstDelimiter != null && lastDelimiter != null && firstDelimiter.Span.GetText() == "\"" && lastDelimiter.Span.GetText() == "\"")
-            {
-                extentTemp = new SnapshotSpan(firstDelimiter.Span.End, lastDelimiter.Span.Start);
-            }
-
-            if (!extentTemp.HasValue)
-            {
-                return;
-            }
-
-            var extent = extentTemp.Value;
-
-            {
-                var extentText = extent.GetText();
-
-                if (extentText == ",\"")
-                {
-                    extent = new SnapshotSpan(extent.Snapshot, extent.Start, extent.Length - 1);
-                }
-            }
-
-            var currentXmlNode = GetCurrentXmlNode(doc, extent);
-
-            if (currentXmlNode == null)
-            {
-                return;
-            }
-
-            var containingAttributeSpans = spans
-                .Where(s => s.Span.Contains(extent.Start)
-                && s.Span.Contains(extent)
-                && s.ClassificationType.IsOfType("XML Attribute Value"))
-                .OrderByDescending(s => s.Span.Start.Position)
-                .ToList();
-
-            var containingAttributeValue = containingAttributeSpans.FirstOrDefault();
-
-            if (containingAttributeValue == null)
-            {
-                containingAttributeValue = spans
-                    .Where(s => s.Span.Contains(extent.Start)
-                    && s.Span.Contains(extent)
-                    && s.ClassificationType.IsOfType("XML Attribute Quotes")
-                    && s.Span.GetText() == "\"\""
-                    )
-                    .OrderByDescending(s => s.Span.Start.Position)
-                    .FirstOrDefault();
-            }
-
-            if (containingAttributeValue == null)
-            {
-                return;
-            }
-
-            ClassificationSpan currentAttr = GetCurrentXmlAttributeName(snapshot, containingAttributeValue, spans);
-
-            if (currentAttr == null)
-            {
-                return;
-            }
-
-            string currentNodeName = currentXmlNode.Name.LocalName;
-
-            string currentAttributeName = currentAttr.Span.GetText();
-
-            ITrackingSpan applicableTo = snapshot.CreateTrackingSpan(extent, SpanTrackingMode.EdgeInclusive);
-
             try
             {
                 if (string.Equals(currentNodeName, "grid", StringComparison.InvariantCultureIgnoreCase))

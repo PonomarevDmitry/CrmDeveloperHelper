@@ -213,8 +213,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         public IEnumerable<SelectedFile> GetSelectedFilesInSolutionExplorer(Func<string, bool> checkerFunction, bool recursive, bool saveIfNeeded)
         {
             if (ApplicationObject.ActiveWindow != null
-               && ApplicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeSolutionExplorer
-               && ApplicationObject.SelectedItems != null
+                && ApplicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeSolutionExplorer
+                && ApplicationObject.SelectedItems != null
             )
             {
                 string solutionDirectoryPath = GetSolutionDirectory();

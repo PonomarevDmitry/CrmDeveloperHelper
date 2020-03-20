@@ -24,6 +24,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                 public const string ismanaged = "IsManaged";
             }
+
+            public static partial class Variables
+            {
+                public const string fetchxml = "fetchXml";
+
+                public const string layoutxml = "layoutXml";
+
+                public const string columnsetxml = "columnSetXml";
+            }
         }
     }
 }

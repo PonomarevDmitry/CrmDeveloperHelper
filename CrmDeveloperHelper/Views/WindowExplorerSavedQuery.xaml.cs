@@ -553,6 +553,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await action(folder, idSavedQuery, entityName, name, fieldName, fieldTitle, extension);
         }
 
+        private async Task ExecuteActionEntity(Guid idSavedQuery, string entityName, string name, string fieldName, string fieldTitle, string variableName, string extension, Func<string, Guid, string, string, string, string, string, string, Task> action)
+        {
+            string folder = txtBFolder.Text.Trim();
+
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(folder))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+            else if (!Directory.Exists(folder))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+
+            await action(folder, idSavedQuery, entityName, name, fieldName, fieldTitle, variableName, extension);
+        }
+
         private async Task PerformExportXmlToFile(string folder, Guid idSavedQuery, string entityName, string name, string fieldName, string fieldTitle, string extension)
         {
             if (!this.IsControlsEnabled)
@@ -586,7 +609,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async Task PerformCopyToClipboardXmlToFileJavaScript(string folder, Guid idSavedQuery, string entityName, string name, string fieldName, string fieldTitle, string extension)
+        private async Task PerformCopyToClipboardXmlToFileJavaScript(string folder, Guid idSavedQuery, string entityName, string name, string fieldName, string fieldTitle, string variableName, string extension)
         {
             if (!this.IsControlsEnabled)
             {
@@ -611,7 +634,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         xmlContent = doc.ToString();
 
-                        xmlContent = ContentComparerHelper.FormatToJavaScript(fieldName, xmlContent);
+                        xmlContent = ContentComparerHelper.FormatToJavaScript(variableName, xmlContent);
                     }
                 }
                 else if (string.Equals(extension, "json", StringComparison.InvariantCultureIgnoreCase))
@@ -763,7 +786,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.fetchxml, SavedQuery.Schema.Headers.fetchxml, "xml", PerformCopyToClipboardXmlToFileJavaScript);
+            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.fetchxml, SavedQuery.Schema.Headers.fetchxml, SavedQuery.Schema.Variables.fetchxml, "xml", PerformCopyToClipboardXmlToFileJavaScript);
         }
 
         private void mIExportSavedQueryLayoutXml_Click(object sender, RoutedEventArgs e)
@@ -787,7 +810,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.layoutxml, SavedQuery.Schema.Headers.layoutxml, "xml", PerformCopyToClipboardXmlToFileJavaScript);
+            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.layoutxml, SavedQuery.Schema.Headers.layoutxml, SavedQuery.Schema.Variables.layoutxml, "xml", PerformCopyToClipboardXmlToFileJavaScript);
         }
 
         private void mIExportSavedQueryColumnSetXml_Click(object sender, RoutedEventArgs e)
@@ -802,6 +825,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.columnsetxml, SavedQuery.Schema.Headers.columnsetxml, "xml", PerformExportXmlToFile);
         }
 
+        private void mIExportSavedQueryColumnSetXmlIntoJavaScript_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.columnsetxml, SavedQuery.Schema.Headers.columnsetxml, SavedQuery.Schema.Variables.columnsetxml, "xml", PerformCopyToClipboardXmlToFileJavaScript);
+        }
+
         private void mIExportSavedQueryLayoutJson_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
@@ -812,6 +847,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.layoutjson, SavedQuery.Schema.Headers.layoutjson, "json", PerformExportXmlToFile);
+        }
+
+        private void mICopyToClipboardLayoutJson_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.layoutjson, SavedQuery.Schema.Headers.layoutjson, string.Empty, "json", PerformCopyToClipboardXmlToFileJavaScript);
         }
 
         private void mIExportSavedQueryOfflineSqlQuery_Click(object sender, RoutedEventArgs e)
@@ -826,30 +873,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.offlinesqlquery, SavedQuery.Schema.Headers.offlinesqlquery, "sql", PerformExportXmlToFile);
         }
 
-        private void mIExportSavedQueryColumnSetXmlIntoJavaScript_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            if (entity == null)
-            {
-                return;
-            }
-
-            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.columnsetxml, SavedQuery.Schema.Headers.columnsetxml, "xml", PerformCopyToClipboardXmlToFileJavaScript);
-        }
-
-        private void mICopyToClipboardLayoutJson_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            if (entity == null)
-            {
-                return;
-            }
-
-            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.layoutjson, SavedQuery.Schema.Headers.layoutjson, "json", PerformCopyToClipboardXmlToFileJavaScript);
-        }
-
         private void mICopyToClipboardOfflineSqlQuery_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
@@ -859,7 +882,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.offlinesqlquery, SavedQuery.Schema.Headers.offlinesqlquery, "sql", PerformCopyToClipboardXmlToFileJavaScript);
+            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.offlinesqlquery, SavedQuery.Schema.Headers.offlinesqlquery, string.Empty, "sql", PerformCopyToClipboardXmlToFileJavaScript);
         }
 
         private void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
