@@ -93,6 +93,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeWebResourceShowDifferenceCustomCommand.Initialize(commandService);
             CodeWebResourceShowDifferenceInConnectionGroupCommand.Initialize(commandService);
             CodeWebResourceShowDifferenceThreeFileCommand.Initialize(commandService);
+            CodeWebResourceCreateEntityDescriptionInConnectionCommand.Initialize(commandService);
+            CodeWebResourceChangeInEditorInConnectionCommand.Initialize(commandService);
+            CodeWebResourceGetAttributeInConnectionCommand.Initialize(commandService);
             CodeWebResourceExplorerCommand.Initialize(commandService);
             CodeWebResourceOpenInWebCommand.Initialize(commandService);
             CodeWebResourceLinkClearCommand.Initialize(commandService);
@@ -137,6 +140,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FileWebResourceCompareCommand.Initialize(commandService);
             FileWebResourceCompareWithDetailsCommand.Initialize(commandService);
             FileWebResourceCompareInConnectionGroupCommand.Initialize(commandService);
+            FileWebResourceCreateEntityDescriptionInConnectionCommand.Initialize(commandService);
+            FileWebResourceChangeInEditorInConnectionCommand.Initialize(commandService);
+            FileWebResourceGetAttributeInConnectionCommand.Initialize(commandService);
             FileWebResourceExplorerCommand.Initialize(commandService);
             FileWebResourceOpenInWebCommand.Initialize(commandService);
             FileWebResourceLinkClearCommand.Initialize(commandService);
@@ -316,6 +322,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeXmlWorkflowUpdateInConnectionGroupCommand.Initialize(commandService);
 
             #endregion Workflow
+
+            #region WebResource DependencyXml
+
+            CodeXmlWebResourceDependencyXmlExplorerCommand.Initialize(commandService);
+            CodeXmlWebResourceDependencyXmlOpenInWebCommand.Initialize(commandService);
+
+            CodeXmlWebResourceDependencyXmlShowDifferenceCommand.Initialize(commandService);
+            CodeXmlWebResourceDependencyXmlShowDifferenceInConnectionCommand.Initialize(commandService);
+
+            CodeXmlWebResourceDependencyXmlUpdateCommand.Initialize(commandService);
+            CodeXmlWebResourceDependencyXmlUpdateInConnectionCommand.Initialize(commandService);
+
+            #endregion WebResource DependencyXml
 
             CodeXmlCommonUpdateCommand.Initialize(commandService);
             CodeXmlCommonShowDifferenceCommand.Initialize(commandService);

@@ -21,6 +21,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         public static readonly XName RootActivity = XNamespace.Get("http://schemas.microsoft.com/netfx/2009/xaml/activities") + "Activity";
 
+        public const string RootWebResourceDependencies = "Dependencies";
+
         public const string RootForm = "form";
         public const string RootRibbonDiffXml = "RibbonDiffXml";
         public const string RootRibbonDefinitions = "RibbonDefinitions";

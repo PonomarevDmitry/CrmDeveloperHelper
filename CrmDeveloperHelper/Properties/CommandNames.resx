@@ -433,4 +433,11 @@
   <data name="CSharpGlobalOptionSetsMetadataFileGenerationOptionsCommand" xml:space="preserve">
     <value>Global OptionSets File Generation Options</value>
   </data>
+  <data name="CodeXmlWebResourceDependencyXmlShowDifferenceCommand" xml:space="preserve">
+    <value>Show Difference WebResource DependencyXml</value>
+  </data>
+  <data name="CodeXmlWebResourceDependencyXmlUpdateCommand" xml:space="preserve">
+    <value>Update WebResource DependencyXml</value>
+  </data>
+  
 </root>

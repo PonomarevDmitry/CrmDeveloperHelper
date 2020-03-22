@@ -688,6 +688,57 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
+        public void StartWebResourceCreateEntityDescription(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._differenceController.ExecuteCreatingWebResourceEntityDescription(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartWebResourceGetAttribute(SelectedFile selectedFile, string fieldName, string fieldTitle, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._differenceController.ExecuteWebResourceGettingAttribute(selectedFile, fieldName, fieldTitle, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartWebResourceChangeInEntityEditor(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._differenceController.ExecuteChangingWebResourceInEntityEditor(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
         public void StartWebResourceThreeFileDifference(SelectedFile selectedFile, ConnectionData connectionData1, ConnectionData connectionData2, ShowDifferenceThreeFileType differenceType, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
@@ -746,6 +797,91 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 try
                 {
                     this._linkController.ExecuteCreatingLastLinkWebResourceMultiple(selectedFiles, connectionData);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartWebResourceDependencyXmlDifference(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._exportXmlController.ExecuteDifferenceWebResourceDependencyXml(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartWebResourceDependencyXmlDifference(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._exportXmlController.ExecuteDifferenceWebResourceDependencyXml(doc, filePath, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartWebResourceDependencyXmlUpdate(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._exportXmlController.ExecuteUpdateWebResourceDependencyXml(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartWebResourceDependencyXmlUpdate(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._exportXmlController.ExecuteUpdateWebResourceDependencyXml(doc, filePath, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartWebResourceDependencyXmlOpenInWeb(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._exportXmlController.ExecuteOpenInWebWebResourceDependencyXml(selectedFile, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {

@@ -1202,6 +1202,108 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public void HandleWebResourceCreateEntityDescriptionCommand(ConnectionData connectionData)
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsWebResourceTextType, false).Take(2).ToList();
+
+            if (connectionData != null && commonConfig != null && selectedFiles.Count == 1)
+            {
+                ActivateOutputWindow(connectionData);
+                WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                try
+                {
+                    Controller.StartWebResourceCreateEntityDescription(selectedFiles[0], connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToOutput(connectionData, ex);
+                }
+            }
+        }
+
+        public void HandleWebResourceChangeInEntityEditorCommand(ConnectionData connectionData)
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsWebResourceTextType, false).Take(2).ToList();
+
+            if (connectionData != null && commonConfig != null && selectedFiles.Count == 1)
+            {
+                ActivateOutputWindow(connectionData);
+                WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                try
+                {
+                    Controller.StartWebResourceChangeInEntityEditor(selectedFiles[0], connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToOutput(connectionData, ex);
+                }
+            }
+        }
+
+        public void HandleWebResourceGetAttributeCommand(ConnectionData connectionData, string fieldName, string fieldTitle)
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsWebResourceTextType, false).Take(2).ToList();
+
+            if (connectionData != null && commonConfig != null && selectedFiles.Count == 1)
+            {
+                ActivateOutputWindow(connectionData);
+                WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                try
+                {
+                    Controller.StartWebResourceGetAttribute(selectedFiles[0], fieldName, fieldTitle, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToOutput(connectionData, ex);
+                }
+            }
+        }
+
         public void HandleRibbonDifferenceCommand(ConnectionData connectionData, SelectedFile selectedFile)
         {
             if (selectedFile == null)
@@ -2290,6 +2392,195 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         #endregion Ribbon
 
+        #region WebResource
+
+        public void HandleWebResourceDependencyXmlDifferenceCommand(ConnectionData connectionData, SelectedFile selectedFile)
+        {
+            if (selectedFile == null)
+            {
+                return;
+            }
+
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null && commonConfig != null)
+            {
+                ActivateOutputWindow(connectionData);
+                WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                try
+                {
+                    Controller.StartWebResourceDependencyXmlDifference(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToOutput(connectionData, ex);
+                }
+            }
+        }
+
+        public void HandleWebResourceDependencyXmlDifferenceCommand(ConnectionData connectionData, XDocument doc, string filePath)
+        {
+            if (doc == null)
+            {
+                return;
+            }
+
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null && commonConfig != null)
+            {
+                ActivateOutputWindow(connectionData);
+                WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                try
+                {
+                    Controller.StartWebResourceDependencyXmlDifference(doc, filePath, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToOutput(connectionData, ex);
+                }
+            }
+        }
+
+        public void HandleWebResourceDependencyXmlUpdateCommand(ConnectionData connectionData, SelectedFile selectedFile)
+        {
+            if (selectedFile == null)
+            {
+                return;
+            }
+
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null && commonConfig != null)
+            {
+                ActivateOutputWindow(connectionData);
+                WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                try
+                {
+                    Controller.StartWebResourceDependencyXmlUpdate(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToOutput(connectionData, ex);
+                }
+            }
+        }
+
+        public void HandleWebResourceDependencyXmlUpdateCommand(ConnectionData connectionData, XDocument doc, string filePath)
+        {
+            if (doc == null)
+            {
+                return;
+            }
+
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null && commonConfig != null)
+            {
+                ActivateOutputWindow(connectionData);
+                WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                try
+                {
+                    Controller.StartWebResourceDependencyXmlUpdate(doc, filePath, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToOutput(connectionData, ex);
+                }
+            }
+        }
+
+        public void HandleWebResourceDependencyXmlOpenInWebCommand(ConnectionData connectionData, SelectedFile selectedFile)
+        {
+            if (selectedFile == null)
+            {
+                return;
+            }
+
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null && commonConfig != null)
+            {
+                ActivateOutputWindow(connectionData);
+                WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                try
+                {
+                    Controller.StartWebResourceDependencyXmlOpenInWeb(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToOutput(connectionData, ex);
+                }
+            }
+        }
+
+        #endregion WebResource
+
         public void HandleWebResourceThreeFileDifferenceCommand(ConnectionData connectionData1, ConnectionData connectionData2, ShowDifferenceThreeFileType differenceType)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
@@ -2328,37 +2619,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 catch (Exception ex)
                 {
                     WriteErrorToOutput(null, ex);
-                }
-            }
-        }
-
-        public void HandleOpenWebResourceExplorerCommand()
-        {
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
-
-            if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
-            {
-                return;
-            }
-
-            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsWebResourceType, false).Take(2).ToList();
-
-            var connectionData = crmConfig.CurrentConnectionData;
-
-            if (connectionData != null && commonConfig != null && selectedFiles.Count == 1)
-            {
-                SelectedFile selectedFile = selectedFiles[0];
-
-                ActivateOutputWindow(connectionData);
-                WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                try
-                {
-                    Controller.StartOpenWebResourceExplorer(connectionData, commonConfig, selectedFile.FileName);
-                }
-                catch (Exception ex)
-                {
-                    WriteErrorToOutput(connectionData, ex);
                 }
             }
         }
@@ -5154,9 +5414,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleExportWebResource(ConnectionData connectionData)
         {
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
             string selection = GetSelectedText();
 
+            HandleOpenWebResourceExplorerCommand(connectionData, selection);
+        }
+
+        public void HandleOpenWebResourceExplorerCommand()
+        {
+            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsWebResourceType, false).Take(2).ToList();
+
+            if (selectedFiles.Count == 1)
+            {
+                SelectedFile selectedFile = selectedFiles[0];
+
+                HandleOpenWebResourceExplorerCommand(null, selectedFile.FileName);
+            }
+        }
+
+        public void HandleOpenWebResourceExplorerCommand(string selection)
+        {
+            HandleOpenWebResourceExplorerCommand(null, selection);
+        }
+
+        private void HandleOpenWebResourceExplorerCommand(ConnectionData connectionData, string selection)
+        {
             if (connectionData == null)
             {
                 if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
@@ -5166,6 +5447,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 connectionData = crmConfig.CurrentConnectionData;
             }
+
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
 
             if (connectionData != null && commonConfig != null)
             {

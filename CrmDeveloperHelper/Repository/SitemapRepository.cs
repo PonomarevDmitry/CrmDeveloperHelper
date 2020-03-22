@@ -129,6 +129,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private static bool ValidateXmlDocument(ConnectionData connectionData, IWriteToOutput iWriteToOutput, XDocument doc)
         {
+            ContentComparerHelper.ClearRoot(doc);
+
             XmlSchemaSet schemas = new XmlSchemaSet();
 
             {

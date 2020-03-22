@@ -791,5 +791,20 @@
   <data name="OpeningWorkflowInWebFormat1" xml:space="preserve">
     <value>{0} - Opening Workflow in Web</value>
   </data>
+  <data name="CreatingWebResourceEntityDescriptionFormat1" xml:space="preserve">
+    <value>{0} - Creating WebResource Entity Description</value>
+  </data>
+  <data name="GettingWebResourceAttributeFormat2" xml:space="preserve">
+    <value>{0} - Getting WebResource Attribute {1}</value>
+  </data>
+  <data name="ChangingWebResourceInEntityEditorFormat1" xml:space="preserve">
+    <value>{0} - Changing WebResource in Entity Editor</value>
+  </data>
+  <data name="UpdatingWebResourceDependencyXmlFormat1" xml:space="preserve">
+    <value>{0} - Updating WebResource DependencyXml</value>
+  </data>
+  <data name="DifferenceWebResourceDependencyXmlFormat1" xml:space="preserve">
+    <value>{0} - Difference WebResource DependencyXml</value>
+  </data>
   
 </root>

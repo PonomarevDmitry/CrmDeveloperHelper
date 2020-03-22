@@ -5,6 +5,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
+using System.Linq;
 using System.Collections.Concurrent;
 using System.Threading;
 using System.Threading.Tasks;
@@ -132,33 +133,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     var repository = new WebResourceRepository(service);
 
                     {
-                        var listWebResources = await repository.GetListByTypesAsync(
-                            new[] { (int)WebResource.Schema.OptionSets.webresourcetype.Webpage_HTML_1 }
+                        var listWebResources = await repository.GetListAllAsync(
+                            null
                             , new ColumnSet
                             (
-                                WebResource.Schema.Attributes.displayname
-                                , WebResource.Schema.Attributes.name
+                                WebResource.Schema.Attributes.name
+                                , WebResource.Schema.Attributes.displayname
                                 , WebResource.Schema.Attributes.description
+                                , WebResource.Schema.Attributes.webresourcetype
+                                , WebResource.Schema.Attributes.languagecode
                             )
                         );
 
-                        _WebResourceIntellisenseData.LoadWebResources(listWebResources, _WebResourceIntellisenseData.WebResourcesHtml);
+                        _WebResourceIntellisenseData.LoadWebResources(listWebResources, _WebResourceIntellisenseData.WebResourcesAll);
 
-                        _WebResourceIntellisenseData.NextLoadFileDate = DateTime.Now.AddMinutes(_loadPeriodInMinutes);
-                    }
-
-                    {
-                        var listWebResources = await repository.GetListByTypesAsync(
-                            new[] { (int)WebResource.Schema.OptionSets.webresourcetype.Script_JScript_3 }
-                            , new ColumnSet
-                            (
-                                WebResource.Schema.Attributes.displayname
-                                , WebResource.Schema.Attributes.name
-                                , WebResource.Schema.Attributes.description
-                            )
-                        );
-
-                        _WebResourceIntellisenseData.LoadWebResources(listWebResources, _WebResourceIntellisenseData.WebResourcesJavaScript);
+                        _WebResourceIntellisenseData.LoadWebResources(listWebResources.Where(w => w.WebResourceTypeEnum == WebResource.Schema.OptionSets.webresourcetype.Webpage_HTML_1), _WebResourceIntellisenseData.WebResourcesHtml);
+                        _WebResourceIntellisenseData.LoadWebResources(listWebResources.Where(w => w.WebResourceTypeEnum == WebResource.Schema.OptionSets.webresourcetype.Script_JScript_3), _WebResourceIntellisenseData.WebResourcesJavaScript);
 
                         _WebResourceIntellisenseData.NextLoadFileDate = DateTime.Now.AddMinutes(_loadPeriodInMinutes);
                     }
@@ -175,11 +165,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                             }
                             , new ColumnSet
                             (
-                                WebResource.Schema.Attributes.displayname
-                                , WebResource.Schema.Attributes.name
-                                , WebResource.Schema.Attributes.webresourcetype
-                                , WebResource.Schema.Attributes.content
+                                WebResource.Schema.Attributes.name
+                                , WebResource.Schema.Attributes.displayname
                                 , WebResource.Schema.Attributes.description
+                                , WebResource.Schema.Attributes.webresourcetype
+                                , WebResource.Schema.Attributes.languagecode
+                                , WebResource.Schema.Attributes.content
                             )
                         );
 

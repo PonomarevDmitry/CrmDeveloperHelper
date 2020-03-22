@@ -7,8 +7,6 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -43,7 +41,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly Popup _optionsPopup;
 
-        public static readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.XmlFull;
+        public static readonly XmlOptionsControls XmlOptions = XmlOptionsControls.XmlFull;
 
         public WindowExplorerWebResource(
             IWriteToOutput iWriteToOutput
@@ -65,7 +63,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InitializeComponent();
 
-            var child = new ExportXmlOptionsControl(_commonConfig, _xmlOptions);
+            var child = new ExportXmlOptionsControl(_commonConfig, XmlOptions);
             child.CloseClicked += Child_CloseClicked;
             this._optionsPopup = new Popup
             {
@@ -651,8 +649,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            var repositoryPublish = new PublishActionsRepository(service);
-
             WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, WebResource.EntityLogicalName, idWebResource);
         }
 
@@ -805,7 +801,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     if (string.Equals(fieldName, WebResource.Schema.Attributes.dependencyxml, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        xmlContent = ContentComparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
+                        xmlContent = ContentComparerHelper.FormatXmlByConfiguration(
+                            xmlContent
+                            , _commonConfig, XmlOptions
                             , schemaName: AbstractDynamicCommandXsdSchemas.SchemaDependencyXml
                            , webResourceName: webresource.Name
                         );
@@ -870,7 +868,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     if (string.Equals(fieldName, WebResource.Schema.Attributes.dependencyxml, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        xmlContent = ContentComparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions);
+                        xmlContent = ContentComparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, XmlOptions);
                     }
 
                     await CreateFileAsync(folder, name, fieldTitle + " BackUp", xmlContent, extension);

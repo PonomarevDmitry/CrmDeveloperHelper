@@ -17,6 +17,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
         public Guid ConnectionId { get; set; }
 
         [DataMember]
+        public ConcurrentDictionary<Guid, WebResource> WebResourcesAll { get; private set; }
+
+        [DataMember]
         public ConcurrentDictionary<Guid, WebResource> WebResourcesHtml { get; private set; }
 
         [DataMember]
@@ -27,6 +30,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 
         public WebResourceIntellisenseData()
         {
+            this.WebResourcesAll = new ConcurrentDictionary<Guid, WebResource>();
             this.WebResourcesHtml = new ConcurrentDictionary<Guid, WebResource>();
             this.WebResourcesIcon = new ConcurrentDictionary<Guid, WebResource>();
             this.WebResourcesJavaScript = new ConcurrentDictionary<Guid, WebResource>();
@@ -35,6 +39,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
         [OnDeserializing]
         private void BeforeDeserialize(StreamingContext context)
         {
+            if (WebResourcesAll == null)
+            {
+                this.WebResourcesAll = new ConcurrentDictionary<Guid, WebResource>();
+            }
+
             if (WebResourcesHtml == null)
             {
                 this.WebResourcesHtml = new ConcurrentDictionary<Guid, WebResource>();

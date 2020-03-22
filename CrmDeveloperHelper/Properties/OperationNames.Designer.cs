@@ -268,6 +268,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Changing WebResource in Entity Editor.
+        /// </summary>
+        internal static string ChangingWebResourceInEntityEditorFormat1 {
+            get {
+                return ResourceManager.GetString("ChangingWebResourceInEntityEditorFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Checking Application Ribbons in {0} and {1}.
         /// </summary>
         internal static string CheckingApplicationRibbonsFormat2 {
@@ -916,6 +925,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Creating WebResource Entity Description.
+        /// </summary>
+        internal static string CreatingWebResourceEntityDescriptionFormat1 {
+            get {
+                return ResourceManager.GetString("CreatingWebResourceEntityDescriptionFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Deactivating {1} {2}.
         /// </summary>
         internal static string DeactivatingEntityFormat2 {
@@ -1011,6 +1029,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string DifferenceSystemFormFormat1 {
             get {
                 return ResourceManager.GetString("DifferenceSystemFormFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Difference WebResource DependencyXml.
+        /// </summary>
+        internal static string DifferenceWebResourceDependencyXmlFormat1 {
+            get {
+                return ResourceManager.GetString("DifferenceWebResourceDependencyXmlFormat1", resourceCulture);
             }
         }
         
@@ -1344,6 +1371,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string GettingEntityXmlFormat2 {
             get {
                 return ResourceManager.GetString("GettingEntityXmlFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Getting WebResource Attribute {1}.
+        /// </summary>
+        internal static string GettingWebResourceAttributeFormat2 {
+            get {
+                return ResourceManager.GetString("GettingWebResourceAttributeFormat2", resourceCulture);
             }
         }
         
@@ -2019,6 +2055,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string UpdatingSystemFormFormat1 {
             get {
                 return ResourceManager.GetString("UpdatingSystemFormFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Updating WebResource DependencyXml.
+        /// </summary>
+        internal static string UpdatingWebResourceDependencyXmlFormat1 {
+            get {
+                return ResourceManager.GetString("UpdatingWebResourceDependencyXmlFormat1", resourceCulture);
             }
         }
         

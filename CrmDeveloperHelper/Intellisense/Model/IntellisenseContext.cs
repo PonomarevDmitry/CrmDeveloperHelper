@@ -15,7 +15,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
         public const string NameIntellisenseContextAttributeWebResourceName = "webresourcename";
         public const string NameIntellisenseContextAttributeWorkflowId = "workflowid";
 
-        public static readonly XNamespace IntellisenseContextNamespace = "https://navicongroup.ru/XsdSchemas/IntellisenseContext";
+        public static readonly XNamespace IntellisenseContextNamespace = "https://github.com/PonomarevDmitry/CrmDeveloperHelper/blob/master/XsdSchemas/IntellisenseContext";
 
         public static readonly XName IntellisenseContextAttributeEntityName = IntellisenseContextNamespace + NameIntellisenseContextAttributeEntityName;
         public static readonly XName IntellisenseContextAttributeSiteMapNameUnique = IntellisenseContextNamespace + NameIntellisenseContextAttributeSiteMapNameUnique;

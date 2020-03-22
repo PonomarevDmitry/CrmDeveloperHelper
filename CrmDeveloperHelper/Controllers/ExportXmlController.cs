@@ -2031,7 +2031,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             if (string.IsNullOrEmpty(attribute.Value)
-                || !Guid.TryParse(attribute.Value, out var formId)
+                || !Guid.TryParse(attribute.Value, out var workflowId)
             )
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.XmlAttributeNotValidGuidFormat3
@@ -2047,11 +2047,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var repositoryWorkflow = new WorkflowRepository(service);
 
-            var workflow = await repositoryWorkflow.GetByIdAsync(formId, new ColumnSet(false));
+            var workflow = await repositoryWorkflow.GetByIdAsync(workflowId, new ColumnSet(false));
 
             if (workflow == null)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WorkflowNotFoundedFormat2, connectionData.Name, formId);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WorkflowNotFoundedFormat2, connectionData.Name, workflowId);
                 this._iWriteToOutput.ActivateOutputWindow(connectionData);
 
                 WindowHelper.OpenWorkflowWindow(_iWriteToOutput, service, commonConfig);
@@ -2063,5 +2063,494 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         }
 
         #endregion Workflow
+
+        #region WebResource DependencyXml
+
+        public async Task ExecuteDifferenceWebResourceDependencyXml(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            string operation = string.Format(Properties.OperationNames.DifferenceWebResourceDependencyXmlFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await DifferenceWebResourceDependencyXml(selectedFile, connectionData, commonConfig);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task DifferenceWebResourceDependencyXml(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            if (!File.Exists(selectedFile.FilePath))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
+                return;
+            }
+
+            string fileText = File.ReadAllText(selectedFile.FilePath);
+
+            if (!ContentComparerHelper.TryParseXmlDocument(fileText, out var doc))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
+                return;
+            }
+
+            await DifferenceWebResourceDependencyXml(doc, selectedFile.FilePath, connectionData, commonConfig);
+        }
+
+        public async Task ExecuteDifferenceWebResourceDependencyXml(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            string operation = string.Format(Properties.OperationNames.DifferenceWebResourceDependencyXmlFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await DifferenceWebResourceDependencyXml(doc, filePath, connectionData, commonConfig);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task DifferenceWebResourceDependencyXml(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            var attribute = doc.Root.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWebResourceName);
+
+            if (attribute == null)
+            {
+                this._iWriteToOutput.WriteToOutput(
+                    connectionData
+                    , Properties.OutputStrings.FileNotContainsXmlAttributeFormat2
+                    , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWebResourceName.ToString()
+                    , filePath
+                );
+
+                return;
+            }
+
+            if (string.IsNullOrEmpty(attribute.Value))
+            {
+                this._iWriteToOutput.WriteToOutput(
+                    connectionData
+                    , Properties.OutputStrings.XmlAttributeNotValidGuidFormat3
+                    , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWebResourceName.ToString()
+                    , attribute.Value
+                    , filePath
+                );
+
+                return;
+            }
+
+            string webResourceName = attribute.Value;
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+
+            var repository = new WebResourceRepository(service);
+
+            var webResource = await repository.FindByExactNameAsync(webResourceName, new ColumnSet(true));
+
+            if (webResource == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WebResourceNotFoundedInConnectionFormat2, connectionData.Name, webResourceName);
+                this._iWriteToOutput.ActivateOutputWindow(connectionData);
+                return;
+            }
+
+            string dependencyXml = webResource.GetAttributeValue<string>(WebResource.Schema.Attributes.dependencyxml);
+
+            string fieldTitle = WebResource.Schema.Headers.dependencyxml;
+
+            string fileTitle2 = EntityFileNameFormatter.GetWebResourceFileName(connectionData.Name, webResource.Name, fieldTitle, "xml");
+            string filePath2 = FileOperations.GetNewTempFilePath(Path.GetFileNameWithoutExtension(fileTitle2), Path.GetExtension(fileTitle2));
+
+            if (!string.IsNullOrEmpty(dependencyXml))
+            {
+                try
+                {
+                    dependencyXml = ContentComparerHelper.FormatXmlByConfiguration(
+                        dependencyXml
+                        , commonConfig, WindowExplorerWebResource.XmlOptions
+                        , schemaName: AbstractDynamicCommandXsdSchemas.SchemaDependencyXml
+                        , webResourceName: webResource.Name
+                    );
+
+                    File.WriteAllText(filePath2, dependencyXml, new UTF8Encoding(false));
+
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, WebResource.Schema.EntityLogicalName, webResource.Name, fieldTitle, filePath2);
+                }
+                catch (Exception ex)
+                {
+                    this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+                }
+            }
+            else
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionData.Name, WebResource.Schema.EntityLogicalName, webResource.Name, fieldTitle);
+                this._iWriteToOutput.ActivateOutputWindow(connectionData);
+                return;
+            }
+
+            string filePath1 = filePath;
+            string fileTitle1 = Path.GetFileName(filePath);
+
+            this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, fileTitle1, fileTitle2);
+        }
+
+        public async Task ExecuteUpdateWebResourceDependencyXml(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            string operation = string.Format(Properties.OperationNames.UpdatingWebResourceDependencyXmlFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await UpdateWebResourceDependencyXml(selectedFile, connectionData, commonConfig);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task UpdateWebResourceDependencyXml(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            if (!File.Exists(selectedFile.FilePath))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
+                return;
+            }
+
+            string fileText = File.ReadAllText(selectedFile.FilePath);
+
+            if (!ContentComparerHelper.TryParseXmlDocument(fileText, out var doc))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
+                return;
+            }
+
+            await UpdateWebResourceDependencyXml(doc, selectedFile.FilePath, connectionData, commonConfig);
+        }
+
+        public async Task ExecuteUpdateWebResourceDependencyXml(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            string operation = string.Format(Properties.OperationNames.UpdatingWebResourceDependencyXmlFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await UpdateWebResourceDependencyXml(doc, filePath, connectionData, commonConfig);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task UpdateWebResourceDependencyXml(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            var attribute = doc.Root.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWebResourceName);
+
+            if (attribute == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData
+                    , Properties.OutputStrings.FileNotContainsXmlAttributeFormat2
+                    , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWebResourceName.ToString()
+                    , filePath
+                );
+
+                return;
+            }
+
+            if (string.IsNullOrEmpty(attribute.Value) || string.IsNullOrEmpty(attribute.Value))
+            {
+                this._iWriteToOutput.WriteToOutput(
+                    connectionData
+                    , Properties.OutputStrings.XmlAttributeNotValidGuidFormat3
+                    , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWebResourceName.ToString()
+                    , attribute.Value
+                    , filePath
+                );
+
+                return;
+            }
+
+            string webResourceName = attribute.Value;
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ValidatingXmlForFieldFormat1, WebResource.Schema.Attributes.dependencyxml);
+
+            ContentComparerHelper.ClearRoot(doc);
+
+            bool validateResult = await WebResourceRepository.ValidateXmlDocumentAsync(connectionData, _iWriteToOutput, doc);
+
+            if (!validateResult)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ValidatingXmlForFieldFailedFormat1, WebResource.Schema.Attributes.dependencyxml);
+                _iWriteToOutput.ActivateOutputWindow(connectionData);
+
+                var dialogResult = MessageBoxResult.Cancel;
+
+                var t = new Thread(() =>
+                {
+                    dialogResult = MessageBox.Show(Properties.MessageBoxStrings.ContinueOperation, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question);
+                });
+                t.SetApartmentState(ApartmentState.STA);
+                t.Start();
+
+                t.Join();
+
+                if (dialogResult != MessageBoxResult.OK)
+                {
+                    return;
+                }
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+
+            var repositoryWebResource = new WebResourceRepository(service);
+
+            var webResource = await repositoryWebResource.FindByExactNameAsync(webResourceName, new ColumnSet(true));
+
+            if (webResource == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WebResourceNotFoundedInConnectionFormat2, connectionData.Name, webResourceName);
+                this._iWriteToOutput.ActivateOutputWindow(connectionData);
+                return;
+            }
+
+            {
+                string dependencyXml = webResource.GetAttributeValue<string>(WebResource.Schema.Attributes.dependencyxml);
+
+                string fieldTitle = WebResource.Schema.Headers.dependencyxml + " BackUp";
+
+                string fileNameBackUp = EntityFileNameFormatter.GetWebResourceFileName(connectionData.Name, webResource.Name, fieldTitle, "xml");
+                string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
+
+                if (!string.IsNullOrEmpty(dependencyXml))
+                {
+                    try
+                    {
+                        dependencyXml = ContentComparerHelper.FormatXmlByConfiguration(
+                            dependencyXml
+                            , commonConfig
+                            , WindowExplorerWebResource.XmlOptions
+                            , schemaName: AbstractDynamicCommandXsdSchemas.SchemaDependencyXml
+                            , webResourceName: webResource.Name
+                        );
+
+                        File.WriteAllText(filePathBackUp, dependencyXml, new UTF8Encoding(false));
+
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, WebResource.Schema.EntityLogicalName, webResource.Name, fieldTitle, filePathBackUp);
+                    }
+                    catch (Exception ex)
+                    {
+                        this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+                    }
+                }
+                else
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionData.Name, WebResource.Schema.EntityLogicalName, webResource.Name, fieldTitle);
+                    this._iWriteToOutput.ActivateOutputWindow(connectionData);
+                }
+            }
+
+            var newText = doc.ToString(SaveOptions.DisableFormatting);
+
+            var updateEntity = new WebResource
+            {
+                Id = webResource.Id
+            };
+            updateEntity.Attributes[WebResource.Schema.Attributes.dependencyxml] = newText;
+
+            await service.UpdateAsync(updateEntity);
+
+            var repositoryPublish = new PublishActionsRepository(service);
+
+            _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.PublishingWebResourceFormat2, service.ConnectionData.Name, webResource.Name);
+            await repositoryPublish.PublishWebResourcesAsync(new[] { webResource.Id });
+        }
+
+        public async Task ExecuteOpenInWebWebResourceDependencyXml(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            string operation = string.Format(Properties.OperationNames.OpeningWebResourceFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await OpenInWebWebResourceDependencyXml(selectedFile, connectionData, commonConfig);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task OpenInWebWebResourceDependencyXml(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            if (!File.Exists(selectedFile.FilePath))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+
+            string fileText = File.ReadAllText(selectedFile.FilePath);
+
+            if (!ContentComparerHelper.TryParseXmlDocument(fileText, out var doc))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
+
+                WindowHelper.OpenWebResourceExplorerWindow(_iWriteToOutput, service, commonConfig);
+
+                return;
+            }
+
+            var attribute = doc.Root.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWebResourceName);
+
+            if (attribute == null)
+            {
+                this._iWriteToOutput.WriteToOutput(
+                    connectionData
+                    , Properties.OutputStrings.FileNotContainsXmlAttributeFormat2
+                    , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWebResourceName.ToString()
+                    , selectedFile.FilePath
+                );
+
+                WindowHelper.OpenWebResourceExplorerWindow(_iWriteToOutput, service, commonConfig);
+
+                return;
+            }
+
+            if (string.IsNullOrEmpty(attribute.Value))
+            {
+                this._iWriteToOutput.WriteToOutput(
+                    connectionData
+                    , Properties.OutputStrings.XmlAttributeNotValidGuidFormat3
+                    , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWebResourceName.ToString()
+                    , attribute.Value
+                    , selectedFile.FilePath
+                );
+
+                WindowHelper.OpenWebResourceExplorerWindow(_iWriteToOutput, service, commonConfig);
+
+                return;
+            }
+
+            string webResourceName = attribute.Value;
+
+            var repositoryWebResource = new WebResourceRepository(service);
+
+            var webResource = await repositoryWebResource.FindByExactNameAsync(webResourceName, new ColumnSet(false));
+
+            if (webResource == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WebResourceNotFoundedInConnectionFormat2, connectionData.Name, webResourceName);
+                this._iWriteToOutput.ActivateOutputWindow(connectionData);
+
+                WindowHelper.OpenWebResourceExplorerWindow(_iWriteToOutput, service, commonConfig);
+
+                return;
+            }
+
+            service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.WebResource, webResource.Id);
+        }
+
+        #endregion WebResource DependencyXml
     }
 }

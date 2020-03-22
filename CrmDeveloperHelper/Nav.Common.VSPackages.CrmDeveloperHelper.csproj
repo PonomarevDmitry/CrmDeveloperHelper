@@ -226,6 +226,10 @@
     <Compile Include="Commands\Reports\CodeReportCreateCommand.cs" />
     <Compile Include="Commands\Reports\CodeReportShowDifferenceInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Reports\CodeReportShowDifferenceThreeFileCommand.cs" />
+    <Compile Include="Commands\WebResources\FileWebResourceChangeInEditorInConnectionCommand.cs" />
+    <Compile Include="Commands\WebResources\FileWebResourceCreateEntityDescriptionInConnectionCommand.cs" />
+    <Compile Include="Commands\WebResources\FileWebResourceGetAttributeInConnectionCommand.cs" />
+    <Compile Include="Commands\WebResources\CodeWebResourceGetAttributeInConnectionCommand.cs" />
     <Compile Include="Commands\WebResources\CodeWebResourceAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\WebResources\CodeWebResourceAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpPluginAssemblyExplorerCommand.cs" />
@@ -234,7 +238,9 @@
     <Compile Include="Commands\CSharp\CodeCSharpProjectPluginAssemblyAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectPluginAssemblyStepsAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectPluginTypeStepsAddToSolutionLastCommand.cs" />
+    <Compile Include="Commands\WebResources\CodeWebResourceCreateEntityDescriptionInConnectionCommand.cs" />
     <Compile Include="Commands\WebResources\CodeWebResourceCompareWithDetailsInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\WebResources\CodeWebResourceChangeInEditorInConnectionCommand.cs" />
     <Compile Include="Commands\WebResources\CodeWebResourceOpenInWebCommand.cs" />
     <Compile Include="Commands\ListForPublish\CodePublishListAddCommand.cs" />
     <Compile Include="Commands\WebResources\CodeWebResourceCheckEncodingCommand.cs" />
@@ -391,6 +397,12 @@
     <Compile Include="Commands\CSharp\DocumentsCSharpUpdateEntityMetadataFileSchemaCommand.cs" />
     <Compile Include="Commands\CSharp\DocumentsCSharpUpdateGlobalOptionSetsFileCommand.cs" />
     <Compile Include="Commands\WebResources\DocumentsWebResourceUpdateContentPublishGroupConnectionCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlWebResourceDependencyXmlExplorerCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlWebResourceDependencyXmlOpenInWebCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlWebResourceDependencyXmlShowDifferenceCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlWebResourceDependencyXmlShowDifferenceInConnectionCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlWebResourceDependencyXmlUpdateCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlWebResourceDependencyXmlUpdateInConnectionCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlWorkflowExplorerCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlWorkflowOpenInWebCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlWorkflowShowDifferenceCommand.cs" />
@@ -1028,6 +1040,7 @@
     <Compile Include="Intellisense\XmlCompletionSource.Fetch.cs" />
     <Compile Include="Intellisense\XmlCompletionSource.Ribbon.cs" />
     <Compile Include="Intellisense\XmlCompletionSource.SiteMap.cs" />
+    <Compile Include="Intellisense\XmlCompletionSource.WebResource.DependencyXml.cs" />
     <Compile Include="Intellisense\XmlCompletionSourceProvider.cs" />
     <Compile Include="Intellisense\CrmTextViewCreationListener.cs" />
     <Compile Include="Intellisense\Model\AttributeIntellisenseData.cs" />

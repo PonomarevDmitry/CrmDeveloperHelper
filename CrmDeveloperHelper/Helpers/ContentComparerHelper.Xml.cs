@@ -807,7 +807,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             try
             {
-                var match = Regex.Match(result, patternXsi);
+                var match = Regex.Match(result, patternAttribute);
 
                 if (match.Success)
                 {
@@ -880,23 +880,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             return changeText;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         private static int? FindIndexToInsert(string result)
         {

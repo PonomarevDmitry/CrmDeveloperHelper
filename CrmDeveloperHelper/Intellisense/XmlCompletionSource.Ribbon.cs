@@ -330,7 +330,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 {
                     if (string.Equals(currentAttributeName, "Library", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        FillWebResourcesText(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesJavaScript?.Values?.ToList(), "WebResources");
+                        FillWebResourcesTextForRibbon(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesJavaScript?.Values?.ToList(), "WebResources");
 
                         if (ribbonIntellisenseData != null)
                         {
@@ -349,7 +349,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 {
                     if (string.Equals(currentAttributeName, "Library", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        FillWebResourcesText(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesJavaScript?.Values?.ToList(), "WebResources");
+                        FillWebResourcesTextForRibbon(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesJavaScript?.Values?.ToList(), "WebResources");
 
                         if (ribbonIntellisenseData != null)
                         {

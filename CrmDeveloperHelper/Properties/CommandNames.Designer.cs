@@ -385,6 +385,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show Difference WebResource DependencyXml.
+        /// </summary>
+        internal static string CodeXmlWebResourceDependencyXmlShowDifferenceCommand {
+            get {
+                return ResourceManager.GetString("CodeXmlWebResourceDependencyXmlShowDifferenceCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update WebResource DependencyXml.
+        /// </summary>
+        internal static string CodeXmlWebResourceDependencyXmlUpdateCommand {
+            get {
+                return ResourceManager.GetString("CodeXmlWebResourceDependencyXmlUpdateCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show Difference Workflow.
         /// </summary>
         internal static string CodeXmlWorkflowShowDifferenceCommand {

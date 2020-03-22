@@ -271,6 +271,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
                                 FillSessionForRibbonDiffXmlCompletionSet(completionSets, doc, connectionConfig.CurrentConnectionData, repositoryEntities, repositoryWebResource, repositoryRibbon, currentXmlNode, currentNodeName, currentAttributeName, applicableTo);
                             }
+                            else if (string.Equals(doc.Name.ToString(), Commands.AbstractDynamicCommandXsdSchemas.RootWebResourceDependencies, StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                var repositoryEntities = ConnectionIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
+                                var repositoryWebResource = WebResourceIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
+
+                                FillSessionForWebResourceDependencyXmlCompletionSet(completionSets, doc, connectionConfig.CurrentConnectionData, repositoryEntities, repositoryWebResource, currentXmlNode, currentNodeName, currentAttributeName, applicableTo);
+                            }
                         }
                     }
                 }
@@ -352,7 +359,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             }
         }
 
-        private void FillWebResourcesText(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, IEnumerable<WebResource> webResources, string name)
+        private void FillWebResourcesTextForRibbon(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, IEnumerable<WebResource> webResources, string name)
         {
             if (webResources == null || !webResources.Any())
             {

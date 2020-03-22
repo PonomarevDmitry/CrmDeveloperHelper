@@ -2,15 +2,22 @@
 using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Metadata.Query;
 using Microsoft.Xrm.Sdk.Query;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Commands;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Resources;
+using System.Xml;
+using System.Xml.Linq;
+using System.Xml.Schema;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 {
@@ -547,6 +554,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return false;
         }
 
+        public Task<WebResource> FindByExactNameAsync(string name, ColumnSet columnSet)
+        {
+            return Task.Run(() => FindByExactName(name, columnSet));
+        }
+
         public WebResource FindByExactName(string name, ColumnSet columnSet)
         {
             QueryExpression query = new QueryExpression()
@@ -688,6 +700,60 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             updateStatus(string.Format(Properties.OutputStrings.PublishingWebResourceCompletedFormat2, _service.ConnectionData.Name, webResource.Name));
 
             return idEntity;
+        }
+
+        public static Task<bool> ValidateXmlDocumentAsync(ConnectionData connectionData, IWriteToOutput iWriteToOutput, XDocument doc)
+        {
+            return Task.Run(() => ValidateXmlDocument(connectionData, iWriteToOutput, doc));
+        }
+
+        private static bool ValidateXmlDocument(ConnectionData connectionData, IWriteToOutput iWriteToOutput, XDocument doc)
+        {
+            ContentComparerHelper.ClearRoot(doc);
+
+            XmlSchemaSet schemas = new XmlSchemaSet();
+
+            {
+                var schemasResources = AbstractDynamicCommandXsdSchemas.GetXsdSchemas(AbstractDynamicCommandXsdSchemas.SchemaDependencyXml);
+
+                if (schemasResources != null)
+                {
+                    foreach (var fileName in schemasResources)
+                    {
+                        Uri uri = FileOperations.GetSchemaResourceUri(fileName);
+                        StreamResourceInfo info = Application.GetResourceStream(uri);
+
+                        using (StreamReader reader = new StreamReader(info.Stream))
+                        {
+                            schemas.Add(string.Empty, XmlReader.Create(reader));
+                        }
+                    }
+                }
+            }
+
+            List<ValidationEventArgs> errors = new List<ValidationEventArgs>();
+
+            doc.Validate(schemas, (o, e) =>
+            {
+                errors.Add(e);
+            });
+
+            if (errors.Count > 0)
+            {
+                iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.TextIsNotValidForFieldFormat1, AbstractDynamicCommandXsdSchemas.SchemaDependencyXml);
+
+                foreach (var item in errors)
+                {
+                    iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                    iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                    iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.XmlValidationMessageFormat2, item.Severity, item.Message);
+                    iWriteToOutput.WriteErrorToOutput(connectionData, item.Exception);
+                }
+
+                iWriteToOutput.ActivateOutputWindow(connectionData);
+            }
+
+            return errors.Count == 0;
         }
     }
 }

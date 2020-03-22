@@ -1,8 +1,10 @@
-﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
+﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Commands;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Views;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -1015,5 +1017,511 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         }
 
         #endregion Различия трех файлов отчетов.
+
+        public async Task ExecuteCreatingWebResourceEntityDescription(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            string operation = string.Format(Properties.OperationNames.CreatingWebResourceEntityDescriptionFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OperationNames.CheckingFilesEncoding);
+
+                    CheckController.CheckingFilesEncoding(this._iWriteToOutput, connectionData, new[] { selectedFile }, out List<SelectedFile> filesWithoutUTF8Encoding);
+
+                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                }
+
+                await CreatingWebResourceEntityDescription(selectedFile, connectionData, commonConfig);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task CreatingWebResourceEntityDescription(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            if (!File.Exists(selectedFile.FilePath))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+
+            // Репозиторий для работы с веб-ресурсами
+            WebResourceRepository webResourceRepository = new WebResourceRepository(service);
+
+            WebResource webResource = await webResourceRepository.FindByNameAsync(selectedFile.FriendlyFilePath, selectedFile.Extension);
+
+            if (webResource != null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource founded by name.");
+            }
+            else
+            {
+                Guid? webId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
+
+                if (webId.HasValue)
+                {
+                    webResource = await webResourceRepository.GetByIdAsync(webId.Value);
+                }
+
+                if (webResource != null)
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource not founded by name. Last link web-resource is selected for difference.");
+                }
+                else
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource not founded by name and has not Last link.");
+                    this._iWriteToOutput.WriteToOutput(connectionData, "Starting Custom Web-resource selection form.");
+                }
+            }
+
+            if (webResource == null)
+            {
+                Guid? webId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
+
+                bool? dialogResult = null;
+                Guid? selectedWebResourceId = null;
+
+                string selectedPath = string.Empty;
+                var t = new Thread(() =>
+                {
+                    try
+                    {
+                        var form = new Views.WindowWebResourceSelectOrCreate(this._iWriteToOutput, service, selectedFile, webId);
+
+                        dialogResult = form.ShowDialog();
+                        selectedWebResourceId = form.SelectedWebResourceId;
+                    }
+                    catch (Exception ex)
+                    {
+                        DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                    }
+                });
+                t.SetApartmentState(ApartmentState.STA);
+                t.Start();
+
+                t.Join();
+
+                if (dialogResult.GetValueOrDefault() == false)
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.DifferenceWasCancelled);
+                    return;
+                }
+
+                if (selectedWebResourceId.HasValue)
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, "Custom Web-resource is selected.");
+
+                    webResource = await webResourceRepository.GetByIdAsync(selectedWebResourceId.Value);
+                }
+                else
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, "!Warning. WebResource not exists. name: {0}.", selectedFile.Name);
+                }
+            }
+
+            if (webResource == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource not founded in CRM: {0}", selectedFile.FileName);
+                return;
+            }
+
+            connectionData.AddMapping(webResource.Id, selectedFile.FriendlyFilePath);
+            connectionData.Save();
+
+            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+            else if (!Directory.Exists(commonConfig.FolderForExport))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
+                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+
+            string fileName = EntityFileNameFormatter.GetWebResourceFileName(service.ConnectionData.Name, webResource.Name, EntityFileNameFormatter.Headers.EntityDescription, "txt");
+            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+            await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, webResource, EntityFileNameFormatter.WebResourceIgnoreFields, service.ConnectionData);
+
+            this._iWriteToOutput.WriteToOutput(service.ConnectionData
+                , Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
+                , service.ConnectionData.Name
+                , webResource.LogicalName
+                , filePath
+            );
+
+            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+        }
+
+        public async Task ExecuteChangingWebResourceInEntityEditor(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            string operation = string.Format(Properties.OperationNames.ChangingWebResourceInEntityEditorFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OperationNames.CheckingFilesEncoding);
+
+                    CheckController.CheckingFilesEncoding(this._iWriteToOutput, connectionData, new[] { selectedFile }, out List<SelectedFile> filesWithoutUTF8Encoding);
+
+                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                }
+
+                await ChangingWebResourceInEntityEditor(selectedFile, connectionData, commonConfig);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task ChangingWebResourceInEntityEditor(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            if (!File.Exists(selectedFile.FilePath))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+
+            // Репозиторий для работы с веб-ресурсами
+            WebResourceRepository webResourceRepository = new WebResourceRepository(service);
+
+            WebResource webResource = await webResourceRepository.FindByNameAsync(selectedFile.FriendlyFilePath, selectedFile.Extension);
+
+            if (webResource != null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource founded by name.");
+            }
+            else
+            {
+                Guid? webId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
+
+                if (webId.HasValue)
+                {
+                    webResource = await webResourceRepository.GetByIdAsync(webId.Value);
+                }
+
+                if (webResource != null)
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource not founded by name. Last link web-resource is selected for difference.");
+                }
+                else
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource not founded by name and has not Last link.");
+                    this._iWriteToOutput.WriteToOutput(connectionData, "Starting Custom Web-resource selection form.");
+                }
+            }
+
+            if (webResource == null)
+            {
+                Guid? webId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
+
+                bool? dialogResult = null;
+                Guid? selectedWebResourceId = null;
+
+                string selectedPath = string.Empty;
+                var t = new Thread(() =>
+                {
+                    try
+                    {
+                        var form = new Views.WindowWebResourceSelectOrCreate(this._iWriteToOutput, service, selectedFile, webId);
+
+                        dialogResult = form.ShowDialog();
+                        selectedWebResourceId = form.SelectedWebResourceId;
+                    }
+                    catch (Exception ex)
+                    {
+                        DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                    }
+                });
+                t.SetApartmentState(ApartmentState.STA);
+                t.Start();
+
+                t.Join();
+
+                if (dialogResult.GetValueOrDefault() == false)
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.DifferenceWasCancelled);
+                    return;
+                }
+
+                if (selectedWebResourceId.HasValue)
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, "Custom Web-resource is selected.");
+
+                    webResource = await webResourceRepository.GetByIdAsync(selectedWebResourceId.Value);
+                }
+                else
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, "!Warning. WebResource not exists. name: {0}.", selectedFile.Name);
+                }
+            }
+
+            if (webResource == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource not founded in CRM: {0}", selectedFile.FileName);
+                return;
+            }
+
+            connectionData.AddMapping(webResource.Id, selectedFile.FriendlyFilePath);
+            connectionData.Save();
+
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, commonConfig, WebResource.EntityLogicalName, webResource.Id);
+        }
+
+        public async Task ExecuteWebResourceGettingAttribute(SelectedFile selectedFile, string fieldName, string fieldTitle, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            string operation = string.Format(Properties.OperationNames.GettingWebResourceAttributeFormat2, connectionData?.Name, fieldTitle);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OperationNames.CheckingFilesEncoding);
+
+                    CheckController.CheckingFilesEncoding(this._iWriteToOutput, connectionData, new[] { selectedFile }, out List<SelectedFile> filesWithoutUTF8Encoding);
+
+                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                }
+
+                await WebResourceGettingAttribute(selectedFile, fieldName, fieldTitle, connectionData, commonConfig);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task WebResourceGettingAttribute(SelectedFile selectedFile, string fieldName, string fieldTitle, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            if (!File.Exists(selectedFile.FilePath))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+
+            // Репозиторий для работы с веб-ресурсами
+            WebResourceRepository webResourceRepository = new WebResourceRepository(service);
+
+            WebResource webResource = await webResourceRepository.FindByNameAsync(selectedFile.FriendlyFilePath, selectedFile.Extension);
+
+            if (webResource != null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource founded by name.");
+            }
+            else
+            {
+                Guid? webId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
+
+                if (webId.HasValue)
+                {
+                    webResource = await webResourceRepository.GetByIdAsync(webId.Value);
+                }
+
+                if (webResource != null)
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource not founded by name. Last link web-resource is selected for difference.");
+                }
+                else
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource not founded by name and has not Last link.");
+                    this._iWriteToOutput.WriteToOutput(connectionData, "Starting Custom Web-resource selection form.");
+                }
+            }
+
+            if (webResource == null)
+            {
+                Guid? webId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
+
+                bool? dialogResult = null;
+                Guid? selectedWebResourceId = null;
+
+                string selectedPath = string.Empty;
+                var t = new Thread(() =>
+                {
+                    try
+                    {
+                        var form = new Views.WindowWebResourceSelectOrCreate(this._iWriteToOutput, service, selectedFile, webId);
+
+                        dialogResult = form.ShowDialog();
+                        selectedWebResourceId = form.SelectedWebResourceId;
+                    }
+                    catch (Exception ex)
+                    {
+                        DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                    }
+                });
+                t.SetApartmentState(ApartmentState.STA);
+                t.Start();
+
+                t.Join();
+
+                if (dialogResult.GetValueOrDefault() == false)
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.DifferenceWasCancelled);
+                    return;
+                }
+
+                if (selectedWebResourceId.HasValue)
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, "Custom Web-resource is selected.");
+
+                    webResource = await webResourceRepository.GetByIdAsync(selectedWebResourceId.Value);
+                }
+                else
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, "!Warning. WebResource not exists. name: {0}.", selectedFile.Name);
+                }
+            }
+
+            if (webResource == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource not founded in CRM: {0}", selectedFile.FileName);
+                return;
+            }
+
+            connectionData.AddMapping(webResource.Id, selectedFile.FriendlyFilePath);
+            connectionData.Save();
+
+            string xmlContent = webResource.GetAttributeValue<string>(fieldName);
+
+            if (string.IsNullOrEmpty(xmlContent))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionData.Name, WebResource.Schema.EntityLogicalName, webResource.Name, fieldTitle);
+                this._iWriteToOutput.ActivateOutputWindow(connectionData);
+                return;
+            }
+
+            string extension = "xml";
+
+            if (string.Equals(fieldName, WebResource.Schema.Attributes.dependencyxml, StringComparison.InvariantCultureIgnoreCase))
+            {
+                xmlContent = ContentComparerHelper.FormatXmlByConfiguration(xmlContent, commonConfig, WindowExplorerWebResource.XmlOptions
+                    , schemaName: AbstractDynamicCommandXsdSchemas.SchemaDependencyXml
+                    , webResourceName: webResource.Name
+                );
+            }
+            else if (string.Equals(fieldName, WebResource.Schema.Attributes.contentjson, StringComparison.InvariantCultureIgnoreCase))
+            {
+                xmlContent = ContentComparerHelper.FormatJson(xmlContent);
+            }
+
+            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+            else if (!Directory.Exists(commonConfig.FolderForExport))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
+                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+
+            string fileName = EntityFileNameFormatter.GetWebResourceFileName(connectionData.Name, webResource.Name, fieldTitle, extension);
+            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+            try
+            {
+                File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
+
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, WebResource.Schema.EntityLogicalName, webResource.Name, fieldTitle, filePath);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+
+            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+        }
     }
 }

@@ -43,7 +43,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                             {
                                 helper.HandleRibbonDiffXmlDifferenceCommand(null, doc, document.FullName);
                             }
-
                             else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootRibbonDefinitions, StringComparison.InvariantCultureIgnoreCase))
                             {
                                 helper.HandleRibbonDifferenceCommand(null, doc, document.FullName);
@@ -63,6 +62,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                             {
                                 helper.HandleWorkflowDifferenceCommand(null, doc, document.FullName);
                             }
+                            else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootWebResourceDependencies, StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                helper.HandleWebResourceDependencyXmlDifferenceCommand(null, doc, document.FullName);
+                            }
                         }
                     }
                 }
@@ -73,119 +76,137 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
         {
             CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXml(applicationObject, menuCommand, out var doc);
 
-            if (doc != null)
+            if (doc == null)
             {
-                string docRootName = doc.Name.ToString();
+                menuCommand.Enabled = menuCommand.Visible = false;
+                return;
+            }
 
-                if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootSiteMap, StringComparison.InvariantCultureIgnoreCase))
+            string docRootName = doc.Name.ToString();
+
+            if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootSiteMap, StringComparison.InvariantCultureIgnoreCase))
+            {
+                string nameCommand = Properties.CommandNames.CodeXmlSiteMapShowDifferenceCommand;
+
+                var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSiteMapNameUnique);
+
+                if (attribute != null && !string.IsNullOrEmpty(attribute.Value))
                 {
-                    string nameCommand = Properties.CommandNames.CodeXmlSiteMapShowDifferenceCommand;
+                    nameCommand = string.Format(Properties.CommandNames.CodeXmlSiteMapShowDifferenceByNameCommandFormat1, attribute.Value);
+                }
 
-                    var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSiteMapNameUnique);
+                CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, nameCommand);
+            }
+            else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootRibbonDiffXml, StringComparison.InvariantCultureIgnoreCase))
+            {
+                var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName);
 
-                    if (attribute != null && !string.IsNullOrEmpty(attribute.Value))
+                if (attribute != null)
+                {
+                    string entityName = attribute.Value;
+
+                    string nameCommand = Properties.CommandNames.CodeXmlRibbonDiffXmlApplicationShowDifferenceCommand;
+
+                    if (!string.IsNullOrEmpty(entityName))
                     {
-                        nameCommand = string.Format(Properties.CommandNames.CodeXmlSiteMapShowDifferenceByNameCommandFormat1, attribute.Value);
+                        nameCommand = string.Format(Properties.CommandNames.CodeXmlRibbonDiffXmlEntityShowDifferenceCommandFormat1, entityName);
                     }
 
                     CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, nameCommand);
                 }
-                else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootRibbonDiffXml, StringComparison.InvariantCultureIgnoreCase))
+            }
+            else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootRibbonDefinitions, StringComparison.InvariantCultureIgnoreCase))
+            {
+                var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName);
+
+                if (attribute != null)
                 {
-                    var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName);
+                    string entityName = attribute.Value;
 
-                    if (attribute != null)
+                    string nameCommand = Properties.CommandNames.CodeXmlRibbonApplicationShowDifferenceCommand;
+
+                    if (!string.IsNullOrEmpty(entityName))
                     {
-                        string entityName = attribute.Value;
-
-                        string nameCommand = Properties.CommandNames.CodeXmlRibbonDiffXmlApplicationShowDifferenceCommand;
-
-                        if (!string.IsNullOrEmpty(entityName))
-                        {
-                            nameCommand = string.Format(Properties.CommandNames.CodeXmlRibbonDiffXmlEntityShowDifferenceCommandFormat1, entityName);
-                        }
-
-                        CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, nameCommand);
+                        nameCommand = string.Format(Properties.CommandNames.CodeXmlRibbonEntityShowDifferenceCommandFormat1, entityName);
                     }
+
+                    CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, nameCommand);
                 }
-                else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootRibbonDefinitions, StringComparison.InvariantCultureIgnoreCase))
+            }
+            else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootFetch, StringComparison.InvariantCultureIgnoreCase)
+                || string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootGrid, StringComparison.InvariantCultureIgnoreCase)
+                || string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootColumnSet, StringComparison.InvariantCultureIgnoreCase)
+            )
+            {
+                var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName);
+
+                CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CodeXmlSavedQueryShowDifferenceCommand);
+
+                if (attribute == null
+                    || !Guid.TryParse(attribute.Value, out _)
+                    )
                 {
-                    var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName);
-
-                    if (attribute != null)
-                    {
-                        string entityName = attribute.Value;
-
-                        string nameCommand = Properties.CommandNames.CodeXmlRibbonApplicationShowDifferenceCommand;
-
-                        if (!string.IsNullOrEmpty(entityName))
-                        {
-                            nameCommand = string.Format(Properties.CommandNames.CodeXmlRibbonEntityShowDifferenceCommandFormat1, entityName);
-                        }
-
-                        CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, nameCommand);
-                    }
+                    menuCommand.Enabled = menuCommand.Visible = false;
                 }
-                else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootFetch, StringComparison.InvariantCultureIgnoreCase)
-                    || string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootGrid, StringComparison.InvariantCultureIgnoreCase)
-                    || string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootColumnSet, StringComparison.InvariantCultureIgnoreCase)
+            }
+            else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootForm, StringComparison.InvariantCultureIgnoreCase))
+            {
+                var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeFormId);
+
+                CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CodeXmlSystemFormShowDifferenceCommand);
+
+                if (attribute == null
+                    || !Guid.TryParse(attribute.Value, out _)
+                    )
+                {
+                    menuCommand.Enabled = menuCommand.Visible = false;
+                }
+            }
+            else if (doc.Name == AbstractDynamicCommandXsdSchemas.RootActivity)
+            {
+                var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWorkflowId);
+
+                CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CodeXmlWorkflowShowDifferenceCommand);
+
+                if (attribute == null
+                    || !Guid.TryParse(attribute.Value, out _)
                 )
                 {
-                    var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName);
-
-                    CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CodeXmlSavedQueryShowDifferenceCommand);
-
-                    if (attribute == null
-                        || !Guid.TryParse(attribute.Value, out _)
-                        )
-                    {
-                        menuCommand.Enabled = menuCommand.Visible = false;
-                    }
+                    menuCommand.Enabled = menuCommand.Visible = false;
                 }
-                else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootForm, StringComparison.InvariantCultureIgnoreCase))
+            }
+            else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootWebResourceDependencies, StringComparison.InvariantCultureIgnoreCase))
+            {
+                var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWebResourceName);
+
+                CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CodeXmlWebResourceDependencyXmlShowDifferenceCommand);
+
+                if (attribute == null || string.IsNullOrEmpty(attribute.Value))
                 {
-                    var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeFormId);
-
-                    CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CodeXmlSystemFormShowDifferenceCommand);
-
-                    if (attribute == null
-                        || !Guid.TryParse(attribute.Value, out _)
-                        )
-                    {
-                        menuCommand.Enabled = menuCommand.Visible = false;
-                    }
+                    menuCommand.Enabled = menuCommand.Visible = false;
                 }
-                else if (doc.Name == AbstractDynamicCommandXsdSchemas.RootActivity)
-                {
-                    var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWorkflowId);
-
-                    CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CodeXmlWorkflowShowDifferenceCommand);
-
-                    if (attribute == null
-                        || !Guid.TryParse(attribute.Value, out _)
-                    )
-                    {
-                        menuCommand.Enabled = menuCommand.Visible = false;
-                    }
-                }
-
-
-
-                //else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootSiteMap, StringComparison.InvariantCultureIgnoreCase))
-                //{
-
-                //}
-                //else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootSiteMap, StringComparison.InvariantCultureIgnoreCase))
-                //{
-
-                //}
-                //else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootSiteMap, StringComparison.InvariantCultureIgnoreCase))
-                //{
-
-                //}
+            }
+            else
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
             }
 
 
+
+            //else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootSiteMap, StringComparison.InvariantCultureIgnoreCase))
+            //{
+
+            //}
+            //else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootSiteMap, StringComparison.InvariantCultureIgnoreCase))
+            //{
+
+            //}
+            //else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootSiteMap, StringComparison.InvariantCultureIgnoreCase))
+            //{
+
+            //}
         }
+
+
     }
 }
