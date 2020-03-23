@@ -2220,14 +2220,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _service.ConnectionData.OpenSolutionInWeb(Solution.Schema.InstancesUniqueId.DefaultId);
         }
 
-        private void lstVSolutionComponents_KeyDown(object sender, KeyEventArgs e)
+        private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            if (e.Key == Key.Delete)
-            {
-                e.Handled = true;
+            e.CanExecute = true;
+            e.ContinueRouting = false;
+        }
 
-                RemoveComponentFromSolution_Click(null, null);
-            }
+        private void lstVSolutionComponentsDelete_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            RemoveComponentFromSolution_Click(null, null);
         }
     }
 }

@@ -1804,20 +1804,43 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return nodeStep;
         }
 
-        private string GetStepTooltip(Entities.SdkMessageProcessingStep step)
+        private string GetStepTooltip(SdkMessageProcessingStep step)
         {
-            if (string.IsNullOrEmpty(step.FilteringAttributes))
-            {
-                return null;
-            }
-
             StringBuilder tooltipStep = new StringBuilder();
 
-            tooltipStep.AppendLine("Filtering:");
-
-            foreach (string item in step.FilteringAttributesStrings)
+            if (!string.IsNullOrEmpty(step.Name))
             {
-                tooltipStep.AppendLine().Append(item);
+                if (tooltipStep.Length > 0)
+                {
+                    tooltipStep.AppendLine();
+                }
+
+                tooltipStep.AppendFormat("Name: {0}", step.Name);
+            }
+
+            if (!string.IsNullOrEmpty(step.Description))
+            {
+                if (tooltipStep.Length > 0)
+                {
+                    tooltipStep.AppendLine();
+                }
+
+                tooltipStep.AppendFormat("Description: {0}", step.Description);
+            }
+
+            if (!string.IsNullOrEmpty(step.FilteringAttributes))
+            {
+                if (tooltipStep.Length > 0)
+                {
+                    tooltipStep.AppendLine();
+                }
+
+                tooltipStep.AppendLine("Filtering:");
+
+                foreach (string item in step.FilteringAttributesStrings)
+                {
+                    tooltipStep.AppendLine().Append(item);
+                }
             }
 
             return tooltipStep.ToString();
@@ -1842,26 +1865,74 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return nameStep.ToString();
         }
 
-        private string GetImageTooltip(Entities.SdkMessageProcessingStepImage image)
+        private string GetImageTooltip(SdkMessageProcessingStepImage image)
         {
-            if (string.IsNullOrEmpty(image.Attributes1))
-            {
-                return null;
-            }
-
             StringBuilder tooltipImage = new StringBuilder();
 
-            tooltipImage.AppendLine("Attributes:");
-
-            foreach (string item in image.Attributes1Strings)
+            if (!string.IsNullOrEmpty(image.Name))
             {
-                tooltipImage.AppendLine().Append(item);
+                if (tooltipImage.Length > 0)
+                {
+                    tooltipImage.AppendLine();
+                }
+
+                tooltipImage.AppendFormat("Name: {0}", image.Name);
             }
 
-            return tooltipImage.ToString();
+            if (!string.IsNullOrEmpty(image.Description))
+            {
+                if (tooltipImage.Length > 0)
+                {
+                    tooltipImage.AppendLine();
+                }
+
+                tooltipImage.AppendFormat("Description: {0}", image.Description);
+            }
+
+            if (!string.IsNullOrEmpty(image.MessagePropertyName))
+            {
+                if (tooltipImage.Length > 0)
+                {
+                    tooltipImage.AppendLine();
+                }
+
+                tooltipImage.AppendFormat("MessagePropertyName: {0}", image.MessagePropertyName);
+            }
+
+            if (!string.IsNullOrEmpty(image.RelatedAttributeName))
+            {
+                if (tooltipImage.Length > 0)
+                {
+                    tooltipImage.AppendLine();
+                }
+
+                tooltipImage.AppendFormat("RelatedAttributeName: {0}", image.RelatedAttributeName);
+            }
+
+            if (!string.IsNullOrEmpty(image.Attributes1))
+            {
+                if (tooltipImage.Length > 0)
+                {
+                    tooltipImage.AppendLine();
+                }
+
+                tooltipImage.AppendLine("Attributes:");
+
+                foreach (string item in image.Attributes1Strings)
+                {
+                    tooltipImage.AppendLine().Append(item);
+                }
+            }
+
+            if (tooltipImage.Length > 0)
+            {
+                return tooltipImage.ToString();
+            }
+
+            return null;
         }
 
-        private string GetImageName(Entities.SdkMessageProcessingStepImage image)
+        private string GetImageName(SdkMessageProcessingStepImage image)
         {
             StringBuilder nameImage = new StringBuilder();
 
@@ -3896,16 +3967,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             SetCurrentConnection(_iWriteToOutput, cmBCurrentConnection.SelectedItem as ConnectionData);
         }
 
-        private async void trVPluginTree_KeyDown(object sender, KeyEventArgs e)
+        private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            if (e.Key == Key.Delete)
+            e.CanExecute = true;
+            e.ContinueRouting = false;
+        }
+
+        private void trVPluginTreeCopy_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (trVPluginTree.SelectedItem != null && trVPluginTree.SelectedItem is PluginTreeViewItem nodeItem)
             {
                 e.Handled = true;
 
-                if (trVPluginTree.SelectedItem != null && trVPluginTree.SelectedItem is PluginTreeViewItem nodeItem)
-                {
-                    await TryDeleteSdkObject(nodeItem);
-                }
+                ClipboardHelper.SetText(nodeItem.Name);
+            }
+        }
+
+        private async void trVPluginTreeDelete_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (trVPluginTree.SelectedItem != null && trVPluginTree.SelectedItem is PluginTreeViewItem nodeItem)
+            {
+                e.Handled = true;
+                await TryDeleteSdkObject(nodeItem);
             }
         }
     }

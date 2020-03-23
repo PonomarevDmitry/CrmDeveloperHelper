@@ -77,7 +77,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             txtBAttributes.Text = Image.Attributes1StringsSorted;
-            txtBAttributes.ToolTip = string.Join(System.Environment.NewLine, Image.Attributes1Strings);
+            txtBAttributes.ToolTip = GetImageTooltip(Image.Attributes1);
 
             if (Image.ImageType?.Value == (int)SdkMessageProcessingStepImage.Schema.OptionSets.imagetype.Both_2)
             {
@@ -91,6 +91,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 rBPreImage.IsChecked = true;
             }
+        }
+
+        private string GetImageTooltip(string attributes)
+        {
+            if (string.IsNullOrEmpty(attributes))
+            {
+                return null;
+            }
+
+            return string.Join(Environment.NewLine, attributes.Split(',').OrderBy(s => s));
         }
 
         private void FillMessagePropertyNames()
@@ -299,6 +309,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (form.ShowDialog().GetValueOrDefault())
             {
                 txtBAttributes.Text = form.GetAttributes();
+                txtBAttributes.ToolTip = GetImageTooltip(txtBAttributes.Text);
             }
 
             ToggleControls(true, Properties.OutputStrings.UpdatingImageAttributesCompletedFormat1, this._entityName);
@@ -307,6 +318,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private void btnSetAllAttributes_Click(object sender, RoutedEventArgs e)
         {
             txtBAttributes.Text = string.Empty;
+            txtBAttributes.ToolTip = null;
         }
     }
 }
