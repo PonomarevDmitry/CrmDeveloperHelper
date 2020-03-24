@@ -242,8 +242,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             CodeXmlFetchXmlExecuteRequestCommand.Initialize(commandService);
             CodeXmlFetchXmlExecuteRequestInConnectionsCommand.Initialize(commandService);
-
-            CodeXmlCommonConvertToJavaScriptCodeCommand.Initialize(commandService);
             CodeXmlFetchXmlConvertToQueryExpressionCommand.Initialize(commandService);
 
             CodeXmlFetchXmlPasteFromClipboardCommand.Initialize(commandService);
@@ -335,6 +333,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeXmlWebResourceDependencyXmlUpdateInConnectionCommand.Initialize(commandService);
 
             #endregion WebResource DependencyXml
+
+            CodeXmlCommonConvertToJavaScriptCodeCommand.Initialize(commandService);
+            CodeXmlCommonCopyToClipboardWithoutSchemaCommand.Initialize(commandService);
 
             CodeXmlCommonUpdateCommand.Initialize(commandService);
             CodeXmlCommonShowDifferenceCommand.Initialize(commandService);

@@ -195,7 +195,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuXml_GroupExecuteFetch_MenuConnectionDyn_Group = 0x1217;
 
-            public const int codeMenuXml_GroupCopyFetch = 0x1218;
+            public const int codeMenuXml_GroupCopy = 0x1218;
 
             public const int codeMenuXml_GroupXsdSchema = 0x121F;
 
@@ -2235,13 +2235,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeXmlCommonShowDifferenceCommandId = 0x2226;
 
+            public const int CodeXmlCommonConvertToJavaScriptCodeCommandId = 0x2161;
+
+            public const int CodeXmlCommonCopyToClipboardWithoutSchemaCommandId = 0x222B;
+
+            public const int CodeXmlCommonXsdSchemaSetProperCommandId = 0x222A;
+
+            public const int CodeXmlCommonXsdSchemaRemoveCommandId = 0x216E;
+
+            public const int CodeXmlCommonXsdSchemaOpenFolderCommandId = 0x216F;
+
             public const int CodeXmlFetchXmlExecuteRequestCommandId = 0x2160;
 
             public const int CodeXmlFetchXmlConvertToQueryExpressionCommandId = 0x221E;
 
             public const int CodeXmlFetchXmlPasteFromClipboardCommandId = 0x221D;
-
-            public const int CodeXmlCommonConvertToJavaScriptCodeCommandId = 0x2161;
 
             public const int CodeXmlRibbonDiffInsertIntellisenseContextCommandId = 0x2178;
 
@@ -2284,12 +2292,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int CodeXmlWebResourceDependencyXmlShowDifferenceCommandId = 0x2228;
 
             public const int CodeXmlWebResourceDependencyXmlUpdateCommandId = 0x2229;
-
-            public const int CodeXmlCommonXsdSchemaRemoveCommandId = 0x216E;
-
-            public const int CodeXmlCommonXsdSchemaSetProperCommandId = 0x222A;
-
-            public const int CodeXmlCommonXsdSchemaOpenFolderCommandId = 0x216F;
 
             public const int CodeReportLinkCreateCommandId = 0x2009;
 

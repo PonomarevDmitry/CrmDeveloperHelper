@@ -271,6 +271,7 @@
     <Compile Include="Commands\WebResources\FolderWebResourceAddFilesIntoListForPublishCommand.cs" />
     <Compile Include="Commands\WebResources\FolderWebResourceMultiDifferenceCommand.cs" />
     <Compile Include="Commands\WebResources\FolderWebResourceOpenFilesCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlCommonCopyToClipboardWithoutSchemaCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlFetchXmlConvertToQueryExpressionCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlFetchXmlPasteFromClipboardCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlRibbonOpenInWebCommand.cs" />

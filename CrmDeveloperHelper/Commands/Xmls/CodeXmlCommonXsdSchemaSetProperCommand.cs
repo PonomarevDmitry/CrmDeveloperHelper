@@ -1,13 +1,14 @@
 using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using System;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
     internal sealed class CodeXmlCommonXsdSchemaSetProperCommand : AbstractCommand
     {
         private CodeXmlCommonXsdSchemaSetProperCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.guidCommandSet.CodeXmlCommonXsdSchemaSetProperCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.CodeXmlCommonXsdSchemaSetProperCommandId)
+        {
+        }
 
         public static CodeXmlCommonXsdSchemaSetProperCommand Instance { get; private set; }
 
