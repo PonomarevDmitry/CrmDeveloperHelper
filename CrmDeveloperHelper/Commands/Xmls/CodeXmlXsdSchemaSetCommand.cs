@@ -4,22 +4,19 @@ using System;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlSetXsdSchemaCommand : AbstractDynamicCommandXsdSchemas
+    internal sealed class CodeXmlXsdSchemaSetCommand : AbstractDynamicCommandXsdSchemas
     {
-        private CodeXmlSetXsdSchemaCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.CodeXmlSetXsdSchemaCommandId
-            )
+        private CodeXmlXsdSchemaSetCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.guidDynamicCommandSet.CodeXmlXsdSchemaSetCommandId)
         {
 
         }
 
-        public static CodeXmlSetXsdSchemaCommand Instance { get; private set; }
+        public static CodeXmlXsdSchemaSetCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeXmlSetXsdSchemaCommand(commandService);
+            Instance = new CodeXmlXsdSchemaSetCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper, Tuple<string, string[]> schemas)

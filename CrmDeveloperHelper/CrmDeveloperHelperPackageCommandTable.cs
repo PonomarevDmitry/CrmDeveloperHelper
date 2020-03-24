@@ -1818,7 +1818,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CommonExportDefaultSitemapsCommandId = 0x10CC;
 
-            public const int CommonExportXsdSchemasCommandId = 0x10E5;
+            public const int CommonXsdSchemaExportCommandId = 0x10E5;
 
             public const int CommonCrmConnectionTestCommandId = 0x1130;
 
@@ -1892,7 +1892,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeXmlFetchXmlExecuteRequestInConnectionsCommandId = 0x109A;
 
-            public const int CodeXmlSetXsdSchemaCommandId = 0x10FE;
+            public const int CodeXmlXsdSchemaSetCommandId = 0x10FE;
 
             public const int CodeXmlSiteMapShowDifferenceDefaultCommandId = 0x1117;
 
@@ -2012,7 +2012,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int DocumentsJavaScriptUpdateGlobalOptionSetSingleFileCommandId = 0x24EA;
 
-            public const int DocumentsXmlSetXsdSchemaCommandId = 0x2260;
+            public const int DocumentsXmlXsdSchemaSetCommandId = 0x2260;
 
             public const int DocumentsReportAddToSolutionLastCommandId = 0x0104;
 
@@ -2080,7 +2080,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FileJavaScriptUpdateGlobalOptionSetAllFileCommandId = 0x25B2;
 
-            public const int FileXmlSetXsdSchemaCommandId = 0x2279;
+            public const int FileXmlXsdSchemaSetCommandId = 0x2279;
 
             public const int FileReportAddToSolutionLastCommandId = 0x012C;
 
@@ -2144,7 +2144,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FolderJavaScriptUpdateGlobalOptionSetSingleFileCommandId = 0x254E;
 
-            public const int FolderXmlSetXsdSchemaCommandId = 0x2292;
+            public const int FolderXmlXsdSchemaSetCommandId = 0x2292;
 
             public const int FolderCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommandId = 0x29CC;
 
@@ -2285,9 +2285,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeXmlWebResourceDependencyXmlUpdateCommandId = 0x2229;
 
-            public const int CodeXmlRemoveXsdSchemaCommandId = 0x216E;
+            public const int CodeXmlXsdSchemaRemoveCommandId = 0x216E;
 
-            public const int CodeXmlOpenXsdSchemaFolderCommandId = 0x216F;
+            public const int CodeXmlXsdSchemaOpenFolderCommandId = 0x216F;
 
             public const int CodeReportLinkCreateCommandId = 0x2009;
 
@@ -2391,9 +2391,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int DocumentsWebResourceAddFilesIntoListForPublishWithMirrorComplexCommandId = 0x20FC;
 
-            public const int DocumentsXmlRemoveXsdSchemaCommandId = 0x2197;
+            public const int DocumentsXmlXsdSchemaRemoveCommandId = 0x2197;
 
-            public const int DocumentsXmlOpenXsdSchemaFolderCommandId = 0x219A;
+            public const int DocumentsXmlXsdSchemaOpenFolderCommandId = 0x219A;
 
             public const int DocumentsReportLinkClearCommandId = 0x20E7;
 
@@ -2523,9 +2523,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FileJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommandId = 0x21A2;
 
-            public const int FileXmlRemoveXsdSchemaCommandId = 0x2198;
+            public const int FileXmlXsdSchemaRemoveCommandId = 0x2198;
 
-            public const int FileXmlOpenXsdSchemaFolderCommandId = 0x219B;
+            public const int FileXmlXsdSchemaOpenFolderCommandId = 0x219B;
 
             public const int FileReportExplorerCommandId = 0x2055;
 
@@ -2669,9 +2669,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FolderWebResourceAddIntoPublishListFilesWithMirrorComplexCommandId = 0x20DB;
 
-            public const int FolderXmlRemoveXsdSchemaCommandId = 0x2199;
+            public const int FolderXmlXsdSchemaRemoveCommandId = 0x2199;
 
-            public const int FolderXmlOpenXsdSchemaFolderCommandId = 0x219C;
+            public const int FolderXmlXsdSchemaOpenFolderCommandId = 0x219C;
 
             public const int FolderCSharpEntityMetadataFileGenerationOptionsCommandId = 0x221B;
 
@@ -2871,7 +2871,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CommonOpenSolutionDifferenceImageCommandId = 0x2196;
 
-            public const int CommonOpenXsdSchemaFolderCommandId = 0x217A;
+            public const int CommonXsdSchemaOpenFolderCommandId = 0x217A;
 
             public const int CommonTraceExportFileCommandId = 0x2189;
 

@@ -5,22 +5,22 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class DocumentsXmlSetXsdSchemaCommand : AbstractDynamicCommandXsdSchemas
+    internal sealed class DocumentsXmlXsdSchemaSetCommand : AbstractDynamicCommandXsdSchemas
     {
-        private DocumentsXmlSetXsdSchemaCommand(OleMenuCommandService commandService)
+        private DocumentsXmlXsdSchemaSetCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.guidDynamicCommandSet.DocumentsXmlSetXsdSchemaCommandId
+                , PackageIds.guidDynamicCommandSet.DocumentsXmlXsdSchemaSetCommandId
             )
         {
 
         }
 
-        public static DocumentsXmlSetXsdSchemaCommand Instance { get; private set; }
+        public static DocumentsXmlXsdSchemaSetCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new DocumentsXmlSetXsdSchemaCommand(commandService);
+            Instance = new DocumentsXmlXsdSchemaSetCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper, Tuple<string, string[]> schemas)

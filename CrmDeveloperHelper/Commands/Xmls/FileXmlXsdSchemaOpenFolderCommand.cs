@@ -3,21 +3,21 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class FileXmlOpenXsdSchemaFolderCommand : AbstractCommand
+    internal sealed class FileXmlXsdSchemaOpenFolderCommand : AbstractCommand
     {
-        private FileXmlOpenXsdSchemaFolderCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.guidCommandSet.FileXmlOpenXsdSchemaFolderCommandId) { }
+        private FileXmlXsdSchemaOpenFolderCommand(OleMenuCommandService commandService)
+           : base(commandService, PackageIds.guidCommandSet.FileXmlXsdSchemaOpenFolderCommandId) { }
 
-        public static FileXmlOpenXsdSchemaFolderCommand Instance { get; private set; }
+        public static FileXmlXsdSchemaOpenFolderCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new FileXmlOpenXsdSchemaFolderCommand(commandService);
+            Instance = new FileXmlXsdSchemaOpenFolderCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper)
         {
-            helper.HandleOpenXsdSchemaFolder();
+            helper.HandleXsdSchemaOpenFolder();
         }
 
         protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)

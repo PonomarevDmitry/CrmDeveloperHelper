@@ -5867,7 +5867,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleExportXsdSchema(string[] fileNamesColl)
+        public void HandleXsdSchemaExport(string[] fileNamesColl)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
@@ -5986,7 +5986,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleOpenXsdSchemaFolder()
+        public void HandleXsdSchemaOpenFolder()
         {
             var folder = FileOperations.GetSchemaXsdFolder();
 

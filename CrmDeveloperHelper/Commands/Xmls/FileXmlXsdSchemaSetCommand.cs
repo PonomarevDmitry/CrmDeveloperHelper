@@ -5,27 +5,24 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class FolderXmlSetXsdSchemaCommand : AbstractDynamicCommandXsdSchemas
+    internal sealed class FileXmlXsdSchemaSetCommand : AbstractDynamicCommandXsdSchemas
     {
-        private FolderXmlSetXsdSchemaCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.FolderXmlSetXsdSchemaCommandId
-            )
+        private FileXmlXsdSchemaSetCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.guidDynamicCommandSet.FileXmlXsdSchemaSetCommandId)
         {
 
         }
 
-        public static FolderXmlSetXsdSchemaCommand Instance { get; private set; }
+        public static FileXmlXsdSchemaSetCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new FolderXmlSetXsdSchemaCommand(commandService);
+            Instance = new FileXmlXsdSchemaSetCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper, Tuple<string, string[]> schemas)
         {
-            var listFiles = helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsXmlType, true).ToList();
+            var listFiles = helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsXmlType, false);
 
             if (listFiles.Any())
             {
@@ -43,7 +40,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 
         protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, Tuple<string, string[]> schemas, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerXmlRecursive(applicationObject, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerXmlAny(applicationObject, menuCommand);
         }
     }
 }

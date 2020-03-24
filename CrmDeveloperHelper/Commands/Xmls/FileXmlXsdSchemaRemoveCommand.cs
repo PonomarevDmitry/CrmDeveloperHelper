@@ -5,16 +5,16 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class FileXmlRemoveXsdSchemaCommand : AbstractCommand
+    internal sealed class FileXmlXsdSchemaRemoveCommand : AbstractCommand
     {
-        private FileXmlRemoveXsdSchemaCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.guidCommandSet.FileXmlRemoveXsdSchemaCommandId) { }
+        private FileXmlXsdSchemaRemoveCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.guidCommandSet.FileXmlXsdSchemaRemoveCommandId) { }
 
-        public static FileXmlRemoveXsdSchemaCommand Instance { get; private set; }
+        public static FileXmlXsdSchemaRemoveCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new FileXmlRemoveXsdSchemaCommand(commandService);
+            Instance = new FileXmlXsdSchemaRemoveCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper)

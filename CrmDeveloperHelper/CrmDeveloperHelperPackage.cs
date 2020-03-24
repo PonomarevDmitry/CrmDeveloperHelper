@@ -339,39 +339,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeXmlCommonUpdateCommand.Initialize(commandService);
             CodeXmlCommonShowDifferenceCommand.Initialize(commandService);
 
-            CodeXmlOpenXsdSchemaFolderCommand.Initialize(commandService);
-            CodeXmlSetXsdSchemaCommand.Initialize(commandService);
-            CodeXmlRemoveXsdSchemaCommand.Initialize(commandService);
+            CodeXmlXsdSchemaOpenFolderCommand.Initialize(commandService);
+            CodeXmlXsdSchemaSetCommand.Initialize(commandService);
+            CodeXmlXsdSchemaRemoveCommand.Initialize(commandService);
 
             #endregion CodeXml
 
             #region DocumentsXml
 
-            DocumentsXmlOpenXsdSchemaFolderCommand.Initialize(commandService);
+            DocumentsXmlXsdSchemaOpenFolderCommand.Initialize(commandService);
 
-            DocumentsXmlSetXsdSchemaCommand.Initialize(commandService);
+            DocumentsXmlXsdSchemaSetCommand.Initialize(commandService);
 
-            DocumentsXmlRemoveXsdSchemaCommand.Initialize(commandService);
+            DocumentsXmlXsdSchemaRemoveCommand.Initialize(commandService);
 
             #endregion DocumentsXml
 
             #region FileXml
 
-            FileXmlOpenXsdSchemaFolderCommand.Initialize(commandService);
+            FileXmlXsdSchemaOpenFolderCommand.Initialize(commandService);
 
-            FileXmlSetXsdSchemaCommand.Initialize(commandService);
+            FileXmlXsdSchemaSetCommand.Initialize(commandService);
 
-            FileXmlRemoveXsdSchemaCommand.Initialize(commandService);
+            FileXmlXsdSchemaRemoveCommand.Initialize(commandService);
 
             #endregion FileXml
 
             #region FolderXml
 
-            FolderXmlOpenXsdSchemaFolderCommand.Initialize(commandService);
+            FolderXmlXsdSchemaOpenFolderCommand.Initialize(commandService);
 
-            FolderXmlSetXsdSchemaCommand.Initialize(commandService);
+            FolderXmlXsdSchemaSetCommand.Initialize(commandService);
 
-            FolderXmlRemoveXsdSchemaCommand.Initialize(commandService);
+            FolderXmlXsdSchemaRemoveCommand.Initialize(commandService);
 
             #endregion FolderXml
 
@@ -773,9 +773,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonOpenCrmWebSiteCommand.Initialize(commandService);
 
             CommonExportDefaultSitemapsCommand.Initialize(commandService);
-            CommonExportXsdSchemasCommand.Initialize(commandService);
+            CommonXsdSchemaExportCommand.Initialize(commandService);
 
-            CommonOpenXsdSchemaFolderCommand.Initialize(commandService);
+            CommonXsdSchemaOpenFolderCommand.Initialize(commandService);
 
             #region Output Windows
 
