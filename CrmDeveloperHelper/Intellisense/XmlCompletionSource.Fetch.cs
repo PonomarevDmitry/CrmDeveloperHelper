@@ -405,12 +405,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 list.Add(CreateCompletion("none - 0", "0", "none", _defaultGlyph, new[] { "none", "0" }));
             }
 
-            var keys = connectionIntellisense.Entities.Keys.ToList();
+            var entityList = connectionIntellisense.Entities.Values.OrderBy(e => e.IsIntersectEntity).ThenBy(e => e.EntityLogicalName).ToList();
 
-            foreach (var entityName in keys.OrderBy(s => s))
+            foreach (var entityData in entityList)
             {
-                var entityData = connectionIntellisense.Entities[entityName];
-
                 string entityDescription = CrmIntellisenseCommon.GetDisplayTextEntity(entityData);
 
                 List<string> compareValues = CrmIntellisenseCommon.GetCompareValuesForEntity(entityData);
