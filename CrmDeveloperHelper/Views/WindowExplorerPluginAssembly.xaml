@@ -150,7 +150,7 @@
 
                 <DataGridTextColumn Header="Path" Width="100" Binding="{Binding Path=Path}" />
 
-                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding HasDescription, Mode=OneTime}">
+                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding HasDescription, Mode=OneTime}" CanUserResize="False">
                     <DataGridCheckBoxColumn.Header>
                         <Label Content="D" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0" Padding="0" ToolTip="Description" />
                     </DataGridCheckBoxColumn.Header>

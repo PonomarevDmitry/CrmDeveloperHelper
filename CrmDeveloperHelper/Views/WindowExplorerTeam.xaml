@@ -234,7 +234,7 @@
 
                         <DataGridTextColumn Header="Type" Width="200" Binding="{Binding TeamTypeName, Mode=OneTime}" />
 
-                        <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsDefault, Mode=OneTime}">
+                        <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsDefault, Mode=OneTime}" CanUserResize="False">
                             <DataGridCheckBoxColumn.Header>
                                 <Label Content="D" Margin="0" Padding="0" ToolTip="IsDefault" />
                             </DataGridCheckBoxColumn.Header>
@@ -344,7 +344,7 @@
 
                                 <DataGridTextColumn Header="BusinessUnit" Width="120" Binding="{Binding BusinessUnitId.Name, Mode=OneTime}" />
 
-                                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsDisabled, Mode=OneTime}">
+                                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsDisabled, Mode=OneTime}" CanUserResize="False">
                                     <DataGridCheckBoxColumn.Header>
                                         <Label Content="Dis" Margin="0" Padding="0" ToolTip="IsDisabled" />
                                     </DataGridCheckBoxColumn.Header>
@@ -451,7 +451,7 @@
                                 <DataGridTextColumn Header="Entity Name" Width="200" Binding="{Binding LogicalName, Mode=OneTime}" />
                                 <DataGridTextColumn Header="Display Name" Width="200" Binding="{Binding DisplayName, Mode=OneTime}" />
 
-                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="CreateRight">
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="CreateRight" CanUserResize="False">
                                     <DataGridTemplateColumn.Header>
                                         <Label Content="C" Margin="0" Padding="0" ToolTip="Create" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
                                     </DataGridTemplateColumn.Header>
@@ -462,7 +462,7 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="ReadRight">
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="ReadRight" CanUserResize="False">
                                     <DataGridTemplateColumn.Header>
                                         <Label Content="R" Margin="0" Padding="0" ToolTip="Read" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
                                     </DataGridTemplateColumn.Header>
@@ -473,7 +473,7 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="UpdateRight">
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="UpdateRight" CanUserResize="False">
                                     <DataGridTemplateColumn.Header>
                                         <Label Content="U" Margin="0" Padding="0" ToolTip="Update" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
                                     </DataGridTemplateColumn.Header>
@@ -484,7 +484,7 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="DeleteRight">
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="DeleteRight" CanUserResize="False">
                                     <DataGridTemplateColumn.Header>
                                         <Label Content="D" Margin="0" Padding="0" ToolTip="Delete" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
                                     </DataGridTemplateColumn.Header>
@@ -495,7 +495,7 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="AppendRight">
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="AppendRight" CanUserResize="False">
                                     <DataGridTemplateColumn.Header>
                                         <Label Content="App" Margin="0" Padding="0" ToolTip="Append" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
                                     </DataGridTemplateColumn.Header>
@@ -506,7 +506,7 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="AppendToRight">
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="AppendToRight" CanUserResize="False">
                                     <DataGridTemplateColumn.Header>
                                         <Label Content="AppTo" Margin="0" Padding="0" ToolTip="AppendTo" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
                                     </DataGridTemplateColumn.Header>
@@ -517,7 +517,7 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="AssignRight">
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="AssignRight" CanUserResize="False">
                                     <DataGridTemplateColumn.Header>
                                         <Label Content="As" Margin="0" Padding="0" ToolTip="Assign"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                                     </DataGridTemplateColumn.Header>
@@ -528,7 +528,7 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="ShareRight">
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="ShareRight" CanUserResize="False">
                                     <DataGridTemplateColumn.Header>
                                         <Label Content="Sh" Margin="0" Padding="0" ToolTip="Share" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
                                     </DataGridTemplateColumn.Header>
@@ -607,7 +607,7 @@
                                     </DataGridTextColumn.ElementStyle>
                                 </DataGridTextColumn>
 
-                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="Right">
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="Right" CanUserResize="False">
                                     <DataGridTemplateColumn.Header>
                                         <Label Content="R" Margin="0" Padding="0" ToolTip="Right" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
                                     </DataGridTemplateColumn.Header>
