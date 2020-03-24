@@ -223,11 +223,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Execute Fetch Xml All.
+        ///   Looks up a localized string similar to Set Xsd Schema {0}.
         /// </summary>
-        internal static string CodeXmlExecuteFetchXmlRequestCommand {
+        internal static string CodeXmlCommonXsdSchemaSetProperCommandFormat1 {
             get {
-                return ResourceManager.GetString("CodeXmlExecuteFetchXmlRequestCommand", resourceCulture);
+                return ResourceManager.GetString("CodeXmlCommonXsdSchemaSetProperCommandFormat1", resourceCulture);
             }
         }
         
@@ -237,6 +237,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string CodeXmlFetchXmlConvertToQueryExpressionCommand {
             get {
                 return ResourceManager.GetString("CodeXmlFetchXmlConvertToQueryExpressionCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Execute Fetch Xml All.
+        /// </summary>
+        internal static string CodeXmlFetchXmlExecuteRequestCommand {
+            get {
+                return ResourceManager.GetString("CodeXmlFetchXmlExecuteRequestCommand", resourceCulture);
             }
         }
         
@@ -417,15 +426,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string CodeXmlWorkflowUpdateCommand {
             get {
                 return ResourceManager.GetString("CodeXmlWorkflowUpdateCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Set Xsd Schema {0}.
-        /// </summary>
-        internal static string CodeXmlXsdSchemaSetProperCommandFormat1 {
-            get {
-                return ResourceManager.GetString("CodeXmlXsdSchemaSetProperCommandFormat1", resourceCulture);
             }
         }
         

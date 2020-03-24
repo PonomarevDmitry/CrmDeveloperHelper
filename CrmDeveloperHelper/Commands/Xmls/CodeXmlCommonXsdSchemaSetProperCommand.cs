@@ -4,16 +4,16 @@ using System;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlXsdSchemaSetProperCommand : AbstractCommand
+    internal sealed class CodeXmlCommonXsdSchemaSetProperCommand : AbstractCommand
     {
-        private CodeXmlXsdSchemaSetProperCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.guidCommandSet.CodeXmlXsdSchemaSetProperCommandId) { }
+        private CodeXmlCommonXsdSchemaSetProperCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.guidCommandSet.CodeXmlCommonXsdSchemaSetProperCommandId) { }
 
-        public static CodeXmlXsdSchemaSetProperCommand Instance { get; private set; }
+        public static CodeXmlCommonXsdSchemaSetProperCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeXmlXsdSchemaSetProperCommand(commandService);
+            Instance = new CodeXmlCommonXsdSchemaSetProperCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper)
@@ -64,7 +64,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 
             if (!string.IsNullOrEmpty(schemas))
             {
-                menuCommand.Text = string.Format(Properties.CommandNames.CodeXmlXsdSchemaSetProperCommandFormat1, schemas);
+                menuCommand.Text = string.Format(Properties.CommandNames.CodeXmlCommonXsdSchemaSetProperCommandFormat1, schemas);
             }
             else
             {

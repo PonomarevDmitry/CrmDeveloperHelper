@@ -174,7 +174,7 @@
   <data name="CodeWebResourceUpdateContentPublishCommand" xml:space="preserve">
     <value>Publish File</value>
   </data>
-  <data name="CodeXmlExecuteFetchXmlRequestCommand" xml:space="preserve">
+  <data name="CodeXmlFetchXmlExecuteRequestCommand" xml:space="preserve">
     <value>Execute Fetch Xml All</value>
   </data>
   <data name="CodeXmlFetchXmlConvertToQueryExpressionCommand" xml:space="preserve">
@@ -439,7 +439,7 @@
   <data name="CodeXmlWebResourceDependencyXmlUpdateCommand" xml:space="preserve">
     <value>Update WebResource DependencyXml</value>
   </data>
-  <data name="CodeXmlXsdSchemaSetProperCommandFormat1" xml:space="preserve">
+  <data name="CodeXmlCommonXsdSchemaSetProperCommandFormat1" xml:space="preserve">
     <value>Set Xsd Schema {0}</value>
   </data>
   

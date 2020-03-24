@@ -3,16 +3,16 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlFetchXmlConvertToJavaScriptCodeCommand : AbstractCommand
+    internal sealed class CodeXmlCommonConvertToJavaScriptCodeCommand : AbstractCommand
     {
-        private CodeXmlFetchXmlConvertToJavaScriptCodeCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.guidCommandSet.CodeXmlFetchXmlConvertToJavaScriptCodeCommandId) { }
+        private CodeXmlCommonConvertToJavaScriptCodeCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.guidCommandSet.CodeXmlCommonConvertToJavaScriptCodeCommandId) { }
 
-        public static CodeXmlFetchXmlConvertToJavaScriptCodeCommand Instance { get; private set; }
+        public static CodeXmlCommonConvertToJavaScriptCodeCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeXmlFetchXmlConvertToJavaScriptCodeCommand(commandService);
+            Instance = new CodeXmlCommonConvertToJavaScriptCodeCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper)

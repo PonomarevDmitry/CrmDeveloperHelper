@@ -3,16 +3,16 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlXsdSchemaRemoveCommand : AbstractCommand
+    internal sealed class CodeXmlCommonXsdSchemaRemoveCommand : AbstractCommand
     {
-        private CodeXmlXsdSchemaRemoveCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.guidCommandSet.CodeXmlXsdSchemaRemoveCommandId) { }
+        private CodeXmlCommonXsdSchemaRemoveCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.guidCommandSet.CodeXmlCommonXsdSchemaRemoveCommandId) { }
 
-        public static CodeXmlXsdSchemaRemoveCommand Instance { get; private set; }
+        public static CodeXmlCommonXsdSchemaRemoveCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeXmlXsdSchemaRemoveCommand(commandService);
+            Instance = new CodeXmlCommonXsdSchemaRemoveCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper)

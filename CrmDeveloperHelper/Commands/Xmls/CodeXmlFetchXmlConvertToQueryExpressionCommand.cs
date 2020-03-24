@@ -1,15 +1,14 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using System.IO;
-using System.Text;
-using System.Windows;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
     internal sealed class CodeXmlFetchXmlConvertToQueryExpressionCommand : AbstractCommand
     {
         private CodeXmlFetchXmlConvertToQueryExpressionCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.guidCommandSet.CodeXmlFetchXmlConvertToQueryExpressionCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.CodeXmlFetchXmlConvertToQueryExpressionCommandId)
+        {
+        }
 
         public static CodeXmlFetchXmlConvertToQueryExpressionCommand Instance { get; private set; }
 

@@ -1,5 +1,4 @@
 ﻿using Jint;
-using Jint.Native.Array;
 using Jint.Parser;
 using Jint.Parser.Ast;
 using Microsoft.VisualStudio.Text.Editor;

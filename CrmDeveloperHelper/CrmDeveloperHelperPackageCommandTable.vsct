@@ -3631,7 +3631,7 @@
           <ButtonText>Paste Fetch Xml from JavaScript</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="CodeXmlFetchXmlConvertToJavaScriptCodeCommandId" priority="0x0100" type="Button">
+      <Button guid="guidCommandSet" id="CodeXmlCommonConvertToJavaScriptCodeCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -3652,7 +3652,7 @@
         </Strings>
       </Button>
 
-      <Button guid="guidCommandSet" id="CodeXmlXsdSchemaOpenFolderCommandId" priority="0x0100" type="Button">
+      <Button guid="guidCommandSet" id="CodeXmlCommonXsdSchemaOpenFolderCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -3662,7 +3662,7 @@
           <ButtonText>Open Xsd Schema Default Folder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="CodeXmlXsdSchemaSetProperCommandId" priority="0x0100" type="Button">
+      <Button guid="guidCommandSet" id="CodeXmlCommonXsdSchemaSetProperCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -3672,7 +3672,7 @@
           <ButtonText>Set Xsd Schema Proper</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="CodeXmlXsdSchemaSetCommandId" priority="0x0100" type="Button">
+      <Button guid="guidDynamicCommandSet" id="CodeXmlCommonXsdSchemaSetCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -3680,10 +3680,10 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>CodeXmlXsdSchemaSetCommandId Placeholder</ButtonText>
+          <ButtonText>CodeXmlCommonXsdSchemaSetCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="CodeXmlXsdSchemaRemoveCommandId" priority="0x0100" type="Button">
+      <Button guid="guidCommandSet" id="CodeXmlCommonXsdSchemaRemoveCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -11144,7 +11144,7 @@
 
     <!-- #region codeMenuXml_GroupCopyFetch -->
 
-    <CommandPlacement guid="guidCommandSet" id="CodeXmlFetchXmlConvertToJavaScriptCodeCommandId" priority="0x6000">
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlCommonConvertToJavaScriptCodeCommandId" priority="0x6000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupCopyFetch" />
     </CommandPlacement>
 
@@ -11352,13 +11352,13 @@
     <!-- #region codeMenuXml_GroupXsdSchema -->
 
 
-    <CommandPlacement guid="guidCommandSet" id="CodeXmlXsdSchemaSetProperCommandId" priority="0x06000">
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlCommonXsdSchemaSetProperCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CodeXmlXsdSchemaRemoveCommandId" priority="0x06020">
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlCommonXsdSchemaRemoveCommandId" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema" />
     </CommandPlacement>
 
@@ -11377,7 +11377,7 @@
 
     <!-- #region codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas_GroupOpenFolder -->
 
-    <CommandPlacement guid="guidCommandSet" id="CodeXmlXsdSchemaOpenFolderCommandId" priority="0x105">
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlCommonXsdSchemaOpenFolderCommandId" priority="0x105">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas_GroupOpenFolder" />
     </CommandPlacement>
 
@@ -15861,7 +15861,7 @@
 
 
 
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlXsdSchemaSetCommandId" priority="0x106">
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlCommonXsdSchemaSetCommandId" priority="0x106">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas_Group" />
     </CommandPlacement>
 
@@ -19298,7 +19298,7 @@
 
       <IDSymbol name="CodeXmlFetchXmlExecuteRequestInConnectionsCommandId" value="4250" />
 
-      <IDSymbol name="CodeXmlXsdSchemaSetCommandId" value="4350" />
+      <IDSymbol name="CodeXmlCommonXsdSchemaSetCommandId" value="4350" />
 
       <IDSymbol name="CodeXmlSiteMapShowDifferenceDefaultCommandId" value="4375" />
 
@@ -19679,7 +19679,7 @@
       <IDSymbol name="CodeXmlFetchXmlConvertToQueryExpressionCommandId" value="0x221E" />
 
       <IDSymbol name="CodeXmlFetchXmlPasteFromClipboardCommandId" value="0x221D" />
-      <IDSymbol name="CodeXmlFetchXmlConvertToJavaScriptCodeCommandId" value="0x2161" />
+      <IDSymbol name="CodeXmlCommonConvertToJavaScriptCodeCommandId" value="0x2161" />
 
       <IDSymbol name="CodeXmlRibbonDiffInsertIntellisenseContextCommandId" value="0x2178" />
       <IDSymbol name="CodeXmlRibbonDiffRemoveIntellisenseContextCommandId" value="0x2179" />
@@ -19714,10 +19714,10 @@
       <IDSymbol name="CodeXmlWebResourceDependencyXmlUpdateCommandId" value="0x2229" />
 
 
-      <IDSymbol name="CodeXmlXsdSchemaRemoveCommandId" value="0x216E" />
-      <IDSymbol name="CodeXmlXsdSchemaSetProperCommandId" value="0x222A" />
+      <IDSymbol name="CodeXmlCommonXsdSchemaRemoveCommandId" value="0x216E" />
+      <IDSymbol name="CodeXmlCommonXsdSchemaSetProperCommandId" value="0x222A" />
 
-      <IDSymbol name="CodeXmlXsdSchemaOpenFolderCommandId" value="0x216F" />
+      <IDSymbol name="CodeXmlCommonXsdSchemaOpenFolderCommandId" value="0x216F" />
 
       <!-- #endregion CodeXml -->
 

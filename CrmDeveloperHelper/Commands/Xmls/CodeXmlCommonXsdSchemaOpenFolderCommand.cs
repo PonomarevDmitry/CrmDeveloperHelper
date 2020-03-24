@@ -3,16 +3,16 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlXsdSchemaOpenFolderCommand : AbstractCommand
+    internal sealed class CodeXmlCommonXsdSchemaOpenFolderCommand : AbstractCommand
     {
-        private CodeXmlXsdSchemaOpenFolderCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.guidCommandSet.CodeXmlXsdSchemaOpenFolderCommandId) { }
+        private CodeXmlCommonXsdSchemaOpenFolderCommand(OleMenuCommandService commandService)
+           : base(commandService, PackageIds.guidCommandSet.CodeXmlCommonXsdSchemaOpenFolderCommandId) { }
          
-        public static CodeXmlXsdSchemaOpenFolderCommand Instance { get; private set; }
+        public static CodeXmlCommonXsdSchemaOpenFolderCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeXmlXsdSchemaOpenFolderCommand(commandService);
+            Instance = new CodeXmlCommonXsdSchemaOpenFolderCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper)

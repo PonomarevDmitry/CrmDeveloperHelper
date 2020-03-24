@@ -243,7 +243,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeXmlFetchXmlExecuteRequestCommand.Initialize(commandService);
             CodeXmlFetchXmlExecuteRequestInConnectionsCommand.Initialize(commandService);
 
-            CodeXmlFetchXmlConvertToJavaScriptCodeCommand.Initialize(commandService);
+            CodeXmlCommonConvertToJavaScriptCodeCommand.Initialize(commandService);
             CodeXmlFetchXmlConvertToQueryExpressionCommand.Initialize(commandService);
 
             CodeXmlFetchXmlPasteFromClipboardCommand.Initialize(commandService);
@@ -339,10 +339,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeXmlCommonUpdateCommand.Initialize(commandService);
             CodeXmlCommonShowDifferenceCommand.Initialize(commandService);
 
-            CodeXmlXsdSchemaOpenFolderCommand.Initialize(commandService);
-            CodeXmlXsdSchemaSetCommand.Initialize(commandService);
-            CodeXmlXsdSchemaSetProperCommand.Initialize(commandService);
-            CodeXmlXsdSchemaRemoveCommand.Initialize(commandService);
+            CodeXmlCommonXsdSchemaOpenFolderCommand.Initialize(commandService);
+            CodeXmlCommonXsdSchemaSetCommand.Initialize(commandService);
+            CodeXmlCommonXsdSchemaSetProperCommand.Initialize(commandService);
+            CodeXmlCommonXsdSchemaRemoveCommand.Initialize(commandService);
 
             #endregion CodeXml
 
