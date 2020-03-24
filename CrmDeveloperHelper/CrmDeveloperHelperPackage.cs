@@ -341,6 +341,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             CodeXmlXsdSchemaOpenFolderCommand.Initialize(commandService);
             CodeXmlXsdSchemaSetCommand.Initialize(commandService);
+            CodeXmlXsdSchemaSetProperCommand.Initialize(commandService);
             CodeXmlXsdSchemaRemoveCommand.Initialize(commandService);
 
             #endregion CodeXml

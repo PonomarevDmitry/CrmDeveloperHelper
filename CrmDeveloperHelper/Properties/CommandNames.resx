@@ -439,5 +439,12 @@
   <data name="CodeXmlWebResourceDependencyXmlUpdateCommand" xml:space="preserve">
     <value>Update WebResource DependencyXml</value>
   </data>
+  <data name="CodeXmlXsdSchemaSetProperCommandFormat1" xml:space="preserve">
+    <value>Set Xsd Schema {0}</value>
+  </data>
+  
+  
+  
+  
   
 </root>

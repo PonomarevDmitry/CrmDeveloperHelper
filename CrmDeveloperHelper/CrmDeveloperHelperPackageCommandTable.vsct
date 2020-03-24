@@ -3414,7 +3414,7 @@
           <ButtonText>CodeWebResourceGetAttributeDependencyXmlInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      
+
       <Button guid="guidCommandSet" id="CodeWebResourceExplorerCommandId" priority="0x0105" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -3660,6 +3660,16 @@
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>Open Xsd Schema Default Folder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommandSet" id="CodeXmlXsdSchemaSetProperCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Set Xsd Schema Proper</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidDynamicCommandSet" id="CodeXmlXsdSchemaSetCommandId" priority="0x0100" type="Button">
@@ -5545,7 +5555,7 @@
           <ButtonText>Compare with details without UTF8</ButtonText>
         </Strings>
       </Button>
-      
+
       <Button guid="guidDynamicCommandSet" id="FileWebResourceCreateEntityDescriptionInConnectionCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -11341,10 +11351,14 @@
 
     <!-- #region codeMenuXml_GroupXsdSchema -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas" priority="0x106">
+
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlXsdSchemaSetProperCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CodeXmlXsdSchemaRemoveCommandId" priority="0x107">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlXsdSchemaRemoveCommandId" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema" />
     </CommandPlacement>
 
@@ -15837,15 +15851,15 @@
     <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlWebResourceDependencyXmlUpdateInConnectionCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlUpdate_MenuConnectionDyn_Group" />
     </CommandPlacement>
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
 
     <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlXsdSchemaSetCommandId" priority="0x106">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas_Group" />
@@ -17815,7 +17829,7 @@
 
       <IDSymbol name="codeMenuWebResource_GroupEntity_MenuGetAttributeDependencyXmlDyn" value="0x13C5" />
       <IDSymbol name="codeMenuWebResource_GroupEntity_MenuGetAttributeDependencyXmlDyn_Group" value="0x13C6" />
-      
+
       <IDSymbol name="codeMenuWebResource_GroupExplorer" value="0x1006" />
       <IDSymbol name="codeMenuWebResource_GroupOpenInWeb" value="0x107D" />
 
@@ -17940,15 +17954,15 @@
 
 
       <IDSymbol name="codeMenuXml_GroupWebResourceDependencyXmlShowDifference" value="0x13D0" />
-      
+
       <IDSymbol name="codeMenuXml_GroupWebResourceDependencyXmlShowDifference_MenuOpenInWebConnectionDyn" value="0x13D1" />
       <IDSymbol name="codeMenuXml_GroupWebResourceDependencyXmlShowDifference_MenuOpenInWebConnectionDyn_Group" value="0x13D2" />
-      
+
       <IDSymbol name="codeMenuXml_GroupWebResourceDependencyXmlShowDifference_MenuConnectionDyn" value="0x13D3" />
       <IDSymbol name="codeMenuXml_GroupWebResourceDependencyXmlShowDifference_MenuConnectionDyn_Group" value="0x13D4" />
-      
+
       <IDSymbol name="codeMenuXml_GroupWebResourceDependencyXmlUpdate" value="0x13D5" />
-      
+
       <IDSymbol name="codeMenuXml_GroupWebResourceDependencyXmlUpdate_MenuConnectionDyn" value="0x13D6" />
       <IDSymbol name="codeMenuXml_GroupWebResourceDependencyXmlUpdate_MenuConnectionDyn_Group" value="0x13D7" />
 
@@ -19694,13 +19708,14 @@
       <IDSymbol name="CodeXmlWorkflowShowDifferenceCommandId" value="0x220C" />
       <IDSymbol name="CodeXmlWorkflowUpdateCommandId" value="0x220D" />
 
-      
+
       <IDSymbol name="CodeXmlWebResourceDependencyXmlExplorerCommandId" value="0x2227" />
       <IDSymbol name="CodeXmlWebResourceDependencyXmlShowDifferenceCommandId" value="0x2228" />
       <IDSymbol name="CodeXmlWebResourceDependencyXmlUpdateCommandId" value="0x2229" />
-      
+
 
       <IDSymbol name="CodeXmlXsdSchemaRemoveCommandId" value="0x216E" />
+      <IDSymbol name="CodeXmlXsdSchemaSetProperCommandId" value="0x222A" />
 
       <IDSymbol name="CodeXmlXsdSchemaOpenFolderCommandId" value="0x216F" />
 
@@ -20376,9 +20391,9 @@
     <!-- 0x13D8 -->
 
     <!-- Commands -->
-    <!-- 0x222A -->
+    <!-- 0x222B -->
 
 
   </Symbols>
-  
+
 </CommandTable>

@@ -3,8 +3,6 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
@@ -78,15 +76,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             , {  SchemaVisualizationDataDescription, new string[] { "VisualizationDataDescription.xsd" } }
         };
 
-        public static string[] GetXsdSchemas(string key)
-        {
-            return ListXsdSchemas.FirstOrDefault(e => string.Equals(e.Item1, key, StringComparison.InvariantCultureIgnoreCase))?.Item2;
-        }
-
-        public AbstractDynamicCommandXsdSchemas(
-            OleMenuCommandService commandService
-            , int baseIdStart
-        ) : base(commandService, baseIdStart, ListXsdSchemas.Count)
+        public AbstractDynamicCommandXsdSchemas(OleMenuCommandService commandService, int baseIdStart)
+            : base(commandService, baseIdStart, ListXsdSchemas.Count)
         {
         }
 
@@ -98,6 +89,56 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
         protected override string GetElementName(Tuple<string, string[]> schemas)
         {
             return schemas.Item1;
+        }
+
+        public static string[] GetXsdSchemas(string key)
+        {
+            return ListXsdSchemas.FirstOrDefault(e => string.Equals(e.Item1, key, StringComparison.InvariantCultureIgnoreCase))?.Item2;
+        }
+
+        public static string[] GetXsdSchemasByRootName(string docRootName)
+        {
+            var schemas = GetSchemaByRootName(docRootName);
+
+            if (!string.IsNullOrEmpty(schemas))
+            {
+                return GetXsdSchemas(schemas);
+            }
+
+            return null;
+        }
+
+        public static string GetSchemaByRootName(string docRootName)
+        {
+            string schemas = string.Empty;
+
+            if (string.Equals(docRootName, RootSiteMap, StringComparison.InvariantCultureIgnoreCase))
+            {
+                schemas = SchemaSiteMapXml;
+            }
+            else if (string.Equals(docRootName, RootRibbonDiffXml, StringComparison.InvariantCultureIgnoreCase)
+                || string.Equals(docRootName, RootRibbonDefinitions, StringComparison.InvariantCultureIgnoreCase)
+            )
+            {
+                schemas = SchemaRibbonXml;
+            }
+            else if (string.Equals(docRootName, RootFetch, StringComparison.InvariantCultureIgnoreCase)
+                || string.Equals(docRootName, RootGrid, StringComparison.InvariantCultureIgnoreCase)
+                || string.Equals(docRootName, RootColumnSet, StringComparison.InvariantCultureIgnoreCase)
+            )
+            {
+                schemas = SchemaFetch;
+            }
+            else if (string.Equals(docRootName, RootForm, StringComparison.InvariantCultureIgnoreCase))
+            {
+                schemas = SchemaFormXml;
+            }
+            else if (string.Equals(docRootName, RootWebResourceDependencies, StringComparison.InvariantCultureIgnoreCase))
+            {
+                schemas = SchemaDependencyXml;
+            }
+
+            return schemas;
         }
     }
 }

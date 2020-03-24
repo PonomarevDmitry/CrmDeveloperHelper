@@ -421,6 +421,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Set Xsd Schema {0}.
+        /// </summary>
+        internal static string CodeXmlXsdSchemaSetProperCommandFormat1 {
+            get {
+                return ResourceManager.GetString("CodeXmlXsdSchemaSetProperCommandFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - {1}.
         /// </summary>
         internal static string CommandNameWithConnectionFormat2 {

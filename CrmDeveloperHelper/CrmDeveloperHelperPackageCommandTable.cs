@@ -2287,6 +2287,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeXmlXsdSchemaRemoveCommandId = 0x216E;
 
+            public const int CodeXmlXsdSchemaSetProperCommandId = 0x222A;
+
             public const int CodeXmlXsdSchemaOpenFolderCommandId = 0x216F;
 
             public const int CodeReportLinkCreateCommandId = 0x2009;
