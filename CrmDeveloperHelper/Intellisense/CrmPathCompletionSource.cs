@@ -86,7 +86,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
             if (intellisenseData == null
                 || intellisenseData.Entities == null
-                )
+            )
             {
                 return;
             }
@@ -446,12 +446,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
         {
             List<CrmCompletion> list = new List<CrmCompletion>();
 
-            var keys = intellisenseData.Entities.Keys.ToList();
+            var entityList = intellisenseData.Entities.Values.OrderBy(e => e.IsIntersectEntity).ThenBy(e => e.EntityLogicalName).ToList();
 
-            foreach (var entityName in keys.OrderBy(s => s))
+            foreach (var entityData in entityList)
             {
-                var entityData = intellisenseData.Entities[entityName];
-
                 string entityDescription = CrmIntellisenseCommon.GetDisplayTextEntity(entityData);
 
                 List<string> compareValues = CrmIntellisenseCommon.GetCompareValuesForEntity(entityData);
@@ -504,16 +502,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
         {
             List<CrmCompletion> list = new List<CrmCompletion>();
 
-            var entities = intellisenseData.Entities.Values.Where(e => entityNameHash.Contains(e.EntityLogicalName)).OrderBy(e => e.EntityLogicalName).ToList();
+            var entitiesList = intellisenseData.Entities.Values.Where(e => entityNameHash.Contains(e.EntityLogicalName)).OrderBy(e => e.IsIntersectEntity).ThenBy(e => e.EntityLogicalName).ToList();
 
-            FillAttributeReferencedEntities(completionSets, applicableTo, entities);
+            FillAttributeReferencedEntities(completionSets, applicableTo, entitiesList);
         }
 
         private void FillMultiLinkEntityForAll(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, ConnectionIntellisenseData intellisenseData)
         {
-            var entities = intellisenseData.Entities.Values.Where(e => !string.IsNullOrEmpty(e.EntityPrimaryIdAttribute)).OrderBy(e => e.EntityLogicalName).ToList();
+            var entitiesList = intellisenseData.Entities.Values.Where(e => !string.IsNullOrEmpty(e.EntityPrimaryIdAttribute)).OrderBy(e => e.IsIntersectEntity).ThenBy(e => e.EntityLogicalName).ToList();
 
-            FillAttributeReferencedEntities(completionSets, applicableTo, entities);
+            FillAttributeReferencedEntities(completionSets, applicableTo, entitiesList);
         }
 
         private void FillAttributeReferencedEntities(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, IEnumerable<EntityIntellisenseData> entities)

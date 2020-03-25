@@ -630,9 +630,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 && connectionData.IntellisenseData.Entities != null
             )
             {
-                foreach (var item in connectionData.IntellisenseData.Entities.Keys.OrderBy(s => s))
+                var entityList = connectionData.IntellisenseData.Entities.Values.OrderBy(e => e.IsIntersectEntity).ThenBy(e => e.EntityLogicalName).ToList();
+
+                foreach (var entityData in entityList)
                 {
-                    comboBox.Items.Add(item);
+                    comboBox.Items.Add(entityData.EntityLogicalName);
                 }
             }
 
@@ -663,11 +665,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 && connectionData2.IntellisenseData.Entities != null
             )
             {
-                foreach (var item in connectionData2.IntellisenseData.Entities.Keys.OrderBy(s => s))
+                var entityList = connectionData2.IntellisenseData.Entities.Values.OrderBy(e => e.IsIntersectEntity).ThenBy(e => e.EntityLogicalName).ToList();
+
+                foreach (var entityData in entityList)
                 {
-                    if (entities.Contains(item))
+                    if (entities.Contains(entityData.EntityLogicalName))
                     {
-                        comboBox.Items.Add(item);
+                        comboBox.Items.Add(entityData.EntityLogicalName);
                     }
                 }
             }

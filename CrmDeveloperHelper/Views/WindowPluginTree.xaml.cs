@@ -2707,25 +2707,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void FillEntityNames(ConnectionData connectionData)
         {
-            if (connectionData != null
-                && connectionData.IntellisenseData != null
-                && connectionData.IntellisenseData.Entities != null
-                )
+            cmBEntityName.Dispatcher.Invoke(() =>
             {
-                cmBEntityName.Dispatcher.Invoke(() =>
-                {
-                    string text = cmBEntityName.Text;
-
-                    cmBEntityName.Items.Clear();
-
-                    foreach (var item in connectionData.IntellisenseData.Entities.Keys.OrderBy(s => s))
-                    {
-                        cmBEntityName.Items.Add(item);
-                    }
-
-                    cmBEntityName.Text = text;
-                });
-            }
+                LoadEntityNames(cmBEntityName, connectionData);
+            });
         }
 
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)

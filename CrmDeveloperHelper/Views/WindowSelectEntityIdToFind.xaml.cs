@@ -71,22 +71,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadEntityNames(ConnectionData connectionData)
         {
-            string text = cmBEntityTypeNameOrCode.Text;
-
-            cmBEntityTypeNameOrCode.Items.Clear();
-
-            if (connectionData != null
-                && connectionData.IntellisenseData != null
-                && connectionData.IntellisenseData.Entities != null
-                )
+            cmBEntityTypeNameOrCode.Dispatcher.Invoke(() =>
             {
-                foreach (var item in connectionData.IntellisenseData.Entities.Keys.OrderBy(s => s))
-                {
-                    cmBEntityTypeNameOrCode.Items.Add(item);
-                }
-            }
-
-            cmBEntityTypeNameOrCode.Text = text;
+                LoadEntityNames(cmBEntityTypeNameOrCode, connectionData);
+            });
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

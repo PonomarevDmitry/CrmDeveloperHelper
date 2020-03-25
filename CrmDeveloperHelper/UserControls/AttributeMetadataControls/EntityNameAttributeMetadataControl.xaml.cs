@@ -81,10 +81,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                 && _service.ConnectionData.IntellisenseData.Entities != null
             )
             {
-                foreach (var entityName in _service.ConnectionData.IntellisenseData.Entities.Keys.ToList().OrderBy(o => o))
-                {
-                    var entityData = _service.ConnectionData.IntellisenseData.Entities[entityName];
+                var entityArray = _service.ConnectionData.IntellisenseData.Entities.Values.ToList().OrderBy(e => e.IsIntersectEntity).ThenBy(e => e.EntityLogicalName).ToArray();
 
+                foreach (var entityData in entityArray)
+                {
                     var newItem = new ComboBoxItem()
                     {
                         Content = $"{entityData.EntityLogicalName} - {entityData.ObjectTypeCode}",
@@ -93,7 +93,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 
                     cmBValue.Items.Add(newItem);
 
-                    if (string.Equals(entityName, _initialValue, StringComparison.InvariantCultureIgnoreCase))
+                    if (string.Equals(entityData.EntityLogicalName, _initialValue, StringComparison.InvariantCultureIgnoreCase))
                     {
                         currentItem = newItem;
                     }

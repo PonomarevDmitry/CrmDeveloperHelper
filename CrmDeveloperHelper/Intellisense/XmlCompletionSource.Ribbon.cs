@@ -141,7 +141,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                         if (connectionIntellisense != null
                             && connectionIntellisense.Entities != null
                             && connectionIntellisense.Entities.ContainsKey(attrEntityName.Value)
-                            )
+                        )
                         {
                             ribbonIntellisenseData = repositoryRibbon.GetRibbonIntellisenseData(attrEntityName.Value);
                         }
@@ -305,7 +305,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
                         if (entityIntellisenseData != null
                             && entityIntellisenseData.Entities.ContainsKey(attrEntityName.Value)
-                            )
+                        )
                         {
                             FillEntityIntellisenseDataAttributes(completionSets, applicableTo, entityIntellisenseData.Entities[attrEntityName.Value]);
                         }

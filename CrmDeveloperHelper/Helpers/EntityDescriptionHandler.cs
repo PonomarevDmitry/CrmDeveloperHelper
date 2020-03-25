@@ -395,7 +395,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         && connectionData.IntellisenseData.Entities.ContainsKey(entity.LogicalName)
                         && value is Guid idValue
                         && string.Equals(connectionData.IntellisenseData.Entities[entity.LogicalName].EntityPrimaryIdAttribute, attributeName, StringComparison.InvariantCultureIgnoreCase)
-                        )
+                    )
                     {
                         value = new PrimaryGuidView(connectionData, entity.LogicalName, idValue);
                     }
@@ -553,7 +553,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                                 && intellisenseData.Entities != null
                                 && intellisenseData.Entities.ContainsKey(parentEntityName.Value)
                                 && intellisenseData.Entities[parentEntityName.Value].Attributes != null
-                                )
+                            )
                             {
                                 foreach (var attrName in intellisenseData.Entities[parentEntityName.Value].Attributes.Keys)
                                 {

@@ -348,7 +348,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 && this.IntellisenseData.Entities != null
                 && this.IntellisenseData.Entities.ContainsKey(entityName)
                 && this.IntellisenseData.Entities[entityName].MetadataId.HasValue
-                )
+            )
             {
                 return this.IntellisenseData.Entities[entityName].MetadataId.Value;
             }
