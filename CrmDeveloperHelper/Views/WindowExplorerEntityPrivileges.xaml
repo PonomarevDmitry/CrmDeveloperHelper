@@ -246,6 +246,12 @@
                     </DataGrid.ItemContainerStyle>
                     <DataGrid.Columns>
 
+                        <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsIntersect, Mode=OneTime}" CanUserResize="False">
+                            <DataGridCheckBoxColumn.Header>
+                                <Label Content="I" Margin="0" Padding="0" ToolTip="IsIntersect" />
+                            </DataGridCheckBoxColumn.Header>
+                        </DataGridCheckBoxColumn>
+
                         <DataGridTextColumn Header="Entity Name" Width="260" Binding="{Binding LogicalName, Mode=OneTime}" />
 
                         <DataGridTextColumn Header="Display Name" Width="260" Binding="{Binding DisplayName, Mode=OneTime}" />

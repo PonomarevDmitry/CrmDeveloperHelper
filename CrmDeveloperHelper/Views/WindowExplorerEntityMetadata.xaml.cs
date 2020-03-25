@@ -401,7 +401,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this.lstVwEntities.Dispatcher.Invoke(() =>
             {
-                foreach (var entity in results)
+                foreach (var entity in results
+                    .OrderBy(e => e.IsIntersect)
+                    .ThenBy(e => e.LogicalName)
+                )
                 {
                     EntityMetadataListViewItem item = new EntityMetadataListViewItem(entity);
 

@@ -15,7 +15,7 @@
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
                 <MenuItem Header="Open Entity Customization in Web" Click="mIOpenEntityInWeb_Click" FontWeight="Bold" />
-                
+
                 <Separator/>
                 <MenuItem Header="Open Entity List in Web" Click="mIOpenEntityListInWeb_Click" />
 
@@ -91,14 +91,14 @@
 
             <ContextMenu x:Key="listContextMenuEntityRelationship" Opened="ContextMenuEntityRelationship_Opened">
                 <MenuItem Header="Open EntityRelationship Customization in Web" Click="mIOpenEntityRelationshipInWeb_Click" FontWeight="Bold" />
-                
+
                 <Separator/>
                 <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" />
                 <MenuItem Header="Add to Crm Solution" Click="AddEntityRelationshipToCrmSolution_Click" />
-                
+
                 <Separator/>
                 <MenuItem Header="Open Solutions Containing Component in Explorer" Click="mIEntityRelationshipOpenSolutionsContainingComponentInExplorer_Click" />
-                
+
                 <Separator/>
                 <MenuItem Header="Dependent Components">
                     <MenuItem Header="Open Dependent Components in Web" Click="mIEntityRelationshipOpenDependentComponentsInWeb_Click" />
@@ -215,7 +215,7 @@
                 </Grid.RowDefinitions>
 
                 <Grid Grid.Row="0">
-                    
+
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -247,6 +247,12 @@
                         </Style>
                     </DataGrid.ItemContainerStyle>
                     <DataGrid.Columns>
+
+                        <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsIntersect, Mode=OneTime}" CanUserResize="False">
+                            <DataGridCheckBoxColumn.Header>
+                                <Label Content="I" Margin="0" Padding="0" ToolTip="IsIntersect" />
+                            </DataGridCheckBoxColumn.Header>
+                        </DataGridCheckBoxColumn>
 
                         <DataGridTextColumn Header="Entity Name" Width="260" Binding="{Binding LogicalName, Mode=OneTime}" />
 

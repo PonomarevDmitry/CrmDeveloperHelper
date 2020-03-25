@@ -11,6 +11,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public EntityMetadata EntityMetadata { get; private set; }
 
+        public bool IsIntersect => EntityMetadata.IsIntersect.GetValueOrDefault();
+
         public EntityMetadataListViewItem(EntityMetadata entityMetadata)
         {
             this.DisplayName = CreateFileHandler.GetLocalizedLabel(entityMetadata.DisplayName);

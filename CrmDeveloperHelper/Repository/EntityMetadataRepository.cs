@@ -189,6 +189,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 , nameof(EntityMetadata.DisplayCollectionName)
                 , nameof(EntityMetadata.OwnershipType)
                 , nameof(EntityMetadata.ObjectTypeCode)
+                , nameof(EntityMetadata.IsIntersect)
             )
             {
                 AllProperties = false,
@@ -769,6 +770,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 , nameof(EntityMetadata.Description)
                 , nameof(EntityMetadata.ObjectTypeCode)
                 , nameof(EntityMetadata.Privileges)
+                , nameof(EntityMetadata.IsIntersect)
             )
             {
                 AllProperties = false,

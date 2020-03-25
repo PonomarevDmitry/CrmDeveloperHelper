@@ -463,7 +463,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this.lstVwEntities.Dispatcher.Invoke(() =>
             {
-                foreach (var entity in results.OrderBy(s => s.LogicalName))
+                foreach (var entity in results
+                    .OrderBy(s => s.IsIntersect)
+                    .ThenBy(s => s.LogicalName)
+                )
                 {
                     _itemsSourceEntityList.Add(entity);
                 }
