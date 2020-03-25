@@ -383,12 +383,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     RoleRepository repository = new RoleRepository(service);
 
                     list = await repository.GetListAsync(filterRole
-                        , new ColumnSet(
-                                Role.Schema.Attributes.name
-                                , Role.Schema.Attributes.businessunitid
-                                , Role.Schema.Attributes.ismanaged
-                                , Role.Schema.Attributes.iscustomizable
-                                ));
+                        , new ColumnSet
+                        (
+                            Role.Schema.Attributes.name
+                            , Role.Schema.Attributes.businessunitid
+                            , Role.Schema.Attributes.ismanaged
+                            , Role.Schema.Attributes.iscustomizable
+                        )
+                    );
                 }
             }
             catch (Exception ex)
@@ -550,7 +552,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.lstVwEntityPrivileges.Dispatcher.Invoke(() =>
             {
-                foreach (var entity in listEntityPrivileges.OrderBy(s => s.LogicalName))
+                foreach (var entity in listEntityPrivileges
+                    .OrderBy(s => s.IsIntersect)
+                    .ThenBy(s => s.LogicalName)
+                )
                 {
                     entity.PropertyChanged -= rolePrivilege_PropertyChanged;
                     entity.PropertyChanged -= rolePrivilege_PropertyChanged;
@@ -567,7 +572,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.lstVwOtherPrivileges.Dispatcher.Invoke(() =>
             {
-                foreach (var otherPriv in listOtherPrivileges.OrderBy(s => s.EntityLogicalName).ThenBy(s => s.Name, new PrivilegeNameComparer()))
+                foreach (var otherPriv in listOtherPrivileges
+                    .OrderBy(s => s.EntityLogicalName)
+                    .ThenBy(s => s.Name, new PrivilegeNameComparer())
+                )
                 {
                     otherPriv.PropertyChanged -= rolePrivilege_PropertyChanged;
                     otherPriv.PropertyChanged -= rolePrivilege_PropertyChanged;

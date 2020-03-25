@@ -1,6 +1,5 @@
 ﻿using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Metadata;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using System;
 using System.Collections.Concurrent;
@@ -28,6 +27,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         public EntityMetadata EntityMetadata { get; private set; }
 
         public string LogicalName => EntityMetadata.LogicalName;
+
+        public bool IsIntersect => EntityMetadata.IsIntersect.GetValueOrDefault();
 
         public string DisplayName { get; private set; }
 

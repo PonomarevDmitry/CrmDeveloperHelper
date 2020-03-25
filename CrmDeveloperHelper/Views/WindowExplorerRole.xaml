@@ -808,6 +808,19 @@
                                     </DataGridCheckBoxColumn.Header>
                                 </DataGridCheckBoxColumn>
 
+                                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsIntersect, Mode=OneTime}" IsReadOnly="True" CanUserResize="False">
+                                    <DataGridCheckBoxColumn.ElementStyle>
+                                        <Style TargetType="CheckBox">
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                                            <Setter Property="IsEnabled" Value="False"/>
+                                        </Style>
+                                    </DataGridCheckBoxColumn.ElementStyle>
+                                    <DataGridCheckBoxColumn.Header>
+                                        <Label Content="I" Margin="0" Padding="0" ToolTip="IsIntersect" />
+                                    </DataGridCheckBoxColumn.Header>
+                                </DataGridCheckBoxColumn>
+
                                 <DataGridTextColumn x:Name="colEntityName" Header="Entity Name" Width="200" Binding="{Binding LogicalName, Mode=OneTime}" >
                                     <DataGridTextColumn.ElementStyle>
                                         <Style TargetType="TextBlock">

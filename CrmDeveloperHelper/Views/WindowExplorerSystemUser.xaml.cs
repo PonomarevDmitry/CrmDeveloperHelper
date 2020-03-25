@@ -577,7 +577,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.lstVwEntityPrivileges.Dispatcher.Invoke(() =>
             {
-                foreach (var entity in listEntityPrivileges.OrderBy(s => s.LogicalName))
+                foreach (var entity in listEntityPrivileges
+                    .OrderBy(s => s.IsIntersect)
+                    .ThenBy(s => s.LogicalName)
+                )
                 {
                     _itemsSourceEntityPrivileges.Add(entity);
                 }
@@ -590,7 +593,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.lstVwOtherPrivileges.Dispatcher.Invoke(() =>
             {
-                foreach (var otherPriv in listOtherPrivileges.OrderBy(s => s.EntityLogicalName).ThenBy(s => s.Name, new PrivilegeNameComparer()))
+                foreach (var otherPriv in listOtherPrivileges
+                    .OrderBy(s => s.EntityLogicalName)
+                    .ThenBy(s => s.Name, new PrivilegeNameComparer())
+                )
                 {
                     _itemsSourceOtherPrivileges.Add(otherPriv);
                 }

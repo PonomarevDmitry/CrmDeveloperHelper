@@ -448,6 +448,18 @@
                             </DataGrid.ItemContainerStyle>
                             <DataGrid.Columns>
 
+                                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsIntersect, Mode=OneTime}" IsReadOnly="True" CanUserResize="False">
+                                    <DataGridCheckBoxColumn.ElementStyle>
+                                        <Style TargetType="CheckBox">
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                                        </Style>
+                                    </DataGridCheckBoxColumn.ElementStyle>
+                                    <DataGridCheckBoxColumn.Header>
+                                        <Label Content="I" Margin="0" Padding="0" ToolTip="IsIntersect" />
+                                    </DataGridCheckBoxColumn.Header>
+                                </DataGridCheckBoxColumn>
+
                                 <DataGridTextColumn Header="Entity Name" Width="200" Binding="{Binding LogicalName, Mode=OneTime}" />
                                 <DataGridTextColumn Header="Display Name" Width="200" Binding="{Binding DisplayName, Mode=OneTime}" />
 
