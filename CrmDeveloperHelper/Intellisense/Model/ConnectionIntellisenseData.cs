@@ -31,7 +31,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
             this.Entities = new ConcurrentDictionary<string, EntityIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
         }
 
-        public void LoadFullData(IEnumerable<EntityMetadata> entityMetadataList)
+        public void LoadSomeData(IEnumerable<EntityMetadata> entityMetadataList)
         {
             foreach (var entityMetadata in entityMetadataList)
             {
@@ -41,6 +41,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                 }
 
                 this.Entities[entityMetadata.LogicalName].LoadData(entityMetadata);
+            }
+
+            SaveIntellisenseDataByTime();
+        }
+
+        public void LoadFullData(IEnumerable<EntityMetadata> entityMetadataList)
+        {
+            var hashSet = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+
+            foreach (var entityMetadata in entityMetadataList)
+            {
+                hashSet.Add(entityMetadata.LogicalName);
+
+                if (!this.Entities.ContainsKey(entityMetadata.LogicalName))
+                {
+                    this.Entities.TryAdd(entityMetadata.LogicalName, new EntityIntellisenseData());
+                }
+
+                this.Entities[entityMetadata.LogicalName].LoadData(entityMetadata);
+            }
+
+            foreach (var entityName in this.Entities.Keys.ToList())
+            {
+                if (!hashSet.Contains(entityName))
+                {
+                    this.Entities.TryRemove(entityName, out _);
+                }
             }
 
             SaveIntellisenseDataByTime();

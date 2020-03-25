@@ -223,7 +223,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
                 if (response is RetrieveMetadataChangesResponse retrieveMetadataChangesResponse && retrieveMetadataChangesResponse.EntityMetadata != null)
                 {
-                    Task.Run(() => this.ConnectionData.IntellisenseData.LoadFullData(retrieveMetadataChangesResponse.EntityMetadata));
+                    Task.Run(() => this.ConnectionData.IntellisenseData.LoadSomeData(retrieveMetadataChangesResponse.EntityMetadata));
                 }
 
                 if (response is RetrieveAllEntitiesResponse retrieveAllEntitiesResponse && retrieveAllEntitiesResponse.EntityMetadata != null)
@@ -263,7 +263,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
                 if (response is RetrieveMetadataChangesResponse retrieveMetadataChangesResponse && retrieveMetadataChangesResponse.EntityMetadata != null)
                 {
-                    this.ConnectionData.IntellisenseData.LoadFullData(retrieveMetadataChangesResponse.EntityMetadata);
+                    this.ConnectionData.IntellisenseData.LoadSomeData(retrieveMetadataChangesResponse.EntityMetadata);
                 }
 
                 if (response is RetrieveAllEntitiesResponse retrieveAllEntitiesResponse && retrieveAllEntitiesResponse.EntityMetadata != null)
