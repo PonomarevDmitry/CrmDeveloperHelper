@@ -708,6 +708,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             #region Security
 
+            CommonOtherPrivilegesExplorerCommand.Initialize(commandService);
             CommonSystemUsersExplorerCommand.Initialize(commandService);
             CommonTeamsExplorerCommand.Initialize(commandService);
             CommonSecurityRolesExplorerCommand.Initialize(commandService);
@@ -852,6 +853,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             OutputEntityPrivilegesExplorerCommand.Initialize(commandService);
             OutputEntityRelationshipManyToManyExplorerCommand.Initialize(commandService);
             OutputEntityRelationshipOneToManyExplorerCommand.Initialize(commandService);
+            OutputOtherPrivilegesExplorerCommand.Initialize(commandService);
 
             OutputGlobalOptionSetsExplorerCommand.Initialize(commandService);
             OutputImportJobExplorerInConnectionCommand.Initialize(commandService);

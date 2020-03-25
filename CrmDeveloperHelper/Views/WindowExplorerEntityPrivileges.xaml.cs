@@ -37,7 +37,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly ObservableCollection<EntityMetadataListViewItem> _itemsSourceEntityList;
 
-        private readonly ObservableCollection<RolePrivilegeViewItem> _itemsSourceSecurityRoleList;
+        private readonly ObservableCollection<RoleEntityPrivilegesViewItem> _itemsSourceSecurityRoleList;
 
         private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
 
@@ -99,7 +99,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _itemsSourceEntityList = new ObservableCollection<EntityMetadataListViewItem>();
             lstVwEntities.ItemsSource = _itemsSourceEntityList;
 
-            _itemsSourceSecurityRoleList = new ObservableCollection<RolePrivilegeViewItem>();
+            _itemsSourceSecurityRoleList = new ObservableCollection<RoleEntityPrivilegesViewItem>();
             lstVwSecurityRoles.ItemsSource = _itemsSourceSecurityRoleList;
 
             cmBCurrentConnection.ItemsSource = service.ConnectionData.ConnectionConfiguration.Connections;
@@ -537,7 +537,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 textName = txtBFilterSecurityRole.Text.Trim().ToLower();
             });
 
-            IEnumerable<RolePrivilegeViewItem> list = Enumerable.Empty<RolePrivilegeViewItem>();
+            IEnumerable<RoleEntityPrivilegesViewItem> list = Enumerable.Empty<RoleEntityPrivilegesViewItem>();
 
             try
             {
@@ -563,7 +563,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         var listRolePrivilege = await task;
 
-                        list = roles.Select(r => new RolePrivilegeViewItem(r, listRolePrivilege.Where(rp => rp.RoleId == r.RoleId), entityMetadata.Privileges)).ToList();
+                        list = roles.Select(r => new RoleEntityPrivilegesViewItem(r, listRolePrivilege.Where(rp => rp.RoleId == r.RoleId), entityMetadata.Privileges)).ToList();
                     }
                 }
             }
@@ -633,7 +633,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void LoadSecurityRoles(IEnumerable<RolePrivilegeViewItem> results)
+        private void LoadSecurityRoles(IEnumerable<RoleEntityPrivilegesViewItem> results)
         {
             this.lstVwSecurityRoles.Dispatcher.Invoke(() =>
             {
@@ -762,15 +762,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return result;
         }
 
-        private RolePrivilegeViewItem GetSelectedSecurityRole()
+        private RoleEntityPrivilegesViewItem GetSelectedSecurityRole()
         {
-            return this.lstVwSecurityRoles.SelectedItems.OfType<RolePrivilegeViewItem>().Count() == 1
-                ? this.lstVwSecurityRoles.SelectedItems.OfType<RolePrivilegeViewItem>().SingleOrDefault() : null;
+            return this.lstVwSecurityRoles.SelectedItems.OfType<RoleEntityPrivilegesViewItem>().Count() == 1
+                ? this.lstVwSecurityRoles.SelectedItems.OfType<RoleEntityPrivilegesViewItem>().SingleOrDefault() : null;
         }
 
-        private List<RolePrivilegeViewItem> GetSelectedSecurityRoles()
+        private List<RoleEntityPrivilegesViewItem> GetSelectedSecurityRoles()
         {
-            List<RolePrivilegeViewItem> result = this.lstVwSecurityRoles.SelectedItems.OfType<RolePrivilegeViewItem>().ToList();
+            List<RoleEntityPrivilegesViewItem> result = this.lstVwSecurityRoles.SelectedItems.OfType<RoleEntityPrivilegesViewItem>().ToList();
 
             return result;
         }
@@ -1554,7 +1554,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         || cell.Column == colRoleTemplate
                         )
                     {
-                        RolePrivilegeViewItem item = GetItemFromRoutedDataContext<RolePrivilegeViewItem>(e);
+                        RoleEntityPrivilegesViewItem item = GetItemFromRoutedDataContext<RoleEntityPrivilegesViewItem>(e);
 
                         if (item != null)
                         {
@@ -1578,7 +1578,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             if (menuItem.DataContext == null
-                || !(menuItem.DataContext is RolePrivilegeViewItem role)
+                || !(menuItem.DataContext is RoleEntityPrivilegesViewItem role)
                 )
             {
                 return;
@@ -1604,7 +1604,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             if (menuItem.DataContext == null
-                || !(menuItem.DataContext is RolePrivilegeViewItem role)
+                || !(menuItem.DataContext is RoleEntityPrivilegesViewItem role)
                 )
             {
                 return;
@@ -1738,7 +1738,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var list = lstVwSecurityRoles.SelectedItems.OfType<RolePrivilegeViewItem>().ToList();
+            var list = lstVwSecurityRoles.SelectedItems.OfType<RoleEntityPrivilegesViewItem>().ToList();
 
             if (!list.Any())
             {
@@ -1862,7 +1862,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     break;
             }
 
-            var list = lstVwSecurityRoles.SelectedItems.OfType<RolePrivilegeViewItem>().ToList();
+            var list = lstVwSecurityRoles.SelectedItems.OfType<RoleEntityPrivilegesViewItem>().ToList();
 
             if (!list.Any())
             {

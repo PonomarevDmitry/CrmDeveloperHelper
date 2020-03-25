@@ -991,7 +991,7 @@
                             <Button x:Name="btnRefreshOtherPrivileges" HorizontalAlignment="Left" Click="btnRefreshEntites_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" />
-                                    <TextBlock>Refresh Role Privileges</TextBlock>
+                                    <TextBlock>Refresh Other Privileges</TextBlock>
                                 </StackPanel>
                             </Button>
 

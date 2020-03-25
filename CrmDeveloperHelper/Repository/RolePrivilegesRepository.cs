@@ -543,18 +543,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return result;
         }
 
-        public Task ModifyRolePrivilegesAsync(Guid idRole
+        public Task ModifyRolePrivilegesAsync(
+            Guid idRole
             , IEnumerable<RolePrivilege> privilegesAdd
             , IEnumerable<RolePrivilege> privilegesRemove
-            )
+        )
         {
             return Task.Run(() => ModifyRolePrivileges(idRole, privilegesAdd, privilegesRemove));
         }
 
-        private void ModifyRolePrivileges(Guid idRole
+        private void ModifyRolePrivileges(
+            Guid idRole
             , IEnumerable<RolePrivilege> privilegesAdd
             , IEnumerable<RolePrivilege> privilegesRemove
-            )
+        )
         {
             if (privilegesAdd != null && privilegesAdd.Any())
             {

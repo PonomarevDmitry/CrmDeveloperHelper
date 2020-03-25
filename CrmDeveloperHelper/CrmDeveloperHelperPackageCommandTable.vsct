@@ -8559,6 +8559,17 @@
           <ButtonText>Entity Privileges Explorer</ButtonText>
         </Strings>
       </Button>
+      
+      <Button guid="guidCommandSet" id="CommonOtherPrivilegesExplorerCommandId" priority="0x0101" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Other Privileges Explorer</ButtonText>
+        </Strings>
+      </Button>
 
 
 
@@ -9826,6 +9837,16 @@
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
           <ButtonText>Entity Privileges Explorer</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidCommandSet" id="OutputOtherPrivilegesExplorerCommandId" priority="0x6000" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Other Privileges Explorer</ButtonText>
         </Strings>
       </Button>
 
@@ -14638,16 +14659,19 @@
 
     <!-- #region commonMenu_GroupSecurityInformation_Menu_Group -->
 
-    <CommandPlacement guid="guidCommandSet" id="CommonEntityPrivilegesExplorerCommandId" priority="0x0103">
+    <CommandPlacement guid="guidCommandSet" id="CommonEntityPrivilegesExplorerCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation_Menu_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonSystemUsersExplorerCommandId" priority="0x0126">
+    <CommandPlacement guid="guidCommandSet" id="CommonOtherPrivilegesExplorerCommandId" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation_Menu_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonTeamsExplorerCommandId" priority="0x0126">
+    <CommandPlacement guid="guidCommandSet" id="CommonSystemUsersExplorerCommandId" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation_Menu_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonSecurityRolesExplorerCommandId" priority="0x0126">
+    <CommandPlacement guid="guidCommandSet" id="CommonTeamsExplorerCommandId" priority="0x06030">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation_Menu_Group" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CommonSecurityRolesExplorerCommandId" priority="0x06040">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation_Menu_Group" />
     </CommandPlacement>
 
@@ -17286,16 +17310,19 @@
 
     <!-- #region outputMenu_GroupSecurityInformation_Menu_Group -->
 
-    <CommandPlacement guid="guidCommandSet" id="OutputEntityPrivilegesExplorerCommandId" priority="0x0103">
+    <CommandPlacement guid="guidCommandSet" id="OutputEntityPrivilegesExplorerCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupSecurityInformation_Menu_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="OutputSystemUsersExplorerCommandId" priority="0x0126">
+    <CommandPlacement guid="guidCommandSet" id="OutputOtherPrivilegesExplorerCommandId" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupSecurityInformation_Menu_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="OutputTeamsExplorerCommandId" priority="0x0126">
+    <CommandPlacement guid="guidCommandSet" id="OutputSystemUsersExplorerCommandId" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupSecurityInformation_Menu_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="OutputSecurityRolesExplorerCommandId" priority="0x0126">
+    <CommandPlacement guid="guidCommandSet" id="OutputTeamsExplorerCommandId" priority="0x06030">
+      <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupSecurityInformation_Menu_Group" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="OutputSecurityRolesExplorerCommandId" priority="0x06040">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupSecurityInformation_Menu_Group" />
     </CommandPlacement>
 
@@ -20173,6 +20200,7 @@
       <IDSymbol name="CommonEntityRelationshipOneToManyExplorerCommandId" value="0x2173" />
       <IDSymbol name="CommonEntityRelationshipManyToManyExplorerCommandId" value="0x2174" />
       <IDSymbol name="CommonEntityPrivilegesExplorerCommandId" value="0x217F" />
+      <IDSymbol name="CommonOtherPrivilegesExplorerCommandId" value="0x222C" />
 
 
 
@@ -20356,7 +20384,8 @@
       <IDSymbol name="OutputEntityKeyExplorerCommandId" value="0x21E9" />
       <IDSymbol name="OutputEntityRelationshipOneToManyExplorerCommandId" value="0x21EA" />
       <IDSymbol name="OutputEntityRelationshipManyToManyExplorerCommandId" value="0x21EB" />
-      <IDSymbol name="OutputEntityPrivilegesExplorerCommandId" value="0x21CEC" />
+      <IDSymbol name="OutputEntityPrivilegesExplorerCommandId" value="0x21EC" />
+      <IDSymbol name="OutputOtherPrivilegesExplorerCommandId" value="0x222D" />
 
 
 
@@ -20407,7 +20436,7 @@
     <!-- 0x13D8 -->
 
     <!-- Commands -->
-    <!-- 0x222C -->
+    <!-- 0x222E -->
 
 
   </Symbols>

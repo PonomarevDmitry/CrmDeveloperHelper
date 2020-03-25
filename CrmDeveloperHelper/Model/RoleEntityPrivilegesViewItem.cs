@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 {
-    public class RolePrivilegeViewItem : INotifyPropertyChanging, INotifyPropertyChanged
+    public class RoleEntityPrivilegesViewItem : INotifyPropertyChanging, INotifyPropertyChanged
     {
         private static readonly string[] _names =
         {
@@ -57,7 +57,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         public bool AvailableShare => _availablePrivilegesTypes.Contains(PrivilegeType.Share);
         public bool AvailableAssign => _availablePrivilegesTypes.Contains(PrivilegeType.Assign);
 
-        public RolePrivilegeViewItem(Role role, IEnumerable<RolePrivileges> rolePrivileges, IEnumerable<SecurityPrivilegeMetadata> entityPrivileges)
+        public RoleEntityPrivilegesViewItem(Role role, IEnumerable<RolePrivileges> rolePrivileges, IEnumerable<SecurityPrivilegeMetadata> entityPrivileges)
         {
             LoadData(role, rolePrivileges, entityPrivileges);
         }

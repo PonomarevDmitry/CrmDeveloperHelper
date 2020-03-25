@@ -2829,6 +2829,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CommonEntityPrivilegesExplorerCommandId = 0x217F;
 
+            public const int CommonOtherPrivilegesExplorerCommandId = 0x222C;
+
             public const int CommonApplicationRibbonExplorerCommandId = 0x2031;
 
             public const int CommonSystemFormExplorerCommandId = 0x2032;
@@ -3049,7 +3051,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int OutputEntityRelationshipManyToManyExplorerCommandId = 0x21EB;
 
-            public const int OutputEntityPrivilegesExplorerCommandId = 0x21CEC;
+            public const int OutputEntityPrivilegesExplorerCommandId = 0x21EC;
+
+            public const int OutputOtherPrivilegesExplorerCommandId = 0x222D;
 
             public const int OutputApplicationRibbonExplorerCommandId = 0x21ED;
 

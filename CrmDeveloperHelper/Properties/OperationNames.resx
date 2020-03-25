@@ -638,6 +638,9 @@
   <data name="OpeningEntityPrivilegesExplorerFormat1" xml:space="preserve">
     <value>{0} - Opening Entity Privileges Explorer</value>
   </data>
+  <data name="OpeningOtherPrivilegesExplorerFormat1" xml:space="preserve">
+    <value>{0} - Opening Other Privileges Explorer</value>
+  </data>
   <data name="OpeningSystemUsersExplorerFormat1" xml:space="preserve">
     <value>{0} - Opening SystemUsers Explorer</value>
   </data>

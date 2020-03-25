@@ -2144,6 +2144,12 @@
   <data name="FileExtentionsNotAllowedFormat1" xml:space="preserve">
     <value>File Extension {0} not allowed.</value>
   </data>
+  <data name="LoadingOtherPrivilegesCompletedFormat1" xml:space="preserve">
+    <value>{0} Other Privileges loaded.</value>
+  </data>
+  <data name="LoadingOtherPrivileges" xml:space="preserve">
+    <value>Loading Other Privileges...</value>
+  </data>
 
   <!--
   <data name="111111" xml:space="preserve">

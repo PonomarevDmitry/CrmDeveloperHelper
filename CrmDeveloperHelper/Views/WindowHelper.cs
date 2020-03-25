@@ -301,6 +301,58 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
+        public static void OpenOtherPrivilegesExplorer(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+        )
+        {
+            OpenOtherPrivilegesExplorer(iWriteToOutput, service, commonConfig, null, null);
+        }
+
+        public static void OpenOtherPrivilegesExplorer(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string filter
+        )
+        {
+            OpenOtherPrivilegesExplorer(iWriteToOutput, service, commonConfig, filter, null);
+        }
+
+        public static void OpenOtherPrivilegesExplorer(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string filter
+            , IEnumerable<Privilege> privilegesList
+        )
+        {
+            System.Threading.Thread worker = new System.Threading.Thread(() =>
+            {
+                try
+                {
+                    var form = new WindowExplorerOtherPrivileges(
+                        iWriteToOutput
+                        , service
+                        , commonConfig
+                        , privilegesList
+                        , filter
+                    );
+
+                    form.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(null, ex);
+                }
+            });
+
+            worker.SetApartmentState(System.Threading.ApartmentState.STA);
+
+            worker.Start();
+        }
+
         public static void OpenEntityEditor(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service

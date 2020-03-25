@@ -507,7 +507,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (service != null)
                 {
-                    var otherPrivileges = await GetPrivileges(service);
+                    var otherPrivileges = await GetOtherPrivileges(service);
 
                     entityMetadataList = await GetEntityMetadataEnumerable(service);
 
@@ -593,7 +593,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingEntitiesCompletedFormat1, entityMetadataList.Count());
         }
 
-        private async Task<IEnumerable<Privilege>> GetPrivileges(IOrganizationServiceExtented service)
+        private async Task<IEnumerable<Privilege>> GetOtherPrivileges(IOrganizationServiceExtented service)
         {
             if (!_cachePrivileges.ContainsKey(service.ConnectionData.ConnectionId))
             {
@@ -2361,7 +2361,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
         }
 
-        private static Model.Backup.Role CreateRoleBackupByPrivileges(Role role, IEnumerable<Microsoft.Crm.Sdk.Messages.RolePrivilege> rolePrivileges, List<Privilege> privileges)
+        private static Model.Backup.Role CreateRoleBackupByPrivileges(Role role, IEnumerable<RolePrivilege> rolePrivileges, List<Privilege> privileges)
         {
             var temp = new List<Model.Backup.RolePrivilege>();
 
@@ -2778,7 +2778,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.AnalizingRolesFormat2, sourceRole.Name, targetRole.Name);
 
-            IEnumerable<Microsoft.Crm.Sdk.Messages.RolePrivilege> newRolePrivileges = Enumerable.Empty<Microsoft.Crm.Sdk.Messages.RolePrivilege>();
+            IEnumerable<RolePrivilege> newRolePrivileges = Enumerable.Empty<RolePrivilege>();
 
             var targetRolePrivileges = await repositoryRolePrivileges.GetRolePrivilegesAsync(targetRole.Id);
 
@@ -2836,7 +2836,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.AnalizingRolesFormat2, sourceRole.Name, targetRole.Name);
 
-            IEnumerable<Microsoft.Crm.Sdk.Messages.RolePrivilege> newRolePrivileges = Enumerable.Empty<Microsoft.Crm.Sdk.Messages.RolePrivilege>();
+            IEnumerable<RolePrivilege> newRolePrivileges = Enumerable.Empty<RolePrivilege>();
 
             var targetRolePrivileges = await repositoryRolePrivileges.GetRolePrivilegesAsync(targetRole.Id);
 
@@ -3486,9 +3486,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         #endregion Comparing Privileges
 
-        private class RolePrivilegeComparer : IEqualityComparer<Microsoft.Crm.Sdk.Messages.RolePrivilege>
+        private class RolePrivilegeComparer : IEqualityComparer<RolePrivilege>
         {
-            public bool Equals(Microsoft.Crm.Sdk.Messages.RolePrivilege x, Microsoft.Crm.Sdk.Messages.RolePrivilege y)
+            public bool Equals(RolePrivilege x, RolePrivilege y)
             {
                 if (x == null && y == null)
                 {
@@ -3508,7 +3508,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            public int GetHashCode(Microsoft.Crm.Sdk.Messages.RolePrivilege obj)
+            public int GetHashCode(RolePrivilege obj)
             {
                 int result = obj.PrivilegeId.GetHashCode();
 

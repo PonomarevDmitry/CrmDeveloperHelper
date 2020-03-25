@@ -4680,6 +4680,45 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public void HandleOpenOtherPrivilegesExplorer()
+        {
+            HandleOpenOtherPrivilegesExplorer(null);
+        }
+
+        public void HandleOpenOtherPrivilegesExplorer(ConnectionData connectionData)
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null && commonConfig != null)
+            {
+                ActivateOutputWindow(connectionData);
+                WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                string selection = GetSelectedText();
+
+                try
+                {
+                    Controller.StartExplorerOtherPrivileges(selection, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToOutput(connectionData, ex);
+                }
+            }
+        }
+
         public void HandleExportFormEvents(ConnectionData connectionData)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();

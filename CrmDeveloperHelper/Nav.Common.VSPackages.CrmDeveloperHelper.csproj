@@ -136,6 +136,7 @@
     <Compile Include="Commands\CSharp\FileCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\FileCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand.cs" />
     <Compile Include="Commands\CSharp\FileCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommand.cs" />
+    <Compile Include="Commands\Explorers\CommonOtherPrivilegesExplorerCommand.cs" />
     <Compile Include="Commands\FindEdit\CommonFindEntityObjectsByNameInExplorerCommand.cs" />
     <Compile Include="Commands\FindEdit\CommonFindEntityObjectsByPrefixInExplorerCommand.cs" />
     <Compile Include="Commands\FindEdit\CommonFindEntityObjectsContainsStringInExplorerCommand.cs" />
@@ -164,6 +165,7 @@
     <Compile Include="Commands\OutputWindows\Explorers\OutputEntityAttributeExplorerCommand.cs" />
     <Compile Include="Commands\OutputWindows\Explorers\OutputEntityKeyExplorerCommand.cs" />
     <Compile Include="Commands\OutputWindows\Explorers\OutputEntityMetadataExplorerCommand.cs" />
+    <Compile Include="Commands\OutputWindows\Explorers\OutputOtherPrivilegesExplorerCommand.cs" />
     <Compile Include="Commands\OutputWindows\Explorers\OutputEntityPrivilegesExplorerCommand.cs" />
     <Compile Include="Commands\OutputWindows\Explorers\OutputEntityRelationshipManyToManyExplorerCommand.cs" />
     <Compile Include="Commands\OutputWindows\Explorers\OutputEntityRelationshipOneToManyExplorerCommand.cs" />
@@ -1126,6 +1128,7 @@
     <Compile Include="Model\OrganizationDifferenceImage.cs" />
     <Compile Include="Model\OrganizationDifferenceImageComponent.cs" />
     <Compile Include="Model\OrganizationServiceExtentedProxy.cs" />
+    <Compile Include="Model\OtherPrivilegeListViewItem.cs" />
     <Compile Include="Model\OtherPrivilegeViewItem.cs" />
     <Compile Include="Model\PluginSearchResult.cs" />
     <Compile Include="Model\PluginStage.cs" />
@@ -1137,7 +1140,8 @@
     <Compile Include="Model\RoleEditorLayoutEntity.cs" />
     <Compile Include="Model\RoleEditorLayoutPrivilege.cs" />
     <Compile Include="Model\RoleEditorLayoutTab.cs" />
-    <Compile Include="Model\RolePrivilegeViewItem.cs" />
+    <Compile Include="Model\RoleOtherPrivilegeViewItem.cs" />
+    <Compile Include="Model\RoleEntityPrivilegesViewItem.cs" />
     <Compile Include="Model\SdkMessageRequestTreeViewItem.cs" />
     <Compile Include="Model\SdkMessageSearchResult.cs" />
     <Compile Include="Model\SelectedFile.cs" />
@@ -1397,6 +1401,9 @@
     </Compile>
     <Compile Include="Views\WindowExplorerImportJob.xaml.cs">
       <DependentUpon>WindowExplorerImportJob.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowExplorerOtherPrivileges.xaml.cs">
+      <DependentUpon>WindowExplorerOtherPrivileges.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowExplorerSolutionComponentDependencies.xaml.cs">
       <DependentUpon>WindowExplorerSolutionComponentDependencies.xaml</DependentUpon>
@@ -2135,6 +2142,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WindowExplorerImportJob.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowExplorerOtherPrivileges.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

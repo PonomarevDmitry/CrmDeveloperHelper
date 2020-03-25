@@ -1519,6 +1519,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Opening Other Privileges Explorer.
+        /// </summary>
+        internal static string OpeningOtherPrivilegesExplorerFormat1 {
+            get {
+                return ResourceManager.GetString("OpeningOtherPrivilegesExplorerFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Opening Report Explorer.
         /// </summary>
         internal static string OpeningReportExplorerFormat1 {

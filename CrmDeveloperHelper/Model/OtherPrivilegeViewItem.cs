@@ -1,9 +1,6 @@
 ﻿using Microsoft.Crm.Sdk.Messages;
-using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -39,7 +36,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             this._Right = this._initialRight = GetPrivilegeLevel(rolePrivileges);
 
-            if (privilege.AccessRight.HasValue 
+            if (privilege.AccessRight.HasValue
                 && Enum.IsDefined(typeof(AccessRights), privilege.AccessRight.Value)
             )
             {
