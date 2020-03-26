@@ -199,6 +199,9 @@
         </Grid>
 
         <TreeView x:Name="trVWebResources" Grid.Row="3" Margin="5" SelectedItemChanged="trVWebResources_SelectedItemChanged" MouseDoubleClick="trVWebResources_MouseDoubleClick">
+            <TreeView.CommandBindings>
+                <CommandBinding Command="ApplicationCommands.Delete" CanExecute="trVWebResources_CanExecute" Executed="trVWebResources_Delete" />
+            </TreeView.CommandBindings>
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate DataType="{x:Type model:EntityTreeViewItem}" ItemsSource="{Binding Path=Items}">
                     <Grid HorizontalAlignment="Stretch">

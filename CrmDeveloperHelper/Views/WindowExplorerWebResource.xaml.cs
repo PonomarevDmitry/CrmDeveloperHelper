@@ -1510,5 +1510,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ShowExistingWebResources();
         }
+
+        private void trVWebResources_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+            e.ContinueRouting = false;
+        }
+
+        private void trVWebResources_Delete(object sender, ExecutedRoutedEventArgs e)
+        {
+            mIDeleteWebResource_Click(sender, e);
+        }
     }
 }

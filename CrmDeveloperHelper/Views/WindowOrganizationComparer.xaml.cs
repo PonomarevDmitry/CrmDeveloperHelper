@@ -2141,5 +2141,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
         }
+
+        private void lstVwConnections_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+            e.ContinueRouting = false;
+        }
+
+        private void lstVwConnections_Delete(object sender, ExecutedRoutedEventArgs e)
+        {
+            tSBMoveToArchive_Click(sender, e);
+        }
     }
 }

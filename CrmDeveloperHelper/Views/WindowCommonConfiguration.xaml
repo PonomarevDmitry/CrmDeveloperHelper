@@ -115,6 +115,9 @@
                     </ToolBar>
 
                     <ListView x:Name="lstVwFileActions" SelectionMode="Single" SelectionChanged="lstVwFileActions_SelectionChanged" MouseDoubleClick="lstVwFileActions_MouseDoubleClick" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" DockPanel.Dock="Right" Height="Auto" Width="Auto"  >
+                        <ListView.CommandBindings>
+                            <CommandBinding Command="ApplicationCommands.Delete" CanExecute="lstVwFileActions_CanExecute" Executed="lstVwFileActions_Delete" />
+                        </ListView.CommandBindings>
                         <ListView.ItemContainerStyle>
                             <Style TargetType="{x:Type ListViewItem}">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>

@@ -2134,5 +2134,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ExecuteActionEntity(entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], Workflow.Schema.Attributes.xaml, Workflow.Schema.Headers.CorrectedXaml, PerformExportCorrectedXmlToFile);
         }
+
+        private void lstVwWorkflows_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+            e.ContinueRouting = false;
+        }
+
+        private void lstVwWorkflows_Delete(object sender, ExecutedRoutedEventArgs e)
+        {
+            mIDeleteWorkflow_Click(sender, e);
+        }
     }
 }

@@ -225,6 +225,9 @@
         </Grid>
 
         <DataGrid x:Name="lstVwCharts" AutoGenerateColumns="False" Grid.Row="2" Margin="5" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+            <DataGrid.CommandBindings>
+                <CommandBinding Command="ApplicationCommands.Delete" CanExecute="lstVwCharts_CanExecute" Executed="lstVwCharts_Delete" />
+            </DataGrid.CommandBindings>
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>

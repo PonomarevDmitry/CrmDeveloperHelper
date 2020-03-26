@@ -1181,5 +1181,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.bodybinary, Report.Schema.Headers.bodybinary, PerformExportBodyBinary);
         }
+
+        private void lstVwReports_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+            e.ContinueRouting = false;
+        }
+
+        private void lstVwReports_Delete(object sender, ExecutedRoutedEventArgs e)
+        {
+            mIDeleteReport_Click(sender, e);
+        }
     }
 }

@@ -213,6 +213,9 @@
                         </DockPanel>
                     </ToolBar>
                     <ListView x:Name="lstVwConnections" SelectionMode="Single" SelectionChanged="lstVwConnections_SelectionChanged" DockPanel.Dock="Right" Height="Auto" Width="Auto" MouseDoubleClick="lstVwConnections_MouseDoubleClick"  >
+                        <ListView.CommandBindings>
+                            <CommandBinding Command="ApplicationCommands.Delete" CanExecute="CommandBinding_CanExecute" Executed="lstVwConnections_Delete" />
+                        </ListView.CommandBindings>
                         <ListView.ItemContainerStyle>
                             <Style TargetType="{x:Type ListViewItem}">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -371,6 +374,9 @@
                         </DockPanel>
                     </ToolBar>
                     <ListView x:Name="lstVwUsers" SelectionMode="Single" SelectionChanged="lstVwUsers_SelectionChanged" MouseDoubleClick="lstVwUsers_MouseDoubleClick" DockPanel.Dock="Right" Height="Auto" Width="Auto"  >
+                        <ListView.CommandBindings>
+                            <CommandBinding Command="ApplicationCommands.Delete" CanExecute="CommandBinding_CanExecute" Executed="lstVwUsers_Delete" />
+                        </ListView.CommandBindings>
                         <ListView.ItemContainerStyle>
                             <Style TargetType="{x:Type ListViewItem}">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -460,6 +466,9 @@
                         </DockPanel>
                     </ToolBar>
                     <ListView x:Name="lstVwArchiveConnections" SelectionMode="Single" DockPanel.Dock="Right" Height="Auto" Width="Auto" SelectionChanged="lstVwArchiveConnections_SelectionChanged" MouseDoubleClick="lstVwArchiveConnections_MouseDoubleClick" >
+                        <ListView.CommandBindings>
+                            <CommandBinding Command="ApplicationCommands.Delete" CanExecute="CommandBinding_CanExecute" Executed="lstVwArchiveConnections_Delete" />
+                        </ListView.CommandBindings>
                         <ListView.ItemContainerStyle>
                             <Style TargetType="{x:Type ListViewItem}">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>

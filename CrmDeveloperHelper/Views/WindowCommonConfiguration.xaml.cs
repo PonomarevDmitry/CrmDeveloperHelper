@@ -402,5 +402,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 UpdateButtonsFileActions();
             }
         }
+
+        private void lstVwFileActions_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+            e.ContinueRouting = false;
+        }
+
+        private void lstVwFileActions_Delete(object sender, ExecutedRoutedEventArgs e)
+        {
+            tSBFileActionDelete_Click(sender, e);
+        }
     }
 }

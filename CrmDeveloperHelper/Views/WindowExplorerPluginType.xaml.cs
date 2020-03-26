@@ -1042,5 +1042,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             SetCurrentConnection(_iWriteToOutput, cmBCurrentConnection.SelectedItem as ConnectionData);
         }
+
+        private void lstVwPluginTypes_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+            e.ContinueRouting = false;
+        }
+
+        private void lstVwPluginTypes_Delete(object sender, ExecutedRoutedEventArgs e)
+        {
+            mIDeletePluginType_Click(sender, e);
+        }
     }
 }

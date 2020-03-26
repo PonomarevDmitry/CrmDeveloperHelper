@@ -943,5 +943,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             SetCurrentConnection(_iWriteToOutput, cmBCurrentConnection.SelectedItem as ConnectionData);
         }
+
+        private void lstVwPluginAssemblies_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+            e.ContinueRouting = false;
+        }
+
+        private void lstVwPluginAssemblies_Delete(object sender, ExecutedRoutedEventArgs e)
+        {
+            mIDeletePluginAssembly_Click(sender, e);
+        }
     }
 }

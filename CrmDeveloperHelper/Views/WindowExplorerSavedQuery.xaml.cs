@@ -1864,5 +1864,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ExecuteAction(entity.Id, entity.ReturnedTypeCode, entity.Name, PerformPublishEntityAsync);
         }
+
+        private void lstVwSavedQueries_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+            e.ContinueRouting = false;
+        }
+
+        private void lstVwSavedQueries_Delete(object sender, ExecutedRoutedEventArgs e)
+        {
+            mIDeleteSavedQuery_Click(sender, e);
+        }
     }
 }

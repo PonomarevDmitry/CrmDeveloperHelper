@@ -1229,5 +1229,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ExecuteActionEntityAsync(entity.Id, entity.Name, CustomControl.Schema.Attributes.clientjson, CustomControl.Schema.Headers.clientjson, "json", PerformExportXmlToFileAsync);
         }
+
+        private void lstVwCustomControls_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+            e.ContinueRouting = false;
+        }
+
+        private void lstVwCustomControls_Delete(object sender, ExecutedRoutedEventArgs e)
+        {
+            mIDeleteCustomControl_Click(sender, e);
+        }
     }
 }

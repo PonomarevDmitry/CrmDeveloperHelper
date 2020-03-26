@@ -1490,5 +1490,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ExecuteAction(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, PerformPublishEntityAsync);
         }
+
+        private void lstVwCharts_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+            e.ContinueRouting = false;
+        }
+
+        private void lstVwCharts_Delete(object sender, ExecutedRoutedEventArgs e)
+        {
+            mIDeleteChart_Click(sender, e);
+        }
     }
 }

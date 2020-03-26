@@ -254,6 +254,9 @@
             </ToolBar>
 
             <ListView x:Name="lstVwConnections" SelectionMode="Extended" SelectionChanged="lstVwConnections_SelectionChanged" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" DockPanel.Dock="Right" Height="Auto" Width="Auto" MouseDoubleClick="lstVwConnections_MouseDoubleClick">
+                <ListView.CommandBindings>
+                    <CommandBinding Command="ApplicationCommands.Delete" CanExecute="lstVwConnections_CanExecute" Executed="lstVwConnections_Delete" />
+                </ListView.CommandBindings>
                 <ListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>

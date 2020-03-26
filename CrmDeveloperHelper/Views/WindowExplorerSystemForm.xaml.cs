@@ -2275,5 +2275,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             WindowHelper.OpenEntityMetadataExplorer(this._iWriteToOutput, service, _commonConfig, entity?.ObjectTypeCode, _selectedItem);
         }
+
+        private void lstVwSystemForms_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+            e.ContinueRouting = false;
+        }
+
+        private void lstVwSystemForms_Delete(object sender, ExecutedRoutedEventArgs e)
+        {
+            mIDeleteSystemForm_Click(sender, e);
+        }
     }
 }

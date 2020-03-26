@@ -1263,5 +1263,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return this.lstVwConnections.SelectedItems.OfType<ConnectionData>().Count() == 1
                 ? this.lstVwConnections.SelectedItems.OfType<ConnectionData>().SingleOrDefault() : null;
         }
+
+        private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+            e.ContinueRouting = false;
+        }
+
+        private void lstVwConnections_Delete(object sender, ExecutedRoutedEventArgs e)
+        {
+            tSBMoveToArchive_Click(sender, e);
+        }
+
+        private void lstVwUsers_Delete(object sender, ExecutedRoutedEventArgs e)
+        {
+            tSBDeleteUser_Click(sender, e);
+        }
+
+        private void lstVwArchiveConnections_Delete(object sender, ExecutedRoutedEventArgs e)
+        {
+            tSBArchiveDelete_Click(sender, e);
+        }
     }
 }
