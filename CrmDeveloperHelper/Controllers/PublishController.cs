@@ -34,7 +34,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         /// </summary>
         /// <param name="selectedFiles"></param>
         /// <param name="config"></param>
-        public async Task ExecuteUpdateContentAndPublish(List<SelectedFile> selectedFiles, ConnectionData connectionData)
+        public async Task ExecuteUpdateContentAndPublish(ConnectionData connectionData, List<SelectedFile> selectedFiles)
         {
             string operation = string.Format(Properties.OperationNames.UpdatingContentAndPublishingFormat1, connectionData?.Name);
 
@@ -234,7 +234,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         /// </summary>
         /// <param name="selectedFiles"></param>
         /// <param name="config"></param>
-        public async Task ExecuteUpdateContentAndPublishEqualByText(List<SelectedFile> selectedFiles, ConnectionData connectionData)
+        public async Task ExecuteUpdateContentAndPublishEqualByText(ConnectionData connectionData, List<SelectedFile> selectedFiles)
         {
             string operation = string.Format(Properties.OperationNames.UpdatingContentWebResourcesEqualByTextAndPublishingFormat1, connectionData?.Name);
 

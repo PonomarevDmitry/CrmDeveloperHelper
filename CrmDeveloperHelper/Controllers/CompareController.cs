@@ -26,7 +26,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Сравнение с веб-ресурсами.
 
-        public async Task ExecuteComparingFilesAndWebResources(List<SelectedFile> selectedFiles, ConnectionData connectionData, bool withDetails)
+        public async Task ExecuteComparingFilesAndWebResources(ConnectionData connectionData, List<SelectedFile> selectedFiles, bool withDetails)
         {
             string operation = string.Format(Properties.OperationNames.ComparingFilesAndWebResourcesFormat1, connectionData?.Name);
 
@@ -692,7 +692,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Добавление в список на публикацию идентичных по тексту, но не по содержанию файлов.
 
-        public async Task ExecuteAddingIntoPublishListFilesByType(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteAddingIntoPublishListFilesByType(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, OpenFilesType openFilesType)
         {
             string operation = string.Format(Properties.OperationNames.AddingIntoPublishListFilesFormat2, connectionData?.Name, openFilesType.ToString());
 
@@ -746,7 +746,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Добавление в список на публикацию идентичных по тексту, но не по содержанию файлов.
 
-        public async Task ExecuteComparingFilesWithWrongEncoding(List<SelectedFile> selectedFiles, ConnectionData connectionData, bool withDetails)
+        public async Task ExecuteComparingFilesWithWrongEncoding(ConnectionData connectionData, List<SelectedFile> selectedFiles, bool withDetails)
         {
             string operation = string.Format(Properties.OperationNames.ComparingFilesWithWrongEncodingAndWebResourcesFormat1, connectionData?.Name);
 

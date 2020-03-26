@@ -28,7 +28,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Solution Explorer.
 
-        public async Task ExecuteOpeningSolutionExlorerWindow(EnvDTE.SelectedItem selectedItem, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteOpeningSolutionExlorerWindow(ConnectionData connectionData, CommonConfiguration commonConfig, EnvDTE.SelectedItem selectedItem)
         {
             string operation = string.Format(Properties.OperationNames.SolutionExplorerFormat1, connectionData?.Name);
 

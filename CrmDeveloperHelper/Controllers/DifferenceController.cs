@@ -26,7 +26,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Различия файла и веб-ресурса.
 
-        public async Task ExecuteDifferenceWebResources(SelectedFile selectedFile, bool isCustom, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteDifferenceWebResources(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, bool isCustom)
         {
             string operation = string.Format(Properties.OperationNames.DifferenceWebResourceFormat1, connectionData?.Name);
 
@@ -198,7 +198,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Сравнение трех файлов вебресурсов.
 
-        public async Task ExecuteThreeFileDifferenceWebResources(SelectedFile selectedFile, ConnectionData connectionData1, ConnectionData connectionData2, ShowDifferenceThreeFileType differenceType, CommonConfiguration commonConfig)
+        public async Task ExecuteThreeFileDifferenceWebResources(ConnectionData connectionData1, ConnectionData connectionData2, CommonConfiguration commonConfig, SelectedFile selectedFile, ShowDifferenceThreeFileType differenceType)
         {
             string operation = string.Format(Properties.OperationNames.DifferenceLocalFileAndTwoWebResourcesFormat3, differenceType, connectionData1?.Name, connectionData2?.Name);
 
@@ -473,7 +473,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Сравнение файлов и веб-ресурсов по разным параметрам.
 
-        public async Task ExecuteWebResourceMultiDifferenceFiles(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteWebResourceMultiDifferenceFiles(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, OpenFilesType openFilesType)
         {
             string operation = string.Format(Properties.OperationNames.MultiDifferenceFormat2, connectionData?.Name, openFilesType.ToString());
 
@@ -560,7 +560,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Различия отчета и файла.
 
-        public async Task ExecuteDifferenceReport(SelectedFile selectedFile, string fieldName, string fieldTitle, bool isCustom, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteDifferenceReport(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, string fieldName, string fieldTitle, bool isCustom)
         {
             string operation = string.Format(Properties.OperationNames.DifferenceReportFormat1, connectionData?.Name);
 
@@ -800,7 +800,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Различия трех файлов отчетов.
 
-        public async Task ExecuteThreeFileDifferenceReport(SelectedFile selectedFile, string fieldName, string fieldTitle, ConnectionData connectionData1, ConnectionData connectionData2, ShowDifferenceThreeFileType differenceType, CommonConfiguration commonConfig)
+        public async Task ExecuteThreeFileDifferenceReport(ConnectionData connectionData1, ConnectionData connectionData2, CommonConfiguration commonConfig, SelectedFile selectedFile, string fieldName, string fieldTitle, ShowDifferenceThreeFileType differenceType)
         {
             string operation = string.Format(Properties.OperationNames.DifferenceLocalFileAndTwoReportsFormat3, differenceType, connectionData1?.Name, connectionData2?.Name);
 
@@ -1018,7 +1018,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Различия трех файлов отчетов.
 
-        public async Task ExecuteCreatingWebResourceEntityDescription(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteCreatingWebResourceEntityDescription(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             string operation = string.Format(Properties.OperationNames.CreatingWebResourceEntityDescriptionFormat1, connectionData?.Name);
 
@@ -1186,7 +1186,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
         }
 
-        public async Task ExecuteChangingWebResourceInEntityEditor(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteChangingWebResourceInEntityEditor(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             string operation = string.Format(Properties.OperationNames.ChangingWebResourceInEntityEditorFormat1, connectionData?.Name);
 
@@ -1331,7 +1331,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             WindowHelper.OpenEntityEditor(_iWriteToOutput, service, commonConfig, WebResource.EntityLogicalName, webResource.Id);
         }
 
-        public async Task ExecuteWebResourceGettingAttribute(SelectedFile selectedFile, string fieldName, string fieldTitle, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteWebResourceGettingAttribute(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, string fieldName, string fieldTitle)
         {
             string operation = string.Format(Properties.OperationNames.GettingWebResourceAttributeFormat2, connectionData?.Name, fieldTitle);
 

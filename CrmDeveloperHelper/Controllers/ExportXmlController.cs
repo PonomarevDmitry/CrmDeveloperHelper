@@ -185,7 +185,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region SiteMap
 
-        public async Task ExecuteDifferenceSiteMap(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteDifferenceSiteMap(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             string operation = string.Format(Properties.OperationNames.DifferenceSiteMapFormat1, connectionData?.Name);
 
@@ -231,7 +231,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             await DifferenceSiteMap(doc, selectedFile.FilePath, connectionData, commonConfig);
         }
 
-        public async Task ExecuteDifferenceSiteMap(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteDifferenceSiteMap(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             string operation = string.Format(Properties.OperationNames.DifferenceSiteMapFormat1, connectionData?.Name);
 
@@ -328,7 +328,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, fileTitle1, fileTitle2);
         }
 
-        public async Task ExecuteUpdateSiteMap(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteUpdateSiteMap(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             string operation = string.Format(Properties.OperationNames.UpdatingSiteMapFormat1, connectionData?.Name);
 
@@ -374,7 +374,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             await UpdateSiteMap(doc, selectedFile.FilePath, connectionData, commonConfig);
         }
 
-        public async Task ExecuteUpdateSiteMap(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteUpdateSiteMap(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             string operation = string.Format(Properties.OperationNames.UpdatingSiteMapFormat1, connectionData?.Name);
 
@@ -515,7 +515,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             await repositoryPublish.PublishSiteMapsAsync(new[] { siteMap.Id });
         }
 
-        public async Task ExecuteOpenInWebSiteMap(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteOpenInWebSiteMap(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             string operation = string.Format(Properties.OperationNames.OpeningSiteMapInWebFormat1, connectionData?.Name);
 
@@ -606,7 +606,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region SystemForm
 
-        public async Task ExecuteDifferenceSystemForm(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteDifferenceSystemForm(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             string operation = string.Format(Properties.OperationNames.DifferenceSystemFormFormat1, connectionData?.Name);
 
@@ -651,7 +651,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             await DifferenceSystemForm(doc, selectedFile.FilePath, connectionData, commonConfig);
         }
 
-        public async Task ExecuteDifferenceSystemForm(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteDifferenceSystemForm(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             string operation = string.Format(Properties.OperationNames.DifferenceSystemFormFormat1, connectionData?.Name);
 
@@ -768,7 +768,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, fileTitle1, fileTitle2);
         }
 
-        public async Task ExecuteUpdateSystemForm(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteUpdateSystemForm(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             string operation = string.Format(Properties.OperationNames.UpdatingSystemFormFormat1, connectionData?.Name);
 
@@ -813,7 +813,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             await UpdateSystemForm(doc, selectedFile.FilePath, connectionData, commonConfig);
         }
 
-        public async Task ExecuteUpdateSystemForm(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteUpdateSystemForm(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             string operation = string.Format(Properties.OperationNames.UpdatingSystemFormFormat1, connectionData?.Name);
 
@@ -975,7 +975,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        public async Task ExecuteOpenInWebSystemForm(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteOpenInWebSystemForm(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             string operation = string.Format(Properties.OperationNames.OpeningSystemFormInWebFormat1, connectionData?.Name);
 
@@ -1086,7 +1086,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region SavedQuery
 
-        public async Task ExecuteDifferenceSavedQuery(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteDifferenceSavedQuery(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             string operation = string.Format(Properties.OperationNames.DifferenceSavedQueryFormat1, connectionData?.Name);
 
@@ -1131,7 +1131,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             await DifferenceSavedQuery(doc, selectedFile.FilePath, connectionData, commonConfig);
         }
 
-        public async Task ExecuteDifferenceSavedQuery(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteDifferenceSavedQuery(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             string operation = string.Format(Properties.OperationNames.DifferenceSavedQueryFormat1, connectionData?.Name);
 
@@ -1250,7 +1250,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, fileTitle1, fileTitle2);
         }
 
-        public async Task ExecuteUpdateSavedQuery(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteUpdateSavedQuery(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             string operation = string.Format(Properties.OperationNames.UpdatingSavedQueryFormat1, connectionData?.Name);
 
@@ -1295,7 +1295,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             await UpdateSavedQuery(doc, selectedFile.FilePath, connectionData, commonConfig);
         }
 
-        public async Task ExecuteUpdateSavedQuery(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteUpdateSavedQuery(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             string operation = string.Format(Properties.OperationNames.UpdatingSavedQueryFormat1, connectionData?.Name);
 
@@ -1487,7 +1487,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        public async Task ExecuteOpenInWebSavedQuery(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteOpenInWebSavedQuery(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             string operation = string.Format(Properties.OperationNames.OpeningSavedQueryInWebFormat1, connectionData?.Name);
 
@@ -1599,7 +1599,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Workflow
 
-        public async Task ExecuteDifferenceWorkflow(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteDifferenceWorkflow(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             string operation = string.Format(Properties.OperationNames.DifferenceWorkflowFormat1, connectionData?.Name);
 
@@ -1644,7 +1644,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             await DifferenceWorkflow(doc, selectedFile.FilePath, connectionData, commonConfig);
         }
 
-        public async Task ExecuteDifferenceWorkflow(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteDifferenceWorkflow(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             string operation = string.Format(Properties.OperationNames.DifferenceWorkflowFormat1, connectionData?.Name);
 
@@ -1760,7 +1760,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, fileTitle1, fileTitle2);
         }
 
-        public async Task ExecuteUpdateWorkflow(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteUpdateWorkflow(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             string operation = string.Format(Properties.OperationNames.UpdatingWorkflowFormat1, connectionData?.Name);
 
@@ -1805,7 +1805,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             await UpdateWorkflow(doc, selectedFile.FilePath, connectionData, commonConfig);
         }
 
-        public async Task ExecuteUpdateWorkflow(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteUpdateWorkflow(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             string operation = string.Format(Properties.OperationNames.UpdatingWorkflowFormat1, connectionData?.Name);
 
@@ -1955,7 +1955,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        public async Task ExecuteOpenInWebWorkflow(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteOpenInWebWorkflow(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             string operation = string.Format(Properties.OperationNames.OpeningWorkflowInWebFormat1, connectionData?.Name);
 
@@ -2066,7 +2066,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region WebResource DependencyXml
 
-        public async Task ExecuteDifferenceWebResourceDependencyXml(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteDifferenceWebResourceDependencyXml(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             string operation = string.Format(Properties.OperationNames.DifferenceWebResourceDependencyXmlFormat1, connectionData?.Name);
 
@@ -2111,7 +2111,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             await DifferenceWebResourceDependencyXml(doc, selectedFile.FilePath, connectionData, commonConfig);
         }
 
-        public async Task ExecuteDifferenceWebResourceDependencyXml(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteDifferenceWebResourceDependencyXml(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             string operation = string.Format(Properties.OperationNames.DifferenceWebResourceDependencyXmlFormat1, connectionData?.Name);
 
@@ -2234,7 +2234,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, fileTitle1, fileTitle2);
         }
 
-        public async Task ExecuteUpdateWebResourceDependencyXml(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteUpdateWebResourceDependencyXml(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             string operation = string.Format(Properties.OperationNames.UpdatingWebResourceDependencyXmlFormat1, connectionData?.Name);
 
@@ -2279,7 +2279,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             await UpdateWebResourceDependencyXml(doc, selectedFile.FilePath, connectionData, commonConfig);
         }
 
-        public async Task ExecuteUpdateWebResourceDependencyXml(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteUpdateWebResourceDependencyXml(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             string operation = string.Format(Properties.OperationNames.UpdatingWebResourceDependencyXmlFormat1, connectionData?.Name);
 
@@ -2441,7 +2441,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             await repositoryPublish.PublishWebResourcesAsync(new[] { webResource.Id });
         }
 
-        public async Task ExecuteOpenInWebWebResourceDependencyXml(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteOpenInWebWebResourceDependencyXml(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             string operation = string.Format(Properties.OperationNames.OpeningWebResourceFormat1, connectionData?.Name);
 

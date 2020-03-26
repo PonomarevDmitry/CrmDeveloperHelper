@@ -25,7 +25,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Очищение связей.
 
-        internal void ExecuteClearingLastLink(List<SelectedFile> selectedFiles, ConnectionData connectionData)
+        internal void ExecuteClearingLastLink(ConnectionData connectionData, List<SelectedFile> selectedFiles)
         {
             string operation = string.Format(Properties.OperationNames.ClearingLastLinkFormat1, connectionData?.Name);
 
@@ -88,7 +88,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Создание связи отчета.
 
-        public async Task ExecuteCreatingLastLinkReport(SelectedFile selectedFile, ConnectionData connectionData)
+        public async Task ExecuteCreatingLastLinkReport(ConnectionData connectionData, SelectedFile selectedFile)
         {
             string operation = string.Format(Properties.OperationNames.CreatingLastLinkForReportFormat1, connectionData?.Name);
 
@@ -200,7 +200,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Создание связи веб-ресурсов.
 
-        public async Task ExecuteCreatingLastLinkWebResourceMultiple(List<SelectedFile> selectedFiles, ConnectionData connectionData)
+        public async Task ExecuteCreatingLastLinkWebResourceMultiple(ConnectionData connectionData, List<SelectedFile> selectedFiles)
         {
             string operation = string.Format(Properties.OperationNames.CreatingLastLinkForWebResourcesFormat1, connectionData?.Name);
 
@@ -323,7 +323,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Открытие отчетов.
 
-        public async Task ExecuteOpeningReport(CommonConfiguration commonConfig, ConnectionData connectionData, SelectedFile selectedFile, ActionOpenComponent action)
+        public async Task ExecuteOpeningReport(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, ActionOpenComponent action)
         {
             string operation = string.Format(Properties.OperationNames.OpeningReportFormat1, connectionData?.Name);
 
@@ -495,7 +495,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Открытие веб-ресурсов.
 
-        public async Task ExecuteOpeningWebResource(CommonConfiguration commonConfig, ConnectionData connectionData, SelectedFile selectedFile, ActionOpenComponent action)
+        public async Task ExecuteOpeningWebResource(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, ActionOpenComponent action)
         {
             string operation = string.Format(Properties.OperationNames.OpeningWebResourceFormat1, connectionData?.Name);
 
@@ -675,7 +675,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Открытие веб-ресурсов.
 
-        public async Task ExecuteOpeningSolutionAsync(CommonConfiguration commonConfig, ConnectionData connectionData, string solutionUniqueName, ActionOpenComponent action)
+        public async Task ExecuteOpeningSolutionAsync(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, ActionOpenComponent action)
         {
             string operation = string.Format(Properties.OperationNames.OpeningSolutionFormat1, connectionData?.Name);
 

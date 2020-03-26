@@ -217,7 +217,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             return result;
         }
 
-        public async Task ExecuteExportingPluginConfigurationIntoFolder(EnvDTE.SelectedItem selectedItem, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteExportingPluginConfigurationIntoFolder(ConnectionData connectionData, CommonConfiguration commonConfig, EnvDTE.SelectedItem selectedItem)
         {
             string operation = string.Format(Properties.OperationNames.ExportingPluginConfigurationXmlIntoFolderFormat1, connectionData?.Name);
 

@@ -31,7 +31,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Различия отчета и файла.
 
-        public async Task ExecuteUpdatingReport(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteUpdatingReport(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             string operation = string.Format(Properties.OperationNames.UpdatingReportFormat1, connectionData?.Name);
 

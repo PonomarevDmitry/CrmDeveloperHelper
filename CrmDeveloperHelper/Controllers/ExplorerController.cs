@@ -168,7 +168,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Экспортирование ApplicationRibbon.
 
-        public async Task ExecuteOpeningApplicationRibbonExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteOpeningApplicationRibbonExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             string operation = string.Format(Properties.OperationNames.ExportingRibbonXmlFormat1, connectionData?.Name);
 
@@ -218,7 +218,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Экспортирование System View (Saved Query) LayoutXml and FethcXml.
 
-        public async Task ExecuteOpeningSystemSavedQueryExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteOpeningSystemSavedQueryExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             string operation = string.Format(Properties.OperationNames.ExportingSystemSavedQueryXmlFormat1, connectionData?.Name);
 
@@ -318,7 +318,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Экспортирование System Chart (Saved Query Visualization) Xml.
 
-        public async Task ExecuteOpeningSystemSavedQueryVisualizationExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteOpeningSystemSavedQueryVisualizationExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             string operation = string.Format(Properties.OperationNames.ExportingSystemSavedQueryVisualizationXmlFormat1, connectionData?.Name);
 
@@ -368,7 +368,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Экспортирование Workflow.
 
-        public async Task ExecuteOpeningWorkflowExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteOpeningWorkflowExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             string operation = string.Format(Properties.OperationNames.ExportingWorkflowFormat1, connectionData?.Name);
 
@@ -468,7 +468,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Экспортирование CustomControl.
 
-        public async Task ExecuteOpeningCustomControlExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteOpeningCustomControlExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             string operation = string.Format(Properties.OperationNames.ExportingSystemFormXmlFormat1, connectionData?.Name);
 

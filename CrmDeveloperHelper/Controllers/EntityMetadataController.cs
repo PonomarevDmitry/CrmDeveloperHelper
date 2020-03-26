@@ -38,7 +38,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Открытие Entity Explorers.
 
-        public async Task ExecuteOpeningEntityAttributeExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteOpeningEntityAttributeExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             string operation = string.Format(Properties.OperationNames.OpeningEntityAttributeExplorerFormat1, connectionData?.Name);
 
@@ -79,7 +79,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        public async Task ExecuteOpeningEntityKeyExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteOpeningEntityKeyExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             string operation = string.Format(Properties.OperationNames.OpeningEntityKeyExplorerFormat1, connectionData?.Name);
 
@@ -120,7 +120,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        public async Task ExecuteOpeningEntityRelationshipOneToManyExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteOpeningEntityRelationshipOneToManyExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             string operation = string.Format(Properties.OperationNames.OpeningEntityRelationshipOneToManyFormat1, connectionData?.Name);
 
@@ -161,7 +161,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        public async Task ExecuteOpeningEntityRelationshipManyToManyExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteOpeningEntityRelationshipManyToManyExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             string operation = string.Format(Properties.OperationNames.OpeningEntityRelationshipManyToManyFormat1, connectionData?.Name);
 
@@ -202,7 +202,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        public async Task ExecuteOpeningEntityPrivilegesExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteOpeningEntityPrivilegesExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             string operation = string.Format(Properties.OperationNames.OpeningEntityPrivilegesExplorerFormat1, connectionData?.Name);
 
@@ -243,7 +243,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        public async Task ExecuteOpeningOtherPrivilegesExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteOpeningOtherPrivilegesExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             string operation = string.Format(Properties.OperationNames.OpeningOtherPrivilegesExplorerFormat1, connectionData?.Name);
 
@@ -288,7 +288,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Создание файла с мета-данными сущности.
 
-        public async Task ExecuteOpeningEntityMetadataExplorer(string selection, EnvDTE.SelectedItem selectedItem, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteOpeningEntityMetadataExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection, EnvDTE.SelectedItem selectedItem)
         {
             string operation = string.Format(Properties.OperationNames.OpeningEntityMetadataExplorerFormat1, connectionData?.Name);
 
@@ -731,7 +731,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        public async Task ExecuteUpdateFileWithEntityMetadataCSharpProxyClassOrSchema(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity, bool openOptions)
+        public async Task ExecuteUpdateFileWithEntityMetadataCSharpProxyClassOrSchema(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, bool selectEntity, bool openOptions)
         {
             string operation = string.Format(Properties.OperationNames.UpdatingFileWithEntityMetadataFormat1, connectionData?.Name);
 
@@ -751,7 +751,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        public async Task ExecuteUpdateFileWithEntityMetadataCSharpSchema(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity, bool openOptions)
+        public async Task ExecuteUpdateFileWithEntityMetadataCSharpSchema(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, bool selectEntity, bool openOptions)
         {
             string operation = string.Format(Properties.OperationNames.UpdatingFileWithEntityMetadataFormat1, connectionData?.Name);
 
@@ -771,7 +771,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        public async Task ExecuteUpdateFileWithEntityMetadataCSharpProxyClass(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity, bool openOptions)
+        public async Task ExecuteUpdateFileWithEntityMetadataCSharpProxyClass(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, bool selectEntity, bool openOptions)
         {
             string operation = string.Format(Properties.OperationNames.UpdatingFileWithEntityMetadataFormat1, connectionData?.Name);
 
@@ -791,7 +791,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        public async Task ExecuteUpdateFileWithEntityMetadataJavaScript(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity, bool openOptions)
+        public async Task ExecuteUpdateFileWithEntityMetadataJavaScript(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, bool selectEntity, bool openOptions)
         {
             string operation = string.Format(Properties.OperationNames.UpdatingFileWithEntityMetadataFormat1, connectionData?.Name);
 
@@ -1145,7 +1145,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Ribbon Showing Difference
 
-        public async Task ExecuteDifferenceRibbon(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteDifferenceRibbon(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             string operation = string.Format(Properties.OperationNames.DifferenceRibbonFormat1, connectionData?.Name);
 
@@ -1190,7 +1190,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             await DifferenceRibbon(doc, selectedFile.FilePath, connectionData, commonConfig);
         }
 
-        public async Task ExecuteDifferenceRibbon(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteDifferenceRibbon(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             string operation = string.Format(Properties.OperationNames.DifferenceRibbonFormat1, connectionData?.Name);
 
@@ -1306,7 +1306,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region RibbonDiffXml Showing Difference
 
-        public async Task ExecuteDifferenceRibbonDiffXml(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteDifferenceRibbonDiffXml(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             string operation = string.Format(Properties.OperationNames.DifferenceRibbonDiffXmlFormat1, connectionData?.Name);
 
@@ -1351,7 +1351,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             await DifferenceRibbonDiffXml(doc, selectedFile.FilePath, connectionData, commonConfig);
         }
 
-        public async Task ExecuteDifferenceRibbonDiffXml(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteDifferenceRibbonDiffXml(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             string operation = string.Format(Properties.OperationNames.DifferenceRibbonDiffXmlFormat1, connectionData?.Name);
 
@@ -1473,7 +1473,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region RibbonDiffXml Updating
 
-        public async Task ExecuteUpdateRibbonDiffXml(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteUpdateRibbonDiffXml(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             string operation = string.Format(Properties.OperationNames.UpdatingRibbonFormat1, connectionData?.Name);
 
@@ -1521,7 +1521,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             await UpdateRibbonDiffXml(doc, selectedFile.FilePath, connectionData, commonConfig);
         }
 
-        public async Task ExecuteUpdateRibbonDiffXml(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteUpdateRibbonDiffXml(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             string operation = string.Format(Properties.OperationNames.UpdatingRibbonFormat1, connectionData?.Name);
 
@@ -1635,7 +1635,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Ribbon Open Explorer
 
-        public async Task ExecuteOpenRibbonExplorer(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteOpenRibbonExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             string operation = string.Format(Properties.OperationNames.OpeningRibbonExplorerFormat1, connectionData?.Name);
 
@@ -1719,7 +1719,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Open Entity in Web
 
-        public async Task ExecuteEntityRibbonOpenInWeb(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteEntityRibbonOpenInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             string operation = string.Format(Properties.OperationNames.OpeningEntityInWebFormat1, connectionData?.Name);
 

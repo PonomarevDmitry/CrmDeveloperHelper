@@ -1321,7 +1321,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         try
                         {
-                            Controller.ExecuteCheckingWorkflowsUsedEntities(connectionData, commonConfig);
+                            Controller.StartCheckingWorkflowsUsedEntities(connectionData, commonConfig);
                         }
                         catch (Exception ex)
                         {

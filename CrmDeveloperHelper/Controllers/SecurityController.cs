@@ -22,7 +22,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Открытие Explorers.
 
-        public async Task ExecuteShowingSystemUserExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteShowingSystemUserExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             if (connectionData == null)
             {
@@ -63,7 +63,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        public async Task ExecuteShowingTeamsExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteShowingTeamsExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             if (connectionData == null)
             {
@@ -104,7 +104,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        public async Task ExecuteShowingSecurityRolesExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteShowingSecurityRolesExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             if (connectionData == null)
             {

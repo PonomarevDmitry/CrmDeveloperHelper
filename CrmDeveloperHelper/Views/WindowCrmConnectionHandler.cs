@@ -778,7 +778,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var contr = new EntityMetadataController(iWriteToOutput);
 
-                        contr.ExecuteOpeningEntityMetadataExplorer(string.Empty, null, connection, commonConfig);
+                        contr.ExecuteOpeningEntityMetadataExplorer(connection, commonConfig, string.Empty, null);
                     }
                     catch (Exception ex)
                     {
@@ -803,7 +803,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var contr = new EntityMetadataController(iWriteToOutput);
 
-                        contr.ExecuteOpeningEntityAttributeExplorer(string.Empty, connection, commonConfig);
+                        contr.ExecuteOpeningEntityAttributeExplorer(connection, commonConfig, string.Empty);
                     }
                     catch (Exception ex)
                     {
@@ -828,7 +828,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var contr = new EntityMetadataController(iWriteToOutput);
 
-                        contr.ExecuteOpeningEntityRelationshipOneToManyExplorer(string.Empty, connection, commonConfig);
+                        contr.ExecuteOpeningEntityRelationshipOneToManyExplorer(connection, commonConfig, string.Empty);
                     }
                     catch (Exception ex)
                     {
@@ -853,7 +853,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var contr = new EntityMetadataController(iWriteToOutput);
 
-                        contr.ExecuteOpeningEntityRelationshipManyToManyExplorer(string.Empty, connection, commonConfig);
+                        contr.ExecuteOpeningEntityRelationshipManyToManyExplorer(connection, commonConfig, string.Empty);
                     }
                     catch (Exception ex)
                     {
@@ -878,7 +878,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var contr = new EntityMetadataController(iWriteToOutput);
 
-                        contr.ExecuteOpeningEntityKeyExplorer(string.Empty, connection, commonConfig);
+                        contr.ExecuteOpeningEntityKeyExplorer(connection, commonConfig, string.Empty);
                     }
                     catch (Exception ex)
                     {
@@ -903,7 +903,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var contr = new EntityMetadataController(iWriteToOutput);
 
-                        contr.ExecuteOpeningEntityPrivilegesExplorer(string.Empty, connection, commonConfig);
+                        contr.ExecuteOpeningEntityPrivilegesExplorer(connection, commonConfig, string.Empty);
                     }
                     catch (Exception ex)
                     {
@@ -928,7 +928,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var contr = new SecurityController(iWriteToOutput);
 
-                        contr.ExecuteShowingSystemUserExplorer(string.Empty, connection, commonConfig);
+                        contr.ExecuteShowingSystemUserExplorer(connection, commonConfig, string.Empty);
                     }
                     catch (Exception ex)
                     {
@@ -953,7 +953,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var contr = new SecurityController(iWriteToOutput);
 
-                        contr.ExecuteShowingTeamsExplorer(string.Empty, connection, commonConfig);
+                        contr.ExecuteShowingTeamsExplorer(connection, commonConfig, string.Empty);
                     }
                     catch (Exception ex)
                     {
@@ -978,7 +978,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var contr = new SecurityController(iWriteToOutput);
 
-                        contr.ExecuteShowingSecurityRolesExplorer(string.Empty, connection, commonConfig);
+                        contr.ExecuteShowingSecurityRolesExplorer(connection, commonConfig, string.Empty);
                     }
                     catch (Exception ex)
                     {
@@ -1003,7 +1003,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         ExplorerController contr = new ExplorerController(iWriteToOutput);
 
-                        contr.ExecuteOpeningApplicationRibbonExplorer(string.Empty, connection, commonConfig);
+                        contr.ExecuteOpeningApplicationRibbonExplorer(connection, commonConfig, string.Empty);
                     }
                     catch (Exception ex)
                     {
@@ -1028,7 +1028,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         ExplorerController contr = new ExplorerController(iWriteToOutput);
 
-                        contr.ExecuteOpeningWorkflowExplorer(string.Empty, connection, commonConfig);
+                        contr.ExecuteOpeningWorkflowExplorer(connection, commonConfig, string.Empty);
                     }
                     catch (Exception ex)
                     {
@@ -1078,7 +1078,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         ExplorerController contr = new ExplorerController(iWriteToOutput);
 
-                        contr.ExecuteOpeningSystemSavedQueryExplorer(string.Empty, connection, commonConfig);
+                        contr.ExecuteOpeningSystemSavedQueryExplorer(connection, commonConfig, string.Empty);
                     }
                     catch (Exception ex)
                     {
@@ -1103,7 +1103,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         ExplorerController contr = new ExplorerController(iWriteToOutput);
 
-                        contr.ExecuteOpeningSystemSavedQueryVisualizationExplorer(string.Empty, connection, commonConfig);
+                        contr.ExecuteOpeningSystemSavedQueryVisualizationExplorer(connection, commonConfig, string.Empty);
                     }
                     catch (Exception ex)
                     {
@@ -1178,7 +1178,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         ExplorerController contr = new ExplorerController(iWriteToOutput);
 
-                        contr.ExecuteOpeningCustomControlExplorer(string.Empty, connection, commonConfig);
+                        contr.ExecuteOpeningCustomControlExplorer(connection, commonConfig, string.Empty);
                     }
                     catch (Exception ex)
                     {
@@ -1203,7 +1203,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         SolutionController contr = new SolutionController(iWriteToOutput);
 
-                        contr.ExecuteOpeningSolutionExlorerWindow(null, connection, commonConfig);
+                        contr.ExecuteOpeningSolutionExlorerWindow(connection, commonConfig, null);
                     }
                     catch (Exception ex)
                     {
