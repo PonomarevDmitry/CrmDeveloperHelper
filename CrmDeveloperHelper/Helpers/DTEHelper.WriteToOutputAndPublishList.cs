@@ -1157,11 +1157,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     if (FileOperations.SupportsWebResourceTextType(uri.LocalPath))
                     {
-                        Controller.StartWebResourceDifference(selectedFile, false, connectionData, commonConfig);
+                        Controller.StartWebResourceDifference(connectionData, commonConfig, selectedFile, false);
                     }
                     else if (FileOperations.SupportsReportType(uri.LocalPath))
                     {
-                        Controller.StartReportDifference(selectedFile, fieldName, fieldTitle, false, connectionData, commonConfig);
+                        Controller.StartReportDifference(connectionData, commonConfig, selectedFile, fieldName, fieldTitle, false);
                     }
                 }
                 catch (Exception ex)

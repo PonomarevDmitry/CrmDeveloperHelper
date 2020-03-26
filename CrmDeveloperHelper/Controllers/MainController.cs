@@ -64,7 +64,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region SiteMap
 
-        public void StartSiteMapDifference(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartSiteMapDifference(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             var worker = new Thread(() =>
             {
@@ -81,7 +81,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartSiteMapDifference(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartSiteMapDifference(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             var worker = new Thread(() =>
             {
@@ -98,7 +98,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartSiteMapUpdate(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartSiteMapUpdate(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             var worker = new Thread(() =>
             {
@@ -114,7 +114,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             worker.Start();
         }
-        public void StartSiteMapUpdate(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartSiteMapUpdate(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             var worker = new Thread(() =>
             {
@@ -132,7 +132,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         }
 
 
-        public void StartSiteMapOpenInWeb(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartSiteMapOpenInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             var worker = new Thread(() =>
             {
@@ -153,7 +153,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region SystemForm
 
-        public void StartSystemFormDifference(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartSystemFormDifference(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             var worker = new Thread(() =>
             {
@@ -170,7 +170,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartSystemFormDifference(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartSystemFormDifference(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             var worker = new Thread(() =>
             {
@@ -187,7 +187,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartSystemFormUpdate(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartSystemFormUpdate(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             var worker = new Thread(() =>
             {
@@ -204,7 +204,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartSystemFormUpdate(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartSystemFormUpdate(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             var worker = new Thread(() =>
             {
@@ -221,7 +221,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartSystemFormOpenInWeb(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartSystemFormOpenInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             var worker = new Thread(() =>
             {
@@ -242,7 +242,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region SavedQuery
 
-        public void StartSavedQueryDifference(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartSavedQueryDifference(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             var worker = new Thread(() =>
             {
@@ -259,7 +259,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartSavedQueryDifference(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartSavedQueryDifference(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             var worker = new Thread(() =>
             {
@@ -276,7 +276,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartSavedQueryUpdate(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartSavedQueryUpdate(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             var worker = new Thread(() =>
             {
@@ -293,7 +293,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartSavedQueryUpdate(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartSavedQueryUpdate(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             var worker = new Thread(() =>
             {
@@ -310,7 +310,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartSavedQueryOpenInWeb(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartSavedQueryOpenInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             var worker = new Thread(() =>
             {
@@ -331,7 +331,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Workflow
 
-        public void StartWorkflowDifference(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartWorkflowDifference(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             var worker = new Thread(() =>
             {
@@ -348,7 +348,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartWorkflowDifference(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartWorkflowDifference(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             var worker = new Thread(() =>
             {
@@ -365,7 +365,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartWorkflowUpdate(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartWorkflowUpdate(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             var worker = new Thread(() =>
             {
@@ -382,7 +382,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartWorkflowUpdate(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartWorkflowUpdate(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             var worker = new Thread(() =>
             {
@@ -399,7 +399,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartWorkflowOpenInWeb(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartWorkflowOpenInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             var worker = new Thread(() =>
             {
@@ -420,7 +420,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region RibbonDiff
 
-        public void StartRibbonDiffXmlDifference(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartRibbonDiffXmlDifference(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             var worker = new Thread(() =>
             {
@@ -437,7 +437,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartRibbonDiffXmlDifference(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartRibbonDiffXmlDifference(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             var worker = new Thread(() =>
             {
@@ -454,7 +454,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartRibbonDiffXmlUpdate(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartRibbonDiffXmlUpdate(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             var worker = new Thread(() =>
             {
@@ -471,7 +471,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartRibbonDiffXmlUpdate(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartRibbonDiffXmlUpdate(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             var worker = new Thread(() =>
             {
@@ -492,7 +492,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Ribbon
 
-        public void StartRibbonDifference(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartRibbonDifference(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             var worker = new Thread(() =>
             {
@@ -509,7 +509,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartRibbonDifference(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartRibbonDifference(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             var worker = new Thread(() =>
             {
@@ -526,7 +526,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartEntityRibbonOpenInWeb(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartEntityRibbonOpenInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             var worker = new Thread(() =>
             {
@@ -543,7 +543,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartRibbonExplorer(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartRibbonExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             var worker = new Thread(() =>
             {
@@ -569,7 +569,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         /// </summary>
         /// <param name="selectedFiles"></param>
         /// <param name="config"></param>
-        public void StartUpdateContentAndPublish(List<SelectedFile> selectedFiles, ConnectionData connectionData)
+        public void StartUpdateContentAndPublish(ConnectionData connectionData, List<SelectedFile> selectedFiles)
         {
             var worker = new Thread(() =>
             {
@@ -591,7 +591,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         /// </summary>
         /// <param name="selectedFiles"></param>
         /// <param name="config"></param>
-        public void StartUpdateContentAndPublishEqualByText(List<SelectedFile> selectedFiles, ConnectionData connectionData)
+        public void StartUpdateContentAndPublishEqualByText(ConnectionData connectionData, List<SelectedFile> selectedFiles)
         {
             var worker = new Thread(() =>
             {
@@ -613,7 +613,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         /// </summary>
         /// <param name="selectedFiles"></param>
         /// <param name="config"></param>
-        public void StartComparing(List<SelectedFile> selectedFiles, ConnectionData connectionData, bool withDetails)
+        public void StartComparing(ConnectionData connectionData, List<SelectedFile> selectedFiles, bool withDetails)
         {
             var worker = new Thread(() =>
             {
@@ -630,7 +630,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void ShowingWebResourcesDependentComponents(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void ShowingWebResourcesDependentComponents(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
         {
             var worker = new Thread(() =>
             {
@@ -647,7 +647,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartComparingFilesWithWrongEncoding(List<SelectedFile> selectedFiles, ConnectionData connectionData, bool withDetails)
+        public void StartComparingFilesWithWrongEncoding(ConnectionData connectionData, List<SelectedFile> selectedFiles, bool withDetails)
         {
             var worker = new Thread(() =>
             {
@@ -671,7 +671,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         /// <param name="isCustom"></param>
         /// <param name="crmConfig"></param>
         /// <param name="commonConfig"></param>
-        public void StartWebResourceDifference(SelectedFile selectedFile, bool isCustom, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartWebResourceDifference(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, bool isCustom)
         {
             var worker = new Thread(() =>
             {
@@ -688,7 +688,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartWebResourceCreateEntityDescription(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartWebResourceCreateEntityDescription(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             var worker = new Thread(() =>
             {
@@ -705,7 +705,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartWebResourceGetAttribute(SelectedFile selectedFile, string fieldName, string fieldTitle, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartWebResourceGetAttribute(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, string fieldName, string fieldTitle)
         {
             var worker = new Thread(() =>
             {
@@ -722,7 +722,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartWebResourceChangeInEntityEditor(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartWebResourceChangeInEntityEditor(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             var worker = new Thread(() =>
             {
@@ -739,7 +739,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartWebResourceThreeFileDifference(SelectedFile selectedFile, ConnectionData connectionData1, ConnectionData connectionData2, ShowDifferenceThreeFileType differenceType, CommonConfiguration commonConfig)
+        public void StartWebResourceThreeFileDifference(ConnectionData connectionData1, ConnectionData connectionData2, CommonConfiguration commonConfig, SelectedFile selectedFile, ShowDifferenceThreeFileType differenceType)
         {
             var worker = new Thread(() =>
             {
@@ -773,7 +773,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartWebResourceMultiDifferenceFiles(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartWebResourceMultiDifferenceFiles(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, OpenFilesType openFilesType)
         {
             var worker = new Thread(() =>
             {
@@ -790,7 +790,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartCreatingLastLinkWebResourceMultiple(List<SelectedFile> selectedFiles, ConnectionData connectionData)
+        public void StartCreatingLastLinkWebResourceMultiple(ConnectionData connectionData, List<SelectedFile> selectedFiles)
         {
             var worker = new Thread(() =>
             {
@@ -807,7 +807,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartWebResourceDependencyXmlDifference(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartWebResourceDependencyXmlDifference(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             var worker = new Thread(() =>
             {
@@ -824,7 +824,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartWebResourceDependencyXmlDifference(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartWebResourceDependencyXmlDifference(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             var worker = new Thread(() =>
             {
@@ -841,7 +841,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartWebResourceDependencyXmlUpdate(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartWebResourceDependencyXmlUpdate(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             var worker = new Thread(() =>
             {
@@ -858,7 +858,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartWebResourceDependencyXmlUpdate(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartWebResourceDependencyXmlUpdate(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             var worker = new Thread(() =>
             {
@@ -875,7 +875,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartWebResourceDependencyXmlOpenInWeb(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartWebResourceDependencyXmlOpenInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             var worker = new Thread(() =>
             {
@@ -894,7 +894,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion WebResource
 
-        public void StartAddingIntoPublishListFilesByType(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartAddingIntoPublishListFilesByType(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, OpenFilesType openFilesType)
         {
             var worker = new Thread(() =>
             {
@@ -920,7 +920,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         /// <param name="isCustom"></param>
         /// <param name="crmConfig"></param>
         /// <param name="commonConfig"></param>
-        public void StartReportDifference(SelectedFile selectedFile, string fieldName, string fieldTitle, bool isCustom, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartReportDifference(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, string fieldName, string fieldTitle, bool isCustom)
         {
             var worker = new Thread(() =>
             {
@@ -937,7 +937,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartReportThreeFileDifference(SelectedFile selectedFile, string fieldName, string fieldTitle, ConnectionData connectionData1, ConnectionData connectionData2, ShowDifferenceThreeFileType differenceType, CommonConfiguration commonConfig)
+        public void StartReportThreeFileDifference(ConnectionData connectionData1, ConnectionData connectionData2, CommonConfiguration commonConfig, SelectedFile selectedFile, string fieldName, string fieldTitle, ShowDifferenceThreeFileType differenceType)
         {
             var worker = new Thread(() =>
             {
@@ -954,7 +954,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartReportUpdate(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartReportUpdate(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             var worker = new Thread(() =>
             {
@@ -988,7 +988,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartCreatingLastLinkReport(SelectedFile selectedFile, ConnectionData connectionData)
+        public void StartCreatingLastLinkReport(ConnectionData connectionData, SelectedFile selectedFile)
         {
             var worker = new Thread(() =>
             {
@@ -1012,7 +1012,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         /// </summary>
         /// <param name="selectedFiles"></param>
         /// <param name="config"></param>
-        public void StartClearingLastLink(List<SelectedFile> selectedFiles, ConnectionData connectionData)
+        public void StartClearingLastLink(ConnectionData connectionData, List<SelectedFile> selectedFiles)
         {
             var worker = new Thread(() =>
             {
@@ -1451,7 +1451,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartExportRibbonXml(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartExportRibbonXml(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             var worker = new Thread(() =>
             {
@@ -1485,7 +1485,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartOpenPluginTypeExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartOpenPluginTypeExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             var worker = new Thread(() =>
             {
@@ -1502,7 +1502,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartAddPluginStep(string pluginTypeName, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartAddPluginStep(ConnectionData connectionData, CommonConfiguration commonConfig, string pluginTypeName)
         {
             var worker = new Thread(() =>
             {
@@ -1519,7 +1519,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartOpenPluginAssemblyExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartOpenPluginAssemblyExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             var worker = new Thread(() =>
             {
@@ -1536,7 +1536,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartOpeningEntityMetadataExplorer(string selection, EnvDTE.SelectedItem selectedItem, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartOpeningEntityMetadataExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection, EnvDTE.SelectedItem selectedItem)
         {
             var worker = new Thread(() =>
             {
@@ -1587,7 +1587,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartExplorerEntityAttribute(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartExplorerEntityAttribute(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             var worker = new Thread(() =>
             {
@@ -1604,7 +1604,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartExplorerEntityKey(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartExplorerEntityKey(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             var worker = new Thread(() =>
             {
@@ -1621,7 +1621,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartExplorerEntityRelationshipOneToMany(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartExplorerEntityRelationshipOneToMany(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             var worker = new Thread(() =>
             {
@@ -1638,7 +1638,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartExplorerEntityRelationshipManyToMany(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartExplorerEntityRelationshipManyToMany(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             var worker = new Thread(() =>
             {
@@ -1655,7 +1655,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartExplorerEntityPrivileges(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartExplorerEntityPrivileges(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             var worker = new Thread(() =>
             {
@@ -1672,7 +1672,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartExplorerOtherPrivileges(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartExplorerOtherPrivileges(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             var worker = new Thread(() =>
             {
@@ -1706,7 +1706,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartUpdatingFileWithEntityMetadataCSharpSchema(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity, bool openOptions)
+        public void StartUpdatingFileWithEntityMetadataCSharpSchema(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, bool selectEntity, bool openOptions)
         {
             var worker = new Thread(() =>
             {
@@ -1723,7 +1723,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartUpdatingFileWithEntityMetadataCSharpProxyClassOrSchema(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity, bool openOptions)
+        public void StartUpdatingFileWithEntityMetadataCSharpProxyClassOrSchema(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, bool selectEntity, bool openOptions)
         {
             var worker = new Thread(() =>
             {
@@ -1740,7 +1740,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartUpdatingFileWithEntityMetadataCSharpProxyClass(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity, bool openOptions)
+        public void StartUpdatingFileWithEntityMetadataCSharpProxyClass(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, bool selectEntity, bool openOptions)
         {
             var worker = new Thread(() =>
             {
@@ -1757,7 +1757,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartUpdatingFileWithEntityMetadataJavaScript(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity, bool openOptions)
+        public void StartUpdatingFileWithEntityMetadataJavaScript(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, bool selectEntity, bool openOptions)
         {
             var worker = new Thread(() =>
             {
@@ -1791,7 +1791,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartUpdatingFileWithGlobalOptionSetSingleJavaScript(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity, bool openOptions)
+        public void StartUpdatingFileWithGlobalOptionSetSingleJavaScript(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, bool selectEntity, bool openOptions)
         {
             var worker = new Thread(() =>
             {
@@ -1859,7 +1859,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartExplorerSystemSavedQueryXml(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartExplorerSystemSavedQueryXml(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             var worker = new Thread(() =>
             {
@@ -1876,7 +1876,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartExplorerSystemSavedQueryVisualization(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartExplorerSystemSavedQueryVisualization(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             var worker = new Thread(() =>
             {
@@ -1910,7 +1910,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartExplorerCustomControl(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartExplorerCustomControl(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             var worker = new Thread(() =>
             {
@@ -1927,7 +1927,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartExplorerWorkflow(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartExplorerWorkflow(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             var worker = new Thread(() =>
             {
@@ -1944,7 +1944,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartOpenSolutionExplorerWindow(EnvDTE.SelectedItem selectedItem, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartOpenSolutionExplorerWindow(ConnectionData connectionData, CommonConfiguration commonConfig, EnvDTE.SelectedItem selectedItem)
         {
             var worker = new Thread(() =>
             {
@@ -2403,7 +2403,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartExportPluginConfigurationIntoFolder(EnvDTE.SelectedItem selectedItem, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartExportPluginConfigurationIntoFolder(ConnectionData connectionData, CommonConfiguration commonConfig, EnvDTE.SelectedItem selectedItem)
         {
             var worker = new Thread(() =>
             {
@@ -2437,7 +2437,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartOpeningFiles(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, bool isTextEditor, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartOpeningFiles(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, OpenFilesType openFilesType, bool isTextEditor)
         {
             var worker = new Thread(() =>
             {
@@ -2454,7 +2454,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartOpeningReport(CommonConfiguration commonConfig, ConnectionData connectionData, SelectedFile selectedFile, ActionOpenComponent action)
+        public void StartOpeningReport(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, ActionOpenComponent action)
         {
             var worker = new Thread(() =>
             {
@@ -2471,7 +2471,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartOpeningSolution(CommonConfiguration commonConfig, ConnectionData connectionData, string solutionUniqueName, ActionOpenComponent action)
+        public void StartOpeningSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, ActionOpenComponent action)
         {
             var worker = new Thread(() =>
             {
@@ -2488,7 +2488,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartOpeningWebResource(CommonConfiguration commonConfig, ConnectionData connectionData, SelectedFile selectedFile, ActionOpenComponent action)
+        public void StartOpeningWebResource(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, ActionOpenComponent action)
         {
             var worker = new Thread(() =>
             {
