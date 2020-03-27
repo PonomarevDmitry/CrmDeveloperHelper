@@ -43,7 +43,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly Popup _optionsPopup;
 
-        public static readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.FormXml;
+        public static readonly XmlOptionsControls XmlOptions = XmlOptionsControls.FormXml;
 
         public WindowExplorerSystemForm(
              IWriteToOutput iWriteToOutput
@@ -73,7 +73,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBFormActivationState.ItemsSource = new EnumBindingSourceExtension(typeof(SystemForm.Schema.OptionSets.formactivationstate?)).ProvideValue(null) as IEnumerable;
             cmBFormActivationState.SelectedItem = SystemForm.Schema.OptionSets.formactivationstate.Active_1;
 
-            var child = new ExportXmlOptionsControl(_commonConfig, _xmlOptions);
+            var child = new ExportXmlOptionsControl(_commonConfig, XmlOptions);
             child.CloseClicked += Child_CloseClicked;
             this._optionsPopup = new Popup
             {
@@ -647,9 +647,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (string.Equals(fieldName, SystemForm.Schema.Attributes.formxml, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    xmlContent = ContentComparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
+                    xmlContent = ContentComparerHelper.FormatXmlByConfiguration(
+                        xmlContent
+                        , _commonConfig
+                        , XmlOptions
                         , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFormXml
                         , formId: idSystemForm
+                        , entityName: entityName
                     );
                 }
                 else if (string.Equals(fieldName, SystemForm.Schema.Attributes.formjson, StringComparison.InvariantCultureIgnoreCase))
@@ -707,9 +711,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (string.Equals(fieldName, SystemForm.Schema.Attributes.formxml, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        backUpXmlContent = ContentComparerHelper.FormatXmlByConfiguration(backUpXmlContent, _commonConfig, _xmlOptions
+                        backUpXmlContent = ContentComparerHelper.FormatXmlByConfiguration(
+                            backUpXmlContent
+                            , _commonConfig
+                            , XmlOptions
                             , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFormXml
                             , formId: idSystemForm
+                            , entityName: entityName
                         );
                     }
                     else if (string.Equals(fieldName, SystemForm.Schema.Attributes.formjson, StringComparison.InvariantCultureIgnoreCase))

@@ -697,7 +697,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 ribbonDiffXml = ContentComparerHelper.FormatXmlByConfiguration(ribbonDiffXml, commonConfig, XmlOptionsControls.RibbonFull
                     , schemaName: AbstractDynamicCommandXsdSchemas.SchemaRibbonXml
-                    , ribbonEntityName: entityMetadata?.LogicalName ?? string.Empty
+                    , entityName: entityMetadata?.LogicalName ?? string.Empty
                     );
 
                 {

@@ -565,7 +565,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             , CommonConfiguration commonConfig
             , XmlOptionsControls xmlOptions
             , string schemaName = null
-            , string ribbonEntityName = null
+            , string entityName = null
             , string siteMapUniqueName = null
             , Guid? formId = null
             , Guid? savedQueryId = null
@@ -578,41 +578,53 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if ((xmlOptions & XmlOptionsControls.SetIntellisenseContext) != 0
                 && commonConfig.SetIntellisenseContext
-                )
+            )
             {
-                if (ribbonEntityName != null)
+                if (entityName != null)
                 {
-                    result = ContentComparerHelper.SetIntellisenseContextRibbonDiffXmlEntityName(result, ribbonEntityName);
+                    result = ReplaceOrInsertAttribute(result, patternIntellisenseContextEntityName, replaceIntellisenseContextEntityNameFormat3, entityName);
                 }
 
                 if (siteMapUniqueName != null)
                 {
-                    result = ContentComparerHelper.SetIntellisenseContextSiteMapNameUnique(result, siteMapUniqueName);
+                    result = ReplaceOrInsertAttribute(result, patternIntellisenseContextSiteMapNameUnique, replaceIntellisenseContextSiteMapNameUniqueFormat3, siteMapUniqueName);
                 }
 
                 if (savedQueryId.HasValue)
                 {
-                    result = ContentComparerHelper.SetIntellisenseContextSavedQueryId(result, savedQueryId.Value);
+                    result = ReplaceOrInsertAttribute(result, patternIntellisenseContextSavedQueryId, replaceIntellisenseContextSavedQueryIdFormat3, savedQueryId.ToString());
                 }
 
                 if (formId.HasValue)
                 {
-                    result = ContentComparerHelper.SetIntellisenseContextFormId(result, formId.Value);
+                    result = ReplaceOrInsertAttribute(result, patternIntellisenseContextFormId, replaceIntellisenseContextFormIdFormat3, formId.ToString());
                 }
 
                 if (customControlId.HasValue)
                 {
-                    result = ContentComparerHelper.SetIntellisenseContextCustomControlId(result, customControlId.Value);
-                }
-
-                if (!string.IsNullOrEmpty(webResourceName))
-                {
-                    result = ContentComparerHelper.SetIntellisenseContextWebResourceName(result, webResourceName);
+                    result = ReplaceOrInsertAttribute(result, patternIntellisenseContextCustomControlId, replaceIntellisenseContextCustomControlIdFormat3, customControlId.ToString());
                 }
 
                 if (workflowId.HasValue)
                 {
-                    result = ContentComparerHelper.SetIntellisenseContextWorkflowId(result, workflowId.Value);
+                    result = ReplaceOrInsertAttribute(result, patternIntellisenseContextWorkflowId, replaceIntellisenseContextWorkflowIdFormat3, workflowId.ToString());
+                }
+
+                if (!string.IsNullOrEmpty(webResourceName))
+                {
+                    result = ReplaceOrInsertAttribute(result, patternIntellisenseContextWebResourceName, replaceIntellisenseContextWebResourceNameFormat3, webResourceName);
+                }
+
+                if (entityName != null
+                    || siteMapUniqueName != null
+                    || savedQueryId.HasValue
+                    || formId.HasValue
+                    || customControlId.HasValue
+                    || workflowId.HasValue
+                    || !string.IsNullOrEmpty(webResourceName)
+                )
+                {
+                    result = ReplaceOrInsertAttribute(result, patternIntellisenseContext, replaceIntellisenseContextNamespaceFormat3, Intellisense.Model.IntellisenseContext.IntellisenseContextNamespace.NamespaceName);
                 }
             }
 
@@ -722,83 +734,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             result = ReplaceOrInsertAttribute(result, patternXsi, replaceXsiNamespaceFormat3, Intellisense.Model.IntellisenseContext.NamespaceXMLSchemaInstance.NamespaceName);
 
             result = ReplaceOrInsertAttribute(result, patternSchemaLocation, replaceSchemaLocationFormat3, schemas);
-
-            return result;
-        }
-
-        private static string SetIntellisenseContextRibbonDiffXmlEntityName(string text, string entityName)
-        {
-            string result = text;
-
-            result = ReplaceOrInsertAttribute(result, patternIntellisenseContextEntityName, replaceIntellisenseContextEntityNameFormat3, entityName);
-
-            result = ReplaceOrInsertAttribute(result, patternIntellisenseContext, replaceIntellisenseContextNamespaceFormat3, Intellisense.Model.IntellisenseContext.IntellisenseContextNamespace.NamespaceName);
-
-            return result;
-        }
-
-        private static string SetIntellisenseContextFormId(string text, Guid formId)
-        {
-            string result = text;
-
-            result = ReplaceOrInsertAttribute(result, patternIntellisenseContext, replaceIntellisenseContextNamespaceFormat3, Intellisense.Model.IntellisenseContext.IntellisenseContextNamespace.NamespaceName);
-
-            result = ReplaceOrInsertAttribute(result, patternIntellisenseContextFormId, replaceIntellisenseContextFormIdFormat3, formId.ToString());
-
-            return result;
-        }
-
-        private static string SetIntellisenseContextCustomControlId(string text, Guid idCustomControl)
-        {
-            string result = text;
-
-            result = ReplaceOrInsertAttribute(result, patternIntellisenseContext, replaceIntellisenseContextNamespaceFormat3, Intellisense.Model.IntellisenseContext.IntellisenseContextNamespace.NamespaceName);
-
-            result = ReplaceOrInsertAttribute(result, patternIntellisenseContextCustomControlId, replaceIntellisenseContextCustomControlIdFormat3, idCustomControl.ToString());
-
-            return result;
-        }
-
-        private static string SetIntellisenseContextWebResourceName(string text, string webResourceName)
-        {
-            string result = text;
-
-            result = ReplaceOrInsertAttribute(result, patternIntellisenseContext, replaceIntellisenseContextNamespaceFormat3, Intellisense.Model.IntellisenseContext.IntellisenseContextNamespace.NamespaceName);
-
-            result = ReplaceOrInsertAttribute(result, patternIntellisenseContextWebResourceName, replaceIntellisenseContextWebResourceNameFormat3, webResourceName);
-
-            return result;
-        }
-
-        private static string SetIntellisenseContextSavedQueryId(string text, Guid savedQueryId)
-        {
-            string result = text;
-
-            result = ReplaceOrInsertAttribute(result, patternIntellisenseContext, replaceIntellisenseContextNamespaceFormat3, Intellisense.Model.IntellisenseContext.IntellisenseContextNamespace.NamespaceName);
-
-            result = ReplaceOrInsertAttribute(result, patternIntellisenseContextSavedQueryId, replaceIntellisenseContextSavedQueryIdFormat3, savedQueryId.ToString());
-
-            return result;
-        }
-
-        private static string SetIntellisenseContextSiteMapNameUnique(string text, string siteMapNameUnique)
-        {
-            string result = text;
-
-            result = ReplaceOrInsertAttribute(result, patternIntellisenseContext, replaceIntellisenseContextNamespaceFormat3, Intellisense.Model.IntellisenseContext.IntellisenseContextNamespace.NamespaceName);
-
-            result = ReplaceOrInsertAttribute(result, patternIntellisenseContextSiteMapNameUnique, replaceIntellisenseContextSiteMapNameUniqueFormat3, siteMapNameUnique);
-
-            return result;
-        }
-
-        private static string SetIntellisenseContextWorkflowId(string text, Guid workflowId)
-        {
-            string result = text;
-
-            result = ReplaceOrInsertAttribute(result, patternIntellisenseContext, replaceIntellisenseContextNamespaceFormat3, Intellisense.Model.IntellisenseContext.IntellisenseContextNamespace.NamespaceName);
-
-            result = ReplaceOrInsertAttribute(result, patternIntellisenseContextWorkflowId, replaceIntellisenseContextWorkflowIdFormat3, workflowId.ToString());
 
             return result;
         }

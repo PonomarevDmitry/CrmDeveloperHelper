@@ -1846,7 +1846,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     string ribbonXml = await task1;
 
                     ribbonXml = ContentComparerHelper.FormatXmlByConfiguration(ribbonXml, _commonConfig, XmlOptionsControls.RibbonFull
-                        , ribbonEntityName: entityName
+                        , entityName: entityName
                         );
 
                     string fileName = EntityFileNameFormatter.GetEntityRibbonFileName(service1.ConnectionData.Name, entityName);
@@ -1860,7 +1860,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     string ribbonXml = await task2;
 
                     ribbonXml = ContentComparerHelper.FormatXmlByConfiguration(ribbonXml, _commonConfig, XmlOptionsControls.RibbonFull
-                        , ribbonEntityName: entityName
+                        , entityName: entityName
                         );
 
                     string fileName = EntityFileNameFormatter.GetEntityRibbonFileName(service2.ConnectionData.Name, entityName);
@@ -1964,7 +1964,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         ribbonDiffXml = ContentComparerHelper.FormatXmlByConfiguration(ribbonDiffXml, _commonConfig, XmlOptionsControls.RibbonFull
                             , schemaName: AbstractDynamicCommandXsdSchemas.SchemaRibbonXml
-                            , ribbonEntityName: entity.LogicalName
+                            , entityName: entity.LogicalName
                             );
 
                         string fileName1 = EntityFileNameFormatter.GetEntityRibbonDiffXmlFileName(service1.ConnectionData.Name, entity.LogicalName);
@@ -1982,7 +1982,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         ribbonDiffXml = ContentComparerHelper.FormatXmlByConfiguration(ribbonDiffXml, _commonConfig, XmlOptionsControls.RibbonFull
                             , schemaName: AbstractDynamicCommandXsdSchemas.SchemaRibbonXml
-                            , ribbonEntityName: entity.LogicalName
+                            , entityName: entity.LogicalName
                             );
 
                         string fileName2 = EntityFileNameFormatter.GetEntityRibbonDiffXmlFileName(service2.ConnectionData.Name, entity.LogicalName);
@@ -2076,7 +2076,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 string ribbonXml = await repository.ExportEntityRibbonAsync(entityName, _commonConfig.GetRibbonLocationFilters());
 
                 ribbonXml = ContentComparerHelper.FormatXmlByConfiguration(ribbonXml, _commonConfig, XmlOptionsControls.RibbonFull
-                    , ribbonEntityName: entityName
+                    , entityName: entityName
                     );
 
                 string fileName = EntityFileNameFormatter.GetEntityRibbonFileName(service.ConnectionData.Name, entityName);
@@ -2231,7 +2231,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ribbonDiffXml = ContentComparerHelper.FormatXmlByConfiguration(ribbonDiffXml, _commonConfig, XmlOptionsControls.RibbonFull
                     , schemaName: AbstractDynamicCommandXsdSchemas.SchemaRibbonXml
-                    , ribbonEntityName: entityMetadata.LogicalName
+                    , entityName: entityMetadata.LogicalName
                     );
 
                 {

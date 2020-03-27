@@ -741,9 +741,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    formXml = ContentComparerHelper.FormatXmlByConfiguration(formXml, commonConfig, WindowExplorerSystemForm._xmlOptions
+                    formXml = ContentComparerHelper.FormatXmlByConfiguration(
+                        formXml
+                        , commonConfig
+                        , WindowExplorerSystemForm.XmlOptions
                         , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFormXml
                         , formId: systemForm.Id
+                        , entityName: systemForm.ObjectTypeCode
                     );
 
                     File.WriteAllText(filePath2, formXml, new UTF8Encoding(false));
@@ -932,9 +936,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     try
                     {
-                        formXml = ContentComparerHelper.FormatXmlByConfiguration(formXml, commonConfig, WindowExplorerSystemForm._xmlOptions
+                        formXml = ContentComparerHelper.FormatXmlByConfiguration(
+                            formXml
+                            , commonConfig
+                            , WindowExplorerSystemForm.XmlOptions
                             , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFormXml
                             , formId: systemForm.Id
+                            , entityName: systemForm.ObjectTypeCode
                         );
 
                         File.WriteAllText(filePathBackUp, formXml, new UTF8Encoding(false));
@@ -1223,9 +1231,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    xmlContent = ContentComparerHelper.FormatXmlByConfiguration(xmlContent, commonConfig, WindowExplorerSavedQuery._xmlOptions
+                    xmlContent = ContentComparerHelper.FormatXmlByConfiguration(
+                        xmlContent
+                        , commonConfig
+                        , WindowExplorerSavedQuery._xmlOptions
                         , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFetch
                         , savedQueryId: savedQueryId
+                        , entityName: savedQuery.ReturnedTypeCode
                     );
 
                     File.WriteAllText(filePath2, xmlContent, new UTF8Encoding(false));
@@ -1434,9 +1446,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     try
                     {
-                        xmlContent = ContentComparerHelper.FormatXmlByConfiguration(xmlContent, commonConfig, WindowExplorerSavedQuery._xmlOptions
+                        xmlContent = ContentComparerHelper.FormatXmlByConfiguration(
+                            xmlContent
+                            , commonConfig
+                            , WindowExplorerSavedQuery._xmlOptions
                             , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFetch
                             , savedQueryId: savedQueryId
+                            , entityName: savedQuery.ReturnedTypeCode
                         );
 
                         File.WriteAllText(filePathBackUp, xmlContent, new UTF8Encoding(false));

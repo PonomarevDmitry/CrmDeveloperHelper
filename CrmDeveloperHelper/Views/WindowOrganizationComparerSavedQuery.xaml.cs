@@ -563,9 +563,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     if (string.Equals(extension, "xml", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        xmlContent = ContentComparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
+                        xmlContent = ContentComparerHelper.FormatXmlByConfiguration(
+                            xmlContent
+                            , _commonConfig
+                            , _xmlOptions
                             , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFetch
                             , savedQueryId: savedQueryId
+                            , entityName: entityName
                         );
                     }
                     else if (string.Equals(extension, "json", StringComparison.InvariantCultureIgnoreCase))

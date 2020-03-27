@@ -38,8 +38,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly Popup _optionsPopup;
 
-        private readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.FormXml;
-
         public WindowOrganizationComparerSystemForm(
             IWriteToOutput iWriteToOutput
             , CommonConfiguration commonConfig
@@ -62,7 +60,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadEntityNames(cmBEntityName, connection1, connection2);
 
-            var child = new ExportXmlOptionsControl(_commonConfig, _xmlOptions);
+            var child = new ExportXmlOptionsControl(_commonConfig, WindowExplorerSystemForm.XmlOptions);
             child.CloseClicked += Child_CloseClicked;
             this._optionsPopup = new Popup
             {
@@ -573,9 +571,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     if (string.Equals(extension, "xml", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        formXml = ContentComparerHelper.FormatXmlByConfiguration(formXml, _commonConfig, _xmlOptions
+                        formXml = ContentComparerHelper.FormatXmlByConfiguration(
+                            formXml
+                            , _commonConfig
+                            , WindowExplorerSystemForm.XmlOptions
                             , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFormXml
                             , formId: idSystemForm
+                            , entityName: entityName
                         );
                     }
                     else if (string.Equals(extension, "json", StringComparison.InvariantCultureIgnoreCase))

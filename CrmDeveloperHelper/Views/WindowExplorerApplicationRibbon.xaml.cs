@@ -33,7 +33,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly Popup _optionsPopup;
 
-        private readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.RibbonFull;
+        public static readonly XmlOptionsControls XmlOptions = XmlOptionsControls.RibbonFull;
 
         public WindowExplorerApplicationRibbon(
             IWriteToOutput iWriteToOutput
@@ -54,7 +54,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InitializeComponent();
 
-            var child = new ExportXmlOptionsControl(_commonConfig, _xmlOptions);
+            var child = new ExportXmlOptionsControl(_commonConfig, XmlOptions);
             child.CloseClicked += Child_CloseClicked;
             this._optionsPopup = new Popup
             {
@@ -442,8 +442,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string ribbonXml = await repository.ExportApplicationRibbonAsync();
 
-                ribbonXml = ContentComparerHelper.FormatXmlByConfiguration(ribbonXml, _commonConfig, _xmlOptions
-                    , ribbonEntityName: string.Empty
+                ribbonXml = ContentComparerHelper.FormatXmlByConfiguration(ribbonXml, _commonConfig, XmlOptions
+                    , entityName: string.Empty
                     );
 
                 {
@@ -561,9 +561,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     return;
                 }
 
-                ribbonDiffXml = ContentComparerHelper.FormatXmlByConfiguration(ribbonDiffXml, _commonConfig, _xmlOptions
+                ribbonDiffXml = ContentComparerHelper.FormatXmlByConfiguration(ribbonDiffXml, _commonConfig, XmlOptions
                     , schemaName: AbstractDynamicCommandXsdSchemas.SchemaRibbonXml
-                    , ribbonEntityName: string.Empty
+                    , entityName: string.Empty
                     );
 
                 {

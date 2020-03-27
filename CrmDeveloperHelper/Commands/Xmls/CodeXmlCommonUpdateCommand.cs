@@ -121,13 +121,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                 || string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootColumnSet, StringComparison.InvariantCultureIgnoreCase)
             )
             {
-                var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName);
+                var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSavedQueryId);
 
                 CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CodeXmlSavedQueryUpdateCommand);
 
-                if (attribute == null
-                    || !Guid.TryParse(attribute.Value, out _)
-                    )
+                if (attribute == null || !Guid.TryParse(attribute.Value, out _))
                 {
                     menuCommand.Enabled = menuCommand.Visible = false;
                 }
@@ -138,9 +136,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 
                 CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CodeXmlSystemFormUpdateCommand);
 
-                if (attribute == null
-                    || !Guid.TryParse(attribute.Value, out _)
-                    )
+                if (attribute == null || !Guid.TryParse(attribute.Value, out _))
                 {
                     menuCommand.Enabled = menuCommand.Visible = false;
                 }
@@ -151,9 +147,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 
                 CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CodeXmlWorkflowUpdateCommand);
 
-                if (attribute == null
-                    || !Guid.TryParse(attribute.Value, out _)
-                )
+                if (attribute == null || !Guid.TryParse(attribute.Value, out _))
                 {
                     menuCommand.Enabled = menuCommand.Visible = false;
                 }
