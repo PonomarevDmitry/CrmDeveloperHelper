@@ -40,7 +40,7 @@
                 </MenuItem>
 
                 <Separator/>
-                <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" VerticalAlignment="Center" />
+                <MenuItem x:Uid="contMnAddSecurityRoleToSolutionLast" Header="Add to Last Crm Solution" VerticalAlignment="Center" />
                 <MenuItem Header="Add to Crm Solution" VerticalAlignment="Center" Click="AddSecurityRoleToCrmSolution_Click" />
 
                 <Separator/>
@@ -51,6 +51,22 @@
                     <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mISecurityRoleOpenDependentComponentsInWeb_Click" />
                     <Separator/>
                     <MenuItem Header="Open Dependent Components in Explorer" VerticalAlignment="Center" Click="mISecurityRoleOpenDependentComponentsInExplorer_Click" />
+                </MenuItem>
+            </ContextMenu>
+
+            <ContextMenu x:Key="listContextMenuOtherPrivileges" Opened="ContextMenuOtherPrivilege_Opened">
+
+                <MenuItem x:Uid="contMnAddOtherPrivilegeToSolutionLast" Header="Add to Last Crm Solution" VerticalAlignment="Center" />
+                <MenuItem Header="Add to Crm Solution" VerticalAlignment="Center" Click="AddOtherPrivilegeToCrmSolution_Click" />
+
+                <Separator/>
+                <MenuItem Header="Open Solutions Containing Component in Explorer" VerticalAlignment="Center" Click="mIOtherPrivilegeOpenSolutionsContainingComponentInExplorer_Click" />
+
+                <Separator/>
+                <MenuItem Header="Dependent Components">
+                    <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOtherPrivilegeOpenDependentComponentsInWeb_Click" />
+                    <Separator/>
+                    <MenuItem Header="Open Dependent Components in Explorer" VerticalAlignment="Center" Click="mIOtherPrivilegeOpenDependentComponentsInExplorer_Click" />
                 </MenuItem>
             </ContextMenu>
 
@@ -172,6 +188,11 @@
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
                         </Style>
                     </DataGrid.Resources>
+                    <DataGrid.ItemContainerStyle>
+                        <Style TargetType="{x:Type DataGridRow}">
+                            <Setter Property="ContextMenu" Value="{StaticResource listContextMenuOtherPrivileges}"/>
+                        </Style>
+                    </DataGrid.ItemContainerStyle>
                     <DataGrid.Columns>
 
                         <DataGridTextColumn Header="Privilege Name" Width="200" Binding="{Binding Name, Mode=OneTime}" >

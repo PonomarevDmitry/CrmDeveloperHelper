@@ -347,7 +347,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 _itemsSourceSecurityRoleList.Clear();
 
-                privilege = GetSelectedEntity()?.Privilege;
+                privilege = GetSelectedOtherPrivilege()?.Privilege;
 
                 foreach (var menuItem in _menuItemsSetPrivilegeDepths.Values)
                 {
@@ -557,19 +557,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ShowExistingSecurityRoles();
             }
-        }
-
-        private OtherPrivilegeListViewItem GetSelectedEntity()
-        {
-            return this.lstVwOtherPrivileges.SelectedItems.OfType<OtherPrivilegeListViewItem>().Count() == 1
-                ? this.lstVwOtherPrivileges.SelectedItems.OfType<OtherPrivilegeListViewItem>().SingleOrDefault() : null;
-        }
-
-        private List<OtherPrivilegeListViewItem> GetSelectedEntities()
-        {
-            List<OtherPrivilegeListViewItem> result = this.lstVwOtherPrivileges.SelectedItems.OfType<OtherPrivilegeListViewItem>().ToList();
-
-            return result;
         }
 
         private RoleOtherPrivilegeViewItem GetSelectedSecurityRole()
@@ -938,14 +925,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
                 });
-
-                FillLastSolutionItems(connectionData, items, true, AddSecurityRoleToCrmSolutionLast_Click, "contMnAddToSolutionLast");
+                
+                FillLastSolutionItems(connectionData, items, true, AddSecurityRoleToCrmSolutionLast_Click, "contMnAddSecurityRoleToSolutionLast");
             }
         }
 
         private void mIOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedOtherPrivilege();
 
             if (entity == null)
             {
@@ -958,45 +945,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 connectionData.OpenSolutionComponentDependentComponentsInWeb(ComponentType.Privilege, entity.Privilege.Id);
             }
-        }
-
-        private async void mIOpenDependentComponentsInExplorer_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            if (entity == null)
-            {
-                return;
-            }
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenSolutionComponentDependenciesWindow(_iWriteToOutput, service, null, _commonConfig, (int)ComponentType.Privilege, entity.Privilege.Id, null);
-        }
-
-        private async void mIOpenSolutionsContainingComponentInExplorer_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            if (entity == null)
-            {
-                return;
-            }
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenExplorerSolutionWindow(
-                _iWriteToOutput
-                , service
-                , _commonConfig
-                , (int)ComponentType.Privilege
-                , entity.Privilege.Id
-                , null
-            );
         }
 
         private void mISecurityRoleOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)
@@ -1296,7 +1244,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void SetSelectedRolesPrivilege(PrivilegeDepthExtended privilegeDepth)
         {
-            Privilege privilege = GetSelectedEntity()?.Privilege;
+            Privilege privilege = GetSelectedOtherPrivilege()?.Privilege;
 
             if (privilege == null)
             {
@@ -1375,5 +1323,136 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         }
 
         #endregion Set Attribute
+
+        #region Other Privilege
+
+        private OtherPrivilegeListViewItem GetSelectedOtherPrivilege()
+        {
+            return this.lstVwOtherPrivileges.SelectedItems.OfType<OtherPrivilegeListViewItem>().Count() == 1
+                ? this.lstVwOtherPrivileges.SelectedItems.OfType<OtherPrivilegeListViewItem>().SingleOrDefault() : null;
+        }
+
+        private List<OtherPrivilegeListViewItem> GetSelectedOtherPrivileges()
+        {
+            List<OtherPrivilegeListViewItem> result = this.lstVwOtherPrivileges.SelectedItems.OfType<OtherPrivilegeListViewItem>().ToList();
+
+            return result;
+        }
+
+        private void ContextMenuOtherPrivilege_Opened(object sender, RoutedEventArgs e)
+        {
+            if (sender is ContextMenu contextMenu)
+            {
+                var items = contextMenu.Items.OfType<Control>();
+
+                ConnectionData connectionData = null;
+
+                cmBCurrentConnection.Dispatcher.Invoke(() =>
+                {
+                    connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+                });
+
+                FillLastSolutionItems(connectionData, items, true, AddOtherPrivilegeToCrmSolutionLast_Click, "contMnAddOtherPrivilegeToSolutionLast");
+            }
+        }
+
+        private void mIOtherPrivilegeOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var privilege = GetSelectedOtherPrivilege();
+
+            if (privilege == null)
+            {
+                return;
+            }
+
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+            if (connectionData != null)
+            {
+                connectionData.OpenSolutionComponentDependentComponentsInWeb(ComponentType.Privilege, privilege.Privilege.Id);
+            }
+        }
+
+        private async void mIOtherPrivilegeOpenDependentComponentsInExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            var privilege = GetSelectedOtherPrivilege();
+
+            if (privilege == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenSolutionComponentDependenciesWindow(_iWriteToOutput, service, null, _commonConfig, (int)ComponentType.Privilege, privilege.Privilege.Id, null);
+        }
+
+        private async void mIOtherPrivilegeOpenSolutionsContainingComponentInExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            var privilege = GetSelectedOtherPrivilege();
+
+            if (privilege == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenExplorerSolutionWindow(
+                _iWriteToOutput
+                , service
+                , _commonConfig
+                , (int)ComponentType.Privilege
+                , privilege.Privilege.Id
+                , null
+            );
+        }
+
+        private async void AddOtherPrivilegeToCrmSolution_Click(object sender, RoutedEventArgs e)
+        {
+            await AddOtherPrivilegeToSolution(true, null);
+        }
+
+        private async void AddOtherPrivilegeToCrmSolutionLast_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+               && menuItem.Tag != null
+               && menuItem.Tag is string solutionUniqueName
+               )
+            {
+                await AddOtherPrivilegeToSolution(false, solutionUniqueName);
+            }
+        }
+
+        private async Task AddOtherPrivilegeToSolution(bool withSelect, string solutionUniqueName)
+        {
+            var otherPrivilegesList = GetSelectedOtherPrivileges();
+
+            if (otherPrivilegesList == null || !otherPrivilegesList.Any())
+            {
+                return;
+            }
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            try
+            {
+                this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+
+                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.Privilege, otherPrivilegesList.Select(item => item.Privilege.Id).ToList(), null, withSelect);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+            }
+        }
+
+        #endregion Other Privilege
     }
 }
