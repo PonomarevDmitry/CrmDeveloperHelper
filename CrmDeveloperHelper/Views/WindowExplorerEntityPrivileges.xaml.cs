@@ -839,6 +839,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenEntityKeyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
         }
 
+        private async void miOtherPrivilegesExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenOtherPrivilegesExplorer(this._iWriteToOutput, service, _commonConfig);
+        }
+
         private async void btnExportApplicationRibbon_Click(object sender, RoutedEventArgs e)
         {
             _commonConfig.Save();

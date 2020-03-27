@@ -1644,6 +1644,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenEntityPrivilegesExplorer(this._iWriteToOutput, service, _commonConfig, entity?.EntityName);
         }
 
+        private async void btnOtherPrivilegesExplorer1_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            var service = await GetService1();
+
+            WindowHelper.OpenOtherPrivilegesExplorer(this._iWriteToOutput, service, _commonConfig);
+        }
+
+        private async void btnOtherPrivilegesExplorer2_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            var service = await GetService2();
+
+            WindowHelper.OpenOtherPrivilegesExplorer(this._iWriteToOutput, service, _commonConfig);
+        }
+
         private async void btnSecurityRolesExplorer1_Click(object sender, RoutedEventArgs e)
         {
             _commonConfig.Save();

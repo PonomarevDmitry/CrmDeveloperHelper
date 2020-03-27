@@ -134,6 +134,8 @@
                 <Separator/>
                 <MenuItem Header="Entity Privileges Explorer" Click="miEntityPrivilegesExplorer_Click"/>
                 <Separator/>
+                <MenuItem Header="Other Privileges Explorer" Click="miOtherPrivilegesExplorer_Click"/>
+                <Separator/>
                 <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets_Click"/>
                 <Separator/>
                 <MenuItem Header="Forms" Click="btnSystemForms_Click"/>
@@ -377,6 +379,8 @@
                                     <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
                                     <Separator/>
                                     <MenuItem Header="Entity Privileges Explorer" Click="miEntityPrivilegesExplorer_Click"/>
+                                    <Separator/>
+                                    <MenuItem Header="Other Privileges Explorer" Click="miOtherPrivilegesExplorer_Click"/>
                                     <Separator/>
                                     <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets_Click" />
                                     <Separator/>

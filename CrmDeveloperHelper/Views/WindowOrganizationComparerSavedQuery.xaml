@@ -70,6 +70,8 @@
                     <Separator/>
                     <MenuItem Header="Entity Privileges Explorer" Click="btnEntityPrivilegesExplorer1_Click"/>
                     <Separator/>
+                    <MenuItem Header="Other Privileges Explorer" Click="btnOtherPrivilegesExplorer1_Click"/>
+                    <Separator/>
                     <MenuItem Header="SecurityRoles Explorer" Click="btnSecurityRolesExplorer1_Click"/>
                     <Separator/>
                     <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets1_Click"/>
@@ -116,6 +118,8 @@
                     <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer2_Click"/>
                     <Separator/>
                     <MenuItem Header="Entity Privileges Explorer" Click="btnEntityPrivilegesExplorer2_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Other Privileges Explorer" Click="btnOtherPrivilegesExplorer2_Click"/>
                     <Separator/>
                     <MenuItem Header="SecurityRoles Explorer" Click="btnSecurityRolesExplorer2_Click"/>
                     <Separator/>
@@ -165,6 +169,8 @@
                     <Separator/>
                     <MenuItem Header="Entity Privileges Explorer" Click="btnEntityPrivilegesExplorer1_Click"/>
                     <Separator/>
+                    <MenuItem Header="Other Privileges Explorer" Click="btnOtherPrivilegesExplorer1_Click"/>
+                    <Separator/>
                     <MenuItem Header="SecurityRoles Explorer" Click="btnSecurityRolesExplorer1_Click"/>
                     <Separator/>
                     <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets1_Click"/>
@@ -194,6 +200,8 @@
                     <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer2_Click"/>
                     <Separator/>
                     <MenuItem Header="Entity Privileges Explorer" Click="btnEntityPrivilegesExplorer2_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Other Privileges Explorer" Click="btnOtherPrivilegesExplorer2_Click"/>
                     <Separator/>
                     <MenuItem Header="SecurityRoles Explorer" Click="btnSecurityRolesExplorer2_Click"/>
                     <Separator/>

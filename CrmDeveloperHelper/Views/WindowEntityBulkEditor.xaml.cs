@@ -464,6 +464,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenEntityPrivilegesExplorer(this._iWriteToOutput, _service, _commonConfig);
         }
 
+        private void miOtherPrivilegesExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            WindowHelper.OpenOtherPrivilegesExplorer(this._iWriteToOutput, _service, _commonConfig);
+        }
+
         private void miSecurityRolesExplorer_Click(object sender, RoutedEventArgs e)
         {
             _commonConfig.Save();

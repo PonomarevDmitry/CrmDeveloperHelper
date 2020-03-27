@@ -58,6 +58,8 @@
                 <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
                 <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
                 <Separator/>
+                <MenuItem Header="Other Privileges Explorer" Click="miOtherPrivilegesExplorer_Click"/>
+                <Separator/>
                 <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets_Click"/>
                 <Separator/>
                 <MenuItem Header="Forms" Click="btnSystemForms_Click"/>
@@ -175,6 +177,8 @@
                                 <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer_Click"/>
                                 <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
                                 <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
+                                <Separator/>
+                                <MenuItem Header="Other Privileges Explorer" Click="miOtherPrivilegesExplorer_Click"/>
                                 <Separator/>
                                 <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets_Click" />
                                 <Separator/>
