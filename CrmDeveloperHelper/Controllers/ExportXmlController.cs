@@ -193,7 +193,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await DifferenceSiteMap(selectedFile, connectionData, commonConfig);
+                await DifferenceSiteMap(connectionData, commonConfig, selectedFile);
             }
             catch (Exception ex)
             {
@@ -205,7 +205,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task DifferenceSiteMap(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task DifferenceSiteMap(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             if (connectionData == null)
             {
@@ -228,7 +228,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            await DifferenceSiteMap(doc, selectedFile.FilePath, connectionData, commonConfig);
+            await DifferenceSiteMap(connectionData, commonConfig, doc, selectedFile.FilePath);
         }
 
         public async Task ExecuteDifferenceSiteMap(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
@@ -239,7 +239,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await DifferenceSiteMap(doc, filePath, connectionData, commonConfig);
+                await DifferenceSiteMap(connectionData, commonConfig, doc, filePath);
             }
             catch (Exception ex)
             {
@@ -251,7 +251,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task DifferenceSiteMap(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task DifferenceSiteMap(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             string siteMapNameUnique = string.Empty;
 
@@ -295,32 +295,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string fileTitle2 = EntityFileNameFormatter.GetSiteMapFileName(connectionData.Name, siteMap.SiteMapNameUnique, siteMap.Id, fieldTitle, "xml");
             string filePath2 = FileOperations.GetNewTempFilePath(Path.GetFileNameWithoutExtension(fileTitle2), Path.GetExtension(fileTitle2));
 
-            if (!string.IsNullOrEmpty(siteMapXml))
-            {
-                try
-                {
-                    siteMapXml = ContentComparerHelper.FormatXmlByConfiguration(
-                        siteMapXml
-                        , commonConfig
-                        , XmlOptionsControls.SiteMapXmlOptions
-                        , schemaName: AbstractDynamicCommandXsdSchemas.SchemaSiteMapXml
-                        , siteMapUniqueName: siteMap.SiteMapNameUnique ?? string.Empty
-                    );
-
-                    File.WriteAllText(filePath2, siteMapXml, new UTF8Encoding(false));
-
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, SiteMap.Schema.EntityLogicalName, siteMap.SiteMapNameUnique, fieldTitle, filePath2);
-                }
-                catch (Exception ex)
-                {
-                    this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-                }
-            }
-            else
+            if (string.IsNullOrEmpty(siteMapXml))
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionData.Name, SiteMap.Schema.EntityLogicalName, siteMap.SiteMapNameUnique, fieldTitle);
                 this._iWriteToOutput.ActivateOutputWindow(connectionData);
                 return;
+            }
+
+            try
+            {
+                siteMapXml = ContentComparerHelper.FormatXmlByConfiguration(
+                    siteMapXml
+                    , commonConfig
+                    , XmlOptionsControls.SiteMapXmlOptions
+                    , schemaName: AbstractDynamicCommandXsdSchemas.SchemaSiteMapXml
+                    , siteMapUniqueName: siteMap.SiteMapNameUnique ?? string.Empty
+                );
+
+                File.WriteAllText(filePath2, siteMapXml, new UTF8Encoding(false));
+
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, SiteMap.Schema.EntityLogicalName, siteMap.SiteMapNameUnique, fieldTitle, filePath2);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
 
             string filePath1 = filePath;
@@ -337,7 +335,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await UpdateSiteMap(selectedFile, connectionData, commonConfig);
+                await UpdateSiteMap(connectionData, commonConfig, selectedFile);
             }
             catch (Exception ex)
             {
@@ -349,7 +347,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task UpdateSiteMap(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task UpdateSiteMap(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             if (connectionData == null)
             {
@@ -372,7 +370,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            await UpdateSiteMap(doc, selectedFile.FilePath, connectionData, commonConfig);
+            await UpdateSiteMap(connectionData, commonConfig, doc, selectedFile.FilePath);
         }
 
         public async Task ExecuteUpdateSiteMap(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
@@ -383,7 +381,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await UpdateSiteMap(doc, filePath, connectionData, commonConfig);
+                await UpdateSiteMap(connectionData, commonConfig, doc, filePath);
             }
             catch (Exception ex)
             {
@@ -395,7 +393,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task UpdateSiteMap(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task UpdateSiteMap(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             if (connectionData == null)
             {
@@ -525,7 +523,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await OpenInWebSiteMap(selectedFile, connectionData, commonConfig);
+                await OpenInWebSiteMap(connectionData, commonConfig, selectedFile);
             }
             catch (Exception ex)
             {
@@ -537,7 +535,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task OpenInWebSiteMap(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task OpenInWebSiteMap(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             if (connectionData == null)
             {
@@ -616,7 +614,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await DifferenceSystemForm(selectedFile, connectionData, commonConfig);
+                await DifferenceSystemForm(connectionData, commonConfig, selectedFile);
             }
             catch (Exception ex)
             {
@@ -628,7 +626,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task DifferenceSystemForm(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task DifferenceSystemForm(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             if (connectionData == null)
             {
@@ -650,7 +648,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            await DifferenceSystemForm(doc, selectedFile.FilePath, connectionData, commonConfig);
+            await DifferenceSystemForm(connectionData, commonConfig, doc, selectedFile.FilePath);
         }
 
         public async Task ExecuteDifferenceSystemForm(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
@@ -661,7 +659,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await DifferenceSystemForm(doc, filePath, connectionData, commonConfig);
+                await DifferenceSystemForm(connectionData, commonConfig, doc, filePath);
             }
             catch (Exception ex)
             {
@@ -673,7 +671,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task DifferenceSystemForm(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task DifferenceSystemForm(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             if (connectionData == null)
             {
@@ -782,7 +780,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await UpdateSystemForm(selectedFile, connectionData, commonConfig);
+                await UpdateSystemForm(connectionData, commonConfig, selectedFile);
             }
             catch (Exception ex)
             {
@@ -794,7 +792,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task UpdateSystemForm(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task UpdateSystemForm(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             if (connectionData == null)
             {
@@ -816,7 +814,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            await UpdateSystemForm(doc, selectedFile.FilePath, connectionData, commonConfig);
+            await UpdateSystemForm(connectionData, commonConfig, doc, selectedFile.FilePath);
         }
 
         public async Task ExecuteUpdateSystemForm(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
@@ -827,7 +825,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await UpdateSystemForm(doc, filePath, connectionData, commonConfig);
+                await UpdateSystemForm(connectionData, commonConfig, doc, filePath);
             }
             catch (Exception ex)
             {
@@ -839,7 +837,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task UpdateSystemForm(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task UpdateSystemForm(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             if (connectionData == null)
             {
@@ -993,7 +991,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await OpenInWebSystemForm(selectedFile, connectionData, commonConfig);
+                await OpenInWebSystemForm(connectionData, commonConfig, selectedFile);
             }
             catch (Exception ex)
             {
@@ -1005,7 +1003,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task OpenInWebSystemForm(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task OpenInWebSystemForm(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             if (connectionData == null)
             {
@@ -1104,7 +1102,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await DifferenceSavedQuery(selectedFile, connectionData, commonConfig);
+                await DifferenceSavedQuery(connectionData, commonConfig, selectedFile);
             }
             catch (Exception ex)
             {
@@ -1116,7 +1114,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task DifferenceSavedQuery(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task DifferenceSavedQuery(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             if (connectionData == null)
             {
@@ -1138,7 +1136,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            await DifferenceSavedQuery(doc, selectedFile.FilePath, connectionData, commonConfig);
+            await DifferenceSavedQuery(connectionData, commonConfig, doc, selectedFile.FilePath);
         }
 
         public async Task ExecuteDifferenceSavedQuery(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
@@ -1149,7 +1147,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await DifferenceSavedQuery(doc, filePath, connectionData, commonConfig);
+                await DifferenceSavedQuery(connectionData, commonConfig, doc, filePath);
             }
             catch (Exception ex)
             {
@@ -1161,7 +1159,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task DifferenceSavedQuery(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task DifferenceSavedQuery(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             if (connectionData == null)
             {
@@ -1272,7 +1270,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await UpdateSavedQuery(selectedFile, connectionData, commonConfig);
+                await UpdateSavedQuery(connectionData, commonConfig, selectedFile);
             }
             catch (Exception ex)
             {
@@ -1284,7 +1282,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task UpdateSavedQuery(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task UpdateSavedQuery(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             if (connectionData == null)
             {
@@ -1306,7 +1304,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            await UpdateSavedQuery(doc, selectedFile.FilePath, connectionData, commonConfig);
+            await UpdateSavedQuery(connectionData, commonConfig, doc, selectedFile.FilePath);
         }
 
         public async Task ExecuteUpdateSavedQuery(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
@@ -1317,7 +1315,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await UpdateSavedQuery(doc, filePath, connectionData, commonConfig);
+                await UpdateSavedQuery(connectionData, commonConfig, doc, filePath);
             }
             catch (Exception ex)
             {
@@ -1329,7 +1327,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task UpdateSavedQuery(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task UpdateSavedQuery(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             if (connectionData == null)
             {
@@ -1513,7 +1511,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await OpenInWebSavedQuery(selectedFile, connectionData, commonConfig);
+                await OpenInWebSavedQuery(connectionData, commonConfig, selectedFile);
             }
             catch (Exception ex)
             {
@@ -1525,7 +1523,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task OpenInWebSavedQuery(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task OpenInWebSavedQuery(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             if (connectionData == null)
             {
@@ -1625,7 +1623,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await DifferenceWorkflow(selectedFile, connectionData, commonConfig);
+                await DifferenceWorkflow(connectionData, commonConfig, selectedFile);
             }
             catch (Exception ex)
             {
@@ -1637,7 +1635,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task DifferenceWorkflow(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task DifferenceWorkflow(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             if (connectionData == null)
             {
@@ -1659,7 +1657,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            await DifferenceWorkflow(doc, selectedFile.FilePath, connectionData, commonConfig);
+            await DifferenceWorkflow(connectionData, commonConfig, doc, selectedFile.FilePath);
         }
 
         public async Task ExecuteDifferenceWorkflow(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
@@ -1670,7 +1668,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await DifferenceWorkflow(doc, filePath, connectionData, commonConfig);
+                await DifferenceWorkflow(connectionData, commonConfig, doc, filePath);
             }
             catch (Exception ex)
             {
@@ -1682,7 +1680,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task DifferenceWorkflow(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task DifferenceWorkflow(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             if (connectionData == null)
             {
@@ -1789,7 +1787,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await UpdateWorkflow(selectedFile, connectionData, commonConfig);
+                await UpdateWorkflow(connectionData, commonConfig, selectedFile);
             }
             catch (Exception ex)
             {
@@ -1801,7 +1799,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task UpdateWorkflow(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task UpdateWorkflow(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             if (connectionData == null)
             {
@@ -1823,7 +1821,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            await UpdateWorkflow(doc, selectedFile.FilePath, connectionData, commonConfig);
+            await UpdateWorkflow(connectionData, commonConfig, doc, selectedFile.FilePath);
         }
 
         public async Task ExecuteUpdateWorkflow(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
@@ -1834,7 +1832,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await UpdateWorkflow(doc, filePath, connectionData, commonConfig);
+                await UpdateWorkflow(connectionData, commonConfig, doc, filePath);
             }
             catch (Exception ex)
             {
@@ -1846,7 +1844,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task UpdateWorkflow(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task UpdateWorkflow(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             if (connectionData == null)
             {
@@ -1987,7 +1985,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await OpenInWebWorkflow(selectedFile, connectionData, commonConfig);
+                await OpenInWebWorkflow(connectionData, commonConfig, selectedFile);
             }
             catch (Exception ex)
             {
@@ -1999,7 +1997,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task OpenInWebWorkflow(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task OpenInWebWorkflow(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             if (connectionData == null)
             {
@@ -2054,11 +2052,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            if (string.IsNullOrEmpty(attribute.Value)
-                || !Guid.TryParse(attribute.Value, out var workflowId)
-            )
+            if (string.IsNullOrEmpty(attribute.Value) || !Guid.TryParse(attribute.Value, out var workflowId))
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.XmlAttributeNotValidGuidFormat3
+                this._iWriteToOutput.WriteToOutput(
+                    connectionData
+                    , Properties.OutputStrings.XmlAttributeNotValidGuidFormat3
                     , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWorkflowId.ToString()
                     , attribute.Value
                     , selectedFile.FilePath
@@ -2098,7 +2096,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await DifferenceWebResourceDependencyXml(selectedFile, connectionData, commonConfig);
+                await ParseXmlDocumentWebResourceDependencyXmlAndContinue(connectionData, commonConfig, selectedFile, null, DifferenceWebResourceDependencyXml);
             }
             catch (Exception ex)
             {
@@ -2110,7 +2108,93 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task DifferenceWebResourceDependencyXml(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteDifferenceWebResourceDependencyXml(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
+        {
+            string operation = string.Format(Properties.OperationNames.DifferenceWebResourceDependencyXmlFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await CheckAttributeValidateGetWebResourceExecuteAction(connectionData, commonConfig, doc, filePath, null, DifferenceWebResourceDependencyXml);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        public async Task ExecuteUpdateWebResourceDependencyXml(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+        {
+            string operation = string.Format(Properties.OperationNames.UpdatingWebResourceDependencyXmlFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await ParseXmlDocumentWebResourceDependencyXmlAndContinue(connectionData, commonConfig, selectedFile, ValidateDocumentDependencyXml, UpdateWebResourceDependencyXml);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        public async Task ExecuteUpdateWebResourceDependencyXml(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
+        {
+            string operation = string.Format(Properties.OperationNames.UpdatingWebResourceDependencyXmlFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await CheckAttributeValidateGetWebResourceExecuteAction(connectionData, commonConfig, doc, filePath, ValidateDocumentDependencyXml, UpdateWebResourceDependencyXml);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        public async Task ExecuteOpenInWebWebResourceDependencyXml(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+        {
+            string operation = string.Format(Properties.OperationNames.OpeningWebResourceFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await ParseXmlDocumentWebResourceDependencyXmlAndContinue(connectionData, commonConfig, selectedFile, null, OpenInWebWebResourceDependencyXml);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task ParseXmlDocumentWebResourceDependencyXmlAndContinue(
+            ConnectionData connectionData
+            , CommonConfiguration commonConfig
+            , SelectedFile selectedFile
+            , Func<ConnectionData, XDocument, Task<bool>> validator
+            , Func<IOrganizationServiceExtented, CommonConfiguration, XDocument, string, WebResource, Task> continueAction
+        )
         {
             if (connectionData == null)
             {
@@ -2132,30 +2216,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            await DifferenceWebResourceDependencyXml(doc, selectedFile.FilePath, connectionData, commonConfig);
+            await CheckAttributeValidateGetWebResourceExecuteAction(connectionData, commonConfig, doc, selectedFile.FilePath, validator, continueAction);
         }
 
-        public async Task ExecuteDifferenceWebResourceDependencyXml(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
-        {
-            string operation = string.Format(Properties.OperationNames.DifferenceWebResourceDependencyXmlFormat1, connectionData?.Name);
-
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
-
-            try
-            {
-                await DifferenceWebResourceDependencyXml(doc, filePath, connectionData, commonConfig);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
-            }
-        }
-
-        private async Task DifferenceWebResourceDependencyXml(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task CheckAttributeValidateGetWebResourceExecuteAction(
+            ConnectionData connectionData
+            , CommonConfiguration commonConfig
+            , XDocument doc
+            , string filePath
+            , Func<ConnectionData, XDocument, Task<bool>> validator
+            , Func<IOrganizationServiceExtented, CommonConfiguration, XDocument, string, WebResource, Task> continueAction
+        )
         {
             if (connectionData == null)
             {
@@ -2181,16 +2252,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 this._iWriteToOutput.WriteToOutput(
                     connectionData
-                    , Properties.OutputStrings.XmlAttributeNotValidGuidFormat3
+                    , Properties.OutputStrings.XmlAttributeIsEmptyFormat2
                     , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWebResourceName.ToString()
-                    , attribute.Value
                     , filePath
                 );
 
                 return;
             }
 
-            string webResourceName = attribute.Value;
+            if (validator != null)
+            {
+                if (!await validator(connectionData, doc))
+                {
+                    return;
+                }
+            }
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
 
@@ -2207,159 +2283,123 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-            var repository = new WebResourceRepository(service);
+            string webResourceName = attribute.Value;
 
-            var webResource = await repository.FindByExactNameAsync(webResourceName, new ColumnSet(true));
+            var repositoryWebResource = new WebResourceRepository(service);
+
+            var webResource = await repositoryWebResource.FindByExactNameAsync(webResourceName, new ColumnSet(true));
 
             if (webResource == null)
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WebResourceNotFoundedInConnectionFormat2, connectionData.Name, webResourceName);
                 this._iWriteToOutput.ActivateOutputWindow(connectionData);
+
+                WindowHelper.OpenWebResourceExplorerWindow(_iWriteToOutput, service, commonConfig);
+
                 return;
             }
 
+            await continueAction(service, commonConfig, doc, filePath, webResource);
+        }
+
+        private async Task DifferenceWebResourceDependencyXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, WebResource webResource)
+        {
             string dependencyXml = webResource.GetAttributeValue<string>(WebResource.Schema.Attributes.dependencyxml);
 
             string fieldTitle = WebResource.Schema.Headers.dependencyxml;
 
-            string fileTitle2 = EntityFileNameFormatter.GetWebResourceFileName(connectionData.Name, webResource.Name, fieldTitle, "xml");
+            string fileTitle2 = EntityFileNameFormatter.GetWebResourceFileName(service.ConnectionData.Name, webResource.Name, fieldTitle, "xml");
             string filePath2 = FileOperations.GetNewTempFilePath(Path.GetFileNameWithoutExtension(fileTitle2), Path.GetExtension(fileTitle2));
 
-            if (!string.IsNullOrEmpty(dependencyXml))
+            if (string.IsNullOrEmpty(dependencyXml))
             {
-                try
-                {
-                    dependencyXml = ContentComparerHelper.FormatXmlByConfiguration(
-                        dependencyXml
-                        , commonConfig
-                        , XmlOptionsControls.WebResourceDependencyXmlOptions
-                        , schemaName: AbstractDynamicCommandXsdSchemas.SchemaDependencyXml
-                        , webResourceName: webResource.Name
-                    );
-
-                    File.WriteAllText(filePath2, dependencyXml, new UTF8Encoding(false));
-
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, WebResource.Schema.EntityLogicalName, webResource.Name, fieldTitle, filePath2);
-                }
-                catch (Exception ex)
-                {
-                    this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-                }
-            }
-            else
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionData.Name, WebResource.Schema.EntityLogicalName, webResource.Name, fieldTitle);
-                this._iWriteToOutput.ActivateOutputWindow(connectionData);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, WebResource.Schema.EntityLogicalName, webResource.Name, fieldTitle);
+                this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 return;
+            }
+
+            try
+            {
+                dependencyXml = ContentComparerHelper.FormatXmlByConfiguration(
+                    dependencyXml
+                    , commonConfig
+                    , XmlOptionsControls.WebResourceDependencyXmlOptions
+                    , schemaName: AbstractDynamicCommandXsdSchemas.SchemaDependencyXml
+                    , webResourceName: webResource.Name
+                );
+
+                File.WriteAllText(filePath2, dependencyXml, new UTF8Encoding(false));
+
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, WebResource.Schema.EntityLogicalName, webResource.Name, fieldTitle, filePath2);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
 
             string filePath1 = filePath;
             string fileTitle1 = Path.GetFileName(filePath);
 
-            this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, fileTitle1, fileTitle2);
+            await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, fileTitle1, fileTitle2);
         }
 
-        public async Task ExecuteUpdateWebResourceDependencyXml(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+        private async Task UpdateWebResourceDependencyXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, WebResource webResource)
         {
-            string operation = string.Format(Properties.OperationNames.UpdatingWebResourceDependencyXmlFormat1, connectionData?.Name);
+            {
+                string dependencyXml = webResource.GetAttributeValue<string>(WebResource.Schema.Attributes.dependencyxml);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+                string fieldTitle = WebResource.Schema.Headers.dependencyxml + " BackUp";
 
-            try
-            {
-                await UpdateWebResourceDependencyXml(selectedFile, connectionData, commonConfig);
+                string fileNameBackUp = EntityFileNameFormatter.GetWebResourceFileName(service.ConnectionData.Name, webResource.Name, fieldTitle, "xml");
+                string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
+
+                if (!string.IsNullOrEmpty(dependencyXml))
+                {
+                    try
+                    {
+                        dependencyXml = ContentComparerHelper.FormatXmlByConfiguration(
+                            dependencyXml
+                            , commonConfig
+                            , XmlOptionsControls.WebResourceDependencyXmlOptions
+                            , schemaName: AbstractDynamicCommandXsdSchemas.SchemaDependencyXml
+                            , webResourceName: webResource.Name
+                        );
+
+                        File.WriteAllText(filePathBackUp, dependencyXml, new UTF8Encoding(false));
+
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, WebResource.Schema.EntityLogicalName, webResource.Name, fieldTitle, filePathBackUp);
+                    }
+                    catch (Exception ex)
+                    {
+                        this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                    }
+                }
+                else
+                {
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, WebResource.Schema.EntityLogicalName, webResource.Name, fieldTitle);
+                    this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                }
             }
-            catch (Exception ex)
+
+            var newText = doc.ToString(SaveOptions.DisableFormatting);
+
+            var updateEntity = new WebResource
             {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
-            }
+                Id = webResource.Id
+            };
+            updateEntity.Attributes[WebResource.Schema.Attributes.dependencyxml] = newText;
+
+            await service.UpdateAsync(updateEntity);
+
+            var repositoryPublish = new PublishActionsRepository(service);
+
+            _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PublishingWebResourceFormat2, service.ConnectionData.Name, webResource.Name);
+
+            await repositoryPublish.PublishWebResourcesAsync(new[] { webResource.Id });
         }
 
-        private async Task UpdateWebResourceDependencyXml(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task<bool> ValidateDocumentDependencyXml(ConnectionData connectionData, XDocument doc)
         {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            if (!File.Exists(selectedFile.FilePath))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
-                return;
-            }
-
-            string fileText = File.ReadAllText(selectedFile.FilePath);
-
-            if (!ContentComparerHelper.TryParseXmlDocument(fileText, out var doc))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
-                return;
-            }
-
-            await UpdateWebResourceDependencyXml(doc, selectedFile.FilePath, connectionData, commonConfig);
-        }
-
-        public async Task ExecuteUpdateWebResourceDependencyXml(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
-        {
-            string operation = string.Format(Properties.OperationNames.UpdatingWebResourceDependencyXmlFormat1, connectionData?.Name);
-
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
-
-            try
-            {
-                await UpdateWebResourceDependencyXml(doc, filePath, connectionData, commonConfig);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
-            }
-        }
-
-        private async Task UpdateWebResourceDependencyXml(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            var attribute = doc.Root.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWebResourceName);
-
-            if (attribute == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData
-                    , Properties.OutputStrings.FileNotContainsXmlAttributeFormat2
-                    , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWebResourceName.ToString()
-                    , filePath
-                );
-
-                return;
-            }
-
-            if (string.IsNullOrEmpty(attribute.Value) || string.IsNullOrEmpty(attribute.Value))
-            {
-                this._iWriteToOutput.WriteToOutput(
-                    connectionData
-                    , Properties.OutputStrings.XmlAttributeNotValidGuidFormat3
-                    , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWebResourceName.ToString()
-                    , attribute.Value
-                    , filePath
-                );
-
-                return;
-            }
-
-            string webResourceName = attribute.Value;
-
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ValidatingXmlForFieldFormat1, WebResource.Schema.Attributes.dependencyxml);
 
             ContentComparerHelper.ClearRoot(doc);
@@ -2384,195 +2424,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (dialogResult != MessageBoxResult.OK)
                 {
-                    return;
+                    return false;
                 }
             }
 
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-
-            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            if (service == null)
-            {
-                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
-
-            var repositoryWebResource = new WebResourceRepository(service);
-
-            var webResource = await repositoryWebResource.FindByExactNameAsync(webResourceName, new ColumnSet(true));
-
-            if (webResource == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WebResourceNotFoundedInConnectionFormat2, connectionData.Name, webResourceName);
-                this._iWriteToOutput.ActivateOutputWindow(connectionData);
-                return;
-            }
-
-            {
-                string dependencyXml = webResource.GetAttributeValue<string>(WebResource.Schema.Attributes.dependencyxml);
-
-                string fieldTitle = WebResource.Schema.Headers.dependencyxml + " BackUp";
-
-                string fileNameBackUp = EntityFileNameFormatter.GetWebResourceFileName(connectionData.Name, webResource.Name, fieldTitle, "xml");
-                string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
-
-                if (!string.IsNullOrEmpty(dependencyXml))
-                {
-                    try
-                    {
-                        dependencyXml = ContentComparerHelper.FormatXmlByConfiguration(
-                            dependencyXml
-                            , commonConfig
-                            , XmlOptionsControls.WebResourceDependencyXmlOptions
-                            , schemaName: AbstractDynamicCommandXsdSchemas.SchemaDependencyXml
-                            , webResourceName: webResource.Name
-                        );
-
-                        File.WriteAllText(filePathBackUp, dependencyXml, new UTF8Encoding(false));
-
-                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, WebResource.Schema.EntityLogicalName, webResource.Name, fieldTitle, filePathBackUp);
-                    }
-                    catch (Exception ex)
-                    {
-                        this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-                    }
-                }
-                else
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionData.Name, WebResource.Schema.EntityLogicalName, webResource.Name, fieldTitle);
-                    this._iWriteToOutput.ActivateOutputWindow(connectionData);
-                }
-            }
-
-            var newText = doc.ToString(SaveOptions.DisableFormatting);
-
-            var updateEntity = new WebResource
-            {
-                Id = webResource.Id
-            };
-            updateEntity.Attributes[WebResource.Schema.Attributes.dependencyxml] = newText;
-
-            await service.UpdateAsync(updateEntity);
-
-            var repositoryPublish = new PublishActionsRepository(service);
-
-            _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.PublishingWebResourceFormat2, service.ConnectionData.Name, webResource.Name);
-            await repositoryPublish.PublishWebResourcesAsync(new[] { webResource.Id });
+            return true;
         }
 
-        public async Task ExecuteOpenInWebWebResourceDependencyXml(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+        private async Task OpenInWebWebResourceDependencyXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, WebResource webResource)
         {
-            string operation = string.Format(Properties.OperationNames.OpeningWebResourceFormat1, connectionData?.Name);
-
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
-
-            try
-            {
-                await OpenInWebWebResourceDependencyXml(selectedFile, connectionData, commonConfig);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
-            }
-        }
-
-        private async Task OpenInWebWebResourceDependencyXml(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            if (!File.Exists(selectedFile.FilePath))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-
-            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            if (service == null)
-            {
-                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
-
-            string fileText = File.ReadAllText(selectedFile.FilePath);
-
-            if (!ContentComparerHelper.TryParseXmlDocument(fileText, out var doc))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
-
-                WindowHelper.OpenWebResourceExplorerWindow(_iWriteToOutput, service, commonConfig);
-
-                return;
-            }
-
-            var attribute = doc.Root.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWebResourceName);
-
-            if (attribute == null)
-            {
-                this._iWriteToOutput.WriteToOutput(
-                    connectionData
-                    , Properties.OutputStrings.FileNotContainsXmlAttributeFormat2
-                    , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWebResourceName.ToString()
-                    , selectedFile.FilePath
-                );
-
-                WindowHelper.OpenWebResourceExplorerWindow(_iWriteToOutput, service, commonConfig);
-
-                return;
-            }
-
-            if (string.IsNullOrEmpty(attribute.Value))
-            {
-                this._iWriteToOutput.WriteToOutput(
-                    connectionData
-                    , Properties.OutputStrings.XmlAttributeNotValidGuidFormat3
-                    , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWebResourceName.ToString()
-                    , attribute.Value
-                    , selectedFile.FilePath
-                );
-
-                WindowHelper.OpenWebResourceExplorerWindow(_iWriteToOutput, service, commonConfig);
-
-                return;
-            }
-
-            string webResourceName = attribute.Value;
-
-            var repositoryWebResource = new WebResourceRepository(service);
-
-            var webResource = await repositoryWebResource.FindByExactNameAsync(webResourceName, new ColumnSet(false));
-
-            if (webResource == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WebResourceNotFoundedInConnectionFormat2, connectionData.Name, webResourceName);
-                this._iWriteToOutput.ActivateOutputWindow(connectionData);
-
-                WindowHelper.OpenWebResourceExplorerWindow(_iWriteToOutput, service, commonConfig);
-
-                return;
-            }
-
             service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.WebResource, webResource.Id);
         }
 
