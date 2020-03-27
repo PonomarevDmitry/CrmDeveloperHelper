@@ -40,8 +40,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly Popup _optionsPopup;
 
-        public static readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.SetIntellisenseContext;
-
         public WindowExplorerWorkflow(
              IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
@@ -65,7 +63,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadEntityNames(cmBEntityName, service.ConnectionData);
 
-            var child = new ExportXmlOptionsControl(_commonConfig, _xmlOptions);
+            var child = new ExportXmlOptionsControl(_commonConfig, XmlOptionsControls.WorkflowXmlOptions);
             child.CloseClicked += Child_CloseClicked;
             this._optionsPopup = new Popup
             {
@@ -716,7 +714,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     extension = "xml";
 
-                    xmlContent = ContentComparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
+                    xmlContent = ContentComparerHelper.FormatXmlByConfiguration(
+                        xmlContent
+                        , _commonConfig
+                        , XmlOptionsControls.WorkflowXmlOptions
                         , workflowId: idWorkflow
                     );
                 }
@@ -765,7 +766,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         extension = "xml";
 
-                        xmlContent = ContentComparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
+                        xmlContent = ContentComparerHelper.FormatXmlByConfiguration(
+                            xmlContent
+                            , _commonConfig
+                            , XmlOptionsControls.WorkflowXmlOptions
                             , workflowId: idWorkflow
                         );
                     }
@@ -867,7 +871,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string xmlContent = workflow.GetAttributeValue<string>(fieldName);
 
-                xmlContent = ContentComparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
+                xmlContent = ContentComparerHelper.FormatXmlByConfiguration(
+                    xmlContent
+                    , _commonConfig
+                    , XmlOptionsControls.WorkflowXmlOptions
                     , workflowId: idWorkflow
                 );
 
@@ -1244,7 +1251,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             string xmlContent = workflow.GetAttributeValue<string>(fieldName);
 
-            xmlContent = ContentComparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
+            xmlContent = ContentComparerHelper.FormatXmlByConfiguration(
+                xmlContent
+                , _commonConfig
+                , XmlOptionsControls.WorkflowXmlOptions
                 , workflowId: idWorkflow
             );
 

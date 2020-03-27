@@ -36,8 +36,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly Popup _optionsPopup;
 
-        private readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.SetXmlSchemas;
-
         public WindowOrganizationComparerSavedQueryVisualization(
             IWriteToOutput iWriteToOutput
             , CommonConfiguration commonConfig
@@ -60,7 +58,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadEntityNames(cmBEntityName, connection1, connection2);
 
-            var child = new ExportXmlOptionsControl(_commonConfig, _xmlOptions);
+            var child = new ExportXmlOptionsControl(_commonConfig, XmlOptionsControls.SavedQueryVisualizationXmlOptions);
             child.CloseClicked += Child_CloseClicked;
             this._optionsPopup = new Popup
             {
@@ -516,7 +514,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    xmlContent = ContentComparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
+                    xmlContent = ContentComparerHelper.FormatXmlByConfiguration(
+                        xmlContent
+                        , _commonConfig
+                        , XmlOptionsControls.SavedQueryVisualizationXmlOptions
                         , schemaName: AbstractDynamicCommandXsdSchemas.SchemaVisualizationDataDescription
                     );
 

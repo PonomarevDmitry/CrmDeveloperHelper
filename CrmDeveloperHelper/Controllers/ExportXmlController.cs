@@ -299,11 +299,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    siteMapXml = ContentComparerHelper.FormatXmlByConfiguration(siteMapXml
+                    siteMapXml = ContentComparerHelper.FormatXmlByConfiguration(
+                        siteMapXml
                         , commonConfig
-                        , WindowExplorerSiteMap._xmlOptions
-                       , schemaName: AbstractDynamicCommandXsdSchemas.SchemaSiteMapXml
-                       , siteMapUniqueName: siteMap.SiteMapNameUnique ?? string.Empty
+                        , XmlOptionsControls.SiteMapXmlOptions
+                        , schemaName: AbstractDynamicCommandXsdSchemas.SchemaSiteMapXml
+                        , siteMapUniqueName: siteMap.SiteMapNameUnique ?? string.Empty
                     );
 
                     File.WriteAllText(filePath2, siteMapXml, new UTF8Encoding(false));
@@ -475,9 +476,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     try
                     {
-                        siteMapXml = ContentComparerHelper.FormatXmlByConfiguration(siteMapXml
+                        siteMapXml = ContentComparerHelper.FormatXmlByConfiguration(
+                            siteMapXml
                             , commonConfig
-                            , WindowExplorerSiteMap._xmlOptions
+                            , XmlOptionsControls.SiteMapXmlOptions
                             , schemaName: AbstractDynamicCommandXsdSchemas.SchemaSiteMapXml
                             , siteMapUniqueName: siteMap.SiteMapNameUnique ?? string.Empty
                         );
@@ -744,7 +746,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     formXml = ContentComparerHelper.FormatXmlByConfiguration(
                         formXml
                         , commonConfig
-                        , WindowExplorerSystemForm.XmlOptions
+                        , XmlOptionsControls.FormXmlOptions
                         , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFormXml
                         , formId: systemForm.Id
                         , entityName: systemForm.ObjectTypeCode
@@ -939,7 +941,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         formXml = ContentComparerHelper.FormatXmlByConfiguration(
                             formXml
                             , commonConfig
-                            , WindowExplorerSystemForm.XmlOptions
+                            , XmlOptionsControls.FormXmlOptions
                             , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFormXml
                             , formId: systemForm.Id
                             , entityName: systemForm.ObjectTypeCode
@@ -1234,7 +1236,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     xmlContent = ContentComparerHelper.FormatXmlByConfiguration(
                         xmlContent
                         , commonConfig
-                        , WindowExplorerSavedQuery._xmlOptions
+                        , XmlOptionsControls.SavedQueryXmlOptions
                         , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFetch
                         , savedQueryId: savedQueryId
                         , entityName: savedQuery.ReturnedTypeCode
@@ -1449,7 +1451,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         xmlContent = ContentComparerHelper.FormatXmlByConfiguration(
                             xmlContent
                             , commonConfig
-                            , WindowExplorerSavedQuery._xmlOptions
+                            , XmlOptionsControls.SavedQueryXmlOptions
                             , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFetch
                             , savedQueryId: savedQueryId
                             , entityName: savedQuery.ReturnedTypeCode
@@ -1750,7 +1752,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    formXml = ContentComparerHelper.FormatXmlByConfiguration(formXml, commonConfig, WindowExplorerWorkflow._xmlOptions
+                    formXml = ContentComparerHelper.FormatXmlByConfiguration(
+                        formXml
+                        , commonConfig
+                        , XmlOptionsControls.WorkflowXmlOptions
                         , workflowId: workflow.Id
                     );
 
@@ -1914,7 +1919,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     try
                     {
-                        xaml = ContentComparerHelper.FormatXmlByConfiguration(xaml, commonConfig, WindowExplorerWorkflow._xmlOptions
+                        xaml = ContentComparerHelper.FormatXmlByConfiguration(
+                            xaml
+                            , commonConfig
+                            , XmlOptionsControls.WorkflowXmlOptions
                             , workflowId: workflow.Id
                         );
 
@@ -2223,7 +2231,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     dependencyXml = ContentComparerHelper.FormatXmlByConfiguration(
                         dependencyXml
-                        , commonConfig, WindowExplorerWebResource.XmlOptions
+                        , commonConfig
+                        , XmlOptionsControls.WebResourceDependencyXmlOptions
                         , schemaName: AbstractDynamicCommandXsdSchemas.SchemaDependencyXml
                         , webResourceName: webResource.Name
                     );
@@ -2420,7 +2429,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         dependencyXml = ContentComparerHelper.FormatXmlByConfiguration(
                             dependencyXml
                             , commonConfig
-                            , WindowExplorerWebResource.XmlOptions
+                            , XmlOptionsControls.WebResourceDependencyXmlOptions
                             , schemaName: AbstractDynamicCommandXsdSchemas.SchemaDependencyXml
                             , webResourceName: webResource.Name
                         );

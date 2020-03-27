@@ -53,8 +53,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly ObservableCollection<EntityTreeViewItem> _webResourceTree = new ObservableCollection<EntityTreeViewItem>();
 
-        public static readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.XmlFull;
-
         public WindowWebResourceSelectOrCreate(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
@@ -957,9 +955,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (string.Equals(fieldName, WebResource.Schema.Attributes.dependencyxml, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        xmlContent = ContentComparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
+                        xmlContent = ContentComparerHelper.FormatXmlByConfiguration(
+                            xmlContent
+                            , _commonConfig
+                            , XmlOptionsControls.WebResourceDependencyXmlOptions
                             , schemaName: AbstractDynamicCommandXsdSchemas.SchemaDependencyXml
-                           , webResourceName: webresource.Name
+                            , webResourceName: webresource.Name
                         );
                     }
                     else if (string.Equals(fieldName, WebResource.Schema.Attributes.contentjson, StringComparison.InvariantCultureIgnoreCase))
@@ -1022,7 +1023,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     if (string.Equals(fieldName, WebResource.Schema.Attributes.dependencyxml, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        xmlContent = ContentComparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions);
+                        xmlContent = ContentComparerHelper.FormatXmlByConfiguration(
+                            xmlContent
+                            , _commonConfig
+                            , XmlOptionsControls.WebResourceDependencyXmlOptions
+                            , schemaName: AbstractDynamicCommandXsdSchemas.SchemaDependencyXml
+                            , webResourceName: webresource.Name
+                        );
                     }
 
                     await CreateFileAsync(folder, name, fieldTitle + " BackUp", xmlContent, extension);

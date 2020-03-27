@@ -40,8 +40,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly Popup _optionsSolutionPopup;
         private readonly ExportSolutionOptionsControl _optionsExportSolutionOptionsControl;
 
-        private readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.SolutionComponentSettings;
-
         private readonly ObservableCollection<EntityViewItem> _itemsSource;
 
         private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
@@ -87,7 +85,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             };
 
             {
-                var child = new ExportXmlOptionsControl(_commonConfig, _xmlOptions);
+                var child = new ExportXmlOptionsControl(_commonConfig, XmlOptionsControls.SolutionComponentXmlOptions);
                 child.CloseClicked += Child_CloseClicked;
                 this._optionsPopup = new Popup
                 {

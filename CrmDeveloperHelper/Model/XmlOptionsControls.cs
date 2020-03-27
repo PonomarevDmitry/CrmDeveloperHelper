@@ -7,34 +7,50 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
     {
         None = 0,
 
-        XmlAttributeOnNewLine = 1,
+        XmlAttributeOnNewLine = 0b1,
 
-        SetXmlSchemas = 2,
+        SetXmlSchemas = 0b10,
 
-        SetIntellisenseContext = 4,
+        SetIntellisenseContext = 0b100,
 
-        RibbonFilters = 8,
+        RibbonFilters = 0b1000,
 
-        SortXmlAttributes = 16,
+        SortXmlAttributes = 0b1_0000,
 
-        SortRibbonCommandsAndRulesById = 32,
+        SortRibbonCommandsAndRulesById = 0b10_0000,
 
-        SortFormXmlElements = 64,
+        SortFormXmlElements = 0b100_0000,
 
-        SolutionComponentWithManagedInfo = 128,
+        SolutionComponentWithManagedInfo = 0b1000_0000,
 
-        SolutionComponentWithSolutionInfo = 256,
+        SolutionComponentWithSolutionInfo = 0b1_0000_0000,
 
-        SolutionComponentWithUrl = 512,
+        SolutionComponentWithUrl = 0b10_0000_0000,
 
         XmlSimple = SetIntellisenseContext | SetXmlSchemas,
 
         XmlFull = SetIntellisenseContext | SetXmlSchemas | XmlAttributeOnNewLine | SortXmlAttributes,
 
-        FormXml = XmlFull | SortFormXmlElements,
+        CustomControlXmlOptions = XmlFull,
 
-        RibbonFull = RibbonFilters | SetIntellisenseContext | SetXmlSchemas | XmlAttributeOnNewLine | SortRibbonCommandsAndRulesById | SortXmlAttributes,
+        ImportJobXmlOptions = XmlAttributeOnNewLine | SortXmlAttributes,
 
-        SolutionComponentSettings = SolutionComponentWithManagedInfo | SolutionComponentWithSolutionInfo | SolutionComponentWithUrl,
+        OrganizationXmlOptions = XmlFull,
+
+        SiteMapXmlOptions = XmlFull,
+
+        WebResourceDependencyXmlOptions = XmlFull,
+
+        WorkflowXmlOptions = SetIntellisenseContext,
+
+        SavedQueryXmlOptions = XmlSimple,
+
+        SavedQueryVisualizationXmlOptions = SetXmlSchemas,
+
+        FormXmlOptions = XmlFull | SortFormXmlElements,
+
+        RibbonXmlOptions = RibbonFilters | SetIntellisenseContext | SetXmlSchemas | XmlAttributeOnNewLine | SortRibbonCommandsAndRulesById | SortXmlAttributes,
+
+        SolutionComponentXmlOptions = SolutionComponentWithManagedInfo | SolutionComponentWithSolutionInfo | SolutionComponentWithUrl,
     }
 }

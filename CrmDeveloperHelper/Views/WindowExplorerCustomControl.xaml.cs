@@ -40,8 +40,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly Popup _optionsPopup;
 
-        public static readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.XmlFull;
-
         public WindowExplorerCustomControl(
              IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
@@ -62,7 +60,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InitializeComponent();
 
-            var child = new ExportXmlOptionsControl(_commonConfig, _xmlOptions);
+            var child = new ExportXmlOptionsControl(_commonConfig, XmlOptionsControls.CustomControlXmlOptions);
             child.CloseClicked += Child_CloseClicked;
             this._optionsPopup = new Popup
             {
@@ -502,7 +500,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     if (string.Equals(fieldName, CustomControl.Schema.Attributes.manifest, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        xmlContent = ContentComparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
+                        xmlContent = ContentComparerHelper.FormatXmlByConfiguration(
+                            xmlContent
+                            , _commonConfig
+                            , XmlOptionsControls.CustomControlXmlOptions
                             , schemaName: AbstractDynamicCommandXsdSchemas.SchemaManifest
                             , customControlId: idCustomControl
                         );
@@ -563,7 +564,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (string.Equals(fieldName, CustomControl.Schema.Attributes.manifest, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        backUpXmlContent = ContentComparerHelper.FormatXmlByConfiguration(backUpXmlContent, _commonConfig, _xmlOptions
+                        backUpXmlContent = ContentComparerHelper.FormatXmlByConfiguration(
+                            backUpXmlContent
+                            , _commonConfig
+                            , XmlOptionsControls.CustomControlXmlOptions
                             , schemaName: AbstractDynamicCommandXsdSchemas.SchemaManifest
                             , customControlId: idCustomControl
                         );

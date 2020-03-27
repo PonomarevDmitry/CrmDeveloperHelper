@@ -38,15 +38,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly Popup _optionsPopup;
 
-        private readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.SetXmlSchemas;
-
         public WindowExplorerSavedQueryVisualization(
-             IWriteToOutput iWriteToOutput
+                IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
             , string filterEntity
             , string selection
-            )
+        )
         {
             this.IncreaseInit();
 
@@ -63,7 +61,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadEntityNames(cmBEntityName, service.ConnectionData);
 
-            var child = new ExportXmlOptionsControl(_commonConfig, _xmlOptions);
+            var child = new ExportXmlOptionsControl(_commonConfig, XmlOptionsControls.SavedQueryVisualizationXmlOptions);
             child.CloseClicked += Child_CloseClicked;
             this._optionsPopup = new Popup
             {
@@ -450,24 +448,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    //if (_commonConfig.SetXmlSchemasDuringExport)
-                    //{
-                    //    var schemasResources = AbstractDynamicCommandXsdSchemas.GetXsdSchemas(AbstractDynamicCommandXsdSchemas.SchemaVisualizationDataDescription);
-
-                    //    if (schemasResources != null)
-                    //    {
-                    //        xmlContent = ContentCoparerHelper.SetXsdSchema(xmlContent, schemasResources);
-                    //    }
-                    //}
-
-                    //if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
-                    //{
-                    //    xmlContent = doc.ToString();
-                    //}
-
-                    xmlContent = ContentComparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
-                          , schemaName: AbstractDynamicCommandXsdSchemas.SchemaVisualizationDataDescription
-                          );
+                    xmlContent = ContentComparerHelper.FormatXmlByConfiguration(
+                        xmlContent
+                        , _commonConfig, XmlOptionsControls.SavedQueryVisualizationXmlOptions
+                        , schemaName: AbstractDynamicCommandXsdSchemas.SchemaVisualizationDataDescription
+                    );
 
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
 

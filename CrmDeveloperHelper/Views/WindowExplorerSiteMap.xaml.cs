@@ -38,8 +38,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly Popup _optionsPopup;
 
-        public static readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.XmlFull;
-
         public WindowExplorerSiteMap(
              IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
@@ -60,7 +58,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InitializeComponent();
 
-            var child = new ExportXmlOptionsControl(_commonConfig, _xmlOptions);
+            var child = new ExportXmlOptionsControl(_commonConfig, XmlOptionsControls.SiteMapXmlOptions);
             child.CloseClicked += Child_CloseClicked;
             this._optionsPopup = new Popup
             {
@@ -422,32 +420,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    //if (_commonConfig.SetXmlSchemasDuringExport)
-                    //{
-                    //    var schemasResources = AbstractDynamicCommandXsdSchemas.GetXsdSchemas(AbstractDynamicCommandXsdSchemas.SchemaSiteMapXml);
-
-                    //    if (schemasResources != null)
-                    //    {
-                    //        siteMapXml = ContentCoparerHelper.SetXsdSchema(siteMapXml, schemasResources);
-                    //    }
-                    //}
-
-                    //if (_commonConfig.SetIntellisenseContext)
-                    //{
-                    //    siteMapXml = ContentCoparerHelper.SetIntellisenseContextSiteMapNameUnique(siteMapXml, nameUnique);
-                    //}
-
-                    //if (_commonConfig.SortXmlAttributes)
-                    //{
-                    //    siteMapXml = ContentCoparerHelper.SortXmlAttributes(siteMapXml);
-                    //}
-
-                    //siteMapXml = ContentCoparerHelper.FormatXml(siteMapXml, _commonConfig.ExportXmlAttributeOnNewLine);
-
-                    siteMapXml = ContentComparerHelper.FormatXmlByConfiguration(siteMapXml, _commonConfig, _xmlOptions
-                       , schemaName: AbstractDynamicCommandXsdSchemas.SchemaSiteMapXml
-                       , siteMapUniqueName: nameUnique ?? string.Empty
-                       );
+                    siteMapXml = ContentComparerHelper.FormatXmlByConfiguration(
+                        siteMapXml
+                        , _commonConfig
+                        , XmlOptionsControls.SiteMapXmlOptions
+                        , schemaName: AbstractDynamicCommandXsdSchemas.SchemaSiteMapXml
+                        , siteMapUniqueName: nameUnique ?? string.Empty
+                    );
 
                     File.WriteAllText(filePath, siteMapXml, new UTF8Encoding(false));
 

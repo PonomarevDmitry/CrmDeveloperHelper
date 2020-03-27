@@ -48,7 +48,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InitializeComponent();
 
-            var child = new ExportXmlOptionsControl(_commonConfig, WindowExplorerApplicationRibbon.XmlOptions);
+            var child = new ExportXmlOptionsControl(_commonConfig, XmlOptionsControls.RibbonXmlOptions);
             child.CloseClicked += Child_CloseClicked;
             this._optionsPopup = new Popup
             {
@@ -272,7 +272,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     ribbonXml = ContentComparerHelper.FormatXmlByConfiguration(
                         ribbonXml
                         , _commonConfig
-                        , WindowExplorerApplicationRibbon.XmlOptions
+                        , XmlOptionsControls.RibbonXmlOptions
                         , entityName: string.Empty
                     );
 
@@ -289,7 +289,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     ribbonXml = ContentComparerHelper.FormatXmlByConfiguration(
                         ribbonXml
                         , _commonConfig
-                        , WindowExplorerApplicationRibbon.XmlOptions
+                        , XmlOptionsControls.RibbonXmlOptions
                         , entityName: string.Empty
                     );
 
@@ -395,7 +395,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         ribbonDiffXml = ContentComparerHelper.FormatXmlByConfiguration(
                             ribbonDiffXml
                             , _commonConfig
-                            , WindowExplorerApplicationRibbon.XmlOptions
+                            , XmlOptionsControls.RibbonXmlOptions
                             , schemaName: AbstractDynamicCommandXsdSchemas.SchemaRibbonXml
                             , entityName: string.Empty
                         );
@@ -416,7 +416,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         ribbonDiffXml = ContentComparerHelper.FormatXmlByConfiguration(
                             ribbonDiffXml
                             , _commonConfig
-                            , WindowExplorerApplicationRibbon.XmlOptions
+                            , XmlOptionsControls.RibbonXmlOptions
                             , schemaName: AbstractDynamicCommandXsdSchemas.SchemaRibbonXml
                             , entityName: string.Empty
                         );
@@ -500,7 +500,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ribbonXml = ContentComparerHelper.FormatXmlByConfiguration(
                     ribbonXml
                     , _commonConfig
-                    , WindowExplorerApplicationRibbon.XmlOptions
+                    , XmlOptionsControls.RibbonXmlOptions
                     , entityName: string.Empty
                 );
 
@@ -654,7 +654,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ribbonDiffXml = ContentComparerHelper.FormatXmlByConfiguration(
                     ribbonDiffXml
                     , _commonConfig
-                    , WindowExplorerApplicationRibbon.XmlOptions
+                    , XmlOptionsControls.RibbonXmlOptions
                     , schemaName: AbstractDynamicCommandXsdSchemas.SchemaRibbonXml
                     , entityName: string.Empty
                 );

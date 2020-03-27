@@ -3,6 +3,7 @@ using Jint.Parser;
 using Jint.Parser.Ast;
 using Microsoft.VisualStudio.Text.Editor;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -121,10 +122,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         var commonConfig = Model.CommonConfiguration.Get();
 
-                        result = ContentComparerHelper.FormatXmlByConfiguration(result
+                        result = ContentComparerHelper.FormatXmlByConfiguration(
+                            result
                             , commonConfig
-                            , Model.XmlOptionsControls.XmlSimple
-                           , schemaName: Commands.AbstractDynamicCommandXsdSchemas.SchemaFetch
+                            , XmlOptionsControls.SavedQueryXmlOptions
+                            , schemaName: Commands.AbstractDynamicCommandXsdSchemas.SchemaFetch
                         );
                     }
                 }

@@ -36,8 +36,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly Popup _optionsPopup;
 
-        private readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.SetIntellisenseContext;
-
         public WindowOrganizationComparerWorkflow(
             IWriteToOutput iWriteToOutput
             , CommonConfiguration commonConfig
@@ -60,7 +58,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadEntityNames(cmBEntityName, connection1, connection2);
 
-            var child = new ExportXmlOptionsControl(_commonConfig, _xmlOptions);
+            var child = new ExportXmlOptionsControl(_commonConfig, XmlOptionsControls.WorkflowXmlOptions);
             child.CloseClicked += Child_CloseClicked;
             this._optionsPopup = new Popup
             {
@@ -824,7 +822,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         {
                             extension = "xml";
 
-                            xml1 = ContentComparerHelper.FormatXmlByConfiguration(xml1, _commonConfig, _xmlOptions
+                            xml1 = ContentComparerHelper.FormatXmlByConfiguration(
+                                xml1
+                                , _commonConfig
+                                , XmlOptionsControls.WorkflowXmlOptions
                                 , workflowId: linked.Entity1.Id
                             );
                         }
@@ -837,7 +838,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         {
                             extension = "xml";
 
-                            xml2 = ContentComparerHelper.FormatXmlByConfiguration(xml2, _commonConfig, _xmlOptions
+                            xml2 = ContentComparerHelper.FormatXmlByConfiguration(
+                                xml2
+                                , _commonConfig
+                                , XmlOptionsControls.WorkflowXmlOptions
                                 , workflowId: linked.Entity2.Id
                             );
                         }
@@ -1149,7 +1153,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     extension = "xml";
 
-                    xmlContent = ContentComparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
+                    xmlContent = ContentComparerHelper.FormatXmlByConfiguration(
+                        xmlContent
+                        , _commonConfig
+                        , XmlOptionsControls.WorkflowXmlOptions
                         , workflowId: idWorflow
                     );
                 }

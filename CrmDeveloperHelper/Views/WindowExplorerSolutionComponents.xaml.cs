@@ -37,8 +37,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly Popup _optionsPopup;
 
-        public static readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.SolutionComponentSettings;
-
         private Solution _solution;
 
         private readonly ObservableCollection<SolutionComponentViewItem> _itemsSource;
@@ -73,7 +71,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._converter = new SolutionComponentConverter(this._descriptor);
 
             {
-                var child = new ExportXmlOptionsControl(_commonConfig, _xmlOptions);
+                var child = new ExportXmlOptionsControl(_commonConfig, XmlOptionsControls.SolutionComponentXmlOptions);
                 child.CloseClicked += Child_CloseClicked;
                 this._optionsPopup = new Popup
                 {

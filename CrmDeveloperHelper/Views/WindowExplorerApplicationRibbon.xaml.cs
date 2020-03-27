@@ -33,8 +33,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly Popup _optionsPopup;
 
-        public static readonly XmlOptionsControls XmlOptions = XmlOptionsControls.RibbonFull;
-
         public WindowExplorerApplicationRibbon(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
@@ -54,7 +52,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InitializeComponent();
 
-            var child = new ExportXmlOptionsControl(_commonConfig, XmlOptions);
+            var child = new ExportXmlOptionsControl(_commonConfig, XmlOptionsControls.RibbonXmlOptions);
             child.CloseClicked += Child_CloseClicked;
             this._optionsPopup = new Popup
             {
@@ -442,9 +440,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string ribbonXml = await repository.ExportApplicationRibbonAsync();
 
-                ribbonXml = ContentComparerHelper.FormatXmlByConfiguration(ribbonXml, _commonConfig, XmlOptions
+                ribbonXml = ContentComparerHelper.FormatXmlByConfiguration(
+                    ribbonXml
+                    , _commonConfig
+                    , XmlOptionsControls.RibbonXmlOptions
                     , entityName: string.Empty
-                    );
+                );
 
                 {
                     string fileName = EntityFileNameFormatter.GetApplicationRibbonFileName(service.ConnectionData.Name);
@@ -561,10 +562,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     return;
                 }
 
-                ribbonDiffXml = ContentComparerHelper.FormatXmlByConfiguration(ribbonDiffXml, _commonConfig, XmlOptions
+                ribbonDiffXml = ContentComparerHelper.FormatXmlByConfiguration(
+                    ribbonDiffXml
+                    , _commonConfig
+                    , XmlOptionsControls.RibbonXmlOptions
                     , schemaName: AbstractDynamicCommandXsdSchemas.SchemaRibbonXml
                     , entityName: string.Empty
-                    );
+                );
 
                 {
                     string fileName = EntityFileNameFormatter.GetApplicationRibbonDiffXmlFileName(service.ConnectionData.Name);

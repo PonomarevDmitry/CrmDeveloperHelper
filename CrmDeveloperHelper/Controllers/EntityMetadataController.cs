@@ -1270,8 +1270,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 string ribbonXml = await repositoryRibbon.ExportEntityRibbonAsync(entityName, Microsoft.Crm.Sdk.Messages.RibbonLocationFilters.All);
 
-                ribbonXml = ContentComparerHelper.FormatXmlByConfiguration(ribbonXml, commonConfig, XmlOptionsControls.RibbonFull
-                   , entityName: entityName ?? string.Empty
+                ribbonXml = ContentComparerHelper.FormatXmlByConfiguration(
+                    ribbonXml
+                    , commonConfig
+                    , XmlOptionsControls.RibbonXmlOptions
+                    , entityName: entityName ?? string.Empty
                 );
 
                 fileTitle2 = EntityFileNameFormatter.GetEntityRibbonFileName(service.ConnectionData.Name, entityName);
@@ -1286,8 +1289,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 string ribbonXml = await repositoryRibbon.ExportApplicationRibbonAsync();
 
-                ribbonXml = ContentComparerHelper.FormatXmlByConfiguration(ribbonXml, commonConfig, XmlOptionsControls.RibbonFull
-                   , entityName: entityName ?? string.Empty
+                ribbonXml = ContentComparerHelper.FormatXmlByConfiguration(
+                    ribbonXml
+                    , commonConfig
+                    , XmlOptionsControls.RibbonXmlOptions
+                    , entityName: entityName ?? string.Empty
                 );
 
                 fileTitle2 = EntityFileNameFormatter.GetApplicationRibbonFileName(service.ConnectionData.Name);
@@ -1442,10 +1448,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string ribbonDiffXml = await repositoryRibbonCustomization.GetRibbonDiffXmlAsync(_iWriteToOutput, entityMetadata, ribbonCustomization);
 
-            ribbonDiffXml = ContentComparerHelper.FormatXmlByConfiguration(ribbonDiffXml, commonConfig, XmlOptionsControls.RibbonFull
+            ribbonDiffXml = ContentComparerHelper.FormatXmlByConfiguration(
+                ribbonDiffXml
+                , commonConfig
+                , XmlOptionsControls.RibbonXmlOptions
                 , schemaName: AbstractDynamicCommandXsdSchemas.SchemaRibbonXml
                 , entityName: entityName ?? string.Empty
-                );
+            );
 
             if (entityMetadata != null)
             {

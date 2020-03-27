@@ -60,7 +60,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadEntityNames(cmBEntityName, connection1, connection2);
 
-            var child = new ExportXmlOptionsControl(_commonConfig, WindowExplorerSystemForm.XmlOptions);
+            var child = new ExportXmlOptionsControl(_commonConfig, XmlOptionsControls.FormXmlOptions);
             child.CloseClicked += Child_CloseClicked;
             this._optionsPopup = new Popup
             {
@@ -574,7 +574,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         formXml = ContentComparerHelper.FormatXmlByConfiguration(
                             formXml
                             , _commonConfig
-                            , WindowExplorerSystemForm.XmlOptions
+                            , XmlOptionsControls.FormXmlOptions
                             , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFormXml
                             , formId: idSystemForm
                             , entityName: entityName

@@ -38,8 +38,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly Popup _optionsPopup;
 
-        public static readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.XmlFull;
-
         public WindowOrganizationComparerWebResources(
             IWriteToOutput iWriteToOutput
             , CommonConfiguration commonConfig
@@ -59,7 +57,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InitializeComponent();
 
-            var child = new ExportXmlOptionsControl(_commonConfig, _xmlOptions);
+            var child = new ExportXmlOptionsControl(_commonConfig, XmlOptionsControls.WebResourceDependencyXmlOptions);
             child.CloseClicked += Child_CloseClicked;
             this._optionsPopup = new Popup
             {
@@ -908,9 +906,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         {
                             if (string.Equals(fieldName, WebResource.Schema.Attributes.dependencyxml, StringComparison.InvariantCultureIgnoreCase))
                             {
-                                xml1 = ContentComparerHelper.FormatXmlByConfiguration(xml1, _commonConfig, _xmlOptions
+                                xml1 = ContentComparerHelper.FormatXmlByConfiguration(
+                                    xml1
+                                    , _commonConfig
+                                    , XmlOptionsControls.WebResourceDependencyXmlOptions
                                     , schemaName: AbstractDynamicCommandXsdSchemas.SchemaDependencyXml
-                                   , webResourceName: webResource1.Name
+                                    , webResourceName: webResource1.Name
                                 );
                             }
                             else if (string.Equals(fieldName, WebResource.Schema.Attributes.contentjson, StringComparison.InvariantCultureIgnoreCase))
@@ -923,9 +924,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         {
                             if (string.Equals(fieldName, WebResource.Schema.Attributes.dependencyxml, StringComparison.InvariantCultureIgnoreCase))
                             {
-                                xml2 = ContentComparerHelper.FormatXmlByConfiguration(xml2, _commonConfig, _xmlOptions
+                                xml2 = ContentComparerHelper.FormatXmlByConfiguration(
+                                    xml2
+                                    , _commonConfig
+                                    , XmlOptionsControls.WebResourceDependencyXmlOptions
                                     , schemaName: AbstractDynamicCommandXsdSchemas.SchemaDependencyXml
-                                   , webResourceName: webResource2.Name
+                                    , webResourceName: webResource2.Name
                                 );
                             }
                             else if (string.Equals(fieldName, WebResource.Schema.Attributes.contentjson, StringComparison.InvariantCultureIgnoreCase))
@@ -1249,9 +1253,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     if (string.Equals(fieldName, WebResource.Schema.Attributes.dependencyxml, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        xmlContent = ContentComparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
+                        xmlContent = ContentComparerHelper.FormatXmlByConfiguration(
+                            xmlContent
+                            , _commonConfig
+                            , XmlOptionsControls.WebResourceDependencyXmlOptions
                             , schemaName: AbstractDynamicCommandXsdSchemas.SchemaDependencyXml
-                           , webResourceName: webResource.Name
+                            , webResourceName: webResource.Name
                         );
                     }
                     else if (string.Equals(fieldName, WebResource.Schema.Attributes.contentjson, StringComparison.InvariantCultureIgnoreCase))

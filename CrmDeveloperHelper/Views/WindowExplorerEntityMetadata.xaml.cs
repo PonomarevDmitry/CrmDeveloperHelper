@@ -1713,9 +1713,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string ribbonXml = await repository.ExportEntityRibbonAsync(entityMetadata.LogicalName, _commonConfig.GetRibbonLocationFilters());
 
-                ribbonXml = ContentComparerHelper.FormatXmlByConfiguration(ribbonXml, _commonConfig, XmlOptionsControls.RibbonFull
+                ribbonXml = ContentComparerHelper.FormatXmlByConfiguration(
+                    ribbonXml
+                    , _commonConfig
+                    , XmlOptionsControls.RibbonXmlOptions
                     , entityName: entityMetadata.LogicalName
-                    );
+                );
 
                 string fileName = EntityFileNameFormatter.GetEntityRibbonFileName(service.ConnectionData.Name, entityMetadata.LogicalName);
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
@@ -1827,10 +1830,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     return;
                 }
 
-                ribbonDiffXml = ContentComparerHelper.FormatXmlByConfiguration(ribbonDiffXml, _commonConfig, XmlOptionsControls.RibbonFull
+                ribbonDiffXml = ContentComparerHelper.FormatXmlByConfiguration(
+                    ribbonDiffXml
+                    , _commonConfig
+                    , XmlOptionsControls.RibbonXmlOptions
                     , schemaName: AbstractDynamicCommandXsdSchemas.SchemaRibbonXml
                     , entityName: entityMetadata.LogicalName
-                    );
+                );
 
                 {
                     string fileName = EntityFileNameFormatter.GetEntityRibbonDiffXmlFileName(service.ConnectionData.Name, entityMetadata.LogicalName);

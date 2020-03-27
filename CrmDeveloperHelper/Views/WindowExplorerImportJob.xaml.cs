@@ -35,8 +35,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly Popup _optionsPopup;
 
-        private readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.XmlAttributeOnNewLine | XmlOptionsControls.SortXmlAttributes;
-
         public WindowExplorerImportJob(
              IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
@@ -57,7 +55,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InitializeComponent();
 
-            var child = new ExportXmlOptionsControl(_commonConfig, _xmlOptions);
+            var child = new ExportXmlOptionsControl(_commonConfig, XmlOptionsControls.ImportJobXmlOptions);
             child.CloseClicked += Child_CloseClicked;
             this._optionsPopup = new Popup
             {
@@ -420,7 +418,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    xmlContent = ContentComparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions);
+                    xmlContent = ContentComparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, XmlOptionsControls.ImportJobXmlOptions);
 
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
 
@@ -586,7 +584,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                                 this._iWriteToOutput.SelectFileInFolder(service.ConnectionData, filePath);
                             }
                         }
-                        else if(_commonConfig.DefaultFileAction != FileAction.None)
+                        else if (_commonConfig.DefaultFileAction != FileAction.None)
                         {
                             this._iWriteToOutput.SelectFileInFolder(service.ConnectionData, filePath);
                         }

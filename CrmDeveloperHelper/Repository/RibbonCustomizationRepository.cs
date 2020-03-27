@@ -695,10 +695,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     ribbonDiffXml = ExportSolutionHelper.GetApplicationRibbonDiffXmlFromSolutionBody(solutionBodyBinary);
                 }
 
-                ribbonDiffXml = ContentComparerHelper.FormatXmlByConfiguration(ribbonDiffXml, commonConfig, XmlOptionsControls.RibbonFull
+                ribbonDiffXml = ContentComparerHelper.FormatXmlByConfiguration(
+                    ribbonDiffXml
+                    , commonConfig
+                    , XmlOptionsControls.RibbonXmlOptions
                     , schemaName: AbstractDynamicCommandXsdSchemas.SchemaRibbonXml
                     , entityName: entityMetadata?.LogicalName ?? string.Empty
-                    );
+                );
 
                 {
                     string filePath = string.Empty;

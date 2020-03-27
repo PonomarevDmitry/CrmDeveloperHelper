@@ -38,8 +38,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly Popup _optionsPopup;
 
-        private readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.XmlSimple;
-
         public WindowOrganizationComparerSavedQuery(
             IWriteToOutput iWriteToOutput
             , CommonConfiguration commonConfig
@@ -65,7 +63,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBStatusCode.ItemsSource = new EnumBindingSourceExtension(typeof(SavedQuery.Schema.OptionSets.statuscode?)).ProvideValue(null) as IEnumerable;
             cmBStatusCode.SelectedItem = SavedQuery.Schema.OptionSets.statuscode.Active_0_Active_1;
 
-            var child = new ExportXmlOptionsControl(_commonConfig, _xmlOptions);
+            var child = new ExportXmlOptionsControl(_commonConfig, XmlOptionsControls.SavedQueryXmlOptions);
             child.CloseClicked += Child_CloseClicked;
             this._optionsPopup = new Popup
             {
@@ -566,7 +564,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         xmlContent = ContentComparerHelper.FormatXmlByConfiguration(
                             xmlContent
                             , _commonConfig
-                            , _xmlOptions
+                            , XmlOptionsControls.SavedQueryXmlOptions
                             , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFetch
                             , savedQueryId: savedQueryId
                             , entityName: entityName

@@ -36,8 +36,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly Popup _optionsPopup;
 
-        private readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.XmlFull;
-
         public WindowExplorerOrganization(
              IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
@@ -57,7 +55,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InitializeComponent();
 
-            var child = new ExportXmlOptionsControl(_commonConfig, _xmlOptions);
+            var child = new ExportXmlOptionsControl(_commonConfig, XmlOptionsControls.OrganizationXmlOptions | XmlOptionsControls.SiteMapXmlOptions);
             child.CloseClicked += Child_CloseClicked;
             this._optionsPopup = new Popup
             {
@@ -389,17 +387,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 try
                 {
                     string schemaName = string.Empty;
+                    var xmlOptions = XmlOptionsControls.OrganizationXmlOptions;
 
                     if (string.Equals(fieldTitle, Organization.Schema.Attributes.sitemapxml, StringComparison.InvariantCultureIgnoreCase)
                         || string.Equals(fieldTitle, Organization.Schema.Attributes.referencesitemapxml, StringComparison.InvariantCultureIgnoreCase)
                         )
                     {
                         schemaName = AbstractDynamicCommandXsdSchemas.SchemaSiteMapXml;
+                        xmlOptions = XmlOptionsControls.SiteMapXmlOptions;
                     }
 
-                    siteMapXml = ContentComparerHelper.FormatXmlByConfiguration(siteMapXml, _commonConfig, _xmlOptions
+                    siteMapXml = ContentComparerHelper.FormatXmlByConfiguration(
+                        siteMapXml
+                        , _commonConfig
+                        , xmlOptions
                         , schemaName: schemaName
-                        );
+                    );
 
                     File.WriteAllText(filePath, siteMapXml, new UTF8Encoding(false));
 

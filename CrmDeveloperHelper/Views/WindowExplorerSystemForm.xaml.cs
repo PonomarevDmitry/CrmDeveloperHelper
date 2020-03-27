@@ -43,8 +43,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly Popup _optionsPopup;
 
-        public static readonly XmlOptionsControls XmlOptions = XmlOptionsControls.FormXml;
-
         public WindowExplorerSystemForm(
              IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
@@ -73,7 +71,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBFormActivationState.ItemsSource = new EnumBindingSourceExtension(typeof(SystemForm.Schema.OptionSets.formactivationstate?)).ProvideValue(null) as IEnumerable;
             cmBFormActivationState.SelectedItem = SystemForm.Schema.OptionSets.formactivationstate.Active_1;
 
-            var child = new ExportXmlOptionsControl(_commonConfig, XmlOptions);
+            var child = new ExportXmlOptionsControl(_commonConfig, XmlOptionsControls.FormXmlOptions);
             child.CloseClicked += Child_CloseClicked;
             this._optionsPopup = new Popup
             {
@@ -650,7 +648,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     xmlContent = ContentComparerHelper.FormatXmlByConfiguration(
                         xmlContent
                         , _commonConfig
-                        , XmlOptions
+                        , XmlOptionsControls.FormXmlOptions
                         , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFormXml
                         , formId: idSystemForm
                         , entityName: entityName
@@ -714,7 +712,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         backUpXmlContent = ContentComparerHelper.FormatXmlByConfiguration(
                             backUpXmlContent
                             , _commonConfig
-                            , XmlOptions
+                            , XmlOptionsControls.FormXmlOptions
                             , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFormXml
                             , formId: idSystemForm
                             , entityName: entityName

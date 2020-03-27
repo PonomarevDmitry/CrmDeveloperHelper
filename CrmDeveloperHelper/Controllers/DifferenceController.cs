@@ -1486,7 +1486,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (string.Equals(fieldName, WebResource.Schema.Attributes.dependencyxml, StringComparison.InvariantCultureIgnoreCase))
             {
-                xmlContent = ContentComparerHelper.FormatXmlByConfiguration(xmlContent, commonConfig, WindowExplorerWebResource.XmlOptions
+                xmlContent = ContentComparerHelper.FormatXmlByConfiguration(
+                    xmlContent
+                    , commonConfig
+                    , XmlOptionsControls.WebResourceDependencyXmlOptions
                     , schemaName: AbstractDynamicCommandXsdSchemas.SchemaDependencyXml
                     , webResourceName: webResource.Name
                 );
