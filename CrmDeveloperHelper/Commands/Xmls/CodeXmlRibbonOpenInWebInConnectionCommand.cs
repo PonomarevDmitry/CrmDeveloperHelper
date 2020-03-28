@@ -1,28 +1,24 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlSystemFormOpenInWebCommand : AbstractDynamicCommandByConnectionAll
+    internal sealed class CodeXmlRibbonOpenInWebInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
-        private CodeXmlSystemFormOpenInWebCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.CodeXmlSystemFormOpenInWebCommandId
-            )
+        private CodeXmlRibbonOpenInWebInConnectionCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.guidDynamicCommandSet.CodeXmlRibbonOpenInWebInConnectionCommandId)
         {
 
         }
 
-        public static CodeXmlSystemFormOpenInWebCommand Instance { get; private set; }
+        public static CodeXmlRibbonOpenInWebInConnectionCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeXmlSystemFormOpenInWebCommand(commandService);
+            Instance = new CodeXmlRibbonOpenInWebInConnectionCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
@@ -31,7 +27,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 
             if (selectedFiles.Count == 1)
             {
-                helper.HandleSystemFormOpenInWebCommand(connectionData, selectedFiles[0]);
+                helper.HandleEntityRibbonOpenInWeb(connectionData, selectedFiles.FirstOrDefault());
             }
         }
 
@@ -40,16 +36,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
             CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(
                 applicationObject
                 , menuCommand
-                , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeFormId
+                , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName
                 , out var attribute
-                , AbstractDynamicCommandXsdSchemas.RootForm
+                , AbstractDynamicCommandXsdSchemas.RootRibbonDiffXml
+                , AbstractDynamicCommandXsdSchemas.RootRibbonDefinitions
             );
 
-            if (attribute == null
-                || !Guid.TryParse(attribute.Value, out _)
-            )
+            if (attribute != null)
             {
-                menuCommand.Enabled = menuCommand.Visible = false;
+                string entityName = attribute.Value;
+
+                if (string.IsNullOrEmpty(entityName))
+                {
+                    menuCommand.Enabled = menuCommand.Visible = false;
+                }
             }
         }
     }

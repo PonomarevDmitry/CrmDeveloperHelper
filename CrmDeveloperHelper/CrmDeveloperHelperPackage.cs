@@ -97,7 +97,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeWebResourceChangeInEditorInConnectionCommand.Initialize(commandService);
             CodeWebResourceGetAttributeInConnectionCommand.Initialize(commandService);
             CodeWebResourceExplorerCommand.Initialize(commandService);
-            CodeWebResourceOpenInWebCommand.Initialize(commandService);
+            CodeWebResourceOpenInWebInConnectionCommand.Initialize(commandService);
             CodeWebResourceLinkClearCommand.Initialize(commandService);
             CodeWebResourceLinkCreateCommand.Initialize(commandService);
             CodeWebResourceUpdateContentPublishCommand.Initialize(commandService);
@@ -144,7 +144,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FileWebResourceChangeInEditorInConnectionCommand.Initialize(commandService);
             FileWebResourceGetAttributeInConnectionCommand.Initialize(commandService);
             FileWebResourceExplorerCommand.Initialize(commandService);
-            FileWebResourceOpenInWebCommand.Initialize(commandService);
+            FileWebResourceOpenInWebInConnectionCommand.Initialize(commandService);
             FileWebResourceLinkClearCommand.Initialize(commandService);
             FileWebResourceLinkCreateCommand.Initialize(commandService);
             FileWebResourceShowDependentComponentsCommand.Initialize(commandService);
@@ -250,7 +250,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             #region SiteMap
 
-            CodeXmlSiteMapOpenInWebCommand.Initialize(commandService);
+            CodeXmlSiteMapOpenInWebInConnectionCommand.Initialize(commandService);
             CodeXmlSiteMapExplorerCommand.Initialize(commandService);
 
             CodeXmlSiteMapShowDifferenceDefaultCommand.Initialize(commandService);
@@ -265,7 +265,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             #region SystemForm
 
             CodeXmlSystemFormExplorerCommand.Initialize(commandService);
-            CodeXmlSystemFormOpenInWebCommand.Initialize(commandService);
+            CodeXmlSystemFormOpenInWebInConnectionCommand.Initialize(commandService);
 
             CodeXmlSystemFormShowDifferenceCommand.Initialize(commandService);
             CodeXmlSystemFormShowDifferenceInConnectionGroupCommand.Initialize(commandService);
@@ -278,7 +278,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             #region SavedQuery
 
             CodeXmlSavedQueryExplorerCommand.Initialize(commandService);
-            CodeXmlSavedQueryOpenInWebCommand.Initialize(commandService);
+            CodeXmlSavedQueryOpenInWebInConnectionCommand.Initialize(commandService);
 
             CodeXmlSavedQueryShowDifferenceCommand.Initialize(commandService);
             CodeXmlSavedQueryShowDifferenceInConnectionGroupCommand.Initialize(commandService);
@@ -290,7 +290,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             #region Ribbon
 
-            CodeXmlRibbonOpenInWebCommand.Initialize(commandService);
+            CodeXmlRibbonOpenInWebInConnectionCommand.Initialize(commandService);
 
             CodeXmlRibbonExplorerCommand.Initialize(commandService);
 
@@ -311,7 +311,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             #region Workflow
 
             CodeXmlWorkflowExplorerCommand.Initialize(commandService);
-            CodeXmlWorkflowOpenInWebCommand.Initialize(commandService);
+            CodeXmlWorkflowOpenInWebInConnectionCommand.Initialize(commandService);
 
             CodeXmlWorkflowShowDifferenceCommand.Initialize(commandService);
             CodeXmlWorkflowShowDifferenceInConnectionGroupCommand.Initialize(commandService);
@@ -327,7 +327,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeXmlWebResourceDependencyXmlGetCurrentInConnectionCommand.Initialize(commandService);
 
             CodeXmlWebResourceDependencyXmlExplorerCommand.Initialize(commandService);
-            CodeXmlWebResourceDependencyXmlOpenInWebCommand.Initialize(commandService);
+            CodeXmlWebResourceDependencyXmlOpenInWebInConnectionCommand.Initialize(commandService);
 
             CodeXmlWebResourceDependencyXmlShowDifferenceCommand.Initialize(commandService);
             CodeXmlWebResourceDependencyXmlShowDifferenceInConnectionCommand.Initialize(commandService);
@@ -392,7 +392,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeReportShowDifferenceInConnectionGroupCommand.Initialize(commandService);
             CodeReportShowDifferenceThreeFileCommand.Initialize(commandService);
             CodeReportExplorerCommand.Initialize(commandService);
-            CodeReportOpenInWebCommand.Initialize(commandService);
+            CodeReportOpenInWebInConnectionCommand.Initialize(commandService);
 
             CodeReportAddToSolutionLastCommand.Initialize(commandService);
             CodeReportAddToSolutionInConnectionCommand.Initialize(commandService);
@@ -415,7 +415,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FileReportLinkCreateCommand.Initialize(commandService);
             FileReportUpdateCommand.Initialize(commandService);
             FileReportCreateCommand.Initialize(commandService);
-            FileReportOpenInWebCommand.Initialize(commandService);
+            FileReportOpenInWebInConnectionCommand.Initialize(commandService);
 
             FileReportAddToSolutionLastCommand.Initialize(commandService);
             FileReportAddToSolutionInConnectionCommand.Initialize(commandService);

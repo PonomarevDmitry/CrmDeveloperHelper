@@ -6,18 +6,18 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlWebResourceDependencyXmlOpenInWebCommand : AbstractDynamicCommandByConnectionAll
+    internal sealed class CodeXmlWebResourceDependencyXmlOpenInWebInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
-        private CodeXmlWebResourceDependencyXmlOpenInWebCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.guidDynamicCommandSet.CodeXmlWebResourceDependencyXmlOpenInWebCommandId)
+        private CodeXmlWebResourceDependencyXmlOpenInWebInConnectionCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.guidDynamicCommandSet.CodeXmlWebResourceDependencyXmlOpenInWebInConnectionCommandId)
         {
         }
 
-        public static CodeXmlWebResourceDependencyXmlOpenInWebCommand Instance { get; private set; }
+        public static CodeXmlWebResourceDependencyXmlOpenInWebInConnectionCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeXmlWebResourceDependencyXmlOpenInWebCommand(commandService);
+            Instance = new CodeXmlWebResourceDependencyXmlOpenInWebInConnectionCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)

@@ -3439,7 +3439,7 @@
         </Strings>
       </Button>
 
-      <Button guid="guidDynamicCommandSet" id="CodeWebResourceOpenInWebCommandId" priority="0x0105" type="Button">
+      <Button guid="guidDynamicCommandSet" id="CodeWebResourceOpenInWebInConnectionCommandId" priority="0x0105" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -3447,10 +3447,10 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>CodeWebResourceOpenInWebCommandId Placeholder</ButtonText>
+          <ButtonText>CodeWebResourceOpenInWebInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="CodeWebResourceOpenDependentInWebCommandId" priority="0x0106" type="Button">
+      <Button guid="guidDynamicCommandSet" id="CodeWebResourceOpenDependentInWebInConnectionCommandId" priority="0x0106" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -3458,10 +3458,10 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>CodeWebResourceOpenDependentInWebCommandId Placeholder</ButtonText>
+          <ButtonText>CodeWebResourceOpenDependentInWebInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="CodeWebResourceOpenDependentInExplorerCommandId" priority="0x0107" type="Button">
+      <Button guid="guidDynamicCommandSet" id="CodeWebResourceOpenDependentInExplorerInConnectionCommandId" priority="0x0107" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -3469,10 +3469,10 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>CodeWebResourceOpenDependentInExplorerCommandId Placeholder</ButtonText>
+          <ButtonText>CodeWebResourceOpenDependentInExplorerInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="CodeWebResourceOpenSolutionsContainingComponentInExplorerCommandId" priority="0x0106" type="Button">
+      <Button guid="guidDynamicCommandSet" id="CodeWebResourceOpenSolutionsContainingComponentInExplorerInConnectionCommandId" priority="0x0106" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -3480,7 +3480,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>CodeWebResourceOpenSolutionsContainingComponentInExplorerCommandId Placeholder</ButtonText>
+          <ButtonText>CodeWebResourceOpenSolutionsContainingComponentInExplorerInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -3735,7 +3735,7 @@
         </Strings>
       </Button>
 
-      <Button guid="guidDynamicCommandSet" id="CodeXmlSiteMapOpenInWebCommandId" priority="0x0100" type="Button">
+      <Button guid="guidDynamicCommandSet" id="CodeXmlSiteMapOpenInWebInConnectionCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -3743,7 +3743,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>CodeXmlSiteMapOpenInWebCommandId Placeholder</ButtonText>
+          <ButtonText>CodeXmlSiteMapOpenInWebInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="CodeXmlSiteMapExplorerCommandId" priority="0x0100" type="Button">
@@ -3814,7 +3814,7 @@
 
 
 
-      <Button guid="guidDynamicCommandSet" id="CodeXmlSystemFormOpenInWebCommandId" priority="0x0100" type="Button">
+      <Button guid="guidDynamicCommandSet" id="CodeXmlSystemFormOpenInWebInConnectionCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -3822,7 +3822,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>CodeXmlSystemFormOpenInWebCommandId Placeholder</ButtonText>
+          <ButtonText>CodeXmlSystemFormOpenInWebInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="CodeXmlSystemFormExplorerCommandId" priority="0x0100" type="Button">
@@ -3882,7 +3882,7 @@
 
 
 
-      <Button guid="guidDynamicCommandSet" id="CodeXmlWorkflowOpenInWebCommandId" priority="0x0100" type="Button">
+      <Button guid="guidDynamicCommandSet" id="CodeXmlWorkflowOpenInWebInConnectionCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -3890,7 +3890,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>CodeXmlWorkflowOpenInWebCommandId Placeholder</ButtonText>
+          <ButtonText>CodeXmlWorkflowOpenInWebInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="CodeXmlWorkflowExplorerCommandId" priority="0x0100" type="Button">
@@ -3951,7 +3951,7 @@
 
 
 
-      <Button guid="guidDynamicCommandSet" id="CodeXmlSavedQueryOpenInWebCommandId" priority="0x0100" type="Button">
+      <Button guid="guidDynamicCommandSet" id="CodeXmlSavedQueryOpenInWebInConnectionCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -3959,7 +3959,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>CodeXmlSavedQueryOpenInWebCommandId Placeholder</ButtonText>
+          <ButtonText>CodeXmlSavedQueryOpenInWebInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="CodeXmlSavedQueryExplorerCommandId" priority="0x0100" type="Button">
@@ -4025,7 +4025,7 @@
 
 
 
-      <Button guid="guidDynamicCommandSet" id="CodeXmlRibbonOpenInWebCommandId" priority="0x0100" type="Button">
+      <Button guid="guidDynamicCommandSet" id="CodeXmlRibbonOpenInWebInConnectionCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -4033,7 +4033,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>CodeXmlRibbonOpenInWebCommandId Placeholder</ButtonText>
+          <ButtonText>CodeXmlRibbonOpenInWebInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="CodeXmlRibbonExplorerCommandId" priority="0x0100" type="Button">
@@ -4120,7 +4120,7 @@
 
 
 
-      <Button guid="guidDynamicCommandSet" id="CodeXmlWebResourceDependencyXmlOpenInWebCommandId" priority="0x0100" type="Button">
+      <Button guid="guidDynamicCommandSet" id="CodeXmlWebResourceDependencyXmlOpenInWebInConnectionCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -4128,7 +4128,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>CodeXmlWebResourceDependencyXmlOpenInWebCommandId Placeholder</ButtonText>
+          <ButtonText>CodeXmlWebResourceDependencyXmlOpenInWebInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="CodeXmlWebResourceDependencyXmlExplorerCommandId" priority="0x0100" type="Button">
@@ -4375,7 +4375,7 @@
         </Strings>
       </Button>
 
-      <Button guid="guidDynamicCommandSet" id="CodeReportOpenInWebCommandId" priority="0x0102" type="Button">
+      <Button guid="guidDynamicCommandSet" id="CodeReportOpenInWebInConnectionCommandId" priority="0x0102" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -4383,10 +4383,10 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>CodeReportOpenInWebCommandId Placeholder</ButtonText>
+          <ButtonText>CodeReportOpenInWebInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="CodeReportOpenDependentInWebCommandId" priority="0x0106" type="Button">
+      <Button guid="guidDynamicCommandSet" id="CodeReportOpenDependentInWebInConnectionCommandId" priority="0x0106" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -4394,10 +4394,10 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>CodeReportOpenDependentInWebCommandId Placeholder</ButtonText>
+          <ButtonText>CodeReportOpenDependentInWebInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="CodeReportOpenDependentInExplorerCommandId" priority="0x0107" type="Button">
+      <Button guid="guidDynamicCommandSet" id="CodeReportOpenDependentInExplorerInConnectionCommandId" priority="0x0107" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -4405,10 +4405,10 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>CodeReportOpenDependentInExplorerCommandId Placeholder</ButtonText>
+          <ButtonText>CodeReportOpenDependentInExplorerInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="CodeReportOpenSolutionsContainingComponentInExplorerCommandId" priority="0x0107" type="Button">
+      <Button guid="guidDynamicCommandSet" id="CodeReportOpenSolutionsContainingComponentInExplorerInConnectionCommandId" priority="0x0107" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -4416,7 +4416,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>CodeReportOpenSolutionsContainingComponentInExplorerCommandId Placeholder</ButtonText>
+          <ButtonText>CodeReportOpenSolutionsContainingComponentInExplorerInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -5656,7 +5656,7 @@
         </Strings>
       </Button>
 
-      <Button guid="guidDynamicCommandSet" id="FileWebResourceOpenInWebCommandId" priority="0x0110" type="Button">
+      <Button guid="guidDynamicCommandSet" id="FileWebResourceOpenInWebInConnectionCommandId" priority="0x0110" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -5664,10 +5664,10 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>FileWebResourceOpenInWebCommandId Placeholder</ButtonText>
+          <ButtonText>FileWebResourceOpenInWebInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FileWebResourceOpenDependentInWebCommandId" priority="0x0110" type="Button">
+      <Button guid="guidDynamicCommandSet" id="FileWebResourceOpenDependentInWebInConnectionCommandId" priority="0x0110" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -5675,10 +5675,10 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>FileWebResourceOpenDependentInWebCommandId Placeholder</ButtonText>
+          <ButtonText>FileWebResourceOpenDependentInWebInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FileWebResourceOpenDependentInExplorerCommandId" priority="0x0110" type="Button">
+      <Button guid="guidDynamicCommandSet" id="FileWebResourceOpenDependentInExplorerInConnectionCommandId" priority="0x0110" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -5686,10 +5686,10 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>FileWebResourceOpenDependentInExplorerCommandId Placeholder</ButtonText>
+          <ButtonText>FileWebResourceOpenDependentInExplorerInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FileWebResourceOpenSolutionsContainingComponentInExplorerCommandId" priority="0x0110" type="Button">
+      <Button guid="guidDynamicCommandSet" id="FileWebResourceOpenSolutionsContainingComponentInExplorerInConnectionCommandId" priority="0x0110" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -5697,7 +5697,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>FileWebResourceOpenSolutionsContainingComponentInExplorerCommandId Placeholder</ButtonText>
+          <ButtonText>FileWebResourceOpenSolutionsContainingComponentInExplorerInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -6301,7 +6301,7 @@
         </Strings>
       </Button>
 
-      <Button guid="guidDynamicCommandSet" id="FileReportOpenInWebCommandId" priority="0x0110" type="Button">
+      <Button guid="guidDynamicCommandSet" id="FileReportOpenInWebInConnectionCommandId" priority="0x0110" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -6309,10 +6309,10 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>FileReportOpenInWebCommandId Placeholder</ButtonText>
+          <ButtonText>FileReportOpenInWebInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FileReportOpenDependentInWebCommandId" priority="0x0111" type="Button">
+      <Button guid="guidDynamicCommandSet" id="FileReportOpenDependentInWebInConnectionCommandId" priority="0x0111" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -6320,10 +6320,10 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>FileReportOpenDependentInWebCommandId Placeholder</ButtonText>
+          <ButtonText>FileReportOpenDependentInWebInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FileReportOpenDependentInExplorerCommandId" priority="0x0112" type="Button">
+      <Button guid="guidDynamicCommandSet" id="FileReportOpenDependentInExplorerInConnectionCommandId" priority="0x0112" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -6331,10 +6331,10 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>FileReportOpenDependentInExplorerCommandId Placeholder</ButtonText>
+          <ButtonText>FileReportOpenDependentInExplorerInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FileReportOpenSolutionsContainingComponentInExplorerCommandId" priority="0x0113" type="Button">
+      <Button guid="guidDynamicCommandSet" id="FileReportOpenSolutionsContainingComponentInExplorerInConnectionCommandId" priority="0x0113" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -6342,7 +6342,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>FileReportOpenSolutionsContainingComponentInExplorerCommandId Placeholder</ButtonText>
+          <ButtonText>FileReportOpenSolutionsContainingComponentInExplorerInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -15711,28 +15711,28 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenInWebDyn_Group" priority="0x0105">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenInWebDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeWebResourceOpenInWebCommandId" priority="0x0105">
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeWebResourceOpenInWebInConnectionCommandId" priority="0x0105">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenInWebDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenDependentInWebDyn_Group" priority="0x0106">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenDependentInWebDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeWebResourceOpenDependentInWebCommandId" priority="0x0106">
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeWebResourceOpenDependentInWebInConnectionCommandId" priority="0x0106">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenDependentInWebDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenDependentInExplorerDyn_Group" priority="0x0107">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenDependentInExplorerDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeWebResourceOpenDependentInExplorerCommandId" priority="0x0107">
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeWebResourceOpenDependentInExplorerInConnectionCommandId" priority="0x0107">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenDependentInExplorerDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn_Group" priority="0x0108">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeWebResourceOpenSolutionsContainingComponentInExplorerCommandId" priority="0x0108">
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeWebResourceOpenSolutionsContainingComponentInExplorerInConnectionCommandId" priority="0x0108">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn_Group" />
     </CommandPlacement>
 
@@ -15790,7 +15790,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSiteMapShowDifference_MenuOpenInWebConnectionDyn_Group" priority="0x108">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSiteMapShowDifference_MenuOpenInWebConnectionDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlSiteMapOpenInWebCommandId" priority="0x108">
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlSiteMapOpenInWebInConnectionCommandId" priority="0x108">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSiteMapShowDifference_MenuOpenInWebConnectionDyn_Group" />
     </CommandPlacement>
 
@@ -15820,7 +15820,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonShowDifference_MenuOpenEntityInWebConnectionDyn_Group" priority="0x108">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonShowDifference_MenuOpenEntityInWebConnectionDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlRibbonOpenInWebCommandId" priority="0x108">
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlRibbonOpenInWebInConnectionCommandId" priority="0x108">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonShowDifference_MenuOpenEntityInWebConnectionDyn_Group" />
     </CommandPlacement>
 
@@ -15850,7 +15850,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSystemFormShowDifference_MenuOpenInWebConnectionDyn_Group" priority="0x108">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSystemFormShowDifference_MenuOpenInWebConnectionDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlSystemFormOpenInWebCommandId" priority="0x108">
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlSystemFormOpenInWebInConnectionCommandId" priority="0x108">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSystemFormShowDifference_MenuOpenInWebConnectionDyn_Group" />
     </CommandPlacement>
 
@@ -15873,7 +15873,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSavedQueryShowDifference_MenuOpenInWebConnectionDyn_Group" priority="0x108">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSavedQueryShowDifference_MenuOpenInWebConnectionDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlSavedQueryOpenInWebCommandId" priority="0x108">
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlSavedQueryOpenInWebInConnectionCommandId" priority="0x108">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSavedQueryShowDifference_MenuOpenInWebConnectionDyn_Group" />
     </CommandPlacement>
 
@@ -15896,7 +15896,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWorkflowShowDifference_MenuOpenInWebConnectionDyn_Group" priority="0x108">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWorkflowShowDifference_MenuOpenInWebConnectionDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlWorkflowOpenInWebCommandId" priority="0x108">
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlWorkflowOpenInWebInConnectionCommandId" priority="0x108">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWorkflowShowDifference_MenuOpenInWebConnectionDyn_Group" />
     </CommandPlacement>
 
@@ -15919,7 +15919,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlCurrent_MenuOpenInWebConnectionDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlCurrent_MenuOpenInWebConnectionDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlWebResourceDependencyXmlOpenInWebCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlWebResourceDependencyXmlOpenInWebInConnectionCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlCurrent_MenuOpenInWebConnectionDyn_Group" />
     </CommandPlacement>
 
@@ -16036,28 +16036,28 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenInWebDyn_Group" priority="0x0102">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenInWebDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeReportOpenInWebCommandId" priority="0x0102">
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeReportOpenInWebInConnectionCommandId" priority="0x0102">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenInWebDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenDependentInWebDyn_Group" priority="0x0105">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenDependentInWebDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeReportOpenDependentInWebCommandId" priority="0x0105">
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeReportOpenDependentInWebInConnectionCommandId" priority="0x0105">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenDependentInWebDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenDependentInExplorerDyn_Group" priority="0x0106">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenDependentInExplorerDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeReportOpenDependentInExplorerCommandId" priority="0x0106">
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeReportOpenDependentInExplorerInConnectionCommandId" priority="0x0106">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenDependentInExplorerDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn_Group" priority="0x0107">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeReportOpenSolutionsContainingComponentInExplorerCommandId" priority="0x0107">
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeReportOpenSolutionsContainingComponentInExplorerInConnectionCommandId" priority="0x0107">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn_Group" />
     </CommandPlacement>
 
@@ -16427,28 +16427,28 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenInWebDyn_Group" priority="0x0110">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenInWebDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceOpenInWebCommandId" priority="0x0110">
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceOpenInWebInConnectionCommandId" priority="0x0110">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenInWebDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenDependentInWebDyn_Group" priority="0x0111">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenDependentInWebDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceOpenDependentInWebCommandId" priority="0x0111">
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceOpenDependentInWebInConnectionCommandId" priority="0x0111">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenDependentInWebDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenDependentInExplorerDyn_Group" priority="0x0112">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenDependentInExplorerDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceOpenDependentInExplorerCommandId" priority="0x0112">
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceOpenDependentInExplorerInConnectionCommandId" priority="0x0112">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenDependentInExplorerDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn_Group" priority="0x0113">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceOpenSolutionsContainingComponentInExplorerCommandId" priority="0x0113">
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceOpenSolutionsContainingComponentInExplorerInConnectionCommandId" priority="0x0113">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn_Group" />
     </CommandPlacement>
 
@@ -16512,28 +16512,28 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenInWebDyn_Group" priority="0x0110">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenInWebDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FileReportOpenInWebCommandId" priority="0x0110">
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileReportOpenInWebInConnectionCommandId" priority="0x0110">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenInWebDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenDependentInWebDyn_Group" priority="0x0111">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenDependentInWebDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FileReportOpenDependentInWebCommandId" priority="0x0111">
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileReportOpenDependentInWebInConnectionCommandId" priority="0x0111">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenDependentInWebDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenDependentInExplorerDyn_Group" priority="0x0112">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenDependentInExplorerDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FileReportOpenDependentInExplorerCommandId" priority="0x0112">
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileReportOpenDependentInExplorerInConnectionCommandId" priority="0x0112">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenDependentInExplorerDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn_Group" priority="0x0113">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FileReportOpenSolutionsContainingComponentInExplorerCommandId" priority="0x0113">
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileReportOpenSolutionsContainingComponentInExplorerInConnectionCommandId" priority="0x0113">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn_Group" />
     </CommandPlacement>
 
@@ -19366,10 +19366,10 @@
       <IDSymbol name="CodeWebResourceAddToSolutionLastCommandId" value="200" />
 
       <IDSymbol name="CodeWebResourceShowDifferenceInConnectionGroupCommandId" value="150" />
-      <IDSymbol name="CodeWebResourceOpenInWebCommandId" value="850" />
-      <IDSymbol name="CodeWebResourceOpenDependentInWebCommandId" value="900" />
-      <IDSymbol name="CodeWebResourceOpenDependentInExplorerCommandId" value="950" />
-      <IDSymbol name="CodeWebResourceOpenSolutionsContainingComponentInExplorerCommandId" value="1000" />
+      <IDSymbol name="CodeWebResourceOpenInWebInConnectionCommandId" value="850" />
+      <IDSymbol name="CodeWebResourceOpenDependentInWebInConnectionCommandId" value="900" />
+      <IDSymbol name="CodeWebResourceOpenDependentInExplorerInConnectionCommandId" value="950" />
+      <IDSymbol name="CodeWebResourceOpenSolutionsContainingComponentInExplorerInConnectionCommandId" value="1000" />
 
       <IDSymbol name="CodeWebResourceShowDifferenceThreeWayCommandId" value="1750" />
       <IDSymbol name="CodeWebResourceShowDifferenceTwoConnectionsCommandId" value="1900" />
@@ -19407,27 +19407,27 @@
       <IDSymbol name="CodeXmlRibbonShowDifferenceInConnectionGroupCommandId" value="4900" />
       <IDSymbol name="CodeXmlRibbonDiffXmlShowDifferenceInConnectionGroupCommandId" value="4950" />
       <IDSymbol name="CodeXmlRibbonDiffXmlUpdateInConnectionGroupCommandId" value="5000" />
-      <IDSymbol name="CodeXmlRibbonOpenInWebCommandId" value="10150" />
+      <IDSymbol name="CodeXmlRibbonOpenInWebInConnectionCommandId" value="10150" />
 
       <IDSymbol name="CodeXmlSiteMapShowDifferenceInConnectionGroupCommandId" value="5050" />
       <IDSymbol name="CodeXmlSiteMapUpdateInConnectionGroupCommandId" value="6000" />
-      <IDSymbol name="CodeXmlSiteMapOpenInWebCommandId" value="10000" />
+      <IDSymbol name="CodeXmlSiteMapOpenInWebInConnectionCommandId" value="10000" />
 
       <IDSymbol name="CodeXmlSystemFormShowDifferenceInConnectionGroupCommandId" value="6050" />
       <IDSymbol name="CodeXmlSystemFormUpdateInConnectionGroupCommandId" value="6100" />
-      <IDSymbol name="CodeXmlSystemFormOpenInWebCommandId" value="10050" />
+      <IDSymbol name="CodeXmlSystemFormOpenInWebInConnectionCommandId" value="10050" />
 
       <IDSymbol name="CodeXmlSavedQueryShowDifferenceInConnectionGroupCommandId" value="6150" />
       <IDSymbol name="CodeXmlSavedQueryUpdateInConnectionGroupCommandId" value="6200" />
-      <IDSymbol name="CodeXmlSavedQueryOpenInWebCommandId" value="10100" />
+      <IDSymbol name="CodeXmlSavedQueryOpenInWebInConnectionCommandId" value="10100" />
 
       <IDSymbol name="CodeXmlWorkflowShowDifferenceInConnectionGroupCommandId" value="10450" />
       <IDSymbol name="CodeXmlWorkflowUpdateInConnectionGroupCommandId" value="10500" />
-      <IDSymbol name="CodeXmlWorkflowOpenInWebCommandId" value="10400" />
+      <IDSymbol name="CodeXmlWorkflowOpenInWebInConnectionCommandId" value="10400" />
 
       <IDSymbol name="CodeXmlWebResourceDependencyXmlShowDifferenceInConnectionCommandId" value="11800" />
       <IDSymbol name="CodeXmlWebResourceDependencyXmlUpdateInConnectionCommandId" value="11850" />
-      <IDSymbol name="CodeXmlWebResourceDependencyXmlOpenInWebCommandId" value="11900" />
+      <IDSymbol name="CodeXmlWebResourceDependencyXmlOpenInWebInConnectionCommandId" value="11900" />
       <IDSymbol name="CodeXmlWebResourceDependencyXmlGetCurrentInConnectionCommandId" value="11950" />
 
       <!-- #endregion CodeXml -->
@@ -19438,10 +19438,10 @@
 
       <IDSymbol name="CodeReportShowDifferenceOriginalBodyTextInConnectionGroupCommandId" value="600" />
 
-      <IDSymbol name="CodeReportOpenInWebCommandId" value="1250" />
-      <IDSymbol name="CodeReportOpenDependentInWebCommandId" value="1300" />
-      <IDSymbol name="CodeReportOpenDependentInExplorerCommandId" value="1350" />
-      <IDSymbol name="CodeReportOpenSolutionsContainingComponentInExplorerCommandId" value="1400" />
+      <IDSymbol name="CodeReportOpenInWebInConnectionCommandId" value="1250" />
+      <IDSymbol name="CodeReportOpenDependentInWebInConnectionCommandId" value="1300" />
+      <IDSymbol name="CodeReportOpenDependentInExplorerInConnectionCommandId" value="1350" />
+      <IDSymbol name="CodeReportOpenSolutionsContainingComponentInExplorerInConnectionCommandId" value="1400" />
 
       <IDSymbol name="CodeReportShowDifferenceOriginalBodyTextThreeWayCommandId" value="1850" />
       <IDSymbol name="CodeReportShowDifferenceOriginalBodyTextTwoConnectionsCommandId" value="2000" />
@@ -19548,10 +19548,10 @@
 
       <IDSymbol name="FileWebResourceShowDifferenceInConnectionGroupCommandId" value="650" />
 
-      <IDSymbol name="FileWebResourceOpenInWebCommandId" value="1050" />
-      <IDSymbol name="FileWebResourceOpenDependentInWebCommandId" value="1100" />
-      <IDSymbol name="FileWebResourceOpenDependentInExplorerCommandId" value="1150" />
-      <IDSymbol name="FileWebResourceOpenSolutionsContainingComponentInExplorerCommandId" value="1200" />
+      <IDSymbol name="FileWebResourceOpenInWebInConnectionCommandId" value="1050" />
+      <IDSymbol name="FileWebResourceOpenDependentInWebInConnectionCommandId" value="1100" />
+      <IDSymbol name="FileWebResourceOpenDependentInExplorerInConnectionCommandId" value="1150" />
+      <IDSymbol name="FileWebResourceOpenSolutionsContainingComponentInExplorerInConnectionCommandId" value="1200" />
 
       <IDSymbol name="FileWebResourceShowDifferenceThreeWayCommandId" value="1800" />
       <IDSymbol name="FileWebResourceShowDifferenceTwoConnectionsCommandId" value="1950" />
@@ -19591,10 +19591,10 @@
 
       <IDSymbol name="FileReportAddToSolutionLastCommandId" value="300" />
 
-      <IDSymbol name="FileReportOpenInWebCommandId" value="1450" />
-      <IDSymbol name="FileReportOpenDependentInWebCommandId" value="1500" />
-      <IDSymbol name="FileReportOpenDependentInExplorerCommandId" value="1550" />
-      <IDSymbol name="FileReportOpenSolutionsContainingComponentInExplorerCommandId" value="1600" />
+      <IDSymbol name="FileReportOpenInWebInConnectionCommandId" value="1450" />
+      <IDSymbol name="FileReportOpenDependentInWebInConnectionCommandId" value="1500" />
+      <IDSymbol name="FileReportOpenDependentInExplorerInConnectionCommandId" value="1550" />
+      <IDSymbol name="FileReportOpenSolutionsContainingComponentInExplorerInConnectionCommandId" value="1600" />
 
       <IDSymbol name="FileReportAddToSolutionInConnectionCommandId" value="7700" />
 

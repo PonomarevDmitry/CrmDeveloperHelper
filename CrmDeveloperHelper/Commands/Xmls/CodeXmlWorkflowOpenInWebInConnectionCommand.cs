@@ -7,22 +7,18 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlSavedQueryOpenInWebCommand : AbstractDynamicCommandByConnectionAll
+    internal sealed class CodeXmlWorkflowOpenInWebInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
-        private CodeXmlSavedQueryOpenInWebCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.CodeXmlSavedQueryOpenInWebCommandId
-            )
+        private CodeXmlWorkflowOpenInWebInConnectionCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.guidDynamicCommandSet.CodeXmlWorkflowOpenInWebInConnectionCommandId)
         {
-
         }
 
-        public static CodeXmlSavedQueryOpenInWebCommand Instance { get; private set; }
+        public static CodeXmlWorkflowOpenInWebInConnectionCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeXmlSavedQueryOpenInWebCommand(commandService);
+            Instance = new CodeXmlWorkflowOpenInWebInConnectionCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
@@ -31,7 +27,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 
             if (selectedFiles.Count == 1)
             {
-                helper.HandleSavedQueryOpenInWebCommand(connectionData, selectedFiles[0]);
+                helper.HandleWorkflowOpenInWebCommand(connectionData, selectedFiles[0]);
             }
         }
 
@@ -40,16 +36,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
             CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(
                 applicationObject
                 , menuCommand
-                , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSavedQueryId
+                , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWorkflowId
                 , out var attribute
-                , AbstractDynamicCommandXsdSchemas.RootFetch
-                , AbstractDynamicCommandXsdSchemas.RootGrid
-                , AbstractDynamicCommandXsdSchemas.RootColumnSet
+                , AbstractDynamicCommandXsdSchemas.RootActivity
             );
 
-            if (attribute == null
-                || !Guid.TryParse(attribute.Value, out _)
-            )
+            if (attribute == null || !Guid.TryParse(attribute.Value, out _))
             {
                 menuCommand.Enabled = menuCommand.Visible = false;
             }

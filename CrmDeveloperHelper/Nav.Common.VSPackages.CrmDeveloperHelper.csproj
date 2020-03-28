@@ -243,7 +243,7 @@
     <Compile Include="Commands\WebResources\CodeWebResourceCreateEntityDescriptionInConnectionCommand.cs" />
     <Compile Include="Commands\WebResources\CodeWebResourceCompareWithDetailsInConnectionGroupCommand.cs" />
     <Compile Include="Commands\WebResources\CodeWebResourceChangeInEditorInConnectionCommand.cs" />
-    <Compile Include="Commands\WebResources\CodeWebResourceOpenInWebCommand.cs" />
+    <Compile Include="Commands\WebResources\CodeWebResourceOpenInWebInConnectionCommand.cs" />
     <Compile Include="Commands\ListForPublish\CodePublishListAddCommand.cs" />
     <Compile Include="Commands\WebResources\CodeWebResourceCheckEncodingCommand.cs" />
     <Compile Include="Commands\Reports\CodeReportLinkClearCommand.cs" />
@@ -252,7 +252,7 @@
     <Compile Include="Commands\WebResources\CodeWebResourceLinkCreateCommand.cs" />
     <Compile Include="Commands\ListForPublish\CodePublishListRemoveCommand.cs" />
     <Compile Include="Commands\Reports\CodeReportAddToSolutionLastCommand.cs" />
-    <Compile Include="Commands\Reports\CodeReportOpenInWebCommand.cs" />
+    <Compile Include="Commands\Reports\CodeReportOpenInWebInConnectionCommand.cs" />
     <Compile Include="Commands\Reports\CodeReportUpdateCommand.cs" />
     <Compile Include="Commands\WebResources\CodeWebResourceShowDifferenceCommand.cs" />
     <Compile Include="Commands\WebResources\CodeWebResourceShowDifferenceCustomCommand.cs" />
@@ -276,7 +276,7 @@
     <Compile Include="Commands\Xmls\CodeXmlCommonCopyToClipboardWithoutSchemaCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlFetchXmlConvertToQueryExpressionCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlFetchXmlPasteFromClipboardCommand.cs" />
-    <Compile Include="Commands\Xmls\CodeXmlRibbonOpenInWebCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlRibbonOpenInWebInConnectionCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlCommonXsdSchemaSetProperCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlCommonXsdSchemaRemoveCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlCommonConvertToJavaScriptCodeCommand.cs" />
@@ -287,7 +287,7 @@
     <Compile Include="Commands\Xmls\CodeXmlRibbonDiffRemoveIntellisenseContextCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlRibbonExplorerCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSavedQueryExplorerCommand.cs" />
-    <Compile Include="Commands\Xmls\CodeXmlSavedQueryOpenInWebCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlSavedQueryOpenInWebInConnectionCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlCommonXsdSchemaSetCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlRibbonShowDifferenceCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlRibbonDiffXmlShowDifferenceCommand.cs" />
@@ -302,9 +302,9 @@
     <Compile Include="Commands\Xmls\CodeXmlSystemFormShowDifferenceCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSystemFormShowDifferenceInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSiteMapExplorerCommand.cs" />
-    <Compile Include="Commands\Xmls\CodeXmlSiteMapOpenInWebCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlSiteMapOpenInWebInConnectionCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSystemFormExplorerCommand.cs" />
-    <Compile Include="Commands\Xmls\CodeXmlSystemFormOpenInWebCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlSystemFormOpenInWebInConnectionCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlRibbonDiffXmlUpdateCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlRibbonDiffXmlUpdateInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSavedQueryUpdateCommand.cs" />
@@ -404,13 +404,13 @@
     <Compile Include="Commands\Xmls\CodeXmlWebResourceDependencyXmlExplorerCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlWebResourceDependencyXmlGetCurrentCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlWebResourceDependencyXmlGetCurrentInConnectionCommand.cs" />
-    <Compile Include="Commands\Xmls\CodeXmlWebResourceDependencyXmlOpenInWebCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlWebResourceDependencyXmlOpenInWebInConnectionCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlWebResourceDependencyXmlShowDifferenceCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlWebResourceDependencyXmlShowDifferenceInConnectionCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlWebResourceDependencyXmlUpdateCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlWebResourceDependencyXmlUpdateInConnectionCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlWorkflowExplorerCommand.cs" />
-    <Compile Include="Commands\Xmls\CodeXmlWorkflowOpenInWebCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlWorkflowOpenInWebInConnectionCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlWorkflowShowDifferenceCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlWorkflowShowDifferenceInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlWorkflowUpdateCommand.cs" />
@@ -439,11 +439,11 @@
     <Compile Include="Commands\JavaScripts\FileJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand.cs" />
     <Compile Include="Commands\Reports\FileReportAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\Reports\FileReportCreateCommand.cs" />
-    <Compile Include="Commands\Reports\FileReportOpenInWebCommand.cs" />
+    <Compile Include="Commands\Reports\FileReportOpenInWebInConnectionCommand.cs" />
     <Compile Include="Commands\Reports\FileReportUpdateCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceCompareInConnectionGroupCommand.cs" />
-    <Compile Include="Commands\WebResources\FileWebResourceOpenInWebCommand.cs" />
+    <Compile Include="Commands\WebResources\FileWebResourceOpenInWebInConnectionCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceShowDifferenceInConnectionGroupCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceShowDifferenceThreeFileCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceUpdateContentPublishGroupConnectionCommand.cs" />

@@ -7,22 +7,18 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlWorkflowOpenInWebCommand : AbstractDynamicCommandByConnectionAll
+    internal sealed class CodeXmlSystemFormOpenInWebInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
-        private CodeXmlWorkflowOpenInWebCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.CodeXmlWorkflowOpenInWebCommandId
-            )
+        private CodeXmlSystemFormOpenInWebInConnectionCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.guidDynamicCommandSet.CodeXmlSystemFormOpenInWebInConnectionCommandId)
         {
-
         }
 
-        public static CodeXmlWorkflowOpenInWebCommand Instance { get; private set; }
+        public static CodeXmlSystemFormOpenInWebInConnectionCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeXmlWorkflowOpenInWebCommand(commandService);
+            Instance = new CodeXmlSystemFormOpenInWebInConnectionCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
@@ -31,7 +27,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 
             if (selectedFiles.Count == 1)
             {
-                helper.HandleWorkflowOpenInWebCommand(connectionData, selectedFiles[0]);
+                helper.HandleSystemFormOpenInWebCommand(connectionData, selectedFiles[0]);
             }
         }
 
@@ -40,14 +36,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
             CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(
                 applicationObject
                 , menuCommand
-                , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWorkflowId
+                , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeFormId
                 , out var attribute
-                , AbstractDynamicCommandXsdSchemas.RootActivity
+                , AbstractDynamicCommandXsdSchemas.RootForm
             );
 
-            if (attribute == null
-                || !Guid.TryParse(attribute.Value, out _)
-            )
+            if (attribute == null || !Guid.TryParse(attribute.Value, out _))
             {
                 menuCommand.Enabled = menuCommand.Visible = false;
             }

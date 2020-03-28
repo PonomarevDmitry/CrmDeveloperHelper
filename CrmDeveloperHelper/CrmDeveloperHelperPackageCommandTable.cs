@@ -1862,13 +1862,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeWebResourceShowDifferenceInConnectionGroupCommandId = 0x0096;
 
-            public const int CodeWebResourceOpenInWebCommandId = 0x0352;
+            public const int CodeWebResourceOpenInWebInConnectionCommandId = 0x0352;
 
-            public const int CodeWebResourceOpenDependentInWebCommandId = 0x0384;
+            public const int CodeWebResourceOpenDependentInWebInConnectionCommandId = 0x0384;
 
-            public const int CodeWebResourceOpenDependentInExplorerCommandId = 0x03B6;
+            public const int CodeWebResourceOpenDependentInExplorerInConnectionCommandId = 0x03B6;
 
-            public const int CodeWebResourceOpenSolutionsContainingComponentInExplorerCommandId = 0x03E8;
+            public const int CodeWebResourceOpenSolutionsContainingComponentInExplorerInConnectionCommandId = 0x03E8;
 
             public const int CodeWebResourceShowDifferenceThreeWayCommandId = 0x06D6;
 
@@ -1908,37 +1908,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeXmlRibbonDiffXmlUpdateInConnectionGroupCommandId = 0x1388;
 
-            public const int CodeXmlRibbonOpenInWebCommandId = 0x27A6;
+            public const int CodeXmlRibbonOpenInWebInConnectionCommandId = 0x27A6;
 
             public const int CodeXmlSiteMapShowDifferenceInConnectionGroupCommandId = 0x13BA;
 
             public const int CodeXmlSiteMapUpdateInConnectionGroupCommandId = 0x1770;
 
-            public const int CodeXmlSiteMapOpenInWebCommandId = 0x2710;
+            public const int CodeXmlSiteMapOpenInWebInConnectionCommandId = 0x2710;
 
             public const int CodeXmlSystemFormShowDifferenceInConnectionGroupCommandId = 0x17A2;
 
             public const int CodeXmlSystemFormUpdateInConnectionGroupCommandId = 0x17D4;
 
-            public const int CodeXmlSystemFormOpenInWebCommandId = 0x2742;
+            public const int CodeXmlSystemFormOpenInWebInConnectionCommandId = 0x2742;
 
             public const int CodeXmlSavedQueryShowDifferenceInConnectionGroupCommandId = 0x1806;
 
             public const int CodeXmlSavedQueryUpdateInConnectionGroupCommandId = 0x1838;
 
-            public const int CodeXmlSavedQueryOpenInWebCommandId = 0x2774;
+            public const int CodeXmlSavedQueryOpenInWebInConnectionCommandId = 0x2774;
 
             public const int CodeXmlWorkflowShowDifferenceInConnectionGroupCommandId = 0x28D2;
 
             public const int CodeXmlWorkflowUpdateInConnectionGroupCommandId = 0x2904;
 
-            public const int CodeXmlWorkflowOpenInWebCommandId = 0x28A0;
+            public const int CodeXmlWorkflowOpenInWebInConnectionCommandId = 0x28A0;
 
             public const int CodeXmlWebResourceDependencyXmlShowDifferenceInConnectionCommandId = 0x2E18;
 
             public const int CodeXmlWebResourceDependencyXmlUpdateInConnectionCommandId = 0x2E4A;
 
-            public const int CodeXmlWebResourceDependencyXmlOpenInWebCommandId = 0x2E7C;
+            public const int CodeXmlWebResourceDependencyXmlOpenInWebInConnectionCommandId = 0x2E7C;
 
             public const int CodeXmlWebResourceDependencyXmlGetCurrentInConnectionCommandId = 0x2EAE;
 
@@ -1946,13 +1946,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeReportShowDifferenceOriginalBodyTextInConnectionGroupCommandId = 0x0258;
 
-            public const int CodeReportOpenInWebCommandId = 0x04E2;
+            public const int CodeReportOpenInWebInConnectionCommandId = 0x04E2;
 
-            public const int CodeReportOpenDependentInWebCommandId = 0x0514;
+            public const int CodeReportOpenDependentInWebInConnectionCommandId = 0x0514;
 
-            public const int CodeReportOpenDependentInExplorerCommandId = 0x0546;
+            public const int CodeReportOpenDependentInExplorerInConnectionCommandId = 0x0546;
 
-            public const int CodeReportOpenSolutionsContainingComponentInExplorerCommandId = 0x0578;
+            public const int CodeReportOpenSolutionsContainingComponentInExplorerInConnectionCommandId = 0x0578;
 
             public const int CodeReportShowDifferenceOriginalBodyTextThreeWayCommandId = 0x073A;
 
@@ -2050,13 +2050,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FileWebResourceShowDifferenceInConnectionGroupCommandId = 0x028A;
 
-            public const int FileWebResourceOpenInWebCommandId = 0x041A;
+            public const int FileWebResourceOpenInWebInConnectionCommandId = 0x041A;
 
-            public const int FileWebResourceOpenDependentInWebCommandId = 0x044C;
+            public const int FileWebResourceOpenDependentInWebInConnectionCommandId = 0x044C;
 
-            public const int FileWebResourceOpenDependentInExplorerCommandId = 0x047E;
+            public const int FileWebResourceOpenDependentInExplorerInConnectionCommandId = 0x047E;
 
-            public const int FileWebResourceOpenSolutionsContainingComponentInExplorerCommandId = 0x04B0;
+            public const int FileWebResourceOpenSolutionsContainingComponentInExplorerInConnectionCommandId = 0x04B0;
 
             public const int FileWebResourceShowDifferenceThreeWayCommandId = 0x0708;
 
@@ -2092,13 +2092,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FileReportAddToSolutionLastCommandId = 0x012C;
 
-            public const int FileReportOpenInWebCommandId = 0x05AA;
+            public const int FileReportOpenInWebInConnectionCommandId = 0x05AA;
 
-            public const int FileReportOpenDependentInWebCommandId = 0x05DC;
+            public const int FileReportOpenDependentInWebInConnectionCommandId = 0x05DC;
 
-            public const int FileReportOpenDependentInExplorerCommandId = 0x060E;
+            public const int FileReportOpenDependentInExplorerInConnectionCommandId = 0x060E;
 
-            public const int FileReportOpenSolutionsContainingComponentInExplorerCommandId = 0x0640;
+            public const int FileReportOpenSolutionsContainingComponentInExplorerInConnectionCommandId = 0x0640;
 
             public const int FileReportAddToSolutionInConnectionCommandId = 0x1E14;
 
