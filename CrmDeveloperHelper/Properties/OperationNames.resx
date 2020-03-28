@@ -353,6 +353,9 @@
   <data name="OpeningWebResourceFormat1" xml:space="preserve">
     <value>{0} - Opening WebResource</value>
   </data>
+  <data name="GettingWebResourceCurrentDependencyXml" xml:space="preserve">
+    <value>{0} - Getting WebResource Current DependencyXml</value>
+  </data>
   <data name="PluginConfigurationAssemblyDescription" xml:space="preserve">
     <value>Plugin Configuration Assembly Description</value>
   </data>

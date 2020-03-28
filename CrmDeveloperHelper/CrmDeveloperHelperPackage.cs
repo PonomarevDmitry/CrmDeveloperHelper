@@ -323,6 +323,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             #region WebResource DependencyXml
 
+            CodeXmlWebResourceDependencyXmlGetCurrentCommand.Initialize(commandService);
+            CodeXmlWebResourceDependencyXmlGetCurrentInConnectionCommand.Initialize(commandService);
+
             CodeXmlWebResourceDependencyXmlExplorerCommand.Initialize(commandService);
             CodeXmlWebResourceDependencyXmlOpenInWebCommand.Initialize(commandService);
 

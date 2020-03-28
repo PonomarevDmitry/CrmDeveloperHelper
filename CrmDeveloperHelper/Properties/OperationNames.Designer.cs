@@ -1384,6 +1384,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Getting WebResource Current DependencyXml.
+        /// </summary>
+        internal static string GettingWebResourceCurrentDependencyXml {
+            get {
+                return ResourceManager.GetString("GettingWebResourceCurrentDependencyXml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - ImportJob Explorer.
         /// </summary>
         internal static string ImportJobExplorerFormat1 {

@@ -442,9 +442,12 @@
   <data name="CodeXmlCommonXsdSchemaSetProperCommandFormat1" xml:space="preserve">
     <value>Set Xsd Schema {0}</value>
   </data>
+  <data name="CodeXmlWebResourceDependencyXmlGetCurrentCommand" xml:space="preserve">
+    <value>Get WebResource Current DependencyXml</value>
+  </data>
+
+
   
-  
-  
-  
-  
+
+
 </root>

@@ -402,6 +402,8 @@
     <Compile Include="Commands\CSharp\DocumentsCSharpUpdateGlobalOptionSetsFileCommand.cs" />
     <Compile Include="Commands\WebResources\DocumentsWebResourceUpdateContentPublishGroupConnectionCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlWebResourceDependencyXmlExplorerCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlWebResourceDependencyXmlGetCurrentCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlWebResourceDependencyXmlGetCurrentInConnectionCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlWebResourceDependencyXmlOpenInWebCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlWebResourceDependencyXmlShowDifferenceCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlWebResourceDependencyXmlShowDifferenceInConnectionCommand.cs" />

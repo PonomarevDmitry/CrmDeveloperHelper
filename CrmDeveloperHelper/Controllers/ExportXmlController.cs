@@ -2188,6 +2188,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
+        public async Task ExecuteGetWebResourceCurrentDependencyXml(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+        {
+            string operation = string.Format(Properties.OperationNames.GettingWebResourceCurrentDependencyXml, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await ParseXmlDocumentWebResourceDependencyXmlAndContinue(connectionData, commonConfig, selectedFile, null, GetCurrentWebResourceDependencyXml);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
         private async Task ParseXmlDocumentWebResourceDependencyXmlAndContinue(
             ConnectionData connectionData
             , CommonConfiguration commonConfig
@@ -2434,6 +2454,53 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         private async Task OpenInWebWebResourceDependencyXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, WebResource webResource)
         {
             service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.WebResource, webResource.Id);
+        }
+
+        private async Task GetCurrentWebResourceDependencyXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, WebResource webResource)
+        {
+            string dependencyXml = webResource.GetAttributeValue<string>(WebResource.Schema.Attributes.dependencyxml);
+
+            if (string.IsNullOrEmpty(dependencyXml))
+            {
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, WebResource.Schema.EntityLogicalName, webResource.Name, WebResource.Schema.Headers.dependencyxml);
+                this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                return;
+            }
+
+            dependencyXml = ContentComparerHelper.FormatXmlByConfiguration(
+                dependencyXml
+                , commonConfig
+                , XmlOptionsControls.WebResourceDependencyXmlOptions
+                , schemaName: AbstractDynamicCommandXsdSchemas.SchemaDependencyXml
+                , webResourceName: webResource.Name
+            );
+
+            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+            else if (!Directory.Exists(commonConfig.FolderForExport))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
+                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+
+            string currentFileName = EntityFileNameFormatter.GetWebResourceFileName(service.ConnectionData.Name, webResource.Name, WebResource.Schema.Headers.dependencyxml, "xml");
+            string currentFilePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(currentFileName));
+
+            try
+            {
+                File.WriteAllText(currentFilePath, dependencyXml, new UTF8Encoding(false));
+
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, WebResource.Schema.EntityLogicalName, webResource.Name, WebResource.Schema.Headers.dependencyxml, currentFilePath);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+            }
+
+            this._iWriteToOutput.PerformAction(service.ConnectionData, currentFilePath);
         }
 
         #endregion WebResource DependencyXml

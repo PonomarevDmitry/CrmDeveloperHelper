@@ -135,9 +135,14 @@
 
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSavedQueryUpdate" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSavedQueryUpdate_MenuConnectionDyn_Group" priority="0x0601" />
+      
+      
+      <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlCurrent" priority="0x0601" />
 
+      <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlCurrent_MenuOpenInWebConnectionDyn_Group" priority="0x0601" />
+      <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlCurrent_MenuGetCurrentDyn_Group" priority="0x0601" />
+      
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlShowDifference" priority="0x0601" />
-      <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlShowDifference_MenuOpenInWebConnectionDyn_Group" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlShowDifference_MenuConnectionDyn_Group" priority="0x0601" />
 
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlUpdate" priority="0x0601" />
@@ -1163,13 +1168,21 @@
 
 
 
-      <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlShowDifference_MenuOpenInWebConnectionDyn" priority="0x0204" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlCurrent_MenuGetCurrentDyn" priority="0x0204" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Get WebResource Current DependencyXml</ButtonText>
+          <MenuText>Get WebResource Current DependencyXml</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlCurrent_MenuOpenInWebConnectionDyn" priority="0x0204" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Open WebResource in Web</ButtonText>
           <MenuText>Open WebResource in Web</MenuText>
         </Strings>
       </Menu>
+      
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlShowDifference_MenuConnectionDyn" priority="0x0204" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
@@ -4147,6 +4160,27 @@
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>CodeXmlWebResourceDependencyXmlShowDifferenceInConnectionCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommandSet" id="CodeXmlWebResourceDependencyXmlGetCurrentCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Get WebResource Current DependencyXml</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="CodeXmlWebResourceDependencyXmlGetCurrentInConnectionCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>CodeXmlWebResourceDependencyXmlGetCurrentInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -11146,17 +11180,20 @@
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlShowDifference" priority="0x06100">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlCurrent" priority="0x06100">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlUpdate" priority="0x06110">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlShowDifference" priority="0x06110">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlUpdate" priority="0x06120">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema" priority="0x06120">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema" priority="0x06130">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupIntellisenseContext" priority="0x06130">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupIntellisenseContext" priority="0x06140">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
     </CommandPlacement>
 
@@ -11353,20 +11390,30 @@
     </CommandPlacement>
 
     <!-- #endregion codeMenuXml_GroupWorkflowUpdate -->
+    
+    <!-- #region codeMenuXml_GroupWebResourceDependencyXmlCurrent -->
 
-
-    <!-- #region codeMenuXml_GroupWebResourceDependencyXmlShowDifference -->
-
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlShowDifference_MenuOpenInWebConnectionDyn" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlShowDifference" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlCurrent_MenuOpenInWebConnectionDyn" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlCurrent" />
     </CommandPlacement>
     <CommandPlacement guid="guidCommandSet" id="CodeXmlWebResourceDependencyXmlExplorerCommandId" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlCurrent" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlWebResourceDependencyXmlGetCurrentCommandId" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlCurrent" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlCurrent_MenuGetCurrentDyn" priority="0x06030">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlCurrent" />
+    </CommandPlacement>
+
+    <!-- #endregion codeMenuXml_GroupWebResourceDependencyXmlCurrent -->
+
+    <!-- #region codeMenuXml_GroupWebResourceDependencyXmlShowDifference -->
+    
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlWebResourceDependencyXmlShowDifferenceCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlShowDifference" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CodeXmlWebResourceDependencyXmlShowDifferenceCommandId" priority="0x06020">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlShowDifference" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlShowDifference_MenuConnectionDyn" priority="0x06030">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlShowDifference_MenuConnectionDyn" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlShowDifference" />
     </CommandPlacement>
 
@@ -15869,12 +15916,21 @@
 
 
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlShowDifference_MenuOpenInWebConnectionDyn_Group" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlShowDifference_MenuOpenInWebConnectionDyn" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlCurrent_MenuOpenInWebConnectionDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlCurrent_MenuOpenInWebConnectionDyn" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlWebResourceDependencyXmlOpenInWebCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlShowDifference_MenuOpenInWebConnectionDyn_Group" />
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlCurrent_MenuOpenInWebConnectionDyn_Group" />
     </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlCurrent_MenuGetCurrentDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlCurrent_MenuGetCurrentDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlWebResourceDependencyXmlGetCurrentInConnectionCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlCurrent_MenuGetCurrentDyn_Group" />
+    </CommandPlacement>
+    
+    
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlShowDifference_MenuConnectionDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlShowDifference_MenuConnectionDyn" />
@@ -17994,11 +18050,15 @@
 
 
 
+      <IDSymbol name="codeMenuXml_GroupWebResourceDependencyXmlCurrent" value="0x13D8" />
+
+      <IDSymbol name="codeMenuXml_GroupWebResourceDependencyXmlCurrent_MenuOpenInWebConnectionDyn" value="0x13D1" />
+      <IDSymbol name="codeMenuXml_GroupWebResourceDependencyXmlCurrent_MenuOpenInWebConnectionDyn_Group" value="0x13D2" />
+
+      <IDSymbol name="codeMenuXml_GroupWebResourceDependencyXmlCurrent_MenuGetCurrentDyn" value="0x13D9" />
+      <IDSymbol name="codeMenuXml_GroupWebResourceDependencyXmlCurrent_MenuGetCurrentDyn_Group" value="0x13DA" />
 
       <IDSymbol name="codeMenuXml_GroupWebResourceDependencyXmlShowDifference" value="0x13D0" />
-
-      <IDSymbol name="codeMenuXml_GroupWebResourceDependencyXmlShowDifference_MenuOpenInWebConnectionDyn" value="0x13D1" />
-      <IDSymbol name="codeMenuXml_GroupWebResourceDependencyXmlShowDifference_MenuOpenInWebConnectionDyn_Group" value="0x13D2" />
 
       <IDSymbol name="codeMenuXml_GroupWebResourceDependencyXmlShowDifference_MenuConnectionDyn" value="0x13D3" />
       <IDSymbol name="codeMenuXml_GroupWebResourceDependencyXmlShowDifference_MenuConnectionDyn_Group" value="0x13D4" />
@@ -19361,13 +19421,14 @@
       <IDSymbol name="CodeXmlSavedQueryUpdateInConnectionGroupCommandId" value="6200" />
       <IDSymbol name="CodeXmlSavedQueryOpenInWebCommandId" value="10100" />
 
-      <IDSymbol name="CodeXmlWorkflowOpenInWebCommandId" value="10400" />
       <IDSymbol name="CodeXmlWorkflowShowDifferenceInConnectionGroupCommandId" value="10450" />
       <IDSymbol name="CodeXmlWorkflowUpdateInConnectionGroupCommandId" value="10500" />
+      <IDSymbol name="CodeXmlWorkflowOpenInWebCommandId" value="10400" />
 
       <IDSymbol name="CodeXmlWebResourceDependencyXmlShowDifferenceInConnectionCommandId" value="11800" />
       <IDSymbol name="CodeXmlWebResourceDependencyXmlUpdateInConnectionCommandId" value="11850" />
       <IDSymbol name="CodeXmlWebResourceDependencyXmlOpenInWebCommandId" value="11900" />
+      <IDSymbol name="CodeXmlWebResourceDependencyXmlGetCurrentInConnectionCommandId" value="11950" />
 
       <!-- #endregion CodeXml -->
 
@@ -19677,7 +19738,7 @@
 
 
 
-      <!-- 11950 -->
+      <!-- 12000 -->
 
     </GuidSymbol>
 
@@ -19761,6 +19822,7 @@
       <IDSymbol name="CodeXmlWebResourceDependencyXmlExplorerCommandId" value="0x2227" />
       <IDSymbol name="CodeXmlWebResourceDependencyXmlShowDifferenceCommandId" value="0x2228" />
       <IDSymbol name="CodeXmlWebResourceDependencyXmlUpdateCommandId" value="0x2229" />
+      <IDSymbol name="CodeXmlWebResourceDependencyXmlGetCurrentCommandId" value="0x222E" />
 
       <!-- #endregion CodeXml -->
 
@@ -20433,10 +20495,10 @@
 
 
     <!-- Groups and Menus -->
-    <!-- 0x13D8 -->
+    <!-- 0x13DB -->
 
     <!-- Commands -->
-    <!-- 0x222E -->
+    <!-- 0x222F -->
 
 
   </Symbols>

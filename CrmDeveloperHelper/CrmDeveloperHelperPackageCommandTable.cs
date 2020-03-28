@@ -297,11 +297,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuXml_GroupWorkflowUpdate_MenuConnectionDyn_Group = 0x138A;
 
+            public const int codeMenuXml_GroupWebResourceDependencyXmlCurrent = 0x13D8;
+
+            public const int codeMenuXml_GroupWebResourceDependencyXmlCurrent_MenuOpenInWebConnectionDyn = 0x13D1;
+
+            public const int codeMenuXml_GroupWebResourceDependencyXmlCurrent_MenuOpenInWebConnectionDyn_Group = 0x13D2;
+
+            public const int codeMenuXml_GroupWebResourceDependencyXmlCurrent_MenuGetCurrentDyn = 0x13D9;
+
+            public const int codeMenuXml_GroupWebResourceDependencyXmlCurrent_MenuGetCurrentDyn_Group = 0x13DA;
+
             public const int codeMenuXml_GroupWebResourceDependencyXmlShowDifference = 0x13D0;
-
-            public const int codeMenuXml_GroupWebResourceDependencyXmlShowDifference_MenuOpenInWebConnectionDyn = 0x13D1;
-
-            public const int codeMenuXml_GroupWebResourceDependencyXmlShowDifference_MenuOpenInWebConnectionDyn_Group = 0x13D2;
 
             public const int codeMenuXml_GroupWebResourceDependencyXmlShowDifference_MenuConnectionDyn = 0x13D3;
 
@@ -1922,17 +1928,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeXmlSavedQueryOpenInWebCommandId = 0x2774;
 
-            public const int CodeXmlWorkflowOpenInWebCommandId = 0x28A0;
-
             public const int CodeXmlWorkflowShowDifferenceInConnectionGroupCommandId = 0x28D2;
 
             public const int CodeXmlWorkflowUpdateInConnectionGroupCommandId = 0x2904;
+
+            public const int CodeXmlWorkflowOpenInWebCommandId = 0x28A0;
 
             public const int CodeXmlWebResourceDependencyXmlShowDifferenceInConnectionCommandId = 0x2E18;
 
             public const int CodeXmlWebResourceDependencyXmlUpdateInConnectionCommandId = 0x2E4A;
 
             public const int CodeXmlWebResourceDependencyXmlOpenInWebCommandId = 0x2E7C;
+
+            public const int CodeXmlWebResourceDependencyXmlGetCurrentInConnectionCommandId = 0x2EAE;
 
             public const int CodeReportAddToSolutionLastCommandId = 0x00DC;
 
@@ -2292,6 +2300,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int CodeXmlWebResourceDependencyXmlShowDifferenceCommandId = 0x2228;
 
             public const int CodeXmlWebResourceDependencyXmlUpdateCommandId = 0x2229;
+
+            public const int CodeXmlWebResourceDependencyXmlGetCurrentCommandId = 0x222E;
 
             public const int CodeReportLinkCreateCommandId = 0x2009;
 

@@ -394,6 +394,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Get WebResource Current DependencyXml.
+        /// </summary>
+        internal static string CodeXmlWebResourceDependencyXmlGetCurrentCommand {
+            get {
+                return ResourceManager.GetString("CodeXmlWebResourceDependencyXmlGetCurrentCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show Difference WebResource DependencyXml.
         /// </summary>
         internal static string CodeXmlWebResourceDependencyXmlShowDifferenceCommand {
