@@ -448,7 +448,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task DifferenceSiteMapXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, SiteMap siteMap)
         {
-            string siteMapXml = siteMap.GetAttributeValue<string>(SiteMap.Schema.Attributes.sitemapxml);
+            string siteMapXml = siteMap.SiteMapXml;
 
             string fieldTitle = SiteMap.Schema.Headers.sitemapxml;
 
@@ -489,16 +489,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task UpdateSiteMapXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, SiteMap siteMap)
         {
+            string fieldTitle = SiteMap.Schema.Headers.sitemapxml;
+
             {
-                string siteMapXml = siteMap.GetAttributeValue<string>(SiteMap.Schema.Attributes.sitemapxml);
-
-                string fieldTitle = SiteMap.Schema.Headers.sitemapxml + " BackUp";
-
-                string fileNameBackUp = EntityFileNameFormatter.GetSiteMapFileName(service.ConnectionData.Name, siteMap.SiteMapNameUnique, siteMap.Id, fieldTitle, "xml");
-                string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
+                string siteMapXml = siteMap.SiteMapXml;
 
                 if (!string.IsNullOrEmpty(siteMapXml))
                 {
+                    if (string.IsNullOrEmpty(commonConfig.FolderForExport))
+                    {
+                        _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                        commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+                    }
+                    else if (!Directory.Exists(commonConfig.FolderForExport))
+                    {
+                        _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
+                        commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+                    }
+
+                    string fileNameBackUp = EntityFileNameFormatter.GetSiteMapFileName(service.ConnectionData.Name, siteMap.SiteMapNameUnique, siteMap.Id, fieldTitle + " BackUp", "xml");
+                    string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
+
                     try
                     {
                         siteMapXml = ContentComparerHelper.FormatXmlByConfiguration(
@@ -582,7 +593,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task GetCurrentSiteMapXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, SiteMap siteMap)
         {
-            string siteMapXml = siteMap.GetAttributeValue<string>(SiteMap.Schema.Attributes.sitemapxml);
+            string siteMapXml = siteMap.SiteMapXml;
 
             if (string.IsNullOrEmpty(siteMapXml))
             {
@@ -832,7 +843,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task DifferenceSystemFormXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, SystemForm systemForm)
         {
-            string formXml = systemForm.GetAttributeValue<string>(SystemForm.Schema.Attributes.formxml);
+            string formXml = systemForm.FormXml;
 
             string fieldTitle = SystemForm.Schema.Headers.formxml;
 
@@ -874,16 +885,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task UpdateSystemFormXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, SystemForm systemForm)
         {
+            string fieldTitle = SystemForm.Schema.Headers.formxml;
+
             {
-                string formXml = systemForm.GetAttributeValue<string>(SystemForm.Schema.Attributes.formxml);
-
-                string fieldTitle = SystemForm.Schema.Headers.formxml + " BackUp";
-
-                string fileNameBackUp = EntityFileNameFormatter.GetSystemFormFileName(service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name, fieldTitle, "xml");
-                string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
+                string formXml = systemForm.FormXml;
 
                 if (!string.IsNullOrEmpty(formXml))
                 {
+                    if (string.IsNullOrEmpty(commonConfig.FolderForExport))
+                    {
+                        _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                        commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+                    }
+                    else if (!Directory.Exists(commonConfig.FolderForExport))
+                    {
+                        _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
+                        commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+                    }
+
+                    string fileNameBackUp = EntityFileNameFormatter.GetSystemFormFileName(service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name, fieldTitle + " BackUp", "xml");
+                    string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
+
                     try
                     {
                         formXml = ContentComparerHelper.FormatXmlByConfiguration(
@@ -939,7 +961,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             ContentComparerHelper.ClearRoot(doc);
 
-            bool validateResult = await SitemapRepository.ValidateXmlDocumentAsync(connectionData, _iWriteToOutput, doc);
+            bool validateResult = await SystemFormRepository.ValidateXmlDocumentAsync(connectionData, _iWriteToOutput, doc);
 
             if (!validateResult)
             {
@@ -973,7 +995,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task GetCurrentSystemFormXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, SystemForm systemForm)
         {
-            string formXml = systemForm.GetAttributeValue<string>(SystemForm.Schema.Attributes.formxml);
+            string formXml = systemForm.FormXml;
 
             if (string.IsNullOrEmpty(formXml))
             {
@@ -1033,7 +1055,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 if (ParseXmlDocument(connectionData, selectedFile, out var doc))
                 {
-                    await DifferenceSavedQuery(connectionData, commonConfig, doc, selectedFile.FilePath);
+                    await CheckAttributeValidateGetSavedQueryExecuteAction(connectionData, commonConfig, doc, selectedFile.FilePath, null, DifferenceSavedQueryXml);
                 }
             }
             catch (Exception ex)
@@ -1054,7 +1076,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await DifferenceSavedQuery(connectionData, commonConfig, doc, filePath);
+                await CheckAttributeValidateGetSavedQueryExecuteAction(connectionData, commonConfig, doc, filePath, null, DifferenceSavedQueryXml);
             }
             catch (Exception ex)
             {
@@ -1064,109 +1086,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
-        }
-
-        private async Task DifferenceSavedQuery(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
-        {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            var attribute = doc.Root.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSavedQueryId);
-
-            if (attribute == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotContainsXmlAttributeFormat2
-                    , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSavedQueryId.ToString()
-                    , filePath
-                );
-
-                return;
-            }
-
-            if (string.IsNullOrEmpty(attribute.Value)
-                || !Guid.TryParse(attribute.Value, out var savedQueryId)
-                )
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData
-                    , Properties.OutputStrings.XmlAttributeNotValidGuidFormat3
-                    , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSavedQueryId.ToString()
-                    , attribute.Value
-                    , filePath
-                );
-
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-
-            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            if (service == null)
-            {
-                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
-
-            var repository = new SavedQueryRepository(service);
-
-            var savedQuery = await repository.GetByIdAsync(savedQueryId, new ColumnSet(true));
-
-            if (savedQuery == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.SavedQueryNotFoundedFormat2, connectionData.Name, savedQueryId);
-                this._iWriteToOutput.ActivateOutputWindow(connectionData);
-                return;
-            }
-
-            string fieldName = SavedQueryRepository.GetFieldNameByXmlRoot(doc.Root.Name.ToString());
-            string fieldTitle = SavedQueryRepository.GetFieldTitleByXmlRoot(doc.Root.Name.ToString());
-
-            string xmlContent = savedQuery.GetAttributeValue<string>(fieldName);
-
-            string fileTitle2 = EntityFileNameFormatter.GetSavedQueryFileName(connectionData.Name, savedQuery.ReturnedTypeCode, savedQuery.Name, fieldTitle, "xml");
-            string filePath2 = FileOperations.GetNewTempFilePath(Path.GetFileNameWithoutExtension(fileTitle2), Path.GetExtension(fileTitle2));
-
-            if (!string.IsNullOrEmpty(xmlContent))
-            {
-                try
-                {
-                    xmlContent = ContentComparerHelper.FormatXmlByConfiguration(
-                        xmlContent
-                        , commonConfig
-                        , XmlOptionsControls.SavedQueryXmlOptions
-                        , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFetch
-                        , savedQueryId: savedQueryId
-                        , entityName: savedQuery.ReturnedTypeCode
-                    );
-
-                    File.WriteAllText(filePath2, xmlContent, new UTF8Encoding(false));
-
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, SavedQuery.Schema.EntityLogicalName, savedQuery.Name, fieldTitle, filePath2);
-                }
-                catch (Exception ex)
-                {
-                    this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-                }
-            }
-            else
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionData.Name, SavedQuery.Schema.EntityLogicalName, savedQuery.Name, fieldTitle);
-                this._iWriteToOutput.ActivateOutputWindow(connectionData);
-                return;
-            }
-
-            string filePath1 = filePath;
-            string fileTitle1 = Path.GetFileName(filePath);
-
-            this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, fileTitle1, fileTitle2);
         }
 
         public async Task ExecuteUpdateSavedQuery(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
@@ -1179,7 +1098,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 if (ParseXmlDocument(connectionData, selectedFile, out var doc))
                 {
-                    await UpdateSavedQuery(connectionData, commonConfig, doc, selectedFile.FilePath);
+                    await CheckAttributeValidateGetSavedQueryExecuteAction(connectionData, commonConfig, doc, selectedFile.FilePath, ValidateDocumentSavedQueryXml, UpdateSavedQueryXml);
                 }
             }
             catch (Exception ex)
@@ -1200,7 +1119,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await UpdateSavedQuery(connectionData, commonConfig, doc, filePath);
+                await CheckAttributeValidateGetSavedQueryExecuteAction(connectionData, commonConfig, doc, filePath, ValidateDocumentSavedQueryXml, UpdateSavedQueryXml);
             }
             catch (Exception ex)
             {
@@ -1212,39 +1131,264 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task UpdateSavedQuery(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
+        public async Task ExecuteOpenInWebSavedQuery(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
-            if (connectionData == null)
+            string operation = string.Format(Properties.OperationNames.OpeningSavedQueryInWebFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
+                if (ParseXmlDocument(connectionData, selectedFile, out var doc))
+                {
+                    await CheckAttributeValidateGetSavedQueryExecuteAction(connectionData, commonConfig, doc, selectedFile.FilePath, null, OpenInWebSavedQueryXml);
+                }
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        public async Task ExecuteGetSavedQueryCurrentXml(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+        {
+            string operation = string.Format(Properties.OperationNames.GettingSavedQueryCurrentXml, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                if (ParseXmlDocument(connectionData, selectedFile, out var doc))
+                {
+                    await CheckAttributeValidateGetSavedQueryExecuteAction(connectionData, commonConfig, doc, selectedFile.FilePath, null, GetCurrentSavedQueryXml);
+                }
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private Task CheckAttributeValidateGetSavedQueryExecuteAction(
+            ConnectionData connectionData
+            , CommonConfiguration commonConfig
+            , XDocument doc
+            , string filePath
+            , Func<ConnectionData, XDocument, Task<bool>> validatorDocument
+            , Func<IOrganizationServiceExtented, CommonConfiguration, XDocument, string, SavedQuery, Task> continueAction
+        )
+        {
+            return CheckAttributeValidateGetEntityExecuteAction(
+                connectionData
+                , commonConfig
+                , doc
+                , filePath
+                , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSavedQueryId
+                , ValidateAttributeSavedQueryXml
+                , validatorDocument
+                , GetSavedQueryByAttribute
+                , continueAction
+            );
+        }
+
+        private async Task<Tuple<bool, SavedQuery>> GetSavedQueryByAttribute(IOrganizationServiceExtented service, CommonConfiguration commonConfig, string savedQueryId)
+        {
+            var repositorySavedQuery = new SavedQueryRepository(service);
+
+            var savedQuery = await repositorySavedQuery.GetByIdAsync(Guid.Parse(savedQueryId), new ColumnSet(true));
+
+            if (savedQuery == null)
+            {
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.SavedQueryNotFoundedFormat2, service.ConnectionData.Name, savedQueryId);
+                this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
             }
 
-            var attribute = doc.Root.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSavedQueryId);
+            return Tuple.Create(savedQuery != null, savedQuery);
+        }
 
-            if (attribute == null)
+        private bool ValidateAttributeSavedQueryXml(ConnectionData connectionData, string filePath, XAttribute attribute)
+        {
+            if (string.IsNullOrEmpty(attribute.Value))
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotContainsXmlAttributeFormat2
+                this._iWriteToOutput.WriteToOutput(
+                    connectionData
+                    , Properties.OutputStrings.XmlAttributeIsEmptyFormat2
                     , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSavedQueryId.ToString()
                     , filePath
                 );
 
-                return;
+                return false;
             }
 
-            if (string.IsNullOrEmpty(attribute.Value)
-                || !Guid.TryParse(attribute.Value, out var savedQueryId)
-                )
+            if (!Guid.TryParse(attribute.Value, out _))
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.XmlAttributeNotValidGuidFormat3
+                this._iWriteToOutput.WriteToOutput(
+                    connectionData
+                    , Properties.OutputStrings.XmlAttributeNotValidGuidFormat3
                     , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSavedQueryId.ToString()
                     , attribute.Value
                     , filePath
                 );
 
+                return false;
+            }
+
+            return true;
+        }
+
+        private async Task DifferenceSavedQueryXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, SavedQuery savedQuery)
+        {
+            string fieldName = SavedQueryRepository.GetFieldNameByXmlRoot(doc.Root.Name.ToString());
+            string fieldTitle = SavedQueryRepository.GetFieldTitleByXmlRoot(doc.Root.Name.ToString());
+
+            string xmlContent = savedQuery.GetAttributeValue<string>(fieldName);
+
+            string fileTitle2 = EntityFileNameFormatter.GetSavedQueryFileName(service.ConnectionData.Name, savedQuery.ReturnedTypeCode, savedQuery.Name, fieldTitle, "xml");
+            string filePath2 = FileOperations.GetNewTempFilePath(Path.GetFileNameWithoutExtension(fileTitle2), Path.GetExtension(fileTitle2));
+
+            if (string.IsNullOrEmpty(xmlContent))
+            {
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, SavedQuery.Schema.EntityLogicalName, savedQuery.Name, fieldTitle);
+                this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 return;
             }
 
+            try
+            {
+                xmlContent = ContentComparerHelper.FormatXmlByConfiguration(
+                    xmlContent
+                    , commonConfig
+                    , XmlOptionsControls.SavedQueryXmlOptions
+                    , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFetch
+                    , savedQueryId: savedQuery.Id
+                    , entityName: savedQuery.ReturnedTypeCode
+                );
+
+                File.WriteAllText(filePath2, xmlContent, new UTF8Encoding(false));
+
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, SavedQuery.Schema.EntityLogicalName, savedQuery.Name, fieldTitle, filePath2);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+            }
+
+            string filePath1 = filePath;
+            string fileTitle1 = Path.GetFileName(filePath);
+
+            await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, fileTitle1, fileTitle2);
+        }
+
+        private async Task UpdateSavedQueryXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, SavedQuery savedQuery)
+        {
+            string fieldName = SavedQueryRepository.GetFieldNameByXmlRoot(doc.Root.Name.ToString());
+            string fieldTitle = SavedQueryRepository.GetFieldTitleByXmlRoot(doc.Root.Name.ToString());
+
+            if (string.Equals(fieldName, SavedQuery.Schema.Attributes.layoutxml, StringComparison.InvariantCulture)
+                && !string.IsNullOrEmpty(savedQuery.ReturnedTypeCode)
+            )
+            {
+                var entityData = service.ConnectionData.GetEntityIntellisenseData(savedQuery.ReturnedTypeCode);
+
+                if (entityData != null && entityData.ObjectTypeCode.HasValue)
+                {
+                    XAttribute attr = doc.Root.Attribute("object");
+
+                    if (attr != null)
+                    {
+                        attr.Value = entityData.ObjectTypeCode.ToString();
+                    }
+                }
+            }
+
+            {
+                string xmlContent = savedQuery.GetAttributeValue<string>(fieldName);
+
+                if (!string.IsNullOrEmpty(xmlContent))
+                {
+                    if (string.IsNullOrEmpty(commonConfig.FolderForExport))
+                    {
+                        _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                        commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+                    }
+                    else if (!Directory.Exists(commonConfig.FolderForExport))
+                    {
+                        _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
+                        commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+                    }
+
+                    string fileNameBackUp = EntityFileNameFormatter.GetSavedQueryFileName(service.ConnectionData.Name, savedQuery.ReturnedTypeCode, savedQuery.Name, fieldTitle + " BackUp", "xml");
+                    string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
+
+                    try
+                    {
+                        xmlContent = ContentComparerHelper.FormatXmlByConfiguration(
+                            xmlContent
+                            , commonConfig
+                            , XmlOptionsControls.SavedQueryXmlOptions
+                            , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFetch
+                            , savedQueryId: savedQuery.Id
+                            , entityName: savedQuery.ReturnedTypeCode
+                        );
+
+                        File.WriteAllText(filePathBackUp, xmlContent, new UTF8Encoding(false));
+
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, SavedQuery.Schema.EntityLogicalName, savedQuery.Name, fieldTitle, filePathBackUp);
+                    }
+                    catch (Exception ex)
+                    {
+                        this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                    }
+                }
+                else
+                {
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, SavedQuery.Schema.EntityLogicalName, savedQuery.Name, fieldTitle);
+                    this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                }
+            }
+
+            var newText = doc.ToString(SaveOptions.DisableFormatting);
+
+            if (string.Equals(fieldName, SavedQuery.Schema.Attributes.fetchxml, StringComparison.InvariantCulture))
+            {
+                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExecutingValidateSavedQueryRequest);
+
+                var request = new ValidateSavedQueryRequest()
+                {
+                    FetchXml = newText,
+                    QueryType = savedQuery.QueryType.GetValueOrDefault()
+                };
+
+                service.Execute(request);
+            }
+
+            var updateEntity = new SavedQuery
+            {
+                Id = savedQuery.Id,
+            };
+            updateEntity.Attributes[fieldName] = newText;
+
+            await service.UpdateAsync(updateEntity);
+
+            _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, savedQuery.ReturnedTypeCode);
+
+            {
+                var repositoryPublish = new PublishActionsRepository(service);
+
+                await repositoryPublish.PublishEntitiesAsync(new[] { savedQuery.ReturnedTypeCode });
+            }
+        }
+
+        private async Task<bool> ValidateDocumentSavedQueryXml(ConnectionData connectionData, XDocument doc)
+        {
             string fieldName = SavedQueryRepository.GetFieldNameByXmlRoot(doc.Root.Name.ToString());
             string fieldTitle = SavedQueryRepository.GetFieldTitleByXmlRoot(doc.Root.Name.ToString());
 
@@ -1272,228 +1416,58 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (dialogResult != MessageBoxResult.OK)
                 {
-                    return;
+                    return false;
                 }
             }
 
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-
-            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            if (service == null)
-            {
-                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
-
-            var repositorySavedQuery = new SavedQueryRepository(service);
-
-            var savedQuery = await repositorySavedQuery.GetByIdAsync(savedQueryId, new ColumnSet(true));
-
-            if (savedQuery == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.SavedQueryNotFoundedFormat2, connectionData.Name, savedQueryId);
-                this._iWriteToOutput.ActivateOutputWindow(connectionData);
-                return;
-            }
-
-            if (string.Equals(fieldName, SavedQuery.Schema.Attributes.layoutxml, StringComparison.InvariantCulture)
-                && !string.IsNullOrEmpty(savedQuery.ReturnedTypeCode)
-            )
-            {
-                var entityData = connectionData.GetEntityIntellisenseData(savedQuery.ReturnedTypeCode);
-
-                if (entityData != null && entityData.ObjectTypeCode.HasValue)
-                {
-                    XAttribute attr = doc.Root.Attribute("object");
-
-                    if (attr != null)
-                    {
-                        attr.Value = entityData.ObjectTypeCode.ToString();
-                    }
-                }
-            }
-
-            {
-                string xmlContent = savedQuery.GetAttributeValue<string>(fieldName);
-
-                fieldTitle += " BackUp";
-
-                string fileNameBackUp = EntityFileNameFormatter.GetSavedQueryFileName(connectionData.Name, savedQuery.ReturnedTypeCode, savedQuery.Name, fieldTitle, "xml");
-                string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
-
-                if (!string.IsNullOrEmpty(xmlContent))
-                {
-                    try
-                    {
-                        xmlContent = ContentComparerHelper.FormatXmlByConfiguration(
-                            xmlContent
-                            , commonConfig
-                            , XmlOptionsControls.SavedQueryXmlOptions
-                            , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFetch
-                            , savedQueryId: savedQueryId
-                            , entityName: savedQuery.ReturnedTypeCode
-                        );
-
-                        File.WriteAllText(filePathBackUp, xmlContent, new UTF8Encoding(false));
-
-                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, SavedQuery.Schema.EntityLogicalName, savedQuery.Name, fieldTitle, filePathBackUp);
-                    }
-                    catch (Exception ex)
-                    {
-                        this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-                    }
-                }
-                else
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionData.Name, SavedQuery.Schema.EntityLogicalName, savedQuery.Name, fieldTitle);
-                    this._iWriteToOutput.ActivateOutputWindow(connectionData);
-                }
-            }
-
-            var newText = doc.ToString(SaveOptions.DisableFormatting);
-
-            if (string.Equals(fieldName, SavedQuery.Schema.Attributes.fetchxml, StringComparison.InvariantCulture))
-            {
-                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ExecutingValidateSavedQueryRequest);
-
-                var request = new ValidateSavedQueryRequest()
-                {
-                    FetchXml = newText,
-                    QueryType = savedQuery.QueryType.GetValueOrDefault()
-                };
-
-                service.Execute(request);
-            }
-
-            var updateEntity = new SavedQuery
-            {
-                Id = savedQueryId
-            };
-            updateEntity.Attributes[fieldName] = newText;
-
-            await service.UpdateAsync(updateEntity);
-
-            _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, savedQuery.ReturnedTypeCode);
-
-            {
-                var repositoryPublish = new PublishActionsRepository(service);
-
-                await repositoryPublish.PublishEntitiesAsync(new[] { savedQuery.ReturnedTypeCode });
-            }
+            return true;
         }
 
-        public async Task ExecuteOpenInWebSavedQuery(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+        private Task OpenInWebSavedQueryXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, SavedQuery savedQuery)
         {
-            string operation = string.Format(Properties.OperationNames.OpeningSavedQueryInWebFormat1, connectionData?.Name);
+            return Task.Run(() => service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.SavedQuery, savedQuery.Id));
+        }
 
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+        private async Task GetCurrentSavedQueryXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, SavedQuery savedQuery)
+        {
+            string fieldName = SavedQueryRepository.GetFieldNameByXmlRoot(doc.Root.Name.ToString());
+            string fieldTitle = SavedQueryRepository.GetFieldTitleByXmlRoot(doc.Root.Name.ToString());
+
+            string xmlContent = savedQuery.GetAttributeValue<string>(fieldName);
+
+            if (string.IsNullOrEmpty(xmlContent))
+            {
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, SavedQuery.Schema.EntityLogicalName, savedQuery.Name, fieldTitle);
+                this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+            else if (!Directory.Exists(commonConfig.FolderForExport))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
+                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+
+            string currentFileName = EntityFileNameFormatter.GetSavedQueryFileName(service.ConnectionData.Name, savedQuery.ReturnedTypeCode, savedQuery.Name, fieldTitle, "xml");
+            string currentFilePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(currentFileName));
 
             try
             {
-                await OpenInWebSavedQuery(connectionData, commonConfig, selectedFile);
+                File.WriteAllText(currentFilePath, xmlContent, new UTF8Encoding(false));
+
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, SavedQuery.Schema.EntityLogicalName, savedQuery.Name, fieldTitle, currentFilePath);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
-            }
-        }
-
-        private async Task OpenInWebSavedQuery(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
-        {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
 
-            if (!File.Exists(selectedFile.FilePath))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-
-            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            if (service == null)
-            {
-                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
-
-            string fileText = File.ReadAllText(selectedFile.FilePath);
-
-            if (!ContentComparerHelper.TryParseXmlDocument(fileText, out var doc))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
-
-                WindowHelper.OpenSavedQueryExplorer(_iWriteToOutput, service, commonConfig);
-
-                return;
-            }
-
-            var attribute = doc.Root.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSavedQueryId);
-
-            if (attribute == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData
-                    , Properties.OutputStrings.FileNotContainsXmlAttributeFormat2
-                    , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSavedQueryId.ToString()
-                    , selectedFile.FilePath
-                );
-
-                WindowHelper.OpenSavedQueryExplorer(_iWriteToOutput, service, commonConfig);
-
-                return;
-            }
-
-            if (string.IsNullOrEmpty(attribute.Value)
-                || !Guid.TryParse(attribute.Value, out var savedQueryId)
-                )
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData
-                    , Properties.OutputStrings.XmlAttributeNotValidGuidFormat3
-                    , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSavedQueryId.ToString()
-                    , attribute.Value
-                    , selectedFile.FilePath
-                );
-
-                WindowHelper.OpenSavedQueryExplorer(_iWriteToOutput, service, commonConfig);
-
-                return;
-            }
-
-            var repositorySavedQuery = new SavedQueryRepository(service);
-
-            var savedQuery = await repositorySavedQuery.GetByIdAsync(savedQueryId, new ColumnSet(false));
-
-            if (savedQuery == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.SavedQueryNotFoundedFormat2, connectionData.Name, savedQueryId);
-                this._iWriteToOutput.ActivateOutputWindow(connectionData);
-
-                WindowHelper.OpenSavedQueryExplorer(_iWriteToOutput, service, commonConfig);
-
-                return;
-            }
-
-            service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.SavedQuery, savedQuery.Id);
+            this._iWriteToOutput.PerformAction(service.ConnectionData, currentFilePath);
         }
 
         #endregion SavedQuery
@@ -1702,7 +1676,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task DifferenceWorkflowXaml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, Workflow workflow)
         {
-            string workflowXaml = workflow.GetAttributeValue<string>(Workflow.Schema.Attributes.xaml);
+            string workflowXaml = workflow.Xaml;
 
             string fieldTitle = Workflow.Schema.Headers.xaml;
 
@@ -1742,16 +1716,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task UpdateWorkflowXaml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, Workflow workflow)
         {
+            string fieldTitle = Workflow.Schema.Headers.xaml;
+
             {
-                string workflowXaml = workflow.GetAttributeValue<string>(Workflow.Schema.Attributes.xaml);
-
-                string fieldTitle = Workflow.Schema.Headers.xaml + " BackUp";
-
-                string fileNameBackUp = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, workflow.PrimaryEntity, workflow.FormattedValues[Workflow.Schema.Attributes.category], workflow.Name, fieldTitle, "xml");
-                string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
+                string workflowXaml = workflow.Xaml;
 
                 if (!string.IsNullOrEmpty(workflowXaml))
                 {
+                    if (string.IsNullOrEmpty(commonConfig.FolderForExport))
+                    {
+                        _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                        commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+                    }
+                    else if (!Directory.Exists(commonConfig.FolderForExport))
+                    {
+                        _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
+                        commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+                    }
+
+                    string fileNameBackUp = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, workflow.PrimaryEntity, workflow.FormattedValues[Workflow.Schema.Attributes.category], workflow.Name, fieldTitle + " BackUp", "xml");
+                    string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
+
                     try
                     {
                         workflowXaml = ContentComparerHelper.FormatXmlByConfiguration(
@@ -1854,7 +1839,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task GetCurrentWorkflowXaml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, Workflow workflow)
         {
-            string workflowXaml = workflow.GetAttributeValue<string>(Workflow.Schema.Attributes.xaml);
+            string workflowXaml = workflow.Xaml;
 
             if (string.IsNullOrEmpty(workflowXaml))
             {
@@ -2097,7 +2082,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task DifferenceWebResourceDependencyXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, WebResource webResource)
         {
-            string dependencyXml = webResource.GetAttributeValue<string>(WebResource.Schema.Attributes.dependencyxml);
+            string dependencyXml = webResource.DependencyXml;
 
             string fieldTitle = WebResource.Schema.Headers.dependencyxml;
 
@@ -2138,16 +2123,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task UpdateWebResourceDependencyXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, WebResource webResource)
         {
+            string fieldTitle = WebResource.Schema.Headers.dependencyxml;
+
             {
-                string dependencyXml = webResource.GetAttributeValue<string>(WebResource.Schema.Attributes.dependencyxml);
-
-                string fieldTitle = WebResource.Schema.Headers.dependencyxml + " BackUp";
-
-                string fileNameBackUp = EntityFileNameFormatter.GetWebResourceFileName(service.ConnectionData.Name, webResource.Name, fieldTitle, "xml");
-                string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
+                string dependencyXml = webResource.DependencyXml;
 
                 if (!string.IsNullOrEmpty(dependencyXml))
                 {
+                    if (string.IsNullOrEmpty(commonConfig.FolderForExport))
+                    {
+                        _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                        commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+                    }
+                    else if (!Directory.Exists(commonConfig.FolderForExport))
+                    {
+                        _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
+                        commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+                    }
+
+                    string fileNameBackUp = EntityFileNameFormatter.GetWebResourceFileName(service.ConnectionData.Name, webResource.Name, fieldTitle + " BackUp", "xml");
+                    string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
+
                     try
                     {
                         dependencyXml = ContentComparerHelper.FormatXmlByConfiguration(
@@ -2231,7 +2227,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task GetCurrentWebResourceDependencyXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, WebResource webResource)
         {
-            string dependencyXml = webResource.GetAttributeValue<string>(WebResource.Schema.Attributes.dependencyxml);
+            string dependencyXml = webResource.DependencyXml;
 
             if (string.IsNullOrEmpty(dependencyXml))
             {

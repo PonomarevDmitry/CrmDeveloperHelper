@@ -430,6 +430,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartSavedQueryOpenInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
             => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteOpenInWebSavedQuery, commonConfig, selectedFile);
 
+        public void StartSavedQueryGetCurrent(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+            => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteGetSavedQueryCurrentXml, commonConfig, selectedFile);
+
         #endregion SavedQuery
 
         #region Workflow

@@ -26,7 +26,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 
             if (selectedFiles.Count == 1)
             {
-                helper.HandleWebResourceDependencyXmlGetCurrent(connectionData, selectedFiles.FirstOrDefault());
+                helper.HandleWebResourceDependencyXmlGetCurrentCommand(connectionData, selectedFiles.FirstOrDefault());
             }
         }
 

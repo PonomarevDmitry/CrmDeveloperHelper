@@ -365,6 +365,9 @@
   <data name="GettingWorkflowCurrentXaml" xml:space="preserve">
     <value>{0} - Getting Workflow Current Xaml</value>
   </data>
+  <data name="GettingSavedQueryCurrentXml" xml:space="preserve">
+    <value>{0} - Getting SavedQuery Current Xml</value>
+  </data>
   <data name="PluginConfigurationAssemblyDescription" xml:space="preserve">
     <value>Plugin Configuration Assembly Description</value>
   </data>

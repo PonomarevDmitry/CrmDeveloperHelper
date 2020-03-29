@@ -896,6 +896,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartSavedQueryOpenInWeb(conn, commonConfig, selectedFile));
         }
 
+        public void HandleSavedQueryGetCurrentCommand(ConnectionData connectionData, SelectedFile selectedFile)
+        {
+            if (selectedFile == null)
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartSavedQueryGetCurrent(conn, commonConfig, selectedFile));
+        }
+
         #endregion SavedQuery
 
         #region Workflow
@@ -1166,7 +1176,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWebResourceDependencyXmlOpenInWeb(conn, commonConfig, selectedFile));
         }
 
-        public void HandleWebResourceDependencyXmlGetCurrent(ConnectionData connectionData, SelectedFile selectedFile)
+        public void HandleWebResourceDependencyXmlGetCurrentCommand(ConnectionData connectionData, SelectedFile selectedFile)
         {
             if (selectedFile == null)
             {

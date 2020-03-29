@@ -1375,6 +1375,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Getting SavedQuery Current Xml.
+        /// </summary>
+        internal static string GettingSavedQueryCurrentXml {
+            get {
+                return ResourceManager.GetString("GettingSavedQueryCurrentXml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Getting SiteMap Current Xml.
         /// </summary>
         internal static string GettingSiteMapCurrentXml {
