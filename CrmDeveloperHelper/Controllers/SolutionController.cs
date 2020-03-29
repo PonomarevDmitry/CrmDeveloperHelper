@@ -71,7 +71,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-            WindowHelper.OpenExplorerSolutionWindow(
+            WindowHelper.OpenExplorerSolutionExplorer(
                 _iWriteToOutput
                 , service
                 , commonConfig
@@ -128,7 +128,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-            WindowHelper.OpenExplorerImportJobWindow(
+            WindowHelper.OpenImportJobExplorer(
                 _iWriteToOutput
                 , service
                 , commonConfig
@@ -1708,7 +1708,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, "{0}{1}", _tabSpacer, pluginTypeName);
                 }
 
-                WindowHelper.OpenPluginTypeWindow(
+                WindowHelper.OpenPluginTypeExplorer(
                     this._iWriteToOutput
                     , service
                     , commonConfig

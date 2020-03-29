@@ -1720,7 +1720,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             else
             {
-                WindowHelper.OpenApplicationRibbonWindow(_iWriteToOutput, service, commonConfig);
+                WindowHelper.OpenApplicationRibbonExplorer(_iWriteToOutput, service, commonConfig);
             }
         }
 

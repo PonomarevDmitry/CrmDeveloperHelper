@@ -1070,7 +1070,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService1();
 
-            WindowHelper.OpenWebResourceExplorerWindow(this._iWriteToOutput, service, _commonConfig, entity?.WebResourceName ?? txtBFilter.Text);
+            WindowHelper.OpenWebResourceExplorer(this._iWriteToOutput, service, _commonConfig, entity?.WebResourceName ?? txtBFilter.Text);
         }
 
         private async void btnExportWebResources2_Click(object sender, RoutedEventArgs e)
@@ -1081,7 +1081,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService2();
 
-            WindowHelper.OpenWebResourceExplorerWindow(this._iWriteToOutput, service, _commonConfig, entity?.WebResourceName ?? txtBFilter.Text);
+            WindowHelper.OpenWebResourceExplorer(this._iWriteToOutput, service, _commonConfig, entity?.WebResourceName ?? txtBFilter.Text);
         }
 
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)

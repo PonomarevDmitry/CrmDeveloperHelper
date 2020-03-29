@@ -936,7 +936,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSolutionComponentDependenciesWindow(
+            WindowHelper.OpenSolutionComponentDependenciesExplorer(
                 _iWriteToOutput
                 , service
                 , null
@@ -960,7 +960,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenExplorerSolutionWindow(
+            WindowHelper.OpenExplorerSolutionExplorer(
                 _iWriteToOutput
                 , service
                 , _commonConfig

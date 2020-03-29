@@ -606,7 +606,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             foreach (var item in solutionComponents)
             {
-                WindowHelper.OpenSolutionComponentDependenciesWindow(
+                WindowHelper.OpenSolutionComponentDependenciesExplorer(
                     _iWriteToOutput
                     , service
                     , descriptor
@@ -672,7 +672,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             foreach (var item in solutionComponents)
             {
-                WindowHelper.OpenExplorerSolutionWindow(
+                WindowHelper.OpenExplorerSolutionExplorer(
                     _iWriteToOutput
                     , service
                     , _commonConfig

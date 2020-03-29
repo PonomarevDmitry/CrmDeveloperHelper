@@ -469,7 +469,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             else if (action == ActionOpenComponent.OpenDependentComponentsInExplorer)
             {
-                WindowHelper.OpenSolutionComponentDependenciesWindow(
+                WindowHelper.OpenSolutionComponentDependenciesExplorer(
                     _iWriteToOutput
                     , service
                     , null
@@ -480,7 +480,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             else if (action == ActionOpenComponent.OpenSolutionsContainingComponentInExplorer)
             {
-                WindowHelper.OpenExplorerSolutionWindow(
+                WindowHelper.OpenExplorerSolutionExplorer(
                     _iWriteToOutput
                     , service
                     , commonConfig
@@ -651,7 +651,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             else if (action == ActionOpenComponent.OpenDependentComponentsInExplorer)
             {
-                WindowHelper.OpenSolutionComponentDependenciesWindow(
+                WindowHelper.OpenSolutionComponentDependenciesExplorer(
                     _iWriteToOutput
                     , service
                     , null
@@ -662,7 +662,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             else if (action == ActionOpenComponent.OpenSolutionsContainingComponentInExplorer)
             {
-                WindowHelper.OpenExplorerSolutionWindow(
+                WindowHelper.OpenExplorerSolutionExplorer(
                     _iWriteToOutput
                     , service
                     , commonConfig
@@ -722,7 +722,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (solution == null)
             {
-                WindowHelper.OpenExplorerSolutionWindow(
+                WindowHelper.OpenExplorerSolutionExplorer(
                     _iWriteToOutput
                     , service
                     , commonConfig
@@ -740,7 +740,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             else if (action == ActionOpenComponent.OpenInExplorer)
             {
-                WindowHelper.OpenSolutionComponentDependenciesWindow(this._iWriteToOutput, service, null, commonConfig, solution.UniqueName, null);
+                WindowHelper.OpenSolutionComponentDependenciesExplorer(this._iWriteToOutput, service, null, commonConfig, solution.UniqueName, null);
             }
         }
     }

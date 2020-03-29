@@ -257,7 +257,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSystemFormWindow(this._iWriteToOutput, service, _commonConfig);
+            WindowHelper.OpenSystemFormExplorer(this._iWriteToOutput, service, _commonConfig);
         }
 
         private async void miSavedQuery_Click(object sender, RoutedEventArgs e)
@@ -266,7 +266,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSavedQueryWindow(this._iWriteToOutput, service, _commonConfig, string.Empty, string.Empty);
+            WindowHelper.OpenSavedQueryExplorer(this._iWriteToOutput, service, _commonConfig, string.Empty, string.Empty);
         }
 
         private async void miSavedChart_Click(object sender, RoutedEventArgs e)
@@ -275,7 +275,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSavedQueryVisualizationWindow(this._iWriteToOutput, service, _commonConfig, string.Empty, string.Empty);
+            WindowHelper.OpenSavedQueryVisualizationExplorer(this._iWriteToOutput, service, _commonConfig, string.Empty, string.Empty);
         }
 
         private async void miWorkflows_Click(object sender, RoutedEventArgs e)
@@ -284,7 +284,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenWorkflowWindow(this._iWriteToOutput, service, _commonConfig, string.Empty, string.Empty);
+            WindowHelper.OpenWorkflowExplorer(this._iWriteToOutput, service, _commonConfig, string.Empty, string.Empty);
         }
 
         private async void miPluginTree_Click(object sender, RoutedEventArgs e)
@@ -293,7 +293,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenPluginTreeWindow(this._iWriteToOutput, service, _commonConfig, string.Empty, string.Empty, string.Empty);
+            WindowHelper.OpenPluginTreeExplorer(this._iWriteToOutput, service, _commonConfig, string.Empty, string.Empty, string.Empty);
         }
 
         private async void miMessageTree_Click(object sender, RoutedEventArgs e)
@@ -302,7 +302,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSdkMessageTreeWindow(this._iWriteToOutput, service, _commonConfig, string.Empty, string.Empty);
+            WindowHelper.OpenSdkMessageTreeExplorer(this._iWriteToOutput, service, _commonConfig, string.Empty, string.Empty);
         }
 
         private async void miMessageRequestTree_Click(object sender, RoutedEventArgs e)
@@ -311,7 +311,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, service, _commonConfig);
+            WindowHelper.OpenSdkMessageRequestTreeExplorer(this._iWriteToOutput, service, _commonConfig);
         }
 
         private async void miOrganizationComparer_Click(object sender, RoutedEventArgs e)
@@ -755,7 +755,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 _commonConfig.Save();
 
-                WindowHelper.OpenExplorerSolutionWindow(
+                WindowHelper.OpenExplorerSolutionExplorer(
                     _iWriteToOutput
                     , service
                     , _commonConfig
@@ -790,7 +790,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (ribbonCustomization != null)
             {
-                WindowHelper.OpenSolutionComponentDependenciesWindow(
+                WindowHelper.OpenSolutionComponentDependenciesExplorer(
                     _iWriteToOutput
                     , service
                     , null

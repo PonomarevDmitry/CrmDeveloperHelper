@@ -1596,7 +1596,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenExplorerSolutionWindow(
+            WindowHelper.OpenExplorerSolutionExplorer(
                 _iWriteToOutput
                 , service
                 , _commonConfig
@@ -1673,7 +1673,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSolutionComponentDependenciesWindow(_iWriteToOutput, service, null, _commonConfig, (int)ComponentType.Entity, idMetadata.Value, null);
+            WindowHelper.OpenSolutionComponentDependenciesExplorer(_iWriteToOutput, service, null, _commonConfig, (int)ComponentType.Entity, idMetadata.Value, null);
         }
 
         private async void AddEntityToCrmSolutionIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
@@ -1794,7 +1794,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenExplorerSolutionWindow(
+            WindowHelper.OpenExplorerSolutionExplorer(
                 _iWriteToOutput
                 , service
                 , _commonConfig
@@ -1850,7 +1850,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSolutionComponentDependenciesWindow(_iWriteToOutput, service, null, _commonConfig, (int)ComponentType.SdkMessagePair, nodeItem.SdkMessagePair.Value, null);
+            WindowHelper.OpenSolutionComponentDependenciesExplorer(_iWriteToOutput, service, null, _commonConfig, (int)ComponentType.SdkMessagePair, nodeItem.SdkMessagePair.Value, null);
         }
 
         private async void mIAddSdkMessagePairToCrmSolution_Click(object sender, RoutedEventArgs e)
@@ -2064,7 +2064,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenPluginTreeWindow(_iWriteToOutput, service, _commonConfig, nodeItem?.EntityLogicalName, null, nodeItem?.MessageName);
+            WindowHelper.OpenPluginTreeExplorer(_iWriteToOutput, service, _commonConfig, nodeItem?.EntityLogicalName, null, nodeItem?.MessageName);
         }
 
         private async void mIOpenSdkMessageTree_Click(object sender, RoutedEventArgs e)
@@ -2073,7 +2073,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSdkMessageTreeWindow(_iWriteToOutput, service, _commonConfig, nodeItem?.EntityLogicalName, nodeItem?.MessageName);
+            WindowHelper.OpenSdkMessageTreeExplorer(_iWriteToOutput, service, _commonConfig, nodeItem?.EntityLogicalName, nodeItem?.MessageName);
         }
 
         private void mIOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)
@@ -2123,7 +2123,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (componentType.HasValue && id.HasValue)
                 {
-                    WindowHelper.OpenSolutionComponentDependenciesWindow(_iWriteToOutput, service, null, _commonConfig, (int)nodeItem.ComponentType.Value, id.Value, null);
+                    WindowHelper.OpenSolutionComponentDependenciesExplorer(_iWriteToOutput, service, null, _commonConfig, (int)nodeItem.ComponentType.Value, id.Value, null);
                 }
             }
         }
@@ -2153,7 +2153,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var service = await GetService();
 
-                WindowHelper.OpenExplorerSolutionWindow(
+                WindowHelper.OpenExplorerSolutionExplorer(
                     _iWriteToOutput
                     , service
                     , _commonConfig

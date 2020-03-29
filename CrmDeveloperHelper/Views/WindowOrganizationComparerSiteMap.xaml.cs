@@ -937,7 +937,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService1();
 
-            WindowHelper.OpenExportSiteMapWindow(this._iWriteToOutput, service, _commonConfig);
+            WindowHelper.OpenExportSiteMapExplorer(this._iWriteToOutput, service, _commonConfig);
         }
 
         private async void btnExportSiteMap2_Click(object sender, RoutedEventArgs e)
@@ -946,7 +946,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService2();
 
-            WindowHelper.OpenExportSiteMapWindow(this._iWriteToOutput, service, _commonConfig);
+            WindowHelper.OpenExportSiteMapExplorer(this._iWriteToOutput, service, _commonConfig);
         }
 
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)

@@ -1193,7 +1193,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService1();
 
-            WindowHelper.OpenReportExplorerWindow(this._iWriteToOutput, service, _commonConfig, entity?.ReportName1 ?? txtBFilter.Text);
+            WindowHelper.OpenReportExplorer(this._iWriteToOutput, service, _commonConfig, entity?.ReportName1 ?? txtBFilter.Text);
         }
 
         private async void btnExportReport2_Click(object sender, RoutedEventArgs e)
@@ -1204,7 +1204,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService2();
 
-            WindowHelper.OpenReportExplorerWindow(this._iWriteToOutput, service, _commonConfig, entity?.ReportName2 ?? txtBFilter.Text);
+            WindowHelper.OpenReportExplorer(this._iWriteToOutput, service, _commonConfig, entity?.ReportName2 ?? txtBFilter.Text);
         }
 
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)

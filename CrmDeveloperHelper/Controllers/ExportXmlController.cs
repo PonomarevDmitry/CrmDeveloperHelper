@@ -659,7 +659,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
                 _iWriteToOutput.ActivateOutputWindow(connectionData);
 
-                WindowHelper.OpenExportSiteMapWindow(_iWriteToOutput, service, commonConfig);
+                WindowHelper.OpenExportSiteMapExplorer(_iWriteToOutput, service, commonConfig);
 
                 return;
             }
@@ -682,7 +682,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.SiteMapNotFoundedFormat2, connectionData.Name, SiteMap.Schema.EntityLogicalName, siteMapNameUnique);
                 this._iWriteToOutput.ActivateOutputWindow(connectionData);
 
-                WindowHelper.OpenExportSiteMapWindow(_iWriteToOutput, service, commonConfig);
+                WindowHelper.OpenExportSiteMapExplorer(_iWriteToOutput, service, commonConfig);
 
                 return;
             }
@@ -1126,7 +1126,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
 
-                WindowHelper.OpenSystemFormWindow(_iWriteToOutput, service, commonConfig);
+                WindowHelper.OpenSystemFormExplorer(_iWriteToOutput, service, commonConfig);
 
                 return;
             }
@@ -1141,7 +1141,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     , selectedFile.FilePath
                 );
 
-                WindowHelper.OpenSystemFormWindow(_iWriteToOutput, service, commonConfig);
+                WindowHelper.OpenSystemFormExplorer(_iWriteToOutput, service, commonConfig);
 
                 return;
             }
@@ -1156,7 +1156,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     , selectedFile.FilePath
                 );
 
-                WindowHelper.OpenSystemFormWindow(_iWriteToOutput, service, commonConfig);
+                WindowHelper.OpenSystemFormExplorer(_iWriteToOutput, service, commonConfig);
 
                 return;
             }
@@ -1170,7 +1170,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.SystemFormNotFoundedFormat2, connectionData.Name, formId);
                 this._iWriteToOutput.ActivateOutputWindow(connectionData);
 
-                WindowHelper.OpenSystemFormWindow(_iWriteToOutput, service, commonConfig);
+                WindowHelper.OpenSystemFormExplorer(_iWriteToOutput, service, commonConfig);
 
                 return;
             }
@@ -1646,7 +1646,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
 
-                WindowHelper.OpenSavedQueryWindow(_iWriteToOutput, service, commonConfig);
+                WindowHelper.OpenSavedQueryExplorer(_iWriteToOutput, service, commonConfig);
 
                 return;
             }
@@ -1661,7 +1661,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     , selectedFile.FilePath
                 );
 
-                WindowHelper.OpenSavedQueryWindow(_iWriteToOutput, service, commonConfig);
+                WindowHelper.OpenSavedQueryExplorer(_iWriteToOutput, service, commonConfig);
 
                 return;
             }
@@ -1677,7 +1677,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     , selectedFile.FilePath
                 );
 
-                WindowHelper.OpenSavedQueryWindow(_iWriteToOutput, service, commonConfig);
+                WindowHelper.OpenSavedQueryExplorer(_iWriteToOutput, service, commonConfig);
 
                 return;
             }
@@ -1691,7 +1691,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.SavedQueryNotFoundedFormat2, connectionData.Name, savedQueryId);
                 this._iWriteToOutput.ActivateOutputWindow(connectionData);
 
-                WindowHelper.OpenSavedQueryWindow(_iWriteToOutput, service, commonConfig);
+                WindowHelper.OpenSavedQueryExplorer(_iWriteToOutput, service, commonConfig);
 
                 return;
             }
@@ -2120,7 +2120,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
 
-                WindowHelper.OpenWorkflowWindow(_iWriteToOutput, service, commonConfig);
+                WindowHelper.OpenWorkflowExplorer(_iWriteToOutput, service, commonConfig);
 
                 return;
             }
@@ -2135,7 +2135,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     , selectedFile.FilePath
                 );
 
-                WindowHelper.OpenWorkflowWindow(_iWriteToOutput, service, commonConfig);
+                WindowHelper.OpenWorkflowExplorer(_iWriteToOutput, service, commonConfig);
 
                 return;
             }
@@ -2150,7 +2150,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     , selectedFile.FilePath
                 );
 
-                WindowHelper.OpenWorkflowWindow(_iWriteToOutput, service, commonConfig);
+                WindowHelper.OpenWorkflowExplorer(_iWriteToOutput, service, commonConfig);
 
                 return;
             }
@@ -2164,7 +2164,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WorkflowNotFoundedFormat2, connectionData.Name, workflowId);
                 this._iWriteToOutput.ActivateOutputWindow(connectionData);
 
-                WindowHelper.OpenWorkflowWindow(_iWriteToOutput, service, commonConfig);
+                WindowHelper.OpenWorkflowExplorer(_iWriteToOutput, service, commonConfig);
 
                 return;
             }
@@ -2341,7 +2341,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.WebResourceNotFoundedInConnectionFormat2, service.ConnectionData.Name, webResourceName);
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
-                WindowHelper.OpenWebResourceExplorerWindow(_iWriteToOutput, service, commonConfig);
+                WindowHelper.OpenWebResourceExplorer(_iWriteToOutput, service, commonConfig);
 
                 return Tuple.Create(true, webResource);
             }

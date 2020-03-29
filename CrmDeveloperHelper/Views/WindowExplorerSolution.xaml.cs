@@ -1091,7 +1091,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            WindowHelper.OpenExplorerComponentsWindow(_iWriteToOutput, service, descriptor, _commonConfig, fullMissingComponents, solution.UniqueName, "AllMissingDependencies", null);
+            WindowHelper.OpenExplorerComponentsExplorer(_iWriteToOutput, service, descriptor, _commonConfig, fullMissingComponents, solution.UniqueName, "AllMissingDependencies", null);
 
             return false;
         }
@@ -1597,7 +1597,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _commonConfig.Save();
                 var descriptor = GetDescriptor(service);
 
-                WindowHelper.OpenSolutionComponentDependenciesWindow(this._iWriteToOutput, service, descriptor, _commonConfig, solution.UniqueName, null);
+                WindowHelper.OpenSolutionComponentDependenciesExplorer(this._iWriteToOutput, service, descriptor, _commonConfig, solution.UniqueName, null);
             }
             catch (Exception ex)
             {
@@ -3195,7 +3195,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            WindowHelper.OpenSystemFormWindow(this._iWriteToOutput, service, _commonConfig);
+            WindowHelper.OpenSystemFormExplorer(this._iWriteToOutput, service, _commonConfig);
         }
 
         private async void btnSavedQuery_Click(object sender, RoutedEventArgs e)
@@ -3204,7 +3204,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            WindowHelper.OpenSavedQueryWindow(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
+            WindowHelper.OpenSavedQueryExplorer(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
         }
 
         private async void btnSavedChart_Click(object sender, RoutedEventArgs e)
@@ -3213,7 +3213,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            WindowHelper.OpenSavedQueryVisualizationWindow(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
+            WindowHelper.OpenSavedQueryVisualizationExplorer(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
         }
 
         private async void btnWorkflows_Click(object sender, RoutedEventArgs e)
@@ -3222,7 +3222,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            WindowHelper.OpenWorkflowWindow(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
+            WindowHelper.OpenWorkflowExplorer(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
         }
 
         private async void btnExportApplicationRibbon_Click(object sender, RoutedEventArgs e)
@@ -3231,7 +3231,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            WindowHelper.OpenApplicationRibbonWindow(this._iWriteToOutput, service, _commonConfig);
+            WindowHelper.OpenApplicationRibbonExplorer(this._iWriteToOutput, service, _commonConfig);
         }
 
         private async void btnPluginTree_Click(object sender, RoutedEventArgs e)
@@ -3240,7 +3240,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            WindowHelper.OpenPluginTreeWindow(this._iWriteToOutput, service, _commonConfig, string.Empty, string.Empty, string.Empty);
+            WindowHelper.OpenPluginTreeExplorer(this._iWriteToOutput, service, _commonConfig, string.Empty, string.Empty, string.Empty);
         }
 
         private async void btnMessageTree_Click(object sender, RoutedEventArgs e)
@@ -3249,7 +3249,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            WindowHelper.OpenSdkMessageTreeWindow(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
+            WindowHelper.OpenSdkMessageTreeExplorer(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
         }
 
         private async void btnMessageRequestTree_Click(object sender, RoutedEventArgs e)
@@ -3258,7 +3258,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, service, _commonConfig);
+            WindowHelper.OpenSdkMessageRequestTreeExplorer(this._iWriteToOutput, service, _commonConfig);
         }
 
         private async void btnSiteMap_Click(object sender, RoutedEventArgs e)
@@ -3267,7 +3267,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            WindowHelper.OpenExportSiteMapWindow(this._iWriteToOutput, service, _commonConfig);
+            WindowHelper.OpenExportSiteMapExplorer(this._iWriteToOutput, service, _commonConfig);
         }
 
         private async void btnWebResources_Click(object sender, RoutedEventArgs e)
@@ -3276,7 +3276,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            WindowHelper.OpenWebResourceExplorerWindow(this._iWriteToOutput, service, _commonConfig, string.Empty);
+            WindowHelper.OpenWebResourceExplorer(this._iWriteToOutput, service, _commonConfig, string.Empty);
         }
 
         private async void btnExportReport_Click(object sender, RoutedEventArgs e)
@@ -3285,7 +3285,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            WindowHelper.OpenReportExplorerWindow(this._iWriteToOutput, service, _commonConfig, string.Empty);
+            WindowHelper.OpenReportExplorer(this._iWriteToOutput, service, _commonConfig, string.Empty);
         }
 
         private async void btnPluginAssembly_Click(object sender, RoutedEventArgs e)
@@ -3303,7 +3303,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            WindowHelper.OpenPluginTypeWindow(this._iWriteToOutput, service, _commonConfig, null);
+            WindowHelper.OpenPluginTypeExplorer(this._iWriteToOutput, service, _commonConfig, null);
         }
 
         #endregion Кнопки открытия других форм с информация о сущности.

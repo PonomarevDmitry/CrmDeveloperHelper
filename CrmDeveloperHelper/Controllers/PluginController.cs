@@ -342,7 +342,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, "PluginType not founded by name {0}.", pluginTypeName);
 
-                WindowHelper.OpenPluginTypeWindow(
+                WindowHelper.OpenPluginTypeExplorer(
                     this._iWriteToOutput
                     , service
                     , commonConfig

@@ -897,7 +897,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var descriptor = new SolutionComponentDescriptor(_service);
 
-            WindowHelper.OpenSolutionComponentDependenciesWindow(
+            WindowHelper.OpenSolutionComponentDependenciesExplorer(
                 _iWriteToOutput
                 , _service
                 , descriptor
@@ -1342,7 +1342,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            WindowHelper.OpenExplorerSolutionWindow(
+            WindowHelper.OpenExplorerSolutionExplorer(
                 _iWriteToOutput
                 , _service
                 , _commonConfig

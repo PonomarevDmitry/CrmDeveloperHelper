@@ -61,7 +61,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-            WindowHelper.OpenWebResourceExplorerWindow(this._iWriteToOutput, service, commonConfig, selection);
+            WindowHelper.OpenWebResourceExplorer(this._iWriteToOutput, service, commonConfig, selection);
         }
 
         #endregion Скачивание любого веб-ресурса.
@@ -111,7 +111,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-            WindowHelper.OpenReportExplorerWindow(this._iWriteToOutput, service, commonConfig, selection);
+            WindowHelper.OpenReportExplorer(this._iWriteToOutput, service, commonConfig, selection);
         }
 
         #endregion Скачивание любого отчета.
@@ -161,7 +161,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-            WindowHelper.OpenExportSiteMapWindow(this._iWriteToOutput, service, commonConfig, filter);
+            WindowHelper.OpenExportSiteMapExplorer(this._iWriteToOutput, service, commonConfig, filter);
         }
 
         #endregion Экспортирование Sitemap Xml.
@@ -211,7 +211,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-            WindowHelper.OpenApplicationRibbonWindow(this._iWriteToOutput, service, commonConfig);
+            WindowHelper.OpenApplicationRibbonExplorer(this._iWriteToOutput, service, commonConfig);
         }
 
         #endregion Экспортирование Ribbon.
@@ -261,7 +261,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-            WindowHelper.OpenSavedQueryWindow(this._iWriteToOutput, service, commonConfig, string.Empty, selection);
+            WindowHelper.OpenSavedQueryExplorer(this._iWriteToOutput, service, commonConfig, string.Empty, selection);
         }
 
         #endregion System View (Saved Query) LayoutXml and FethcXml.
@@ -311,7 +311,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-            WindowHelper.OpenSystemFormWindow(this._iWriteToOutput, service, commonConfig, string.Empty, selection, selectedItem);
+            WindowHelper.OpenSystemFormExplorer(this._iWriteToOutput, service, commonConfig, string.Empty, selection, selectedItem);
         }
 
         #endregion Экспортирование System Form FormXml.
@@ -361,7 +361,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-            WindowHelper.OpenSavedQueryVisualizationWindow(this._iWriteToOutput, service, commonConfig, string.Empty, selection);
+            WindowHelper.OpenSavedQueryVisualizationExplorer(this._iWriteToOutput, service, commonConfig, string.Empty, selection);
         }
 
         #endregion System Chart (Saved Query Visualization) Xml.
@@ -411,7 +411,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-            WindowHelper.OpenWorkflowWindow(this._iWriteToOutput, service, commonConfig, string.Empty, selection);
+            WindowHelper.OpenWorkflowExplorer(this._iWriteToOutput, service, commonConfig, string.Empty, selection);
         }
 
         #endregion Экспортирование Workflow.
@@ -511,7 +511,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-            WindowHelper.OpenCustomControlWindow(this._iWriteToOutput, service, commonConfig, selection);
+            WindowHelper.OpenCustomControlExplorer(this._iWriteToOutput, service, commonConfig, selection);
         }
 
         #endregion Экспортирование CustomControl.
@@ -561,7 +561,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-            WindowHelper.OpenTraceReaderWindow(this._iWriteToOutput, service, commonConfig);
+            WindowHelper.OpenTraceReaderExplorer(this._iWriteToOutput, service, commonConfig);
         }
 
         #endregion Trace Reader.
@@ -611,7 +611,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-            WindowHelper.OpenPluginTypeWindow(
+            WindowHelper.OpenPluginTypeExplorer(
                 this._iWriteToOutput
                 , service
                 , commonConfig
@@ -721,7 +721,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-            WindowHelper.OpenPluginTreeWindow(this._iWriteToOutput, service, commonConfig, entityFilter, pluginTypeFilter, messageFilter);
+            WindowHelper.OpenPluginTreeExplorer(this._iWriteToOutput, service, commonConfig, entityFilter, pluginTypeFilter, messageFilter);
         }
 
         #endregion Plugin Tree
@@ -771,7 +771,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-            WindowHelper.OpenSdkMessageTreeWindow(this._iWriteToOutput, service, commonConfig, entityFilter, messageFilter);
+            WindowHelper.OpenSdkMessageTreeExplorer(this._iWriteToOutput, service, commonConfig, entityFilter, messageFilter);
         }
 
         #endregion SdkMessage Tree
@@ -821,7 +821,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-            WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, service, commonConfig, null, false, selectedItem, entityFilter, messageFilter);
+            WindowHelper.OpenSdkMessageRequestTreeExplorer(this._iWriteToOutput, service, commonConfig, null, false, selectedItem, entityFilter, messageFilter);
         }
 
         #endregion SdkMessageRequest Tree

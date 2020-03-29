@@ -487,77 +487,77 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             _commonConfig.Save();
 
-            WindowHelper.OpenSystemFormWindow(this._iWriteToOutput, _service, _commonConfig, _entityMetadata.LogicalName);
+            WindowHelper.OpenSystemFormExplorer(this._iWriteToOutput, _service, _commonConfig, _entityMetadata.LogicalName);
         }
 
         private void btnSavedQuery_Click(object sender, RoutedEventArgs e)
         {
             _commonConfig.Save();
 
-            WindowHelper.OpenSavedQueryWindow(this._iWriteToOutput, _service, _commonConfig, _entityMetadata.LogicalName);
+            WindowHelper.OpenSavedQueryExplorer(this._iWriteToOutput, _service, _commonConfig, _entityMetadata.LogicalName);
         }
 
         private void btnSavedChart_Click(object sender, RoutedEventArgs e)
         {
             _commonConfig.Save();
 
-            WindowHelper.OpenSavedQueryVisualizationWindow(this._iWriteToOutput, _service, _commonConfig, _entityMetadata.LogicalName);
+            WindowHelper.OpenSavedQueryVisualizationExplorer(this._iWriteToOutput, _service, _commonConfig, _entityMetadata.LogicalName);
         }
 
         private void btnWorkflows_Click(object sender, RoutedEventArgs e)
         {
             _commonConfig.Save();
 
-            WindowHelper.OpenWorkflowWindow(this._iWriteToOutput, _service, _commonConfig, _entityMetadata.LogicalName);
+            WindowHelper.OpenWorkflowExplorer(this._iWriteToOutput, _service, _commonConfig, _entityMetadata.LogicalName);
         }
 
         private void btnExportApplicationRibbon_Click(object sender, RoutedEventArgs e)
         {
             _commonConfig.Save();
 
-            WindowHelper.OpenApplicationRibbonWindow(this._iWriteToOutput, _service, _commonConfig);
+            WindowHelper.OpenApplicationRibbonExplorer(this._iWriteToOutput, _service, _commonConfig);
         }
 
         private void btnPluginTree_Click(object sender, RoutedEventArgs e)
         {
             _commonConfig.Save();
 
-            WindowHelper.OpenPluginTreeWindow(this._iWriteToOutput, _service, _commonConfig, _entityMetadata.LogicalName, string.Empty, string.Empty);
+            WindowHelper.OpenPluginTreeExplorer(this._iWriteToOutput, _service, _commonConfig, _entityMetadata.LogicalName, string.Empty, string.Empty);
         }
 
         private void btnMessageTree_Click(object sender, RoutedEventArgs e)
         {
             _commonConfig.Save();
 
-            WindowHelper.OpenSdkMessageTreeWindow(this._iWriteToOutput, _service, _commonConfig, _entityMetadata.LogicalName, string.Empty);
+            WindowHelper.OpenSdkMessageTreeExplorer(this._iWriteToOutput, _service, _commonConfig, _entityMetadata.LogicalName, string.Empty);
         }
 
         private void btnMessageRequestTree_Click(object sender, RoutedEventArgs e)
         {
             _commonConfig.Save();
 
-            WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, _service, _commonConfig, _entityMetadata.LogicalName);
+            WindowHelper.OpenSdkMessageRequestTreeExplorer(this._iWriteToOutput, _service, _commonConfig, _entityMetadata.LogicalName);
         }
 
         private void btnSiteMap_Click(object sender, RoutedEventArgs e)
         {
             _commonConfig.Save();
 
-            WindowHelper.OpenExportSiteMapWindow(this._iWriteToOutput, _service, _commonConfig);
+            WindowHelper.OpenExportSiteMapExplorer(this._iWriteToOutput, _service, _commonConfig);
         }
 
         private void btnWebResources_Click(object sender, RoutedEventArgs e)
         {
             _commonConfig.Save();
 
-            WindowHelper.OpenWebResourceExplorerWindow(this._iWriteToOutput, _service, _commonConfig, string.Empty);
+            WindowHelper.OpenWebResourceExplorer(this._iWriteToOutput, _service, _commonConfig, string.Empty);
         }
 
         private void btnExportReport_Click(object sender, RoutedEventArgs e)
         {
             _commonConfig.Save();
 
-            WindowHelper.OpenReportExplorerWindow(this._iWriteToOutput, _service, _commonConfig, string.Empty);
+            WindowHelper.OpenReportExplorer(this._iWriteToOutput, _service, _commonConfig, string.Empty);
         }
 
         private void btnPluginAssembly_Click(object sender, RoutedEventArgs e)
@@ -571,7 +571,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             _commonConfig.Save();
 
-            WindowHelper.OpenPluginTypeWindow(this._iWriteToOutput, _service, _commonConfig, null);
+            WindowHelper.OpenPluginTypeExplorer(this._iWriteToOutput, _service, _commonConfig, null);
         }
 
         #endregion Кнопки открытия других форм с информация о сущности.

@@ -362,7 +362,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string name = string.Format("Components with prefix '{0}'", prefix);
 
-            WindowHelper.OpenExplorerComponentsWindow(_iWriteToOutput, service, null, commonConfig, wrongElements, null, name, null);
+            WindowHelper.OpenExplorerComponentsExplorer(_iWriteToOutput, service, null, commonConfig, wrongElements, null, name, null);
         }
 
         #endregion Find components with prefix and show in Explorer
@@ -1004,7 +1004,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string name = string.Format("Components marked to delete by '{0}'", deleteMark);
 
-            WindowHelper.OpenExplorerComponentsWindow(_iWriteToOutput, service, null, commonConfig, wrongElements, null, name, null);
+            WindowHelper.OpenExplorerComponentsExplorer(_iWriteToOutput, service, null, commonConfig, wrongElements, null, name, null);
         }
 
         #endregion Finding Marked to Delelete in Explorer.
@@ -1270,7 +1270,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string nameWindow = string.Format("Components with name '{0}'", name);
 
-            WindowHelper.OpenExplorerComponentsWindow(_iWriteToOutput, service, null, commonConfig, listComponents, null, nameWindow, null);
+            WindowHelper.OpenExplorerComponentsExplorer(_iWriteToOutput, service, null, commonConfig, listComponents, null, nameWindow, null);
         }
 
         #endregion Finding components with name in Explorer
@@ -1536,7 +1536,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string nameWindow = string.Format("Components with name '{0}'", name);
 
-            WindowHelper.OpenExplorerComponentsWindow(_iWriteToOutput, service, null, commonConfig, listComponents, null, nameWindow, null);
+            WindowHelper.OpenExplorerComponentsExplorer(_iWriteToOutput, service, null, commonConfig, listComponents, null, nameWindow, null);
         }
 
         #endregion Finding components with name contains string in Explorer

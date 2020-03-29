@@ -1121,7 +1121,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            WindowHelper.OpenExplorerSolutionWindow(
+            WindowHelper.OpenExplorerSolutionExplorer(
                 _iWriteToOutput
                 , _service
                 , _commonConfig
@@ -1156,7 +1156,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            WindowHelper.OpenSolutionComponentDependenciesWindow(
+            WindowHelper.OpenSolutionComponentDependenciesExplorer(
                 _iWriteToOutput
                 , _service
                 , GetDescriptor()
@@ -1276,7 +1276,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            WindowHelper.OpenSolutionComponentDependenciesWindow(
+            WindowHelper.OpenSolutionComponentDependenciesExplorer(
                 _iWriteToOutput
                 , _service
                 , GetDescriptor()
@@ -1297,7 +1297,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            WindowHelper.OpenExplorerSolutionWindow(
+            WindowHelper.OpenExplorerSolutionExplorer(
                 _iWriteToOutput
                 , _service
                 , _commonConfig
@@ -1368,7 +1368,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             _commonConfig.Save();
 
-            WindowHelper.OpenExplorerSolutionWindow(
+            WindowHelper.OpenExplorerSolutionExplorer(
                 _iWriteToOutput
                 , _service
                 , _commonConfig

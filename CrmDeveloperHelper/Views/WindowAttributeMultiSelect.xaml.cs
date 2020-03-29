@@ -325,7 +325,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var commonConfig = CommonConfiguration.Get();
 
-            WindowHelper.OpenExplorerSolutionWindow(
+            WindowHelper.OpenExplorerSolutionExplorer(
                 _iWriteToOutput
                 , _service
                 , commonConfig
@@ -358,7 +358,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var commonConfig = CommonConfiguration.Get();
 
-            WindowHelper.OpenSolutionComponentDependenciesWindow(_iWriteToOutput, _service, null, commonConfig, (int)ComponentType.Attribute, attribute.AttributeMetadata.MetadataId.Value, null);
+            WindowHelper.OpenSolutionComponentDependenciesExplorer(_iWriteToOutput, _service, null, commonConfig, (int)ComponentType.Attribute, attribute.AttributeMetadata.MetadataId.Value, null);
         }
 
         public string GetAttributes()

@@ -452,7 +452,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenApplicationRibbonWindow(
+        public static void OpenApplicationRibbonExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -481,26 +481,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenSystemFormWindow(
+        public static void OpenSystemFormExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
         )
         {
-            OpenSystemFormWindow(iWriteToOutput, service, commonConfig, null, null, null);
+            OpenSystemFormExplorer(iWriteToOutput, service, commonConfig, null, null, null);
         }
 
-        public static void OpenSystemFormWindow(
+        public static void OpenSystemFormExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
             , string filterEntityName
         )
         {
-            OpenSystemFormWindow(iWriteToOutput, service, commonConfig, filterEntityName, null, null);
+            OpenSystemFormExplorer(iWriteToOutput, service, commonConfig, filterEntityName, null, null);
         }
 
-        public static void OpenSystemFormWindow(
+        public static void OpenSystemFormExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -508,10 +508,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string selection
         )
         {
-            OpenSystemFormWindow(iWriteToOutput, service, commonConfig, filterEntityName, selection, null);
+            OpenSystemFormExplorer(iWriteToOutput, service, commonConfig, filterEntityName, selection, null);
         }
 
-        public static void OpenSystemFormWindow(
+        public static void OpenSystemFormExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -546,7 +546,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenSavedQueryWindow(
+        public static void OpenSavedQueryExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -579,7 +579,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenSavedQueryVisualizationWindow(
+        public static void OpenSavedQueryVisualizationExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -612,7 +612,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenWorkflowWindow(
+        public static void OpenWorkflowExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -646,7 +646,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenCustomControlWindow(
+        public static void OpenCustomControlExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -677,7 +677,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenTraceReaderWindow(
+        public static void OpenTraceReaderExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -707,7 +707,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenPluginTreeWindow(
+        public static void OpenPluginTreeExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -742,7 +742,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenSdkMessageTreeWindow(
+        public static void OpenSdkMessageTreeExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -775,16 +775,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenSdkMessageRequestTreeWindow(
+        public static void OpenSdkMessageRequestTreeExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
         )
         {
-            OpenSdkMessageRequestTreeWindow(iWriteToOutput, service, commonConfig, null, false, null, null, null);
+            OpenSdkMessageRequestTreeExplorer(iWriteToOutput, service, commonConfig, null, false, null, null, null);
         }
 
-        public static void OpenSdkMessageRequestTreeWindow(
+        public static void OpenSdkMessageRequestTreeExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -792,10 +792,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string entityFilter
         )
         {
-            OpenSdkMessageRequestTreeWindow(iWriteToOutput, service, commonConfig, null, false, null, entityFilter, null);
+            OpenSdkMessageRequestTreeExplorer(iWriteToOutput, service, commonConfig, null, false, null, entityFilter, null);
         }
 
-        public static void OpenSdkMessageRequestTreeWindow(
+        public static void OpenSdkMessageRequestTreeExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -804,10 +804,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string messageFilter
         )
         {
-            OpenSdkMessageRequestTreeWindow(iWriteToOutput, service, commonConfig, null, false, null, entityFilter, messageFilter);
+            OpenSdkMessageRequestTreeExplorer(iWriteToOutput, service, commonConfig, null, false, null, entityFilter, messageFilter);
         }
 
-        public static void OpenSdkMessageRequestTreeWindow(
+        public static void OpenSdkMessageRequestTreeExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -994,7 +994,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenExplorerSolutionWindow(
+        public static void OpenExplorerSolutionExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -1029,7 +1029,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenExplorerImportJobWindow(
+        public static void OpenImportJobExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -1060,7 +1060,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenSolutionComponentDependenciesWindow(
+        public static void OpenSolutionComponentDependenciesExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , SolutionComponentDescriptor descriptor
@@ -1088,7 +1088,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenSolutionComponentDependenciesWindow(
+        public static void OpenSolutionComponentDependenciesExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , SolutionComponentDescriptor descriptor
@@ -1125,7 +1125,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenExplorerComponentsWindow(
+        public static void OpenExplorerComponentsExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , SolutionComponentDescriptor descriptor
@@ -1281,7 +1281,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenReportExplorerWindow(
+        public static void OpenReportExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -1312,16 +1312,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenExportSiteMapWindow(
+        public static void OpenExportSiteMapExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
         )
         {
-            OpenExportSiteMapWindow(iWriteToOutput, service, commonConfig, string.Empty);
+            OpenExportSiteMapExplorer(iWriteToOutput, service, commonConfig, string.Empty);
         }
 
-        public static void OpenExportSiteMapWindow(
+        public static void OpenExportSiteMapExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -1352,16 +1352,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenWebResourceExplorerWindow(
+        public static void OpenWebResourceExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
         )
         {
-            OpenWebResourceExplorerWindow(iWriteToOutput, service, commonConfig, null);
+            OpenWebResourceExplorer(iWriteToOutput, service, commonConfig, null);
         }
 
-        public static void OpenWebResourceExplorerWindow(
+        public static void OpenWebResourceExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -1392,7 +1392,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenPluginTypeWindow(
+        public static void OpenPluginTypeExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -2129,35 +2129,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     break;
 
                 case ComponentType.SavedQuery:
-                    OpenSavedQueryWindow(iWriteToOutput, service, commonConfig, null, componentName);
+                    OpenSavedQueryExplorer(iWriteToOutput, service, commonConfig, null, componentName);
                     break;
 
                 case ComponentType.SavedQueryVisualization:
-                    OpenSavedQueryVisualizationWindow(iWriteToOutput, service, commonConfig, null, componentName);
+                    OpenSavedQueryVisualizationExplorer(iWriteToOutput, service, commonConfig, null, componentName);
                     break;
 
                 case ComponentType.SystemForm:
-                    OpenSystemFormWindow(iWriteToOutput, service, commonConfig, null, componentName);
+                    OpenSystemFormExplorer(iWriteToOutput, service, commonConfig, null, componentName);
                     break;
 
                 case ComponentType.Workflow:
-                    OpenWorkflowWindow(iWriteToOutput, service, commonConfig, null, componentName);
+                    OpenWorkflowExplorer(iWriteToOutput, service, commonConfig, null, componentName);
                     break;
 
                 case ComponentType.Report:
-                    OpenReportExplorerWindow(iWriteToOutput, service, commonConfig, componentName);
+                    OpenReportExplorer(iWriteToOutput, service, commonConfig, componentName);
                     break;
 
                 case ComponentType.WebResource:
-                    OpenWebResourceExplorerWindow(iWriteToOutput, service, commonConfig, componentName);
+                    OpenWebResourceExplorer(iWriteToOutput, service, commonConfig, componentName);
                     break;
 
                 case ComponentType.SiteMap:
-                    OpenExportSiteMapWindow(iWriteToOutput, service, commonConfig);
+                    OpenExportSiteMapExplorer(iWriteToOutput, service, commonConfig);
                     break;
 
                 case ComponentType.PluginType:
-                    OpenPluginTypeWindow(iWriteToOutput, service, commonConfig, componentName);
+                    OpenPluginTypeExplorer(iWriteToOutput, service, commonConfig, componentName);
                     break;
 
                 case ComponentType.PluginAssembly:
@@ -2166,31 +2166,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 case ComponentType.SdkMessageProcessingStep:
                 case ComponentType.SdkMessageProcessingStepImage:
-                    OpenPluginTreeWindow(iWriteToOutput, service, commonConfig);
+                    OpenPluginTreeExplorer(iWriteToOutput, service, commonConfig);
                     break;
 
                 case ComponentType.SdkMessage:
                 case ComponentType.SdkMessageFilter:
-                    OpenSdkMessageTreeWindow(iWriteToOutput, service, commonConfig, null, componentName);
+                    OpenSdkMessageTreeExplorer(iWriteToOutput, service, commonConfig, null, componentName);
                     break;
 
                 case ComponentType.SdkMessagePair:
-                    OpenSdkMessageRequestTreeWindow(iWriteToOutput, service, commonConfig, null, componentName);
+                    OpenSdkMessageRequestTreeExplorer(iWriteToOutput, service, commonConfig, null, componentName);
                     break;
 
                 case ComponentType.SdkMessageRequest:
                 case ComponentType.SdkMessageRequestField:
                 case ComponentType.SdkMessageResponse:
                 case ComponentType.SdkMessageResponseField:
-                    OpenSdkMessageRequestTreeWindow(iWriteToOutput, service, commonConfig);
+                    OpenSdkMessageRequestTreeExplorer(iWriteToOutput, service, commonConfig);
                     break;
 
                 case ComponentType.RibbonCustomization:
-                    OpenApplicationRibbonWindow(iWriteToOutput, service, commonConfig);
+                    OpenApplicationRibbonExplorer(iWriteToOutput, service, commonConfig);
                     break;
 
                 case ComponentType.CustomControl:
-                    OpenCustomControlWindow(iWriteToOutput, service, commonConfig, componentName);
+                    OpenCustomControlExplorer(iWriteToOutput, service, commonConfig, componentName);
                     break;
             }
         }
