@@ -386,6 +386,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartSiteMapOpenInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
             => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteOpenInWebSiteMap, commonConfig, selectedFile);
 
+        public void StartSiteMapGetCurrent(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+            => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteGetSiteMapCurrentXml, commonConfig, selectedFile);
+
         #endregion SiteMap
 
         #region SystemForm
@@ -404,6 +407,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public void StartSystemFormOpenInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
             => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteOpenInWebSystemForm, commonConfig, selectedFile);
+
+        public void StartSystemFormGetCurrent(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+            => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteGetSystemFormCurrentXml, commonConfig, selectedFile);
 
         #endregion SystemForm
 
@@ -442,6 +448,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public void StartWorkflowOpenInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
             => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteOpenInWebWorkflow, commonConfig, selectedFile);
+
+        public void StartWorkflowGetCurrent(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+            => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteGetWorkflowCurrentXaml, commonConfig, selectedFile);
 
         #endregion Workflow
 

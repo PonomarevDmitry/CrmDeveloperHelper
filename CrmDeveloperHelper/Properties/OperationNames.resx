@@ -356,6 +356,15 @@
   <data name="GettingWebResourceCurrentDependencyXml" xml:space="preserve">
     <value>{0} - Getting WebResource Current DependencyXml</value>
   </data>
+  <data name="GettingSiteMapCurrentXml" xml:space="preserve">
+    <value>{0} - Getting SiteMap Current Xml</value>
+  </data>
+  <data name="GettingSystemFormCurrentXml" xml:space="preserve">
+    <value>{0} - Getting SystemForm Current Xml</value>
+  </data>
+  <data name="GettingWorkflowCurrentXaml" xml:space="preserve">
+    <value>{0} - Getting Workflow Current Xaml</value>
+  </data>
   <data name="PluginConfigurationAssemblyDescription" xml:space="preserve">
     <value>Plugin Configuration Assembly Description</value>
   </data>

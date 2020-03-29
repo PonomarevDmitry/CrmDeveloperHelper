@@ -768,6 +768,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartSiteMapOpenInWeb(conn, commonConfig, selectedFile));
         }
 
+        public void HandleSiteMapGetCurrentCommand(ConnectionData connectionData, SelectedFile selectedFile)
+        {
+            if (selectedFile == null)
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartSiteMapGetCurrent(conn, commonConfig, selectedFile));
+        }
+
         #region SystemForm
 
         public void HandleSystemFormDifferenceCommand(ConnectionData connectionData, SelectedFile selectedFile)
@@ -818,6 +828,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartSystemFormOpenInWeb(conn, commonConfig, selectedFile));
+        }
+
+        public void HandleSystemFormGetCurrentCommand(ConnectionData connectionData, SelectedFile selectedFile)
+        {
+            if (selectedFile == null)
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartSystemFormGetCurrent(conn, commonConfig, selectedFile));
         }
 
         #endregion SystemForm
@@ -928,6 +948,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWorkflowOpenInWeb(conn, commonConfig, selectedFile));
+        }
+
+        public void HandleWorkflowGetCurrentCommand(ConnectionData connectionData, SelectedFile selectedFile)
+        {
+            if (selectedFile == null)
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWorkflowGetCurrent(conn, commonConfig, selectedFile));
         }
 
         #endregion Workflow

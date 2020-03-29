@@ -1375,6 +1375,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Getting SiteMap Current Xml.
+        /// </summary>
+        internal static string GettingSiteMapCurrentXml {
+            get {
+                return ResourceManager.GetString("GettingSiteMapCurrentXml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Getting SystemForm Current Xml.
+        /// </summary>
+        internal static string GettingSystemFormCurrentXml {
+            get {
+                return ResourceManager.GetString("GettingSystemFormCurrentXml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Getting WebResource Attribute {1}.
         /// </summary>
         internal static string GettingWebResourceAttributeFormat2 {
@@ -1389,6 +1407,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string GettingWebResourceCurrentDependencyXml {
             get {
                 return ResourceManager.GetString("GettingWebResourceCurrentDependencyXml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Getting Workflow Current Xaml.
+        /// </summary>
+        internal static string GettingWorkflowCurrentXaml {
+            get {
+                return ResourceManager.GetString("GettingWorkflowCurrentXaml", resourceCulture);
             }
         }
         

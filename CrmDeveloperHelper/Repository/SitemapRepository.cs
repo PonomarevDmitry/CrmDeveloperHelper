@@ -95,6 +95,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return coll.Count == 1 ? coll.Select(e => e.ToEntity<SiteMap>()).SingleOrDefault() : null;
         }
 
+        public Task<SiteMap> FindByExactNameAsync(string sitemapName, ColumnSet columnSet)
+        {
+            return Task.Run(() => FindByExactName(sitemapName, columnSet));
+        }
+
         public SiteMap FindByExactName(string sitemapName, ColumnSet columnSet)
         {
             QueryExpression query = new QueryExpression()
