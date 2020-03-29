@@ -281,7 +281,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await DifferenceSiteMap(connectionData, commonConfig, selectedFile);
+                if (ParseXmlDocument(connectionData, selectedFile, out var doc))
+                {
+                    await DifferenceSiteMap(connectionData, commonConfig, doc, selectedFile.FilePath);
+                }
             }
             catch (Exception ex)
             {
@@ -291,32 +294,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
-        }
-
-        private async Task DifferenceSiteMap(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
-        {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            if (!File.Exists(selectedFile.FilePath))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
-                return;
-            }
-
-            string fileText = File.ReadAllText(selectedFile.FilePath);
-
-            if (!ContentComparerHelper.TryParseXmlDocument(fileText, out var doc))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
-                _iWriteToOutput.ActivateOutputWindow(connectionData);
-                return;
-            }
-
-            await DifferenceSiteMap(connectionData, commonConfig, doc, selectedFile.FilePath);
         }
 
         public async Task ExecuteDifferenceSiteMap(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
@@ -423,7 +400,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await UpdateSiteMap(connectionData, commonConfig, selectedFile);
+                if (ParseXmlDocument(connectionData, selectedFile, out var doc))
+                {
+                    await UpdateSiteMap(connectionData, commonConfig, doc, selectedFile.FilePath);
+                }
             }
             catch (Exception ex)
             {
@@ -433,32 +413,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
-        }
-
-        private async Task UpdateSiteMap(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
-        {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            if (!File.Exists(selectedFile.FilePath))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
-                return;
-            }
-
-            string fileText = File.ReadAllText(selectedFile.FilePath);
-
-            if (!ContentComparerHelper.TryParseXmlDocument(fileText, out var doc))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
-                _iWriteToOutput.ActivateOutputWindow(connectionData);
-                return;
-            }
-
-            await UpdateSiteMap(connectionData, commonConfig, doc, selectedFile.FilePath);
         }
 
         public async Task ExecuteUpdateSiteMap(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
@@ -702,7 +656,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await DifferenceSystemForm(connectionData, commonConfig, selectedFile);
+                if (ParseXmlDocument(connectionData, selectedFile, out var doc))
+                {
+                    await DifferenceSystemForm(connectionData, commonConfig, doc, selectedFile.FilePath);
+                }
             }
             catch (Exception ex)
             {
@@ -712,31 +669,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
-        }
-
-        private async Task DifferenceSystemForm(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
-        {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            if (!File.Exists(selectedFile.FilePath))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
-                return;
-            }
-
-            string fileText = File.ReadAllText(selectedFile.FilePath);
-
-            if (!ContentComparerHelper.TryParseXmlDocument(fileText, out var doc))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
-                return;
-            }
-
-            await DifferenceSystemForm(connectionData, commonConfig, doc, selectedFile.FilePath);
         }
 
         public async Task ExecuteDifferenceSystemForm(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
@@ -868,7 +800,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await UpdateSystemForm(connectionData, commonConfig, selectedFile);
+                if (ParseXmlDocument(connectionData, selectedFile, out var doc))
+                {
+                    await UpdateSystemForm(connectionData, commonConfig, doc, selectedFile.FilePath);
+                }
             }
             catch (Exception ex)
             {
@@ -878,31 +813,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
-        }
-
-        private async Task UpdateSystemForm(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
-        {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            if (!File.Exists(selectedFile.FilePath))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
-                return;
-            }
-
-            string fileText = File.ReadAllText(selectedFile.FilePath);
-
-            if (!ContentComparerHelper.TryParseXmlDocument(fileText, out var doc))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
-                return;
-            }
-
-            await UpdateSystemForm(connectionData, commonConfig, doc, selectedFile.FilePath);
         }
 
         public async Task ExecuteUpdateSystemForm(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
@@ -1190,7 +1100,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await DifferenceSavedQuery(connectionData, commonConfig, selectedFile);
+                if (ParseXmlDocument(connectionData, selectedFile, out var doc))
+                {
+                    await DifferenceSavedQuery(connectionData, commonConfig, doc, selectedFile.FilePath);
+                }
             }
             catch (Exception ex)
             {
@@ -1200,31 +1113,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
-        }
-
-        private async Task DifferenceSavedQuery(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
-        {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            if (!File.Exists(selectedFile.FilePath))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
-                return;
-            }
-
-            string fileText = File.ReadAllText(selectedFile.FilePath);
-
-            if (!ContentComparerHelper.TryParseXmlDocument(fileText, out var doc))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
-                return;
-            }
-
-            await DifferenceSavedQuery(connectionData, commonConfig, doc, selectedFile.FilePath);
         }
 
         public async Task ExecuteDifferenceSavedQuery(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
@@ -1358,7 +1246,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await UpdateSavedQuery(connectionData, commonConfig, selectedFile);
+                if (ParseXmlDocument(connectionData, selectedFile, out var doc))
+                {
+                    await UpdateSavedQuery(connectionData, commonConfig, doc, selectedFile.FilePath);
+                }
             }
             catch (Exception ex)
             {
@@ -1368,31 +1259,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
-        }
-
-        private async Task UpdateSavedQuery(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
-        {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            if (!File.Exists(selectedFile.FilePath))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
-                return;
-            }
-
-            string fileText = File.ReadAllText(selectedFile.FilePath);
-
-            if (!ContentComparerHelper.TryParseXmlDocument(fileText, out var doc))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
-                return;
-            }
-
-            await UpdateSavedQuery(connectionData, commonConfig, doc, selectedFile.FilePath);
         }
 
         public async Task ExecuteUpdateSavedQuery(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
@@ -1711,7 +1577,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await DifferenceWorkflow(connectionData, commonConfig, selectedFile);
+                if (ParseXmlDocument(connectionData, selectedFile, out var doc))
+                {
+                    await DifferenceWorkflow(connectionData, commonConfig, doc, selectedFile.FilePath);
+                }
             }
             catch (Exception ex)
             {
@@ -1721,31 +1590,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
-        }
-
-        private async Task DifferenceWorkflow(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
-        {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            if (!File.Exists(selectedFile.FilePath))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
-                return;
-            }
-
-            string fileText = File.ReadAllText(selectedFile.FilePath);
-
-            if (!ContentComparerHelper.TryParseXmlDocument(fileText, out var doc))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
-                return;
-            }
-
-            await DifferenceWorkflow(connectionData, commonConfig, doc, selectedFile.FilePath);
         }
 
         public async Task ExecuteDifferenceWorkflow(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
@@ -1875,7 +1719,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await UpdateWorkflow(connectionData, commonConfig, selectedFile);
+                if (ParseXmlDocument(connectionData, selectedFile, out var doc))
+                {
+                    await UpdateWorkflow(connectionData, commonConfig, doc, selectedFile.FilePath);
+                }
             }
             catch (Exception ex)
             {
@@ -1885,31 +1732,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
-        }
-
-        private async Task UpdateWorkflow(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
-        {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            if (!File.Exists(selectedFile.FilePath))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
-                return;
-            }
-
-            string fileText = File.ReadAllText(selectedFile.FilePath);
-
-            if (!ContentComparerHelper.TryParseXmlDocument(fileText, out var doc))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
-                return;
-            }
-
-            await UpdateWorkflow(connectionData, commonConfig, doc, selectedFile.FilePath);
         }
 
         public async Task ExecuteUpdateWorkflow(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
