@@ -1,23 +1,24 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlWebResourceDependencyXmlGetCurrentInConnectionCommand : AbstractDynamicCommandByConnectionWithoutCurrent
+    internal sealed class CodeXmlWorkflowGetCurrentInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
-        private CodeXmlWebResourceDependencyXmlGetCurrentInConnectionCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.guidDynamicCommandSet.CodeXmlWebResourceDependencyXmlGetCurrentInConnectionCommandId)
+        private CodeXmlWorkflowGetCurrentInConnectionCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.guidDynamicCommandSet.CodeXmlWorkflowGetCurrentInConnectionCommandId)
         {
         }
 
-        public static CodeXmlWebResourceDependencyXmlGetCurrentInConnectionCommand Instance { get; private set; }
+        public static CodeXmlWorkflowGetCurrentInConnectionCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeXmlWebResourceDependencyXmlGetCurrentInConnectionCommand(commandService);
+            Instance = new CodeXmlWorkflowGetCurrentInConnectionCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
@@ -26,7 +27,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 
             if (selectedFiles.Count == 1)
             {
-                helper.HandleWebResourceDependencyXmlGetCurrentCommand(connectionData, selectedFiles.FirstOrDefault());
+                helper.HandleWorkflowGetCurrentCommand(connectionData, selectedFiles[0]);
             }
         }
 
@@ -35,12 +36,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
             CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(
                 applicationObject
                 , menuCommand
-                , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWebResourceName
+                , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWorkflowId
                 , out var attribute
-                , AbstractDynamicCommandXsdSchemas.RootWebResourceDependencies
+                , AbstractDynamicCommandXsdSchemas.RootActivity
             );
 
-            if (attribute == null || string.IsNullOrEmpty(attribute.Value))
+            if (attribute == null || !Guid.TryParse(attribute.Value, out _))
             {
                 menuCommand.Enabled = menuCommand.Visible = false;
             }

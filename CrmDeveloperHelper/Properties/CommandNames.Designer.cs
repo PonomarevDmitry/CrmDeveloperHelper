@@ -322,6 +322,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Get SavedQuery Current Xml.
+        /// </summary>
+        internal static string CodeXmlSavedQueryGetCurrentCommand {
+            get {
+                return ResourceManager.GetString("CodeXmlSavedQueryGetCurrentCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show Difference SavedQuery.
         /// </summary>
         internal static string CodeXmlSavedQueryShowDifferenceCommand {
@@ -336,6 +345,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string CodeXmlSavedQueryUpdateCommand {
             get {
                 return ResourceManager.GetString("CodeXmlSavedQueryUpdateCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get SiteMap &quot;{0}&quot; Current Xml.
+        /// </summary>
+        internal static string CodeXmlSiteMapGetCurrentByNameCommandFormat1 {
+            get {
+                return ResourceManager.GetString("CodeXmlSiteMapGetCurrentByNameCommandFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get SiteMap Default Current Xml.
+        /// </summary>
+        internal static string CodeXmlSiteMapGetCurrentCommand {
+            get {
+                return ResourceManager.GetString("CodeXmlSiteMapGetCurrentCommand", resourceCulture);
             }
         }
         
@@ -372,6 +399,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string CodeXmlSiteMapUpdateCommand {
             get {
                 return ResourceManager.GetString("CodeXmlSiteMapUpdateCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get SystemForm Current Xml.
+        /// </summary>
+        internal static string CodeXmlSystemFormGetCurrentCommand {
+            get {
+                return ResourceManager.GetString("CodeXmlSystemFormGetCurrentCommand", resourceCulture);
             }
         }
         
@@ -417,6 +453,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string CodeXmlWebResourceDependencyXmlUpdateCommand {
             get {
                 return ResourceManager.GetString("CodeXmlWebResourceDependencyXmlUpdateCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get Workflow Current Xaml.
+        /// </summary>
+        internal static string CodeXmlWorkflowGetCurrentCommand {
+            get {
+                return ResourceManager.GetString("CodeXmlWorkflowGetCurrentCommand", resourceCulture);
             }
         }
         

@@ -250,6 +250,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             #region SiteMap
 
+            CodeXmlSiteMapGetCurrentCommand.Initialize(commandService);
+            CodeXmlSiteMapGetCurrentInConnectionCommand.Initialize(commandService);
+
             CodeXmlSiteMapOpenInWebInConnectionCommand.Initialize(commandService);
             CodeXmlSiteMapExplorerCommand.Initialize(commandService);
 
@@ -264,6 +267,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             #region SystemForm
 
+            CodeXmlSystemFormGetCurrentCommand.Initialize(commandService);
+            CodeXmlSystemFormGetCurrentInConnectionCommand.Initialize(commandService);
+
             CodeXmlSystemFormExplorerCommand.Initialize(commandService);
             CodeXmlSystemFormOpenInWebInConnectionCommand.Initialize(commandService);
 
@@ -276,6 +282,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             #endregion SystemForm
 
             #region SavedQuery
+
+            CodeXmlSavedQueryGetCurrentCommand.Initialize(commandService);
+            CodeXmlSavedQueryGetCurrentInConnectionCommand.Initialize(commandService);
 
             CodeXmlSavedQueryExplorerCommand.Initialize(commandService);
             CodeXmlSavedQueryOpenInWebInConnectionCommand.Initialize(commandService);
@@ -309,6 +318,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             #endregion Ribbon
 
             #region Workflow
+
+            CodeXmlWorkflowGetCurrentCommand.Initialize(commandService);
+            CodeXmlWorkflowGetCurrentInConnectionCommand.Initialize(commandService);
 
             CodeXmlWorkflowExplorerCommand.Initialize(commandService);
             CodeXmlWorkflowOpenInWebInConnectionCommand.Initialize(commandService);

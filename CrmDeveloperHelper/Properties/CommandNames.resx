@@ -134,7 +134,7 @@
   <data name="CodeCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand" xml:space="preserve">
     <value>Build Project, Update PluginAssembly and Register New Plugins</value>
   </data>
-  
+
   <data name="CodeCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommand" xml:space="preserve">
     <value>Update EntityMetadata Proxy Class or Schema File with Select Entity</value>
   </data>
@@ -235,9 +235,9 @@
   <data name="CodeXmlWorkflowUpdateCommand" xml:space="preserve">
     <value>Update Workflow</value>
   </data>
-  
-  
-  
+
+
+
   <data name="CommandNameWithConnectionFormat2" xml:space="preserve">
     <value>{0} - {1}</value>
   </data>
@@ -304,7 +304,7 @@
   <data name="FileCSharpProjectCompareToCrmAssemblyCommand" xml:space="preserve">
     <value>Compare with Crm PluginAssembly</value>
   </data>
-  
+
   <data name="FileCSharpProjectUpdatePluginAssemblyCommand" xml:space="preserve">
     <value>Update PluginAssembly in Window</value>
   </data>
@@ -316,7 +316,7 @@
   <data name="FileCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand" xml:space="preserve">
     <value>Build Project, Update PluginAssembly and Register New Plugins</value>
   </data>
-  
+
   <data name="FileCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommand" xml:space="preserve">
     <value>Update EntityMetadata Proxy Class or Schema File with Select Entity</value>
   </data>
@@ -383,7 +383,7 @@
   <data name="ProjectCompareToCrmAssemblyCommand" xml:space="preserve">
     <value>Compare with Crm PluginAssembly</value>
   </data>
-  
+
   <data name="ProjectUpdatePluginAssemblyCommand" xml:space="preserve">
     <value>Update PluginAssemblies in Window</value>
   </data>
@@ -395,7 +395,7 @@
   <data name="ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand" xml:space="preserve">
     <value>Build Projects, Update PluginAssemblies and Register New Plugins</value>
   </data>
-  
+
   <data name="ShowDifferenceOneByOneCommandFormat2" xml:space="preserve">
     <value>Local File &lt;-&gt; {0}      Local File &lt;-&gt; {1}      {0} &lt;-&gt; {1}</value>
   </data>
@@ -445,9 +445,24 @@
   <data name="CodeXmlWebResourceDependencyXmlGetCurrentCommand" xml:space="preserve">
     <value>Get WebResource Current DependencyXml</value>
   </data>
+  <data name="CodeXmlWorkflowGetCurrentCommand" xml:space="preserve">
+    <value>Get Workflow Current Xaml</value>
+  </data>
+  <data name="CodeXmlSystemFormGetCurrentCommand" xml:space="preserve">
+    <value>Get SystemForm Current Xml</value>
+  </data>
+  <data name="CodeXmlSiteMapGetCurrentCommand" xml:space="preserve">
+    <value>Get SiteMap Default Current Xml</value>
+  </data>
+  <data name="CodeXmlSiteMapGetCurrentByNameCommandFormat1" xml:space="preserve">
+    <value>Get SiteMap "{0}" Current Xml</value>
+  </data>
+  <data name="CodeXmlSavedQueryGetCurrentCommand" xml:space="preserve">
+    <value>Get SavedQuery Current Xml</value>
+  </data>
 
 
-  
+
 
 
 </root>

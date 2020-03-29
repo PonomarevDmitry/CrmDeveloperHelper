@@ -287,6 +287,8 @@
     <Compile Include="Commands\Xmls\CodeXmlRibbonDiffRemoveIntellisenseContextCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlRibbonExplorerCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSavedQueryExplorerCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlSavedQueryGetCurrentCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlSavedQueryGetCurrentInConnectionCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSavedQueryOpenInWebInConnectionCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlCommonXsdSchemaSetCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlRibbonShowDifferenceCommand.cs" />
@@ -295,10 +297,14 @@
     <Compile Include="Commands\Xmls\CodeXmlRibbonShowDifferenceInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSavedQueryShowDifferenceCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSavedQueryShowDifferenceInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlSiteMapGetCurrentCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlSiteMapGetCurrentInConnectionCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSiteMapShowDifferenceCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSiteMapShowDifferenceDefaultCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSiteMapShowDifferenceInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlCommonShowDifferenceCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlSystemFormGetCurrentCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlSystemFormGetCurrentInConnectionCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSystemFormShowDifferenceCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSystemFormShowDifferenceInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSiteMapExplorerCommand.cs" />
@@ -410,6 +416,8 @@
     <Compile Include="Commands\Xmls\CodeXmlWebResourceDependencyXmlUpdateCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlWebResourceDependencyXmlUpdateInConnectionCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlWorkflowExplorerCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlWorkflowGetCurrentCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlWorkflowGetCurrentInConnectionCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlWorkflowOpenInWebInConnectionCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlWorkflowShowDifferenceCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlWorkflowShowDifferenceInConnectionGroupCommand.cs" />
