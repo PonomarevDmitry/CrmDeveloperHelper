@@ -759,7 +759,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await DifferenceRibbon(selectedFile, connectionData, commonConfig);
+                if (ParseXmlDocument(connectionData, selectedFile, out var doc))
+                {
+                    await DifferenceRibbon(connectionData, commonConfig, doc, selectedFile.FilePath);
+                }
             }
             catch (Exception ex)
             {
@@ -769,31 +772,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
-        }
-
-        private async Task DifferenceRibbon(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            if (!File.Exists(selectedFile.FilePath))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
-                return;
-            }
-
-            string fileText = File.ReadAllText(selectedFile.FilePath);
-
-            if (!ContentComparerHelper.TryParseXmlDocument(fileText, out var doc))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
-                return;
-            }
-
-            await DifferenceRibbon(doc, selectedFile.FilePath, connectionData, commonConfig);
         }
 
         public async Task ExecuteDifferenceRibbon(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
@@ -804,7 +782,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await DifferenceRibbon(doc, filePath, connectionData, commonConfig);
+                await DifferenceRibbon(connectionData, commonConfig, doc, filePath);
             }
             catch (Exception ex)
             {
@@ -816,7 +794,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task DifferenceRibbon(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task DifferenceRibbon(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             if (connectionData == null)
             {
@@ -1212,7 +1190,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await OpenRibbonExplorer(selectedFile, connectionData, commonConfig);
+                await OpenRibbonExplorer(connectionData, commonConfig, selectedFile);
             }
             catch (Exception ex)
             {
@@ -1224,7 +1202,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task OpenRibbonExplorer(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task OpenRibbonExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             if (connectionData == null)
             {
@@ -1296,7 +1274,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await EntityRibbonOpenInWeb(selectedFile, connectionData, commonConfig);
+                await EntityRibbonOpenInWeb(connectionData, commonConfig, selectedFile);
             }
             catch (Exception ex)
             {
@@ -1308,7 +1286,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task EntityRibbonOpenInWeb(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task EntityRibbonOpenInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             if (connectionData == null)
             {
