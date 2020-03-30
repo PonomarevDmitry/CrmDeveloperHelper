@@ -725,7 +725,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     try
                     {
-                        var contr = new EntityMetadataController(iWriteToOutput);
+                        var contr = new ExplorerController(iWriteToOutput);
 
                         contr.ExecuteCreatingFileWithGlobalOptionSets(connection, commonConfig, null, null);
                     }
@@ -776,7 +776,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     try
                     {
-                        var contr = new EntityMetadataController(iWriteToOutput);
+                        var contr = new ExplorerController(iWriteToOutput);
 
                         contr.ExecuteOpeningEntityMetadataExplorer(connection, commonConfig, string.Empty, null);
                     }
@@ -801,7 +801,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     try
                     {
-                        var contr = new EntityMetadataController(iWriteToOutput);
+                        var contr = new ExplorerController(iWriteToOutput);
 
                         contr.ExecuteOpeningEntityAttributeExplorer(connection, commonConfig, string.Empty);
                     }
@@ -826,7 +826,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     try
                     {
-                        var contr = new EntityMetadataController(iWriteToOutput);
+                        var contr = new ExplorerController(iWriteToOutput);
 
                         contr.ExecuteOpeningEntityRelationshipOneToManyExplorer(connection, commonConfig, string.Empty);
                     }
@@ -851,7 +851,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     try
                     {
-                        var contr = new EntityMetadataController(iWriteToOutput);
+                        var contr = new ExplorerController(iWriteToOutput);
 
                         contr.ExecuteOpeningEntityRelationshipManyToManyExplorer(connection, commonConfig, string.Empty);
                     }
@@ -876,7 +876,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     try
                     {
-                        var contr = new EntityMetadataController(iWriteToOutput);
+                        var contr = new ExplorerController(iWriteToOutput);
 
                         contr.ExecuteOpeningEntityKeyExplorer(connection, commonConfig, string.Empty);
                     }
@@ -901,7 +901,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     try
                     {
-                        var contr = new EntityMetadataController(iWriteToOutput);
+                        var contr = new ExplorerController(iWriteToOutput);
 
                         contr.ExecuteOpeningEntityPrivilegesExplorer(connection, commonConfig, string.Empty);
                     }
@@ -1003,7 +1003,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         ExplorerController contr = new ExplorerController(iWriteToOutput);
 
-                        contr.ExecuteOpeningApplicationRibbonExplorer(connection, commonConfig, string.Empty);
+                        contr.ExecuteOpeningApplicationRibbonExplorer(connection, commonConfig);
                     }
                     catch (Exception ex)
                     {

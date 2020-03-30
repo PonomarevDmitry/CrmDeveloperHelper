@@ -695,8 +695,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartExportingFormEvents(ConnectionData connectionData, CommonConfiguration commonConfig)
             => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteExportingFormsEvents, commonConfig);
 
-        public void StartExportRibbonXml(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
-            => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteOpeningApplicationRibbonExplorer, commonConfig, selection);
+        public void StartExportRibbonXml(ConnectionData connectionData, CommonConfiguration commonConfig)
+            => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteOpeningApplicationRibbonExplorer, commonConfig);
 
         public void StartExportPluginConfiguration(ConnectionData connectionData, CommonConfiguration commonConfig)
             => ExecuteWithConnectionInThread(connectionData, this._exportPluginConfigurationController.ExecuteExportingPluginConfigurationXml, commonConfig);
@@ -711,34 +711,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteOpeningPluginAssemblyExplorer, commonConfig, selection);
 
         public void StartOpeningEntityMetadataExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection, EnvDTE.SelectedItem selectedItem)
-            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteOpeningEntityMetadataExplorer, commonConfig, selection, selectedItem);
+            => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteOpeningEntityMetadataExplorer, commonConfig, selection, selectedItem);
 
         public void StartOpeningEntityMetadataFileGenerationOptions()
-            => ExecuteInThreadVoid(this._entityMetadataController.ExecuteOpeningEntityMetadataFileGenerationOptions);
+            => ExecuteInThreadVoid(this._explorerController.ExecuteOpeningEntityMetadataFileGenerationOptions);
 
         public void StartOpeningGlobalOptionSetsMetadataFileGenerationOptions()
-            => ExecuteInThreadVoid(this._entityMetadataController.ExecuteOpeningGlobalOptionSetsMetadataFileGenerationOptions);
+            => ExecuteInThreadVoid(this._explorerController.ExecuteOpeningGlobalOptionSetsMetadataFileGenerationOptions);
 
         public void StartExplorerEntityAttribute(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
-            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteOpeningEntityAttributeExplorer, commonConfig, selection);
+            => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteOpeningEntityAttributeExplorer, commonConfig, selection);
 
         public void StartExplorerEntityKey(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
-            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteOpeningEntityKeyExplorer, commonConfig, selection);
+            => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteOpeningEntityKeyExplorer, commonConfig, selection);
 
         public void StartExplorerEntityRelationshipOneToMany(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
-            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteOpeningEntityRelationshipOneToManyExplorer, commonConfig, selection);
+            => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteOpeningEntityRelationshipOneToManyExplorer, commonConfig, selection);
 
         public void StartExplorerEntityRelationshipManyToMany(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
-            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteOpeningEntityRelationshipManyToManyExplorer, commonConfig, selection);
+            => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteOpeningEntityRelationshipManyToManyExplorer, commonConfig, selection);
 
         public void StartExplorerEntityPrivileges(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
-            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteOpeningEntityPrivilegesExplorer, commonConfig, selection);
+            => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteOpeningEntityPrivilegesExplorer, commonConfig, selection);
 
         public void StartExplorerOtherPrivileges(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
-            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteOpeningOtherPrivilegesExplorer, commonConfig, selection);
+            => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteOpeningOtherPrivilegesExplorer, commonConfig, selection);
 
         public void StartCreatingFileWithGlobalOptionSets(ConnectionData connectionData, CommonConfiguration commonConfig, string selection, EnvDTE.SelectedItem selectedItem)
-            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteCreatingFileWithGlobalOptionSets, commonConfig, selection, selectedItem);
+            => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteCreatingFileWithGlobalOptionSets, commonConfig, selection, selectedItem);
 
         public void StartUpdatingFileWithEntityMetadataCSharpSchema(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, bool selectEntity, bool openOptions)
             => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteUpdateFileWithEntityMetadataCSharpSchema, commonConfig, selectedFiles, selectEntity, openOptions);

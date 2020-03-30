@@ -149,5 +149,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
+
+        protected void GetFileGenerationOptionsAndOpenExplorer(string operation, Action<FileGenerationOptions> action)
+        {
+            this._iWriteToOutput.WriteToOutputStartOperation(null, operation);
+
+            try
+            {
+                var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
+
+                action(fileGenerationOptions);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(null, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(null, operation);
+            }
+        }
     }
 }

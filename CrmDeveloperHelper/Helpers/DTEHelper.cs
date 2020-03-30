@@ -2745,9 +2745,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleExportRibbon(ConnectionData connectionData)
         {
-            string selection = GetSelectedText();
-
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartExportRibbonXml(conn, commonConfig, selection));
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartExportRibbonXml(conn, commonConfig));
         }
 
         public void HandleExplorerSitemap()
