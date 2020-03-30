@@ -42,14 +42,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                 , AbstractDynamicCommandXsdSchemas.RootRibbonDefinitions
             );
 
-            if (attribute != null)
+            if (attribute == null || string.IsNullOrEmpty(attribute.Value))
             {
-                string entityName = attribute.Value;
-
-                if (string.IsNullOrEmpty(entityName))
-                {
-                    menuCommand.Enabled = menuCommand.Visible = false;
-                }
+                menuCommand.Enabled = menuCommand.Visible = false;
             }
         }
     }

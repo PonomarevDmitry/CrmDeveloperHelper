@@ -279,7 +279,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 if (ParseXmlDocument(connectionData, selectedFile, out var doc))
                 {
-                    await CheckAttributeValidateGetSiteMapExecuteAction(connectionData, commonConfig, doc, selectedFile.FilePath, ValidateDocumentSiteMapXml, OpenInWebSiteMapXml);
+                    await CheckAttributeValidateGetSiteMapExecuteAction(connectionData, commonConfig, doc, selectedFile.FilePath, null, OpenInWebSiteMapXml);
                 }
             }
             catch (Exception ex)

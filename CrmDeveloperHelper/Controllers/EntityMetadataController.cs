@@ -749,6 +749,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Обновление файла с глобальными OptionSet-ами JavaScript All.
 
+        private Task CheckAttributeValidateGetEntityNameExecuteAction(
+            ConnectionData connectionData
+            , CommonConfiguration commonConfig
+            , XDocument doc
+            , string filePath
+            , Func<ConnectionData, XDocument, Task<bool>> validatorDocument
+            , Func<IOrganizationServiceExtented, CommonConfiguration, XDocument, string, string, Task> continueAction
+        )
+        {
+            return CheckAttributeValidateGetEntityExecuteAction(
+                connectionData
+                , commonConfig
+                , doc
+                , filePath
+                , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName
+                , null
+                , validatorDocument
+                , (service, _, entityName) => Task.FromResult(Tuple.Create(true, entityName))
+                , continueAction
+            );
+        }
+
         #region Ribbon Showing Difference
 
         public async Task ExecuteDifferenceRibbon(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
@@ -761,7 +783,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 if (ParseXmlDocument(connectionData, selectedFile, out var doc))
                 {
-                    await DifferenceRibbon(connectionData, commonConfig, doc, selectedFile.FilePath);
+                    await CheckAttributeValidateGetEntityNameExecuteAction(connectionData, commonConfig, doc, selectedFile.FilePath, null, DifferenceRibbon);
                 }
             }
             catch (Exception ex)
@@ -782,7 +804,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await DifferenceRibbon(connectionData, commonConfig, doc, filePath);
+                await CheckAttributeValidateGetEntityNameExecuteAction(connectionData, commonConfig, doc, filePath, null, DifferenceRibbon);
             }
             catch (Exception ex)
             {
@@ -794,39 +816,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task DifferenceRibbon(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
+        private async Task DifferenceRibbon(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, string entityName)
         {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            var attribute = doc.Root.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName);
-
-            if (attribute == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotContainsXmlAttributeFormat2, Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName.ToString(), filePath);
-                return;
-            }
-
-            string entityName = attribute.Value;
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-
-            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            if (service == null)
-            {
-                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
-
             if (!string.IsNullOrEmpty(entityName))
             {
                 var repository = new EntityMetadataRepository(service);
@@ -835,7 +826,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (entityMetadata == null)
                 {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityNotExistsInConnectionFormat2, entityName, connectionData.Name);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityNotExistsInConnectionFormat2, entityName, service.ConnectionData.Name);
                     return;
                 }
 
@@ -867,7 +858,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 File.WriteAllText(filePath2, ribbonXml, new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ExportedEntityRibbonForConnectionFormat3, service.ConnectionData.Name, entityName, filePath2);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityRibbonForConnectionFormat3, service.ConnectionData.Name, entityName, filePath2);
             }
             else
             {
@@ -886,10 +877,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 File.WriteAllText(filePath2, ribbonXml, new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ExportedAppliationRibbonForConnectionFormat2, service.ConnectionData.Name, filePath2);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedAppliationRibbonForConnectionFormat2, service.ConnectionData.Name, filePath2);
             }
 
-            this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, fileTitle1, fileTitle2);
+            await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, fileTitle1, fileTitle2);
         }
 
         #endregion Ribbon Showing Difference
@@ -906,9 +897,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 if (ParseXmlDocument(connectionData, selectedFile, out var doc))
                 {
-                    await DifferenceRibbonDiffXml(connectionData, commonConfig, doc, selectedFile.FilePath);
+                    await CheckAttributeValidateGetEntityNameExecuteAction(connectionData, commonConfig, doc, selectedFile.FilePath, null, DifferenceRibbonDiffXml);
                 }
-
             }
             catch (Exception ex)
             {
@@ -928,7 +918,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await DifferenceRibbonDiffXml(connectionData, commonConfig, doc, filePath);
+                await CheckAttributeValidateGetEntityNameExecuteAction(connectionData, commonConfig, doc, filePath, null, DifferenceRibbonDiffXml);
             }
             catch (Exception ex)
             {
@@ -940,39 +930,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task DifferenceRibbonDiffXml(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
+        private async Task DifferenceRibbonDiffXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, string entityName)
         {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            var attribute = doc.Root.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName);
-
-            if (attribute == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotContainsXmlAttributeFormat2, Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName.ToString(), filePath);
-                return;
-            }
-
-            string entityName = attribute.Value;
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-
-            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            if (service == null)
-            {
-                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
-
             var repositoryRibbonCustomization = new RibbonCustomizationRepository(service);
 
             EntityMetadata entityMetadata = null;
@@ -986,8 +945,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (entityMetadata == null)
                 {
-                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityNotExistsInConnectionFormat2, entityName, connectionData.Name);
-                    _iWriteToOutput.ActivateOutputWindow(connectionData);
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityNotExistsInConnectionFormat2, entityName, service.ConnectionData.Name);
+                    _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                     return;
                 }
             }
@@ -997,8 +956,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (ribbonCustomization == null)
                 {
-                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NotFoundedApplicationRibbonRibbonCustomization);
-                    _iWriteToOutput.ActivateOutputWindow(connectionData);
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NotFoundedApplicationRibbonRibbonCustomization);
+                    _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                     return;
                 }
             }
@@ -1026,7 +985,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 File.WriteAllText(filePath2, ribbonDiffXml, new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ExportedEntityRibbonDiffXmlForConnectionFormat3, service.ConnectionData.Name, entityMetadata.LogicalName, filePath2);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityRibbonDiffXmlForConnectionFormat3, service.ConnectionData.Name, entityMetadata.LogicalName, filePath2);
             }
             else if (ribbonCustomization != null)
             {
@@ -1035,7 +994,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 File.WriteAllText(filePath2, ribbonDiffXml, new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ExportedAppliationRibbonDiffXmlForConnectionFormat2, service.ConnectionData.Name, filePath2);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedAppliationRibbonDiffXmlForConnectionFormat2, service.ConnectionData.Name, filePath2);
             }
 
             await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, fileTitle1, fileTitle2);
@@ -1055,7 +1014,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 if (ParseXmlDocument(connectionData, selectedFile, out var doc))
                 {
-                    await UpdateRibbonDiffXml(connectionData, commonConfig, doc, selectedFile.FilePath);
+                    await CheckAttributeValidateGetEntityNameExecuteAction(connectionData, commonConfig, doc, selectedFile.FilePath, ValidateDocumentRibbonDiffXml, UpdateRibbonDiffXml);
                 }
             }
             catch (Exception ex)
@@ -1076,7 +1035,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await UpdateRibbonDiffXml(connectionData, commonConfig, doc, filePath);
+                await CheckAttributeValidateGetEntityNameExecuteAction(connectionData, commonConfig, doc, filePath, ValidateDocumentRibbonDiffXml, UpdateRibbonDiffXml);
             }
             catch (Exception ex)
             {
@@ -1088,21 +1047,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task UpdateRibbonDiffXml(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
+        private async Task<bool> ValidateDocumentRibbonDiffXml(ConnectionData connectionData, XDocument doc)
         {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ValidatingRibbonDiffXml);
 
-            var attribute = doc.Root.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName);
-
-            if (attribute == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotContainsXmlAttributeFormat2, Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName.ToString(), filePath);
-                return;
-            }
+            ContentComparerHelper.ClearRoot(doc);
 
             bool validateResult = await RibbonCustomizationRepository.ValidateXmlDocumentAsync(connectionData, _iWriteToOutput, doc);
 
@@ -1124,27 +1073,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (dialogResult != MessageBoxResult.OK)
                 {
-                    return;
+                    return false;
                 }
             }
 
-            string entityName = attribute.Value;
+            return true;
+        }
 
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-
-            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            if (service == null)
-            {
-                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
-
+        private async Task UpdateRibbonDiffXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, string entityName)
+        {
             EntityMetadata entityMetadata = null;
             RibbonCustomization ribbonCustomization = null;
 
@@ -1158,8 +1095,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (entityMetadata == null)
                 {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityNotExistsInConnectionFormat2, entityName, connectionData.Name);
-                    _iWriteToOutput.ActivateOutputWindow(connectionData);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityNotExistsInConnectionFormat2, entityName, service.ConnectionData.Name);
+                    _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                     return;
                 }
             }
@@ -1169,8 +1106,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (ribbonCustomization == null)
                 {
-                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NotFoundedApplicationRibbonRibbonCustomization);
-                    _iWriteToOutput.ActivateOutputWindow(connectionData);
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NotFoundedApplicationRibbonRibbonCustomization);
+                    _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                     return;
                 }
             }
@@ -1190,7 +1127,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await OpenRibbonExplorer(connectionData, commonConfig, selectedFile);
+                if (ParseXmlDocument(connectionData, selectedFile, out var doc))
+                {
+                    await CheckAttributeValidateGetEntityNameExecuteAction(connectionData, commonConfig, doc, selectedFile.FilePath, null, OpenRibbonExplorer);
+                }
             }
             catch (Exception ex)
             {
@@ -1202,56 +1142,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task OpenRibbonExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+        private async Task OpenRibbonExplorer(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, string entityName)
         {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            if (!File.Exists(selectedFile.FilePath))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
-                return;
-            }
-
-            string fileText = File.ReadAllText(selectedFile.FilePath);
-
-            if (!ContentComparerHelper.TryParseXmlDocument(fileText, out var doc))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
-                _iWriteToOutput.ActivateOutputWindow(connectionData);
-                return;
-            }
-
-            var attribute = doc.Root.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName);
-
-            if (attribute == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotContainsXmlAttributeFormat2, Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName.ToString(), selectedFile.FilePath);
-                return;
-            }
-
-            string entityName = attribute.Value;
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-
-            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            if (service == null)
-            {
-                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
-
-            var repositoryRibbonCustomization = new RibbonCustomizationRepository(service);
-
             if (!string.IsNullOrEmpty(entityName))
             {
                 WindowHelper.OpenEntityMetadataExplorer(_iWriteToOutput, service, commonConfig, entityName);
@@ -1274,7 +1166,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await EntityRibbonOpenInWeb(connectionData, commonConfig, selectedFile);
+                if (ParseXmlDocument(connectionData, selectedFile, out var doc))
+                {
+                    await CheckAttributeValidateGetEntityNameExecuteAction(connectionData, commonConfig, doc, selectedFile.FilePath, null, EntityRibbonOpenInWeb);
+                }
             }
             catch (Exception ex)
             {
@@ -1286,66 +1181,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task EntityRibbonOpenInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+        private async Task EntityRibbonOpenInWeb(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, string entityName)
         {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            if (!File.Exists(selectedFile.FilePath))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-
-            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            if (service == null)
-            {
-                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
-
-            string fileText = File.ReadAllText(selectedFile.FilePath);
-
-            if (!ContentComparerHelper.TryParseXmlDocument(fileText, out var doc))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
-                _iWriteToOutput.ActivateOutputWindow(connectionData);
-
-                WindowHelper.OpenEntityMetadataExplorer(_iWriteToOutput, service, commonConfig);
-
-                return;
-            }
-
-            var attribute = doc.Root.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName);
-
-            if (attribute == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotContainsXmlAttributeFormat2, Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName.ToString(), selectedFile.FilePath);
-
-                WindowHelper.OpenEntityMetadataExplorer(_iWriteToOutput, service, commonConfig);
-
-                return;
-            }
-
-            string entityName = attribute.Value;
-
             if (string.IsNullOrEmpty(entityName))
             {
-                this._iWriteToOutput.WriteToOutput(connectionData
+                this._iWriteToOutput.WriteToOutput(
+                    service.ConnectionData
                     , Properties.OutputStrings.XmlAttributeIsEmptyFormat2
                     , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName.ToString()
-                    , selectedFile.FilePath
+                    , filePath
                 );
 
                 WindowHelper.OpenEntityMetadataExplorer(_iWriteToOutput, service, commonConfig);
@@ -1359,8 +1203,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (entityMetadata == null)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityNotExistsInConnectionFormat2, entityName, connectionData.Name);
-                _iWriteToOutput.ActivateOutputWindow(connectionData);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityNotExistsInConnectionFormat2, entityName, service.ConnectionData.Name);
+                _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
                 WindowHelper.OpenEntityMetadataExplorer(_iWriteToOutput, service, commonConfig, entityName);
 
