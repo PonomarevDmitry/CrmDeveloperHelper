@@ -398,7 +398,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     WriteLine("'{0}': {{", section.Name);
 
-                    WriteLine("'Tab': '{0}',", tab.Name);
+                    WriteLine("'TabName': '{0}',", tab.Name);
 
                     WriteLine("'Name': '{0}',", section.Name);
 
