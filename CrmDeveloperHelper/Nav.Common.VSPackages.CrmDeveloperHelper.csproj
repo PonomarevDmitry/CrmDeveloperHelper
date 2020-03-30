@@ -509,6 +509,7 @@
     <Compile Include="Commands\Projects\ProjectRegisterPluginAssemblyInConnectionCommand.cs" />
     <Compile Include="Commands\Projects\ProjectUpdatePluginAssemblyCommand.cs" />
     <Compile Include="Commands\Projects\ProjectUpdatePluginAssemblyInConnectionCommand.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\FindsController.cs" />
     <Compile Include="Controllers\LinkController.cs" />
     <Compile Include="Controllers\OpenFilesController.cs" />

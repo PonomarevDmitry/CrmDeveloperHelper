@@ -23,327 +23,88 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
     /// <summary>
     /// Контроллер для экспорта риббона
     /// </summary>
-    public class EntityMetadataController
+    public class EntityMetadataController : BaseController
     {
-        private readonly IWriteToOutput _iWriteToOutput = null;
-
         /// <summary>
         /// Конструктор контроллера
         /// </summary>
         /// <param name="outputWindow"></param>
         public EntityMetadataController(IWriteToOutput outputWindow)
+            : base(outputWindow)
         {
-            this._iWriteToOutput = outputWindow;
         }
 
         #region Открытие Entity Explorers.
 
+        public async Task ExecuteOpeningEntityMetadataExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection, EnvDTE.SelectedItem selectedItem)
+        {
+            await ConnectAndOpenExplorerAsync(connectionData
+                , Properties.OperationNames.OpeningEntityMetadataExplorerFormat1
+                , (service) => WindowHelper.OpenEntityMetadataExplorer(this._iWriteToOutput, service, commonConfig, selection, selectedItem)
+            );
+        }
+
         public async Task ExecuteOpeningEntityAttributeExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
-            string operation = string.Format(Properties.OperationNames.OpeningEntityAttributeExplorerFormat1, connectionData?.Name);
-
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
-
-            try
-            {
-                if (connectionData == null)
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                    return;
-                }
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-
-                this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-                // Подключаемся к CRM.
-                var service = await QuickConnection.ConnectAsync(connectionData);
-
-                if (service == null)
-                {
-                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                    return;
-                }
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
-
-                WindowHelper.OpenEntityAttributeExplorer(this._iWriteToOutput, service, commonConfig, selection);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
-            }
+            await ConnectAndOpenExplorerAsync(connectionData
+                , Properties.OperationNames.OpeningEntityAttributeExplorerFormat1
+                , (service) => WindowHelper.OpenEntityAttributeExplorer(this._iWriteToOutput, service, commonConfig, selection)
+            );
         }
 
         public async Task ExecuteOpeningEntityKeyExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
-            string operation = string.Format(Properties.OperationNames.OpeningEntityKeyExplorerFormat1, connectionData?.Name);
-
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
-
-            try
-            {
-                if (connectionData == null)
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                    return;
-                }
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-
-                this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-                // Подключаемся к CRM.
-                var service = await QuickConnection.ConnectAsync(connectionData);
-
-                if (service == null)
-                {
-                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                    return;
-                }
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
-
-                WindowHelper.OpenEntityKeyExplorer(this._iWriteToOutput, service, commonConfig, selection);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
-            }
+            await ConnectAndOpenExplorerAsync(connectionData
+                , Properties.OperationNames.OpeningEntityKeyExplorerFormat1
+                , (service) => WindowHelper.OpenEntityKeyExplorer(this._iWriteToOutput, service, commonConfig, selection)
+            );
         }
 
         public async Task ExecuteOpeningEntityRelationshipOneToManyExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
-            string operation = string.Format(Properties.OperationNames.OpeningEntityRelationshipOneToManyFormat1, connectionData?.Name);
-
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
-
-            try
-            {
-                if (connectionData == null)
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                    return;
-                }
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-
-                this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-                // Подключаемся к CRM.
-                var service = await QuickConnection.ConnectAsync(connectionData);
-
-                if (service == null)
-                {
-                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                    return;
-                }
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
-
-                WindowHelper.OpenEntityRelationshipOneToManyExplorer(this._iWriteToOutput, service, commonConfig, selection);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
-            }
+            await ConnectAndOpenExplorerAsync(connectionData
+                , Properties.OperationNames.OpeningEntityRelationshipOneToManyFormat1
+                , (service) => WindowHelper.OpenEntityRelationshipOneToManyExplorer(this._iWriteToOutput, service, commonConfig, selection)
+            );
         }
 
         public async Task ExecuteOpeningEntityRelationshipManyToManyExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
-            string operation = string.Format(Properties.OperationNames.OpeningEntityRelationshipManyToManyFormat1, connectionData?.Name);
-
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
-
-            try
-            {
-                if (connectionData == null)
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                    return;
-                }
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-
-                this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-                // Подключаемся к CRM.
-                var service = await QuickConnection.ConnectAsync(connectionData);
-
-                if (service == null)
-                {
-                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                    return;
-                }
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
-
-                WindowHelper.OpenEntityRelationshipManyToManyExplorer(this._iWriteToOutput, service, commonConfig, selection);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
-            }
+            await ConnectAndOpenExplorerAsync(connectionData
+                , Properties.OperationNames.OpeningEntityRelationshipManyToManyFormat1
+                , (service) => WindowHelper.OpenEntityRelationshipManyToManyExplorer(this._iWriteToOutput, service, commonConfig, selection)
+            );
         }
 
         public async Task ExecuteOpeningEntityPrivilegesExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
-            string operation = string.Format(Properties.OperationNames.OpeningEntityPrivilegesExplorerFormat1, connectionData?.Name);
-
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
-
-            try
-            {
-                if (connectionData == null)
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                    return;
-                }
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-
-                this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-                // Подключаемся к CRM.
-                var service = await QuickConnection.ConnectAsync(connectionData);
-
-                if (service == null)
-                {
-                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                    return;
-                }
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
-
-                WindowHelper.OpenEntityPrivilegesExplorer(this._iWriteToOutput, service, commonConfig, selection);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
-            }
+            await ConnectAndOpenExplorerAsync(connectionData
+                , Properties.OperationNames.OpeningEntityPrivilegesExplorerFormat1
+                , (service) => WindowHelper.OpenEntityPrivilegesExplorer(this._iWriteToOutput, service, commonConfig, selection)
+            );
         }
 
         public async Task ExecuteOpeningOtherPrivilegesExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
-            string operation = string.Format(Properties.OperationNames.OpeningOtherPrivilegesExplorerFormat1, connectionData?.Name);
-
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
-
-            try
-            {
-                if (connectionData == null)
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                    return;
-                }
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-
-                this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-                // Подключаемся к CRM.
-                var service = await QuickConnection.ConnectAsync(connectionData);
-
-                if (service == null)
-                {
-                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                    return;
-                }
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
-
-                WindowHelper.OpenOtherPrivilegesExplorer(this._iWriteToOutput, service, commonConfig, selection);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
-            }
+            await ConnectAndOpenExplorerAsync(connectionData
+                , Properties.OperationNames.OpeningOtherPrivilegesExplorerFormat1
+                , (service) => WindowHelper.OpenOtherPrivilegesExplorer(this._iWriteToOutput, service, commonConfig, selection)
+            );
         }
 
         #endregion Открытие Entity Explorers.
 
-        #region Создание файла с мета-данными сущности.
-
-        public async Task ExecuteOpeningEntityMetadataExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection, EnvDTE.SelectedItem selectedItem)
-        {
-            string operation = string.Format(Properties.OperationNames.OpeningEntityMetadataExplorerFormat1, connectionData?.Name);
-
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
-
-            try
-            {
-                if (connectionData == null)
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                    return;
-                }
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-
-                this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-                // Подключаемся к CRM.
-                var service = await QuickConnection.ConnectAsync(connectionData);
-
-                if (service == null)
-                {
-                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                    return;
-                }
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
-
-                WindowHelper.OpenEntityMetadataExplorer(this._iWriteToOutput, service, commonConfig, selection, selectedItem);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
-            }
-        }
-
-        #endregion Создание файла с мета-данными сущности.
-
         #region Opening Entity Metadata File Generation Options
 
-        public void ExecuteOpeningEntityMetadataFileGenerationOptions()
+        private void GetFileGenerationOptionsAndOpenExplorer(string operation, Action<FileGenerationOptions> action)
         {
-            string operation = Properties.OperationNames.OpeningEntityMetadataFileGenerationOptions;
-
             this._iWriteToOutput.WriteToOutputStartOperation(null, operation);
 
             try
             {
                 var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
 
-                WindowHelper.OpenEntityMetadataFileGenerationOptions(fileGenerationOptions);
+                action(fileGenerationOptions);
             }
             catch (Exception ex)
             {
@@ -353,6 +114,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 this._iWriteToOutput.WriteToOutputEndOperation(null, operation);
             }
+        }
+
+        public void ExecuteOpeningEntityMetadataFileGenerationOptions()
+        {
+            GetFileGenerationOptionsAndOpenExplorer(
+                Properties.OperationNames.OpeningEntityMetadataFileGenerationOptions
+                , WindowHelper.OpenEntityMetadataFileGenerationOptions
+            );
         }
 
         #endregion Opening Entity Metadata File Generation Options
@@ -361,24 +130,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public void ExecuteOpeningGlobalOptionSetsMetadataFileGenerationOptions()
         {
-            string operation = Properties.OperationNames.OpeningGlobalOptionSetsFileGenerationOptions;
-
-            this._iWriteToOutput.WriteToOutputStartOperation(null, operation);
-
-            try
-            {
-                var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
-
-                WindowHelper.OpenGlobalOptionSetsFileGenerationOptions(fileGenerationOptions);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(null, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(null, operation);
-            }
+            GetFileGenerationOptionsAndOpenExplorer(
+                Properties.OperationNames.OpeningGlobalOptionSetsFileGenerationOptions
+                , WindowHelper.OpenGlobalOptionSetsFileGenerationOptions
+            );
         }
 
         #endregion Opening Global OptionSets Metadata File Generation Options
@@ -387,43 +142,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteCreatingFileWithGlobalOptionSets(ConnectionData connectionData, CommonConfiguration commonConfig, string selection, EnvDTE.SelectedItem selectedItem)
         {
-            string operation = string.Format(Properties.OperationNames.OpeningGlobalOptionSetsExplorerFormat1, connectionData?.Name);
-
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
-
-            try
-            {
-                if (connectionData == null)
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                    return;
-                }
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-
-                this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-                // Подключаемся к CRM.
-                var service = await QuickConnection.ConnectAsync(connectionData);
-
-                if (service == null)
-                {
-                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                    return;
-                }
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
-
-                WindowHelper.OpenGlobalOptionSetsExplorer(this._iWriteToOutput, service, commonConfig, selection, selectedItem);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
-            }
+            await ConnectAndOpenExplorerAsync(connectionData
+                , Properties.OperationNames.OpeningGlobalOptionSetsExplorerFormat1
+                , (service) => WindowHelper.OpenGlobalOptionSetsExplorer(this._iWriteToOutput, service, commonConfig, selection, selectedItem)
+            );
         }
 
         #endregion Создание файла с глобальными OptionSet-ами.
@@ -1320,7 +1042,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await DifferenceRibbonDiffXml(selectedFile, connectionData, commonConfig);
+                if (ParseXmlDocument(connectionData, selectedFile, out var doc))
+                {
+                    await DifferenceRibbonDiffXml(connectionData, commonConfig, doc, selectedFile.FilePath);
+                }
+
             }
             catch (Exception ex)
             {
@@ -1330,31 +1056,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
-        }
-
-        private async Task DifferenceRibbonDiffXml(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            if (!File.Exists(selectedFile.FilePath))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
-                return;
-            }
-
-            string fileText = File.ReadAllText(selectedFile.FilePath);
-
-            if (!ContentComparerHelper.TryParseXmlDocument(fileText, out var doc))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
-                return;
-            }
-
-            await DifferenceRibbonDiffXml(doc, selectedFile.FilePath, connectionData, commonConfig);
         }
 
         public async Task ExecuteDifferenceRibbonDiffXml(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
@@ -1365,7 +1066,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await DifferenceRibbonDiffXml(doc, filePath, connectionData, commonConfig);
+                await DifferenceRibbonDiffXml(connectionData, commonConfig, doc, filePath);
             }
             catch (Exception ex)
             {
@@ -1377,7 +1078,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task DifferenceRibbonDiffXml(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task DifferenceRibbonDiffXml(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             if (connectionData == null)
             {
@@ -1475,7 +1176,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ExportedAppliationRibbonDiffXmlForConnectionFormat2, service.ConnectionData.Name, filePath2);
             }
 
-            this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, fileTitle1, fileTitle2);
+            await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, fileTitle1, fileTitle2);
         }
 
         #endregion RibbonDiffXml Showing Difference
@@ -1490,7 +1191,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await UpdateRibbonDiffXml(selectedFile, connectionData, commonConfig);
+                if (ParseXmlDocument(connectionData, selectedFile, out var doc))
+                {
+                    await UpdateRibbonDiffXml(connectionData, commonConfig, doc, selectedFile.FilePath);
+                }
             }
             catch (Exception ex)
             {
@@ -1500,34 +1204,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
-        }
-
-        private async Task UpdateRibbonDiffXml(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            if (!File.Exists(selectedFile.FilePath))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
-                return;
-            }
-
-            string fileText = File.ReadAllText(selectedFile.FilePath);
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ValidatingRibbonDiffXml);
-
-            if (!ContentComparerHelper.TryParseXmlDocument(fileText, out var doc))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
-                _iWriteToOutput.ActivateOutputWindow(connectionData);
-                return;
-            }
-
-            await UpdateRibbonDiffXml(doc, selectedFile.FilePath, connectionData, commonConfig);
         }
 
         public async Task ExecuteUpdateRibbonDiffXml(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
@@ -1538,7 +1214,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await UpdateRibbonDiffXml(doc, filePath, connectionData, commonConfig);
+                await UpdateRibbonDiffXml(connectionData, commonConfig, doc, filePath);
             }
             catch (Exception ex)
             {
@@ -1550,7 +1226,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task UpdateRibbonDiffXml(XDocument doc, string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task UpdateRibbonDiffXml(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             if (connectionData == null)
             {

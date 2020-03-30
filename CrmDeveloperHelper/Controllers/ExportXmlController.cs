@@ -22,17 +22,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
     /// <summary>
     /// Контроллер для экспорта риббона
     /// </summary>
-    public class ExportXmlController
+    public class ExportXmlController : BaseController
     {
-        private readonly IWriteToOutput _iWriteToOutput = null;
-
         /// <summary>
         /// Конструктор контроллера
         /// </summary>
         /// <param name="iWriteToOutput"></param>
         public ExportXmlController(IWriteToOutput iWriteToOutput)
+            : base(iWriteToOutput)
         {
-            this._iWriteToOutput = iWriteToOutput;
         }
 
         #region Экспортирование списка событий форм.
@@ -182,94 +180,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         }
 
         #endregion Экспортирование списка событий форм.
-
-        private bool ParseXmlDocument(ConnectionData connectionData, SelectedFile selectedFile, out XDocument doc)
-        {
-            doc = null;
-
-            if (!File.Exists(selectedFile.FilePath))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
-                return false;
-            }
-
-            string fileText = File.ReadAllText(selectedFile.FilePath);
-
-            if (!ContentComparerHelper.TryParseXmlDocument(fileText, out doc))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
-                return false;
-            }
-
-            return true;
-        }
-
-        private async Task CheckAttributeValidateGetEntityExecuteAction<T>(
-            ConnectionData connectionData
-            , CommonConfiguration commonConfig
-            , XDocument doc
-            , string filePath
-            , XName attributeName
-            , Func<ConnectionData, string, XAttribute, bool> validatorAttribute
-            , Func<ConnectionData, XDocument, Task<bool>> validatorDocument
-            , Func<IOrganizationServiceExtented, CommonConfiguration, string, Task<Tuple<bool, T>>> entityGetter
-            , Func<IOrganizationServiceExtented, CommonConfiguration, XDocument, string, T, Task> continueAction
-        ) where T : Entity
-        {
-            var attribute = doc.Root.Attribute(attributeName);
-
-            if (attribute == null)
-            {
-                this._iWriteToOutput.WriteToOutput(
-                    connectionData
-                    , Properties.OutputStrings.FileNotContainsXmlAttributeFormat2
-                    , attributeName.ToString()
-                    , filePath
-                );
-
-                return;
-            }
-
-            if (validatorAttribute != null && !validatorAttribute(connectionData, filePath, attribute))
-            {
-                return;
-            }
-
-            if (validatorDocument != null && !await validatorDocument(connectionData, doc))
-            {
-                return;
-            }
-
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-
-            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            if (service == null)
-            {
-                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
-
-            var getResult = await entityGetter(service, commonConfig, attribute.Value);
-
-            if (!getResult.Item1)
-            {
-                return;
-            }
-
-            await continueAction(service, commonConfig, doc, filePath, getResult.Item2);
-        }
 
         #region SiteMap
 
@@ -439,11 +349,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
                 WindowHelper.OpenExportSiteMapExplorer(_iWriteToOutput, service, commonConfig, siteMapNameUnique);
-
-                return Tuple.Create(true, siteMap);
             }
 
-            return Tuple.Create(true, siteMap);
+            return Tuple.Create(siteMap != null, siteMap);
         }
 
         private async Task DifferenceSiteMapXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, SiteMap siteMap)
@@ -806,6 +714,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.SystemFormNotFoundedFormat2, service.ConnectionData.Name, systemFormId);
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+
+                WindowHelper.OpenSystemFormExplorer(_iWriteToOutput, service, commonConfig, systemFormId);
             }
 
             return Tuple.Create(systemForm != null, systemForm);
@@ -1209,6 +1119,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.SavedQueryNotFoundedFormat2, service.ConnectionData.Name, savedQueryId);
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+
+                WindowHelper.OpenSavedQueryExplorer(_iWriteToOutput, service, commonConfig, savedQueryId);
             }
 
             return Tuple.Create(savedQuery != null, savedQuery);
@@ -1638,6 +1550,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.WorkflowNotFoundedFormat2, service.ConnectionData.Name, workflowId);
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+
+                WindowHelper.OpenWorkflowExplorer(_iWriteToOutput, service, commonConfig, workflowId);
             }
 
             return Tuple.Create(workflow != null, workflow);
@@ -2056,11 +1970,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
                 WindowHelper.OpenWebResourceExplorer(_iWriteToOutput, service, commonConfig);
-
-                return Tuple.Create(true, webResource);
             }
 
-            return Tuple.Create(true, webResource);
+            return Tuple.Create(webResource != null, webResource);
         }
 
         private bool ValidateAttributeWebResourceDependencyXml(ConnectionData connectionData, string filePath, XAttribute attribute)
