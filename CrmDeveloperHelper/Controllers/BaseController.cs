@@ -109,6 +109,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             await continueAction(service, commonConfig, doc, filePath, getResult.Item2);
         }
 
+        protected async Task<IOrganizationServiceExtented> ConnectAndWriteToOutputAsync(ConnectionData connectionData)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return null;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return null;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+
+            return service;
+        }
+
         protected async Task ConnectAndOpenExplorerAsync(ConnectionData connectionData, string operationNameFormat1, Action<IOrganizationServiceExtented> action)
         {
             string operation = string.Format(operationNameFormat1, connectionData?.Name);
@@ -117,26 +143,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                if (connectionData == null)
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                    return;
-                }
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-
-                this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-                // Подключаемся к CRM.
-                var service = await QuickConnection.ConnectAsync(connectionData);
+                var service = await ConnectAndWriteToOutputAsync(connectionData);
 
                 if (service == null)
                 {
-                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
                     return;
                 }
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                 action(service);
             }
