@@ -44,33 +44,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         protected Task<IOrganizationServiceExtented> ConnectAndWriteToOutputAsync(ConnectionData connectionData)
         {
-            return ConnectAndWriteToOutputAsync(this._iWriteToOutput, connectionData);
-        }
-
-        protected static async Task<IOrganizationServiceExtented> ConnectAndWriteToOutputAsync(IWriteToOutput iWriteToOutput, ConnectionData connectionData)
-        {
-            if (connectionData == null)
-            {
-                iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return null;
-            }
-
-            iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-
-            iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            if (service == null)
-            {
-                iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                return null;
-            }
-
-            iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
-
-            return service;
+            return QuickConnection.ConnectAndWriteToOutputAsync(this._iWriteToOutput, connectionData);
         }
 
         protected async Task CheckAttributeValidateGetEntityExecuteAction<T>(

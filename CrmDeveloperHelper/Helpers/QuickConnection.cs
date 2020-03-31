@@ -592,5 +592,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             return credentials;
         }
+
+        public static async Task<IOrganizationServiceExtented> ConnectAndWriteToOutputAsync(IWriteToOutput iWriteToOutput, ConnectionData connectionData)
+        {
+            if (connectionData == null)
+            {
+                iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return null;
+            }
+
+            iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+
+            iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            // Подключаемся к CRM.
+            var service = await ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return null;
+            }
+
+            iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+
+            return service;
+        }
     }
 }

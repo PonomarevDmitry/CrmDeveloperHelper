@@ -72,7 +72,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             , ConnectionData connectionData
             , bool withDetails)
         {
-            var service = await ConnectAndWriteToOutputAsync(iWriteToOutput, connectionData);
+            var service = await QuickConnection.ConnectAndWriteToOutputAsync(iWriteToOutput, connectionData);
 
             if (service == null)
             {
@@ -807,7 +807,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             , List<SelectedFile> selectedFiles
             , ConnectionData connectionData)
         {
-            var service = await ConnectAndWriteToOutputAsync(iWriteToOutput, connectionData);
+            var service = await QuickConnection.ConnectAndWriteToOutputAsync(iWriteToOutput, connectionData);
 
             if (service == null)
             {
