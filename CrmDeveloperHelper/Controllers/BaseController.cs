@@ -47,6 +47,50 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             return QuickConnection.ConnectAndWriteToOutputAsync(this._iWriteToOutput, connectionData);
         }
 
+        protected async Task<Tuple<IOrganizationServiceExtented, IOrganizationServiceExtented>> ConnectAndWriteToOutputDoubleConnectionAsync(ConnectionData connectionData1, ConnectionData connectionData2)
+        {
+            if (connectionData1 == null)
+            {
+                this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.NoCRMConnection1);
+                return null;
+            }
+
+            if (connectionData2 == null)
+            {
+                this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.NoCRMConnection2);
+                return null;
+            }
+
+            this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.ConnectingToCRM);
+            this._iWriteToOutput.WriteToOutput(null, string.Empty);
+            this._iWriteToOutput.WriteToOutput(null, connectionData1.GetConnectionDescription());
+            this._iWriteToOutput.WriteToOutput(null, string.Empty);
+            this._iWriteToOutput.WriteToOutput(null, connectionData2.GetConnectionDescription());
+
+            var task1 = QuickConnection.ConnectAsync(connectionData1);
+            var task2 = QuickConnection.ConnectAsync(connectionData2);
+
+            var service1 = await task1;
+            var service2 = await task2;
+
+            if (service1 == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData1, Properties.OutputStrings.ConnectionFailedFormat1, connectionData1.Name);
+                return null;
+            }
+
+            if (service2 == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData2, Properties.OutputStrings.ConnectionFailedFormat1, connectionData2.Name);
+                return null;
+            }
+
+            this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CurrentServiceEndpointConnectionFormat2, connectionData1.Name, service1.CurrentServiceEndpoint);
+            this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CurrentServiceEndpointConnectionFormat2, connectionData2.Name, service2.CurrentServiceEndpoint);
+
+            return Tuple.Create(service1, service2);
+        }
+
         protected async Task CheckAttributeValidateGetEntityExecuteAction<T>(
             ConnectionData connectionData
             , CommonConfiguration commonConfig

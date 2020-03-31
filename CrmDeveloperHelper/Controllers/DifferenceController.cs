@@ -212,18 +212,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task ThreeFileDifferenceWebResources(ConnectionData connectionData1, ConnectionData connectionData2, CommonConfiguration commonConfig, SelectedFile selectedFile, ShowDifferenceThreeFileType differenceType)
         {
-            if (connectionData1 == null)
-            {
-                this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.NoCRMConnection1);
-                return;
-            }
-
-            if (connectionData2 == null)
-            {
-                this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.NoCRMConnection2);
-                return;
-            }
-
             if (differenceType == ShowDifferenceThreeFileType.ThreeWay)
             {
                 if (!File.Exists(selectedFile.FilePath))
@@ -233,32 +221,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             }
 
-            this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.ConnectingToCRM);
-            this._iWriteToOutput.WriteToOutput(null, string.Empty);
-            this._iWriteToOutput.WriteToOutput(null, connectionData1.GetConnectionDescription());
-            this._iWriteToOutput.WriteToOutput(null, string.Empty);
-            this._iWriteToOutput.WriteToOutput(null, connectionData2.GetConnectionDescription());
+            var doubleConnection = await ConnectAndWriteToOutputDoubleConnectionAsync(connectionData1, connectionData2);
 
-            var task1 = QuickConnection.ConnectAsync(connectionData1);
-            var task2 = QuickConnection.ConnectAsync(connectionData2);
-
-            var service1 = await task1;
-            var service2 = await task2;
-
-            if (service1 == null)
+            if (doubleConnection == null)
             {
-                _iWriteToOutput.WriteToOutput(connectionData1, Properties.OutputStrings.ConnectionFailedFormat1, connectionData1.Name);
                 return;
             }
 
-            if (service2 == null)
-            {
-                _iWriteToOutput.WriteToOutput(connectionData2, Properties.OutputStrings.ConnectionFailedFormat1, connectionData2.Name);
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CurrentServiceEndpointConnectionFormat2, connectionData1.Name, service1.CurrentServiceEndpoint);
-            this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CurrentServiceEndpointConnectionFormat2, connectionData2.Name, service2.CurrentServiceEndpoint);
+            var service1 = doubleConnection.Item1;
+            var service2 = doubleConnection.Item2;
 
             // Репозиторий для работы с веб-ресурсами
             WebResourceRepository webResourceRepository1 = new WebResourceRepository(service1);
@@ -797,18 +768,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task ThreeFileDifferenceReport(SelectedFile selectedFile, string fieldName, string fieldTitle, ConnectionData connectionData1, ConnectionData connectionData2, ShowDifferenceThreeFileType differenceType, CommonConfiguration commonConfig)
         {
-            if (connectionData1 == null)
-            {
-                this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.NoCRMConnection1);
-                return;
-            }
-
-            if (connectionData2 == null)
-            {
-                this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.NoCRMConnection2);
-                return;
-            }
-
             if (differenceType == ShowDifferenceThreeFileType.ThreeWay)
             {
                 if (!File.Exists(selectedFile.FilePath))
@@ -818,38 +777,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             }
 
+            var doubleConnection = await ConnectAndWriteToOutputDoubleConnectionAsync(connectionData1, connectionData2);
+
+            if (doubleConnection == null)
+            {
+                return;
+            }
+
+            var service1 = doubleConnection.Item1;
+            var service2 = doubleConnection.Item2;
+
             if (string.IsNullOrEmpty(fieldName))
             {
                 fieldName = Report.Schema.Attributes.originalbodytext;
                 fieldTitle = Report.Schema.Headers.originalbodytext;
             }
-
-            this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.ConnectingToCRM);
-            this._iWriteToOutput.WriteToOutput(null, string.Empty);
-            this._iWriteToOutput.WriteToOutput(null, connectionData1.GetConnectionDescription());
-            this._iWriteToOutput.WriteToOutput(null, string.Empty);
-            this._iWriteToOutput.WriteToOutput(null, connectionData2.GetConnectionDescription());
-
-            var task1 = QuickConnection.ConnectAsync(connectionData1);
-            var task2 = QuickConnection.ConnectAsync(connectionData2);
-
-            var service1 = await task1;
-            var service2 = await task2;
-
-            if (service1 == null)
-            {
-                _iWriteToOutput.WriteToOutput(connectionData1, Properties.OutputStrings.ConnectionFailedFormat1, connectionData1.Name);
-                return;
-            }
-
-            if (service2 == null)
-            {
-                _iWriteToOutput.WriteToOutput(connectionData2, Properties.OutputStrings.ConnectionFailedFormat1, connectionData2.Name);
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CurrentServiceEndpointConnectionFormat2, connectionData1.Name, service1.CurrentServiceEndpoint);
-            this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CurrentServiceEndpointConnectionFormat2, connectionData2.Name, service2.CurrentServiceEndpoint);
 
             // Репозиторий для работы с веб-ресурсами
             ReportRepository reportRepository1 = new ReportRepository(service1);
