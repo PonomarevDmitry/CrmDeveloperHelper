@@ -1890,22 +1890,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(connectionData, false, string.Empty);
 
-            _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-            _iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
             IOrganizationServiceExtented service = null;
 
             try
             {
-                service = await QuickConnection.ConnectAsync(connectionData);
+                service = await QuickConnection.ConnectAndWriteToOutputAsync(_iWriteToOutput, connectionData);
 
-                if (service != null)
+                if (service == null)
                 {
-                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
-                }
-                else
-                {
-                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
                     return;
                 }
             }
@@ -2025,22 +2017,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(connectionData, false, string.Empty);
 
-            _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-            _iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
             IOrganizationServiceExtented service = null;
 
             try
             {
-                service = await QuickConnection.ConnectAsync(connectionData);
+                service = await QuickConnection.ConnectAndWriteToOutputAsync(_iWriteToOutput, connectionData);
 
-                if (service != null)
+                if (service == null)
                 {
-                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
-                }
-                else
-                {
-                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
                     return;
                 }
             }

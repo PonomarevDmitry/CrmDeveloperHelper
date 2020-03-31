@@ -122,25 +122,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(connectionData, false, string.Empty);
 
-            _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-            _iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
             try
             {
-                var service = await QuickConnection.ConnectAsync(connectionData);
+                var service = await QuickConnection.ConnectAndWriteToOutputAsync(_iWriteToOutput, connectionData);
 
                 if (service != null)
                 {
-                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
-
                     _connectionCache[connectionData.ConnectionId] = service;
+                }
 
-                    return service;
-                }
-                else
-                {
-                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                }
+                return service;
             }
             catch (Exception ex)
             {
