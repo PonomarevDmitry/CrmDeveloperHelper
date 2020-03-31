@@ -34,7 +34,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
             if (connectionConfig.CurrentConnectionData != null)
             {
-                helper.HandleOpenLastSelectedSolution(connectionConfig.CurrentConnectionData, solutionUniqueName, this._actionOpen);
+                helper.HandleSolutionOpenLastSelected(connectionConfig.CurrentConnectionData, solutionUniqueName, this._actionOpen);
             }
         }
     }

@@ -18,7 +18,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Folders
 
         protected override void CommandAction(DTEHelper helper)
         {
-            helper.HandleExportSolution();
+            helper.HandleSolutionAddFileToFolder();
         }
 
         protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
