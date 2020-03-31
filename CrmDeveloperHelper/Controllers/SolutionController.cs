@@ -15,69 +15,22 @@ using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 {
-    public class SolutionController
+    public class SolutionController : BaseController<IWriteToOutput>
     {
         private const string _tabSpacer = "      ";
 
-        private readonly IWriteToOutput _iWriteToOutput = null;
-
         public SolutionController(IWriteToOutput iWriteToOutput)
+            : base(iWriteToOutput)
         {
-            this._iWriteToOutput = iWriteToOutput;
         }
 
         #region Solution Explorer.
 
         public async Task ExecuteOpeningSolutionExlorerWindow(ConnectionData connectionData, CommonConfiguration commonConfig, EnvDTE.SelectedItem selectedItem)
         {
-            string operation = string.Format(Properties.OperationNames.SolutionExplorerFormat1, connectionData?.Name);
-
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
-
-            try
-            {
-                await OpeningSolutionExlorerWindow(selectedItem, connectionData, commonConfig);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
-            }
-        }
-
-        private async Task OpeningSolutionExlorerWindow(EnvDTE.SelectedItem selectedItem, ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-
-            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            if (service == null)
-            {
-                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
-
-            WindowHelper.OpenExplorerSolutionExplorer(
-                _iWriteToOutput
-                , service
-                , commonConfig
-                , null
-                , null
-                , selectedItem
+            await ConnectAndOpenExplorerAsync(connectionData
+                , Properties.OperationNames.SolutionExplorerFormat1
+                , (service) => WindowHelper.OpenExplorerSolutionExplorer(this._iWriteToOutput, service, commonConfig, null, null, selectedItem)
             );
         }
 
@@ -87,52 +40,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpeningImportJobExlorerWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            string operation = string.Format(Properties.OperationNames.ImportJobExplorerFormat1, connectionData?.Name);
-
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
-
-            try
-            {
-                await OpeningImportJobExlorerWindow(connectionData, commonConfig);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
-            }
-        }
-
-        private async Task OpeningImportJobExlorerWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-
-            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            if (service == null)
-            {
-                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
-
-            WindowHelper.OpenImportJobExplorer(
-                _iWriteToOutput
-                , service
-                , commonConfig
-                , null
+            await ConnectAndOpenExplorerAsync(connectionData
+                , Properties.OperationNames.ImportJobExplorerFormat1
+                , (service) => WindowHelper.OpenImportJobExplorer(this._iWriteToOutput, service, commonConfig, null)
             );
         }
 
@@ -261,31 +171,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task AddingWebResourcesToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
         {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
             if (selectedFiles == null || !selectedFiles.Any())
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoWebResourcesToAddInSolutionFormat2, connectionData.Name, solutionUniqueName);
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
 
             if (service == null)
             {
-                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
                 return;
             }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             // Репозиторий для работы с веб-ресурсами
             WebResourceRepository webResourceRepository = new WebResourceRepository(service);
@@ -307,7 +204,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
                         continue;
                     }
-                    
+
                     this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.TryingToFindWebResourceByNameFormat1, selectedFile.Name);
 
                     string key = selectedFile.FriendlyFilePath.ToLower();
@@ -438,7 +335,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 WithSolutionsInfo = true,
                 WithUrls = true,
             };
-            
+
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WebResourcesToAddToSolutionFormat2, solution.UniqueName, componentsToAdd.Count);
 
             var desc = await solutionDesciptor.GetSolutionComponentsDescriptionAsync(componentsToAdd);
@@ -477,26 +374,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task AddingReportsToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
         {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-
-            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
 
             if (service == null)
             {
-                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
                 return;
             }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             // Репозиторий для работы с веб-ресурсами
             var reportRepository = new ReportRepository(service);
@@ -770,14 +653,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NoObjectsToAddToSolutionAllComponentsInSolutionFormant1, solution.UniqueName);
                     return;
                 }
-                
+
                 var componentsToAdd = dictForAdding.Select(e => new SolutionComponent()
                 {
                     ObjectId = e,
                     ComponentType = new OptionSetValue((int)componentType),
                     RootComponentBehaviorEnum = rootComponentBehavior,
                 }).ToList();
-                
+
                 iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ComponentsToAddToSolutionFormat2, solution.UniqueName, componentsToAdd.Count);
 
                 var desc = await descriptor.GetSolutionComponentsDescriptionAsync(componentsToAdd);
@@ -1108,32 +991,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task AddingPluginAssemblyToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)
         {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
             if (projectNames == null || !projectNames.Any())
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoProjectNames);
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-
-            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
 
             if (service == null)
             {
-                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
                 return;
             }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             var repository = new PluginAssemblyRepository(service);
 
@@ -1295,32 +1164,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task AddingPluginAssemblyProcessingStepsToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)
         {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
             if (projectNames == null || !projectNames.Any())
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoProjectNames);
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-
-            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
 
             if (service == null)
             {
-                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
                 return;
             }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             var repository = new PluginAssemblyRepository(service);
             var stepRepository = new SdkMessageProcessingStepRepository(service);
@@ -1521,32 +1376,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task AddingPluginTypeProcessingStepsToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> pluginTypeNames, bool withSelect)
         {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
             if (pluginTypeNames == null || !pluginTypeNames.Any())
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoProjectNames);
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-
-            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
 
             if (service == null)
             {
-                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
                 return;
             }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             var repository = new PluginTypeRepository(service);
 

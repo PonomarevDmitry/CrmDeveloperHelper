@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 {
-    public class ExplorerController : BaseController
+    public class ExplorerController : BaseController<IWriteToOutput>
     {
         public ExplorerController(IWriteToOutput iWriteToOutput)
             : base(iWriteToOutput)

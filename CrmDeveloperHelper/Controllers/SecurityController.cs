@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 {
-    public class SecurityController : BaseController
+    public class SecurityController : BaseController<IWriteToOutput>
     {
         /// <summary>
         /// Конструктор контроллера

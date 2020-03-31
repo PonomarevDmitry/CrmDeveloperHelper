@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xrm.Sdk;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
@@ -12,20 +11,18 @@ using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 {
-    public class ExportPluginConfigurationController
+    public class ExportPluginConfigurationController : BaseController<IWriteToOutput>
     {
-        private readonly IWriteToOutput _iWriteToOutput = null;
-
         /// <summary>
         /// Конструктор контроллера
         /// </summary>
         /// <param name="iWriteToOutput"></param>
         public ExportPluginConfigurationController(IWriteToOutput iWriteToOutput)
+            : base(iWriteToOutput)
         {
-            this._iWriteToOutput = iWriteToOutput;
         }
 
-        public async Task ExecuteExportingPluginConfigurationXml(ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteExportingPluginConfigurationXml(Model.ConnectionData connectionData, Model.CommonConfiguration commonConfig)
         {
             string operation = string.Format(Properties.OperationNames.ExportingPluginConfigurationXmlFormat1, connectionData?.Name);
 
@@ -45,37 +42,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task ExportingPluginConfigurationXml(ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task ExportingPluginConfigurationXml(Model.ConnectionData connectionData, Model.CommonConfiguration commonConfig)
         {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-
-            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
 
             if (service == null)
             {
-                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
                 return;
             }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             var filePath = await CreatePluginDescription(connectionData, service, commonConfig);
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
         }
 
-        private async Task<string> CreatePluginDescription(ConnectionData connectionData, IOrganizationServiceExtented service, CommonConfiguration commonConfig)
+        private async Task<string> CreatePluginDescription(Model.ConnectionData connectionData, IOrganizationServiceExtented service, Model.CommonConfiguration commonConfig)
         {
-            Nav.Common.VSPackages.CrmDeveloperHelper.Model.Backup.PluginDescription description = await GetPluginDescription(service);
+            Model.Backup.PluginDescription description = await GetPluginDescription(service);
 
             if (connectionData.User != null)
             {
@@ -124,7 +107,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             return filePath;
         }
 
-        private async Task<Nav.Common.VSPackages.CrmDeveloperHelper.Model.Backup.PluginDescription> GetPluginDescription(IOrganizationServiceExtented service)
+        private async Task<Model.Backup.PluginDescription> GetPluginDescription(IOrganizationServiceExtented service)
         {
             var repositoryAssembly = new PluginAssemblyRepository(service);
             var repositoryType = new PluginTypeRepository(service);
@@ -136,7 +119,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var repositoryStep = new SdkMessageProcessingStepRepository(service);
 
-            var result = new Nav.Common.VSPackages.CrmDeveloperHelper.Model.Backup.PluginDescription();
+            var result = new Model.Backup.PluginDescription();
 
             result.CreatedOn = DateTime.Now;
 
@@ -147,7 +130,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             foreach (var entAssembly in listAssemblies)
             {
-                var assembly = Nav.Common.VSPackages.CrmDeveloperHelper.Model.Backup.PluginAssembly.GetObject(entAssembly);
+                var assembly = Model.Backup.PluginAssembly.GetObject(entAssembly);
 
                 result.PluginAssemblies.Add(assembly);
 
@@ -155,19 +138,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 foreach (var entPluginType in listTypes)
                 {
-                    var pluginType = Nav.Common.VSPackages.CrmDeveloperHelper.Model.Backup.PluginType.GetObject(entPluginType);
+                    var pluginType = Model.Backup.PluginType.GetObject(entPluginType);
 
                     assembly.PluginTypes.Add(pluginType);
 
                     var listSteps = await repositoryStep.GetPluginStepsByPluginTypeIdAsync(entPluginType.Id);
 
-                    var listStepsToAdd = new List<Nav.Common.VSPackages.CrmDeveloperHelper.Model.Backup.PluginStep>();
+                    var listStepsToAdd = new List<Model.Backup.PluginStep>();
 
                     foreach (var entStep in listSteps)
                     {
-                        Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessage entMessage = null;
-                        Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageFilter entFilter = null;
-                        Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageProcessingStepSecureConfig entSecure = null;
+                        Entities.SdkMessage entMessage = null;
+                        Entities.SdkMessageFilter entFilter = null;
+                        Entities.SdkMessageProcessingStepSecureConfig entSecure = null;
 
                         var refMessage = entStep.SdkMessageId;
                         if (refMessage != null)
@@ -187,7 +170,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             entSecure = listSecure.FirstOrDefault(s => s.SdkMessageProcessingStepSecureConfigId == refSecure.Id);
                         }
 
-                        var step = Nav.Common.VSPackages.CrmDeveloperHelper.Model.Backup.PluginStep.GetObject(entStep, entMessage, entFilter, entSecure);
+                        var step = Model.Backup.PluginStep.GetObject(entStep, entMessage, entFilter, entSecure);
 
                         listStepsToAdd.Add(step);
 
@@ -195,7 +178,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         foreach (var entImage in listImages)
                         {
-                            var image = Nav.Common.VSPackages.CrmDeveloperHelper.Model.Backup.PluginImage.GetObject(entImage);
+                            var image = Model.Backup.PluginImage.GetObject(entImage);
 
                             step.PluginImages.Add(image);
                         }
@@ -217,7 +200,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             return result;
         }
 
-        public async Task ExecuteExportingPluginConfigurationIntoFolder(ConnectionData connectionData, CommonConfiguration commonConfig, EnvDTE.SelectedItem selectedItem)
+        public async Task ExecuteExportingPluginConfigurationIntoFolder(Model.ConnectionData connectionData, Model.CommonConfiguration commonConfig, EnvDTE.SelectedItem selectedItem)
         {
             string operation = string.Format(Properties.OperationNames.ExportingPluginConfigurationXmlIntoFolderFormat1, connectionData?.Name);
 
@@ -237,28 +220,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task ExportingPluginConfigurationIntoFolder(EnvDTE.SelectedItem selectedItem, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task ExportingPluginConfigurationIntoFolder(EnvDTE.SelectedItem selectedItem, Model.ConnectionData connectionData, Model.CommonConfiguration commonConfig)
         {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-
-            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
 
             if (service == null)
             {
-                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
                 return;
             }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             string filePath = string.Empty;
 

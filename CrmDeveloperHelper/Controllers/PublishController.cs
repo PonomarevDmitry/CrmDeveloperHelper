@@ -14,17 +14,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
     /// <summary>
     /// Контроллер для публикации
     /// </summary>
-    public class PublishController
+    public class PublishController : BaseController<IWriteToOutput>
     {
-        private readonly IWriteToOutput _iWriteToOutput = null;
-
         /// <summary>
         /// Конструктор контроллера для публикации
         /// </summary>
         /// <param name="iWriteToOutput"></param>
         public PublishController(IWriteToOutput iWriteToOutput)
+            : base(iWriteToOutput)
         {
-            this._iWriteToOutput = iWriteToOutput;
         }
 
         #region Обновление веб-ресурсов и публикация.
@@ -78,20 +76,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-
-            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
 
             if (service == null)
             {
-                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
                 return;
             }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             // Менеджер для публикации в CRM.
             PublishManager publishHelper = new PublishManager(this._iWriteToOutput, service);
@@ -281,6 +271,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var compareResult = await CompareController.GetWebResourcesWithType(this._iWriteToOutput, selectedFiles, OpenFilesType.EqualByText, connectionData);
 
+            if (compareResult == null || compareResult.Item1 == null)
+            {
+                return;
+            }
+
             var filesToPublish = compareResult.Item2.Where(f => f.Item2 != null);
 
             if (!filesToPublish.Any())
@@ -326,25 +321,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task PublishingAllAsync(ConnectionData connectionData)
         {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-
-            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-            var service = await QuickConnection.ConnectAsync(connectionData);
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
 
             if (service == null)
             {
-                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
                 return;
             }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             try
             {

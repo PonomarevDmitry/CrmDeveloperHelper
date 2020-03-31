@@ -63,6 +63,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var compareResult = await CompareController.GetWebResourcesWithType(this._iWriteToOutput, selectedFiles, openFilesType, connectionData);
 
+            if (compareResult == null || compareResult.Item1 == null)
+            {
+                return;
+            }
+
             var filesToOpen = compareResult.Item2;
 
             if (filesToOpen.Any())

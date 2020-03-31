@@ -23,14 +23,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
     /// <summary>
     /// Контроллер для экспорта риббона
     /// </summary>
-    public class EntityMetadataController : BaseController
+    public class EntityMetadataController : BaseController<IWriteToOutput>
     {
         /// <summary>
         /// Конструктор контроллера
         /// </summary>
-        /// <param name="outputWindow"></param>
-        public EntityMetadataController(IWriteToOutput outputWindow)
-            : base(outputWindow)
+        /// <param name="iWriteToOutput"></param>
+        public EntityMetadataController(IWriteToOutput iWriteToOutput)
+            : base(iWriteToOutput)
         {
         }
 
@@ -223,12 +223,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             , Func<IOrganizationServiceExtented, IMetadataProviderService, CommonConfiguration, EntityMetadata, string, Task> handler
         )
         {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
             if (!selectEntity && openOptions)
             {
                 var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
@@ -236,20 +230,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 WindowHelper.OpenEntityMetadataFileGenerationOptions(fileGenerationOptions);
             }
 
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-
-            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
 
             if (service == null)
             {
-                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
                 return;
             }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             var descriptor = new SolutionComponentDescriptor(service);
             descriptor.SetSettings(commonConfig);
@@ -526,12 +512,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             , Func<IOrganizationServiceExtented, CommonConfiguration, OptionSetMetadata, string, Task> handler
         )
         {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
             if (!withSelect && openOptions)
             {
                 var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
@@ -539,20 +519,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 WindowHelper.OpenGlobalOptionSetsFileGenerationOptions(fileGenerationOptions);
             }
 
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-
-            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
 
             if (service == null)
             {
-                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
                 return;
             }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             var descriptor = new SolutionComponentDescriptor(service);
             descriptor.SetSettings(commonConfig);
@@ -669,12 +641,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task UpdatingFileWithGlobalOptionSetAllJavaScript(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, bool openOptions)
         {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
             var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
 
             if (openOptions)
@@ -682,20 +648,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 WindowHelper.OpenGlobalOptionSetsFileGenerationOptions(fileGenerationOptions);
             }
 
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-
-            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
 
             if (service == null)
             {
-                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
                 return;
             }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             OptionSetRepository repository = new OptionSetRepository(service);
 
