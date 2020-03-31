@@ -18,7 +18,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Connections
 
         protected override void CommandAction(DTEHelper helper)
         {
-            helper.HandleOpenCrmInWeb(null, Model.OpenCrmWebSiteType.CrmWebApplication);
+            helper.HandleConnectionOpenCrmWebSiteInWeb(null, Model.OpenCrmWebSiteType.CrmWebApplication);
         }
 
         protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)

@@ -65,7 +65,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
-            helper.HandleOpenCrmInWeb(connectionData, _crmWebSiteType);
+            helper.HandleConnectionOpenCrmWebSiteInWeb(connectionData, _crmWebSiteType);
         }
     }
 }

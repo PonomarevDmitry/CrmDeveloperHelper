@@ -760,6 +760,7 @@
     <Compile Include="Helpers\ContentComparerHelper.Xml.cs" />
     <Compile Include="Helpers\DTEHelper.Checks.cs" />
     <Compile Include="Helpers\DTEHelper.CSharp.cs" />
+    <Compile Include="Helpers\DTEHelper.Explorers.cs" />
     <Compile Include="Helpers\DTEHelper.FindsEdits.cs" />
     <Compile Include="Helpers\DTEHelper.JavaScript.cs" />
     <Compile Include="Helpers\DTEHelper.PluginAssembly.cs" />
@@ -769,6 +770,7 @@
     <Compile Include="Helpers\DTEHelper.Ribbon.cs" />
     <Compile Include="Helpers\DTEHelper.SavedQuery.cs" />
     <Compile Include="Helpers\DTEHelper.SiteMap.cs" />
+    <Compile Include="Helpers\DTEHelper.Solution.cs" />
     <Compile Include="Helpers\DTEHelper.SystemForm.cs" />
     <Compile Include="Helpers\DTEHelper.WebResource.cs" />
     <Compile Include="Helpers\DTEHelper.Workflow.cs" />

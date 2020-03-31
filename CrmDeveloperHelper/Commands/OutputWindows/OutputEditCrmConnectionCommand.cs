@@ -24,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
-            helper.EditConnection(connectionData);
+            helper.HandlerConnectionEdit(connectionData);
         }
 
         protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, ConnectionData connectionData, OleMenuCommand menuCommand)

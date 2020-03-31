@@ -34,7 +34,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
         {
             List<SelectedFile> selectedFiles = helper.GetOpenedDocuments(FileOperations.SupportsWebResourceTextType).ToList();
 
-            helper.HandleFileCompareCommand(connectionData, selectedFiles, this._withDetails);
+            helper.HandleWebResourceCompareCommand(connectionData, selectedFiles, this._withDetails);
         }
 
         protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, ConnectionData connectionData, OleMenuCommand menuCommand)

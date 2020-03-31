@@ -18,7 +18,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Connections
 
         protected override void CommandAction(DTEHelper helper)
         {
-            helper.OpenConnectionList();
+            helper.HandleConnectionOpenList();
         }
 
         protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)

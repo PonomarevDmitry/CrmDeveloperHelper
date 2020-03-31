@@ -17,7 +17,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         protected override void CommandAction(DTEHelper helper)
         {
-            helper.HandleOrganizationComparer();
+            helper.HandleConnectionOrganizationComparer();
         }
     }
 }

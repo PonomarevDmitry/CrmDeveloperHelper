@@ -24,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
-            helper.HandleTraceReaderWindow(connectionData);
+            helper.HandleTraceReaderOpenWindow(connectionData);
         }
     }
 }

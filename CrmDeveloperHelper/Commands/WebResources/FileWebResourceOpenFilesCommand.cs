@@ -93,7 +93,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 
             if (selectedFiles.Count > 0)
             {
-                helper.HandleOpenFilesCommand(selectedFiles, _openFilesType, _inTextEditor);
+                helper.HandleWebResourceOpenFilesCommand(selectedFiles, _openFilesType, _inTextEditor);
             }
         }
 

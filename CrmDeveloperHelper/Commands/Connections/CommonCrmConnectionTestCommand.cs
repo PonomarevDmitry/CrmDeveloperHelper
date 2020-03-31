@@ -24,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Connections
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
-            helper.TestConnection(connectionData);
+            helper.HandleConnectionTest(connectionData);
         }
     }
 }

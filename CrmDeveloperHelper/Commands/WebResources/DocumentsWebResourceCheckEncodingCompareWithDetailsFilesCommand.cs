@@ -22,7 +22,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
         {
             List<SelectedFile> selectedFiles = helper.GetOpenedDocuments(FileOperations.SupportsWebResourceTextType).ToList();
 
-            helper.HandleCompareFilesWithoutUTF8EncodingCommand(selectedFiles, false);
+            helper.HandleWebResourceCompareFilesWithoutUTF8EncodingCommand(selectedFiles, false);
         }
 
         protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)

@@ -6,12 +6,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
     public partial class DTEHelper
     {
-        public void HandleFindEntityObjectsByPrefix()
-        {
-            HandleFindEntityObjectsByPrefix(null);
-        }
-
-        public void HandleFindEntityObjectsByPrefix(ConnectionData connectionData)
+        private void GetConnectionConfigTextAndExecute(ConnectionData connectionData, string windowTitle, string labelTitle, Action<ConnectionData, CommonConfiguration, string> action)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
@@ -29,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 CheckWishToChangeCurrentConnection(connectionData);
 
-                var dialog = new WindowSelectFolderAndText(commonConfig, connectionData, "Select Entity Name Prefix", "Entity Name Prefix");
+                var dialog = new WindowSelectFolderAndText(commonConfig, connectionData, windowTitle, labelTitle);
 
                 if (dialog.ShowDialog().GetValueOrDefault())
                 {
@@ -42,9 +37,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         CheckWishToChangeCurrentConnection(connectionData);
 
+                        string text = dialog.GetText();
+
                         try
                         {
-                            Controller.StartFindEntityObjectsByPrefix(connectionData, commonConfig, dialog.GetText());
+                            action(connectionData, commonConfig, text);
                         }
                         catch (Exception ex)
                         {
@@ -53,6 +50,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                 }
             }
+        }
+
+        public void HandleFindEntityObjectsByPrefix()
+        {
+            HandleFindEntityObjectsByPrefix(null);
+        }
+
+        public void HandleFindEntityObjectsByPrefix(ConnectionData connectionData)
+        {
+            GetConnectionConfigTextAndExecute(connectionData
+                , "Select Entity Name Prefix", "Entity Name Prefix"
+                , (conn, commonConfig, text) => Controller.StartFindEntityObjectsByPrefix(conn, commonConfig, text)
+            );
         }
 
         public void HandleFindEntityObjectsByPrefixInExplorer()
@@ -62,46 +72,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleFindEntityObjectsByPrefixInExplorer(ConnectionData connectionData)
         {
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
-
-            if (connectionData == null)
-            {
-                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
-                {
-                    return;
-                }
-
-                connectionData = crmConfig.CurrentConnectionData;
-            }
-
-            if (connectionData != null && commonConfig != null)
-            {
-                CheckWishToChangeCurrentConnection(connectionData);
-
-                var dialog = new WindowSelectFolderAndText(commonConfig, connectionData, "Select Entity Name Prefix", "Entity Name Prefix");
-
-                if (dialog.ShowDialog().GetValueOrDefault())
-                {
-                    connectionData = dialog.GetConnectionData();
-
-                    if (connectionData != null)
-                    {
-                        ActivateOutputWindow(connectionData);
-                        WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                        CheckWishToChangeCurrentConnection(connectionData);
-
-                        try
-                        {
-                            Controller.StartFindEntityObjectsByPrefixInExplorer(connectionData, commonConfig, dialog.GetText());
-                        }
-                        catch (Exception ex)
-                        {
-                            WriteErrorToOutput(connectionData, ex);
-                        }
-                    }
-                }
-            }
+            GetConnectionConfigTextAndExecute(connectionData
+                , "Select Entity Name Prefix", "Entity Name Prefix"
+                , (conn, commonConfig, text) => Controller.StartFindEntityObjectsByPrefixInExplorer(conn, commonConfig, text)
+            );
         }
 
         public void HandleFindEntityObjectsByPrefixAndShowDependentComponents()
@@ -111,46 +85,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleFindEntityObjectsByPrefixAndShowDependentComponents(ConnectionData connectionData)
         {
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
-
-            if (connectionData == null)
-            {
-                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
-                {
-                    return;
-                }
-
-                connectionData = crmConfig.CurrentConnectionData;
-            }
-
-            if (connectionData != null && commonConfig != null)
-            {
-                CheckWishToChangeCurrentConnection(connectionData);
-
-                var dialog = new WindowSelectFolderAndText(commonConfig, connectionData, "Select Entity Name Prefix", "Entity Name Prefix");
-
-                if (dialog.ShowDialog().GetValueOrDefault())
-                {
-                    connectionData = dialog.GetConnectionData();
-
-                    if (connectionData != null)
-                    {
-                        ActivateOutputWindow(connectionData);
-                        WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                        CheckWishToChangeCurrentConnection(connectionData);
-
-                        try
-                        {
-                            Controller.StartFindEntityObjectsByPrefixAndShowDependentComponents(connectionData, commonConfig, dialog.GetText());
-                        }
-                        catch (Exception ex)
-                        {
-                            WriteErrorToOutput(connectionData, ex);
-                        }
-                    }
-                }
-            }
+            GetConnectionConfigTextAndExecute(connectionData
+                , "Select Entity Name Prefix", "Entity Name Prefix"
+                , (conn, commonConfig, text) => Controller.StartFindEntityObjectsByPrefixAndShowDependentComponents(conn, commonConfig, text)
+            );
         }
 
         public void HandleFindMarkedToDeleteInExplorer()
@@ -160,46 +98,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleFindMarkedToDeleteInExplorer(ConnectionData connectionData)
         {
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
-
-            if (connectionData == null)
-            {
-                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
-                {
-                    return;
-                }
-
-                connectionData = crmConfig.CurrentConnectionData;
-            }
-
-            if (connectionData != null && commonConfig != null)
-            {
-                CheckWishToChangeCurrentConnection(connectionData);
-
-                var dialog = new WindowSelectFolderAndText(commonConfig, connectionData, "Select mark to delete", "Mark to delete");
-
-                if (dialog.ShowDialog().GetValueOrDefault())
-                {
-                    connectionData = dialog.GetConnectionData();
-
-                    if (connectionData != null)
-                    {
-                        ActivateOutputWindow(connectionData);
-                        WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                        CheckWishToChangeCurrentConnection(connectionData);
-
-                        try
-                        {
-                            Controller.StartFindMarkedToDeleteInExplorer(connectionData, commonConfig, dialog.GetText());
-                        }
-                        catch (Exception ex)
-                        {
-                            WriteErrorToOutput(connectionData, ex);
-                        }
-                    }
-                }
-            }
+            GetConnectionConfigTextAndExecute(connectionData
+                , "Select mark to delete", "Mark to delete"
+                , (conn, commonConfig, text) => Controller.StartFindMarkedToDeleteInExplorer(conn, commonConfig, text)
+            );
         }
 
         public void HandleFindMarkedToDeleteAndShowDependentComponents()
@@ -209,46 +111,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleFindMarkedToDeleteAndShowDependentComponents(ConnectionData connectionData)
         {
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
-
-            if (connectionData == null)
-            {
-                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
-                {
-                    return;
-                }
-
-                connectionData = crmConfig.CurrentConnectionData;
-            }
-
-            if (connectionData != null && commonConfig != null)
-            {
-                CheckWishToChangeCurrentConnection(connectionData);
-
-                var dialog = new WindowSelectFolderAndText(commonConfig, connectionData, "Select mark to delete", "Mark to delete");
-
-                if (dialog.ShowDialog().GetValueOrDefault())
-                {
-                    connectionData = dialog.GetConnectionData();
-
-                    if (connectionData != null)
-                    {
-                        ActivateOutputWindow(connectionData);
-                        WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                        CheckWishToChangeCurrentConnection(connectionData);
-
-                        try
-                        {
-                            Controller.StartFindMarkedToDeleteAndShowDependentComponents(connectionData, commonConfig, dialog.GetText());
-                        }
-                        catch (Exception ex)
-                        {
-                            WriteErrorToOutput(connectionData, ex);
-                        }
-                    }
-                }
-            }
+            GetConnectionConfigTextAndExecute(connectionData
+                , "Select mark to delete", "Mark to delete"
+                , (conn, commonConfig, text) => Controller.StartFindMarkedToDeleteInExplorer(conn, commonConfig, text)
+            );
         }
 
         public void HandleFindEntityObjectsByName()
@@ -258,46 +124,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleFindEntityObjectsByName(ConnectionData connectionData)
         {
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
-
-            if (connectionData == null)
-            {
-                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
-                {
-                    return;
-                }
-
-                connectionData = crmConfig.CurrentConnectionData;
-            }
-
-            if (connectionData != null && commonConfig != null)
-            {
-                CheckWishToChangeCurrentConnection(connectionData);
-
-                var dialog = new WindowSelectFolderAndText(commonConfig, connectionData, "Select Element Name", "Element Name");
-
-                if (dialog.ShowDialog().GetValueOrDefault())
-                {
-                    connectionData = dialog.GetConnectionData();
-
-                    if (connectionData != null)
-                    {
-                        ActivateOutputWindow(connectionData);
-                        WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                        CheckWishToChangeCurrentConnection(connectionData);
-
-                        try
-                        {
-                            Controller.StartFindEntityObjectsByName(connectionData, commonConfig, dialog.GetText());
-                        }
-                        catch (Exception ex)
-                        {
-                            WriteErrorToOutput(connectionData, ex);
-                        }
-                    }
-                }
-            }
+            GetConnectionConfigTextAndExecute(connectionData
+                , "Select Element Name", "Element Name"
+                , (conn, commonConfig, text) => Controller.StartFindEntityObjectsByName(conn, commonConfig, text)
+            );
         }
 
         public void HandleFindEntityObjectsByNameInExplorer()
@@ -307,46 +137,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleFindEntityObjectsByNameInExplorer(ConnectionData connectionData)
         {
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
-
-            if (connectionData == null)
-            {
-                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
-                {
-                    return;
-                }
-
-                connectionData = crmConfig.CurrentConnectionData;
-            }
-
-            if (connectionData != null && commonConfig != null)
-            {
-                CheckWishToChangeCurrentConnection(connectionData);
-
-                var dialog = new WindowSelectFolderAndText(commonConfig, connectionData, "Select Element Name", "Element Name");
-
-                if (dialog.ShowDialog().GetValueOrDefault())
-                {
-                    connectionData = dialog.GetConnectionData();
-
-                    if (connectionData != null)
-                    {
-                        ActivateOutputWindow(connectionData);
-                        WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                        CheckWishToChangeCurrentConnection(connectionData);
-
-                        try
-                        {
-                            Controller.StartFindEntityObjectsByNameInExplorer(connectionData, commonConfig, dialog.GetText());
-                        }
-                        catch (Exception ex)
-                        {
-                            WriteErrorToOutput(connectionData, ex);
-                        }
-                    }
-                }
-            }
+            GetConnectionConfigTextAndExecute(connectionData
+                , "Select Element Name", "Element Name"
+                , (conn, commonConfig, text) => Controller.StartFindEntityObjectsByNameInExplorer(conn, commonConfig, text)
+            );
         }
 
         public void HandleFindEntityObjectsContainsString()
@@ -356,46 +150,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleFindEntityObjectsContainsString(ConnectionData connectionData)
         {
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
-
-            if (connectionData == null)
-            {
-                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
-                {
-                    return;
-                }
-
-                connectionData = crmConfig.CurrentConnectionData;
-            }
-
-            if (connectionData != null && commonConfig != null)
-            {
-                CheckWishToChangeCurrentConnection(connectionData);
-
-                var dialog = new WindowSelectFolderAndText(commonConfig, connectionData, "Select String for contain", "String for contain");
-
-                if (dialog.ShowDialog().GetValueOrDefault())
-                {
-                    connectionData = dialog.GetConnectionData();
-
-                    if (connectionData != null)
-                    {
-                        ActivateOutputWindow(connectionData);
-                        WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                        CheckWishToChangeCurrentConnection(connectionData);
-
-                        try
-                        {
-                            Controller.StartFindEntityObjectsContainsString(connectionData, commonConfig, dialog.GetText());
-                        }
-                        catch (Exception ex)
-                        {
-                            WriteErrorToOutput(connectionData, ex);
-                        }
-                    }
-                }
-            }
+            GetConnectionConfigTextAndExecute(connectionData
+                , "Select String to contain", "String to contain"
+                , (conn, commonConfig, text) => Controller.StartFindEntityObjectsContainsString(conn, commonConfig, text)
+            );
         }
 
         public void HandleFindEntityObjectsContainsStringInExplorer()
@@ -405,46 +163,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleFindEntityObjectsContainsStringInExplorer(ConnectionData connectionData)
         {
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
-
-            if (connectionData == null)
-            {
-                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
-                {
-                    return;
-                }
-
-                connectionData = crmConfig.CurrentConnectionData;
-            }
-
-            if (connectionData != null && commonConfig != null)
-            {
-                CheckWishToChangeCurrentConnection(connectionData);
-
-                var dialog = new WindowSelectFolderAndText(commonConfig, connectionData, "Select String for contain", "String for contain");
-
-                if (dialog.ShowDialog().GetValueOrDefault())
-                {
-                    connectionData = dialog.GetConnectionData();
-
-                    if (connectionData != null)
-                    {
-                        ActivateOutputWindow(connectionData);
-                        WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                        CheckWishToChangeCurrentConnection(connectionData);
-
-                        try
-                        {
-                            Controller.StartFindEntityObjectsContainsStringInExplorer(connectionData, commonConfig, dialog.GetText());
-                        }
-                        catch (Exception ex)
-                        {
-                            WriteErrorToOutput(connectionData, ex);
-                        }
-                    }
-                }
-            }
+            GetConnectionConfigTextAndExecute(connectionData
+                , "Select String to contain", "String to contain"
+                , (conn, commonConfig, text) => Controller.StartFindEntityObjectsContainsStringInExplorer(conn, commonConfig, text)
+            );
         }
 
         public void HandleFindEntityById()
@@ -452,7 +174,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             HandleFindEntityById(null);
         }
 
-        public void HandleFindEntityById(ConnectionData connectionData)
+        private void GetConnectionConfigEntityPropertiesAndExecute(ConnectionData connectionData, string windowTitleFormat1, Action<ConnectionData, CommonConfiguration, string, int?, Guid> action)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
@@ -470,7 +192,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 CheckWishToChangeCurrentConnection(connectionData);
 
-                var dialog = new WindowSelectEntityIdToFind(commonConfig, connectionData, string.Format("Find Entity in {0} by Id", connectionData.Name));
+                string windowTitle = string.Format(windowTitleFormat1, connectionData.Name);
+
+                var dialog = new WindowSelectEntityIdToFind(commonConfig, connectionData, windowTitle);
 
                 if (dialog.ShowDialog().GetValueOrDefault())
                 {
@@ -487,7 +211,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     try
                     {
-                        Controller.StartFindEntityById(connectionData, commonConfig, entityName, entityTypeCode, entityId);
+                        action(connectionData, commonConfig, entityName, entityTypeCode, entityId);
                     }
                     catch (Exception ex)
                     {
@@ -495,6 +219,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                 }
             }
+        }
+
+        public void HandleFindEntityById(ConnectionData connectionData)
+        {
+            GetConnectionConfigEntityPropertiesAndExecute(connectionData
+                , "Find Entity in {0} by Id"
+                , (conn, commonConfig, entityName, entityTypeCode, entityId) => Controller.StartFindEntityById(conn, commonConfig, entityName, entityTypeCode, entityId)
+            );
         }
 
         public void HandleFindEntityByUniqueidentifier()
@@ -504,47 +236,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleFindEntityByUniqueidentifier(ConnectionData connectionData)
         {
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
-
-            if (connectionData == null)
-            {
-                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
-                {
-                    return;
-                }
-
-                connectionData = crmConfig.CurrentConnectionData;
-            }
-
-            if (connectionData != null && commonConfig != null)
-            {
-                CheckWishToChangeCurrentConnection(connectionData);
-
-                var dialog = new WindowSelectEntityIdToFind(commonConfig, connectionData, string.Format("Find Entity in {0} by Uniqueidentifier", connectionData.Name));
-
-                if (dialog.ShowDialog().GetValueOrDefault())
-                {
-                    string entityName = dialog.EntityTypeName;
-                    int? entityTypeCode = dialog.EntityTypeCode;
-                    Guid entityId = dialog.EntityId;
-
-                    connectionData = dialog.GetConnectionData();
-
-                    ActivateOutputWindow(connectionData);
-                    WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                    CheckWishToChangeCurrentConnection(connectionData);
-
-                    try
-                    {
-                        Controller.StartFindEntityByUniqueidentifier(connectionData, commonConfig, entityName, entityTypeCode, entityId);
-                    }
-                    catch (Exception ex)
-                    {
-                        WriteErrorToOutput(connectionData, ex);
-                    }
-                }
-            }
+            GetConnectionConfigEntityPropertiesAndExecute(connectionData
+                , "Find Entity in {0} by Uniqueidentifier"
+                , (conn, commonConfig, entityName, entityTypeCode, entityId) => Controller.StartFindEntityByUniqueidentifier(conn, commonConfig, entityName, entityTypeCode, entityId)
+            );
         }
 
         public void HandleEditEntityById()
@@ -554,47 +249,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleEditEntityById(ConnectionData connectionData)
         {
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
-
-            if (connectionData == null)
-            {
-                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
-                {
-                    return;
-                }
-
-                connectionData = crmConfig.CurrentConnectionData;
-            }
-
-            if (connectionData != null && commonConfig != null)
-            {
-                CheckWishToChangeCurrentConnection(connectionData);
-
-                var dialog = new WindowSelectEntityIdToFind(commonConfig, connectionData, string.Format("Edit Entity in {0} by Id", connectionData.Name));
-
-                if (dialog.ShowDialog().GetValueOrDefault())
-                {
-                    string entityName = dialog.EntityTypeName;
-                    int? entityTypeCode = dialog.EntityTypeCode;
-                    Guid entityId = dialog.EntityId;
-
-                    connectionData = dialog.GetConnectionData();
-
-                    ActivateOutputWindow(connectionData);
-                    WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                    CheckWishToChangeCurrentConnection(connectionData);
-
-                    try
-                    {
-                        Controller.StartEditEntityById(connectionData, commonConfig, entityName, entityTypeCode, entityId);
-                    }
-                    catch (Exception ex)
-                    {
-                        WriteErrorToOutput(connectionData, ex);
-                    }
-                }
-            }
+            GetConnectionConfigEntityPropertiesAndExecute(connectionData
+                , "Edit Entity in {0} by Id"
+                , (conn, commonConfig, entityName, entityTypeCode, entityId) => Controller.StartEditEntityById(conn, commonConfig, entityName, entityTypeCode, entityId)
+            );
         }
     }
 }

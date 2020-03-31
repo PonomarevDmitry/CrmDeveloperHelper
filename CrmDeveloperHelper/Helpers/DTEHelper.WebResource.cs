@@ -2,6 +2,7 @@
 using Nav.Common.VSPackages.CrmDeveloperHelper.Views;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -369,6 +370,96 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             GetConnectionConfigAndExecute(null, (conn, commonConfig) => Controller.StartWebResourceCreatingLastLinkMultiple(conn, selectedFiles));
+        }
+
+        public void HandleWebResourceCompareCommand(ConnectionData connectionData, List<SelectedFile> selectedFiles, bool withDetails)
+        {
+            if (selectedFiles.Count == 0)
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWebResourceComparing(conn, selectedFiles, withDetails));
+        }
+
+        public void HandleWebResourceOpenFilesCommand(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, bool inTextEditor)
+        {
+            if (selectedFiles.Count == 0)
+            {
+                return;
+            }
+
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (inTextEditor && !File.Exists(commonConfig.TextEditorProgram))
+            {
+                return;
+            }
+
+            if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
+            {
+                return;
+            }
+
+            var connectionData = crmConfig.CurrentConnectionData;
+
+            if (connectionData != null && commonConfig != null)
+            {
+                ActivateOutputWindow(connectionData);
+                WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                Controller.StartOpeningFiles(connectionData, commonConfig, selectedFiles, openFilesType, inTextEditor);
+            }
+        }
+
+        public void HandleWebResourceCheckFileEncodingCommand(List<SelectedFile> selectedFiles)
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (commonConfig != null && selectedFiles.Count > 0)
+            {
+                ActivateOutputWindow(null);
+                WriteToOutputEmptyLines(null, commonConfig);
+
+                try
+                {
+                    Controller.StartCheckFileEncoding(selectedFiles);
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToOutput(null, ex);
+                }
+            }
+        }
+
+        public void HandleWebResourceCheckOpenFilesWithoutUTF8EncodingCommand(List<SelectedFile> selectedFiles)
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (commonConfig != null && selectedFiles.Count > 0)
+            {
+                ActivateOutputWindow(null);
+                WriteToOutputEmptyLines(null, commonConfig);
+
+                try
+                {
+                    Controller.StartOpenFilesWithouUTF8Encoding(selectedFiles);
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToOutput(null, ex);
+                }
+            }
+        }
+
+        public void HandleWebResourceCompareFilesWithoutUTF8EncodingCommand(List<SelectedFile> selectedFiles, bool withDetails)
+        {
+            if (selectedFiles.Count == 0)
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(null, (conn, commonConfig) => Controller.StartComparingFilesWithWrongEncoding(conn, selectedFiles, withDetails));
         }
 
         #endregion WebResource

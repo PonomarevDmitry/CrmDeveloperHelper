@@ -518,7 +518,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         /// </summary>
         /// <param name="selectedFiles"></param>
         /// <param name="config"></param>
-        public void StartComparing(ConnectionData connectionData, List<SelectedFile> selectedFiles, bool withDetails)
+        public void StartWebResourceComparing(ConnectionData connectionData, List<SelectedFile> selectedFiles, bool withDetails)
             => ExecuteWithConnectionInThread(connectionData, this._compareController.ExecuteComparingFilesAndWebResources, selectedFiles, withDetails);
 
         public void ShowingWebResourcesDependentComponents(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
@@ -890,7 +890,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartPublishAll(ConnectionData connectionData)
             => ExecuteWithConnectionInThread(connectionData, this._publishController.ExecutePublishingAll);
 
-        public void StartTraceReaderWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartTraceReaderOpenWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
             => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteOpeningTraceReader, commonConfig);
     }
 }
