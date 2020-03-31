@@ -743,7 +743,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , connection1
                 , connection2
                 , null
-                );
+            );
         }
 
         private void tSMIDifferenceApplicationRibbons_Click(object sender, RoutedEventArgs e)
@@ -762,10 +762,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , _commonConfig
                 , connection1
                 , connection2
-                );
+            );
         }
 
-        private void tSMIDifferenceSitemaps_Click(object sender, RoutedEventArgs e)
+        private void tSMIDifferenceSiteMaps_Click(object sender, RoutedEventArgs e)
         {
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
@@ -781,7 +781,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , _commonConfig
                 , connection1
                 , connection2
-                );
+            );
         }
 
         private void tSMIDifferenceWorkflows_Click(object sender, RoutedEventArgs e)
@@ -801,7 +801,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , connection1
                 , connection2
                 , null
-                );
+            );
         }
 
         private void tSMIDifferenceReports_Click(object sender, RoutedEventArgs e)
@@ -1210,11 +1210,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             try
             {
-                UpdateStatus(null, Properties.OutputStrings.CheckingSitemapsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.OutputStrings.CheckingSiteMapsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
                 string filePath = await comparer.CheckSiteMapsAsync();
 
-                this._iWriteToOutput.WriteToOutput(null, "Check Sitemaps in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
+                this._iWriteToOutput.WriteToOutput(null, "Check SiteMaps in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
 
                 this._iWriteToOutput.PerformAction(null, filePath);
             }

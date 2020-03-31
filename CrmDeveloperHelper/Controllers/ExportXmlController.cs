@@ -339,7 +339,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task<Tuple<bool, SiteMap>> GetSiteMapByAttribute(IOrganizationServiceExtented service, CommonConfiguration commonConfig, string siteMapNameUnique)
         {
-            var repositorySiteMap = new SitemapRepository(service);
+            var repositorySiteMap = new SiteMapRepository(service);
 
             var siteMap = await repositorySiteMap.FindByExactNameAsync(siteMapNameUnique ?? string.Empty, new ColumnSet(true));
 
@@ -467,7 +467,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             ContentComparerHelper.ClearRoot(doc);
 
-            bool validateResult = await SitemapRepository.ValidateXmlDocumentAsync(connectionData, _iWriteToOutput, doc);
+            bool validateResult = await SiteMapRepository.ValidateXmlDocumentAsync(connectionData, _iWriteToOutput, doc);
 
             if (!validateResult)
             {
@@ -1719,7 +1719,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             ContentComparerHelper.ClearRoot(doc);
 
-            bool validateResult = await SitemapRepository.ValidateXmlDocumentAsync(connectionData, _iWriteToOutput, doc);
+            bool validateResult = await SiteMapRepository.ValidateXmlDocumentAsync(connectionData, _iWriteToOutput, doc);
 
             if (!validateResult)
             {

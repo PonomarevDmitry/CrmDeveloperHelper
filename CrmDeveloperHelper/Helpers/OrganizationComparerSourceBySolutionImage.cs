@@ -530,7 +530,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return new List<SiteMap>();
             }
 
-            return await new SitemapRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
+            return await new SiteMapRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
         }
 
         protected override async Task<List<SavedQuery>> GetSavedQueryAsync(IOrganizationServiceExtented service)

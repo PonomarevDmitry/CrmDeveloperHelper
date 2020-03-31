@@ -744,7 +744,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var task1 = _comparerSource.GetSiteMap1Async();
             var task2 = _comparerSource.GetSiteMap2Async();
 
-            string operation = string.Format(Properties.OperationNames.CheckingSitemapsFormat2, Connection1.Name, Connection2.Name);
+            string operation = string.Format(Properties.OperationNames.CheckingSiteMapsFormat2, Connection1.Name, Connection2.Name);
 
             content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(null, operation));
 

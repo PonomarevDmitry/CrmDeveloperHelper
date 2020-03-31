@@ -3,31 +3,23 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class CommonExportDefaultSitemapsCommand : AbstractDynamicCommandDefaultSiteMap
+    internal sealed class CommonExportDefaultSiteMapsCommand : AbstractDynamicCommandDefaultSiteMap
     {
-        private CommonExportDefaultSitemapsCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.CommonExportDefaultSitemapsCommandId
-            )
+        private CommonExportDefaultSiteMapsCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.guidDynamicCommandSet.CommonExportDefaultSitemapsCommandId)
         {
-
         }
 
-        public static CommonExportDefaultSitemapsCommand Instance { get; private set; }
+        public static CommonExportDefaultSiteMapsCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CommonExportDefaultSitemapsCommand(commandService);
+            Instance = new CommonExportDefaultSiteMapsCommand(commandService);
         }
 
-        protected override void CommandAction(DTEHelper helper, string selectedSitemap)
+        protected override void CommandAction(DTEHelper helper, string selectedSiteMap)
         {
-            helper.HandleExportDefaultSitemap(selectedSitemap);
-        }
-
-        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, string selectedSitemap, OleMenuCommand menuCommand)
-        {
+            helper.HandleExportDefaultSiteMap(selectedSiteMap);
         }
     }
 }

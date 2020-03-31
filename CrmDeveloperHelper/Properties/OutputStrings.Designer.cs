@@ -657,9 +657,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Checking SiteMaps in {0} and {1}....
         /// </summary>
-        internal static string CheckingSitemapsFormat2 {
+        internal static string CheckingSiteMapsFormat2 {
             get {
-                return ResourceManager.GetString("CheckingSitemapsFormat2", resourceCulture);
+                return ResourceManager.GetString("CheckingSiteMapsFormat2", resourceCulture);
             }
         }
         

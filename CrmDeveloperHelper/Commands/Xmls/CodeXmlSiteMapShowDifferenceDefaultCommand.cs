@@ -7,10 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
     internal sealed class CodeXmlSiteMapShowDifferenceDefaultCommand : AbstractDynamicCommandDefaultSiteMap
     {
         private CodeXmlSiteMapShowDifferenceDefaultCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.CodeXmlSiteMapShowDifferenceDefaultCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.CodeXmlSiteMapShowDifferenceDefaultCommandId)
         {
 
         }
@@ -22,7 +19,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
             Instance = new CodeXmlSiteMapShowDifferenceDefaultCommand(commandService);
         }
 
-        protected override void CommandAction(DTEHelper helper, string selectedSitemap)
+        protected override void CommandAction(DTEHelper helper, string selectedSiteMap)
         {
             var selectedFile = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsXmlType).FirstOrDefault();
 
@@ -31,10 +28,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                 return;
             }
 
-            helper.HandleShowDifferenceWithDefaultSitemap(selectedFile, selectedSitemap);
+            helper.HandleShowDifferenceWithDefaultSiteMap(selectedFile, selectedSiteMap);
         }
 
-        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, string selectedSitemap, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, string selectedSiteMap, OleMenuCommand menuCommand)
         {
             CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRoot(applicationObject, menuCommand, out _, AbstractDynamicCommandXsdSchemas.RootSiteMap);
         }

@@ -518,7 +518,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 //<MenuItem Header="Global Option Sets"  Click="miExplorerGlobalOptionSets_Click"/>
 
                 //<Separator/>
-                //<MenuItem Header="SiteMap"  Click="miExplorerSitemap_Click"/>
+                //<MenuItem Header="SiteMap"  Click="miExplorerSiteMap_Click"/>
                 //<MenuItem Header="System Forms Events"  Click="miExplorerSystemFormsEvents_Click"/>
 
                 //<Separator/>
@@ -555,7 +555,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         Header = "SiteMap",
                     };
-                    menuItemSiteMap.Click += (s, e) => miExplorerSitemap_Click(iWriteToOutput, commonConfig, getSelectedSingleConnection);
+                    menuItemSiteMap.Click += (s, e) => miExplorerSiteMap_Click(iWriteToOutput, commonConfig, getSelectedSingleConnection);
 
                     var menuItemSystemFormsEvents = new MenuItem()
                     {
@@ -688,7 +688,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         #region Кнопки одной среды.
 
-        private static void miExplorerSitemap_Click(IWriteToOutput iWriteToOutput, CommonConfiguration commonConfig, Func<ConnectionData> getSelectedSingleConnection)
+        private static void miExplorerSiteMap_Click(IWriteToOutput iWriteToOutput, CommonConfiguration commonConfig, Func<ConnectionData> getSelectedSingleConnection)
         {
             var connection = getSelectedSingleConnection();
 
@@ -702,7 +702,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         ExplorerController contr = new ExplorerController(iWriteToOutput);
 
-                        contr.ExecuteOpeningSitemapExplorer(connection, commonConfig, string.Empty);
+                        contr.ExecuteOpeningSiteMapExplorer(connection, commonConfig, string.Empty);
                     }
                     catch (Exception ex)
                     {

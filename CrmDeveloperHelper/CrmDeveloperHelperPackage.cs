@@ -790,7 +790,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             CommonOpenCrmWebSiteCommand.Initialize(commandService);
 
-            CommonExportDefaultSitemapsCommand.Initialize(commandService);
+            CommonExportDefaultSiteMapsCommand.Initialize(commandService);
             CommonXsdSchemaExportCommand.Initialize(commandService);
 
             CommonXsdSchemaOpenFolderCommand.Initialize(commandService);

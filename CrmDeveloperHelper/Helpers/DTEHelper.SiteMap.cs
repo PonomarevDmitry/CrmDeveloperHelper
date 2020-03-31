@@ -86,16 +86,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleExplorerSiteMap(ConnectionData connectionData, string filter)
         {
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartExplorerSitemapXml(conn, commonConfig, filter));
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartExplorerSiteMapXml(conn, commonConfig, filter));
         }
 
-        public void HandleExportDefaultSitemap(string selectedSitemap)
+        public void HandleExportDefaultSiteMap(string selectedSiteMap)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
             if (commonConfig != null)
             {
-                string fileName = string.Format("SiteMap.{0}.xml", selectedSitemap);
+                string fileName = string.Format("SiteMap.{0}.xml", selectedSiteMap);
 
                 var dialog = new Microsoft.Win32.SaveFileDialog()
                 {
@@ -119,7 +119,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     try
                     {
-                        Uri uri = FileOperations.GetSiteMapResourceUri(selectedSitemap);
+                        Uri uri = FileOperations.GetSiteMapResourceUri(selectedSiteMap);
                         StreamResourceInfo info = Application.GetResourceStream(uri);
 
                         var doc = XDocument.Load(info.Stream);
@@ -149,7 +149,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleShowDifferenceWithDefaultSitemap(SelectedFile selectedFile, string selectedSitemap)
+        public void HandleShowDifferenceWithDefaultSiteMap(SelectedFile selectedFile, string selectedSiteMap)
         {
             if (selectedFile == null || !File.Exists(selectedFile.FilePath))
             {
@@ -168,13 +168,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             try
             {
-                Uri uri = FileOperations.GetSiteMapResourceUri(selectedSitemap);
+                Uri uri = FileOperations.GetSiteMapResourceUri(selectedSiteMap);
                 StreamResourceInfo info = Application.GetResourceStream(uri);
 
                 var doc = XDocument.Load(info.Stream);
                 info.Stream.Dispose();
 
-                string fileName = string.Format("SiteMap.{0}.xml", selectedSitemap);
+                string fileName = string.Format("SiteMap.{0}.xml", selectedSiteMap);
 
                 var filePath = Path.Combine(FileOperations.GetTempFileFolder(), fileName);
 

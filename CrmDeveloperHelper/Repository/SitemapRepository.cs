@@ -18,7 +18,7 @@ using System.Xml.Schema;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 {
-    public class SitemapRepository : IEntitySaver
+    public class SiteMapRepository : IEntitySaver
     {
         /// <summary>
         /// Сервис CRM
@@ -29,7 +29,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         /// Конструктор репозитория
         /// </summary>
         /// <param name="service"></param>
-        public SitemapRepository(IOrganizationServiceExtented service)
+        public SiteMapRepository(IOrganizationServiceExtented service)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
         }

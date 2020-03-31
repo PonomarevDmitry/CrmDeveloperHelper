@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
     internal abstract class AbstractDynamicCommandDefaultSiteMap : AbstractDynamicCommand<string>
     {
-        private static string[] ListDefaultSitemaps { get; } = new string[]
+        private static string[] ListDefaultSiteMaps { get; } = new string[]
         {
             "2011"
             , "2013"
@@ -32,7 +32,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         protected override ICollection<string> GetElementSourceCollection()
         {
-            return ListDefaultSitemaps;
+            return ListDefaultSiteMaps;
         }
 
         protected override string GetElementName(string siteMapName)

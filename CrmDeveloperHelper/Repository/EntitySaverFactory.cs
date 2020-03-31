@@ -26,7 +26,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
             else if (string.Equals(entityLogicalName, SiteMap.EntityLogicalName, StringComparison.InvariantCultureIgnoreCase))
             {
-                return new SitemapRepository(service);
+                return new SiteMapRepository(service);
             }
             else if (string.Equals(entityLogicalName, PluginAssembly.EntityLogicalName, StringComparison.InvariantCultureIgnoreCase))
             {

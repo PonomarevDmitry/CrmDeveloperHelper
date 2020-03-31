@@ -219,8 +219,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
                     {
-                        var repository1 = new SitemapRepository(service1);
-                        var repository2 = new SitemapRepository(service2);
+                        var repository1 = new SiteMapRepository(service1);
+                        var repository2 = new SiteMapRepository(service2);
 
                         var task1 = repository1.GetListAsync(columnSet);
                         var task2 = repository2.GetListAsync(columnSet);
@@ -242,7 +242,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                     else
                     {
-                        var repository1 = new SitemapRepository(service1);
+                        var repository1 = new SiteMapRepository(service1);
 
                         var task1 = repository1.GetListAsync(columnSet);
 
@@ -622,8 +622,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (service1 != null && service2 != null)
                 {
-                    var repository1 = new SitemapRepository(service1);
-                    var repository2 = new SitemapRepository(service2);
+                    var repository1 = new SiteMapRepository(service1);
+                    var repository2 = new SiteMapRepository(service2);
 
                     var sitemap1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
                     var sitemap2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
@@ -695,7 +695,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (service != null)
             {
-                var repository = new SitemapRepository(service);
+                var repository = new SiteMapRepository(service);
 
                 var sitemap = await repository.GetByIdAsync(idSiteMap, new ColumnSet(true));
 
@@ -738,8 +738,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (service1 != null && service2 != null)
                 {
-                    var repository1 = new SitemapRepository(service1);
-                    var repository2 = new SitemapRepository(service2);
+                    var repository1 = new SiteMapRepository(service1);
+                    var repository2 = new SiteMapRepository(service2);
 
                     var sitemap1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
                     var sitemap2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
@@ -809,7 +809,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (service != null)
             {
-                var repository = new SitemapRepository(service);
+                var repository = new SiteMapRepository(service);
 
                 var sitemap = await repository.GetByIdAsync(idSiteMap, new ColumnSet(true));
 

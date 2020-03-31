@@ -204,7 +204,7 @@
                                 <MenuItem Header="Global OptionSets" Click="tSMIDifferenceGlobalOptionSets_Click" />
                                 
                                 <Separator/>
-                                <MenuItem Header="Sitemaps" Click="tSMIDifferenceSitemaps_Click" />
+                                <MenuItem Header="SiteMaps" Click="tSMIDifferenceSiteMaps_Click" />
                                 
                                 <Separator/>
                                 <MenuItem Header="WebResources" Click="tSMIDifferenceWebResources_Click" />

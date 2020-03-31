@@ -277,8 +277,8 @@
   <data name="ExportingRibbonXmlFormat1" xml:space="preserve">
     <value>{0} - Exporting Ribbon Xml</value>
   </data>
-  <data name="ExportingSitemapXmlFormat1" xml:space="preserve">
-    <value>{0} - Exporting Sitemap Xml</value>
+  <data name="ExportingSiteMapXmlFormat1" xml:space="preserve">
+    <value>{0} - Exporting SiteMap Xml</value>
   </data>
   <data name="ExportingSystemFormsEventsFormat1" xml:space="preserve">
     <value>{0} - Exporting System Forms Events</value>
@@ -608,7 +608,7 @@
   <data name="CheckingSecurityRolesFormat2" xml:space="preserve">
     <value>Checking SecurityRoles in {0} and {1}</value>
   </data>
-  <data name="CheckingSitemapsFormat2" xml:space="preserve">
+  <data name="CheckingSiteMapsFormat2" xml:space="preserve">
     <value>Checking SiteMaps in {0} and {1}</value>
   </data>
   <data name="CheckingSystemChartsFormat2" xml:space="preserve">

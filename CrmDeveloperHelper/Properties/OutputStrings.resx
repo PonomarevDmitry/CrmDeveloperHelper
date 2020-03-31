@@ -741,7 +741,7 @@
   <data name="CheckingSecurityRolesFormat2" xml:space="preserve">
     <value>Checking SecurityRoles in {0} and {1}...</value>
   </data>
-  <data name="CheckingSitemapsFormat2" xml:space="preserve">
+  <data name="CheckingSiteMapsFormat2" xml:space="preserve">
     <value>Checking SiteMaps in {0} and {1}...</value>
   </data>
   <data name="CheckingSystemChartsFormat2" xml:space="preserve">

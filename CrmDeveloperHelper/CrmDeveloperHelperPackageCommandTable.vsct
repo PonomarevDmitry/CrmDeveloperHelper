@@ -2772,8 +2772,8 @@
       <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupExplorers_MenuExportDefaultSiteMapsDyn" priority="0x0107" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Export Default Sitemaps</ButtonText>
-          <MenuText>Export Default Sitemaps</MenuText>
+          <ButtonText>Export Default SiteMaps</ButtonText>
+          <MenuText>Export Default SiteMaps</MenuText>
         </Strings>
       </Menu>
 
@@ -8876,7 +8876,7 @@
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>Sitemap</ButtonText>
+          <ButtonText>SiteMap</ButtonText>
         </Strings>
       </Button>
 
@@ -10154,7 +10154,7 @@
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>Sitemap</ButtonText>
+          <ButtonText>SiteMap</ButtonText>
         </Strings>
       </Button>
 

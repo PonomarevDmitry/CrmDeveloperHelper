@@ -767,8 +767,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartJavaScriptGlobalOptionSetFileUpdatingAll(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, bool openOptions)
             => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteUpdatingFileWithGlobalOptionSetAllJavaScript, commonConfig, selectedFile, openOptions);
 
-        public void StartExplorerSitemapXml(ConnectionData connectionData, CommonConfiguration commonConfig, string filter)
-            => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteOpeningSitemapExplorer, commonConfig, filter);
+        public void StartExplorerSiteMapXml(ConnectionData connectionData, CommonConfiguration commonConfig, string filter)
+            => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteOpeningSiteMapExplorer, commonConfig, filter);
 
         public void StartExplorerOrganizationInformation(ConnectionData connectionData, CommonConfiguration commonConfig)
             => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteOpeningOrganizationExplorer, commonConfig);

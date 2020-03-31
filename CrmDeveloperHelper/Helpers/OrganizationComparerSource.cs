@@ -273,7 +273,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         protected virtual Task<List<SiteMap>> GetSiteMapAsync(IOrganizationServiceExtented service, ColumnSet columnSet = null)
         {
-            return new SitemapRepository(service).GetListAsync(columnSet);
+            return new SiteMapRepository(service).GetListAsync(columnSet);
         }
 
         public Task<Organization> GetOrganization1Async(ColumnSet columnSet)

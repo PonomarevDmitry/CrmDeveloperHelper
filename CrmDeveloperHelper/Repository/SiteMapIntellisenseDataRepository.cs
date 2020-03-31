@@ -173,7 +173,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
 
                 {
-                    var repository = new SitemapRepository(service);
+                    var repository = new SiteMapRepository(service);
 
                     var listSiteMaps = await repository.GetListAsync(new ColumnSet(SiteMap.Schema.Attributes.sitemapxml));
 

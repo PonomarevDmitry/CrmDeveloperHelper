@@ -190,7 +190,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (service != null)
                 {
-                    var repository = new SitemapRepository(service);
+                    var repository = new SiteMapRepository(service);
                     list = await repository.GetListAsync(new ColumnSet(SiteMap.EntityPrimaryIdAttribute, SiteMap.Schema.Attributes.sitemapname, SiteMap.Schema.Attributes.sitemapnameunique));
                 }
             }
@@ -501,7 +501,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                var repository = new SitemapRepository(service);
+                var repository = new SiteMapRepository(service);
 
                 var sitemap = await repository.GetByIdAsync(idSiteMap, new ColumnSet(fieldName));
 
@@ -534,7 +534,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                var repository = new SitemapRepository(service);
+                var repository = new SiteMapRepository(service);
 
                 var sitemap = await repository.GetByIdAsync(idSiteMap, new ColumnSet(fieldName));
 
@@ -575,7 +575,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     return;
                 }
 
-                bool validateResult = await SitemapRepository.ValidateXmlDocumentAsync(service.ConnectionData, _iWriteToOutput, doc);
+                bool validateResult = await SiteMapRepository.ValidateXmlDocumentAsync(service.ConnectionData, _iWriteToOutput, doc);
 
                 if (!validateResult)
                 {
@@ -645,7 +645,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 string fileName = EntityFileNameFormatter.GetSiteMapFileName(service.ConnectionData.Name, name, idSiteMap, EntityFileNameFormatter.Headers.EntityDescription, "txt");
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                var repository = new SitemapRepository(service);
+                var repository = new SiteMapRepository(service);
 
                 var sitemap = await repository.GetByIdAsync(idSiteMap, new ColumnSet(true));
 

@@ -343,7 +343,7 @@
     <Compile Include="Commands\Explorers\CommonEntityRelationshipOneToManyExplorerCommand.cs" />
     <Compile Include="Commands\Explorers\CommonEntityPrivilegesExplorerCommand.cs" />
     <Compile Include="Commands\Explorers\CommonCustomControlExplorerCommand.cs" />
-    <Compile Include="Commands\CommonExportDefaultSitemapsCommand.cs" />
+    <Compile Include="Commands\CommonExportDefaultSiteMapsCommand.cs" />
     <Compile Include="Commands\CommonExportOpenLastSelectedSolutionCommand.cs" />
     <Compile Include="Commands\CommonXsdSchemaExportCommand.cs" />
     <Compile Include="Commands\FindEdit\CommonFindEntitiesByIdCommand.cs" />
@@ -1277,7 +1277,7 @@
     <Compile Include="Repository\PrivilegeRepository.cs" />
     <Compile Include="Repository\RolePrivilegesRepository.cs" />
     <Compile Include="Repository\SiteMapIntellisenseDataRepository.cs" />
-    <Compile Include="Repository\SitemapRepository.cs" />
+    <Compile Include="Repository\SiteMapRepository.cs" />
     <Compile Include="Repository\SolutionComponentRepository.cs" />
     <Compile Include="Repository\SolutionRepository.cs" />
     <Compile Include="Repository\StringMapRepository.cs" />

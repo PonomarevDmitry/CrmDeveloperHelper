@@ -136,7 +136,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         private void FillSolutionComponentFromSchemaName(ICollection<SolutionComponent> result, string sitemapName, int? behavior)
         {
-            var repository = new SitemapRepository(_service);
+            var repository = new SiteMapRepository(_service);
 
             var entity = repository.FindByExactName(sitemapName, new ColumnSet(false));
 

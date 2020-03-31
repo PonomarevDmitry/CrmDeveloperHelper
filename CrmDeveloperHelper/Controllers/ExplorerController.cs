@@ -132,17 +132,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Скачивание любого отчета.
 
-        #region Экспортирование Sitemap Xml.
+        #region Экспортирование SiteMap Xml.
 
-        public async Task ExecuteOpeningSitemapExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string filter)
+        public async Task ExecuteOpeningSiteMapExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string filter)
         {
             await ConnectAndOpenExplorerAsync(connectionData
-                , Properties.OperationNames.ExportingSitemapXmlFormat1
+                , Properties.OperationNames.ExportingSiteMapXmlFormat1
                 , (service) => WindowHelper.OpenExportSiteMapExplorer(this._iWriteToOutput, service, commonConfig, filter)
             );
         }
 
-        #endregion Экспортирование Sitemap Xml.
+        #endregion Экспортирование SiteMap Xml.
 
         #region Экспортирование ApplicationRibbon.
 
