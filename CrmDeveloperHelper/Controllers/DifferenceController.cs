@@ -35,7 +35,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     this._iWriteToOutput.WriteToOutput(connectionData, Properties.OperationNames.CheckingFilesEncoding);
 
-                    CheckController.CheckingFilesEncoding(this._iWriteToOutput, connectionData, new List<SelectedFile>() { selectedFile }, out List<SelectedFile> filesWithoutUTF8Encoding);
+                    CheckController.CheckingFilesEncoding(this._iWriteToOutput, connectionData, new[] { selectedFile }, out List<SelectedFile> filesWithoutUTF8Encoding);
 
                     this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
                     this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
@@ -175,7 +175,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 fileTitle2 = connectionData.Name + "." + selectedFile.FileName + " - " + filePath2;
             }
 
-            this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, fileTitle1, fileTitle2);
+            await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, fileTitle1, fileTitle2);
         }
 
         #endregion Различия файла и веб-ресурса.
@@ -192,13 +192,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 this._iWriteToOutput.WriteToOutput(null, Properties.OperationNames.CheckingFilesEncoding);
 
-                CheckController.CheckingFilesEncoding(this._iWriteToOutput, null, new List<SelectedFile>() { selectedFile }, out List<SelectedFile> filesWithoutUTF8Encoding);
+                CheckController.CheckingFilesEncoding(this._iWriteToOutput, null, new[] { selectedFile }, out List<SelectedFile> filesWithoutUTF8Encoding);
 
                 this._iWriteToOutput.WriteToOutput(null, string.Empty);
                 this._iWriteToOutput.WriteToOutput(null, string.Empty);
                 this._iWriteToOutput.WriteToOutput(null, string.Empty);
 
-                await ThreeFileDifferenceWebResources(selectedFile, connectionData1, connectionData2, differenceType, commonConfig);
+                await ThreeFileDifferenceWebResources(connectionData1, connectionData2, commonConfig, selectedFile, differenceType);
             }
             catch (Exception ex)
             {
@@ -210,7 +210,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task ThreeFileDifferenceWebResources(SelectedFile selectedFile, ConnectionData connectionData1, ConnectionData connectionData2, ShowDifferenceThreeFileType differenceType, CommonConfiguration commonConfig)
+        private async Task ThreeFileDifferenceWebResources(ConnectionData connectionData1, ConnectionData connectionData2, CommonConfiguration commonConfig, SelectedFile selectedFile, ShowDifferenceThreeFileType differenceType)
         {
             if (connectionData1 == null)
             {
@@ -571,22 +571,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task DifferenceReport(SelectedFile selectedFile, string fieldName, string fieldTitle, bool isCustom, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
             if (!File.Exists(selectedFile.FilePath))
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
                 return;
             }
 
-            if (string.IsNullOrEmpty(fieldName))
+            if (connectionData == null)
             {
-                fieldName = Report.Schema.Attributes.originalbodytext;
-                fieldTitle = Report.Schema.Headers.originalbodytext;
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
             }
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
@@ -603,6 +597,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+
+            if (string.IsNullOrEmpty(fieldName))
+            {
+                fieldName = Report.Schema.Attributes.originalbodytext;
+                fieldTitle = Report.Schema.Headers.originalbodytext;
+            }
 
             // Репозиторий для работы с веб-ресурсами
             ReportRepository reportRepository = new ReportRepository(service);
