@@ -28,7 +28,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 
             if (projectItem != null && projectItem.ContainingProject != null)
             {
-                helper.HandleUpdatingPluginAssembliesInWindowCommand(connectionData, projectItem.ContainingProject);
+                helper.HandlePluginAssemblyUpdatingInWindowCommand(connectionData, projectItem.ContainingProject);
             }
         }
 

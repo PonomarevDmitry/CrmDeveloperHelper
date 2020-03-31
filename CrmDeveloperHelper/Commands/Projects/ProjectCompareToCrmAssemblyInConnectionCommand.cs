@@ -24,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
         {
             var project = helper.GetSelectedProject();
 
-            helper.HandleComparingPluginAssemblyAndLocalAssemblyCommand(connectionData, project);
+            helper.HandlePluginAssemblyComparingWithLocalAssemblyCommand(connectionData, project);
         }
 
         protected override void CommandBeforeQueryStatus(DTE2 applicationObject, ConnectionData connectionData, OleMenuCommand menuCommand)

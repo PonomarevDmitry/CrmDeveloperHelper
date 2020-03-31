@@ -24,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Checks
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
-            helper.HandleCreateAllDependencyNodesDescription(connectionData);
+            helper.HandleCheckCreateAllDependencyNodesDescription(connectionData);
         }
     }
 }

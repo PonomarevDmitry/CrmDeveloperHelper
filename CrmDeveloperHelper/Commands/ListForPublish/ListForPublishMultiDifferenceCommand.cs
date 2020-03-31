@@ -62,7 +62,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
 
             if (selectedFiles.Count > 0)
             {
-                helper.HandleMultiDifferenceFiles(selectedFiles, _openFilesType);
+                helper.HandleWebResourceMultiDifferenceFiles(selectedFiles, _openFilesType);
             }
         }
 

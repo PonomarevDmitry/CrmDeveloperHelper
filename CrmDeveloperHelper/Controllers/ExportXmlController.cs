@@ -294,7 +294,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteGetSiteMapCurrentXml(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
-            string operation = string.Format(Properties.OperationNames.GettingSiteMapCurrentXml, connectionData?.Name);
+            string operation = string.Format(Properties.OperationNames.GettingSiteMapCurrentXmlFormat1, connectionData?.Name);
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
@@ -661,7 +661,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteGetSystemFormCurrentXml(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
-            string operation = string.Format(Properties.OperationNames.GettingSystemFormCurrentXml, connectionData?.Name);
+            string operation = string.Format(Properties.OperationNames.GettingSystemFormCurrentXmlFormat1, connectionData?.Name);
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
@@ -1066,7 +1066,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteGetSavedQueryCurrentXml(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
-            string operation = string.Format(Properties.OperationNames.GettingSavedQueryCurrentXml, connectionData?.Name);
+            string operation = string.Format(Properties.OperationNames.GettingSavedQueryCurrentXmlFormat1, connectionData?.Name);
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
@@ -1497,7 +1497,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteGetWorkflowCurrentXaml(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
-            string operation = string.Format(Properties.OperationNames.GettingWorkflowCurrentXaml, connectionData?.Name);
+            string operation = string.Format(Properties.OperationNames.GettingWorkflowCurrentXamlFormat1, connectionData?.Name);
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
@@ -1915,7 +1915,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteGetWebResourceCurrentDependencyXml(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
-            string operation = string.Format(Properties.OperationNames.GettingWebResourceCurrentDependencyXml, connectionData?.Name);
+            string operation = string.Format(Properties.OperationNames.GettingWebResourceCurrentDependencyXmlFormat1, connectionData?.Name);
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 

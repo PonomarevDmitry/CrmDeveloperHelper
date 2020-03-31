@@ -31,7 +31,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 
             string fileType = await PropertiesHelper.GetTypeFullNameAsync(document);
 
-            helper.HandleAddingPluginTypeProcessingStepsByProjectCommand(null, solutionUniqueName, false, fileType);
+            helper.HandlePluginTypeAddingProcessingStepsByProjectCommand(null, solutionUniqueName, false, fileType);
         }
 
         protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, string solutionUniqueName, OleMenuCommand menuCommand)

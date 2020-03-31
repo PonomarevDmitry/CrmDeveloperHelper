@@ -22,7 +22,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.JavaScripts
         {
             List<SelectedFile> selectedFiles = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsJavaScriptType).ToList();
 
-            helper.HandleUpdateGlobalOptionSetSingleFileJavaScript(null, selectedFiles, true);
+            helper.HandleJavaScriptGlobalOptionSetFileUpdateSingle(null, selectedFiles, true);
         }
 
         protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)

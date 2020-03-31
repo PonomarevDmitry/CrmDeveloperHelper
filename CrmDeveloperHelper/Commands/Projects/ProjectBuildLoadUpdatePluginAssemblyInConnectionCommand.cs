@@ -28,7 +28,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
         {
             var projectList = helper.GetSelectedProjects().ToList();
 
-            helper.HandleBuildProjectUpdatePluginAssemblyCommand(connectionData, false, projectList);
+            helper.HandlePluginAssemblyBuildProjectUpdateCommand(connectionData, false, projectList);
         }
 
         protected override void CommandBeforeQueryStatus(DTE2 applicationObject, ConnectionData element, OleMenuCommand menuCommand)

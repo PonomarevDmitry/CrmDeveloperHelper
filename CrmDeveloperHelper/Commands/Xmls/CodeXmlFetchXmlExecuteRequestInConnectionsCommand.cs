@@ -32,7 +32,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                 return;
             }
 
-            helper.HandleExecutingFetchXml(connectionData, selectedFile, true);
+            helper.HandleFetchXmlExecuting(connectionData, selectedFile, true);
         }
 
         protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, ConnectionData connectionData, OleMenuCommand menuCommand)

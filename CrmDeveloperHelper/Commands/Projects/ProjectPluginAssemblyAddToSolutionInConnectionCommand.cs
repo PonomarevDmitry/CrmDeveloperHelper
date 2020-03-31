@@ -29,7 +29,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
 
             if (projects.Any())
             {
-                helper.HandleAddingPluginAssemblyToSolutionByProjectCommand(connectionData, null, true, projects.Select(p => p.Name).ToArray());
+                helper.HandlePluginAssemblyAddingToSolutionByProjectCommand(connectionData, null, true, projects.Select(p => p.Name).ToArray());
             }
         }
 

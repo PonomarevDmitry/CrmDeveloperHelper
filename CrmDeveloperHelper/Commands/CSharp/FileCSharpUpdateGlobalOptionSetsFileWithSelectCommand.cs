@@ -23,7 +23,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
         {
             List<SelectedFile> selectedFiles = helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsCSharpType, false).ToList();
 
-            helper.HandleUpdateGlobalOptionSetsFile(null, selectedFiles, true);
+            helper.HandleCSharpGlobalOptionSetsFileUpdateSchema(null, selectedFiles, true);
         }
 
         protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)

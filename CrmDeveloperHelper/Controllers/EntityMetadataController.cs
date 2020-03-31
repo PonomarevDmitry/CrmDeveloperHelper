@@ -773,7 +773,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Ribbon Showing Difference
 
-        public async Task ExecuteDifferenceRibbon(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+        public async Task ExecuteRibbonDifference(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             string operation = string.Format(Properties.OperationNames.DifferenceRibbonFormat1, connectionData?.Name);
 
@@ -796,7 +796,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        public async Task ExecuteDifferenceRibbon(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
+        public async Task ExecuteRibbonDifference(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             string operation = string.Format(Properties.OperationNames.DifferenceRibbonFormat1, connectionData?.Name);
 
@@ -887,7 +887,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region RibbonDiffXml Showing Difference
 
-        public async Task ExecuteDifferenceRibbonDiffXml(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+        public async Task ExecuteRibbonDiffXmlDifference(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             string operation = string.Format(Properties.OperationNames.DifferenceRibbonDiffXmlFormat1, connectionData?.Name);
 
@@ -910,7 +910,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        public async Task ExecuteDifferenceRibbonDiffXml(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
+        public async Task ExecuteRibbonDiffXmlDifference(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             string operation = string.Format(Properties.OperationNames.DifferenceRibbonDiffXmlFormat1, connectionData?.Name);
 
@@ -1004,7 +1004,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region RibbonDiffXml Updating
 
-        public async Task ExecuteUpdateRibbonDiffXml(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+        public async Task ExecuteRibbonDiffXmlUpdate(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             string operation = string.Format(Properties.OperationNames.UpdatingRibbonFormat1, connectionData?.Name);
 
@@ -1027,7 +1027,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        public async Task ExecuteUpdateRibbonDiffXml(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
+        public async Task ExecuteRibbonDiffXmlUpdate(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
         {
             string operation = string.Format(Properties.OperationNames.UpdatingRibbonFormat1, connectionData?.Name);
 
@@ -1142,16 +1142,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task OpenRibbonExplorer(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, string entityName)
+        private Task OpenRibbonExplorer(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, string entityName)
         {
-            if (!string.IsNullOrEmpty(entityName))
+            return Task.Run(() =>
             {
-                WindowHelper.OpenEntityMetadataExplorer(_iWriteToOutput, service, commonConfig, entityName);
-            }
-            else
-            {
-                WindowHelper.OpenApplicationRibbonExplorer(_iWriteToOutput, service, commonConfig);
-            }
+                if (!string.IsNullOrEmpty(entityName))
+                {
+                    WindowHelper.OpenEntityMetadataExplorer(_iWriteToOutput, service, commonConfig, entityName);
+                }
+                else
+                {
+                    WindowHelper.OpenApplicationRibbonExplorer(_iWriteToOutput, service, commonConfig);
+                }
+            });
         }
 
         #endregion Ribbon Open Explorer
@@ -1215,5 +1218,248 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         }
 
         #endregion Open Entity in Web
+
+        #region Ribbon Get Current
+
+        public async Task ExecuteRibbonGetCurrent(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+        {
+            string operation = string.Format(Properties.OperationNames.GettingRibbonCurrentXmlFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                if (ParseXmlDocument(connectionData, selectedFile, out var doc))
+                {
+                    await CheckAttributeValidateGetEntityNameExecuteAction(connectionData, commonConfig, doc, selectedFile.FilePath, null, GetCurrentRibbon);
+                }
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        public async Task ExecuteRibbonGetCurrent(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
+        {
+            string operation = string.Format(Properties.OperationNames.GettingRibbonCurrentXmlFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await CheckAttributeValidateGetEntityNameExecuteAction(connectionData, commonConfig, doc, filePath, null, GetCurrentRibbon);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task GetCurrentRibbon(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, string entityName)
+        {
+            if (!string.IsNullOrEmpty(entityName))
+            {
+                var repository = new EntityMetadataRepository(service);
+
+                var entityMetadata = await repository.GetEntityMetadataAsync(entityName);
+
+                if (entityMetadata == null)
+                {
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityNotExistsInConnectionFormat2, entityName, service.ConnectionData.Name);
+                    return;
+                }
+
+                entityName = entityMetadata.LogicalName;
+            }
+
+            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+            else if (!Directory.Exists(commonConfig.FolderForExport))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
+                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+
+            string currentFilePath = string.Empty;
+
+            var repositoryRibbon = new RibbonCustomizationRepository(service);
+
+            if (!string.IsNullOrEmpty(entityName))
+            {
+                string ribbonXml = await repositoryRibbon.ExportEntityRibbonAsync(entityName, Microsoft.Crm.Sdk.Messages.RibbonLocationFilters.All);
+
+                ribbonXml = ContentComparerHelper.FormatXmlByConfiguration(
+                    ribbonXml
+                    , commonConfig
+                    , XmlOptionsControls.RibbonXmlOptions
+                    , entityName: entityName ?? string.Empty
+                );
+
+                var fileName = EntityFileNameFormatter.GetEntityRibbonFileName(service.ConnectionData.Name, entityName);
+                currentFilePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                File.WriteAllText(currentFilePath, ribbonXml, new UTF8Encoding(false));
+
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityRibbonForConnectionFormat3, service.ConnectionData.Name, entityName, currentFilePath);
+            }
+            else
+            {
+                string ribbonXml = await repositoryRibbon.ExportApplicationRibbonAsync();
+
+                ribbonXml = ContentComparerHelper.FormatXmlByConfiguration(
+                    ribbonXml
+                    , commonConfig
+                    , XmlOptionsControls.RibbonXmlOptions
+                    , entityName: entityName ?? string.Empty
+                );
+
+                var fileName = EntityFileNameFormatter.GetApplicationRibbonFileName(service.ConnectionData.Name);
+                currentFilePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                File.WriteAllText(currentFilePath, ribbonXml, new UTF8Encoding(false));
+
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedAppliationRibbonForConnectionFormat2, service.ConnectionData.Name, currentFilePath);
+            }
+
+            this._iWriteToOutput.PerformAction(service.ConnectionData, currentFilePath);
+        }
+
+        #endregion Ribbon Showing Difference
+
+        #region RibbonDiffXml Showing Difference
+
+        public async Task ExecuteRibbonDiffXmlGetCurrent(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+        {
+            string operation = string.Format(Properties.OperationNames.GettingRibbonDiffCurrentXmlFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                if (ParseXmlDocument(connectionData, selectedFile, out var doc))
+                {
+                    await CheckAttributeValidateGetEntityNameExecuteAction(connectionData, commonConfig, doc, selectedFile.FilePath, null, GetCurrentRibbonDiffXml);
+                }
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        public async Task ExecuteRibbonDiffXmlGetCurrent(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
+        {
+            string operation = string.Format(Properties.OperationNames.GettingRibbonDiffCurrentXmlFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await CheckAttributeValidateGetEntityNameExecuteAction(connectionData, commonConfig, doc, filePath, null, GetCurrentRibbonDiffXml);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task GetCurrentRibbonDiffXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, string entityName)
+        {
+            var repositoryRibbonCustomization = new RibbonCustomizationRepository(service);
+
+            EntityMetadata entityMetadata = null;
+            RibbonCustomization ribbonCustomization = null;
+
+            if (!string.IsNullOrEmpty(entityName))
+            {
+                var repository = new EntityMetadataRepository(service);
+
+                entityMetadata = await repository.GetEntityMetadataAsync(entityName);
+
+                if (entityMetadata == null)
+                {
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityNotExistsInConnectionFormat2, entityName, service.ConnectionData.Name);
+                    _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                    return;
+                }
+            }
+            else
+            {
+                ribbonCustomization = await repositoryRibbonCustomization.FindApplicationRibbonCustomizationAsync();
+
+                if (ribbonCustomization == null)
+                {
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NotFoundedApplicationRibbonRibbonCustomization);
+                    _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                    return;
+                }
+            }
+
+            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+            else if (!Directory.Exists(commonConfig.FolderForExport))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
+                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+
+            string currentFilePath = string.Empty;
+
+            string ribbonDiffXml = await repositoryRibbonCustomization.GetRibbonDiffXmlAsync(_iWriteToOutput, entityMetadata, ribbonCustomization);
+
+            ribbonDiffXml = ContentComparerHelper.FormatXmlByConfiguration(
+                ribbonDiffXml
+                , commonConfig
+                , XmlOptionsControls.RibbonXmlOptions
+                , schemaName: AbstractDynamicCommandXsdSchemas.SchemaRibbonXml
+                , entityName: entityName ?? string.Empty
+            );
+
+            if (entityMetadata != null)
+            {
+                string fileName = EntityFileNameFormatter.GetEntityRibbonDiffXmlFileName(service.ConnectionData.Name, entityMetadata.LogicalName);
+                currentFilePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                File.WriteAllText(currentFilePath, ribbonDiffXml, new UTF8Encoding(false));
+
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityRibbonDiffXmlForConnectionFormat3, service.ConnectionData.Name, entityMetadata.LogicalName, currentFilePath);
+            }
+            else if (ribbonCustomization != null)
+            {
+                string fileName = EntityFileNameFormatter.GetApplicationRibbonDiffXmlFileName(service.ConnectionData.Name);
+                currentFilePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                File.WriteAllText(currentFilePath, ribbonDiffXml, new UTF8Encoding(false));
+
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedAppliationRibbonDiffXmlForConnectionFormat2, service.ConnectionData.Name, currentFilePath);
+            }
+
+            this._iWriteToOutput.PerformAction(service.ConnectionData, currentFilePath);
+        }
+
+        #endregion RibbonDiffXml Showing Difference
     }
 }

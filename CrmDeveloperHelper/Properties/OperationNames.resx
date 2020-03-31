@@ -353,20 +353,26 @@
   <data name="OpeningWebResourceFormat1" xml:space="preserve">
     <value>{0} - Opening WebResource</value>
   </data>
-  <data name="GettingWebResourceCurrentDependencyXml" xml:space="preserve">
+  <data name="GettingWebResourceCurrentDependencyXmlFormat1" xml:space="preserve">
     <value>{0} - Getting WebResource Current DependencyXml</value>
   </data>
-  <data name="GettingSiteMapCurrentXml" xml:space="preserve">
+  <data name="GettingSiteMapCurrentXmlFormat1" xml:space="preserve">
     <value>{0} - Getting SiteMap Current Xml</value>
   </data>
-  <data name="GettingSystemFormCurrentXml" xml:space="preserve">
+  <data name="GettingSystemFormCurrentXmlFormat1" xml:space="preserve">
     <value>{0} - Getting SystemForm Current Xml</value>
   </data>
-  <data name="GettingWorkflowCurrentXaml" xml:space="preserve">
+  <data name="GettingWorkflowCurrentXamlFormat1" xml:space="preserve">
     <value>{0} - Getting Workflow Current Xaml</value>
   </data>
-  <data name="GettingSavedQueryCurrentXml" xml:space="preserve">
+  <data name="GettingSavedQueryCurrentXmlFormat1" xml:space="preserve">
     <value>{0} - Getting SavedQuery Current Xml</value>
+  </data>
+  <data name="GettingRibbonCurrentXmlFormat1" xml:space="preserve">
+    <value>{0} - Getting Ribbon Current Xml</value>
+  </data>
+  <data name="GettingRibbonDiffCurrentXmlFormat1" xml:space="preserve">
+    <value>{0} - Getting RibbonDiff Current Xml</value>
   </data>
   <data name="PluginConfigurationAssemblyDescription" xml:space="preserve">
     <value>Plugin Configuration Assembly Description</value>

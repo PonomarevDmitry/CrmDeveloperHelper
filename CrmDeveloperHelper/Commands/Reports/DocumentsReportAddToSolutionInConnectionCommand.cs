@@ -28,7 +28,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
         {
             List<SelectedFile> selectedFiles = helper.GetOpenedDocuments(FileOperations.SupportsReportType).ToList();
 
-            helper.HandleAddingReportsToSolutionCommand(connectionData, null, true, selectedFiles);
+            helper.HandleReportAddingToSolutionCommand(connectionData, null, true, selectedFiles);
         }
 
         protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, ConnectionData connectionData, OleMenuCommand menuCommand)

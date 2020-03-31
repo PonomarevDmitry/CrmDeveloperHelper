@@ -25,7 +25,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
                 && document.ProjectItem.ContainingProject != null
                 )
             {
-                helper.HandleBuildProjectUpdatePluginAssemblyCommand(null, true, document.ProjectItem.ContainingProject);
+                helper.HandlePluginAssemblyBuildProjectUpdateCommand(null, true, document.ProjectItem.ContainingProject);
             }
         }
 

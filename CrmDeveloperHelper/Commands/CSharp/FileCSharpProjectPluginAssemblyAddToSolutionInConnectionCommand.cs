@@ -36,7 +36,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 
             if (listProjects.Any())
             {
-                helper.HandleAddingPluginAssemblyToSolutionByProjectCommand(connectionData, null, true, listProjects);
+                helper.HandlePluginAssemblyAddingToSolutionByProjectCommand(connectionData, null, true, listProjects);
             }
         }
 

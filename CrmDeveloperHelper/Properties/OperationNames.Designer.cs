@@ -1375,29 +1375,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Getting Ribbon Current Xml.
+        /// </summary>
+        internal static string GettingRibbonCurrentXmlFormat1 {
+            get {
+                return ResourceManager.GetString("GettingRibbonCurrentXmlFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Getting RibbonDiff Current Xml.
+        /// </summary>
+        internal static string GettingRibbonDiffCurrentXmlFormat1 {
+            get {
+                return ResourceManager.GetString("GettingRibbonDiffCurrentXmlFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Getting SavedQuery Current Xml.
         /// </summary>
-        internal static string GettingSavedQueryCurrentXml {
+        internal static string GettingSavedQueryCurrentXmlFormat1 {
             get {
-                return ResourceManager.GetString("GettingSavedQueryCurrentXml", resourceCulture);
+                return ResourceManager.GetString("GettingSavedQueryCurrentXmlFormat1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {0} - Getting SiteMap Current Xml.
         /// </summary>
-        internal static string GettingSiteMapCurrentXml {
+        internal static string GettingSiteMapCurrentXmlFormat1 {
             get {
-                return ResourceManager.GetString("GettingSiteMapCurrentXml", resourceCulture);
+                return ResourceManager.GetString("GettingSiteMapCurrentXmlFormat1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {0} - Getting SystemForm Current Xml.
         /// </summary>
-        internal static string GettingSystemFormCurrentXml {
+        internal static string GettingSystemFormCurrentXmlFormat1 {
             get {
-                return ResourceManager.GetString("GettingSystemFormCurrentXml", resourceCulture);
+                return ResourceManager.GetString("GettingSystemFormCurrentXmlFormat1", resourceCulture);
             }
         }
         
@@ -1413,18 +1431,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to {0} - Getting WebResource Current DependencyXml.
         /// </summary>
-        internal static string GettingWebResourceCurrentDependencyXml {
+        internal static string GettingWebResourceCurrentDependencyXmlFormat1 {
             get {
-                return ResourceManager.GetString("GettingWebResourceCurrentDependencyXml", resourceCulture);
+                return ResourceManager.GetString("GettingWebResourceCurrentDependencyXmlFormat1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {0} - Getting Workflow Current Xaml.
         /// </summary>
-        internal static string GettingWorkflowCurrentXaml {
+        internal static string GettingWorkflowCurrentXamlFormat1 {
             get {
-                return ResourceManager.GetString("GettingWorkflowCurrentXaml", resourceCulture);
+                return ResourceManager.GetString("GettingWorkflowCurrentXamlFormat1", resourceCulture);
             }
         }
         

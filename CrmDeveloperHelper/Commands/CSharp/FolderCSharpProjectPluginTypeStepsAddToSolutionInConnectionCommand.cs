@@ -52,7 +52,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 
             if (pluginTypeNames.Any())
             {
-                helper.HandleAddingPluginTypeProcessingStepsByProjectCommand(connectionData, null, true, pluginTypeNames.ToArray());
+                helper.HandlePluginTypeAddingProcessingStepsByProjectCommand(connectionData, null, true, pluginTypeNames.ToArray());
             }
         }
 

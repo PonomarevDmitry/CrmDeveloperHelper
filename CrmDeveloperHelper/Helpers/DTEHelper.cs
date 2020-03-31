@@ -186,6 +186,433 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartComparing(conn, selectedFiles, withDetails));
         }
 
+        #region PluginAssembly
+
+        public void HandlePluginAssemblyAddingToSolutionByProjectCommand(ConnectionData connectionData, string solutionUniqueName, bool withSelect, params string[] projectNames)
+        {
+            if (projectNames == null || !projectNames.Any())
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartPluginAssemblyAddingToSolution(conn, commonConfig, solutionUniqueName, projectNames, withSelect));
+        }
+
+        public void HandlePluginAssemblyAddingProcessingStepsByProjectCommand(ConnectionData connectionData, string solutionUniqueName, bool withSelect, params string[] projectNames)
+        {
+            if (projectNames == null || !projectNames.Any())
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartPluginAssemblyAddingProcessingStepsToSolution(conn, commonConfig, solutionUniqueName, projectNames, withSelect));
+        }
+
+        public void HandlePluginAssemblyComparingWithLocalAssemblyCommand(ConnectionData connectionData, EnvDTE.Project project)
+        {
+            if (project == null || string.IsNullOrEmpty(project.Name))
+            {
+                return;
+            }
+
+            var defaultOutputFilePath = PropertiesHelper.GetOutputFilePath(project);
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartPluginAssemblyComparingWithLocalAssembly(conn, commonConfig, project.Name, defaultOutputFilePath));
+        }
+
+        public void HandlePluginAssemblyBuildProjectUpdateCommand(ConnectionData connectionData, bool registerPlugins, params EnvDTE.Project[] projectList)
+        {
+            HandlePluginAssemblyBuildProjectUpdateCommand(connectionData, registerPlugins, projectList.ToList());
+        }
+
+        public void HandlePluginAssemblyBuildProjectUpdateCommand(ConnectionData connectionData, bool registerPlugins, List<Project> projectList)
+        {
+            if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartPluginAssemblyBuildProjectUpdate(conn, commonConfig, projectList, registerPlugins));
+        }
+
+        public void HandlePluginAssemblyRegisterCommand(ConnectionData connectionData, List<EnvDTE.Project> projectList)
+        {
+            if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartPluginAssemblyRegister(conn, commonConfig, projectList));
+        }
+
+        public void HandleOpenPluginAssemblyExplorer()
+        {
+            HandleOpenPluginAssemblyExplorer(null, null);
+        }
+
+        public void HandleOpenPluginAssemblyExplorer(string selection)
+        {
+            HandleOpenPluginAssemblyExplorer(null, selection);
+        }
+
+        public void HandleOpenPluginAssemblyExplorer(ConnectionData connectionData)
+        {
+            string selection = GetSelectedText();
+
+            HandleOpenPluginAssemblyExplorer(connectionData, selection);
+        }
+
+        public void HandleOpenPluginAssemblyExplorer(ConnectionData connectionData, string selection)
+        {
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartOpenPluginAssemblyExplorer(conn, commonConfig, selection));
+        }
+
+        public void HandlePluginAssemblyUpdatingInWindowCommand(ConnectionData connectionData, params EnvDTE.Project[] projectList)
+        {
+            HandlePluginAssemblyUpdatingInWindowCommand(connectionData, projectList.ToList());
+        }
+
+        public void HandlePluginAssemblyUpdatingInWindowCommand(ConnectionData connectionData, List<EnvDTE.Project> projectList)
+        {
+            if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartPluginAssemblyUpdatingInWindow(conn, commonConfig, projectList));
+        }
+
+        #endregion PluginAssembly
+
+        #region PluginType
+
+        public void HandlePluginTypeAddingProcessingStepsByProjectCommand(ConnectionData connectionData, string solutionUniqueName, bool withSelect, params string[] pluginTypeNames)
+        {
+            if (pluginTypeNames == null || !pluginTypeNames.Any())
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartPluginTypeAddingProcessingStepsToSolution(conn, commonConfig, solutionUniqueName, pluginTypeNames, withSelect));
+        }
+
+        public void HandleOpenPluginTypeExplorer(string selection)
+        {
+            HandleOpenPluginTypeExplorer(null, selection);
+        }
+
+        public void HandleOpenPluginTypeExplorer(ConnectionData connectionData, string selection)
+        {
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartOpenPluginTypeExplorer(conn, commonConfig, selection));
+        }
+
+        public void HandleAddPluginStep(string pluginTypeName, ConnectionData connectionData)
+        {
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartAddPluginStep(conn, commonConfig, pluginTypeName));
+        }
+
+        #endregion PluginType
+
+        #region Plugin and Messages Trees
+
+        public void HandleOpenPluginTree(string entityFilter, string pluginTypeFilter, string messageFilter)
+        {
+            HandleOpenPluginTree(null, entityFilter, pluginTypeFilter, messageFilter);
+        }
+
+        public void HandleOpenPluginTree(ConnectionData connectionData, string entityFilter, string pluginTypeFilter, string messageFilter)
+        {
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartShowingPluginTree(conn, commonConfig, entityFilter, pluginTypeFilter, messageFilter));
+        }
+
+        public void HandleSdkMessageTree()
+        {
+            HandleSdkMessageTree(null);
+        }
+
+        public void HandleSdkMessageTree(ConnectionData connectionData)
+        {
+            string selection = GetSelectedText();
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartShowingSdkMessageTree(conn, commonConfig, selection, null));
+        }
+
+        #endregion Plugin and Messages Trees
+
+        #region Report
+
+        public void HandleReportAddingToSolutionCommand(ConnectionData connectionData, string solutionUniqueName, bool withSelect, List<SelectedFile> selectedFiles)
+        {
+            if (selectedFiles.Count == 0)
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartReportAddingToSolution(conn, commonConfig, solutionUniqueName, selectedFiles, withSelect));
+        }
+
+        public void HandleReportDifferenceCommand(ConnectionData connectionData, string fieldName, string fieldTitle, bool isCustom)
+        {
+            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsReportType, false).Take(2).ToList();
+
+            if (selectedFiles.Count != 1)
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartReportDifference(conn, commonConfig, selectedFiles[0], fieldName, fieldTitle, isCustom));
+        }
+
+        public void HandleReportThreeFileDifferenceCommand(ConnectionData connectionData1, ConnectionData connectionData2, string fieldName, string fieldTitle, ShowDifferenceThreeFileType differenceType)
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsReportType, false).Take(2).ToList();
+
+            if (connectionData1 != null && connectionData2 != null && connectionData1 != connectionData2 && commonConfig != null && selectedFiles.Count == 1)
+            {
+                ActivateOutputWindow(null);
+                WriteToOutputEmptyLines(null, commonConfig);
+
+                try
+                {
+                    Controller.StartReportThreeFileDifference(connectionData1, connectionData2, commonConfig, selectedFiles[0], fieldName, fieldTitle, differenceType);
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToOutput(null, ex);
+                }
+            }
+        }
+
+        public void HandleReportUpdateCommand(ConnectionData connectionData)
+        {
+            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsReportType, false).Take(2).ToList();
+
+            if (selectedFiles.Count != 1)
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartReportUpdate(conn, commonConfig, selectedFiles[0]));
+        }
+
+        public void HandleOpenReportExplorerCommand()
+        {
+            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsReportType, false).Take(2).ToList();
+
+            if (selectedFiles.Count != 1)
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(null, (conn, commonConfig) => Controller.StartOpenReportExplorer(conn, commonConfig, selectedFiles[0].FileName));
+        }
+
+        public void HandleOpenReportCommand(ConnectionData connectionData, ActionOpenComponent action)
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsReportType, false).Take(2).ToList();
+
+            if (connectionData != null && commonConfig != null && selectedFiles.Count == 1)
+            {
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                SelectedFile selectedFile = selectedFiles[0];
+
+                var objectId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
+
+                if (objectId.HasValue)
+                {
+                    switch (action)
+                    {
+                        case ActionOpenComponent.OpenInWeb:
+                            connectionData.OpenEntityInstanceInWeb(Entities.Report.EntityLogicalName, objectId.Value);
+                            return;
+
+                        case ActionOpenComponent.OpenDependentComponentsInWeb:
+                            connectionData.OpenSolutionComponentDependentComponentsInWeb(Entities.ComponentType.Report, objectId.Value);
+                            return;
+                    }
+                }
+
+                ActivateOutputWindow(connectionData);
+                WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                try
+                {
+                    Controller.StartOpeningReport(connectionData, commonConfig, selectedFile, action);
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToOutput(connectionData, ex);
+                }
+            }
+        }
+
+        public void HandleReportCreateLaskLinkCommand(List<SelectedFile> selectedFiles)
+        {
+            if (selectedFiles.Count != 1)
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(null, (conn, commonConfig) => Controller.StartReportCreatingLastLink(conn, selectedFiles[0]));
+        }
+
+        public void HandleExportReport()
+        {
+            HandleExportReport(null);
+        }
+
+        public void HandleExportReport(ConnectionData connectionData)
+        {
+            string selection = GetSelectedText();
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartOpenReportExplorer(conn, commonConfig, selection));
+        }
+
+        #endregion Report
+
+        #region FetchXml
+
+        public void HandleFetchXmlExecuting(ConnectionData connectionData, SelectedFile selectedFile, bool strictConnection)
+        {
+            if (selectedFile == null || !File.Exists(selectedFile.FilePath))
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => CrmDeveloperHelperPackage.Singleton?.ExecuteFetchXmlQueryAsync(selectedFile.FilePath, conn, this, strictConnection));
+        }
+
+        #endregion FetchXml
+
+        #region CSharp
+
+        public void HandleCSharpEntityMetadataFileUpdateSchema(ConnectionData connectionData, List<SelectedFile> selectedFiles, bool selectEntity)
+        {
+            if (selectedFiles.Count == 0)
+            {
+                return;
+            }
+
+            bool openOptions = (System.Windows.Input.Keyboard.Modifiers & System.Windows.Input.ModifierKeys.Control) != 0;
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartCSharpEntityMetadataUpdatingFileWithSchema(conn, commonConfig, selectedFiles, selectEntity, openOptions));
+        }
+
+        public void HandleCSharpEntityMetadataFileUpdateProxyClassOrSchema(ConnectionData connectionData, List<SelectedFile> selectedFiles, bool selectEntity)
+        {
+            if (selectedFiles.Count == 0)
+            {
+                return;
+            }
+
+            bool openOptions = (System.Windows.Input.Keyboard.Modifiers & System.Windows.Input.ModifierKeys.Control) != 0;
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartCSharpEntityMetadataUpdatingFileWithProxyClassOrSchema(conn, commonConfig, selectedFiles, selectEntity, openOptions));
+        }
+
+        public void HandleCSharpEntityMetadataFileUpdateProxyClass(ConnectionData connectionData, List<SelectedFile> selectedFiles, bool selectEntity)
+        {
+            if (selectedFiles.Count == 0)
+            {
+                return;
+            }
+
+            bool openOptions = (System.Windows.Input.Keyboard.Modifiers & System.Windows.Input.ModifierKeys.Control) != 0;
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartCSharpEntityMetadataUpdatingFileWithProxyClass(conn, commonConfig, selectedFiles, selectEntity, openOptions));
+        }
+
+        public void HandleCSharpGlobalOptionSetsFileUpdateSchema(ConnectionData connectionData, List<SelectedFile> selectedFiles, bool withSelect)
+        {
+            if (selectedFiles.Count == 0)
+            {
+                return;
+            }
+
+            bool openOptions = (System.Windows.Input.Keyboard.Modifiers & System.Windows.Input.ModifierKeys.Control) != 0;
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartCSharpGlobalOptionSetsFileUpdatingSchema(conn, commonConfig, selectedFiles, withSelect, openOptions));
+        }
+
+        #endregion CSharp
+
+        #region JavaScript
+
+        public void HandleJavaScriptEntityMetadataFileUpdate(ConnectionData connectionData, List<SelectedFile> selectedFiles, bool selectEntity)
+        {
+            if (selectedFiles.Count == 0)
+            {
+                return;
+            }
+
+            bool openOptions = (System.Windows.Input.Keyboard.Modifiers & System.Windows.Input.ModifierKeys.Control) != 0;
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartJavaScriptEntityMetadataFileUpdatingSchema(conn, commonConfig, selectedFiles, selectEntity, openOptions));
+        }
+
+        public void HandleJavaScriptGlobalOptionSetFileUpdateSingle(ConnectionData connectionData, List<SelectedFile> selectedFiles, bool selectEntity)
+        {
+            if (selectedFiles.Count == 0)
+            {
+                return;
+            }
+
+            bool openOptions = (System.Windows.Input.Keyboard.Modifiers & System.Windows.Input.ModifierKeys.Control) != 0;
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartJavaScriptGlobalOptionSetFileUpdatingSingle(conn, commonConfig, selectedFiles, selectEntity, openOptions));
+        }
+
+        public void HandleJavaScriptUpdateGlobalOptionSetFileAll(ConnectionData connectionData, SelectedFile selectedFile)
+        {
+            if (selectedFile == null)
+            {
+                return;
+            }
+
+            bool openOptions = (System.Windows.Input.Keyboard.Modifiers & System.Windows.Input.ModifierKeys.Control) != 0;
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartJavaScriptGlobalOptionSetFileUpdatingAll(conn, commonConfig, selectedFile, openOptions));
+        }
+
+        #endregion JavaScript
+
+        public void HandleOpenLastSelectedSolution(ConnectionData connectionData, string solutionUniqueName, ActionOpenComponent action)
+        {
+            if (string.IsNullOrEmpty(solutionUniqueName))
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartOpeningSolution(conn, commonConfig, solutionUniqueName, action));
+        }
+
+        public void HandleFileClearLink(List<SelectedFile> selectedFiles)
+        {
+            if (selectedFiles.Count == 0)
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(null, (conn, commonConfig) => Controller.StartClearingLastLink(conn, selectedFiles));
+        }
+
+        #region WebResource
+
         public void HandleUpdateContentWebResourcesAndPublishCommand(ConnectionData connectionData, List<SelectedFile> selectedFiles)
         {
             if (selectedFiles.Count == 0)
@@ -314,7 +741,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleAddingWebResourcesToSolutionCommand(ConnectionData connectionData, string solutionUniqueName, bool withSelect, List<SelectedFile> selectedFiles)
+        public void HandleWebResourceAddingToSolutionCommand(ConnectionData connectionData, string solutionUniqueName, bool withSelect, List<SelectedFile> selectedFiles)
         {
             if (selectedFiles.Count == 0)
             {
@@ -322,332 +749,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartAddingWebResourcesToSolution(conn, commonConfig, solutionUniqueName, selectedFiles, withSelect));
-        }
-
-        public void HandleAddingPluginAssemblyToSolutionByProjectCommand(ConnectionData connectionData, string solutionUniqueName, bool withSelect, params string[] projectNames)
-        {
-            if (projectNames == null || !projectNames.Any())
-            {
-                return;
-            }
-
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartAddingPluginAssemblyToSolution(conn, commonConfig, solutionUniqueName, projectNames, withSelect));
-        }
-
-        public void HandleAddingPluginAssemblyProcessingStepsByProjectCommand(ConnectionData connectionData, string solutionUniqueName, bool withSelect, params string[] projectNames)
-        {
-            if (projectNames == null || !projectNames.Any())
-            {
-                return;
-            }
-
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartAddingPluginAssemblyProcessingStepsToSolution(conn, commonConfig, solutionUniqueName, projectNames, withSelect));
-        }
-
-        public void HandleAddingPluginTypeProcessingStepsByProjectCommand(ConnectionData connectionData, string solutionUniqueName, bool withSelect, params string[] pluginTypeNames)
-        {
-            if (pluginTypeNames == null || !pluginTypeNames.Any())
-            {
-                return;
-            }
-
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartAddingPluginTypeProcessingStepsToSolution(conn, commonConfig, solutionUniqueName, pluginTypeNames, withSelect));
-        }
-
-        public void HandleAddingReportsToSolutionCommand(ConnectionData connectionData, string solutionUniqueName, bool withSelect, List<SelectedFile> selectedFiles)
-        {
-            if (selectedFiles.Count == 0)
-            {
-                return;
-            }
-
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartAddingReportsToSolution(conn, commonConfig, solutionUniqueName, selectedFiles, withSelect));
-        }
-
-        public void HandleComparingPluginAssemblyAndLocalAssemblyCommand(ConnectionData connectionData, EnvDTE.Project project)
-        {
-            if (project == null || string.IsNullOrEmpty(project.Name))
-            {
-                return;
-            }
-
-            var defaultOutputFilePath = PropertiesHelper.GetOutputFilePath(project);
-
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartComparingPluginAssemblyAndLocalAssembly(conn, commonConfig, project.Name, defaultOutputFilePath));
-        }
-
-        public void HandleUpdatingPluginAssembliesInWindowCommand(ConnectionData connectionData, params EnvDTE.Project[] projectList)
-        {
-            HandleUpdatingPluginAssembliesInWindowCommand(connectionData, projectList.ToList());
-        }
-
-        public void HandleUpdatingPluginAssembliesInWindowCommand(ConnectionData connectionData, List<EnvDTE.Project> projectList)
-        {
-            if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
-            {
-                return;
-            }
-
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartUpdatingPluginAssembliesInWindow(conn, commonConfig, projectList));
-        }
-
-        public void HandleBuildProjectUpdatePluginAssemblyCommand(ConnectionData connectionData, bool registerPlugins, params EnvDTE.Project[] projectList)
-        {
-            HandleBuildProjectUpdatePluginAssemblyCommand(connectionData, registerPlugins, projectList.ToList());
-        }
-
-        public void HandleBuildProjectUpdatePluginAssemblyCommand(ConnectionData connectionData, bool registerPlugins, List<Project> projectList)
-        {
-            if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
-            {
-                return;
-            }
-
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartBuildProjectUpdatePluginAssembly(conn, commonConfig, projectList, registerPlugins));
-        }
-
-        public void HandleRegisterPluginAssemblyCommand(ConnectionData connectionData, List<EnvDTE.Project> projectList)
-        {
-            if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
-            {
-                return;
-            }
-
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartRegisterPluginAssembly(conn, commonConfig, projectList));
-        }
-
-        public void HandleExecutingFetchXml(ConnectionData connectionData, SelectedFile selectedFile, bool strictConnection)
-        {
-            if (selectedFile == null || !File.Exists(selectedFile.FilePath))
-            {
-                return;
-            }
-
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => CrmDeveloperHelperPackage.Singleton?.ExecuteFetchXmlQueryAsync(selectedFile.FilePath, conn, this, strictConnection));
-        }
-
-        public void HandleUpdateEntityMetadataFileCSharpSchema(ConnectionData connectionData, List<SelectedFile> selectedFiles, bool selectEntity)
-        {
-            if (selectedFiles.Count == 0)
-            {
-                return;
-            }
-
-            bool openOptions = (System.Windows.Input.Keyboard.Modifiers & System.Windows.Input.ModifierKeys.Control) != 0;
-
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartUpdatingFileWithEntityMetadataCSharpSchema(conn, commonConfig, selectedFiles, selectEntity, openOptions));
-        }
-
-        public void HandleUpdateEntityMetadataFileCSharpProxyClassOrSchema(ConnectionData connectionData, List<SelectedFile> selectedFiles, bool selectEntity)
-        {
-            if (selectedFiles.Count == 0)
-            {
-                return;
-            }
-
-            bool openOptions = (System.Windows.Input.Keyboard.Modifiers & System.Windows.Input.ModifierKeys.Control) != 0;
-
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartUpdatingFileWithEntityMetadataCSharpProxyClassOrSchema(conn, commonConfig, selectedFiles, selectEntity, openOptions));
-        }
-
-        public void HandleUpdateEntityMetadataFileCSharpProxyClass(ConnectionData connectionData, List<SelectedFile> selectedFiles, bool selectEntity)
-        {
-            if (selectedFiles.Count == 0)
-            {
-                return;
-            }
-
-            bool openOptions = (System.Windows.Input.Keyboard.Modifiers & System.Windows.Input.ModifierKeys.Control) != 0;
-
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartUpdatingFileWithEntityMetadataCSharpProxyClass(conn, commonConfig, selectedFiles, selectEntity, openOptions));
-        }
-
-        public void HandleUpdateEntityMetadataFileJavaScript(ConnectionData connectionData, List<SelectedFile> selectedFiles, bool selectEntity)
-        {
-            if (selectedFiles.Count == 0)
-            {
-                return;
-            }
-
-            bool openOptions = (System.Windows.Input.Keyboard.Modifiers & System.Windows.Input.ModifierKeys.Control) != 0;
-
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartUpdatingFileWithEntityMetadataJavaScript(conn, commonConfig, selectedFiles, selectEntity, openOptions));
-        }
-
-        public void HandleUpdateGlobalOptionSetsFile(ConnectionData connectionData, List<SelectedFile> selectedFiles, bool withSelect)
-        {
-            if (selectedFiles.Count == 0)
-            {
-                return;
-            }
-
-            bool openOptions = (System.Windows.Input.Keyboard.Modifiers & System.Windows.Input.ModifierKeys.Control) != 0;
-
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartUpdatingFileWithGlobalOptionSets(conn, commonConfig, selectedFiles, withSelect, openOptions));
-        }
-
-        public void HandleUpdateGlobalOptionSetSingleFileJavaScript(ConnectionData connectionData, List<SelectedFile> selectedFiles, bool selectEntity)
-        {
-            if (selectedFiles.Count == 0)
-            {
-                return;
-            }
-
-            bool openOptions = (System.Windows.Input.Keyboard.Modifiers & System.Windows.Input.ModifierKeys.Control) != 0;
-
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartUpdatingFileWithGlobalOptionSetSingleJavaScript(conn, commonConfig, selectedFiles, selectEntity, openOptions));
-        }
-
-        public void HandleUpdateGlobalOptionSetAllFileJavaScript(ConnectionData connectionData, SelectedFile selectedFile)
-        {
-            if (selectedFile == null)
-            {
-                return;
-            }
-
-            bool openOptions = (System.Windows.Input.Keyboard.Modifiers & System.Windows.Input.ModifierKeys.Control) != 0;
-
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartUpdatingFileWithGlobalOptionSetAllJavaScript(conn, commonConfig, selectedFile, openOptions));
-        }
-
-        public void HandleReportDifferenceCommand(ConnectionData connectionData, string fieldName, string fieldTitle, bool isCustom)
-        {
-            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsReportType, false).Take(2).ToList();
-
-            if (selectedFiles.Count != 1)
-            {
-                return;
-            }
-
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartReportDifference(conn, commonConfig, selectedFiles[0], fieldName, fieldTitle, isCustom));
-        }
-
-        public void HandleReportThreeFileDifferenceCommand(ConnectionData connectionData1, ConnectionData connectionData2, string fieldName, string fieldTitle, ShowDifferenceThreeFileType differenceType)
-        {
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
-
-            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsReportType, false).Take(2).ToList();
-
-            if (connectionData1 != null && connectionData2 != null && connectionData1 != connectionData2 && commonConfig != null && selectedFiles.Count == 1)
-            {
-                ActivateOutputWindow(null);
-                WriteToOutputEmptyLines(null, commonConfig);
-
-                try
-                {
-                    Controller.StartReportThreeFileDifference(connectionData1, connectionData2, commonConfig, selectedFiles[0], fieldName, fieldTitle, differenceType);
-                }
-                catch (Exception ex)
-                {
-                    WriteErrorToOutput(null, ex);
-                }
-            }
-        }
-
-        public void HandleReportUpdateCommand(ConnectionData connectionData)
-        {
-            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsReportType, false).Take(2).ToList();
-
-            if (selectedFiles.Count != 1)
-            {
-                return;
-            }
-
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartReportUpdate(conn, commonConfig, selectedFiles[0]));
-        }
-
-        public void HandleOpenReportExplorerCommand()
-        {
-            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsReportType, false).Take(2).ToList();
-
-            if (selectedFiles.Count != 1)
-            {
-                return;
-            }
-
-            GetConnectionConfigAndExecute(null, (conn, commonConfig) => Controller.StartOpenReportExplorer(conn, commonConfig, selectedFiles[0].FileName));
-        }
-
-        public void HandleOpenReportCommand(ConnectionData connectionData, ActionOpenComponent action)
-        {
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
-
-            if (connectionData == null)
-            {
-                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
-                {
-                    return;
-                }
-
-                connectionData = crmConfig.CurrentConnectionData;
-            }
-
-            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsReportType, false).Take(2).ToList();
-
-            if (connectionData != null && commonConfig != null && selectedFiles.Count == 1)
-            {
-                CheckWishToChangeCurrentConnection(connectionData);
-
-                SelectedFile selectedFile = selectedFiles[0];
-
-                var objectId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
-
-                if (objectId.HasValue)
-                {
-                    switch (action)
-                    {
-                        case ActionOpenComponent.OpenInWeb:
-                            connectionData.OpenEntityInstanceInWeb(Entities.Report.EntityLogicalName, objectId.Value);
-                            return;
-
-                        case ActionOpenComponent.OpenDependentComponentsInWeb:
-                            connectionData.OpenSolutionComponentDependentComponentsInWeb(Entities.ComponentType.Report, objectId.Value);
-                            return;
-                    }
-                }
-
-                ActivateOutputWindow(connectionData);
-                WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                try
-                {
-                    Controller.StartOpeningReport(connectionData, commonConfig, selectedFile, action);
-                }
-                catch (Exception ex)
-                {
-                    WriteErrorToOutput(connectionData, ex);
-                }
-            }
-        }
-
-        public void HandleOpenLastSelectedSolution(ConnectionData connectionData, string solutionUniqueName, ActionOpenComponent action)
-        {
-            if (string.IsNullOrEmpty(solutionUniqueName))
-            {
-                return;
-            }
-
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartOpeningSolution(conn, commonConfig, solutionUniqueName, action));
-        }
-
-        public void HandleCreateLaskLinkReportCommand(List<SelectedFile> selectedFiles)
-        {
-            if (selectedFiles.Count != 1)
-            {
-                return;
-            }
-
-            GetConnectionConfigAndExecute(null, (conn, commonConfig) => Controller.StartCreatingLastLinkReport(conn, selectedFiles[0]));
-        }
-
-        public void HandleFileClearLink(List<SelectedFile> selectedFiles)
-        {
-            if (selectedFiles.Count == 0)
-            {
-                return;
-            }
-
-            GetConnectionConfigAndExecute(null, (conn, commonConfig) => Controller.StartClearingLastLink(conn, selectedFiles));
         }
 
         public void HandleWebResourceDifferenceCommand(ConnectionData connectionData, bool isCustom)
@@ -698,25 +799,247 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWebResourceGetAttribute(conn, commonConfig, selectedFiles[0], fieldName, fieldTitle));
         }
 
-        public void HandleRibbonDifferenceCommand(ConnectionData connectionData, SelectedFile selectedFile)
+        public void HandleWebResourceThreeFileDifferenceCommand(ConnectionData connectionData1, ConnectionData connectionData2, ShowDifferenceThreeFileType differenceType)
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsWebResourceTextType, false).Take(2).ToList();
+
+            if (connectionData1 != null && connectionData2 != null && connectionData1 != connectionData2 && commonConfig != null && selectedFiles.Count == 1)
+            {
+                ActivateOutputWindow(null);
+                WriteToOutputEmptyLines(null, commonConfig);
+
+                try
+                {
+                    Controller.StartWebResourceThreeFileDifference(connectionData1, connectionData2, commonConfig, selectedFiles[0], differenceType);
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToOutput(null, ex);
+                }
+            }
+        }
+
+        public void HandleOpenWebResource(ConnectionData connectionData, ActionOpenComponent action)
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsWebResourceType, false).Take(2).ToList();
+
+            if (connectionData != null && commonConfig != null && selectedFiles.Count == 1)
+            {
+                SelectedFile selectedFile = selectedFiles[0];
+
+                ActivateOutputWindow(connectionData);
+                WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                var objectId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
+
+                if (objectId.HasValue)
+                {
+                    switch (action)
+                    {
+                        case ActionOpenComponent.OpenInWeb:
+                            connectionData.OpenEntityInstanceInWeb(Entities.WebResource.EntityLogicalName, objectId.Value);
+                            return;
+
+                        case ActionOpenComponent.OpenDependentComponentsInWeb:
+                            connectionData.OpenSolutionComponentDependentComponentsInWeb(Entities.ComponentType.WebResource, objectId.Value);
+                            return;
+                    }
+                }
+
+                try
+                {
+                    Controller.StartOpeningWebResource(connectionData, commonConfig, selectedFile, action);
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToOutput(connectionData, ex);
+                }
+            }
+        }
+
+        public void HandleShowingWebResourcesDependentComponents(List<SelectedFile> selectedFiles)
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
+            {
+                return;
+            }
+
+            var connectionData = crmConfig.CurrentConnectionData;
+
+            if (connectionData != null && commonConfig != null && selectedFiles.Count > 0)
+            {
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                var form = new WindowSelectFolderForExport(connectionData, commonConfig.FolderForExport, commonConfig.DefaultFileAction);
+
+                if (form.ShowDialog().GetValueOrDefault())
+                {
+                    commonConfig.FolderForExport = form.SelectedFolder;
+                    commonConfig.DefaultFileAction = form.GetFileAction();
+
+                    connectionData = form.GetConnectionData();
+
+                    if (connectionData != null)
+                    {
+                        commonConfig.Save();
+
+                        ActivateOutputWindow(connectionData);
+                        WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                        CheckWishToChangeCurrentConnection(connectionData);
+
+                        try
+                        {
+                            Controller.ShowingWebResourcesDependentComponents(connectionData, commonConfig, selectedFiles);
+                        }
+                        catch (Exception ex)
+                        {
+                            WriteErrorToOutput(connectionData, ex);
+                        }
+                    }
+                }
+            }
+        }
+
+        public void HandleWebResourceMultiDifferenceFiles(List<SelectedFile> selectedFiles, OpenFilesType openFilesType)
+        {
+            if (selectedFiles.Count == 0)
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(null, (conn, commonConfig) => Controller.StartWebResourceMultiDifferenceFiles(conn, commonConfig, selectedFiles, openFilesType));
+        }
+
+        public void HandleExportWebResource()
+        {
+            HandleExportWebResource(null);
+        }
+
+        public void HandleExportWebResource(ConnectionData connectionData)
+        {
+            string selection = GetSelectedText();
+
+            HandleOpenWebResourceExplorerCommand(connectionData, selection);
+        }
+
+        public void HandleOpenWebResourceExplorerCommand()
+        {
+            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsWebResourceType, false).Take(2).ToList();
+
+            if (selectedFiles.Count == 1)
+            {
+                SelectedFile selectedFile = selectedFiles[0];
+
+                HandleOpenWebResourceExplorerCommand(null, selectedFile.FileName);
+            }
+        }
+
+        public void HandleOpenWebResourceExplorerCommand(string selection)
+        {
+            HandleOpenWebResourceExplorerCommand(null, selection);
+        }
+
+        private void HandleOpenWebResourceExplorerCommand(ConnectionData connectionData, string selection)
+        {
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartOpenWebResourceExplorer(conn, commonConfig, selection));
+        }
+
+        public void HandleWebResourceCreateLaskLinkMultipleCommand(List<SelectedFile> selectedFiles)
+        {
+            if (!selectedFiles.Any())
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(null, (conn, commonConfig) => Controller.StartWebResourceCreatingLastLinkMultiple(conn, selectedFiles));
+        }
+
+        #endregion WebResource
+
+        #region WebResourceDependencyXml
+
+        public void HandleWebResourceDependencyXmlDifferenceCommand(ConnectionData connectionData, SelectedFile selectedFile)
         {
             if (selectedFile == null)
             {
                 return;
             }
 
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartRibbonDifference(conn, commonConfig, selectedFile));
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWebResourceDependencyXmlDifference(conn, commonConfig, selectedFile));
         }
 
-        public void HandleRibbonDifferenceCommand(ConnectionData connectionData, XDocument doc, string filePath)
+        public void HandleWebResourceDependencyXmlDifferenceCommand(ConnectionData connectionData, XDocument doc, string filePath)
         {
             if (doc == null)
             {
                 return;
             }
 
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartRibbonDifference(conn, commonConfig, doc, filePath));
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWebResourceDependencyXmlDifference(conn, commonConfig, doc, filePath));
         }
+
+        public void HandleWebResourceDependencyXmlUpdateCommand(ConnectionData connectionData, SelectedFile selectedFile)
+        {
+            if (selectedFile == null)
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWebResourceDependencyXmlUpdate(conn, commonConfig, selectedFile));
+        }
+
+        public void HandleWebResourceDependencyXmlUpdateCommand(ConnectionData connectionData, XDocument doc, string filePath)
+        {
+            if (doc == null)
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWebResourceDependencyXmlUpdate(conn, commonConfig, doc, filePath));
+        }
+
+        public void HandleWebResourceDependencyXmlOpenInWebCommand(ConnectionData connectionData, SelectedFile selectedFile)
+        {
+            if (selectedFile == null)
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWebResourceDependencyXmlOpenInWeb(conn, commonConfig, selectedFile));
+        }
+
+        public void HandleWebResourceDependencyXmlGetCurrentCommand(ConnectionData connectionData, SelectedFile selectedFile)
+        {
+            if (selectedFile == null)
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWebResourceDependencyXmlGetCurrent(conn, commonConfig, selectedFile));
+        }
+
+        #endregion WebResourceDependencyXml
+
+        #region SiteMap
 
         public void HandleSiteMapDifferenceCommand(ConnectionData connectionData, SelectedFile selectedFile)
         {
@@ -777,6 +1100,137 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartSiteMapGetCurrent(conn, commonConfig, selectedFile));
         }
+
+        public void HandleExplorerSiteMap()
+        {
+            HandleExplorerSiteMap(null, null);
+        }
+
+        public void HandleExplorerSiteMap(string filter)
+        {
+            HandleExplorerSiteMap(null, filter);
+        }
+
+        public void HandleExplorerSiteMap(ConnectionData connectionData)
+        {
+            HandleExplorerSiteMap(connectionData, null);
+        }
+
+        public void HandleExplorerSiteMap(ConnectionData connectionData, string filter)
+        {
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartExplorerSitemapXml(conn, commonConfig, filter));
+        }
+
+        public void HandleExportDefaultSitemap(string selectedSitemap)
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (commonConfig != null)
+            {
+                string fileName = string.Format("SiteMap.{0}.xml", selectedSitemap);
+
+                var dialog = new Microsoft.Win32.SaveFileDialog()
+                {
+                    DefaultExt = ".xml",
+
+                    Filter = "SiteMap (.xml)|*.xml",
+                    FilterIndex = 1,
+
+                    RestoreDirectory = true,
+                    FileName = fileName,
+
+                    InitialDirectory = commonConfig.FolderForExport,
+                };
+
+                if (dialog.ShowDialog().GetValueOrDefault())
+                {
+                    commonConfig.Save();
+
+                    ActivateOutputWindow(null);
+                    WriteToOutputEmptyLines(null, commonConfig);
+
+                    try
+                    {
+                        Uri uri = FileOperations.GetSiteMapResourceUri(selectedSitemap);
+                        StreamResourceInfo info = Application.GetResourceStream(uri);
+
+                        var doc = XDocument.Load(info.Stream);
+                        info.Stream.Dispose();
+
+                        var filePath = dialog.FileName;
+
+                        doc.Save(filePath, SaveOptions.OmitDuplicateNamespaces);
+
+                        this.WriteToOutput(null, string.Empty);
+                        this.WriteToOutput(null, string.Empty);
+                        this.WriteToOutput(null, string.Empty);
+
+                        this.WriteToOutput(null, "{0} exported.", fileName);
+
+                        this.WriteToOutput(null, string.Empty);
+
+                        this.WriteToOutputFilePathUri(null, filePath);
+
+                        PerformAction(null, filePath, true);
+                    }
+                    catch (Exception ex)
+                    {
+                        WriteErrorToOutput(null, ex);
+                    }
+                }
+            }
+        }
+
+        public void HandleShowDifferenceWithDefaultSitemap(SelectedFile selectedFile, string selectedSitemap)
+        {
+            if (selectedFile == null || !File.Exists(selectedFile.FilePath))
+            {
+                return;
+            }
+
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (commonConfig == null)
+            {
+                return;
+            }
+
+            ActivateOutputWindow(null);
+            WriteToOutputEmptyLines(null, commonConfig);
+
+            try
+            {
+                Uri uri = FileOperations.GetSiteMapResourceUri(selectedSitemap);
+                StreamResourceInfo info = Application.GetResourceStream(uri);
+
+                var doc = XDocument.Load(info.Stream);
+                info.Stream.Dispose();
+
+                string fileName = string.Format("SiteMap.{0}.xml", selectedSitemap);
+
+                var filePath = Path.Combine(FileOperations.GetTempFileFolder(), fileName);
+
+                doc.Save(filePath, SaveOptions.OmitDuplicateNamespaces);
+
+                this.WriteToOutput(null, string.Empty);
+                this.WriteToOutput(null, string.Empty);
+                this.WriteToOutput(null, string.Empty);
+
+                this.WriteToOutput(null, "{0} exported.", fileName);
+
+                this.WriteToOutput(null, string.Empty);
+
+                this.WriteToOutputFilePathUri(null, filePath);
+
+                this.ProcessStartProgramComparerAsync(selectedFile.FilePath, filePath, selectedFile.FileName, fileName);
+            }
+            catch (Exception ex)
+            {
+                WriteErrorToOutput(null, ex);
+            }
+        }
+
+        #endregion SiteMap
 
         #region SystemForm
 
@@ -840,9 +1294,41 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartSystemFormGetCurrent(conn, commonConfig, selectedFile));
         }
 
-        #endregion SystemForm
+        public void HandleExplorerSystemForm()
+        {
+            string selection = GetSelectedText();
 
-        //StartConvertingFetchXmlToQueryExpression
+            HandleExplorerSystemForm(null, null, selection);
+        }
+
+        public void HandleExplorerSystemForm(ConnectionData connectionData)
+        {
+            string selection = GetSelectedText();
+
+            HandleExplorerSystemForm(connectionData, null, selection);
+        }
+
+        public void HandleExplorerSystemForm(string selection)
+        {
+            HandleExplorerSystemForm(null, null, selection);
+        }
+
+        public void HandleExplorerSystemForm(ConnectionData connectionData, string selection)
+        {
+            HandleExplorerSystemForm(connectionData, null, selection);
+        }
+
+        public void HandleExplorerSystemForm(ConnectionData connectionData, SelectedItem selectedItem)
+        {
+            HandleExplorerSystemForm(connectionData, selectedItem, string.Empty);
+        }
+
+        private void HandleExplorerSystemForm(ConnectionData connectionData, SelectedItem selectedItem, string selection)
+        {
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartExplorerSystemForm(conn, commonConfig, selection, selectedItem));
+        }
+
+        #endregion SystemForm
 
         #region SavedQuery
 
@@ -904,6 +1390,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartSavedQueryGetCurrent(conn, commonConfig, selectedFile));
+        }
+
+        public void HandleExplorerSystemSavedQuery()
+        {
+            string selection = GetSelectedText();
+
+            HandleExplorerSystemSavedQuery(null, selection);
+        }
+
+        public void HandleExplorerSystemSavedQuery(ConnectionData connectionData)
+        {
+            string selection = GetSelectedText();
+
+            HandleExplorerSystemSavedQuery(connectionData, selection);
+        }
+
+        public void HandleExplorerSystemSavedQuery(string selection)
+        {
+            HandleExplorerSystemSavedQuery(null, selection);
+        }
+
+        public void HandleExplorerSystemSavedQuery(ConnectionData connectionData, string selection)
+        {
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartExplorerSystemSavedQueryXml(conn, commonConfig, selection));
+        }
+
+        public void HandleExportSystemSavedQueryVisualization()
+        {
+            HandleExportSystemSavedQueryVisualization(null);
+        }
+
+        public void HandleExportSystemSavedQueryVisualization(ConnectionData connectionData)
+        {
+            string selection = GetSelectedText();
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartExplorerSystemSavedQueryVisualization(conn, commonConfig, selection));
         }
 
         #endregion SavedQuery
@@ -970,9 +1492,141 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWorkflowGetCurrent(conn, commonConfig, selectedFile));
         }
 
+        public void HandleCheckingWorkflowsUsedEntities()
+        {
+            HandleCheckingWorkflowsUsedEntities(null);
+        }
+
+        public void HandleCheckingWorkflowsUsedEntities(ConnectionData connectionData)
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null && commonConfig != null)
+            {
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                var form = new WindowSelectFolderForExport(connectionData, commonConfig.FolderForExport, commonConfig.DefaultFileAction);
+
+                if (form.ShowDialog().GetValueOrDefault())
+                {
+                    commonConfig.FolderForExport = form.SelectedFolder;
+                    commonConfig.DefaultFileAction = form.GetFileAction();
+
+                    connectionData = form.GetConnectionData();
+
+                    if (connectionData != null)
+                    {
+                        commonConfig.Save();
+
+                        ActivateOutputWindow(connectionData);
+                        WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                        CheckWishToChangeCurrentConnection(connectionData);
+
+                        try
+                        {
+                            Controller.StartCheckingWorkflowsUsedEntities(connectionData, commonConfig);
+                        }
+                        catch (Exception ex)
+                        {
+                            WriteErrorToOutput(connectionData, ex);
+                        }
+                    }
+                }
+            }
+        }
+
+        public void HandleCheckingWorkflowsNotExistingUsedEntities()
+        {
+            HandleCheckingWorkflowsNotExistingUsedEntities(null);
+        }
+
+        public void HandleCheckingWorkflowsNotExistingUsedEntities(ConnectionData connectionData)
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null && commonConfig != null)
+            {
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                var form = new WindowSelectFolderForExport(connectionData, commonConfig.FolderForExport, commonConfig.DefaultFileAction);
+
+                if (form.ShowDialog().GetValueOrDefault())
+                {
+                    commonConfig.FolderForExport = form.SelectedFolder;
+                    commonConfig.DefaultFileAction = form.GetFileAction();
+
+                    connectionData = form.GetConnectionData();
+
+                    if (connectionData != null)
+                    {
+                        commonConfig.Save();
+
+                        ActivateOutputWindow(connectionData);
+                        WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                        CheckWishToChangeCurrentConnection(connectionData);
+
+                        try
+                        {
+                            Controller.ExecuteCheckingWorkflowsNotExistingUsedEntities(connectionData, commonConfig);
+                        }
+                        catch (Exception ex)
+                        {
+                            WriteErrorToOutput(connectionData, ex);
+                        }
+                    }
+                }
+            }
+        }
+
+        public void HandleExplorerWorkflows()
+        {
+            string selection = GetSelectedText();
+
+            HandleExplorerWorkflows(null, selection);
+        }
+
+        public void HandleExplorerWorkflows(string selection)
+        {
+            HandleExplorerWorkflows(null, selection);
+        }
+
+        public void HandleExplorerWorkflows(ConnectionData connectionData)
+        {
+            string selection = GetSelectedText();
+
+            HandleExplorerWorkflows(connectionData, selection);
+        }
+
+        public void HandleExplorerWorkflows(ConnectionData connectionData, string selection)
+        {
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartExplorerWorkflow(conn, commonConfig, selection));
+        }
+
         #endregion Workflow
 
-        #region RibbonDiff
+        #region RibbonDiffXml
 
         public void HandleRibbonDiffXmlDifferenceCommand(ConnectionData connectionData, SelectedFile selectedFile)
         {
@@ -1098,9 +1752,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        #endregion RibbonDiff
+        public void HandleRibbonDiffXmlGetCurrentCommand(ConnectionData connectionData, SelectedFile selectedFile)
+        {
+            if (selectedFile == null)
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartRibbonDiffXmlGetCurrent(conn, commonConfig, selectedFile));
+        }
+
+        #endregion RibbonDiffXml
 
         #region Ribbon
+
+        public void HandleRibbonDifferenceCommand(ConnectionData connectionData, SelectedFile selectedFile)
+        {
+            if (selectedFile == null)
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartRibbonDifference(conn, commonConfig, selectedFile));
+        }
+
+        public void HandleRibbonDifferenceCommand(ConnectionData connectionData, XDocument doc, string filePath)
+        {
+            if (doc == null)
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartRibbonDifference(conn, commonConfig, doc, filePath));
+        }
 
         public void HandleEntityRibbonOpenInWeb(ConnectionData connectionData, SelectedFile selectedFile)
         {
@@ -1122,93 +1806,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartRibbonExplorer(conn, commonConfig, selectedFile));
         }
 
+        public void HandleOpenApplicationRibbonExplorer()
+        {
+            HandleOpenApplicationRibbonExplorer(null);
+        }
+
+        public void HandleOpenApplicationRibbonExplorer(ConnectionData connectionData)
+        {
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartOpenApplicationRibbonExplorer(conn, commonConfig));
+        }
+
+        public void HandleRibbonGetCurrentCommand(ConnectionData connectionData, SelectedFile selectedFile)
+        {
+            if (selectedFile == null)
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartRibbonGetCurrent(conn, commonConfig, selectedFile));
+        }
+
         #endregion Ribbon
-
-        #region WebResource
-
-        public void HandleWebResourceDependencyXmlDifferenceCommand(ConnectionData connectionData, SelectedFile selectedFile)
-        {
-            if (selectedFile == null)
-            {
-                return;
-            }
-
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWebResourceDependencyXmlDifference(conn, commonConfig, selectedFile));
-        }
-
-        public void HandleWebResourceDependencyXmlDifferenceCommand(ConnectionData connectionData, XDocument doc, string filePath)
-        {
-            if (doc == null)
-            {
-                return;
-            }
-
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWebResourceDependencyXmlDifference(conn, commonConfig, doc, filePath));
-        }
-
-        public void HandleWebResourceDependencyXmlUpdateCommand(ConnectionData connectionData, SelectedFile selectedFile)
-        {
-            if (selectedFile == null)
-            {
-                return;
-            }
-
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWebResourceDependencyXmlUpdate(conn, commonConfig, selectedFile));
-        }
-
-        public void HandleWebResourceDependencyXmlUpdateCommand(ConnectionData connectionData, XDocument doc, string filePath)
-        {
-            if (doc == null)
-            {
-                return;
-            }
-
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWebResourceDependencyXmlUpdate(conn, commonConfig, doc, filePath));
-        }
-
-        public void HandleWebResourceDependencyXmlOpenInWebCommand(ConnectionData connectionData, SelectedFile selectedFile)
-        {
-            if (selectedFile == null)
-            {
-                return;
-            }
-
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWebResourceDependencyXmlOpenInWeb(conn, commonConfig, selectedFile));
-        }
-
-        public void HandleWebResourceDependencyXmlGetCurrentCommand(ConnectionData connectionData, SelectedFile selectedFile)
-        {
-            if (selectedFile == null)
-            {
-                return;
-            }
-
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWebResourceDependencyXmlGetCurrent(conn, commonConfig, selectedFile));
-        }
-
-        #endregion WebResource
-
-        public void HandleWebResourceThreeFileDifferenceCommand(ConnectionData connectionData1, ConnectionData connectionData2, ShowDifferenceThreeFileType differenceType)
-        {
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
-
-            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsWebResourceTextType, false).Take(2).ToList();
-
-            if (connectionData1 != null && connectionData2 != null && connectionData1 != connectionData2 && commonConfig != null && selectedFiles.Count == 1)
-            {
-                ActivateOutputWindow(null);
-                WriteToOutputEmptyLines(null, commonConfig);
-
-                try
-                {
-                    Controller.StartWebResourceThreeFileDifference(connectionData1, connectionData2, commonConfig, selectedFiles[0], differenceType);
-                }
-                catch (Exception ex)
-                {
-                    WriteErrorToOutput(null, ex);
-                }
-            }
-        }
 
         public void HandleCheckFileEncodingCommand(List<SelectedFile> selectedFiles)
         {
@@ -1226,212 +1844,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 catch (Exception ex)
                 {
                     WriteErrorToOutput(null, ex);
-                }
-            }
-        }
-
-        public void HandleOpenWebResource(ConnectionData connectionData, ActionOpenComponent action)
-        {
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
-
-            if (connectionData == null)
-            {
-                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
-                {
-                    return;
-                }
-
-                connectionData = crmConfig.CurrentConnectionData;
-            }
-
-            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsWebResourceType, false).Take(2).ToList();
-
-            if (connectionData != null && commonConfig != null && selectedFiles.Count == 1)
-            {
-                SelectedFile selectedFile = selectedFiles[0];
-
-                ActivateOutputWindow(connectionData);
-                WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                CheckWishToChangeCurrentConnection(connectionData);
-
-                var objectId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
-
-                if (objectId.HasValue)
-                {
-                    switch (action)
-                    {
-                        case ActionOpenComponent.OpenInWeb:
-                            connectionData.OpenEntityInstanceInWeb(Entities.WebResource.EntityLogicalName, objectId.Value);
-                            return;
-
-                        case ActionOpenComponent.OpenDependentComponentsInWeb:
-                            connectionData.OpenSolutionComponentDependentComponentsInWeb(Entities.ComponentType.WebResource, objectId.Value);
-                            return;
-                    }
-                }
-
-                try
-                {
-                    Controller.StartOpeningWebResource(connectionData, commonConfig, selectedFile, action);
-                }
-                catch (Exception ex)
-                {
-                    WriteErrorToOutput(connectionData, ex);
-                }
-            }
-        }
-
-        public void HandleShowingWebResourcesDependentComponents(List<SelectedFile> selectedFiles)
-        {
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
-
-            if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
-            {
-                return;
-            }
-
-            var connectionData = crmConfig.CurrentConnectionData;
-
-            if (connectionData != null && commonConfig != null && selectedFiles.Count > 0)
-            {
-                CheckWishToChangeCurrentConnection(connectionData);
-
-                var form = new WindowSelectFolderForExport(connectionData, commonConfig.FolderForExport, commonConfig.DefaultFileAction);
-
-                if (form.ShowDialog().GetValueOrDefault())
-                {
-                    commonConfig.FolderForExport = form.SelectedFolder;
-                    commonConfig.DefaultFileAction = form.GetFileAction();
-
-                    connectionData = form.GetConnectionData();
-
-                    if (connectionData != null)
-                    {
-                        commonConfig.Save();
-
-                        ActivateOutputWindow(connectionData);
-                        WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                        CheckWishToChangeCurrentConnection(connectionData);
-
-                        try
-                        {
-                            Controller.ShowingWebResourcesDependentComponents(connectionData, commonConfig, selectedFiles);
-                        }
-                        catch (Exception ex)
-                        {
-                            WriteErrorToOutput(connectionData, ex);
-                        }
-                    }
-                }
-            }
-        }
-
-        public void HandleCheckingWorkflowsUsedEntities()
-        {
-            HandleCheckingWorkflowsUsedEntities(null);
-        }
-
-        public void HandleCheckingWorkflowsUsedEntities(ConnectionData connectionData)
-        {
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
-
-            if (connectionData == null)
-            {
-                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
-                {
-                    return;
-                }
-
-                connectionData = crmConfig.CurrentConnectionData;
-            }
-
-            if (connectionData != null && commonConfig != null)
-            {
-                CheckWishToChangeCurrentConnection(connectionData);
-
-                var form = new WindowSelectFolderForExport(connectionData, commonConfig.FolderForExport, commonConfig.DefaultFileAction);
-
-                if (form.ShowDialog().GetValueOrDefault())
-                {
-                    commonConfig.FolderForExport = form.SelectedFolder;
-                    commonConfig.DefaultFileAction = form.GetFileAction();
-
-                    connectionData = form.GetConnectionData();
-
-                    if (connectionData != null)
-                    {
-                        commonConfig.Save();
-
-                        ActivateOutputWindow(connectionData);
-                        WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                        CheckWishToChangeCurrentConnection(connectionData);
-
-                        try
-                        {
-                            Controller.StartCheckingWorkflowsUsedEntities(connectionData, commonConfig);
-                        }
-                        catch (Exception ex)
-                        {
-                            WriteErrorToOutput(connectionData, ex);
-                        }
-                    }
-                }
-            }
-        }
-
-        public void HandleCheckingWorkflowsNotExistingUsedEntities()
-        {
-            HandleCheckingWorkflowsNotExistingUsedEntities(null);
-        }
-
-        public void HandleCheckingWorkflowsNotExistingUsedEntities(ConnectionData connectionData)
-        {
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
-
-            if (connectionData == null)
-            {
-                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
-                {
-                    return;
-                }
-
-                connectionData = crmConfig.CurrentConnectionData;
-            }
-
-            if (connectionData != null && commonConfig != null)
-            {
-                CheckWishToChangeCurrentConnection(connectionData);
-
-                var form = new WindowSelectFolderForExport(connectionData, commonConfig.FolderForExport, commonConfig.DefaultFileAction);
-
-                if (form.ShowDialog().GetValueOrDefault())
-                {
-                    commonConfig.FolderForExport = form.SelectedFolder;
-                    commonConfig.DefaultFileAction = form.GetFileAction();
-
-                    connectionData = form.GetConnectionData();
-
-                    if (connectionData != null)
-                    {
-                        commonConfig.Save();
-
-                        ActivateOutputWindow(connectionData);
-                        WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                        CheckWishToChangeCurrentConnection(connectionData);
-
-                        try
-                        {
-                            Controller.ExecuteCheckingWorkflowsNotExistingUsedEntities(connectionData, commonConfig);
-                        }
-                        catch (Exception ex)
-                        {
-                            WriteErrorToOutput(connectionData, ex);
-                        }
-                    }
                 }
             }
         }
@@ -1488,16 +1900,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 this.WriteToOutput(connectionData, Properties.OutputStrings.PublishListIsEmpty);
                 this.ActivateOutputWindow(connectionData);
             }
-        }
-
-        public void HandleMultiDifferenceFiles(List<SelectedFile> selectedFiles, OpenFilesType openFilesType)
-        {
-            if (selectedFiles.Count == 0)
-            {
-                return;
-            }
-
-            GetConnectionConfigAndExecute(null, (conn, commonConfig) => Controller.StartWebResourceMultiDifferenceFiles(conn, commonConfig, selectedFiles, openFilesType));
         }
 
         public void OpenConnectionList()
@@ -2156,6 +2558,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         #endregion Finds and Edits
 
+        #region Checks
+
         public void HandleCheckEntitiesOwnership(ConnectionData connectionData)
         {
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartCheckEntitiesOwnership(conn, commonConfig));
@@ -2176,7 +2580,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartCheckUnknownFormControlTypes(conn, commonConfig));
         }
 
-        public void HandleCreateAllDependencyNodesDescription(ConnectionData connectionData)
+        public void HandleCheckCreateAllDependencyNodesDescription(ConnectionData connectionData)
         {
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartCreateAllDependencyNodesDescription(conn, commonConfig));
         }
@@ -2206,27 +2610,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartCheckPluginImagesRequiredComponents(conn, commonConfig));
         }
 
-        public void HandleOpenPluginTree(string entityFilter, string pluginTypeFilter, string messageFilter)
-        {
-            HandleOpenPluginTree(null, entityFilter, pluginTypeFilter, messageFilter);
-        }
-
-        public void HandleOpenPluginTree(ConnectionData connectionData, string entityFilter, string pluginTypeFilter, string messageFilter)
-        {
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartShowingPluginTree(conn, commonConfig, entityFilter, pluginTypeFilter, messageFilter));
-        }
-
-        public void HandleSdkMessageTree()
-        {
-            HandleSdkMessageTree(null);
-        }
-
-        public void HandleSdkMessageTree(ConnectionData connectionData)
-        {
-            string selection = GetSelectedText();
-
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartShowingSdkMessageTree(conn, commonConfig, selection, null));
-        }
+        #endregion Checks
 
         public void HandleOpenSystemUsersExplorer()
         {
@@ -2689,85 +3073,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartExplorerOrganizationInformation(conn, commonConfig));
         }
 
-        public void HandleOpenPluginAssemblyExplorer()
-        {
-            HandleOpenPluginAssemblyExplorer(null, null);
-        }
-
-        public void HandleOpenPluginAssemblyExplorer(string selection)
-        {
-            HandleOpenPluginAssemblyExplorer(null, selection);
-        }
-
-        public void HandleOpenPluginAssemblyExplorer(ConnectionData connectionData)
-        {
-            string selection = GetSelectedText();
-
-            HandleOpenPluginAssemblyExplorer(connectionData, selection);
-        }
-
-        public void HandleOpenPluginAssemblyExplorer(ConnectionData connectionData, string selection)
-        {
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartOpenPluginAssemblyExplorer(conn, commonConfig, selection));
-        }
-
-        public void HandleOpenPluginTypeExplorer(string selection)
-        {
-            HandleOpenPluginTypeExplorer(null, selection);
-        }
-
-        public void HandleOpenPluginTypeExplorer(ConnectionData connectionData, string selection)
-        {
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartOpenPluginTypeExplorer(conn, commonConfig, selection));
-        }
-
-        public void HandleAddPluginStep(string pluginTypeName, ConnectionData connectionData)
-        {
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartAddPluginStep(conn, commonConfig, pluginTypeName));
-        }
-
-        public void HandleExportReport()
-        {
-            HandleExportReport(null);
-        }
-
-        public void HandleExportReport(ConnectionData connectionData)
-        {
-            string selection = GetSelectedText();
-
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartOpenReportExplorer(conn, commonConfig, selection));
-        }
-
-        public void HandleExportRibbon()
-        {
-            HandleExportRibbon(null);
-        }
-
-        public void HandleExportRibbon(ConnectionData connectionData)
-        {
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartExportRibbonXml(conn, commonConfig));
-        }
-
-        public void HandleExplorerSitemap()
-        {
-            HandleExplorerSitemap(null, null);
-        }
-
-        public void HandleExplorerSitemap(string filter)
-        {
-            HandleExplorerSitemap(null, filter);
-        }
-
-        public void HandleExplorerSitemap(ConnectionData connectionData)
-        {
-            HandleExplorerSitemap(connectionData, null);
-        }
-
-        public void HandleExplorerSitemap(ConnectionData connectionData, string filter)
-        {
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartExplorerSitemapXml(conn, commonConfig, filter));
-        }
-
         public void HandleOpenSolutionExplorerWindow(ConnectionData connectionData)
         {
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartOpenSolutionExplorerWindow(conn, commonConfig, null));
@@ -2808,40 +3113,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartOpenOrganizationDifferenceImageWindow(conn, commonConfig));
         }
 
-        public void HandleExplorerSystemForm()
-        {
-            string selection = GetSelectedText();
-
-            HandleExplorerSystemForm(null, null, selection);
-        }
-
-        public void HandleExplorerSystemForm(ConnectionData connectionData)
-        {
-            string selection = GetSelectedText();
-
-            HandleExplorerSystemForm(connectionData, null, selection);
-        }
-
-        public void HandleExplorerSystemForm(string selection)
-        {
-            HandleExplorerSystemForm(null, null, selection);
-        }
-
-        public void HandleExplorerSystemForm(ConnectionData connectionData, string selection)
-        {
-            HandleExplorerSystemForm(connectionData, null, selection);
-        }
-
-        public void HandleExplorerSystemForm(ConnectionData connectionData, SelectedItem selectedItem)
-        {
-            HandleExplorerSystemForm(connectionData, selectedItem, string.Empty);
-        }
-
-        private void HandleExplorerSystemForm(ConnectionData connectionData, SelectedItem selectedItem, string selection)
-        {
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartExplorerSystemForm(conn, commonConfig, selection, selectedItem));
-        }
-
         public void HandleExportCustomControl()
         {
             HandleExportCustomControl(null);
@@ -2852,100 +3123,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             string selection = GetSelectedText();
 
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartExplorerCustomControl(conn, commonConfig, selection));
-        }
-
-        public void HandleExplorerSystemSavedQuery()
-        {
-            string selection = GetSelectedText();
-
-            HandleExplorerSystemSavedQuery(null, selection);
-        }
-
-        public void HandleExplorerSystemSavedQuery(ConnectionData connectionData)
-        {
-            string selection = GetSelectedText();
-
-            HandleExplorerSystemSavedQuery(connectionData, selection);
-        }
-
-        public void HandleExplorerSystemSavedQuery(string selection)
-        {
-            HandleExplorerSystemSavedQuery(null, selection);
-        }
-
-        public void HandleExplorerSystemSavedQuery(ConnectionData connectionData, string selection)
-        {
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartExplorerSystemSavedQueryXml(conn, commonConfig, selection));
-        }
-
-        public void HandleExportSystemSavedQueryVisualization()
-        {
-            HandleExportSystemSavedQueryVisualization(null);
-        }
-
-        public void HandleExportSystemSavedQueryVisualization(ConnectionData connectionData)
-        {
-            string selection = GetSelectedText();
-
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartExplorerSystemSavedQueryVisualization(conn, commonConfig, selection));
-        }
-
-        public void HandleExportWebResource()
-        {
-            HandleExportWebResource(null);
-        }
-
-        public void HandleExportWebResource(ConnectionData connectionData)
-        {
-            string selection = GetSelectedText();
-
-            HandleOpenWebResourceExplorerCommand(connectionData, selection);
-        }
-
-        public void HandleOpenWebResourceExplorerCommand()
-        {
-            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsWebResourceType, false).Take(2).ToList();
-
-            if (selectedFiles.Count == 1)
-            {
-                SelectedFile selectedFile = selectedFiles[0];
-
-                HandleOpenWebResourceExplorerCommand(null, selectedFile.FileName);
-            }
-        }
-
-        public void HandleOpenWebResourceExplorerCommand(string selection)
-        {
-            HandleOpenWebResourceExplorerCommand(null, selection);
-        }
-
-        private void HandleOpenWebResourceExplorerCommand(ConnectionData connectionData, string selection)
-        {
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartOpenWebResourceExplorer(conn, commonConfig, selection));
-        }
-
-        public void HandleExplorerWorkflows()
-        {
-            string selection = GetSelectedText();
-
-            HandleExplorerWorkflows(null, selection);
-        }
-
-        public void HandleExplorerWorkflows(string selection)
-        {
-            HandleExplorerWorkflows(null, selection);
-        }
-
-        public void HandleExplorerWorkflows(ConnectionData connectionData)
-        {
-            string selection = GetSelectedText();
-
-            HandleExplorerWorkflows(connectionData, selection);
-        }
-
-        public void HandleExplorerWorkflows(ConnectionData connectionData, string selection)
-        {
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartExplorerWorkflow(conn, commonConfig, selection));
         }
 
         public void HandleAddingIntoPublishListFilesByTypeCommand(List<SelectedFile> selectedFiles, OpenFilesType openFilesType)
@@ -2986,16 +3163,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             GetConnectionConfigAndExecute(null, (conn, commonConfig) => Controller.StartComparingFilesWithWrongEncoding(conn, selectedFiles, withDetails));
-        }
-
-        public void HandleCreateLaskLinkWebResourcesMultipleCommand(List<SelectedFile> selectedFiles)
-        {
-            if (!selectedFiles.Any())
-            {
-                return;
-            }
-
-            GetConnectionConfigAndExecute(null, (conn, commonConfig) => Controller.StartCreatingLastLinkWebResourceMultiple(conn, selectedFiles));
         }
 
         public void HandleExportSolution()
@@ -3111,115 +3278,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         this.WriteErrorToOutput(connectionData, ex);
                     }
                 }
-            }
-        }
-
-        public void HandleExportDefaultSitemap(string selectedSitemap)
-        {
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
-
-            if (commonConfig != null)
-            {
-                string fileName = string.Format("SiteMap.{0}.xml", selectedSitemap);
-
-                var dialog = new Microsoft.Win32.SaveFileDialog()
-                {
-                    DefaultExt = ".xml",
-
-                    Filter = "SiteMap (.xml)|*.xml",
-                    FilterIndex = 1,
-
-                    RestoreDirectory = true,
-                    FileName = fileName,
-
-                    InitialDirectory = commonConfig.FolderForExport,
-                };
-
-                if (dialog.ShowDialog().GetValueOrDefault())
-                {
-                    commonConfig.Save();
-
-                    ActivateOutputWindow(null);
-                    WriteToOutputEmptyLines(null, commonConfig);
-
-                    try
-                    {
-                        Uri uri = FileOperations.GetSiteMapResourceUri(selectedSitemap);
-                        StreamResourceInfo info = Application.GetResourceStream(uri);
-
-                        var doc = XDocument.Load(info.Stream);
-                        info.Stream.Dispose();
-
-                        var filePath = dialog.FileName;
-
-                        doc.Save(filePath, SaveOptions.OmitDuplicateNamespaces);
-
-                        this.WriteToOutput(null, string.Empty);
-                        this.WriteToOutput(null, string.Empty);
-                        this.WriteToOutput(null, string.Empty);
-
-                        this.WriteToOutput(null, "{0} exported.", fileName);
-
-                        this.WriteToOutput(null, string.Empty);
-
-                        this.WriteToOutputFilePathUri(null, filePath);
-
-                        PerformAction(null, filePath, true);
-                    }
-                    catch (Exception ex)
-                    {
-                        WriteErrorToOutput(null, ex);
-                    }
-                }
-            }
-        }
-
-        public void HandleShowDifferenceWithDefaultSitemap(SelectedFile selectedFile, string selectedSitemap)
-        {
-            if (selectedFile == null || !File.Exists(selectedFile.FilePath))
-            {
-                return;
-            }
-
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
-
-            if (commonConfig == null)
-            {
-                return;
-            }
-
-            ActivateOutputWindow(null);
-            WriteToOutputEmptyLines(null, commonConfig);
-
-            try
-            {
-                Uri uri = FileOperations.GetSiteMapResourceUri(selectedSitemap);
-                StreamResourceInfo info = Application.GetResourceStream(uri);
-
-                var doc = XDocument.Load(info.Stream);
-                info.Stream.Dispose();
-
-                string fileName = string.Format("SiteMap.{0}.xml", selectedSitemap);
-
-                var filePath = Path.Combine(FileOperations.GetTempFileFolder(), fileName);
-
-                doc.Save(filePath, SaveOptions.OmitDuplicateNamespaces);
-
-                this.WriteToOutput(null, string.Empty);
-                this.WriteToOutput(null, string.Empty);
-                this.WriteToOutput(null, string.Empty);
-
-                this.WriteToOutput(null, "{0} exported.", fileName);
-
-                this.WriteToOutput(null, string.Empty);
-
-                this.WriteToOutputFilePathUri(null, filePath);
-
-                this.ProcessStartProgramComparerAsync(selectedFile.FilePath, filePath, selectedFile.FileName, fileName);
-            }
-            catch (Exception ex)
-            {
-                WriteErrorToOutput(null, ex);
             }
         }
 

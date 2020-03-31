@@ -28,7 +28,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
         {
             List<SelectedFile> selectedFiles = helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsCSharpType, true).ToList();
 
-            helper.HandleUpdateEntityMetadataFileCSharpProxyClass(connectionData, selectedFiles, false);
+            helper.HandleCSharpEntityMetadataFileUpdateProxyClass(connectionData, selectedFiles, false);
         }
 
         protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, ConnectionData connectionData, OleMenuCommand menuCommand)

@@ -28,7 +28,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 
             if (projectItem != null && projectItem.ContainingProject != null)
             {
-                helper.HandleComparingPluginAssemblyAndLocalAssemblyCommand(connectionData, projectItem.ContainingProject);
+                helper.HandlePluginAssemblyComparingWithLocalAssemblyCommand(connectionData, projectItem.ContainingProject);
             }
         }
 

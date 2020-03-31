@@ -460,32 +460,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         #region RibbonDiff
 
         public void StartRibbonDiffXmlDifference(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
-            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteDifferenceRibbonDiffXml, commonConfig, selectedFile);
+            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteRibbonDiffXmlDifference, commonConfig, selectedFile);
 
         public void StartRibbonDiffXmlDifference(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
-            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteDifferenceRibbonDiffXml, commonConfig, doc, filePath);
+            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteRibbonDiffXmlDifference, commonConfig, doc, filePath);
 
         public void StartRibbonDiffXmlUpdate(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
-            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteUpdateRibbonDiffXml, commonConfig, selectedFile);
+            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteRibbonDiffXmlUpdate, commonConfig, selectedFile);
 
         public void StartRibbonDiffXmlUpdate(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
-            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteUpdateRibbonDiffXml, commonConfig, doc, filePath);
+            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteRibbonDiffXmlUpdate, commonConfig, doc, filePath);
+
+        public void StartRibbonDiffXmlGetCurrent(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteRibbonDiffXmlGetCurrent, commonConfig, selectedFile);
 
         #endregion RibbonDiff
 
         #region Ribbon
 
         public void StartRibbonDifference(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
-            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteDifferenceRibbon, commonConfig, selectedFile);
+            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteRibbonDifference, commonConfig, selectedFile);
 
         public void StartRibbonDifference(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
-            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteDifferenceRibbon, commonConfig, doc, filePath);
+            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteRibbonDifference, commonConfig, doc, filePath);
 
         public void StartEntityRibbonOpenInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
             => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteEntityRibbonOpenInWeb, commonConfig, selectedFile);
 
         public void StartRibbonExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
             => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteOpenRibbonExplorer, commonConfig, selectedFile);
+
+        public void StartRibbonGetCurrent(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteRibbonGetCurrent, commonConfig, selectedFile);
 
         #endregion Ribbon
 
@@ -549,7 +555,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartWebResourceMultiDifferenceFiles(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, OpenFilesType openFilesType)
             => ExecuteWithConnectionInThread(connectionData, this._differenceController.ExecuteWebResourceMultiDifferenceFiles, commonConfig, selectedFiles, openFilesType);
 
-        public void StartCreatingLastLinkWebResourceMultiple(ConnectionData connectionData, List<SelectedFile> selectedFiles)
+        public void StartWebResourceCreatingLastLinkMultiple(ConnectionData connectionData, List<SelectedFile> selectedFiles)
             => ExecuteWithConnectionInThread(connectionData, this._linkController.ExecuteCreatingLastLinkWebResourceMultiple, selectedFiles);
 
         public void StartWebResourceDependencyXmlDifference(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
@@ -596,7 +602,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartOpenReportExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
             => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteOpeningReportExplorer, commonConfig, selection);
 
-        public void StartCreatingLastLinkReport(ConnectionData connectionData, SelectedFile selectedFile)
+        public void StartReportCreatingLastLink(ConnectionData connectionData, SelectedFile selectedFile)
             => ExecuteWithConnectionInThread(connectionData, this._linkController.ExecuteCreatingLastLinkReport, selectedFile);
 
         #endregion Report
@@ -695,7 +701,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartExportingFormEvents(ConnectionData connectionData, CommonConfiguration commonConfig)
             => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteExportingFormsEvents, commonConfig);
 
-        public void StartExportRibbonXml(ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartOpenApplicationRibbonExplorer(ConnectionData connectionData, CommonConfiguration commonConfig)
             => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteOpeningApplicationRibbonExplorer, commonConfig);
 
         public void StartExportPluginConfiguration(ConnectionData connectionData, CommonConfiguration commonConfig)
@@ -740,25 +746,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartCreatingFileWithGlobalOptionSets(ConnectionData connectionData, CommonConfiguration commonConfig, string selection, EnvDTE.SelectedItem selectedItem)
             => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteCreatingFileWithGlobalOptionSets, commonConfig, selection, selectedItem);
 
-        public void StartUpdatingFileWithEntityMetadataCSharpSchema(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, bool selectEntity, bool openOptions)
+        public void StartCSharpEntityMetadataUpdatingFileWithSchema(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, bool selectEntity, bool openOptions)
             => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteUpdateFileWithEntityMetadataCSharpSchema, commonConfig, selectedFiles, selectEntity, openOptions);
 
-        public void StartUpdatingFileWithEntityMetadataCSharpProxyClassOrSchema(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, bool selectEntity, bool openOptions)
+        public void StartCSharpEntityMetadataUpdatingFileWithProxyClassOrSchema(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, bool selectEntity, bool openOptions)
             => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteUpdateFileWithEntityMetadataCSharpProxyClassOrSchema, commonConfig, selectedFiles, selectEntity, openOptions);
 
-        public void StartUpdatingFileWithEntityMetadataCSharpProxyClass(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, bool selectEntity, bool openOptions)
+        public void StartCSharpEntityMetadataUpdatingFileWithProxyClass(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, bool selectEntity, bool openOptions)
             => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteUpdateFileWithEntityMetadataCSharpProxyClass, commonConfig, selectedFiles, selectEntity, openOptions);
 
-        public void StartUpdatingFileWithEntityMetadataJavaScript(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, bool selectEntity, bool openOptions)
+        public void StartJavaScriptEntityMetadataFileUpdatingSchema(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, bool selectEntity, bool openOptions)
             => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteUpdateFileWithEntityMetadataJavaScript, commonConfig, selectedFiles, selectEntity, openOptions);
 
-        public void StartUpdatingFileWithGlobalOptionSets(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, bool withSelect, bool openOptions)
+        public void StartCSharpGlobalOptionSetsFileUpdatingSchema(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, bool withSelect, bool openOptions)
             => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteUpdatingFileWithGlobalOptionSetCSharp, commonConfig, selectedFiles, withSelect, openOptions);
 
-        public void StartUpdatingFileWithGlobalOptionSetSingleJavaScript(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, bool selectEntity, bool openOptions)
+        public void StartJavaScriptGlobalOptionSetFileUpdatingSingle(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, bool selectEntity, bool openOptions)
             => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteUpdatingFileWithGlobalOptionSetSingleJavaScript, commonConfig, selectedFiles, selectEntity, openOptions);
 
-        public void StartUpdatingFileWithGlobalOptionSetAllJavaScript(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, bool openOptions)
+        public void StartJavaScriptGlobalOptionSetFileUpdatingAll(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, bool openOptions)
             => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteUpdatingFileWithGlobalOptionSetAllJavaScript, commonConfig, selectedFile, openOptions);
 
         public void StartExplorerSitemapXml(ConnectionData connectionData, CommonConfiguration commonConfig, string filter)
@@ -800,28 +806,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartAddingWebResourcesToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
             => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteAddingWebResourcesToSolution, commonConfig, solutionUniqueName, selectedFiles, withSelect);
 
-        public void StartAddingPluginAssemblyToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)
+        public void StartPluginAssemblyAddingToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)
             => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteAddingPluginAssemblyToSolution, commonConfig, solutionUniqueName, projectNames, withSelect);
 
-        public void StartAddingPluginAssemblyProcessingStepsToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)
+        public void StartPluginAssemblyAddingProcessingStepsToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)
             => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteAddingPluginAssemblyProcessingStepsToSolution, commonConfig, solutionUniqueName, projectNames, withSelect);
 
-        public void StartAddingPluginTypeProcessingStepsToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> pluginTypeNames, bool withSelect)
+        public void StartPluginTypeAddingProcessingStepsToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> pluginTypeNames, bool withSelect)
             => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteAddingPluginTypeProcessingStepsToSolution, commonConfig, solutionUniqueName, pluginTypeNames, withSelect);
 
-        public void StartComparingPluginAssemblyAndLocalAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, string projectName, string defaultOutputFilePath)
+        public void StartPluginAssemblyComparingWithLocalAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, string projectName, string defaultOutputFilePath)
             => ExecuteWithConnectionInThread(connectionData, this._pluginController.ExecuteComparingAssemblyAndCrmSolution, commonConfig, projectName, defaultOutputFilePath);
 
-        public void StartUpdatingPluginAssembliesInWindow(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList)
+        public void StartPluginAssemblyUpdatingInWindow(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList)
             => ExecuteWithConnectionInThread(connectionData, this._pluginController.ExecuteUpdatingPluginAssembliesInWindow, commonConfig, projectList);
 
-        public void StartBuildProjectUpdatePluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList, bool registerPlugins)
+        public void StartPluginAssemblyBuildProjectUpdate(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList, bool registerPlugins)
             => ExecuteWithConnectionInThread(connectionData, this._pluginController.ExecuteBuildingProjectAndUpdatingPluginAssembly, commonConfig, projectList, registerPlugins);
 
-        public void StartRegisterPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList)
+        public void StartPluginAssemblyRegister(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList)
             => ExecuteWithConnectionInThread(connectionData, this._pluginController.ExecuteRegisterPluginAssembly, commonConfig, projectList);
 
-        public void StartAddingReportsToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
+        public void StartReportAddingToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
             => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteAddingReportsToSolution, commonConfig, solutionUniqueName, selectedFiles, withSelect);
 
         public void StartShowingPluginTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string pluginTypeFilter, string messageFilter)

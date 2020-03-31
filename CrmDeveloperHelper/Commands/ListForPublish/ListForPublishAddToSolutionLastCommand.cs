@@ -39,7 +39,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
                 {
                     helper.ShowListForPublish(connectionConfig.CurrentConnectionData);
 
-                    helper.HandleAddingWebResourcesToSolutionCommand(null, solutionUniqueName, false, selectedFiles);
+                    helper.HandleWebResourceAddingToSolutionCommand(null, solutionUniqueName, false, selectedFiles);
                 }
                 else
                 {

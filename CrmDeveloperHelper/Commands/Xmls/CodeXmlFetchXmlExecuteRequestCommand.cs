@@ -25,7 +25,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                 return;
             }
 
-            helper.HandleExecutingFetchXml(null, selectedFile, false);
+            helper.HandleFetchXmlExecuting(null, selectedFile, false);
         }
 
         protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)

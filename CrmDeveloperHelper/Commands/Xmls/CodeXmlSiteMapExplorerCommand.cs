@@ -39,7 +39,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                     }
                 }
 
-                helper.HandleExplorerSitemap(siteMapNameUnique);
+                helper.HandleExplorerSiteMap(siteMapNameUnique);
             }
         }
 

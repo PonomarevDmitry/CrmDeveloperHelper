@@ -30,7 +30,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.JavaScripts
 
             if (selectedFiles.Count == 1)
             {
-                helper.HandleUpdateGlobalOptionSetAllFileJavaScript(connectionData, selectedFiles[0]);
+                helper.HandleJavaScriptUpdateGlobalOptionSetFileAll(connectionData, selectedFiles[0]);
             }
         }
 
