@@ -6,7 +6,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
     internal sealed class CommonExportDefaultSiteMapsCommand : AbstractDynamicCommandDefaultSiteMap
     {
         private CommonExportDefaultSiteMapsCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.guidDynamicCommandSet.CommonExportDefaultSitemapsCommandId)
+            : base(commandService, PackageIds.guidDynamicCommandSet.CommonExportDefaultSiteMapsCommandId)
         {
         }
 

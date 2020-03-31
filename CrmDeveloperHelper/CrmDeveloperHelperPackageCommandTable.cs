@@ -1846,7 +1846,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CommonTraceReaderCommandId = 0x0CE4;
 
-            public const int CommonExportDefaultSitemapsCommandId = 0x10CC;
+            public const int CommonExportDefaultSiteMapsCommandId = 0x10CC;
 
             public const int CommonXsdSchemaExportCommandId = 0x10E5;
 
