@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 {
-    public class CheckManagedEntitiesController
+    public class CheckManagedEntitiesController : BaseController<IWriteToOutput>
     {
         private const string tabSpacer = "    ";
 
@@ -123,11 +123,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             , "processtrigger"
         };
 
-        private readonly IWriteToOutput _iWriteToOutput = null;
-
         public CheckManagedEntitiesController(IWriteToOutput iWriteToOutput)
+            : base(iWriteToOutput)
         {
-            this._iWriteToOutput = iWriteToOutput;
         }
 
         #region Проверка управляемых сущностей на неуправляемые изменения.
@@ -154,28 +152,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task CheckingManagedEntities(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            if (connectionData == null)
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
+
+            if (service == null)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM));
-
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription()));
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            if (service == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                return;
-            }
-
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
+            content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
+            content.AppendLine(connectionData.GetConnectionDescription());
+            content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
 
             var hasInfo = false;
 

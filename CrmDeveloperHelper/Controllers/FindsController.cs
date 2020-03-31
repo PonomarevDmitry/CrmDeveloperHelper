@@ -53,28 +53,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task FindingEntityObjectsByPrefix(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
         {
-            if (connectionData == null)
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
+
+            if (service == null)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM));
-
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription()));
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            if (service == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                return;
-            }
-
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
+            content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
+            content.AppendLine(connectionData.GetConnectionDescription());
+            content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
 
             List<SolutionComponent> wrongEntityNames = new List<SolutionComponent>();
             List<SolutionComponent> wrongEntityAttributes = new List<SolutionComponent>();
@@ -378,28 +368,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task FindingEntityObjectsByPrefixAndShowDependentComponents(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
         {
-            if (connectionData == null)
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
+
+            if (service == null)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM));
-
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription()));
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            if (service == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                return;
-            }
-
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
+            content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
+            content.AppendLine(connectionData.GetConnectionDescription());
+            content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
 
             List<SolutionComponent> wrongEntityNames = new List<SolutionComponent>();
             List<SolutionComponent> wrongEntityAttributes = new List<SolutionComponent>();
@@ -677,28 +657,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task FindingMarkedToDeleteAndShowDependentComponents(ConnectionData connectionData, CommonConfiguration commonConfig, string deleteMark)
         {
-            if (connectionData == null)
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
+
+            if (service == null)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM));
-
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription()));
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            if (service == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                return;
-            }
-
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
+            content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
+            content.AppendLine(connectionData.GetConnectionDescription());
+            content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
 
             List<SolutionComponent> wrongEntityNames = new List<SolutionComponent>();
             List<SolutionComponent> wrongEntityAttributes = new List<SolutionComponent>();
@@ -1003,28 +973,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task FindindEntityElementsByName(ConnectionData connectionData, CommonConfiguration commonConfig, string name)
         {
-            if (connectionData == null)
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
+
+            if (service == null)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM));
-
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription()));
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            if (service == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                return;
-            }
-
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
+            content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
+            content.AppendLine(connectionData.GetConnectionDescription());
+            content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
 
             List<SolutionComponent> listEntityAttributes = new List<SolutionComponent>();
             List<SolutionComponent> listEntityRelationshipsManyToOne = new List<SolutionComponent>();
@@ -1255,28 +1215,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task FindindEntityElementsContainsString(ConnectionData connectionData, CommonConfiguration commonConfig, string name)
         {
-            if (connectionData == null)
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
+
+            if (service == null)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM));
-
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription()));
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            if (service == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                return;
-            }
-
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
+            content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
+            content.AppendLine(connectionData.GetConnectionDescription());
+            content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
 
             List<SolutionComponent> listEntityAttributes = new List<SolutionComponent>();
             List<SolutionComponent> listEntityRelationshipsManyToOne = new List<SolutionComponent>();
@@ -1507,28 +1457,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task FindEntityById(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode, Guid entityId)
         {
-            if (connectionData == null)
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
+
+            if (service == null)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM));
-
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription()));
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            if (service == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                return;
-            }
-
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
+            content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
+            content.AppendLine(connectionData.GetConnectionDescription());
+            content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
 
             EntityMetadataRepository repository = new EntityMetadataRepository(service);
 
@@ -1618,28 +1558,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task FindEntityByUniqueidentifier(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode, Guid entityId)
         {
-            if (connectionData == null)
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
+
+            if (service == null)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
             }
 
             StringBuilder content = new StringBuilder();
 
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM));
-
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription()));
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            if (service == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                return;
-            }
-
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
+            content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
+            content.AppendLine(connectionData.GetConnectionDescription());
+            content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
 
             EntityMetadataRepository repository = new EntityMetadataRepository(service);
 

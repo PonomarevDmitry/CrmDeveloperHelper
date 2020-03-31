@@ -3261,8 +3261,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             StringBuilder content = new StringBuilder();
 
-            var privilegeComparer = new PrivilegeNameComparer();
-
             content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
             content.AppendLine(service.ConnectionData.GetConnectionDescription());
             content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
@@ -3354,8 +3352,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             StringBuilder content = new StringBuilder();
 
-            var privilegeComparer = new PrivilegeNameComparer();
-
             content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
             content.AppendLine(service.ConnectionData.GetConnectionDescription());
             content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
@@ -3445,8 +3441,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             string name2 = string.Format("Team {0}", team2.Name);
 
             StringBuilder content = new StringBuilder();
-
-            var privilegeComparer = new PrivilegeNameComparer();
 
             content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
             content.AppendLine(service.ConnectionData.GetConnectionDescription());
