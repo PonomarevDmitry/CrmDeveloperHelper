@@ -306,6 +306,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeXmlRibbonShowDifferenceCommand.Initialize(commandService);
             CodeXmlRibbonShowDifferenceInConnectionGroupCommand.Initialize(commandService);
 
+            CodeXmlRibbonGetCurrentCommand.Initialize(commandService);
+            CodeXmlRibbonGetCurrentInConnectionCommand.Initialize(commandService);
+
             CodeXmlRibbonDiffInsertIntellisenseContextCommand.Initialize(commandService);
             CodeXmlRibbonDiffRemoveIntellisenseContextCommand.Initialize(commandService);
 
@@ -314,6 +317,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             CodeXmlRibbonDiffXmlUpdateCommand.Initialize(commandService);
             CodeXmlRibbonDiffXmlUpdateInConnectionGroupCommand.Initialize(commandService);
+
+            CodeXmlRibbonDiffXmlGetCurrentCommand.Initialize(commandService);
+            CodeXmlRibbonDiffXmlGetCurrentInConnectionCommand.Initialize(commandService);
 
             #endregion Ribbon
 

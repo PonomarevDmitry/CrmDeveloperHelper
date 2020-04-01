@@ -174,59 +174,91 @@
   <data name="CodeWebResourceUpdateContentPublishCommand" xml:space="preserve">
     <value>Publish File</value>
   </data>
+
   <data name="CodeXmlFetchXmlExecuteRequestCommand" xml:space="preserve">
     <value>Execute Fetch Xml All</value>
   </data>
   <data name="CodeXmlFetchXmlConvertToQueryExpressionCommand" xml:space="preserve">
     <value>Copy QueryExpression to Clipboard</value>
   </data>
+
+  <data name="CodeXmlRibbonApplicationExplorerCommand" xml:space="preserve">
+    <value>Open ApplicationRibbon Explorer</value>
+  </data>
   <data name="CodeXmlRibbonApplicationShowDifferenceCommand" xml:space="preserve">
     <value>Show Difference ApplicationRibbon</value>
   </data>
+  <data name="CodeXmlRibbonApplicationGetCurrentCommand" xml:space="preserve">
+    <value>Get Application Ribbon Current Xml</value>
+  </data>
+
   <data name="CodeXmlRibbonDiffXmlApplicationShowDifferenceCommand" xml:space="preserve">
     <value>Show Difference Application RibbonDiffXml</value>
   </data>
-  <data name="CodeXmlRibbonEntityShowDifferenceCommandFormat1" xml:space="preserve">
-    <value>Show Difference {0} Ribbon</value>
-  </data>
-  <data name="CodeXmlRibbonDiffXmlEntityShowDifferenceCommandFormat1" xml:space="preserve">
-    <value>Show Difference {0} RibbonDiffXml</value>
-  </data>
-  <data name="CodeXmlSavedQueryShowDifferenceCommand" xml:space="preserve">
-    <value>Show Difference SavedQuery</value>
-  </data>
-  <data name="CodeXmlSiteMapShowDifferenceByNameCommandFormat1" xml:space="preserve">
-    <value>Show Difference SiteMap "{0}"</value>
-  </data>
-  <data name="CodeXmlSiteMapShowDifferenceCommand" xml:space="preserve">
-    <value>Show Difference SiteMap Default</value>
-  </data>
-  <data name="CodeXmlSystemFormShowDifferenceCommand" xml:space="preserve">
-    <value>Show Difference SystemForm</value>
+  <data name="CodeXmlRibbonDiffXmlApplicationGetCurrentCommand" xml:space="preserve">
+    <value>Get Application RibbonDiff Current Xml</value>
   </data>
   <data name="CodeXmlRibbonDiffXmlApplicationUpdateCommand" xml:space="preserve">
     <value>Update Application RibbonDiffXml</value>
   </data>
-  <data name="CodeXmlRibbonDiffXmlEntityUpdateCommandFormat1" xml:space="preserve">
-    <value>Update {0} RibbonDiffXml</value>
+
+  <data name="CodeXmlRibbonEntityShowDifferenceCommandFormat1" xml:space="preserve">
+    <value>Show Difference {0} Ribbon</value>
   </data>
-  <data name="CodeXmlRibbonApplicationExplorerCommand" xml:space="preserve">
-    <value>Open ApplicationRibbon Explorer</value>
+  <data name="CodeXmlRibbonEntityGetCurrentCommandFormat1" xml:space="preserve">
+    <value>Get {0} Ribbon Current Xml</value>
   </data>
   <data name="CodeXmlRibbonEntityExplorerCommand" xml:space="preserve">
     <value>Open Entity Explorer</value>
   </data>
+
+  <data name="CodeXmlRibbonDiffXmlEntityShowDifferenceCommandFormat1" xml:space="preserve">
+    <value>Show Difference {0} RibbonDiffXml</value>
+  </data>
+  <data name="CodeXmlRibbonDiffXmlEntityGetCurrentCommandFormat1" xml:space="preserve">
+    <value>Get {0} RibbonDiff Current Xml</value>
+  </data>
+  <data name="CodeXmlRibbonDiffXmlEntityUpdateCommandFormat1" xml:space="preserve">
+    <value>Update {0} RibbonDiffXml</value>
+  </data>
+
+  <data name="CodeXmlSavedQueryShowDifferenceCommand" xml:space="preserve">
+    <value>Show Difference SavedQuery</value>
+  </data>
   <data name="CodeXmlSavedQueryUpdateCommand" xml:space="preserve">
     <value>Update SavedQuery</value>
   </data>
-  <data name="CodeXmlSiteMapUpdateByNameCommandFormat1" xml:space="preserve">
-    <value>Update SiteMap "{0}"</value>
+  <data name="CodeXmlSavedQueryGetCurrentCommand" xml:space="preserve">
+    <value>Get SavedQuery Current Xml</value>
+  </data>
+
+  <data name="CodeXmlSiteMapShowDifferenceCommand" xml:space="preserve">
+    <value>Show Difference SiteMap Default</value>
+  </data>
+  <data name="CodeXmlSiteMapShowDifferenceByNameCommandFormat1" xml:space="preserve">
+    <value>Show Difference SiteMap "{0}"</value>
   </data>
   <data name="CodeXmlSiteMapUpdateCommand" xml:space="preserve">
     <value>Update SiteMap Default</value>
   </data>
+  <data name="CodeXmlSiteMapUpdateByNameCommandFormat1" xml:space="preserve">
+    <value>Update SiteMap "{0}"</value>
+  </data>
+  <data name="CodeXmlSiteMapGetCurrentCommand" xml:space="preserve">
+    <value>Get SiteMap Default Current Xml</value>
+  </data>
+  <data name="CodeXmlSiteMapGetCurrentByNameCommandFormat1" xml:space="preserve">
+    <value>Get SiteMap "{0}" Current Xml</value>
+  </data>
+
+  <data name="CodeXmlSystemFormShowDifferenceCommand" xml:space="preserve">
+    <value>Show Difference SystemForm</value>
+  </data>
   <data name="CodeXmlSystemFormUpdateCommand" xml:space="preserve">
     <value>Update SystemForm</value>
+  </data>
+  <data name="CodeXmlSystemFormGetCurrentCommand" xml:space="preserve">
+    <value>Get SystemForm Current Xml</value>
   </data>
 
   <data name="CodeXmlWorkflowShowDifferenceCommand" xml:space="preserve">
@@ -234,6 +266,19 @@
   </data>
   <data name="CodeXmlWorkflowUpdateCommand" xml:space="preserve">
     <value>Update Workflow</value>
+  </data>
+  <data name="CodeXmlWorkflowGetCurrentCommand" xml:space="preserve">
+    <value>Get Workflow Current Xaml</value>
+  </data>
+
+  <data name="CodeXmlWebResourceDependencyXmlShowDifferenceCommand" xml:space="preserve">
+    <value>Show Difference WebResource DependencyXml</value>
+  </data>
+  <data name="CodeXmlWebResourceDependencyXmlUpdateCommand" xml:space="preserve">
+    <value>Update WebResource DependencyXml</value>
+  </data>
+  <data name="CodeXmlWebResourceDependencyXmlGetCurrentCommand" xml:space="preserve">
+    <value>Get WebResource Current DependencyXml</value>
   </data>
 
 
@@ -433,32 +478,9 @@
   <data name="CSharpGlobalOptionSetsMetadataFileGenerationOptionsCommand" xml:space="preserve">
     <value>Global OptionSets File Generation Options</value>
   </data>
-  <data name="CodeXmlWebResourceDependencyXmlShowDifferenceCommand" xml:space="preserve">
-    <value>Show Difference WebResource DependencyXml</value>
-  </data>
-  <data name="CodeXmlWebResourceDependencyXmlUpdateCommand" xml:space="preserve">
-    <value>Update WebResource DependencyXml</value>
-  </data>
+
   <data name="CodeXmlCommonXsdSchemaSetProperCommandFormat1" xml:space="preserve">
     <value>Set Xsd Schema {0}</value>
-  </data>
-  <data name="CodeXmlWebResourceDependencyXmlGetCurrentCommand" xml:space="preserve">
-    <value>Get WebResource Current DependencyXml</value>
-  </data>
-  <data name="CodeXmlWorkflowGetCurrentCommand" xml:space="preserve">
-    <value>Get Workflow Current Xaml</value>
-  </data>
-  <data name="CodeXmlSystemFormGetCurrentCommand" xml:space="preserve">
-    <value>Get SystemForm Current Xml</value>
-  </data>
-  <data name="CodeXmlSiteMapGetCurrentCommand" xml:space="preserve">
-    <value>Get SiteMap Default Current Xml</value>
-  </data>
-  <data name="CodeXmlSiteMapGetCurrentByNameCommandFormat1" xml:space="preserve">
-    <value>Get SiteMap "{0}" Current Xml</value>
-  </data>
-  <data name="CodeXmlSavedQueryGetCurrentCommand" xml:space="preserve">
-    <value>Get SavedQuery Current Xml</value>
   </data>
 
 

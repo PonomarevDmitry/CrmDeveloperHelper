@@ -259,11 +259,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Get Application Ribbon Current Xml.
+        /// </summary>
+        internal static string CodeXmlRibbonApplicationGetCurrentCommand {
+            get {
+                return ResourceManager.GetString("CodeXmlRibbonApplicationGetCurrentCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show Difference ApplicationRibbon.
         /// </summary>
         internal static string CodeXmlRibbonApplicationShowDifferenceCommand {
             get {
                 return ResourceManager.GetString("CodeXmlRibbonApplicationShowDifferenceCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get Application RibbonDiff Current Xml.
+        /// </summary>
+        internal static string CodeXmlRibbonDiffXmlApplicationGetCurrentCommand {
+            get {
+                return ResourceManager.GetString("CodeXmlRibbonDiffXmlApplicationGetCurrentCommand", resourceCulture);
             }
         }
         
@@ -282,6 +300,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string CodeXmlRibbonDiffXmlApplicationUpdateCommand {
             get {
                 return ResourceManager.GetString("CodeXmlRibbonDiffXmlApplicationUpdateCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get {0} RibbonDiff Current Xml.
+        /// </summary>
+        internal static string CodeXmlRibbonDiffXmlEntityGetCurrentCommandFormat1 {
+            get {
+                return ResourceManager.GetString("CodeXmlRibbonDiffXmlEntityGetCurrentCommandFormat1", resourceCulture);
             }
         }
         
@@ -309,6 +336,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string CodeXmlRibbonEntityExplorerCommand {
             get {
                 return ResourceManager.GetString("CodeXmlRibbonEntityExplorerCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get {0} Ribbon Current Xml.
+        /// </summary>
+        internal static string CodeXmlRibbonEntityGetCurrentCommandFormat1 {
+            get {
+                return ResourceManager.GetString("CodeXmlRibbonEntityGetCurrentCommandFormat1", resourceCulture);
             }
         }
         
