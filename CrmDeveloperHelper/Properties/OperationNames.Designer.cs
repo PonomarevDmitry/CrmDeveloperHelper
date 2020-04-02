@@ -871,6 +871,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Creating File with Entity Metadata {1} of {2} for {3}.
+        /// </summary>
+        internal static string CreatingFileWithEntityMetadataForEntityListFormat4 {
+            get {
+                return ResourceManager.GetString("CreatingFileWithEntityMetadataForEntityListFormat4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Creating File with Global OptionSets Metadata.
         /// </summary>
         internal static string CreatingFileWithGlobalOptionSetsFormat1 {
@@ -885,6 +894,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string CreatingFileWithGlobalOptionSetsFormat2 {
             get {
                 return ResourceManager.GetString("CreatingFileWithGlobalOptionSetsFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Creating File with Global OptionSets Metadata {1} of {2} for {3}.
+        /// </summary>
+        internal static string CreatingFileWithGlobalOptionSetsListFormat4 {
+            get {
+                return ResourceManager.GetString("CreatingFileWithGlobalOptionSetsListFormat4", resourceCulture);
             }
         }
         

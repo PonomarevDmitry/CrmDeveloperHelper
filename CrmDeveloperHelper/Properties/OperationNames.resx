@@ -443,8 +443,14 @@
   <data name="CreatingFileWithEntityMetadataForEntityFormat2" xml:space="preserve">
     <value>{0} - Creating File with Entity Metadata for {1}</value>
   </data>
+  <data name="CreatingFileWithEntityMetadataForEntityListFormat4" xml:space="preserve">
+    <value>{0} - Creating File with Entity Metadata {1} of {2} for {3}</value>
+  </data>
   <data name="CreatingFileWithGlobalOptionSetsFormat2" xml:space="preserve">
     <value>{0} - Creating File with Global OptionSets Metadata for {1}</value>
+  </data>
+  <data name="CreatingFileWithGlobalOptionSetsListFormat4" xml:space="preserve">
+    <value>{0} - Creating File with Global OptionSets Metadata {1} of {2} for {3}</value>
   </data>
   <data name="PublishingEntitiesFormat2" xml:space="preserve">
     <value>{0} - Publishing Entities {1}</value>

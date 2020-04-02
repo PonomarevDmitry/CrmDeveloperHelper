@@ -36,7 +36,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Generating EntityMetadata Files
 
-        private async Task GenerateEntityProxyClassFileOrSchemaAsync(IOrganizationServiceExtented service, IMetadataProviderService metadataProviderService, CommonConfiguration commonConfig, EntityMetadata entityMetadata, string filePath)
+        private async Task GenerateEntityProxyClassFileOrSchemaAsync(
+            IOrganizationServiceExtented service
+            , IMetadataProviderService metadataProviderService
+            , CommonConfiguration commonConfig
+            , EntityMetadata entityMetadata
+            , string filePath
+            , int number
+            , int totalCount
+        )
         {
             string fileName = Path.GetFileName(filePath);
 
@@ -44,11 +52,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (isProxyClassFile)
             {
-                await GenerateEntityProxyClassFileAsync(service, metadataProviderService, commonConfig, entityMetadata, filePath);
+                await GenerateEntityProxyClassFileAsync(service, metadataProviderService, commonConfig, entityMetadata, filePath, number, totalCount);
             }
             else
             {
-                await GenerateEntitySchemaFileAsync(service, metadataProviderService, commonConfig, entityMetadata, filePath);
+                await GenerateEntitySchemaFileAsync(service, metadataProviderService, commonConfig, entityMetadata, filePath, number, totalCount);
             }
         }
 
@@ -75,13 +83,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             return false;
         }
 
-        private async Task GenerateEntitySchemaFileAsync(IOrganizationServiceExtented service, IMetadataProviderService metadataProviderService, CommonConfiguration commonConfig, EntityMetadata entityMetadata, string filePath)
+        private async Task GenerateEntitySchemaFileAsync(
+            IOrganizationServiceExtented service
+            , IMetadataProviderService metadataProviderService
+            , CommonConfiguration commonConfig
+            , EntityMetadata entityMetadata
+            , string filePath
+            , int number
+            , int totalCount
+        )
         {
             var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
 
             var config = CreateFileCSharpConfiguration.CreateForSchemaEntity(fileGenerationOptions);
 
-            string operation = string.Format(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
+            string operation = string.Format(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityListFormat4, service.ConnectionData.Name, number, totalCount, entityMetadata.LogicalName);
 
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operation);
 
@@ -101,22 +117,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     var handler = new CreateFileWithEntityMetadataCSharpHandler(streamWriter, config, service, _iWriteToOutput, codeGenerationServiceProvider);
 
                     await handler.CreateFileAsync(entityMetadata);
+                }
 
-                    try
-                    {
-                        await streamWriter.FlushAsync();
-                        await memoryStream.FlushAsync();
+                try
+                {
+                    await memoryStream.FlushAsync();
 
-                        memoryStream.Seek(0, SeekOrigin.Begin);
+                    var fileBody = memoryStream.ToArray();
 
-                        var fileBody = memoryStream.ToArray();
-
-                        File.WriteAllBytes(filePath, fileBody);
-                    }
-                    catch (Exception ex)
-                    {
-                        DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
-                    }
+                    File.WriteAllBytes(filePath, fileBody);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
                 }
             }
 
@@ -127,13 +140,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operation);
         }
 
-        private async Task GenerateEntityProxyClassFileAsync(IOrganizationServiceExtented service, IMetadataProviderService metadataProviderService, CommonConfiguration commonConfig, EntityMetadata entityMetadata, string filePath)
+        private async Task GenerateEntityProxyClassFileAsync(
+            IOrganizationServiceExtented service
+            , IMetadataProviderService metadataProviderService
+            , CommonConfiguration commonConfig
+            , EntityMetadata entityMetadata
+            , string filePath
+            , int number
+            , int totalCount
+        )
         {
             var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
 
             var config = CreateFileCSharpConfiguration.CreateForProxyClass(fileGenerationOptions);
 
-            string operation = string.Format(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
+            string operation = string.Format(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityListFormat4, service.ConnectionData.Name, number, totalCount, entityMetadata.LogicalName);
 
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operation);
 
@@ -160,7 +181,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operation);
         }
 
-        private async Task GenerateEntityJavaScriptFileAsync(IOrganizationServiceExtented service, IMetadataProviderService metadataProviderService, CommonConfiguration commonConfig, EntityMetadata entityMetadata, string filePath)
+        private async Task GenerateEntityJavaScriptFileAsync(
+            IOrganizationServiceExtented service
+            , IMetadataProviderService metadataProviderService
+            , CommonConfiguration commonConfig
+            , EntityMetadata entityMetadata
+            , string filePath
+            , int number
+            , int totalCount
+        )
         {
             var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
 
@@ -172,7 +201,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 , fileGenerationOptions.NamespaceClassesJavaScript
             );
 
-            string operation = string.Format(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
+            string operation = string.Format(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityListFormat4, service.ConnectionData.Name, number, totalCount, entityMetadata.LogicalName);
 
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operation);
 
@@ -183,22 +212,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     var handler = new CreateFileWithEntityMetadataJavaScriptHandler(streamWriter, config, service, _iWriteToOutput);
 
                     await handler.CreateFileAsync(entityMetadata);
+                }
 
-                    try
-                    {
-                        await streamWriter.FlushAsync();
-                        await memoryStream.FlushAsync();
+                try
+                {
+                    await memoryStream.FlushAsync();
 
-                        memoryStream.Seek(0, SeekOrigin.Begin);
+                    var fileBody = memoryStream.ToArray();
 
-                        var fileBody = memoryStream.ToArray();
-
-                        File.WriteAllBytes(filePath, fileBody);
-                    }
-                    catch (Exception ex)
-                    {
-                        DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
-                    }
+                    File.WriteAllBytes(filePath, fileBody);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
                 }
             }
 
@@ -220,7 +246,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             , bool selectEntity
             , bool openOptions
             , bool isJavaScript
-            , Func<IOrganizationServiceExtented, IMetadataProviderService, CommonConfiguration, EntityMetadata, string, Task> handler
+            , Func<IOrganizationServiceExtented, IMetadataProviderService, CommonConfiguration, EntityMetadata, string, int, int, Task> handler
         )
         {
             if (!selectEntity && openOptions)
@@ -300,9 +326,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 metadataProviderService.RetrieveEntities(linkedEntities);
 
+                int totalCount = findedEntityMetadata.Count;
+                int number = 0;
+
                 foreach (var item in findedEntityMetadata)
                 {
-                    await handler(service, metadataProviderService, commonConfig, item.Item2, item.Item1);
+                    number++;
+
+                    await handler(service, metadataProviderService, commonConfig, item.Item2, item.Item1, number, totalCount);
                 }
             }
 
@@ -407,9 +438,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Generating Global OptionSet Files
 
-        private async Task GenerateGlobalOptionSetCSharptFile(IOrganizationServiceExtented service, SolutionComponentDescriptor descriptor, CommonConfiguration commonConfig, OptionSetMetadata optionSetMetadata, string filePath)
+        private async Task GenerateGlobalOptionSetCSharptFile(
+            IOrganizationServiceExtented service
+            , SolutionComponentDescriptor descriptor
+            , CommonConfiguration commonConfig
+            , OptionSetMetadata optionSetMetadata
+            , string filePath
+            , int number
+            , int count
+        )
         {
-            string operation = string.Format(Properties.OperationNames.CreatingFileWithGlobalOptionSetsFormat2, service.ConnectionData.Name, optionSetMetadata.Name);
+            string operation = string.Format(Properties.OperationNames.CreatingFileWithGlobalOptionSetsListFormat4, service.ConnectionData.Name, number, count, optionSetMetadata.Name);
 
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operation);
 
@@ -424,22 +463,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     var handler = new CreateGlobalOptionSetsFileCSharpHandler(streamWriter, service, _iWriteToOutput, descriptor, config);
 
                     await handler.CreateFileAsync(new[] { optionSetMetadata });
+                }
 
-                    try
-                    {
-                        await streamWriter.FlushAsync();
-                        await memoryStream.FlushAsync();
+                try
+                {
+                    await memoryStream.FlushAsync();
 
-                        memoryStream.Seek(0, SeekOrigin.Begin);
+                    var fileBody = memoryStream.ToArray();
 
-                        var fileBody = memoryStream.ToArray();
-
-                        File.WriteAllBytes(filePath, fileBody);
-                    }
-                    catch (Exception ex)
-                    {
-                        DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
-                    }
+                    File.WriteAllBytes(filePath, fileBody);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
                 }
             }
 
@@ -450,9 +486,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operation);
         }
 
-        private async Task GenerateGlobalOptionSetJavaScriptFile(IOrganizationServiceExtented service, SolutionComponentDescriptor descriptor, CommonConfiguration commonConfig, OptionSetMetadata metadata, string filePath)
+        private async Task GenerateGlobalOptionSetJavaScriptFile(
+            IOrganizationServiceExtented service
+            , SolutionComponentDescriptor descriptor
+            , CommonConfiguration commonConfig
+            , OptionSetMetadata metadata
+            , string filePath
+            , int number
+            , int count
+        )
         {
-            string operation = string.Format(Properties.OperationNames.CreatingFileWithGlobalOptionSetsFormat2, service.ConnectionData.Name, metadata.Name);
+            string operation = string.Format(Properties.OperationNames.CreatingFileWithGlobalOptionSetsListFormat4, service.ConnectionData.Name, number, count, metadata.Name);
 
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operation);
 
@@ -473,22 +517,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     );
 
                     await handler.CreateFileAsync(new[] { metadata });
+                }
 
-                    try
-                    {
-                        await streamWriter.FlushAsync();
-                        await memoryStream.FlushAsync();
+                try
+                {
+                    await memoryStream.FlushAsync();
 
-                        memoryStream.Seek(0, SeekOrigin.Begin);
+                    var fileBody = memoryStream.ToArray();
 
-                        var fileBody = memoryStream.ToArray();
-
-                        File.WriteAllBytes(filePath, fileBody);
-                    }
-                    catch (Exception ex)
-                    {
-                        DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
-                    }
+                    File.WriteAllBytes(filePath, fileBody);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
                 }
             }
 
@@ -510,7 +551,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             , bool withSelect
             , bool openOptions
             , bool isJavaScript
-            , Func<IOrganizationServiceExtented, SolutionComponentDescriptor, CommonConfiguration, OptionSetMetadata, string, Task> handler
+            , Func<IOrganizationServiceExtented, SolutionComponentDescriptor, CommonConfiguration, OptionSetMetadata, string, int, int, Task> handler
         )
         {
             if (!withSelect && openOptions)
@@ -529,8 +570,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var descriptor = new SolutionComponentDescriptor(service);
 
+            var totalCount = selectedFiles.Count();
+
+            int number = 0;
+
             foreach (var selFile in selectedFiles)
             {
+                number++;
+
                 var filePath = selFile.FilePath;
 
                 if (!File.Exists(filePath))
@@ -550,7 +597,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     if (optionSetMetadata != null)
                     {
-                        await handler(service, descriptor, commonConfig, optionSetMetadata, filePath);
+                        await handler(service, descriptor, commonConfig, optionSetMetadata, filePath, number, totalCount);
 
                         continue;
                     }
@@ -682,22 +729,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     );
 
                     await handler.CreateFileAsync(optionSets.OrderBy(o => o.Name));
+                }
 
-                    try
-                    {
-                        await streamWriter.FlushAsync();
-                        await memoryStream.FlushAsync();
+                try
+                {
+                    await memoryStream.FlushAsync();
 
-                        memoryStream.Seek(0, SeekOrigin.Begin);
+                    var fileBody = memoryStream.ToArray();
 
-                        var fileBody = memoryStream.ToArray();
-
-                        File.WriteAllBytes(selectedFile.FilePath, fileBody);
-                    }
-                    catch (Exception ex)
-                    {
-                        DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
-                    }
+                    File.WriteAllBytes(selectedFile.FilePath, fileBody);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
                 }
             }
 
