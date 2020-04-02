@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 {
+    /// <summary>
+    /// <see cref="CodeGenerationService"/>
+    /// </summary>
     public interface ICodeGenerationService
     {
         Task WriteEntitiesFileAsync(
