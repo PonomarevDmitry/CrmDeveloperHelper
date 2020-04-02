@@ -528,7 +528,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             var descriptor = new SolutionComponentDescriptor(service);
-            descriptor.SetSettings(commonConfig);
 
             foreach (var selFile in selectedFiles)
             {
