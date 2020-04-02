@@ -648,15 +648,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     seeLink = string.Format("<see cref=\"OptionSets.{0}\"/>", picklistAttrib.LogicalName);
                 }
 
-                string temp = string.Format("{0} {1} {2} OptionSet {3} {4}"
+                string temp = string.Format("{0} {1} {2} OptionSet {3}"
                       , picklistAttrib.OptionSet.IsGlobal.GetValueOrDefault() ? "Global" : "Local"
                       , picklistAttrib.OptionSet.IsCustomOptionSet.GetValueOrDefault() ? "Custom" : "System"
                       , managedStr
                       , picklistAttrib.OptionSet.Name
-                      , seeLink
                 );
 
                 AddStringIntoList(result, tabSpacer, temp);
+                AddStringIntoList(result, tabSpacer, seeLink);
 
                 string defaultFormValue = string.Format("DefaultFormValue = {0}", picklistAttrib.DefaultFormValue.HasValue ? picklistAttrib.DefaultFormValue.ToString() : "Null");
 
@@ -743,14 +743,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     managedStr = " " + (statusAttrib.OptionSet.IsManaged.GetValueOrDefault() ? "Managed" : "Unmanaged");
                 }
 
-                string temp = string.Format("Local {0} {1} OptionSet {2} {3}"
+                string temp = string.Format("Local {0} {1} OptionSet {2}"
                       , statusAttrib.OptionSet.IsCustomOptionSet.GetValueOrDefault() ? "Custom" : "System"
                       , managedStr
                       , statusAttrib.OptionSet.Name
-                      , seeLink
                 );
 
                 AddStringIntoList(result, tabSpacer, temp);
+                AddStringIntoList(result, tabSpacer, seeLink);
             }
 
             if (attrib is StateAttributeMetadata stateAttrib)
@@ -766,14 +766,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     managedStr = " " + (stateAttrib.OptionSet.IsManaged.GetValueOrDefault() ? "Managed" : "Unmanaged");
                 }
 
-                string temp = string.Format("Local {0} {1} OptionSet {2} {3}"
+                string temp = string.Format("Local {0} {1} OptionSet {2}"
                       , stateAttrib.OptionSet.IsCustomOptionSet.GetValueOrDefault() ? "Custom" : "System"
                       , managedStr
                       , stateAttrib.OptionSet.Name
-                      , seeLink
                 );
 
                 AddStringIntoList(result, tabSpacer, temp);
+                AddStringIntoList(result, tabSpacer, seeLink);
             }
 
             if (attrib is EntityNameAttributeMetadata entityNameAttrib)

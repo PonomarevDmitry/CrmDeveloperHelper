@@ -28,14 +28,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             }
         }
 
-        public static string GetNameForAttribute(AttributeMetadata attributeMetadata)
+        public static string GetNameForAttribute(string attributeLogicalName)
         {
-            if (!StaticNamingService._attributeNames.ContainsKey(attributeMetadata.LogicalName))
+            if (!_attributeNames.ContainsKey(attributeLogicalName))
             {
                 return null;
             }
 
-            return StaticNamingService._attributeNames[attributeMetadata.LogicalName];
+            return _attributeNames[attributeLogicalName];
         }
 
         static StaticNamingService()

@@ -31,6 +31,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             TextWriter writer
             , IOrganizationServiceExtented service
             , IWriteToOutput iWriteToOutput
+            , SolutionComponentDescriptor descriptor
             , CreateFileCSharpConfiguration config
         ) : base(writer, config.TabSpacer, config.AllDescriptions)
         {
@@ -39,10 +40,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             this._config = config;
 
-            this._descriptor = new SolutionComponentDescriptor(_service)
-            {
-                WithManagedInfo = config.WithManagedInfo,
-            };
+            this._descriptor = descriptor;
+            descriptor.WithManagedInfo = config.WithManagedInfo;
 
             this._dependencyRepository = new DependencyRepository(this._service);
             this._descriptorHandler = new DependencyDescriptionHandler(this._descriptor);
@@ -89,15 +88,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private async Task GenerateOptionSetEnums(OptionSetMetadata optionSet)
         {
-            var dependent = await _dependencyRepository.GetDependentComponentsAsync((int)ComponentType.OptionSet, optionSet.MetadataId.Value);
+            var dependentComponentsList = await _dependencyRepository.GetDependentComponentsAsync((int)ComponentType.OptionSet, optionSet.MetadataId.Value);
 
             string entityname = null;
             string attributename = null;
             List<StringMap> listStringmap = null;
 
-            if (dependent.Any(e => e.DependentComponentType.Value == (int)ComponentType.Attribute))
+            if (dependentComponentsList.Any(e => e.DependentComponentType.Value == (int)ComponentType.Attribute))
             {
-                var attr = dependent.FirstOrDefault(e => e.DependentComponentType.Value == (int)ComponentType.Attribute);
+                var attr = dependentComponentsList.FirstOrDefault(e => e.DependentComponentType.Value == (int)ComponentType.Attribute);
 
                 var attributeMetadata = _descriptor.MetadataSource.GetAttributeMetadata(attr.DependentComponentObjectId.Value);
 
@@ -123,7 +122,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (this._config.WithDependentComponents)
             {
-                var desc = await _descriptorHandler.GetDescriptionDependentAsync(dependent);
+                var desc = await _descriptorHandler.GetDescriptionDependentAsync(dependentComponentsList);
 
                 var split = desc.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
 

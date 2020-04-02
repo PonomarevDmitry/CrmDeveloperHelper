@@ -178,9 +178,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         public string GetNameForAttribute(
             EntityMetadata entityMetadata
             , AttributeMetadata attributeMetadata
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
+        )
         {
-            string validName = NamingService.CreateValidName(StaticNamingService.GetNameForAttribute(attributeMetadata) ?? attributeMetadata.SchemaName);
+            string validName = NamingService.CreateValidName(StaticNamingService.GetNameForAttribute(attributeMetadata.LogicalName) ?? attributeMetadata.SchemaName);
 
             CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
 

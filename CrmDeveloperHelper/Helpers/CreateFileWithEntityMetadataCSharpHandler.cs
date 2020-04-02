@@ -459,14 +459,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteSummary(attributeMetadata.DisplayName, attributeMetadata.Description, null, footers);
 
-            var attributeName = _iCodeGenerationServiceProvider.NamingService.GetNameForAttribute(_entityMetadata, attributeMetadata, _iCodeGenerationServiceProvider).ToLower();
-
-            CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
-
-            if (!provider.IsValidIdentifier(attributeName))
-            {
-                attributeName = "@" + attributeName;
-            }
+            var attributeName = GetAttributeName(attributeMetadata);
 
             string str = string.Format("public {0} string {1} = \"{2}\";", _fieldHeader, attributeName, attributeMetadata.LogicalName);
 
@@ -476,8 +469,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 || attributeMetadata.IsValidForGrid.GetValueOrDefault()
                 || attributeMetadata.IsValidForForm.GetValueOrDefault()
                 || (attributeMetadata.IsValidForAdvancedFind?.Value).GetValueOrDefault()
-                || string.Equals(attributeMetadata.LogicalName, "solutionid", StringComparison.InvariantCultureIgnoreCase)
-                || string.Equals(attributeMetadata.LogicalName, "supportingsolutionid", StringComparison.InvariantCultureIgnoreCase)
+                || string.Equals(attributeMetadata.LogicalName, SystemForm.Schema.Attributes.solutionid, StringComparison.InvariantCultureIgnoreCase)
+                || string.Equals(attributeMetadata.LogicalName, SystemForm.Schema.Attributes.supportingsolutionid, StringComparison.InvariantCultureIgnoreCase)
             );
 
             if (ignore)
@@ -694,7 +687,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             WriteLine();
 
-            var headers = new List<string> { string.Format("Attribute: {0}", stateAttr.LogicalName) };
+            var attributeName = GetAttributeName(statusAttr);
+
+            var headers = new List<string> { string.Format("Attribute: {0}", stateAttr.LogicalName), string.Format("<see cref=\"Attributes.{0}\"/>", attributeName) };
             if (this._config.WithManagedInfo)
             {
                 headers.Add(string.Format("IsManaged: {0}", stateAttr.OptionSet.IsManaged));
@@ -790,7 +785,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             WriteLine();
 
-            var headers = new List<string> { string.Format("Attribute: {0}", statusAttr.LogicalName) };
+            var attributeName = GetAttributeName(statusAttr);
+
+            var headers = new List<string> { string.Format("Attribute: {0}", statusAttr.LogicalName), string.Format("<see cref=\"Attributes.{0}\"/>", attributeName) };
             if (this._config.WithManagedInfo)
             {
                 headers.Add(string.Format("IsManaged: {0}", statusAttr.OptionSet.IsManaged));
@@ -883,6 +880,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteLine("}");
         }
 
+        private string GetAttributeName(AttributeMetadata attributeMetadata)
+        {
+            var attributeName = _iCodeGenerationServiceProvider.NamingService.GetNameForAttribute(_entityMetadata, attributeMetadata, _iCodeGenerationServiceProvider).ToLower();
+
+            using (CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp"))
+            {
+                if (!provider.IsValidIdentifier(attributeName))
+                {
+                    attributeName = "@" + attributeName;
+                }
+            }
+
+            return attributeName;
+        }
+
         private async Task GenerateOptionSetEnums(IEnumerable<AttributeMetadata> attributeList, OptionSetMetadata optionSet)
         {
             List<string> lines = new List<string>
@@ -893,6 +905,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             foreach (var attr in attributeList.OrderBy(a => a.LogicalName))
             {
                 lines.Add(_tabSpacer + attr.LogicalName);
+            }
+
+            foreach (var attr in attributeList.OrderBy(a => a.LogicalName))
+            {
+                var attributeName = GetAttributeName(attr);
+
+                var seeLink = string.Format("{0}<see cref=\"Attributes.{1}\"/>", _tabSpacer, attributeName);
+
+                lines.Add(seeLink);
             }
 
             if (optionSet.IsGlobal.GetValueOrDefault())

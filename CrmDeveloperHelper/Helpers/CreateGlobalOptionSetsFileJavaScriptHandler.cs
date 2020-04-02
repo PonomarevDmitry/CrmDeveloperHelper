@@ -29,6 +29,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         public CreateGlobalOptionSetsFileJavaScriptHandler(
             TextWriter writer
             , IOrganizationServiceExtented service
+            , SolutionComponentDescriptor descriptor
             , IWriteToOutput iWriteToOutput
             , string tabSpacer
             , bool withDependentComponents
@@ -41,7 +42,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             this._namespaceGlobalOptionSetsJavaScript = namespaceGlobalOptionSetsJavaScript;
 
-            this._descriptor = new SolutionComponentDescriptor(_service);
+            this._descriptor = descriptor;
             this._dependencyRepository = new DependencyRepository(this._service);
             this._descriptorHandler = new DependencyDescriptionHandler(this._descriptor);
 

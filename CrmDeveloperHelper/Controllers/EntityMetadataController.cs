@@ -407,7 +407,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Generating Global OptionSet Files
 
-        private async Task GenerateGlobalOptionSetCSharptFile(IOrganizationServiceExtented service, CommonConfiguration commonConfig, OptionSetMetadata optionSetMetadata, string filePath)
+        private async Task GenerateGlobalOptionSetCSharptFile(IOrganizationServiceExtented service, SolutionComponentDescriptor descriptor, CommonConfiguration commonConfig, OptionSetMetadata optionSetMetadata, string filePath)
         {
             string operation = string.Format(Properties.OperationNames.CreatingFileWithGlobalOptionSetsFormat2, service.ConnectionData.Name, optionSetMetadata.Name);
 
@@ -421,7 +421,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 using (var streamWriter = new StreamWriter(memoryStream, new UTF8Encoding(false)))
                 {
-                    var handler = new CreateGlobalOptionSetsFileCSharpHandler(streamWriter, service, _iWriteToOutput, config);
+                    var handler = new CreateGlobalOptionSetsFileCSharpHandler(streamWriter, service, _iWriteToOutput, descriptor, config);
 
                     await handler.CreateFileAsync(new[] { optionSetMetadata });
 
@@ -450,7 +450,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operation);
         }
 
-        private async Task GenerateGlobalOptionSetJavaScriptFile(IOrganizationServiceExtented service, CommonConfiguration commonConfig, OptionSetMetadata metadata, string filePath)
+        private async Task GenerateGlobalOptionSetJavaScriptFile(IOrganizationServiceExtented service, SolutionComponentDescriptor descriptor, CommonConfiguration commonConfig, OptionSetMetadata metadata, string filePath)
         {
             string operation = string.Format(Properties.OperationNames.CreatingFileWithGlobalOptionSetsFormat2, service.ConnectionData.Name, metadata.Name);
 
@@ -465,6 +465,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(
                         streamWriter
                         , service
+                        , descriptor
                         , _iWriteToOutput
                         , fileGenerationOptions.GetTabSpacer()
                         , fileGenerationOptions.GenerateSchemaGlobalOptionSetsWithDependentComponents
@@ -509,7 +510,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             , bool withSelect
             , bool openOptions
             , bool isJavaScript
-            , Func<IOrganizationServiceExtented, CommonConfiguration, OptionSetMetadata, string, Task> handler
+            , Func<IOrganizationServiceExtented, SolutionComponentDescriptor, CommonConfiguration, OptionSetMetadata, string, Task> handler
         )
         {
             if (!withSelect && openOptions)
@@ -550,7 +551,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     if (optionSetMetadata != null)
                     {
-                        await handler(service, commonConfig, optionSetMetadata, filePath);
+                        await handler(service, descriptor, commonConfig, optionSetMetadata, filePath);
 
                         continue;
                     }
@@ -665,6 +666,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
+            SolutionComponentDescriptor descriptor = new SolutionComponentDescriptor(service);
+
             using (var memoryStream = new MemoryStream())
             {
                 using (var streamWriter = new StreamWriter(memoryStream, new UTF8Encoding(false)))
@@ -672,6 +675,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(
                         streamWriter
                         , service
+                        , descriptor
                         , _iWriteToOutput
                         , fileGenerationOptions.GetTabSpacer()
                         , fileGenerationOptions.GenerateSchemaGlobalOptionSetsWithDependentComponents

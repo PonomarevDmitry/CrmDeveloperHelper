@@ -523,7 +523,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     using (var streamWriter = new StreamWriter(memoryStream, new UTF8Encoding(false)))
                     {
-                        var handler = new CreateGlobalOptionSetsFileCSharpHandler(streamWriter, service, _iWriteToOutput, config);
+                        var descriptor = new SolutionComponentDescriptor(service);
+
+                        var handler = new CreateGlobalOptionSetsFileCSharpHandler(streamWriter, service, _iWriteToOutput, descriptor, config);
 
                         await handler.CreateFileAsync(optionSets);
 
@@ -639,9 +641,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     using (var streamWriter = new StreamWriter(memoryStream, new UTF8Encoding(false)))
                     {
+                        SolutionComponentDescriptor descriptor = new SolutionComponentDescriptor(service);
+
                         var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(
                             streamWriter
                             , service
+                            , descriptor
                             , _iWriteToOutput
                             , fileGenerationOptions.GetTabSpacer()
                             , fileGenerationOptions.GenerateSchemaGlobalOptionSetsWithDependentComponents
