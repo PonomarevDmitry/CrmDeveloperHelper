@@ -17,14 +17,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._fileGenerationOptions = fileGenerationOptions;
 
+            this.Title = string.Format("EntityMetadata File Generation Options - {0}", !string.IsNullOrEmpty(fileGenerationOptions.SolutionFilePath) ? fileGenerationOptions.SolutionFilePath : "Default");
+
             options.BindFileGenerationOptions(this._fileGenerationOptions);
         }
 
         protected override void OnClosed(EventArgs e)
         {
-            FileGenerationConfiguration.SaveConfiguration();
-
             base.OnClosed(e);
+
+            _fileGenerationOptions?.Configuration?.Save();
         }
 
         private void options_CloseClicked(object sender, System.EventArgs e)

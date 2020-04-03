@@ -1564,6 +1564,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Opening File Generation Configuration.
+        /// </summary>
+        internal static string OpeningFileGenerationConfiguration {
+            get {
+                return ResourceManager.GetString("OpeningFileGenerationConfiguration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opening File Generation Options.
+        /// </summary>
+        internal static string OpeningFileGenerationOptions {
+            get {
+                return ResourceManager.GetString("OpeningFileGenerationOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Opening Files {1}.
         /// </summary>
         internal static string OpeningFilesFormat2 {

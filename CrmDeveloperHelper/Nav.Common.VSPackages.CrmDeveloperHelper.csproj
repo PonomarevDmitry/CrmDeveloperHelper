@@ -103,6 +103,8 @@
     <Compile Include="Commands\AbstractOutputWindowCommand.cs" />
     <Compile Include="Commands\AbstractOutputWindowDynamicCommand.cs" />
     <Compile Include="Commands\Checks\CommonCheckUnknownFormControlTypes.cs" />
+    <Compile Include="Commands\Commons\CommonFileGenerationConfigurationCommand.cs" />
+    <Compile Include="Commands\Commons\CommonFileGenerationOptionsCommand.cs" />
     <Compile Include="Commands\Connections\CommonCrmConnectionEditCommand.cs" />
     <Compile Include="Commands\Connections\CommonCrmConnectionSelectFileCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpEntityMetadataFileGenerationOptionsCommand.cs" />
@@ -1499,6 +1501,12 @@
     <Compile Include="Views\WindowFileActionByExtension.xaml.cs">
       <DependentUpon>WindowFileActionByExtension.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WindowFileGenerationOptions.xaml.cs">
+      <DependentUpon>WindowFileGenerationOptions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowFileGenerationConfiguration.xaml.cs">
+      <DependentUpon>WindowFileGenerationConfiguration.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WindowHelper.cs" />
     <Compile Include="Views\WindowOrganizationComparer.xaml.cs">
       <DependentUpon>WindowOrganizationComparer.xaml</DependentUpon>
@@ -2260,6 +2268,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WindowFileActionByExtension.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowFileGenerationOptions.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowFileGenerationConfiguration.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -1,0 +1,52 @@
+﻿<src:WindowBase x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowFileGenerationOptions"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
+                xmlns:local="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.UserControls"
+                
+                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                mc:Ignorable="d"
+                
+                Title="File Generation Options" 
+                SizeToContent="WidthAndHeight"
+                ResizeMode="NoResize"
+                WindowStartupLocation="Manual">
+    <src:WindowBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="StyleWindows.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </src:WindowBase.Resources>
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100*" />
+
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TabControl x:Name="tabControl" Grid.Row="0">
+
+            <TabItem x:Name="tbEntityMetadataOptions" IsSelected="False" Header="EntityMetadata" >
+                <local:FileGenerationEntityMetadataOptionsControl Grid.Row="0" x:Name="optionsEntityMetadataOptions" CloseClicked="options_CloseClicked" />
+            </TabItem>
+
+            <TabItem x:Name="tbGlobalOptionSetMetadataOptions" IsSelected="False" Header="Global OptionSets" >
+                <local:FileGenerationGlobalOptionSetMetadataOptionsControl Grid.Row="0" x:Name="optionsGlobalOptionSetMetadataOptions" CloseClicked="options_CloseClicked" />
+            </TabItem>
+
+            <TabItem x:Name="tbSdkMessageRequestsOptions" IsSelected="False" Header="SdkMessage Requests" >
+                <local:FileGenerationSdkMessageRequestsOptionsControl Grid.Row="0" x:Name="optionsSdkMessageRequestsOptions" CloseClicked="options_CloseClicked" />
+            </TabItem>
+
+        </TabControl>
+
+        <StatusBar Grid.Row="1">
+            <StatusBarItem Content="" />
+        </StatusBar>
+
+    </Grid>
+</src:WindowBase>

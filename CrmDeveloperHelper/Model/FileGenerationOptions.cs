@@ -20,6 +20,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public FileGenerationConfiguration Configuration { get; set; }
 
+        public string SolutionFilePath { get; set; }
+
         private bool _SolutionComponentWithManagedInfo = false;
         [DataMember]
         public bool SolutionComponentWithManagedInfo

@@ -730,6 +730,9 @@
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupPublishAll" priority="0x0605" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupPublishAll_MenuConnectionDyn_Group" priority="0x0605" />
 
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupFileGenerationOptions" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupFileGenerationOptions_Menu_GroupCurrent" priority="0x06000" />
+
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration" priority="0x0606" />
 
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSite" priority="0x0606" />
@@ -2877,6 +2880,14 @@
         </Strings>
       </Menu>
 
+
+      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupFileGenerationOptions_Menu" priority="0x0107" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>File Generation Options</ButtonText>
+          <MenuText>File Generation Options</MenuText>
+        </Strings>
+      </Menu>
 
       <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupPublishAll_MenuConnectionDyn" priority="0x0107" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -9632,6 +9643,24 @@
           <ButtonText>Open Config Folder</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidCommandSet" id="CommonFileGenerationOptionsCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Current File Generation Options</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommandSet" id="CommonFileGenerationConfigurationCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>File Generation Configuration</ButtonText>
+        </Strings>
+      </Button>
 
       <!-- #endregion CommonMenu -->
 
@@ -14583,37 +14612,40 @@
 
     <!-- #region commonMenu -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck" priority="0x0600">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupFind" priority="0x0610">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupFind" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupPluginConfiguration" priority="0x0620">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupPluginConfiguration" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation" priority="0x0630">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation" priority="0x06030">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation" priority="0x0640">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation" priority="0x06040">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupExplorers" priority="0x0650">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupExplorers" priority="0x06050">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions" priority="0x0660">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions" priority="0x06060">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupTraceReader" priority="0x0670">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupTraceReader" priority="0x06070">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupOrganizationComparer" priority="0x0680">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupOrganizationComparer" priority="0x06080">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupPublishAll" priority="0x0690">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupPublishAll" priority="0x06090">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration" priority="0x06A0">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupFileGenerationOptions" priority="0x060A0">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration" priority="0x060B0">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu" />
     </CommandPlacement>
 
@@ -15239,6 +15271,33 @@
     </CommandPlacement>
 
     <!-- #endregion commonMenu_GroupPublishAll -->
+
+    <!-- #region commonMenu_GroupFileGenerationOptions -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupFileGenerationOptions_Menu" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFileGenerationOptions" />
+    </CommandPlacement>
+
+    <!-- #endregion commonMenu_GroupFileGenerationOptions -->
+
+    <!-- #region commonMenu_GroupFileGenerationOptions_Menu -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupFileGenerationOptions_Menu_GroupCurrent" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFileGenerationOptions_Menu" />
+    </CommandPlacement>
+
+    <!-- #endregion commonMenu_GroupFileGenerationOptions_Menu -->
+
+    <!-- #region commonMenu_GroupFileGenerationOptions_Menu_GroupCurrent -->
+
+    <CommandPlacement guid="guidCommandSet" id="CommonFileGenerationOptionsCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFileGenerationOptions_Menu_GroupCurrent" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CommonFileGenerationConfigurationCommandId" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFileGenerationOptions_Menu_GroupCurrent" />
+    </CommandPlacement>
+
+    <!-- #endregion commonMenu_GroupFileGenerationOptions_Menu_GroupCurrent -->
 
 
     <!-- #region commonMenu_GroupConfiguration -->
@@ -19382,6 +19441,10 @@
       <IDSymbol name="commonMenu_GroupPublishAll_MenuConnectionDyn" value="0x1197" />
       <IDSymbol name="commonMenu_GroupPublishAll_MenuConnectionDyn_Group" value="0x1198" />
 
+      <IDSymbol name="commonMenu_GroupFileGenerationOptions" value="0x13EE" />
+      <IDSymbol name="commonMenu_GroupFileGenerationOptions_Menu" value="0x13EF" />
+      <IDSymbol name="commonMenu_GroupFileGenerationOptions_Menu_GroupCurrent" value="0x13F0" />
+
       <IDSymbol name="commonMenu_GroupConfiguration" value="0x10F1" />
 
       <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite" value="0x115C" />
@@ -20693,6 +20756,9 @@
 
       <IDSymbol name="CommonCurrentConnectionCommandId" value="0x214A" />
 
+      <IDSymbol name="CommonFileGenerationOptionsCommandId" value="0x2235" />
+      <IDSymbol name="CommonFileGenerationConfigurationCommandId" value="0x2236" />
+
       <!-- #endregion Common -->
 
 
@@ -20867,10 +20933,10 @@
 
 
     <!-- Groups and Menus -->
-    <!-- 0x13EE -->
+    <!-- 0x13F1 -->
 
     <!-- Commands -->
-    <!-- 0x2235 -->
+    <!-- 0x2237 -->
 
     <!-- Dynamic Commands -->
     <!-- 12300 -->

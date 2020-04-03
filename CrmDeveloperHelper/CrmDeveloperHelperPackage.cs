@@ -788,6 +788,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             #region Config
 
+            CommonFileGenerationOptionsCommand.Initialize(commandService);
+            CommonFileGenerationConfigurationCommand.Initialize(commandService);
+
             CommonOpenConfigFolderCommand.Initialize(commandService);
 
             CommonConfigCommand.Initialize(commandService);

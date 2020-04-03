@@ -1,9 +1,7 @@
 ﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading;
@@ -21,10 +19,55 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         /// <summary>
         /// Путь к файлу конфигурации
         /// </summary>
-        private string Path { get; set; }
+        public string Path { get; private set; }
 
         [DataMember]
-        private FileGenerationOptions DefaultFileGenerationOptions { get; set; }
+        public FileGenerationOptions DefaultFileGenerationOptions { get; private set; }
+
+        [DataMember]
+        public Dictionary<string, FileGenerationOptions> FileGenerationOptionsCollection { get; private set; }
+
+        public FileGenerationConfiguration()
+        {
+            this.DefaultFileGenerationOptions = new FileGenerationOptions()
+            {
+                SolutionFilePath = string.Empty,
+                Configuration = this,
+            };
+            this.FileGenerationOptionsCollection = new Dictionary<string, FileGenerationOptions>(StringComparer.InvariantCultureIgnoreCase);
+        }
+
+        [OnDeserializing]
+        private void BeforeDeserialize(StreamingContext context)
+        {
+
+            {
+                this.FileGenerationOptionsCollection = new Dictionary<string, FileGenerationOptions>(StringComparer.InvariantCultureIgnoreCase);
+            }
+        }
+
+        [OnDeserialized]
+        private void AfterDeserialize(StreamingContext context)
+        {
+            if (this.DefaultFileGenerationOptions == null)
+            {
+                this.DefaultFileGenerationOptions = new FileGenerationOptions()
+                {
+                    SolutionFilePath = string.Empty,
+                };
+            }
+
+            this.DefaultFileGenerationOptions.Configuration = this;
+
+            if (this.FileGenerationOptionsCollection != null)
+            {
+                foreach (var item in this.FileGenerationOptionsCollection)
+                {
+                    item.Value.SolutionFilePath = item.Key;
+                    item.Value.Configuration = this;
+                }
+            }
+        }
 
         public static FileGenerationOptions GetFileGenerationOptions()
         {
@@ -46,6 +89,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
                     configuration.FileGenerationOptionsCollection.Add(solutionFilePath, result);
                 }
+
+                result.SolutionFilePath = solutionFilePath;
             }
             else
             {
@@ -59,39 +104,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             return result;
         }
 
-        [DataMember]
-        public Dictionary<string, FileGenerationOptions> FileGenerationOptionsCollection { get; private set; }
-
-        public FileGenerationConfiguration()
+        public static FileGenerationConfiguration GetConfiguration()
         {
-            this.DefaultFileGenerationOptions = new FileGenerationOptions();
-            this.FileGenerationOptionsCollection = new Dictionary<string, FileGenerationOptions>(StringComparer.InvariantCultureIgnoreCase);
-        }
-
-        [OnDeserializing]
-        private void BeforeDeserialize(StreamingContext context)
-        {
-            if (this.FileGenerationOptionsCollection == null)
-            {
-                this.FileGenerationOptionsCollection = new Dictionary<string, FileGenerationOptions>(StringComparer.InvariantCultureIgnoreCase);
-            }
-        }
-
-        [OnDeserialized]
-        private void AfterDeserialize(StreamingContext context)
-        {
-            if (this.DefaultFileGenerationOptions == null)
-            {
-                this.DefaultFileGenerationOptions = new FileGenerationOptions();
-            }
-
-            if (this.FileGenerationOptionsCollection != null)
-            {
-                foreach (var item in this.FileGenerationOptionsCollection.Values)
-                {
-                    item.Configuration = this;
-                }
-            }
+            return GetStatic();
         }
 
         private static FileGenerationConfiguration _singleton;
@@ -263,7 +278,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private void Save()
+        public void Save()
         {
             this.Save(this.Path);
         }

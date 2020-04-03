@@ -1487,6 +1487,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int commonMenu_GroupPublishAll_MenuConnectionDyn_Group = 0x1198;
 
+            public const int commonMenu_GroupFileGenerationOptions = 0x13EE;
+
+            public const int commonMenu_GroupFileGenerationOptions_Menu = 0x13EF;
+
+            public const int commonMenu_GroupFileGenerationOptions_Menu_GroupCurrent = 0x13F0;
+
             public const int commonMenu_GroupConfiguration = 0x10F1;
 
             public const int commonMenu_GroupConfiguration_MenuOpenWebSite = 0x115C;
@@ -2964,6 +2970,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int CommonConfigCommandId = 0x2042;
 
             public const int CommonCurrentConnectionCommandId = 0x214A;
+
+            public const int CommonFileGenerationOptionsCommandId = 0x2235;
+
+            public const int CommonFileGenerationConfigurationCommandId = 0x2236;
 
             public const int OutputSelectFileCrmConnectionCommandId = 0x2209;
 

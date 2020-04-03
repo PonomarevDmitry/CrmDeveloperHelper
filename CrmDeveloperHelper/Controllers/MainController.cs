@@ -725,6 +725,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartOpeningGlobalOptionSetsMetadataFileGenerationOptions()
             => ExecuteInThreadVoid(this._explorerController.ExecuteOpeningGlobalOptionSetsMetadataFileGenerationOptions);
 
+        public void StartOpeningFileGenerationOptions()
+            => ExecuteInThreadVoid(this._explorerController.ExecuteOpeningFileGenerationOptions);
+
+        public void StartOpeningFileGenerationConfiguration()
+            => ExecuteInThreadVoid(this._explorerController.ExecuteOpeningFileGenerationConfiguration);
+
         public void StartExplorerEntityAttribute(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
             => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteOpeningEntityAttributeExplorer, commonConfig, selection);
 

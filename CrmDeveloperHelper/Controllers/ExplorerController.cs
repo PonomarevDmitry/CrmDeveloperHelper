@@ -108,6 +108,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Opening Global OptionSets Metadata File Generation Options
 
+        public void ExecuteOpeningFileGenerationOptions()
+        {
+            GetFileGenerationOptionsAndOpenExplorer(
+                Properties.OperationNames.OpeningFileGenerationOptions
+                , WindowHelper.OpenFileGenerationOptions
+            );
+        }
+
+        public void ExecuteOpeningFileGenerationConfiguration()
+        {
+            GetFileGenerationConfigurationAndOpenExplorer(
+                Properties.OperationNames.OpeningFileGenerationConfiguration
+                , WindowHelper.OpenFileGenerationConfiguration
+            );
+        }
+
         #region Скачивание любого веб-ресурса.
 
         public async Task ExecuteOpeningWebResourceExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
