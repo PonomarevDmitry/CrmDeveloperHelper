@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Commands;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Checks;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Commons;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Connections;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers;

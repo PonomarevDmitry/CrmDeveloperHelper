@@ -2,7 +2,7 @@
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using System;
 
-namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Commons
 {
     internal sealed class CommonXsdSchemaExportCommand : AbstractDynamicCommandXsdSchemas
     {
