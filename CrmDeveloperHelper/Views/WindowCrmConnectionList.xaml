@@ -25,7 +25,7 @@
                         <Image Width="16" Height="16" Source="{StaticResource ImageCheck}"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                
+
                 <Separator/>
                 <MenuItem Header="Edit" Click="tSBEdit_Click" FontWeight="Bold">
                     <MenuItem.Icon>
@@ -37,7 +37,7 @@
                         <Image Source="{StaticResource ImageCopy}"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                
+
                 <Separator/>
                 <MenuItem Header="Select Connection" Click="tSBSelectConnection_Click">
                     <MenuItem.Icon>
@@ -59,7 +59,7 @@
 
             <ContextMenu x:Key="listContextMenuArchive">
                 <MenuItem Header="Edit" Click="tSBArchiveEdit_Click" FontWeight="Bold"/>
-                
+
                 <Separator/>
                 <MenuItem Header="Test Connection" Click="tSBArchiveTestConnection_Click"/>
 
@@ -84,7 +84,7 @@
             </Style>
 
         </ResourceDictionary>
-        
+
     </src:WindowBase.Resources>
     <Grid>
 
@@ -116,8 +116,8 @@
                         </ToolBar.Resources>
                         <DockPanel>
                             <DockPanel.Resources>
-                              <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
-                              </Style>
+                                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                                </Style>
                                 <Style TargetType="{x:Type TextBlock}">
                                     <Setter Property="Margin" Value="5,0" />
                                     <Setter Property="VerticalAlignment" Value="Center" />
@@ -160,14 +160,14 @@
                                         </MenuItem>
                                     </MenuItem>
                                 </Menu>
-                                
+
                                 <Button x:Name="tSBEdit" HorizontalAlignment="Left" IsEnabled="False" Click="tSBEdit_Click">
                                     <StackPanel>
                                         <Image Width="16" Height="16"  Source="{StaticResource ImageEdit}"  />
                                         <TextBlock >Edit</TextBlock>
                                     </StackPanel>
                                 </Button>
-                                
+
                                 <Separator/>
                                 <Button x:Name="tSBTestConnection" HorizontalAlignment="Left" IsEnabled="False" Click="tSBTestConnection_Click">
                                     <StackPanel>
@@ -175,20 +175,20 @@
                                         <TextBlock >Test Connection</TextBlock>
                                     </StackPanel>
                                 </Button>
-                                
+
                                 <Separator/>
                                 <Button x:Name="tSBUp" HorizontalAlignment="Left" IsEnabled="False" Click="tSBUp_Click">
                                     <StackPanel>
                                         <Image Width="16" Height="16"  Source="{StaticResource ImageUp}"  />
                                     </StackPanel>
                                 </Button>
-                                
+
                                 <Button x:Name="tSBDown" HorizontalAlignment="Left" IsEnabled="False" Click="tSBDown_Click">
                                     <StackPanel>
                                         <Image Width="16" Height="16"  Source="{StaticResource ImageDown}"  />
                                     </StackPanel>
                                 </Button>
-                                
+
                                 <Separator/>
                                 <Button x:Name="tSBOpenFolder" HorizontalAlignment="Left" Click="tSBOpenFolder_Click" >
                                     <StackPanel>
@@ -196,14 +196,14 @@
                                         <TextBlock >Open Folder</TextBlock>
                                     </StackPanel>
                                 </Button>
-                                
+
                                 <Separator/>
                                 <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                                     <MenuItem x:Name="miConnection" Header="Connection" />
                                 </Menu>
-                                
+
                             </ToolBarPanel>
-                            
+
                             <Button x:Name="tSBMoveToArchive" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" Click="tSBMoveToArchive_Click" >
                                 <StackPanel>
                                     <Image Width="16" Height="16"  Source="{StaticResource ImageDelete}"  />
@@ -226,6 +226,9 @@
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Width="Auto">
+                                    <GridViewColumn.Header>
+                                        <Label Content="R" Margin="0" Padding="0" ToolTip="IsReadOnly" />
+                                    </GridViewColumn.Header>
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3" Style="{StaticResource borderLime}">
@@ -315,7 +318,7 @@
                     </ListView>
                 </DockPanel>
             </TabItem>
-            
+
             <TabItem Header="Connection User List">
                 <DockPanel LastChildFill="True">
                     <ToolBar DockPanel.Dock="Top" >
@@ -326,8 +329,8 @@
                         </ToolBar.Resources>
                         <DockPanel>
                             <DockPanel.Resources>
-                              <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
-                              </Style>
+                                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                                </Style>
                                 <Style TargetType="{x:Type TextBlock}">
                                     <Setter Property="Margin" Value="5,0" />
                                 </Style>
@@ -399,7 +402,7 @@
                     </ListView>
                 </DockPanel>
             </TabItem>
-            
+
             <TabItem Header="Archive Connection List">
                 <DockPanel LastChildFill="True">
                     <ToolBar DockPanel.Dock="Top" >
@@ -410,8 +413,8 @@
                         </ToolBar.Resources>
                         <DockPanel>
                             <DockPanel.Resources>
-                              <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
-                              </Style>
+                                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                                </Style>
                                 <Style TargetType="{x:Type TextBlock}">
                                     <Setter Property="Margin" Value="5,0" />
                                 </Style>
@@ -478,7 +481,10 @@
                         </ListView.ItemContainerStyle>
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Width="30">
+                                <GridViewColumn Width="Auto">
+                                    <GridViewColumn.Header>
+                                        <Label Content="R" Margin="0" Padding="0" ToolTip="IsReadOnly" />
+                                    </GridViewColumn.Header>
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
@@ -633,7 +639,7 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                               
+
                                 <GridViewColumn Header="Ver" Width="75">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
