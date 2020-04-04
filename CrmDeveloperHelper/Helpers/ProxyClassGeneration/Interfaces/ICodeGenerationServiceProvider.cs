@@ -1,7 +1,7 @@
 ﻿namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.Interfaces
 {
     /// <summary>
-    /// <see cref="CodeGenerationServiceProvider"/>
+    /// <see cref="Implementations.CodeGenerationServiceProvider"/>
     /// </summary>
     public interface ICodeGenerationServiceProvider
     {

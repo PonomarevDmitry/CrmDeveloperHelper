@@ -5,300 +5,215 @@ using System.Collections.Generic;
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.Interfaces
 {
     /// <summary>
-    /// <see cref="NamingService"/>
+    /// <see cref="Implementations.NamingService"/>
     /// </summary>
     public interface INamingService
     {
         /// <summary>
-        /// <see cref="NamingService.GetNameForOptionSet(EntityMetadata, OptionSetMetadata, ICodeGenerationServiceProvider)"/>
+        /// <see cref="Implementations.NamingService.iCodeGenerationServiceProvider"/>
+        /// </summary>
+        ICodeGenerationServiceProvider iCodeGenerationServiceProvider { get; set; }
+
+        /// <summary>
+        /// <see cref="Implementations.NamingService.GetNameForOptionSet(EntityMetadata, OptionSetMetadata)"/>
         /// </summary>
         /// <param name="entityMetadata"></param>
         /// <param name="optionSetMetadata"></param>
-        /// <param name="iCodeGenerationServiceProvider"></param>
         /// <returns></returns>
-        string GetNameForOptionSet(
-            EntityMetadata entityMetadata
-            , OptionSetMetadata optionSetMetadata
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        );
+        string GetNameForOptionSet(EntityMetadata entityMetadata, OptionSetMetadata optionSetMetadata);
 
         /// <summary>
-        /// <see cref="NamingService.GetNameForOption(OptionSetMetadata, OptionMetadata, ICodeGenerationServiceProvider)"/>
-        /// </summary>
-        /// <param name="optionSetMetadata"></param>
-        /// <param name="optionMetadata"></param>
-        /// <param name="iCodeGenerationServiceProvider"></param>
-        /// <returns></returns>
-        string GetNameForOption(
-            OptionSetMetadata optionSetMetadata
-            , OptionMetadata optionMetadata
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        );
-
-        /// <summary>
-        /// <see cref="NamingService.GetNameForEntity(EntityMetadata, ICodeGenerationServiceProvider)"/>
-        /// </summary>
-        /// <param name="entityMetadata"></param>
-        /// <param name="iCodeGenerationServiceProvider"></param>
-        /// <returns></returns>
-        string GetNameForEntity(EntityMetadata entityMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider);
-
-        /// <summary>
-        /// <see cref="NamingService.GetNameForAttributeAsEntityProperty(EntityMetadata, AttributeMetadata, ICodeGenerationServiceProvider)"/>
-        /// </summary>
-        /// <param name="entityMetadata"></param>
-        /// <param name="attributeMetadata"></param>
-        /// <param name="iCodeGenerationServiceProvider"></param>
-        /// <returns></returns>
-        string GetNameForAttributeAsEntityProperty(
-            EntityMetadata entityMetadata
-            , AttributeMetadata attributeMetadata
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        );
-
-        /// <summary>
-        /// <see cref="NamingService.GetNameForAttribute(EntityMetadata, AttributeMetadata, ICodeGenerationServiceProvider)"/>
-        /// </summary>
-        /// <param name="entityMetadata"></param>
-        /// <param name="attributeMetadata"></param>
-        /// <param name="iCodeGenerationServiceProvider"></param>
-        /// <returns></returns>
-        string GetNameForAttribute(
-            EntityMetadata entityMetadata
-            , AttributeMetadata attributeMetadata
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        );
-
-        /// <summary>
-        /// <see cref="NamingService.GetNameForRelationship(EntityMetadata, RelationshipMetadataBase, EntityRole?, ICodeGenerationServiceProvider)"/>
-        /// </summary>
-        /// <param name="entityMetadata"></param>
-        /// <param name="relationshipMetadata"></param>
-        /// <param name="reflexiveRole"></param>
-        /// <param name="iCodeGenerationServiceProvider"></param>
-        /// <returns></returns>
-        string GetNameForRelationship(
-            EntityMetadata entityMetadata
-            , RelationshipMetadataBase relationshipMetadata
-            , EntityRole? reflexiveRole
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        );
-
-        /// <summary>
-        /// <see cref="NamingService.GetNameForServiceContext(ICodeGenerationServiceProvider)"/>
-        /// </summary>
-        /// <param name="iCodeGenerationServiceProvider"></param>
-        /// <returns></returns>
-        string GetNameForServiceContext(ICodeGenerationServiceProvider iCodeGenerationServiceProvider);
-
-        /// <summary>
-        /// <see cref="NamingService.GetNameForEntitySet(EntityMetadata, ICodeGenerationServiceProvider)"/>
-        /// </summary>
-        /// <param name="entityMetadata"></param>
-        /// <param name="iCodeGenerationServiceProvider"></param>
-        /// <returns></returns>
-        string GetNameForEntitySet(EntityMetadata entityMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider);
-
-        /// <summary>
-        /// <see cref="NamingService.GetNameForMessagePair(CodeGenerationSdkMessagePair, ICodeGenerationServiceProvider)"/>
-        /// </summary>
-        /// <param name="messagePair"></param>
-        /// <param name="iCodeGenerationServiceProvider"></param>
-        /// <returns></returns>
-        string GetNameForMessagePair(CodeGenerationSdkMessagePair messagePair, ICodeGenerationServiceProvider iCodeGenerationServiceProvider);
-
-        /// <summary>
-        /// <see cref="NamingService.GetNameForRequestField(CodeGenerationSdkMessageRequest, Entities.SdkMessageRequestField, ICodeGenerationServiceProvider)"/>
-        /// </summary>
-        /// <param name="request"></param>
-        /// <param name="requestField"></param>
-        /// <param name="iCodeGenerationServiceProvider"></param>
-        /// <returns></returns>
-        string GetNameForRequestField(
-            CodeGenerationSdkMessageRequest request
-            , Entities.SdkMessageRequestField requestField
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        );
-
-        /// <summary>
-        /// <see cref="NamingService.GetNameForResponseField(CodeGenerationSdkMessageResponse, Entities.SdkMessageResponseField, ICodeGenerationServiceProvider)"/>
-        /// </summary>
-        /// <param name="response"></param>
-        /// <param name="responseField"></param>
-        /// <param name="iCodeGenerationServiceProvider"></param>
-        /// <returns></returns>
-        string GetNameForResponseField(
-            CodeGenerationSdkMessageResponse response
-            , Entities.SdkMessageResponseField responseField
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        );
-
-        /// <summary>
-        /// <see cref="NamingService.GetCommentsForEntity(EntityMetadata, ICodeGenerationServiceProvider)"/>
-        /// </summary>
-        /// <param name="entityMetadata"></param>
-        /// <param name="iCodeGenerationServiceProvider"></param>
-        /// <returns></returns>
-        IEnumerable<string> GetCommentsForEntity(EntityMetadata entityMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider);
-
-        /// <summary>
-        /// <see cref="NamingService.GetCommentsForEntityDefaultConstructor(EntityMetadata, ICodeGenerationServiceProvider)"/>
-        /// </summary>
-        /// <param name="entityMetadata"></param>
-        /// <param name="iCodeGenerationServiceProvider"></param>
-        /// <returns></returns>
-        IEnumerable<string> GetCommentsForEntityDefaultConstructor(EntityMetadata entityMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider);
-
-        /// <summary>
-        /// <see cref="NamingService.GetCommentsForEntityAnonymousConstructor(EntityMetadata, ICodeGenerationServiceProvider)"/>
-        /// </summary>
-        /// <param name="entityMetadata"></param>
-        /// <param name="iCodeGenerationServiceProvider"></param>
-        /// <returns></returns>
-        IEnumerable<string> GetCommentsForEntityAnonymousConstructor(EntityMetadata entityMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider);
-
-        /// <summary>
-        /// <see cref="NamingService.GetCommentsForAttribute(EntityMetadata, AttributeMetadata, ICodeGenerationServiceProvider)"/>
-        /// </summary>
-        /// <param name="entityMetadata"></param>
-        /// <param name="attributeMetadata"></param>
-        /// <param name="iCodeGenerationServiceProvider"></param>
-        /// <returns></returns>
-        IEnumerable<string> GetCommentsForAttribute(
-            EntityMetadata entityMetadata
-            , AttributeMetadata attributeMetadata
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        );
-
-        /// <summary>
-        /// <see cref="NamingService.GetCommentsForRelationshipOneToMany(EntityMetadata, OneToManyRelationshipMetadata, EntityRole?, ICodeGenerationServiceProvider)"/>
-        /// </summary>
-        /// <param name="entityMetadata"></param>
-        /// <param name="relationshipMetadata"></param>
-        /// <param name="reflexiveRole"></param>
-        /// <param name="iCodeGenerationServiceProvider"></param>
-        /// <returns></returns>
-        IEnumerable<string> GetCommentsForRelationshipOneToMany(
-            EntityMetadata entityMetadata
-            , OneToManyRelationshipMetadata relationshipMetadata
-            , EntityRole? reflexiveRole
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        );
-
-        /// <summary>
-        /// <see cref="NamingService.GetCommentsForRelationshipManyToOne(EntityMetadata, OneToManyRelationshipMetadata, EntityRole?, ICodeGenerationServiceProvider)"/>
-        /// </summary>
-        /// <param name="entityMetadata"></param>
-        /// <param name="relationshipMetadata"></param>
-        /// <param name="reflexiveRole"></param>
-        /// <param name="iCodeGenerationServiceProvider"></param>
-        /// <returns></returns>
-        IEnumerable<string> GetCommentsForRelationshipManyToOne(
-            EntityMetadata entityMetadata
-            , OneToManyRelationshipMetadata relationshipMetadata
-            , EntityRole? reflexiveRole
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        );
-
-        /// <summary>
-        /// <see cref="NamingService.GetCommentsForRelationshipManyToMany(EntityMetadata, ManyToManyRelationshipMetadata, EntityRole?, ICodeGenerationServiceProvider)"/>
-        /// </summary>
-        /// <param name="entityMetadata"></param>
-        /// <param name="relationshipMetadata"></param>
-        /// <param name="reflexiveRole"></param>
-        /// <param name="iCodeGenerationServiceProvider"></param>
-        /// <returns></returns>
-        IEnumerable<string> GetCommentsForRelationshipManyToMany(
-            EntityMetadata entityMetadata
-            , ManyToManyRelationshipMetadata relationshipMetadata
-            , EntityRole? reflexiveRole
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        );
-
-        /// <summary>
-        /// <see cref="NamingService.GetCommentsForOptionSet(EntityMetadata, OptionSetMetadata, ICodeGenerationServiceProvider)"/>
-        /// </summary>
-        /// <param name="entityMetadata"></param>
-        /// <param name="optionSetMetadata"></param>
-        /// <param name="iCodeGenerationServiceProvider"></param>
-        /// <returns></returns>
-        IEnumerable<string> GetCommentsForOptionSet(
-            EntityMetadata entityMetadata
-            , OptionSetMetadata optionSetMetadata
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        );
-
-        /// <summary>
-        /// <see cref="NamingService.GetCommentsForOption(OptionSetMetadata, OptionMetadata, ICodeGenerationServiceProvider)"/>
+        /// <see cref="Implementations.NamingService.GetNameForOption(OptionSetMetadata, OptionMetadata)"/>
         /// </summary>
         /// <param name="optionSetMetadata"></param>
         /// <param name="optionMetadata"></param>
-        /// <param name="iCodeGenerationServiceProvider"></param>
         /// <returns></returns>
-        IEnumerable<string> GetCommentsForOption(
-            OptionSetMetadata optionSetMetadata
-            , OptionMetadata optionMetadata
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        );
+        string GetNameForOption(OptionSetMetadata optionSetMetadata, OptionMetadata optionMetadata);
 
         /// <summary>
-        /// <see cref="NamingService.GetCommentsForServiceContext(ICodeGenerationServiceProvider)"/>
-        /// </summary>
-        /// <param name="iCodeGenerationServiceProvider"></param>
-        /// <returns></returns>
-        IEnumerable<string> GetCommentsForServiceContext(ICodeGenerationServiceProvider iCodeGenerationServiceProvider);
-
-        /// <summary>
-        /// <see cref="NamingService.GetCommentsForServiceContextConstructor(ICodeGenerationServiceProvider)"/>
-        /// </summary>
-        /// <param name="iCodeGenerationServiceProvider"></param>
-        /// <returns></returns>
-        IEnumerable<string> GetCommentsForServiceContextConstructor(ICodeGenerationServiceProvider iCodeGenerationServiceProvider);
-
-        /// <summary>
-        /// <see cref="NamingService.GetCommentsForEntitySet(EntityMetadata, ICodeGenerationServiceProvider)"/>
+        /// <see cref="Implementations.NamingService.GetNameForEntity(EntityMetadata)"/>
         /// </summary>
         /// <param name="entityMetadata"></param>
-        /// <param name="iCodeGenerationServiceProvider"></param>
         /// <returns></returns>
-        IEnumerable<string> GetCommentsForEntitySet(EntityMetadata entityMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider);
+        string GetNameForEntity(EntityMetadata entityMetadata);
 
         /// <summary>
-        /// <see cref="NamingService.GetCommentsForMessagePair(CodeGenerationSdkMessagePair, ICodeGenerationServiceProvider)"/>
+        /// <see cref="Implementations.NamingService.GetNameForAttributeAsEntityProperty(EntityMetadata, AttributeMetadata)"/>
+        /// </summary>
+        /// <param name="entityMetadata"></param>
+        /// <param name="attributeMetadata"></param>
+        /// <returns></returns>
+        string GetNameForAttributeAsEntityProperty(EntityMetadata entityMetadata, AttributeMetadata attributeMetadata);
+
+        /// <summary>
+        /// <see cref="Implementations.NamingService.GetNameForAttribute(EntityMetadata, AttributeMetadata)"/>
+        /// </summary>
+        /// <param name="entityMetadata"></param>
+        /// <param name="attributeMetadata"></param>
+        /// <returns></returns>
+        string GetNameForAttribute(EntityMetadata entityMetadata, AttributeMetadata attributeMetadata);
+
+        /// <summary>
+        /// <see cref="Implementations.NamingService.GetNameForRelationship(EntityMetadata, RelationshipMetadataBase, EntityRole?)"/>
+        /// </summary>
+        /// <param name="entityMetadata"></param>
+        /// <param name="relationshipMetadata"></param>
+        /// <param name="reflexiveRole"></param>
+        /// <returns></returns>
+        string GetNameForRelationship(EntityMetadata entityMetadata, RelationshipMetadataBase relationshipMetadata, EntityRole? reflexiveRole);
+
+        /// <summary>
+        /// <see cref="Implementations.NamingService.GetNameForServiceContext()"/>
+        /// </summary>
+        /// <returns></returns>
+        string GetNameForServiceContext();
+
+        /// <summary>
+        /// <see cref="Implementations.NamingService.GetNameForEntitySet(EntityMetadata)"/>
+        /// </summary>
+        /// <param name="entityMetadata"></param>
+        /// <returns></returns>
+        string GetNameForEntitySet(EntityMetadata entityMetadata);
+
+        /// <summary>
+        /// <see cref="Implementations.NamingService.GetNameForMessagePair(CodeGenerationSdkMessagePair)"/>
         /// </summary>
         /// <param name="messagePair"></param>
-        /// <param name="iCodeGenerationServiceProvider"></param>
         /// <returns></returns>
-        IEnumerable<string> GetCommentsForMessagePair(CodeGenerationSdkMessagePair messagePair, ICodeGenerationServiceProvider iCodeGenerationServiceProvider);
+        string GetNameForMessagePair(CodeGenerationSdkMessagePair messagePair);
 
         /// <summary>
-        /// <see cref="NamingService.GetCommentsForRequestField(CodeGenerationSdkMessageRequest, Entities.SdkMessageRequestField, ICodeGenerationServiceProvider)"/>
+        /// <see cref="Implementations.NamingService.GetNameForRequestField(CodeGenerationSdkMessageRequest, Entities.SdkMessageRequestField)"/>
         /// </summary>
         /// <param name="request"></param>
         /// <param name="requestField"></param>
-        /// <param name="iCodeGenerationServiceProvider"></param>
         /// <returns></returns>
-        IEnumerable<string> GetCommentsForRequestField(
-            CodeGenerationSdkMessageRequest request
-            , Entities.SdkMessageRequestField requestField
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        );
+        string GetNameForRequestField(CodeGenerationSdkMessageRequest request, Entities.SdkMessageRequestField requestField);
 
         /// <summary>
-        /// <see cref="NamingService.GetCommentsForResponseField(CodeGenerationSdkMessageResponse, Entities.SdkMessageResponseField, ICodeGenerationServiceProvider)"/>
+        /// <see cref="Implementations.NamingService.GetNameForResponseField(CodeGenerationSdkMessageResponse, Entities.SdkMessageResponseField)"/>
         /// </summary>
         /// <param name="response"></param>
         /// <param name="responseField"></param>
-        /// <param name="iCodeGenerationServiceProvider"></param>
         /// <returns></returns>
-        IEnumerable<string> GetCommentsForResponseField(
-            CodeGenerationSdkMessageResponse response
-            , Entities.SdkMessageResponseField responseField
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        );
+        string GetNameForResponseField(CodeGenerationSdkMessageResponse response, Entities.SdkMessageResponseField responseField);
 
         /// <summary>
-        /// <see cref="NamingService.SetCurrentTypeName(string)"/>
+        /// <see cref="Implementations.NamingService.GetCommentsForEntity(EntityMetadata)"/>
+        /// </summary>
+        /// <param name="entityMetadata"></param>
+        /// <returns></returns>
+        IEnumerable<string> GetCommentsForEntity(EntityMetadata entityMetadata);
+
+        /// <summary>
+        /// <see cref="Implementations.NamingService.GetCommentsForEntityDefaultConstructor(EntityMetadata)"/>
+        /// </summary>
+        /// <param name="entityMetadata"></param>
+        /// <returns></returns>
+        IEnumerable<string> GetCommentsForEntityDefaultConstructor(EntityMetadata entityMetadata);
+
+        /// <summary>
+        /// <see cref="Implementations.NamingService.GetCommentsForEntityAnonymousConstructor(EntityMetadata)"/>
+        /// </summary>
+        /// <param name="entityMetadata"></param>
+        /// <returns></returns>
+        IEnumerable<string> GetCommentsForEntityAnonymousConstructor(EntityMetadata entityMetadata);
+
+        /// <summary>
+        /// <see cref="Implementations.NamingService.GetCommentsForAttribute(EntityMetadata, AttributeMetadata)"/>
+        /// </summary>
+        /// <param name="entityMetadata"></param>
+        /// <param name="attributeMetadata"></param>
+        /// <returns></returns>
+        IEnumerable<string> GetCommentsForAttribute(EntityMetadata entityMetadata, AttributeMetadata attributeMetadata);
+
+        /// <summary>
+        /// <see cref="Implementations.NamingService.GetCommentsForRelationshipOneToMany(EntityMetadata, OneToManyRelationshipMetadata, EntityRole?)"/>
+        /// </summary>
+        /// <param name="entityMetadata"></param>
+        /// <param name="relationshipMetadata"></param>
+        /// <param name="reflexiveRole"></param>
+        /// <returns></returns>
+        IEnumerable<string> GetCommentsForRelationshipOneToMany(EntityMetadata entityMetadata, OneToManyRelationshipMetadata relationshipMetadata, EntityRole? reflexiveRole);
+
+        /// <summary>
+        /// <see cref="Implementations.NamingService.GetCommentsForRelationshipManyToOne(EntityMetadata, OneToManyRelationshipMetadata, EntityRole?)"/>
+        /// </summary>
+        /// <param name="entityMetadata"></param>
+        /// <param name="relationshipMetadata"></param>
+        /// <param name="reflexiveRole"></param>
+        /// <returns></returns>
+        IEnumerable<string> GetCommentsForRelationshipManyToOne(EntityMetadata entityMetadata, OneToManyRelationshipMetadata relationshipMetadata, EntityRole? reflexiveRole);
+
+        /// <summary>
+        /// <see cref="Implementations.NamingService.GetCommentsForRelationshipManyToMany(EntityMetadata, ManyToManyRelationshipMetadata, EntityRole?)"/>
+        /// </summary>
+        /// <param name="entityMetadata"></param>
+        /// <param name="relationshipMetadata"></param>
+        /// <param name="reflexiveRole"></param>
+        /// <returns></returns>
+        IEnumerable<string> GetCommentsForRelationshipManyToMany(EntityMetadata entityMetadata, ManyToManyRelationshipMetadata relationshipMetadata, EntityRole? reflexiveRole);
+
+        /// <summary>
+        /// <see cref="Implementations.NamingService.GetCommentsForOptionSet(EntityMetadata, OptionSetMetadata)"/>
+        /// </summary>
+        /// <param name="entityMetadata"></param>
+        /// <param name="optionSetMetadata"></param>
+        /// <returns></returns>
+        IEnumerable<string> GetCommentsForOptionSet(EntityMetadata entityMetadata, OptionSetMetadata optionSetMetadata);
+
+        /// <summary>
+        /// <see cref="Implementations.NamingService.GetCommentsForOption(OptionSetMetadata, OptionMetadata)"/>
+        /// </summary>
+        /// <param name="optionSetMetadata"></param>
+        /// <param name="optionMetadata"></param>
+        /// <returns></returns>
+        IEnumerable<string> GetCommentsForOption(OptionSetMetadata optionSetMetadata, OptionMetadata optionMetadata);
+
+        /// <summary>
+        /// <see cref="Implementations.NamingService.GetCommentsForServiceContext()"/>
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<string> GetCommentsForServiceContext();
+
+        /// <summary>
+        /// <see cref="Implementations.NamingService.GetCommentsForServiceContextConstructor()"/>
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<string> GetCommentsForServiceContextConstructor();
+
+        /// <summary>
+        /// <see cref="Implementations.NamingService.GetCommentsForEntitySet(EntityMetadata)"/>
+        /// </summary>
+        /// <param name="entityMetadata"></param>
+        /// <returns></returns>
+        IEnumerable<string> GetCommentsForEntitySet(EntityMetadata entityMetadata);
+
+        /// <summary>
+        /// <see cref="Implementations.NamingService.GetCommentsForMessagePair(CodeGenerationSdkMessagePair)"/>
+        /// </summary>
+        /// <param name="messagePair"></param>
+        /// <returns></returns>
+        IEnumerable<string> GetCommentsForMessagePair(CodeGenerationSdkMessagePair messagePair);
+
+        /// <summary>
+        /// <see cref="Implementations.NamingService.GetCommentsForRequestField(CodeGenerationSdkMessageRequest, Entities.SdkMessageRequestField)"/>
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="requestField"></param>
+        /// <returns></returns>
+        IEnumerable<string> GetCommentsForRequestField(CodeGenerationSdkMessageRequest request, Entities.SdkMessageRequestField requestField);
+
+        /// <summary>
+        /// <see cref="Implementations.NamingService.GetCommentsForResponseField(CodeGenerationSdkMessageResponse, Entities.SdkMessageResponseField)"/>
+        /// </summary>
+        /// <param name="response"></param>
+        /// <param name="responseField"></param>
+        /// <returns></returns>
+        IEnumerable<string> GetCommentsForResponseField(CodeGenerationSdkMessageResponse response, Entities.SdkMessageResponseField responseField);
+
+        /// <summary>
+        /// <see cref="Implementations.NamingService.SetCurrentTypeName(string)"/>
         /// </summary>
         /// <param name="typeName"></param>
         void SetCurrentTypeName(string typeName);

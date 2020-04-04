@@ -17,6 +17,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             this.CodeWriterFilterService = codeFilterService;
             this.MetadataProviderService = metadataProviderService;
             this.NamingService = namingService;
+
+            this.TypeMappingService.iCodeGenerationServiceProvider = this;
+            this.CodeGenerationService.iCodeGenerationServiceProvider = this;
+            this.CodeWriterFilterService.iCodeGenerationServiceProvider = this;
+            this.MetadataProviderService.iCodeGenerationServiceProvider = this;
+            this.NamingService.iCodeGenerationServiceProvider = this;
         }
 
         public ITypeMappingService TypeMappingService { get; private set; }

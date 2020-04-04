@@ -1980,7 +1980,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     VerbatimOrder = true,
                 };
 
-                await codeGenerationService.WriteSdkMessagePairAsync(codeMessagePair, filePath, fileGenerationOptions.NamespaceSdkMessagesCSharp, options, codeGenerationServiceProvider);
+                await codeGenerationService.WriteSdkMessagePairAsync(codeMessagePair, filePath, fileGenerationOptions.NamespaceSdkMessagesCSharp, options);
 
                 if (this._selectedItem != null)
                 {
@@ -2303,7 +2303,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     VerbatimOrder = true,
                 };
 
-                await codeGenerationService.WriteSdkMessageAsync(codeMessage, filePath, fileGenerationOptions.NamespaceSdkMessagesCSharp, options, codeGenerationServiceProvider);
+                await codeGenerationService.WriteSdkMessageAsync(codeMessage, filePath, fileGenerationOptions.NamespaceSdkMessagesCSharp, options);
 
                 if (this._selectedItem != null)
                 {

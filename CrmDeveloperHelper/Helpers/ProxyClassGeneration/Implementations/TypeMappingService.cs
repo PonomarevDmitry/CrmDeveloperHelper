@@ -10,6 +10,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
 {
     internal sealed class TypeMappingService : ITypeMappingService
     {
+        public ICodeGenerationServiceProvider iCodeGenerationServiceProvider { get; set; }
+
         private readonly string _namespace;
 
         internal TypeMappingService(string @namespace)
@@ -17,14 +19,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             this._namespace = @namespace;
         }
 
-        public CodeTypeReference GetTypeForEntity(EntityMetadata entityMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        public CodeTypeReference GetTypeForEntity(EntityMetadata entityMetadata)
         {
-            return this.TypeRef(iCodeGenerationServiceProvider.NamingService.GetNameForEntity(entityMetadata, iCodeGenerationServiceProvider));
+            return this.TypeRef(iCodeGenerationServiceProvider.NamingService.GetNameForEntity(entityMetadata));
         }
 
-        public CodeTypeReference GetTypeForOptionSet(EntityMetadata entityMetadata, OptionSetMetadata optionSetMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        public CodeTypeReference GetTypeForOptionSet(EntityMetadata entityMetadata, OptionSetMetadata optionSetMetadata)
         {
-            return this.TypeRef(iCodeGenerationServiceProvider.NamingService.GetNameForOptionSet(entityMetadata, optionSetMetadata, iCodeGenerationServiceProvider));
+            return this.TypeRef(iCodeGenerationServiceProvider.NamingService.GetNameForOptionSet(entityMetadata, optionSetMetadata));
         }
 
         private static readonly Dictionary<AttributeTypeCode, Type> _attributeTypeMapping = new Dictionary<AttributeTypeCode, Type>
@@ -59,11 +61,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             { AttributeTypeCode.Uniqueidentifier, typeof(Guid) }
         };
 
-        public CodeTypeReference GetTypeForAttributeType(
-            EntityMetadata entityMetadata
-            , AttributeMetadata attributeMetadata
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
+        public CodeTypeReference GetTypeForAttributeType(EntityMetadata entityMetadata, AttributeMetadata attributeMetadata)
         {
             Type type = typeof(object);
 
@@ -73,7 +71,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
 
                 if (key == AttributeTypeCode.PartyList)
                 {
-                    return this.BuildCodeTypeReferenceForPartyList(iCodeGenerationServiceProvider);
+                    return this.BuildCodeTypeReferenceForPartyList();
                 }
 
                 if (_attributeTypeMapping.ContainsKey(key))
@@ -93,7 +91,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
                 //    OptionSetMetadataBase attributeOptionSet = TypeMappingService.GetAttributeOptionSet(attributeMetadata);
                 //    if (attributeOptionSet != null)
                 //    {
-                //        CodeTypeReference codeTypeReference = this.BuildCodeTypeReferenceForOptionSet(attributeMetadata.LogicalName, entityMetadata, attributeMetadata, attributeOptionSet, iCodeGenerationServiceProvider);
+                //        CodeTypeReference codeTypeReference = this.BuildCodeTypeReferenceForOptionSet(attributeMetadata.LogicalName, entityMetadata, attributeMetadata, attributeOptionSet);
                 //        if (!codeTypeReference.BaseType.Equals("System.Object"))
                 //        {
                 //            return codeTypeReference;
@@ -115,13 +113,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             return TypeMappingService.TypeRef(type);
         }
 
-        private CodeTypeReference BuildCodeTypeReferenceForPartyList(ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        private CodeTypeReference BuildCodeTypeReferenceForPartyList()
         {
             EntityMetadata entityMetadata = iCodeGenerationServiceProvider.MetadataProviderService.GetEntityMetadata("activityparty");
 
             if (entityMetadata != null)
             {
-                if (!iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateEntity(entityMetadata, iCodeGenerationServiceProvider))
+                if (!iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateEntity(entityMetadata))
                 {
                     entityMetadata = null;
                 }
@@ -132,7 +130,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
                 return TypeMappingService.TypeRef(typeof(IEnumerable<>), TypeMappingService.TypeRef(typeof(Entity)));
             }
 
-            return TypeMappingService.TypeRef(typeof(IEnumerable<>), this.TypeRef(iCodeGenerationServiceProvider.NamingService.GetNameForEntity(entityMetadata, iCodeGenerationServiceProvider)));
+            return TypeMappingService.TypeRef(typeof(IEnumerable<>), this.TypeRef(iCodeGenerationServiceProvider.NamingService.GetNameForEntity(entityMetadata)));
         }
 
         private CodeTypeReference BuildCodeTypeReferenceForOptionSet(
@@ -140,14 +138,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             , EntityMetadata entityMetadata
             , AttributeMetadata attributeMetadata
             , OptionSetMetadata attributeOptionSet
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
-            if (iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateOptionSet(attributeOptionSet, attributeMetadata, iCodeGenerationServiceProvider))
+            if (iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateOptionSet(attributeOptionSet, attributeMetadata))
             {
-                string nameForOptionSet = iCodeGenerationServiceProvider.NamingService.GetNameForOptionSet(entityMetadata, attributeOptionSet, iCodeGenerationServiceProvider);
+                string nameForOptionSet = iCodeGenerationServiceProvider.NamingService.GetNameForOptionSet(entityMetadata, attributeOptionSet);
 
-                CodeGenerationType typeForOptionSet = iCodeGenerationServiceProvider.CodeGenerationService.GetTypeForOptionSet(entityMetadata, attributeOptionSet, iCodeGenerationServiceProvider);
+                CodeGenerationType typeForOptionSet = iCodeGenerationServiceProvider.CodeGenerationService.GetTypeForOptionSet(entityMetadata, attributeOptionSet);
 
                 switch (typeForOptionSet)
                 {
@@ -162,23 +159,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             return TypeMappingService.TypeRef(typeof(object));
         }
 
-        public CodeTypeReference GetTypeForRelationship(
-            RelationshipMetadataBase relationshipMetadata
-            , EntityMetadata otherEntityMetadata
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
+        public CodeTypeReference GetTypeForRelationship(RelationshipMetadataBase relationshipMetadata, EntityMetadata otherEntityMetadata)
         {
-            return this.TypeRef(iCodeGenerationServiceProvider.NamingService.GetNameForEntity(otherEntityMetadata, iCodeGenerationServiceProvider));
+            return this.TypeRef(iCodeGenerationServiceProvider.NamingService.GetNameForEntity(otherEntityMetadata));
         }
 
-        public CodeTypeReference GetTypeForRequestField(CodeGenerationSdkMessageRequest request, Entities.SdkMessageRequestField requestField, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        public CodeTypeReference GetTypeForRequestField(CodeGenerationSdkMessageRequest request, Entities.SdkMessageRequestField requestField)
         {
             var isGeneric = request.MessagePair.Message.IsGeneric(requestField);
 
             return this.GetTypeForField(requestField.ClrParser, isGeneric);
         }
 
-        public CodeTypeReference GetTypeForResponseField(Entities.SdkMessageResponseField responseField, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        public CodeTypeReference GetTypeForResponseField(Entities.SdkMessageResponseField responseField)
         {
             return this.GetTypeForField(responseField.ClrFormatter, false);
         }

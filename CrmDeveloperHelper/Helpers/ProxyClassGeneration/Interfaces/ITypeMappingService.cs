@@ -3,40 +3,60 @@ using System.CodeDom;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.Interfaces
 {
+    /// <summary>
+    /// <see cref="Implementations.TypeMappingService"/>
+    /// </summary>
     public interface ITypeMappingService
     {
-        CodeTypeReference GetTypeForEntity(
-            EntityMetadata entityMetadata
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        );
+        /// <summary>
+        /// <see cref="Implementations.TypeMappingService.iCodeGenerationServiceProvider"/>
+        /// </summary>
+        ICodeGenerationServiceProvider iCodeGenerationServiceProvider { get; set; }
 
-        CodeTypeReference GetTypeForOptionSet(
-            EntityMetadata entityMetadata
-            , OptionSetMetadata optionSetMetadata
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        );
+        /// <summary>
+        /// <see cref="Implementations.TypeMappingService.GetTypeForEntity(EntityMetadata)"/>
+        /// </summary>
+        /// <param name="entityMetadata"></param>
+        /// <returns></returns>
+        CodeTypeReference GetTypeForEntity(EntityMetadata entityMetadata);
 
-        CodeTypeReference GetTypeForAttributeType(
-            EntityMetadata entityMetadata
-            , AttributeMetadata attributeMetadata
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        );
+        /// <summary>
+        /// <see cref="Implementations.TypeMappingService.GetTypeForOptionSet(EntityMetadata, OptionSetMetadata)"/>
+        /// </summary>
+        /// <param name="entityMetadata"></param>
+        /// <param name="optionSetMetadata"></param>
+        /// <returns></returns>
+        CodeTypeReference GetTypeForOptionSet(EntityMetadata entityMetadata, OptionSetMetadata optionSetMetadata);
 
-        CodeTypeReference GetTypeForRelationship(
-            RelationshipMetadataBase relationshipMetadata
-            , EntityMetadata otherEntityMetadata
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        );
+        /// <summary>
+        /// <see cref="Implementations.TypeMappingService.GetTypeForAttributeType(EntityMetadata, AttributeMetadata)"/>
+        /// </summary>
+        /// <param name="entityMetadata"></param>
+        /// <param name="attributeMetadata"></param>
+        /// <returns></returns>
+        CodeTypeReference GetTypeForAttributeType(EntityMetadata entityMetadata, AttributeMetadata attributeMetadata);
 
-        CodeTypeReference GetTypeForRequestField(
-            CodeGenerationSdkMessageRequest request
-            , Entities.SdkMessageRequestField requestField
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        );
+        /// <summary>
+        /// <see cref="Implementations.TypeMappingService.GetTypeForRelationship(RelationshipMetadataBase, EntityMetadata)"/>
+        /// </summary>
+        /// <param name="relationshipMetadata"></param>
+        /// <param name="otherEntityMetadata"></param>
+        /// <returns></returns>
+        CodeTypeReference GetTypeForRelationship(RelationshipMetadataBase relationshipMetadata, EntityMetadata otherEntityMetadata);
 
-        CodeTypeReference GetTypeForResponseField(
-            Entities.SdkMessageResponseField responseField
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        );
+        /// <summary>
+        /// <see cref="Implementations.TypeMappingService.GetTypeForRequestField(CodeGenerationSdkMessageRequest, Entities.SdkMessageRequestField)"/>
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="requestField"></param>
+        /// <returns></returns>
+        CodeTypeReference GetTypeForRequestField(CodeGenerationSdkMessageRequest request, Entities.SdkMessageRequestField requestField);
+
+        /// <summary>
+        /// <see cref="Implementations.TypeMappingService.GetTypeForResponseField(Entities.SdkMessageResponseField)"/>
+        /// </summary>
+        /// <param name="responseField"></param>
+        /// <returns></returns>
+        CodeTypeReference GetTypeForResponseField(Entities.SdkMessageResponseField responseField);
     }
 }

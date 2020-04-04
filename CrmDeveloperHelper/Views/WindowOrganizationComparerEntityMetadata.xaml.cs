@@ -706,11 +706,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 VerbatimOrder = true,
             };
 
-            var task1 = codeGenerationService.WriteEntityFileAsync(entityMetadataFull1, filePath1, fileGenerationOptions.NamespaceClassesCSharp, options, codeGenerationServiceProvider1);
+            var task1 = codeGenerationService.WriteEntityFileAsync(entityMetadataFull1, filePath1, fileGenerationOptions.NamespaceClassesCSharp, options);
 
             if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
             {
-                await codeGenerationService.WriteEntityFileAsync(entityMetadataFull2, filePath2, fileGenerationOptions.NamespaceClassesCSharp, options, codeGenerationServiceProvider2);
+                await codeGenerationService.WriteEntityFileAsync(entityMetadataFull2, filePath2, fileGenerationOptions.NamespaceClassesCSharp, options);
             }
 
             this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service1.ConnectionData.Name, linkedEntityMetadata.LogicalName, filePath1);
@@ -1071,7 +1071,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     VerbatimOrder = true,
                 };
 
-                await codeGenerationService.WriteEntityFileAsync(entityMetadataFull, filePath, fileGenerationOptions.NamespaceClassesCSharp, options, codeGenerationServiceProvider);
+                await codeGenerationService.WriteEntityFileAsync(entityMetadataFull, filePath, fileGenerationOptions.NamespaceClassesCSharp, options);
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, entityMetadata.LogicalName, filePath);
 

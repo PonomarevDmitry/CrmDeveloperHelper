@@ -13,6 +13,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
 
         private readonly EntityMetadataRepository _repository;
 
+        public ICodeGenerationServiceProvider iCodeGenerationServiceProvider { get; set; }
+
         public MetadataProviderService(EntityMetadataRepository repository)
         {
             this._repository = repository;

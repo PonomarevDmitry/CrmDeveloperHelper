@@ -112,7 +112,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 WriteSummaryEntity();
             }
 
-            var entityClassName = _iCodeGenerationServiceProvider.NamingService.GetNameForEntity(_entityMetadata, _iCodeGenerationServiceProvider);
+            var entityClassName = _iCodeGenerationServiceProvider.NamingService.GetNameForEntity(_entityMetadata);
 
             WriteLine("public partial class {0}", entityClassName);
             WriteLine("{");
@@ -465,7 +465,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             bool ignore =
             !(
-                this._iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateAttribute(attributeMetadata, this._iCodeGenerationServiceProvider)
+                this._iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateAttribute(attributeMetadata)
                 || attributeMetadata.IsValidForGrid.GetValueOrDefault()
                 || attributeMetadata.IsValidForForm.GetValueOrDefault()
                 || (attributeMetadata.IsValidForAdvancedFind?.Value).GetValueOrDefault()
@@ -882,7 +882,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private string GetAttributeName(AttributeMetadata attributeMetadata)
         {
-            var attributeName = _iCodeGenerationServiceProvider.NamingService.GetNameForAttribute(_entityMetadata, attributeMetadata, _iCodeGenerationServiceProvider).ToLower();
+            var attributeName = _iCodeGenerationServiceProvider.NamingService.GetNameForAttribute(_entityMetadata, attributeMetadata).ToLower();
 
             using (CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp"))
             {

@@ -9,18 +9,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
     {
         private readonly CreateFileCSharpConfiguration _config;
 
+        public ICodeGenerationServiceProvider iCodeGenerationServiceProvider { get; set; }
+
         public CodeWriterFilterService(CreateFileCSharpConfiguration config)
         {
             this._config = config;
         }
 
-        public bool GenerateOptionSet(
-            OptionSetMetadata optionSetMetadata
-            , AttributeMetadata attributeMetadata
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
+        public bool GenerateOptionSet(OptionSetMetadata optionSetMetadata, AttributeMetadata attributeMetadata)
         {
-            if (IgnoreOptionSet(optionSetMetadata, attributeMetadata, iCodeGenerationServiceProvider))
+            if (IgnoreOptionSet(optionSetMetadata, attributeMetadata))
             {
                 return false;
             }
@@ -42,11 +40,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             }
         }
 
-        public bool IgnoreOptionSet(
-            OptionSetMetadata optionSetMetadata
-            , AttributeMetadata attributeMetadata
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
+        public bool IgnoreOptionSet(OptionSetMetadata optionSetMetadata, AttributeMetadata attributeMetadata)
         {
             if (optionSetMetadata.Options == null
                 || !optionSetMetadata.Options.Any(o => o.Value.HasValue)
@@ -65,18 +59,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             return false;
         }
 
-        public bool GenerateOption(
-            OptionMetadata option
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
+        public bool GenerateOption(OptionMetadata option)
         {
             return true;
         }
 
-        public bool GenerateEntity(
-            EntityMetadata entityMetadata
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
+        public bool GenerateEntity(EntityMetadata entityMetadata)
         {
             if (entityMetadata == null)
             {
@@ -111,10 +99,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             //}
         }
 
-        public bool GenerateAttribute(
-            AttributeMetadata attributeMetadata
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
+        public bool GenerateAttribute(AttributeMetadata attributeMetadata)
         {
             if (!_config.GenerateAttributes)
             {
@@ -143,12 +128,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             return false;
         }
 
-        public bool GenerateRelationship(
-            RelationshipMetadataBase relationshipMetadata
-            , EntityMetadata otherEntityMetadata
-            , CodeGenerationRelationshipType relationshipType
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
+        public bool GenerateRelationship(RelationshipMetadataBase relationshipMetadata, EntityMetadata otherEntityMetadata, CodeGenerationRelationshipType relationshipType)
         {
             if (otherEntityMetadata == null)
             {
@@ -181,7 +161,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
                 return false;
             }
 
-            var generateEntity = GenerateEntity(otherEntityMetadata, iCodeGenerationServiceProvider);
+            var generateEntity = GenerateEntity(otherEntityMetadata);
 
             if (!generateEntity)
             {
@@ -191,23 +171,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             return true;
         }
 
-        public bool GenerateServiceContext(ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        public bool GenerateServiceContext()
         {
             return this._config.GenerateServiceContext;
         }
 
-        public bool GenerateSdkMessage(
-            CodeGenerationSdkMessage message
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
+        public bool GenerateSdkMessage(CodeGenerationSdkMessage message)
         {
             return true;
         }
 
-        public bool GenerateSdkMessagePair(
-            CodeGenerationSdkMessagePair messagePair
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
+        public bool GenerateSdkMessagePair(CodeGenerationSdkMessagePair messagePair)
         {
             return true;
         }

@@ -77,6 +77,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
 
         private readonly CreateFileCSharpConfiguration _config;
 
+        public ICodeGenerationServiceProvider iCodeGenerationServiceProvider { get; set; }
+
         public CodeGenerationService(CreateFileCSharpConfiguration config)
         {
             this._config = config;
@@ -89,10 +91,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             , string outputFilePath
             , string outputNamespace
             , CodeGeneratorOptions options
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
-            return Task.Run(() => this.WriteEntitiesFile(entities, optionSets, messages, outputFilePath, outputNamespace, options, iCodeGenerationServiceProvider));
+            return Task.Run(() => this.WriteEntitiesFile(entities, optionSets, messages, outputFilePath, outputNamespace, options));
         }
 
         private void WriteEntitiesFile(
@@ -102,18 +103,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             , string outputFilePath
             , string outputNamespace
             , CodeGeneratorOptions options
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
             var codeNamespace = Namespace(outputNamespace);
 
-            codeNamespace.Types.AddRange(this.BuildEntities(entities, iCodeGenerationServiceProvider));
+            codeNamespace.Types.AddRange(this.BuildEntities(entities));
 
-            codeNamespace.Types.AddRange(this.BuildGlobalOptionSets(optionSets, iCodeGenerationServiceProvider));
+            codeNamespace.Types.AddRange(this.BuildGlobalOptionSets(optionSets));
 
-            codeNamespace.Types.AddRange(this.BuildSdkMessagesEnumerable(messages, iCodeGenerationServiceProvider));
+            codeNamespace.Types.AddRange(this.BuildSdkMessagesEnumerable(messages));
 
-            codeNamespace.Types.AddRange(this.BuildServiceContext(entities, iCodeGenerationServiceProvider));
+            codeNamespace.Types.AddRange(this.BuildServiceContext(entities));
 
             var codeCompileUnit = new CodeCompileUnit();
 
@@ -156,10 +156,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             , string outputFilePath
             , string outputNamespace
             , CodeGeneratorOptions options
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
-            return Task.Run(() => this.WriteEntityFile(entityMetadata, outputFilePath, outputNamespace, options, iCodeGenerationServiceProvider));
+            return Task.Run(() => this.WriteEntityFile(entityMetadata, outputFilePath, outputNamespace, options));
         }
 
         private void WriteEntityFile(
@@ -167,12 +166,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             , string outputFilePath
             , string outputNamespace
             , CodeGeneratorOptions options
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
             var codeNamespace = Namespace(outputNamespace);
 
-            codeNamespace.Types.AddRange(this.BuildEntity(entityMetadata, iCodeGenerationServiceProvider));
+            codeNamespace.Types.AddRange(this.BuildEntity(entityMetadata));
 
             var codeCompileUnit = new CodeCompileUnit();
 
@@ -213,10 +211,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             , string outputFilePath
             , string outputNamespace
             , CodeGeneratorOptions options
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
-            return Task.Run(() => this.WriteSdkMessage(sdkMessage, outputFilePath, outputNamespace, options, iCodeGenerationServiceProvider));
+            return Task.Run(() => this.WriteSdkMessage(sdkMessage, outputFilePath, outputNamespace, options));
         }
 
         private void WriteSdkMessage(
@@ -224,12 +221,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             , string outputFilePath
             , string outputNamespace
             , CodeGeneratorOptions options
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
             var codeNamespace = Namespace(outputNamespace);
 
-            codeNamespace.Types.AddRange(this.BuildSdkMessage(sdkMessage, iCodeGenerationServiceProvider));
+            codeNamespace.Types.AddRange(this.BuildSdkMessage(sdkMessage));
 
             var codeCompileUnit = new CodeCompileUnit();
 
@@ -270,10 +266,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             , string outputFilePath
             , string outputNamespace
             , CodeGeneratorOptions options
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
-            return Task.Run(() => this.WriteSdkMessagePair(sdkMessagePair, outputFilePath, outputNamespace, options, iCodeGenerationServiceProvider));
+            return Task.Run(() => this.WriteSdkMessagePair(sdkMessagePair, outputFilePath, outputNamespace, options));
         }
 
         private void WriteSdkMessagePair(
@@ -281,12 +276,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             , string outputFilePath
             , string outputNamespace
             , CodeGeneratorOptions options
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
             var codeNamespace = Namespace(outputNamespace);
 
-            codeNamespace.Types.AddRange(this.BuildSdkMessagePair(sdkMessagePair, iCodeGenerationServiceProvider));
+            codeNamespace.Types.AddRange(this.BuildSdkMessagePair(sdkMessagePair));
 
             var codeCompileUnit = new CodeCompileUnit();
 
@@ -322,82 +316,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             }
         }
 
-        public CodeGenerationType GetTypeForOptionSet(
-            EntityMetadata entityMetadata
-            , OptionSetMetadata optionSetMetadata
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
+        public CodeGenerationType GetTypeForOptionSet(EntityMetadata entityMetadata, OptionSetMetadata optionSetMetadata)
         {
             return CodeGenerationType.Enum;
         }
 
-        public CodeGenerationType GetTypeForOption(
-            OptionSetMetadata optionSetMetadata
-            , OptionMetadata optionMetadata
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
-        {
-            return CodeGenerationType.Field;
-        }
-
-        public CodeGenerationType GetTypeForEntity(
-            EntityMetadata entityMetadata
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
-        {
-            return CodeGenerationType.Class;
-        }
-
-        public CodeGenerationType GetTypeForAttribute(
-            EntityMetadata entityMetadata
-            , AttributeMetadata attributeMetadata
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
-        {
-            return CodeGenerationType.Property;
-        }
-
-        public CodeGenerationType GetTypeForMessagePair(
-            CodeGenerationSdkMessagePair messagePair
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
-        {
-            return CodeGenerationType.Class;
-        }
-
-        public CodeGenerationType GetTypeForRequestField(
-            CodeGenerationSdkMessageRequest request
-            , Entities.SdkMessageRequestField requestField
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
-        {
-            return CodeGenerationType.Property;
-        }
-
-        public CodeGenerationType GetTypeForResponseField(
-            CodeGenerationSdkMessageResponse response
-            , Entities.SdkMessageResponseField responseField
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
-        {
-            return CodeGenerationType.Property;
-        }
-
-        private CodeTypeDeclarationCollection BuildGlobalOptionSets(
-            IEnumerable<OptionSetMetadata> optionSetMetadata
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
+        private CodeTypeDeclarationCollection BuildGlobalOptionSets(IEnumerable<OptionSetMetadata> optionSetMetadata)
         {
             var declarationCollection = new CodeTypeDeclarationCollection();
 
             foreach (var OptionSetMetadata in optionSetMetadata)
             {
-                if (iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateOptionSet(OptionSetMetadata, null, iCodeGenerationServiceProvider)
+                if (iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateOptionSet(OptionSetMetadata, null)
                     && OptionSetMetadata.IsGlobal.HasValue
                     && OptionSetMetadata.IsGlobal.Value
                 )
                 {
-                    var codeTypeDeclaration = this.BuildOptionSet(null, OptionSetMetadata, iCodeGenerationServiceProvider);
+                    var codeTypeDeclaration = this.BuildOptionSet(null, OptionSetMetadata);
                     if (codeTypeDeclaration != null)
                     {
                         declarationCollection.Add(codeTypeDeclaration);
@@ -408,62 +343,48 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             return declarationCollection;
         }
 
-        private CodeTypeDeclaration BuildOptionSet(
-            EntityMetadata entityMetadata
-            , OptionSetMetadata optionSetMetadata
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
+        private CodeTypeDeclaration BuildOptionSet(EntityMetadata entityMetadata, OptionSetMetadata optionSetMetadata)
         {
-            var codeTypeDeclaration = this.Enum(iCodeGenerationServiceProvider.NamingService.GetNameForOptionSet(entityMetadata, optionSetMetadata, iCodeGenerationServiceProvider), Attribute(typeof(DataContractAttribute)));
+            var codeTypeDeclaration = this.Enum(iCodeGenerationServiceProvider.NamingService.GetNameForOptionSet(entityMetadata, optionSetMetadata), Attribute(typeof(DataContractAttribute)));
 
-            codeTypeDeclaration.Comments.AddRange(CommentSummary(iCodeGenerationServiceProvider.NamingService.GetCommentsForOptionSet(entityMetadata, optionSetMetadata, iCodeGenerationServiceProvider)));
+            codeTypeDeclaration.Comments.AddRange(CommentSummary(iCodeGenerationServiceProvider.NamingService.GetCommentsForOptionSet(entityMetadata, optionSetMetadata)));
 
             foreach (var option in optionSetMetadata.Options)
             {
-                if (iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateOption(option, iCodeGenerationServiceProvider))
+                if (iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateOption(option))
                 {
-                    codeTypeDeclaration.Members.Add(this.BuildOption(optionSetMetadata, option, iCodeGenerationServiceProvider));
+                    codeTypeDeclaration.Members.Add(this.BuildOption(optionSetMetadata, option));
                 }
             }
 
             return codeTypeDeclaration;
         }
 
-        private CodeTypeMember BuildOption(
-            OptionSetMetadata optionSetMetadata
-            , OptionMetadata option
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
+        private CodeTypeMember BuildOption(OptionSetMetadata optionSetMetadata, OptionMetadata option)
         {
-            var codeMemberField = this.Field(iCodeGenerationServiceProvider.NamingService.GetNameForOption(optionSetMetadata, option, iCodeGenerationServiceProvider), typeof(int), option.Value.Value, Attribute(typeof(EnumMemberAttribute)));
+            var codeMemberField = this.Field(iCodeGenerationServiceProvider.NamingService.GetNameForOption(optionSetMetadata, option), typeof(int), option.Value.Value, Attribute(typeof(EnumMemberAttribute)));
 
-            codeMemberField.Comments.AddRange(CommentSummary(iCodeGenerationServiceProvider.NamingService.GetCommentsForOption(optionSetMetadata, option, iCodeGenerationServiceProvider)));
+            codeMemberField.Comments.AddRange(CommentSummary(iCodeGenerationServiceProvider.NamingService.GetCommentsForOption(optionSetMetadata, option)));
 
             return codeMemberField;
         }
 
-        private CodeTypeDeclarationCollection BuildEntities(
-            IEnumerable<EntityMetadata> entityMetadata
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
+        private CodeTypeDeclarationCollection BuildEntities(IEnumerable<EntityMetadata> entityMetadata)
         {
             var declarationCollection = new CodeTypeDeclarationCollection();
 
             foreach (var entityMetadata1 in entityMetadata.OrderBy(metadata => metadata.LogicalName))
             {
-                if (iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateEntity(entityMetadata1, iCodeGenerationServiceProvider))
+                if (iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateEntity(entityMetadata1))
                 {
-                    declarationCollection.AddRange(this.BuildEntity(entityMetadata1, iCodeGenerationServiceProvider));
+                    declarationCollection.AddRange(this.BuildEntity(entityMetadata1));
                 }
             }
 
             return declarationCollection;
         }
 
-        private CodeTypeDeclarationCollection BuildEntity(
-            EntityMetadata entityMetadata
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
+        private CodeTypeDeclarationCollection BuildEntity(EntityMetadata entityMetadata)
         {
             HashSet<string> linkedEntities = GetLinkedEntities(entityMetadata);
 
@@ -474,7 +395,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
 
             var declarationCollection = new CodeTypeDeclarationCollection();
 
-            var entityClassName = iCodeGenerationServiceProvider.NamingService.GetNameForEntity(entityMetadata, iCodeGenerationServiceProvider);
+            var entityClassName = iCodeGenerationServiceProvider.NamingService.GetNameForEntity(entityMetadata);
 
             iCodeGenerationServiceProvider.NamingService.SetCurrentTypeName(entityClassName);
 
@@ -482,7 +403,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
                 , Attribute(typeof(DataContractAttribute))
             );
 
-            CodeExpression entityLogicalNameAttributeRef = FieldRef(iCodeGenerationServiceProvider.TypeMappingService.GetTypeForEntity(entityMetadata, iCodeGenerationServiceProvider), EntityLogicalNameFieldName);
+            CodeExpression entityLogicalNameAttributeRef = FieldRef(iCodeGenerationServiceProvider.TypeMappingService.GetTypeForEntity(entityMetadata), EntityLogicalNameFieldName);
 
             entityClass.CustomAttributes.Add(Attribute(EntityLogicalNameAttribute, AttributeArg(entityLogicalNameAttributeRef)));
 
@@ -501,14 +422,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
                 }
             }
 
-            entityClass.Comments.AddRange(CommentSummary(iCodeGenerationServiceProvider.NamingService.GetCommentsForEntity(entityMetadata, iCodeGenerationServiceProvider)));
+            entityClass.Comments.AddRange(CommentSummary(iCodeGenerationServiceProvider.NamingService.GetCommentsForEntity(entityMetadata)));
 
-            this.InitializeEntityClass(entityClass, entityMetadata, iCodeGenerationServiceProvider);
+            this.InitializeEntityClass(entityClass, entityMetadata);
 
-            entityClass.Members.AddRange(this.BuildAttributeTypeMembers(declarationCollection, entityMetadata, iCodeGenerationServiceProvider));
-            entityClass.Members.AddRange(this.BuildManyToOneRelationships(entityMetadata, iCodeGenerationServiceProvider));
-            entityClass.Members.AddRange(this.BuildOneToManyRelationships(entityMetadata, iCodeGenerationServiceProvider));
-            entityClass.Members.AddRange(this.BuildManyToManyRelationships(entityMetadata, iCodeGenerationServiceProvider));
+            entityClass.Members.AddRange(this.BuildAttributeTypeMembers(declarationCollection, entityMetadata));
+            entityClass.Members.AddRange(this.BuildManyToOneRelationships(entityMetadata));
+            entityClass.Members.AddRange(this.BuildOneToManyRelationships(entityMetadata));
+            entityClass.Members.AddRange(this.BuildManyToManyRelationships(entityMetadata));
 
             declarationCollection.Add(entityClass);
 
@@ -537,12 +458,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             return result;
         }
 
-        private CodeTypeMemberCollection BuildAttributeTypeMembers(CodeTypeDeclarationCollection declarationCollection, EntityMetadata entityMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        private CodeTypeMemberCollection BuildAttributeTypeMembers(CodeTypeDeclarationCollection declarationCollection, EntityMetadata entityMetadata)
         {
             var memberCollection = new CodeTypeMemberCollection();
 
-            CodeExpression primatyIdAttributeRef = FieldRef(iCodeGenerationServiceProvider.TypeMappingService.GetTypeForEntity(entityMetadata, iCodeGenerationServiceProvider), EntityPrimaryIdAttributeFieldName);
-            CodeExpression primatyNameAttributeRef = FieldRef(iCodeGenerationServiceProvider.TypeMappingService.GetTypeForEntity(entityMetadata, iCodeGenerationServiceProvider), EntityPrimaryNameAttributeFieldName);
+            CodeExpression primatyIdAttributeRef = FieldRef(iCodeGenerationServiceProvider.TypeMappingService.GetTypeForEntity(entityMetadata), EntityPrimaryIdAttributeFieldName);
+            CodeExpression primatyNameAttributeRef = FieldRef(iCodeGenerationServiceProvider.TypeMappingService.GetTypeForEntity(entityMetadata), EntityPrimaryNameAttributeFieldName);
 
             {
                 CodeRegionDirective startCodeRegionDirective = null;
@@ -554,10 +475,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
 
                     if (attributeMetadata != null
                         && attributeMetadata.IsPrimaryId.GetValueOrDefault()
-                        && iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateAttribute(attributeMetadata, iCodeGenerationServiceProvider)
+                        && iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateAttribute(attributeMetadata)
                     )
                     {
-                        var attributeMember = this.BuildIdProperty(entityMetadata, attributeMetadata, primatyIdAttributeRef, iCodeGenerationServiceProvider);
+                        var attributeMember = this.BuildIdProperty(entityMetadata, attributeMetadata, primatyIdAttributeRef);
 
                         if (attributeMember != null && startCodeRegionDirective == null)
                         {
@@ -573,7 +494,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
                         }
                         memberCollection.Add(InsertInPropertyDebuggerNonUserCodeAttributeInGetAndSet(attributeMember));
 
-                        attributeMember = this.BuildAttributePropertyOnBaseType(entityMetadata, attributeMetadata, primatyIdAttributeRef, iCodeGenerationServiceProvider);
+                        attributeMember = this.BuildAttributePropertyOnBaseType(entityMetadata, attributeMetadata, primatyIdAttributeRef);
 
                         if (attributeMember != null && startCodeRegionDirective == null)
                         {
@@ -597,10 +518,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
 
                     if (attributeMetadata != null
                         && attributeMetadata.IsPrimaryName.GetValueOrDefault()
-                        && iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateAttribute(attributeMetadata, iCodeGenerationServiceProvider)
+                        && iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateAttribute(attributeMetadata)
                     )
                     {
-                        var attributeMember = this.BuildAttributePropertyOnBaseType(entityMetadata, attributeMetadata, primatyNameAttributeRef, iCodeGenerationServiceProvider);
+                        var attributeMember = this.BuildAttributePropertyOnBaseType(entityMetadata, attributeMetadata, primatyNameAttributeRef);
 
                         if (attributeMember != null && startCodeRegionDirective == null)
                         {
@@ -640,17 +561,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
                 var oobAttributes = notPrimaryAttributes.Where(a => !a.IsCustomAttribute.GetValueOrDefault());
                 var customAttributes = notPrimaryAttributes.Where(a => a.IsCustomAttribute.GetValueOrDefault());
 
-                WriteAttributeEnumeration(iCodeGenerationServiceProvider, declarationCollection, memberCollection, "OOB Attributes", entityMetadata, oobAttributes);
+                WriteAttributeEnumeration(declarationCollection, memberCollection, "OOB Attributes", entityMetadata, oobAttributes);
 
-                WriteAttributeEnumeration(iCodeGenerationServiceProvider, declarationCollection, memberCollection, "Custom Attributes", entityMetadata, customAttributes);
+                WriteAttributeEnumeration(declarationCollection, memberCollection, "Custom Attributes", entityMetadata, customAttributes);
             }
 
             return memberCollection;
         }
 
         private void WriteAttributeEnumeration(
-            ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-            , CodeTypeDeclarationCollection declarationCollection
+            CodeTypeDeclarationCollection declarationCollection
             , CodeTypeMemberCollection memberCollection
             , string regionName
             , EntityMetadata entityMetadata
@@ -661,23 +581,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
 
             foreach (var attributeMetadata in attributesEnumeration.OrderBy(metadata => metadata.LogicalName))
             {
-                if (iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateAttribute(attributeMetadata, iCodeGenerationServiceProvider))
+                if (iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateAttribute(attributeMetadata))
                 {
                     var attributeOptionSet = TypeMappingService.GetAttributeOptionSet(attributeMetadata);
 
                     if (attributeOptionSet != null
-                        && iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateOptionSet(attributeOptionSet, attributeMetadata, iCodeGenerationServiceProvider)
+                        && iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateOptionSet(attributeOptionSet, attributeMetadata)
                     )
                     {
-                        CodeTypeDeclaration codeTypeDeclarationOptionSet = this.BuildOptionSet(entityMetadata, attributeOptionSet, iCodeGenerationServiceProvider);
+                        CodeTypeDeclaration codeTypeDeclarationOptionSet = this.BuildOptionSet(entityMetadata, attributeOptionSet);
                         if (codeTypeDeclarationOptionSet != null)
                         {
                             declarationCollection.Add(codeTypeDeclarationOptionSet);
                         }
                     }
 
-                    string attributePropertyName = iCodeGenerationServiceProvider.NamingService.GetNameForAttribute(entityMetadata, attributeMetadata, iCodeGenerationServiceProvider);
-                    CodeExpression attributeNameRef = this.BuildAttributeNameRef(entityMetadata, attributePropertyName, attributeMetadata.LogicalName, iCodeGenerationServiceProvider);
+                    string attributePropertyName = iCodeGenerationServiceProvider.NamingService.GetNameForAttribute(entityMetadata, attributeMetadata);
+                    CodeExpression attributeNameRef = this.BuildAttributeNameRef(entityMetadata, attributePropertyName, attributeMetadata.LogicalName);
 
                     ProxyClassAttributeEnums proxyClassAttributeEnums = GetProxyClassAttributeEnums(attributeMetadata, attributeOptionSet);
                     ProxyClassAttributeEnumsGlobalOptionSetLocation proxyClassAttributeEnumsGlobalOptionSetLocation = GetProxyClassAttributeEnumsGlobalOptionSetLocation(attributeMetadata, attributeOptionSet);
@@ -690,7 +610,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
                             entityMetadata
                             , attributeMetadata
                             , attributeNameRef
-                            , iCodeGenerationServiceProvider
                         );
 
                         if (attributeMember != null)
@@ -713,7 +632,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
                     }
 
                     if (attributeOptionSet != null
-                        && !iCodeGenerationServiceProvider.CodeWriterFilterService.IgnoreOptionSet(attributeOptionSet, attributeMetadata, iCodeGenerationServiceProvider)
+                        && !iCodeGenerationServiceProvider.CodeWriterFilterService.IgnoreOptionSet(attributeOptionSet, attributeMetadata)
                         && proxyClassAttributeEnums != Model.ProxyClassAttributeEnums.NotNeeded
                     )
                     {
@@ -725,11 +644,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
                             attributePropertyName += "Enum";
                         }
 
-                        string enumTypeName = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForOptionSet(entityMetadata, attributeOptionSet, iCodeGenerationServiceProvider).BaseType;
+                        string enumTypeName = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForOptionSet(entityMetadata, attributeOptionSet).BaseType;
 
                         if (proxyClassAttributeEnumsGlobalOptionSetLocation == Model.ProxyClassAttributeEnumsGlobalOptionSetLocation.InClassSchema)
                         {
-                            var typeRef = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForEntity(entityMetadata, iCodeGenerationServiceProvider);
+                            var typeRef = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForEntity(entityMetadata);
 
                             enumTypeName = $"{typeRef.BaseType}.Schema.OptionSets.";
 
@@ -759,7 +678,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
                             , baseAttributeName
                             , attributeNameRef
                             , enumTypeName
-                            , iCodeGenerationServiceProvider
                         );
 
                         if (attributeMember != null)
@@ -847,11 +765,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             }
         }
 
-        private void InitializeEntityClass(
-            CodeTypeDeclaration entityClass
-            , EntityMetadata entityMetadata
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
+        private void InitializeEntityClass(CodeTypeDeclaration entityClass, EntityMetadata entityMetadata)
         {
             entityClass.BaseTypes.Add(TypeRef(typeof(INotifyPropertyChanging)));
             entityClass.BaseTypes.Add(TypeRef(typeof(INotifyPropertyChanged)));
@@ -880,11 +794,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
                 entityClass.Members.Add(this.BuildClassConstant(EntityPrimaryImageAttributeFieldName, typeof(string), entityMetadata.PrimaryImageAttribute));
             }
 
-            entityClass.Members.Add(this.EntityConstructorDefault(entityMetadata, iCodeGenerationServiceProvider));
+            entityClass.Members.Add(this.EntityConstructorDefault(entityMetadata));
 
             if (_config.AddConstructorWithAnonymousTypeObject)
             {
-                entityClass.Members.Add(this.EntityConstructorAnonymousObject(entityMetadata, iCodeGenerationServiceProvider));
+                entityClass.Members.Add(this.EntityConstructorAnonymousObject(entityMetadata));
             }
 
             const string regionName = "NotifyProperty Events";
@@ -918,32 +832,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             return codeMemberField;
         }
 
-        private CodeTypeMember EntityConstructorDefault(
-            EntityMetadata entityMetadata
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
+        private CodeTypeMember EntityConstructorDefault(EntityMetadata entityMetadata)
         {
             var codeConstructor = this.Constructor();
 
-            codeConstructor.BaseConstructorArgs.Add(FieldRef(iCodeGenerationServiceProvider.TypeMappingService.GetTypeForEntity(entityMetadata, iCodeGenerationServiceProvider), EntityLogicalNameFieldName));
+            codeConstructor.BaseConstructorArgs.Add(FieldRef(iCodeGenerationServiceProvider.TypeMappingService.GetTypeForEntity(entityMetadata), EntityLogicalNameFieldName));
 
-            codeConstructor.Comments.AddRange(CommentSummary(iCodeGenerationServiceProvider.NamingService.GetCommentsForEntityDefaultConstructor(entityMetadata, iCodeGenerationServiceProvider)));
+            codeConstructor.Comments.AddRange(CommentSummary(iCodeGenerationServiceProvider.NamingService.GetCommentsForEntityDefaultConstructor(entityMetadata)));
 
             return codeConstructor;
         }
 
-        private CodeTypeMember EntityConstructorAnonymousObject(
-            EntityMetadata entityMetadata
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
+        private CodeTypeMember EntityConstructorAnonymousObject(EntityMetadata entityMetadata)
         {
             var codeConstructor = this.Constructor();
 
-            string primatyIdAttributeRef = string.Format("{0}.{1}", iCodeGenerationServiceProvider.TypeMappingService.GetTypeForEntity(entityMetadata, iCodeGenerationServiceProvider).BaseType, EntityPrimaryIdAttributeFieldName);
+            string primatyIdAttributeRef = string.Format("{0}.{1}", iCodeGenerationServiceProvider.TypeMappingService.GetTypeForEntity(entityMetadata).BaseType, EntityPrimaryIdAttributeFieldName);
 
             codeConstructor.Parameters.Add(new CodeParameterDeclarationExpression(typeof(Object), "anonymousObject"));
 
-            codeConstructor.Comments.AddRange(CommentSummary(iCodeGenerationServiceProvider.NamingService.GetCommentsForEntityAnonymousConstructor(entityMetadata, iCodeGenerationServiceProvider)));
+            codeConstructor.Comments.AddRange(CommentSummary(iCodeGenerationServiceProvider.NamingService.GetCommentsForEntityAnonymousConstructor(entityMetadata)));
 
             codeConstructor.ChainedConstructorArgs.Add(new CodeSnippetExpression(string.Empty));
 
@@ -993,18 +901,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             return codeConstructor;
         }
 
-        private CodeMemberProperty BuildAttributePropertyOnBaseType(
-            EntityMetadata entityMetadata
-            , AttributeMetadata attributeMetadata
-            , CodeExpression attributeNameRef
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
+        private CodeMemberProperty BuildAttributePropertyOnBaseType(EntityMetadata entityMetadata, AttributeMetadata attributeMetadata, CodeExpression attributeNameRef)
         {
-            CodeTypeReference forAttributeType = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForAttributeType(entityMetadata, attributeMetadata, iCodeGenerationServiceProvider);
+            CodeTypeReference forAttributeType = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForAttributeType(entityMetadata, attributeMetadata);
 
-            string propertyName = iCodeGenerationServiceProvider.NamingService.GetNameForAttributeAsEntityProperty(entityMetadata, attributeMetadata, iCodeGenerationServiceProvider);
+            string propertyName = iCodeGenerationServiceProvider.NamingService.GetNameForAttributeAsEntityProperty(entityMetadata, attributeMetadata);
 
-            var codeMemberProperty = BuildAttributePropertyCommon(entityMetadata, attributeMetadata, propertyName, attributeNameRef, forAttributeType, iCodeGenerationServiceProvider);
+            var codeMemberProperty = BuildAttributePropertyCommon(entityMetadata, attributeMetadata, propertyName, attributeNameRef, forAttributeType);
 
             if (codeMemberProperty.HasGet)
             {
@@ -1026,7 +929,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             , string basePropertyName
             , CodeExpression attributeNameRef
             , string enumTypeName
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
             var enumTypeRef = TypeRef(enumTypeName);
@@ -1035,7 +937,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             {
                 CodeTypeReference forAttributeType = IEnumerable(enumTypeRef);
 
-                var codeMemberProperty = BuildAttributePropertyCommon(entityMetadata, attributeMetadata, propertyName, attributeNameRef, forAttributeType, iCodeGenerationServiceProvider);
+                var codeMemberProperty = BuildAttributePropertyCommon(entityMetadata, attributeMetadata, propertyName, attributeNameRef, forAttributeType);
 
                 if (codeMemberProperty.HasGet)
                 {
@@ -1053,7 +955,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             {
                 CodeTypeReference forAttributeType = TypeRef(typeof(Nullable<>), enumTypeRef);
 
-                var codeMemberProperty = BuildAttributePropertyCommon(entityMetadata, attributeMetadata, propertyName, attributeNameRef, forAttributeType, iCodeGenerationServiceProvider);
+                var codeMemberProperty = BuildAttributePropertyCommon(entityMetadata, attributeMetadata, propertyName, attributeNameRef, forAttributeType);
 
                 if (codeMemberProperty.HasGet)
                 {
@@ -1075,7 +977,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             , string propertyName
             , CodeExpression attributeNameRef
             , CodeTypeReference forAttributeType
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
             var codeMemberProperty = this.BuildClassProperty(forAttributeType, propertyName);
@@ -1110,7 +1011,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
                 codeMemberProperty.CustomAttributes.Add(Attribute(DebuggerNonUserCodeAttribute));
             }
 
-            codeMemberProperty.Comments.AddRange(CommentSummary(iCodeGenerationServiceProvider.NamingService.GetCommentsForAttribute(entityMetadata, attributeMetadata, iCodeGenerationServiceProvider)));
+            codeMemberProperty.Comments.AddRange(CommentSummary(iCodeGenerationServiceProvider.NamingService.GetCommentsForAttribute(entityMetadata, attributeMetadata)));
 
             return codeMemberProperty;
         }
@@ -1308,7 +1209,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             EntityMetadata entityMetadata
             , AttributeMetadata attributeMetadata
             , CodeExpression attributeNameRef
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
             var codeMemberProperty = this.BuildClassProperty(TypeRef(typeof(Guid)), nameof(Entity.Id));
@@ -1346,14 +1246,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
 
             if (codeMemberProperty.HasSet)
             {
-                codeMemberProperty.SetStatements.Add(AssignValue(ThisProp(iCodeGenerationServiceProvider.NamingService.GetNameForAttributeAsEntityProperty(entityMetadata, attributeMetadata, iCodeGenerationServiceProvider)), valueVarRef));
+                codeMemberProperty.SetStatements.Add(AssignValue(ThisProp(iCodeGenerationServiceProvider.NamingService.GetNameForAttributeAsEntityProperty(entityMetadata, attributeMetadata)), valueVarRef));
             }
             else
             {
                 codeMemberProperty.SetStatements.Add(AssignValue(BaseProp(nameof(Entity.Id)), valueVarRef));
             }
 
-            codeMemberProperty.Comments.AddRange(CommentSummary(iCodeGenerationServiceProvider.NamingService.GetCommentsForAttribute(entityMetadata, attributeMetadata, iCodeGenerationServiceProvider)));
+            codeMemberProperty.Comments.AddRange(CommentSummary(iCodeGenerationServiceProvider.NamingService.GetCommentsForAttribute(entityMetadata, attributeMetadata)));
 
             return codeMemberProperty;
         }
@@ -1484,10 +1384,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             return result;
         }
 
-        private CodeTypeMemberCollection BuildOneToManyRelationships(
-            EntityMetadata entityMetadata
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
+        private CodeTypeMemberCollection BuildOneToManyRelationships(EntityMetadata entityMetadata)
         {
             var memberCollection = new CodeTypeMemberCollection();
             if (entityMetadata.OneToManyRelationships == null)
@@ -1504,11 +1401,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
                 var otherEntityMetadata = iCodeGenerationServiceProvider.MetadataProviderService.GetEntityMetadata(oneToMany.ReferencingEntity);
 
                 if (otherEntityMetadata != null
-                    && iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateEntity(otherEntityMetadata, iCodeGenerationServiceProvider)
-                    && iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateRelationship(oneToMany, otherEntityMetadata, CodeGenerationRelationshipType.OneToManyRelationship, iCodeGenerationServiceProvider)
+                    && iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateEntity(otherEntityMetadata)
+                    && iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateRelationship(oneToMany, otherEntityMetadata, CodeGenerationRelationshipType.OneToManyRelationship)
                 )
                 {
-                    CodeMemberProperty codeTypeMember = this.BuildOneToManyProperty(entityMetadata, otherEntityMetadata, oneToMany, iCodeGenerationServiceProvider);
+                    CodeMemberProperty codeTypeMember = this.BuildOneToManyProperty(entityMetadata, otherEntityMetadata, oneToMany);
 
                     if (codeTypeMember != null)
                     {
@@ -1532,7 +1429,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
                         || string.Equals(oneToMany.SchemaName, "service_calendar_rules", StringComparison.InvariantCultureIgnoreCase)
                     )
                     {
-                        var calendarRuleProperty = this.BuildCalendarRuleProperty(entityMetadata, otherEntityMetadata, oneToMany, iCodeGenerationServiceProvider);
+                        var calendarRuleProperty = this.BuildCalendarRuleProperty(entityMetadata, otherEntityMetadata, oneToMany);
 
                         if (calendarRuleProperty != null)
                         {
@@ -1573,10 +1470,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             EntityMetadata entityMetadata
             , EntityMetadata otherEntity
             , OneToManyRelationshipMetadata oneToMany
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
-            var codeMemberProperty = this.BuildClassProperty(IEnumerable(iCodeGenerationServiceProvider.TypeMappingService.GetTypeForRelationship(oneToMany, otherEntity, iCodeGenerationServiceProvider)), "CalendarRules");
+            var codeMemberProperty = this.BuildClassProperty(IEnumerable(iCodeGenerationServiceProvider.TypeMappingService.GetTypeForRelationship(oneToMany, otherEntity)), "CalendarRules");
 
             var nullable = oneToMany.ReferencingEntity == entityMetadata.LogicalName ? new EntityRole?(EntityRole.Referenced) : new EntityRole?();
 
@@ -1590,7 +1486,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
 
             codeMemberProperty.CustomAttributes.Add(Attribute(AttributeLogicalNameAttribute, AttributeArg(attributeNameRef)));
 
-            var comments = iCodeGenerationServiceProvider.NamingService.GetCommentsForRelationshipOneToMany(entityMetadata, oneToMany, nullable, iCodeGenerationServiceProvider);
+            var comments = iCodeGenerationServiceProvider.NamingService.GetCommentsForRelationshipOneToMany(entityMetadata, oneToMany, nullable);
 
             if (_config.AddDescriptionAttribute)
             {
@@ -1616,23 +1512,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             EntityMetadata entityMetadata
             , EntityMetadata otherEntityMetadata
             , OneToManyRelationshipMetadata oneToMany
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
-            var typeForRelationship = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForRelationship(oneToMany, otherEntityMetadata, iCodeGenerationServiceProvider);
+            var typeForRelationship = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForRelationship(oneToMany, otherEntityMetadata);
 
             var entityRole = oneToMany.ReferencingEntity == entityMetadata.LogicalName ? new EntityRole?(EntityRole.Referenced) : new EntityRole?();
 
-            var codeMemberProperty = this.BuildClassProperty(IEnumerable(typeForRelationship), iCodeGenerationServiceProvider.NamingService.GetNameForRelationship(entityMetadata, oneToMany, entityRole, iCodeGenerationServiceProvider));
+            var codeMemberProperty = this.BuildClassProperty(IEnumerable(typeForRelationship), iCodeGenerationServiceProvider.NamingService.GetNameForRelationship(entityMetadata, oneToMany, entityRole));
 
-            var relationshipNameRef = this.BuildRelationshipNameRef(entityMetadata, "OneToMany", oneToMany.SchemaName, iCodeGenerationServiceProvider);
+            var relationshipNameRef = this.BuildRelationshipNameRef(entityMetadata, "OneToMany", oneToMany.SchemaName);
 
             codeMemberProperty.GetStatements.Add(BuildRelationshipGet(MethodGetRelatedEntities, relationshipNameRef, typeForRelationship, entityRole));
             codeMemberProperty.SetStatements.AddRange(this.BuildRelationshipSet(MethodSetRelatedEntities, relationshipNameRef, typeForRelationship, codeMemberProperty.Name, entityRole));
 
             codeMemberProperty.CustomAttributes.Add(BuildRelationshipSchemaNameAttribute(relationshipNameRef, entityRole));
 
-            var comments = iCodeGenerationServiceProvider.NamingService.GetCommentsForRelationshipOneToMany(entityMetadata, oneToMany, entityRole, iCodeGenerationServiceProvider);
+            var comments = iCodeGenerationServiceProvider.NamingService.GetCommentsForRelationshipOneToMany(entityMetadata, oneToMany, entityRole);
 
             if (_config.AddDescriptionAttribute)
             {
@@ -1654,10 +1549,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             return codeMemberProperty;
         }
 
-        private CodeTypeMemberCollection BuildManyToManyRelationships(
-            EntityMetadata entityMetadata
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
+        private CodeTypeMemberCollection BuildManyToManyRelationships(EntityMetadata entityMetadata)
         {
             var memberCollection = new CodeTypeMemberCollection();
 
@@ -1675,14 +1567,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
                 var otherEntityMetadata = iCodeGenerationServiceProvider.MetadataProviderService.GetEntityMetadata(entityMetadata.LogicalName != manyToMany.Entity1LogicalName ? manyToMany.Entity1LogicalName : manyToMany.Entity2LogicalName);
                 if (otherEntityMetadata != null)
                 {
-                    if (iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateEntity(otherEntityMetadata, iCodeGenerationServiceProvider)
-                        && iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateRelationship(manyToMany, otherEntityMetadata, CodeGenerationRelationshipType.ManyToManyRelationship, iCodeGenerationServiceProvider)
+                    if (iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateEntity(otherEntityMetadata)
+                        && iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateRelationship(manyToMany, otherEntityMetadata, CodeGenerationRelationshipType.ManyToManyRelationship)
                     )
                     {
                         if (otherEntityMetadata.LogicalName != entityMetadata.LogicalName)
                         {
-                            var nameForRelationship = iCodeGenerationServiceProvider.NamingService.GetNameForRelationship(entityMetadata, manyToMany, new EntityRole?(), iCodeGenerationServiceProvider);
-                            var many = this.BuildManyToManyProperty(entityMetadata, otherEntityMetadata, manyToMany, nameForRelationship, new EntityRole?(), iCodeGenerationServiceProvider);
+                            var nameForRelationship = iCodeGenerationServiceProvider.NamingService.GetNameForRelationship(entityMetadata, manyToMany, new EntityRole?());
+                            var many = this.BuildManyToManyProperty(entityMetadata, otherEntityMetadata, manyToMany, nameForRelationship, new EntityRole?());
 
                             if (many != null)
                             {
@@ -1704,8 +1596,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
                         }
                         else
                         {
-                            var nameForRelationship1 = iCodeGenerationServiceProvider.NamingService.GetNameForRelationship(entityMetadata, manyToMany, new EntityRole?(EntityRole.Referencing), iCodeGenerationServiceProvider);
-                            var many1 = this.BuildManyToManyProperty(entityMetadata, otherEntityMetadata, manyToMany, nameForRelationship1, new EntityRole?(EntityRole.Referencing), iCodeGenerationServiceProvider);
+                            var nameForRelationship1 = iCodeGenerationServiceProvider.NamingService.GetNameForRelationship(entityMetadata, manyToMany, new EntityRole?(EntityRole.Referencing));
+                            var many1 = this.BuildManyToManyProperty(entityMetadata, otherEntityMetadata, manyToMany, nameForRelationship1, new EntityRole?(EntityRole.Referencing));
 
                             if (many1 != null)
                             {
@@ -1725,8 +1617,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
                                 memberCollection.Add(InsertInPropertyDebuggerNonUserCodeAttributeInGetAndSet(many1));
                             }
 
-                            var nameForRelationship2 = iCodeGenerationServiceProvider.NamingService.GetNameForRelationship(entityMetadata, manyToMany, new EntityRole?(EntityRole.Referenced), iCodeGenerationServiceProvider);
-                            var many2 = this.BuildManyToManyProperty(entityMetadata, otherEntityMetadata, manyToMany, nameForRelationship2, new EntityRole?(EntityRole.Referenced), iCodeGenerationServiceProvider);
+                            var nameForRelationship2 = iCodeGenerationServiceProvider.NamingService.GetNameForRelationship(entityMetadata, manyToMany, new EntityRole?(EntityRole.Referenced));
+                            var many2 = this.BuildManyToManyProperty(entityMetadata, otherEntityMetadata, manyToMany, nameForRelationship2, new EntityRole?(EntityRole.Referenced));
 
                             if (many2 != null)
                             {
@@ -1770,21 +1662,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             , ManyToManyRelationshipMetadata manyToMany
             , string propertyName
             , EntityRole? entityRole
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
-            var typeForRelationship = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForRelationship(manyToMany, otherEntityMetadata, iCodeGenerationServiceProvider);
+            var typeForRelationship = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForRelationship(manyToMany, otherEntityMetadata);
 
             var codeMemberProperty = this.BuildClassProperty(IEnumerable(typeForRelationship), propertyName);
 
-            var relationshipNameRef = this.BuildRelationshipNameRef(entityMetadata, "ManyToMany", manyToMany.SchemaName, iCodeGenerationServiceProvider);
+            var relationshipNameRef = this.BuildRelationshipNameRef(entityMetadata, "ManyToMany", manyToMany.SchemaName);
 
             codeMemberProperty.GetStatements.Add(BuildRelationshipGet(MethodGetRelatedEntities, relationshipNameRef, typeForRelationship, entityRole));
             codeMemberProperty.SetStatements.AddRange(this.BuildRelationshipSet(MethodSetRelatedEntities, relationshipNameRef, typeForRelationship, propertyName, entityRole));
 
             codeMemberProperty.CustomAttributes.Add(BuildRelationshipSchemaNameAttribute(relationshipNameRef, entityRole));
 
-            var comments = iCodeGenerationServiceProvider.NamingService.GetCommentsForRelationshipManyToMany(entityMetadata, manyToMany, entityRole, iCodeGenerationServiceProvider);
+            var comments = iCodeGenerationServiceProvider.NamingService.GetCommentsForRelationshipManyToMany(entityMetadata, manyToMany, entityRole);
 
             if (_config.AddDescriptionAttribute)
             {
@@ -1806,10 +1697,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             return codeMemberProperty;
         }
 
-        private CodeTypeMemberCollection BuildManyToOneRelationships(
-            EntityMetadata entityMetadata
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
+        private CodeTypeMemberCollection BuildManyToOneRelationships(EntityMetadata entityMetadata)
         {
             var memberCollection = new CodeTypeMemberCollection();
 
@@ -1827,11 +1715,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
                 var otherEntity = iCodeGenerationServiceProvider.MetadataProviderService.GetEntityMetadata(manyToOne.ReferencedEntity);
 
                 if (otherEntity != null
-                    && iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateEntity(otherEntity, iCodeGenerationServiceProvider)
-                    && iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateRelationship(manyToOne, otherEntity, CodeGenerationRelationshipType.ManyToOneRelationship, iCodeGenerationServiceProvider)
+                    && iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateEntity(otherEntity)
+                    && iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateRelationship(manyToOne, otherEntity, CodeGenerationRelationshipType.ManyToOneRelationship)
                 )
                 {
-                    var one = this.BuildManyToOneProperty(entityMetadata, otherEntity, manyToOne, iCodeGenerationServiceProvider);
+                    var one = this.BuildManyToOneProperty(entityMetadata, otherEntity, manyToOne);
                     if (one != null)
                     {
                         if (startCodeRegionDirective == null)
@@ -1870,7 +1758,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             EntityMetadata entityMetadata
             , EntityMetadata otherEntityMetadata
             , OneToManyRelationshipMetadata manyToOne
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
             var attributeMetadata = entityMetadata.Attributes.SingleOrDefault(attribute => attribute.LogicalName == manyToOne.ReferencingAttribute);
@@ -1880,13 +1767,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
                 return null;
             }
 
-            var typeForRelationship = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForRelationship(manyToOne, otherEntityMetadata, iCodeGenerationServiceProvider);
+            var typeForRelationship = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForRelationship(manyToOne, otherEntityMetadata);
 
             var entityRole = otherEntityMetadata.LogicalName == entityMetadata.LogicalName ? new EntityRole?(EntityRole.Referencing) : new EntityRole?();
 
-            var relationshipNameRef = this.BuildRelationshipNameRef(entityMetadata, "ManyToOne", manyToOne.SchemaName, iCodeGenerationServiceProvider);
+            var relationshipNameRef = this.BuildRelationshipNameRef(entityMetadata, "ManyToOne", manyToOne.SchemaName);
 
-            var codeMemberProperty = this.BuildClassProperty(typeForRelationship, iCodeGenerationServiceProvider.NamingService.GetNameForRelationship(entityMetadata, manyToOne, entityRole, iCodeGenerationServiceProvider));
+            var codeMemberProperty = this.BuildClassProperty(typeForRelationship, iCodeGenerationServiceProvider.NamingService.GetNameForRelationship(entityMetadata, manyToOne, entityRole));
 
             codeMemberProperty.GetStatements.Add(BuildRelationshipGet(MethodGetRelatedEntity, relationshipNameRef, typeForRelationship, entityRole));
 
@@ -1898,14 +1785,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
                 codeMemberProperty.SetStatements.AddRange(this.BuildRelationshipSet(MethodSetRelatedEntity, relationshipNameRef, typeForRelationship, codeMemberProperty.Name, entityRole));
             }
 
-            string attributePropertyName = iCodeGenerationServiceProvider.NamingService.GetNameForAttribute(entityMetadata, attributeMetadata, iCodeGenerationServiceProvider);
+            string attributePropertyName = iCodeGenerationServiceProvider.NamingService.GetNameForAttribute(entityMetadata, attributeMetadata);
 
-            var attributeNameRef = this.BuildAttributeNameRef(entityMetadata, attributePropertyName, attributeMetadata.LogicalName, iCodeGenerationServiceProvider);
+            var attributeNameRef = this.BuildAttributeNameRef(entityMetadata, attributePropertyName, attributeMetadata.LogicalName);
 
             codeMemberProperty.CustomAttributes.Add(Attribute(AttributeLogicalNameAttribute, AttributeArg(attributeNameRef)));
             codeMemberProperty.CustomAttributes.Add(BuildRelationshipSchemaNameAttribute(relationshipNameRef, entityRole));
 
-            var comments = iCodeGenerationServiceProvider.NamingService.GetCommentsForRelationshipManyToOne(entityMetadata, manyToOne, entityRole, iCodeGenerationServiceProvider);
+            var comments = iCodeGenerationServiceProvider.NamingService.GetCommentsForRelationshipManyToOne(entityMetadata, manyToOne, entityRole);
 
             if (_config.AddDescriptionAttribute)
             {
@@ -1970,30 +1857,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             return Attribute(RelationshipSchemaNameAttribute, AttributeArg(relationshipNameRef));
         }
 
-        private CodeTypeDeclarationCollection BuildServiceContext(
-            IEnumerable<EntityMetadata> entityMetadata
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
+        private CodeTypeDeclarationCollection BuildServiceContext(IEnumerable<EntityMetadata> entityMetadata)
         {
             var declarationCollection = new CodeTypeDeclarationCollection();
 
-            if (iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateServiceContext(iCodeGenerationServiceProvider))
+            if (iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateServiceContext())
             {
-                string serviceContextName = iCodeGenerationServiceProvider.NamingService.GetNameForServiceContext(iCodeGenerationServiceProvider);
+                string serviceContextName = iCodeGenerationServiceProvider.NamingService.GetNameForServiceContext();
 
                 var codeTypeDeclaration = this.Class(serviceContextName, ServiceContextBaseType);
 
                 iCodeGenerationServiceProvider.NamingService.SetCurrentTypeName(serviceContextName);
 
-                codeTypeDeclaration.Members.Add(this.ServiceContextConstructor(iCodeGenerationServiceProvider));
+                codeTypeDeclaration.Members.Add(this.ServiceContextConstructor());
 
-                codeTypeDeclaration.Comments.AddRange(CommentSummary(iCodeGenerationServiceProvider.NamingService.GetCommentsForServiceContext(iCodeGenerationServiceProvider)));
+                codeTypeDeclaration.Comments.AddRange(CommentSummary(iCodeGenerationServiceProvider.NamingService.GetCommentsForServiceContext()));
 
                 foreach (var entityMetadata1 in entityMetadata.OrderBy(metadata => metadata.LogicalName))
                 {
-                    if (iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateEntity(entityMetadata1, iCodeGenerationServiceProvider))
+                    if (iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateEntity(entityMetadata1))
                     {
-                        var codeMemberProperty = this.BuildEntitySetProperty(entityMetadata1, iCodeGenerationServiceProvider);
+                        var codeMemberProperty = this.BuildEntitySetProperty(entityMetadata1);
 
                         codeTypeDeclaration.Members.Add(InsertInPropertyDebuggerNonUserCodeAttributeInGetAndSet(codeMemberProperty));
                     }
@@ -2005,27 +1889,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             return declarationCollection;
         }
 
-        private CodeTypeMember ServiceContextConstructor(ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        private CodeTypeMember ServiceContextConstructor()
         {
             var codeConstructor = this.Constructor(Param(TypeRef(typeof(IOrganizationService)), VariableNameService));
 
             codeConstructor.BaseConstructorArgs.Add(VarRef(VariableNameService));
 
-            codeConstructor.Comments.AddRange(CommentSummary(iCodeGenerationServiceProvider.NamingService.GetCommentsForServiceContextConstructor(iCodeGenerationServiceProvider)));
+            codeConstructor.Comments.AddRange(CommentSummary(iCodeGenerationServiceProvider.NamingService.GetCommentsForServiceContextConstructor()));
 
             return codeConstructor;
         }
 
-        private CodeMemberProperty BuildEntitySetProperty(
-            EntityMetadata entity
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
+        private CodeMemberProperty BuildEntitySetProperty(EntityMetadata entity)
         {
-            var typeForEntity = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForEntity(entity, iCodeGenerationServiceProvider);
+            var typeForEntity = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForEntity(entity);
 
-            var codeMemberProperty = this.BuildClassProperty(IQueryable(typeForEntity), iCodeGenerationServiceProvider.NamingService.GetNameForEntitySet(entity, iCodeGenerationServiceProvider), (CodeStatement)Return(ThisMethodInvoke(MethodCreateQuery, typeForEntity)));
+            var codeMemberProperty = this.BuildClassProperty(IQueryable(typeForEntity), iCodeGenerationServiceProvider.NamingService.GetNameForEntitySet(entity), (CodeStatement)Return(ThisMethodInvoke(MethodCreateQuery, typeForEntity)));
 
-            var comments = iCodeGenerationServiceProvider.NamingService.GetCommentsForEntitySet(entity, iCodeGenerationServiceProvider);
+            var comments = iCodeGenerationServiceProvider.NamingService.GetCommentsForEntitySet(entity);
 
             if (_config.AddDescriptionAttribute)
             {
@@ -2047,51 +1928,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             return codeMemberProperty;
         }
 
-        private CodeTypeDeclarationCollection BuildSdkMessagesEnumerable(
-            IEnumerable<CodeGenerationSdkMessage> sdkMessages
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
+        private CodeTypeDeclarationCollection BuildSdkMessagesEnumerable(IEnumerable<CodeGenerationSdkMessage> sdkMessages)
         {
             var declarationCollection = new CodeTypeDeclarationCollection();
 
             foreach (var sdkMessage in sdkMessages.OrderBy(m => m.Name))
             {
-                if (iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateSdkMessage(sdkMessage, iCodeGenerationServiceProvider))
+                if (iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateSdkMessage(sdkMessage))
                 {
-                    declarationCollection.AddRange(this.BuildSdkMessage(sdkMessage, iCodeGenerationServiceProvider));
+                    declarationCollection.AddRange(this.BuildSdkMessage(sdkMessage));
                 }
             }
 
             return declarationCollection;
         }
 
-        private CodeTypeDeclarationCollection BuildSdkMessage(
-            CodeGenerationSdkMessage message
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
+        private CodeTypeDeclarationCollection BuildSdkMessage(CodeGenerationSdkMessage message)
         {
             var declarationCollection = new CodeTypeDeclarationCollection();
 
             foreach (var sdkMessagePair in message.SdkMessagePairs.Values.OrderBy(p => p.Request.Name))
             {
-                if (iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateSdkMessagePair(sdkMessagePair, iCodeGenerationServiceProvider))
+                if (iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateSdkMessagePair(sdkMessagePair))
                 {
-                    declarationCollection.AddRange(this.BuildSdkMessagePair(sdkMessagePair, iCodeGenerationServiceProvider));
+                    declarationCollection.AddRange(this.BuildSdkMessagePair(sdkMessagePair));
                 }
             }
 
             return declarationCollection;
         }
 
-        private CodeTypeDeclarationCollection BuildSdkMessagePair(
-            CodeGenerationSdkMessagePair sdkMessagePair
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
+        private CodeTypeDeclarationCollection BuildSdkMessagePair(CodeGenerationSdkMessagePair sdkMessagePair)
         {
             var declarationCollection = new CodeTypeDeclarationCollection();
 
-            declarationCollection.Add(this.BuildSdkMessageRequest(sdkMessagePair, sdkMessagePair.Request, iCodeGenerationServiceProvider, out var namespaceRef, out var requestNameRef));
-            declarationCollection.Add(this.BuildSdkMessageResponse(sdkMessagePair, sdkMessagePair.Response, namespaceRef, requestNameRef, iCodeGenerationServiceProvider));
+            declarationCollection.Add(this.BuildSdkMessageRequest(sdkMessagePair, sdkMessagePair.Request, out var namespaceRef, out var requestNameRef));
+            declarationCollection.Add(this.BuildSdkMessageResponse(sdkMessagePair, sdkMessagePair.Response, namespaceRef, requestNameRef));
 
             return declarationCollection;
         }
@@ -2099,12 +1971,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
         private CodeTypeDeclaration BuildSdkMessageRequest(
             CodeGenerationSdkMessagePair messagePair
             , CodeGenerationSdkMessageRequest sdkMessageRequest
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
             , out CodeExpression sdkMessageNamespaceAttributeRef
             , out CodeExpression sdkMessageRequestNameAttributeRef
         )
         {
-            string requestClassName = string.Format(CultureInfo.InvariantCulture, "{0}{1}", iCodeGenerationServiceProvider.NamingService.GetNameForMessagePair(messagePair, iCodeGenerationServiceProvider), RequestClassSuffix);
+            string requestClassName = string.Format(CultureInfo.InvariantCulture, "{0}{1}", iCodeGenerationServiceProvider.NamingService.GetNameForMessagePair(messagePair), RequestClassSuffix);
 
             var requestClass = this.Class(requestClassName, RequestClassBaseType);
 
@@ -2122,7 +1993,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             {
                 foreach (var field in sdkMessageRequest.RequestFields.Values)
                 {
-                    var requestField = this.BuildRequestFieldProperty(sdkMessageRequest, field, iCodeGenerationServiceProvider);
+                    var requestField = this.BuildRequestFieldProperty(sdkMessageRequest, field);
 
                     if (requestField.Type.Options == CodeTypeReferenceOptions.GenericTypeParameter)
                     {
@@ -2221,10 +2092,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             , CodeGenerationSdkMessageResponse sdkMessageResponse
             , CodeExpression sdkMessageNamespaceAttributeRef
             , CodeExpression sdkMessageRequestNameAttributeRef
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
-            string responseClassName = string.Format(CultureInfo.InvariantCulture, "{0}{1}", iCodeGenerationServiceProvider.NamingService.GetNameForMessagePair(messagePair, iCodeGenerationServiceProvider), ResponseClassSuffix);
+            string responseClassName = string.Format(CultureInfo.InvariantCulture, "{0}{1}", iCodeGenerationServiceProvider.NamingService.GetNameForMessagePair(messagePair), ResponseClassSuffix);
 
             var codeTypeDeclaration = this.Class(
                 responseClassName
@@ -2241,7 +2111,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             {
                 foreach (var field in sdkMessageResponse.ResponseFields.Values)
                 {
-                    var codeMemberProperty = this.BuildResponseFieldProperty(sdkMessageResponse, field, iCodeGenerationServiceProvider);
+                    var codeMemberProperty = this.BuildResponseFieldProperty(sdkMessageResponse, field);
 
                     codeTypeDeclaration.Members.Add(InsertInPropertyDebuggerNonUserCodeAttributeInGetAndSet(codeMemberProperty));
                 }
@@ -2250,15 +2120,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             return codeTypeDeclaration;
         }
 
-        private CodeMemberProperty BuildRequestFieldProperty(
-            CodeGenerationSdkMessageRequest request
-            , Entities.SdkMessageRequestField field
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
+        private CodeMemberProperty BuildRequestFieldProperty(CodeGenerationSdkMessageRequest request, Entities.SdkMessageRequestField field)
         {
-            var typeForRequestField = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForRequestField(request, field, iCodeGenerationServiceProvider);
+            var typeForRequestField = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForRequestField(request, field);
 
-            string propertyName = iCodeGenerationServiceProvider.NamingService.GetNameForRequestField(request, field, iCodeGenerationServiceProvider);
+            string propertyName = iCodeGenerationServiceProvider.NamingService.GetNameForRequestField(request, field);
 
             CodeExpression properyNameRef = StringLiteral(propertyName);
 
@@ -2293,15 +2159,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             return AssignValue(PropertyIndexer(ParametersPropertyName, properyNameRef));
         }
 
-        private CodeMemberProperty BuildResponseFieldProperty(
-            CodeGenerationSdkMessageResponse response
-            , Entities.SdkMessageResponseField field
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
+        private CodeMemberProperty BuildResponseFieldProperty(CodeGenerationSdkMessageResponse response, Entities.SdkMessageResponseField field)
         {
-            var forResponseField = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForResponseField(field, iCodeGenerationServiceProvider);
+            var forResponseField = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForResponseField(field);
 
-            string propertyName = iCodeGenerationServiceProvider.NamingService.GetNameForResponseField(response, field, iCodeGenerationServiceProvider);
+            string propertyName = iCodeGenerationServiceProvider.NamingService.GetNameForResponseField(response, field);
 
             CodeExpression properyNameRef = StringLiteral(propertyName);
 
@@ -2425,16 +2287,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             return new CodeAttributeDeclaration(TypeRef(type), args);
         }
 
-        private CodeExpression BuildAttributeNameRef(
-            EntityMetadata entityMetadata
-            , string attributePropertyName
-            , string attributeLogicalName
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
+        private CodeExpression BuildAttributeNameRef(EntityMetadata entityMetadata, string attributePropertyName, string attributeLogicalName)
         {
             if (this._config.UseSchemaConstInCSharpAttributes)
             {
-                var typeRef = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForEntity(entityMetadata, iCodeGenerationServiceProvider);
+                var typeRef = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForEntity(entityMetadata);
 
                 var className = typeRef.BaseType + ".Schema.Attributes";
 
@@ -2453,16 +2310,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             return (CodeExpression)StringLiteral(attributeLogicalName);
         }
 
-        private CodeExpression BuildRelationshipNameRef(
-            EntityMetadata entityMetadata
-            , string relationshipTypeName
-            , string schemaName
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
+        private CodeExpression BuildRelationshipNameRef(EntityMetadata entityMetadata, string relationshipTypeName, string schemaName)
         {
             if (this._config.UseSchemaConstInCSharpAttributes)
             {
-                var typeRef = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForEntity(entityMetadata, iCodeGenerationServiceProvider);
+                var typeRef = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForEntity(entityMetadata);
 
                 var className = $"{typeRef.BaseType}.Schema.{relationshipTypeName}.{schemaName.ToLower()}";
 
