@@ -365,15 +365,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     || (e.Key == Key.W && e.KeyboardDevice != null && (e.KeyboardDevice.Modifiers & ModifierKeys.Control) != 0)
                     )
                 {
-                    e.Handled = true;
+                    if (CanCloseWindow(e))
+                    {
+                        e.Handled = true;
 
-                    this.Close();
+                        this.Close();
 
-                    return;
+                        return;
+                    }
                 }
             }
 
             base.OnKeyDown(e);
+        }
+
+        protected virtual bool CanCloseWindow(KeyEventArgs e)
+        {
+            return true;
         }
 
         protected virtual void LoadConfigurationInternal(WindowSettings winConfig)

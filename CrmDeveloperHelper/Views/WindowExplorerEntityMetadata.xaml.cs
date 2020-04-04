@@ -33,8 +33,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly Popup _popupEntityMetadataOptions;
         private readonly Popup _popupFileGenerationEntityMetadataOptions;
-        private readonly FileGenerationEntityMetadataOptionsControl _optionsControlFileGeneration;
         private readonly Popup _popupEntityMetadataFilter;
+
+        private readonly FileGenerationEntityMetadataOptionsControl _optionsControlFileGeneration;
         private readonly EntityMetadataFilter _entityMetadataFilter;
 
         private readonly IWriteToOutput _iWriteToOutput;
@@ -1374,23 +1375,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ShowExistingEntities();
         }
 
-        protected override void OnKeyDown(KeyEventArgs e)
+        protected override bool CanCloseWindow(KeyEventArgs e)
         {
-            if (!e.Handled)
+            Popup[] _popupArray = new Popup[] { _popupEntityMetadataFilter, _popupEntityMetadataOptions, _popupFileGenerationEntityMetadataOptions };
+
+            foreach (var popup in _popupArray)
             {
-                if (e.Key == Key.Escape
-                    || (e.Key == Key.W && e.KeyboardDevice != null && (e.KeyboardDevice.Modifiers & ModifierKeys.Control) != 0)
-                    )
+                if (popup.IsOpen)
                 {
-                    if (_popupEntityMetadataOptions.IsOpen)
-                    {
-                        _popupEntityMetadataOptions.IsOpen = false;
-                        e.Handled = true;
-                    }
+                    popup.IsOpen = false;
+                    e.Handled = true;
+
+                    return false;
                 }
             }
 
-            base.OnKeyDown(e);
+            return true;
         }
 
         private void miOpenEntityInWeb_Click(object sender, RoutedEventArgs e)

@@ -1195,24 +1195,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ShowExistingEntities();
         }
 
-        protected override void OnKeyDown(KeyEventArgs e)
+        protected override bool CanCloseWindow(KeyEventArgs e)
         {
-            if (!e.Handled)
+            Popup[] _popupArray = new Popup[] { _popupEntityMetadataOptions, _popupFileGenerationEntityMetadataOptions };
+
+            foreach (var popup in _popupArray)
             {
-                if (e.Key == Key.Escape
-                    || (e.Key == Key.W && e.KeyboardDevice != null && (e.KeyboardDevice.Modifiers & ModifierKeys.Control) != 0)
-                    )
+                if (popup.IsOpen)
                 {
-                    if (_popupEntityMetadataOptions.IsOpen)
-                    {
-                        _popupEntityMetadataOptions.IsOpen = false;
-                        this.Focus();
-                        e.Handled = true;
-                    }
+                    popup.IsOpen = false;
+                    e.Handled = true;
+
+                    return false;
                 }
             }
 
-            base.OnKeyDown(e);
+            return true;
         }
 
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)

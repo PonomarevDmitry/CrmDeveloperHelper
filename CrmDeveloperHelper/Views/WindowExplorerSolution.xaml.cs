@@ -2612,29 +2612,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ShowExistingSolutions();
         }
 
-        protected override void OnKeyDown(KeyEventArgs e)
+        protected override bool CanCloseWindow(KeyEventArgs e)
         {
-            if (!e.Handled)
-            {
-                if (e.Key == Key.Escape
-                    || (e.Key == Key.W && e.KeyboardDevice != null && (e.KeyboardDevice.Modifiers & ModifierKeys.Control) != 0)
-                    )
-                {
-                    if (_optionsSolutionPopup.IsOpen)
-                    {
-                        _optionsSolutionPopup.IsOpen = false;
-                        e.Handled = true;
-                    }
+            Popup[] _popupArray = new Popup[] { _optionsPopup, _optionsSolutionPopup };
 
-                    if (_optionsPopup.IsOpen)
-                    {
-                        _optionsPopup.IsOpen = false;
-                        e.Handled = true;
-                    }
+            foreach (var popup in _popupArray)
+            {
+                if (popup.IsOpen)
+                {
+                    popup.IsOpen = false;
+                    e.Handled = true;
+
+                    return false;
                 }
             }
 
-            base.OnKeyDown(e);
+            return true;
         }
 
         private void mIOpenSolutionInWeb_Click(object sender, RoutedEventArgs e)
