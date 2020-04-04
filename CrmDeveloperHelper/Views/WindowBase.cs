@@ -26,6 +26,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var winConfig = this.GetWindowsSettings();
 
             LoadConfiguration(winConfig);
+
+            var binding = new CommandBinding(NavigationCommands.Refresh);
+            binding.Executed += this.Refresh_Executed;
+
+            this.CommandBindings.Add(binding);
+        }
+
+        private void Refresh_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            OnRefreshList(e);
+        }
+
+        protected virtual void OnRefreshList(ExecutedRoutedEventArgs e)
+        {
+
         }
 
         protected bool IsControlsEnabled => this._initCounter <= 0;
@@ -173,8 +188,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 //use the logical tree for content / framework elements
                 foreach (object obj in LogicalTreeHelper.GetChildren(parent))
                 {
-                    var depObj = obj as DependencyObject;
-                    if (depObj != null) yield return (DependencyObject)obj;
+                    if (obj is DependencyObject depObj)
+                    {
+                        yield return depObj;
+                    }
                 }
             }
             else
@@ -235,12 +252,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            if (!(listView.View is GridView))
+            if (!(listView.View is GridView gridView))
             {
                 return;
             }
-
-            var gridView = listView.View as GridView;
 
             foreach (var column in gridView.Columns)
             {
@@ -266,12 +281,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            if (!(listView.View is GridView))
+            if (!(listView.View is GridView gridView))
             {
                 return;
             }
-
-            var gridView = listView.View as GridView;
 
             foreach (var column in gridView.Columns)
             {

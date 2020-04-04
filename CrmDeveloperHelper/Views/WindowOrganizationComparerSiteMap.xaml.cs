@@ -862,15 +862,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteActionEntity(link.Link.Entity2.Id, GetService2, SiteMap.Schema.Attributes.sitemapxml, SiteMap.Schema.Headers.sitemapxml, PerformExportXmlToFileAsync);
         }
 
+        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+
+            ShowExistingSiteMaps();
+        }
+
         protected override void OnKeyDown(KeyEventArgs e)
         {
-            if (e.Key == Key.F5)
-            {
-                e.Handled = true;
-
-                ShowExistingSiteMaps();
-            }
-
             if (!e.Handled)
             {
                 if (e.Key == Key.Escape

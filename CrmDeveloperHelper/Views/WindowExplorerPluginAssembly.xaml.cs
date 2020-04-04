@@ -599,16 +599,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ExportingPluginAssemblyBodyBinaryCompletedFormat1, name);
         }
 
-        protected override void OnKeyDown(KeyEventArgs e)
+        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
         {
-            if (e.Key == Key.F5)
-            {
-                e.Handled = true;
+            e.Handled = true;
 
-                ShowExistingPluginAssemblies();
-            }
-
-            base.OnKeyDown(e);
+            ShowExistingPluginAssemblies();
         }
 
         private void mIOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)

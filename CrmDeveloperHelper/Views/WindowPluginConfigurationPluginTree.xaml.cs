@@ -189,16 +189,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._imageStepDisabled = this.Resources["ImageStepDisabled"] as BitmapImage;
         }
 
-        protected override void OnKeyDown(KeyEventArgs e)
+        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
         {
-            if (e.Key == Key.F5)
-            {
-                e.Handled = true;
+            e.Handled = true;
 
-                ShowExistingPlugins();
-            }
-
-            base.OnKeyDown(e);
+            ShowExistingPlugins();
         }
 
         private async Task LoadPluginConfiguration(string filePath)

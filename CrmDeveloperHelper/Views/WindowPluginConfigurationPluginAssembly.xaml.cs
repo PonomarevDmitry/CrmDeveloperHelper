@@ -340,16 +340,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteAction(entity, PerformAssemblyDescriptionAsync);
         }
 
-        protected override void OnKeyDown(KeyEventArgs e)
+        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
         {
-            if (e.Key == Key.F5)
-            {
-                e.Handled = true;
+            e.Handled = true;
 
-                ShowExistingAssemblies();
-            }
-
-            base.OnKeyDown(e);
+            ShowExistingAssemblies();
         }
     }
 }

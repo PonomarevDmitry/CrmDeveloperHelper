@@ -435,16 +435,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Close();
         }
 
-        protected override void OnKeyDown(KeyEventArgs e)
+        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
         {
-            if (e.Key == Key.F5)
-            {
-                e.Handled = true;
+            e.Handled = true;
 
-                OpenFilesInFoldersAsync();
-            }
-
-            base.OnKeyDown(e);
+            OpenFilesInFoldersAsync();
         }
 
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)

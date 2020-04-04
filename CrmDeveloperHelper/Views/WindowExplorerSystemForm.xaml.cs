@@ -1421,15 +1421,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingEntityJavaScriptFileOnFormCompletedFormat2, entityName, name);
         }
 
+        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+
+            ShowExistingSystemForms();
+        }
+
         protected override void OnKeyDown(KeyEventArgs e)
         {
-            if (e.Key == Key.F5)
-            {
-                e.Handled = true;
-
-                ShowExistingSystemForms();
-            }
-
             if (!e.Handled)
             {
                 if (e.Key == Key.Escape

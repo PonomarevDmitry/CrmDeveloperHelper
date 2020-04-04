@@ -1106,15 +1106,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteActionDescription(link.Link.Entity2.Id, GetService2, PerformExportDescriptionToFileAsync);
         }
 
+        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+
+            ShowExistingSavedQueries();
+        }
+
         protected override void OnKeyDown(KeyEventArgs e)
         {
-            if (e.Key == Key.F5)
-            {
-                e.Handled = true;
-
-                ShowExistingSavedQueries();
-            }
-
             if (!e.Handled)
             {
                 if (e.Key == Key.Escape

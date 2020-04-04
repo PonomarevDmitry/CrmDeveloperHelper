@@ -584,16 +584,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             sepCreateNewWebResource.Visibility = btnCreateNewWebResource.Visibility = Visibility.Visible;
         }
 
-        protected override void OnKeyDown(KeyEventArgs e)
+        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
         {
-            if (e.Key == Key.F5)
-            {
-                e.Handled = true;
+            e.Handled = true;
 
-                ShowExistingWebResources();
-            }
-
-            base.OnKeyDown(e);
+            ShowExistingWebResources();
         }
 
         private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -1284,18 +1284,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        protected override void OnKeyDown(KeyEventArgs e)
+        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
         {
-            if (e.Key == Key.F5)
-            {
-                e.Handled = true;
+            e.Handled = true;
 
-                ShowExistingRoles();
-
-                return;
-            }
-
-            base.OnKeyDown(e);
+            ShowExistingRoles();
         }
 
         #region Entity Operations

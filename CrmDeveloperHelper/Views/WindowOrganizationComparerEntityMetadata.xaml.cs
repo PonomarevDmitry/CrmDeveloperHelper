@@ -1188,15 +1188,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, service.ConnectionData.Name, entityName);
         }
 
+        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+
+            ShowExistingEntities();
+        }
+
         protected override void OnKeyDown(KeyEventArgs e)
         {
-            if (e.Key == Key.F5)
-            {
-                e.Handled = true;
-
-                ShowExistingEntities();
-            }
-
             if (!e.Handled)
             {
                 if (e.Key == Key.Escape

@@ -1373,16 +1373,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ShowExistingWorkflows();
         }
 
-        protected override void OnKeyDown(KeyEventArgs e)
+        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
         {
-            if (e.Key == Key.F5)
-            {
-                e.Handled = true;
+            e.Handled = true;
 
-                ShowExistingWorkflows();
-            }
-
-            base.OnKeyDown(e);
+            ShowExistingWorkflows();
         }
 
         private void mIOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)

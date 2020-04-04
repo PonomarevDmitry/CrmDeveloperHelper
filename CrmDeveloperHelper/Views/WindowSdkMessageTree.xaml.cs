@@ -169,16 +169,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._imageMessage = this.Resources["ImageMessage"] as BitmapImage;
         }
 
-        protected override void OnKeyDown(KeyEventArgs e)
+        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
         {
-            if (e.Key == Key.F5)
-            {
-                e.Handled = true;
+            e.Handled = true;
 
-                ShowExistingMessages();
-            }
-
-            base.OnKeyDown(e);
+            ShowExistingMessages();
         }
 
         private async Task<IOrganizationServiceExtented> GetService()

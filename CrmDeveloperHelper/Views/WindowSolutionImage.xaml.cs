@@ -472,16 +472,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        protected override void OnKeyDown(KeyEventArgs e)
+        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
         {
-            if (e.Key == Key.F5)
-            {
-                e.Handled = true;
+            e.Handled = true;
 
-                FilteringSolutionImageComponents();
-            }
-
-            base.OnKeyDown(e);
+            FilteringSolutionImageComponents();
         }
 
         private void cmBComponentType_SelectionChanged(object sender, SelectionChangedEventArgs e)

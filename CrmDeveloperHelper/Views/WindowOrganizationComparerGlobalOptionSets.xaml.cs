@@ -1099,15 +1099,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+
+            ShowExistingOptionSets();
+        }
+
         protected override void OnKeyDown(KeyEventArgs e)
         {
-            if (e.Key == Key.F5)
-            {
-                e.Handled = true;
-
-                ShowExistingOptionSets();
-            }
-
             if (!e.Handled)
             {
                 if (e.Key == Key.Escape

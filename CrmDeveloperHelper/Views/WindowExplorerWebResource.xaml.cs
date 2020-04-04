@@ -1074,16 +1074,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return filePath;
         }
 
-        protected override void OnKeyDown(KeyEventArgs e)
+        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
         {
-            if (e.Key == Key.F5)
-            {
-                e.Handled = true;
+            e.Handled = true;
 
-                ShowExistingWebResources();
-            }
-
-            base.OnKeyDown(e);
+            ShowExistingWebResources();
         }
 
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)

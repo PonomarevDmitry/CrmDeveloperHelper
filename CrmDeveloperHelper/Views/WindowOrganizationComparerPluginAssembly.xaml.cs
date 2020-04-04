@@ -753,16 +753,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return filePath;
         }
 
-        protected override void OnKeyDown(KeyEventArgs e)
+        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
         {
-            if (e.Key == Key.F5)
-            {
-                e.Handled = true;
+            e.Handled = true;
 
-                ShowExistingPluginAssemblies();
-            }
-
-            base.OnKeyDown(e);
+            ShowExistingPluginAssemblies();
         }
 
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)

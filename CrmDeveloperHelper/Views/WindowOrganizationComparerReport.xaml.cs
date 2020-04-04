@@ -1129,16 +1129,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteActionOnEntity(link.Link.Entity2.Id, GetService2, Report.Schema.Attributes.bodybinary, Report.Schema.Headers.bodybinary, PerformExportBodyBinary);
         }
 
-        protected override void OnKeyDown(KeyEventArgs e)
+        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
         {
-            if (e.Key == Key.F5)
-            {
-                e.Handled = true;
+            e.Handled = true;
 
-                ShowExistingReports();
-            }
-
-            base.OnKeyDown(e);
+            ShowExistingReports();
         }
 
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -278,16 +278,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._imageImageEndpoint = this.Resources["ImageEndpoint"] as BitmapImage;
         }
 
-        protected override void OnKeyDown(KeyEventArgs e)
+        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
         {
-            if (e.Key == Key.F5)
-            {
-                e.Handled = true;
+            e.Handled = true;
 
-                ShowExistingSdkMessageRequests();
-            }
-
-            base.OnKeyDown(e);
+            ShowExistingSdkMessageRequests();
         }
 
         private async Task<IOrganizationServiceExtented> GetService()

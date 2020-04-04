@@ -798,18 +798,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ShowExistingSecurityRoles();
         }
 
-        protected override void OnKeyDown(KeyEventArgs e)
+        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
         {
-            if (e.Key == Key.F5)
-            {
-                e.Handled = true;
+            e.Handled = true;
 
-                ShowExistingOtherPrivileges();
-
-                return;
-            }
-
-            base.OnKeyDown(e);
+            ShowExistingOtherPrivileges();
         }
 
         private async void mIOpenSecurityRoleInWeb_Click(object sender, RoutedEventArgs e)

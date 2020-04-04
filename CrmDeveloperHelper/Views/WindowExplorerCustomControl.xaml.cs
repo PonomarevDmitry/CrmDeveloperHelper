@@ -754,15 +754,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteActionEntityAsync(entity.Id, entity.Name, CustomControl.Schema.Attributes.clientjson, CustomControl.Schema.Headers.clientjson, "json", PerformExportXmlToFileAsync);
         }
 
+        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+
+            ShowExistingCustomControls();
+        }
+
         protected override void OnKeyDown(KeyEventArgs e)
         {
-            if (e.Key == Key.F5)
-            {
-                e.Handled = true;
-
-                ShowExistingCustomControls();
-            }
-
             if (!e.Handled)
             {
                 if (e.Key == Key.Escape

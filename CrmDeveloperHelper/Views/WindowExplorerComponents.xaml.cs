@@ -495,16 +495,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(true, Properties.OutputStrings.CreatingEntityDescriptionCompleted);
         }
 
-        protected override void OnKeyDown(KeyEventArgs e)
+        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
         {
-            if (e.Key == Key.F5)
-            {
-                e.Handled = true;
+            e.Handled = true;
 
-                ShowExistingComponents();
-            }
-
-            base.OnKeyDown(e);
+            ShowExistingComponents();
         }
 
         private void mIOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)

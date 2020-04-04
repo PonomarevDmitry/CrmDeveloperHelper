@@ -310,16 +310,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             SelectSolutioAction(entity);
         }
 
-        protected override void OnKeyDown(KeyEventArgs e)
+        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
         {
-            if (e.Key == Key.F5)
-            {
-                e.Handled = true;
+            e.Handled = true;
 
-                ShowExistingSolutions();
-            }
-
-            base.OnKeyDown(e);
+            ShowExistingSolutions();
         }
 
         private void btnSelectLastSolution_Click(object sender, RoutedEventArgs e)

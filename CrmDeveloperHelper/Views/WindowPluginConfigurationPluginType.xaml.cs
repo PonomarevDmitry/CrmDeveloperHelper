@@ -404,16 +404,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteAction(entity, PerformPluginTypeDescriptionAsync);
         }
 
-        protected override void OnKeyDown(KeyEventArgs e)
+        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
         {
-            if (e.Key == Key.F5)
-            {
-                e.Handled = true;
+            e.Handled = true;
 
-                ShowExistingPluginTypes();
-            }
-
-            base.OnKeyDown(e);
+            ShowExistingPluginTypes();
         }
     }
 }

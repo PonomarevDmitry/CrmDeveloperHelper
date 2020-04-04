@@ -315,16 +315,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._imageWorkflowActivity = this.Resources["ImageWorkflowActivity"] as BitmapImage;
         }
 
-        protected override void OnKeyDown(KeyEventArgs e)
+        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
         {
-            if (e.Key == Key.F5)
-            {
-                e.Handled = true;
+            e.Handled = true;
 
-                ShowExistingPlugins();
-            }
-
-            base.OnKeyDown(e);
+            ShowExistingPlugins();
         }
 
         private async Task<IOrganizationServiceExtented> GetService()

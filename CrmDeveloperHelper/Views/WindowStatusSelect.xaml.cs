@@ -315,16 +315,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             SelectStatusCodeAction(statusItem);
         }
 
-        protected override void OnKeyDown(KeyEventArgs e)
+        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
         {
-            if (e.Key == Key.F5)
-            {
-                e.Handled = true;
+            e.Handled = true;
 
-                FilterStatusCodes();
-            }
-
-            base.OnKeyDown(e);
+            FilterStatusCodes();
         }
 
         private void mIOpenEntityInstanceCustomizationInWeb_Click(object sender, RoutedEventArgs e)

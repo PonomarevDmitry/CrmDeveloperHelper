@@ -845,15 +845,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ShowingDifferenceForFieldsCompletedFormat2, fieldTitle1, fieldTitle2);
         }
 
+        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+
+            ShowExistingOrganizations();
+        }
+
         protected override void OnKeyDown(KeyEventArgs e)
         {
-            if (e.Key == Key.F5)
-            {
-                e.Handled = true;
-
-                ShowExistingOrganizations();
-            }
-
             if (!e.Handled)
             {
                 if (e.Key == Key.Escape

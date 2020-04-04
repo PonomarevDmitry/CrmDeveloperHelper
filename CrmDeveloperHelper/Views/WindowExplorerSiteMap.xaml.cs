@@ -709,15 +709,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.PublishingSiteMapFormat3, service.ConnectionData.Name, name, idSiteMap.ToString());
         }
 
+        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+
+            ShowExistingSiteMaps();
+        }
+
         protected override void OnKeyDown(KeyEventArgs e)
         {
-            if (e.Key == Key.F5)
-            {
-                e.Handled = true;
-
-                ShowExistingSiteMaps();
-            }
-
             if (!e.Handled)
             {
                 if (e.Key == Key.Escape

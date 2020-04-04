@@ -325,16 +325,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        protected override void OnKeyDown(KeyEventArgs e)
+        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
         {
-            if (e.Key == Key.F5)
-            {
-                e.Handled = true;
+            e.Handled = true;
 
-                FilterEntityAttributes(null);
-            }
-
-            base.OnKeyDown(e);
+            FilterEntityAttributes(null);
         }
 
         private void mIOpenEntityInstanceCustomizationInWeb_Click(object sender, RoutedEventArgs e)

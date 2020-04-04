@@ -566,16 +566,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(_service.ConnectionData, Properties.OperationNames.CreatingEntityDescriptionFormat1, _service.ConnectionData.Name);
         }
 
-        protected override void OnKeyDown(KeyEventArgs e)
+        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
         {
-            if (e.Key == Key.F5)
-            {
-                e.Handled = true;
+            e.Handled = true;
 
-                ShowExistingSolutionComponents();
-            }
-
-            base.OnKeyDown(e);
+            ShowExistingSolutionComponents();
         }
 
         private void mIOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)

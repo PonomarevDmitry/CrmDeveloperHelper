@@ -1122,18 +1122,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ShowEntitySecurityRoles();
         }
 
-        protected override void OnKeyDown(KeyEventArgs e)
+        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
         {
-            if (e.Key == Key.F5)
-            {
-                e.Handled = true;
+            e.Handled = true;
 
-                ShowExistingEntities();
-
-                return;
-            }
-
-            base.OnKeyDown(e);
+            ShowExistingEntities();
         }
 
         private void mIOpenEntityInWeb_Click(object sender, RoutedEventArgs e)
