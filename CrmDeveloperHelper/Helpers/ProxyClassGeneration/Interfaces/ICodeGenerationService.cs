@@ -3,7 +3,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.Interfaces
 {
     /// <summary>
     /// <see cref="CodeGenerationService"/>

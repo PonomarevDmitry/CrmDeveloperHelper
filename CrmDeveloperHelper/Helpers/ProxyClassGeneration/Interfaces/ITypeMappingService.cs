@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xrm.Sdk.Metadata;
 using System.CodeDom;
 
-namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.Interfaces
 {
     public interface ITypeMappingService
     {

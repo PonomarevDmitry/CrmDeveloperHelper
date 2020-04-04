@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Microsoft.Xrm.Sdk.Metadata;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Xrm.Sdk.Metadata;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 
-namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.Implementations
 {
     public class MetadataProviderService : IMetadataProviderService
     {

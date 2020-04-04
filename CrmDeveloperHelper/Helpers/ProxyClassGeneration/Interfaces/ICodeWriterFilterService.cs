@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xrm.Sdk.Metadata;
 
-namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.Interfaces
 {
     public interface ICodeWriterFilterService
     {

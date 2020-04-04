@@ -1,4 +1,6 @@
-﻿namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
+﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.Interfaces;
+
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.Implementations
 {
     public sealed class CodeGenerationServiceProvider : ICodeGenerationServiceProvider
     {

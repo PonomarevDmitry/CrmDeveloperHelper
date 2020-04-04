@@ -2,7 +2,7 @@
 using Microsoft.Xrm.Sdk.Metadata;
 using System.Collections.Generic;
 
-namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.Interfaces
 {
     /// <summary>
     /// <see cref="NamingService"/>
