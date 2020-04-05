@@ -371,9 +371,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             WriteLine();
-            WriteLine("#region Attributes.");
-
+            WriteLine($"#region {Properties.CodeGenerationStrings.Attributes}");
             WriteLine();
+
             WriteLine("public static partial class Attributes");
             WriteLine("{");
 
@@ -381,32 +381,55 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             bool first = true;
 
-            if (!string.IsNullOrEmpty(_entityMetadata.PrimaryIdAttribute))
+            var primaryAttributes = _entityMetadata.Attributes.Where(a => string.Equals(a.LogicalName, _entityMetadata.PrimaryIdAttribute, StringComparison.InvariantCultureIgnoreCase)
+                     || string.Equals(a.LogicalName, _entityMetadata.PrimaryNameAttribute, StringComparison.InvariantCultureIgnoreCase));
+
+            if (primaryAttributes.Any())
             {
-                AttributeMetadata attributeMetadata = _entityMetadata.Attributes.FirstOrDefault(e => string.Equals(e.LogicalName, _entityMetadata.PrimaryIdAttribute, StringComparison.InvariantCultureIgnoreCase));
+                bool regionCreated = false;
 
-                if (attributeMetadata != null
-                    && attributeMetadata.IsPrimaryId.GetValueOrDefault()
-                )
+                if (!string.IsNullOrEmpty(_entityMetadata.PrimaryIdAttribute))
                 {
-                    if (first) { first = false; } else { WriteLine(); }
+                    AttributeMetadata attributeMetadata = _entityMetadata.Attributes.FirstOrDefault(e => string.Equals(e.LogicalName, _entityMetadata.PrimaryIdAttribute, StringComparison.InvariantCultureIgnoreCase));
 
-                    GenerateAttributeMetadata(attributeMetadata);
+                    if (attributeMetadata != null
+                        && attributeMetadata.IsPrimaryId.GetValueOrDefault()
+                    )
+                    {
+                        if (first) { first = false; } else { WriteLine(); }
+                        if (!regionCreated)
+                        {
+                            regionCreated = true;
+                            WriteLine($"#region {Properties.CodeGenerationStrings.PrimaryAttributes}");
+                            WriteLine();
+                        }
+
+                        GenerateAttributeMetadata(attributeMetadata);
+                    }
                 }
-            }
 
-            if (!string.IsNullOrEmpty(_entityMetadata.PrimaryNameAttribute))
-            {
-                AttributeMetadata attributeMetadata = _entityMetadata.Attributes.FirstOrDefault(e => string.Equals(e.LogicalName, _entityMetadata.PrimaryNameAttribute, StringComparison.InvariantCultureIgnoreCase));
-
-                if (attributeMetadata != null
-                    && attributeMetadata.IsPrimaryName.GetValueOrDefault()
-                )
+                if (!string.IsNullOrEmpty(_entityMetadata.PrimaryNameAttribute))
                 {
-                    if (first) { first = false; } else { WriteLine(); }
+                    AttributeMetadata attributeMetadata = _entityMetadata.Attributes.FirstOrDefault(e => string.Equals(e.LogicalName, _entityMetadata.PrimaryNameAttribute, StringComparison.InvariantCultureIgnoreCase));
 
-                    GenerateAttributeMetadata(attributeMetadata);
+                    if (attributeMetadata != null
+                        && attributeMetadata.IsPrimaryName.GetValueOrDefault()
+                    )
+                    {
+                        if (first) { first = false; } else { WriteLine(); }
+                        if (!regionCreated)
+                        {
+                            regionCreated = true;
+                            WriteLine($"#region {Properties.CodeGenerationStrings.PrimaryAttributes}");
+                            WriteLine();
+                        }
+
+                        GenerateAttributeMetadata(attributeMetadata);
+                    }
                 }
+
+                WriteLine();
+                WriteLine($"#endregion {Properties.CodeGenerationStrings.PrimaryAttributes}");
             }
 
             var notPrimaryAttributes = _entityMetadata.Attributes.Where(a => !string.Equals(a.LogicalName, _entityMetadata.PrimaryIdAttribute, StringComparison.InvariantCultureIgnoreCase)
@@ -418,7 +441,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             if (oobAttributes.Any())
             {
                 if (first) { first = false; } else { WriteLine(); }
-                WriteLine("#region OOB Attributes.");
+                WriteLine($"#region {Properties.CodeGenerationStrings.OOBAttributes}");
 
                 foreach (AttributeMetadata attributeMetadata in oobAttributes.OrderBy(attr => attr.LogicalName))
                 {
@@ -427,13 +450,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 WriteLine();
-                WriteLine("#endregion OOB Attributes.");
+                WriteLine($"#endregion {Properties.CodeGenerationStrings.OOBAttributes}");
             }
 
             if (customAttributes.Any())
             {
                 if (first) { first = false; } else { WriteLine(); }
-                WriteLine("#region Custom Attributes.");
+                WriteLine($"#region {Properties.CodeGenerationStrings.CustomAttributes}");
 
                 foreach (AttributeMetadata attributeMetadata in customAttributes.OrderBy(attr => attr.LogicalName))
                 {
@@ -442,13 +465,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 WriteLine();
-                WriteLine("#endregion Custom Attributes.");
+                WriteLine($"#endregion {Properties.CodeGenerationStrings.CustomAttributes}");
             }
 
             WriteLine("}");
 
             WriteLine();
-            WriteLine("#endregion Attributes.");
+            WriteLine($"#endregion {Properties.CodeGenerationStrings.Attributes}");
         }
 
         private void GenerateAttributeMetadata(AttributeMetadata attributeMetadata)
@@ -550,7 +573,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             WriteLine();
-            WriteLine("#region OptionSets.");
+            WriteLine($"#region {Properties.CodeGenerationStrings.OptionSets}");
 
             WriteLine();
             WriteLine("public static partial class OptionSets");
@@ -565,7 +588,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteLine("}");
 
             WriteLine();
-            WriteLine("#endregion OptionSets.");
+            WriteLine($"#endregion {Properties.CodeGenerationStrings.OptionSets}");
         }
 
         private bool HasOptionSets()
@@ -623,7 +646,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             WriteLine();
-            WriteLine("#region Picklist OptionSet OptionSets.");
+            WriteLine($"#region {Properties.CodeGenerationStrings.PicklistOptionSets}");
 
             if (this._config.GenerateLocalOptionSet)
             {
@@ -651,7 +674,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             WriteLine();
-            WriteLine("#endregion Picklist OptionSets.");
+            WriteLine($"#endregion {Properties.CodeGenerationStrings.PicklistOptionSets}");
 
             return first;
         }
@@ -670,14 +693,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 if (first) { first = false; } else { WriteLine(); }
 
-                WriteLine("#region State and Status OptionSets.");
+                WriteLine($"#region {Properties.CodeGenerationStrings.StateAndStatusOptionSets}");
 
                 await GenerateStateOptionSet(stateAttr, statusAttr);
 
                 await GenerateStatusOptionSet(statusAttr, stateAttr);
 
                 WriteLine();
-                WriteLine("#endregion State and Status OptionSets.");
+                WriteLine($"#endregion {Properties.CodeGenerationStrings.StateAndStatusOptionSets}");
             }
 
             return first;
@@ -1109,8 +1132,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
+            string regionName = string.Format(Properties.CodeGenerationStrings.OneToManyRelationshipsFormat2, className, relationTypeName);
+
             WriteLine();
-            WriteLine("#region Relationship {0} - {1}.", className, relationTypeName);
+            WriteLine("#region {0}", regionName);
 
             WriteLine();
             WriteLine("public static partial class {0}", className);
@@ -1273,7 +1298,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteLine("}");
 
             WriteLine();
-            WriteLine("#endregion Relationship {0} - {1}.", className, relationTypeName);
+            WriteLine("#endregion {0}", regionName);
         }
 
         private List<string> GetRelationshipMetadataOneToManyDescription(OneToManyRelationshipMetadata relationship)
@@ -1349,7 +1374,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             WriteLine();
-            WriteLine("#region Relationship ManyToMany - N:N.");
+            WriteLine($"#region {Properties.CodeGenerationStrings.ManyToManyRelationships}");
 
             WriteLine();
             WriteLine("public static partial class ManyToMany");
@@ -1514,7 +1539,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteLine("}");
 
             WriteLine();
-            WriteLine("#endregion Relationship ManyToMany - N:N.");
+            WriteLine($"#endregion {Properties.CodeGenerationStrings.ManyToManyRelationships}");
         }
 
         private List<string> GetRelationshipMetadataManyToManyDescription(ManyToManyRelationshipMetadata relationship)
@@ -1608,7 +1633,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             WriteLine();
-            WriteLine("#region EntityKeys.");
+            WriteLine($"#region {Properties.CodeGenerationStrings.EntityKeys}");
 
             WriteLine();
             WriteLine("public static partial class EntityKeys");
@@ -1666,7 +1691,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteLine("}");
 
             WriteLine();
-            WriteLine("#endregion EntityKeys.");
+            WriteLine($"#endregion {Properties.CodeGenerationStrings.EntityKeys}");
         }
 
         public static string CreateFileNameForSchema(ConnectionData connectionData, string entitySchemaName, bool withoutConnectionName)
