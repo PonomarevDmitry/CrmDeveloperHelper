@@ -588,6 +588,9 @@
   <data name="GettingEntitiesMetadata" xml:space="preserve">
     <value>Getting Entities Metadata...</value>
   </data>
+  <data name="GettingEntitiesMetadataFormat1" xml:space="preserve">
+    <value>Getting Entities {0} Metadata...</value>
+  </data>
   <data name="CheckingEntitiesMetadata" xml:space="preserve">
     <value>Checking Entities Metadata...</value>
   </data>

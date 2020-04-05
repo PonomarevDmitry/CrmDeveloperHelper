@@ -2779,6 +2779,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Getting Entities {0} Metadata....
+        /// </summary>
+        internal static string GettingEntitiesMetadataFormat1 {
+            get {
+                return ResourceManager.GetString("GettingEntitiesMetadataFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Getting Entity {0} completed..
         /// </summary>
         internal static string GettingEntityCompletedFormat1 {

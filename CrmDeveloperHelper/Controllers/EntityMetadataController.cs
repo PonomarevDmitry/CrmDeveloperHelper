@@ -265,7 +265,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             var descriptor = new SolutionComponentDescriptor(service);
-            descriptor.SetSettings(commonConfig);
 
             IMetadataProviderService metadataProviderService = new MetadataProviderService(new EntityMetadataRepository(service));
 
@@ -307,7 +306,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (tempSelectEntity)
                 {
-                    unhandledFiles.Add(filePath, selection);
+                    unhandledFiles.Add(selection, filePath);
                 }
             }
 
@@ -325,6 +324,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     }
                 }
 
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.GettingEntitiesMetadataFormat1, linkedEntities.Count);
+
                 metadataProviderService.RetrieveEntities(linkedEntities);
 
                 int totalCount = findedEntityMetadata.Count;
@@ -340,6 +341,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (unhandledFiles.Any())
             {
+                var tabSpacer = "    ";
+
+                FormatTextTableHandler tableUnhandledFiles = new FormatTextTableHandler();
+                tableUnhandledFiles.SetHeader("Entity Name", "FilePath");
+
+                foreach (var item in unhandledFiles)
+                {
+                    tableUnhandledFiles.AddLine(item.Item1, item.Item2);
+                }
+
+                _iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                _iWriteToOutput.WriteToOutput(connectionData, "NOT FINDED Entities: {0}", tableUnhandledFiles.Count);
+
+                tableUnhandledFiles.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
+
                 var tempService = await QuickConnection.ConnectAsync(connectionData);
 
                 if (tempService == null)
@@ -348,10 +364,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     return;
                 }
 
-                foreach (var item in unhandledFiles)
-                {
-                    WindowHelper.OpenEntityMetadataExplorer(this._iWriteToOutput, tempService, commonConfig, item.Item2, item.Item1, isJavaScript);
-                }
+                var firstUnhandledFile = unhandledFiles.OrderBy(i => i.Item1).FirstOrDefault();
+
+                WindowHelper.OpenEntityMetadataExplorer(this._iWriteToOutput, tempService, commonConfig, firstUnhandledFile.Item1, firstUnhandledFile.Item2, isJavaScript);
             }
         }
 
@@ -575,6 +590,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             int number = 0;
 
+            var unhandledFiles = new TupleList<string, string>();
+
             foreach (var selFile in selectedFiles)
             {
                 number++;
@@ -610,16 +627,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (tempWithSelect)
                 {
-                    var tempService = await QuickConnection.ConnectAsync(connectionData);
-
-                    if (tempService == null)
-                    {
-                        _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                        return;
-                    }
-
-                    WindowHelper.OpenGlobalOptionSetsExplorer(this._iWriteToOutput, tempService, commonConfig, selection, filePath, isJavaScript);
+                    unhandledFiles.Add(selection, filePath);
                 }
+            }
+
+            if (unhandledFiles.Any())
+            {
+                var tabSpacer = "    ";
+
+                FormatTextTableHandler tableUnhandledFiles = new FormatTextTableHandler();
+                tableUnhandledFiles.SetHeader("Global OptionSet Name", "FilePath");
+
+                foreach (var item in unhandledFiles)
+                {
+                    tableUnhandledFiles.AddLine(item.Item1, item.Item2);
+                }
+
+                _iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                _iWriteToOutput.WriteToOutput(connectionData, "NOT FINDED Global OptionSets: {0}", tableUnhandledFiles.Count);
+
+                tableUnhandledFiles.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
+
+
+                var tempService = await QuickConnection.ConnectAsync(connectionData);
+
+                if (tempService == null)
+                {
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                    return;
+                }
+
+                var firstUnhandledFile = unhandledFiles.OrderBy(i => i.Item1).First();
+
+                WindowHelper.OpenGlobalOptionSetsExplorer(this._iWriteToOutput, tempService, commonConfig, firstUnhandledFile.Item1, firstUnhandledFile.Item2, isJavaScript);
             }
         }
 
