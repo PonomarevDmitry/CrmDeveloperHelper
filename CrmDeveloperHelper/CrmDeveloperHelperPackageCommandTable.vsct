@@ -11590,7 +11590,7 @@
     <CommandPlacement guid="guidCommandSet" id="CodeXmlSystemFormExplorerCommandId" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSystemFormCurrent" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CodeXmlSystemFormShowDifferenceCommandId" priority="0x06020">
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlSystemFormGetCurrentCommandId" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSystemFormCurrent" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSystemFormCurrent_MenuGetCurrentDyn" priority="0x06030">
