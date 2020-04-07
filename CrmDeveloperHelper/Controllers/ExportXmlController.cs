@@ -1518,7 +1518,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 , commonConfig
                 , doc
                 , filePath
-                , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeFormId
+                , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWorkflowId
                 , ValidateAttributeWorkflowXaml
                 , validatorDocument
                 , GetWorkflowByAttribute
