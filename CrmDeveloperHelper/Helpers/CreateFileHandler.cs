@@ -626,40 +626,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (attrib is PicklistAttributeMetadata picklistAttrib)
             {
-                string managedStr = string.Empty;
-                string seeLink = string.Empty;
+                var optionSetDescription = GetOptionSetDescription(withManagedInfo, picklistAttrib.OptionSet);
+                AddStringIntoList(result, tabSpacer, optionSetDescription);
 
-                if (withManagedInfo)
-                {
-                    managedStr = " " + (picklistAttrib.OptionSet.IsManaged.GetValueOrDefault() ? "Managed" : "Unmanaged");
-                }
-
-                if (picklistAttrib.OptionSet.IsGlobal.GetValueOrDefault())
-                {
-                    if (!string.IsNullOrEmpty(globalOptionSetsNamespace))
-                    {
-                        globalOptionSetsNamespace += ".";
-                    }
-
-                    seeLink = string.Format("<see cref=\"{0}{1}\"/>", globalOptionSetsNamespace, picklistAttrib.OptionSet.Name);
-                }
-                else
-                {
-                    seeLink = string.Format("<see cref=\"OptionSets.{0}\"/>", picklistAttrib.LogicalName);
-                }
-
-                string temp = string.Format("{0} {1} {2} OptionSet {3}"
-                      , picklistAttrib.OptionSet.IsGlobal.GetValueOrDefault() ? "Global" : "Local"
-                      , picklistAttrib.OptionSet.IsCustomOptionSet.GetValueOrDefault() ? "Custom" : "System"
-                      , managedStr
-                      , picklistAttrib.OptionSet.Name
-                );
-
-                AddStringIntoList(result, tabSpacer, temp);
+                var seeLink = GetOptionSetSeeLink(globalOptionSetsNamespace, picklistAttrib.LogicalName, picklistAttrib.OptionSet);
                 AddStringIntoList(result, tabSpacer, seeLink);
 
                 string defaultFormValue = string.Format("DefaultFormValue = {0}", picklistAttrib.DefaultFormValue.HasValue ? picklistAttrib.DefaultFormValue.ToString() : "Null");
-
                 AddStringIntoList(result, tabSpacer, defaultFormValue);
 
                 if (!string.IsNullOrEmpty(picklistAttrib.FormulaDefinition))
@@ -687,24 +660,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (attrib is MultiSelectPicklistAttributeMetadata multiSelectPicklistAttrib)
             {
-                string managedStr = string.Empty;
+                var optionSetDescription = GetOptionSetDescription(withManagedInfo, multiSelectPicklistAttrib.OptionSet);
+                AddStringIntoList(result, tabSpacer, optionSetDescription);
 
-                if (withManagedInfo)
-                {
-                    managedStr = " " + (multiSelectPicklistAttrib.OptionSet.IsManaged.GetValueOrDefault() ? "Managed" : "Unmanaged");
-                }
-
-                string temp = string.Format("{0} {1} {2} OptionSet {3}"
-                      , multiSelectPicklistAttrib.OptionSet.IsGlobal.GetValueOrDefault() ? "Global" : "Local"
-                      , multiSelectPicklistAttrib.OptionSet.IsCustomOptionSet.GetValueOrDefault() ? "Custom" : "System"
-                      , managedStr
-                      , multiSelectPicklistAttrib.OptionSet.Name
-                );
-
-                AddStringIntoList(result, tabSpacer, temp);
+                var seeLink = GetOptionSetSeeLink(globalOptionSetsNamespace, multiSelectPicklistAttrib.LogicalName, multiSelectPicklistAttrib.OptionSet);
+                AddStringIntoList(result, tabSpacer, seeLink);
 
                 string defaultFormValue = string.Format("DefaultFormValue = {0}", multiSelectPicklistAttrib.DefaultFormValue.HasValue ? multiSelectPicklistAttrib.DefaultFormValue.ToString() : "Null");
-
                 AddStringIntoList(result, tabSpacer, defaultFormValue);
 
                 if (!string.IsNullOrEmpty(multiSelectPicklistAttrib.FormulaDefinition))
@@ -735,21 +697,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 string defaultFormValue = string.Format("DefaultFormValue = {0}", statusAttrib.DefaultFormValue.HasValue ? statusAttrib.DefaultFormValue.ToString() : "Null");
                 AddStringIntoList(result, tabSpacer, defaultFormValue);
 
-                string managedStr = string.Empty;
-                string seeLink = string.Format("<see cref=\"OptionSets.{0}\"/>", statusAttrib.LogicalName);
+                var optionSetDescription = GetOptionSetDescription(withManagedInfo, statusAttrib.OptionSet);
+                AddStringIntoList(result, tabSpacer, optionSetDescription);
 
-                if (withManagedInfo)
-                {
-                    managedStr = " " + (statusAttrib.OptionSet.IsManaged.GetValueOrDefault() ? "Managed" : "Unmanaged");
-                }
-
-                string temp = string.Format("Local {0} {1} OptionSet {2}"
-                      , statusAttrib.OptionSet.IsCustomOptionSet.GetValueOrDefault() ? "Custom" : "System"
-                      , managedStr
-                      , statusAttrib.OptionSet.Name
-                );
-
-                AddStringIntoList(result, tabSpacer, temp);
+                var seeLink = GetOptionSetSeeLink(globalOptionSetsNamespace, statusAttrib.LogicalName, statusAttrib.OptionSet);
                 AddStringIntoList(result, tabSpacer, seeLink);
             }
 
@@ -758,21 +709,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 string defaultFormValue = string.Format("DefaultFormValue = {0}", stateAttrib.DefaultFormValue.HasValue ? stateAttrib.DefaultFormValue.ToString() : "Null");
                 AddStringIntoList(result, tabSpacer, defaultFormValue);
 
-                string managedStr = string.Empty;
-                string seeLink = string.Format("<see cref=\"OptionSets.{0}\"/>", stateAttrib.LogicalName);
+                var optionSetDescription = GetOptionSetDescription(withManagedInfo, stateAttrib.OptionSet);
+                AddStringIntoList(result, tabSpacer, optionSetDescription);
 
-                if (withManagedInfo)
-                {
-                    managedStr = " " + (stateAttrib.OptionSet.IsManaged.GetValueOrDefault() ? "Managed" : "Unmanaged");
-                }
-
-                string temp = string.Format("Local {0} {1} OptionSet {2}"
-                      , stateAttrib.OptionSet.IsCustomOptionSet.GetValueOrDefault() ? "Custom" : "System"
-                      , managedStr
-                      , stateAttrib.OptionSet.Name
-                );
-
-                AddStringIntoList(result, tabSpacer, temp);
+                var seeLink = GetOptionSetSeeLink(globalOptionSetsNamespace, stateAttrib.LogicalName, stateAttrib.OptionSet);
                 AddStringIntoList(result, tabSpacer, seeLink);
             }
 
@@ -780,21 +720,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 if (entityNameAttrib.OptionSet != null)
                 {
-                    string managedStr = string.Empty;
+                    var optionSetDescription = GetOptionSetDescription(withManagedInfo, entityNameAttrib.OptionSet);
 
-                    if (withManagedInfo)
-                    {
-                        managedStr = " " + (entityNameAttrib.OptionSet.IsManaged.GetValueOrDefault() ? "Managed" : "Unmanaged");
-                    }
-
-                    string temp = string.Format("{0} {1} {2} OptionSet {3}"
-                        , entityNameAttrib.OptionSet.IsGlobal.GetValueOrDefault() ? "Global" : "Local"
-                        , entityNameAttrib.OptionSet.IsCustomOptionSet.GetValueOrDefault() ? "Custom" : "System"
-                        , managedStr
-                        , entityNameAttrib.OptionSet.Name
-                    );
-
-                    AddStringIntoList(result, tabSpacer, temp);
+                    AddStringIntoList(result, tabSpacer, optionSetDescription);
 
                     string defaultFormValue = string.Format("DefaultFormValue = {0}", entityNameAttrib.DefaultFormValue.HasValue ? entityNameAttrib.DefaultFormValue.ToString() : "Null");
 
@@ -923,6 +851,44 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             return result;
+        }
+
+        private static string GetOptionSetDescription(bool withManagedInfo, OptionSetMetadata optionSet)
+        {
+            string managedStr = string.Empty;
+
+            if (withManagedInfo)
+            {
+                managedStr = " " + (optionSet.IsManaged.GetValueOrDefault() ? "Managed" : "Unmanaged");
+            }
+
+            string result = string.Format("{0} {1} {2} OptionSet {3}"
+                , optionSet.IsGlobal.GetValueOrDefault() ? "Global" : "Local"
+                , optionSet.IsCustomOptionSet.GetValueOrDefault() ? "Custom" : "System"
+                , managedStr
+                , optionSet.Name
+            );
+
+            return result;
+        }
+
+        private static string GetOptionSetSeeLink(string globalOptionSetsNamespace, string attributeLogicalName, OptionSetMetadata optionSet)
+        {
+            if (optionSet.IsGlobal.GetValueOrDefault())
+            {
+                if (!string.IsNullOrEmpty(globalOptionSetsNamespace))
+                {
+                    return string.Format("<see cref=\"{0}.{1}\"/>", globalOptionSetsNamespace, optionSet.Name);
+                }
+                else
+                {
+                    return string.Format("<see cref=\"{0}\"/>", optionSet.Name);
+                }
+            }
+            else
+            {
+                return string.Format("<see cref=\"OptionSets.{0}\"/>", attributeLogicalName);
+            }
         }
 
         public static void FillLabelEntity(List<string> summary, bool alldescriptions, Label displayName, Label displayCollectionName, Label description, string tabSpacer = _defaultTabSpacer)
