@@ -805,7 +805,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                             CreateFileHandler.FillLabelDisplayNameAndDescription(lines, true, attribute.DisplayName, attribute.Description, tabSpacer);
 
-                            var attributeDescription = CreateFileHandler.GetAttributeDescription(attribute, true, this.WithManagedInfo, this._descriptor);
+                            var attributeDescription = CreateFileWithEntityMetadataCSharpHandler.GetAttributeDescription(attribute, true, this.WithManagedInfo, this._descriptor);
 
                             if (attributeDescription.Count > 0)
                             {

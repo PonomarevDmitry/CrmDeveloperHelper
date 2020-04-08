@@ -29,7 +29,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public ProxyClassAttributeEnumsGlobalOptionSetLocation GenerateAttributesEnumsGlobalUseSchemaEnum { get; private set; }
 
-        public bool GenerateStatus { get; private set; }
+        public bool GenerateStateStatusOptionSet { get; private set; }
 
         public bool GenerateLocalOptionSet { get; private set; }
 
@@ -99,7 +99,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 TypeConverterName = fileGenerationOptions.TypeConverterName,
 
                 GenerateAttributes = fileGenerationOptions.GenerateSchemaAttributes,
-                GenerateStatus = fileGenerationOptions.GenerateSchemaStatusOptionSet,
+                GenerateStateStatusOptionSet = fileGenerationOptions.GenerateSchemaStatusOptionSet,
                 GenerateLocalOptionSet = fileGenerationOptions.GenerateSchemaLocalOptionSet,
                 GenerateGlobalOptionSet = fileGenerationOptions.GenerateSchemaGlobalOptionSet,
                 GenerateOneToMany = fileGenerationOptions.GenerateSchemaOneToMany,
@@ -135,7 +135,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 GenerateAttributes = fileGenerationOptions.GenerateProxyClassesAttributes,
                 GenerateAttributesWithNameOf = fileGenerationOptions.GenerateProxyClassesAttributesWithNameOf,
-                GenerateStatus = fileGenerationOptions.GenerateProxyClassesStatusOptionSet,
+                GenerateStateStatusOptionSet = fileGenerationOptions.GenerateProxyClassesStatusOptionSet,
                 GenerateLocalOptionSet = fileGenerationOptions.GenerateProxyClassesLocalOptionSet,
                 GenerateGlobalOptionSet = fileGenerationOptions.GenerateProxyClassesGlobalOptionSet,
                 GenerateOneToMany = fileGenerationOptions.GenerateProxyClassesOneToMany,

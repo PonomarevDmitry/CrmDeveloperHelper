@@ -27,7 +27,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
                 || optionSetMetadata.OptionSetType == OptionSetType.Status
             )
             {
-                return _config.GenerateStatus;
+                return _config.GenerateStateStatusOptionSet;
             }
 
             if (optionSetMetadata.IsGlobal.GetValueOrDefault())

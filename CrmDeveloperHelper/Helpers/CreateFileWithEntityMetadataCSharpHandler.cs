@@ -34,8 +34,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private readonly IWriteToOutput _iWriteToOutput;
         private Task _taskDownloadMetadata;
-
         private readonly ICodeGenerationServiceProvider _iCodeGenerationServiceProvider;
+
+        private string _entityClassName;
 
         public CreateFileWithEntityMetadataCSharpHandler(
             TextWriter writer
@@ -112,9 +113,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 WriteSummaryEntity();
             }
 
-            var entityClassName = _iCodeGenerationServiceProvider.NamingService.GetNameForEntity(_entityMetadata);
+            this._entityClassName = _iCodeGenerationServiceProvider.NamingService.GetNameForEntity(_entityMetadata);
 
-            WriteLine("public partial class {0}", entityClassName);
+            WriteLine("public partial class {0}", _entityClassName);
             WriteLine("{");
 
             if (_config.GenerateSchemaIntoSchemaClass)
@@ -476,19 +477,43 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private void GenerateAttributeMetadata(AttributeMetadata attributeMetadata)
         {
-            List<string> footers = GetAttributeDescription(attributeMetadata, _config.AllDescriptions, _config.WithManagedInfo, this._solutionComponentDescriptor, _tabSpacer, _config.NamespaceGlobalOptionSets);
+            string attributeNameInSchemaAttributes = GetAttributeNameInSchemaAttributes(attributeMetadata);
+
+            string attributeNameInProxy = GetAttributeNameInProxy(attributeMetadata);
+
+            string proxyClassAttributeSeeLink = string.Empty;
+
+            bool attributeGeneratedInProxyClass = _iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateAttribute(attributeMetadata);
+
+            if (attributeGeneratedInProxyClass)
+            {
+                string proxyClassAttributeFullName = $"{_config.NamespaceClasses}.{_entityClassName}.{attributeNameInProxy}";
+                proxyClassAttributeSeeLink = string.Format("Proxy Class Attribute <see cref=\"{0}\"/>", proxyClassAttributeFullName);
+            }
+
+            string optionSetSeeLink = GetOptionSetSeeLink(_config.NamespaceGlobalOptionSets, attributeMetadata);
+
+
+
+            List<string> footers = GetAttributeDescription(
+                attributeMetadata
+                , _config.AllDescriptions
+                , _config.WithManagedInfo
+                , this._solutionComponentDescriptor
+                , _tabSpacer
+                , proxyClassAttributeSeeLink
+                , optionSetSeeLink
+            );
 
             footers.AddRange(GetAttributeMetadataDescription(attributeMetadata));
 
             WriteSummary(attributeMetadata.DisplayName, attributeMetadata.Description, null, footers);
 
-            var attributeName = GetAttributeName(attributeMetadata);
-
-            string str = string.Format("public {0} string {1} = \"{2}\";", _fieldHeader, attributeName, attributeMetadata.LogicalName);
+            string str = string.Format("public {0} string {1} = \"{2}\";", _fieldHeader, attributeNameInSchemaAttributes, attributeMetadata.LogicalName);
 
             bool ignore =
             !(
-                this._iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateAttribute(attributeMetadata)
+                attributeGeneratedInProxyClass
                 || attributeMetadata.IsValidForGrid.GetValueOrDefault()
                 || attributeMetadata.IsValidForForm.GetValueOrDefault()
                 || (attributeMetadata.IsValidForAdvancedFind?.Value).GetValueOrDefault()
@@ -560,7 +585,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private async Task WriteEnums()
         {
-            if (!this._config.GenerateStatus && !this._config.GenerateLocalOptionSet && !this._config.GenerateGlobalOptionSet)
+            if (!this._config.GenerateStateStatusOptionSet && !this._config.GenerateLocalOptionSet && !this._config.GenerateGlobalOptionSet)
             {
                 return;
             }
@@ -593,7 +618,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private bool HasOptionSets()
         {
-            if (_config.GenerateStatus)
+            if (_config.GenerateStateStatusOptionSet)
             {
                 var stateAttr = _entityMetadata.Attributes.OfType<StateAttributeMetadata>().FirstOrDefault();
                 var statusAttr = _entityMetadata.Attributes.OfType<StatusAttributeMetadata>().FirstOrDefault();
@@ -681,7 +706,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private async Task<bool> WriteStateStatusOptionSets(bool first)
         {
-            if (!this._config.GenerateStatus)
+            if (!this._config.GenerateStateStatusOptionSet)
             {
                 return first;
             }
@@ -710,9 +735,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             WriteLine();
 
-            var attributeName = GetAttributeName(statusAttr);
+            string attributeNameInSchemaAttributes = GetAttributeNameInSchemaAttributes(statusAttr);
 
-            var headers = new List<string> { string.Format("Attribute: {0}", stateAttr.LogicalName), string.Format("<see cref=\"Attributes.{0}\"/>", attributeName) };
+            var headers = new List<string>();
+
+            if (_config.GenerateAttributes)
+            {
+                headers.Add(string.Format("Attribute: {0}{1}<see cref=\"Attributes.{2}\"/>", stateAttr.LogicalName, _tabSpacer, attributeNameInSchemaAttributes));
+            }
+
             if (this._config.WithManagedInfo)
             {
                 headers.Add(string.Format("IsManaged: {0}", stateAttr.OptionSet.IsManaged));
@@ -808,9 +839,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             WriteLine();
 
-            var attributeName = GetAttributeName(statusAttr);
+            string attributeNameInSchemaAttributes = GetAttributeNameInSchemaAttributes(statusAttr);
 
-            var headers = new List<string> { string.Format("Attribute: {0}", statusAttr.LogicalName), string.Format("<see cref=\"Attributes.{0}\"/>", attributeName) };
+            var headers = new List<string>();
+
+            if (_config.GenerateAttributes)
+            {
+                headers.Add(string.Format("Attribute: {0}{1}<see cref=\"Attributes.{2}\"/>", statusAttr.LogicalName, _tabSpacer, attributeNameInSchemaAttributes));
+            }
+
             if (this._config.WithManagedInfo)
             {
                 headers.Add(string.Format("IsManaged: {0}", statusAttr.OptionSet.IsManaged));
@@ -903,9 +940,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteLine("}");
         }
 
-        private string GetAttributeName(AttributeMetadata attributeMetadata)
+        private string GetAttributeNameInSchemaAttributes(AttributeMetadata attributeMetadata)
         {
-            var attributeName = _iCodeGenerationServiceProvider.NamingService.GetNameForAttribute(_entityMetadata, attributeMetadata).ToLower();
+            return GetAttributeNameInProxy(attributeMetadata).ToLower();
+        }
+
+        private string GetAttributeNameInProxy(AttributeMetadata attributeMetadata)
+        {
+            var attributeName = _iCodeGenerationServiceProvider.NamingService.GetNameForAttribute(_entityMetadata, attributeMetadata);
 
             using (CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp"))
             {
@@ -925,18 +967,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 "Attribute:"
             };
 
-            foreach (var attr in attributeList.OrderBy(a => a.LogicalName))
+            if (_config.GenerateAttributes)
             {
-                lines.Add(_tabSpacer + attr.LogicalName);
-            }
+                foreach (var attr in attributeList.OrderBy(a => a.LogicalName))
+                {
+                    string attributeName = GetAttributeNameInSchemaAttributes(attr);
 
-            foreach (var attr in attributeList.OrderBy(a => a.LogicalName))
-            {
-                var attributeName = GetAttributeName(attr);
+                    var seeLink = string.Format("{0}<see cref=\"Attributes.{1}\"/>", _tabSpacer, attributeName);
 
-                var seeLink = string.Format("{0}<see cref=\"Attributes.{1}\"/>", _tabSpacer, attributeName);
-
-                lines.Add(seeLink);
+                    lines.Add(seeLink);
+                }
             }
 
             if (optionSet.IsGlobal.GetValueOrDefault())
@@ -1716,6 +1756,599 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             return fileName;
+        }
+
+        public static List<string> GetAttributeDescription(
+            AttributeMetadata attrib
+            , bool allDescription
+            , bool withManagedInfo
+            , SolutionComponentDescriptor descriptor
+            , string tabSpacer = _defaultTabSpacer
+            , string proxyClassAttributeSeeLink = null
+            , string optionSetSeeLink = null
+        )
+        {
+            List<string> result = new List<string>();
+
+            AddStringIntoList(result, tabSpacer, string.Format("SchemaName: {0}", attrib.SchemaName));
+
+            {
+                var list = new List<string>();
+
+                string attributeTypeName = string.Empty;
+                string attrType = string.Empty;
+                string requiredLevel = string.Empty;
+                string attributeOf = string.Empty;
+
+                if (attrib.AttributeType != null)
+                {
+                    attrType = string.Format("AttributeType: {0}", attrib.AttributeType);
+                }
+
+                if (attrib.AttributeTypeName != null && !string.IsNullOrEmpty(attrib.AttributeTypeName.Value))
+                {
+                    attributeTypeName = string.Format("AttributeTypeName: {0}", attrib.AttributeTypeName.Value);
+                }
+
+                if (attrib.RequiredLevel != null)
+                {
+                    requiredLevel = string.Format("RequiredLevel: {0}", attrib.RequiredLevel.Value);
+                }
+
+                if (!string.IsNullOrEmpty(attrib.AttributeOf))
+                {
+                    attributeOf = string.Format("AttributeOf '{0}'", attrib.AttributeOf);
+                }
+
+                string attributeType = attrib.GetType().Name;
+
+                list.AddRange(new[] { attributeType, attrType, attributeTypeName, requiredLevel, attributeOf });
+
+                if (withManagedInfo)
+                {
+                    string isManaged = string.Format("IsManaged {0}", attrib.IsManaged.ToString());
+
+                    list.Add(isManaged);
+                }
+
+                AddStringIntoList(result, tabSpacer, list);
+            }
+
+            if (!string.IsNullOrEmpty(proxyClassAttributeSeeLink))
+            {
+                AddStringIntoList(result, tabSpacer, proxyClassAttributeSeeLink);
+            }
+
+            {
+                var isValidForCreate = string.Format("IsValidForCreate: {0}", attrib.IsValidForCreate.GetValueOrDefault());
+                var isValidForRead = string.Format("IsValidForRead: {0}", attrib.IsValidForRead.GetValueOrDefault());
+                var isValidForUpdate = string.Format("IsValidForUpdate: {0}", attrib.IsValidForUpdate.GetValueOrDefault());
+
+                var isValidForAdvancedFind = string.Format("IsValidForAdvancedFind: {0}", attrib.IsValidForAdvancedFind.Value);
+
+                AddStringIntoList(result, tabSpacer, isValidForCreate, isValidForUpdate);
+                AddStringIntoList(result, tabSpacer, isValidForRead, isValidForAdvancedFind);
+            }
+
+            {
+                var isLogical = string.Format("IsLogical: {0}", attrib.IsLogical.GetValueOrDefault());
+                var isSecured = string.Format("IsSecured: {0}", attrib.IsSecured.GetValueOrDefault());
+                var isCustomAttribute = string.Format("IsCustomAttribute: {0}", attrib.IsCustomAttribute.GetValueOrDefault());
+                var sourceType = string.Empty;
+
+                if (attrib.SourceType == null)
+                {
+                    sourceType = "Simple";
+                }
+                else if (attrib.SourceType == 1)
+                {
+                    sourceType = "Calculated";
+                }
+                else if (attrib.SourceType == 2)
+                {
+                    sourceType = "Rollup";
+                }
+                else
+                {
+                    sourceType = attrib.SourceType.ToString();
+                }
+
+                sourceType = string.Format("SourceType: {0}", sourceType);
+
+                AddStringIntoList(result, tabSpacer, isLogical, isSecured, isCustomAttribute, sourceType);
+            }
+
+            if (attrib is MemoAttributeMetadata memoAttrib)
+            {
+                string maxLength = string.Format("MaxLength = {0}", memoAttrib.MaxLength.HasValue ? memoAttrib.MaxLength.ToString() : "Null");
+                string format = string.Format("Format = {0}", memoAttrib.Format.HasValue ? memoAttrib.Format.ToString() : "Null");
+                string imeMode = string.Format("ImeMode = {0}", memoAttrib.ImeMode.HasValue ? memoAttrib.ImeMode.ToString() : "Null");
+                string isLocalizable = string.Format("IsLocalizable = {0}", memoAttrib.IsLocalizable.HasValue ? memoAttrib.IsLocalizable.ToString() : "Null");
+
+                AddStringIntoList(result, tabSpacer, maxLength);
+                AddStringIntoList(result, tabSpacer, format, imeMode, isLocalizable);
+            }
+
+            if (attrib is StringAttributeMetadata stringAttrib)
+            {
+                string maxLength = string.Format("MaxLength = {0}", stringAttrib.MaxLength.HasValue ? stringAttrib.MaxLength.ToString() : "Null");
+                string format = string.Format("Format = {0}", stringAttrib.Format.HasValue ? stringAttrib.Format.ToString() : "Null");
+                string imeMode = string.Format("ImeMode = {0}", stringAttrib.ImeMode.HasValue ? stringAttrib.ImeMode.ToString() : "Null");
+                string isLocalizable = string.Format("IsLocalizable = {0}", stringAttrib.IsLocalizable.HasValue ? stringAttrib.IsLocalizable.ToString() : "Null");
+
+                string formulaDefinition = string.Empty;
+
+                if (!string.IsNullOrEmpty(stringAttrib.FormulaDefinition))
+                {
+                    formulaDefinition = "FormulaDefinition is not null";
+                }
+
+                AddStringIntoList(result, tabSpacer, maxLength);
+                AddStringIntoList(result, tabSpacer, format, imeMode, isLocalizable, formulaDefinition);
+            }
+
+            if (attrib is IntegerAttributeMetadata intAttrib)
+            {
+                string minValue = string.Format("MinValue = {0}", intAttrib.MinValue.HasValue ? intAttrib.MinValue.ToString() : "Null");
+                string maxValue = string.Format("MaxValue = {0}", intAttrib.MaxValue.HasValue ? intAttrib.MaxValue.ToString() : "Null");
+
+                string format = string.Format("Format = {0}", intAttrib.Format.HasValue ? intAttrib.Format.ToString() : "Null");
+
+                string formulaDefinition = string.Empty;
+
+                if (!string.IsNullOrEmpty(intAttrib.FormulaDefinition))
+                {
+                    formulaDefinition = "FormulaDefinition is not null";
+                }
+
+                AddStringIntoList(result, tabSpacer, minValue, maxValue);
+                AddStringIntoList(result, tabSpacer, format, formulaDefinition);
+            }
+
+            if (attrib is BigIntAttributeMetadata bigIntAttrib)
+            {
+                string minValue = string.Format("MinValue = {0}", bigIntAttrib.MinValue.HasValue ? bigIntAttrib.MinValue.ToString() : "Null");
+                string maxValue = string.Format("MaxValue = {0}", bigIntAttrib.MaxValue.HasValue ? bigIntAttrib.MaxValue.ToString() : "Null");
+
+                AddStringIntoList(result, tabSpacer, minValue, maxValue);
+            }
+
+            if (attrib is ImageAttributeMetadata imageAttrib)
+            {
+                string isPrimaryImage = string.Format("IsPrimaryImage = {0}", imageAttrib.IsPrimaryImage.HasValue ? imageAttrib.IsPrimaryImage.ToString() : "Null");
+                string maxHeight = string.Format("MaxHeight = {0}", imageAttrib.MaxHeight.HasValue ? imageAttrib.MaxHeight.ToString() : "Null");
+                string maxValue = string.Format("MaxWidth = {0}", imageAttrib.MaxWidth.HasValue ? imageAttrib.MaxWidth.ToString() : "Null");
+
+                AddStringIntoList(result, tabSpacer, isPrimaryImage, maxHeight, maxValue);
+            }
+
+            if (attrib is MoneyAttributeMetadata moneyAttrib)
+            {
+                string minValue = string.Format("MinValue = {0}", moneyAttrib.MinValue.HasValue ? moneyAttrib.MinValue.ToString() : "Null");
+                string maxValue = string.Format("MaxValue = {0}", moneyAttrib.MaxValue.HasValue ? moneyAttrib.MaxValue.ToString() : "Null");
+
+                string precision = string.Format("Precision = {0}", moneyAttrib.Precision.HasValue ? moneyAttrib.Precision.ToString() : "Null");
+                string precisionSource = string.Format("PrecisionSource = {0}", moneyAttrib.PrecisionSource.HasValue ? moneyAttrib.PrecisionSource.ToString() : "Null");
+
+                string isBaseCurrency = string.Format("IsBaseCurrency = {0}", moneyAttrib.IsBaseCurrency.HasValue ? moneyAttrib.IsBaseCurrency.ToString() : "Null");
+
+                string imeMode = string.Format("ImeMode = {0}", moneyAttrib.ImeMode.HasValue ? moneyAttrib.ImeMode.ToString() : "Null");
+
+                string formulaDefinition = string.Empty;
+                string calculationOf = string.Empty;
+
+                if (!string.IsNullOrEmpty(moneyAttrib.FormulaDefinition))
+                {
+                    formulaDefinition = "FormulaDefinition is not null";
+                }
+
+                if (!string.IsNullOrEmpty(moneyAttrib.CalculationOf))
+                {
+                    calculationOf = string.Format("CalculationOf = {0}", moneyAttrib.CalculationOf);
+                }
+
+                AddStringIntoList(result, tabSpacer, minValue, maxValue, precision, precisionSource);
+                AddStringIntoList(result, tabSpacer, isBaseCurrency);
+                AddStringIntoList(result, tabSpacer, imeMode, formulaDefinition, calculationOf);
+            }
+
+            if (attrib is DecimalAttributeMetadata decimalAttrib)
+            {
+                string minValue = string.Format("MinValue = {0}", decimalAttrib.MinValue.HasValue ? decimalAttrib.MinValue.ToString() : "Null");
+                string maxValue = string.Format("MaxValue = {0}", decimalAttrib.MaxValue.HasValue ? decimalAttrib.MaxValue.ToString() : "Null");
+
+                string precision = string.Format("Precision = {0}", decimalAttrib.Precision.HasValue ? decimalAttrib.Precision.ToString() : "Null");
+
+                string imeMode = string.Format("ImeMode = {0}", decimalAttrib.ImeMode.HasValue ? decimalAttrib.ImeMode.ToString() : "Null");
+
+                string formulaDefinition = string.Empty;
+
+                if (!string.IsNullOrEmpty(decimalAttrib.FormulaDefinition))
+                {
+                    formulaDefinition = "FormulaDefinition is not null";
+                }
+
+                AddStringIntoList(result, tabSpacer, minValue, maxValue, precision);
+                AddStringIntoList(result, tabSpacer, imeMode, formulaDefinition);
+            }
+
+            if (attrib is DoubleAttributeMetadata doubleAttrib)
+            {
+                string minValue = string.Format("MinValue = {0}", doubleAttrib.MinValue.HasValue ? doubleAttrib.MinValue.ToString() : "Null");
+                string maxValue = string.Format("MaxValue = {0}", doubleAttrib.MaxValue.HasValue ? doubleAttrib.MaxValue.ToString() : "Null");
+
+                string precision = string.Format("Precision = {0}", doubleAttrib.Precision.HasValue ? doubleAttrib.Precision.ToString() : "Null");
+
+                string imeMode = string.Format("ImeMode = {0}", doubleAttrib.ImeMode.HasValue ? doubleAttrib.ImeMode.ToString() : "Null");
+
+                AddStringIntoList(result, tabSpacer, minValue, maxValue, precision);
+                AddStringIntoList(result, tabSpacer, imeMode);
+            }
+
+            if (attrib is BooleanAttributeMetadata boolAttrib)
+            {
+                result.Add(string.Format("DefaultValue = {0}", boolAttrib.DefaultValue.HasValue ? boolAttrib.DefaultValue.ToString() : "Null"));
+
+                if (boolAttrib.OptionSet.FalseOption.Label != null || boolAttrib.OptionSet.FalseOption.Description != null)
+                {
+                    CreateFileHandler.FillLabelDisplayNameAndDescription(result, allDescription, boolAttrib.OptionSet.FalseOption.Label, boolAttrib.OptionSet.FalseOption.Description, tabSpacer);
+                    result.Add(string.Format("FalseOption = {0}", boolAttrib.OptionSet.FalseOption.Value.HasValue ? boolAttrib.OptionSet.FalseOption.Value.Value.ToString() : "Null"));
+                }
+
+                if (boolAttrib.OptionSet.TrueOption.Label != null || boolAttrib.OptionSet.TrueOption.Description != null)
+                {
+                    CreateFileHandler.FillLabelDisplayNameAndDescription(result, allDescription, boolAttrib.OptionSet.TrueOption.Label, boolAttrib.OptionSet.TrueOption.Description, tabSpacer);
+                    result.Add(string.Format("TrueOption = {0}", boolAttrib.OptionSet.TrueOption.Value.HasValue ? boolAttrib.OptionSet.TrueOption.Value.Value.ToString() : "Null"));
+                }
+
+                if (!string.IsNullOrEmpty(boolAttrib.FormulaDefinition))
+                {
+                    result.Add("FormulaDefinition is not null");
+                }
+            }
+
+            if (attrib is PicklistAttributeMetadata picklistAttrib)
+            {
+                var optionSetDescription = GetOptionSetDescription(withManagedInfo, picklistAttrib.OptionSet);
+                AddStringIntoList(result, tabSpacer, optionSetDescription);
+
+                if (!string.IsNullOrEmpty(optionSetSeeLink))
+                {
+                    AddStringIntoList(result, tabSpacer, optionSetSeeLink);
+                }
+
+                string defaultFormValue = string.Format("DefaultFormValue = {0}", picklistAttrib.DefaultFormValue.HasValue ? picklistAttrib.DefaultFormValue.ToString() : "Null");
+                AddStringIntoList(result, tabSpacer, defaultFormValue);
+
+                if (!string.IsNullOrEmpty(picklistAttrib.FormulaDefinition))
+                {
+                    AddStringIntoList(result, tabSpacer, "FormulaDefinition is not null");
+                }
+
+                if (picklistAttrib.OptionSet.IsGlobal.GetValueOrDefault())
+                {
+                    List<string> lineOptionSetDescription = new List<string>();
+
+                    FillLabelDisplayNameAndDescription(lineOptionSetDescription, allDescription, picklistAttrib.OptionSet.DisplayName, picklistAttrib.OptionSet.Description, tabSpacer);
+
+                    if (lineOptionSetDescription.Any())
+                    {
+                        if (result.Any())
+                        {
+                            result.Add(string.Empty);
+                        }
+
+                        lineOptionSetDescription.ForEach(s => result.Add(tabSpacer + tabSpacer + s));
+                    }
+                }
+            }
+
+            if (attrib is MultiSelectPicklistAttributeMetadata multiSelectPicklistAttrib)
+            {
+                var optionSetDescription = GetOptionSetDescription(withManagedInfo, multiSelectPicklistAttrib.OptionSet);
+                AddStringIntoList(result, tabSpacer, optionSetDescription);
+
+                if (!string.IsNullOrEmpty(optionSetSeeLink))
+                {
+                    AddStringIntoList(result, tabSpacer, optionSetSeeLink);
+                }
+
+                string defaultFormValue = string.Format("DefaultFormValue = {0}", multiSelectPicklistAttrib.DefaultFormValue.HasValue ? multiSelectPicklistAttrib.DefaultFormValue.ToString() : "Null");
+                AddStringIntoList(result, tabSpacer, defaultFormValue);
+
+                if (!string.IsNullOrEmpty(multiSelectPicklistAttrib.FormulaDefinition))
+                {
+                    AddStringIntoList(result, tabSpacer, "FormulaDefinition is not null");
+                }
+
+                if (multiSelectPicklistAttrib.OptionSet.IsGlobal.GetValueOrDefault())
+                {
+                    List<string> lineOptionSetDescription = new List<string>();
+
+                    FillLabelDisplayNameAndDescription(lineOptionSetDescription, allDescription, multiSelectPicklistAttrib.OptionSet.DisplayName, multiSelectPicklistAttrib.OptionSet.Description, tabSpacer);
+
+                    if (lineOptionSetDescription.Any())
+                    {
+                        if (result.Any())
+                        {
+                            result.Add(string.Empty);
+                        }
+
+                        lineOptionSetDescription.ForEach(s => result.Add(tabSpacer + tabSpacer + s));
+                    }
+                }
+            }
+
+            if (attrib is StatusAttributeMetadata statusAttrib)
+            {
+                string defaultFormValue = string.Format("DefaultFormValue = {0}", statusAttrib.DefaultFormValue.HasValue ? statusAttrib.DefaultFormValue.ToString() : "Null");
+                AddStringIntoList(result, tabSpacer, defaultFormValue);
+
+                var optionSetDescription = GetOptionSetDescription(withManagedInfo, statusAttrib.OptionSet);
+                AddStringIntoList(result, tabSpacer, optionSetDescription);
+
+                if (!string.IsNullOrEmpty(optionSetSeeLink))
+                {
+                    AddStringIntoList(result, tabSpacer, optionSetSeeLink);
+                }
+            }
+
+            if (attrib is StateAttributeMetadata stateAttrib)
+            {
+                string defaultFormValue = string.Format("DefaultFormValue = {0}", stateAttrib.DefaultFormValue.HasValue ? stateAttrib.DefaultFormValue.ToString() : "Null");
+                AddStringIntoList(result, tabSpacer, defaultFormValue);
+
+                var optionSetDescription = GetOptionSetDescription(withManagedInfo, stateAttrib.OptionSet);
+                AddStringIntoList(result, tabSpacer, optionSetDescription);
+
+                if (!string.IsNullOrEmpty(optionSetSeeLink))
+                {
+                    AddStringIntoList(result, tabSpacer, optionSetSeeLink);
+                }
+            }
+
+            if (attrib is EntityNameAttributeMetadata entityNameAttrib)
+            {
+                if (entityNameAttrib.OptionSet != null)
+                {
+                    var optionSetDescription = GetOptionSetDescription(withManagedInfo, entityNameAttrib.OptionSet);
+
+                    AddStringIntoList(result, tabSpacer, optionSetDescription);
+
+                    string defaultFormValue = string.Format("DefaultFormValue = {0}", entityNameAttrib.DefaultFormValue.HasValue ? entityNameAttrib.DefaultFormValue.ToString() : "Null");
+
+                    AddStringIntoList(result, tabSpacer, defaultFormValue);
+
+                    if (entityNameAttrib.OptionSet.IsGlobal.GetValueOrDefault())
+                    {
+                        List<string> lineOptionSetDescription = new List<string>();
+
+                        FillLabelDisplayNameAndDescription(lineOptionSetDescription, allDescription, entityNameAttrib.OptionSet.DisplayName, entityNameAttrib.OptionSet.Description, tabSpacer);
+
+                        if (lineOptionSetDescription.Any())
+                        {
+                            if (result.Any())
+                            {
+                                result.Add(string.Empty);
+                            }
+
+                            lineOptionSetDescription.ForEach(s => result.Add(tabSpacer + tabSpacer + s));
+                        }
+                    }
+                }
+            }
+
+            //{
+            //    var uniqueIdentifierAttrib = (attrib as UniqueIdentifierAttributeMetadata);
+            //    if (uniqueIdentifierAttrib != null)
+            //    {
+
+            //    }
+            //}
+
+            if (attrib is ManagedPropertyAttributeMetadata managedAttrib)
+            {
+                string managedPropertyLogicalName = string.Format("ManagedPropertyLogicalName = {0}", managedAttrib.ManagedPropertyLogicalName);
+                string valueAttributeTypeCode = string.Format("ValueAttributeTypeCode = {0}", managedAttrib.ValueAttributeTypeCode);
+
+                string parentAttributeName = string.Empty;
+                string parentComponentType = string.Empty;
+                string parentComponentTypeName = string.Empty;
+
+                if (!string.IsNullOrEmpty(managedAttrib.ParentAttributeName))
+                {
+                    parentAttributeName = string.Format("ParentAttributeName = {0}", managedAttrib.ParentAttributeName);
+                }
+
+                if (managedAttrib.ParentComponentType.HasValue && managedAttrib.ParentComponentType != ManagedPropertyAttributeMetadata.EmptyParentComponentType)
+                {
+                    parentComponentType = string.Format("ParentComponentType = {0}", managedAttrib.ParentComponentType.ToString());
+                    parentComponentTypeName = string.Format("ParentComponentTypeName = {0}", SolutionComponent.GetComponentTypeName(managedAttrib.ParentComponentType.GetValueOrDefault()));
+                }
+
+                AddStringIntoList(result, tabSpacer, managedPropertyLogicalName, valueAttributeTypeCode);
+                AddStringIntoList(result, tabSpacer, parentAttributeName, parentComponentType, parentComponentTypeName);
+            }
+
+            if (attrib is LookupAttributeMetadata lookupAttrib)
+            {
+                if (lookupAttrib.Targets != null && lookupAttrib.Targets.Length > 0)
+                {
+                    string targets = string.Format("Targets: {0}", string.Join(",", lookupAttrib.Targets.OrderBy(s => s)));
+                    AddStringIntoList(result, tabSpacer, targets);
+
+                    if (lookupAttrib.Targets.Length <= 6)
+                    {
+                        foreach (var target in lookupAttrib.Targets)
+                        {
+                            var entityMetadata = descriptor.MetadataSource.GetEntityMetadata(target, new[] { "LogicalName", "DisplayName", "DisplayCollectionName", "Description", "PrimaryIdAttribute", "PrimaryNameAttribute" });
+
+                            if (entityMetadata != null)
+                            {
+                                List<string> lineEntityDescription = new List<string>();
+
+                                FillLabelEntity(lineEntityDescription, allDescription, entityMetadata.DisplayName, entityMetadata.DisplayCollectionName, entityMetadata.Description);
+
+                                if (lineEntityDescription.Any())
+                                {
+                                    if (result.Any())
+                                    {
+                                        result.Add(string.Empty);
+                                    }
+
+                                    result.Add(tabSpacer
+                                        + string.Format("Target {0}", target)
+                                        + tabSpacer
+                                        + string.Format("PrimaryIdAttribute {0}", entityMetadata.PrimaryIdAttribute)
+                                        + (!string.IsNullOrEmpty(entityMetadata.PrimaryNameAttribute) ? tabSpacer + string.Format("PrimaryNameAttribute {0}", entityMetadata.PrimaryNameAttribute) : string.Empty)
+                                    );
+
+                                    lineEntityDescription.ForEach(s => result.Add(tabSpacer + tabSpacer + s));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (attrib is DateTimeAttributeMetadata dateTimeAttrib)
+            {
+                string dateTimeBehavior = string.Empty;
+                string canChangeDateTimeBehavior = string.Empty;
+
+                if (dateTimeAttrib.DateTimeBehavior != null)
+                {
+                    dateTimeBehavior = string.Format("DateTimeBehavior = {0}", dateTimeAttrib.DateTimeBehavior.Value);
+                }
+
+                if (dateTimeAttrib.CanChangeDateTimeBehavior != null)
+                {
+                    canChangeDateTimeBehavior = string.Format("CanChangeDateTimeBehavior = {0}", dateTimeAttrib.CanChangeDateTimeBehavior.Value);
+                }
+
+                string format = string.Format("Format = {0}", dateTimeAttrib.Format.HasValue ? dateTimeAttrib.Format.ToString() : "Null");
+                string imeMode = string.Format("ImeMode = {0}", dateTimeAttrib.ImeMode.HasValue ? dateTimeAttrib.ImeMode.ToString() : "Null");
+
+                string formulaDefinition = string.Empty;
+
+                if (!string.IsNullOrEmpty(dateTimeAttrib.FormulaDefinition))
+                {
+                    formulaDefinition = "FormulaDefinition is not null";
+                }
+
+                AddStringIntoList(result, tabSpacer, dateTimeBehavior, canChangeDateTimeBehavior);
+
+                AddStringIntoList(result, tabSpacer, imeMode, format, formulaDefinition);
+            }
+
+            return result;
+        }
+
+        private static string GetOptionSetDescription(bool withManagedInfo, OptionSetMetadata optionSet)
+        {
+            string managedStr = string.Empty;
+
+            if (withManagedInfo)
+            {
+                managedStr = " " + (optionSet.IsManaged.GetValueOrDefault() ? "Managed" : "Unmanaged");
+            }
+
+            string result = string.Format("{0} {1} {2} OptionSet {3}"
+                , optionSet.IsGlobal.GetValueOrDefault() ? "Global" : "Local"
+                , optionSet.IsCustomOptionSet.GetValueOrDefault() ? "Custom" : "System"
+                , managedStr
+                , optionSet.Name
+            );
+
+            return result;
+        }
+
+        private string GetOptionSetSeeLink(string namespaceGlobalOptionSets, AttributeMetadata attributeMetadata)
+        {
+            string optionSetSeeLink = string.Empty;
+
+            if (attributeMetadata is StateAttributeMetadata stateAttributeMetadata)
+            {
+                if (_config.GenerateStateStatusOptionSet)
+                {
+                    optionSetSeeLink = GetOptionSetSeeLink(stateAttributeMetadata.OptionSet.IsGlobal.GetValueOrDefault(), $"OptionSets.{stateAttributeMetadata.LogicalName}");
+                }
+            }
+            else if (attributeMetadata is StatusAttributeMetadata statusAttributeMetadata)
+            {
+                if (_config.GenerateStateStatusOptionSet)
+                {
+                    optionSetSeeLink = GetOptionSetSeeLink(statusAttributeMetadata.OptionSet.IsGlobal.GetValueOrDefault(), $"OptionSets.{statusAttributeMetadata.LogicalName}");
+                }
+            }
+            else if ((attributeMetadata is PicklistAttributeMetadata || attributeMetadata is MultiSelectPicklistAttributeMetadata)
+                && attributeMetadata is EnumAttributeMetadata enumAttributeMetadata
+            )
+            {
+                if (enumAttributeMetadata.OptionSet.IsGlobal.GetValueOrDefault())
+                {
+                    if (_config.GenerateGlobalOptionSet)
+                    {
+                        optionSetSeeLink = GetOptionSetSeeLink(enumAttributeMetadata.OptionSet.IsGlobal.GetValueOrDefault(), $"OptionSets.{enumAttributeMetadata.OptionSet.Name}");
+                    }
+                    else
+                    {
+                        string optionSetClassName = string.Empty;
+
+                        if (!string.IsNullOrEmpty(_config.NamespaceGlobalOptionSets))
+                        {
+                            optionSetClassName = $"{_config.NamespaceGlobalOptionSets}.{enumAttributeMetadata.OptionSet.Name}";
+                        }
+                        else
+                        {
+                            optionSetClassName = enumAttributeMetadata.OptionSet.Name;
+                        }
+
+                        optionSetSeeLink = GetOptionSetSeeLink(enumAttributeMetadata.OptionSet.IsGlobal.GetValueOrDefault(), optionSetClassName);
+                    }
+                }
+                else
+                {
+                    if (_config.GenerateLocalOptionSet)
+                    {
+                        optionSetSeeLink = GetOptionSetSeeLink(enumAttributeMetadata.OptionSet.IsGlobal.GetValueOrDefault(), $"OptionSets.{enumAttributeMetadata.LogicalName}");
+                    }
+                }
+            }
+
+            return optionSetSeeLink;
+        }
+
+        private static string GetOptionSetSeeLink(bool isGlobal, string optionSetClassName)
+        {
+            if (isGlobal)
+            {
+                return string.Format("Global OptionSet <see cref=\"{0}\"/>", optionSetClassName);
+            }
+            else
+            {
+                return string.Format("Local OptionSet <see cref=\"{0}\"/>", optionSetClassName);
+            }
+        }
+
+        private static void AddStringIntoList(List<string> result, string separator, params string[] lines)
+        {
+            var filtered = lines.Where(s => !string.IsNullOrEmpty(s));
+
+            if (filtered.Any())
+            {
+                result.Add(string.Join(separator, filtered));
+            }
+        }
+
+        private static void AddStringIntoList(List<string> result, string separator, IEnumerable<string> lines)
+        {
+            var filtered = lines.Where(s => !string.IsNullOrEmpty(s));
+
+            if (filtered.Any())
+            {
+                result.Add(string.Join(separator, filtered));
+            }
         }
     }
 }
