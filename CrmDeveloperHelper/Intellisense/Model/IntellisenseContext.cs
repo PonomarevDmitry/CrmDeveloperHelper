@@ -4,7 +4,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 {
     public static class IntellisenseContext
     {
-        public const string NameIntellisenseContextName = "intellisenseContext";
+        public const string IntellisenseContextNamespacePrefix = "intellisenseContext";
 
         public const string NameIntellisenseContextAttributeEntityName = "entityName";
 
@@ -26,5 +26,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
         public static readonly XName IntellisenseContextAttributeWorkflowId = IntellisenseContextNamespace + NameIntellisenseContextAttributeWorkflowId;
 
         public static readonly XNamespace NamespaceXMLSchemaInstance = "http://www.w3.org/2001/XMLSchema-instance";
+
+        public const string NamespaceXMLSchemaInstancePrefix = "xsi";
+
+        public const string NameXMLSchemaInstanceAttributeSchemaLocation = "schemaLocation";
+
+        public static readonly XName XMLSchemaInstanceAttributeSchemaLocation = NamespaceXMLSchemaInstance + NameXMLSchemaInstanceAttributeSchemaLocation;
     }
 }

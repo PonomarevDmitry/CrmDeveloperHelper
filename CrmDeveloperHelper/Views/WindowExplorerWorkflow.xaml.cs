@@ -793,7 +793,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     if (ContentComparerHelper.TryParseXml(newText, out var doc))
                     {
-                        ContentComparerHelper.ClearRootWorkflow(doc);
+                        ContentComparerHelper.ClearRoot(doc);
 
                         newText = doc.ToString(SaveOptions.DisableFormatting);
                     }

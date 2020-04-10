@@ -1,28 +1,15 @@
-﻿using EnvDTE;
-using Microsoft.VisualStudio.ComponentModelHost;
-using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
-using Microsoft.VisualStudio.Text.Editor;
-using Microsoft.VisualStudio.Text.Operations;
-using Microsoft.VisualStudio.TextManager.Interop;
-using Microsoft.Xrm.Sdk;
+﻿using Microsoft.VisualStudio.Text.Editor;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Commands;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Windows;
-using System.Windows.Resources;
 using System.Xml;
 using System.Xml.Linq;
-using System.Xml.Serialization;
 using System.Xml.XPath;
-using Ude;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
@@ -683,36 +670,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private static readonly string patternValue = $"(?<{groupNameValue}>.*?)";
         private static readonly string patternQuoteBackRefference = $"(?:\\k<{groupNameQuote}>)";
 
-        private const string replaceXsiNamespaceFormat3 = " xmlns:xsi={0}{1}{2}";
+        private const string replaceXsiNamespaceFormat3 = " xmlns:" + Intellisense.Model.IntellisenseContext.NamespaceXMLSchemaInstancePrefix + "={0}{1}{2}";
         private static readonly string patternXsi = string.Format(replaceXsiNamespaceFormat3, patternQuote, patternValue, patternQuoteBackRefference);
 
-        private const string replaceSchemaLocationFormat3 = " xsi:schemaLocation={0}{1}{2}";
-        private static readonly string patternSchemaLocation = string.Format(replaceSchemaLocationFormat3, patternQuote, patternValue, patternQuoteBackRefference);
+        private const string replaceXsiSchemaLocationFormat3 = " " + Intellisense.Model.IntellisenseContext.NamespaceXMLSchemaInstancePrefix + ":" + Intellisense.Model.IntellisenseContext.NameXMLSchemaInstanceAttributeSchemaLocation + "={0}{1}{2}";
+        private static readonly string patternXsiSchemaLocation = string.Format(replaceXsiSchemaLocationFormat3, patternQuote, patternValue, patternQuoteBackRefference);
 
-        private const string replaceIntellisenseContextNamespaceFormat3 = " xmlns:" + Intellisense.Model.IntellisenseContext.NameIntellisenseContextName + "={0}{1}{2}";
+        private static readonly string patternXsiAnyAttribute = " " + Intellisense.Model.IntellisenseContext.NamespaceXMLSchemaInstancePrefix + ":([^\"']*)=" + patternQuote + patternValue + patternQuoteBackRefference;
+
+        private const string replaceIntellisenseContextNamespaceFormat3 = " xmlns:" + Intellisense.Model.IntellisenseContext.IntellisenseContextNamespacePrefix + "={0}{1}{2}";
         private static readonly string patternIntellisenseContext = string.Format(replaceIntellisenseContextNamespaceFormat3, patternQuote, patternValue, patternQuoteBackRefference);
 
-        private static readonly string patternIntellisenseContextAttributes = " " + Intellisense.Model.IntellisenseContext.NameIntellisenseContextName + ":([^\"']*)=" + patternQuote + patternValue + patternQuoteBackRefference;
+        private static readonly string patternIntellisenseContextAttributes = " " + Intellisense.Model.IntellisenseContext.IntellisenseContextNamespacePrefix + ":([^\"']*)=" + patternQuote + patternValue + patternQuoteBackRefference;
 
-        private const string replaceIntellisenseContextEntityNameFormat3 = " " + Intellisense.Model.IntellisenseContext.NameIntellisenseContextName + ":" + Intellisense.Model.IntellisenseContext.NameIntellisenseContextAttributeEntityName + "={0}{1}{2}";
+        private const string replaceIntellisenseContextEntityNameFormat3 = " " + Intellisense.Model.IntellisenseContext.IntellisenseContextNamespacePrefix + ":" + Intellisense.Model.IntellisenseContext.NameIntellisenseContextAttributeEntityName + "={0}{1}{2}";
         private static readonly string patternIntellisenseContextEntityName = string.Format(replaceIntellisenseContextEntityNameFormat3, patternQuote, patternValue, patternQuoteBackRefference);
 
-        private const string replaceIntellisenseContextSavedQueryIdFormat3 = " " + Intellisense.Model.IntellisenseContext.NameIntellisenseContextName + ":" + Intellisense.Model.IntellisenseContext.NameIntellisenseContextAttributeSavedQueryId + "={0}{1}{2}";
+        private const string replaceIntellisenseContextSavedQueryIdFormat3 = " " + Intellisense.Model.IntellisenseContext.IntellisenseContextNamespacePrefix + ":" + Intellisense.Model.IntellisenseContext.NameIntellisenseContextAttributeSavedQueryId + "={0}{1}{2}";
         private static readonly string patternIntellisenseContextSavedQueryId = string.Format(replaceIntellisenseContextSavedQueryIdFormat3, patternQuote, patternValue, patternQuoteBackRefference);
 
-        private const string replaceIntellisenseContextFormIdFormat3 = " " + Intellisense.Model.IntellisenseContext.NameIntellisenseContextName + ":" + Intellisense.Model.IntellisenseContext.NameIntellisenseContextAttributeFormId + "={0}{1}{2}";
+        private const string replaceIntellisenseContextFormIdFormat3 = " " + Intellisense.Model.IntellisenseContext.IntellisenseContextNamespacePrefix + ":" + Intellisense.Model.IntellisenseContext.NameIntellisenseContextAttributeFormId + "={0}{1}{2}";
         private static readonly string patternIntellisenseContextFormId = string.Format(replaceIntellisenseContextFormIdFormat3, patternQuote, patternValue, patternQuoteBackRefference);
 
-        private const string replaceIntellisenseContextCustomControlIdFormat3 = " " + Intellisense.Model.IntellisenseContext.NameIntellisenseContextName + ":" + Intellisense.Model.IntellisenseContext.NameIntellisenseContextAttributeCustomControlId + "={0}{1}{2}";
+        private const string replaceIntellisenseContextCustomControlIdFormat3 = " " + Intellisense.Model.IntellisenseContext.IntellisenseContextNamespacePrefix + ":" + Intellisense.Model.IntellisenseContext.NameIntellisenseContextAttributeCustomControlId + "={0}{1}{2}";
         private static readonly string patternIntellisenseContextCustomControlId = string.Format(replaceIntellisenseContextCustomControlIdFormat3, patternQuote, patternValue, patternQuoteBackRefference);
 
-        private const string replaceIntellisenseContextWebResourceNameFormat3 = " " + Intellisense.Model.IntellisenseContext.NameIntellisenseContextName + ":" + Intellisense.Model.IntellisenseContext.NameIntellisenseContextAttributeWebResourceName + "={0}{1}{2}";
+        private const string replaceIntellisenseContextWebResourceNameFormat3 = " " + Intellisense.Model.IntellisenseContext.IntellisenseContextNamespacePrefix + ":" + Intellisense.Model.IntellisenseContext.NameIntellisenseContextAttributeWebResourceName + "={0}{1}{2}";
         private static readonly string patternIntellisenseContextWebResourceName = string.Format(replaceIntellisenseContextWebResourceNameFormat3, patternQuote, patternValue, patternQuoteBackRefference);
 
-        private const string replaceIntellisenseContextSiteMapNameUniqueFormat3 = " " + Intellisense.Model.IntellisenseContext.NameIntellisenseContextName + ":" + Intellisense.Model.IntellisenseContext.NameIntellisenseContextAttributeSiteMapNameUnique + "={0}{1}{2}";
+        private const string replaceIntellisenseContextSiteMapNameUniqueFormat3 = " " + Intellisense.Model.IntellisenseContext.IntellisenseContextNamespacePrefix + ":" + Intellisense.Model.IntellisenseContext.NameIntellisenseContextAttributeSiteMapNameUnique + "={0}{1}{2}";
         private static readonly string patternIntellisenseContextSiteMapNameUnique = string.Format(replaceIntellisenseContextSiteMapNameUniqueFormat3, patternQuote, patternValue, patternQuoteBackRefference);
 
-        private const string replaceIntellisenseContextWorkflowIdFormat3 = " " + Intellisense.Model.IntellisenseContext.NameIntellisenseContextName + ":" + Intellisense.Model.IntellisenseContext.NameIntellisenseContextAttributeWorkflowId + "={0}{1}{2}";
+        private const string replaceIntellisenseContextWorkflowIdFormat3 = " " + Intellisense.Model.IntellisenseContext.IntellisenseContextNamespacePrefix + ":" + Intellisense.Model.IntellisenseContext.NameIntellisenseContextAttributeWorkflowId + "={0}{1}{2}";
         private static readonly string patternIntellisenseContextWorkflowId = string.Format(replaceIntellisenseContextWorkflowIdFormat3, patternQuote, patternValue, patternQuoteBackRefference);
 
         private static string SetXsdSchema(string text, string[] fileNamesColl)
@@ -733,7 +722,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             result = ReplaceOrInsertAttribute(result, patternXsi, replaceXsiNamespaceFormat3, Intellisense.Model.IntellisenseContext.NamespaceXMLSchemaInstance.NamespaceName);
 
-            result = ReplaceOrInsertAttribute(result, patternSchemaLocation, replaceSchemaLocationFormat3, schemas);
+            result = ReplaceOrInsertAttribute(result, patternXsiSchemaLocation, replaceXsiSchemaLocationFormat3, schemas);
 
             return result;
         }
@@ -791,29 +780,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public static string RemoveAllCustomXmlAttributesAndNamespaces(string text)
         {
-            string changeText = text;
+            string result = text;
 
-            if (Regex.IsMatch(changeText, patternXsi))
+            if (Regex.IsMatch(result, patternIntellisenseContext))
             {
-                changeText = Regex.Replace(changeText, patternXsi, string.Empty, RegexOptions.IgnoreCase);
+                result = Regex.Replace(result, patternIntellisenseContext, string.Empty, RegexOptions.IgnoreCase);
             }
 
-            if (Regex.IsMatch(changeText, patternSchemaLocation))
+            if (Regex.IsMatch(result, patternIntellisenseContextAttributes))
             {
-                changeText = Regex.Replace(changeText, patternSchemaLocation, string.Empty, RegexOptions.IgnoreCase);
+                result = Regex.Replace(result, patternIntellisenseContextAttributes, string.Empty, RegexOptions.IgnoreCase);
             }
 
-            if (Regex.IsMatch(changeText, patternIntellisenseContext))
+            result = RemoveInTextSchemaLocationAndXsiNamespace(result);
+
+            return result;
+        }
+
+        private static string RemoveInTextSchemaLocationAndXsiNamespace(string text)
+        {
+            if (Regex.IsMatch(text, patternXsiSchemaLocation))
             {
-                changeText = Regex.Replace(changeText, patternIntellisenseContext, string.Empty, RegexOptions.IgnoreCase);
+                text = Regex.Replace(text, patternXsiSchemaLocation, string.Empty, RegexOptions.IgnoreCase);
             }
 
-            if (Regex.IsMatch(changeText, patternIntellisenseContextAttributes))
+            if (Regex.IsMatch(text, patternXsi))
             {
-                changeText = Regex.Replace(changeText, patternIntellisenseContextAttributes, string.Empty, RegexOptions.IgnoreCase);
+                if (!Regex.IsMatch(text, patternXsiAnyAttribute))
+                {
+                    text = Regex.Replace(text, patternXsi, string.Empty, RegexOptions.IgnoreCase);
+                }
             }
 
-            return changeText;
+            return text;
         }
 
         private static int? FindIndexToInsert(string result)
@@ -877,40 +876,50 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public static void ClearRoot(XDocument doc)
         {
-            var attributesToRemove = doc.Root
-                .Attributes()
-                .Where(a => a.IsNamespaceDeclaration
-                    || a.Name.Namespace == Intellisense.Model.IntellisenseContext.IntellisenseContextNamespace
-                    || a.Name.Namespace == Intellisense.Model.IntellisenseContext.NamespaceXMLSchemaInstance
-                    || a.Name.Namespace == XNamespace.Xmlns
-                )
-                .ToList();
+            ClearRoot(doc.Root);
+        }
 
-            foreach (var item in attributesToRemove)
+        public static void ClearRoot(XElement doc)
+        {
+            var attributesAll = doc.Attributes().ToList();
+
+            foreach (var attribute in attributesAll)
             {
-                item.Remove();
+                if (attribute.IsNamespaceDeclaration)
+                {
+                    if (string.Equals(attribute.Value, Intellisense.Model.IntellisenseContext.IntellisenseContextNamespace.NamespaceName, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        attribute.Remove();
+                    }
+                }
+                else if (attribute.Name.Namespace == Intellisense.Model.IntellisenseContext.IntellisenseContextNamespace)
+                {
+                    attribute.Remove();
+                }
+                else if (attribute.Name == Intellisense.Model.IntellisenseContext.XMLSchemaInstanceAttributeSchemaLocation)
+                {
+                    attribute.Remove();
+                }
             }
-        }
 
-        public static void ClearRootWorkflow(XDocument doc)
-        {
-            ClearRootWorkflow(doc.Root);
-        }
+            attributesAll = doc.Attributes().ToList();
 
-        public static void ClearRootWorkflow(XElement doc)
-        {
-            var attributesToRemove = doc
-                .Attributes()
-                .Where(a =>
-                    a.Name.Namespace == Intellisense.Model.IntellisenseContext.IntellisenseContextNamespace
-                    || a.Name.Namespace == Intellisense.Model.IntellisenseContext.NamespaceXMLSchemaInstance
-                    || (a.Name.Namespace == XNamespace.Xmlns && a.Name.LocalName == Intellisense.Model.IntellisenseContext.NamespaceXMLSchemaInstance.NamespaceName)
-                )
-                .ToList();
-
-            foreach (var item in attributesToRemove)
+            if (!attributesAll.Any(a => a.Name.Namespace == Intellisense.Model.IntellisenseContext.NamespaceXMLSchemaInstance))
             {
-                item.Remove();
+                foreach (var attribute in attributesAll)
+                {
+                    if (attribute.IsNamespaceDeclaration)
+                    {
+                        if (string.Equals(attribute.Value, Intellisense.Model.IntellisenseContext.NamespaceXMLSchemaInstance.NamespaceName, StringComparison.InvariantCultureIgnoreCase)
+                            && attribute.Name.Namespace == XNamespace.Xmlns
+                            && attribute.Name.LocalName == Intellisense.Model.IntellisenseContext.NamespaceXMLSchemaInstancePrefix
+                        )
+                        {
+                            attribute.Remove();
+                            break;
+                        }
+                    }
+                }
             }
         }
 
@@ -923,15 +932,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string text = File.ReadAllText(filePath);
 
-            if (Regex.IsMatch(text, patternXsi))
-            {
-                text = Regex.Replace(text, patternXsi, string.Empty, RegexOptions.IgnoreCase);
-            }
-
-            if (Regex.IsMatch(text, patternSchemaLocation))
-            {
-                text = Regex.Replace(text, patternSchemaLocation, string.Empty, RegexOptions.IgnoreCase);
-            }
+            text = RemoveInTextSchemaLocationAndXsiNamespace(text);
 
             File.WriteAllText(filePath, text, new UTF8Encoding(false));
         }
@@ -948,6 +949,233 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             text = SetXsdSchema(text, fileNamesColl);
 
             File.WriteAllText(filePath, text, new UTF8Encoding(false));
+        }
+
+        private static void RemoveXsdSchemaInTextView(IWpfTextView wpfTextView, int oldCaretLine, int oldCaretColumn)
+        {
+            var snapshot = wpfTextView.TextSnapshot;
+
+            try
+            {
+                using (var edit = snapshot.TextBuffer.CreateEdit())
+                {
+                    var hasModifed = false;
+
+                    string text = snapshot.GetText();
+
+                    {
+                        var match = Regex.Match(text, patternXsi);
+                        if (match.Success)
+                        {
+                            hasModifed = true;
+                            edit.Delete(match.Index, match.Length);
+                        }
+                    }
+
+                    {
+                        var match = Regex.Match(text, patternXsiSchemaLocation);
+                        if (match.Success)
+                        {
+                            hasModifed = true;
+                            edit.Delete(match.Index, match.Length);
+                        }
+                    }
+
+                    if (hasModifed)
+                    {
+                        edit.Apply();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.WriteExceptionToOutput(null, ex);
+            }
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Microsoft.VisualStudio.Text.ITextEdit.Insert(System.Int32,System.String)")]
+        private static void ReplaceXsdSchemaInTextView(IWpfTextView wpfTextView, string schemas)
+        {
+            var snapshot = wpfTextView.TextSnapshot;
+
+            try
+            {
+                using (var edit = snapshot.TextBuffer.CreateEdit())
+                {
+                    var hasModifed = false;
+
+                    string text = snapshot.GetText();
+
+                    {
+                        var match = Regex.Match(text, patternXsi);
+                        if (match.Success)
+                        {
+                            string quoteSymbol = match.Groups[groupNameQuote].Value;
+                            string replacement = string.Format(replaceXsiNamespaceFormat3, quoteSymbol, Intellisense.Model.IntellisenseContext.NamespaceXMLSchemaInstance.NamespaceName, quoteSymbol);
+
+                            if (match.Value != replacement)
+                            {
+                                hasModifed = true;
+                                edit.Replace(match.Index, match.Length, replacement);
+                            }
+                        }
+                        else
+                        {
+                            int? indexInsert = FindIndexToInsert(text);
+                            string quoteSymbol = FindQuoteSymbol(text);
+
+                            string replacement = string.Format(replaceXsiNamespaceFormat3, quoteSymbol, Intellisense.Model.IntellisenseContext.NamespaceXMLSchemaInstance.NamespaceName, quoteSymbol);
+
+                            if (indexInsert.HasValue)
+                            {
+                                hasModifed = true;
+                                edit.Insert(indexInsert.Value, replacement);
+                            }
+                        }
+                    }
+
+                    {
+
+                        var match = Regex.Match(text, patternXsiSchemaLocation);
+                        if (match.Success)
+                        {
+                            string quoteSymbol = match.Groups[groupNameQuote].Value;
+                            var newLocation = string.Format(replaceXsiSchemaLocationFormat3, quoteSymbol, schemas, quoteSymbol);
+
+                            if (match.Value != newLocation)
+                            {
+                                hasModifed = true;
+                                edit.Replace(match.Index, match.Length, newLocation);
+                            }
+                        }
+                        else
+                        {
+                            int? indexInsert = FindIndexToInsert(text);
+                            string quoteSymbol = FindQuoteSymbol(text);
+
+                            var newLocation = string.Format(replaceXsiSchemaLocationFormat3, quoteSymbol, schemas, quoteSymbol);
+
+                            if (indexInsert.HasValue)
+                            {
+                                hasModifed = true;
+                                edit.Insert(indexInsert.Value, newLocation);
+                            }
+                        }
+                    }
+
+                    if (hasModifed)
+                    {
+                        edit.Apply();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.WriteExceptionToOutput(null, ex);
+            }
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Microsoft.VisualStudio.Text.ITextEdit.Insert(System.Int32,System.String)")]
+        private static void InsertIntellisenseContextEntityNameInTextView(IWpfTextView wpfTextView, string entityName)
+        {
+            var snapshot = wpfTextView.TextSnapshot;
+
+            try
+            {
+                using (var edit = snapshot.TextBuffer.CreateEdit())
+                {
+                    var hasModifed = false;
+
+                    string text = snapshot.GetText();
+
+                    {
+                        var match = Regex.Match(text, patternIntellisenseContextEntityName);
+                        if (!match.Success)
+                        {
+                            int? indexInsert = FindIndexToInsert(text);
+                            string quoteSymbol = FindQuoteSymbol(text);
+
+                            if (indexInsert.HasValue)
+                            {
+                                hasModifed = true;
+
+                                var newEntityNameAttribute = string.Format(replaceIntellisenseContextEntityNameFormat3, quoteSymbol, entityName, quoteSymbol);
+
+                                edit.Insert(indexInsert.Value, newEntityNameAttribute);
+                            }
+                        }
+                    }
+
+                    {
+                        var match = Regex.Match(text, patternIntellisenseContext);
+                        if (!match.Success)
+                        {
+                            int? indexInsert = FindIndexToInsert(text);
+                            string quoteSymbol = FindQuoteSymbol(text);
+
+                            if (indexInsert.HasValue)
+                            {
+                                hasModifed = true;
+
+                                var intellisenseContextNamespace = string.Format(replaceIntellisenseContextNamespaceFormat3, quoteSymbol, Intellisense.Model.IntellisenseContext.IntellisenseContextNamespace.NamespaceName, quoteSymbol);
+
+                                edit.Insert(indexInsert.Value, intellisenseContextNamespace);
+                            }
+                        }
+                    }
+
+                    if (hasModifed)
+                    {
+                        edit.Apply();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.WriteExceptionToOutput(null, ex);
+            }
+        }
+
+        private static void RemoveIntellisenseContextEntityNameInTextView(IWpfTextView wpfTextView, int oldCaretLine, int oldCaretColumn)
+        {
+            var snapshot = wpfTextView.TextSnapshot;
+
+            try
+            {
+                using (var edit = snapshot.TextBuffer.CreateEdit())
+                {
+                    var hasModifed = false;
+
+                    string text = snapshot.GetText();
+
+                    {
+                        var match = Regex.Match(text, patternIntellisenseContext);
+                        if (match.Success)
+                        {
+                            hasModifed = true;
+                            edit.Delete(match.Index, match.Length);
+                        }
+                    }
+
+                    {
+                        var match = Regex.Match(text, patternIntellisenseContextEntityName);
+                        if (match.Success)
+                        {
+                            hasModifed = true;
+                            edit.Delete(match.Index, match.Length);
+                        }
+                    }
+
+                    if (hasModifed)
+                    {
+                        edit.Apply();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.WriteExceptionToOutput(null, ex);
+            }
         }
     }
 }
