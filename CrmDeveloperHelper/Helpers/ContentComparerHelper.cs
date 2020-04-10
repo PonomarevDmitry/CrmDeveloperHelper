@@ -361,7 +361,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public static string FormatToJavaScript(string fieldName, string xmlContent)
         {
-            xmlContent = RemoveAllCustomXmlAttributesAndNamespaces(xmlContent);
+            xmlContent = RemoveInTextAllCustomXmlAttributesAndNamespaces(xmlContent);
 
             IEnumerable<string> split = xmlContent
                 .Split(new[] { "\r\n" }, StringSplitOptions.None)
@@ -521,6 +521,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         public static void RemoveXsdSchemaInDocument(EnvDTE.Document document)
         {
             GetTextViewAndMakeActionAsync(document, Properties.OperationNames.RemoveXmlSchemaLocation, RemoveXsdSchemaInTextView);
+        }
+
+        public static void RemoveAllCustomAttributesInDocument(EnvDTE.Document document)
+        {
+            GetTextViewAndMakeActionAsync(document, Properties.OperationNames.RemoveXmlSchemaLocation, RemoveAllCustomAttributesInTextView);
         }
 
         public static void RemoveIntellisenseContextEntityNameInDocument(EnvDTE.Document document)

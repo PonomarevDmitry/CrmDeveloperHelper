@@ -740,7 +740,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (string.Equals(fieldName, SystemForm.Schema.Attributes.formxml))
                 {
-                    newText = ContentComparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(newText);
+                    newText = ContentComparerHelper.RemoveInTextAllCustomXmlAttributesAndNamespaces(newText);
 
                     UpdateStatus(service.ConnectionData, Properties.OutputStrings.ValidatingXmlForFieldFormat1, fieldName);
 

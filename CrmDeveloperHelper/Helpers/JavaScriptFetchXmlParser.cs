@@ -30,11 +30,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            var snapshot = wpfTextView.TextSnapshot;
-
-            using (var edit = snapshot.TextBuffer.CreateEdit())
+            using (var edit = wpfTextView.TextBuffer.CreateEdit())
             {
-                int position = snapshot.GetLineFromLineNumber(oldCaretLine).Start + oldCaretColumn;
+                int position = edit.Snapshot.GetLineFromLineNumber(oldCaretLine).Start + oldCaretColumn;
 
                 edit.Insert(position, fetchXml);
 

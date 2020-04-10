@@ -276,6 +276,7 @@
     <Compile Include="Commands\WebResources\FolderWebResourceMultiDifferenceCommand.cs" />
     <Compile Include="Commands\WebResources\FolderWebResourceOpenFilesCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlCommonCopyToClipboardWithoutSchemaCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlCommonRemoveCustomAttributesCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlFetchXmlConvertToQueryExpressionCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlFetchXmlPasteFromClipboardCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlRibbonDiffXmlGetCurrentCommand.cs" />
@@ -430,6 +431,7 @@
     <Compile Include="Commands\Xmls\CodeXmlWorkflowUpdateCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlWorkflowUpdateInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Xmls\DocumentsXmlXsdSchemaOpenFolderCommand.cs" />
+    <Compile Include="Commands\Xmls\DocumentsXmlRemoveCustomAttributesCommand.cs" />
     <Compile Include="Commands\Xmls\DocumentsXmlXsdSchemaRemoveCommand.cs" />
     <Compile Include="Commands\Xmls\DocumentsXmlXsdSchemaSetCommand.cs" />
     <Compile Include="Commands\CSharp\FileCSharpAddPluginStepCommand.cs" />
@@ -462,6 +464,7 @@
     <Compile Include="Commands\WebResources\FileWebResourceShowDifferenceThreeFileCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceUpdateContentPublishGroupConnectionCommand.cs" />
     <Compile Include="Commands\Xmls\FileXmlXsdSchemaOpenFolderCommand.cs" />
+    <Compile Include="Commands\Xmls\FileXmlXsdRemoveCustomAttributesCommand.cs" />
     <Compile Include="Commands\Xmls\FileXmlXsdSchemaRemoveCommand.cs" />
     <Compile Include="Commands\Xmls\FileXmlXsdSchemaSetCommand.cs" />
     <Compile Include="Commands\Folders\FolderAddEntityMetadataFileInConnectionCommand.cs" />
@@ -497,6 +500,7 @@
     <Compile Include="Commands\AbstractCommand.cs" />
     <Compile Include="Commands\WebResources\FolderWebResourceUpdateContentPublishGroupConnectionCommand.cs" />
     <Compile Include="Commands\Xmls\FolderXmlXsdSchemaOpenFolderCommand.cs" />
+    <Compile Include="Commands\Xmls\FolderXmlRemoveCustomAttributesCommand.cs" />
     <Compile Include="Commands\Xmls\FolderXmlXsdSchemaRemoveCommand.cs" />
     <Compile Include="Commands\Xmls\FolderXmlXsdSchemaSetCommand.cs" />
     <Compile Include="Commands\ListForPublish\ListForPublishAddToSolutionInConnectionCommand.cs" />

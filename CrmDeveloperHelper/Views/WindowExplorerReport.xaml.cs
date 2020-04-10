@@ -541,7 +541,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     return;
                 }
 
-                newText = ContentComparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(newText);
+                newText = ContentComparerHelper.RemoveInTextAllCustomXmlAttributesAndNamespaces(newText);
 
                 {
                     if (ContentComparerHelper.TryParseXml(newText, out var doc))

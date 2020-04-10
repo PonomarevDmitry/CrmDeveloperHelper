@@ -688,7 +688,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
 
-                newText = ContentComparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(newText);
+                newText = ContentComparerHelper.RemoveInTextAllCustomXmlAttributesAndNamespaces(newText);
 
                 UpdateStatus(service.ConnectionData, Properties.OutputStrings.ValidatingXmlForFieldFormat1, fieldTitle);
 

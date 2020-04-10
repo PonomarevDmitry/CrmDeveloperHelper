@@ -361,6 +361,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeXmlCommonUpdateCommand.Initialize(commandService);
             CodeXmlCommonShowDifferenceCommand.Initialize(commandService);
 
+            CodeXmlCommonRemoveCustomAttributesCommand.Initialize(commandService);
+
             CodeXmlCommonXsdSchemaOpenFolderCommand.Initialize(commandService);
             CodeXmlCommonXsdSchemaSetCommand.Initialize(commandService);
             CodeXmlCommonXsdSchemaSetProperCommand.Initialize(commandService);
@@ -372,6 +374,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             DocumentsXmlXsdSchemaOpenFolderCommand.Initialize(commandService);
 
+            DocumentsXmlRemoveCustomAttributesCommand.Initialize(commandService);
+
             DocumentsXmlXsdSchemaSetCommand.Initialize(commandService);
 
             DocumentsXmlXsdSchemaRemoveCommand.Initialize(commandService);
@@ -382,6 +386,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             FileXmlXsdSchemaOpenFolderCommand.Initialize(commandService);
 
+            FileXmlXsdRemoveCustomAttributesCommand.Initialize(commandService);
+
             FileXmlXsdSchemaSetCommand.Initialize(commandService);
 
             FileXmlXsdSchemaRemoveCommand.Initialize(commandService);
@@ -391,6 +397,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             #region FolderXml
 
             FolderXmlXsdSchemaOpenFolderCommand.Initialize(commandService);
+
+            FolderXmlRemoveCustomAttributesCommand.Initialize(commandService);
 
             FolderXmlXsdSchemaSetCommand.Initialize(commandService);
 

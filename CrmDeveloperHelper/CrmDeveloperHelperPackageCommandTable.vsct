@@ -3754,6 +3754,17 @@
           <ButtonText>Open Xsd Schema Default Folder</ButtonText>
         </Strings>
       </Button>
+
+      <Button guid="guidCommandSet" id="CodeXmlCommonRemoveCustomAttributesCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Remove Custom Attributes</ButtonText>
+        </Strings>
+      </Button>
+
       <Button guid="guidCommandSet" id="CodeXmlCommonXsdSchemaSetProperCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -5395,6 +5406,17 @@
           <ButtonText>Open Xsd Schema Default Folder</ButtonText>
         </Strings>
       </Button>
+
+      <Button guid="guidCommandSet" id="DocumentsXmlRemoveCustomAttributesCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Remove Custom Attributes</ButtonText>
+        </Strings>
+      </Button>
+
       <Button guid="guidDynamicCommandSet" id="DocumentsXmlXsdSchemaSetCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -6439,6 +6461,17 @@
           <ButtonText>Open Xsd Schema Default Folder</ButtonText>
         </Strings>
       </Button>
+      
+      <Button guid="guidCommandSet" id="FileXmlRemoveCustomAttributesCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Remove Custom Attributes</ButtonText>
+        </Strings>
+      </Button>
+      
       <Button guid="guidDynamicCommandSet" id="FileXmlXsdSchemaSetCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -7538,6 +7571,17 @@
           <ButtonText>Open Xsd Schema Default Folder</ButtonText>
         </Strings>
       </Button>
+      
+      <Button guid="guidCommandSet" id="FolderXmlRemoveCustomAttributesCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Remove Custom Attributes</ButtonText>
+        </Strings>
+      </Button>
+      
       <Button guid="guidDynamicCommandSet" id="FolderXmlXsdSchemaSetCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -11672,7 +11716,7 @@
     <CommandPlacement guid="guidCommandSet" id="CodeXmlWorkflowExplorerCommandId" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWorkflowCurrent" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CodeXmlWorkflowShowDifferenceCommandId" priority="0x06020">
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlWorkflowGetCurrentCommandId" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWorkflowCurrent" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWorkflowCurrent_MenuGetCurrentDyn" priority="0x06030">
@@ -11746,14 +11790,16 @@
 
     <!-- #region codeMenuXml_GroupXsdSchema -->
 
-
-    <CommandPlacement guid="guidCommandSet" id="CodeXmlCommonXsdSchemaSetProperCommandId" priority="0x06000">
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlCommonRemoveCustomAttributesCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlCommonXsdSchemaSetProperCommandId" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CodeXmlCommonXsdSchemaRemoveCommandId" priority="0x06020">
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlCommonXsdSchemaRemoveCommandId" priority="0x06030">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema" />
     </CommandPlacement>
 
@@ -12466,11 +12512,15 @@
 
     <!-- #region documentsMenuXml_GroupXsdSchema -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuXml_GroupXsdSchema_MenuSetXsdSchemas" priority="0x0606">
+    <CommandPlacement guid="guidCommandSet" id="DocumentsXmlRemoveCustomAttributesCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuXml_GroupXsdSchema" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidCommandSet" id="DocumentsXmlXsdSchemaRemoveCommandId" priority="0x0607">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuXml_GroupXsdSchema_MenuSetXsdSchemas" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuXml_GroupXsdSchema" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidCommandSet" id="DocumentsXmlXsdSchemaRemoveCommandId" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuXml_GroupXsdSchema" />
     </CommandPlacement>
 
@@ -13480,11 +13530,15 @@
 
     <!-- #region fileMenuXml_GroupXsdSchema -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuXml_GroupXsdSchema_MenuSetXsdSchemas" priority="0x0608">
+    <CommandPlacement guid="guidCommandSet" id="FileXmlRemoveCustomAttributesCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuXml_GroupXsdSchema" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidCommandSet" id="FileXmlXsdSchemaRemoveCommandId" priority="0x0609">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuXml_GroupXsdSchema_MenuSetXsdSchemas" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuXml_GroupXsdSchema" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidCommandSet" id="FileXmlXsdSchemaRemoveCommandId" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuXml_GroupXsdSchema" />
     </CommandPlacement>
 
@@ -14048,11 +14102,15 @@
 
     <!-- #region folderMenuXml_GroupXsdSchema -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuXml_GroupXsdSchema_MenuSetXsdSchemas" priority="0x0609">
+    <CommandPlacement guid="guidCommandSet" id="FolderXmlRemoveCustomAttributesCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuXml_GroupXsdSchema" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidCommandSet" id="FolderXmlXsdSchemaRemoveCommandId" priority="0x060A">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuXml_GroupXsdSchema_MenuSetXsdSchemas" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuXml_GroupXsdSchema" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidCommandSet" id="FolderXmlXsdSchemaRemoveCommandId" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuXml_GroupXsdSchema" />
     </CommandPlacement>
 
@@ -20211,6 +20269,8 @@
       <IDSymbol name="CodeXmlCommonXsdSchemaSetProperCommandId" value="0x222A" />
       <IDSymbol name="CodeXmlCommonXsdSchemaRemoveCommandId" value="0x216E" />
 
+      <IDSymbol name="CodeXmlCommonRemoveCustomAttributesCommandId" value="0x2237" />
+
       <IDSymbol name="CodeXmlCommonXsdSchemaOpenFolderCommandId" value="0x216F" />
 
       <IDSymbol name="CodeXmlFetchXmlExecuteRequestCommandId" value="0x2160" />
@@ -20351,6 +20411,8 @@
 
       <IDSymbol name="DocumentsXmlXsdSchemaOpenFolderCommandId" value="0x219A" />
 
+      <IDSymbol name="DocumentsXmlRemoveCustomAttributesCommandId" value="0x2238" />
+
       <!-- #endregion DocumentsXml -->
 
       <!-- #region DocumentsReport -->
@@ -20452,8 +20514,10 @@
       <!-- #region FileXml -->
 
       <IDSymbol name="FileXmlXsdSchemaRemoveCommandId" value="0x2198" />
+
       <IDSymbol name="FileXmlXsdSchemaOpenFolderCommandId" value="0x219B" />
 
+      <IDSymbol name="FileXmlRemoveCustomAttributesCommandId" value="0x2239" />
 
       <!-- #endregion FileXml -->
 
@@ -20565,6 +20629,8 @@
       <IDSymbol name="FolderXmlXsdSchemaRemoveCommandId" value="0x2199" />
 
       <IDSymbol name="FolderXmlXsdSchemaOpenFolderCommandId" value="0x219C" />
+
+      <IDSymbol name="FolderXmlRemoveCustomAttributesCommandId" value="0x223A" />
 
       <!-- #endregion FolderXml -->
 
@@ -20936,7 +21002,7 @@
     <!-- 0x13F1 -->
 
     <!-- Commands -->
-    <!-- 0x2237 -->
+    <!-- 0x223B -->
 
     <!-- Dynamic Commands -->
     <!-- 12300 -->

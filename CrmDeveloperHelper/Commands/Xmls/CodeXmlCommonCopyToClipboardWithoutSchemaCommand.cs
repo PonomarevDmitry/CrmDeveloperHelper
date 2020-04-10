@@ -29,7 +29,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                 {
                     string text = textDocument.StartPoint.CreateEditPoint().GetText(textDocument.EndPoint);
 
-                    text = ContentComparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(text);
+                    text = ContentComparerHelper.RemoveInTextAllCustomXmlAttributesAndNamespaces(text);
 
                     ClipboardHelper.SetText(text);
                 }

@@ -900,7 +900,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     if (string.Equals(fieldName, WebResource.Schema.Attributes.dependencyxml, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        newText = ContentComparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(newText);
+                        newText = ContentComparerHelper.RemoveInTextAllCustomXmlAttributesAndNamespaces(newText);
 
                         if (ContentComparerHelper.TryParseXml(newText, out var doc))
                         {
