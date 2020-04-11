@@ -1960,7 +1960,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeWebResourceShowDifferenceOneByOneCommandId = 0x0802;
 
-            public const int CodeWebResourceUpdateContentPublishGroupConnectionCommandId = 0x0E42;
+            public const int CodeWebResourceUpdateContentPublishInConnectionGroupCommandId = 0x0E42;
 
             public const int CodeWebResourceCompareWithDetailsInConnectionGroupCommandId = 0x1162;
 

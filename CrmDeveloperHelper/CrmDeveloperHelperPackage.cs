@@ -101,7 +101,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeWebResourceLinkClearCommand.Initialize(commandService);
             CodeWebResourceLinkCreateCommand.Initialize(commandService);
             CodeWebResourceUpdateContentPublishCommand.Initialize(commandService);
-            CodeWebResourceUpdateContentPublishGroupConnectionCommand.Initialize(commandService);
+            CodeWebResourceUpdateContentPublishInConnectionGroupCommand.Initialize(commandService);
 
             CodeWebResourceAddToSolutionLastCommand.Initialize(commandService);
             CodeWebResourceAddToSolutionInConnectionCommand.Initialize(commandService);

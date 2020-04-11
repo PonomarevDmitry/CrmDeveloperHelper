@@ -266,7 +266,7 @@
     <Compile Include="Commands\CSharp\CodeCSharpUpdateGlobalOptionSetsFileWithSelectCommand.cs" />
     <Compile Include="Commands\WebResources\CodeWebResourceShowDifferenceInConnectionGroupCommand.cs" />
     <Compile Include="Commands\WebResources\CodeWebResourceShowDifferenceThreeFileCommand.cs" />
-    <Compile Include="Commands\WebResources\CodeWebResourceUpdateContentPublishGroupConnectionCommand.cs" />
+    <Compile Include="Commands\WebResources\CodeWebResourceUpdateContentPublishInConnectionGroupCommand.cs" />
     <Compile Include="Commands\WebResources\DocumentsWebResourceAddFilesIntoListForPublishCommand.cs" />
     <Compile Include="Commands\WebResources\DocumentsWebResourceMultiDifferenceCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceAddFilesIntoListForPublishCommand.cs" />
