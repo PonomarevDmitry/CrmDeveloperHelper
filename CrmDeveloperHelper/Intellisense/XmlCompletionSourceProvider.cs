@@ -7,7 +7,7 @@ using System.ComponentModel.Composition;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 {
-    [Name("FetchXml")]
+    [Name("Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense")]
     [Export(typeof(ICompletionSourceProvider))]
     [ContentType("XML")]
     [Order(Before = "default")]
