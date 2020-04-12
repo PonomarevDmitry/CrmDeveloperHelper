@@ -122,7 +122,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                CheckingFilesEncoding(this._iWriteToOutput, null, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
+                CheckingFilesEncoding(null, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
             }
             catch (Exception ex)
             {
@@ -134,162 +134,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        public static void CheckingFilesEncoding(IWriteToOutput iWriteToOutput, ConnectionData connectionData, IEnumerable<SelectedFile> selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding)
-        {
-            filesWithoutUTF8Encoding = new List<SelectedFile>();
-
-            int countWithUTF8Encoding = 0;
-
-            List<string> listNotExistsOnDisk = new List<string>();
-
-            List<string> listNotHaveBOM = new List<string>();
-
-            List<string> listWrongEncoding = new List<string>();
-
-            List<string> listMultipleEncodingHasUTF8 = new List<string>();
-
-            List<string> listMultipleEncodingHasNotUTF8 = new List<string>();
-
-            foreach (var selectedFile in selectedFiles)
-            {
-                if (File.Exists(selectedFile.FilePath))
-                {
-                    var arrayFile = File.ReadAllBytes(selectedFile.FilePath);
-
-                    var encodings = ContentComparerHelper.GetFileEncoding(arrayFile);
-
-                    if (encodings.Count > 0)
-                    {
-                        if (encodings.Count == 1)
-                        {
-                            if (encodings[0].CodePage == Encoding.UTF8.CodePage)
-                            {
-                                countWithUTF8Encoding++;
-                            }
-                            else
-                            {
-                                listWrongEncoding.Add(string.Format(Properties.OutputStrings.FileHasEncodingFormat2, selectedFile.FriendlyFilePath, encodings[0].EncodingName));
-
-                                filesWithoutUTF8Encoding.Add(selectedFile);
-                            }
-                        }
-                        else
-                        {
-                            filesWithoutUTF8Encoding.Add(selectedFile);
-
-                            bool hasUTF8 = false;
-
-                            StringBuilder str = new StringBuilder();
-
-                            foreach (var enc in encodings)
-                            {
-                                if (enc.CodePage == Encoding.UTF8.CodePage)
-                                {
-                                    hasUTF8 = true;
-                                }
-
-                                if (str.Length > 0)
-                                {
-                                    str.Append(", ");
-                                    str.Append(enc.EncodingName);
-                                }
-                            }
-
-                            if (hasUTF8)
-                            {
-                                listMultipleEncodingHasUTF8.Add(string.Format(Properties.OutputStrings.FileHasEncodingFormat2, selectedFile.FriendlyFilePath, str.ToString()));
-                            }
-                            else
-                            {
-                                listMultipleEncodingHasNotUTF8.Add(string.Format(Properties.OutputStrings.FileHasEncodingFormat2, selectedFile.FriendlyFilePath, str.ToString()));
-                            }
-                        }
-                    }
-                    else
-                    {
-                        listNotHaveBOM.Add(selectedFile.FriendlyFilePath);
-
-                        filesWithoutUTF8Encoding.Add(selectedFile);
-                    }
-                }
-                else
-                {
-                    listNotExistsOnDisk.Add(selectedFile.FilePath);
-                }
-            }
-
-            if (listNotHaveBOM.Count > 0)
-            {
-                iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FilesDoesNotHaveEncodingFormat1, listNotHaveBOM.Count);
-
-                listNotHaveBOM.Sort();
-
-                listNotHaveBOM.ForEach(item => iWriteToOutput.WriteToOutput(connectionData, item));
-            }
-
-            if (listWrongEncoding.Count > 0)
-            {
-                iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FilesHasWrongEncodingFormat1, listWrongEncoding.Count);
-
-                listWrongEncoding.Sort();
-
-                listWrongEncoding.ForEach(item => iWriteToOutput.WriteToOutput(connectionData, item));
-            }
-
-            if (listMultipleEncodingHasUTF8.Count > 0)
-            {
-                iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FilesCompliesMultipleEncodingWithUTF8Format1, listMultipleEncodingHasUTF8.Count);
-
-                listMultipleEncodingHasUTF8.Sort();
-
-                listMultipleEncodingHasUTF8.ForEach(item => iWriteToOutput.WriteToOutput(connectionData, item));
-            }
-
-            if (listMultipleEncodingHasNotUTF8.Count > 0)
-            {
-                iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FilesCompliesMultipleEncodingWithoutUTF8Format1, listMultipleEncodingHasNotUTF8.Count);
-
-                listMultipleEncodingHasNotUTF8.Sort();
-
-                listMultipleEncodingHasNotUTF8.ForEach(item => iWriteToOutput.WriteToOutput(connectionData, item));
-            }
-
-            if (listNotExistsOnDisk.Count > 0)
-            {
-                iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, listNotExistsOnDisk.Count);
-
-                listNotExistsOnDisk.Sort();
-
-                listNotExistsOnDisk.ForEach(item => iWriteToOutput.WriteToOutput(connectionData, item));
-            }
-
-            if (countWithUTF8Encoding > 0)
-            {
-                if (countWithUTF8Encoding == selectedFiles.Count())
-                {
-                    iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                    iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.AllFilesHasUTF8EncodingFormat1, countWithUTF8Encoding);
-                }
-                else
-                {
-                    iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                    iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FilesHasUTF8EncodingFormat1, countWithUTF8Encoding);
-                }
-            }
-        }
-
         public void ExecuteOpenFilesWithoutUTF8Encoding(IEnumerable<SelectedFile> selectedFiles)
         {
             this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.OpeningFilesWithoutUTF8Encoding);
 
             try
             {
-                CheckingFilesEncoding(this._iWriteToOutput, null, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
+                CheckingFilesEncoding(null, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
 
                 if (filesWithoutUTF8Encoding.Count > 0)
                 {
@@ -320,15 +171,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OperationNames.CheckingFilesEncoding);
-
-                    CheckController.CheckingFilesEncoding(this._iWriteToOutput, connectionData, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
-
-                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                }
+                CheckingFilesEncodingAndWriteEmptyLines(connectionData, selectedFiles, out _);
 
                 await ShowingWebResourcesDependentComponents(connectionData, commonConfig, selectedFiles);
             }

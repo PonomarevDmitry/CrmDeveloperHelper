@@ -30,15 +30,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OperationNames.CheckingFilesEncoding);
-
-                    CheckController.CheckingFilesEncoding(this._iWriteToOutput, connectionData, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
-
-                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                }
+                CheckingFilesEncodingAndWriteEmptyLines(connectionData, selectedFiles, out _);
 
                 ClearingWebResourcesLinks(selectedFiles, connectionData);
             }
@@ -87,50 +79,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteCreatingLastLinkReport(ConnectionData connectionData, SelectedFile selectedFile)
         {
-            string operation = string.Format(Properties.OperationNames.CreatingLastLinkForReportFormat1, connectionData?.Name);
-
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
-
-            try
-            {
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OperationNames.CheckingFilesEncoding);
-
-                    CheckController.CheckingFilesEncoding(this._iWriteToOutput, connectionData, new[] { selectedFile }, out List<SelectedFile> filesWithoutUTF8Encoding);
-
-                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                }
-
-                await CreatingLastLinkReport(selectedFile, connectionData);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
-            }
-        }
-
-        private async Task CreatingLastLinkReport(SelectedFile selectedFile, ConnectionData connectionData)
-        {
             if (!File.Exists(selectedFile.FilePath))
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
                 return;
             }
 
-            var service = await ConnectAndWriteToOutputAsync(connectionData);
+            await CheckEncodingCheckReadOnlyConnectExecuteActionAsync(connectionData
+                , Properties.OperationNames.CreatingLastLinkForReportFormat1
+                , new[] { selectedFile }
+                , false
+                , (service) => CreatingLastLinkReport(service, selectedFile)
+            );
+        }
 
-            if (service == null)
-            {
-                return;
-            }
-
-            Guid? idLastLink = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
+        private async Task CreatingLastLinkReport(IOrganizationServiceExtented service, SelectedFile selectedFile)
+        {
+            Guid? idLastLink = service.ConnectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
 
             bool? dialogResult = null;
             Guid? selectedReportId = null;
@@ -147,7 +112,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                    DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
                 }
             }));
             t.SetApartmentState(ApartmentState.STA);
@@ -155,30 +120,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             t.Join();
 
-            if (dialogResult.GetValueOrDefault())
+            if (!dialogResult.GetValueOrDefault())
             {
-                if (selectedReportId.HasValue)
-                {
-                    ReportRepository reportRepository = new ReportRepository(service);
-
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ReportIsSelected);
-
-                    var webresource = await reportRepository.GetByIdAsync(selectedReportId.Value);
-
-                    connectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
-
-                    connectionData.Save();
-                }
-                else
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ReportNotFoundedByNameFormat1, selectedFile.Name);
-                }
-            }
-            else
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CreatingLastLinkWasCanceled);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatingLastLinkWasCanceled);
                 return;
             }
+
+            if (!selectedReportId.HasValue)
+            {
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ReportNotFoundedByNameFormat1, selectedFile.Name);
+                return;
+            }
+
+            ReportRepository reportRepository = new ReportRepository(service);
+
+            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ReportIsSelected);
+
+            var webresource = await reportRepository.GetByIdAsync(selectedReportId.Value);
+
+            service.ConnectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
+
+            service.ConnectionData.Save();
         }
 
         #endregion Создание связи отчета.
@@ -187,44 +149,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteCreatingLastLinkWebResourceMultiple(ConnectionData connectionData, List<SelectedFile> selectedFiles)
         {
-            string operation = string.Format(Properties.OperationNames.CreatingLastLinkForWebResourcesFormat1, connectionData?.Name);
-
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
-
-            try
-            {
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OperationNames.CheckingFilesEncoding);
-
-                    CheckController.CheckingFilesEncoding(this._iWriteToOutput, connectionData, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
-
-                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                }
-
-                await CreatingLastLinkWebResourceMultiple(selectedFiles, connectionData);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
-            }
+            await CheckEncodingCheckReadOnlyConnectExecuteActionAsync(connectionData
+                , Properties.OperationNames.CreatingLastLinkForWebResourcesFormat1
+                , selectedFiles
+                , false
+                , (service) => CreatingLastLinkWebResourceMultiple(service, selectedFiles)
+            );
         }
 
-        private async Task CreatingLastLinkWebResourceMultiple(List<SelectedFile> selectedFiles, ConnectionData connectionData)
+        private async Task CreatingLastLinkWebResourceMultiple(IOrganizationServiceExtented service, List<SelectedFile> selectedFiles)
         {
             if (!selectedFiles.Any())
-            {
-                return;
-            }
-
-            var service = await ConnectAndWriteToOutputAsync(connectionData);
-
-            if (service == null)
             {
                 return;
             }
@@ -235,11 +170,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 if (!File.Exists(selectedFile.FilePath))
                 {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
                     continue;
                 }
 
-                var idLastLink = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
+                var idLastLink = service.ConnectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
 
                 bool? dialogResult = null;
                 Guid? selectedWebResourceId = null;
@@ -259,7 +194,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     }
                     catch (Exception ex)
                     {
-                        DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                        DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
                     }
                 }));
                 t.SetApartmentState(ApartmentState.STA);
@@ -271,22 +206,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     if (selectedWebResourceId.HasValue)
                     {
-                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WebResourceIsSelected);
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.WebResourceIsSelected);
 
                         var webresource = await webResourceRepository.GetByIdAsync(selectedWebResourceId.Value);
 
-                        connectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
+                        service.ConnectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
 
-                        connectionData.Save();
+                        service.ConnectionData.Save();
                     }
                     else
                     {
-                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WebResourceNotFoundedByNameFormat1, selectedFile.Name);
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.WebResourceNotFoundedByNameFormat1, selectedFile.Name);
                     }
                 }
                 else if (!showNext)
                 {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CreatingLastLinkWasCanceled);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatingLastLinkWasCanceled);
                     return;
                 }
             }
@@ -464,15 +399,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OperationNames.CheckingFilesEncoding);
-
-                    CheckController.CheckingFilesEncoding(this._iWriteToOutput, connectionData, new[] { selectedFile }, out List<SelectedFile> filesWithoutUTF8Encoding);
-
-                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                }
+                CheckingFilesEncodingAndWriteEmptyLines(connectionData, new[] { selectedFile }, out _);
 
                 await OpeningWebResource(commonConfig, connectionData, selectedFile, action);
             }

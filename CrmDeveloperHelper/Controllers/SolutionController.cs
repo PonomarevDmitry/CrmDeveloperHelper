@@ -28,7 +28,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpeningSolutionExlorerWindow(ConnectionData connectionData, CommonConfiguration commonConfig, EnvDTE.SelectedItem selectedItem)
         {
-            await ConnectAndOpenExplorerAsync(connectionData
+            await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.SolutionExplorerFormat1
                 , (service) => WindowHelper.OpenExplorerSolutionExplorer(this._iWriteToOutput, service, commonConfig, null, null, selectedItem)
             );
@@ -40,7 +40,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpeningImportJobExlorerWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            await ConnectAndOpenExplorerAsync(connectionData
+            await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.ImportJobExplorerFormat1
                 , (service) => WindowHelper.OpenImportJobExplorer(this._iWriteToOutput, service, commonConfig, null)
             );

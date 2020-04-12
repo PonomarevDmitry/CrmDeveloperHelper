@@ -20,7 +20,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteShowingSystemUserExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
-            await ConnectAndOpenExplorerAsync(connectionData
+            await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.OpeningSystemUsersExplorerFormat1
                 , (service) => WindowHelper.OpenSystemUsersExplorer(this._iWriteToOutput, service, commonConfig, selection)
             );
@@ -28,7 +28,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteShowingTeamsExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
-            await ConnectAndOpenExplorerAsync(connectionData
+            await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.OpeningTeamsExplorerFormat1
                 , (service) => WindowHelper.OpenTeamsExplorer(this._iWriteToOutput, service, commonConfig, selection)
             );
@@ -36,7 +36,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteShowingSecurityRolesExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
-            await ConnectAndOpenExplorerAsync(connectionData
+            await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.OpeningSecurityRolesExplorerFormat1
                 , (service) => WindowHelper.OpenRolesExplorer(this._iWriteToOutput, service, commonConfig, selection)
             );

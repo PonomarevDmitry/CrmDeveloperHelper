@@ -34,55 +34,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         /// <param name="config"></param>
         public async Task ExecuteUpdateContentAndPublish(ConnectionData connectionData, List<SelectedFile> selectedFiles)
         {
-            string operation = string.Format(Properties.OperationNames.UpdatingContentAndPublishingFormat1, connectionData?.Name);
-
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
-
-            try
-            {
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OperationNames.CheckingFilesEncoding);
-
-                    CheckController.CheckingFilesEncoding(this._iWriteToOutput, connectionData, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
-
-                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                }
-
-                await UpdateContentAndPublish(selectedFiles, connectionData);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
-            }
+            await CheckEncodingCheckReadOnlyConnectExecuteActionAsync(connectionData
+                , Properties.OperationNames.OpeningEntityMetadataExplorerFormat1
+                , selectedFiles
+                , true
+                , (service) => UpdatingContentAndPublish(service, selectedFiles)
+            );
         }
 
-        private async Task UpdateContentAndPublish(List<SelectedFile> selectedFiles, ConnectionData connectionData)
+        private async Task UpdatingContentAndPublish(IOrganizationServiceExtented service, List<SelectedFile> selectedFiles)
         {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            if (connectionData.IsReadOnly)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionIsReadOnlyFormat1, connectionData.Name);
-                return;
-            }
-
-            var service = await ConnectAndWriteToOutputAsync(connectionData);
-
-            if (service == null)
-            {
-                return;
-            }
-
             // Менеджер для публикации в CRM.
             PublishManager publishHelper = new PublishManager(this._iWriteToOutput, service);
 
@@ -103,7 +64,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     if (File.Exists(selectedFile.FilePath))
                     {
-                        this._iWriteToOutput.WriteToOutput(connectionData, "Try to find web-resource by name: {0}. Searching...", selectedFile.Name);
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Try to find web-resource by name: {0}. Searching...", selectedFile.Name);
 
                         string key = selectedFile.FriendlyFilePath.ToLower();
 
@@ -113,14 +74,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         if (webresource != null)
                         {
-                            this._iWriteToOutput.WriteToOutput(connectionData, "WebResource founded by name. WebResourceId: {0} Name: {1}", webresource.Id, webresource.Name);
+                            this._iWriteToOutput.WriteToOutput(service.ConnectionData, "WebResource founded by name. WebResourceId: {0} Name: {1}", webresource.Id, webresource.Name);
                         }
 
                         if (webresource == null)
                         {
-                            if (selectedFile.FileName.StartsWith(connectionData.Name + "."))
+                            if (selectedFile.FileName.StartsWith(service.ConnectionData.Name + "."))
                             {
-                                string newFileName = selectedFile.FileName.Replace(connectionData.Name + ".", string.Empty);
+                                string newFileName = selectedFile.FileName.Replace(service.ConnectionData.Name + ".", string.Empty);
 
                                 string newFilePath = Path.Combine(Path.GetDirectoryName(selectedFile.FilePath), newFileName);
 
@@ -132,16 +93,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                                 if (webresource != null)
                                 {
-                                    this._iWriteToOutput.WriteToOutput(connectionData, "WebResource founded by name with Connection Prefix. WebResourceId: {0} Name: {1}", webresource.Id, webresource.Name);
+                                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "WebResource founded by name with Connection Prefix. WebResourceId: {0} Name: {1}", webresource.Id, webresource.Name);
                                 }
                             }
                         }
 
                         if (webresource == null)
                         {
-                            this._iWriteToOutput.WriteToOutput(connectionData, "WebResource not founded by name. FileName: {0}. Open linking dialog...", selectedFile.Name);
+                            this._iWriteToOutput.WriteToOutput(service.ConnectionData, "WebResource not founded by name. FileName: {0}. Open linking dialog...", selectedFile.Name);
 
-                            Guid? webId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
+                            Guid? webId = service.ConnectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
 
                             bool? dialogResult = null;
                             Guid? selectedWebResourceId = null;
@@ -161,7 +122,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                                 }
                                 catch (Exception ex)
                                 {
-                                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                                    DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
                                 }
                             });
                             t.SetApartmentState(ApartmentState.STA);
@@ -169,12 +130,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                             t.Join();
 
-                            if (string.IsNullOrEmpty(connectionData?.LastSelectedSolutionsUniqueName?.FirstOrDefault()))
+                            if (string.IsNullOrEmpty(service.ConnectionData?.LastSelectedSolutionsUniqueName?.FirstOrDefault()))
                             {
                                 allForOther = false;
                             }
 
-                            connectionData.Save();
+                            service.ConnectionData.Save();
 
                             if (dialogResult.GetValueOrDefault())
                             {
@@ -184,12 +145,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                                 }
                                 else
                                 {
-                                    this._iWriteToOutput.WriteToOutput(connectionData, "!Warning. WebResource not linked. name: {0}.", selectedFile.Name);
+                                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "!Warning. WebResource not linked. name: {0}.", selectedFile.Name);
                                 }
                             }
                             else
                             {
-                                this._iWriteToOutput.WriteToOutput(connectionData, "Updating Content and Publishing was cancelled.");
+                                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Updating Content and Publishing was cancelled.");
                                 return;
                             }
                         }
@@ -197,20 +158,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         if (webresource != null)
                         {
                             // Запоминается файл
-                            connectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
+                            service.ConnectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
 
                             publishHelper.Add(new ElementForPublish(selectedFile, webresource));
                         }
                     }
                     else
                     {
-                        this._iWriteToOutput.WriteToOutput(connectionData, "File not founded: {0}", selectedFile.FilePath);
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, "File not founded: {0}", selectedFile.FilePath);
                     }
                 }
             }
 
             //Сохранение настроек после публикации
-            connectionData.Save();
+            service.ConnectionData.Save();
 
             publishHelper.UpdateContentAndPublish();
         }
@@ -232,17 +193,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OperationNames.CheckingFilesEncoding);
+                CheckingFilesEncodingAndWriteEmptyLines(connectionData, selectedFiles, out _);
 
-                    CheckController.CheckingFilesEncoding(this._iWriteToOutput, connectionData, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
-
-                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                }
-
-                await UpdateContentAndPublishEqualByText(selectedFiles, connectionData);
+                await UpdatingContentAndPublishEqualByText(connectionData, selectedFiles);
             }
             catch (Exception ex)
             {
@@ -261,7 +214,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         /// 2. по имени веб-ресурса
         /// 3. ручное связывание
         /// </summary>
-        private async Task UpdateContentAndPublishEqualByText(List<SelectedFile> selectedFiles, ConnectionData connectionData)
+        private async Task UpdatingContentAndPublishEqualByText(ConnectionData connectionData, List<SelectedFile> selectedFiles)
         {
             if (connectionData == null)
             {
@@ -301,46 +254,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecutePublishingAll(ConnectionData connectionData)
         {
-            string operation = string.Format(Properties.OperationNames.PublishingAllCustomizationFormat1, connectionData.Name);
-
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
-
-            try
-            {
-                await PublishingAllAsync(connectionData);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
-            }
+            await ConnectAndExecuteActionAsync(connectionData
+                , Properties.OperationNames.PublishingAllCustomizationFormat1
+                , (service) => PublishingAllAsync(service)
+            );
         }
 
-        private async Task PublishingAllAsync(ConnectionData connectionData)
+        private async Task PublishingAllAsync(IOrganizationServiceExtented service)
         {
-            var service = await ConnectAndWriteToOutputAsync(connectionData);
-
-            if (service == null)
-            {
-                return;
-            }
-
             try
             {
                 var repository = new PublishActionsRepository(service);
 
                 await repository.PublishAllXmlAsync();
 
-                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.PublishingAllCompletedFormat1, connectionData.Name);
+                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PublishingAllCompletedFormat1, service.ConnectionData.Name);
             }
             catch (Exception ex)
             {
-                _iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.PublishingAllFailedFormat1, connectionData.Name);
+                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PublishingAllFailedFormat1, service.ConnectionData.Name);
             }
         }
 

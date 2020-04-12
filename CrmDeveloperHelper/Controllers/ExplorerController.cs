@@ -16,7 +16,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpeningEntityMetadataExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection, EnvDTE.SelectedItem selectedItem)
         {
-            await ConnectAndOpenExplorerAsync(connectionData
+            await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.OpeningEntityMetadataExplorerFormat1
                 , (service) => WindowHelper.OpenEntityMetadataExplorer(this._iWriteToOutput, service, commonConfig, selection, selectedItem)
             );
@@ -24,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpeningEntityAttributeExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
-            await ConnectAndOpenExplorerAsync(connectionData
+            await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.OpeningEntityAttributeExplorerFormat1
                 , (service) => WindowHelper.OpenEntityAttributeExplorer(this._iWriteToOutput, service, commonConfig, selection)
             );
@@ -32,7 +32,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpeningEntityKeyExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
-            await ConnectAndOpenExplorerAsync(connectionData
+            await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.OpeningEntityKeyExplorerFormat1
                 , (service) => WindowHelper.OpenEntityKeyExplorer(this._iWriteToOutput, service, commonConfig, selection)
             );
@@ -40,7 +40,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpeningEntityRelationshipOneToManyExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
-            await ConnectAndOpenExplorerAsync(connectionData
+            await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.OpeningEntityRelationshipOneToManyFormat1
                 , (service) => WindowHelper.OpenEntityRelationshipOneToManyExplorer(this._iWriteToOutput, service, commonConfig, selection)
             );
@@ -48,7 +48,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpeningEntityRelationshipManyToManyExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
-            await ConnectAndOpenExplorerAsync(connectionData
+            await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.OpeningEntityRelationshipManyToManyFormat1
                 , (service) => WindowHelper.OpenEntityRelationshipManyToManyExplorer(this._iWriteToOutput, service, commonConfig, selection)
             );
@@ -56,7 +56,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpeningEntityPrivilegesExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
-            await ConnectAndOpenExplorerAsync(connectionData
+            await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.OpeningEntityPrivilegesExplorerFormat1
                 , (service) => WindowHelper.OpenEntityPrivilegesExplorer(this._iWriteToOutput, service, commonConfig, selection)
             );
@@ -64,7 +64,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpeningOtherPrivilegesExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
-            await ConnectAndOpenExplorerAsync(connectionData
+            await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.OpeningOtherPrivilegesExplorerFormat1
                 , (service) => WindowHelper.OpenOtherPrivilegesExplorer(this._iWriteToOutput, service, commonConfig, selection)
             );
@@ -76,7 +76,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteCreatingFileWithGlobalOptionSets(ConnectionData connectionData, CommonConfiguration commonConfig, string selection, EnvDTE.SelectedItem selectedItem)
         {
-            await ConnectAndOpenExplorerAsync(connectionData
+            await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.OpeningGlobalOptionSetsExplorerFormat1
                 , (service) => WindowHelper.OpenGlobalOptionSetsExplorer(this._iWriteToOutput, service, commonConfig, selection, selectedItem)
             );
@@ -128,7 +128,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpeningWebResourceExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
-            await ConnectAndOpenExplorerAsync(connectionData
+            await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.OpeningWebResourceExplorerFormat1
                 , (service) => WindowHelper.OpenWebResourceExplorer(this._iWriteToOutput, service, commonConfig, selection)
             );
@@ -140,7 +140,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpeningReportExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
-            await ConnectAndOpenExplorerAsync(connectionData
+            await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.OpeningReportExplorerFormat1
                 , (service) => WindowHelper.OpenReportExplorer(this._iWriteToOutput, service, commonConfig, selection)
             );
@@ -152,7 +152,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpeningSiteMapExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string filter)
         {
-            await ConnectAndOpenExplorerAsync(connectionData
+            await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.ExportingSiteMapXmlFormat1
                 , (service) => WindowHelper.OpenExportSiteMapExplorer(this._iWriteToOutput, service, commonConfig, filter)
             );
@@ -164,7 +164,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpeningApplicationRibbonExplorer(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            await ConnectAndOpenExplorerAsync(connectionData
+            await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.ExportingRibbonXmlFormat1
                 , (service) => WindowHelper.OpenApplicationRibbonExplorer(this._iWriteToOutput, service, commonConfig)
             );
@@ -176,7 +176,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpeningSystemSavedQueryExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
-            await ConnectAndOpenExplorerAsync(connectionData
+            await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.ExportingSystemSavedQueryXmlFormat1
                 , (service) => WindowHelper.OpenSavedQueryExplorer(this._iWriteToOutput, service, commonConfig, string.Empty, selection)
             );
@@ -188,7 +188,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpeningSystemFormExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection, EnvDTE.SelectedItem selectedItem)
         {
-            await ConnectAndOpenExplorerAsync(connectionData
+            await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.ExportingSystemFormXmlFormat1
                 , (service) => WindowHelper.OpenSystemFormExplorer(this._iWriteToOutput, service, commonConfig, string.Empty, selection, selectedItem)
             );
@@ -200,7 +200,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpeningSystemSavedQueryVisualizationExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
-            await ConnectAndOpenExplorerAsync(connectionData
+            await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.ExportingSystemSavedQueryVisualizationXmlFormat1
                 , (service) => WindowHelper.OpenSavedQueryVisualizationExplorer(this._iWriteToOutput, service, commonConfig, string.Empty, selection)
             );
@@ -212,7 +212,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpeningWorkflowExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
-            await ConnectAndOpenExplorerAsync(connectionData
+            await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.ExportingWorkflowFormat1
                 , (service) => WindowHelper.OpenWorkflowExplorer(this._iWriteToOutput, service, commonConfig, string.Empty, selection)
             );
@@ -224,7 +224,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpeningOrganizationExplorer(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            await ConnectAndOpenExplorerAsync(connectionData
+            await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.ExportingOrganizationInformationFormat1
                 , (service) => WindowHelper.OpenOrganizationExplorer(this._iWriteToOutput, service, commonConfig)
             );
@@ -236,7 +236,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpeningCustomControlExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
-            await ConnectAndOpenExplorerAsync(connectionData
+            await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.ExportingSystemFormXmlFormat1
                 , (service) => WindowHelper.OpenCustomControlExplorer(this._iWriteToOutput, service, commonConfig, selection)
             );
@@ -248,7 +248,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpeningTraceReader(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
-            await ConnectAndOpenExplorerAsync(connectionData
+            await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.TraceReaderFormat1
                 , (service) => WindowHelper.OpenTraceReaderExplorer(this._iWriteToOutput, service, commonConfig)
             );
@@ -260,7 +260,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpeningPluginTypeExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
-            await ConnectAndOpenExplorerAsync(connectionData
+            await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.CreatingPluginTypeDescriptionFormat1
                 , (service) => WindowHelper.OpenPluginTypeExplorer(this._iWriteToOutput, service, commonConfig, selection)
             );
@@ -272,7 +272,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpeningPluginAssemblyExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
-            await ConnectAndOpenExplorerAsync(connectionData
+            await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.ExportingPluginAssemblyFormat1
                 , (service) => WindowHelper.OpenPluginAssemblyExplorer(this._iWriteToOutput, service, commonConfig, selection)
             );
@@ -284,7 +284,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteShowingPluginTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string pluginTypeFilter, string messageFilter)
         {
-            await ConnectAndOpenExplorerAsync(connectionData
+            await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.ShowingPluginTreeFormat1
                 , (service) => WindowHelper.OpenPluginTreeExplorer(this._iWriteToOutput, service, commonConfig, entityFilter, pluginTypeFilter, messageFilter)
             );
@@ -296,7 +296,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteShowingSdkMessageTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string messageFilter)
         {
-            await ConnectAndOpenExplorerAsync(connectionData
+            await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.ShowingSdkMessageTreeFormat1
                 , (service) => WindowHelper.OpenSdkMessageTreeExplorer(this._iWriteToOutput, service, commonConfig, entityFilter, messageFilter)
             );
@@ -308,7 +308,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteShowingSdkMessageRequestTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string messageFilter, EnvDTE.SelectedItem selectedItem)
         {
-            await ConnectAndOpenExplorerAsync(connectionData
+            await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.ShowingSdkMessageRequestTreeFormat1
                 , (service) => WindowHelper.OpenSdkMessageRequestTreeExplorer(this._iWriteToOutput, service, commonConfig, null, false, selectedItem, entityFilter, messageFilter)
             );

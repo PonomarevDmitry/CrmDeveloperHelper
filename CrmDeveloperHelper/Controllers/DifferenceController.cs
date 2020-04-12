@@ -32,15 +32,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OperationNames.CheckingFilesEncoding);
-
-                    CheckController.CheckingFilesEncoding(this._iWriteToOutput, connectionData, new[] { selectedFile }, out List<SelectedFile> filesWithoutUTF8Encoding);
-
-                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                }
+                CheckingFilesEncodingAndWriteEmptyLines(connectionData, new[] { selectedFile }, out _);
 
                 await DifferenceWebResources(selectedFile, isCustom, connectionData, commonConfig);
             }
@@ -190,13 +182,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                this._iWriteToOutput.WriteToOutput(null, Properties.OperationNames.CheckingFilesEncoding);
-
-                CheckController.CheckingFilesEncoding(this._iWriteToOutput, null, new[] { selectedFile }, out List<SelectedFile> filesWithoutUTF8Encoding);
-
-                this._iWriteToOutput.WriteToOutput(null, string.Empty);
-                this._iWriteToOutput.WriteToOutput(null, string.Empty);
-                this._iWriteToOutput.WriteToOutput(null, string.Empty);
+                CheckingFilesEncodingAndWriteEmptyLines(null, new[] { selectedFile }, out _);
 
                 await ThreeFileDifferenceWebResources(connectionData1, connectionData2, commonConfig, selectedFile, differenceType);
             }
@@ -351,7 +337,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     break;
 
                 case ShowDifferenceThreeFileType.TwoConnections:
-                    this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, fileTitle1, fileTitle2);
+                    await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, fileTitle1, fileTitle2);
                     break;
 
                 case ShowDifferenceThreeFileType.ThreeWay:
@@ -436,13 +422,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OperationNames.CheckingFilesEncoding);
-
-                CheckController.CheckingFilesEncoding(this._iWriteToOutput, connectionData, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
-
-                this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                CheckingFilesEncodingAndWriteEmptyLines(connectionData, selectedFiles, out _);
 
                 await MultiDifferenceFiles(selectedFiles, openFilesType, connectionData, commonConfig);
             }
@@ -511,7 +491,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     string file2 = tempFilePath;
                     string fileTitle2 = connectionData.Name + "." + selectedFile.FileName + " - " + tempFilePath;
 
-                    this._iWriteToOutput.ProcessStartProgramComparerAsync(file1, file2, fileTitle1, fileTitle2);
+                    await this._iWriteToOutput.ProcessStartProgramComparerAsync(file1, file2, fileTitle1, fileTitle2);
                 }
             }
         }
@@ -739,7 +719,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string fileTitle1 = selectedFile.FileName;
             string fileTitle2 = connectionData.Name + "." + selectedFile.FileName + " - " + temporaryFilePath;
 
-            this._iWriteToOutput.ProcessStartProgramComparerAsync(file1, file2, fileTitle1, fileTitle2);
+            await this._iWriteToOutput.ProcessStartProgramComparerAsync(file1, file2, fileTitle1, fileTitle2);
         }
 
         #endregion Различия отчета и файла.
@@ -922,7 +902,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     break;
 
                 case ShowDifferenceThreeFileType.TwoConnections:
-                    this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, fileTitle1, fileTitle2);
+                    await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, fileTitle1, fileTitle2);
                     break;
 
                 case ShowDifferenceThreeFileType.ThreeWay:
@@ -943,15 +923,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OperationNames.CheckingFilesEncoding);
-
-                    CheckController.CheckingFilesEncoding(this._iWriteToOutput, connectionData, new[] { selectedFile }, out List<SelectedFile> filesWithoutUTF8Encoding);
-
-                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                }
+                CheckingFilesEncodingAndWriteEmptyLines(connectionData, new[] { selectedFile }, out _);
 
                 await CreatingWebResourceEntityDescription(selectedFile, connectionData, commonConfig);
             }
@@ -1097,15 +1069,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OperationNames.CheckingFilesEncoding);
-
-                    CheckController.CheckingFilesEncoding(this._iWriteToOutput, connectionData, new[] { selectedFile }, out List<SelectedFile> filesWithoutUTF8Encoding);
-
-                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                }
+                CheckingFilesEncodingAndWriteEmptyLines(connectionData, new[] { selectedFile }, out _);
 
                 await ChangingWebResourceInEntityEditor(selectedFile, connectionData, commonConfig);
             }
@@ -1228,15 +1192,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OperationNames.CheckingFilesEncoding);
-
-                    CheckController.CheckingFilesEncoding(this._iWriteToOutput, connectionData, new[] { selectedFile }, out List<SelectedFile> filesWithoutUTF8Encoding);
-
-                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                }
+                CheckingFilesEncodingAndWriteEmptyLines(connectionData, new[] { selectedFile }, out _);
 
                 await WebResourceGettingAttribute(selectedFile, fieldName, fieldTitle, connectionData, commonConfig);
             }
