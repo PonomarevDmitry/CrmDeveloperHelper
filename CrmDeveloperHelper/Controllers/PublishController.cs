@@ -1,4 +1,5 @@
-﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
@@ -187,24 +188,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         /// <param name="config"></param>
         public async Task ExecuteUpdateContentAndPublishEqualByText(ConnectionData connectionData, List<SelectedFile> selectedFiles)
         {
-            string operation = string.Format(Properties.OperationNames.UpdatingContentWebResourcesEqualByTextAndPublishingFormat1, connectionData?.Name);
-
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
-
-            try
-            {
-                CheckingFilesEncodingAndWriteEmptyLines(connectionData, selectedFiles, out _);
-
-                await UpdatingContentAndPublishEqualByText(connectionData, selectedFiles);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
-            }
+            await CheckEncodingConnectFindWebResourceExecuteActionAsync(connectionData
+                , Properties.OperationNames.UpdatingContentWebResourcesEqualByTextAndPublishingFormat1
+                , selectedFiles
+                , OpenFilesType.EqualByText
+                , UpdatingContentAndPublishEqualByText
+            );
         }
 
         /// <summary>
@@ -214,26 +203,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         /// 2. по имени веб-ресурса
         /// 3. ручное связывание
         /// </summary>
-        private async Task UpdatingContentAndPublishEqualByText(ConnectionData connectionData, List<SelectedFile> selectedFiles)
+        private void UpdatingContentAndPublishEqualByText(Tuple<IOrganizationServiceExtented, TupleList<SelectedFile, WebResource>> compareResult)
         {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            var compareResult = await CompareController.GetWebResourcesWithType(this._iWriteToOutput, selectedFiles, OpenFilesType.EqualByText, connectionData);
-
-            if (compareResult == null || compareResult.Item1 == null)
-            {
-                return;
-            }
+            IOrganizationServiceExtented service = compareResult.Item1;
 
             var filesToPublish = compareResult.Item2.Where(f => f.Item2 != null);
 
             if (!filesToPublish.Any())
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NothingToPublish);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NothingToPublish);
                 return;
             }
 

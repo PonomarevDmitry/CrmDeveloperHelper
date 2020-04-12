@@ -416,57 +416,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteWebResourceMultiDifferenceFiles(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, OpenFilesType openFilesType)
         {
-            string operation = string.Format(Properties.OperationNames.MultiDifferenceFormat2, connectionData?.Name, openFilesType.ToString());
-
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
-
-            try
-            {
-                CheckingFilesEncodingAndWriteEmptyLines(connectionData, selectedFiles, out _);
-
-                await MultiDifferenceFiles(selectedFiles, openFilesType, connectionData, commonConfig);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
-            }
+            await CheckEncodingConnectFindWebResourceExecuteActionTaskAsync(connectionData
+                , Properties.OperationNames.MultiDifferenceFormat2
+                , selectedFiles
+                , openFilesType
+                , MultiDifferenceFiles
+                , openFilesType.ToString()
+            );
         }
 
-        private async Task MultiDifferenceFiles(List<SelectedFile> selectedFiles, OpenFilesType openFilesType, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task MultiDifferenceFiles(Tuple<IOrganizationServiceExtented, TupleList<SelectedFile, WebResource>> compareResult)
         {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            if (openFilesType == OpenFilesType.All)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ShowingDifferenceIsNotAllowedForFormat1, openFilesType.ToString());
-                return;
-            }
-
-            var compareResult = await CompareController.GetWebResourcesWithType(this._iWriteToOutput, selectedFiles, openFilesType, connectionData);
-
-            if (compareResult == null || compareResult.Item1 == null)
-            {
-                return;
-            }
+            IOrganizationServiceExtented service = compareResult.Item1;
 
             var listFilesToDifference = compareResult.Item2.Where(f => f.Item2 != null);
 
             if (!listFilesToDifference.Any())
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoFilesForDifference);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NoFilesForDifference);
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.StartingCompareProgramForCountFilesFormat1, listFilesToDifference.Count());
+            this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
+            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.StartingCompareProgramForCountFilesFormat1, listFilesToDifference.Count());
 
             foreach (var item in listFilesToDifference.OrderBy(file => file.Item1.FilePath))
             {
@@ -489,7 +461,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     string fileTitle1 = selectedFile.FileName;
 
                     string file2 = tempFilePath;
-                    string fileTitle2 = connectionData.Name + "." + selectedFile.FileName + " - " + tempFilePath;
+                    string fileTitle2 = service.ConnectionData.Name + "." + selectedFile.FileName + " - " + tempFilePath;
 
                     await this._iWriteToOutput.ProcessStartProgramComparerAsync(file1, file2, fileTitle1, fileTitle2);
                 }
