@@ -20,6 +20,17 @@
                 <MenuItem Header="Open Entity List in Web" VerticalAlignment="Center" Click="miOpenEntityListInWeb_Click" />
 
                 <Separator/>
+                <MenuItem Header="Entity Ribbon">
+                    <MenuItem Header="Export Entity Ribbon" Click="miExportEntityRibbon_Click" />
+                    <Separator/>
+                    <MenuItem Header="Export Entity RibbonDiffXml" Click="miExportEntityRibbonDiffXml_Click" />
+                    <Separator/>
+                    <MenuItem Header="Export Entity Ribbon Archive" Click="miExportEntityRibbonArchive_Click" />
+                    <Separator/>
+                    <MenuItem Header="Update Entity RibbonDiffXml" VerticalAlignment="Center" Click="miUpdateEntityRibbonDiffXml_Click"/>
+                </MenuItem>
+
+                <Separator/>
                 <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution">
                     <MenuItem x:Uid="contMnAddToSolutionLastIncludeSubcomponents" Header="Include Subcomponents" />
                     <Separator/>
@@ -67,17 +78,6 @@
 
                 <Separator/>
                 <MenuItem Header="Export Entity Xml" Click="miExportEntityXml_Click"/>
-
-                <Separator/>
-                <MenuItem Header="Entity Ribbon">
-                    <MenuItem Header="Export Entity Ribbon" Click="miExportEntityRibbon_Click" />
-                    <Separator/>
-                    <MenuItem Header="Export Entity RibbonDiffXml" Click="miExportEntityRibbonDiffXml_Click" />
-                    <Separator/>
-                    <MenuItem Header="Export Entity Ribbon Archive" Click="miExportEntityRibbonArchive_Click" />
-                    <Separator/>
-                    <MenuItem Header="Update Entity RibbonDiffXml" VerticalAlignment="Center" Click="miUpdateEntityRibbonDiffXml_Click"/>
-                </MenuItem>
 
                 <Separator/>
                 <MenuItem Header="Publish Entity" Click="miPublishEntity_Click"/>
