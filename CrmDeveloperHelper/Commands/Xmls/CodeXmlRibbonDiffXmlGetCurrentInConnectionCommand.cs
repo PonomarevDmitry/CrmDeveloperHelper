@@ -38,6 +38,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                 , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName
                 , out var attribute
                 , AbstractDynamicCommandXsdSchemas.RootRibbonDiffXml
+                , AbstractDynamicCommandXsdSchemas.RootRibbonDefinitions
             );
 
             if (attribute != null)
