@@ -1367,7 +1367,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         {
                             var handlerCreate = new CreateFormTabsJavaScriptHandler(streamWriter, config, javaScriptObjectType, service);
 
-                            await handlerCreate.WriteContentAsync(entityName, objectName, constructorName, tabs);
+                            systemForm.FormattedValues.TryGetValue(SystemForm.Schema.Attributes.type, out string typeName);
+
+                            await handlerCreate.WriteContentAsync(entityName, objectName, constructorName, tabs, systemForm.Id, systemForm.Name, typeName);
 
                             try
                             {

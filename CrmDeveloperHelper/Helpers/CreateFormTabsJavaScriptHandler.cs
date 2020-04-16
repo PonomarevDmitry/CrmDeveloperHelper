@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xrm.Sdk.Metadata;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
@@ -32,33 +31,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             this._javaScriptObjectType = javaScriptObjectType;
         }
 
-        public Task WriteContentAsync(EntityMetadata entityMetadata, string objectName, string constructorName, IEnumerable<FormTab> tabs)
+        public Task WriteContentAsync(EntityMetadata entityMetadata, string objectName, string constructorName, IEnumerable<FormTab> tabs, Guid? formId, string formName, string formTypeName)
         {
-            return Task.Run(() => WriteContent(entityMetadata, objectName, constructorName, tabs));
+            return Task.Run(() => WriteContent(entityMetadata, objectName, constructorName, tabs, formId, formName, formTypeName));
         }
 
-        private void WriteContent(EntityMetadata entityMetadata, string objectName, string constructorName, IEnumerable<FormTab> tabs)
+        private void WriteContent(EntityMetadata entityMetadata, string objectName, string constructorName, IEnumerable<FormTab> tabs, Guid? formId, string formName, string formTypeName)
         {
             this._entityMetadata = entityMetadata;
 
-            NewMethod(objectName, constructorName, tabs);
+            WriteContentInternal(entityMetadata.LogicalName, objectName, constructorName, tabs, formId, formName, formTypeName);
         }
 
-        public Task WriteContentAsync(string entityLogicalName, string objectName, string constructorName, IEnumerable<FormTab> tabs)
+        public Task WriteContentAsync(string entityLogicalName, string objectName, string constructorName, IEnumerable<FormTab> tabs, Guid? formId, string formName, string formTypeName)
         {
-            return Task.Run(() => WriteContent(entityLogicalName, objectName, constructorName, tabs));
+            return Task.Run(() => WriteContent(entityLogicalName, objectName, constructorName, tabs, formId, formName, formTypeName));
         }
 
-        private void WriteContent(string entityLogicalName, string objectName, string constructorName, IEnumerable<FormTab> tabs)
+        private void WriteContent(string entityLogicalName, string objectName, string constructorName, IEnumerable<FormTab> tabs, Guid? formId, string formName, string formTypeName)
         {
             var repository = new EntityMetadataRepository(_service);
             this._entityMetadata = repository.GetEntityMetadata(entityLogicalName);
 
-            NewMethod(objectName, constructorName, tabs);
+            WriteContentInternal(entityLogicalName, objectName, constructorName, tabs, formId, formName, formTypeName);
         }
 
-        private void NewMethod(string objectName, string constructorName, IEnumerable<FormTab> tabs)
+        private void WriteContentInternal(string entityLogicalName, string objectName, string constructorName, IEnumerable<FormTab> tabs, Guid? formId, string formName, string formTypeName)
         {
+            WriteFormProperties(entityLogicalName, formId, formName, formTypeName);
+
             WriteNamespace();
 
             WriteLine();
@@ -69,6 +70,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteObjectStart(objectDeclaration, constructorName);
 
+            _isFirstElement = true;
+
+            WriteConstantsAndFunctions(objectName);
+
             WriteTabs(tabs);
 
             WriteSections(tabs);
@@ -80,14 +85,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteQuickViewForms(tabs);
 
             WriteIFrames(tabs);
-
-            WriteConstantsAndFunctions(objectName);
 
             WriteObjectEnd(objectDeclaration, constructorName);
         }
 
         public void WriteContentOnlyForm(IEnumerable<FormTab> tabs)
         {
+            _isFirstElement = true;
+
             WriteTabs(tabs);
 
             WriteSections(tabs);
@@ -99,40 +104,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteQuickViewForms(tabs);
 
             WriteIFrames(tabs);
+
+            if (this._javaScriptObjectType == JavaScriptObjectType.JsonObject)
+            {
+                Write(",");
+            }
         }
 
         private void WriteConstantsAndFunctions(string objectName)
         {
-            WriteLine();
             WriteElementNameStart("FormTypeEnum", "{");
-            WriteLine(JavaScriptBodyFormTypeEnum);
+            Write(JavaScriptBodyFormTypeEnum);
             WriteElementNameEnd();
 
-            WriteLine();
             WriteElementNameStart("RequiredLevelEnum", "{");
-            WriteLine(JavaScriptBodyRequiredLevelEnum);
+            Write(JavaScriptBodyRequiredLevelEnum);
             WriteElementNameEnd();
 
-            WriteLine();
             WriteElementNameStart("SubmitModeEnum", "{");
-            WriteLine(JavaScriptBodySubmitModeEnum);
+            Write(JavaScriptBodySubmitModeEnum);
             WriteElementNameEnd();
 
-            WriteLine();
             WriteElementNameStart("writeToConsoleInfo", "function (message) {");
-            WriteLine(JavaScriptFunctionsWriteToConsoleInfo);
+            Write(JavaScriptFunctionsWriteToConsoleInfo);
             WriteElementNameEnd();
 
-            WriteLine();
             WriteElementNameStart("writeToConsoleError", "function (message) {");
-            WriteLine(JavaScriptFunctionsWriteToConsoleError);
+            Write(JavaScriptFunctionsWriteToConsoleError);
             WriteElementNameEnd();
 
             string functionUse = GetFunctionAddress(objectName, "writeToConsoleError");
 
-            WriteLine();
             WriteElementNameStart("handleError", "function (e) {");
-            WriteLine(JavaScriptFunctionsHandleError, functionUse);
+            Write(string.Format(JavaScriptFunctionsHandleError, functionUse));
             WriteElementNameEnd();
         }
 
@@ -154,6 +158,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             switch (this._javaScriptObjectType)
             {
+                default:
                 case JavaScriptObjectType.TypeConstructor:
                     {
                         WriteLine(string.Format("var {0} = function () {{", constructorName));
@@ -163,20 +168,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         WriteLine();
                         WriteLine(string.Format("pthis.__class_name = '{0}';", constructorName));
-                        WriteLine(string.Format("pthis.constructor = {0};", constructorName));
+                        Write(string.Format("pthis.constructor = {0};", constructorName));
                     }
                     break;
 
                 case JavaScriptObjectType.JsonObject:
                     {
-                        WriteLine(string.Format("{0} = {{", objectDeclaration));
+                        Write(string.Format("{0} = {{", objectDeclaration));
                     }
                     break;
 
                 case JavaScriptObjectType.AnonymousConstructor:
-                default:
                     {
                         WriteLine(string.Format("{0} = (new function () {{", objectDeclaration));
+
+                        WriteLine();
+                        Write("var pthis = this;");
                     }
                     break;
             }
@@ -188,13 +195,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 case JavaScriptObjectType.TypeConstructor:
                     {
+                        WriteLine();
                         WriteLine("};");
                         WriteLine();
-                        WriteLine("{0} = new {1}();", objectDeclaration, constructorName);
+                        Write("{0} = new {1}();", objectDeclaration, constructorName);
                     }
                     break;
                 case JavaScriptObjectType.JsonObject:
                     {
+                        WriteLine();
                         Write("};");
                     }
                     break;
@@ -203,9 +212,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 default:
                     {
                         WriteLine();
-                        WriteLine();
-                        WriteLine("var pthis = this;");
-
                         WriteLine();
                         WriteLine("return pthis;");
 
@@ -217,66 +223,106 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private void WriteWebResources(IEnumerable<FormTab> tabs)
         {
-            var webResouces = tabs.SelectMany(t => t.Sections).SelectMany(s => s.Controls).Where(c => c.GetControlType() == FormControl.FormControlType.WebResource);
+            var webResoucesEnum = tabs.SelectMany(t => t.Sections).SelectMany(s => s.Controls).Where(c => c.GetControlType() == FormControl.FormControlType.WebResource);
 
-            if (!webResouces.Any())
+            if (!webResoucesEnum.Any())
             {
                 return;
             }
 
-            WriteLine();
             WriteElementNameStart("WebResources", "{");
 
-            foreach (var control in webResouces)
+            string prefix = string.Empty;
+
+            foreach (var control in webResoucesEnum)
             {
-                WriteLine("'{0}': '{0}',", control.Name);
+                WriteLine();
+                Write($"{prefix}'{control.Name}': '{control.Name}'");
+
+                if (string.IsNullOrEmpty(prefix))
+                {
+                    prefix = ", ";
+                }
             }
 
+            WriteLine();
             WriteElementNameEnd();
         }
 
         private void WriteQuickViewForms(IEnumerable<FormTab> tabs)
         {
-            var webResouces = tabs.SelectMany(t => t.Sections).SelectMany(s => s.Controls).Where(c => c.GetControlType() == FormControl.FormControlType.QuickViewForm);
+            var quickFormsEnum = tabs.SelectMany(t => t.Sections).SelectMany(s => s.Controls).Where(c => c.GetControlType() == FormControl.FormControlType.QuickViewForm);
 
-            if (!webResouces.Any())
+            if (!quickFormsEnum.Any())
             {
                 return;
             }
 
-            WriteLine();
             WriteElementNameStart("QuickViewForms", "{");
 
-            foreach (var control in webResouces)
+            string prefix = string.Empty;
+
+            foreach (var control in quickFormsEnum)
             {
-                WriteLine("'{0}': '{0}',", control.Name);
+                WriteLine();
+                Write($"{prefix}'{control.Name}': '{control.Name}'");
+
+                if (string.IsNullOrEmpty(prefix))
+                {
+                    prefix = ", ";
+                }
             }
 
+            WriteLine();
             WriteElementNameEnd();
         }
 
         private void WriteIFrames(IEnumerable<FormTab> tabs)
         {
-            var webResouces = tabs.SelectMany(t => t.Sections).SelectMany(s => s.Controls).Where(c => c.GetControlType() == FormControl.FormControlType.IFrame);
+            var iframesEnum = tabs.SelectMany(t => t.Sections).SelectMany(s => s.Controls).Where(c => c.GetControlType() == FormControl.FormControlType.IFrame);
 
-            if (!webResouces.Any())
+            if (!iframesEnum.Any())
             {
                 return;
             }
 
-            WriteLine();
             WriteElementNameStart("IFrames", "{");
 
-            foreach (var control in webResouces)
+            string prefix = string.Empty;
+
+            foreach (var control in iframesEnum)
             {
-                WriteLine("'{0}': '{0}',", control.Name);
+                WriteLine();
+                Write($"{prefix}'{control.Name}': '{control.Name}'");
+
+                if (string.IsNullOrEmpty(prefix))
+                {
+                    prefix = ", ";
+                }
             }
 
             WriteElementNameEnd();
         }
 
+        private bool _isFirstElement = false;
+
         private void WriteElementNameStart(string elementName, string elementExpression)
         {
+            if (_isFirstElement)
+            {
+                _isFirstElement = false;
+            }
+            else
+            {
+                if (this._javaScriptObjectType == JavaScriptObjectType.JsonObject)
+                {
+                    Write(",");
+                }
+            }
+
+            WriteLine();
+            WriteLine();
+
             switch (this._javaScriptObjectType)
             {
                 case JavaScriptObjectType.JsonObject:
@@ -297,11 +343,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private void WriteElementNameEnd()
         {
+            WriteLine();
+
             switch (this._javaScriptObjectType)
             {
                 case JavaScriptObjectType.JsonObject:
                     {
-                        WriteLine("},");
+                        Write("}");
                     }
                     break;
 
@@ -309,7 +357,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 case JavaScriptObjectType.TypeConstructor:
                 default:
                     {
-                        WriteLine("};");
+                        Write("};");
                     }
                     break;
             }
@@ -317,19 +365,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private void WriteSubgrids(IEnumerable<FormTab> tabs)
         {
-            var subgrids = tabs.SelectMany(t => t.Sections).SelectMany(s => s.Controls).Where(c => c.GetControlType() == FormControl.FormControlType.SubGrid || c.GetControlType() == FormControl.FormControlType.EditableSubGrid);
+            var subgridsEnum = tabs.SelectMany(t => t.Sections).SelectMany(s => s.Controls).Where(c => c.GetControlType() == FormControl.FormControlType.SubGrid || c.GetControlType() == FormControl.FormControlType.EditableSubGrid);
 
-            if (!subgrids.Any())
+            if (!subgridsEnum.Any())
             {
                 return;
             }
 
-            WriteLine();
             WriteElementNameStart("SubGrids", "{");
 
-            foreach (var control in subgrids)
+            string prefix = string.Empty;
+
+            foreach (var control in subgridsEnum)
             {
-                WriteLine("'{0}': '{0}',", control.Name);
+                WriteLine();
+                Write($"{prefix}'{control.Name}': '{control.Name}'");
+
+                if (string.IsNullOrEmpty(prefix))
+                {
+                    prefix = ", ";
+                }
             }
 
             WriteElementNameEnd();
@@ -342,13 +397,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            WriteLine();
             WriteElementNameStart("Tabs", "{");
+
+            bool first = true;
 
             foreach (var tab in tabs)
             {
+                if (first)
+                {
+                    first = false;
+                }
+                else
+                {
+                    Write(",");
+                    WriteLine();
+                }
+
+                WriteLine();
                 WriteLine("'{0}': {{", tab.Name);
 
+                WriteLine();
                 WriteLine("'Name': '{0}',", tab.Name);
 
                 WriteLine("'DefaultShowLabel': {0},", tab.ShowLabel);
@@ -364,17 +432,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (tab.Sections.Any())
                 {
-                    WriteLine("'Sections': [");
+                    Write("'Sections': [");
+
+                    string prefix = string.Empty;
 
                     foreach (var section in tab.Sections)
                     {
-                        WriteLine("'{0}',", section.Name);
+                        WriteLine();
+                        Write($"{_tabSpacer}{prefix}'{section.Name}'");
+
+                        if (string.IsNullOrEmpty(prefix))
+                        {
+                            prefix = ", ";
+                        }
                     }
 
-                    WriteLine("],");
+                    WriteLine();
+                    WriteLine("]");
                 }
 
-                WriteLine("},");
+                Write("}");
             }
 
             WriteElementNameEnd();
@@ -389,33 +466,73 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            WriteLine();
             WriteElementNameStart("Sections", "{");
+
+            bool first = true;
 
             foreach (var tab in tabs)
             {
                 foreach (var section in tab.Sections)
                 {
+                    if (first)
+                    {
+                        first = false;
+                    }
+                    else
+                    {
+                        Write(",");
+                        WriteLine();
+                    }
+
+                    WriteLine();
                     WriteLine("'{0}': {{", section.Name);
+
+                    WriteLine();
+                    WriteLine("'Name': '{0}',", section.Name);
 
                     WriteLine("'TabName': '{0}',", tab.Name);
 
-                    WriteLine("'Name': '{0}',", section.Name);
-
                     WriteLine("'DefaultShowLabel': {0},", section.ShowLabel);
 
-                    WriteLine("'DefaultVisible': {0},", section.Visible);
+                    Write($"'DefaultVisible': {section.Visible}");
 
                     foreach (var label in section.Labels)
                     {
-                        WriteLine("'Label{0}': '{1}',", label.LanguageCode, label.GetValueJavaScript());
+                        Write(",");
+                        WriteLine();
+
+                        Write($"'Label{label.LanguageCode}': '{label.GetValueJavaScript()}'");
                     }
 
-                    WriteLine("},");
+                    WriteLine();
+                    Write("}");
                 }
             }
 
             WriteElementNameEnd();
+        }
+
+        private void WriteFormProperties(string entityName, Guid? formId, string formName, string formTypeName)
+        {
+            if (formId.HasValue)
+            {
+                if (!string.IsNullOrEmpty(entityName))
+                {
+                    WriteLine($@"/// <crmdeveloperhelper entityName=""{entityName}"" />");
+                }
+
+                WriteLine($@"/// <crmdeveloperhelper systemformid=""{formId:B}"" />");
+            }
+
+            if (!string.IsNullOrEmpty(formName))
+            {
+                WriteLine($@"/// <crmdeveloperhelper systemformname=""{formName}"" />");
+            }
+
+            if (!string.IsNullOrEmpty(formTypeName))
+            {
+                WriteLine($@"/// <crmdeveloperhelper systemformtypename=""{formTypeName}"" />");
+            }
         }
 
         private void WriteNamespace()
@@ -445,17 +562,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        private void WriteSummaryStrings(List<string> lines)
-        {
-            if (lines.Count > 0)
-            {
-                foreach (var item in lines)
-                {
-                    WriteLine("// {0}", item);
-                }
-            }
-        }
-
         public const string JavaScriptTry =
 @"try {";
 
@@ -472,12 +578,12 @@ throw e;
 'Update': 2,
 'ReadOnly': 3,
 'Disabled': 4,
-'Bulk Edit': 6,";
+'Bulk Edit': 6";
 
         public const string JavaScriptBodyRequiredLevelEnum =
 @"'none': 'none',
 'required': 'required',
-'recommended': 'recommended',";
+'recommended': 'recommended'";
 
         public const string JavaScriptBodySubmitModeEnum =
 @"'always': 'always',

@@ -34,6 +34,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             this._tabCount += count;
         }
 
+        private bool _currentLineHasCharacters = false;
+
         private void WriteSingleLine(string line = "")
         {
             if (!string.IsNullOrEmpty(line))
@@ -46,6 +48,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             _writer.WriteLine(line);
+            _currentLineHasCharacters = false;
 
             var skip = line.SkipWhile(ch => ch == '}');
 
@@ -76,10 +79,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private void WriteTabs()
         {
-            for (int i = 0; i < this._tabCount; i++)
+            if (_currentLineHasCharacters)
             {
-                _writer.Write(this._tabSpacer);
+                return;
             }
+
+            _currentLineHasCharacters = true;
+
+            if (this._tabCount > 0)
+            {
+                _writer.Write(new StringBuilder(_tabSpacer.Length * this._tabCount).Insert(0, _tabSpacer, this._tabCount).ToString());
+            }
+        }
+
+        protected void Write(string line, params object[] args)
+        {
+            var str = line;
+
+            if (args != null && args.Any())
+            {
+                str = string.Format(line, args);
+            }
+
+            Write(str);
         }
 
         protected void Write(string str)
