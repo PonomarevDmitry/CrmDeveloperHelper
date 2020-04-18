@@ -2331,6 +2331,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeWebResourceLinkClearCommandId = 0x2008;
 
+            public const int CodeWebResourceIncludeReferencesToDependencyXmlCommandId = 0x223B;
+
             public const int CodeJavaScriptUpdateEntityMetadataFileWithSelectCommandId = 0x219D;
 
             public const int CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommandId = 0x21A1;

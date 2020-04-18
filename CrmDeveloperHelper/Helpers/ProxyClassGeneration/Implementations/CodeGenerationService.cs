@@ -1155,7 +1155,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
                 Var(typeof(EntityCollection), VariableNameCollection, ThisMethodInvoke(nameof(Entity.GetAttributeValue), TypeRef(typeof(EntityCollection)), attributeNameRef))
                 , If(
                     And(IsNotNull(variableCollectionRef), IsNotNull(PropRef(variableCollectionRef, nameof(EntityCollection.Entities))))
-                    , Return(StaticMethodInvoke(typeof(Enumerable), nameof(Enumerable.Cast), propertyType.TypeArguments[0], (CodeExpression)PropRef(variableCollectionRef, nameof(EntityCollection.Entities))))
+                    , Return(StaticMethodInvoke(typeof(Enumerable), nameof(Enumerable.Cast), propertyType.TypeArguments[0], PropRef(variableCollectionRef, nameof(EntityCollection.Entities))))
                     , Return(StaticMethodInvoke(typeof(Enumerable), nameof(Enumerable.Empty), propertyType.TypeArguments[0]))
                 )
             };
@@ -1168,7 +1168,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             return If(IsValueNull()
                 , ThisMethodInvoke(MethodSetAttributeValue, attributeNameRef, valueRef)
                 , ThisMethodInvoke(MethodSetAttributeValue, attributeNameRef
-                    , New(TypeRef(typeof(EntityCollection)), (CodeExpression)New(TypeRef(typeof(List<Entity>)), (CodeExpression)valueRef))
+                    , New(TypeRef(typeof(EntityCollection)), New(TypeRef(typeof(List<Entity>)), valueRef))
             ));
         }
 

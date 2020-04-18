@@ -140,6 +140,70 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public void HandleIncludeReferencesToDependencyXmlCommand(ConnectionData connectionData, List<SelectedFile> selectedFiles)
+        {
+            if (selectedFiles.Count == 0)
+            {
+                return;
+            }
+
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null && commonConfig != null && selectedFiles.Count > 0)
+            {
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                bool canPublish = false;
+
+                if (commonConfig.DoNotPropmPublishMessage)
+                {
+                    canPublish = true;
+                }
+                else
+                {
+                    string message = string.Format(Properties.MessageBoxStrings.IncludeReferencesToDependencyXmlAndPublishWebResourcesFormat2, selectedFiles.Count, connectionData.GetDescriptionColumn());
+
+                    var dialog = new WindowConfirmPublish(message);
+
+                    if (dialog.ShowDialog().GetValueOrDefault())
+                    {
+                        commonConfig.DoNotPropmPublishMessage = dialog.DoNotPromtPublishMessage;
+
+                        commonConfig.Save();
+
+                        canPublish = true;
+                    }
+                }
+
+                if (canPublish)
+                {
+                    ActivateOutputWindow(connectionData);
+                    WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                    CheckWishToChangeCurrentConnection(connectionData);
+
+                    try
+                    {
+                        Controller.StartIncludeReferencesToDependencyXml(connectionData, selectedFiles);
+                    }
+                    catch (Exception ex)
+                    {
+                        WriteErrorToOutput(connectionData, ex);
+                    }
+                }
+            }
+        }
+
         public void HandleWebResourceAddingToSolutionCommand(ConnectionData connectionData, string solutionUniqueName, bool withSelect, List<SelectedFile> selectedFiles)
         {
             if (selectedFiles.Count == 0)
@@ -325,7 +389,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            GetConnectionConfigAndExecute(null, (conn, commonConfig) => Controller.StartWebResourceMultiDifferenceFiles(conn, commonConfig, selectedFiles, openFilesType));
+            GetConnectionConfigAndExecute(null, (conn, commonConfig) =>
+            {
+                if (openFilesType == OpenFilesType.All)
+                {
+                    WriteToOutput(conn, Properties.OutputStrings.ShowingDifferenceIsNotAllowedForFormat1, openFilesType.ToString());
+                    return;
+                }
+
+                Controller.StartWebResourceMultiDifferenceFiles(conn, commonConfig, selectedFiles, openFilesType);
+            });
         }
 
         public void HandleExportWebResource()

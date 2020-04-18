@@ -385,6 +385,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Include References from JavaScript toW WebResources DependencyXml and Publish {0} files on
+        ///{1}?.
+        /// </summary>
+        internal static string IncludeReferencesToDependencyXmlAndPublishWebResourcesFormat2 {
+            get {
+                return ResourceManager.GetString("IncludeReferencesToDependencyXmlAndPublishWebResourcesFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Information.
         /// </summary>
         internal static string InformationTitle {
@@ -476,7 +486,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Seach equal by text among {0} files, update them and publish on
+        ///   Looks up a localized string similar to Seach equal by text among {0} files, Update them and Publish on
         ///{1}?.
         /// </summary>
         internal static string PublishWebResourcesEqualByTextFormat2 {
@@ -486,7 +496,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Continue create/update web resources and publish {0} files on
+        ///   Looks up a localized string similar to Continue Create/Update WebResources and Publish {0} files on
         ///{1}?.
         /// </summary>
         internal static string PublishWebResourcesFormat2 {

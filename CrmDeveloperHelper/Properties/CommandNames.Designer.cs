@@ -196,6 +196,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Include References To DependencyXml.
+        /// </summary>
+        internal static string CodeWebResourceIncludeReferencesToDependencyXmlCommand {
+            get {
+                return ResourceManager.GetString("CodeWebResourceIncludeReferencesToDependencyXmlCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show Difference.
         /// </summary>
         internal static string CodeWebResourceShowDifferenceCommand {

@@ -230,6 +230,7 @@
     <Compile Include="Commands\Reports\CodeReportCreateCommand.cs" />
     <Compile Include="Commands\Reports\CodeReportShowDifferenceInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Reports\CodeReportShowDifferenceThreeFileCommand.cs" />
+    <Compile Include="Commands\WebResources\CodeWebResourceIncludeReferencesToDependencyXmlCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceChangeInEditorInConnectionCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceCreateEntityDescriptionInConnectionCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceGetAttributeInConnectionCommand.cs" />

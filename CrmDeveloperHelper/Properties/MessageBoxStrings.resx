@@ -214,11 +214,15 @@
     <value>UserName is empty.</value>
   </data>
   <data name="PublishWebResourcesEqualByTextFormat2" xml:space="preserve">
-    <value>Seach equal by text among {0} files, update them and publish on
+    <value>Seach equal by text among {0} files, Update them and Publish on
 {1}?</value>
   </data>
   <data name="PublishWebResourcesFormat2" xml:space="preserve">
-    <value>Continue create/update web resources and publish {0} files on
+    <value>Continue Create/Update WebResources and Publish {0} files on
+{1}?</value>
+  </data>
+  <data name="IncludeReferencesToDependencyXmlAndPublishWebResourcesFormat2" xml:space="preserve">
+    <value>Include References from JavaScript toW WebResources DependencyXml and Publish {0} files on
 {1}?</value>
   </data>
   <data name="CannotParseGuid" xml:space="preserve">

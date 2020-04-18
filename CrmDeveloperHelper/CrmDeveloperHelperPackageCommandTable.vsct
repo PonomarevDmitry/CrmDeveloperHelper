@@ -11927,7 +11927,7 @@
     <CommandPlacement guid="guidCommandSet" id="CodeXmlCommonXsdSchemaSetProperCommandId" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas" priority="0x06010">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema" />
     </CommandPlacement>
     <CommandPlacement guid="guidCommandSet" id="CodeXmlCommonXsdSchemaRemoveCommandId" priority="0x06030">
@@ -11949,7 +11949,7 @@
 
     <!-- #region codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas_GroupOpenFolder -->
 
-    <CommandPlacement guid="guidCommandSet" id="CodeXmlCommonXsdSchemaOpenFolderCommandId" priority="0x105">
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlCommonXsdSchemaOpenFolderCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas_GroupOpenFolder" />
     </CommandPlacement>
 
@@ -20525,6 +20525,8 @@
       <IDSymbol name="CodeWebResourceLinkCreateCommandId" value="0x2007" />
       <IDSymbol name="CodeWebResourceLinkClearCommandId" value="0x2008" />
 
+      <IDSymbol name="CodeWebResourceIncludeReferencesToDependencyXmlCommandId" value="0x223B" />
+
       <!-- #endregion CodeWebResource -->
 
       <!-- #region CodeJavaScript -->
@@ -21278,7 +21280,7 @@
     <!-- 0x1405 -->
 
     <!-- Commands -->
-    <!-- 0x223B -->
+    <!-- 0x223C -->
 
     <!-- Dynamic Commands -->
     <!-- 12300 -->
