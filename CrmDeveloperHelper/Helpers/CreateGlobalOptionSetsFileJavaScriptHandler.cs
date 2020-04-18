@@ -84,13 +84,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     str.Append(".");
                     WriteLine();
+                    WriteLine();
                 }
 
                 str.Append(item);
 
                 WriteLine("if (typeof (" + str.ToString() + ") == 'undefined') {");
                 WriteLine(str.ToString() + " = { __namespace: true };");
-                WriteLine("}");
+                Write("}");
             }
         }
 
@@ -133,6 +134,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             WriteLine();
+            WriteLine();
 
             if (this._withDependentComponents)
             {
@@ -158,13 +160,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteLine();
 
+            bool first = true;
+
             // Формируем значения
             foreach (var item in options)
             {
-                WriteLine(item.MakeStringJS());
+                if (first)
+                {
+                    first = false;
+                }
+                else
+                {
+                    Write(",");
+                    WriteLine();
+                }
+
+                Write(item.MakeStringJS());
             }
 
-            WriteLine("};");
+            WriteLine();
+            Write("};");
         }
     }
 }

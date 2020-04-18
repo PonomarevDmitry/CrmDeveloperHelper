@@ -96,7 +96,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await WriteRegularOptionSets();
 
-            Write("}");
+            WriteLine();
+            Write("};");
         }
 
         private void WriteNamespace(string jsNamespace)
@@ -122,7 +123,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 WriteLine("if (typeof (" + str.ToString() + ") == 'undefined') {");
                 WriteLine(str.ToString() + " = { __namespace: true };");
-                WriteLine("}");
+                WriteLine("};");
             }
         }
 
@@ -143,6 +144,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteLine();
             WriteLine("'Attributes': {");
 
+            bool firstLine = true;
+
             if (!string.IsNullOrEmpty(_entityMetadata.PrimaryIdAttribute))
             {
                 AttributeMetadata attributeMetadata = attributes.FirstOrDefault(e => string.Equals(e.LogicalName, _entityMetadata.PrimaryIdAttribute, StringComparison.InvariantCultureIgnoreCase));
@@ -151,7 +154,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     && attributeMetadata.IsPrimaryId.GetValueOrDefault()
                 )
                 {
-                    WriteLine("'{0}': '{0}',", attributeMetadata.LogicalName.ToLower());
+                    if (firstLine)
+                    {
+                        firstLine = false;
+                    }
+                    else
+                    {
+                        WriteLine(",");
+                    }
+
+                    Write("'{0}': '{0}'", attributeMetadata.LogicalName.ToLower());
                 }
             }
 
@@ -163,7 +175,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     && attributeMetadata.IsPrimaryName.GetValueOrDefault()
                 )
                 {
-                    WriteLine("'{0}': '{0}',", attributeMetadata.LogicalName.ToLower());
+                    if (firstLine)
+                    {
+                        firstLine = false;
+                    }
+                    else
+                    {
+                        WriteLine(",");
+                    }
+
+                    Write("'{0}': '{0}'", attributeMetadata.LogicalName.ToLower());
                 }
             }
 
@@ -173,17 +194,64 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var oobAttributes = notPrimaryAttributes.Where(a => !a.IsCustomAttribute.GetValueOrDefault());
             var customAttributes = notPrimaryAttributes.Where(a => a.IsCustomAttribute.GetValueOrDefault());
 
-            foreach (AttributeMetadata attrib in oobAttributes.OrderBy(attr => attr.LogicalName))
+            if (oobAttributes.Any())
             {
-                WriteLine("'{0}': '{0}',", attrib.LogicalName.ToLower());
+                if (firstLine)
+                {
+                    firstLine = false;
+                }
+                else
+                {
+                    WriteLine(",");
+                }
+
+                WriteLine();
+
+                bool firstLineOOB = true;
+
+                foreach (AttributeMetadata attrib in oobAttributes.OrderBy(attr => attr.LogicalName))
+                {
+                    if (firstLineOOB)
+                    {
+                        firstLineOOB = false;
+                    }
+                    else
+                    {
+                        WriteLine(",");
+                    }
+
+                    Write("'{0}': '{0}'", attrib.LogicalName.ToLower());
+                }
             }
 
-            foreach (AttributeMetadata attrib in customAttributes.OrderBy(attr => attr.LogicalName))
+            if (customAttributes.Any())
             {
-                WriteLine("'{0}': '{0}',", attrib.LogicalName.ToLower());
+                if (!firstLine)
+                {
+                    WriteLine(",");
+                }
+
+                WriteLine();
+
+                bool firstLineCustom = true;
+
+                foreach (AttributeMetadata attrib in customAttributes.OrderBy(attr => attr.LogicalName))
+                {
+                    if (firstLineCustom)
+                    {
+                        firstLineCustom = false;
+                    }
+                    else
+                    {
+                        WriteLine(",");
+                    }
+
+                    Write("'{0}': '{0}'", attrib.LogicalName.ToLower());
+                }
             }
 
-            WriteLine("},");
+            WriteLine();
+            Write("}");
         }
 
         private async Task WriteRegularOptionSets()
@@ -240,6 +308,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private void GenerateStatusEnums(StatusAttributeMetadata statusAttr, StateAttributeMetadata stateAttr)
         {
+            WriteLine(",");
             WriteLine();
             WriteLine("'StatusCodes': {");
 
@@ -247,17 +316,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteLine();
 
+            bool first = true;
+
             // Формируем значения
             foreach (var item in options.OrderBy(op => op.LinkedStateCode).ThenBy(op => op.Value))
             {
-                WriteLine(item.MakeStringJS());
+                if (first)
+                {
+                    first = false;
+                }
+                else
+                {
+                    WriteLine(",");
+                }
+
+                Write(item.MakeStringJS());
             }
 
-            WriteLine("},");
+            WriteLine();
+            Write("}");
         }
 
         private void GenerateStateEnums(StateAttributeMetadata stateAttr, StatusAttributeMetadata statusAttr)
         {
+            WriteLine(",");
             WriteLine();
             WriteLine("'StateCodes': {");
 
@@ -265,13 +347,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteLine();
 
+            bool first = true;
+
             // Формируем значения
             foreach (var item in options)
             {
-                WriteLine(item.MakeStringJS());
+                if (first)
+                {
+                    first = false;
+                }
+                else
+                {
+                    Write(",");
+                    WriteLine();
+                }
+
+                Write(item.MakeStringJS());
             }
 
-            WriteLine("},");
+            WriteLine();
+            Write("}");
         }
 
         private async Task GenerateOptionSetEnums(IEnumerable<AttributeMetadata> attributeList, OptionSetMetadata optionSet)
@@ -283,6 +378,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
+            WriteLine(",");
             WriteLine();
 
             WriteLine("// Attribute:");
@@ -331,13 +427,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteLine();
 
+            bool first = true;
+
             // Формируем значения
             foreach (var item in options)
             {
-                WriteLine(item.MakeStringJS());
+                if (first)
+                {
+                    first = false;
+                }
+                else
+                {
+                    Write(",");
+                    WriteLine();
+                }
+
+                Write(item.MakeStringJS());
             }
 
-            WriteLine("},");
+            WriteLine();
+            Write("}");
         }
 
         protected override void WriteSummaryStrings(IEnumerable<string> lines)

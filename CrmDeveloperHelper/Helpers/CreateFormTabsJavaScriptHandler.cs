@@ -19,6 +19,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private readonly CreateFileJavaScriptConfiguration _config;
         private readonly JavaScriptObjectType _javaScriptObjectType;
 
+        private bool _isFirstElement = false;
+
         public CreateFormTabsJavaScriptHandler(
             TextWriter writer
             , CreateFileJavaScriptConfiguration config
@@ -303,8 +305,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteElementNameEnd();
         }
-
-        private bool _isFirstElement = false;
 
         private void WriteElementNameStart(string elementName, string elementExpression)
         {

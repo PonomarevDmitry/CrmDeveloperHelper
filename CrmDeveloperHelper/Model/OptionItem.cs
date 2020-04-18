@@ -92,7 +92,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 strValue.AppendFormat(", 'linkedstatecode': {0}", this.LinkedStateCode.ToString());
             }
 
-            strValue.Append(" },");
+            strValue.Append(" }");
 
             return strValue.ToString();
         }
