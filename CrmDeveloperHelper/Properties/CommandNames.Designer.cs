@@ -133,6 +133,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Get Linked SystemForm Current Xml.
+        /// </summary>
+        internal static string CodeJavaScriptLinkedSystemFormGetCurrentCommand {
+            get {
+                return ResourceManager.GetString("CodeJavaScriptLinkedSystemFormGetCurrentCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update EntityMetadata File with Select Entity.
         /// </summary>
         internal static string CodeJavaScriptUpdateEntityMetadataFileWithSelectCommand {

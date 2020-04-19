@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Caching;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
@@ -1579,5 +1580,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         }
 
         #endregion Cache
+
+        private static Regex _regexAttributeEntityNameFormTypeFormId = new Regex(@"^\/\/\/ <crmdeveloperhelper entityname=\""(?<entityname>[\w]+)\"" systemformtype=\""(?<systemformtype>[0-9]+)\"" systemformid=\""(?<systemformid>\{?[0-9A-Fa-f]{8}[-][0-9A-Fa-f]{4}[-][0-9A-Fa-f]{4}[-][0-9A-Fa-f]{4}[-][0-9A-Fa-f]{12}\}?)\"" \/>\r?$", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
+
+        public static bool GetLinkedSystemForm(string text, out string entityName, out Guid formId, out int formType)
+        {
+            var matchEntityNameFormTypeFormId = _regexAttributeEntityNameFormTypeFormId.Match(text);
+
+            if (matchEntityNameFormTypeFormId.Success
+                && matchEntityNameFormTypeFormId.Groups["entityname"] != null
+                && matchEntityNameFormTypeFormId.Groups["systemformtype"] != null
+                && matchEntityNameFormTypeFormId.Groups["systemformid"] != null
+            )
+            {
+                string formIdString = matchEntityNameFormTypeFormId.Groups["systemformid"].Value;
+                string formTypeString = matchEntityNameFormTypeFormId.Groups["systemformtype"].Value;
+
+                if (Guid.TryParse(formIdString, out formId) && int.TryParse(formTypeString, out formType))
+                {
+                    entityName = matchEntityNameFormTypeFormId.Groups["entityname"].Value;
+
+                    return true;
+                }
+            }
+
+            entityName = string.Empty;
+            formId = Guid.Empty;
+            formType = 0;
+
+            return false;
+        }
     }
 }

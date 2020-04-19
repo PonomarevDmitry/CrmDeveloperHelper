@@ -186,11 +186,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Экспортирование System Form FormXml.
 
-        public async Task ExecuteOpeningSystemFormExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection, EnvDTE.SelectedItem selectedItem)
+        public async Task ExecuteOpeningSystemFormExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, string selection, EnvDTE.SelectedItem selectedItem)
         {
             await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.ExportingSystemFormXmlFormat1
-                , (service) => WindowHelper.OpenSystemFormExplorer(this._iWriteToOutput, service, commonConfig, string.Empty, selection, selectedItem)
+                , (service) => WindowHelper.OpenSystemFormExplorer(this._iWriteToOutput, service, commonConfig, entityName, selection, selectedItem)
             );
         }
 

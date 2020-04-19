@@ -411,6 +411,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartSystemFormGetCurrent(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
             => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteGetSystemFormCurrentXml, commonConfig, selectedFile);
 
+        public void StartSystemFormGetCurrent(ConnectionData connectionData, CommonConfiguration commonConfig, Guid formId)
+            => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteGetSystemFormCurrentXml, commonConfig, formId);
+
         #endregion SystemForm
 
         #region SavedQuery
@@ -788,8 +791,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartExplorerSystemSavedQueryVisualization(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
             => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteOpeningSystemSavedQueryVisualizationExplorer, commonConfig, selection);
 
-        public void StartExplorerSystemForm(ConnectionData connectionData, CommonConfiguration commonConfig, string selection, EnvDTE.SelectedItem selectedItem)
-            => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteOpeningSystemFormExplorer, commonConfig, selection, selectedItem);
+        public void StartExplorerSystemForm(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, string selection, EnvDTE.SelectedItem selectedItem)
+            => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteOpeningSystemFormExplorer, commonConfig, entityName, selection, selectedItem);
 
         public void StartExplorerCustomControl(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
             => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteOpeningCustomControlExplorer, commonConfig, selection);

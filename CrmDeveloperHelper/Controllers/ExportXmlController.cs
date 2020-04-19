@@ -655,7 +655,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 if (ParseXmlDocument(connectionData, selectedFile, out var doc))
                 {
-                    await CheckAttributeValidateGetSystemFormExecuteAction(connectionData, commonConfig, doc, selectedFile.FilePath, null, GetCurrentSystemFormXml);
+                    await CheckAttributeValidateGetSystemFormExecuteAction(connectionData, commonConfig, doc, selectedFile.FilePath, null, GetCurrentSystemFormXmlAsync);
                 }
             }
             catch (Exception ex)
@@ -666,6 +666,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
+        }
+
+        public async Task ExecuteGetSystemFormCurrentXml(ConnectionData connectionData, CommonConfiguration commonConfig, Guid formId)
+        {
+            await ConnectAndExecuteActionAsync(connectionData
+                , Properties.OperationNames.GettingSystemFormCurrentXmlFormat1
+                , (service) => GettingSystemFormCurrentXml(service, commonConfig, formId)
+            );
+        }
+
+        private async Task GettingSystemFormCurrentXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, Guid formId)
+        {
+            var repositorySystemForm = new SystemFormRepository(service);
+
+            var systemForm = await repositorySystemForm.GetByIdAsync(formId, new ColumnSet(true));
+
+            GetCurrentSystemFormXml(service, commonConfig, systemForm);
         }
 
         private Task CheckAttributeValidateGetSystemFormExecuteAction(
@@ -889,7 +906,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             return Task.Run(() => service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.SystemForm, systemForm.Id));
         }
 
-        private async Task GetCurrentSystemFormXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, SystemForm systemForm)
+        private Task GetCurrentSystemFormXmlAsync(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, SystemForm systemForm)
+        {
+            return Task.Run(() => GetCurrentSystemFormXml(service, commonConfig, systemForm));
+        }
+
+        private void GetCurrentSystemFormXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, SystemForm systemForm)
         {
             string formXml = systemForm.FormXml;
 

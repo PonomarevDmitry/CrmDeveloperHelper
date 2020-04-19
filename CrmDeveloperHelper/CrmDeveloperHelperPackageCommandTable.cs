@@ -137,6 +137,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuWebResource_GroupGlobalOptionSetAll_MenuConnectionDyn_Group = 0x1323;
 
+            public const int codeMenuWebResource_GroupLinkedSystemForm = 0x1405;
+
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu = 0x1406;
+
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group = 0x1407;
+
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group_MenuOpenInWebConnectionDyn = 0x1408;
+
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group_MenuOpenInWebConnectionDyn_Group = 0x1409;
+
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group_MenuGetCurrentDyn = 0x140A;
+
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group_MenuGetCurrentDyn_Group = 0x140B;
+
             public const int codeMenuWebResource_GroupCheckFileEncoding = 0x1005;
 
             public const int codeMenuWebResource_GroupEntity = 0x13BE;
@@ -2038,6 +2052,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeXmlWebResourceDependencyXmlGetCurrentInConnectionCommandId = 0x2EAE;
 
+            public const int CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommandId = 0x300C;
+
+            public const int CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommandId = 0x303E;
+
             public const int CodeReportAddToSolutionLastCommandId = 0x00DC;
 
             public const int CodeReportShowDifferenceOriginalBodyTextInConnectionGroupCommandId = 0x0258;
@@ -2336,6 +2354,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int CodeJavaScriptUpdateEntityMetadataFileWithSelectCommandId = 0x219D;
 
             public const int CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommandId = 0x21A1;
+
+            public const int CodeJavaScriptLinkedSystemFormExplorerCommandId = 0x223C;
+
+            public const int CodeJavaScriptLinkedSystemFormGetCurrentCommandId = 0x223D;
 
             public const int CodeXmlCommonUpdateCommandId = 0x2225;
 

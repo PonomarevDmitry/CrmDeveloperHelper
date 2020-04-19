@@ -1,5 +1,6 @@
 ﻿using EnvDTE;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+using System;
 using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
@@ -66,38 +67,48 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartSystemFormGetCurrent(conn, commonConfig, selectedFile));
         }
 
+        public void HandleSystemFormGetCurrentCommand(ConnectionData connectionData, Guid formId)
+        {
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartSystemFormGetCurrent(conn, commonConfig, formId));
+        }
+
         public void HandleExplorerSystemForm()
         {
             string selection = GetSelectedText();
 
-            HandleExplorerSystemForm(null, null, selection);
+            HandleExplorerSystemForm(null, null, null, selection);
         }
 
         public void HandleExplorerSystemForm(ConnectionData connectionData)
         {
             string selection = GetSelectedText();
 
-            HandleExplorerSystemForm(connectionData, null, selection);
+            HandleExplorerSystemForm(connectionData, null, null, selection);
         }
 
         public void HandleExplorerSystemForm(string selection)
         {
-            HandleExplorerSystemForm(null, null, selection);
+            HandleExplorerSystemForm(null, null,null, selection);
+        }
+
+        public void HandleExplorerSystemForm(string entityName, string selection)
+        {
+            HandleExplorerSystemForm(null, null, entityName, selection);
         }
 
         public void HandleExplorerSystemForm(ConnectionData connectionData, string selection)
         {
-            HandleExplorerSystemForm(connectionData, null, selection);
+            HandleExplorerSystemForm(connectionData, null, null, selection);
         }
 
         public void HandleExplorerSystemForm(ConnectionData connectionData, SelectedItem selectedItem)
         {
-            HandleExplorerSystemForm(connectionData, selectedItem, string.Empty);
+            HandleExplorerSystemForm(connectionData, selectedItem, null, string.Empty);
         }
 
-        private void HandleExplorerSystemForm(ConnectionData connectionData, SelectedItem selectedItem, string selection)
+        private void HandleExplorerSystemForm(ConnectionData connectionData, SelectedItem selectedItem, string entityName, string selection)
         {
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartExplorerSystemForm(conn, commonConfig, selection, selectedItem));
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartExplorerSystemForm(conn, commonConfig, entityName, selection, selectedItem));
         }
     }
 }

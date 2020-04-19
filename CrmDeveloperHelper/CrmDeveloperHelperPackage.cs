@@ -206,6 +206,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             CodeJavaScriptUpdateGlobalOptionSetAllFileCommand.Initialize(commandService);
 
+            CodeJavaScriptLinkedSystemFormExplorerCommand.Initialize(commandService);
+            CodeJavaScriptLinkedSystemFormGetCurrentCommand.Initialize(commandService);
+            CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand.Initialize(commandService);
+            CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand.Initialize(commandService);
+
             #endregion CodeJavaScript
 
             #region DocumentsJavaScript

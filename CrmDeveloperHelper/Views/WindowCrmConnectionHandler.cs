@@ -1053,7 +1053,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         ExplorerController contr = new ExplorerController(iWriteToOutput);
 
-                        contr.ExecuteOpeningSystemFormExplorer(connection, commonConfig, string.Empty, null);
+                        contr.ExecuteOpeningSystemFormExplorer(connection, commonConfig, null, null, null);
                     }
                     catch (Exception ex)
                     {

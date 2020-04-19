@@ -111,46 +111,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
                         if (systemform != null && systemform.Type != null)
                         {
-                            switch (systemform.Type.Value)
+                            if (systemform.Type.Value == (int)SystemForm.Schema.OptionSets.type.Task_Flow_Form_9)
                             {
-                                case (int)SystemForm.Schema.OptionSets.type.InteractionCentricDashboard_10:
-                                    return $"/main.aspx?appSolutionId=%7b{Solution.Schema.InstancesUniqueId.DefaultId}%7d&extraqs=%26formId%3d%7b{systemform.Id}%7d%26dashboardType%3d1032&pagetype=icdashboardeditor";
+                                var workflowRepository = new WorkflowRepository(_service);
 
-                                case (int)SystemForm.Schema.OptionSets.type.Dashboard_0:
-                                    return $"/main.aspx?appSolutionId=%7b{Solution.Schema.InstancesUniqueId.DefaultId}%7d&extraqs=%26formId%3d%7b{systemform.Id}%7d%26dashboardType%3d1030&pagetype=dashboardeditor";
+                                var linkedWorkflow = workflowRepository.FindLinkedWorkflow(systemform.Id, new ColumnSet(false));
 
-                                case (int)SystemForm.Schema.OptionSets.type.Mobile_Express_5:
-                                    return $"/m/Console/EntityConfig.aspx?appSolutionId=%7b{Solution.Schema.InstancesUniqueId.DefaultId}%7d&etn={systemform.ObjectTypeCode}&formid=%7b{systemform.Id}%7d";
-
-                                case (int)SystemForm.Schema.OptionSets.type.Task_Flow_Form_9:
-                                    {
-                                        var workflowRepository = new WorkflowRepository(_service);
-
-                                        var linkedWorkflow = workflowRepository.FindLinkedWorkflow(systemform.Id, new ColumnSet(false));
-
-                                        if (linkedWorkflow != null)
-                                        {
-                                            return this.GetSolutionComponentRelativeUrl(ComponentType.Workflow, linkedWorkflow.Id);
-                                        }
-                                    }
-                                    break;
-
-                                default:
-                                    if ((this._service.ConnectionData.IntellisenseData?.Entities?.ContainsKey(systemform.ObjectTypeCode)).GetValueOrDefault())
-                                    {
-                                        string formtype = SystemFormRepository.GetFormTypeString(systemform.Type?.Value);
-
-                                        if (!string.IsNullOrEmpty(formtype))
-                                        {
-                                            var linkedEntityObjectCode = this._service.ConnectionData.IntellisenseData.Entities[systemform.ObjectTypeCode].ObjectTypeCode;
-
-                                            if (linkedEntityObjectCode.HasValue)
-                                            {
-                                                return $"/main.aspx?appSolutionId=%7b{Solution.Schema.InstancesUniqueId.DefaultId}%7d&etc={linkedEntityObjectCode}&extraqs=formtype%3d{formtype}%26formId%3d{systemform.Id}%26action%3d-1&pagetype=formeditor";
-                                            }
-                                        }
-                                    }
-                                    break;
+                                if (linkedWorkflow != null)
+                                {
+                                    return this.GetSolutionComponentRelativeUrl(ComponentType.Workflow, linkedWorkflow.Id);
+                                }
+                            }
+                            else
+                            {
+                                return _service.ConnectionData.GetSystemFormRelativeUrl(systemform.ObjectTypeCode, systemform.Id, systemform.Type.Value);
                             }
                         }
                     }

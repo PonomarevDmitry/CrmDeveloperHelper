@@ -1,5 +1,6 @@
 ﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Linq;
 using System.Text;
@@ -674,6 +675,59 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             if (!IsValidUri(uri)) { return; }
 
             System.Diagnostics.Process.Start(uri);
+        }
+
+        public void OpenSystemFormInWeb(string entityName, Guid formId, int formType)
+        {
+            string uri = GetSystemFormUrl(entityName, formId, formType);
+
+            if (!IsValidUri(uri)) return;
+
+            System.Diagnostics.Process.Start(uri);
+        }
+
+        public string GetSystemFormUrl(string entityName, Guid formId, int formType)
+        {
+            if (!TryGetPublicUrl(out string publicUrl))
+            {
+                return null;
+            }
+
+            return publicUrl + GetSystemFormRelativeUrl(entityName, formId, formType);
+        }
+
+        public string GetSystemFormRelativeUrl(string entityName, Guid formId, int formType)
+        {
+            switch (formType)
+            {
+                case (int)SystemForm.Schema.OptionSets.type.InteractionCentricDashboard_10:
+                    return $"/main.aspx?appSolutionId=%7b{Solution.Schema.InstancesUniqueId.DefaultId}%7d&extraqs=%26formId%3d%7b{formId}%7d%26dashboardType%3d1032&pagetype=icdashboardeditor";
+
+                case (int)SystemForm.Schema.OptionSets.type.Dashboard_0:
+                    return $"/main.aspx?appSolutionId=%7b{Solution.Schema.InstancesUniqueId.DefaultId}%7d&extraqs=%26formId%3d%7b{formId}%7d%26dashboardType%3d1030&pagetype=dashboardeditor";
+
+                case (int)SystemForm.Schema.OptionSets.type.Mobile_Express_5:
+                    return $"/m/Console/EntityConfig.aspx?appSolutionId=%7b{Solution.Schema.InstancesUniqueId.DefaultId}%7d&etn={entityName}&formid=%7b{formId}%7d";
+
+                default:
+                    if ((this.IntellisenseData?.Entities?.ContainsKey(entityName)).GetValueOrDefault())
+                    {
+                        string formTypeString = SystemFormRepository.GetFormTypeString(formType);
+
+                        if (!string.IsNullOrEmpty(formTypeString))
+                        {
+                            var linkedEntityObjectCode = this.IntellisenseData.Entities[entityName].ObjectTypeCode;
+
+                            if (linkedEntityObjectCode.HasValue)
+                            {
+                                return $"/main.aspx?appSolutionId=%7b{Solution.Schema.InstancesUniqueId.DefaultId}%7d&etc={linkedEntityObjectCode}&extraqs=formtype%3d{formTypeString}%26formId%3d{formId}%26action%3d-1&pagetype=formeditor";
+                            }
+                        }
+                    }
+                    break;
+            }
+
+            return null;
         }
     }
 }
