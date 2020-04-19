@@ -33,34 +33,43 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             this._javaScriptObjectType = javaScriptObjectType;
         }
 
-        public Task WriteContentAsync(EntityMetadata entityMetadata, string objectName, string constructorName, IEnumerable<FormTab> tabs, Guid? formId, string formName, string formTypeName)
+        public Task WriteContentAsync(EntityMetadata entityMetadata, string objectName, string constructorName, IEnumerable<FormTab> tabs, Guid? formId, string formName, int? formType, string formTypeName)
         {
-            return Task.Run(() => WriteContent(entityMetadata, objectName, constructorName, tabs, formId, formName, formTypeName));
+            return Task.Run(() => WriteContent(entityMetadata, objectName, constructorName, tabs, formId, formName, formType, formTypeName));
         }
 
-        private void WriteContent(EntityMetadata entityMetadata, string objectName, string constructorName, IEnumerable<FormTab> tabs, Guid? formId, string formName, string formTypeName)
+        private void WriteContent(EntityMetadata entityMetadata, string objectName, string constructorName, IEnumerable<FormTab> tabs, Guid? formId, string formName, int? formType, string formTypeName)
         {
             this._entityMetadata = entityMetadata;
 
-            WriteContentInternal(entityMetadata.LogicalName, objectName, constructorName, tabs, formId, formName, formTypeName);
+            WriteContentInternal(entityMetadata.LogicalName, objectName, constructorName, tabs, formId, formName, formType, formTypeName);
         }
 
-        public Task WriteContentAsync(string entityLogicalName, string objectName, string constructorName, IEnumerable<FormTab> tabs, Guid? formId, string formName, string formTypeName)
+        public Task WriteContentAsync(string entityLogicalName, string objectName, string constructorName, IEnumerable<FormTab> tabs, Guid? formId, string formName, int? formType, string formTypeName)
         {
-            return Task.Run(() => WriteContent(entityLogicalName, objectName, constructorName, tabs, formId, formName, formTypeName));
+            return Task.Run(() => WriteContent(entityLogicalName, objectName, constructorName, tabs, formId, formName, formType, formTypeName));
         }
 
-        private void WriteContent(string entityLogicalName, string objectName, string constructorName, IEnumerable<FormTab> tabs, Guid? formId, string formName, string formTypeName)
+        private void WriteContent(string entityLogicalName, string objectName, string constructorName, IEnumerable<FormTab> tabs, Guid? formId, string formName, int? formType, string formTypeName)
         {
             var repository = new EntityMetadataRepository(_service);
             this._entityMetadata = repository.GetEntityMetadata(entityLogicalName);
 
-            WriteContentInternal(entityLogicalName, objectName, constructorName, tabs, formId, formName, formTypeName);
+            WriteContentInternal(entityLogicalName, objectName, constructorName, tabs, formId, formName, formType, formTypeName);
         }
 
-        private void WriteContentInternal(string entityLogicalName, string objectName, string constructorName, IEnumerable<FormTab> tabs, Guid? formId, string formName, string formTypeName)
+        private void WriteContentInternal(
+            string entityLogicalName
+            , string objectName
+            , string constructorName
+            , IEnumerable<FormTab> tabs
+            , Guid? formId
+            , string formName
+            , int? formType
+            , string formTypeName
+        )
         {
-            WriteFormProperties(entityLogicalName, formId, formName, formTypeName);
+            WriteFormProperties(entityLogicalName, formId, formName, formType, formTypeName);
 
             WriteNamespace();
 
@@ -512,7 +521,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteElementNameEnd();
         }
 
-        private void WriteFormProperties(string entityName, Guid? formId, string formName, string formTypeName)
+        public void WriteFormProperties(string entityName, Guid? formId, string formName, int? formType, string formTypeName)
         {
             if (formId.HasValue)
             {
@@ -527,6 +536,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             if (!string.IsNullOrEmpty(formName))
             {
                 WriteLine($@"/// <crmdeveloperhelper systemformname=""{formName}"" />");
+            }
+
+            if (formType.HasValue)
+            {
+                WriteLine($@"/// <crmdeveloperhelper systemformtype=""{formType.Value}"" />");
             }
 
             if (!string.IsNullOrEmpty(formTypeName))

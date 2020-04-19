@@ -66,6 +66,9 @@
                 </MenuItem>
 
                 <Separator/>
+                <MenuItem Header="Copy to Clipboard Form Properties" Click="mISystemFormCopyFormProperties_Click" />
+                
+                <Separator/>
                 <MenuItem Header="Copy to Clipboard Constructor Attributes based on Form" Click="mISystemFormCopyConstructor_Click" />
                 <MenuItem Header="Copy to Clipboard JsonObject Attributes based on Form" Click="mISystemFormCopyJsonObject_Click" />
 
