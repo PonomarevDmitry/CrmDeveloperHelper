@@ -11495,10 +11495,10 @@
 
     <!-- #region codeMenuWebResource_GroupLinkedSystemForm_Menu_Group -->
 
-    <CommandPlacement guid="guidCommandSet" id="CodeJavaScriptLinkedSystemFormExplorerCommandId" priority="0x06000">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedSystemForm_Menu_Group_MenuOpenInWebConnectionDyn" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedSystemForm_Menu_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedSystemForm_Menu_Group_MenuOpenInWebConnectionDyn" priority="0x06010">
+    <CommandPlacement guid="guidCommandSet" id="CodeJavaScriptLinkedSystemFormExplorerCommandId" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedSystemForm_Menu_Group" />
     </CommandPlacement>
     <CommandPlacement guid="guidCommandSet" id="CodeJavaScriptLinkedSystemFormGetCurrentCommandId" priority="0x06020">
