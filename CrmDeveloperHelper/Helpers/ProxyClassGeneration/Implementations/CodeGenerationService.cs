@@ -1101,14 +1101,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             {
                 statementCollection.Add(BuildEntityCollectionAttributeSet(attributeNameRef));
             }
+            else if (string.Equals(entityMetadata.PrimaryIdAttribute, attributeMetadata.LogicalName, StringComparison.InvariantCulture) && attributeMetadata.IsPrimaryId.GetValueOrDefault())
+            {
+                statementCollection.Add(If(
+                    And
+                    (
+                        PropRef(valueVarRef, nameof(Nullable<Guid>.HasValue))
+                        , NotEqual(PropRef(valueVarRef, nameof(Nullable<Guid>.Value)), GuidEmpty())
+                    )
+                    , new CodeStatement[]
+                    {
+                        AssignValue(basePropId, PropRef(valueVarRef, nameof(Nullable<Guid>.Value)))
+                        , new CodeExpressionStatement(ThisMethodInvoke(MethodSetAttributeValue, attributeNameRef, valueVarRef))
+                    }
+                    , new CodeStatement[]
+                    {
+                        AssignValue(basePropId, GuidEmpty())
+                        , new CodeExpressionStatement(new CodeMethodInvokeExpression(new CodeMethodReferenceExpression(ThisProp(nameof(Entity.Attributes)), nameof(Entity.Attributes.Remove)), attributeNameRef))
+                    }
+                ));
+            }
             else
             {
                 statementCollection.Add(ThisMethodInvoke(MethodSetAttributeValue, attributeNameRef, valueVarRef));
-            }
-
-            if (entityMetadata.PrimaryIdAttribute == attributeMetadata.LogicalName && attributeMetadata.IsPrimaryId.GetValueOrDefault())
-            {
-                statementCollection.Add(If(PropRef(valueVarRef, nameof(Nullable<int>.HasValue)), AssignValue(basePropId, PropRef(valueVarRef, nameof(Nullable<Guid>.Value))), AssignValue(basePropId, GuidEmpty())));
             }
 
             statementCollection.Add(this.InvokeOnPropertyChanged(propertyName));
@@ -1155,7 +1170,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
                 Var(typeof(EntityCollection), VariableNameCollection, ThisMethodInvoke(nameof(Entity.GetAttributeValue), TypeRef(typeof(EntityCollection)), attributeNameRef))
                 , If(
                     And(IsNotNull(variableCollectionRef), IsNotNull(PropRef(variableCollectionRef, nameof(EntityCollection.Entities))))
-                    , Return(StaticMethodInvoke(typeof(Enumerable), nameof(Enumerable.Cast), propertyType.TypeArguments[0], PropRef(variableCollectionRef, nameof(EntityCollection.Entities))))
+                    , Return(StaticMethodInvoke(typeof(Enumerable), nameof(Enumerable.Select)
+                        , new[]{ TypeRef(EntityClassBaseType), propertyType.TypeArguments[0] }
+                        , PropRef(variableCollectionRef, nameof(EntityCollection.Entities))
+                        , new CodeSnippetExpression($"e => e.ToEntity<{propertyType.TypeArguments[0].BaseType}>()")
+                    ))
                     , Return(StaticMethodInvoke(typeof(Enumerable), nameof(Enumerable.Empty), propertyType.TypeArguments[0]))
                 )
             };
@@ -2763,6 +2782,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
         private static CodeBinaryOperatorExpression Equal(CodeExpression left, CodeExpression right)
         {
             return new CodeBinaryOperatorExpression(left, CodeBinaryOperatorType.IdentityEquality, right);
+        }
+
+        private static CodeBinaryOperatorExpression NotEqual(CodeExpression left, CodeExpression right)
+        {
+            return new CodeBinaryOperatorExpression(left, CodeBinaryOperatorType.IdentityInequality, right);
         }
 
         private static CodeBinaryOperatorExpression And(CodeExpression left, CodeExpression right)
