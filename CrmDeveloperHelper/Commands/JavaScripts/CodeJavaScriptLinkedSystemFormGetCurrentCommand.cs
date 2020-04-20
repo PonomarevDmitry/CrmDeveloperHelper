@@ -24,39 +24,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 
         protected override void CommandAction(DTEHelper helper)
         {
-            List<SelectedFile> selectedFiles = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsJavaScriptType).Take(2).ToList();
+            var document = helper.GetOpenedDocumentInCodeWindow(FileOperations.SupportsJavaScriptType);
 
-            if (selectedFiles.Count != 1)
+            if (document == null)
             {
                 return;
             }
 
-            string fileText = File.ReadAllText(selectedFiles[0].FilePath);
-
-            if (CommonHandlers.GetLinkedSystemForm(fileText, out string entityName, out Guid formId, out int formType))
+            var objTextDoc = document.Object("TextDocument");
+            if (objTextDoc != null
+                && objTextDoc is EnvDTE.TextDocument textDocument
+            )
             {
-                helper.HandleSystemFormGetCurrentCommand(null, formId);
+                string fileText = textDocument.StartPoint.CreateEditPoint().GetText(textDocument.EndPoint);
+
+                if (CommonHandlers.GetLinkedSystemForm(fileText, out string entityName, out Guid formId, out int formType))
+                {
+                    helper.HandleSystemFormGetCurrentCommand(null, formId);
+                }
             }
         }
 
         protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusActiveDocumentJavaScript(applicationObject, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentJavaScriptHasLinkedSystemForm(applicationObject, menuCommand);
 
             CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CodeJavaScriptLinkedSystemFormGetCurrentCommand);
-
-            //CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(
-            //    applicationObject
-            //    , menuCommand
-            //    , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeFormId
-            //    , out var attribute
-            //    , AbstractDynamicCommandXsdSchemas.RootForm
-            //);
-
-            //if (attribute == null || !Guid.TryParse(attribute.Value, out _))
-            //{
-            //    menuCommand.Enabled = menuCommand.Visible = false;
-            //}
         }
     }
 }

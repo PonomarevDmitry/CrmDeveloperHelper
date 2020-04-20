@@ -1610,5 +1610,53 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             return false;
         }
+
+        internal static void ActionBeforeQueryStatusActiveDocumentJavaScriptHasLinkedSystemForm(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        {
+            bool visible = CacheValue(nameof(ActionBeforeQueryStatusActiveDocumentJavaScriptHasLinkedSystemForm), applicationObject, ActionBeforeQueryStatusActiveDocumentJavaScriptHasLinkedSystemFormInternal);
+
+            if (visible == false)
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
+        }
+
+        private static bool ActionBeforeQueryStatusActiveDocumentJavaScriptHasLinkedSystemFormInternal(EnvDTE80.DTE2 applicationObject)
+        {
+            if (applicationObject.ActiveWindow != null
+                && applicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeDocument
+                && applicationObject.ActiveWindow.Document != null
+            )
+            {
+                try
+                {
+                    var document = applicationObject.ActiveWindow.Document;
+
+                    string filePath = applicationObject.ActiveWindow.Document.FullName.ToString().ToLower();
+
+                    if (FileOperations.SupportsJavaScriptType(filePath))
+                    {
+                        var objTextDoc = document.Object("TextDocument");
+                        if (objTextDoc != null
+                            && objTextDoc is EnvDTE.TextDocument textDocument
+                        )
+                        {
+                            string text = textDocument.StartPoint.CreateEditPoint().GetText(textDocument.EndPoint);
+
+                            if (GetLinkedSystemForm(text, out _, out _, out _))
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(null, ex);
+                }
+            }
+
+            return false;
+        }
     }
 }

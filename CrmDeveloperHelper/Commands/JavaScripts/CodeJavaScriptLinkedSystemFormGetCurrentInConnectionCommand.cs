@@ -26,35 +26,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
         {
             List<SelectedFile> selectedFiles = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsJavaScriptType).Take(2).ToList();
 
-            if (selectedFiles.Count != 1)
+            var document = helper.GetOpenedDocumentInCodeWindow(FileOperations.SupportsJavaScriptType);
+
+            if (document == null)
             {
                 return;
             }
 
-            string fileText = File.ReadAllText(selectedFiles[0].FilePath);
-
-            if (CommonHandlers.GetLinkedSystemForm(fileText, out string entityName, out Guid formId, out int formType))
+            var objTextDoc = document.Object("TextDocument");
+            if (objTextDoc != null
+                && objTextDoc is EnvDTE.TextDocument textDocument
+            )
             {
-                helper.HandleSystemFormGetCurrentCommand(connectionData, formId);
+                string fileText = textDocument.StartPoint.CreateEditPoint().GetText(textDocument.EndPoint);
+
+                if (CommonHandlers.GetLinkedSystemForm(fileText, out string entityName, out Guid formId, out int formType))
+                {
+                    helper.HandleSystemFormGetCurrentCommand(connectionData, formId);
+                }
             }
         }
 
         protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, ConnectionData connectionData, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusActiveDocumentJavaScript(applicationObject, menuCommand);
-
-            //CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(
-            //    applicationObject
-            //    , menuCommand
-            //    , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeFormId
-            //    , out var attribute
-            //    , AbstractDynamicCommandXsdSchemas.RootForm
-            //);
-
-            //if (attribute == null || !Guid.TryParse(attribute.Value, out _))
-            //{
-            //    menuCommand.Enabled = menuCommand.Visible = false;
-            //}
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentJavaScriptHasLinkedSystemForm(applicationObject, menuCommand);
         }
     }
 }

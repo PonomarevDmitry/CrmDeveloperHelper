@@ -26,7 +26,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                 var objTextDoc = document.Object("TextDocument");
                 if (objTextDoc != null
                     && objTextDoc is EnvDTE.TextDocument textDocument
-                    )
+                )
                 {
                     string fetchXml = textDocument.StartPoint.CreateEditPoint().GetText(textDocument.EndPoint);
 

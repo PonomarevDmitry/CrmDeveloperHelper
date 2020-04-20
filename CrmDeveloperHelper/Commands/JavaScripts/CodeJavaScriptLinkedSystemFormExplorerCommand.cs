@@ -1,10 +1,6 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
@@ -24,32 +20,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 
         protected override void CommandAction(DTEHelper helper)
         {
-            List<SelectedFile> selectedFiles = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsJavaScriptType).Take(2).ToList();
+            var document = helper.GetOpenedDocumentInCodeWindow(FileOperations.SupportsJavaScriptType);
 
-            if (selectedFiles.Count != 1)
+            if (document == null)
             {
                 return;
             }
 
-            string fileText = File.ReadAllText(selectedFiles[0].FilePath);
-
-            if (CommonHandlers.GetLinkedSystemForm(fileText, out string entityName, out Guid formId, out int formType))
+            var objTextDoc = document.Object("TextDocument");
+            if (objTextDoc != null
+                && objTextDoc is EnvDTE.TextDocument textDocument
+            )
             {
-                helper.HandleExplorerSystemForm(entityName, formId.ToString());
+                string fileText = textDocument.StartPoint.CreateEditPoint().GetText(textDocument.EndPoint);
+
+                if (CommonHandlers.GetLinkedSystemForm(fileText, out string entityName, out Guid formId, out int formType))
+                {
+                    helper.HandleExplorerSystemForm(entityName, formId.ToString());
+                }
             }
         }
 
         protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusActiveDocumentJavaScript(applicationObject, menuCommand);
-
-            //CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(
-            //    applicationObject
-            //    , menuCommand
-            //    , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeFormId
-            //    , out var attribute
-            //    , AbstractDynamicCommandXsdSchemas.RootForm
-            //);
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentJavaScriptHasLinkedSystemForm(applicationObject, menuCommand);
         }
     }
 }
