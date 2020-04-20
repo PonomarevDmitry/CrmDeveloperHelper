@@ -1086,6 +1086,7 @@
     <Compile Include="Intellisense\XmlCompletionSource.Fetch.cs" />
     <Compile Include="Intellisense\XmlCompletionSource.Ribbon.cs" />
     <Compile Include="Intellisense\XmlCompletionSource.SiteMap.cs" />
+    <Compile Include="Intellisense\XmlCompletionSource.FormXml.cs" />
     <Compile Include="Intellisense\XmlCompletionSource.WebResource.DependencyXml.cs" />
     <Compile Include="Intellisense\XmlCompletionSourceProvider.cs" />
     <Compile Include="Intellisense\CrmTextViewCreationListener.cs" />

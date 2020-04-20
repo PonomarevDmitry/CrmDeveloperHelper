@@ -236,7 +236,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             }
         }
 
-        private void FillDashboards(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, IEnumerable<SystemForm> dashboards, string name)
+        private void FillDashboards(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, IEnumerable<SystemForm> dashboards, string nameCompletionSet)
         {
             if (dashboards == null || !dashboards.Any())
             {
@@ -261,10 +261,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 list.Add(CreateCompletion(str.ToString(), dashboard.Id.ToString().ToLower(), dashboard.Description, _defaultGlyph, compareValues));
             }
 
-            completionSets.Add(new CrmCompletionSet(SourceNameMonikerDefaultSingle, name, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
+            completionSets.Add(new CrmCompletionSet(SourceNameMonikerDefaultSingle, nameCompletionSet, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
         }
 
-        private void FillIntellisenseBySet(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, SortedSet<string> values, string name)
+        private void FillIntellisenseBySet(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, SortedSet<string> values, string nameCompletionSet)
         {
             if (values == null || !values.Any())
             {
@@ -278,7 +278,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 list.Add(CreateCompletion(value, value, null, _defaultGlyph, Enumerable.Empty<string>()));
             }
 
-            completionSets.Add(new CrmCompletionSet(SourceNameMonikerDefaultSingle, name, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
+            completionSets.Add(new CrmCompletionSet(SourceNameMonikerDefaultSingle, nameCompletionSet, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
         }
 
         private static ITrackingSpan SkipComma(ITextSnapshot snapshot, SnapshotSpan extent, ITrackingSpan applicableTo)

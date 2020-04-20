@@ -378,7 +378,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             }
         }
 
-        private void FillRibbonSequences(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, XElement currentXmlNode, Dictionary<string, RibbonLocation> locations, string name)
+        private void FillRibbonSequences(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, XElement currentXmlNode, Dictionary<string, RibbonLocation> locations, string nameCompletionSet)
         {
             if (locations == null || !locations.Any())
             {
@@ -446,11 +446,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     list.Add(CreateCompletion(string.Format("{0} - {1} - {2}", control.Sequence, control.TemplateAlias, control.Id), control.Sequence, str.ToString(), _defaultGlyph, Enumerable.Empty<string>()));
                 }
 
-                completionSets.Add(new CrmCompletionSet(SourceNameMonikerRibbonSequences, name, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
+                completionSets.Add(new CrmCompletionSet(SourceNameMonikerRibbonSequences, nameCompletionSet, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
             }
         }
 
-        private void FillRibbonTemplateAliases(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, XElement currentXmlNode, Dictionary<string, RibbonLocation> locations, string name)
+        private void FillRibbonTemplateAliases(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, XElement currentXmlNode, Dictionary<string, RibbonLocation> locations, string nameCompletionSet)
         {
             if (locations == null || !locations.Any())
             {
@@ -490,11 +490,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     list.Add(CreateCompletion(alias, alias, string.Empty, _defaultGlyph, Enumerable.Empty<string>()));
                 }
 
-                completionSets.Add(new CrmCompletionSet(SourceNameMonikerRibbonSequences, name, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
+                completionSets.Add(new CrmCompletionSet(SourceNameMonikerRibbonSequences, nameCompletionSet, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
             }
         }
 
-        private void FillRibbonLocations(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, SortedSet<string> values, string name)
+        private void FillRibbonLocations(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, SortedSet<string> values, string nameCompletionSet)
         {
             if (values == null || !values.Any())
             {
@@ -508,10 +508,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 list.Add(CreateCompletion(value, value + "._children", null, _defaultGlyph, Enumerable.Empty<string>()));
             }
 
-            completionSets.Add(new CrmCompletionSet(SourceNameMonikerRibbonLocations, name, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
+            completionSets.Add(new CrmCompletionSet(SourceNameMonikerRibbonLocations, nameCompletionSet, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
         }
 
-        private HashSet<string> FillDisplayRulesLocal(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, XElement doc, string name)
+        private HashSet<string> FillDisplayRulesLocal(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, XElement doc, string nameCompletionSet)
         {
             HashSet<string> result = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
@@ -528,12 +528,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 list.Add(CreateCompletion(id, id, string.Empty, _defaultGlyph, Enumerable.Empty<string>()));
             }
 
-            completionSets.Add(new CrmCompletionSet(SourceNameMonikerRibbonDisplayRules, name, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
+            completionSets.Add(new CrmCompletionSet(SourceNameMonikerRibbonDisplayRules, nameCompletionSet, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
 
             return result;
         }
 
-        private HashSet<string> FillEnableRulesLocal(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, XElement doc, string name)
+        private HashSet<string> FillEnableRulesLocal(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, XElement doc, string nameCompletionSet)
         {
             HashSet<string> result = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
@@ -550,12 +550,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 list.Add(CreateCompletion(id, id, string.Empty, _defaultGlyph, Enumerable.Empty<string>()));
             }
 
-            completionSets.Add(new CrmCompletionSet(SourceNameMonikerRibbonEnableRules, name, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
+            completionSets.Add(new CrmCompletionSet(SourceNameMonikerRibbonEnableRules, nameCompletionSet, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
 
             return result;
         }
 
-        private HashSet<string> FillCommandsLocal(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, XElement doc, string name)
+        private HashSet<string> FillCommandsLocal(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, XElement doc, string nameCompletionSet)
         {
             HashSet<string> result = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
@@ -572,12 +572,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 list.Add(CreateCompletion(id, id, string.Empty, _defaultGlyph, Enumerable.Empty<string>()));
             }
 
-            completionSets.Add(new CrmCompletionSet(SourceNameMonikerRibbonCommands, name, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
+            completionSets.Add(new CrmCompletionSet(SourceNameMonikerRibbonCommands, nameCompletionSet, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
 
             return result;
         }
 
-        private HashSet<string> FillLocLables(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, XElement doc, string name)
+        private HashSet<string> FillLocLables(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, XElement doc, string nameCompletionSet)
         {
             HashSet<string> result = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
@@ -624,7 +624,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 list.Add(CreateCompletion(id, insertText, str.ToString(), _defaultGlyph, compareValues));
             }
 
-            completionSets.Add(new CrmCompletionSet(SourceNameMonikerRibbonLocLables, name, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
+            completionSets.Add(new CrmCompletionSet(SourceNameMonikerRibbonLocLables, nameCompletionSet, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
 
             return result;
         }

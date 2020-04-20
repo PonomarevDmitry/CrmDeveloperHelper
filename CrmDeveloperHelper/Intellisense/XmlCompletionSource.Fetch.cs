@@ -569,14 +569,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
             list.Add(CreateCompletion(attributeDescription, attribute.LogicalName, CrmIntellisenseCommon.CreateAttributeDescription(entityDescription, attribute), _defaultGlyph, compareValues));
 
-            var displayName = string.Format("{0} PrimaryIdAttribute", entityData.EntityLogicalName);
+            var nameCompletionSet = string.Format("{0} PrimaryIdAttribute", entityData.EntityLogicalName);
 
             if (isNameAttribute)
             {
-                displayName = string.Format("{0} PrimaryNameAttribute", entityData.EntityLogicalName);
+                nameCompletionSet = string.Format("{0} PrimaryNameAttribute", entityData.EntityLogicalName);
             }
 
-            completionSets.Add(new CrmCompletionSet(SourceNameMonikerPrimaryAttributes, displayName, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
+            completionSets.Add(new CrmCompletionSet(SourceNameMonikerPrimaryAttributes, nameCompletionSet, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
         }
 
         private void FillEntityAttributeValuesInList(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, ConnectionIntellisenseDataRepository repository, XElement nodeCondition, Dictionary<string, string> aliases)

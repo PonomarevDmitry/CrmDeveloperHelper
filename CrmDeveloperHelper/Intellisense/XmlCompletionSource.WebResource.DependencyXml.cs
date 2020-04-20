@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.Language.Intellisense;
+using Microsoft.VisualStudio.Language.Intellisense;
 using Microsoft.VisualStudio.Text;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
@@ -8,7 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
@@ -115,37 +114,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
             list.Add(CreateCompletion(str.ToString(), attributeValue, webResource.Description, _defaultGlyph, compareValues));
 
-            string setName = $"WebResource - {fieldName}";
+            string nameCompletionSet = $"WebResource - {fieldName}";
 
-            completionSets.Add(new CrmCompletionSet(SourceNameMonikerWebResourcesText, setName, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
-        }
-
-        private void FillWebResourcesNames(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, IEnumerable<WebResource> webResources, string setName)
-        {
-            if (webResources == null || !webResources.Any())
-            {
-                return;
-            }
-
-            List<CrmCompletion> list = new List<CrmCompletion>();
-
-            foreach (var resource in webResources.OrderBy(s => s.Name))
-            {
-                StringBuilder str = new StringBuilder(resource.Name);
-
-                List<string> compareValues = new List<string>() { resource.Name };
-
-                if (!string.IsNullOrEmpty(resource.DisplayName))
-                {
-                    compareValues.Add(resource.DisplayName);
-
-                    str.AppendFormat(" - {0}", resource.DisplayName);
-                }
-
-                list.Add(CreateCompletion(str.ToString(), resource.Name, resource.Description, _defaultGlyph, compareValues));
-            }
-
-            completionSets.Add(new CrmCompletionSet(SourceNameMonikerWebResourcesText, setName, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
+            completionSets.Add(new CrmCompletionSet(SourceNameMonikerWebResourcesText, nameCompletionSet, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
         }
 
         private void FillEntityAttributesInWebResourceDependencyXml(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, ConnectionIntellisenseDataRepository repositoryEntities, XElement currentXmlNode)

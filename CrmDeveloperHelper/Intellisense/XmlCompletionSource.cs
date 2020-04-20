@@ -123,9 +123,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 && !string.Equals(xmlRootName, Commands.AbstractDynamicCommandXsdSchemas.RootRibbonDiffXml, StringComparison.InvariantCultureIgnoreCase)
                 && !string.Equals(xmlRootName, Commands.AbstractDynamicCommandXsdSchemas.RootRibbonDefinitions, StringComparison.InvariantCultureIgnoreCase)
                 && !string.Equals(xmlRootName, Commands.AbstractDynamicCommandXsdSchemas.RootWebResourceDependencies, StringComparison.InvariantCultureIgnoreCase)
+                && !string.Equals(xmlRootName, Commands.AbstractDynamicCommandXsdSchemas.RootForm, StringComparison.InvariantCultureIgnoreCase)
 
-            //&& !string.Equals(xmlRootName, Commands.AbstractDynamicCommandXsdSchemas.RootFetch, StringComparison.InvariantCultureIgnoreCase)
-            //&& !string.Equals(xmlRootName, Commands.AbstractDynamicCommandXsdSchemas.RootFetch, StringComparison.InvariantCultureIgnoreCase)
+            //  && !string.Equals(xmlRootName, Commands.AbstractDynamicCommandXsdSchemas., StringComparison.InvariantCultureIgnoreCase)
             )
             {
                 return;
@@ -316,6 +316,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
                                 FillSessionForWebResourceDependencyXmlCompletionSet(completionSets, doc, connectionConfig.CurrentConnectionData, repositoryEntities, repositoryWebResource, currentXmlNode, currentNodeName, currentAttributeName, applicableTo);
                             }
+                            else if (string.Equals(doc.Name.LocalName, Commands.AbstractDynamicCommandXsdSchemas.RootForm, StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                var repositoryWebResource = WebResourceIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
+
+                                FillSessionForFormXmlCompletionSet(completionSets, doc, connectionConfig.CurrentConnectionData, repositoryWebResource, currentXmlNode, currentNodeName, currentAttributeName, applicableTo);
+                            }
                         }
                     }
                 }
@@ -404,7 +410,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             }
         }
 
-        private void FillWebResourcesTextForRibbon(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, IEnumerable<WebResource> webResources, string name)
+        private void FillWebResourcesTextForRibbon(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, IEnumerable<WebResource> webResources, string nameCompletionSet)
         {
             if (webResources == null || !webResources.Any())
             {
@@ -431,10 +437,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 list.Add(CreateCompletion(str.ToString(), insertText, resource.Description, _defaultGlyph, compareValues));
             }
 
-            completionSets.Add(new CrmCompletionSet(SourceNameMonikerWebResourcesText, name, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
+            completionSets.Add(new CrmCompletionSet(SourceNameMonikerWebResourcesText, nameCompletionSet, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
         }
 
-        private void FillWebResourcesIcons(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, IEnumerable<WebResource> webResources, string name)
+        private void FillWebResourcesIcons(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, IEnumerable<WebResource> webResources, string nameCompletionSet)
         {
             if (webResources == null || !webResources.Any())
             {
@@ -527,7 +533,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 list.Add(CreateCompletion(str.ToString(), insertText, resource.Description, image, compareValues));
             }
 
-            completionSets.Add(new CrmCompletionSet(SourceNameMonikerWebResourcesIcon, name, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
+            completionSets.Add(new CrmCompletionSet(SourceNameMonikerWebResourcesIcon, nameCompletionSet, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
         }
 
         private void FillLCID(IList<CompletionSet> completionSets, ITrackingSpan applicableTo)
@@ -557,7 +563,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             }
         }
 
-        private HashSet<string> GetUsedEntities(XElement doc)
+        private static HashSet<string> GetUsedEntities(XElement doc)
         {
             HashSet<string> result = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
@@ -698,6 +704,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 glyph = _defaultGlyph;
 
             return new CrmCompletion(displayText, insertionText, description, glyph, null, compareValues);
+        }
+
+        private void FillWebResourcesNames(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, IEnumerable<WebResource> webResources, string nameCompletionSet)
+        {
+            if (webResources == null || !webResources.Any())
+            {
+                return;
+            }
+
+            List<CrmCompletion> list = new List<CrmCompletion>();
+
+            foreach (var resource in webResources.OrderBy(s => s.Name))
+            {
+                StringBuilder str = new StringBuilder(resource.Name);
+
+                List<string> compareValues = new List<string>() { resource.Name };
+
+                if (!string.IsNullOrEmpty(resource.DisplayName))
+                {
+                    compareValues.Add(resource.DisplayName);
+
+                    str.AppendFormat(" - {0}", resource.DisplayName);
+                }
+
+                list.Add(CreateCompletion(str.ToString(), resource.Name, resource.Description, _defaultGlyph, compareValues));
+            }
+
+            completionSets.Add(new CrmCompletionSet(SourceNameMonikerWebResourcesText, nameCompletionSet, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
         }
 
         #region IDisposable Support
