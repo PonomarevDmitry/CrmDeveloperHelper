@@ -11,15 +11,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
     internal sealed class CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
+        private readonly ActionGetCurrent _action;
         private readonly string _fieldName;
         private readonly string _fieldTitle;
 
-        private CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand(OleMenuCommandService commandService, int baseIdStart, string fieldName, string fieldTitle)
-            : base(commandService, baseIdStart)
+        private CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand(
+            OleMenuCommandService commandService
+            , int baseIdStart
+            , ActionGetCurrent action
+            , string fieldName
+            , string fieldTitle
+        ) : base(commandService, baseIdStart)
         {
+            this._action = action;
             this._fieldName = fieldName;
             this._fieldTitle = fieldTitle;
         }
+
+        public static CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand InstanceEntityDescription { get; private set; }
+
+        public static CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand InstanceFormDescription { get; private set; }
 
         public static CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand InstanceFormXml { get; private set; }
 
@@ -27,14 +38,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            InstanceFormXml = new CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand(commandService
+            InstanceEntityDescription = new CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand(
+                commandService
+                , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedSystemFormGetCurrentEntityDescriptionInConnectionCommandId
+                , ActionGetCurrent.EntityDescription
+                , string.Empty
+                , string.Empty
+            );
+
+            InstanceFormDescription = new CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand(
+                commandService
+                , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedSystemFormGetCurrentFormDescriptionInConnectionCommandId
+                , ActionGetCurrent.FormDescription
+                , string.Empty
+                , string.Empty
+            );
+
+            InstanceFormXml = new CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand(
+                commandService
                 , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedSystemFormGetCurrentFormXmlInConnectionCommandId
+                , ActionGetCurrent.SingleField
                 , SystemForm.Schema.Attributes.formxml
                 , SystemForm.Schema.Headers.formxml
             );
 
-            InstanceFormJson = new CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand(commandService
+            InstanceFormJson = new CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand(
+                commandService
                , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedSystemFormGetCurrentFormJsonInConnectionCommandId
+               , ActionGetCurrent.SingleField
                , SystemForm.Schema.Attributes.formjson
                , SystemForm.Schema.Headers.formjson
            );
@@ -44,7 +75,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
         {
             if (helper.TryGetLinkedSystemForm(out string entityName, out Guid formId, out int formType))
             {
-                helper.HandleSystemFormGetCurrentAttributeCommand(connectionData, formId, this._fieldName, this._fieldTitle);
+                helper.HandleSystemFormGetCurrentAttributeCommand(connectionData, formId, _action, this._fieldName, this._fieldTitle);
             }
         }
 

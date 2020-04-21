@@ -604,7 +604,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             else if (action == ActionOpenComponent.OpenInExplorer)
             {
-                WindowHelper.OpenSolutionComponentDependenciesExplorer(this._iWriteToOutput, service, null, commonConfig, solution.UniqueName, null);
+                WindowHelper.OpenSolutionComponentsExplorer(this._iWriteToOutput, service, null, commonConfig, solution.UniqueName, null);
             }
         }
     }

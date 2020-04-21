@@ -67,9 +67,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartSystemFormGetCurrentFormXml(conn, commonConfig, selectedFile));
         }
 
-        public void HandleSystemFormGetCurrentAttributeCommand(ConnectionData connectionData, Guid formId, string fieldName, string fieldTitle)
+        public void HandleSystemFormGetCurrentAttributeCommand(ConnectionData connectionData, Guid formId, ActionGetCurrent action, string fieldName, string fieldTitle)
         {
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartSystemFormGetCurrentAttribute(conn, commonConfig, formId, fieldName, fieldTitle));
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartSystemFormGetCurrentAttribute(conn, commonConfig, formId, action, fieldName, fieldTitle));
+        }
+
+        public void HandleLinkedSystemFormAddingToSolutionCommand(ConnectionData connectionData, string solutionUniqueName, bool withSelect, string entityName, Guid formId, int formType)
+        {
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartAddingLinkedSystemFormToSolution(conn, commonConfig, solutionUniqueName, withSelect, entityName, formId, formType));
+        }
+
+        public void HandleLinkedSystemFormChangeInEntityEditorCommand(ConnectionData connectionData, string entityName, Guid formId, int formType)
+        {
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartLinkedSystemFormChangeInEntityEditor(conn, commonConfig, entityName, formId, formType));
         }
 
         public void HandleExplorerSystemForm()
@@ -88,7 +98,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleExplorerSystemForm(string selection)
         {
-            HandleExplorerSystemForm(null, null,null, selection);
+            HandleExplorerSystemForm(null, null, null, selection);
         }
 
         public void HandleExplorerSystemForm(string entityName, string selection)

@@ -1588,7 +1588,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _commonConfig.Save();
                 var descriptor = GetDescriptor(service);
 
-                WindowHelper.OpenSolutionComponentDependenciesExplorer(this._iWriteToOutput, service, descriptor, _commonConfig, solution.UniqueName, null);
+                WindowHelper.OpenSolutionComponentsExplorer(this._iWriteToOutput, service, descriptor, _commonConfig, solution.UniqueName, null);
             }
             catch (Exception ex)
             {

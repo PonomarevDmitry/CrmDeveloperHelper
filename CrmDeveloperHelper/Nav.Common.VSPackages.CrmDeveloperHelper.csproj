@@ -143,6 +143,9 @@
     <Compile Include="Commands\FindEdit\CommonFindEntityObjectsByPrefixInExplorerCommand.cs" />
     <Compile Include="Commands\FindEdit\CommonFindEntityObjectsContainsStringInExplorerCommand.cs" />
     <Compile Include="Commands\FindEdit\CommonFindEntityObjectsMarkedToDeleteInExplorerCommand.cs" />
+    <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedSystemFormAddToSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedSystemFormAddToSolutionLastCommand.cs" />
+    <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedSystemFormChangeInEditorInConnectionCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedSystemFormExplorerCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand.cs" />
@@ -1107,6 +1110,7 @@
     <Compile Include="Interfaces\IOrganizationComparerSource.cs" />
     <Compile Include="Interfaces\IOrganizationServiceExtented.cs" />
     <Compile Include="Interfaces\ISolutionComponentDescriptionBuilder.cs" />
+    <Compile Include="Model\ActionGetCurrent.cs" />
     <Compile Include="Model\ActionOpenComponent.cs" />
     <Compile Include="Model\AssemblyMapping.cs" />
     <Compile Include="Model\AttributeMetadataViewItem.cs" />

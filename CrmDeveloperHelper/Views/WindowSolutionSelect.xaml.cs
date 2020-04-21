@@ -364,7 +364,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var commonConfig = CommonConfiguration.Get();
 
-            WindowHelper.OpenSolutionComponentDependenciesExplorer(this._iWriteToOutput, _service, null, commonConfig, entity.UniqueName, null);
+            WindowHelper.OpenSolutionComponentsExplorer(this._iWriteToOutput, _service, null, commonConfig, entity.UniqueName, null);
         }
 
         public void ShowForAllOther()

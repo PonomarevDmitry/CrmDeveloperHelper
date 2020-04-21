@@ -147,6 +147,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group1_MenuOpenInWebConnectionDyn_Group = 0x1409;
 
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group1_MenuGetCurrentEntityDescriptionDyn = 0x141D;
+
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group1_MenuGetCurrentEntityDescriptionDyn_Group = 0x141E;
+
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group1_MenuGetCurrentFormDescriptionDyn = 0x141F;
+
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group1_MenuGetCurrentFormDescriptionDyn_Group = 0x1420;
+
             public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group1_MenuGetCurrentFormXmlDyn = 0x140A;
 
             public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group1_MenuGetCurrentFormXmlDyn_Group = 0x140B;
@@ -154,6 +162,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group1_MenuGetCurrentFormJsonDyn = 0x1412;
 
             public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group1_MenuGetCurrentFormJsonDyn_Group = 0x1413;
+
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group1_MenuChangeInEditorDyn = 0x141B;
+
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group1_MenuChangeInEditorDyn_Group = 0x141C;
+
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupAddToSolution = 0x1415;
+
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupAddToSolution_Menu = 0x1416;
+
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupAddToSolution_Menu_GroupLastSolution = 0x1417;
+
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn = 0x1418;
+
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn_Group = 0x1419;
+
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupAddToSolution_Menu_GroupConnectionDyn = 0x141A;
 
             public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group2 = 0x1414;
 
@@ -2020,6 +2044,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeJavaScriptLinkedSystemFormOpenSolutionsContainingComponentInExplorerInConnectionCommandId = 0x30D4;
 
+            public const int CodeJavaScriptLinkedSystemFormAddToSolutionLastCommandId = 0x3138;
+
+            public const int CodeJavaScriptLinkedSystemFormAddToSolutionInConnectionCommandId = 0x316A;
+
+            public const int CodeJavaScriptLinkedSystemFormGetCurrentFormXmlInConnectionCommandId = 0x303E;
+
+            public const int CodeJavaScriptLinkedSystemFormGetCurrentFormJsonInConnectionCommandId = 0x3106;
+
+            public const int CodeJavaScriptLinkedSystemFormGetCurrentEntityDescriptionInConnectionCommandId = 0x31CE;
+
+            public const int CodeJavaScriptLinkedSystemFormGetCurrentFormDescriptionInConnectionCommandId = 0x3200;
+
+            public const int CodeJavaScriptLinkedSystemFormChangeInEditorInConnectionCommandId = 0x319C;
+
             public const int CodeXmlFetchXmlExecuteRequestInConnectionsCommandId = 0x109A;
 
             public const int CodeXmlCommonXsdSchemaSetCommandId = 0x10FE;
@@ -2077,10 +2115,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int CodeXmlWebResourceDependencyXmlOpenInWebInConnectionCommandId = 0x2E7C;
 
             public const int CodeXmlWebResourceDependencyXmlGetCurrentInConnectionCommandId = 0x2EAE;
-
-            public const int CodeJavaScriptLinkedSystemFormGetCurrentFormXmlInConnectionCommandId = 0x303E;
-
-            public const int CodeJavaScriptLinkedSystemFormGetCurrentFormJsonInConnectionCommandId = 0x3106;
 
             public const int CodeReportAddToSolutionLastCommandId = 0x00DC;
 

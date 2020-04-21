@@ -226,10 +226,13 @@
     <value>Nothing to publish.</value>
   </data>
   <data name="NoWebResourcesToAddInSolutionAllAllreadyInSolutionFormat2" xml:space="preserve">
-    <value>{0}: No WebResources to add. All webresources already in Solution {1}.</value>
+    <value>{0}: No WebResources to add. All WebResources already in Solution {1}.</value>
   </data>
   <data name="NoWebResourcesToAddInSolutionFormat2" xml:space="preserve">
     <value>{0}: No WebResources to add in solution {1}.</value>
+  </data>
+  <data name="NoSystemFormsToAddInSolutionAllAllreadyInSolutionFormat2" xml:space="preserve">
+    <value>{0}: No SystemForms to add. All SystemForms already in Solution {1}.</value>
   </data>
   <data name="ObjectsInCRMWereExportedToFormat1" xml:space="preserve">
     <value>Objects in CRM were exported to {0}</value>
@@ -472,6 +475,10 @@
 
   <data name="WebResourcesToAddToSolutionFormat2" xml:space="preserve">
     <value>WebResources to add to Solution {0}: {1}</value>
+  </data>
+
+  <data name="SystemFormsToAddToSolutionFormat2" xml:space="preserve">
+    <value>SystemForms to add to Solution {0}: {1}</value>
   </data>
 
   <data name="ReportsToAddToSolutionFormat2" xml:space="preserve">

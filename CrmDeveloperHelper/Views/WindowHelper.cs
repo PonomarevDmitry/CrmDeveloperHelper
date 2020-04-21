@@ -1060,14 +1060,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenSolutionComponentDependenciesExplorer(
+        public static void OpenSolutionComponentsExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , SolutionComponentDescriptor descriptor
             , CommonConfiguration commonConfig
             , string solutionUniqueName
             , string selection = null
-            )
+        )
         {
             var worker = new Thread(() =>
             {

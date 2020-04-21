@@ -4021,6 +4021,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}: No SystemForms to add. All SystemForms already in Solution {1}..
+        /// </summary>
+        internal static string NoSystemFormsToAddInSolutionAllAllreadyInSolutionFormat2 {
+            get {
+                return ResourceManager.GetString("NoSystemFormsToAddInSolutionAllAllreadyInSolutionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to NOT FOUNDED ApplicationRibbon RibbonCustomization entity..
         /// </summary>
         internal static string NotFoundedApplicationRibbonRibbonCustomization {
@@ -4048,7 +4057,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: No WebResources to add. All webresources already in Solution {1}..
+        ///   Looks up a localized string similar to {0}: No WebResources to add. All WebResources already in Solution {1}..
         /// </summary>
         internal static string NoWebResourcesToAddInSolutionAllAllreadyInSolutionFormat2 {
             get {
@@ -5205,6 +5214,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string SystemFormNotFoundedFormat2 {
             get {
                 return ResourceManager.GetString("SystemFormNotFoundedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SystemForms to add to Solution {0}: {1}.
+        /// </summary>
+        internal static string SystemFormsToAddToSolutionFormat2 {
+            get {
+                return ResourceManager.GetString("SystemFormsToAddToSolutionFormat2", resourceCulture);
             }
         }
         

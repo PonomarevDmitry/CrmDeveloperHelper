@@ -138,6 +138,9 @@
   <data name="AddingWebResourcesToSolutionFormat2" xml:space="preserve">
     <value>{0} - Adding WebResources to Solution {1}</value>
   </data>
+  <data name="AddingLinkedSystemFormToSolutionFormat2" xml:space="preserve">
+    <value>{0} - Adding Linked SystemForm to Solution {1}</value>
+  </data>
   <data name="CheckingComponentTypeEnumFormat1" xml:space="preserve">
     <value>{0} - Checking ComponentType Enum</value>
   </data>
@@ -849,6 +852,9 @@
   </data>
   <data name="DifferenceWebResourceDependencyXmlFormat1" xml:space="preserve">
     <value>{0} - Difference WebResource DependencyXml</value>
+  </data>
+  <data name="ChangingLinkedSystemFormInEntityEditorFormat1" xml:space="preserve">
+    <value>{0} - Changing Linked SystemForm in Entity Editor</value>
   </data>
   
 </root>

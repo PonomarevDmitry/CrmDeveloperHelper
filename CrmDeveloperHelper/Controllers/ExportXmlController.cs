@@ -668,28 +668,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        public async Task ExecuteGetSystemFormCurrentAttribute(ConnectionData connectionData, CommonConfiguration commonConfig, Guid formId, string fieldName, string fieldTitle)
+        public async Task ExecuteGetSystemFormCurrentAttribute(ConnectionData connectionData, CommonConfiguration commonConfig, Guid formId, ActionGetCurrent action, string fieldName, string fieldTitle)
         {
             await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.GettingSystemFormCurrentAttributeFormat2
-                , (service) => GettingSystemFormCurrentAttribute(service, commonConfig, formId, fieldName, fieldTitle)
+                , (service) => GettingSystemFormCurrentAttribute(service, commonConfig, formId, action, fieldName, fieldTitle)
                 , fieldTitle
             );
         }
 
-        private async Task GettingSystemFormCurrentAttribute(IOrganizationServiceExtented service, CommonConfiguration commonConfig, Guid formId, string fieldName, string fieldTitle)
+        private async Task GettingSystemFormCurrentAttribute(IOrganizationServiceExtented service, CommonConfiguration commonConfig, Guid formId, ActionGetCurrent action, string fieldName, string fieldTitle)
         {
             var repositorySystemForm = new SystemFormRepository(service);
 
             var systemForm = await repositorySystemForm.GetByIdAsync(formId, new ColumnSet(true));
 
-            if (string.Equals(fieldName, SystemForm.Schema.Attributes.formxml, StringComparison.InvariantCultureIgnoreCase))
+            if (action == ActionGetCurrent.SingleField)
             {
-                GetCurrentSystemFormXml(service, commonConfig, systemForm);
+                if (string.Equals(fieldName, SystemForm.Schema.Attributes.formxml, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    GetCurrentSystemFormXml(service, commonConfig, systemForm);
+                }
+                else if (string.Equals(fieldName, SystemForm.Schema.Attributes.formjson, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    GetCurrentSystemFormJson(service, commonConfig, systemForm);
+                }
             }
-            else if (string.Equals(fieldName, SystemForm.Schema.Attributes.formjson, StringComparison.InvariantCultureIgnoreCase))
+            else if (action == ActionGetCurrent.EntityDescription)
             {
-                GetCurrentSystemFormJson(service, commonConfig, systemForm);
+                await GetCurrentEntityDescription(service, commonConfig, systemForm);
+            }
+            else if (action == ActionGetCurrent.FormDescription)
+            {
+                await GetCurrentFormDescription(service, commonConfig, systemForm);
             }
         }
 
@@ -698,6 +709,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.OpeningLinkedSystemFormFormat1
                 , (service) => OpeningLinkedSystemForm(service, commonConfig, action, entityName, formId, formType)
+            );
+        }
+
+        public async Task ExecuteChangingLinkedSystemFormInEntityEditor(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, Guid formId, int formType)
+        {
+            await ConnectAndExecuteActionAsync(connectionData
+                , Properties.OperationNames.ChangingLinkedSystemFormInEntityEditorFormat1
+                , (service) => WindowHelper.OpenEntityEditor(_iWriteToOutput, service, commonConfig, SystemForm.EntityLogicalName, formId)
             );
         }
 
@@ -1048,6 +1067,89 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, currentFilePath);
+        }
+
+        private async Task GetCurrentEntityDescription(IOrganizationServiceExtented service, CommonConfiguration commonConfig, SystemForm systemForm)
+        {
+            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+            else if (!Directory.Exists(commonConfig.FolderForExport))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
+                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+
+
+            string fileName = EntityFileNameFormatter.GetSystemFormFileName(service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name, EntityFileNameFormatter.Headers.EntityDescription, "txt");
+            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+            try
+            {
+                await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, systemForm, EntityFileNameFormatter.SystemFormIgnoreFields, service.ConnectionData);
+
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
+                    , service.ConnectionData.Name
+                    , systemForm.LogicalName
+                    , filePath
+                );
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+            }
+
+            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+        }
+
+        private async Task GetCurrentFormDescription(IOrganizationServiceExtented service, CommonConfiguration commonConfig, SystemForm systemForm)
+        {
+            string formXml = systemForm.FormXml;
+
+            if (string.IsNullOrEmpty(formXml))
+            {
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, systemForm.Name, SystemForm.Schema.Headers.formxml);
+                this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+            else if (!Directory.Exists(commonConfig.FolderForExport))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
+                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+
+            var descriptor = new SolutionComponentDescriptor(service);
+            descriptor.SetSettings(commonConfig);
+
+            var handler = new FormDescriptionHandler(descriptor, new DependencyRepository(service));
+
+            string fileName = EntityFileNameFormatter.GetSystemFormFileName(service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name, "FormDescription", "txt");
+            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+            try
+            {
+                XElement doc = XElement.Parse(formXml);
+
+                string desc = await handler.GetFormDescriptionAsync(doc, systemForm.ObjectTypeCode, systemForm.Id, systemForm.Name, systemForm.FormattedValues[SystemForm.Schema.Attributes.type]);
+
+                File.WriteAllText(filePath, desc, new UTF8Encoding(false));
+
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, systemForm.Name, "FormDescription", filePath);
+
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+            }
         }
 
         #endregion SystemForm

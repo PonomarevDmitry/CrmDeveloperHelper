@@ -210,6 +210,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand.Initialize(commandService);
             CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand.Initialize(commandService);
 
+            CodeJavaScriptLinkedSystemFormAddToSolutionInConnectionCommand.Initialize(commandService);
+            CodeJavaScriptLinkedSystemFormAddToSolutionLastCommand.Initialize(commandService);
+            CodeJavaScriptLinkedSystemFormChangeInEditorInConnectionCommand.Initialize(commandService);
+
+            // CodeJavaScriptLinkedSystemForm.Initialize(commandService);
+
             #endregion CodeJavaScript
 
             #region DocumentsJavaScript

@@ -1559,5 +1559,131 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         }
 
         #endregion Добавление в решение шагов плагинов типа плагина по имени.
+
+        public async Task ExecuteAddingLinkedSystemFormToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, bool withSelect, string entityName, Guid formId, int formType)
+        {
+            string operation = string.Format(Properties.OperationNames.AddingLinkedSystemFormToSolutionFormat2, connectionData?.Name, solutionUniqueName);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await AddingLinkedSystemFormToSolution(connectionData, commonConfig, solutionUniqueName, withSelect, entityName, formId, formType);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task AddingLinkedSystemFormToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, bool withSelect, string entityName, Guid formId, int formType)
+        {
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
+
+            if (service == null)
+            {
+                return;
+            }
+
+            Solution solution = null;
+
+            if (!withSelect && !string.IsNullOrEmpty(solutionUniqueName))
+            {
+                var repositorySolution = new SolutionRepository(service);
+
+                solution = await repositorySolution.GetSolutionByUniqueNameAsync(solutionUniqueName);
+
+                if (solution != null && solution.IsManaged.GetValueOrDefault())
+                {
+                    solution = null;
+                }
+            }
+
+            if (solution == null)
+            {
+                var t = new Thread(() =>
+                {
+                    try
+                    {
+                        var formSelectSolution = new WindowSolutionSelect(_iWriteToOutput, service);
+
+                        formSelectSolution.ShowDialog().GetValueOrDefault();
+
+                        solution = formSelectSolution.SelectedSolution;
+                    }
+                    catch (Exception ex)
+                    {
+                        DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                    }
+                });
+                t.SetApartmentState(ApartmentState.STA);
+                t.Start();
+
+                t.Join();
+            }
+            else
+            {
+                this._iWriteToOutput.WriteToOutputSolutionUri(connectionData, solution.UniqueName, solution.Id);
+            }
+
+            if (solution == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.SolutionNotSelected);
+                return;
+            }
+
+            connectionData.AddLastSelectedSolution(solution?.UniqueName);
+            connectionData.Save();
+
+            var dictForAdding = new HashSet<Guid>() { formId };
+
+            var solutionRep = new SolutionComponentRepository(service);
+
+            {
+                var components = await solutionRep.GetSolutionComponentsByTypeAsync(solution.Id, ComponentType.SystemForm, new ColumnSet(SolutionComponent.Schema.Attributes.objectid));
+
+                foreach (var item in components.Where(s => s.ObjectId.HasValue).Select(s => s.ObjectId.Value))
+                {
+                    if (dictForAdding.Contains(item))
+                    {
+                        dictForAdding.Remove(item);
+                    }
+                }
+            }
+
+            if (!dictForAdding.Any())
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoSystemFormsToAddInSolutionAllAllreadyInSolutionFormat2, connectionData.Name, solution.UniqueName);
+                return;
+            }
+
+            var componentsToAdd = dictForAdding.Select(e => new SolutionComponent(new
+            {
+                ObjectId = e,
+                ComponentType = new OptionSetValue((int)ComponentType.SystemForm),
+            })).ToList();
+
+            var solutionDesciptor = new SolutionComponentDescriptor(service)
+            {
+                WithManagedInfo = true,
+                WithSolutionsInfo = true,
+                WithUrls = true,
+            };
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.SystemFormsToAddToSolutionFormat2, solution.UniqueName, componentsToAdd.Count);
+
+            var desc = await solutionDesciptor.GetSolutionComponentsDescriptionAsync(componentsToAdd);
+
+            if (!string.IsNullOrEmpty(desc))
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, desc);
+            }
+
+            await solutionRep.AddSolutionComponentsAsync(solution.UniqueName, componentsToAdd);
+        }
     }
 }

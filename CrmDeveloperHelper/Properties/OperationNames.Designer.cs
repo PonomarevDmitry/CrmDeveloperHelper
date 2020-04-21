@@ -88,6 +88,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Adding Linked SystemForm to Solution {1}.
+        /// </summary>
+        internal static string AddingLinkedSystemFormToSolutionFormat2 {
+            get {
+                return ResourceManager.GetString("AddingLinkedSystemFormToSolutionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Adding New Privileges from {1} to {2}.
         /// </summary>
         internal static string AddingNewPrivilegesFromRoleToRoleFormat3 {
@@ -264,6 +273,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string BuildingProjectUpdatingPluginAssemblyRegisteringPluginsFormat2 {
             get {
                 return ResourceManager.GetString("BuildingProjectUpdatingPluginAssemblyRegisteringPluginsFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Changing Linked SystemForm in Entity Editor.
+        /// </summary>
+        internal static string ChangingLinkedSystemFormInEntityEditorFormat1 {
+            get {
+                return ResourceManager.GetString("ChangingLinkedSystemFormInEntityEditorFormat1", resourceCulture);
             }
         }
         
