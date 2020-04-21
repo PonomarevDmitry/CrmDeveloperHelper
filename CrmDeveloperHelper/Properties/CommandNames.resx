@@ -264,8 +264,8 @@
     <value>Get SystemForm Current Xml</value>
   </data>
   
-  <data name="CodeJavaScriptLinkedSystemFormGetCurrentCommand" xml:space="preserve">
-    <value>Get Linked SystemForm Current Xml</value>
+  <data name="CodeJavaScriptLinkedSystemFormExplorerCommand" xml:space="preserve">
+    <value>Open SystemForm Explorer</value>
   </data>
 
   <data name="CodeXmlWorkflowShowDifferenceCommand" xml:space="preserve">

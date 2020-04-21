@@ -408,11 +408,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartSystemFormOpenInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
             => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteOpenInWebSystemForm, commonConfig, selectedFile);
 
-        public void StartSystemFormGetCurrent(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+        public void StartSystemFormGetCurrentFormXml(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
             => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteGetSystemFormCurrentXml, commonConfig, selectedFile);
 
-        public void StartSystemFormGetCurrent(ConnectionData connectionData, CommonConfiguration commonConfig, Guid formId)
-            => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteGetSystemFormCurrentXml, commonConfig, formId);
+        public void StartSystemFormGetCurrentAttribute(ConnectionData connectionData, CommonConfiguration commonConfig, Guid formId, string fieldName, string fieldTitle)
+            => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteGetSystemFormCurrentAttribute, commonConfig, formId, fieldName, fieldTitle);
+
+        public void StartOpeningLinkedSystemForm(ConnectionData connectionData, CommonConfiguration commonConfig, ActionOpenComponent action, string entityName, Guid formId, int formType)
+             => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteOpeningLinkedSystemForm, commonConfig, action, entityName, formId, formType);
 
         #endregion SystemForm
 

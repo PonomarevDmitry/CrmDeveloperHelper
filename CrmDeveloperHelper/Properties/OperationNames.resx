@@ -368,7 +368,10 @@
     <value>{0} - Getting SiteMap Current Xml</value>
   </data>
   <data name="GettingSystemFormCurrentXmlFormat1" xml:space="preserve">
-    <value>{0} - Getting SystemForm Current Xml</value>
+    <value>{0} - Getting SystemForm Current FormXml</value>
+  </data>
+  <data name="GettingSystemFormCurrentAttributeFormat2" xml:space="preserve">
+    <value>{0} - Getting SystemForm Current {1}</value>
   </data>
   <data name="GettingWorkflowCurrentXamlFormat1" xml:space="preserve">
     <value>{0} - Getting Workflow Current Xaml</value>
@@ -720,6 +723,9 @@
   </data>
   <data name="OpeningSystemFormInWebFormat1" xml:space="preserve">
     <value>{0} - Opening SystemForm in Web</value>
+  </data>
+  <data name="OpeningLinkedSystemFormFormat1" xml:space="preserve">
+    <value>{0} - Opening Linked SystemForm</value>
   </data>
   <data name="DifferenceSavedQueryFormat1" xml:space="preserve">
     <value>{0} - Difference SavedQuery</value>

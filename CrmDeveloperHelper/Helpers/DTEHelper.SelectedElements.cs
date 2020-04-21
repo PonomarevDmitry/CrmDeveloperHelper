@@ -119,6 +119,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return result;
         }
 
+        public bool TryGetLinkedSystemForm(out string entityName, out Guid formId, out int formType)
+        {
+            entityName = string.Empty;
+            formId = Guid.Empty;
+            formType = 0;
+
+            var document = this.GetOpenedDocumentInCodeWindow(FileOperations.SupportsJavaScriptType);
+
+            if (document == null)
+            {
+                return false;
+            }
+
+            var objTextDoc = document.Object("TextDocument");
+            if (objTextDoc != null
+                && objTextDoc is EnvDTE.TextDocument textDocument
+            )
+            {
+                string fileText = textDocument.StartPoint.CreateEditPoint().GetText(textDocument.EndPoint);
+
+                if (CommonHandlers.GetLinkedSystemForm(fileText, out entityName, out formId, out formType))
+                {
+                    return true;
+                }
+            }
+
+            entityName = string.Empty;
+            formId = Guid.Empty;
+            formType = 0;
+
+            return false;
+        }
+
         public IEnumerable<SelectedFile> GetOpenedDocuments(Func<string, bool> checkerFunction)
         {
             return GetOpenedDocuments(checkerFunction, true);
@@ -234,8 +267,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             && hash.Add(path)
                         )
                         {
-                            if (saveIfNeeded 
-                                && item.ProjectItem.Document != null 
+                            if (saveIfNeeded
+                                && item.ProjectItem.Document != null
                                 && !item.ProjectItem.Document.Saved
                             )
                             {

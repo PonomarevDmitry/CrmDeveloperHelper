@@ -64,12 +64,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartSystemFormGetCurrent(conn, commonConfig, selectedFile));
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartSystemFormGetCurrentFormXml(conn, commonConfig, selectedFile));
         }
 
-        public void HandleSystemFormGetCurrentCommand(ConnectionData connectionData, Guid formId)
+        public void HandleSystemFormGetCurrentAttributeCommand(ConnectionData connectionData, Guid formId, string fieldName, string fieldTitle)
         {
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartSystemFormGetCurrent(conn, commonConfig, formId));
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartSystemFormGetCurrentAttribute(conn, commonConfig, formId, fieldName, fieldTitle));
         }
 
         public void HandleExplorerSystemForm()

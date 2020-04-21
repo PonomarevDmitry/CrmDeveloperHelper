@@ -336,6 +336,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public void HandleOpenLinkedSystemForm(ConnectionData connectionData, ActionOpenComponent action, string entityName, Guid formId, int formType)
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null && commonConfig != null)
+            {
+                ActivateOutputWindow(connectionData);
+                WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                switch (action)
+                {
+                    case ActionOpenComponent.OpenInWeb:
+                        connectionData.OpenSystemFormInWeb(entityName, formId, formType);
+                        return;
+
+                    case ActionOpenComponent.OpenDependentComponentsInWeb:
+                        connectionData.OpenSolutionComponentDependentComponentsInWeb(Entities.ComponentType.SystemForm, formId);
+                        return;
+                }
+
+                try
+                {
+                    Controller.StartOpeningLinkedSystemForm(connectionData, commonConfig, action, entityName, formId, formType);
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToOutput(connectionData, ex);
+                }
+            }
+        }
+
         public void HandleShowingWebResourcesDependentComponents(List<SelectedFile> selectedFiles)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();

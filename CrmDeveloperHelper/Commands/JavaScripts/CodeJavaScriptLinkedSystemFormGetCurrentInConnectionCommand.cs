@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.Shell;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
@@ -10,40 +11,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
     internal sealed class CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
-        private CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommandId)
+        private readonly string _fieldName;
+        private readonly string _fieldTitle;
+
+        private CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand(OleMenuCommandService commandService, int baseIdStart, string fieldName, string fieldTitle)
+            : base(commandService, baseIdStart)
         {
+            this._fieldName = fieldName;
+            this._fieldTitle = fieldTitle;
         }
 
-        public static CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand Instance { get; private set; }
+        public static CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand InstanceFormXml { get; private set; }
+
+        public static CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand InstanceFormJson { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand(commandService);
+            InstanceFormXml = new CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand(commandService
+                , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedSystemFormGetCurrentFormXmlInConnectionCommandId
+                , SystemForm.Schema.Attributes.formxml
+                , SystemForm.Schema.Headers.formxml
+            );
+
+            InstanceFormJson = new CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand(commandService
+               , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedSystemFormGetCurrentFormJsonInConnectionCommandId
+               , SystemForm.Schema.Attributes.formjson
+               , SystemForm.Schema.Headers.formjson
+           );
         }
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
-            List<SelectedFile> selectedFiles = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsJavaScriptType).Take(2).ToList();
-
-            var document = helper.GetOpenedDocumentInCodeWindow(FileOperations.SupportsJavaScriptType);
-
-            if (document == null)
+            if (helper.TryGetLinkedSystemForm(out string entityName, out Guid formId, out int formType))
             {
-                return;
-            }
-
-            var objTextDoc = document.Object("TextDocument");
-            if (objTextDoc != null
-                && objTextDoc is EnvDTE.TextDocument textDocument
-            )
-            {
-                string fileText = textDocument.StartPoint.CreateEditPoint().GetText(textDocument.EndPoint);
-
-                if (CommonHandlers.GetLinkedSystemForm(fileText, out string entityName, out Guid formId, out int formType))
-                {
-                    helper.HandleSystemFormGetCurrentCommand(connectionData, formId);
-                }
+                helper.HandleSystemFormGetCurrentAttributeCommand(connectionData, formId, this._fieldName, this._fieldTitle);
             }
         }
 

@@ -1429,7 +1429,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Getting SystemForm Current Xml.
+        ///   Looks up a localized string similar to {0} - Getting SystemForm Current {1}.
+        /// </summary>
+        internal static string GettingSystemFormCurrentAttributeFormat2 {
+            get {
+                return ResourceManager.GetString("GettingSystemFormCurrentAttributeFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Getting SystemForm Current FormXml.
         /// </summary>
         internal static string GettingSystemFormCurrentXmlFormat1 {
             get {
@@ -1614,6 +1623,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string OpeningGlobalOptionSetsFileGenerationOptions {
             get {
                 return ResourceManager.GetString("OpeningGlobalOptionSetsFileGenerationOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Opening Linked SystemForm.
+        /// </summary>
+        internal static string OpeningLinkedSystemFormFormat1 {
+            get {
+                return ResourceManager.GetString("OpeningLinkedSystemFormFormat1", resourceCulture);
             }
         }
         

@@ -141,15 +141,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuWebResource_GroupLinkedSystemForm_Menu = 0x1406;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group = 0x1407;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group1 = 0x1407;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group_MenuOpenInWebConnectionDyn = 0x1408;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group1_MenuOpenInWebConnectionDyn = 0x1408;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group_MenuOpenInWebConnectionDyn_Group = 0x1409;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group1_MenuOpenInWebConnectionDyn_Group = 0x1409;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group_MenuGetCurrentDyn = 0x140A;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group1_MenuGetCurrentFormXmlDyn = 0x140A;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group_MenuGetCurrentDyn_Group = 0x140B;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group1_MenuGetCurrentFormXmlDyn_Group = 0x140B;
+
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group1_MenuGetCurrentFormJsonDyn = 0x1412;
+
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group1_MenuGetCurrentFormJsonDyn_Group = 0x1413;
+
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group2 = 0x1414;
+
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group2_MenuOpenDependentInWebDyn = 0x140C;
+
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group2_MenuOpenDependentInWebDyn_Group = 0x140D;
+
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group2_MenuOpenDependentInExplorerDyn = 0x140E;
+
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group2_MenuOpenDependentInExplorerDyn_Group = 0x140F;
+
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group2_MenuOpenSolutionsContainingComponentInExplorerDyn = 0x1410;
+
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group2_MenuOpenSolutionsContainingComponentInExplorerDyn_Group = 0x1411;
 
             public const int codeMenuWebResource_GroupCheckFileEncoding = 0x1005;
 
@@ -1994,6 +2012,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeJavaScriptUpdateGlobalOptionSetAllFileCommandId = 0x2580;
 
+            public const int CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommandId = 0x300C;
+
+            public const int CodeJavaScriptLinkedSystemFormOpenDependentInWebInConnectionCommandId = 0x3070;
+
+            public const int CodeJavaScriptLinkedSystemFormOpenDependentInExplorerInConnectionCommandId = 0x30A2;
+
+            public const int CodeJavaScriptLinkedSystemFormOpenSolutionsContainingComponentInExplorerInConnectionCommandId = 0x30D4;
+
             public const int CodeXmlFetchXmlExecuteRequestInConnectionsCommandId = 0x109A;
 
             public const int CodeXmlCommonXsdSchemaSetCommandId = 0x10FE;
@@ -2052,9 +2078,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeXmlWebResourceDependencyXmlGetCurrentInConnectionCommandId = 0x2EAE;
 
-            public const int CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommandId = 0x300C;
+            public const int CodeJavaScriptLinkedSystemFormGetCurrentFormXmlInConnectionCommandId = 0x303E;
 
-            public const int CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommandId = 0x303E;
+            public const int CodeJavaScriptLinkedSystemFormGetCurrentFormJsonInConnectionCommandId = 0x3106;
 
             public const int CodeReportAddToSolutionLastCommandId = 0x00DC;
 
@@ -2356,8 +2382,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommandId = 0x21A1;
 
             public const int CodeJavaScriptLinkedSystemFormExplorerCommandId = 0x223C;
-
-            public const int CodeJavaScriptLinkedSystemFormGetCurrentCommandId = 0x223D;
 
             public const int CodeXmlCommonUpdateCommandId = 0x2225;
 

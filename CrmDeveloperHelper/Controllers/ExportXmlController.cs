@@ -668,21 +668,71 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        public async Task ExecuteGetSystemFormCurrentXml(ConnectionData connectionData, CommonConfiguration commonConfig, Guid formId)
+        public async Task ExecuteGetSystemFormCurrentAttribute(ConnectionData connectionData, CommonConfiguration commonConfig, Guid formId, string fieldName, string fieldTitle)
         {
             await ConnectAndExecuteActionAsync(connectionData
-                , Properties.OperationNames.GettingSystemFormCurrentXmlFormat1
-                , (service) => GettingSystemFormCurrentXml(service, commonConfig, formId)
+                , Properties.OperationNames.GettingSystemFormCurrentAttributeFormat2
+                , (service) => GettingSystemFormCurrentAttribute(service, commonConfig, formId, fieldName, fieldTitle)
+                , fieldTitle
             );
         }
 
-        private async Task GettingSystemFormCurrentXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, Guid formId)
+        private async Task GettingSystemFormCurrentAttribute(IOrganizationServiceExtented service, CommonConfiguration commonConfig, Guid formId, string fieldName, string fieldTitle)
         {
             var repositorySystemForm = new SystemFormRepository(service);
 
             var systemForm = await repositorySystemForm.GetByIdAsync(formId, new ColumnSet(true));
 
-            GetCurrentSystemFormXml(service, commonConfig, systemForm);
+            if (string.Equals(fieldName, SystemForm.Schema.Attributes.formxml, StringComparison.InvariantCultureIgnoreCase))
+            {
+                GetCurrentSystemFormXml(service, commonConfig, systemForm);
+            }
+            else if (string.Equals(fieldName, SystemForm.Schema.Attributes.formjson, StringComparison.InvariantCultureIgnoreCase))
+            {
+                GetCurrentSystemFormJson(service, commonConfig, systemForm);
+            }
+        }
+
+        public async Task ExecuteOpeningLinkedSystemForm(ConnectionData connectionData, CommonConfiguration commonConfig, ActionOpenComponent action, string entityName, Guid formId, int formType)
+        {
+            await ConnectAndExecuteActionAsync(connectionData
+                , Properties.OperationNames.OpeningLinkedSystemFormFormat1
+                , (service) => OpeningLinkedSystemForm(service, commonConfig, action, entityName, formId, formType)
+            );
+        }
+
+        private void OpeningLinkedSystemForm(IOrganizationServiceExtented service, CommonConfiguration commonConfig, ActionOpenComponent action, string entityName, Guid formId, int formType)
+        {
+            if (action == ActionOpenComponent.OpenInWeb)
+            {
+                service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.SystemForm, formId);
+            }
+            else if (action == ActionOpenComponent.OpenDependentComponentsInWeb)
+            {
+                service.ConnectionData.OpenSolutionComponentDependentComponentsInWeb(ComponentType.SystemForm, formId);
+            }
+            else if (action == ActionOpenComponent.OpenDependentComponentsInExplorer)
+            {
+                WindowHelper.OpenSolutionComponentDependenciesExplorer(
+                    _iWriteToOutput
+                    , service
+                    , null
+                    , commonConfig
+                    , (int)ComponentType.SystemForm
+                    , formId
+                    , null);
+            }
+            else if (action == ActionOpenComponent.OpenSolutionsContainingComponentInExplorer)
+            {
+                WindowHelper.OpenExplorerSolutionExplorer(
+                    _iWriteToOutput
+                    , service
+                    , commonConfig
+                    , (int)ComponentType.SystemForm
+                    , formId
+                    , null
+                );
+            }
         }
 
         private Task CheckAttributeValidateGetSystemFormExecuteAction(
@@ -950,6 +1000,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 File.WriteAllText(currentFilePath, formXml, new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, systemForm.Name, SystemForm.Schema.Headers.formxml, currentFilePath);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+            }
+
+            this._iWriteToOutput.PerformAction(service.ConnectionData, currentFilePath);
+        }
+
+        private void GetCurrentSystemFormJson(IOrganizationServiceExtented service, CommonConfiguration commonConfig, SystemForm systemForm)
+        {
+            string formJson = systemForm.FormJson;
+
+            if (string.IsNullOrEmpty(formJson))
+            {
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, systemForm.Name, SystemForm.Schema.Headers.formjson);
+                this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                return;
+            }
+
+            formJson = ContentComparerHelper.FormatJson(formJson);
+
+            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+            else if (!Directory.Exists(commonConfig.FolderForExport))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
+                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+
+            string currentFileName = EntityFileNameFormatter.GetSystemFormFileName(service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name, SystemForm.Schema.Headers.formjson, "json");
+            string currentFilePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(currentFileName));
+
+            try
+            {
+                File.WriteAllText(currentFilePath, formJson, new UTF8Encoding(false));
+
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, systemForm.Name, SystemForm.Schema.Headers.formjson, currentFilePath);
             }
             catch (Exception ex)
             {

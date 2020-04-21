@@ -2,46 +2,59 @@
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
     internal sealed class CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
-        private CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommandId)
+        private readonly ActionOpenComponent _actionOpen;
+
+        private CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand(OleMenuCommandService commandService, int baseIdStart, ActionOpenComponent action)
+            : base(commandService, baseIdStart)
         {
+            this._actionOpen = action;
         }
 
-        public static CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand Instance { get; private set; }
+        public static CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand InstanceOpenInWebInConnection { get; private set; }
+
+        public static CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand InstanceOpenDependentComponentsInWebInConnection { get; private set; }
+
+        public static CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand InstanceOpenDependentComponentsInExplorerInConnection { get; private set; }
+
+        public static CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand InstanceOpenSolutionsContainingComponentInExplorerInConnection { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand(commandService);
+            InstanceOpenInWebInConnection = new CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand(
+                commandService
+                , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommandId
+                , ActionOpenComponent.OpenInWeb
+            );
+
+            InstanceOpenDependentComponentsInWebInConnection = new CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand(
+                commandService
+                , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedSystemFormOpenDependentInWebInConnectionCommandId
+                , ActionOpenComponent.OpenDependentComponentsInWeb
+            );
+
+            InstanceOpenDependentComponentsInExplorerInConnection = new CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand(
+                commandService
+                , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedSystemFormOpenDependentInExplorerInConnectionCommandId
+                , ActionOpenComponent.OpenDependentComponentsInExplorer
+            );
+
+            InstanceOpenSolutionsContainingComponentInExplorerInConnection = new CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand(
+                commandService
+                , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedSystemFormOpenSolutionsContainingComponentInExplorerInConnectionCommandId
+                , ActionOpenComponent.OpenSolutionsContainingComponentInExplorer
+            );
         }
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
-            var document = helper.GetOpenedDocumentInCodeWindow(FileOperations.SupportsJavaScriptType);
-
-            if (document == null)
+            if (helper.TryGetLinkedSystemForm(out string entityName, out Guid formId, out int formType))
             {
-                return;
-            }
-
-            var objTextDoc = document.Object("TextDocument");
-            if (objTextDoc != null
-                && objTextDoc is EnvDTE.TextDocument textDocument
-            )
-            {
-                string fileText = textDocument.StartPoint.CreateEditPoint().GetText(textDocument.EndPoint);
-
-                if (CommonHandlers.GetLinkedSystemForm(fileText, out string entityName, out Guid formId, out int formType))
-                {
-                    connectionData.OpenSystemFormInWeb(entityName, formId, formType);
-                }
+                helper.HandleOpenLinkedSystemForm(connectionData, this._actionOpen, entityName, formId, formType);
             }
         }
 

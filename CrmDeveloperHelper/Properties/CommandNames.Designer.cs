@@ -133,11 +133,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Get Linked SystemForm Current Xml.
+        ///   Looks up a localized string similar to Open SystemForm Explorer.
         /// </summary>
-        internal static string CodeJavaScriptLinkedSystemFormGetCurrentCommand {
+        internal static string CodeJavaScriptLinkedSystemFormExplorerCommand {
             get {
-                return ResourceManager.GetString("CodeJavaScriptLinkedSystemFormGetCurrentCommand", resourceCulture);
+                return ResourceManager.GetString("CodeJavaScriptLinkedSystemFormExplorerCommand", resourceCulture);
             }
         }
         
