@@ -523,9 +523,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void WriteFormProperties(string entityName, Guid? formId, string formName, int? formType, string formTypeName)
         {
-            if (!string.IsNullOrEmpty(entityName) || formId.HasValue || formType.HasValue)
+            StringBuilder systemInfo = new StringBuilder();
+
+            if (!string.IsNullOrEmpty(entityName))
             {
-                WriteLine($@"/// <crmdeveloperhelper entityname=""{entityName}"" systemformtype=""{formType.Value}"" systemformid=""{formId:B}"" />");
+                systemInfo.AppendFormat(@" entityname=""{0}""", entityName);
+            }
+
+            if (formType.HasValue)
+            {
+                systemInfo.AppendFormat(@" systemformtype=""{0}""", formType.Value);
+            }
+
+            if (formId.HasValue)
+            {
+                systemInfo.AppendFormat(@" systemformid=""{0:B}""", formId.Value);
+            }
+
+            if (systemInfo.Length > 0)
+            {
+                WriteLine($@"/// <crmdeveloperhelper{systemInfo.ToString()} />");
             }
 
             if (!string.IsNullOrEmpty(formTypeName) || !string.IsNullOrEmpty(formName))
