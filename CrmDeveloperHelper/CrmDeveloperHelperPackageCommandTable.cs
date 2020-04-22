@@ -147,6 +147,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group1_MenuOpenInWebConnectionDyn_Group = 0x1409;
 
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupGetCurrentTabsAndSections = 0x1424;
+
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupGetCurrentTabsAndSections_MenuTypeConstructorDyn = 0x1425;
+
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupGetCurrentTabsAndSections_MenuTypeConstructorDyn_Group = 0x1426;
+
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupGetCurrentTabsAndSections_MenuJsonObjectDyn = 0x1427;
+
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupGetCurrentTabsAndSections_MenuJsonObjectDyn_Group = 0x1428;
+
             public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupGetCurrentAttribute = 0x1423;
 
             public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupGetCurrentAttribute_MenuGetCurrentFormXmlDyn = 0x140A;
@@ -159,13 +169,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupGetCurrentDescription = 0x1422;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupGetCurrentDescription_MenuGetCurrentEntityDescriptionDyn = 0x141D;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupGetCurrentDescription_MenuEntityDescriptionDyn = 0x141D;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupGetCurrentDescription_MenuGetCurrentEntityDescriptionDyn_Group = 0x141E;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupGetCurrentDescription_MenuEntityDescriptionDyn_Group = 0x141E;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupGetCurrentDescription_MenuGetCurrentFormDescriptionDyn = 0x141F;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupGetCurrentDescription_MenuFormDescriptionDyn = 0x141F;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupGetCurrentDescription_MenuGetCurrentFormDescriptionDyn_Group = 0x1420;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupGetCurrentDescription_MenuFormDescriptionDyn_Group = 0x1420;
 
             public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupChange = 0x1421;
 
@@ -2063,6 +2073,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int CodeJavaScriptLinkedSystemFormGetCurrentFormDescriptionInConnectionCommandId = 0x3200;
 
             public const int CodeJavaScriptLinkedSystemFormChangeInEditorInConnectionCommandId = 0x319C;
+
+            public const int CodeJavaScriptLinkedSystemFormGetCurrentTabsAndSectionsInConnectionTypeConstructorCommandId = 0x3232;
+
+            public const int CodeJavaScriptLinkedSystemFormGetCurrentTabsAndSectionsInConnectionJsonObjectCommandId = 0x3264;
 
             public const int CodeXmlFetchXmlExecuteRequestInConnectionsCommandId = 0x109A;
 

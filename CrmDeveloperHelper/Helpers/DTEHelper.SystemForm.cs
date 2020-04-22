@@ -82,6 +82,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartLinkedSystemFormChangeInEntityEditor(conn, commonConfig, entityName, formId, formType));
         }
 
+        public void HandleSystemFormGetCurrentTabsAndSectionsCommand(ConnectionData connectionData, JavaScriptObjectType jsObjectType, string entityName, Guid formId, int formType)
+        {
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartSystemFormGetCurrentTabsAndSections(conn, commonConfig, jsObjectType, entityName, formId, formType));
+        }
+
         public void HandleExplorerSystemForm()
         {
             string selection = GetSelectedText();

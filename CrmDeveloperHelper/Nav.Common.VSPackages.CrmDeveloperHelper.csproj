@@ -147,6 +147,7 @@
     <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedSystemFormAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedSystemFormChangeInEditorInConnectionCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedSystemFormExplorerCommand.cs" />
+    <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedSystemFormGetCurrentTabsAndSectionsInConnectionCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptUpdateEntityMetadataFileCommand.cs" />

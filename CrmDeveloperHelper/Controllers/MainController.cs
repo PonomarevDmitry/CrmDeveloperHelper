@@ -439,6 +439,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartLinkedSystemFormChangeInEntityEditor(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, Guid formId, int formType)
             => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteChangingLinkedSystemFormInEntityEditor, commonConfig, entityName, formId, formType);
 
+        public void StartSystemFormGetCurrentTabsAndSections(ConnectionData connectionData, CommonConfiguration commonConfig, JavaScriptObjectType jsObjectType, string entityName, Guid formId, int formType)
+            => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteGettingSystemFormCurrentTabsAndSections, commonConfig, jsObjectType, entityName, formId, formType);
+
         #endregion SystemForm
 
         #region SavedQuery

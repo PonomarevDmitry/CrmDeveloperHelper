@@ -712,14 +712,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             );
         }
 
-        public async Task ExecuteChangingLinkedSystemFormInEntityEditor(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, Guid formId, int formType)
-        {
-            await ConnectAndExecuteActionAsync(connectionData
-                , Properties.OperationNames.ChangingLinkedSystemFormInEntityEditorFormat1
-                , (service) => WindowHelper.OpenEntityEditor(_iWriteToOutput, service, commonConfig, SystemForm.EntityLogicalName, formId)
-            );
-        }
-
         private void OpeningLinkedSystemForm(IOrganizationServiceExtented service, CommonConfiguration commonConfig, ActionOpenComponent action, string entityName, Guid formId, int formType)
         {
             if (action == ActionOpenComponent.OpenInWeb)
@@ -751,6 +743,79 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     , formId
                     , null
                 );
+            }
+        }
+
+        public async Task ExecuteChangingLinkedSystemFormInEntityEditor(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, Guid formId, int formType)
+        {
+            await ConnectAndExecuteActionAsync(connectionData
+                , Properties.OperationNames.ChangingLinkedSystemFormInEntityEditorFormat1
+                , (service) => WindowHelper.OpenEntityEditor(_iWriteToOutput, service, commonConfig, SystemForm.EntityLogicalName, formId)
+            );
+        }
+
+        public async Task ExecuteGettingSystemFormCurrentTabsAndSections(ConnectionData connectionData, CommonConfiguration commonConfig, JavaScriptObjectType jsObjectType, string entityName, Guid formId, int formType)
+        {
+            await ConnectAndExecuteActionAsync(connectionData
+                , Properties.OperationNames.ChangingLinkedSystemFormInEntityEditorFormat1
+                , (service) => GettingSystemFormCurrentTabsAndSections(service, commonConfig, jsObjectType, entityName, formId, formType)
+            );
+        }
+
+        private async Task GettingSystemFormCurrentTabsAndSections(IOrganizationServiceExtented service, CommonConfiguration commonConfig, JavaScriptObjectType jsObjectType, string entityName, Guid formId, int formType)
+        {
+            var repositorySystemForm = new SystemFormRepository(service);
+
+            var systemForm = await repositorySystemForm.GetByIdAsync(formId, new ColumnSet(true));
+
+            string formXml = systemForm.FormXml;
+
+            if (string.IsNullOrEmpty(formXml))
+            {
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, systemForm.Name, SystemForm.Schema.Headers.formxml);
+                this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                return;
+            }
+
+            try
+            {
+                var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
+
+                var config = new CreateFileJavaScriptConfiguration(
+                    fileGenerationOptions.GetTabSpacer()
+                    , fileGenerationOptions.GenerateSchemaEntityOptionSetsWithDependentComponents
+                    , fileGenerationOptions.GenerateSchemaIntoSchemaClass
+                    , fileGenerationOptions.GenerateSchemaGlobalOptionSet
+                    , fileGenerationOptions.NamespaceClassesJavaScript
+                );
+
+                var doc = XElement.Parse(formXml);
+
+                var descriptor = new SolutionComponentDescriptor(service);
+
+                descriptor.SetSettings(commonConfig);
+
+                var handler = new FormDescriptionHandler(descriptor, new DependencyRepository(service));
+
+                var tabs = handler.GetFormTabs(doc);
+
+                var text = new StringBuilder();
+
+                using (var writer = new StringWriter(text))
+                {
+                    var handlerCreate = new CreateFormTabsJavaScriptHandler(writer, config, jsObjectType, service);
+
+                    handlerCreate.WriteContentOnlyForm(tabs);
+                }
+
+                ClipboardHelper.SetText(text.ToString().Trim(' ', '\r', '\n'));
+
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CopyingEntityJavaScriptContentOnFormCompletedFormat2, systemForm.ObjectTypeCode, systemForm.Name);
+                this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
         }
 

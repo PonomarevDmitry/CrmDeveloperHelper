@@ -2094,9 +2094,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CopyingEntityJavaScriptContentOnFormFormat2, entityName, name);
 
-            var descriptor = GetDescriptor(service);
-            var handler = new FormDescriptionHandler(descriptor, new DependencyRepository(service));
-
             var repository = new SystemFormRepository(service);
 
             var systemForm = await repository.GetByIdAsync(idSystemForm, new ColumnSet(SystemForm.Schema.Attributes.formxml));
@@ -2118,6 +2115,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     );
 
                     var doc = XElement.Parse(formXml);
+
+                    var descriptor = GetDescriptor(service);
+                    var handler = new FormDescriptionHandler(descriptor, new DependencyRepository(service));
 
                     var tabs = handler.GetFormTabs(doc);
 
