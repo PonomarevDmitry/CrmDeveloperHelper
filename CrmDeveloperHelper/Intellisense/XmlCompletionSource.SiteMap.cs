@@ -25,7 +25,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     {
                         FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().Urls, "Urls");
 
-                        FillWebResourcesTextForRibbon(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesHtml?.Values?.ToList(), "WebResources");
+                        FillWebResourcesTextWithWebResourcePrefix(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesHtml?.Values?.ToList(), "WebResources");
                     }
 
                     #endregion Urls
@@ -38,7 +38,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     {
                         FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().Urls, "Urls");
 
-                        FillWebResourcesTextForRibbon(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesHtml?.Values?.ToList(), "WebResources");
+                        FillWebResourcesTextWithWebResourcePrefix(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesHtml?.Values?.ToList(), "WebResources");
                     }
 
                     #endregion Urls
@@ -79,7 +79,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     {
                         FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().Urls, "Urls");
 
-                        FillWebResourcesTextForRibbon(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesHtml?.Values?.ToList(), "WebResources");
+                        FillWebResourcesTextWithWebResourcePrefix(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesHtml?.Values?.ToList(), "WebResources");
                     }
 
                     #endregion Urls
@@ -120,7 +120,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     {
                         FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().Urls, "Urls");
 
-                        FillWebResourcesTextForRibbon(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesHtml?.Values?.ToList(), "WebResources");
+                        FillWebResourcesTextWithWebResourcePrefix(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesHtml?.Values?.ToList(), "WebResources");
                     }
 
                     #endregion Urls

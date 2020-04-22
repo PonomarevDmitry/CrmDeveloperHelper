@@ -61,6 +61,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     {
                         FillSingleWebResourceAttribute(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesAll?.Values?.ToList(), currentXmlNode, WebResource.Schema.Attributes.languagecode);
                     }
+                    else if (string.Equals(currentAttributeName, "libraryUniqueId", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillNewGuid(completionSets, applicableTo);
+                    }
                 }
             }
             catch (Exception ex)

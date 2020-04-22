@@ -29,6 +29,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
         private const string SourceNameMonikerWebResourcesText = "CrmXmlWebResourcesText.{E438F5CE-FBBD-4754-A2F7-F1AEB6752499}";
         private const string SourceNameMonikerWebResourcesIcon = "CrmXmlWebResourcesIcon.{AA2AABF2-E32A-40AA-B6EF-A072D45CD8FC}";
 
+        private const string SourceNameMonikerNewGuid = "CrmXmlNewGuid.{A6CE3966-8EC6-4938-B123-80D7F7F83453}";
+
         private const string SourceNameMonikerAllAttributes = "CrmXmlAllAttributes.{417B4B2F-EC8A-4EBC-A6CD-A45013171817}";
         private const string SourceNameMonikerPrimaryAttributes = "CrmXmlPrimaryAttributes.{A9DA848E-6160-48AE-A41A-6CC15D30DB90}";
         private const string SourceNameMonikerReferenceAttributes = "CrmXmlReferenceAttributes.{9FEBA56B-4CFC-40E4-9C8C-E7699BEEB367}";
@@ -250,38 +252,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                             }
                             else if (string.Equals(doc.Name.LocalName, Commands.AbstractDynamicCommandXsdSchemas.RootGrid, StringComparison.InvariantCultureIgnoreCase))
                             {
-                                var repository = ConnectionIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
+                                var repositoryEntities = ConnectionIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
+                                var repositoryWebResource = WebResourceIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
 
                                 HashSet<int> usedEntityCodes = GetUsedEntityObjectTypeCodes(doc);
 
                                 if (usedEntityCodes.Any())
                                 {
-                                    repository.GetEntityDataForObjectTypeCodesAsync(usedEntityCodes);
+                                    repositoryEntities.GetEntityDataForObjectTypeCodesAsync(usedEntityCodes);
                                 }
 
-                                FillSessionForGridXmlCompletionSet(completionSets, connectionConfig.CurrentConnectionData, repository, currentXmlNode, currentNodeName, currentAttributeName, applicableTo);
+                                FillSessionForGridXmlCompletionSet(completionSets, connectionConfig.CurrentConnectionData, repositoryEntities, repositoryWebResource, currentXmlNode, currentNodeName, currentAttributeName, applicableTo);
                             }
                             else if (string.Equals(doc.Name.LocalName, Commands.AbstractDynamicCommandXsdSchemas.RootSavedQuery, StringComparison.InvariantCultureIgnoreCase))
                             {
-                                var repository = ConnectionIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
+                                var repositoryEntities = ConnectionIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
+                                var repositoryWebResource = WebResourceIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
 
                                 HashSet<string> usedEntities = GetUsedEntities(doc);
 
                                 if (usedEntities.Any())
                                 {
-                                    repository.GetEntityDataForNamesAsync(usedEntities);
+                                    repositoryEntities.GetEntityDataForNamesAsync(usedEntities);
                                 }
 
                                 HashSet<int> usedEntityCodes = GetUsedEntityObjectTypeCodes(doc);
 
                                 if (usedEntityCodes.Any())
                                 {
-                                    repository.GetEntityDataForObjectTypeCodesAsync(usedEntityCodes);
+                                    repositoryEntities.GetEntityDataForObjectTypeCodesAsync(usedEntityCodes);
                                 }
 
-                                FillSessionForFetchXmlCompletionSet(completionSets, doc, connectionConfig.CurrentConnectionData, repository, currentXmlNode, currentNodeName, currentAttributeName, applicableTo);
+                                FillSessionForFetchXmlCompletionSet(completionSets, doc, connectionConfig.CurrentConnectionData, repositoryEntities, currentXmlNode, currentNodeName, currentAttributeName, applicableTo);
 
-                                FillSessionForGridXmlCompletionSet(completionSets, connectionConfig.CurrentConnectionData, repository, currentXmlNode, currentNodeName, currentAttributeName, applicableTo);
+                                FillSessionForGridXmlCompletionSet(completionSets, connectionConfig.CurrentConnectionData, repositoryEntities, repositoryWebResource, currentXmlNode, currentNodeName, currentAttributeName, applicableTo);
                             }
                             else if (string.Equals(doc.Name.LocalName, Commands.AbstractDynamicCommandXsdSchemas.RootSiteMap, StringComparison.InvariantCultureIgnoreCase))
                             {
@@ -410,7 +414,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             }
         }
 
-        private void FillWebResourcesTextForRibbon(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, IEnumerable<WebResource> webResources, string nameCompletionSet)
+        private void FillWebResourcesTextWithWebResourcePrefix(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, IEnumerable<WebResource> webResources, string nameCompletionSet)
         {
             if (webResources == null || !webResources.Any())
             {
@@ -732,6 +736,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             }
 
             completionSets.Add(new CrmCompletionSet(SourceNameMonikerWebResourcesText, nameCompletionSet, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
+        }
+
+        private static readonly string[] _guidFormats = new[] { "B", "D", "N", "P", "X" };
+
+        private void FillNewGuid(IList<CompletionSet> completionSets, ITrackingSpan applicableTo)
+        {
+            List<CrmCompletion> list = new List<CrmCompletion>();
+
+            Guid newGuid = Guid.NewGuid();
+
+            foreach (var format in _guidFormats)
+            {
+                list.Add(CreateCompletion($"New Guid Format {format}", newGuid.ToString(format), string.Empty, _defaultGlyph, new[] { format }));
+            }
+
+            completionSets.Add(new CrmCompletionSet(SourceNameMonikerNewGuid, "New Guid", applicableTo, list, Enumerable.Empty<CrmCompletion>()));
         }
 
         #region IDisposable Support

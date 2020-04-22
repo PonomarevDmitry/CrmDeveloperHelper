@@ -14,7 +14,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 {
     public sealed partial class XmlCompletionSource
     {
-        private void FillSessionForFetchXmlCompletionSet(IList<CompletionSet> completionSets, XElement doc, ConnectionData connectionData, ConnectionIntellisenseDataRepository repository, XElement currentXmlNode, string currentNodeName, string currentAttributeName, ITrackingSpan applicableTo)
+        private void FillSessionForFetchXmlCompletionSet(
+            IList<CompletionSet> completionSets
+            , XElement doc
+            , ConnectionData connectionData
+            , ConnectionIntellisenseDataRepository repositoryEntities
+            , XElement currentXmlNode
+            , string currentNodeName
+            , string currentAttributeName
+            , ITrackingSpan applicableTo
+        )
         {
             try
             {
@@ -22,7 +31,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 {
                     if (string.Equals(currentAttributeName, "name", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        FillEntityNamesInList(completionSets, applicableTo, repository, false);
+                        FillEntityNamesInList(completionSets, applicableTo, repositoryEntities, false);
                     }
                 }
                 else if (string.Equals(currentNodeName, "attribute", StringComparison.InvariantCultureIgnoreCase))
@@ -31,7 +40,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     {
                         Dictionary<string, string> aliases = GetEntityAliases(doc);
 
-                        FillEntityAttributesInList(completionSets, applicableTo, repository, currentXmlNode, aliases);
+                        FillEntityAttributesInList(completionSets, applicableTo, repositoryEntities, currentXmlNode, aliases);
                     }
                 }
                 else if (string.Equals(currentNodeName, "order", StringComparison.InvariantCultureIgnoreCase))
@@ -40,7 +49,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     {
                         Dictionary<string, string> aliases = GetEntityAliases(doc);
 
-                        FillEntityAttributesInList(completionSets, applicableTo, repository, currentXmlNode, aliases);
+                        FillEntityAttributesInList(completionSets, applicableTo, repositoryEntities, currentXmlNode, aliases);
                     }
                 }
                 else if (string.Equals(currentNodeName, "condition", StringComparison.InvariantCultureIgnoreCase))
@@ -49,11 +58,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
                     if (string.Equals(currentAttributeName, "attribute", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        FillEntityAttributesInList(completionSets, applicableTo, repository, currentXmlNode, aliases);
+                        FillEntityAttributesInList(completionSets, applicableTo, repositoryEntities, currentXmlNode, aliases);
                     }
                     else if (string.Equals(currentAttributeName, "value", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        FillEntityAttributeValuesInList(completionSets, applicableTo, repository, currentXmlNode, aliases);
+                        FillEntityAttributeValuesInList(completionSets, applicableTo, repositoryEntities, currentXmlNode, aliases);
                     }
                     else if (string.Equals(currentAttributeName, "entityname", StringComparison.InvariantCultureIgnoreCase))
                     {
@@ -64,17 +73,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 {
                     if (string.Equals(currentAttributeName, "name", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        FillLinkedEntityNames(completionSets, applicableTo, repository, currentXmlNode);
+                        FillLinkedEntityNames(completionSets, applicableTo, repositoryEntities, currentXmlNode);
 
-                        FillEntityNamesInList(completionSets, applicableTo, repository, false);
+                        FillEntityNamesInList(completionSets, applicableTo, repositoryEntities, false);
                     }
                     else if (string.Equals(currentAttributeName, "from", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        FillLinkedEntityFromField(completionSets, applicableTo, repository, currentXmlNode);
+                        FillLinkedEntityFromField(completionSets, applicableTo, repositoryEntities, currentXmlNode);
                     }
                     else if (string.Equals(currentAttributeName, "to", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        FillLinkedEntityToField(completionSets, applicableTo, repository, currentXmlNode);
+                        FillLinkedEntityToField(completionSets, applicableTo, repositoryEntities, currentXmlNode);
                     }
                 }
             }
@@ -84,7 +93,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             }
         }
 
-        private void FillSessionForGridXmlCompletionSet(IList<CompletionSet> completionSets, ConnectionData connectionData, ConnectionIntellisenseDataRepository repository, XElement currentXmlNode, string currentNodeName, string currentAttributeName, ITrackingSpan applicableTo)
+        private void FillSessionForGridXmlCompletionSet(
+            IList<CompletionSet> completionSets
+            , ConnectionData connectionData
+            , ConnectionIntellisenseDataRepository repositoryEntities
+            , WebResourceIntellisenseDataRepository repositoryWebResource
+            , XElement currentXmlNode
+            , string currentNodeName
+            , string currentAttributeName
+            , ITrackingSpan applicableTo
+        )
         {
             try
             {
@@ -92,29 +110,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 {
                     if (string.Equals(currentAttributeName, "object", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        FillEntityNamesInList(completionSets, applicableTo, repository, true);
+                        FillEntityNamesInList(completionSets, applicableTo, repositoryEntities, true);
                     }
                     else if (string.Equals(currentAttributeName, "jump", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        FillEntityPrimaryAttributeForGrid(completionSets, applicableTo, repository, currentXmlNode, true);
+                        FillEntityPrimaryAttributeForGrid(completionSets, applicableTo, repositoryEntities, currentXmlNode, true);
 
-                        FillEntityAttributesInListForGrid(completionSets, applicableTo, repository, currentXmlNode);
+                        FillEntityAttributesInListForGrid(completionSets, applicableTo, repositoryEntities, currentXmlNode);
                     }
                 }
                 else if (string.Equals(currentNodeName, "row", StringComparison.InvariantCultureIgnoreCase))
                 {
                     if (string.Equals(currentAttributeName, "id", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        FillEntityPrimaryAttributeForGrid(completionSets, applicableTo, repository, currentXmlNode, false);
+                        FillEntityPrimaryAttributeForGrid(completionSets, applicableTo, repositoryEntities, currentXmlNode, false);
 
-                        FillEntityAttributesInListForGrid(completionSets, applicableTo, repository, currentXmlNode);
+                        FillEntityAttributesInListForGrid(completionSets, applicableTo, repositoryEntities, currentXmlNode);
                     }
                 }
                 else if (string.Equals(currentNodeName, "cell", StringComparison.InvariantCultureIgnoreCase))
                 {
                     if (string.Equals(currentAttributeName, "name", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        FillEntityAttributesInListForGrid(completionSets, applicableTo, repository, currentXmlNode);
+                        FillEntityAttributesInListForGrid(completionSets, applicableTo, repositoryEntities, currentXmlNode);
+                    }
+                    else if (string.Equals(currentAttributeName, "imageproviderwebresource", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillWebResourcesTextWithWebResourcePrefix(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesJavaScript?.Values?.ToList(), "WebResources");
                     }
                 }
             }

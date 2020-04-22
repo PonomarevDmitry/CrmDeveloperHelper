@@ -32,12 +32,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     {
                         FillWebResourcesNames(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesAll?.Values?.ToList(), "WebResources");
                     }
+                    else if (string.Equals(currentAttributeName, "libraryUniqueId", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillNewGuid(completionSets, applicableTo);
+                    }
                 }
                 else if (string.Equals(currentNodeName, "Handler", StringComparison.InvariantCultureIgnoreCase))
                 {
                     if (string.Equals(currentAttributeName, "libraryName", StringComparison.InvariantCultureIgnoreCase))
                     {
                         FillLibrariesSet(completionSets, applicableTo, doc, "Libraries");
+                    }
+                    else if (string.Equals(currentAttributeName, "handlerUniqueId", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillNewGuid(completionSets, applicableTo);
+                    }
+                }
+                else
+                {
+                    if (string.Equals(currentAttributeName, "uniqueid", StringComparison.InvariantCultureIgnoreCase)
+                        || string.Equals(currentAttributeName, "id", StringComparison.InvariantCultureIgnoreCase)
+                    )
+                    {
+                        FillNewGuid(completionSets, applicableTo);
                     }
                 }
             }

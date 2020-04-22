@@ -1,8 +1,6 @@
 ﻿using Microsoft.VisualStudio.Language.Intellisense;
-using Microsoft.VisualStudio.Text;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Media;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
@@ -17,7 +15,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             this.CompareValues = compareValues;
         }
 
+        private const string _webresourcePrefix = "$webresource:";
+
         public bool IsMatch(string typedText)
+        {
+            if (IsMatchInternal(typedText))
+            {
+                return true;
+            }
+
+            if (typedText.StartsWith(_webresourcePrefix))
+            {
+                var typedTextChanged = typedText.Substring(_webresourcePrefix.Length);
+
+                if (IsMatchInternal(typedTextChanged))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool IsMatchInternal(string typedText)
         {
             if (string.IsNullOrEmpty(typedText))
             {
