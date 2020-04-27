@@ -1757,6 +1757,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int commonMenu_GroupConfiguration_MenuOpenWebSite_Group2_Menu2_Group2_MenuNewsDyn_Group = 0x139F;
 
+            public const int commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntityMetadata = 0x1429;
+
+            public const int commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntityMetadata_MenuDyn = 0x142A;
+
+            public const int commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntityMetadata_MenuDyn_Group = 0x142B;
+
             public const int commonMenu_GroupConfiguration_MenuSelectFileConnectionDyn = 0x137F;
 
             public const int commonMenu_GroupConfiguration_MenuSelectFileConnectionDyn_Group = 0x1380;
@@ -1902,6 +1908,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int outputMenu_GroupConfiguration_MenuOpenWebSite_Group2_Menu2 = 0x1377;
 
             public const int outputMenu_GroupConfiguration_MenuOpenWebSite_Group2_Menu2_Group2 = 0x1378;
+
+            public const int outputMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntityMetadata = 0x142C;
         }
 
         internal static partial class guidDynamicCommandSet
@@ -1975,6 +1983,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int CommonOpenAppModuleCommandId = 0x0CB2;
 
             public const int CommonOpenNewsCommandId = 0x2B2A;
+
+            public const int CommonOpenCrmWebSiteEntityMetadataCommandId = 0x3296;
 
             public const int CommonTraceReaderCommandId = 0x0CE4;
 
@@ -3206,6 +3216,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int OutputOpenAppModuleCommandId = 0x21C8;
 
             public const int OutputOpenNewsCommandId = 0x2214;
+
+            public const int OutputOpenCrmWebSiteEntityMetadataCommandId = 0x223E;
 
             public const int OutputExportFormEventsCommandId = 0x21CB;
 

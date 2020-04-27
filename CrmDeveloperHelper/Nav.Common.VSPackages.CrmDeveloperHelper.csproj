@@ -105,6 +105,7 @@
     <Compile Include="Commands\Checks\CommonCheckUnknownFormControlTypes.cs" />
     <Compile Include="Commands\Commons\CommonFileGenerationConfigurationCommand.cs" />
     <Compile Include="Commands\Commons\CommonFileGenerationOptionsCommand.cs" />
+    <Compile Include="Commands\Commons\CommonOpenCrmWebSiteEntityMetadataCommand.cs" />
     <Compile Include="Commands\Connections\CommonCrmConnectionEditCommand.cs" />
     <Compile Include="Commands\Connections\CommonCrmConnectionSelectFileCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpEntityMetadataFileGenerationOptionsCommand.cs" />
@@ -169,6 +170,7 @@
     <Compile Include="Commands\OutputWindows\Checks\OutputCheckPluginStepsRequiredComponentsCommand.cs" />
     <Compile Include="Commands\OutputWindows\Checks\OutputCheckWorkflowsUsedEntitiesCommand.cs" />
     <Compile Include="Commands\OutputWindows\Checks\OutputCheckWorkflowsUsedNotExistsEntitiesCommand.cs" />
+    <Compile Include="Commands\OutputWindows\OutputOpenCrmWebSiteEntityMetadataCommand.cs" />
     <Compile Include="Commands\OutputWindows\Explorers\OutputApplicationRibbonExplorerCommand.cs" />
     <Compile Include="Commands\OutputWindows\Explorers\OutputCustomControlExplorerCommand.cs" />
     <Compile Include="Commands\OutputWindows\Explorers\OutputEntityAttributeExplorerCommand.cs" />
@@ -1611,6 +1613,9 @@
     <Compile Include="Views\WindowSelectEntityIdToFind.xaml.cs">
       <DependentUpon>WindowSelectEntityIdToFind.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WindowSelectEntityName.xaml.cs">
+      <DependentUpon>WindowSelectEntityName.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WindowSelectEntityReference.xaml.cs">
       <DependentUpon>WindowSelectEntityReference.xaml</DependentUpon>
     </Compile>
@@ -2408,6 +2413,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WindowSelectEntityIdToFind.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowSelectEntityName.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

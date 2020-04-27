@@ -7,10 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Checks
     internal sealed class CommonCheckComponentTypeEnumCommand : AbstractDynamicCommandByConnectionAll
     {
         private CommonCheckComponentTypeEnumCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.CommonCheckComponentTypeEnumCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.CommonCheckComponentTypeEnumCommandId)
         {
 
         }

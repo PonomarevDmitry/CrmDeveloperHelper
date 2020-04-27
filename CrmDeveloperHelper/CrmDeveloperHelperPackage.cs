@@ -818,6 +818,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             #endregion Config
 
             CommonOpenCrmWebSiteCommand.Initialize(commandService);
+            CommonOpenCrmWebSiteEntityMetadataCommand.Initialize(commandService);
 
             CommonExportDefaultSiteMapsCommand.Initialize(commandService);
             CommonXsdSchemaExportCommand.Initialize(commandService);
@@ -832,6 +833,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             OutputSelectFileCrmConnectionCommand.Initialize(commandService);
 
             OutputOpenCrmWebSiteCommand.Initialize(commandService);
+            OutputOpenCrmWebSiteEntityMetadataCommand.Initialize(commandService);
             OutputExportOpenLastSelectedSolutionCommand.Initialize(commandService);
             OutputOpenDefaultSolutionInWebCommand.Initialize(commandService);
 

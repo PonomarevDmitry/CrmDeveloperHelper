@@ -10,10 +10,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows
         private readonly OpenCrmWebSiteType _crmWebSiteType;
 
         private OutputOpenCrmWebSiteCommand(OleMenuCommandService commandService, int baseIdStart, OpenCrmWebSiteType crmWebSiteType)
-            : base(
-                commandService
-                , baseIdStart
-            )
+            : base(commandService, baseIdStart)
         {
             this._crmWebSiteType = crmWebSiteType;
         }

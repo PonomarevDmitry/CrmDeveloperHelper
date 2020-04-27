@@ -336,6 +336,59 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public void HandleConnectionOpenEntityMetadataInWeb(ConnectionData connectionData)
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null)
+            {
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                var dialog = new WindowSelectEntityName(connectionData, "EntityName");
+
+                if (dialog.ShowDialog().GetValueOrDefault())
+                {
+                    string entityName = dialog.EntityTypeName;
+                    int? entityTypeCode = dialog.EntityTypeCode;
+
+                    connectionData = dialog.GetConnectionData();
+
+                    CheckWishToChangeCurrentConnection(connectionData);
+
+                    var idEntityMetadata = connectionData.GetEntityMetadataId(entityName);
+
+                    if (idEntityMetadata.HasValue)
+                    {
+                        connectionData.OpenEntityMetadataInWeb(idEntityMetadata.Value);
+                    }
+                    else
+                    {
+                        ActivateOutputWindow(connectionData);
+                        WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                        try
+                        {
+                            Controller.StartOpeningEntityMetadataInWeb(connectionData, commonConfig, entityName, entityTypeCode);
+                        }
+                        catch (Exception ex)
+                        {
+                            WriteErrorToOutput(connectionData, ex);
+                        }
+                    }
+                }
+            }
+        }
+
         public void HandleConnectionPublishAll(ConnectionData connectionData)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();

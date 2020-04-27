@@ -1507,5 +1507,54 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         }
 
         #endregion RibbonDiffXml Showing Difference
+
+        public async Task ExecuteOpeningEntityMetadataInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode)
+        {
+            string operation = string.Format(Properties.OperationNames.OpeningEntityInWebFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await OpeningEntityMetadataInWeb(connectionData, commonConfig, entityName, entityTypeCode);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task OpeningEntityMetadataInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode)
+        {
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var repository = new EntityMetadataRepository(service);
+
+            var entityMetadataList = await repository.GetEntitiesPropertiesAsync(entityName, entityTypeCode
+                , nameof(EntityMetadata.LogicalName)
+            );
+
+            if (!entityMetadataList.Any())
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoObjectsInCRMWereFounded);
+                this._iWriteToOutput.ActivateOutputWindow(connectionData);
+
+                return;
+            }
+
+            foreach (var entityMetadata in entityMetadataList)
+            {
+                service.ConnectionData.OpenEntityMetadataInWeb(entityMetadata.MetadataId.Value);
+            }
+        }
     }
 }
