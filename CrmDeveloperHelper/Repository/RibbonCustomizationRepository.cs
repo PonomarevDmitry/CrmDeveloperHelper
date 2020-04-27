@@ -604,13 +604,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
             }
 
-            var solutionUniqueName = string.Format("RibbonDiffXml_{0}", Guid.NewGuid());
+            var idSolution = Guid.NewGuid();
+
+            var solutionUniqueName = string.Format("RibbonDiffXml_{0}", idSolution);
             solutionUniqueName = solutionUniqueName.Replace("-", "_");
 
             var solution = new Solution()
             {
                 UniqueName = solutionUniqueName,
                 FriendlyName = solutionUniqueName,
+
+                SolutionId = idSolution,
 
                 Description = "Temporary solution for exporting RibbonDiffXml.",
 
@@ -797,13 +801,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
             }
 
-            var solutionUniqueName = string.Format("RibbonDiffXml_{0}", Guid.NewGuid());
+            var idSolution = Guid.NewGuid();
+
+            var solutionUniqueName = string.Format("RibbonDiffXml_{0}", idSolution);
             solutionUniqueName = solutionUniqueName.Replace("-", "_");
 
             var solution = new Solution()
             {
                 UniqueName = solutionUniqueName,
                 FriendlyName = solutionUniqueName,
+
+                SolutionId = idSolution,
 
                 Description = "Temporary solution for exporting RibbonDiffXml.",
 
