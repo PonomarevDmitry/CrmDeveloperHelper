@@ -541,16 +541,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             string folder = txtBFolder.Text.Trim();
 
-            if (string.IsNullOrEmpty(folder))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(folder))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            folder = CorrectFolderIfEmptyOrNotExists(_iWriteToOutput, folder);
 
             await action(folder, idWorkflow, entityName, name, category);
         }
@@ -659,23 +650,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteActionEntity(Guid idWorkflow, string entityName, string name, string category, string fieldName, string fieldTitle, Func<string, Guid, string, string, string, string, string, Task> action)
         {
-            string folder = txtBFolder.Text.Trim();
-
             if (!this.IsControlsEnabled)
             {
                 return;
             }
 
-            if (string.IsNullOrEmpty(folder))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(folder))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            string folder = txtBFolder.Text.Trim();
+
+            folder = CorrectFolderIfEmptyOrNotExists(_iWriteToOutput, folder);
 
             await action(folder, idWorkflow, entityName, name, category, fieldName, fieldTitle);
         }
@@ -1211,16 +1193,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             string folder = txtBFolder.Text.Trim();
 
-            if (string.IsNullOrEmpty(folder))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(folder))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            folder = CorrectFolderIfEmptyOrNotExists(_iWriteToOutput, folder);
 
             await PerformDifferenceXamlAndCorrectedXaml(folder, entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], Workflow.Schema.Attributes.xaml, Workflow.Schema.Headers.xaml, Workflow.Schema.Headers.CorrectedXaml);
         }

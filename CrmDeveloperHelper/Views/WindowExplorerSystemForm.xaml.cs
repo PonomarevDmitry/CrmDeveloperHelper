@@ -481,46 +481,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteActionAsync(Guid idSystemForm, string entityName, string name, Func<string, Guid, string, string, Task> action)
         {
-            string folder = txtBFolder.Text.Trim();
-
             if (!this.IsControlsEnabled)
             {
                 return;
             }
 
-            if (string.IsNullOrEmpty(folder))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(folder))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            string folder = txtBFolder.Text.Trim();
+
+            folder = CorrectFolderIfEmptyOrNotExists(_iWriteToOutput, folder);
 
             await action(folder, idSystemForm, entityName, name);
         }
 
         private async Task ExecuteJavaScriptObjectTypeAsync(Guid idSystemForm, string entityName, string name, JavaScriptObjectType javaScriptObjectType, Func<string, Guid, string, string, JavaScriptObjectType, Task> action)
         {
-            string folder = txtBFolder.Text.Trim();
-
             if (!this.IsControlsEnabled)
             {
                 return;
             }
 
-            if (string.IsNullOrEmpty(folder))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(folder))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            string folder = txtBFolder.Text.Trim();
+
+            folder = CorrectFolderIfEmptyOrNotExists(_iWriteToOutput, folder);
 
             await action(folder, idSystemForm, entityName, name, javaScriptObjectType);
         }
@@ -594,23 +576,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteActionEntityAsync(Guid idSystemForm, string entityName, string name, string fieldName, string fieldTitle, string extension, Func<string, Guid, string, string, string, string, string, Task> action)
         {
-            string folder = txtBFolder.Text.Trim();
-
             if (!this.IsControlsEnabled)
             {
                 return;
             }
 
-            if (string.IsNullOrEmpty(folder))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(folder))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            string folder = txtBFolder.Text.Trim();
+
+            folder = CorrectFolderIfEmptyOrNotExists(_iWriteToOutput, folder);
 
             await action(folder, idSystemForm, entityName, name, fieldName, fieldTitle, extension);
         }

@@ -390,16 +390,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (!string.IsNullOrEmpty(siteMapXml))
                 {
-                    if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-                    {
-                        _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                        commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-                    }
-                    else if (!Directory.Exists(commonConfig.FolderForExport))
-                    {
-                        _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                        commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-                    }
+                    commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
                     string fileNameBackUp = EntityFileNameFormatter.GetSiteMapFileName(service.ConnectionData.Name, siteMap.SiteMapNameUnique, siteMap.Id, fieldTitle + " BackUp", "xml");
                     string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
@@ -504,16 +495,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 , siteMapUniqueName: siteMap.SiteMapNameUnique ?? string.Empty
             );
 
-            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
             string currentFileName = EntityFileNameFormatter.GetSiteMapFileName(service.ConnectionData.Name, siteMap.SiteMapNameUnique, siteMap.Id, SiteMap.Schema.Headers.sitemapxml, "xml");
             string currentFilePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(currentFileName));
@@ -939,16 +921,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (!string.IsNullOrEmpty(formXml))
                 {
-                    if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-                    {
-                        _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                        commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-                    }
-                    else if (!Directory.Exists(commonConfig.FolderForExport))
-                    {
-                        _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                        commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-                    }
+                    commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
                     string fileNameBackUp = EntityFileNameFormatter.GetSystemFormFileName(service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name, fieldTitle + " BackUp", "xml");
                     string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
@@ -1065,16 +1038,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 , entityName: systemForm.ObjectTypeCode
             );
 
-            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
             string currentFileName = EntityFileNameFormatter.GetSystemFormFileName(service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name, SystemForm.Schema.Headers.formxml, "xml");
             string currentFilePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(currentFileName));
@@ -1106,16 +1070,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             formJson = ContentComparerHelper.FormatJson(formJson);
 
-            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
             string currentFileName = EntityFileNameFormatter.GetSystemFormFileName(service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name, SystemForm.Schema.Headers.formjson, "json");
             string currentFilePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(currentFileName));
@@ -1136,17 +1091,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task GetCurrentEntityDescription(IOrganizationServiceExtented service, CommonConfiguration commonConfig, SystemForm systemForm)
         {
-            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
             string fileName = EntityFileNameFormatter.GetSystemFormFileName(service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name, EntityFileNameFormatter.Headers.EntityDescription, "txt");
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -1180,16 +1125,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
             var descriptor = new SolutionComponentDescriptor(service);
             descriptor.SetSettings(commonConfig);
@@ -1492,16 +1428,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (!string.IsNullOrEmpty(xmlContent))
                 {
-                    if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-                    {
-                        _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                        commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-                    }
-                    else if (!Directory.Exists(commonConfig.FolderForExport))
-                    {
-                        _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                        commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-                    }
+                    commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
                     string fileNameBackUp = EntityFileNameFormatter.GetSavedQueryFileName(service.ConnectionData.Name, savedQuery.ReturnedTypeCode, savedQuery.Name, fieldTitle + " BackUp", "xml");
                     string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
@@ -1620,16 +1547,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
             string currentFileName = EntityFileNameFormatter.GetSavedQueryFileName(service.ConnectionData.Name, savedQuery.ReturnedTypeCode, savedQuery.Name, fieldTitle, "xml");
             string currentFilePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(currentFileName));
@@ -1903,16 +1821,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (!string.IsNullOrEmpty(workflowXaml))
                 {
-                    if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-                    {
-                        _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                        commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-                    }
-                    else if (!Directory.Exists(commonConfig.FolderForExport))
-                    {
-                        _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                        commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-                    }
+                    commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
                     string fileNameBackUp = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, workflow.PrimaryEntity, workflow.FormattedValues[Workflow.Schema.Attributes.category], workflow.Name, fieldTitle + " BackUp", "xml");
                     string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
@@ -2035,16 +1944,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 , workflowId: workflow.Id
             );
 
-            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
             string fieldTitle = Workflow.Schema.Headers.xaml;
 
@@ -2308,16 +2208,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (!string.IsNullOrEmpty(dependencyXml))
                 {
-                    if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-                    {
-                        _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                        commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-                    }
-                    else if (!Directory.Exists(commonConfig.FolderForExport))
-                    {
-                        _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                        commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-                    }
+                    commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
                     string fileNameBackUp = EntityFileNameFormatter.GetWebResourceFileName(service.ConnectionData.Name, webResource.Name, fieldTitle + " BackUp", "xml");
                     string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
@@ -2422,16 +2313,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 , webResourceName: webResource.Name
             );
 
-            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
             string currentFileName = EntityFileNameFormatter.GetWebResourceFileName(service.ConnectionData.Name, webResource.Name, WebResource.Schema.Headers.dependencyxml, "xml");
             string currentFilePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(currentFileName));

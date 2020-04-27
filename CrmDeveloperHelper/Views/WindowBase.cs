@@ -5,6 +5,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -718,6 +719,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             return null;
+        }
+
+        public static string CorrectFolderIfEmptyOrNotExists(IWriteToOutput iWriteToOutput, string folder)
+        {
+            if (string.IsNullOrEmpty(folder))
+            {
+                iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+            else if (!Directory.Exists(folder))
+            {
+                iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+
+            return folder;
         }
     }
 }

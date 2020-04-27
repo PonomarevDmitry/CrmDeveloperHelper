@@ -866,16 +866,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             string folder = txtBFolder.Text.Trim();
 
-            if (string.IsNullOrEmpty(folder))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(folder))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            folder = CorrectFolderIfEmptyOrNotExists(_iWriteToOutput, folder);
 
             await action(folder, entityMetadata);
         }
@@ -2093,23 +2084,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteJavaScriptObjectTypeAsync(EntityMetadataListViewItem entityMetadata, JavaScriptObjectType javaScriptObjectType, Func<string, EntityMetadataListViewItem, JavaScriptObjectType, Task> action)
         {
-            string folder = txtBFolder.Text.Trim();
-
             if (!this.IsControlsEnabled)
             {
                 return;
             }
 
-            if (string.IsNullOrEmpty(folder))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(folder))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            string folder = txtBFolder.Text.Trim();
+
+            folder = CorrectFolderIfEmptyOrNotExists(_iWriteToOutput, folder);
 
             await action(folder, entityMetadata, javaScriptObjectType);
         }

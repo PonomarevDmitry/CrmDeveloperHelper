@@ -1327,16 +1327,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 entityName = entityMetadata.LogicalName;
             }
 
-            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
             string currentFilePath = string.Empty;
 
@@ -1461,16 +1452,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             }
 
-            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
             string currentFilePath = string.Empty;
 

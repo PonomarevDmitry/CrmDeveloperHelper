@@ -90,18 +90,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 gr.OrderBy(ent => ent.LogicalName).ToList().ForEach(ent => content.AppendLine(_tabSpacer + ent.LogicalName));
             }
 
-            string fileName = string.Format("{0}.Entities with Ownership at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            string fileName = string.Format("{0}.Entities with Ownership at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
 
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -312,18 +303,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             FindsController.WriteToContentDictionary(descriptor, content, webResourceNames, webResourceDescriptions, "WebResource dependent components: {0}");
 
-            string fileName = string.Format("{0}.WebResourceDependent at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            string fileName = string.Format("{0}.WebResourceDependent at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
 
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -433,18 +415,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 content.AppendLine("No duplicates were found.");
             }
 
-            string fileName = string.Format("{0}.Checking Global OptionSet Duplicates on Entity at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            string fileName = string.Format("{0}.Checking Global OptionSet Duplicates on Entity at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
 
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -569,16 +542,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
                 );
 
-                if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-                {
-                    _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                    commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-                }
-                else if (!Directory.Exists(commonConfig.FolderForExport))
-                {
-                    _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                    commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-                }
+                commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
                 string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -668,22 +632,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 content.AppendLine(desc);
 
+                commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+
                 string fileName = string.Format(
                     "{0}.Dependency Nodes Description at {1}.txt"
                     , connectionData.Name
                     , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
                 );
-
-                if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-                {
-                    _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                    commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-                }
-                else if (!Directory.Exists(commonConfig.FolderForExport))
-                {
-                    _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                    commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-                }
 
                 string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -734,18 +689,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             content.AppendLine(connectionData.GetConnectionDescription());
             content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
 
-            string fileName = string.Format("{0}.Workflows Used Entities at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            string fileName = string.Format("{0}.Workflows Used Entities at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
 
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -806,18 +752,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             content.AppendLine(connectionData.GetConnectionDescription());
             content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
 
-            string fileName = string.Format("{0}.Workflows Used Not Existing Entities at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            string fileName = string.Format("{0}.Workflows Used Not Existing Entities at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
 
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -943,21 +880,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     }
                 }
 
+                commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+
                 string fileName = string.Format("{0}.Checking Unknown Form Control Types at {1}.txt"
                     , connectionData.Name
                     , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
                 );
-
-                if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-                {
-                    _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                    commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-                }
-                else if (!Directory.Exists(commonConfig.FolderForExport))
-                {
-                    _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                    commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-                }
 
                 string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 

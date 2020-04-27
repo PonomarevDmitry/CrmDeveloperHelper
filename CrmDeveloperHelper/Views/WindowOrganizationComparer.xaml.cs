@@ -922,16 +922,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 folder = txtBFolder.Text.Trim();
             });
 
-            if (string.IsNullOrEmpty(folder))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(folder))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            folder = CorrectFolderIfEmptyOrNotExists(_iWriteToOutput, folder);
 
             this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.ComparingConnectionsFormat2, connection1.Name, connection2.Name);
 
@@ -1633,16 +1624,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 folder = txtBFolder.Text.Trim();
             });
 
-            if (string.IsNullOrEmpty(folder))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(folder))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            folder = CorrectFolderIfEmptyOrNotExists(_iWriteToOutput, folder);
 
             await ExecuteTrasnferOperation(function, connection1, connection2, folder);
         }
@@ -1674,16 +1656,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 folder = txtBFolder.Text.Trim();
             });
 
-            if (string.IsNullOrEmpty(folder))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(folder))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            folder = CorrectFolderIfEmptyOrNotExists(_iWriteToOutput, folder);
 
             await ExecuteTrasnferOperation(function, connection2, connection1, folder);
         }

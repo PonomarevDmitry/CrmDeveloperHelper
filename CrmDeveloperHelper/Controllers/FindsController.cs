@@ -185,16 +185,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 content.AppendFormat(Properties.OutputStrings.NoObjectsInCRMFoundedWithPrefixFormat1, prefix).AppendLine();
             }
 
-            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
             string fileName = EntityFileNameFormatter.GetCheckEntityNamesForPrefixFileName(connectionData.Name, prefix);
 
@@ -588,18 +579,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 content.AppendFormat("No Objects in CRM founded with prefix '{0}'.", prefix).AppendLine();
             }
 
-            string fileName = string.Format("{0}.CRM Objects names for prefix '{1}' and show dependent components at {2}.txt", connectionData.Name, prefix, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            string fileName = string.Format("{0}.CRM Objects names for prefix '{1}' and show dependent components at {2}.txt", connectionData.Name, prefix, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
 
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -809,18 +791,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 content.AppendFormat(Properties.OutputStrings.NoObjectsInCRMFoundedMarkedToDeleteFormat1, deleteMark).AppendLine();
             }
 
-            string fileName = string.Format("{0}.CRM Objects marked to delete by '{1}' and show dependent components at {2}.txt", connectionData.Name, deleteMark, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            string fileName = string.Format("{0}.CRM Objects marked to delete by '{1}' and show dependent components at {2}.txt", connectionData.Name, deleteMark, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
 
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -1065,22 +1038,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 content.AppendFormat("No Objects in CRM founded with name '{0}'.", name).AppendLine();
             }
 
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+
             string fileName = string.Format("{0}.Finding CRM Objects names for {1} at {2}.txt"
                 , connectionData.Name
                 , name
                 , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
             );
-
-            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
 
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -1306,22 +1270,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 content.AppendLine();
                 content.AppendFormat("No Objects in CRM founded that contains '{0}'.", name).AppendLine();
             }
+
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+
             string fileName = string.Format("{0}.Finding CRM Objects names contains {1} at {2}.txt"
                 , connectionData.Name
                 , name
                 , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
             );
-
-            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
 
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -1510,18 +1466,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            string fileName = EntityFileNameFormatter.GetFindingCRMObjectsByIdFileName(connectionData.Name, entityId);
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            string fileName = EntityFileNameFormatter.GetFindingCRMObjectsByIdFileName(connectionData.Name, entityId);
 
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -1612,34 +1559,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             }
 
-            if (finded)
-            {
-                string fileName = EntityFileNameFormatter.GetFindingCRMObjectsByUniqueidentifierFileName(connectionData.Name, entityId);
-
-                if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-                {
-                    _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                    commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-                }
-                else if (!Directory.Exists(commonConfig.FolderForExport))
-                {
-                    _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                    commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-                }
-
-                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
-
-                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
-            }
-            else
+            if (!finded)
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoObjectsInCRMWereFounded);
                 this._iWriteToOutput.ActivateOutputWindow(connectionData);
+                return;
             }
+
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+
+            string fileName = EntityFileNameFormatter.GetFindingCRMObjectsByUniqueidentifierFileName(connectionData.Name, entityId);
+
+            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
+
+            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
         }
 
         #endregion Поиск элементов по любому Guid.

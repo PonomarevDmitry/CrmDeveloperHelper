@@ -1,4 +1,5 @@
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using System;
 using System.Collections.Concurrent;
 using System.ComponentModel;
@@ -483,7 +484,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.CompareArgumentsThreeWayFormat = diskData.CompareArgumentsThreeWayFormat;
 
             this.TextEditorProgram = diskData.TextEditorProgram;
-            
+
             this.FormsEventsOnlyWithFormLibraries = diskData.FormsEventsOnlyWithFormLibraries;
 
             this.ComponentsGroupBy = diskData.ComponentsGroupBy;
@@ -645,6 +646,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
 
             return this.DefaultFileAction;
+        }
+
+        public void CheckFolderForExportExists(IWriteToOutput iWriteToOutput)
+        {
+            if (string.IsNullOrEmpty(this.FolderForExport))
+            {
+                iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                this.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+            else if (!Directory.Exists(this.FolderForExport))
+            {
+                iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, this.FolderForExport);
+                this.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+            }
         }
     }
 }

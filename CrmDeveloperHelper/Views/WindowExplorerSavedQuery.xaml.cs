@@ -415,23 +415,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteAction(Guid idSavedQuery, string entityName, string name, Func<string, Guid, string, string, Task> action)
         {
-            string folder = txtBFolder.Text.Trim();
-
             if (!this.IsControlsEnabled)
             {
                 return;
             }
 
-            if (string.IsNullOrEmpty(folder))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(folder))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            string folder = txtBFolder.Text.Trim();
+
+            folder = CorrectFolderIfEmptyOrNotExists(_iWriteToOutput, folder);
 
             await action(folder, idSavedQuery, entityName, name);
         }
@@ -525,46 +516,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteActionEntity(Guid idSavedQuery, string entityName, string name, string fieldName, string fieldTitle, string extension, Func<string, Guid, string, string, string, string, string, Task> action)
         {
-            string folder = txtBFolder.Text.Trim();
-
             if (!this.IsControlsEnabled)
             {
                 return;
             }
 
-            if (string.IsNullOrEmpty(folder))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(folder))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            string folder = txtBFolder.Text.Trim();
+
+            folder = CorrectFolderIfEmptyOrNotExists(_iWriteToOutput, folder);
 
             await action(folder, idSavedQuery, entityName, name, fieldName, fieldTitle, extension);
         }
 
         private async Task ExecuteActionEntity(Guid idSavedQuery, string entityName, string name, string fieldName, string fieldTitle, string variableName, string extension, Func<string, Guid, string, string, string, string, string, string, Task> action)
         {
-            string folder = txtBFolder.Text.Trim();
-
             if (!this.IsControlsEnabled)
             {
                 return;
             }
 
-            if (string.IsNullOrEmpty(folder))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(folder))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            string folder = txtBFolder.Text.Trim();
+
+            folder = CorrectFolderIfEmptyOrNotExists(_iWriteToOutput, folder);
 
             await action(folder, idSavedQuery, entityName, name, fieldName, fieldTitle, variableName, extension);
         }

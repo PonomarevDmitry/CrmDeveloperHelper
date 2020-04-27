@@ -477,16 +477,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             string folder = _commonConfig.FolderForExport;
 
-            if (string.IsNullOrEmpty(folder))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(folder))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            folder = CorrectFolderIfEmptyOrNotExists(_iWriteToOutput, folder);
 
             await action(folder, item);
         }
@@ -1403,18 +1394,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            string folder = _commonConfig.FolderForExport;
-
-            if (string.IsNullOrEmpty(folder))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(folder))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
 
             var list = _itemsSource.Select(en => en.SolutionComponent);
 
@@ -1430,7 +1410,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var description = await _descriptor.GetSolutionComponentsDescriptionAsync(list);
 
             var fileName = GetDescriptor().GetFileName(this._service.ConnectionData.Name, _componentType, _objectId, componentsName, "txt");
-            string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+            string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
             File.WriteAllText(filePath, description, new UTF8Encoding(false));
 

@@ -1007,16 +1007,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             connectionData.AddMapping(webResource.Id, selectedFile.FriendlyFilePath);
             connectionData.Save();
 
-            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
             string fileName = EntityFileNameFormatter.GetWebResourceFileName(service.ConnectionData.Name, webResource.Name, EntityFileNameFormatter.Headers.EntityDescription, "txt");
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -1302,16 +1293,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 xmlContent = ContentComparerHelper.FormatJson(xmlContent);
             }
 
-            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
             string fileName = EntityFileNameFormatter.GetWebResourceFileName(connectionData.Name, webResource.Name, fieldTitle, extension);
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));

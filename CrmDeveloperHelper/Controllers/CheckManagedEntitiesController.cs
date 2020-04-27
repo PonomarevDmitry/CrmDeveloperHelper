@@ -179,25 +179,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 content.AppendFormat(Properties.OutputStrings.NoObjectsInCRMWereFounded).AppendLine();
             }
 
-            string filePath = string.Empty;
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
             string fileName = string.Format("{0}.Checking Managed Entities at {1}.txt"
                 , connectionData.Name
                 , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
             );
 
-            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-
-            filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 

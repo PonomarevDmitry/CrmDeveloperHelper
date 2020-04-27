@@ -220,18 +220,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, "No duplicates were found."));
             }
 
-            string fileName = string.Format("{0}.Checking Plugin Images Duplicates at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            string fileName = string.Format("{0}.Checking Plugin Images Duplicates at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
 
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -372,18 +363,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, "No duplicates were found."));
             }
 
-            string fileName = string.Format("{0}.Checking Plugin Steps Duplicates at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            string fileName = string.Format("{0}.Checking Plugin Steps Duplicates at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
 
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -585,18 +567,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, "No conflicts were found."));
             }
 
-            string fileName = string.Format("{0}.Checking Plugin Steps Required Components at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            string fileName = string.Format("{0}.Checking Plugin Steps Required Components at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
 
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -864,18 +837,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, "No conflicts were found."));
             }
 
-            string fileName = string.Format("{0}.Checking Plugin Images Required Components at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
+            string fileName = string.Format("{0}.Checking Plugin Images Required Components at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
 
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 

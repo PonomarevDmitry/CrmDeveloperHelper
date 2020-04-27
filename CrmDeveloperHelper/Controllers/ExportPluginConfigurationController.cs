@@ -80,22 +80,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             description.ExecuteUserDomainName = Environment.UserDomainName;
             description.ExecuteUserName = Environment.UserName;
 
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+
             string fileName = string.Format("{0}.{1} {2}.xml"
                 , connectionData.Name
                 , commonConfig.PluginConfigurationFileName.Trim()
                 , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
             );
-
-            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
 
             string filePath = Path.Combine(commonConfig.FolderForExport, fileName);
 
