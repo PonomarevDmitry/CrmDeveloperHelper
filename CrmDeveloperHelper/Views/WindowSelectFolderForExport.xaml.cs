@@ -13,7 +13,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         public string SelectedFolder => txtBFolder.Text.Trim();
 
-        public WindowSelectFolderForExport(ConnectionData connectionData
+        public WindowSelectFolderForExport(
+            ConnectionData connectionData
             , string folder
             , FileAction fileAction
         )
@@ -76,7 +77,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return cmBConnection.SelectedItem as ConnectionData;
         }
 
-        private void btnExport_Click(object sender, RoutedEventArgs e)
+        private void btnOK_Click(object sender, RoutedEventArgs e)
         {
             MakeOkClick();
         }

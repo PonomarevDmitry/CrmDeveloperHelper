@@ -47,7 +47,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBFileAction.DataContext = _commonConfig;
         }
 
-        private void btnCreateFile_Click(object sender, RoutedEventArgs e)
+        private void btnOK_Click(object sender, RoutedEventArgs e)
         {
             string folder = txtBFolder.Text.Trim();
             string fileName = txtBFileName.Text.Trim();

@@ -14,7 +14,8 @@
         <Label Content="Action" HorizontalAlignment="Left" Margin="10,113,0,0" Padding="10,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="25" Width="53"/>
         <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="68,113,305,0" Padding="10,0" VerticalAlignment="Top" VerticalContentAlignment="Center" IsReadOnly="True" SelectedIndex="0" Height="25" />
         <CheckBox x:Name="chBOnlyWithLibraries" IsChecked="{Binding Path=FormsEventsOnlyWithFormLibraries}" Content="Only with Libraries" Margin="0,119,87,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="204"/>
-        <Button x:Name="btnCreateFile" Content="Create File" Margin="0,0,124,10" Click="btnCreateFile_Click" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="103"/>
+
+        <Button x:Name="btnOK" Content="OK" Margin="0,0,124,10" Click="btnOK_Click" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="103"/>
         <Button x:Name="btnCancel" Content="Cancel" Margin="0,0,10,10" Click="btnCancel_Click" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
     </Grid>
 </src:WindowBase>
