@@ -566,7 +566,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             );
         }
 
-        public static void OpenSdkMessageTree(
+        public static void OpenSdkMessageFilterTree(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -1545,7 +1545,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     break;
 
                 case ComponentType.SdkMessageFilter:
-                    OpenSdkMessageTree(iWriteToOutput, service, commonConfig, null, componentName);
+                    OpenSdkMessageFilterTree(iWriteToOutput, service, commonConfig, null, componentName);
                     break;
 
                 case ComponentType.SdkMessagePair:

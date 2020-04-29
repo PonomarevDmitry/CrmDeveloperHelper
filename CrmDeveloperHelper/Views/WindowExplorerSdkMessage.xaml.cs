@@ -679,7 +679,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSdkMessageTree(
+            WindowHelper.OpenSdkMessageFilterTree(
                 _iWriteToOutput
                 , service
                 , _commonConfig

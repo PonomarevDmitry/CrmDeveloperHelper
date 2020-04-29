@@ -292,7 +292,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSdkMessageTree(this._iWriteToOutput, service, _commonConfig, string.Empty, string.Empty);
+            WindowHelper.OpenSdkMessageFilterTree(this._iWriteToOutput, service, _commonConfig, string.Empty, string.Empty);
         }
 
         private async void miMessageRequestTree_Click(object sender, RoutedEventArgs e)

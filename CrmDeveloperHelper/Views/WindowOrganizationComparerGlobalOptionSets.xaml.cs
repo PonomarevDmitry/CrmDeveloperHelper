@@ -1455,7 +1455,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService1();
 
-            WindowHelper.OpenSdkMessageTree(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
+            WindowHelper.OpenSdkMessageFilterTree(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
         }
 
         private async void btnMessageRequestTree1_Click(object sender, RoutedEventArgs e)
@@ -1560,7 +1560,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService2();
 
-            WindowHelper.OpenSdkMessageTree(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
+            WindowHelper.OpenSdkMessageFilterTree(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
         }
 
         private async void btnMessageRequestTree2_Click(object sender, RoutedEventArgs e)

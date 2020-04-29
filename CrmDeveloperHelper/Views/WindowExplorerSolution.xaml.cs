@@ -3197,7 +3197,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            WindowHelper.OpenSdkMessageTree(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
+            WindowHelper.OpenSdkMessageFilterTree(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
         }
 
         private async void btnMessageRequestTree_Click(object sender, RoutedEventArgs e)

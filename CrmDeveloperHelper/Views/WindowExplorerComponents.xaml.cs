@@ -1412,7 +1412,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             _commonConfig.Save();
 
-            WindowHelper.OpenSdkMessageTree(this._iWriteToOutput, _service, _commonConfig, null, string.Empty);
+            WindowHelper.OpenSdkMessageFilterTree(this._iWriteToOutput, _service, _commonConfig, null, string.Empty);
         }
 
         private void btnMessageRequestTree_Click(object sender, RoutedEventArgs e)

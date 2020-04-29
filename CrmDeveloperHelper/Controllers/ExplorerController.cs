@@ -310,7 +310,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.ShowingSdkMessageFilterTreeFormat1
-                , (service) => WindowHelper.OpenSdkMessageTree(this._iWriteToOutput, service, commonConfig, entityFilter, messageFilter)
+                , (service) => WindowHelper.OpenSdkMessageFilterTree(this._iWriteToOutput, service, commonConfig, entityFilter, messageFilter)
             );
         }
 
