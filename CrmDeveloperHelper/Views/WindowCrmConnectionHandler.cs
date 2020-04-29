@@ -427,9 +427,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     };
                     menuItemPluginTree.Click += (s, e) => miExplorerPluginTree_Click(iWriteToOutput, commonConfig, getSelectedSingleConnection);
 
+                    var menuItemMessageExplorer = new MenuItem()
+                    {
+                        Header = "Message Explorer",
+                    };
+                    menuItemMessageExplorer.Click += (s, e) => miExplorerSdkMessageExplorer_Click(iWriteToOutput, commonConfig, getSelectedSingleConnection);
+
                     var menuItemMessageTree = new MenuItem()
                     {
-                        Header = "Message Tree",
+                        Header = "Message Filter Tree",
                     };
                     menuItemMessageTree.Click += (s, e) => miExplorerSdkMessageTree_Click(iWriteToOutput, commonConfig, getSelectedSingleConnection);
 
@@ -443,6 +449,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     menuItemPluginInformation.Items.Add(menuItemPluginAssemblyExplorer);
                     menuItemPluginInformation.Items.Add(new Separator());
                     menuItemPluginInformation.Items.Add(menuItemPluginTree);
+                    menuItemPluginInformation.Items.Add(menuItemMessageExplorer);
                     menuItemPluginInformation.Items.Add(menuItemMessageTree);
                     menuItemPluginInformation.Items.Add(menuItemMessageRequestTree);
                 }
@@ -1314,6 +1321,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        private static void miExplorerSdkMessageExplorer_Click(IWriteToOutput iWriteToOutput, CommonConfiguration commonConfig, Func<ConnectionData> getSelectedSingleConnection)
+        {
+            var connection = getSelectedSingleConnection();
+
+            if (connection != null)
+            {
+                commonConfig.Save();
+
+                var backWorker = new Thread(() =>
+                {
+                    try
+                    {
+                        var contr = new ExplorerController(iWriteToOutput);
+
+                        contr.ExecuteShowingSdkMessageExplorer(connection, commonConfig, string.Empty);
+                    }
+                    catch (Exception ex)
+                    {
+                        iWriteToOutput.WriteErrorToOutput(null, ex);
+                    }
+                });
+                backWorker.Start();
+            }
+        }
+
         private static void miExplorerSdkMessageTree_Click(IWriteToOutput iWriteToOutput, CommonConfiguration commonConfig, Func<ConnectionData> getSelectedSingleConnection)
         {
             var connection = getSelectedSingleConnection();
@@ -1328,7 +1360,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var contr = new ExplorerController(iWriteToOutput);
 
-                        contr.ExecuteShowingSdkMessageTree(connection, commonConfig, string.Empty, string.Empty);
+                        contr.ExecuteShowingSdkMessageFilterTree(connection, commonConfig, string.Empty, string.Empty);
                     }
                     catch (Exception ex)
                     {

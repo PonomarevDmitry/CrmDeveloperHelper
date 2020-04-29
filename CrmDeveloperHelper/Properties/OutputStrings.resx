@@ -1305,6 +1305,9 @@
   <data name="LoadingSdkMessage" xml:space="preserve">
     <value>Loading Sdk Messages...</value>
   </data>
+  <data name="LoadingSdkMessageCompletedFormat1" xml:space="preserve">
+    <value>{0} Sdk Messages loaded.</value>
+  </data>
   <data name="LoadingSdkMessageCompleted" xml:space="preserve">
     <value>Loading Sdk Messages completed.</value>
   </data>

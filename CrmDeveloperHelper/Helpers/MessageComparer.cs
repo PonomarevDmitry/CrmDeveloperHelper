@@ -1,12 +1,24 @@
-﻿using System.Linq;
+﻿using System;
 using System.Collections.Generic;
-using System;
+using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
     public class MessageComparer : IComparer<string>
     {
+        public MessageComparer()
+        {
+
+        }
+
         private static List<string> coll = new List<string>() { "Create", "Update", "Delete", "SetState", "SetStateDynamicEntity", "Merge" };
+
+        public static MessageComparer Comparer { get; private set; }
+
+        static MessageComparer()
+        {
+            Comparer = new MessageComparer();
+        }
 
         public int Compare(string message1, string message2)
         {
@@ -22,7 +34,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (coll.Contains(message1, StringComparer.InvariantCultureIgnoreCase)
                 && coll.Contains(message2, StringComparer.InvariantCultureIgnoreCase)
-                )
+            )
             {
                 var item1 = coll.First(i => StringComparer.InvariantCultureIgnoreCase.Equals(i, message1));
                 var item2 = coll.First(i => StringComparer.InvariantCultureIgnoreCase.Equals(i, message2));
@@ -43,7 +55,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return 1;
             }
 
-            return string.Compare(message1, message2);
+            return string.Compare(message1, message2, true);
         }
     }
 }

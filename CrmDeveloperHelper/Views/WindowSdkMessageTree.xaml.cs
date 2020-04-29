@@ -305,7 +305,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 PluginTreeViewItem nodeEntity = CreateNodeEntity(grEntity.Key, null, grEntity);
 
-                var groupsByMessages = grEntity.GroupBy(ent => ent.MessageName).OrderBy(mess => mess.Key, new MessageComparer());
+                var groupsByMessages = grEntity.GroupBy(ent => ent.MessageName).OrderBy(mess => mess.Key, MessageComparer.Comparer);
 
                 foreach (var mess in groupsByMessages)
                 {
@@ -325,7 +325,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void FillTreeByMessage(IEnumerable<SdkMessageFilter> result)
         {
-            var groupsByMessage = result.GroupBy(ent => ent.MessageName).OrderBy(mess => mess.Key, new MessageComparer());
+            var groupsByMessage = result.GroupBy(ent => ent.MessageName).OrderBy(mess => mess.Key, MessageComparer.Comparer);
 
             foreach (var grMessage in groupsByMessage)
             {

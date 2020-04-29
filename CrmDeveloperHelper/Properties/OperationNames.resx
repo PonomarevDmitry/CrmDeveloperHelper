@@ -418,8 +418,11 @@
   <data name="ShowingSdkMessageRequestTreeFormat1" xml:space="preserve">
     <value>{0} - Showing Sdk Message Request Tree</value>
   </data>
-  <data name="ShowingSdkMessageTreeFormat1" xml:space="preserve">
-    <value>{0} - Showing Sdk Message Tree</value>
+  <data name="ShowingSdkMessageFilterTreeFormat1" xml:space="preserve">
+    <value>{0} - Showing Sdk Message Filter Tree</value>
+  </data>
+  <data name="ShowingSdkMessageExplorerFormat1" xml:space="preserve">
+    <value>{0} - Showing Sdk Message Explorer</value>
   </data>
   <data name="ShowingSolutionImageWindowFormat1" xml:space="preserve">
     <value>{0} - Showing SolutionImage Window</value>

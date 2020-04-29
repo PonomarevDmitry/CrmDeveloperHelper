@@ -12,6 +12,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
     public static class WindowHelper
     {
+        private static void ExecuteWithConnectionInSTAThread(ConnectionData connectionData, Func<System.Windows.Window> windowGetter)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    var form = windowGetter();
+
+                    form.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.SetApartmentState(ApartmentState.STA);
+
+            worker.Start();
+        }
+
         public static void OpenEntityMetadataExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
@@ -742,13 +763,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
+        public static void OpenSdkMessageExplorer(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+        )
+        {
+            OpenSdkMessageExplorer(iWriteToOutput, service, commonConfig, null);
+        }
+
+        public static void OpenSdkMessageExplorer(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string messageFilter = null
+        )
+        {
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowExplorerSdkMessage
+                (
+                    iWriteToOutput
+                    , service
+                    , commonConfig
+                    , messageFilter
+                )
+            );
+        }
+
         public static void OpenSdkMessageTreeExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
             , string entityFilter = null
             , string messageFilter = null
-            )
+        )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {

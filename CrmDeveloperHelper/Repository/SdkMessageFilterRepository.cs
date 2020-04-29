@@ -224,9 +224,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         {
             QueryExpression query = new QueryExpression()
             {
-                EntityName = SdkMessageFilter.EntityLogicalName,
-
                 NoLock = true,
+
+                EntityName = SdkMessageFilter.EntityLogicalName,
 
                 ColumnSet = columnSet ?? new ColumnSet(true),
 

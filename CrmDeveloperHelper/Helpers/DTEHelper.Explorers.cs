@@ -17,16 +17,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartShowingPluginTree(conn, commonConfig, entityFilter, pluginTypeFilter, messageFilter));
         }
 
-        public void HandleSdkMessageTree()
+        public void HandleSdkMessageExplorer()
         {
-            HandleSdkMessageTree(null);
+            HandleSdkMessageExplorer(null);
         }
 
-        public void HandleSdkMessageTree(ConnectionData connectionData)
+        public void HandleSdkMessageExplorer(ConnectionData connectionData)
         {
             string selection = GetSelectedText();
 
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartShowingSdkMessageTree(conn, commonConfig, selection, null));
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartShowingSdkMessageExplorer(conn, commonConfig, selection));
+        }
+
+        public void HandleSdkMessageFilterTree()
+        {
+            HandleSdkMessageFilterTree(null);
+        }
+
+        public void HandleSdkMessageFilterTree(ConnectionData connectionData)
+        {
+            string selection = GetSelectedText();
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartShowingSdkMessageFilterTree(conn, commonConfig, selection, null));
         }
 
         public void HandleSdkMessageRequestTree()

@@ -270,11 +270,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return string.Format(PluginConfigurationFormatFileTxt, fileName, fieldTitle, extension.Trim('.'));
         }
 
-        private const string MessageFormatFileTxt = "{0}.Message {1} - {2} at {3}.txt";
+        private const string MessageFormatFileTxtFormat5 = "{0}.Message {1} - {2} at {3}.{4}";
 
-        internal static string GetMessageFileName(string connectionName, string name, string fieldTitle)
+        internal static string GetMessageFileName(string connectionName, string name, string fieldTitle, string extension = "txt")
         {
-            return string.Format(MessageFormatFileTxt, connectionName, name, fieldTitle, GetDateString());
+            return string.Format(MessageFormatFileTxtFormat5, connectionName, name, fieldTitle, GetDateString(), extension);
         }
 
         private const string MessageFilterFormatFileTxt = "{0}.MessageFilter {1} - {2} at {3}.txt";

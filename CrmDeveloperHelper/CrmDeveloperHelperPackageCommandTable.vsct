@@ -9308,13 +9308,23 @@
         </Strings>
       </Button>
 
-      <Button guid="guidCommandSet" id="CommonSdkMessageTreeCommandId" priority="0x0124" type="Button">
+      <Button guid="guidCommandSet" id="CommonSdkMessageExplorerCommandId" priority="0x0124" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>Message Tree</ButtonText>
+          <ButtonText>Message Explorer</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidCommandSet" id="CommonSdkMessageFilterTreeCommandId" priority="0x0124" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Message Filter Tree</ButtonText>
         </Strings>
       </Button>
 
@@ -10616,13 +10626,23 @@
         </Strings>
       </Button>
 
-      <Button guid="guidCommandSet" id="OutputSdkMessageTreeCommandId" priority="0x6000" type="Button">
+      <Button guid="guidCommandSet" id="OutputSdkMessageExplorerCommandId" priority="0x6000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>Message Tree</ButtonText>
+          <ButtonText>Message Explorer</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidCommandSet" id="OutputSdkMessageFilterTreeCommandId" priority="0x6000" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Message Filter Tree</ButtonText>
         </Strings>
       </Button>
 
@@ -15742,13 +15762,16 @@
 
     <!-- #region commonMenu_GroupEntityInformation_MenuPluginInformation_GroupTree -->
 
-    <CommandPlacement guid="guidCommandSet" id="CommonPluginTreeCommandId" priority="0x0124">
+    <CommandPlacement guid="guidCommandSet" id="CommonPluginTreeCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuPluginInformation_GroupTree" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonSdkMessageTreeCommandId" priority="0x0125">
+    <CommandPlacement guid="guidCommandSet" id="CommonSdkMessageExplorerCommandId" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuPluginInformation_GroupTree" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonSdkMessageRequestTreeCommandId" priority="0x0126">
+    <CommandPlacement guid="guidCommandSet" id="CommonSdkMessageFilterTreeCommandId" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuPluginInformation_GroupTree" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CommonSdkMessageRequestTreeCommandId" priority="0x06030">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuPluginInformation_GroupTree" />
     </CommandPlacement>
 
@@ -18588,13 +18611,16 @@
 
     <!-- #region outputMenu_GroupEntityInformation_MenuPluginInformation_GroupTree -->
 
-    <CommandPlacement guid="guidCommandSet" id="OutputPluginTreeCommandId" priority="0x0124">
+    <CommandPlacement guid="guidCommandSet" id="OutputPluginTreeCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupEntityInformation_MenuPluginInformation_GroupTree" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="OutputSdkMessageTreeCommandId" priority="0x0125">
+    <CommandPlacement guid="guidCommandSet" id="OutputSdkMessageExplorerCommandId" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupEntityInformation_MenuPluginInformation_GroupTree" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="OutputSdkMessageRequestTreeCommandId" priority="0x0126">
+    <CommandPlacement guid="guidCommandSet" id="OutputSdkMessageFilterTreeCommandId" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupEntityInformation_MenuPluginInformation_GroupTree" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="OutputSdkMessageRequestTreeCommandId" priority="0x06030">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupEntityInformation_MenuPluginInformation_GroupTree" />
     </CommandPlacement>
 
@@ -21729,7 +21755,9 @@
 
       <IDSymbol name="CommonPluginTreeCommandId" value="0x2037" />
 
-      <IDSymbol name="CommonSdkMessageTreeCommandId" value="0x2116" />
+      <IDSymbol name="CommonSdkMessageExplorerCommandId" value="0x223F" />
+
+      <IDSymbol name="CommonSdkMessageFilterTreeCommandId" value="0x2116" />
 
       <IDSymbol name="CommonSdkMessageRequestTreeCommandId" value="0x2117" />
 
@@ -21919,7 +21947,9 @@
 
       <IDSymbol name="OutputPluginTreeCommandId" value="0x21F3" />
 
-      <IDSymbol name="OutputSdkMessageTreeCommandId" value="0x21F4" />
+      <IDSymbol name="OutputSdkMessageExplorerCommandId" value="0x2240" />
+
+      <IDSymbol name="OutputSdkMessageFilterTreeCommandId" value="0x21F4" />
 
       <IDSymbol name="OutputSdkMessageRequestTreeCommandId" value="0x21F5" />
 
@@ -21951,7 +21981,7 @@
     <!-- 0x142D -->
 
     <!-- Commands -->
-    <!-- 0x223F -->
+    <!-- 0x2241 -->
 
     <!-- Dynamic Commands -->
     <!-- 13000 -->

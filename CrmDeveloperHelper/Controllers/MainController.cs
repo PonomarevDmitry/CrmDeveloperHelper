@@ -876,8 +876,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartShowingPluginTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string pluginTypeFilter, string messageFilter)
             => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteShowingPluginTree, commonConfig, entityFilter, pluginTypeFilter, messageFilter);
 
-        public void StartShowingSdkMessageTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string messageFilter)
-            => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteShowingSdkMessageTree, commonConfig, entityFilter, messageFilter);
+        public void StartShowingSdkMessageExplorer(ConnectionData connectionData, CommonConfiguration commonConfig,  string messageFilter)
+            => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteShowingSdkMessageExplorer, commonConfig,  messageFilter);
+
+        public void StartShowingSdkMessageFilterTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string messageFilter)
+            => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteShowingSdkMessageFilterTree, commonConfig, entityFilter, messageFilter);
 
         public void StartShowingSdkMessageRequestTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string messageFilter, EnvDTE.SelectedItem selectedItem)
             => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteShowingSdkMessageRequestTree, commonConfig, entityFilter, messageFilter, selectedItem);

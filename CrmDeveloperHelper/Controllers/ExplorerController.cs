@@ -292,17 +292,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Plugin Tree
 
-        #region SdkMessage Tree
+        #region SdkMessage Explorer
 
-        public async Task ExecuteShowingSdkMessageTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string messageFilter)
+        public async Task ExecuteShowingSdkMessageExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string messageFilter)
         {
             await ConnectAndExecuteActionAsync(connectionData
-                , Properties.OperationNames.ShowingSdkMessageTreeFormat1
+                , Properties.OperationNames.ShowingSdkMessageExplorerFormat1
+                , (service) => WindowHelper.OpenSdkMessageExplorer(this._iWriteToOutput, service, commonConfig, messageFilter)
+            );
+        }
+
+        #endregion SdkMessage Explorer
+
+        #region SdkMessageFilter Tree
+
+        public async Task ExecuteShowingSdkMessageFilterTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string messageFilter)
+        {
+            await ConnectAndExecuteActionAsync(connectionData
+                , Properties.OperationNames.ShowingSdkMessageFilterTreeFormat1
                 , (service) => WindowHelper.OpenSdkMessageTreeExplorer(this._iWriteToOutput, service, commonConfig, entityFilter, messageFilter)
             );
         }
 
-        #endregion SdkMessage Tree
+        #endregion SdkMessageFilter Tree
 
         #region SdkMessageRequest Tree
 

@@ -2005,20 +2005,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Showing Sdk Message Explorer.
+        /// </summary>
+        internal static string ShowingSdkMessageExplorerFormat1 {
+            get {
+                return ResourceManager.GetString("ShowingSdkMessageExplorerFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Showing Sdk Message Filter Tree.
+        /// </summary>
+        internal static string ShowingSdkMessageFilterTreeFormat1 {
+            get {
+                return ResourceManager.GetString("ShowingSdkMessageFilterTreeFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Showing Sdk Message Request Tree.
         /// </summary>
         internal static string ShowingSdkMessageRequestTreeFormat1 {
             get {
                 return ResourceManager.GetString("ShowingSdkMessageRequestTreeFormat1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} - Showing Sdk Message Tree.
-        /// </summary>
-        internal static string ShowingSdkMessageTreeFormat1 {
-            get {
-                return ResourceManager.GetString("ShowingSdkMessageTreeFormat1", resourceCulture);
             }
         }
         

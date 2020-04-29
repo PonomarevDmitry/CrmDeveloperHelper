@@ -140,6 +140,7 @@
     <Compile Include="Commands\CSharp\FileCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand.cs" />
     <Compile Include="Commands\CSharp\FileCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommand.cs" />
     <Compile Include="Commands\Explorers\CommonOtherPrivilegesExplorerCommand.cs" />
+    <Compile Include="Commands\Explorers\CommonSdkMessageExplorerCommand.cs" />
     <Compile Include="Commands\FindEdit\CommonFindEntityObjectsByNameInExplorerCommand.cs" />
     <Compile Include="Commands\FindEdit\CommonFindEntityObjectsByPrefixInExplorerCommand.cs" />
     <Compile Include="Commands\FindEdit\CommonFindEntityObjectsContainsStringInExplorerCommand.cs" />
@@ -170,6 +171,7 @@
     <Compile Include="Commands\OutputWindows\Checks\OutputCheckPluginStepsRequiredComponentsCommand.cs" />
     <Compile Include="Commands\OutputWindows\Checks\OutputCheckWorkflowsUsedEntitiesCommand.cs" />
     <Compile Include="Commands\OutputWindows\Checks\OutputCheckWorkflowsUsedNotExistsEntitiesCommand.cs" />
+    <Compile Include="Commands\OutputWindows\Explorers\OutputSdkMessageExplorerCommand.cs" />
     <Compile Include="Commands\OutputWindows\OutputOpenCrmWebSiteEntityMetadataCommand.cs" />
     <Compile Include="Commands\OutputWindows\Explorers\OutputApplicationRibbonExplorerCommand.cs" />
     <Compile Include="Commands\OutputWindows\Explorers\OutputCustomControlExplorerCommand.cs" />
@@ -188,7 +190,7 @@
     <Compile Include="Commands\OutputWindows\Explorers\OutputPluginTypeExplorerCommand.cs" />
     <Compile Include="Commands\OutputWindows\Explorers\OutputReportExplorerCommand.cs" />
     <Compile Include="Commands\OutputWindows\Explorers\OutputSdkMessageRequestTreeCommand.cs" />
-    <Compile Include="Commands\OutputWindows\Explorers\OutputSdkMessageTreeCommand.cs" />
+    <Compile Include="Commands\OutputWindows\Explorers\OutputSdkMessageFilterTreeCommand.cs" />
     <Compile Include="Commands\OutputWindows\Explorers\OutputSecurityRolesExplorerCommand.cs" />
     <Compile Include="Commands\OutputWindows\Explorers\OutputSiteMapExplorerCommand.cs" />
     <Compile Include="Commands\OutputWindows\Explorers\OutputSolutionExplorerCommand.cs" />
@@ -393,7 +395,7 @@
     <Compile Include="Commands\FindEdit\CommonFindEntityObjectsContainsStringCommand.cs" />
     <Compile Include="Commands\Connections\CommonPublishAllInCrmConnectionCommand.cs" />
     <Compile Include="Commands\Explorers\CommonSdkMessageRequestTreeCommand.cs" />
-    <Compile Include="Commands\Explorers\CommonSdkMessageTreeCommand.cs" />
+    <Compile Include="Commands\Explorers\CommonSdkMessageFilterTreeCommand.cs" />
     <Compile Include="Commands\Explorers\CommonSecurityRolesExplorerCommand.cs" />
     <Compile Include="Commands\Connections\CommonSelectCrmConnectionCommand.cs" />
     <Compile Include="Commands\Explorers\CommonSolutionExplorerInConnectionCommand.cs" />
@@ -1459,6 +1461,9 @@
     <Compile Include="Views\WindowExplorerOtherPrivileges.xaml.cs">
       <DependentUpon>WindowExplorerOtherPrivileges.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WindowExplorerSdkMessage.xaml.cs">
+      <DependentUpon>WindowExplorerSdkMessage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WindowExplorerSolutionComponentDependencies.xaml.cs">
       <DependentUpon>WindowExplorerSolutionComponentDependencies.xaml</DependentUpon>
     </Compile>
@@ -2209,6 +2214,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WindowExplorerOtherPrivileges.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowExplorerSdkMessage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -3083,7 +3083,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CommonPluginTreeCommandId = 0x2037;
 
-            public const int CommonSdkMessageTreeCommandId = 0x2116;
+            public const int CommonSdkMessageExplorerCommandId = 0x223F;
+
+            public const int CommonSdkMessageFilterTreeCommandId = 0x2116;
 
             public const int CommonSdkMessageRequestTreeCommandId = 0x2117;
 
@@ -3313,7 +3315,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int OutputPluginTreeCommandId = 0x21F3;
 
-            public const int OutputSdkMessageTreeCommandId = 0x21F4;
+            public const int OutputSdkMessageExplorerCommandId = 0x2240;
+
+            public const int OutputSdkMessageFilterTreeCommandId = 0x21F4;
 
             public const int OutputSdkMessageRequestTreeCommandId = 0x21F5;
 

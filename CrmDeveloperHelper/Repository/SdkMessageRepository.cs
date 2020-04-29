@@ -120,12 +120,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         {
             QueryExpression query = new QueryExpression()
             {
-                EntityName = SdkMessage.EntityLogicalName,
-                ColumnSet = new ColumnSet(true),
-
                 NoLock = true,
 
-                Distinct = true,
+                EntityName = SdkMessage.EntityLogicalName,
+
+                ColumnSet = new ColumnSet(true),
 
                 Criteria =
                 {
@@ -168,6 +167,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             var coll = _service.RetrieveMultiple(query).Entities;
 
             return coll.Count == 1 ? coll.Select(e => e.ToEntity<SdkMessage>()).SingleOrDefault() : null;
+        }
+
+        public Task<List<SdkMessage>> GetMessagesAsync(string name, ColumnSet columnSet)
+        {
+            return Task.Run(() => GetMessages(name, columnSet));
+        }
+
+        private List<SdkMessage> GetMessages(string name, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                NoLock = true,
+
+                ColumnSet = columnSet ?? new ColumnSet(false),
+
+                EntityName = SdkMessage.EntityLogicalName,
+
+                Orders =
+                {
+                    new OrderExpression(SdkMessage.Schema.Attributes.categoryname, OrderType.Ascending),
+                    new OrderExpression(SdkMessage.Schema.Attributes.name, OrderType.Ascending),
+                    new OrderExpression(SdkMessage.Schema.Attributes.createdon, OrderType.Ascending),
+                },
+            };
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                query.Criteria.AddCondition(SdkMessage.Schema.Attributes.name, ConditionOperator.Like, name + "%");
+            }
+
+            return _service.RetrieveMultipleAll<SdkMessage>(query);
         }
     }
 }

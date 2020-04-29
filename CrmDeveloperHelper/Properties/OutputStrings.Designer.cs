@@ -3454,6 +3454,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} Sdk Messages loaded..
+        /// </summary>
+        internal static string LoadingSdkMessageCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("LoadingSdkMessageCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loading Sdk Message Requests....
         /// </summary>
         internal static string LoadingSdkMessageRequests {
