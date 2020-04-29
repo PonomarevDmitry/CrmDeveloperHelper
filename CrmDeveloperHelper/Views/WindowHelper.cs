@@ -12,6 +12,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
     public static class WindowHelper
     {
+        private static void ExecuteInSTAThread(Func<System.Windows.Window> windowGetter)
+        {
+            ExecuteWithConnectionInSTAThread(null, windowGetter);
+        }
+
         private static void ExecuteWithConnectionInSTAThread(ConnectionData connectionData, Func<System.Windows.Window> windowGetter)
         {
             var worker = new Thread(() =>
@@ -97,53 +102,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , EnvDTE.SelectedItem selectedItem
         )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowExplorerEntityMetadata(
-                        iWriteToOutput
-                        , service
-                        , commonConfig
-                        , filterEntityName
-                        , entityMetadataList
-                        , filePath
-                        , isJavaScript
-                        , selectedItem
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowExplorerEntityMetadata
+                (
+                    iWriteToOutput
+                    , service
+                    , commonConfig
+                    , filterEntityName
+                    , entityMetadataList
+                    , filePath
+                    , isJavaScript
+                    , selectedItem
+                )
+            );
         }
 
         public static void OpenEntityMetadataFileGenerationOptions(FileGenerationOptions fileGenerationOptions)
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowExplorerEntityMetadataOptions(fileGenerationOptions);
+            ExecuteInSTAThread(() =>
+                new WindowExplorerEntityMetadataOptions(fileGenerationOptions)
+            );
+        }
 
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
+        public static void OpenGlobalOptionSetsFileGenerationOptions(FileGenerationOptions fileGenerationOptions)
+        {
+            ExecuteInSTAThread(() =>
+                new WindowExplorerGlobalOptionSetsOptions(fileGenerationOptions)
+            );
+        }
 
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
+        public static void OpenFileGenerationOptions(FileGenerationOptions fileGenerationOptions)
+        {
+            ExecuteInSTAThread(() =>
+                new WindowFileGenerationOptions(fileGenerationOptions)
+            );
+        }
 
-            worker.Start();
+        public static void OpenFileGenerationConfiguration(FileGenerationConfiguration fileGenerationConfiguration)
+        {
+            ExecuteInSTAThread(() =>
+                new WindowFileGenerationConfiguration(fileGenerationConfiguration)
+            );
         }
 
         public static void OpenEntityAttributeExplorer(
@@ -153,28 +152,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string filterEntityName = null
         )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowExplorerEntityAttribute(
-                        iWriteToOutput
-                        , service
-                        , commonConfig
-                        , filterEntityName
-                        );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowExplorerEntityAttribute
+                (
+                    iWriteToOutput
+                    , service
+                    , commonConfig
+                    , filterEntityName
+                )
+            );
         }
 
         public static void OpenEntityKeyExplorer(
@@ -182,30 +168,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
             , string filterEntityName = null
-            )
+        )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowExplorerEntityKey(
-                        iWriteToOutput
-                        , service
-                        , commonConfig
-                        , filterEntityName
-                        );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowExplorerEntityKey
+                (
+                    iWriteToOutput
+                    , service
+                    , commonConfig
+                    , filterEntityName
+                )
+            );
         }
 
         public static void OpenEntityRelationshipOneToManyExplorer(
@@ -213,30 +186,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
             , string filterEntityName = null
-            )
+        )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowExplorerEntityRelationshipOneToMany(
-                        iWriteToOutput
-                        , service
-                        , commonConfig
-                        , filterEntityName
-                        );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowExplorerEntityRelationshipOneToMany
+                (
+                    iWriteToOutput
+                    , service
+                    , commonConfig
+                    , filterEntityName
+                )
+            );
         }
 
         public static void OpenEntityRelationshipManyToManyExplorer(
@@ -244,30 +204,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
             , string filterEntityName = null
-            )
+        )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowExplorerEntityRelationshipManyToMany(
-                        iWriteToOutput
-                        , service
-                        , commonConfig
-                        , filterEntityName
-                        );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowExplorerEntityRelationshipManyToMany
+                (
+                    iWriteToOutput
+                    , service
+                    , commonConfig
+                    , filterEntityName
+                )
+            );
         }
 
         public static void OpenEntityPrivilegesExplorer(
@@ -297,29 +244,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IEnumerable<EntityMetadata> entityMetadataList
         )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowExplorerEntityPrivileges(
-                        iWriteToOutput
-                        , service
-                        , commonConfig
-                        , entityMetadataList
-                        , filterEntityName
-                        );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowExplorerEntityPrivileges
+                (
+                    iWriteToOutput
+                    , service
+                    , commonConfig
+                    , entityMetadataList
+                    , filterEntityName
+                )
+            );
         }
 
         public static void OpenOtherPrivilegesExplorer(
@@ -349,29 +283,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IEnumerable<Privilege> privilegesList
         )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowExplorerOtherPrivileges(
-                        iWriteToOutput
-                        , service
-                        , commonConfig
-                        , privilegesList
-                        , filter
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowExplorerOtherPrivileges
+                (
+                    iWriteToOutput
+                    , service
+                    , commonConfig
+                    , privilegesList
+                    , filter
+                )
+            );
         }
 
         public static void OpenEntityEditor(
@@ -382,29 +303,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , Guid entityId
         )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowEntityEditor(
-                        iWriteToOutput
-                        , service
-                        , commonConfig
-                        , entityName
-                        , entityId
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowEntityEditor
+                (
+                    iWriteToOutput
+                    , service
+                    , commonConfig
+                    , entityName
+                    , entityId
+                )
+            );
         }
 
         public static void OpenEntityBulkEditor(
@@ -415,29 +323,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IEnumerable<Guid> entityIds
         )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowEntityBulkEditor(
-                        iWriteToOutput
-                        , service
-                        , commonConfig
-                        , entityName
-                        , entityIds
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowEntityBulkEditor
+                (
+                    iWriteToOutput
+                    , service
+                    , commonConfig
+                    , entityName
+                    , entityIds
+                )
+            );
         }
 
         public static void OpenEntityBulkTransfer(
@@ -448,29 +343,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IEnumerable<Entity> entities
         )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowEntityBulkTransfer(
-                        iWriteToOutput
-                        , service
-                        , commonConfig
-                        , entityMetadata
-                        , entities
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowEntityBulkTransfer
+                (
+                    iWriteToOutput
+                    , service
+                    , commonConfig
+                    , entityMetadata
+                    , entities
+                )
+            );
         }
 
         public static void OpenApplicationRibbonExplorer(
@@ -479,27 +361,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
         )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowExplorerApplicationRibbon(
-                        iWriteToOutput
-                        , service
-                        , commonConfig
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowExplorerApplicationRibbon
+                (
+                    iWriteToOutput
+                    , service
+                    , commonConfig
+                )
+            );
         }
 
         public static void OpenSystemFormExplorer(
@@ -541,30 +410,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , EnvDTE.SelectedItem selectedItem
         )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowExplorerSystemForm(
-                        iWriteToOutput
-                        , service
-                        , commonConfig
-                        , filterEntityName
-                        , selectedItem
-                        , selection
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowExplorerSystemForm
+                (
+                    iWriteToOutput
+                    , service
+                    , commonConfig
+                    , filterEntityName
+                    , selectedItem
+                    , selection
+                )
+            );
         }
 
         public static void OpenSavedQueryExplorer(
@@ -575,29 +431,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string selection = null
         )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowExplorerSavedQuery(
-                        iWriteToOutput
-                        , service
-                        , commonConfig
-                        , filterEntityName
-                        , selection
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowExplorerSavedQuery
+                (
+                    iWriteToOutput
+                    , service
+                    , commonConfig
+                    , filterEntityName
+                    , selection
+                )
+            );
         }
 
         public static void OpenSavedQueryVisualizationExplorer(
@@ -608,29 +451,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string selection = null
         )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowExplorerSavedQueryVisualization(
-                        iWriteToOutput
-                        , service
-                        , commonConfig
-                        , filterEntityName
-                        , selection
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowExplorerSavedQueryVisualization
+                (
+                    iWriteToOutput
+                    , service
+                    , commonConfig
+                    , filterEntityName
+                    , selection
+                )
+            );
         }
 
         public static void OpenWorkflowExplorer(
@@ -641,30 +471,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string selection = null
         )
         {
-
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowExplorerWorkflow(
-                        iWriteToOutput
-                        , service
-                        , commonConfig
-                        , filterEntityName
-                        , selection
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowExplorerWorkflow
+                (
+                    iWriteToOutput
+                    , service
+                    , commonConfig
+                    , filterEntityName
+                    , selection
+                )
+            );
         }
 
         public static void OpenCustomControlExplorer(
@@ -674,58 +490,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string filter
         )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowExplorerCustomControl(
-                        iWriteToOutput
-                        , service
-                        , commonConfig
-                        , filter
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowExplorerCustomControl
+                (
+                    iWriteToOutput
+                    , service
+                    , commonConfig
+                    , filter
+                )
+            );
         }
 
         public static void OpenTraceReaderExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
-            )
+        )
         {
-
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowTraceReader(
-                        iWriteToOutput
-                        , service
-                        , commonConfig
-                        );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowTraceReader
+                (
+                    iWriteToOutput
+                    , service
+                    , commonConfig
+                )
+            );
         }
 
         public static void OpenPluginTreeExplorer(
@@ -735,32 +524,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string entityFilter = null
             , string pluginTypeFilter = null
             , string messageFilter = null
-            )
+        )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowPluginTree(
-                        iWriteToOutput
-                        , service
-                        , commonConfig
-                        , entityFilter
-                        , pluginTypeFilter
-                        , messageFilter
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowPluginTree
+                (
+                    iWriteToOutput
+                    , service
+                    , commonConfig
+                    , entityFilter
+                    , pluginTypeFilter
+                    , messageFilter
+                )
+            );
         }
 
         public static void OpenSdkMessageExplorer(
@@ -798,29 +574,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string messageFilter = null
         )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowSdkMessageTree(
-                        iWriteToOutput
-                        , service
-                        , commonConfig
-                        , entityFilter
-                        , messageFilter
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowSdkMessageTree
+                (
+                    iWriteToOutput
+                    , service
+                    , commonConfig
+                    , entityFilter
+                    , messageFilter
+                )
+            );
         }
 
         public static void OpenSdkMessageRequestTreeExplorer(
@@ -868,34 +631,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string messageFilter
         )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowSdkMessageRequestTree(
-                        iWriteToOutput
-                        , service
-                        , commonConfig
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowSdkMessageRequestTree
+                (
+                    iWriteToOutput
+                    , service
+                    , commonConfig
 
-                        , filePath
-                        , isJavaScript
-                        , selectedItem
+                    , filePath
+                    , isJavaScript
+                    , selectedItem
 
-                        , entityFilter
-                        , messageFilter
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+                    , entityFilter
+                    , messageFilter
+                )
+            );
         }
 
         public static void OpenSystemUsersExplorer(
@@ -917,30 +667,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IEnumerable<Privilege> privileges
         )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowExplorerSystemUser(
-                        iWriteToOutput
-                        , service
-                        , commonConfig
-                        , entityMetadataList
-                        , privileges
-                        , filter
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowExplorerSystemUser
+                (
+                    iWriteToOutput
+                    , service
+                    , commonConfig
+                    , entityMetadataList
+                    , privileges
+                    , filter
+                )
+            );
         }
 
         public static void OpenTeamsExplorer(
@@ -962,30 +699,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IEnumerable<Privilege> privileges
         )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowExplorerTeam(
-                        iWriteToOutput
-                        , service
-                        , commonConfig
-                        , entityMetadataList
-                        , privileges
-                        , filter
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowExplorerTeam
+                (
+                    iWriteToOutput
+                    , service
+                    , commonConfig
+                    , entityMetadataList
+                    , privileges
+                    , filter
+                )
+            );
         }
 
         public static void OpenRolesExplorer(
@@ -1016,30 +740,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IEnumerable<Privilege> privileges
         )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowExplorerRole(
-                        iWriteToOutput
-                        , service
-                        , commonConfig
-                        , entityMetadataList
-                        , privileges
-                        , filter
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowExplorerRole
+                (
+                    iWriteToOutput
+                    , service
+                    , commonConfig
+                    , entityMetadataList
+                    , privileges
+                    , filter
+                )
+            );
         }
 
         public static void OpenExplorerSolutionExplorer(
@@ -1049,32 +760,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , int? componentType
             , Guid? objectId
             , EnvDTE.SelectedItem selectedItem
-            )
+        )
         {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowExplorerSolution(
-                        iWriteToOutput
-                        , service
-                        , commonConfig
-                        , componentType
-                        , objectId
-                        , selectedItem
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowExplorerSolution
+                (
+                    iWriteToOutput
+                    , service
+                    , commonConfig
+                    , componentType
+                    , objectId
+                    , selectedItem
+                )
+            );
         }
 
         public static void OpenImportJobExplorer(
@@ -1084,28 +782,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string selection
         )
         {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowExplorerImportJob(
-                        iWriteToOutput
-                        , service
-                        , commonConfig
-                        , selection
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowExplorerImportJob
+                (
+                    iWriteToOutput
+                    , service
+                    , commonConfig
+                    , selection
+                )
+            );
         }
 
         public static void OpenSolutionComponentsExplorer(
@@ -1117,23 +802,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string selection = null
         )
         {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowExplorerSolutionComponents(iWriteToOutput, service, descriptor, commonConfig, solutionUniqueName, selection);
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowExplorerSolutionComponents(iWriteToOutput, service, descriptor, commonConfig, solutionUniqueName, selection)
+            );
         }
 
         public static void OpenSolutionComponentDependenciesExplorer(
@@ -1144,33 +815,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , int componentType
             , Guid objectId
             , string selection = null
-            )
+        )
         {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowExplorerSolutionComponentDependencies(
-                        iWriteToOutput
-                        , service
-                        , descriptor
-                        , commonConfig
-                        , componentType
-                        , objectId
-                        , selection
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowExplorerSolutionComponentDependencies
+                (
+                    iWriteToOutput
+                    , service
+                    , descriptor
+                    , commonConfig
+                    , componentType
+                    , objectId
+                    , selection
+                )
+            );
         }
 
         public static void OpenExplorerComponentsExplorer(
@@ -1184,23 +842,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string selection
         )
         {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowExplorerComponents(iWriteToOutput, service, descriptor, commonConfig, solutionComponents, solutionUniqueName, header, selection);
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowExplorerComponents(iWriteToOutput, service, descriptor, commonConfig, solutionComponents, solutionUniqueName, header, selection)
+            );
         }
 
         public static void OpenGlobalOptionSetsExplorer(
@@ -1279,54 +923,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , EnvDTE.SelectedItem selectedItem
         )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowExplorerGlobalOptionSets(
-                        iWriteToOutput
-                        , service
-                        , commonConfig
-                        , optionSets
-                        , filterEntityName
-                        , filter
-                        , filePath
-                        , isJavaScript
-                        , selectedItem
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
-        }
-
-        public static void OpenGlobalOptionSetsFileGenerationOptions(FileGenerationOptions fileGenerationOptions)
-        {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowExplorerGlobalOptionSetsOptions(fileGenerationOptions);
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowExplorerGlobalOptionSets
+                (
+                    iWriteToOutput
+                    , service
+                    , commonConfig
+                    , optionSets
+                    , filterEntityName
+                    , filter
+                    , filePath
+                    , isJavaScript
+                    , selectedItem
+                )
+            );
         }
 
         public static void OpenReportExplorer(
@@ -1336,28 +946,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string selection = null
         )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowExplorerReport(
-                        iWriteToOutput
-                        , service
-                        , commonConfig
-                        , selection
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowExplorerReport
+                (
+                    iWriteToOutput
+                    , service
+                    , commonConfig
+                    , selection
+                )
+            );
         }
 
         public static void OpenExportSiteMapExplorer(
@@ -1376,28 +973,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string filter
         )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowExplorerSiteMap(
-                        iWriteToOutput
-                        , service
-                        , commonConfig
-                        , filter
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowExplorerSiteMap
+                (
+                    iWriteToOutput
+                    , service
+                    , commonConfig
+                    , filter
+                )
+            );
         }
 
         public static void OpenWebResourceExplorer(
@@ -1416,28 +1000,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string selection
         )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowExplorerWebResource(
-                        iWriteToOutput
-                        , service
-                        , commonConfig
-                        , selection
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowExplorerWebResource
+                (
+                    iWriteToOutput
+                    , service
+                    , commonConfig
+                    , selection
+                )
+            );
         }
 
         public static void OpenPluginTypeExplorer(
@@ -1445,30 +1016,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
             , string selection = null
-            )
+        )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowExplorerPluginType(
-                        iWriteToOutput
-                        , service
-                        , commonConfig
-                        , selection
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowExplorerPluginType
+                (
+                    iWriteToOutput
+                    , service
+                    , commonConfig
+                    , selection
+                )
+            );
         }
 
         public static void OpenPluginAssemblyExplorer(
@@ -1476,87 +1034,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
             , string selection = null
-            )
+        )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowExplorerPluginAssembly(
-                        iWriteToOutput
-                        , service
-                        , commonConfig
-                        , selection
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowExplorerPluginAssembly
+                (
+                    iWriteToOutput
+                    , service
+                    , commonConfig
+                    , selection
+                )
+            );
         }
 
         public static void OpenPluginAssemblyUpdateWindow(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, PluginAssembly assembly, EnvDTE.Project project)
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
+            string defaultOutputFilePath = null;
+
+            if (project != null)
             {
-                try
-                {
-                    string defaultOutputFilePath = null;
+                defaultOutputFilePath = PropertiesHelper.GetOutputFilePath(project);
+            }
 
-                    if (project != null)
-                    {
-                        defaultOutputFilePath = PropertiesHelper.GetOutputFilePath(project);
-                    }
-
-                    var form = new WindowPluginAssembly(iWriteToOutput, service, assembly, defaultOutputFilePath, project);
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowPluginAssembly(iWriteToOutput, service, assembly, defaultOutputFilePath, project)
+            );
         }
 
         public static void OpenOrganizationExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
-            )
+        )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowExplorerOrganization(
-                        iWriteToOutput
-                        , service
-                        , commonConfig
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowExplorerOrganization
+                (
+                    iWriteToOutput
+                    , service
+                    , commonConfig
+                )
+            );
         }
 
         public static void OpenSolutionImageWindow(
@@ -1565,28 +1083,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
         )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowSolutionImage(
-                        iWriteToOutput
-                        , commonConfig
-                        , connectionData
-                        , null
-                        );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(connectionData, () =>
+                new WindowSolutionImage
+                (
+                    iWriteToOutput
+                    , commonConfig
+                    , connectionData
+                    , null
+                )
+            );
         }
 
         public static void OpenSolutionDifferenceImageWindow(
@@ -1595,58 +1100,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
         )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowSolutionDifferenceImage(
-                        iWriteToOutput
-                        , commonConfig
-                        , connectionData
-                        , null
-                        );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(connectionData, () =>
+                new WindowSolutionDifferenceImage
+                (
+                    iWriteToOutput
+                    , commonConfig
+                    , connectionData
+                    , null
+                )
+            );
         }
 
         public static void OpenOrganizationDifferenceImageWindow(
             IWriteToOutput iWriteToOutput
             , ConnectionData connectionData
             , CommonConfiguration commonConfig
-            )
+        )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowOrganizationDifferenceImage(
-                        iWriteToOutput
-                        , commonConfig
-                        , connectionData
-                        , null
-                        );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteWithConnectionInSTAThread(connectionData, () =>
+                new WindowOrganizationDifferenceImage
+                (
+                    iWriteToOutput
+                    , commonConfig
+                    , connectionData
+                    , null
+                )
+            );
         }
 
         public static void OpenOrganizationComparerWindow(
@@ -1665,28 +1144,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , SolutionImage solutionImage
         )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowOrganizationComparer(
-                        iWriteToOutput
-                        , crmConfig
-                        , commonConfig
-                        , solutionImage
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteInSTAThread(() =>
+                new WindowOrganizationComparer
+                (
+                    iWriteToOutput
+                    , crmConfig
+                    , commonConfig
+                    , solutionImage
+                )
+            );
         }
 
         public static void OpenOrganizationComparerEntityMetadataWindow(
@@ -1695,31 +1161,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , ConnectionData connection1
             , ConnectionData connection2
             , string entityFilter = null
-            )
+        )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowOrganizationComparerEntityMetadata(
-                        iWriteToOutput
-                        , commonConfig
-                        , connection1
-                        , connection2
-                        , entityFilter
-                        );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteInSTAThread(() =>
+                new WindowOrganizationComparerEntityMetadata
+                (
+                    iWriteToOutput
+                    , commonConfig
+                    , connection1
+                    , connection2
+                    , entityFilter
+                )
+            );
         }
 
         public static void OpenOrganizationComparerApplicationRibbonWindow(
@@ -1727,30 +1180,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , ConnectionData connection1
             , ConnectionData connection2
-            )
+        )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowOrganizationComparerApplicationRibbon(
-                        iWriteToOutput
-                        , commonConfig
-                        , connection1
-                        , connection2
-                        );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteInSTAThread(() =>
+                new WindowOrganizationComparerApplicationRibbon
+                (
+                    iWriteToOutput
+                    , commonConfig
+                    , connection1
+                    , connection2
+                )
+            );
         }
 
         public static void OpenOrganizationComparerGlobalOptionSetsWindow(
@@ -1759,31 +1199,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , ConnectionData connection1
             , ConnectionData connection2
             , string filter = null
-            )
+        )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowOrganizationComparerGlobalOptionSets(
-                        iWriteToOutput
-                        , commonConfig
-                        , connection1
-                        , connection2
-                        , filter
-                        );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteInSTAThread(() =>
+                new WindowOrganizationComparerGlobalOptionSets
+                (
+                    iWriteToOutput
+                    , commonConfig
+                    , connection1
+                    , connection2
+                    , filter
+                )
+            );
         }
 
         public static void OpenOrganizationComparerSystemFormWindow(
@@ -1795,30 +1222,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string filter = null
         )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowOrganizationComparerSystemForm(
-                        iWriteToOutput
-                        , commonConfig
-                        , connection1
-                        , connection2
-                        , filterEntity
-                        , filter
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteInSTAThread(() =>
+                new WindowOrganizationComparerSystemForm
+                (
+                    iWriteToOutput
+                    , commonConfig
+                    , connection1
+                    , connection2
+                    , filterEntity
+                    , filter
+                )
+            );
         }
 
         public static void OpenOrganizationComparerSavedQueryWindow(
@@ -1830,30 +1244,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string filter = null
         )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowOrganizationComparerSavedQuery(
-                        iWriteToOutput
-                        , commonConfig
-                        , connection1
-                        , connection2
-                        , filterEntity
-                        , filter
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteInSTAThread(() =>
+                new WindowOrganizationComparerSavedQuery
+                (
+                    iWriteToOutput
+                    , commonConfig
+                    , connection1
+                    , connection2
+                    , filterEntity
+                    , filter
+                )
+            );
         }
 
         public static void OpenOrganizationComparerSavedQueryVisualizationWindow(
@@ -1865,30 +1266,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string filter = null
         )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowOrganizationComparerSavedQueryVisualization(
-                        iWriteToOutput
-                        , commonConfig
-                        , connection1
-                        , connection2
-                        , filterEntity
-                        , filter
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteInSTAThread(() =>
+                new WindowOrganizationComparerSavedQueryVisualization
+                (
+                    iWriteToOutput
+                    , commonConfig
+                    , connection1
+                    , connection2
+                    , filterEntity
+                    , filter
+                )
+            );
         }
 
         public static void OpenOrganizationComparerWorkflowWindow(
@@ -1900,30 +1288,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string filter = null
         )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowOrganizationComparerWorkflow(
-                        iWriteToOutput
-                        , commonConfig
-                        , connection1
-                        , connection2
-                        , filterEntity
-                        , filter
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteInSTAThread(() =>
+                new WindowOrganizationComparerWorkflow
+                (
+                    iWriteToOutput
+                    , commonConfig
+                    , connection1
+                    , connection2
+                    , filterEntity
+                    , filter
+                )
+            );
         }
 
         public static void OpenOrganizationComparerReportWindow(
@@ -1934,29 +1309,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string filter = null
         )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowOrganizationComparerReport(
-                        iWriteToOutput
-                        , commonConfig
-                        , connection1
-                        , connection2
-                        , filter
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteInSTAThread(() =>
+                new WindowOrganizationComparerReport
+                (
+                    iWriteToOutput
+                    , commonConfig
+                    , connection1
+                    , connection2
+                    , filter
+                )
+            );
         }
 
         public static void OpenOrganizationComparerSiteMapWindow(
@@ -1966,28 +1328,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , ConnectionData connection2
         )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowOrganizationComparerSiteMap(
-                        iWriteToOutput
-                        , commonConfig
-                        , connection1
-                        , connection2
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteInSTAThread(() =>
+                new WindowOrganizationComparerSiteMap
+                (
+                    iWriteToOutput
+                    , commonConfig
+                    , connection1
+                    , connection2
+                )
+            );
         }
 
         public static void OpenOrganizationComparerWebResourcesWindow(
@@ -1998,29 +1347,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string filter = null
         )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowOrganizationComparerWebResources(
-                        iWriteToOutput
-                        , commonConfig
-                        , connection1
-                        , connection2
-                        , filter
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteInSTAThread(() =>
+                new WindowOrganizationComparerWebResources
+                (
+                    iWriteToOutput
+                    , commonConfig
+                    , connection1
+                    , connection2
+                    , filter
+                )
+            );
         }
 
         public static void OpenOrganizationComparerPluginAssemblyWindow(
@@ -2031,29 +1367,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string filter = null
         )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowOrganizationComparerPluginAssembly(
-                        iWriteToOutput
-                        , commonConfig
-                        , connection1
-                        , connection2
-                        , filter
-                    );
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
+            ExecuteInSTAThread(() =>
+                new WindowOrganizationComparerPluginAssembly
+                (
+                    iWriteToOutput
+                    , commonConfig
+                    , connection1
+                    , connection2
+                    , filter
+                )
+            );
         }
 
         public static void OpenCrmConnectionCard(
@@ -2061,7 +1384,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , ConnectionData connectionData
         )
         {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
+            var worker = new Thread(() =>
             {
                 try
                 {
@@ -2078,49 +1401,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
-        }
-
-        public static void OpenFileGenerationOptions(FileGenerationOptions fileGenerationOptions)
-        {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowFileGenerationOptions(fileGenerationOptions);
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
-
-            worker.Start();
-        }
-
-        public static void OpenFileGenerationConfiguration(FileGenerationConfiguration fileGenerationConfiguration)
-        {
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
-            {
-                try
-                {
-                    var form = new WindowFileGenerationConfiguration(fileGenerationConfiguration);
-
-                    form.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(null, ex);
-                }
-            });
-
-            worker.SetApartmentState(System.Threading.ApartmentState.STA);
+            worker.SetApartmentState(ApartmentState.STA);
 
             worker.Start();
         }
@@ -2260,6 +1541,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     break;
 
                 case ComponentType.SdkMessage:
+                    OpenSdkMessageExplorer(iWriteToOutput, service, commonConfig, componentName);
+                    break;
+
                 case ComponentType.SdkMessageFilter:
                     OpenSdkMessageTreeExplorer(iWriteToOutput, service, commonConfig, null, componentName);
                     break;
