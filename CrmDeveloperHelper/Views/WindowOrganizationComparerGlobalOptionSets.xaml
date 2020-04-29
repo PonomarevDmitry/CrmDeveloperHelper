@@ -74,7 +74,7 @@
                     <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon1_Click"/>
                     <Separator/>
                     <MenuItem Header="Plugin Tree" Click="btnPluginTree1_Click"/>
-                    <MenuItem Header="Message Tree" Click="btnMessageTree1_Click"/>
+                    <MenuItem Header="Message Filter Tree" Click="btnMessageFilterTree1_Click"/>
                     <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree1_Click"/>
                 </MenuItem>
 
@@ -115,7 +115,7 @@
                     <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon2_Click"/>
                     <Separator/>
                     <MenuItem Header="Plugin Tree" Click="btnPluginTree2_Click"/>
-                    <MenuItem Header="Message Tree" Click="btnMessageTree2_Click"/>
+                    <MenuItem Header="Message Filter Tree" Click="btnMessageFilterTree2_Click"/>
                     <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree2_Click"/>
                 </MenuItem>
 
@@ -165,7 +165,7 @@
                     <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon1_Click"/>
                     <Separator/>
                     <MenuItem Header="Plugin Tree" Click="btnPluginTree1_Click"/>
-                    <MenuItem Header="Message Tree" Click="btnMessageTree1_Click"/>
+                    <MenuItem Header="Message Filter Tree" Click="btnMessageFilterTree1_Click"/>
                     <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree1_Click"/>
                 </MenuItem>
             </Menu>
@@ -197,7 +197,7 @@
                     <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon2_Click"/>
                     <Separator/>
                     <MenuItem Header="Plugin Tree" Click="btnPluginTree2_Click"/>
-                    <MenuItem Header="Message Tree" Click="btnMessageTree2_Click"/>
+                    <MenuItem Header="Message Filter Tree" Click="btnMessageFilterTree2_Click"/>
                     <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree2_Click"/>
                 </MenuItem>
             </Menu>

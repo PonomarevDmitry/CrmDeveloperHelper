@@ -1713,7 +1713,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenPluginTree(this._iWriteToOutput, service, _commonConfig, entity?.EntityName, string.Empty, string.Empty);
         }
 
-        private async void btnMessageTree1_Click(object sender, RoutedEventArgs e)
+        private async void btnMessageFilterTree1_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1823,7 +1823,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenPluginTree(this._iWriteToOutput, service, _commonConfig, entity?.EntityName, string.Empty, string.Empty);
         }
 
-        private async void btnMessageTree2_Click(object sender, RoutedEventArgs e)
+        private async void btnMessageFilterTree2_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 

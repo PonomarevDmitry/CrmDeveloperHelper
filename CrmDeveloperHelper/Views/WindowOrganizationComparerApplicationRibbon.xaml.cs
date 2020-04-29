@@ -918,7 +918,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenPluginTree(this._iWriteToOutput, service, _commonConfig);
         }
 
-        private async void btnMessageTree1_Click(object sender, RoutedEventArgs e)
+        private async void btnMessageFilterTree1_Click(object sender, RoutedEventArgs e)
         {
             _commonConfig.Save();
 
@@ -1012,7 +1012,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenPluginTree(this._iWriteToOutput, service, _commonConfig);
         }
 
-        private async void btnMessageTree2_Click(object sender, RoutedEventArgs e)
+        private async void btnMessageFilterTree2_Click(object sender, RoutedEventArgs e)
         {
             _commonConfig.Save();
 

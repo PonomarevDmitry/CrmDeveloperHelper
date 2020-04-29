@@ -122,7 +122,7 @@
                 <MenuItem x:Uid="contMnAddPluginAssemblyStepsToSolution" Header="Add All Steps for PluginAssembly to Crm Solution" Click="mIAddAssemblyStepsToSolution_Click" />
 
                 <Separator x:Uid="contMnSdkMessage" />
-                <MenuItem x:Uid="contMnSdkMessage" Header="Open Sdk Message Tree" Click="mIOpenSdkMessageTree_Click" />
+                <MenuItem x:Uid="contMnSdkMessage" Header="Open Sdk Message Filter Tree" Click="mIOpenSdkMessageTree_Click" />
                 <MenuItem x:Uid="contMnSdkMessage" Header="Open Sdk Message Request Tree" Click="mIOpenSdkMessageRequestTree_Click" />
 
                 <Separator x:Uid="contMnWorkflowExlorer" />

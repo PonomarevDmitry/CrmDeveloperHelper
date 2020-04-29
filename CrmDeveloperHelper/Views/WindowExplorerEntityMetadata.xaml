@@ -118,7 +118,7 @@
                     <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon_Click"/>
                     <Separator/>
                     <MenuItem Header="Plugin Tree" Click="miPluginTree_Click"/>
-                    <MenuItem Header="Message Tree" Click="miMessageTree_Click"/>
+                    <MenuItem Header="Message Filter Tree" Click="miMessageTree_Click"/>
                     <MenuItem Header="Message Request Tree" Click="miMessageRequestTree_Click"/>
                     <MenuItem x:Uid="contMnSelectedItem" Header="Message Request Tree in Addition Mode" Click="miMessageRequestTreeSelectedItem_Click"/>
                 </MenuItem>
@@ -204,7 +204,7 @@
                     <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon_Click"/>
                     <Separator/>
                     <MenuItem Header="Plugin Tree" Click="miPluginTree_Click"/>
-                    <MenuItem Header="Message Tree" Click="miMessageTree_Click"/>
+                    <MenuItem Header="Message Filter Tree" Click="miMessageTree_Click"/>
                     <MenuItem Header="Message Request Tree" Click="miMessageRequestTree_Click"/>
                     <MenuItem x:Uid="contMnSelectedItem" Header="Message Request Tree in Addition Mode" Click="miMessageRequestTreeSelectedItem_Click"/>
                 </MenuItem>

@@ -74,7 +74,7 @@
                     <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon_Click"/>
                     <Separator/>
                     <MenuItem Header="Plugin Tree" Click="btnPluginTree_Click"/>
-                    <MenuItem Header="Message Tree" Click="btnMessageTree_Click"/>
+                    <MenuItem Header="Message Filter Tree" Click="btnMessageFilterTree_Click"/>
                     <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree_Click"/>
                 </MenuItem>
                 
@@ -160,7 +160,7 @@
                     <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon_Click" />
                     <Separator/>
                     <MenuItem Header="Plugin Tree" Click="btnPluginTree_Click" />
-                    <MenuItem Header="Message Tree" Click="btnMessageTree_Click"/>
+                    <MenuItem Header="Message Filter Tree" Click="btnMessageFilterTree_Click"/>
                     <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree_Click"/>
                 </MenuItem>
             </Menu>

@@ -99,7 +99,7 @@
 
                 <Separator x:Uid="contMnSdkMessage" />
                 <MenuItem x:Uid="contMnSdkMessage" Header="Open Plugin Tree" Click="mIOpenPluginTree_Click" />
-                <MenuItem x:Uid="contMnSdkMessage" Header="Open Sdk Message Tree" Click="mIOpenSdkMessageTree_Click" />
+                <MenuItem x:Uid="contMnSdkMessage" Header="Open Sdk Message Filter Tree" Click="mIOpenSdkMessageTree_Click" />
 
                 <Separator x:Uid="contMnDependentComponents"/>
                 <MenuItem x:Uid="contMnDependentComponents" Header="Open Solutions Containing Component in Explorer" VerticalAlignment="Center" Click="miOpenSolutionsContainingComponentInExplorer_Click" />

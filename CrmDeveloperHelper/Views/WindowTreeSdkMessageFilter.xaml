@@ -4,7 +4,7 @@
         xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
         xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
         xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
-        Title="Message Tree" Height="538.662" Width="717" WindowStartupLocation="Manual">
+        Title="Message Filter Tree" Height="538.662" Width="717" WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -117,7 +117,7 @@
             <TextBox Grid.Row="0" Grid.Column="3" x:Name="txtBMessageFilter" TextWrapping="NoWrap" KeyDown="txtBFilter_KeyDown" />
         </Grid>
 
-        <GroupBox Header="Message Tree" Grid.Row="1" Margin="5">
+        <GroupBox Header="Message Filter Tree" Grid.Row="1" Margin="5">
             <DockPanel LastChildFill="True">
                 <ToolBar DockPanel.Dock="Top" >
                     <ToolBarPanel Orientation="Horizontal">

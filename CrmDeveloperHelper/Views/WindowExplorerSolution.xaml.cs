@@ -3191,7 +3191,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenPluginTree(this._iWriteToOutput, service, _commonConfig, string.Empty, string.Empty, string.Empty);
         }
 
-        private async void btnMessageTree_Click(object sender, RoutedEventArgs e)
+        private async void btnMessageFilterTree_Click(object sender, RoutedEventArgs e)
         {
             var service = await GetService();
 
