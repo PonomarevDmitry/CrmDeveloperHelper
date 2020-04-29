@@ -286,7 +286,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.ShowingPluginTreeFormat1
-                , (service) => WindowHelper.OpenPluginTreeExplorer(this._iWriteToOutput, service, commonConfig, entityFilter, pluginTypeFilter, messageFilter)
+                , (service) => WindowHelper.OpenPluginTree(this._iWriteToOutput, service, commonConfig, entityFilter, pluginTypeFilter, messageFilter)
             );
         }
 
@@ -310,7 +310,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.ShowingSdkMessageFilterTreeFormat1
-                , (service) => WindowHelper.OpenSdkMessageTreeExplorer(this._iWriteToOutput, service, commonConfig, entityFilter, messageFilter)
+                , (service) => WindowHelper.OpenSdkMessageTree(this._iWriteToOutput, service, commonConfig, entityFilter, messageFilter)
             );
         }
 
@@ -322,7 +322,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.ShowingSdkMessageRequestTreeFormat1
-                , (service) => WindowHelper.OpenSdkMessageRequestTreeExplorer(this._iWriteToOutput, service, commonConfig, null, false, selectedItem, entityFilter, messageFilter)
+                , (service) => WindowHelper.OpenSdkMessageRequestTree(this._iWriteToOutput, service, commonConfig, null, false, selectedItem, entityFilter, messageFilter)
             );
         }
 

@@ -28,7 +28,7 @@ using System.Windows.Media.Imaging;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowSdkMessageRequestTree : WindowBase
+    public partial class WindowTreeSdkMessageRequest : WindowBase
     {
         private readonly object sysObjectConnections = new object();
 
@@ -70,7 +70,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly Popup _optionsPopup;
         private readonly FileGenerationSdkMessageRequestsOptionsControl _optionsControl;
 
-        public WindowSdkMessageRequestTree(
+        public WindowTreeSdkMessageRequest(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -2025,7 +2025,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenPluginTreeExplorer(_iWriteToOutput, service, _commonConfig, nodeItem?.EntityLogicalName, null, nodeItem?.MessageName);
+            WindowHelper.OpenPluginTree(_iWriteToOutput, service, _commonConfig, nodeItem?.EntityLogicalName, null, nodeItem?.MessageName);
         }
 
         private async void mIOpenSdkMessageTree_Click(object sender, RoutedEventArgs e)
@@ -2034,7 +2034,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSdkMessageTreeExplorer(_iWriteToOutput, service, _commonConfig, nodeItem?.EntityLogicalName, nodeItem?.MessageName);
+            WindowHelper.OpenSdkMessageTree(_iWriteToOutput, service, _commonConfig, nodeItem?.EntityLogicalName, nodeItem?.MessageName);
         }
 
         private void mIOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)

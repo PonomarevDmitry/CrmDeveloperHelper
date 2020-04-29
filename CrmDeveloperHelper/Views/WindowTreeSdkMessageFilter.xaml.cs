@@ -21,7 +21,7 @@ using System.Windows.Media.Imaging;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowSdkMessageTree : WindowBase
+    public partial class WindowTreeSdkMessageFilter : WindowBase
     {
         private readonly object sysObjectConnections = new object();
 
@@ -44,7 +44,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ByMessage = 1,
         }
 
-        public WindowSdkMessageTree(
+        public WindowTreeSdkMessageFilter(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -908,7 +908,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSdkMessageRequestTreeExplorer(_iWriteToOutput, service, _commonConfig, entityFilter, messageFilter);
+            WindowHelper.OpenSdkMessageRequestTree(_iWriteToOutput, service, _commonConfig, entityFilter, messageFilter);
         }
 
         private async void mIOpenPluginTree_Click(object sender, RoutedEventArgs e)
@@ -920,7 +920,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenPluginTreeExplorer(_iWriteToOutput, service, _commonConfig, entityFilter, null, messageFilter);
+            WindowHelper.OpenPluginTree(_iWriteToOutput, service, _commonConfig, entityFilter, null, messageFilter);
         }
 
         private void mICreateDescription_Click(object sender, RoutedEventArgs e)

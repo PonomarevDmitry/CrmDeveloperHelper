@@ -3188,7 +3188,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            WindowHelper.OpenPluginTreeExplorer(this._iWriteToOutput, service, _commonConfig, string.Empty, string.Empty, string.Empty);
+            WindowHelper.OpenPluginTree(this._iWriteToOutput, service, _commonConfig, string.Empty, string.Empty, string.Empty);
         }
 
         private async void btnMessageTree_Click(object sender, RoutedEventArgs e)
@@ -3197,7 +3197,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            WindowHelper.OpenSdkMessageTreeExplorer(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
+            WindowHelper.OpenSdkMessageTree(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
         }
 
         private async void btnMessageRequestTree_Click(object sender, RoutedEventArgs e)
@@ -3206,7 +3206,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            WindowHelper.OpenSdkMessageRequestTreeExplorer(this._iWriteToOutput, service, _commonConfig);
+            WindowHelper.OpenSdkMessageRequestTree(this._iWriteToOutput, service, _commonConfig);
         }
 
         private async void btnSiteMap_Click(object sender, RoutedEventArgs e)

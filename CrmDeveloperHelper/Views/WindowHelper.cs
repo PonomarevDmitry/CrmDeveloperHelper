@@ -517,7 +517,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             );
         }
 
-        public static void OpenPluginTreeExplorer(
+        public static void OpenPluginTree(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -527,7 +527,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         )
         {
             ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
-                new WindowPluginTree
+                new WindowTreePlugin
                 (
                     iWriteToOutput
                     , service
@@ -566,7 +566,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             );
         }
 
-        public static void OpenSdkMessageTreeExplorer(
+        public static void OpenSdkMessageTree(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -575,7 +575,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         )
         {
             ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
-                new WindowSdkMessageTree
+                new WindowTreeSdkMessageFilter
                 (
                     iWriteToOutput
                     , service
@@ -586,16 +586,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             );
         }
 
-        public static void OpenSdkMessageRequestTreeExplorer(
+        public static void OpenSdkMessageRequestTree(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
         )
         {
-            OpenSdkMessageRequestTreeExplorer(iWriteToOutput, service, commonConfig, null, false, null, null, null);
+            OpenSdkMessageRequestTree(iWriteToOutput, service, commonConfig, null, false, null, null, null);
         }
 
-        public static void OpenSdkMessageRequestTreeExplorer(
+        public static void OpenSdkMessageRequestTree(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -603,10 +603,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string entityFilter
         )
         {
-            OpenSdkMessageRequestTreeExplorer(iWriteToOutput, service, commonConfig, null, false, null, entityFilter, null);
+            OpenSdkMessageRequestTree(iWriteToOutput, service, commonConfig, null, false, null, entityFilter, null);
         }
 
-        public static void OpenSdkMessageRequestTreeExplorer(
+        public static void OpenSdkMessageRequestTree(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -615,10 +615,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string messageFilter
         )
         {
-            OpenSdkMessageRequestTreeExplorer(iWriteToOutput, service, commonConfig, null, false, null, entityFilter, messageFilter);
+            OpenSdkMessageRequestTree(iWriteToOutput, service, commonConfig, null, false, null, entityFilter, messageFilter);
         }
 
-        public static void OpenSdkMessageRequestTreeExplorer(
+        public static void OpenSdkMessageRequestTree(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -632,7 +632,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         )
         {
             ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
-                new WindowSdkMessageRequestTree
+                new WindowTreeSdkMessageRequest
                 (
                     iWriteToOutput
                     , service
@@ -1537,7 +1537,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 case ComponentType.SdkMessageProcessingStep:
                 case ComponentType.SdkMessageProcessingStepImage:
-                    OpenPluginTreeExplorer(iWriteToOutput, service, commonConfig);
+                    OpenPluginTree(iWriteToOutput, service, commonConfig);
                     break;
 
                 case ComponentType.SdkMessage:
@@ -1545,18 +1545,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     break;
 
                 case ComponentType.SdkMessageFilter:
-                    OpenSdkMessageTreeExplorer(iWriteToOutput, service, commonConfig, null, componentName);
+                    OpenSdkMessageTree(iWriteToOutput, service, commonConfig, null, componentName);
                     break;
 
                 case ComponentType.SdkMessagePair:
-                    OpenSdkMessageRequestTreeExplorer(iWriteToOutput, service, commonConfig, null, componentName);
+                    OpenSdkMessageRequestTree(iWriteToOutput, service, commonConfig, null, componentName);
                     break;
 
                 case ComponentType.SdkMessageRequest:
                 case ComponentType.SdkMessageRequestField:
                 case ComponentType.SdkMessageResponse:
                 case ComponentType.SdkMessageResponseField:
-                    OpenSdkMessageRequestTreeExplorer(iWriteToOutput, service, commonConfig);
+                    OpenSdkMessageRequestTree(iWriteToOutput, service, commonConfig);
                     break;
 
                 case ComponentType.RibbonCustomization:

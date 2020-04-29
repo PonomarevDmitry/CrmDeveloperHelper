@@ -1603,14 +1603,14 @@
     <Compile Include="Views\WindowSdkMessageProcessingStepImage.xaml.cs">
       <DependentUpon>WindowSdkMessageProcessingStepImage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowSdkMessageRequestTree.xaml.cs">
-      <DependentUpon>WindowSdkMessageRequestTree.xaml</DependentUpon>
+    <Compile Include="Views\WindowTreeSdkMessageRequest.xaml.cs">
+      <DependentUpon>WindowTreeSdkMessageRequest.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowSdkMessageTree.xaml.cs">
-      <DependentUpon>WindowSdkMessageTree.xaml</DependentUpon>
+    <Compile Include="Views\WindowTreeSdkMessageFilter.xaml.cs">
+      <DependentUpon>WindowTreeSdkMessageFilter.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowPluginTree.xaml.cs">
-      <DependentUpon>WindowPluginTree.xaml</DependentUpon>
+    <Compile Include="Views\WindowTreePlugin.xaml.cs">
+      <DependentUpon>WindowTreePlugin.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowReportSelect.xaml.cs">
       <DependentUpon>WindowReportSelect.xaml</DependentUpon>
@@ -2405,15 +2405,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\WindowSdkMessageRequestTree.xaml">
+    <Page Include="Views\WindowTreeSdkMessageRequest.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\WindowSdkMessageTree.xaml">
+    <Page Include="Views\WindowTreeSdkMessageFilter.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\WindowPluginTree.xaml">
+    <Page Include="Views\WindowTreePlugin.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

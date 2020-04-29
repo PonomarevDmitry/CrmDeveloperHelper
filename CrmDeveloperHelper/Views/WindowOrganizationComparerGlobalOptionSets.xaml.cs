@@ -1446,7 +1446,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService1();
 
-            WindowHelper.OpenPluginTreeExplorer(this._iWriteToOutput, service, _commonConfig, null, string.Empty, string.Empty);
+            WindowHelper.OpenPluginTree(this._iWriteToOutput, service, _commonConfig, null, string.Empty, string.Empty);
         }
 
         private async void btnMessageTree1_Click(object sender, RoutedEventArgs e)
@@ -1455,7 +1455,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService1();
 
-            WindowHelper.OpenSdkMessageTreeExplorer(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
+            WindowHelper.OpenSdkMessageTree(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
         }
 
         private async void btnMessageRequestTree1_Click(object sender, RoutedEventArgs e)
@@ -1464,7 +1464,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService1();
 
-            WindowHelper.OpenSdkMessageRequestTreeExplorer(this._iWriteToOutput, service, _commonConfig);
+            WindowHelper.OpenSdkMessageRequestTree(this._iWriteToOutput, service, _commonConfig);
         }
 
         private async void btnCreateMetadataFile2_Click(object sender, RoutedEventArgs e)
@@ -1551,7 +1551,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService2();
 
-            WindowHelper.OpenPluginTreeExplorer(this._iWriteToOutput, service, _commonConfig, null, string.Empty, string.Empty);
+            WindowHelper.OpenPluginTree(this._iWriteToOutput, service, _commonConfig, null, string.Empty, string.Empty);
         }
 
         private async void btnMessageTree2_Click(object sender, RoutedEventArgs e)
@@ -1560,7 +1560,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService2();
 
-            WindowHelper.OpenSdkMessageTreeExplorer(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
+            WindowHelper.OpenSdkMessageTree(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
         }
 
         private async void btnMessageRequestTree2_Click(object sender, RoutedEventArgs e)
@@ -1569,7 +1569,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService2();
 
-            WindowHelper.OpenSdkMessageRequestTreeExplorer(this._iWriteToOutput, service, _commonConfig);
+            WindowHelper.OpenSdkMessageRequestTree(this._iWriteToOutput, service, _commonConfig);
         }
 
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)

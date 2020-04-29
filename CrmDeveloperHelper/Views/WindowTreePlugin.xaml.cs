@@ -24,7 +24,7 @@ using System.Windows.Media.Imaging;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowPluginTree : WindowBase
+    public partial class WindowTreePlugin : WindowBase
     {
         private readonly object sysObjectConnections = new object();
 
@@ -108,7 +108,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly Dictionary<GroupingProperty, RequestGroupBuilder> _propertyGroups = new Dictionary<GroupingProperty, RequestGroupBuilder>();
 
-        public WindowPluginTree(
+        public WindowTreePlugin(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -3124,7 +3124,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSdkMessageTreeExplorer(_iWriteToOutput, service, _commonConfig, nodeItem?.EntityLogicalName, nodeItem?.MessageName);
+            WindowHelper.OpenSdkMessageTree(_iWriteToOutput, service, _commonConfig, nodeItem?.EntityLogicalName, nodeItem?.MessageName);
         }
 
         private async void mIOpenSdkMessageRequestTree_Click(object sender, RoutedEventArgs e)
@@ -3133,7 +3133,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSdkMessageRequestTreeExplorer(_iWriteToOutput, service, _commonConfig, nodeItem?.EntityLogicalName, nodeItem?.MessageName);
+            WindowHelper.OpenSdkMessageRequestTree(_iWriteToOutput, service, _commonConfig, nodeItem?.EntityLogicalName, nodeItem?.MessageName);
         }
 
         private async void mIOpenWorkflowExplorer_Click(object sender, RoutedEventArgs e)

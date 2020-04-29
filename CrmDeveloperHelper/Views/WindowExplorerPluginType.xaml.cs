@@ -926,7 +926,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenPluginTreeExplorer(
+            WindowHelper.OpenPluginTree(
                 _iWriteToOutput
                 , service
                 , _commonConfig

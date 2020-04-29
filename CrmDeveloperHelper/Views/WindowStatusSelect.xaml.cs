@@ -433,21 +433,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             _commonConfig.Save();
 
-            WindowHelper.OpenPluginTreeExplorer(this._iWriteToOutput, _service, _commonConfig, _entityName, string.Empty, string.Empty);
+            WindowHelper.OpenPluginTree(this._iWriteToOutput, _service, _commonConfig, _entityName, string.Empty, string.Empty);
         }
 
         private void btnMessageTree_Click(object sender, RoutedEventArgs e)
         {
             _commonConfig.Save();
 
-            WindowHelper.OpenSdkMessageTreeExplorer(this._iWriteToOutput, _service, _commonConfig, _entityName, string.Empty);
+            WindowHelper.OpenSdkMessageTree(this._iWriteToOutput, _service, _commonConfig, _entityName, string.Empty);
         }
 
         private void btnMessageRequestTree_Click(object sender, RoutedEventArgs e)
         {
             _commonConfig.Save();
 
-            WindowHelper.OpenSdkMessageRequestTreeExplorer(this._iWriteToOutput, _service, _commonConfig, _entityName);
+            WindowHelper.OpenSdkMessageRequestTree(this._iWriteToOutput, _service, _commonConfig, _entityName);
         }
 
         private void btnSiteMap_Click(object sender, RoutedEventArgs e)

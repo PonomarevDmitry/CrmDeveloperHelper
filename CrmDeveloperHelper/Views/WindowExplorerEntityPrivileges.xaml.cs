@@ -926,7 +926,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenPluginTreeExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, string.Empty, string.Empty);
+            WindowHelper.OpenPluginTree(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, string.Empty, string.Empty);
         }
 
         private async void btnMessageTree_Click(object sender, RoutedEventArgs e)
@@ -937,7 +937,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSdkMessageTreeExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, string.Empty);
+            WindowHelper.OpenSdkMessageTree(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, string.Empty);
         }
 
         private async void btnMessageRequestTree_Click(object sender, RoutedEventArgs e)
@@ -948,7 +948,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSdkMessageRequestTreeExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
+            WindowHelper.OpenSdkMessageRequestTree(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
         }
 
         private async void btnOrganizationComparer_Click(object sender, RoutedEventArgs e)

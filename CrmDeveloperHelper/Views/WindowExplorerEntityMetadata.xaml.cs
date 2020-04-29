@@ -681,7 +681,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenPluginTreeExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, string.Empty, string.Empty);
+            WindowHelper.OpenPluginTree(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, string.Empty, string.Empty);
         }
 
         private async void miMessageTree_Click(object sender, RoutedEventArgs e)
@@ -692,7 +692,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSdkMessageTreeExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, string.Empty);
+            WindowHelper.OpenSdkMessageTree(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, string.Empty);
         }
 
         private async void miMessageRequestTree_Click(object sender, RoutedEventArgs e)
@@ -703,7 +703,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSdkMessageRequestTreeExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
+            WindowHelper.OpenSdkMessageRequestTree(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
         }
 
         private async void miMessageRequestTreeSelectedItem_Click(object sender, RoutedEventArgs e)
@@ -719,7 +719,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSdkMessageRequestTreeExplorer(this._iWriteToOutput, service, _commonConfig, string.Empty, false, _selectedItem, entity?.LogicalName, string.Empty);
+            WindowHelper.OpenSdkMessageRequestTree(this._iWriteToOutput, service, _commonConfig, string.Empty, false, _selectedItem, entity?.LogicalName, string.Empty);
         }
 
         private async void miOrganizationComparer_Click(object sender, RoutedEventArgs e)

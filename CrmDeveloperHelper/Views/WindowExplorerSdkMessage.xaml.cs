@@ -661,7 +661,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenPluginTreeExplorer(
+            WindowHelper.OpenPluginTree(
                 _iWriteToOutput
                 , service
                 , _commonConfig
@@ -679,7 +679,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSdkMessageTreeExplorer(
+            WindowHelper.OpenSdkMessageTree(
                 _iWriteToOutput
                 , service
                 , _commonConfig
@@ -696,7 +696,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSdkMessageRequestTreeExplorer(
+            WindowHelper.OpenSdkMessageRequestTree(
                 _iWriteToOutput
                 , service
                 , _commonConfig
