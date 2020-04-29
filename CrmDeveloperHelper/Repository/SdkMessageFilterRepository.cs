@@ -241,5 +241,54 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             return _service.RetrieveMultipleAll<SdkMessageFilter>(query);
         }
+
+        public Task<List<SdkMessageFilter>> GetAllSdkMessageFiltersWithMessageAsync(string messageName, string entityName, ColumnSet columnSet)
+        {
+            return Task.Run(() => GetAllSdkMessageFiltersWithMessage(messageName, entityName, columnSet));
+        }
+
+        private List<SdkMessageFilter> GetAllSdkMessageFiltersWithMessage(string messageName, string entityName, ColumnSet columnSet)
+        {
+            var linkMessage = new LinkEntity()
+            {
+                LinkFromEntityName = SdkMessageFilter.EntityLogicalName,
+                LinkFromAttributeName = SdkMessageFilter.Schema.Attributes.sdkmessageid,
+
+                LinkToEntityName = SdkMessage.EntityLogicalName,
+                LinkToAttributeName = SdkMessage.EntityPrimaryIdAttribute,
+
+                EntityAlias = SdkMessageFilter.Schema.Attributes.sdkmessageid,
+
+                Columns = new ColumnSet(SdkMessage.EntityPrimaryIdAttribute, SdkMessage.Schema.Attributes.name, SdkMessage.Schema.Attributes.categoryname),
+            };
+
+            QueryExpression query = new QueryExpression()
+            {
+                NoLock = true,
+
+                EntityName = SdkMessageFilter.EntityLogicalName,
+
+                ColumnSet = columnSet ?? new ColumnSet(false),
+
+                LinkEntities =
+                {
+                    linkMessage,
+                },
+            };
+
+            if (!string.IsNullOrEmpty(messageName))
+            {
+                linkMessage.LinkCriteria.Conditions.Add(new ConditionExpression(SdkMessage.Schema.Attributes.name, ConditionOperator.Like, messageName + "%"));
+            }
+
+            var result = _service.RetrieveMultipleAll<SdkMessageFilter>(query);
+
+            if (!string.IsNullOrEmpty(entityName))
+            {
+                result = result.Where(ent => ent.PrimaryObjectTypeCode.IndexOf(entityName, StringComparison.InvariantCultureIgnoreCase) > -1).ToList();
+            }
+
+            return result;
+        }
     }
 }

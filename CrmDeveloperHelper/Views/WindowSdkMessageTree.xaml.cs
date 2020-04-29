@@ -1,3 +1,4 @@
+using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
@@ -231,29 +232,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingSdkMessage);
 
-            this.Dispatcher.Invoke(() =>
-            {
-                _messageTree.Clear();
-            });
-
             string entityName = string.Empty;
             string messageName = string.Empty;
 
             this.Dispatcher.Invoke(() =>
             {
+                _messageTree.Clear();
+
                 entityName = cmBEntityName.Text?.Trim();
                 messageName = txtBMessageFilter.Text.Trim();
             });
 
-            IEnumerable<SdkMessage> search = Enumerable.Empty<SdkMessage>();
+            IEnumerable<SdkMessageFilter> search = Enumerable.Empty<SdkMessageFilter>();
 
             try
             {
                 if (service != null)
                 {
-                    var repository = new SdkMessageRepository(service);
+                    var repository = new SdkMessageFilterRepository(service);
 
-                    search = await repository.GetAllSdkMessageWithFiltersAsync(messageName, entityName);
+                    search = await repository.GetAllSdkMessageFiltersWithMessageAsync(messageName, entityName
+                        , new ColumnSet
+                        (
+                            SdkMessageFilter.Schema.EntityPrimaryIdAttribute
+                            , SdkMessageFilter.Schema.Attributes.primaryobjecttypecode
+                            , SdkMessageFilter.Schema.Attributes.secondaryobjecttypecode
+                            , SdkMessageFilter.Schema.Attributes.sdkmessageid
+                        )
+                    );
                 }
             }
             catch (Exception ex)
@@ -291,15 +297,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingSdkMessageCompleted);
         }
 
-        private void FillTreeByEntity(IEnumerable<SdkMessage> result)
+        private void FillTreeByEntity(IEnumerable<SdkMessageFilter> result)
         {
-            var groupsByEnity = result.GroupBy(ent => ent.PrimaryObjectTypeCodeName).OrderBy(gr => gr.Key);
+            var groupsByEnity = result.GroupBy(ent => ent.PrimaryObjectTypeCode).OrderBy(gr => gr.Key);
 
             foreach (var grEntity in groupsByEnity)
             {
                 PluginTreeViewItem nodeEntity = CreateNodeEntity(grEntity.Key, null, grEntity);
 
-                var groupsByMessages = grEntity.GroupBy(ent => ent.Name).OrderBy(mess => mess.Key, new MessageComparer());
+                var groupsByMessages = grEntity.GroupBy(ent => ent.MessageName).OrderBy(mess => mess.Key, new MessageComparer());
 
                 foreach (var mess in groupsByMessages)
                 {
@@ -317,15 +323,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void FillTreeByMessage(IEnumerable<SdkMessage> result)
+        private void FillTreeByMessage(IEnumerable<SdkMessageFilter> result)
         {
-            var groupsByMessage = result.GroupBy(ent => ent.Name).OrderBy(mess => mess.Key, new MessageComparer());
+            var groupsByMessage = result.GroupBy(ent => ent.MessageName).OrderBy(mess => mess.Key, new MessageComparer());
 
             foreach (var grMessage in groupsByMessage)
             {
                 var nodeMessage = CreateNodeMessage(null, grMessage.Key, grMessage);
 
-                var groupsByEntity = grMessage.GroupBy(ent => ent.PrimaryObjectTypeCodeName).OrderBy(e => e.Key);
+                var groupsByEntity = grMessage.GroupBy(ent => ent.PrimaryObjectTypeCode).OrderBy(e => e.Key);
 
                 foreach (var grEntity in groupsByEntity)
                 {
@@ -347,7 +353,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             childNode.Parent = node;
         }
 
-        private PluginTreeViewItem CreateNodeMessage(string entityName, string message, IEnumerable<SdkMessage> steps)
+        private PluginTreeViewItem CreateNodeMessage(string entityName, string message, IEnumerable<SdkMessageFilter> filters)
         {
             var nodeMessage = new PluginTreeViewItem(ComponentType.SdkMessage)
             {
@@ -358,14 +364,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 MessageName = message,
             };
 
-            nodeMessage.MessageList.AddRange(steps.Where(s => s.SdkMessageId.HasValue).Select(s => s.SdkMessageId.Value).Distinct());
+            nodeMessage.MessageList.AddRange(filters.Where(s => s.SdkMessageId != null).Select(s => s.SdkMessageId.Id).Distinct());
 
-            nodeMessage.MessageFilterList.AddRange(steps.Where(s => s.SdkMessageFilterId.HasValue).Select(s => s.SdkMessageFilterId.Value).Distinct());
+            nodeMessage.MessageFilterList.AddRange(filters.Where(s => s.SdkMessageFilterId.HasValue).Select(s => s.SdkMessageFilterId.Value).Distinct());
 
             return nodeMessage;
         }
 
-        private PluginTreeViewItem CreateNodeEntity(string entityName, string messageName, IEnumerable<SdkMessage> steps)
+        private PluginTreeViewItem CreateNodeEntity(string entityName, string messageName, IEnumerable<SdkMessageFilter> filters)
         {
             var nodeMessage = new PluginTreeViewItem(ComponentType.SdkMessageFilter)
             {
@@ -376,7 +382,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 MessageName = messageName,
             };
 
-            nodeMessage.MessageFilterList.AddRange(steps.Where(s => s.SdkMessageFilterId.HasValue).Select(s => s.SdkMessageFilterId.Value).Distinct());
+            nodeMessage.MessageFilterList.AddRange(filters.Where(s => s.SdkMessageFilterId.HasValue).Select(s => s.SdkMessageFilterId.Value).Distinct());
 
             return nodeMessage;
         }

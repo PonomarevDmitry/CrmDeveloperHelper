@@ -70,7 +70,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         {
             var repository = new SdkMessageFilterRepository(_service);
 
-            var messageFilter = await repository.FindByEntityAndMessageAsync(_entityMetadata.LogicalName, SdkMessage.Instances.RetrieveMultiple, new ColumnSet(false));
+            var messageFilter = await repository.FindByEntityAndMessageAsync(_entityMetadata.LogicalName, SdkMessage.Schema.Instances.RetrieveMultiple, new ColumnSet(false));
 
             if (messageFilter != null)
             {
@@ -108,7 +108,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
             }
 
-            messageFilter = await repository.FindByEntityAndMessageAsync(_entityMetadata.LogicalName, SdkMessage.Instances.Retrieve, new ColumnSet(false));
+            messageFilter = await repository.FindByEntityAndMessageAsync(_entityMetadata.LogicalName, SdkMessage.Schema.Instances.Retrieve, new ColumnSet(false));
 
             if (messageFilter != null)
             {
@@ -137,7 +137,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 var repository = new SdkMessageFilterRepository(_service);
 
-                var messageFilter = await repository.FindByEntityAndMessageAsync(_entityMetadata.LogicalName, SdkMessage.Instances.RetrieveMultiple, new ColumnSet(false));
+                var messageFilter = await repository.FindByEntityAndMessageAsync(_entityMetadata.LogicalName, SdkMessage.Schema.Instances.RetrieveMultiple, new ColumnSet(false));
 
                 if (messageFilter == null)
                 {
@@ -180,7 +180,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 var repository = new SdkMessageFilterRepository(_service);
 
-                var messageFilter = await repository.FindByEntityAndMessageAsync(_entityMetadata.LogicalName, SdkMessage.Instances.RetrieveMultiple, new ColumnSet(false));
+                var messageFilter = await repository.FindByEntityAndMessageAsync(_entityMetadata.LogicalName, SdkMessage.Schema.Instances.RetrieveMultiple, new ColumnSet(false));
 
                 if (messageFilter == null)
                 {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Xrm.Sdk;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 {
@@ -72,6 +68,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             }
 
             #endregion OptionSets.
+
+            public static partial class EntityAliasFields
+            {
+                public const string SdkMessageName = Attributes.sdkmessageid + "." + SdkMessage.Schema.Attributes.name;
+
+                public const string SdkMessageCategoryName = Attributes.sdkmessageid + "." + SdkMessage.Schema.Attributes.categoryname;
+            }
+        }
+
+        public string MessageName
+        {
+            get
+            {
+                if (this.Attributes.ContainsKey(Schema.EntityAliasFields.SdkMessageName)
+                    && this.Attributes[Schema.EntityAliasFields.SdkMessageName] != null
+                    && this.Attributes[Schema.EntityAliasFields.SdkMessageName] is AliasedValue aliasedValue
+                    && aliasedValue.Value != null
+                    && aliasedValue.Value is string aliasedValueValue
+                )
+                {
+                    return aliasedValueValue;
+                }
+
+                return "none";
+            }
+        }
+
+        public string MessageCategoryName
+        {
+            get
+            {
+                if (this.Attributes.ContainsKey(Schema.EntityAliasFields.SdkMessageCategoryName)
+                    && this.Attributes[Schema.EntityAliasFields.SdkMessageCategoryName] != null
+                    && this.Attributes[Schema.EntityAliasFields.SdkMessageCategoryName] is AliasedValue aliasedValue
+                    && aliasedValue.Value != null
+                    && aliasedValue.Value is string aliasedValueValue
+                )
+                {
+                    return aliasedValueValue;
+                }
+
+                return "none";
+            }
         }
     }
 }

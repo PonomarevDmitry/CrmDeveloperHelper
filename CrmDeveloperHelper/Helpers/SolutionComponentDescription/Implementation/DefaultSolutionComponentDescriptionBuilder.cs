@@ -116,7 +116,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             {
                 var repository = new SdkMessageFilterRepository(_service);
 
-                var messageFilter = repository.FindByEntityAndMessage(this.EntityLogicalName, SdkMessage.Instances.RetrieveMultiple, new ColumnSet(false));
+                var messageFilter = repository.FindByEntityAndMessage(this.EntityLogicalName, SdkMessage.Schema.Instances.RetrieveMultiple, new ColumnSet(false));
 
                 if (messageFilter == null)
                 {

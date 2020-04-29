@@ -35,12 +35,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         {
             QueryExpression query = new QueryExpression()
             {
-                EntityName = SdkMessage.EntityLogicalName,
-                ColumnSet = new ColumnSet(true),
-
                 NoLock = true,
 
                 Distinct = true,
+
+                EntityName = SdkMessage.EntityLogicalName,
+
+                ColumnSet = new ColumnSet(true),
 
                 Criteria =
                 {
@@ -136,76 +137,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             };
 
             return _service.RetrieveMultipleAll<SdkMessage>(query);
-        }
-
-        public Task<List<SdkMessage>> GetAllSdkMessageWithFiltersAsync(string messageName, string entityName)
-        {
-            return Task.Run(() => GetAllSdkMessageWithFilters(messageName, entityName));
-        }
-
-        private List<SdkMessage> GetAllSdkMessageWithFilters(string messageName, string entityName)
-        {
-            QueryExpression query = new QueryExpression()
-            {
-                NoLock = true,
-
-                EntityName = SdkMessage.EntityLogicalName,
-
-                ColumnSet = new ColumnSet(SdkMessage.EntityPrimaryIdAttribute, SdkMessage.Schema.Attributes.name, SdkMessage.Schema.Attributes.categoryname),
-
-                Distinct = true,
-
-                //Criteria =
-                //{
-                //    Conditions =
-                //    {
-                //        new ConditionExpression(SdkMessage.Schema.Attributes.isprivate, ConditionOperator.Equal, false),
-                //    },
-                //},
-
-                LinkEntities =
-                {
-                    new LinkEntity()
-                    {
-                        JoinOperator = JoinOperator.LeftOuter,
-
-                        LinkFromEntityName = SdkMessage.EntityLogicalName,
-                        LinkFromAttributeName = SdkMessage.EntityPrimaryIdAttribute,
-
-                        LinkToEntityName = SdkMessageFilter.EntityLogicalName,
-                        LinkToAttributeName = SdkMessageFilter.Schema.Attributes.sdkmessageid,
-
-                        EntityAlias = SdkMessageFilter.Schema.EntityPrimaryIdAttribute,
-
-                        Columns = new ColumnSet(SdkMessageFilter.Schema.EntityPrimaryIdAttribute, SdkMessageFilter.Schema.Attributes.primaryobjecttypecode, SdkMessageFilter.Schema.Attributes.secondaryobjecttypecode),
-
-                        //LinkCriteria =
-                        //{
-                        //    Conditions =
-                        //    {
-                        //        new ConditionExpression(SdkMessageFilter.Schema.Attributes.iscustomprocessingstepallowed, ConditionOperator.Equal, true),
-                        //        new ConditionExpression(SdkMessageFilter.Schema.Attributes.isvisible, ConditionOperator.Equal, true),
-                        //    },
-                        //},
-                    },
-                },
-            };
-
-            if (!string.IsNullOrEmpty(messageName))
-            {
-                query.Criteria.Conditions.Add(new ConditionExpression(SdkMessage.Schema.Attributes.name, ConditionOperator.Like, messageName + "%"));
-            }
-
-            var result = _service.RetrieveMultipleAll<SdkMessage>(query);
-
-            SdkMessageProcessingStepRepository.FullfillEntitiesSteps(result);
-
-            if (!string.IsNullOrEmpty(entityName))
-            {
-                result = result.Where(ent => ent.PrimaryObjectTypeCodeName.IndexOf(entityName, StringComparison.InvariantCultureIgnoreCase) > -1).ToList();
-            }
-
-            return result;
         }
 
         public Task<SdkMessage> GetByIdAsync(Guid idSdkMessage, ColumnSet columnSet)
