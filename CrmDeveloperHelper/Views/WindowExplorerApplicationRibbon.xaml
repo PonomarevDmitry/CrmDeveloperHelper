@@ -75,7 +75,8 @@
                     <MenuItem Header="Workflows" Click="miWorkflows_Click" />
                     <Separator/>
                     <MenuItem Header="Plugin Tree" Click="miPluginTree_Click" />
-                    <MenuItem Header="Message Tree" Click="miMessageTree_Click"/>
+                    <MenuItem Header="Message Explorer" Click="miMessageExplorer_Click" />
+                    <MenuItem Header="Message Filter Tree" Click="miMessageFilterTree_Click"/>
                     <MenuItem Header="Message Request Tree" Click="miMessageRequestTree_Click"/>
                 </MenuItem>
             </Menu>

@@ -131,7 +131,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     .Where(ent =>
                         (selectedControl != null && ent == selectedControl)
                         || ent.AttributeMetadata.LogicalName.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
-                        || 
+                        ||
                         (
                             ent.AttributeMetadata.DisplayName != null
                             && ent.AttributeMetadata.DisplayName.LocalizedLabels != null
@@ -519,27 +519,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenApplicationRibbonExplorer(this._iWriteToOutput, _service, _commonConfig);
         }
 
-        private void btnPluginTree_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            WindowHelper.OpenPluginTree(this._iWriteToOutput, _service, _commonConfig, _entityName, string.Empty, string.Empty);
-        }
-
-        private void btnMessageTree_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            WindowHelper.OpenSdkMessageFilterTree(this._iWriteToOutput, _service, _commonConfig, _entityName, string.Empty);
-        }
-
-        private void btnMessageRequestTree_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            WindowHelper.OpenSdkMessageRequestTree(this._iWriteToOutput, _service, _commonConfig, _entityName);
-        }
-
         private void btnSiteMap_Click(object sender, RoutedEventArgs e)
         {
             _commonConfig.Save();
@@ -573,6 +552,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             WindowHelper.OpenPluginTypeExplorer(this._iWriteToOutput, _service, _commonConfig, null);
+        }
+
+        private void btnPluginTree_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            WindowHelper.OpenPluginTree(this._iWriteToOutput, _service, _commonConfig, _entityName, string.Empty, string.Empty);
+        }
+
+        private void btnMessageExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            WindowHelper.OpenSdkMessageExplorer(this._iWriteToOutput, _service, _commonConfig, string.Empty);
+        }
+
+        private void btnMessageFilterTree_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            WindowHelper.OpenSdkMessageFilterTree(this._iWriteToOutput, _service, _commonConfig, _entityName, string.Empty);
+        }
+
+        private void btnMessageRequestTree_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            WindowHelper.OpenSdkMessageRequestTree(this._iWriteToOutput, _service, _commonConfig, _entityName);
         }
 
         #endregion Кнопки открытия других форм с информация о сущности.

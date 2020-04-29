@@ -525,7 +525,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenPluginTree(this._iWriteToOutput, _service, _commonConfig, _entityMetadata.LogicalName, string.Empty, string.Empty);
         }
 
-        private void btnMessageTree_Click(object sender, RoutedEventArgs e)
+        private void btnMessageExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            WindowHelper.OpenSdkMessageExplorer(this._iWriteToOutput, _service, _commonConfig, string.Empty);
+        }
+
+        private void btnMessageFilterTree_Click(object sender, RoutedEventArgs e)
         {
             _commonConfig.Save();
 

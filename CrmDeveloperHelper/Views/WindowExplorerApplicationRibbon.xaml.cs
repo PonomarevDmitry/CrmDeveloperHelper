@@ -286,7 +286,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenPluginTree(this._iWriteToOutput, service, _commonConfig, string.Empty, string.Empty, string.Empty);
         }
 
-        private async void miMessageTree_Click(object sender, RoutedEventArgs e)
+        private async void miMessageExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenSdkMessageExplorer(this._iWriteToOutput, service, _commonConfig, string.Empty);
+        }
+
+        private async void miMessageFilterTree_Click(object sender, RoutedEventArgs e)
         {
             _commonConfig.Save();
 

@@ -52,6 +52,11 @@
                     <Separator/>
                     <MenuItem Header="Pluing Type" Click="btnPluginType_Click"/>
                     <MenuItem Header="Pluing Assembly" Click="btnPluginAssembly_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Pluing Tree" Click="btnPluginType_Click"/>
+                    <MenuItem Header="Message Explorer" Click="btnMessageExplorer_Click"/>
+                    <MenuItem Header="Message Filter Tree" Click="btnMessageFilterTree_Click"/>
+                    <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree_Click"/>
                 </MenuItem>
             </Menu>
 
