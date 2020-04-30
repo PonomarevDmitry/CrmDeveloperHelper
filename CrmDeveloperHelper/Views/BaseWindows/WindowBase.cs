@@ -22,7 +22,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private int _initCounter = 0;
 
-        public WindowBase()
+        protected WindowBase()
         {
             var winConfig = this.GetWindowsSettings();
 

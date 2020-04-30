@@ -1401,13 +1401,16 @@
     <Compile Include="UserControls\FileGenerationSdkMessageRequestsOptionsControl.xaml.cs">
       <DependentUpon>FileGenerationSdkMessageRequestsOptionsControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\BaseWindows\ExplorersHelper.cs" />
+    <Compile Include="Views\BaseWindows\WindowWithConnectionList.cs" />
+    <Compile Include="Views\BaseWindows\WindowWithOutputAndCommonConfig.cs" />
     <Compile Include="Views\WindowAttributeMultiSelect.xaml.cs">
       <DependentUpon>WindowAttributeMultiSelect.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowAttributeSelect.xaml.cs">
       <DependentUpon>WindowAttributeSelect.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowBase.cs" />
+    <Compile Include="Views\BaseWindows\WindowBase.cs" />
     <Compile Include="Views\WindowCommonConfiguration.xaml.cs">
       <DependentUpon>WindowCommonConfiguration.xaml</DependentUpon>
     </Compile>
@@ -1417,7 +1420,7 @@
     <Compile Include="Views\WindowCrmConnectionCard.xaml.cs">
       <DependentUpon>WindowCrmConnectionCard.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowCrmConnectionHandler.cs" />
+    <Compile Include="Views\BaseWindows\WindowCrmConnectionHandler.cs" />
     <Compile Include="Views\WindowCrmConnectionList.xaml.cs">
       <DependentUpon>WindowCrmConnectionList.xaml</DependentUpon>
     </Compile>
@@ -1533,7 +1536,7 @@
     <Compile Include="Views\WindowFileGenerationConfiguration.xaml.cs">
       <DependentUpon>WindowFileGenerationConfiguration.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowHelper.cs" />
+    <Compile Include="Views\BaseWindows\WindowHelper.cs" />
     <Compile Include="Views\WindowOrganizationComparer.xaml.cs">
       <DependentUpon>WindowOrganizationComparer.xaml</DependentUpon>
     </Compile>

@@ -35,7 +35,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , ConnectionData connection1
             , ConnectionData connection2
-            )
+        )
         {
             this.IncreaseInit();
 

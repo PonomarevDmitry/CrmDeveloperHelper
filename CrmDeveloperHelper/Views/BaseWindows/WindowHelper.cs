@@ -365,8 +365,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 new WindowExplorerApplicationRibbon
                 (
                     iWriteToOutput
-                    , service
                     , commonConfig
+                    , service
                 )
             );
         }
