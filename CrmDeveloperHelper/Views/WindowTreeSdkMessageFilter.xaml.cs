@@ -160,7 +160,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ShowExistingMessages();
         }
 
-        protected override ConnectionData GetCurrentConnection()
+        private ConnectionData GetSelectedConnection()
         {
             ConnectionData connectionData = null;
 
@@ -170,6 +170,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
 
             return connectionData;
+        }
+
+        private Task<IOrganizationServiceExtented> GetService()
+        {
+            return GetOrganizationService(GetSelectedConnection());
         }
 
         private async Task ShowExistingMessages()
@@ -699,7 +704,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ConnectionData connectionData = GetCurrentConnection();
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData != null)
             {
@@ -718,7 +723,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)
         {
-            SetCurrentConnection(_iWriteToOutput, GetCurrentConnection());
+            SetCurrentConnection(_iWriteToOutput, GetSelectedConnection());
         }
 
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)
@@ -739,7 +744,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             bool showDependentComponents = nodeItem.GetId().HasValue && nodeItem.ComponentType.HasValue;
 
-            ConnectionData connectionData = GetCurrentConnection();
+            ConnectionData connectionData = GetSelectedConnection();
 
             ActivateControls(items, CanCreateDescription(nodeItem), "contMnCreateDescription");
             SetControlsName(items, GetCreateDescriptionName(nodeItem), "contMnCreateDescription");
@@ -892,7 +897,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = GetCurrentConnection();
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData == null)
             {
@@ -928,7 +933,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = GetCurrentConnection();
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData == null)
             {
@@ -955,7 +960,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            ConnectionData connectionData = GetCurrentConnection();
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData != null)
             {
@@ -984,7 +989,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = GetCurrentConnection();
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData != null)
             {
@@ -1003,7 +1008,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = GetCurrentConnection();
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData != null)
             {
@@ -1022,7 +1027,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = GetCurrentConnection();
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData != null)
             {
@@ -1090,7 +1095,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = GetCurrentConnection();
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData == null)
             {
@@ -1134,7 +1139,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = GetCurrentConnection();
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData == null)
             {
@@ -1167,7 +1172,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = GetCurrentConnection();
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData == null)
             {
@@ -1252,7 +1257,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = GetCurrentConnection();
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData == null)
             {

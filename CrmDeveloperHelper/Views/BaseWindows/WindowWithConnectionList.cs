@@ -40,10 +40,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             BindingOperations.EnableCollectionSynchronization(connectionData.ConnectionConfiguration.Connections, sysObjectConnections);
         }
 
-        protected async Task<IOrganizationServiceExtented> GetService()
+        protected async Task<IOrganizationServiceExtented> GetOrganizationService(ConnectionData connectionData)
         {
-            ConnectionData connectionData = GetCurrentConnection();
-
             if (connectionData == null)
             {
                 return null;
@@ -78,8 +76,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             return null;
         }
-
-        protected abstract ConnectionData GetCurrentConnection();
 
         protected abstract void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args);
     }

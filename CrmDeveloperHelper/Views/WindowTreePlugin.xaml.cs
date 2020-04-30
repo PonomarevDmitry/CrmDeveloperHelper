@@ -307,7 +307,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ShowExistingPlugins();
         }
 
-        protected override ConnectionData GetCurrentConnection()
+        private ConnectionData GetSelectedConnection()
         {
             ConnectionData connectionData = null;
 
@@ -317,6 +317,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
 
             return connectionData;
+        }
+
+        private Task<IOrganizationServiceExtented> GetService()
+        {
+            return GetOrganizationService(GetSelectedConnection());
         }
 
         private enum GroupingProperty

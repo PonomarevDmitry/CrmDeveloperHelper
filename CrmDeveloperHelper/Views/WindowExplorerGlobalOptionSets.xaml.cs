@@ -196,7 +196,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             FileGenerationConfiguration.SaveConfiguration();
 
-            GetCurrentConnection()?.Save();
+            GetSelectedConnection()?.Save();
 
             BindingOperations.ClearAllBindings(cmBCurrentConnection);
 
@@ -263,16 +263,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        protected override ConnectionData GetCurrentConnection()
+        private ConnectionData GetSelectedConnection()
         {
             ConnectionData connectionData = null;
 
-            this.Dispatcher.Invoke(() =>
+            cmBCurrentConnection.Dispatcher.Invoke(() =>
             {
                 connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
             });
 
             return connectionData;
+        }
+
+        private Task<IOrganizationServiceExtented> GetService()
+        {
+            return GetOrganizationService(GetSelectedConnection());
         }
 
         private SolutionComponentMetadataSource GetMetadataSource(IOrganizationServiceExtented serivce)
@@ -460,7 +465,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnCreateCSharpFile_Click(object sender, RoutedEventArgs e)
         {
-            var connectionData = GetCurrentConnection();
+            var connectionData = GetSelectedConnection();
 
             if (connectionData != null && _cacheOptionSetMetadata.ContainsKey(connectionData.ConnectionId))
             {
@@ -569,7 +574,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnCreateJavaScriptFileJsonObject_Click(object sender, RoutedEventArgs e)
         {
-            var connectionData = GetCurrentConnection();
+            var connectionData = GetSelectedConnection();
 
             if (connectionData != null
                 && _cacheOptionSetMetadata.ContainsKey(connectionData.ConnectionId)
@@ -692,7 +697,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (item != null)
                 {
-                    ConnectionData connectionData = GetCurrentConnection();
+                    ConnectionData connectionData = GetSelectedConnection();
 
                     if (connectionData != null)
                     {
@@ -819,7 +824,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = GetCurrentConnection();
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData != null)
             {
@@ -836,7 +841,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = GetCurrentConnection();
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData != null)
             {
@@ -891,7 +896,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var items = contextMenu.Items.OfType<Control>();
 
-                ConnectionData connectionData = GetCurrentConnection();
+                ConnectionData connectionData = GetSelectedConnection();
 
                 FillLastSolutionItems(connectionData, items, true, AddToCrmSolutionLast_Click, "contMnAddToSolutionLast");
             }
@@ -961,7 +966,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = GetCurrentConnection();
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData != null)
             {
@@ -992,7 +997,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)
         {
-            SetCurrentConnection(_iWriteToOutput, GetCurrentConnection());
+            SetCurrentConnection(_iWriteToOutput, GetSelectedConnection());
         }
 
         private void hyperlinkCSharp_Click(object sender, RoutedEventArgs e)

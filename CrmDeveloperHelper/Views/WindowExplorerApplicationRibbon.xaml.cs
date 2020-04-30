@@ -96,7 +96,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return true;
         }
 
-        protected override ConnectionData GetCurrentConnection()
+        private ConnectionData GetSelectedConnection()
         {
             ConnectionData connectionData = null;
 
@@ -106,6 +106,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
 
             return connectionData;
+        }
+
+        private Task<IOrganizationServiceExtented> GetService()
+        {
+            return GetOrganizationService(GetSelectedConnection());
         }
 
         private void UpdateStatus(ConnectionData connectionData, string format, params object[] args)
@@ -470,7 +475,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void miApplicationRibbon_SubmenuOpened(object sender, RoutedEventArgs e)
         {
-            ConnectionData connectionData = GetCurrentConnection();
+            ConnectionData connectionData = GetSelectedConnection();
 
             FillLastSolutionItems(connectionData, new[] { miAddApplicationTotSolutionLast }, true, AddApplicationRibbonToCrmSolutionLast_Click, "miAddApplicationTotSolutionLast");
         }
@@ -592,7 +597,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)
         {
-            SetCurrentConnection(_iWriteToOutput, GetCurrentConnection());
+            SetCurrentConnection(_iWriteToOutput, GetSelectedConnection());
         }
     }
 }

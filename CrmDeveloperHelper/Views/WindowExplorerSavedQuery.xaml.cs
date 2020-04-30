@@ -159,7 +159,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             base.OnClosed(e);
         }
 
-        protected override ConnectionData GetCurrentConnection()
+        private ConnectionData GetSelectedConnection()
         {
             ConnectionData connectionData = null;
 
@@ -169,6 +169,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
 
             return connectionData;
+        }
+
+        private Task<IOrganizationServiceExtented> GetService()
+        {
+            return GetOrganizationService(GetSelectedConnection());
         }
 
         private async Task ShowExistingSavedQueries()
@@ -433,7 +438,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private string CreateFile(string folder, Guid savedQueryId, string entityName, string name, string fieldTitle, string extension, string xmlContent)
         {
-            ConnectionData connectionData = GetCurrentConnection();
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData == null)
             {
@@ -1038,7 +1043,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = GetCurrentConnection();
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData != null)
             {
@@ -1074,7 +1079,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = GetCurrentConnection();
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData != null)
             {
@@ -1093,7 +1098,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = GetCurrentConnection();
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData != null)
             {
@@ -1112,7 +1117,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = GetCurrentConnection();
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData != null)
             {
@@ -1220,7 +1225,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = GetCurrentConnection();
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData != null)
             {
@@ -1255,7 +1260,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var items = contextMenu.Items.OfType<Control>();
 
-            ConnectionData connectionData = GetCurrentConnection();
+            ConnectionData connectionData = GetSelectedConnection();
 
             FillLastSolutionItems(connectionData, items, true, AddToCrmSolutionLast_Click, "contMnAddToSolutionLast");
 
@@ -1355,7 +1360,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var connectionData = GetCurrentConnection();
+            var connectionData = GetSelectedConnection();
 
             if (connectionData != null)
             {
@@ -1487,7 +1492,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)
         {
-            SetCurrentConnection(_iWriteToOutput, GetCurrentConnection());
+            SetCurrentConnection(_iWriteToOutput, GetSelectedConnection());
         }
 
         private void hyperlinkFetchXml_Click(object sender, RoutedEventArgs e)
