@@ -1,11 +1,16 @@
-﻿<src:WindowBase x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowExplorerSiteMap"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
-        xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
-        xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
-        Title="SiteMap Explorer" Height="538.662" Width="717" WindowStartupLocation="Manual">
-    <src:WindowBase.Resources>
+﻿<src:WindowWithConnectionList
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
+    xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
+    xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
+    x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowExplorerSiteMap"
+    Title="SiteMap Explorer"
+    Height="540"
+    Width="717"
+    WindowStartupLocation="Manual"
+    >
+    <src:WindowWithConnectionList.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="StyleWindows.xaml"/>
@@ -55,7 +60,7 @@
             </ContextMenu>
 
         </ResourceDictionary>
-    </src:WindowBase.Resources>
+    </src:WindowWithConnectionList.Resources>
     <Grid>
 
         <Grid.RowDefinitions>
@@ -196,4 +201,4 @@
             <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>
     </Grid>
-</src:WindowBase>
+</src:WindowWithConnectionList>

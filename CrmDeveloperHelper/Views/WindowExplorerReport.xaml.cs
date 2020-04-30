@@ -21,35 +21,20 @@ using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowExplorerReport : WindowBase
+    public partial class WindowExplorerReport : WindowWithConnectionList
     {
-        private readonly object sysObjectConnections = new object();
-
-        private readonly IWriteToOutput _iWriteToOutput;
-
-        private readonly CommonConfiguration _commonConfig;
-
         private readonly ObservableCollection<EntityViewItem> _itemsSource;
-
-        private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
 
         public WindowExplorerReport(
              IWriteToOutput iWriteToOutput
-            , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
+            , IOrganizationServiceExtented service
             , string selection
-            )
+        ) : base(iWriteToOutput, commonConfig, service)
         {
             this.IncreaseInit();
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
-
-            this._iWriteToOutput = iWriteToOutput;
-            this._commonConfig = commonConfig;
-
-            _connectionCache[service.ConnectionData.ConnectionId] = service;
-
-            BindingOperations.EnableCollectionSynchronization(service.ConnectionData.ConnectionConfiguration.Connections, sysObjectConnections);
 
             InitializeComponent();
 
@@ -101,7 +86,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             base.OnClosed(e);
         }
 
-        private async Task<IOrganizationServiceExtented> GetService()
+        private ConnectionData GetSelectedConnection()
         {
             ConnectionData connectionData = null;
 
@@ -110,39 +95,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
             });
 
-            if (connectionData == null)
-            {
-                return null;
-            }
+            return connectionData;
+        }
 
-            if (_connectionCache.ContainsKey(connectionData.ConnectionId))
-            {
-                return _connectionCache[connectionData.ConnectionId];
-            }
-
-            ToggleControls(connectionData, false, string.Empty);
-
-            try
-            {
-                var service = await QuickConnection.ConnectAndWriteToOutputAsync(_iWriteToOutput, connectionData);
-
-                if (service != null)
-                {
-                    _connectionCache[connectionData.ConnectionId] = service;
-                }
-
-                return service;
-            }
-            catch (Exception ex)
-            {
-                _iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                ToggleControls(connectionData, true, string.Empty);
-            }
-
-            return null;
+        private Task<IOrganizationServiceExtented> GetService()
+        {
+            return GetOrganizationService(GetSelectedConnection());
         }
 
         private async Task ShowExistingReports()
@@ -173,7 +131,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     var repository = new ReportRepository(service);
                     list = await repository.GetListAsync(textName,
-                        new ColumnSet(
+                        new ColumnSet
+                        (
                             Report.Schema.Attributes.name
                             , Report.Schema.Attributes.ispersonal
                             , Report.Schema.Attributes.ownerid
@@ -181,7 +140,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             , Report.Schema.Attributes.filename
                             , Report.Schema.Attributes.iscustomizable
                             , Report.Schema.Attributes.description
-                        ));
+                        )
+                    );
                 }
             }
             catch (Exception ex)
@@ -259,7 +219,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
+        protected override void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
         {
             this.ChangeInitByEnabled(enabled);
 

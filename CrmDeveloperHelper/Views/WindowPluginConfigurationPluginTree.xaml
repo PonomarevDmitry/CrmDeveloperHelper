@@ -1,11 +1,16 @@
-﻿<src:WindowBase x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowPluginConfigurationPluginTree"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
-        xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
-        xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
-        Title="Plugin Configuration Plugin Tree" Height="538.662" Width="717" WindowStartupLocation="Manual">
-    <src:WindowBase.Resources>
+﻿<src:WindowWithConnectionList
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
+    xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
+    xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
+    x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowPluginConfigurationPluginTree"
+    Title="Plugin Configuration Plugin Tree"
+    Height="540"
+    Width="717"
+    WindowStartupLocation="Manual"
+    >
+    <src:WindowWithConnectionList.Resources>
         <BitmapImage x:Key="ImagePluginAssembly" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/assembly.gif" />
         <BitmapImage x:Key="ImageEntity" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Entity.png" />
         <BitmapImage x:Key="ImageImage" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/image.gif" />
@@ -14,7 +19,7 @@
         <BitmapImage x:Key="ImageStage" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Stage.gif" />
         <BitmapImage x:Key="ImageStep" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/step.gif" />
         <BitmapImage x:Key="ImageStepDisabled" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/stepdisabled.gif" />
-    </src:WindowBase.Resources>
+    </src:WindowWithConnectionList.Resources>
     <Grid>
         <Label Content="Loaded File" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtBFilePath" VerticalContentAlignment="Center" Height="23" Margin="10,26,10,0"   VerticalAlignment="Top" IsReadOnlyCaretVisible="True" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
@@ -151,4 +156,4 @@
         </StatusBar>
 
     </Grid>
-</src:WindowBase>
+</src:WindowWithConnectionList>

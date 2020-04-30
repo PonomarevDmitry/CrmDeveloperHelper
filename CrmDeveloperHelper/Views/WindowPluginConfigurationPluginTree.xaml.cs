@@ -18,19 +18,11 @@ using System.Windows.Media.Imaging;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowPluginConfigurationPluginTree : WindowBase
+    public partial class WindowPluginConfigurationPluginTree : WindowWithConnectionList
     {
-        private readonly object sysObjectConnections = new object();
-
-        private readonly IWriteToOutput _iWriteToOutput = null;
-
         private View _currentView = View.ByEntity;
 
         private PluginDescription _pluginDescription = null;
-
-        private readonly CommonConfiguration _commonConfig;
-
-        private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
 
         private enum View
         {
@@ -50,17 +42,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         public WindowPluginConfigurationPluginTree(
             IWriteToOutput iWriteToOutput
-            , ConnectionData connectionData
             , CommonConfiguration commonConfig
+            , ConnectionData connectionData
             , string filePath
-            )
+        ) : base(iWriteToOutput, commonConfig, connectionData)
         {
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
-
-            this._iWriteToOutput = iWriteToOutput;
-            this._commonConfig = commonConfig;
-
-            BindingOperations.EnableCollectionSynchronization(connectionData.ConnectionConfiguration.Connections, sysObjectConnections);
 
             InitializeComponent();
 
@@ -91,7 +78,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         protected override void OnClosed(EventArgs e)
         {
-            _commonConfig.Save();
+            base.OnClosed(e);
 
             BindingOperations.ClearAllBindings(cmBCurrentConnection);
 
@@ -99,8 +86,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             cmBCurrentConnection.DataContext = null;
             cmBCurrentConnection.ItemsSource = null;
-
-            base.OnClosed(e);
         }
 
         private const string paramEntityName = "EntityName";
@@ -300,7 +285,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return result;
         }
 
-        private async Task<IOrganizationServiceExtented> GetService()
+        private ConnectionData GetSelectedConnection()
         {
             ConnectionData connectionData = null;
 
@@ -309,39 +294,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
             });
 
-            if (connectionData == null)
-            {
-                return null;
-            }
+            return connectionData;
+        }
 
-            if (_connectionCache.ContainsKey(connectionData.ConnectionId))
-            {
-                return _connectionCache[connectionData.ConnectionId];
-            }
-
-            ToggleControls(connectionData, false, string.Empty);
-
-            try
-            {
-                var service = await QuickConnection.ConnectAndWriteToOutputAsync(_iWriteToOutput, connectionData);
-
-                if (service != null)
-                {
-                    _connectionCache[connectionData.ConnectionId] = service;
-                }
-
-                return service;
-            }
-            catch (Exception ex)
-            {
-                _iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                ToggleControls(connectionData, true, string.Empty);
-            }
-
-            return null;
+        private Task<IOrganizationServiceExtented> GetService()
+        {
+            return GetOrganizationService(GetSelectedConnection());
         }
 
         public class StepFullInfo
@@ -1023,7 +981,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
+        protected override void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
         {
             this.ChangeInitByEnabled(enabled);
 
@@ -1055,12 +1013,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
 
                     {
-                        ConnectionData connectionData = null;
-
-                        cmBCurrentConnection.Dispatcher.Invoke(() =>
-                        {
-                            connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-                        });
+                        ConnectionData connectionData = GetSelectedConnection();
 
                         bool enabled = this.IsControlsEnabled
                                             && connectionData != null
@@ -1305,12 +1258,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             string message = string.Empty;
 
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (step.PluginStep != null)
             {
@@ -1338,12 +1286,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData.IsReadOnly)
             {
@@ -1392,7 +1335,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)
         {
-            SetCurrentConnection(_iWriteToOutput, cmBCurrentConnection.SelectedItem as ConnectionData);
+            SetCurrentConnection(_iWriteToOutput, GetSelectedConnection());
         }
     }
 }

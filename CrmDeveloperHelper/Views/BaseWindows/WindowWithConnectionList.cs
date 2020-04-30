@@ -17,7 +17,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         public WindowWithConnectionList()
             : base(null, null)
         {
-
         }
 
         protected WindowWithConnectionList(

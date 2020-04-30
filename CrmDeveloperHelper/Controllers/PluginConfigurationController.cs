@@ -58,8 +58,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     var form = new WindowPluginConfigurationPluginTree(
                         this._iWriteToOutput
-                        , connectionData
                         , commonConfig
+                        , connectionData
                         , filePath
                         );
 

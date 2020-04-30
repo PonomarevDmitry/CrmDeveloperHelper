@@ -511,8 +511,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 new WindowTraceReader
                 (
                     iWriteToOutput
-                    , service
                     , commonConfig
+                    , service
                 )
             );
         }
@@ -559,8 +559,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 new WindowExplorerSdkMessage
                 (
                     iWriteToOutput
-                    , service
                     , commonConfig
+                    , service
                     , messageFilter
                 )
             );
@@ -766,8 +766,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 new WindowExplorerSolution
                 (
                     iWriteToOutput
-                    , service
                     , commonConfig
+                    , service
                     , componentType
                     , objectId
                     , selectedItem
@@ -786,8 +786,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 new WindowExplorerImportJob
                 (
                     iWriteToOutput
-                    , service
                     , commonConfig
+                    , service
                     , selection
                 )
             );
@@ -950,8 +950,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 new WindowExplorerReport
                 (
                     iWriteToOutput
-                    , service
                     , commonConfig
+                    , service
                     , selection
                 )
             );
@@ -977,8 +977,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 new WindowExplorerSiteMap
                 (
                     iWriteToOutput
-                    , service
                     , commonConfig
+                    , service
                     , filter
                 )
             );
@@ -1004,8 +1004,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 new WindowExplorerWebResource
                 (
                     iWriteToOutput
-                    , service
                     , commonConfig
+                    , service
                     , selection
                 )
             );
@@ -1022,8 +1022,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 new WindowExplorerPluginType
                 (
                     iWriteToOutput
-                    , service
                     , commonConfig
+                    , service
                     , selection
                 )
             );
@@ -1040,8 +1040,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 new WindowExplorerPluginAssembly
                 (
                     iWriteToOutput
-                    , service
                     , commonConfig
+                    , service
                     , selection
                 )
             );

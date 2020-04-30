@@ -1,22 +1,27 @@
-﻿<src:WindowBase x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowSolutionDifferenceImage"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
-        xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
-        xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
-        xmlns:entities="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Entities"
-        Title="SolutionDifferenceImage Components" Height="538.662" Width="895.667" WindowStartupLocation="Manual">
-    <src:WindowBase.Resources>
+﻿<src:WindowWithConnectionList
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
+    xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
+    xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
+    xmlns:entities="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Entities"
+    x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowSolutionDifferenceImage"
+    Title="SolutionDifferenceImage Components"
+    Height="540"
+    Width="900"
+    WindowStartupLocation="Manual"
+    >
+    <src:WindowWithConnectionList.Resources>
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
             <MenuItem Header="Open Component in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click" />
-            
+
             <Separator/>
             <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" VerticalAlignment="Center" />
             <MenuItem Header="Add to Crm Solution" VerticalAlignment="Center" Click="AddToSolution_Click" />
-            
+
             <Separator/>
             <MenuItem Header="Open Solutions Containing Component in Explorer" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
-            
+
             <Separator/>
             <MenuItem Header="Dependent Components">
                 <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
@@ -24,7 +29,7 @@
                 <MenuItem Header="Open Dependent Components in Explorer" VerticalAlignment="Center" Click="mIOpenDependentComponentsInExplorer_Click" />
             </MenuItem>
         </ContextMenu>
-    </src:WindowBase.Resources>
+    </src:WindowWithConnectionList.Resources>
     <Grid>
         <Label Content="Loaded File" HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtBFilePath" Height="23" Margin="85,10,10,0"   VerticalAlignment="Top" IsReadOnlyCaretVisible="True" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
@@ -34,7 +39,7 @@
 
         <Label Content="Filter" HorizontalAlignment="Left" Margin="10,63,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtBFilter" Height="23" Margin="85,66,381,0"   VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown"  VerticalContentAlignment="Center" />
-        
+
         <Label Content="Location" HorizontalAlignment="Right" Margin="0,38,280,0" VerticalAlignment="Top" Padding="2" Height="23" VerticalContentAlignment="Stretch" Width="96"/>
         <ComboBox x:Name="cmBComponentLocation" SelectedIndex="0" Height="23" Margin="0,38,10,0" VerticalAlignment="Top" IsEditable="False" HorizontalAlignment="Right" SelectionChanged="cmBComponentType_SelectionChanged" Width="265">
             <ComboBoxItem Content="Common components" HorizontalAlignment="Stretch" />
@@ -95,4 +100,4 @@
             <StatusBarItem x:Name="stBIStatus"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
         </StatusBar>
     </Grid>
-</src:WindowBase>
+</src:WindowWithConnectionList>

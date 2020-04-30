@@ -18,21 +18,13 @@ using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowTraceReader : WindowBase
+    public partial class WindowTraceReader : WindowWithConnectionList
     {
-        private readonly object sysObjectConnections = new object();
-
         private readonly object sysObjectTraceList = new object();
-
-        private readonly IWriteToOutput _iWriteToOutput;
-
-        private readonly CommonConfiguration _commonConfig;
 
         private readonly ObservableCollection<TraceRecord> _itemsSource;
 
         private List<TraceRecord> _loadedRecords;
-
-        private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
 
         private readonly Dictionary<Guid, Dictionary<Guid, SystemUser>> _systemUserCache = new Dictionary<Guid, Dictionary<Guid, SystemUser>>();
 
@@ -40,20 +32,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         public WindowTraceReader(
             IWriteToOutput iWriteToOutput
-            , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
-        )
+            , IOrganizationServiceExtented service
+        ) : base(iWriteToOutput, commonConfig, service)
         {
             this.IncreaseInit();
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
-
-            this._iWriteToOutput = iWriteToOutput;
-            this._commonConfig = commonConfig;
-
-            _connectionCache[service.ConnectionData.ConnectionId] = service;
-
-            BindingOperations.EnableCollectionSynchronization(service.ConnectionData.ConnectionConfiguration.Connections, sysObjectConnections);
 
             BindCollections(service.ConnectionData);
 
@@ -93,7 +78,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         protected override void OnClosed(EventArgs e)
         {
-            _commonConfig.Save();
+            base.OnClosed(e);
 
             (cmBCurrentConnection.SelectedItem as ConnectionData)?.Save();
 
@@ -115,11 +100,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBCurrentConnection.ItemsSource = null;
             cmBFolder.ItemsSource = null;
             lstVwFolders.ItemsSource = null;
-
-            base.OnClosed(e);
         }
 
-        private async Task<IOrganizationServiceExtented> GetService()
+        private ConnectionData GetSelectedConnection()
         {
             ConnectionData connectionData = null;
 
@@ -128,39 +111,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
             });
 
-            if (connectionData == null)
-            {
-                return null;
-            }
+            return connectionData;
+        }
 
-            if (_connectionCache.ContainsKey(connectionData.ConnectionId))
-            {
-                return _connectionCache[connectionData.ConnectionId];
-            }
-
-            ToggleControls(connectionData, false, string.Empty);
-
-            try
-            {
-                var service = await QuickConnection.ConnectAndWriteToOutputAsync(_iWriteToOutput, connectionData);
-
-                if (service != null)
-                {
-                    _connectionCache[connectionData.ConnectionId] = service;
-                }
-
-                return service;
-            }
-            catch (Exception ex)
-            {
-                _iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                ToggleControls(connectionData, true, string.Empty);
-            }
-
-            return null;
+        private Task<IOrganizationServiceExtented> GetService()
+        {
+            return GetOrganizationService(GetSelectedConnection());
         }
 
         private async Task LoadTraceRecordsAsync(IEnumerable<string> files)
@@ -211,12 +167,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._itemsSource.Clear();
 
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+            ConnectionData connectionData = GetSelectedConnection();
 
             ToggleControls(connectionData, false, Properties.OutputStrings.FilteringTraceFiles);
 
@@ -389,7 +340,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
+        protected override void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
         {
             this.ChangeInitByEnabled(enabled);
 
@@ -410,7 +361,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
                 catch (Exception ex)
                 {
-                    this._iWriteToOutput.WriteErrorToOutput(cmBCurrentConnection.SelectedItem as ConnectionData, ex);
+                    this._iWriteToOutput.WriteErrorToOutput(GetSelectedConnection(), ex);
                 }
             });
         }
@@ -460,12 +411,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 removed.Save();
             }
 
-            ConnectionData connectionData = null;
+            ConnectionData connectionData = GetSelectedConnection();
 
             cmBCurrentConnection.Dispatcher.Invoke(() =>
             {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-
                 BindCollections(connectionData);
             });
 
@@ -571,7 +520,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
                 catch (Exception ex)
                 {
-                    DTEHelper.WriteExceptionToOutput(cmBCurrentConnection.SelectedItem as ConnectionData, ex);
+                    DTEHelper.WriteExceptionToOutput(GetSelectedConnection(), ex);
                 }
             });
 
@@ -676,11 +625,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            if (cmBCurrentConnection.SelectedItem is ConnectionData connectionData)
+            ConnectionData connectionData = GetSelectedConnection();
+
+            if (connectionData != null)
             {
                 if (lstVwFolders.ItemsSource != null
                     && lstVwFolders.ItemsSource is ObservableCollection<string> coll
-                    )
+                )
                 {
                     coll.Add(folder);
                 }
@@ -749,7 +700,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)
         {
-            SetCurrentConnection(_iWriteToOutput, cmBCurrentConnection.SelectedItem as ConnectionData);
+            SetCurrentConnection(_iWriteToOutput, GetSelectedConnection());
         }
     }
 }
