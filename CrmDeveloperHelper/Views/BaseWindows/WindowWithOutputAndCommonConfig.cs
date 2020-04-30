@@ -12,8 +12,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         public WindowWithOutputAndCommonConfig(IWriteToOutput iWriteToOutput, CommonConfiguration commonConfig)
         {
-            this._iWriteToOutput = iWriteToOutput;
-            this._commonConfig = commonConfig;
+            this._iWriteToOutput = iWriteToOutput ?? throw new ArgumentNullException(nameof(iWriteToOutput));
+            this._commonConfig = commonConfig ?? throw new ArgumentNullException(nameof(commonConfig));
         }
 
         protected override void OnClosed(EventArgs e)

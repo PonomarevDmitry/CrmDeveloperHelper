@@ -24,14 +24,8 @@ using System.Windows.Media.Imaging;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowTreePlugin : WindowBase
+    public partial class WindowTreePlugin : WindowWithConnectionList
     {
-        private readonly object sysObjectConnections = new object();
-
-        private readonly IWriteToOutput _iWriteToOutput;
-
-        private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
-
         private readonly Dictionary<Guid, Task> _cacheTaskGettingMessageFilters = new Dictionary<Guid, Task>();
 
         private readonly Dictionary<Guid, List<SdkMessageFilter>> _cacheMessageFilters = new Dictionary<Guid, List<SdkMessageFilter>>();
@@ -58,8 +52,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private BitmapImage _imageBusinessRule;
         private BitmapImage _imageBusinessProcess;
         private BitmapImage _imageWorkflowActivity;
-
-        private readonly CommonConfiguration _commonConfig;
 
         private readonly List<GroupingProperty> _currentGrouping = new List<GroupingProperty>()
         {
@@ -110,23 +102,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         public WindowTreePlugin(
             IWriteToOutput iWriteToOutput
-            , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
+            , IOrganizationServiceExtented service
             , string entityFilter
             , string pluginTypeFilter
             , string messageFilter
-        )
+        ) : base(iWriteToOutput, commonConfig, service)
         {
             this.IncreaseInit();
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
-
-            this._iWriteToOutput = iWriteToOutput ?? throw new ArgumentNullException(nameof(iWriteToOutput));
-            this._commonConfig = commonConfig ?? throw new ArgumentNullException(nameof(commonConfig));
-
-            _connectionCache[service.ConnectionData.ConnectionId] = service ?? throw new ArgumentNullException(nameof(service));
-
-            BindingOperations.EnableCollectionSynchronization(service.ConnectionData.ConnectionConfiguration.Connections, sysObjectConnections);
 
             InitializeComponent();
 
@@ -322,7 +307,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ShowExistingPlugins();
         }
 
-        private async Task<IOrganizationServiceExtented> GetService()
+        protected override ConnectionData GetCurrentConnection()
         {
             ConnectionData connectionData = null;
 
@@ -331,39 +316,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
             });
 
-            if (connectionData == null)
-            {
-                return null;
-            }
-
-            if (_connectionCache.ContainsKey(connectionData.ConnectionId))
-            {
-                return _connectionCache[connectionData.ConnectionId];
-            }
-
-            ToggleControls(connectionData, false, string.Empty);
-
-            try
-            {
-                var service = await QuickConnection.ConnectAndWriteToOutputAsync(_iWriteToOutput, connectionData);
-
-                if (service != null)
-                {
-                    _connectionCache[connectionData.ConnectionId] = service;
-                }
-
-                return service;
-            }
-            catch (Exception ex)
-            {
-                _iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                ToggleControls(connectionData, true, string.Empty);
-            }
-
-            return null;
+            return connectionData;
         }
 
         private enum GroupingProperty
@@ -2004,7 +1957,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
+        protected override void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
         {
             this.ChangeInitByEnabled(enabled);
 

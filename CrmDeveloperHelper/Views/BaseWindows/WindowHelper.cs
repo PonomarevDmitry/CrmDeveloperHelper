@@ -156,8 +156,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 new WindowExplorerEntityAttribute
                 (
                     iWriteToOutput
-                    , service
                     , commonConfig
+                    , service
                     , filterEntityName
                 )
             );
@@ -174,8 +174,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 new WindowExplorerEntityKey
                 (
                     iWriteToOutput
-                    , service
                     , commonConfig
+                    , service
                     , filterEntityName
                 )
             );
@@ -192,8 +192,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 new WindowExplorerEntityRelationshipOneToMany
                 (
                     iWriteToOutput
-                    , service
                     , commonConfig
+                    , service
                     , filterEntityName
                 )
             );
@@ -210,8 +210,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 new WindowExplorerEntityRelationshipManyToMany
                 (
                     iWriteToOutput
-                    , service
                     , commonConfig
+                    , service
                     , filterEntityName
                 )
             );
@@ -287,8 +287,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 new WindowExplorerOtherPrivileges
                 (
                     iWriteToOutput
-                    , service
                     , commonConfig
+                    , service
                     , privilegesList
                     , filter
                 )
@@ -475,8 +475,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 new WindowExplorerWorkflow
                 (
                     iWriteToOutput
-                    , service
                     , commonConfig
+                    , service
                     , filterEntityName
                     , selection
                 )
@@ -494,8 +494,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 new WindowExplorerCustomControl
                 (
                     iWriteToOutput
-                    , service
                     , commonConfig
+                    , service
                     , filter
                 )
             );
@@ -530,8 +530,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 new WindowTreePlugin
                 (
                     iWriteToOutput
-                    , service
                     , commonConfig
+                    , service
                     , entityFilter
                     , pluginTypeFilter
                     , messageFilter
@@ -578,8 +578,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 new WindowTreeSdkMessageFilter
                 (
                     iWriteToOutput
-                    , service
                     , commonConfig
+                    , service
                     , entityFilter
                     , messageFilter
                 )
@@ -635,8 +635,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 new WindowTreeSdkMessageRequest
                 (
                     iWriteToOutput
-                    , service
                     , commonConfig
+                    , service
 
                     , filePath
                     , isJavaScript
@@ -671,8 +671,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 new WindowExplorerSystemUser
                 (
                     iWriteToOutput
-                    , service
                     , commonConfig
+                    , service
                     , entityMetadataList
                     , privileges
                     , filter
@@ -927,8 +927,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 new WindowExplorerGlobalOptionSets
                 (
                     iWriteToOutput
-                    , service
                     , commonConfig
+                    , service
                     , optionSets
                     , filterEntityName
                     , filter

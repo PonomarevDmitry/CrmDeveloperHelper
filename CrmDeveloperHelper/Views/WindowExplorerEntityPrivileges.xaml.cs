@@ -24,22 +24,14 @@ using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowExplorerEntityPrivileges : WindowBase
+    public partial class WindowExplorerEntityPrivileges : WindowWithConnectionList
     {
-        private readonly object sysObjectConnections = new object();
-
         private readonly Popup _popupEntityMetadataFilter;
         private readonly EntityMetadataFilter _entityMetadataFilter;
-
-        private readonly IWriteToOutput _iWriteToOutput;
-
-        private readonly CommonConfiguration _commonConfig;
 
         private readonly ObservableCollection<EntityMetadataListViewItem> _itemsSourceEntityList;
 
         private readonly ObservableCollection<RoleEntityPrivilegesViewItem> _itemsSourceSecurityRoleList;
-
-        private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
 
         private readonly Dictionary<Guid, IEnumerable<EntityMetadata>> _cacheEntityMetadata = new Dictionary<Guid, IEnumerable<EntityMetadata>>();
 
@@ -59,17 +51,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
-            this._iWriteToOutput = iWriteToOutput;
-            this._commonConfig = commonConfig;
-
-            _connectionCache[service.ConnectionData.ConnectionId] = service;
-
             if (entityMetadataList != null && entityMetadataList.Any(e => e.Privileges != null && e.Privileges.Any()))
             {
                 _cacheEntityMetadata[service.ConnectionData.ConnectionId] = entityMetadataList;
             }
-
-            BindingOperations.EnableCollectionSynchronization(service.ConnectionData.ConnectionConfiguration.Connections, sysObjectConnections);
 
             InitializeComponent();
 
@@ -215,9 +200,58 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , { PrivilegeType.Share, mISetPrivilegeShare }
             };
 
+            FillExplorersMenuItems();
+
             this.DecreaseInit();
 
             ShowExistingEntities();
+        }
+
+        private void FillExplorersMenuItems()
+        {
+            var explorersHelper = new ExplorersHelper(_iWriteToOutput, _commonConfig, GetService
+                , getEntityName: GetEntityName
+                , getEntityMetadataList: GetEntityMetadataList
+            );
+
+            explorersHelper.FillExplorers(miExplorers);
+            explorersHelper.FillCompareWindows(miCompareOrganizations);
+
+            if (this.Resources.Contains("listContextMenu")
+                && this.Resources["listContextMenu"] is ContextMenu contextMenu
+            )
+            {
+                var items = contextMenu.Items.OfType<MenuItem>();
+
+                foreach (var item in items)
+                {
+                    if (string.Equals(item.Uid, "miExplorers", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        explorersHelper.FillExplorers(item);
+                    }
+                    else if (string.Equals(item.Uid, "miCompareOrganizations", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        explorersHelper.FillCompareWindows(item);
+                    }
+                }
+            }
+        }
+
+        private string GetEntityName()
+        {
+            var entity = GetSelectedEntity();
+
+            return entity?.LogicalName;
+        }
+
+        private IEnumerable<EntityMetadata> GetEntityMetadataList(Guid connectionId)
+        {
+            if (_cacheEntityMetadata.ContainsKey(connectionId))
+            {
+                return _cacheEntityMetadata[connectionId];
+            }
+
+            return null;
         }
 
         private void LoadFromConfig()
@@ -292,8 +326,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         protected override void OnClosed(EventArgs e)
         {
-            _commonConfig.Save();
-
             BindingOperations.ClearAllBindings(cmBCurrentConnection);
 
             cmBCurrentConnection.Items.DetachFromSourceCollection();
@@ -304,7 +336,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             base.OnClosed(e);
         }
 
-        private async Task<IOrganizationServiceExtented> GetService()
+        protected override ConnectionData GetCurrentConnection()
         {
             ConnectionData connectionData = null;
 
@@ -313,39 +345,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
             });
 
-            if (connectionData == null)
-            {
-                return null;
-            }
-
-            if (_connectionCache.ContainsKey(connectionData.ConnectionId))
-            {
-                return _connectionCache[connectionData.ConnectionId];
-            }
-
-            ToggleControls(connectionData, false, string.Empty);
-
-            try
-            {
-                var service = await QuickConnection.ConnectAndWriteToOutputAsync(_iWriteToOutput, connectionData);
-
-                if (service != null)
-                {
-                    _connectionCache[connectionData.ConnectionId] = service;
-                }
-
-                return service;
-            }
-            catch (Exception ex)
-            {
-                _iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                ToggleControls(connectionData, true, string.Empty);
-            }
-
-            return null;
+            return connectionData;
         }
 
         private async Task ShowExistingEntities()
@@ -677,7 +677,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
+        protected override void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
         {
             this.ChangeInitByEnabled(enabled);
 
@@ -770,275 +770,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return result;
         }
 
-        #region Кнопки открытия других форм с информация о сущности.
-
-        private async void btnCreateMetadataFile_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            IEnumerable<EntityMetadata> entityMetadataList = null;
-
-            if (_cacheEntityMetadata.ContainsKey(service.ConnectionData.ConnectionId))
-            {
-                entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId].ToList();
-            }
-
-            WindowHelper.OpenEntityMetadataExplorer(this._iWriteToOutput, service, _commonConfig, entityMetadataList, entity?.LogicalName);
-        }
-
-        private async void btnEntityAttributeExplorer_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenEntityAttributeExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
-        }
-
-        private async void btnEntityRelationshipOneToManyExplorer_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenEntityRelationshipOneToManyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
-        }
-
-        private async void btnEntityRelationshipManyToManyExplorer_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenEntityRelationshipManyToManyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
-        }
-
-        private async void btnEntityKeyExplorer_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenEntityKeyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
-        }
-
-        private async void miOtherPrivilegesExplorer_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenOtherPrivilegesExplorer(this._iWriteToOutput, service, _commonConfig);
-        }
-
-        private async void btnExportApplicationRibbon_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenApplicationRibbonExplorer(this._iWriteToOutput, service, _commonConfig);
-        }
-
-        private async void btnGlobalOptionSets_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            if (entity == null)
-            {
-                return;
-            }
-
-            var service = await GetService();
-
-            _commonConfig.Save();
-
-            WindowHelper.OpenGlobalOptionSetsExplorer(
-                this._iWriteToOutput
-                , service
-                , _commonConfig
-                , string.Empty
-                , entity.LogicalName
-            );
-        }
-
-        private async void btnSystemForms_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenSystemFormExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
-        }
-
-        private async void btnSavedQuery_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenSavedQueryExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, string.Empty);
-        }
-
-        private async void btnSavedChart_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenSavedQueryVisualizationExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, string.Empty);
-        }
-
-        private async void btnWorkflows_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenWorkflowExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, string.Empty);
-        }
-
-        private async void btnPluginTree_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenPluginTree(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, string.Empty, string.Empty);
-        }
-
-        private async void btnMessageFilterTree_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenSdkMessageFilterTree(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, string.Empty);
-        }
-
-        private async void btnMessageRequestTree_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenSdkMessageRequestTree(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
-        }
-
-        private async void btnOrganizationComparer_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenOrganizationComparerWindow(this._iWriteToOutput, service.ConnectionData.ConnectionConfiguration, _commonConfig);
-        }
-
-        private async void btnCompareMetadataFile_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenOrganizationComparerEntityMetadataWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, entity?.LogicalName);
-        }
-
-        private async void btnCompareApplicationRibbons_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenOrganizationComparerApplicationRibbonWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData);
-        }
-
-        private async void btnCompareGlobalOptionSets_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenOrganizationComparerGlobalOptionSetsWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData);
-        }
-
-        private async void btnCompareSystemForms_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenOrganizationComparerSystemFormWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, entity?.LogicalName);
-        }
-
-        private async void btnCompareSavedQuery_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenOrganizationComparerSavedQueryWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, entity?.LogicalName);
-        }
-
-        private async void btnCompareSavedChart_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenOrganizationComparerSavedQueryVisualizationWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, entity?.LogicalName);
-        }
-
-        private async void btnCompareWorkflows_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenOrganizationComparerWorkflowWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, entity?.LogicalName);
-        }
-
-        #endregion Кнопки открытия других форм с информация о сущности.
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -1052,7 +783,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (item != null)
                 {
-                    ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+                    ConnectionData connectionData = GetCurrentConnection();
 
                     if (connectionData != null)
                     {
@@ -1138,7 +869,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            ConnectionData connectionData = GetCurrentConnection();
 
             if (connectionData != null)
             {
@@ -1162,7 +893,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void mIOpenSecurityRoleListInWeb_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            ConnectionData connectionData = GetCurrentConnection();
 
             if (connectionData != null)
             {
@@ -1191,7 +922,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            ConnectionData connectionData = GetCurrentConnection();
 
             if (connectionData != null)
             {
@@ -1210,7 +941,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            ConnectionData connectionData = GetCurrentConnection();
 
             if (connectionData != null)
             {
@@ -1338,12 +1069,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var items = contextMenu.Items.OfType<Control>();
 
-                ConnectionData connectionData = null;
-
-                cmBCurrentConnection.Dispatcher.Invoke(() =>
-                {
-                    connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-                });
+                ConnectionData connectionData = GetCurrentConnection();
 
                 FillLastSolutionItems(connectionData, items, true, AddToCrmSolutionLastIncludeSubcomponents_Click, "contMnAddToSolutionLastIncludeSubcomponents");
 
@@ -1361,12 +1087,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var items = contextMenu.Items.OfType<Control>();
 
-                ConnectionData connectionData = null;
-
-                cmBCurrentConnection.Dispatcher.Invoke(() =>
-                {
-                    connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-                });
+                ConnectionData connectionData = GetCurrentConnection();
 
                 FillLastSolutionItems(connectionData, items, true, AddSecurityRoleToCrmSolutionLast_Click, "contMnAddToSolutionLast");
             }
@@ -1381,7 +1102,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            ConnectionData connectionData = GetCurrentConnection();
 
             if (connectionData != null)
             {
@@ -1437,7 +1158,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            ConnectionData connectionData = GetCurrentConnection();
 
             if (connectionData != null)
             {
@@ -1497,7 +1218,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            ConnectionData connectionData = GetCurrentConnection();
 
             if (connectionData != null)
             {
@@ -1507,12 +1228,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void btnClearEntityCacheAndRefresh_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+            ConnectionData connectionData = GetCurrentConnection();
 
             if (connectionData != null)
             {
@@ -1555,7 +1271,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         if (item != null)
                         {
-                            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+                            ConnectionData connectionData = GetCurrentConnection();
 
                             if (connectionData != null)
                             {
@@ -1720,7 +1436,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)
         {
-            SetCurrentConnection(_iWriteToOutput, cmBCurrentConnection.SelectedItem as ConnectionData);
+            SetCurrentConnection(_iWriteToOutput, GetCurrentConnection());
         }
 
         private void SetSelectedRolesPrivilege(PrivilegeDepthExtended privilegeDepth)

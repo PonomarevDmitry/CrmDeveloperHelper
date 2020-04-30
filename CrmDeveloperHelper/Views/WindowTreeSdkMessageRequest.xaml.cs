@@ -28,14 +28,8 @@ using System.Windows.Media.Imaging;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowTreeSdkMessageRequest : WindowBase
+    public partial class WindowTreeSdkMessageRequest : WindowWithConnectionList
     {
-        private readonly object sysObjectConnections = new object();
-
-        private readonly IWriteToOutput _iWriteToOutput;
-
-        private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
-
         private readonly ObservableCollection<SdkMessageRequestTreeViewItem> _messageTree = new ObservableCollection<SdkMessageRequestTreeViewItem>();
 
         private SdkMessageSearchResult _sdkMessageSearchResult = null;
@@ -61,8 +55,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private BitmapImage _imageNamespace;
         private BitmapImage _imageImageEndpoint;
 
-        private readonly CommonConfiguration _commonConfig;
-
         private readonly string _filePath;
         private readonly bool _isJavaScript;
         private readonly EnvDTE.SelectedItem _selectedItem;
@@ -72,8 +64,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         public WindowTreeSdkMessageRequest(
             IWriteToOutput iWriteToOutput
-            , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
+            , IOrganizationServiceExtented service
 
             , string filePath
             , bool isJavaScript
@@ -81,22 +73,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             , string entityFilter
             , string messageFilter
-        )
+        ) : base(iWriteToOutput, commonConfig, service)
         {
             this.IncreaseInit();
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
-            this._iWriteToOutput = iWriteToOutput ?? throw new ArgumentNullException(nameof(iWriteToOutput));
-            this._commonConfig = commonConfig ?? throw new ArgumentNullException(nameof(commonConfig));
-
             this._filePath = filePath;
             this._isJavaScript = isJavaScript;
             this._selectedItem = selectedItem;
-
-            _connectionCache[service.ConnectionData.ConnectionId] = service ?? throw new ArgumentNullException(nameof(service));
-
-            BindingOperations.EnableCollectionSynchronization(service.ConnectionData.ConnectionConfiguration.Connections, sysObjectConnections);
 
             InitializeComponent();
 
@@ -287,7 +272,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ShowExistingSdkMessageRequests();
         }
 
-        private async Task<IOrganizationServiceExtented> GetService()
+        protected override ConnectionData GetCurrentConnection()
         {
             ConnectionData connectionData = null;
 
@@ -296,39 +281,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
             });
 
-            if (connectionData == null)
-            {
-                return null;
-            }
-
-            if (_connectionCache.ContainsKey(connectionData.ConnectionId))
-            {
-                return _connectionCache[connectionData.ConnectionId];
-            }
-
-            ToggleControls(connectionData, false, string.Empty);
-
-            try
-            {
-                var service = await QuickConnection.ConnectAndWriteToOutputAsync(_iWriteToOutput, connectionData);
-
-                if (service != null)
-                {
-                    _connectionCache[connectionData.ConnectionId] = service;
-                }
-
-                return service;
-            }
-            catch (Exception ex)
-            {
-                _iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                ToggleControls(connectionData, true, string.Empty);
-            }
-
-            return null;
+            return connectionData;
         }
 
         private enum GroupingProperty
@@ -997,7 +950,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
+        protected override void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
         {
             this.ChangeInitByEnabled(enabled);
 
@@ -1359,7 +1312,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.Dispatcher.Invoke(() =>
             {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+                connectionData = GetCurrentConnection();
             });
 
             if (connectionData != null)
@@ -1382,7 +1335,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)
         {
-            SetCurrentConnection(_iWriteToOutput, cmBCurrentConnection.SelectedItem as ConnectionData);
+            SetCurrentConnection(_iWriteToOutput, GetCurrentConnection());
         }
 
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)
@@ -1404,12 +1357,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             bool showDependentComponents = nodeItem.GetId().HasValue && nodeItem.ComponentType.HasValue;
             bool hasIds = nodeItem.GetIdEnumerable().Any() && nodeItem.ComponentType.HasValue;
 
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+            ConnectionData connectionData = GetCurrentConnection();
 
             ActivateControls(items, CanCreateDescription(nodeItem), "contMnCreateDescription");
             SetControlsName(items, GetCreateDescriptionName(nodeItem), "contMnCreateDescription");
@@ -1451,7 +1399,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            ConnectionData connectionData = GetCurrentConnection();
 
             if (connectionData != null)
             {
@@ -1470,7 +1418,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            ConnectionData connectionData = GetCurrentConnection();
 
             if (connectionData != null)
             {
@@ -1489,7 +1437,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            ConnectionData connectionData = GetCurrentConnection();
 
             if (connectionData != null)
             {
@@ -1557,7 +1505,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            ConnectionData connectionData = GetCurrentConnection();
 
             if (connectionData == null)
             {
@@ -1601,7 +1549,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            ConnectionData connectionData = GetCurrentConnection();
 
             if (connectionData == null)
             {
@@ -1634,7 +1582,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            ConnectionData connectionData = GetCurrentConnection();
 
             if (connectionData == null)
             {
@@ -1719,7 +1667,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            ConnectionData connectionData = GetCurrentConnection();
 
             if (connectionData == null)
             {
@@ -1799,7 +1747,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            ConnectionData connectionData = GetCurrentConnection();
 
             if (connectionData == null)
             {
@@ -2046,7 +1994,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            ConnectionData connectionData = GetCurrentConnection();
 
             if (connectionData == null)
             {
@@ -2073,7 +2021,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            ConnectionData connectionData = GetCurrentConnection();
 
             if (connectionData != null)
             {
@@ -2098,7 +2046,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            ConnectionData connectionData = GetCurrentConnection();
 
             if (connectionData == null)
             {

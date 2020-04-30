@@ -26,38 +26,23 @@ using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowExplorerWorkflow : WindowBase
+    public partial class WindowExplorerWorkflow : WindowWithConnectionList
     {
-        private readonly object sysObjectConnections = new object();
-
-        private readonly IWriteToOutput _iWriteToOutput;
-
-        private readonly CommonConfiguration _commonConfig;
-
         private readonly ObservableCollection<EntityViewItem> _itemsSource;
-
-        private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
 
         private readonly Popup _optionsPopup;
 
         public WindowExplorerWorkflow(
              IWriteToOutput iWriteToOutput
-            , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
+            , IOrganizationServiceExtented service
             , string filterEntity
             , string selection
-        )
+        ) : base(iWriteToOutput, commonConfig, service)
         {
             this.IncreaseInit();
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
-
-            this._iWriteToOutput = iWriteToOutput;
-            this._commonConfig = commonConfig;
-
-            _connectionCache[service.ConnectionData.ConnectionId] = service;
-
-            BindingOperations.EnableCollectionSynchronization(service.ConnectionData.ConnectionConfiguration.Connections, sysObjectConnections);
 
             InitializeComponent();
 
@@ -108,6 +93,52 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ShowExistingWorkflows();
             }
+        }
+
+        private void FillExplorersMenuItems()
+        {
+            var explorersHelper = new ExplorersHelper(_iWriteToOutput, _commonConfig, GetService
+                , getEntityName: GetEntityName
+                , getWorkflowName: GetWorkflowName
+            );
+
+            explorersHelper.FillExplorers(miExplorers);
+            explorersHelper.FillExplorers(miExplorers2);
+            explorersHelper.FillCompareWindows(miCompareOrganizations);
+            explorersHelper.FillCompareWindows(miCompareOrganizations2);
+
+            if (this.Resources.Contains("listContextMenu")
+                && this.Resources["listContextMenu"] is ContextMenu contextMenu
+            )
+            {
+                var items = contextMenu.Items.OfType<MenuItem>();
+
+                foreach (var item in items)
+                {
+                    if (string.Equals(item.Uid, "miExplorers", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        explorersHelper.FillExplorers(item);
+                    }
+                    else if (string.Equals(item.Uid, "miCompareOrganizations", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        explorersHelper.FillCompareWindows(item);
+                    }
+                }
+            }
+        }
+
+        private string GetEntityName()
+        {
+            var entity = GetSelectedEntity();
+
+            return entity?.PrimaryEntity;
+        }
+
+        private string GetWorkflowName()
+        {
+            var entity = GetSelectedEntity();
+
+            return entity?.Name ?? txtBFilter.Text.Trim();
         }
 
         private void LoadFromConfig()
@@ -194,7 +225,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         protected override void OnClosed(EventArgs e)
         {
-            _commonConfig.Save();
+            base.OnClosed(e);
 
             BindingOperations.ClearAllBindings(cmBCurrentConnection);
 
@@ -202,11 +233,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             cmBCurrentConnection.DataContext = null;
             cmBCurrentConnection.ItemsSource = null;
-
-            base.OnClosed(e);
         }
 
-        private async Task<IOrganizationServiceExtented> GetService()
+        protected override ConnectionData GetCurrentConnection()
         {
             ConnectionData connectionData = null;
 
@@ -215,39 +244,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
             });
 
-            if (connectionData == null)
-            {
-                return null;
-            }
-
-            if (_connectionCache.ContainsKey(connectionData.ConnectionId))
-            {
-                return _connectionCache[connectionData.ConnectionId];
-            }
-
-            ToggleControls(connectionData, false, string.Empty);
-
-            try
-            {
-                var service = await QuickConnection.ConnectAndWriteToOutputAsync(_iWriteToOutput, connectionData);
-
-                if (service != null)
-                {
-                    _connectionCache[connectionData.ConnectionId] = service;
-                }
-
-                return service;
-            }
-            catch (Exception ex)
-            {
-                _iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                ToggleControls(connectionData, true, string.Empty);
-            }
-
-            return null;
+            return connectionData;
         }
 
         private async Task ShowExistingWorkflows()
@@ -447,7 +444,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
+        protected override void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
         {
             this.ChangeInitByEnabled(enabled);
 
@@ -1630,255 +1627,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             SetControlsName(tSDDBExportWorkflow.Items.OfType<Control>(), GetChangeStateName(workflow), "contMnChangeState");
         }
-
-        #region Кнопки открытия других форм с информация о сущности.
-
-        private async void btnCreateMetadataFile_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenEntityMetadataExplorer(this._iWriteToOutput, service, _commonConfig, entity?.PrimaryEntity);
-        }
-
-        private async void btnEntityAttributeExplorer_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenEntityAttributeExplorer(this._iWriteToOutput, service, _commonConfig, entity?.PrimaryEntity);
-        }
-
-        private async void btnEntityRelationshipOneToManyExplorer_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenEntityRelationshipOneToManyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.PrimaryEntity);
-        }
-
-        private async void btnEntityRelationshipManyToManyExplorer_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenEntityRelationshipManyToManyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.PrimaryEntity);
-        }
-
-        private async void btnEntityKeyExplorer_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenEntityKeyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.PrimaryEntity);
-        }
-
-        private async void miEntityPrivilegesExplorer_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenEntityPrivilegesExplorer(this._iWriteToOutput, service, _commonConfig, entity?.PrimaryEntity);
-        }
-
-        private async void miOtherPrivilegesExplorer_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenOtherPrivilegesExplorer(this._iWriteToOutput, service, _commonConfig);
-        }
-
-        private async void miSecurityRolesExplorer_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenRolesExplorer(this._iWriteToOutput, service, _commonConfig);
-        }
-
-        private async void btnExportApplicationRibbon_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenApplicationRibbonExplorer(this._iWriteToOutput, service, _commonConfig);
-        }
-
-        private async void btnSystemForms_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenSystemFormExplorer(this._iWriteToOutput, service, _commonConfig, entity?.PrimaryEntity);
-        }
-
-        private async void btnSavedQuery_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenSavedQueryExplorer(this._iWriteToOutput, service, _commonConfig, entity?.PrimaryEntity, string.Empty);
-        }
-
-        private async void btnSavedChart_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenSavedQueryVisualizationExplorer(this._iWriteToOutput, service, _commonConfig, entity?.PrimaryEntity, string.Empty);
-        }
-
-        private async void btnPluginTree_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenPluginTree(this._iWriteToOutput, service, _commonConfig, entity?.PrimaryEntity, string.Empty, string.Empty);
-        }
-
-        private async void btnMessageFilterTree_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenSdkMessageFilterTree(this._iWriteToOutput, service, _commonConfig, entity?.PrimaryEntity, string.Empty);
-        }
-
-        private async void btnMessageRequestTree_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenSdkMessageRequestTree(this._iWriteToOutput, service, _commonConfig, entity?.PrimaryEntity);
-        }
-
-        private async void btnOrganizationComparer_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenOrganizationComparerWindow(this._iWriteToOutput, service.ConnectionData.ConnectionConfiguration, _commonConfig);
-        }
-
-        private async void btnCompareMetadataFile_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenOrganizationComparerEntityMetadataWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, entity?.PrimaryEntity);
-        }
-
-        private async void btnCompareApplicationRibbons_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenOrganizationComparerApplicationRibbonWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData);
-        }
-
-        private async void btnCompareGlobalOptionSets_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenOrganizationComparerGlobalOptionSetsWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData);
-        }
-
-        private async void btnCompareSystemForms_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenOrganizationComparerSystemFormWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, entity?.PrimaryEntity);
-        }
-
-        private async void btnCompareSavedQuery_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenOrganizationComparerSavedQueryWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, entity?.PrimaryEntity);
-        }
-
-        private async void btnCompareSavedChart_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenOrganizationComparerSavedQueryVisualizationWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, entity?.PrimaryEntity);
-        }
-
-        private async void btnCompareWorkflows_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenOrganizationComparerWorkflowWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, entity?.PrimaryEntity, entity?.Name ?? txtBFilter.Text);
-        }
-
-        #endregion Кнопки открытия других форм с информация о сущности.
 
         private void cmBCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

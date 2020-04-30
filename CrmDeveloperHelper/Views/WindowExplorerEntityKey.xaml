@@ -1,11 +1,13 @@
-﻿<src:WindowBase x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowExplorerEntityKey"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
-        xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
-        xmlns:sdk="clr-namespace:Microsoft.Xrm.Sdk;assembly=Microsoft.Xrm.Sdk"
-        Title="Entity EntityKey Explorer" Height="538.662" Width="1233" WindowStartupLocation="Manual">
-    <src:WindowBase.Resources>
+﻿<src:WindowWithConnectionList
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
+    x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowExplorerEntityKey"
+    Title="Entity EntityKey Explorer"
+    Height="540"
+    Width="1233"
+    WindowStartupLocation="Manual">
+    <src:WindowWithConnectionList.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="StyleWindows.xaml"/>
@@ -15,7 +17,7 @@
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
                 <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" FontWeight="Bold" />
-                
+
                 <Separator/>
                 <MenuItem Header="Open Entity List in Web" VerticalAlignment="Center" Click="mIOpenEntityListInWeb_Click" />
 
@@ -37,74 +39,35 @@
 
                 <Separator/>
                 <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
-                
+
                 <Separator/>
                 <MenuItem Header="Open Solutions Containing Component in Explorer" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
-                
+
                 <Separator/>
                 <MenuItem Header="Dependent Components">
                     <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
                     <Separator/>
                     <MenuItem Header="Open Dependent Components in Explorer" VerticalAlignment="Center" Click="mIOpenDependentComponentsInExplorer_Click" />
                 </MenuItem>
-                
+
                 <Separator/>
-                <MenuItem Header="Get Other Entity Information">
-                    <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer_Click"/>
-                    <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer_Click"/>
-                    <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Entity Privileges Explorer" Click="miEntityPrivilegesExplorer_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Other Privileges Explorer" Click="miOtherPrivilegesExplorer_Click"/>
-                    <Separator/>
-                    <MenuItem Header="SecurityRoles Explorer" Click="miSecurityRolesExplorer_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets_Click" />
-                    <Separator/>
-                    <MenuItem Header="Forms" Click="btnSystemForms_Click" />
-                    <MenuItem Header="Views" Click="btnSavedQuery_Click" />
-                    <MenuItem Header="Charts" Click="btnSavedChart_Click" />
-                    <Separator/>
-                    <MenuItem Header="Workflows" Click="btnWorkflows_Click" />
-                    <Separator/>
-                    <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon_Click" />
-                    <Separator/>
-                    <MenuItem Header="Plugin Tree" Click="btnPluginTree_Click" />
-                    <MenuItem Header="Message Filter Tree" Click="btnMessageFilterTree_Click" />
-                    <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree_Click" />
-                </MenuItem>
-                
+                <MenuItem x:Uid="miExplorers" Header="Get Other Entity Information" />
+
                 <Separator/>
-                <MenuItem Header="Compare Information with other Organization">
-                    <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Forms" Click="btnCompareSystemForms_Click"/>
-                    <MenuItem Header="Views" Click="btnCompareSavedQuery_Click"/>
-                    <MenuItem Header="Charts" Click="btnCompareSavedChart_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
-                    <Separator/>
-                    <MenuItem Header="ApplicationRibbon" Click="btnCompareApplicationRibbons_Click"/>
-                </MenuItem>
+                <MenuItem Header="Compare Information with other Organization" />
+
             </ContextMenu>
 
             <ContextMenu x:Key="listContextMenuEntityKey" Opened="ContextMenuEntityKey_Opened">
                 <MenuItem Header="Open EntityKey Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityKeyInWeb_Click" FontWeight="Bold" />
-                
+
                 <Separator/>
                 <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" VerticalAlignment="Center" />
                 <MenuItem Header="Add to Crm Solution" VerticalAlignment="Center" Click="AddEntityKeyToCrmSolution_Click" />
-                
+
                 <Separator/>
                 <MenuItem Header="Open Solutions Containing Component in Explorer" VerticalAlignment="Center" Click="mIEntityKeyOpenSolutionsContainingComponentInExplorer_Click" />
-                
+
                 <Separator/>
                 <MenuItem Header="Dependent Components">
                     <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIEntityKeyOpenDependentComponentsInWeb_Click" />
@@ -124,8 +87,8 @@
             </Style>
 
         </ResourceDictionary>
-        
-    </src:WindowBase.Resources>
+
+    </src:WindowWithConnectionList.Resources>
     <Grid>
 
         <Grid.RowDefinitions>
@@ -138,53 +101,13 @@
 
         <ToolBar Grid.Row="0" Margin="0">
             <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                <MenuItem Header="Open Entity Information" VerticalAlignment="Center">
-                    <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer_Click"/>
-                    <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer_Click"/>
-                    <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Entity Privileges Explorer" Click="miEntityPrivilegesExplorer_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Other Privileges Explorer" Click="miOtherPrivilegesExplorer_Click"/>
-                    <Separator/>
-                    <MenuItem Header="SecurityRoles Explorer" Click="miSecurityRolesExplorer_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets_Click" />
-                    <Separator/>
-                    <MenuItem Header="Forms" Click="btnSystemForms_Click" />
-                    <MenuItem Header="Views" Click="btnSavedQuery_Click" />
-                    <MenuItem Header="Charts" Click="btnSavedChart_Click" />
-                    <Separator/>
-                    <MenuItem Header="Workflows" Click="btnWorkflows_Click" />
-                    <Separator/>
-                    <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon_Click" />
-                    <Separator/>
-                    <MenuItem Header="Plugin Tree" Click="btnPluginTree_Click" />
-                    <MenuItem Header="Message Filter Tree" Click="btnMessageFilterTree_Click"/>
-                    <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree_Click"/>
-                </MenuItem>
+                <MenuItem x:Name="miExplorers" Header="Open Entity Information" VerticalAlignment="Center" />
             </Menu>
 
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
 
             <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                <MenuItem Header="Compare Information with other Organization" VerticalAlignment="Center">
-                    <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Forms" Click="btnCompareSystemForms_Click"/>
-                    <MenuItem Header="Views" Click="btnCompareSavedQuery_Click"/>
-                    <MenuItem Header="Charts" Click="btnCompareSavedChart_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
-                    <Separator/>
-                    <MenuItem Header="ApplicationRibbon" Click="btnCompareApplicationRibbons_Click"/>
-                </MenuItem>
+                <MenuItem x:Name="miCompareOrganizations" Header="Compare Information with other Organization" VerticalAlignment="Center" />
             </Menu>
 
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
@@ -203,9 +126,9 @@
                 </StackPanel>
             </Button>
         </ToolBar>
-        
+
         <Grid Grid.Row="1" Margin="5" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
-            
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition x:Name="columnEntity" Width="600"/>
                 <ColumnDefinition Width="Auto"/>
@@ -338,4 +261,4 @@
             <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>
     </Grid>
-</src:WindowBase>
+</src:WindowWithConnectionList>

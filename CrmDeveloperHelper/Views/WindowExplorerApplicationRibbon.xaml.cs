@@ -470,12 +470,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void miApplicationRibbon_SubmenuOpened(object sender, RoutedEventArgs e)
         {
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+            ConnectionData connectionData = GetCurrentConnection();
 
             FillLastSolutionItems(connectionData, new[] { miAddApplicationTotSolutionLast }, true, AddApplicationRibbonToCrmSolutionLast_Click, "miAddApplicationTotSolutionLast");
         }
@@ -597,7 +592,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)
         {
-            SetCurrentConnection(_iWriteToOutput, cmBCurrentConnection.SelectedItem as ConnectionData);
+            SetCurrentConnection(_iWriteToOutput, GetCurrentConnection());
         }
     }
 }

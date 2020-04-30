@@ -23,21 +23,14 @@ using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowExplorerGlobalOptionSets : WindowBase
+    public partial class WindowExplorerGlobalOptionSets : WindowWithConnectionList
     {
-        private readonly object sysObjectConnections = new object();
-
-        private readonly IWriteToOutput _iWriteToOutput;
-
-        private readonly CommonConfiguration _commonConfig;
-
         private readonly string _filePath;
         private readonly bool _isJavaScript;
         private readonly EnvDTE.SelectedItem _selectedItem;
 
         private readonly ObservableCollection<OptionSetMetadataListViewItem> _itemsSource;
 
-        private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
         private readonly Dictionary<Guid, SolutionComponentMetadataSource> _cacheMetadataSource = new Dictionary<Guid, SolutionComponentMetadataSource>();
         private readonly Dictionary<Guid, IEnumerable<OptionSetMetadata>> _cacheOptionSetMetadata = new Dictionary<Guid, IEnumerable<OptionSetMetadata>>();
 
@@ -46,29 +39,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         public WindowExplorerGlobalOptionSets(
             IWriteToOutput iWriteToOutput
-            , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
+            , IOrganizationServiceExtented service
             , IEnumerable<OptionSetMetadata> optionSets
             , string filterEntityName
             , string selection
             , string filePath
             , bool isJavaScript
             , EnvDTE.SelectedItem selectedItem
-        )
+        ) : base(iWriteToOutput, commonConfig, service)
         {
             this.IncreaseInit();
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
-            this._iWriteToOutput = iWriteToOutput;
-            this._commonConfig = commonConfig;
             this._filePath = filePath;
             this._isJavaScript = isJavaScript;
             this._selectedItem = selectedItem;
-
-            _connectionCache[service.ConnectionData.ConnectionId] = service;
-
-            BindingOperations.EnableCollectionSynchronization(service.ConnectionData.ConnectionConfiguration.Connections, sysObjectConnections);
 
             if (optionSets != null)
             {
@@ -155,9 +142,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBCurrentConnection.ItemsSource = service.ConnectionData.ConnectionConfiguration.Connections;
             cmBCurrentConnection.SelectedItem = service.ConnectionData;
 
+            FillExplorersMenuItems();
+
             this.DecreaseInit();
 
             ShowExistingOptionSets();
+        }
+
+        private void FillExplorersMenuItems()
+        {
+            var explorersHelper = new ExplorersHelper(_iWriteToOutput, _commonConfig, GetService, _selectedItem
+                , getGlobalOptionSetName: GetGlobalOptionSetName
+            );
+
+            explorersHelper.FillExplorers(miExplorers);
+            explorersHelper.FillCompareWindows(miCompareOrganizations);
+
+            if (this.Resources.Contains("listContextMenu")
+                && this.Resources["listContextMenu"] is ContextMenu contextMenu
+            )
+            {
+                var items = contextMenu.Items.OfType<MenuItem>();
+
+                foreach (var item in items)
+                {
+                    if (string.Equals(item.Uid, "miExplorers", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        explorersHelper.FillExplorers(item);
+                    }
+                    else if (string.Equals(item.Uid, "miCompareOrganizations", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        explorersHelper.FillCompareWindows(item);
+                    }
+                }
+            }
+        }
+
+        private string GetGlobalOptionSetName()
+        {
+            var entity = GetSelectedEntity();
+
+            return entity?.LogicalName ?? txtBFilter.Text.Trim();
         }
 
         private void LoadFromConfig()
@@ -167,10 +192,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         protected override void OnClosed(EventArgs e)
         {
-            _commonConfig.Save();
+            base.OnClosed(e);
+
             FileGenerationConfiguration.SaveConfiguration();
 
-            GetConnectionData()?.Save();
+            GetCurrentConnection()?.Save();
 
             BindingOperations.ClearAllBindings(cmBCurrentConnection);
 
@@ -178,8 +204,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             cmBCurrentConnection.DataContext = null;
             cmBCurrentConnection.ItemsSource = null;
-
-            base.OnClosed(e);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -239,43 +263,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async Task<IOrganizationServiceExtented> GetService()
+        protected override ConnectionData GetCurrentConnection()
         {
-            ConnectionData connectionData = GetConnectionData();
+            ConnectionData connectionData = null;
 
-            if (connectionData == null)
+            this.Dispatcher.Invoke(() =>
             {
-                return null;
-            }
+                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            });
 
-            if (_connectionCache.ContainsKey(connectionData.ConnectionId))
-            {
-                return _connectionCache[connectionData.ConnectionId];
-            }
-
-            ToggleControls(connectionData, false, string.Empty);
-
-            try
-            {
-                var service = await QuickConnection.ConnectAndWriteToOutputAsync(_iWriteToOutput, connectionData);
-
-                if (service != null)
-                {
-                    _connectionCache[connectionData.ConnectionId] = service;
-                }
-
-                return service;
-            }
-            catch (Exception ex)
-            {
-                _iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                ToggleControls(connectionData, true, string.Empty);
-            }
-
-            return null;
+            return connectionData;
         }
 
         private SolutionComponentMetadataSource GetMetadataSource(IOrganizationServiceExtented serivce)
@@ -428,7 +425,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return list;
         }
 
-        private void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
+        protected override void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
         {
             this.ChangeInitByEnabled(enabled);
 
@@ -463,7 +460,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnCreateCSharpFile_Click(object sender, RoutedEventArgs e)
         {
-            var connectionData = GetConnectionData();
+            var connectionData = GetCurrentConnection();
 
             if (connectionData != null && _cacheOptionSetMetadata.ContainsKey(connectionData.ConnectionId))
             {
@@ -572,7 +569,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnCreateJavaScriptFileJsonObject_Click(object sender, RoutedEventArgs e)
         {
-            var connectionData = GetConnectionData();
+            var connectionData = GetCurrentConnection();
 
             if (connectionData != null
                 && _cacheOptionSetMetadata.ContainsKey(connectionData.ConnectionId)
@@ -695,7 +692,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (item != null)
                 {
-                    ConnectionData connectionData = GetConnectionData();
+                    ConnectionData connectionData = GetCurrentConnection();
 
                     if (connectionData != null)
                     {
@@ -822,7 +819,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = GetConnectionData();
+            ConnectionData connectionData = GetCurrentConnection();
 
             if (connectionData != null)
             {
@@ -839,7 +836,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = GetConnectionData();
+            ConnectionData connectionData = GetCurrentConnection();
 
             if (connectionData != null)
             {
@@ -894,7 +891,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var items = contextMenu.Items.OfType<Control>();
 
-                ConnectionData connectionData = GetConnectionData();
+                ConnectionData connectionData = GetCurrentConnection();
 
                 FillLastSolutionItems(connectionData, items, true, AddToCrmSolutionLast_Click, "contMnAddToSolutionLast");
             }
@@ -947,92 +944,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             );
         }
 
-        private async void btnOrganizationComparer_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenOrganizationComparerWindow(this._iWriteToOutput, service.ConnectionData.ConnectionConfiguration, _commonConfig);
-        }
-
-        private async void btnCompareMetadataFile_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenOrganizationComparerEntityMetadataWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData);
-        }
-
-        private async void btnCompareApplicationRibbons_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenOrganizationComparerApplicationRibbonWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData);
-        }
-
-        private async void btnCompareGlobalOptionSets_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenOrganizationComparerGlobalOptionSetsWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, entity?.LogicalName ?? txtBFilter.Text);
-        }
-
-        private async void btnCompareSystemForms_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenOrganizationComparerSystemFormWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData);
-        }
-
-        private async void btnCompareSavedQuery_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenOrganizationComparerSavedQueryWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData);
-        }
-
-        private async void btnCompareSavedChart_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenOrganizationComparerSavedQueryVisualizationWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData);
-        }
-
-        private async void btnCompareWorkflows_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenOrganizationComparerWorkflowWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData);
-        }
-
-        public ConnectionData GetConnectionData()
-        {
-            ConnectionData connectionData = null;
-
-            this.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
-
-            return connectionData;
-        }
-
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             foreach (var removed in e.RemovedItems.OfType<ConnectionData>())
@@ -1050,7 +961,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = GetConnectionData();
+            ConnectionData connectionData = GetCurrentConnection();
 
             if (connectionData != null)
             {
@@ -1081,7 +992,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)
         {
-            SetCurrentConnection(_iWriteToOutput, GetConnectionData());
+            SetCurrentConnection(_iWriteToOutput, GetCurrentConnection());
         }
 
         private void hyperlinkCSharp_Click(object sender, RoutedEventArgs e)

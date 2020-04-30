@@ -1,11 +1,16 @@
-﻿<src:WindowBase x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowTreeSdkMessageRequest"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
-        xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
-        xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
-        Title="Sdk Message Request Tree" Height="538.662" Width="717" WindowStartupLocation="Manual">
-    <src:WindowBase.Resources>
+﻿<src:WindowWithConnectionList
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
+    xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
+    xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
+    x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowTreeSdkMessageRequest"
+    Title="Sdk Message Request Tree"
+    Height="540"
+    Width="717"
+    WindowStartupLocation="Manual"
+    >
+    <src:WindowWithConnectionList.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="StyleWindows.xaml"/>
@@ -16,12 +21,12 @@
             <BitmapImage x:Key="ImageEntity" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Entity.png" />
             <BitmapImage x:Key="ImageMessage" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/message.gif" />
             <BitmapImage x:Key="ImageMessageCategory" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/message_category.png" />
-            
+
             <BitmapImage x:Key="ImageField" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Field.png" />
-            
+
             <BitmapImage x:Key="ImageRequest" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Request.png" />
             <BitmapImage x:Key="ImageResponse" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Response.png" />
-            
+
             <BitmapImage x:Key="ImageNamespace" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Namespace.png" />
             <BitmapImage x:Key="ImageEndpoint" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/endpoint.png" />
 
@@ -35,7 +40,7 @@
 
                 <Separator x:Uid="contMnEntity" />
                 <MenuItem x:Uid="contMnEntity" Header="Entity">
-                    
+
                     <MenuItem Header="Open Entity Customization in Web" Click="mIOpenEntityInWeb_Click" />
                     <MenuItem Header="Open Entity List in Web" Click="mIOpenEntityListInWeb_Click" />
 
@@ -114,7 +119,7 @@
             </ContextMenu>
 
         </ResourceDictionary>
-    </src:WindowBase.Resources>
+    </src:WindowWithConnectionList.Resources>
     <Grid>
 
         <Grid.RowDefinitions>
@@ -128,25 +133,25 @@
         </Grid.RowDefinitions>
 
         <ToolBar x:Name="toolBarHeader" Grid.Row="0">
-            
+
             <Button Content="Options" Click="miOptions_Click"/>
-            
+
         </ToolBar>
 
         <Grid Grid.Row="1" Margin="5">
-            
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="100*"/>
-                
+
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="100*"/>
-                
+
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="100*"/>
             </Grid.ColumnDefinitions>
@@ -178,7 +183,7 @@
                         <Menu x:Name="menuView" IsEnabled="False">
                             <MenuItem x:Name="mIView" Header="View" />
                         </Menu>
-                        
+
                         <Button x:Name="tSBCreateDescription" Content="Create Description" Click="tSBCreateDescription_Click" IsEnabled="False"  />
 
                         <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
@@ -194,7 +199,7 @@
                         <Button x:Name="tSBExpandAll" Content="Expand All" Click="tSBExpandAll_Click" IsEnabled="False" />
                     </ToolBarPanel>
                 </ToolBar>
-                
+
                 <TreeView x:Name="trVSdkMessageRequestTree" SelectedItemChanged="trVSdkMessageRequestTree_SelectedItemChanged">
                     <TreeView.Resources>
                         <HierarchicalDataTemplate DataType="{x:Type model:SdkMessageRequestTreeViewItem}" ItemsSource="{Binding Path=Items}">
@@ -249,4 +254,4 @@
             <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>
     </Grid>
-</src:WindowBase>
+</src:WindowWithConnectionList>
