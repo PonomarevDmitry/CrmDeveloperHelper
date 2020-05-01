@@ -79,9 +79,61 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBConnection2.ItemsSource = connection1.ConnectionConfiguration.Connections;
             cmBConnection2.SelectedItem = connection2;
 
+            FillExplorersMenuItems();
+
             this.DecreaseInit();
 
             ShowExistingSiteMaps();
+        }
+
+        private void FillExplorersMenuItems()
+        {
+            //var explorersHelper1 = new ExplorersHelper(_iWriteToOutput, _commonConfig, GetService1
+            //    , getReportName: GetReportName1
+            //);
+
+            //var explorersHelper2 = new ExplorersHelper(_iWriteToOutput, _commonConfig, GetService2
+            //    , getReportName: GetReportName2
+            //);
+
+            //explorersHelper1.FillExplorers(miExplorers1);
+            //explorersHelper2.FillExplorers(miExplorers2);
+
+            var compareWindowsHelper = new CompareWindowsHelper(_iWriteToOutput, _commonConfig, GetConnection1, GetConnection2
+                , getSiteMapName: GetSiteMapName
+            );
+            compareWindowsHelper.FillCompareWindows(miCompareOrganizations);
+
+            if (this.Resources.Contains("listContextMenu")
+                && this.Resources["listContextMenu"] is ContextMenu contextMenu
+            )
+            {
+                var items = contextMenu.Items.OfType<MenuItem>();
+
+                foreach (var item in items)
+                {
+                    //if (string.Equals(item.Uid, "miExplorers1", StringComparison.InvariantCultureIgnoreCase))
+                    //{
+                    //    explorersHelper1.FillExplorers(item);
+                    //}
+                    //else if (string.Equals(item.Uid, "miExplorers2", StringComparison.InvariantCultureIgnoreCase))
+                    //{
+                    //    explorersHelper2.FillExplorers(item);
+                    //}
+                    //else
+                    if (string.Equals(item.Uid, "miCompareOrganizations", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        compareWindowsHelper.FillCompareWindows(item);
+                    }
+                }
+            }
+        }
+
+        private string GetSiteMapName()
+        {
+            var entity = GetSelectedEntity();
+
+            return entity?.SiteMapName ?? txtBFilter.Text.Trim();
         }
 
         private void LoadFromConfig()
@@ -837,14 +889,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
         }
-        private async void btnOrganizationComparer_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService1();
-
-            WindowHelper.OpenOrganizationComparerWindow(this._iWriteToOutput, service.ConnectionData.ConnectionConfiguration, _commonConfig);
-        }
 
         private async void btnExportSiteMap1_Click(object sender, RoutedEventArgs e)
         {
@@ -875,7 +919,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var items = contextMenu.Items.OfType<Control>();
 
-            foreach (var menuContextDifference in items.Where(i => string.Equals(i.Uid, "menuContextDifference", StringComparison.InvariantCultureIgnoreCase)))
+            foreach (var menuContextDifference in items.Where(i => 
+                string.Equals(i.Uid, "menuContextDifference", StringComparison.InvariantCultureIgnoreCase)
+                || string.Equals(i.Uid, "miCompareOrganizations", StringComparison.InvariantCultureIgnoreCase)
+            ))
             {
                 menuContextDifference.IsEnabled = false;
                 menuContextDifference.Visibility = Visibility.Collapsed;

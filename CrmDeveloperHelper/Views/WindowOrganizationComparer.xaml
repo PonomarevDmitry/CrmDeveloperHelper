@@ -6,7 +6,7 @@
         xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
         Title="Organization Comparer" Height="492" Width="1263.985" WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
-        
+
         <BitmapImage x:Key="ImageAdd" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Add.png" />
         <BitmapImage x:Key="ImageUp" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/IndexUp.png" />
         <BitmapImage x:Key="ImageDown" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/IndexDown.png" />
@@ -18,13 +18,13 @@
         <BitmapImage x:Key="ImageCheck" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Check.png" />
 
         <ContextMenu x:Key="listContextMenu">
-            
+
             <MenuItem Header="Test Connection" VerticalAlignment="Center" Click="tSBTestConnection_Click">
                 <MenuItem.Icon>
                     <Image Width="16" Height="16" Source="{StaticResource ImageCheck}"/>
                 </MenuItem.Icon>
             </MenuItem>
-            
+
             <Separator/>
             <MenuItem Header="Edit" VerticalAlignment="Center" Click="tSBEdit_Click" FontWeight="Bold">
                 <MenuItem.Icon>
@@ -54,7 +54,7 @@
                     <Image Width="16" Height="16" Source="{StaticResource ImageDelete}"/>
                 </MenuItem.Icon>
             </MenuItem>
-            
+
         </ContextMenu>
     </src:WindowBase.Resources>
     <Grid>
@@ -93,9 +93,9 @@
                             <Setter Property="Margin" Value="10,0,10,0" />
                         </Style>
                     </DockPanel.Resources>
-                    
+
                     <ToolBarPanel Orientation="Horizontal" >
-                        
+
                         <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                             <MenuItem Header="Create">
                                 <MenuItem.Icon>
@@ -121,14 +121,14 @@
                                 </MenuItem>
                             </MenuItem>
                         </Menu>
-                        
+
                         <Button x:Name="tSBEdit" HorizontalAlignment="Left" IsEnabled="False" Click="tSBEdit_Click">
                             <StackPanel>
                                 <Image Width="16" Height="16"  Source="{StaticResource ImageEdit}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Edit</TextBlock>
                             </StackPanel>
                         </Button>
-                        
+
                         <Separator/>
                         <Button x:Name="tSBTestConnection" HorizontalAlignment="Left" IsEnabled="False" Click="tSBTestConnection_Click">
                             <StackPanel>
@@ -136,7 +136,7 @@
                                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,0,0,0">Test Connection</TextBlock>
                             </StackPanel>
                         </Button>
-                        
+
                         <Separator/>
                         <Button x:Name="tSBUp" HorizontalAlignment="Left" IsEnabled="False" Click="tSBUp_Click">
                             <StackPanel  Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -148,7 +148,7 @@
                                 <Image Width="16" Height="16"  Source="{StaticResource ImageDown}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                             </StackPanel>
                         </Button>
-                        
+
                         <Separator/>
                         <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                             <MenuItem Header="Solution Image">
@@ -179,77 +179,53 @@
                                 </MenuItem>
                             </MenuItem>
                         </Menu>
-                        
+
                         <Separator/>
                         <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                             <MenuItem x:Name="miConnection" Header="Connection">
-                               
+
                             </MenuItem>
                         </Menu>
-                        
+
                         <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" >
                             <MenuItem x:Name="miCompareOrganizations" Header="Compare Organizations" Click="miCompareOrganizations_Click" />
                         </Menu>
-                        
+
                         <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" >
-                            <MenuItem x:Name="tSDDBShowDifference" Header="Show Difference">
-                                <MenuItem Header="Entity Metadata" Click="tSMIDifferenceEntityMetadata_Click"/>
-                                
-                                <Separator/>
-                                <MenuItem Header="System Forms" Click="tSMIDifferenceSystemForms_Click" />
-                                <MenuItem Header="System Views" Click="tSMIDifferenceSystemSavedQueries_Click" />
-                                <MenuItem Header="System Charts" Click="tSMIDifferenceSystemCharts_Click" />
-                                
-                                <Separator/>
-                                <MenuItem Header="Global OptionSets" Click="tSMIDifferenceGlobalOptionSets_Click" />
-                                
-                                <Separator/>
-                                <MenuItem Header="SiteMaps" Click="tSMIDifferenceSiteMaps_Click" />
-                                
-                                <Separator/>
-                                <MenuItem Header="WebResources" Click="tSMIDifferenceWebResources_Click" />
-                                <MenuItem Header="Reports" Click="tSMIDifferenceReports_Click" />
-                                
-                                <Separator/>
-                                <MenuItem Header="Plugin Assemblies" Click="tSMIDifferencePluginAssemblies_Click" />
-                                <MenuItem Header="Workflows" Click="tSMIDifferenceWorkflows_Click" />
-                                
-                                <Separator/>
-                                <MenuItem Header="ApplicationRibbons" Click="tSMIDifferenceApplicationRibbons_Click" />
-                            </MenuItem>
+                            <MenuItem x:Name="tSDDBShowDifference" Header="Show Difference" />
                         </Menu>
-                        
+
                         <Separator/>
                         <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" >
                             <MenuItem x:Name="tSDDBTransfer" Header="Transfer">
                                 <MenuItem x:Name="tSMITransferAuditFrom1To2" Header="Audit from 1 to 2" Click="tSMITransferAuditFrom1To2_Click"/>
-                                
+
                                 <Separator/>
                                 <MenuItem x:Name="tSMITransferAuditFrom2To1" Header="Audit from 2 to 1" Click="tSMITransferAuditFrom2To1_Click"/>
-                                
+
                                 <Separator/>
                                 <MenuItem x:Name="tSMITransferWorkflowsStatesFrom1To2" Header="Workflows States from 1 to 2" Click="tSMITransferWorkflowsStatesFrom1To2_Click"/>
-                                
+
                                 <Separator/>
                                 <MenuItem x:Name="tSMITransferWorkflowsStatesFrom2To1" Header="Workflows States from 2 to 1" Click="tSMITransferWorkflowsStatesFrom2To1_Click"/>
-                                
+
                                 <Separator/>
                                 <MenuItem x:Name="tSMITransferPluginStepsStatesFrom1To2" Header="Plugin Steps States from 1 to 2" Click="tSMITransferPluginStepsStatesFrom1To2_Click"/>
-                                
+
                                 <Separator/>
                                 <MenuItem x:Name="tSMITransferPluginStepsStatesFrom2To1" Header="Plugin Steps States from 2 to 1" Click="tSMITransferPluginStepsStatesFrom2To1_Click"/>
                             </MenuItem>
                         </Menu>
-                        
+
                     </ToolBarPanel>
-                    
+
                     <Button x:Name="tSBMoveToArchive" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" Click="tSBMoveToArchive_Click" >
                         <StackPanel>
                             <Image Width="16" Height="16"  Source="{StaticResource ImageDelete}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Move to Archive</TextBlock>
                         </StackPanel>
                     </Button>
-                    
+
                 </DockPanel>
             </ToolBar>
 
@@ -283,7 +259,7 @@
                                                 </Style.Triggers>
                                             </Style>
                                         </Border.Style>
-                                        
+
                                         <CheckBox IsChecked="{Binding IsReadOnly}" Margin="6,3" ToolTip="{Binding ToolTip}" IsEnabled="False"  />
                                     </Border>
                                 </DataTemplate>
@@ -306,7 +282,7 @@
                                                 </Style.Triggers>
                                             </Style>
                                         </Border.Style>
-                                        
+
                                         <TextBlock Text="{Binding Name}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
                                     </Border>
                                 </DataTemplate>
@@ -329,7 +305,7 @@
                                                 </Style.Triggers>
                                             </Style>
                                         </Border.Style>
-                                        
+
                                         <TextBlock Text="{Binding GroupName}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
                                     </Border>
                                 </DataTemplate>
@@ -352,7 +328,7 @@
                                                 </Style.Triggers>
                                             </Style>
                                         </Border.Style>
-                                        
+
                                         <TextBlock Text="{Binding PublicUrl}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
                                     </Border>
                                 </DataTemplate>

@@ -23,28 +23,15 @@
             
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
 
-                <MenuItem x:Uid="menuContextDifference" Header="Difference Entity Description" Click="mIShowDifferenceEntityDescription_Click" FontWeight="Bold"/>
-                <MenuItem x:Uid="menuContextDifference" Header="Difference Fetch XML" Click="mIShowDifferenceFetchXml_Click" FontWeight="Bold"/>
-                <MenuItem x:Uid="menuContextDifference" Header="Difference Layout XML" Click="mIShowDifferenceLayoutXml_Click" FontWeight="Bold"/>
-                <MenuItem x:Uid="menuContextDifference" Header="Difference ColumnSet XML" Click="mIShowDifferenceColumnSetXml_Click" FontWeight="Bold"/>
-                <MenuItem x:Uid="menuContextDifference" Header="Difference Layout Json" Click="mIShowDifferenceLayoutJson_Click" FontWeight="Bold"/>
-                <MenuItem x:Uid="menuContextDifference" Header="Difference Offline Sql Query" Click="mIShowDifferenceOfflineSqlQuery_Click" FontWeight="Bold"/>
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Entity Description" Click="mIShowDifferenceEntityDescription_Click" FontWeight="Bold" />
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Fetch XML" Click="mIShowDifferenceFetchXml_Click" FontWeight="Bold" />
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Layout XML" Click="mIShowDifferenceLayoutXml_Click" FontWeight="Bold" />
+                <MenuItem x:Uid="menuContextDifference" Header="Difference ColumnSet XML" Click="mIShowDifferenceColumnSetXml_Click" FontWeight="Bold" />
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Layout Json" Click="mIShowDifferenceLayoutJson_Click" FontWeight="Bold" />
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Offline Sql Query" Click="mIShowDifferenceOfflineSqlQuery_Click" FontWeight="Bold" />
+                <Separator x:Uid="menuContextDifference" />
 
-                <Separator x:Uid="menuContextDifference"/>
-                <MenuItem x:Uid="menuContextDifference" Header="Organization Comparer">
-                    <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Forms" Click="btnCompareSystemForms_Click"/>
-                    <MenuItem Header="Charts" Click="btnCompareSavedChart_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
-                    <Separator/>
-                    <MenuItem Header="ApplicationRibbon" Click="btnCompareApplicationRibbons_Click"/>
-                </MenuItem>
+                <MenuItem x:Uid="miCompareOrganizations" Header="Organization Comparer" />
                 <Separator x:Uid="menuContextDifference"/>
 
                 <MenuItem Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Create from {0}">
@@ -122,20 +109,7 @@
 
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
             <Menu Background="{x:Null}">
-                <MenuItem Header="Organization Comparer">
-                    <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Forms" Click="btnCompareSystemForms_Click"/>
-                    <MenuItem Header="Charts" Click="btnCompareSavedChart_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
-                    <Separator/>
-                    <MenuItem Header="ApplicationRibbon" Click="btnCompareApplicationRibbons_Click"/>
-                </MenuItem>
+                <MenuItem x:Name="miCompareOrganizations" Header="Organization Comparer" />
             </Menu>
         </ToolBar>
 

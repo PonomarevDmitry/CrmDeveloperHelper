@@ -115,8 +115,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , getEntityMetadataList: GetEntityMetadataList
             );
 
+            var compareWindowsHelper = new CompareWindowsHelper(_iWriteToOutput, _commonConfig, GetConnection1, GetConnection2
+                , getEntityName: GetEntityName
+            );
+
             explorersHelper1.FillExplorers(miExplorers1);
             explorersHelper2.FillExplorers(miExplorers2);
+
+            compareWindowsHelper.FillCompareWindows(miCompareOrganizations);
+            compareWindowsHelper.FillCompareWindows(miCompareOrganizations2);
 
             if (this.Resources.Contains("listContextMenu")
                 && this.Resources["listContextMenu"] is ContextMenu contextMenu
@@ -133,6 +140,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     else if (string.Equals(item.Uid, "miExplorers2", StringComparison.InvariantCultureIgnoreCase))
                     {
                         explorersHelper2.FillExplorers(item);
+                    }
+                    else if (string.Equals(item.Uid, "miCompareOrganizations", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        compareWindowsHelper.FillCompareWindows(item);
                     }
                 }
             }
@@ -1200,87 +1211,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private async void btnOrganizationComparer_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService1();
-
-            WindowHelper.OpenOrganizationComparerWindow(this._iWriteToOutput, service.ConnectionData.ConnectionConfiguration, _commonConfig);
-        }
-
-        private async void btnCompareApplicationRibbons_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedLinkedEntityMetadata();
-
-            _commonConfig.Save();
-
-            var service1 = await GetService1();
-            var service2 = await GetService2();
-
-            WindowHelper.OpenOrganizationComparerApplicationRibbonWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData);
-        }
-
-        private async void btnCompareGlobalOptionSets_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedLinkedEntityMetadata();
-
-            _commonConfig.Save();
-
-            var service1 = await GetService1();
-            var service2 = await GetService2();
-
-            WindowHelper.OpenOrganizationComparerGlobalOptionSetsWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData);
-        }
-
-        private async void btnCompareSystemForms_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedLinkedEntityMetadata();
-
-            _commonConfig.Save();
-
-            var service1 = await GetService1();
-            var service2 = await GetService2();
-
-            WindowHelper.OpenOrganizationComparerSystemFormWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, entity?.LogicalName);
-        }
-
-        private async void btnCompareSavedQuery_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedLinkedEntityMetadata();
-
-            _commonConfig.Save();
-
-            var service1 = await GetService1();
-            var service2 = await GetService2();
-
-            WindowHelper.OpenOrganizationComparerSavedQueryWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, entity?.LogicalName);
-        }
-
-        private async void btnCompareSavedChart_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedLinkedEntityMetadata();
-
-            _commonConfig.Save();
-
-            var service1 = await GetService1();
-            var service2 = await GetService2();
-
-            WindowHelper.OpenOrganizationComparerSavedQueryVisualizationWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, entity?.LogicalName);
-        }
-
-        private async void btnCompareWorkflows_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedLinkedEntityMetadata();
-
-            _commonConfig.Save();
-
-            var service1 = await GetService1();
-            var service2 = await GetService2();
-
-            WindowHelper.OpenOrganizationComparerWorkflowWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData, entity?.LogicalName);
-        }
-
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)
         {
             if (!(sender is ContextMenu contextMenu))
@@ -1292,7 +1222,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var items = contextMenu.Items.OfType<Control>();
 
-            foreach (var menuContextDifference in items.Where(i => string.Equals(i.Uid, "menuContextDifference", StringComparison.InvariantCultureIgnoreCase)))
+            foreach (var menuContextDifference in items.Where(i =>
+                string.Equals(i.Uid, "menuContextDifference", StringComparison.InvariantCultureIgnoreCase)
+                || string.Equals(i.Uid, "miCompareOrganizations", StringComparison.InvariantCultureIgnoreCase)
+            ))
             {
                 menuContextDifference.IsEnabled = false;
                 menuContextDifference.Visibility = Visibility.Collapsed;

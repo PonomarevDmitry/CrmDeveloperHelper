@@ -24,7 +24,8 @@
                 <MenuItem x:Uid="menuContextDifference" Header="Difference Entity Description" Click="mIShowDifferenceEntityDescription_Click" />
                 <MenuItem x:Uid="menuContextDifference" Header="Difference SiteMap XML" Click="mIShowDifferenceSiteMapXml_Click" FontWeight="Bold"/>
                 <Separator x:Uid="menuContextDifference"/>
-                <MenuItem x:Uid="menuContextDifference" Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
+
+                <MenuItem x:Uid="miCompareOrganizations" Header="Organization Comparer" />
                 <Separator x:Uid="menuContextDifference"/>
 
                 <MenuItem Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Create from {0}">
@@ -86,9 +87,7 @@
 
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
             <Menu Background="{x:Null}">
-                <MenuItem Header="Organization Comparer">
-                    <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
-                </MenuItem>
+                <MenuItem x:Name="miCompareOrganizations" Header="Organization Comparer" />
             </Menu>
         </ToolBar>
 

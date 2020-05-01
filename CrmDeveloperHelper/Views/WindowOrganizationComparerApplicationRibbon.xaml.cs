@@ -69,8 +69,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var explorersHelper1 = new ExplorersHelper(_iWriteToOutput, _commonConfig, GetService1);
             var explorersHelper2 = new ExplorersHelper(_iWriteToOutput, _commonConfig, GetService2);
 
+            var compareWindowsHelper = new CompareWindowsHelper(_iWriteToOutput, _commonConfig, GetConnection1, GetConnection2);
+
             explorersHelper1.FillExplorers(miExplorers1);
             explorersHelper2.FillExplorers(miExplorers2);
+
+            compareWindowsHelper.FillCompareWindows(miCompareOrganizations);
         }
 
         private void LoadFromConfig()
@@ -612,75 +616,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this.Resources["ConnectionName2"] = connection2.Name;
                 }
             });
-        }
-
-        private async void btnOrganizationComparer_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService1();
-
-            WindowHelper.OpenOrganizationComparerWindow(this._iWriteToOutput, service.ConnectionData.ConnectionConfiguration, _commonConfig);
-        }
-
-        private async void btnCompareMetadataFile_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service1 = await GetService1();
-            var service2 = await GetService2();
-
-            WindowHelper.OpenOrganizationComparerEntityMetadataWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData);
-        }
-
-        private async void btnCompareGlobalOptionSets_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service1 = await GetService1();
-            var service2 = await GetService2();
-
-            WindowHelper.OpenOrganizationComparerGlobalOptionSetsWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData);
-        }
-
-        private async void btnCompareSystemForms_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service1 = await GetService1();
-            var service2 = await GetService2();
-
-            WindowHelper.OpenOrganizationComparerSystemFormWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData);
-        }
-
-        private async void btnCompareSavedQuery_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service1 = await GetService1();
-            var service2 = await GetService2();
-
-            WindowHelper.OpenOrganizationComparerSavedQueryWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData);
-        }
-
-        private async void btnCompareSavedChart_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service1 = await GetService1();
-            var service2 = await GetService2();
-
-            WindowHelper.OpenOrganizationComparerSavedQueryVisualizationWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData);
-        }
-
-        private async void btnCompareWorkflows_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service1 = await GetService1();
-            var service2 = await GetService2();
-
-            WindowHelper.OpenOrganizationComparerWorkflowWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData);
         }
 
         private void miExportEntityRibbonOptions_Click(object sender, RoutedEventArgs e)

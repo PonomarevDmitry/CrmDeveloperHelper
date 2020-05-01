@@ -35,17 +35,8 @@
                 <MenuItem x:Uid="menuContextDifference" Header="Difference Entity RibbonDiffXml" Click="mIDifferenceEntityRibbonDiffXml_Click" />
 
                 <Separator x:Uid="menuContextDifference" />
-                <MenuItem x:Uid="menuContextDifference" Header="Organization Comparer">
-                    <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Forms" Click="btnCompareSystemForms_Click"/>
-                    <MenuItem Header="Views" Click="btnCompareSavedQuery_Click"/>
-                    <MenuItem Header="Charts" Click="btnCompareSavedChart_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
-                </MenuItem>
+                <MenuItem x:Uid="miCompareOrganizations" Header="Organization Comparer" />
+
                 <Separator x:Uid="menuContextDifference" />
 
                 <MenuItem Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Create from {0}">
@@ -126,17 +117,7 @@
 
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
             <Menu Background="{x:Null}">
-                <MenuItem Header="Organization Comparer">
-                    <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Forms" Click="btnCompareSystemForms_Click"/>
-                    <MenuItem Header="Views" Click="btnCompareSavedQuery_Click"/>
-                    <MenuItem Header="Charts" Click="btnCompareSavedChart_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
-                </MenuItem>
+                <MenuItem x:Name="miCompareOrganizations" Header="Organization Comparer" />
             </Menu>
         </ToolBar>
 
@@ -227,17 +208,8 @@
                             <MenuItem Header="Entity RibbonDiffXml" Click="mIDifferenceEntityRibbonDiffXml_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Organization Comparer">
-                                <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
-                                <Separator/>
-                                <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
-                                <Separator/>
-                                <MenuItem Header="Forms" Click="btnCompareSystemForms_Click"/>
-                                <MenuItem Header="Views" Click="btnCompareSavedQuery_Click"/>
-                                <MenuItem Header="Charts" Click="btnCompareSavedChart_Click"/>
-                                <Separator/>
-                                <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
-                            </MenuItem>
+                            <MenuItem x:Name="miCompareOrganizations2" Header="Organization Comparer" />
+
                         </MenuItem>
                     </Menu>
 

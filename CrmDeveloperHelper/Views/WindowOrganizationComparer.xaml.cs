@@ -62,6 +62,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 FillSolutionImages(solutionImage);
             }
+
+            FillExplorersMenuItems();
+        }
+
+        private void FillExplorersMenuItems()
+        {
+            var compareWindowsHelper = new CompareWindowsHelper(_iWriteToOutput, _commonConfig, GetConnection1, GetConnection2);
+            compareWindowsHelper.FillCompareWindows(tSDDBShowDifference);
         }
 
         private void FillOperationHandlers()
@@ -573,6 +581,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         #endregion Кнопки управления подключениями.
 
+        private ConnectionData GetConnection1()
+        {
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
+
+            return connection1;
+        }
+
+        private ConnectionData GetConnection2()
+        {
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
+
+            return connection2;
+        }
+
         public void GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2)
         {
             connection1 = null;
@@ -608,241 +630,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             return null;
         }
-
-        #region Формы сравнения.
-
-        private void tSMIDifferenceSystemSavedQueries_Click(object sender, RoutedEventArgs e)
-        {
-            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
-
-            if (connection1 == null || connection2 == null)
-            {
-                return;
-            }
-
-            _commonConfig.Save();
-
-            WindowHelper.OpenOrganizationComparerSavedQueryWindow(
-                this._iWriteToOutput
-                , _commonConfig
-                , connection1
-                , connection2
-                , null
-                );
-        }
-
-        private void tSMIDifferenceSystemCharts_Click(object sender, RoutedEventArgs e)
-        {
-            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
-
-            if (connection1 == null || connection2 == null)
-            {
-                return;
-            }
-
-            string folder = string.Empty;
-            txtBFolder.Dispatcher.Invoke(() =>
-            {
-                folder = txtBFolder.Text.Trim();
-            });
-
-            if (string.IsNullOrEmpty(folder))
-            {
-                return;
-            }
-
-            if (!Directory.Exists(folder))
-            {
-                return;
-            }
-
-            _commonConfig.Save();
-
-            WindowHelper.OpenOrganizationComparerSavedQueryVisualizationWindow(
-                this._iWriteToOutput
-                , _commonConfig
-                , connection1
-                , connection2
-                , null
-                );
-        }
-
-        private void tSMIDifferenceGlobalOptionSets_Click(object sender, RoutedEventArgs e)
-        {
-            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
-
-            if (connection1 == null || connection2 == null)
-            {
-                return;
-            }
-
-            _commonConfig.Save();
-
-            WindowHelper.OpenOrganizationComparerGlobalOptionSetsWindow(
-                this._iWriteToOutput
-                , _commonConfig
-                , connection1
-                , connection2
-                , null
-                );
-        }
-
-        private void tSMIDifferenceSystemForms_Click(object sender, RoutedEventArgs e)
-        {
-            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
-
-            if (connection1 == null || connection2 == null)
-            {
-                return;
-            }
-
-            _commonConfig.Save();
-
-            WindowHelper.OpenOrganizationComparerSystemFormWindow(
-                this._iWriteToOutput
-                , _commonConfig
-                , connection1
-                , connection2
-                , null
-                );
-        }
-
-        private void tSMIDifferenceWebResources_Click(object sender, RoutedEventArgs e)
-        {
-            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
-
-            if (connection1 == null || connection2 == null)
-            {
-                return;
-            }
-
-            _commonConfig.Save();
-
-            WindowHelper.OpenOrganizationComparerWebResourcesWindow(
-                this._iWriteToOutput
-                , _commonConfig
-                , connection1
-                , connection2
-                );
-        }
-
-        private void tSMIDifferenceEntityMetadata_Click(object sender, RoutedEventArgs e)
-        {
-            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
-
-            if (connection1 == null || connection2 == null)
-            {
-                return;
-            }
-
-            _commonConfig.Save();
-
-            WindowHelper.OpenOrganizationComparerEntityMetadataWindow(
-                this._iWriteToOutput
-                , _commonConfig
-                , connection1
-                , connection2
-                , null
-            );
-        }
-
-        private void tSMIDifferenceApplicationRibbons_Click(object sender, RoutedEventArgs e)
-        {
-            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
-
-            if (connection1 == null || connection2 == null)
-            {
-                return;
-            }
-
-            _commonConfig.Save();
-
-            WindowHelper.OpenOrganizationComparerApplicationRibbonWindow(
-                this._iWriteToOutput
-                , _commonConfig
-                , connection1
-                , connection2
-            );
-        }
-
-        private void tSMIDifferenceSiteMaps_Click(object sender, RoutedEventArgs e)
-        {
-            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
-
-            if (connection1 == null || connection2 == null)
-            {
-                return;
-            }
-
-            _commonConfig.Save();
-
-            WindowHelper.OpenOrganizationComparerSiteMapWindow(
-                this._iWriteToOutput
-                , _commonConfig
-                , connection1
-                , connection2
-            );
-        }
-
-        private void tSMIDifferenceWorkflows_Click(object sender, RoutedEventArgs e)
-        {
-            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
-
-            if (connection1 == null || connection2 == null)
-            {
-                return;
-            }
-
-            _commonConfig.Save();
-
-            WindowHelper.OpenOrganizationComparerWorkflowWindow(
-                this._iWriteToOutput
-                , _commonConfig
-                , connection1
-                , connection2
-                , null
-            );
-        }
-
-        private void tSMIDifferenceReports_Click(object sender, RoutedEventArgs e)
-        {
-            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
-
-            if (connection1 == null || connection2 == null)
-            {
-                return;
-            }
-
-            _commonConfig.Save();
-
-            WindowHelper.OpenOrganizationComparerReportWindow(
-                this._iWriteToOutput
-                , _commonConfig
-                , connection1
-                , connection2
-                );
-        }
-
-        private void tSMIDifferencePluginAssemblies_Click(object sender, RoutedEventArgs e)
-        {
-            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
-
-            if (connection1 == null || connection2 == null)
-            {
-                return;
-            }
-
-            _commonConfig.Save();
-
-            WindowHelper.OpenOrganizationComparerPluginAssemblyWindow(
-                this._iWriteToOutput
-                , _commonConfig
-                , connection1
-                , connection2
-                );
-        }
-
-        #endregion Формы сравнения.
 
         private IOrganizationComparerSource CreateOrganizationComparerSource(ConnectionData connection1, ConnectionData connection2)
         {
