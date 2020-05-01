@@ -2042,7 +2042,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             var commonConfig = CommonConfiguration.Get();
 
-            var form = new WindowStatusSelect(_iWriteToOutput, service, commonConfig, entityName);
+            var form = new WindowStatusSelect(_iWriteToOutput, commonConfig, service, entityName);
 
             if (!form.ShowDialog().GetValueOrDefault())
             {

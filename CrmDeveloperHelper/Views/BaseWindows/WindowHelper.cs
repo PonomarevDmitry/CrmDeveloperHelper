@@ -307,8 +307,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 new WindowEntityEditor
                 (
                     iWriteToOutput
-                    , service
                     , commonConfig
+                    , service
                     , entityName
                     , entityId
                 )
@@ -327,8 +327,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 new WindowEntityBulkEditor
                 (
                     iWriteToOutput
-                    , service
                     , commonConfig
+                    , service
                     , entityName
                     , entityIds
                 )
@@ -347,8 +347,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 new WindowEntityBulkTransfer
                 (
                     iWriteToOutput
-                    , service
                     , commonConfig
+                    , service
                     , entityMetadata
                     , entities
                 )
@@ -803,7 +803,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         )
         {
             ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
-                new WindowExplorerSolutionComponents(iWriteToOutput, service, descriptor, commonConfig, solutionUniqueName, selection)
+                new WindowExplorerSolutionComponents(iWriteToOutput, commonConfig, service, descriptor, solutionUniqueName, selection)
             );
         }
 

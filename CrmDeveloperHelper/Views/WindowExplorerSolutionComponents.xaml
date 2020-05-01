@@ -1,12 +1,17 @@
-﻿<src:WindowBase x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowExplorerSolutionComponents"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
-        xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
-        xmlns:entities="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Entities"
-        xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
-        Title="Solution Components Explorer" Height="538.662" Width="755" WindowStartupLocation="Manual">
-    <src:WindowBase.Resources>
+﻿<src:WindowWithOutputAndCommonConfig
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
+    xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
+    xmlns:entities="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Entities"
+    xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
+    x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowExplorerSolutionComponents"
+    Title="Solution Components Explorer"
+    Height="540"
+    Width="755"
+    WindowStartupLocation="Manual"
+    >
+    <src:WindowWithOutputAndCommonConfig.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="StyleWindows.xaml"/>
@@ -34,18 +39,18 @@
 
                 <Separator/>
                 <MenuItem Header="Open Solutions Containing Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
-                
+
                 <Separator/>
                 <MenuItem Header="Dependent Components">
                     <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />
-                    
+
                     <Separator/>
                     <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
                 </MenuItem>
-                
+
                 <Separator/>
                 <MenuItem Header="Open Solution in Web" Click="OpenSolutionInWeb_Click" />
-                
+
                 <Separator/>
                 <MenuItem Header="Open SolutionImage Window" Click="mIOpenSolutionImage_Click" />
 
@@ -57,7 +62,7 @@
             </ContextMenu>
 
         </ResourceDictionary>
-    </src:WindowBase.Resources>
+    </src:WindowWithOutputAndCommonConfig.Resources>
     <Grid>
 
         <Grid.RowDefinitions>
@@ -73,42 +78,10 @@
 
         <ToolBar x:Name="toolBarHeader" Grid.Row="0">
             <Button Content="Description Options" Click="miDescriptionOptions_Click"/>
-            
+
             <Separator/>
             <Menu Background="{x:Null}">
-                <MenuItem Header="Open Solution Component Windows">
-                    <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile_Click" />
-                    <Separator/>
-                    <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer_Click"/>
-                    <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer_Click"/>
-                    <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
-                    <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Entity Privileges Explorer" Click="miEntityPrivilegesExplorer_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Other Privileges Explorer" Click="miOtherPrivilegesExplorer_Click"/>
-                    <Separator/>
-                    <MenuItem Header="SecurityRoles Explorer" Click="miSecurityRolesExplorer_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets_Click" />
-                    <Separator/>
-                    <MenuItem Header="Forms" Click="btnSystemForms_Click" />
-                    <MenuItem Header="Views" Click="btnSavedQuery_Click" />
-                    <MenuItem Header="Charts" Click="btnSavedChart_Click" />
-                    <Separator/>
-                    <MenuItem Header="Workflows" Click="btnWorkflows_Click" />
-                    <Separator/>
-                    <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon_Click" />
-                    <Separator/>
-                    <MenuItem Header="SiteMap" Click="btnSiteMap_Click"/>
-                    <Separator/>
-                    <MenuItem Header="WebResources" Click="btnWebResources_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Report" Click="btnExportReport_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Pluing Type" Click="btnPluginType_Click"/>
-                    <MenuItem Header="Pluing Assembly" Click="btnPluginAssembly_Click"/>
-                </MenuItem>
+                <MenuItem x:Name="miExplorers" Header="Open Solution Component Windows" />
             </Menu>
 
             <Separator/>
@@ -121,10 +94,10 @@
 
                     <Separator/>
                     <MenuItem Header="Customization" Click="btnOpenInWebCustomization_Click" />
-                    
+
                     <Separator/>
                     <MenuItem Header="Solution List" Click="btnOpenInWebSolutionList_Click" />
-                    
+
                     <Separator/>
                     <MenuItem Header="Default Solution" Click="btnOpenInWebDefaultSolution_Click"/>
                 </MenuItem>
@@ -142,7 +115,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="50*"/>
-                
+
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="35*"/>
             </Grid.ColumnDefinitions>
@@ -232,29 +205,29 @@
 
                             <Separator x:Name="sepClearUnManagedSolution" Visibility="Collapsed" IsEnabled="False"/>
                             <MenuItem x:Name="miClearUnManagedSolution" Header="Clear Current UnManaged Solution" Click="miClearUnManagedSolution_Click" Visibility="Collapsed" IsEnabled="False"/>
-                            
+
                             <Separator x:Name="sepClearUnManagedSolution2" Visibility="Collapsed" IsEnabled="False"/>
                             <MenuItem x:Name="miSelectAsLastSelected" Header="Select Current Solution as Last Selected" Click="miSelectAsLastSelected_Click" Visibility="Collapsed" IsEnabled="False"/>
-                            
+
                             <Separator/>
                             <MenuItem Header="Used Entities in Workflows" Click="mIUsedEntitiesInWorkflows_Click" />
                             <MenuItem Header="Used Not Exists Entities in Workflows" Click="mIUsedNotExistsEntitiesInWorkflows_Click" />
-                            
+
                             <Separator/>
                             <MenuItem Header="Create Solution Image" Click="mICreateSolutionImage_Click" />
                             <MenuItem Header="Create Solution Image and Open Organization Comparer Window" Click="mICreateSolutionImageAndOpenOrganizationComparer_Click" />
-                            
+
                             <Separator/>
                             <MenuItem Header="Add Components from Solution Image" Click="mILoadSolutionImage_Click" />
                             <MenuItem Header="Add Components from Solution Zip-file" Click="mILoadSolutionZip_Click" />
-                            
+
                             <Separator/>
                             <MenuItem Header="Components" Click="mIComponentsIn_Click" />
-                            
+
                             <Separator/>
                             <MenuItem Header="Missing Components" Click="mIMissingComponentsIn_Click" />
                             <MenuItem Header="Uninstall Components" Click="mIUninstallComponentsIn_Click" />
-                            
+
                             <Separator/>
                             <MenuItem Header="Open SolutionImage Window" Click="mIOpenSolutionImage_Click" />
 
@@ -265,37 +238,37 @@
                             <MenuItem Header="Open Organization DifferenceImage Window" Click="mIOpenOrganizationDifferenceImage_Click" />
                         </MenuItem>
                     </Menu>
-                    
+
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBExportSolutionComponent" Header="Export Solution Component Information">
                             <MenuItem Header="Open in Web" Click="mIOpenInWeb_Click" />
-                            
+
                             <Separator/>
                             <MenuItem x:Name="mICreateEntityDescription" Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
-                            
+
                             <Separator/>
                             <MenuItem Header="Open Solutions Containing Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
-                            
+
                             <Separator/>
                             <MenuItem Header="Dependent Components">
                                 <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />
-                                
+
                                 <Separator/>
                                 <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
                             </MenuItem>
                         </MenuItem>
                     </Menu>
                 </ToolBarPanel>
-                
+
                 <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>
         </ToolBar>
-        
+
         <StatusBar Grid.Row="5">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName"/>
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="15"/>
             <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>
     </Grid>
-</src:WindowBase>
+</src:WindowWithOutputAndCommonConfig>

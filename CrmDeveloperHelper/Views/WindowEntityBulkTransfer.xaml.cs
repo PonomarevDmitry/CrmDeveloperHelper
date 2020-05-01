@@ -17,12 +17,8 @@ using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowEntityBulkTransfer : WindowBase
+    public partial class WindowEntityBulkTransfer : WindowWithOutputAndCommonConfig
     {
-        protected readonly IWriteToOutput _iWriteToOutput;
-
-        private readonly CommonConfiguration _commonConfig;
-
         protected readonly ReadOnlyCollection<Entity> _entityCollection;
 
         protected readonly IOrganizationServiceExtented _service;
@@ -42,12 +38,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly Func<AttributeMetadata, bool> _attributeChecker;
 
         public WindowEntityBulkTransfer(
-            IWriteToOutput outputWindow
-            , IOrganizationServiceExtented service
+            IWriteToOutput iWriteToOutput
             , CommonConfiguration commonConfig
+            , IOrganizationServiceExtented service
             , EntityMetadata entityMetadata
             , IEnumerable<Entity> entityCollection
-        )
+        ) : base(iWriteToOutput, commonConfig)
         {
             IncreaseInit();
 
@@ -59,20 +55,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _cacheEntityMetadata.Add(entityMetadata.LogicalName, entityMetadata);
 
-            this._iWriteToOutput = outputWindow;
             this._service = service;
-            this._commonConfig = commonConfig;
             this._entityMetadata = entityMetadata;
 
             this._entityCollection = new ReadOnlyCollection<Entity>(entityCollection.Where(i => i.Id != Guid.Empty).Distinct().ToList());
 
             this.tSSLblConnectionName.Content = this._service.ConnectionData.Name;
 
+            FillExplorersMenuItems();
+
             DecreaseInit();
 
             this._attributeChecker = a => a.IsValidForUpdate.GetValueOrDefault();
 
             RetrieveEntityInformation();
+        }
+
+        private void FillExplorersMenuItems()
+        {
+            var explorersHelper = new ExplorersHelper(_iWriteToOutput, _commonConfig, () => Task.FromResult(_service)
+                , getEntityName: () => _entityMetadata.LogicalName
+            );
+
+            explorersHelper.FillExplorers(miExplorers);
         }
 
         private async Task RetrieveEntityInformation()
@@ -413,174 +418,5 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     ;
             }
         }
-
-        #region Кнопки открытия других форм с информация о сущности.
-
-        private void btnCreateMetadataFile_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            WindowHelper.OpenEntityMetadataExplorer(this._iWriteToOutput, _service, _commonConfig, _entityMetadata.LogicalName);
-        }
-
-        private void btnEntityAttributeExplorer_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            WindowHelper.OpenEntityAttributeExplorer(this._iWriteToOutput, _service, _commonConfig, _entityMetadata.LogicalName);
-        }
-
-        private void btnEntityRelationshipOneToManyExplorer_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            WindowHelper.OpenEntityRelationshipOneToManyExplorer(this._iWriteToOutput, _service, _commonConfig, _entityMetadata.LogicalName);
-        }
-
-        private void btnEntityRelationshipManyToManyExplorer_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            WindowHelper.OpenEntityRelationshipManyToManyExplorer(this._iWriteToOutput, _service, _commonConfig, _entityMetadata.LogicalName);
-        }
-
-        private void btnEntityKeyExplorer_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            WindowHelper.OpenEntityKeyExplorer(this._iWriteToOutput, _service, _commonConfig, _entityMetadata.LogicalName);
-        }
-
-        private void miEntityPrivilegesExplorer_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            WindowHelper.OpenEntityPrivilegesExplorer(this._iWriteToOutput, _service, _commonConfig);
-        }
-
-        private void miOtherPrivilegesExplorer_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            WindowHelper.OpenOtherPrivilegesExplorer(this._iWriteToOutput, _service, _commonConfig);
-        }
-
-        private void miSecurityRolesExplorer_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            WindowHelper.OpenRolesExplorer(this._iWriteToOutput, _service, _commonConfig);
-        }
-
-        private void btnGlobalOptionSets_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            WindowHelper.OpenGlobalOptionSetsExplorer(
-                this._iWriteToOutput
-                , _service
-                , _commonConfig
-            );
-        }
-
-        private void btnSystemForms_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            WindowHelper.OpenSystemFormExplorer(this._iWriteToOutput, _service, _commonConfig, _entityMetadata.LogicalName);
-        }
-
-        private void btnSavedQuery_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            WindowHelper.OpenSavedQueryExplorer(this._iWriteToOutput, _service, _commonConfig, _entityMetadata.LogicalName);
-        }
-
-        private void btnSavedChart_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            WindowHelper.OpenSavedQueryVisualizationExplorer(this._iWriteToOutput, _service, _commonConfig, _entityMetadata.LogicalName);
-        }
-
-        private void btnWorkflows_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            WindowHelper.OpenWorkflowExplorer(this._iWriteToOutput, _service, _commonConfig, _entityMetadata.LogicalName);
-        }
-
-        private void btnExportApplicationRibbon_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            WindowHelper.OpenApplicationRibbonExplorer(this._iWriteToOutput, _service, _commonConfig);
-        }
-
-        private void btnPluginTree_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            WindowHelper.OpenPluginTree(this._iWriteToOutput, _service, _commonConfig, _entityMetadata.LogicalName, string.Empty, string.Empty);
-        }
-
-        private void btnMessageExplorer_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            WindowHelper.OpenSdkMessageExplorer(this._iWriteToOutput, _service, _commonConfig, string.Empty);
-        }
-
-        private void btnMessageFilterTree_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            WindowHelper.OpenSdkMessageFilterTree(this._iWriteToOutput, _service, _commonConfig, _entityMetadata.LogicalName, string.Empty);
-        }
-
-        private void btnMessageRequestTree_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            WindowHelper.OpenSdkMessageRequestTree(this._iWriteToOutput, _service, _commonConfig, _entityMetadata.LogicalName);
-        }
-
-        private void btnSiteMap_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            WindowHelper.OpenExportSiteMapExplorer(this._iWriteToOutput, _service, _commonConfig);
-        }
-
-        private void btnWebResources_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            WindowHelper.OpenWebResourceExplorer(this._iWriteToOutput, _service, _commonConfig, string.Empty);
-        }
-
-        private void btnExportReport_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            WindowHelper.OpenReportExplorer(this._iWriteToOutput, _service, _commonConfig, string.Empty);
-        }
-
-        private void btnPluginAssembly_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            WindowHelper.OpenPluginAssemblyExplorer(this._iWriteToOutput, _service, _commonConfig, null);
-        }
-
-        private void btnPluginType_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            WindowHelper.OpenPluginTypeExplorer(this._iWriteToOutput, _service, _commonConfig, null);
-        }
-
-        #endregion Кнопки открытия других форм с информация о сущности.
     }
 }

@@ -1,8 +1,13 @@
-﻿<src:WindowBase x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowEntityBulkEditor"
-                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
-                Title="Entity Bulk Editor" Height="538.662" Width="717" WindowStartupLocation="Manual">
+﻿<src:WindowWithOutputAndCommonConfig
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
+    x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowEntityBulkEditor"
+    Title="Entity Bulk Editor"
+    Height="540"
+    Width="717"
+    WindowStartupLocation="Manual"
+    >
     <Grid>
 
         <ToolBar x:Name="toolBarHeader" Margin="0,0,0,0" VerticalAlignment="Top" Height="33">
@@ -20,44 +25,7 @@
             <Separator />
 
             <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                <MenuItem Header="Open Explorers" VerticalAlignment="Center">
-                    <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile_Click" />
-                    <Separator/>
-                    <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer_Click"/>
-                    <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer_Click"/>
-                    <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
-                    <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Entity Privileges Explorer" Click="miEntityPrivilegesExplorer_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Other Privileges Explorer" Click="miOtherPrivilegesExplorer_Click"/>
-                    <Separator/>
-                    <MenuItem Header="SecurityRoles Explorer" Click="miSecurityRolesExplorer_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets_Click" />
-                    <Separator/>
-                    <MenuItem Header="Forms" Click="btnSystemForms_Click" />
-                    <MenuItem Header="Views" Click="btnSavedQuery_Click" />
-                    <MenuItem Header="Charts" Click="btnSavedChart_Click" />
-                    <Separator/>
-                    <MenuItem Header="Workflows" Click="btnWorkflows_Click" />
-                    <Separator/>
-                    <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon_Click" />
-                    <Separator/>
-                    <MenuItem Header="SiteMap" Click="btnSiteMap_Click"/>
-                    <Separator/>
-                    <MenuItem Header="WebResources" Click="btnWebResources_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Report" Click="btnExportReport_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Pluing Type" Click="btnPluginType_Click"/>
-                    <MenuItem Header="Pluing Assembly" Click="btnPluginAssembly_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Pluing Tree" Click="btnPluginType_Click"/>
-                    <MenuItem Header="Message Explorer" Click="btnMessageExplorer_Click"/>
-                    <MenuItem Header="Message Filter Tree" Click="btnMessageFilterTree_Click"/>
-                    <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree_Click"/>
-                </MenuItem>
+                <MenuItem x:Name="miExplorers" Header="Open Explorers" VerticalAlignment="Center" />
             </Menu>
 
             <Separator />
@@ -104,4 +72,4 @@
             <StatusBarItem x:Name="stBIStatus" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
         </StatusBar>
     </Grid>
-</src:WindowBase>
+</src:WindowWithOutputAndCommonConfig>
