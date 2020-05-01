@@ -31,7 +31,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , ConnectionData connectionData
             , string filePath
-        )
+        ) : base(iWriteToOutput, commonConfig, connectionData)
         {
             this.IncreaseInit();
 

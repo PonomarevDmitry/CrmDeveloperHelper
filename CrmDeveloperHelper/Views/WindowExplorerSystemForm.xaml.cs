@@ -38,12 +38,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         public WindowExplorerSystemForm(
              IWriteToOutput iWriteToOutput
-            , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
+            , IOrganizationServiceExtented service
             , string filterEntity
             , EnvDTE.SelectedItem selectedItem
             , string selection
-        )
+        ) : base(iWriteToOutput, commonConfig, service)
         {
             this.IncreaseInit();
 

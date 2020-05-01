@@ -49,12 +49,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         public WindowExplorerRole(
             IWriteToOutput iWriteToOutput
-            , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
+            , IOrganizationServiceExtented service
             , IEnumerable<EntityMetadata> entityMetadataList
             , IEnumerable<Privilege> privileges
             , string filterEntity
-        )
+        ) : base(iWriteToOutput, commonConfig, service)
         {
             this.IncreaseInit();
 

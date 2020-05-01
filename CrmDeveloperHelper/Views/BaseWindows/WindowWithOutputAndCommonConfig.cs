@@ -10,7 +10,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         protected readonly CommonConfiguration _commonConfig;
 
-        public WindowWithOutputAndCommonConfig(IWriteToOutput iWriteToOutput, CommonConfiguration commonConfig)
+        protected WindowWithOutputAndCommonConfig(IWriteToOutput iWriteToOutput, CommonConfiguration commonConfig)
         {
             this._iWriteToOutput = iWriteToOutput ?? throw new ArgumentNullException(nameof(iWriteToOutput));
             this._commonConfig = commonConfig ?? throw new ArgumentNullException(nameof(commonConfig));

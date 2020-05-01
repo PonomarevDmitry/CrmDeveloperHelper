@@ -30,9 +30,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         public WindowExplorerOrganization(
              IWriteToOutput iWriteToOutput
-            , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
-            )
+            , IOrganizationServiceExtented service
+        ) : base(iWriteToOutput, commonConfig, service)
         {
             this.IncreaseInit();
 

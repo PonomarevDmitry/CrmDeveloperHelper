@@ -24,6 +24,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly Func<string> _getSavedQueryName;
         private readonly Func<string> _getSavedQueryVisualizationName;
         private readonly Func<string> _getOtherPrivilegeName;
+        private readonly Func<string> _getSiteMapName;
+        private readonly Func<string> _getReportName;
+        private readonly Func<string> _getWebResourceName;
 
         private readonly Func<Guid, IEnumerable<EntityMetadata>> _getEntityMetadataList;
         private readonly Func<Guid, IEnumerable<Privilege>> _getOtherPrivilegesList;
@@ -44,7 +47,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , Func<string> getSavedQueryName = null
             , Func<string> getSavedQueryVisualizationName = null
             , Func<string> getOtherPrivilegeName = null
-        ) : this(iWriteToOutput, commonConfig, getService, getEntityName, getEntityMetadataList, getOtherPrivilegesList, getGlobalOptionSetName, getWorkflowName, getSystemFormName, getSavedQueryName, getSavedQueryVisualizationName, getOtherPrivilegeName)
+            , Func<string> getSiteMapName = null
+            , Func<string> getReportName = null
+            , Func<string> getWebResourceName = null
+        ) : this(iWriteToOutput, commonConfig, getService
+            , getEntityName
+            , getEntityMetadataList
+            , getOtherPrivilegesList
+            , getGlobalOptionSetName
+            , getWorkflowName
+            , getSystemFormName
+            , getSavedQueryName
+            , getSavedQueryVisualizationName
+            , getOtherPrivilegeName
+            , getSiteMapName
+            , getReportName
+            , getWebResourceName
+        )
         {
             this._selectedItem = selectedItem;
         }
@@ -62,6 +81,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , Func<string> getSavedQueryName = null
             , Func<string> getSavedQueryVisualizationName = null
             , Func<string> getOtherPrivilegeName = null
+            , Func<string> getSiteMapName = null
+            , Func<string> getReportName = null
+            , Func<string> getWebResourceName = null
         )
         {
             this._iWriteToOutput = iWriteToOutput;
@@ -78,6 +100,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._getSavedQueryName = getSavedQueryName;
             this._getSavedQueryVisualizationName = getSavedQueryVisualizationName;
             this._getOtherPrivilegeName = getOtherPrivilegeName;
+            this._getSiteMapName = getSiteMapName;
+            this._getReportName = getReportName;
+            this._getWebResourceName = getWebResourceName;
         }
 
         private string GetEntityName()
@@ -145,6 +170,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (_getOtherPrivilegeName != null)
             {
                 return _getOtherPrivilegeName();
+            }
+
+            return string.Empty;
+        }
+
+        private string GetSiteMapName()
+        {
+            if (_getSiteMapName != null)
+            {
+                return _getSiteMapName();
+            }
+
+            return string.Empty;
+        }
+
+        private string GetReportName()
+        {
+            if (_getReportName != null)
+            {
+                return _getReportName();
+            }
+
+            return string.Empty;
+        }
+
+        private string GetWebResourceName()
+        {
+            if (_getWebResourceName != null)
+            {
+                return _getWebResourceName();
             }
 
             return string.Empty;
@@ -260,17 +315,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             };
             miSavedChart.Click += miSavedChart_Click;
 
+            var miExportApplicationRibbon = new MenuItem()
+            {
+                Header = "ApplicationRibbon",
+            };
+            miExportApplicationRibbon.Click += miExportApplicationRibbon_Click;
+
+            var miSiteMaps = new MenuItem()
+            {
+                Header = "SiteMaps",
+            };
+            miSiteMaps.Click += miSiteMaps_Click;
+
+            var miWebResources = new MenuItem()
+            {
+                Header = "WebResources",
+            };
+            miWebResources.Click += miWebResources_Click;
+
+            var miReports = new MenuItem()
+            {
+                Header = "Reports",
+            };
+            miReports.Click += miReports_Click;
+
             var miWorkflows = new MenuItem()
             {
                 Header = "Workflows",
             };
             miWorkflows.Click += miWorkflows_Click;
 
-            var miExportApplicationRibbon = new MenuItem()
+            var miPluginTypes = new MenuItem()
             {
-                Header = "ApplicationRibbon",
+                Header = "Plugin Types",
             };
-            miExportApplicationRibbon.Click += miExportApplicationRibbon_Click;
+            miPluginTypes.Click += miPluginTypes_Click;
+
+            var miPluginAssemblies = new MenuItem()
+            {
+                Header = "Plugin Assemblies",
+            };
+            miPluginAssemblies.Click += miPluginAssemblies_Click;
 
             var miPluginTree = new MenuItem()
             {
@@ -327,7 +412,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             //<Separator/>
             //<MenuItem Header="ApplicationRibbon" Click="miExportApplicationRibbon_Click"/>
             //<Separator/>
+            //<MenuItem Header="SiteMap" Click="btnSiteMap_Click"/>
+            //<Separator/>
+            //<MenuItem Header="WebResources" Click="btnWebResources_Click"/>
+            //<Separator/>
+            //<MenuItem Header="Report" Click="btnExportReport_Click"/>
+            //<Separator/>
             //<MenuItem Header="Workflows" Click="miWorkflows_Click" />
+            //<Separator/>
+            //<MenuItem Header="Plugin Type" Click="btnPluginType_Click"/>
+            //<MenuItem Header="Plugin Assembly" Click="btnPluginAssembly_Click"/>
             //<Separator/>
             //<MenuItem Header="Plugin Tree" Click="miPluginTree_Click" />
             //<MenuItem Header="Message Explorer" Click="miMessageExplorer_Click" />
@@ -369,10 +463,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             miExplorers.Items.Add(miSavedQuery);
             miExplorers.Items.Add(miSavedChart);
+
             miExplorers.Items.Add(new Separator());
             miExplorers.Items.Add(miExportApplicationRibbon);
+
+            miExplorers.Items.Add(new Separator());
+            miExplorers.Items.Add(miSiteMaps);
+
+            miExplorers.Items.Add(new Separator());
+            miExplorers.Items.Add(miWebResources);
+
+            miExplorers.Items.Add(new Separator());
+            miExplorers.Items.Add(miReports);
+
             miExplorers.Items.Add(new Separator());
             miExplorers.Items.Add(miWorkflows);
+
+            miExplorers.Items.Add(new Separator());
+            miExplorers.Items.Add(miPluginTypes);
+            miExplorers.Items.Add(miPluginAssemblies);
+
             miExplorers.Items.Add(new Separator());
             miExplorers.Items.Add(miPluginTree);
             miExplorers.Items.Add(miMessageExplorer);
@@ -535,6 +645,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenApplicationRibbonExplorer(this._iWriteToOutput, service, _commonConfig);
         }
 
+        private async void miSiteMaps_Click(object sender, RoutedEventArgs e)
+        {
+            var siteMapName = GetSiteMapName();
+
+            var service = await GetService();
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenExportSiteMapExplorer(this._iWriteToOutput, service, _commonConfig, siteMapName);
+        }
+
+        private async void miWebResources_Click(object sender, RoutedEventArgs e)
+        {
+            var webResourceName = GetWebResourceName();
+
+            var service = await GetService();
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenWebResourceExplorer(this._iWriteToOutput, service, _commonConfig, webResourceName);
+        }
+
+        private async void miReports_Click(object sender, RoutedEventArgs e)
+        {
+            var reportName = GetReportName();
+
+            var service = await GetService();
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenReportExplorer(this._iWriteToOutput, service, _commonConfig, reportName);
+        }
+
         private async void miSystemForms_Click(object sender, RoutedEventArgs e)
         {
             var entityName = GetEntityName();
@@ -598,6 +741,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service = await GetService();
 
             WindowHelper.OpenWorkflowExplorer(this._iWriteToOutput, service, _commonConfig, entityName, workflowName);
+        }
+
+        private async void miPluginAssemblies_Click(object sender, RoutedEventArgs e)
+        {
+            var service = await GetService();
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenPluginAssemblyExplorer(this._iWriteToOutput, service, _commonConfig, null);
+        }
+
+        private async void miPluginTypes_Click(object sender, RoutedEventArgs e)
+        {
+            var service = await GetService();
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenPluginTypeExplorer(this._iWriteToOutput, service, _commonConfig, null);
         }
 
         private async void miPluginTree_Click(object sender, RoutedEventArgs e)
@@ -725,16 +886,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             //<MenuItem Header="Workflows" Click="miCompareWorkflows_Click"/>
 
             miCompareOrganizations.Items.Add(miOrganizationComparer);
+
             miCompareOrganizations.Items.Add(new Separator());
             miCompareOrganizations.Items.Add(miCompareMetadataFile);
+
             miCompareOrganizations.Items.Add(new Separator());
             miCompareOrganizations.Items.Add(miCompareGlobalOptionSets);
+
             miCompareOrganizations.Items.Add(new Separator());
             miCompareOrganizations.Items.Add(miCompareApplicationRibbon);
+
             miCompareOrganizations.Items.Add(new Separator());
             miCompareOrganizations.Items.Add(miCompareSystemForms);
             miCompareOrganizations.Items.Add(miCompareSavedQuery);
             miCompareOrganizations.Items.Add(miCompareSavedChart);
+
             miCompareOrganizations.Items.Add(new Separator());
             miCompareOrganizations.Items.Add(miCompareWorkflows);
         }

@@ -248,8 +248,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 new WindowExplorerEntityPrivileges
                 (
                     iWriteToOutput
-                    , service
                     , commonConfig
+                    , service
                     , entityMetadataList
                     , filterEntityName
                 )
@@ -414,8 +414,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 new WindowExplorerSystemForm
                 (
                     iWriteToOutput
-                    , service
                     , commonConfig
+                    , service
                     , filterEntityName
                     , selectedItem
                     , selection
@@ -435,8 +435,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 new WindowExplorerSavedQuery
                 (
                     iWriteToOutput
-                    , service
                     , commonConfig
+                    , service
                     , filterEntityName
                     , selection
                 )
@@ -455,8 +455,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 new WindowExplorerSavedQueryVisualization
                 (
                     iWriteToOutput
-                    , service
                     , commonConfig
+                    , service
                     , filterEntityName
                     , selection
                 )
@@ -703,8 +703,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 new WindowExplorerTeam
                 (
                     iWriteToOutput
-                    , service
                     , commonConfig
+                    , service
                     , entityMetadataList
                     , privileges
                     , filter
@@ -744,8 +744,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 new WindowExplorerRole
                 (
                     iWriteToOutput
-                    , service
                     , commonConfig
+                    , service
                     , entityMetadataList
                     , privileges
                     , filter
@@ -843,7 +843,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         )
         {
             ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
-                new WindowExplorerComponents(iWriteToOutput, service, descriptor, commonConfig, solutionComponents, solutionUniqueName, header, selection)
+                new WindowExplorerComponents(iWriteToOutput, commonConfig, service, descriptor, solutionComponents, solutionUniqueName, header, selection)
             );
         }
 
@@ -1071,8 +1071,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 new WindowExplorerOrganization
                 (
                     iWriteToOutput
-                    , service
                     , commonConfig
+                    , service
                 )
             );
         }

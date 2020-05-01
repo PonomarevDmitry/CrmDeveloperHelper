@@ -34,11 +34,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         public WindowExplorerSavedQuery(
              IWriteToOutput iWriteToOutput
-            , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
+            , IOrganizationServiceExtented service
             , string filterEntity
             , string selection
-        )
+        ) : base(iWriteToOutput, commonConfig, service)
         {
             this.IncreaseInit();
 

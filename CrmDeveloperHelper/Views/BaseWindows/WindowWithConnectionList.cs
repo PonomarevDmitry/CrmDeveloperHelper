@@ -14,11 +14,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
 
-        public WindowWithConnectionList()
-            : base(null, null)
-        {
-        }
-
         protected WindowWithConnectionList(
             IWriteToOutput iWriteToOutput
             , CommonConfiguration commonConfig
