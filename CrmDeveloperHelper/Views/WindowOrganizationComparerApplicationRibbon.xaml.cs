@@ -69,7 +69,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var explorersHelper1 = new ExplorersHelper(_iWriteToOutput, _commonConfig, GetService1);
             var explorersHelper2 = new ExplorersHelper(_iWriteToOutput, _commonConfig, GetService2);
 
-            var compareWindowsHelper = new CompareWindowsHelper(_iWriteToOutput, _commonConfig, GetConnection1, GetConnection2);
+            var compareWindowsHelper = new CompareWindowsHelper(_iWriteToOutput, _commonConfig, () => Tuple.Create(GetConnection1(), GetConnection2()));
 
             explorersHelper1.FillExplorers(miExplorers1);
             explorersHelper2.FillExplorers(miExplorers2);

@@ -11,8 +11,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly IWriteToOutput _iWriteToOutput;
         private readonly CommonConfiguration _commonConfig;
 
-        private readonly Func<ConnectionData> GetConnection1;
-        private readonly Func<ConnectionData> GetConnection2;
+        private readonly Func<Tuple<ConnectionData, ConnectionData>> GetConnections;
 
         private readonly Func<string> _getEntityName;
         private readonly Func<string> _getGlobalOptionSetName;
@@ -28,8 +27,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         public CompareWindowsHelper(
             IWriteToOutput iWriteToOutput
             , CommonConfiguration commonConfig
-            , Func<ConnectionData> getConnection1
-            , Func<ConnectionData> getConnection2
+            , Func<Tuple<ConnectionData, ConnectionData>> getConnections
             , Func<string> getEntityName = null
             , Func<string> getGlobalOptionSetName = null
             , Func<string> getWorkflowName = null
@@ -44,8 +42,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this._iWriteToOutput = iWriteToOutput;
             this._commonConfig = commonConfig;
-            this.GetConnection1 = getConnection1;
-            this.GetConnection2 = getConnection2;
+            this.GetConnections = getConnections;
 
             this._getEntityName = getEntityName;
             this._getGlobalOptionSetName = getGlobalOptionSetName;
@@ -283,9 +280,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             _commonConfig.Save();
 
-            var connection1 = GetConnection1();
+            var connectionTuple = GetConnections();
 
-            WindowHelper.OpenOrganizationComparerWindow(this._iWriteToOutput, connection1.ConnectionConfiguration, _commonConfig);
+            WindowHelper.OpenOrganizationComparerWindow(this._iWriteToOutput, connectionTuple.Item1.ConnectionConfiguration, _commonConfig);
         }
 
         private void miCompareMetadataFile_Click(object sender, RoutedEventArgs e)
@@ -294,20 +291,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            var connection1 = GetConnection1();
-            var connection2 = GetConnection2();
+            var connectionTuple = GetConnections();
 
-            WindowHelper.OpenOrganizationComparerEntityMetadataWindow(this._iWriteToOutput, _commonConfig, connection1, connection2, entityName);
+            WindowHelper.OpenOrganizationComparerEntityMetadataWindow(this._iWriteToOutput, _commonConfig, connectionTuple.Item1, connectionTuple.Item2, entityName);
         }
 
         private void miCompareApplicationRibbon_Click(object sender, RoutedEventArgs e)
         {
             _commonConfig.Save();
 
-            var connection1 = GetConnection1();
-            var connection2 = GetConnection2();
+            var connectionTuple = GetConnections();
 
-            WindowHelper.OpenOrganizationComparerApplicationRibbonWindow(this._iWriteToOutput, _commonConfig, connection1, connection2);
+            WindowHelper.OpenOrganizationComparerApplicationRibbonWindow(this._iWriteToOutput, _commonConfig, connectionTuple.Item1, connectionTuple.Item2);
         }
 
         private void miCompareGlobalOptionSets_Click(object sender, RoutedEventArgs e)
@@ -317,10 +312,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            var connection1 = GetConnection1();
-            var connection2 = GetConnection2();
+            var connectionTuple = GetConnections();
 
-            WindowHelper.OpenOrganizationComparerGlobalOptionSetsWindow(this._iWriteToOutput, _commonConfig, connection1, connection2, optionSetName, entityName);
+            WindowHelper.OpenOrganizationComparerGlobalOptionSetsWindow(this._iWriteToOutput, _commonConfig, connectionTuple.Item1, connectionTuple.Item2, optionSetName, entityName);
         }
 
         private void miCompareSystemForms_Click(object sender, RoutedEventArgs e)
@@ -330,10 +324,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            var connection1 = GetConnection1();
-            var connection2 = GetConnection2();
+            var connectionTuple = GetConnections();
 
-            WindowHelper.OpenOrganizationComparerSystemFormWindow(this._iWriteToOutput, _commonConfig, connection1, connection2, entityName, systemFormName);
+            WindowHelper.OpenOrganizationComparerSystemFormWindow(this._iWriteToOutput, _commonConfig, connectionTuple.Item1, connectionTuple.Item2, entityName, systemFormName);
         }
 
         private void miCompareSavedQuery_Click(object sender, RoutedEventArgs e)
@@ -343,10 +336,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            var connection1 = GetConnection1();
-            var connection2 = GetConnection2();
+            var connectionTuple = GetConnections();
 
-            WindowHelper.OpenOrganizationComparerSavedQueryWindow(this._iWriteToOutput, _commonConfig, connection1, connection2, entityName, savedQueryName);
+            WindowHelper.OpenOrganizationComparerSavedQueryWindow(this._iWriteToOutput, _commonConfig, connectionTuple.Item1, connectionTuple.Item2, entityName, savedQueryName);
         }
 
         private void miCompareSavedChart_Click(object sender, RoutedEventArgs e)
@@ -356,10 +348,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            var connection1 = GetConnection1();
-            var connection2 = GetConnection2();
+            var connectionTuple = GetConnections();
 
-            WindowHelper.OpenOrganizationComparerSavedQueryVisualizationWindow(this._iWriteToOutput, _commonConfig, connection1, connection2, entityName, chartName);
+            WindowHelper.OpenOrganizationComparerSavedQueryVisualizationWindow(this._iWriteToOutput, _commonConfig, connectionTuple.Item1, connectionTuple.Item2, entityName, chartName);
         }
 
         private void miCompareWorkflows_Click(object sender, RoutedEventArgs e)
@@ -369,10 +360,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            var connection1 = GetConnection1();
-            var connection2 = GetConnection2();
+            var connectionTuple = GetConnections();
 
-            WindowHelper.OpenOrganizationComparerWorkflowWindow(this._iWriteToOutput, _commonConfig, connection1, connection2, entityName, workflowName);
+            WindowHelper.OpenOrganizationComparerWorkflowWindow(this._iWriteToOutput, _commonConfig, connectionTuple.Item1, connectionTuple.Item2, entityName, workflowName);
         }
 
         private void miCompareReports_Click(object sender, RoutedEventArgs e)
@@ -381,10 +371,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            var connection1 = GetConnection1();
-            var connection2 = GetConnection2();
+            var connectionTuple = GetConnections();
 
-            WindowHelper.OpenOrganizationComparerReportWindow(this._iWriteToOutput, _commonConfig, connection1, connection2, reportName);
+            WindowHelper.OpenOrganizationComparerReportWindow(this._iWriteToOutput, _commonConfig, connectionTuple.Item1, connectionTuple.Item2, reportName);
         }
 
         private void miCompareSiteMaps_Click(object sender, RoutedEventArgs e)
@@ -393,10 +382,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            var connection1 = GetConnection1();
-            var connection2 = GetConnection2();
+            var connectionTuple = GetConnections();
 
-            WindowHelper.OpenOrganizationComparerSiteMapWindow(this._iWriteToOutput, _commonConfig, connection1, connection2, siteMapName);
+            WindowHelper.OpenOrganizationComparerSiteMapWindow(this._iWriteToOutput, _commonConfig, connectionTuple.Item1, connectionTuple.Item2, siteMapName);
         }
 
         private void miCompareWebResources_Click(object sender, RoutedEventArgs e)
@@ -405,10 +393,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            var connection1 = GetConnection1();
-            var connection2 = GetConnection2();
+            var connectionTuple = GetConnections();
 
-            WindowHelper.OpenOrganizationComparerWebResourcesWindow(this._iWriteToOutput, _commonConfig, connection1, connection2, webResourceName);
+            WindowHelper.OpenOrganizationComparerWebResourcesWindow(this._iWriteToOutput, _commonConfig, connectionTuple.Item1, connectionTuple.Item2, webResourceName);
         }
 
         private void miComparePluginAssemblies_Click(object sender, RoutedEventArgs e)
@@ -417,10 +404,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            var connection1 = GetConnection1();
-            var connection2 = GetConnection2();
+            var connectionTuple = GetConnections();
 
-            WindowHelper.OpenOrganizationComparerPluginAssemblyWindow(this._iWriteToOutput, _commonConfig, connection1, connection2, pluginAssemblyName);
+            WindowHelper.OpenOrganizationComparerPluginAssemblyWindow(this._iWriteToOutput, _commonConfig, connectionTuple.Item1, connectionTuple.Item2, pluginAssemblyName);
         }
     }
 }

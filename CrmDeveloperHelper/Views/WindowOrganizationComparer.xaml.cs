@@ -68,7 +68,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void FillExplorersMenuItems()
         {
-            var compareWindowsHelper = new CompareWindowsHelper(_iWriteToOutput, _commonConfig, GetConnection1, GetConnection2);
+            var compareWindowsHelper = new CompareWindowsHelper(_iWriteToOutput, _commonConfig, GetConnections);
             compareWindowsHelper.FillCompareWindows(tSDDBShowDifference);
         }
 
@@ -581,18 +581,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         #endregion Кнопки управления подключениями.
 
-        private ConnectionData GetConnection1()
+        private Tuple<ConnectionData, ConnectionData> GetConnections()
         {
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
-            return connection1;
-        }
-
-        private ConnectionData GetConnection2()
-        {
-            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
-
-            return connection2;
+            return Tuple.Create(connection1, connection2);
         }
 
         public void GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2)

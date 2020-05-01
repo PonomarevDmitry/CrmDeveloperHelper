@@ -92,7 +92,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , getOtherPrivilegesList: GetOtherPrivilegesList
             );
 
-            var compareWindowsHelper = new CompareWindowsHelper(_iWriteToOutput, _commonConfig, GetSelectedConnection, GetSelectedConnection
+            var compareWindowsHelper = new CompareWindowsHelper(_iWriteToOutput, _commonConfig, () => Tuple.Create(GetSelectedConnection(), GetSelectedConnection())
             );
 
             explorersHelper.FillExplorers(miExplorers);

@@ -96,7 +96,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , getSavedQueryVisualizationName: GetSavedQueryVisualizationName
             );
 
-            var compareWindowsHelper = new CompareWindowsHelper(_iWriteToOutput, _commonConfig, GetSelectedConnection, GetSelectedConnection
+            var compareWindowsHelper = new CompareWindowsHelper(_iWriteToOutput, _commonConfig, () => Tuple.Create(GetSelectedConnection(), GetSelectedConnection())
                 , getEntityName: GetEntityName
                 , getSavedQueryVisualizationName: GetSavedQueryVisualizationName
             );

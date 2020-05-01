@@ -155,7 +155,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , getGlobalOptionSetName: GetGlobalOptionSetName
             );
 
-            var compareWindowsHelper = new CompareWindowsHelper(_iWriteToOutput, _commonConfig, GetSelectedConnection, GetSelectedConnection
+            var compareWindowsHelper = new CompareWindowsHelper(_iWriteToOutput, _commonConfig, () => Tuple.Create(GetSelectedConnection(), GetSelectedConnection())
                 , getGlobalOptionSetName: GetGlobalOptionSetName
             );
 

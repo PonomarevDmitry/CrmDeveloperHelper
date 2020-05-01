@@ -147,7 +147,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , getSystemFormName: GetSystemFormName
             );
 
-            var compareWindowsHelper = new CompareWindowsHelper(_iWriteToOutput, _commonConfig, GetSelectedConnection, GetSelectedConnection
+            var compareWindowsHelper = new CompareWindowsHelper(_iWriteToOutput, _commonConfig, () => Tuple.Create(GetSelectedConnection(), GetSelectedConnection())
                 , getEntityName: GetEntityName
                 , getSystemFormName: GetSystemFormName
             );

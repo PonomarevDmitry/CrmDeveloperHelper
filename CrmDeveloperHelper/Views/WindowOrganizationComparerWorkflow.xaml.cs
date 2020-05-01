@@ -107,7 +107,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , getWorkflowName: GetWorkflownName2
             );
 
-            var compareWindowsHelper = new CompareWindowsHelper(_iWriteToOutput, _commonConfig, GetConnection1, GetConnection2
+            var compareWindowsHelper = new CompareWindowsHelper(_iWriteToOutput, _commonConfig, () => Tuple.Create(GetConnection1(), GetConnection2())
                 , getEntityName: GetEntityName
                 , getWorkflowName: GetWorkflownName1
             );
