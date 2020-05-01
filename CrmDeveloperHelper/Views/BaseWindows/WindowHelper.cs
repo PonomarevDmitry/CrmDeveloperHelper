@@ -1047,7 +1047,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             );
         }
 
-        public static void OpenPluginAssemblyUpdateWindow(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, PluginAssembly assembly, EnvDTE.Project project)
+        public static void OpenPluginAssemblyUpdateWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , PluginAssembly assembly
+            , EnvDTE.Project project
+        )
         {
             string defaultOutputFilePath = null;
 
@@ -1128,6 +1133,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             );
         }
 
+        #region Compare Organizations
+
         public static void OpenOrganizationComparerWindow(
             IWriteToOutput iWriteToOutput
             , ConnectionConfiguration crmConfig
@@ -1199,6 +1206,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , ConnectionData connection1
             , ConnectionData connection2
             , string filter = null
+            , string filterEntityName = null
         )
         {
             ExecuteInSTAThread(() =>
@@ -1209,6 +1217,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     , connection1
                     , connection2
                     , filter
+                    , filterEntityName
                 )
             );
         }
@@ -1378,6 +1387,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 )
             );
         }
+
+        #endregion Compare Organizations
 
         public static void OpenCrmConnectionCard(
             IWriteToOutput iWriteToOutput

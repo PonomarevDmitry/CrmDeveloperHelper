@@ -41,7 +41,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , CommonConfiguration commonConfig
             , IOrganizationServiceExtented service
-            , IEnumerable<OptionSetMetadata> optionSets
+            , IEnumerable<OptionSetMetadata> optionSetMetadataEnum
             , string filterEntityName
             , string selection
             , string filePath
@@ -57,9 +57,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._isJavaScript = isJavaScript;
             this._selectedItem = selectedItem;
 
-            if (optionSets != null)
+            if (optionSetMetadataEnum != null)
             {
-                _cacheOptionSetMetadata[service.ConnectionData.ConnectionId] = optionSets;
+                _cacheOptionSetMetadata[service.ConnectionData.ConnectionId] = optionSetMetadataEnum;
             }
 
             InitializeComponent();

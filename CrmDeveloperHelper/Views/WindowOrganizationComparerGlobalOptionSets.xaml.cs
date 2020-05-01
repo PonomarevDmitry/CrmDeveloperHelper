@@ -26,7 +26,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
     {
         private readonly Dictionary<Guid, SolutionComponentMetadataSource> _cacheMetadataSource = new Dictionary<Guid, SolutionComponentMetadataSource>();
 
-        private readonly Dictionary<Guid, List<OptionSetMetadata>> _cacheOptionSetMetadata = new Dictionary<Guid, List<OptionSetMetadata>>();
+        private readonly Dictionary<Guid, IEnumerable<OptionSetMetadata>> _cacheOptionSetMetadata = new Dictionary<Guid, IEnumerable<OptionSetMetadata>>();
 
         private readonly ObservableCollection<LinkedOptionSetMetadata> _itemsSource;
 
@@ -39,6 +39,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , ConnectionData connection1
             , ConnectionData connection2
             , string filter
+            , string filterEntityName
         ) : base(iWriteToOutput, commonConfig, connection1)
         {
             this.IncreaseInit();
@@ -48,6 +49,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             InitializeComponent();
 
             LoadEntityNames(cmBEntityName, connection1, connection2);
+
+            cmBEntityName.Text = filterEntityName;
 
             _optionsControl = new FileGenerationGlobalOptionSetMetadataOptionsControl();
             _optionsControl.CloseClicked += Child_CloseClicked;
@@ -86,6 +89,72 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.DecreaseInit();
 
             ShowExistingOptionSets();
+        }
+
+        private void FillExplorersMenuItems()
+        {
+            var explorersHelper1 = new ExplorersHelper(_iWriteToOutput, _commonConfig, GetService1
+                , getEntityName: GetEntityName
+                , getGlobalOptionSetName: GetGlobalOptionSetName
+                , getGlobalOptionSetMetadataList: GetGlobalOptionSetMetadataList
+            );
+
+            var explorersHelper2 = new ExplorersHelper(_iWriteToOutput, _commonConfig, GetService2
+                , getEntityName: GetEntityName
+                , getGlobalOptionSetName: GetGlobalOptionSetName
+                , getGlobalOptionSetMetadataList: GetGlobalOptionSetMetadataList
+            );
+
+            explorersHelper1.FillExplorers(miExplorers1);
+            explorersHelper2.FillExplorers(miExplorers2);
+
+            if (this.Resources.Contains("listContextMenu")
+                && this.Resources["listContextMenu"] is ContextMenu contextMenu
+            )
+            {
+                var items = contextMenu.Items.OfType<MenuItem>();
+
+                foreach (var item in items)
+                {
+                    if (string.Equals(item.Uid, "miExplorers1", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        explorersHelper1.FillExplorers(item);
+                    }
+                    else if (string.Equals(item.Uid, "miExplorers2", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        explorersHelper2.FillExplorers(item);
+                    }
+                }
+            }
+        }
+
+        private string GetEntityName()
+        {
+            if (!string.IsNullOrEmpty(cmBEntityName.Text)
+                && cmBEntityName.Items.Contains(cmBEntityName.Text)
+            )
+            {
+                return cmBEntityName.Text.Trim().ToLower();
+            }
+
+            return null;
+        }
+
+        private string GetGlobalOptionSetName()
+        {
+            var entity = GetSelectedEntity();
+
+            return entity?.Name ?? txtBFilter.Text.Trim();
+        }
+
+        private IEnumerable<OptionSetMetadata> GetGlobalOptionSetMetadataList(Guid connectionId)
+        {
+            if (_cacheOptionSetMetadata.ContainsKey(connectionId))
+            {
+                return _cacheOptionSetMetadata[connectionId];
+            }
+
+            return null;
         }
 
         private void LoadFromConfig()
@@ -1192,342 +1261,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenOrganizationComparerWorkflowWindow(this._iWriteToOutput, _commonConfig, service1.ConnectionData, service2.ConnectionData);
         }
 
-        private async void btnEntityAttributeExplorer1_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService1();
-
-            WindowHelper.OpenEntityAttributeExplorer(this._iWriteToOutput, service, _commonConfig, null);
-        }
-
-        private async void btnEntityAttributeExplorer2_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService2();
-
-            WindowHelper.OpenEntityAttributeExplorer(this._iWriteToOutput, service, _commonConfig, null);
-        }
-
-        private async void btnEntityRelationshipOneToManyExplorer1_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService1();
-
-            WindowHelper.OpenEntityRelationshipOneToManyExplorer(this._iWriteToOutput, service, _commonConfig, null);
-        }
-
-        private async void btnEntityRelationshipOneToManyExplorer2_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService2();
-
-            WindowHelper.OpenEntityRelationshipOneToManyExplorer(this._iWriteToOutput, service, _commonConfig, null);
-        }
-
-        private async void btnEntityRelationshipManyToManyExplorer1_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService1();
-
-            WindowHelper.OpenEntityRelationshipManyToManyExplorer(this._iWriteToOutput, service, _commonConfig, null);
-        }
-
-        private async void btnEntityRelationshipManyToManyExplorer2_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService2();
-
-            WindowHelper.OpenEntityRelationshipManyToManyExplorer(this._iWriteToOutput, service, _commonConfig, null);
-        }
-
-        private async void btnEntityKeyExplorer1_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService1();
-
-            WindowHelper.OpenEntityKeyExplorer(this._iWriteToOutput, service, _commonConfig, null);
-        }
-
-        private async void btnEntityKeyExplorer2_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService2();
-
-            WindowHelper.OpenEntityKeyExplorer(this._iWriteToOutput, service, _commonConfig, null);
-        }
-
-        private async void btnEntityPrivilegesExplorer1_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService1();
-
-            WindowHelper.OpenEntityPrivilegesExplorer(this._iWriteToOutput, service, _commonConfig);
-        }
-
-        private async void btnEntityPrivilegesExplorer2_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService2();
-
-            WindowHelper.OpenEntityPrivilegesExplorer(this._iWriteToOutput, service, _commonConfig);
-        }
-
-        private async void btnOtherPrivilegesExplorer1_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService1();
-
-            WindowHelper.OpenOtherPrivilegesExplorer(this._iWriteToOutput, service, _commonConfig);
-        }
-
-        private async void btnOtherPrivilegesExplorer2_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService2();
-
-            WindowHelper.OpenOtherPrivilegesExplorer(this._iWriteToOutput, service, _commonConfig);
-        }
-
-        private async void btnSecurityRolesExplorer1_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService1();
-
-            WindowHelper.OpenRolesExplorer(this._iWriteToOutput, service, _commonConfig);
-        }
-
-        private async void btnSecurityRolesExplorer2_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService2();
-
-            WindowHelper.OpenRolesExplorer(this._iWriteToOutput, service, _commonConfig);
-        }
-
-        private async void btnCreateMetadataFile1_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService1();
-
-            WindowHelper.OpenEntityMetadataExplorer(this._iWriteToOutput, service, _commonConfig);
-        }
-
-        private async void btnExportApplicationRibbon1_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService1();
-
-            WindowHelper.OpenApplicationRibbonExplorer(this._iWriteToOutput, service, _commonConfig);
-        }
-
-        private async void btnGlobalOptionSets1_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            var service = await GetService1();
-
-            _commonConfig.Save();
-
-            IEnumerable<OptionSetMetadata> optionSets = null;
-
-            if (_cacheOptionSetMetadata.ContainsKey(service.ConnectionData.ConnectionId))
-            {
-                optionSets = _cacheOptionSetMetadata[service.ConnectionData.ConnectionId];
-            }
-
-            WindowHelper.OpenGlobalOptionSetsExplorer(
-                this._iWriteToOutput
-                , service
-                , _commonConfig
-                , optionSets
-                , entity?.Name ?? txtBFilter.Text
-            );
-        }
-
-        private async void btnSystemForms1_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService1();
-
-            WindowHelper.OpenSystemFormExplorer(this._iWriteToOutput, service, _commonConfig);
-        }
-
-        private async void btnSavedQuery1_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService1();
-
-            WindowHelper.OpenSavedQueryExplorer(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
-        }
-
-        private async void btnSavedChart1_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService1();
-
-            WindowHelper.OpenSavedQueryVisualizationExplorer(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
-        }
-
-        private async void btnWorkflows1_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService1();
-
-            WindowHelper.OpenWorkflowExplorer(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
-        }
-
-        private async void btnPluginTree1_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService1();
-
-            WindowHelper.OpenPluginTree(this._iWriteToOutput, service, _commonConfig, null, string.Empty, string.Empty);
-        }
-
-        private async void btnMessageFilterTree1_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService1();
-
-            WindowHelper.OpenSdkMessageFilterTree(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
-        }
-
-        private async void btnMessageRequestTree1_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService1();
-
-            WindowHelper.OpenSdkMessageRequestTree(this._iWriteToOutput, service, _commonConfig);
-        }
-
-        private async void btnCreateMetadataFile2_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService2();
-
-            WindowHelper.OpenEntityMetadataExplorer(this._iWriteToOutput, service, _commonConfig);
-        }
-
-        private async void btnExportApplicationRibbon2_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService2();
-
-            WindowHelper.OpenApplicationRibbonExplorer(this._iWriteToOutput, service, _commonConfig);
-        }
-
-        private async void btnGlobalOptionSets2_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            var service = await GetService2();
-
-            _commonConfig.Save();
-
-            IEnumerable<OptionSetMetadata> optionSets = null;
-
-            if (_cacheOptionSetMetadata.ContainsKey(service.ConnectionData.ConnectionId))
-            {
-                optionSets = _cacheOptionSetMetadata[service.ConnectionData.ConnectionId];
-            }
-
-            WindowHelper.OpenGlobalOptionSetsExplorer(
-                this._iWriteToOutput
-                , service
-                , _commonConfig
-                , optionSets
-                , entity?.Name ?? txtBFilter.Text
-            );
-        }
-
-        private async void btnSystemForms2_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService2();
-
-            WindowHelper.OpenSystemFormExplorer(this._iWriteToOutput, service, _commonConfig);
-        }
-
-        private async void btnSavedQuery2_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService2();
-
-            WindowHelper.OpenSavedQueryExplorer(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
-        }
-
-        private async void btnSavedChart2_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService2();
-
-            WindowHelper.OpenSavedQueryVisualizationExplorer(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
-        }
-
-        private async void btnWorkflows2_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService2();
-
-            WindowHelper.OpenWorkflowExplorer(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
-        }
-
-        private async void btnPluginTree2_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService2();
-
-            WindowHelper.OpenPluginTree(this._iWriteToOutput, service, _commonConfig, null, string.Empty, string.Empty);
-        }
-
-        private async void btnMessageFilterTree2_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService2();
-
-            WindowHelper.OpenSdkMessageFilterTree(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
-        }
-
-        private async void btnMessageRequestTree2_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService2();
-
-            WindowHelper.OpenSdkMessageRequestTree(this._iWriteToOutput, service, _commonConfig);
-        }
-
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)
         {
             if (!(sender is ContextMenu contextMenu))
@@ -1554,7 +1287,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            foreach (var menuContextConnection2 in items.Where(i => string.Equals(i.Uid, "menuContextConnection2", StringComparison.InvariantCultureIgnoreCase)))
+            foreach (var menuContextConnection2 in items.Where(i =>
+                string.Equals(i.Uid, "menuContextConnection2", StringComparison.InvariantCultureIgnoreCase)
+                || string.Equals(i.Uid, "miExplorers2", StringComparison.InvariantCultureIgnoreCase)
+            ))
             {
                 menuContextConnection2.IsEnabled = false;
                 menuContextConnection2.Visibility = Visibility.Collapsed;

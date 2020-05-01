@@ -30,6 +30,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly Func<Guid, IEnumerable<EntityMetadata>> _getEntityMetadataList;
         private readonly Func<Guid, IEnumerable<Privilege>> _getOtherPrivilegesList;
+        private readonly Func<Guid, IEnumerable<OptionSetMetadata>> _getGlobalOptionSetMetadataList;
 
         private readonly EnvDTE.SelectedItem _selectedItem = null;
 
@@ -41,6 +42,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , Func<string> getEntityName = null
             , Func<Guid, IEnumerable<EntityMetadata>> getEntityMetadataList = null
             , Func<Guid, IEnumerable<Privilege>> getOtherPrivilegesList = null
+            , Func<Guid, IEnumerable<OptionSetMetadata>> getGlobalOptionSetMetadataList = null
             , Func<string> getGlobalOptionSetName = null
             , Func<string> getWorkflowName = null
             , Func<string> getSystemFormName = null
@@ -54,6 +56,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , getEntityName
             , getEntityMetadataList
             , getOtherPrivilegesList
+            , getGlobalOptionSetMetadataList
             , getGlobalOptionSetName
             , getWorkflowName
             , getSystemFormName
@@ -75,6 +78,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , Func<string> getEntityName = null
             , Func<Guid, IEnumerable<EntityMetadata>> getEntityMetadataList = null
             , Func<Guid, IEnumerable<Privilege>> getOtherPrivilegesList = null
+            , Func<Guid, IEnumerable<OptionSetMetadata>> getGlobalOptionSetMetadataList = null
             , Func<string> getGlobalOptionSetName = null
             , Func<string> getWorkflowName = null
             , Func<string> getSystemFormName = null
@@ -92,6 +96,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._getEntityMetadataList = getEntityMetadataList;
             this._getOtherPrivilegesList = getOtherPrivilegesList;
+            this._getGlobalOptionSetMetadataList = getGlobalOptionSetMetadataList;
 
             this._getEntityName = getEntityName;
             this._getGlobalOptionSetName = getGlobalOptionSetName;
@@ -210,6 +215,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (_getEntityMetadataList != null)
             {
                 return _getEntityMetadataList(connectionId);
+            }
+
+            return null;
+        }
+
+        private IEnumerable<OptionSetMetadata> GetGlobalOptionSetMetadataList(Guid connectionId)
+        {
+            if (_getGlobalOptionSetMetadataList != null)
+            {
+                return _getGlobalOptionSetMetadataList(connectionId);
             }
 
             return null;
@@ -598,14 +613,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
+            var optionSetMetadataList = GetGlobalOptionSetMetadataList(service.ConnectionData.ConnectionId);
+
             _commonConfig.Save();
 
             WindowHelper.OpenGlobalOptionSetsExplorer(
                 this._iWriteToOutput
                 , service
                 , _commonConfig
+                , optionSetMetadataList
                 , optionSetName
                 , entityName
+                , null
+                , false
+                , null
             );
         }
 
@@ -621,13 +642,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
+            var optionSetMetadataList = GetGlobalOptionSetMetadataList(service.ConnectionData.ConnectionId);
+
             _commonConfig.Save();
 
             WindowHelper.OpenGlobalOptionSetsExplorer(
                 this._iWriteToOutput
                 , service
                 , _commonConfig
-                , null
+                , optionSetMetadataList
                 , entityName
                 , optionSetName
                 , string.Empty
@@ -936,13 +959,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void miCompareGlobalOptionSets_Click(object sender, RoutedEventArgs e)
         {
+            var entityName = GetEntityName();
             var optionSetName = GetGlobalOptionSetName();
 
             _commonConfig.Save();
 
             var service = await GetService();
 
-            WindowHelper.OpenOrganizationComparerGlobalOptionSetsWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, optionSetName);
+            WindowHelper.OpenOrganizationComparerGlobalOptionSetsWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData, optionSetName, entityName);
         }
 
         private async void miCompareSystemForms_Click(object sender, RoutedEventArgs e)

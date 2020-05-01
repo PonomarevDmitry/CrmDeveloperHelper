@@ -40,66 +40,12 @@
 
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
             <Menu Background="{x:Null}">
-                <MenuItem Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Get Entity Information {0}">
-                    <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile1_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer1_Click"/>
-                    <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer1_Click"/>
-                    <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer1_Click"/>
-                    <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer1_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Entity Privileges Explorer" Click="btnEntityPrivilegesExplorer1_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Other Privileges Explorer" Click="btnOtherPrivilegesExplorer1_Click"/>
-                    <Separator/>
-                    <MenuItem Header="SecurityRoles Explorer" Click="btnSecurityRolesExplorer1_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets1_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Forms" Click="btnSystemForms1_Click"/>
-                    <MenuItem Header="Views" Click="btnSavedQuery1_Click"/>
-                    <MenuItem Header="Charts" Click="btnSavedChart1_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Workflows" Click="btnWorkflows1_Click"/>
-                    <Separator/>
-                    <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon1_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Plugin Tree" Click="btnPluginTree1_Click"/>
-                    <MenuItem Header="Message Filter Tree" Click="btnMessageFilterTree1_Click"/>
-                    <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree1_Click"/>
-                </MenuItem>
+                <MenuItem x:Name="miExplorers1" Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Get Entity Information {0}" />
             </Menu>
 
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
             <Menu Background="{x:Null}">
-                <MenuItem Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Get Entity Information {0}">
-                    <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile2_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer2_Click"/>
-                    <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer2_Click"/>
-                    <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer2_Click"/>
-                    <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer2_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Entity Privileges Explorer" Click="btnEntityPrivilegesExplorer2_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Other Privileges Explorer" Click="btnOtherPrivilegesExplorer2_Click"/>
-                    <Separator/>
-                    <MenuItem Header="SecurityRoles Explorer" Click="btnSecurityRolesExplorer2_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets2_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Forms" Click="btnSystemForms2_Click"/>
-                    <MenuItem Header="Views" Click="btnSavedQuery2_Click"/>
-                    <MenuItem Header="Charts" Click="btnSavedChart2_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Workflows" Click="btnWorkflows2_Click"/>
-                    <Separator/>
-                    <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon2_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Plugin Tree" Click="btnPluginTree2_Click"/>
-                    <MenuItem Header="Message Filter Tree" Click="btnMessageFilterTree2_Click"/>
-                    <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree2_Click"/>
-                </MenuItem>
+                <MenuItem x:Name="miExplorers2" Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Get Entity Information {0}" />
             </Menu>
 
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
