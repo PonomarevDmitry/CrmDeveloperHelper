@@ -146,7 +146,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             var querySteps = search.SdkMessageProcessingStep
                             .OrderBy(ent => ent.EventHandler?.Name ?? "Unknown")
                             .ThenBy(ent => ent.PrimaryObjectTypeCodeName)
-                            .ThenBy(ent => ent.SdkMessageId?.Name ?? "Unknown", new MessageComparer())
+                            .ThenBy(ent => ent.SdkMessageId?.Name ?? "Unknown", MessageComparer.Comparer)
                             .ThenBy(ent => ent.Stage.Value)
                             .ThenBy(ent => ent.Mode.Value)
                             .ThenBy(ent => ent.Rank)
@@ -279,7 +279,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             var querySteps = search.SdkMessageProcessingStep
                             .OrderBy(ent => ent.EventHandler?.Name ?? "Unknown")
                             .ThenBy(ent => ent.PrimaryObjectTypeCodeName)
-                            .ThenBy(ent => ent.SdkMessageId?.Name ?? "Unknown", new MessageComparer())
+                            .ThenBy(ent => ent.SdkMessageId?.Name ?? "Unknown", MessageComparer.Comparer)
                             .ThenBy(ent => ent.Stage.Value)
                             .ThenBy(ent => ent.Mode.Value)
                             .ThenBy(ent => ent.Rank)
@@ -422,7 +422,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             var querySteps = search.SdkMessageProcessingStep
                             .OrderBy(ent => ent.EventHandler.Name)
                             .ThenBy(ent => ent.PrimaryObjectTypeCodeName)
-                            .ThenBy(ent => ent.SdkMessageId.Name, new MessageComparer())
+                            .ThenBy(ent => ent.SdkMessageId.Name, MessageComparer.Comparer)
                             .ThenBy(ent => ent.Stage.Value)
                             .ThenBy(ent => ent.Mode.Value)
                             .ThenBy(ent => ent.Rank)
@@ -678,7 +678,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             .OrderBy(image => image.Contains("sdkmessageprocessingstep.eventhandler") ? (image.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.eventhandler").Value as EntityReference).Name : "Null")
                             .ThenBy(image => image.PrimaryObjectTypeCodeName)
                             .ThenBy(image => image.SecondaryObjectTypeCodeName)
-                            .ThenBy(image => image.Contains("sdkmessageprocessingstep.sdkmessageid") ? (image.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.sdkmessageid").Value as EntityReference).Name : "Null", new MessageComparer())
+                            .ThenBy(image => image.Contains("sdkmessageprocessingstep.sdkmessageid") ? (image.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.sdkmessageid").Value as EntityReference).Name : "Null", MessageComparer.Comparer)
                             .ThenBy(image => image.Contains("sdkmessageprocessingstep.stage") ? (image.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.stage").Value as OptionSetValue).Value : 0)
                             .ThenBy(image => image.Contains("sdkmessageprocessingstep.mode") ? (image.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.mode").Value as OptionSetValue).Value : 0)
                             .ThenBy(image => image.Contains("sdkmessageprocessingstep.rank") ? (int)image.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.rank").Value : 0)

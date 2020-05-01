@@ -454,7 +454,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 list.Add(nodeEntity);
 
-                var groupsByMessages = grEntity.GroupBy(ent => ent.PluginStep.Message).OrderBy(mess => mess.Key, new MessageComparer());
+                var groupsByMessages = grEntity.GroupBy(ent => ent.PluginStep.Message).OrderBy(mess => mess.Key, MessageComparer.Comparer);
 
                 foreach (var mess in groupsByMessages)
                 {
@@ -536,7 +536,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             ObservableCollection<StepFullInfo> list = new ObservableCollection<StepFullInfo>();
 
-            var groupsByMessage = result.GroupBy(ent => ent.PluginStep.Message).OrderBy(mess => mess.Key, new MessageComparer());
+            var groupsByMessage = result.GroupBy(ent => ent.PluginStep.Message).OrderBy(mess => mess.Key, MessageComparer.Comparer);
 
             foreach (var grMessage in groupsByMessage)
             {
@@ -652,7 +652,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         AddStepFullInfo(nodePluginType, nodeEntity);
 
-                        var groupsByMessages = grEntity.GroupBy(ent => ent.PluginStep.Message).OrderBy(mess => mess.Key, new MessageComparer());
+                        var groupsByMessages = grEntity.GroupBy(ent => ent.PluginStep.Message).OrderBy(mess => mess.Key, MessageComparer.Comparer);
 
                         foreach (var mess in groupsByMessages)
                         {

@@ -242,7 +242,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 foreach (var otherPriv in listOtherPrivileges
                     .OrderBy(s => s.EntityLogicalName)
-                    .ThenBy(s => s.Name, new PrivilegeNameComparer())
+                    .ThenBy(s => s.Name, PrivilegeNameComparer.Comparer)
                 )
                 {
                     _itemsSourceOtherPrivileges.Add(otherPriv);

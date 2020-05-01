@@ -317,7 +317,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ActionOnChildsByKey = (message, node) => node.MessageName = message,
 
-                OrderComparer = new MessageComparer(),
+                OrderComparer = MessageComparer.Comparer,
             };
 
             _propertyGroups[GroupingProperty.MessageCategory] = new RequestGroupBuilder()
@@ -327,7 +327,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ActionOnChildsByKey = (messageCategory, node) => node.MessageCategoryName = messageCategory,
 
-                OrderComparer = new MessageComparer(),
+                OrderComparer = MessageComparer.Comparer,
             };
 
             _propertyGroups[GroupingProperty.Namespace] = new RequestGroupBuilder()
@@ -623,7 +623,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _sdkMessageSearchResult = search;
 
-            FillTree();
+            await FillTreeAsync();
 
             ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingSdkMessageRequestsCompleted);
         }

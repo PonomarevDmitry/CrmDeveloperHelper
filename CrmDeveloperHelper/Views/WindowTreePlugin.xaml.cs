@@ -787,7 +787,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             //    //    }
             //    //}
 
-            //    var groupsByMessages = grEntity.GroupBy(e => e.Message).OrderBy(mess => mess.Key, new MessageComparer());
+            //    var groupsByMessages = grEntity.GroupBy(e => e.Message).OrderBy(mess => mess.Key, MessageComparer.Comparer);
 
             //    foreach (var grMessage in groupsByMessages)
             //    {
@@ -932,7 +932,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IEnumerable<Action<PluginTreeViewItem>> actionsOnChilds
         )
         {
-            var groupsList = steps.GroupBy(ent => ent.SdkMessageId?.Name ?? "Unknown").OrderBy(mess => mess.Key, new MessageComparer());
+            var groupsList = steps.GroupBy(ent => ent.SdkMessageId?.Name ?? "Unknown").OrderBy(mess => mess.Key, MessageComparer.Comparer);
 
             foreach (var grMessage in groupsList)
             {
@@ -1002,7 +1002,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IEnumerable<Action<PluginTreeViewItem>> actionsOnChilds
         )
         {
-            var groupsList = steps.GroupBy(ent => ent.MessageCategoryName ?? "Unknown").OrderBy(mess => mess.Key, new MessageComparer());
+            var groupsList = steps.GroupBy(ent => ent.MessageCategoryName ?? "Unknown").OrderBy(mess => mess.Key, MessageComparer.Comparer);
 
             foreach (var grMessageCategory in groupsList)
             {

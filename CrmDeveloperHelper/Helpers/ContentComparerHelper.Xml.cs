@@ -426,7 +426,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        private static readonly List<string> _predefinedAttributeOrder = new List<string>()
+        private static XNameComparer XNameComparerXmlAttributes = new XNameComparer(new List<string>()
         {
             "Id"
             , "GroupId"
@@ -438,12 +438,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             , "Alt"
             , "ToolTipTitle"
             , "ToolTipDescription"
-        };
-
-        private static readonly List<string> _predefinedNamespacesOrder = new List<string>()
+        }, new List<string>()
         {
             Intellisense.Model.IntellisenseContext.IntellisenseContextNamespace.NamespaceName
-        };
+        });
 
         private static void SortXmlAttributesInternal(XElement doc)
         {
@@ -453,7 +451,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 element.RemoveAttributes();
 
-                foreach (XAttribute attr in attributes.OrderBy(a => a.Name, new XNameComparer(_predefinedAttributeOrder, _predefinedNamespacesOrder)))
+                foreach (XAttribute attr in attributes.OrderBy(a => a.Name, XNameComparerXmlAttributes))
                 {
                     element.Add(attr);
                 }
@@ -492,7 +490,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        private static readonly List<string> _predefinedFormXmlElementsOrder = new List<string>()
+        private static XNameComparer XNameComparerFormXml = new XNameComparer(new List<string>()
         {
             "ancestor"
             , "hiddencontrols"
@@ -507,7 +505,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             , "Navigation"
             , "DisplayConditions"
             , "RibbonDiffXml"
-        };
+        });
 
         private static void SortFormXmlElementsInternal(XElement doc)
         {
@@ -523,7 +521,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 item.Remove();
             }
 
-            doc.Add(elementsList.OrderBy(e => e.Name, new XNameComparer(_predefinedFormXmlElementsOrder)));
+            doc.Add(elementsList.OrderBy(e => e.Name, XNameComparerFormXml));
         }
 
         private static string FormatXmlNewLineOnAttributes(XElement doc)

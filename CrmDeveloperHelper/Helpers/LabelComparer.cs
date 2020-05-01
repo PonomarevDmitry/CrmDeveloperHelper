@@ -34,7 +34,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            listLocale.Sort(new LocaleComparer());
+            listLocale.Sort(LocaleComparer.Comparer);
 
             LabelDifferenceResult result = new LabelDifferenceResult();
 
@@ -97,7 +97,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            listLocale.Sort(new LocaleComparer());
+            listLocale.Sort(LocaleComparer.Comparer);
 
             LabelDifferenceResult result = new LabelDifferenceResult();
 
@@ -160,7 +160,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            listLocale.Sort(new LocaleComparer());
+            listLocale.Sort(LocaleComparer.Comparer);
 
             LabelDifferenceResult result = new LabelDifferenceResult();
 

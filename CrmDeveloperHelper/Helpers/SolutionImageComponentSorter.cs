@@ -1,14 +1,17 @@
 ﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
     public class SolutionImageComponentSorter : IComparer<SolutionImageComponent>
     {
+        private SolutionImageComponentSorter()
+        {
+
+        }
+
+        public static SolutionImageComponentSorter Comparer { get; } = new SolutionImageComponentSorter();
+
         public int Compare(SolutionImageComponent x, SolutionImageComponent y)
         {
             if (x == null) return -1;

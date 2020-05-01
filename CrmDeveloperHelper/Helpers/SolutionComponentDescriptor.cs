@@ -125,7 +125,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            result.Sort(new SolutionImageComponentSorter());
+            result.Sort(SolutionImageComponentSorter.Comparer);
 
             return result;
         }

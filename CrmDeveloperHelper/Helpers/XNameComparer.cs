@@ -85,7 +85,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return 1;
             }
 
-            return string.Compare(name1.LocalName, name2.LocalName);
+            return string.Compare(name1.LocalName, name2.LocalName, true);
         }
     }
 }

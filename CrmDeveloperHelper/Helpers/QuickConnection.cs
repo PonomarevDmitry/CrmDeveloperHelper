@@ -337,7 +337,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         {
                             var list = await repository.GetListAsync(response.RetrieveInstalledLanguagePacks);
 
-                            service.ConnectionData.InstalledLanguagePacks = string.Join(",", list.OrderBy(s => s.LocaleId.Value, new LocaleComparer()).Select(l => l.ToString()));
+                            service.ConnectionData.InstalledLanguagePacks = string.Join(",", list.OrderBy(s => s.LocaleId.Value, LocaleComparer.Comparer).Select(l => l.ToString()));
                         }
                     }
                     else
@@ -349,7 +349,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         if (response.RetrieveInstalledLanguagePacks != null && response.RetrieveInstalledLanguagePacks.Any())
                         {
-                            service.ConnectionData.InstalledLanguagePacks = string.Join(",", response.RetrieveInstalledLanguagePacks.OrderBy(s => s, new LocaleComparer()).Select(l => LanguageLocale.GetLocaleName(l)));
+                            service.ConnectionData.InstalledLanguagePacks = string.Join(",", response.RetrieveInstalledLanguagePacks.OrderBy(s => s, LocaleComparer.Comparer).Select(l => LanguageLocale.GetLocaleName(l)));
                         }
                     }
                 }

@@ -26,6 +26,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             , "prvRollup"
         };
 
+        private PrivilegeNameComparer()
+        {
+
+        }
+
+        public static PrivilegeNameComparer Comparer { get; } = new PrivilegeNameComparer();
+
         private enum PrivilegeCategory
         {
             Include,
@@ -101,7 +108,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (!string.Equals(objectName1, objectName2, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    return string.Compare(objectName1, objectName2);
+                    return string.Compare(objectName1, objectName2, true);
                 }
             }
 
@@ -118,7 +125,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            return string.Compare(privilegeName1, privilegeName2);
+            return string.Compare(privilegeName1, privilegeName2, true);
         }
     }
 }

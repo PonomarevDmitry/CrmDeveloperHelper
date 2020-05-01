@@ -179,7 +179,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         listStepsToAdd
                         .OrderBy(step => step.PrimaryEntity)
                         .ThenBy(step => step.SecondaryEntity)
-                        .ThenBy(step => step.Message, new MessageComparer())
+                        .ThenBy(step => step.Message, MessageComparer.Comparer)
                         .ThenBy(step => step.Stage)
                         .ThenBy(step => step.ExecutionOrder)
                         .ThenBy(step => step.Name)

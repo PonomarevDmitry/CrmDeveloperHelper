@@ -826,7 +826,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 FormatTextTableHandler table = new FormatTextTableHandler(true);
                 table.SetHeader("LanguageCode", "Value", "IsManaged");
 
-                foreach (var item in unmanagedLabels.OrderBy(l => l.LanguageCode, new LocaleComparer()))
+                foreach (var item in unmanagedLabels.OrderBy(l => l.LanguageCode, LocaleComparer.Comparer))
                 {
                     table.AddLine(LanguageLocale.GetLocaleName(item.LanguageCode), item.Label, item.IsManaged.ToString());
                 }

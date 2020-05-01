@@ -6,7 +6,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
     public class MessageComparer : IComparer<string>
     {
-        public MessageComparer()
+        private MessageComparer()
         {
 
         }

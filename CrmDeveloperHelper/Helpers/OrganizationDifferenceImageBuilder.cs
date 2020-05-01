@@ -145,7 +145,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            var sorter = new SolutionImageComponentSorter();
+            var sorter = SolutionImageComponentSorter.Comparer;
 
             result.Connection1Image.Components.Sort(sorter);
             result.Connection2Image.Components.Sort(sorter);

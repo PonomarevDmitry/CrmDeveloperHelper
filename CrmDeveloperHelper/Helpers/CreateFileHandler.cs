@@ -272,7 +272,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            listLocale.Sort(new LocaleComparer());
+            listLocale.Sort(LocaleComparer.Comparer);
 
             if (listLocale.Any())
             {
@@ -359,7 +359,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            listLocale.Sort(new LocaleComparer());
+            listLocale.Sort(LocaleComparer.Comparer);
 
             var localeId = listLocale.FirstOrDefault();
 
@@ -468,7 +468,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            listLocale.Sort(new LocaleComparer());
+            listLocale.Sort(LocaleComparer.Comparer);
 
             if (listLocale.Any())
             {
@@ -587,7 +587,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            listLocale.Sort(new LocaleComparer());
+            listLocale.Sort(LocaleComparer.Comparer);
 
             var localeId = listLocale.FirstOrDefault();
 
@@ -817,7 +817,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            listLocale.Sort(new LocaleComparer());
+            listLocale.Sort(LocaleComparer.Comparer);
 
             var localeId = listLocale.FirstOrDefault();
 
@@ -857,7 +857,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            listLocale.Sort(new LocaleComparer());
+            listLocale.Sort(LocaleComparer.Comparer);
 
             var localeId = listLocale.FirstOrDefault();
 

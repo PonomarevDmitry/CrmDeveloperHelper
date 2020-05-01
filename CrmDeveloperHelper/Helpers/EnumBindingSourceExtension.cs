@@ -49,11 +49,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (this.SortByName)
             {
-                Array.Sort(enumValues, new EnumSorterByName());
+                Array.Sort(enumValues, EnumSorterByName.Comparer);
             }
-            else if(this.SortByIntValue)
+            else if (this.SortByIntValue)
             {
-                Array.Sort(enumValues, new EnumSorterByValue());
+                Array.Sort(enumValues, EnumSorterByValue.Comparer);
             }
 
             if (actualEnumType == this._enumType)
@@ -67,6 +67,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private class EnumSorterByValue : IComparer
         {
+            private EnumSorterByValue()
+            {
+
+            }
+
+            public static EnumSorterByValue Comparer { get; } = new EnumSorterByValue();
+
             public int Compare(object x, object y)
             {
                 int xValue = Convert.ToInt32(x);
@@ -78,6 +85,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private class EnumSorterByName : IComparer
         {
+            private EnumSorterByName()
+            {
+
+            }
+
+            public static EnumSorterByName Comparer { get; } = new EnumSorterByName();
+
             public int Compare(object x, object y)
             {
                 return x.ToString().CompareTo(y.ToString());

@@ -1386,7 +1386,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     foreach (var label in relationship.AssociatedMenuConfiguration.Label.LocalizedLabels
                         .Where(s => !string.IsNullOrEmpty(s.Label))
-                        .OrderBy(s => s.LanguageCode, new LocaleComparer())
+                        .OrderBy(s => s.LanguageCode, LocaleComparer.Comparer)
                         )
                     {
                         table.AddEntityMetadataString("AssociatedMenuConfiguration.Label", string.Format("{0}: {1}", LanguageLocale.GetLocaleName(label.LanguageCode), label.Label));
@@ -1617,7 +1617,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     foreach (var label in config.Label.LocalizedLabels
                         .Where(s => !string.IsNullOrEmpty(s.Label))
-                        .OrderBy(s => s.LanguageCode, new LocaleComparer())
+                        .OrderBy(s => s.LanguageCode, LocaleComparer.Comparer)
                         )
                     {
                         table.AddEntityMetadataString("Entity1AssociatedMenuConfiguration.Label", string.Format("{0}: {1}", LanguageLocale.GetLocaleName(label.LanguageCode), label.Label));
@@ -1640,7 +1640,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     foreach (var label in config.Label.LocalizedLabels
                         .Where(s => !string.IsNullOrEmpty(s.Label))
-                        .OrderBy(s => s.LanguageCode, new LocaleComparer())
+                        .OrderBy(s => s.LanguageCode, LocaleComparer.Comparer)
                         )
                     {
                         table.AddEntityMetadataString("Entity2AssociatedMenuConfiguration.Label", string.Format("{0}: {1}", LanguageLocale.GetLocaleName(label.LanguageCode), label.Label));

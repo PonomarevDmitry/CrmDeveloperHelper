@@ -522,7 +522,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 .OrderBy(s => s.Entity1.EventHandler?.Name ?? "Unknown")
                 .ThenBy(s => s.Entity1.PrimaryObjectTypeCodeName)
                 .ThenBy(s => s.Entity1.SecondaryObjectTypeCodeName)
-                .ThenBy(s => s.Entity1.SdkMessageId?.Name ?? "Unknown", new MessageComparer())
+                .ThenBy(s => s.Entity1.SdkMessageId?.Name ?? "Unknown", MessageComparer.Comparer)
                 .ThenBy(s => s.Entity1.Stage.Value)
                 .ThenBy(s => s.Entity1.Mode.Value)
                 )
@@ -551,7 +551,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 .OrderBy(s => s.EventHandler?.Name ?? "Unknown")
                 .ThenBy(s => s.PrimaryObjectTypeCodeName)
                 .ThenBy(s => s.SecondaryObjectTypeCodeName)
-                .ThenBy(s => s.SdkMessageId?.Name ?? "Unknown", new MessageComparer())
+                .ThenBy(s => s.SdkMessageId?.Name ?? "Unknown", MessageComparer.Comparer)
                 .ThenBy(s => s.Stage.Value)
                 .ThenBy(s => s.Mode.Value)
                 ;
@@ -560,7 +560,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 .OrderBy(s => s.EventHandler?.Name ?? "Unknown")
                 .ThenBy(s => s.PrimaryObjectTypeCodeName)
                 .ThenBy(s => s.SecondaryObjectTypeCodeName)
-                .ThenBy(s => s.SdkMessageId?.Name ?? "Unknown", new MessageComparer())
+                .ThenBy(s => s.SdkMessageId?.Name ?? "Unknown", MessageComparer.Comparer)
                 .ThenBy(s => s.Stage.Value)
                 .ThenBy(s => s.Mode.Value)
                 ;

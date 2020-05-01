@@ -2,9 +2,16 @@
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 {
-    internal class LocaleComparer : IComparer<int>
+    public class LocaleComparer : IComparer<int>
     {
-        private List<int> coll = new List<int>() { 1033, 1049, 1031, 1029 };
+        private LocaleComparer()
+        {
+
+        }
+
+        public static LocaleComparer Comparer { get; } = new LocaleComparer();
+
+        private static List<int> coll = new List<int>() { 1033, 1049, 1031, 1029 };
 
         public int Compare(int locale1, int locale2)
         {

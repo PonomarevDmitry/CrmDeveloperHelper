@@ -74,7 +74,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
                 HashSet<string> hashShowed = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
-                foreach (var item in lbls.OrderBy(l => l.LanguageCode, new LocaleComparer()))
+                foreach (var item in lbls.OrderBy(l => l.LanguageCode, LocaleComparer.Comparer))
                 {
                     if (!string.IsNullOrEmpty(item.Label) && !hashShowed.Contains(item.Label))
                     {

@@ -607,7 +607,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 foreach (var otherPriv in listOtherPrivileges
                     .OrderBy(s => s.EntityLogicalName)
-                    .ThenBy(s => s.Name, new PrivilegeNameComparer())
+                    .ThenBy(s => s.Name, PrivilegeNameComparer.Comparer)
                 )
                 {
                     _itemsSourceOtherPrivileges.Add(otherPriv);
@@ -2005,7 +2005,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             StringBuilder content = new StringBuilder();
 
-            var privilegeComparer = new PrivilegeNameComparer();
+            var privilegeComparer = PrivilegeNameComparer.Comparer;
 
             content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
             content.AppendLine(service.ConnectionData.GetConnectionDescription());
@@ -2031,7 +2031,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             content.AppendLine();
 
-            var difference = comparer.CompareRolePrivileges(userPrivileges1, rolePrivileges2, privileges, new PrivilegeNameComparer());
+            var difference = comparer.CompareRolePrivileges(userPrivileges1, rolePrivileges2, privileges, PrivilegeNameComparer.Comparer);
 
             difference.ForEach(s => content.AppendLine(s));
 
@@ -2100,7 +2100,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             StringBuilder content = new StringBuilder();
 
-            var privilegeComparer = new PrivilegeNameComparer();
+            var privilegeComparer = PrivilegeNameComparer.Comparer;
 
             content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
             content.AppendLine(service.ConnectionData.GetConnectionDescription());
@@ -2126,7 +2126,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             content.AppendLine();
 
-            var difference = comparer.CompareRolePrivileges(rolePrivileges1, userPrivileges2, privileges, new PrivilegeNameComparer());
+            var difference = comparer.CompareRolePrivileges(rolePrivileges1, userPrivileges2, privileges, PrivilegeNameComparer.Comparer);
 
             difference.ForEach(s => content.AppendLine(s));
 
@@ -2192,7 +2192,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             StringBuilder content = new StringBuilder();
 
-            var privilegeComparer = new PrivilegeNameComparer();
+            var privilegeComparer = PrivilegeNameComparer.Comparer;
 
             content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
             content.AppendLine(service.ConnectionData.GetConnectionDescription());
@@ -2218,7 +2218,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             content.AppendLine();
 
-            var difference = comparer.CompareRolePrivileges(rolePrivileges1, teamPrivileges2, privileges, new PrivilegeNameComparer());
+            var difference = comparer.CompareRolePrivileges(rolePrivileges1, teamPrivileges2, privileges, PrivilegeNameComparer.Comparer);
 
             difference.ForEach(s => content.AppendLine(s));
 

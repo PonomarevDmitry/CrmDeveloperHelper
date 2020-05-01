@@ -585,7 +585,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 foreach (var otherPriv in listOtherPrivileges
                     .OrderBy(s => s.EntityLogicalName)
-                    .ThenBy(s => s.Name, new PrivilegeNameComparer())
+                    .ThenBy(s => s.Name, PrivilegeNameComparer.Comparer)
                 )
                 {
                     otherPriv.PropertyChanged -= rolePrivilege_PropertyChanged;
@@ -2979,7 +2979,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             content.AppendLine();
 
-            var difference = comparer.CompareRolePrivileges(rolePrivileges1, rolePrivileges2, privileges, new PrivilegeNameComparer());
+            var difference = comparer.CompareRolePrivileges(rolePrivileges1, rolePrivileges2, privileges, PrivilegeNameComparer.Comparer);
 
             difference.ForEach(s => content.AppendLine(s));
 
@@ -3070,7 +3070,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             content.AppendLine();
 
-            var difference = comparer.CompareRolePrivileges(rolePrivileges1, userPrivileges2, privileges, new PrivilegeNameComparer());
+            var difference = comparer.CompareRolePrivileges(rolePrivileges1, userPrivileges2, privileges, PrivilegeNameComparer.Comparer);
 
             difference.ForEach(s => content.AppendLine(s));
 
@@ -3160,7 +3160,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             content.AppendLine();
 
-            var difference = comparer.CompareRolePrivileges(rolePrivileges1, teamPrivileges2, privileges, new PrivilegeNameComparer());
+            var difference = comparer.CompareRolePrivileges(rolePrivileges1, teamPrivileges2, privileges, PrivilegeNameComparer.Comparer);
 
             difference.ForEach(s => content.AppendLine(s));
 

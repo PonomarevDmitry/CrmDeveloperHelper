@@ -204,7 +204,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 List<int> locales = GetLabelLocales(header, tabs, footer);
 
-                locales.Sort(new LocaleComparer());
+                locales.Sort(LocaleComparer.Comparer);
 
                 result.AppendLine().AppendLine().AppendLine();
                 result.AppendLine("Tabs and Sections");

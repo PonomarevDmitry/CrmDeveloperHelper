@@ -23,7 +23,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             StringBuilder content = new StringBuilder();
 
-            var privilegeComparer = new PrivilegeNameComparer();
+            var privilegeComparer = PrivilegeNameComparer.Comparer;
             var privileteEquality = new PrivilegeEqualityComparer();
 
             await _comparerSource.InitializeConnection(_iWriteToOutput, content);
