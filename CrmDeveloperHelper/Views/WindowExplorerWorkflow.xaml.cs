@@ -87,6 +87,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBCurrentConnection.ItemsSource = service.ConnectionData.ConnectionConfiguration.Connections;
             cmBCurrentConnection.SelectedItem = service.ConnectionData;
 
+            FillExplorersMenuItems();
+
             this.DecreaseInit();
 
             if (service != null)

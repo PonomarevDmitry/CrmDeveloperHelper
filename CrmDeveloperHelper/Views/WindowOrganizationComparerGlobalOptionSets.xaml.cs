@@ -86,6 +86,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBConnection2.ItemsSource = connection1.ConnectionConfiguration.Connections;
             cmBConnection2.SelectedItem = connection2;
 
+            FillExplorersMenuItems();
+
             this.DecreaseInit();
 
             ShowExistingOptionSets();

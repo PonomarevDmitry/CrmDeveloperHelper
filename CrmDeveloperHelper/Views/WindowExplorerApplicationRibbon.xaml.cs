@@ -52,11 +52,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBCurrentConnection.ItemsSource = service.ConnectionData.ConnectionConfiguration.Connections;
             cmBCurrentConnection.SelectedItem = service.ConnectionData;
 
+            FillExplorersMenuItems();
+
+            this.DecreaseInit();
+        }
+
+        private void FillExplorersMenuItems()
+        {
             var explorersHelper = new ExplorersHelper(_iWriteToOutput, _commonConfig, GetService);
             explorersHelper.FillExplorers(miExplorers);
             explorersHelper.FillCompareWindows(miCompareOrganizations);
-
-            this.DecreaseInit();
         }
 
         private void LoadFromConfig()
