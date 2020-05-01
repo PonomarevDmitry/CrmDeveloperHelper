@@ -19,16 +19,8 @@ using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowOrganizationComparerReport : WindowBase
+    public partial class WindowOrganizationComparerReport : WindowWithConnectionList
     {
-        private readonly object sysObjectConnections = new object();
-
-        private readonly IWriteToOutput _iWriteToOutput;
-
-        private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
-
-        private readonly CommonConfiguration _commonConfig;
-
         private readonly ObservableCollection<EntityViewItem> _itemsSource;
 
         public WindowOrganizationComparerReport(
@@ -37,16 +29,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , ConnectionData connection1
             , ConnectionData connection2
             , string filter
-        )
+        ) : base(iWriteToOutput, commonConfig, connection1)
         {
             this.IncreaseInit();
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
-
-            this._iWriteToOutput = iWriteToOutput;
-            this._commonConfig = commonConfig;
-
-            BindingOperations.EnableCollectionSynchronization(connection1.ConnectionConfiguration.Connections, sysObjectConnections);
 
             InitializeComponent();
 
@@ -126,51 +113,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return connectionData;
         }
 
-        private async Task<IOrganizationServiceExtented> GetService1()
+        private Task<IOrganizationServiceExtented> GetService1()
         {
-            return await GetService(GetConnection1());
+            return GetOrganizationService(GetConnection1());
         }
 
-        private async Task<IOrganizationServiceExtented> GetService2()
+        private Task<IOrganizationServiceExtented> GetService2()
         {
-            return await GetService(GetConnection2());
-        }
-
-        private async Task<IOrganizationServiceExtented> GetService(ConnectionData connectionData)
-        {
-            if (connectionData == null)
-            {
-                return null;
-            }
-
-            if (_connectionCache.ContainsKey(connectionData.ConnectionId))
-            {
-                return _connectionCache[connectionData.ConnectionId];
-            }
-
-            ToggleControls(false, string.Empty);
-
-            try
-            {
-                var service = await QuickConnection.ConnectAndWriteToOutputAsync(_iWriteToOutput, connectionData);
-
-                if (service != null)
-                {
-                    _connectionCache[connectionData.ConnectionId] = service;
-                }
-
-                return service;
-            }
-            catch (Exception ex)
-            {
-                _iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                ToggleControls(true, string.Empty);
-            }
-
-            return null;
+            return GetOrganizationService(GetConnection2());
         }
 
         private async Task ShowExistingReports()
@@ -356,7 +306,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
+        protected override void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
+        {
+            ToggleControls(enabled, statusFormat, args);
+        }
+
+        protected void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this.ChangeInitByEnabled(enabled);
 

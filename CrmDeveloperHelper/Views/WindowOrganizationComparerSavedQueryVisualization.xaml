@@ -1,12 +1,17 @@
-﻿<src:WindowBase x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowOrganizationComparerSavedQueryVisualization"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
-        xmlns:clr="clr-namespace:System;assembly=mscorlib"
-        xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
-        xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
-        Title="Chart Comparer" Height="538.662" Width="752" WindowStartupLocation="Manual">
-    <src:WindowBase.Resources>
+﻿<src:WindowWithConnectionList
+    x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowOrganizationComparerSavedQueryVisualization"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
+    xmlns:clr="clr-namespace:System;assembly=mscorlib"
+    xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
+    xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
+    Title="Chart Comparer"
+    Height="540"
+    Width="752"
+    WindowStartupLocation="Manual"
+    >
+    <src:WindowWithConnectionList.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="StyleWindows.xaml"/>
@@ -19,7 +24,7 @@
                 <MenuItem x:Uid="menuContextDifference" Header="Difference Entity Description" Click="mIShowDifferenceEntityDescription_Click" FontWeight="Bold"/>
                 <MenuItem x:Uid="menuContextDifference" Header="Difference Data Description" Click="mIShowDifferenceDataDescription_Click"/>
                 <MenuItem x:Uid="menuContextDifference" Header="Difference Presentation Description" Click="mIShowDifferencePresentationDescription_Click"/>
-                
+
                 <Separator x:Uid="menuContextDifference"/>
                 <MenuItem x:Uid="menuContextDifference" Header="Organization Comparer">
                     <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
@@ -47,7 +52,7 @@
 
                     <Separator/>
                     <MenuItem Header="Open Entity Customization in Web" Click="miConnection1OpenEntityMetadataInWeb_Click" />
-                    
+
                     <Separator/>
                     <MenuItem Header="Open Entity List in Web" Click="miConnection1OpenEntityInstanceListInWeb_Click" />
                 </MenuItem>
@@ -93,7 +98,7 @@
 
                     <Separator/>
                     <MenuItem Header="Open Entity Customization in Web" Click="miConnection2OpenEntityMetadataInWeb_Click" />
-                    
+
                     <Separator/>
                     <MenuItem Header="Open Entity List in Web" Click="miConnection2OpenEntityInstanceListInWeb_Click" />
                 </MenuItem>
@@ -130,7 +135,7 @@
             </ContextMenu>
 
         </ResourceDictionary>
-    </src:WindowBase.Resources>
+    </src:WindowWithConnectionList.Resources>
     <Grid>
 
         <Grid.RowDefinitions>
@@ -234,7 +239,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="50*"/>
-                
+
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="50*"/>
             </Grid.ColumnDefinitions>
@@ -246,7 +251,7 @@
 
             <Label Content="Connection 1 to CRM:" Grid.Row="0" Grid.Column="0"/>
             <ComboBox x:Name="cmBConnection1" Grid.Row="0" Grid.Column="1" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" />
-            
+
             <Label Content="Connection 2 to CRM:" Grid.Row="0" Grid.Column="2"/>
             <ComboBox x:Name="cmBConnection2" Grid.Row="0" Grid.Column="3" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" />
 
@@ -294,7 +299,7 @@
             <Label Content="Action" Grid.Row="0" Grid.Column="0" />
             <ComboBox x:Name="cmBFileAction" Grid.Row="0" Grid.Column="1" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" SelectedIndex="0" />
         </Grid>
-        
+
         <ToolBar Grid.Row="4">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
@@ -310,41 +315,41 @@
                 </DockPanel.Resources>
                 <ToolBarPanel Orientation="Horizontal" >
                     <Button x:Name="btnShowDifferenceAll" Content="Show difference for All" Click="btnShowDifferenceAll_Click"/>
-                    
+
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBShowDifference" Header="Show Difference">
                             <MenuItem Header="Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
-                            
+
                             <Separator/>
                             <MenuItem Header="Data Description" Click="mIShowDifferenceDataDescription_Click"/>
                             <MenuItem Header="Presentation Description" Click="mIShowDifferencePresentationDescription_Click"/>
                         </MenuItem>
                     </Menu>
-                    
+
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection1" Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Export from {0}">
                             <MenuItem Header="Create Entity Description" Click="mIExportSystemChart1EntityDescription_Click"/>
-                            
+
                             <Separator/>
                             <MenuItem Header="Data Description" Click="mIExportSystemChart1DataDescription_Click"/>
                             <MenuItem Header="Presentation Description" Click="mIExportSystemChart1PresentationDescription_Click"/>
                         </MenuItem>
                     </Menu>
-                    
+
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection2" Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Export from {0}">
                             <MenuItem Header="Create Entity Description" Click="mIExportSystemChart2EntityDescription_Click"/>
-                            
+
                             <Separator/>
                             <MenuItem Header="Data Description" Click="mIExportSystemChart2DataDescription_Click"/>
                             <MenuItem Header="Presentation Description" Click="mIExportSystemChart2PresentationDescription_Click"/>
                         </MenuItem>
                     </Menu>
                 </ToolBarPanel>
-                
+
                 <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>
         </ToolBar>
@@ -354,4 +359,4 @@
             <StatusBarItem x:Name="stBIStatus"/>
         </StatusBar>
     </Grid>
-</src:WindowBase>
+</src:WindowWithConnectionList>

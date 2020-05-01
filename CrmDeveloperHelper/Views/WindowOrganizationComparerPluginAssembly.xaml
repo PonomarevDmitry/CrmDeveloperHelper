@@ -1,12 +1,17 @@
-﻿<src:WindowBase x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowOrganizationComparerPluginAssembly"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
-        xmlns:clr="clr-namespace:System;assembly=mscorlib"
-        xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
-        xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
-        Title="Plugin Assembly Comparer" Height="538.662" Width="752" WindowStartupLocation="Manual">
-    <src:WindowBase.Resources>
+﻿<src:WindowWithConnectionList
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
+    xmlns:clr="clr-namespace:System;assembly=mscorlib"
+    xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
+    xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
+    x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowOrganizationComparerPluginAssembly"
+    Title="Plugin Assembly Comparer"
+    Height="540"
+    Width="752"
+    WindowStartupLocation="Manual"
+    >
+    <src:WindowWithConnectionList.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="StyleWindows.xaml"/>
@@ -18,7 +23,7 @@
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
                 <MenuItem x:Uid="menuContextDifference" Header="Difference Assembly Description" Click="mIShowDifferenceAssemblyDescription_Click" FontWeight="Bold" />
                 <MenuItem x:Uid="menuContextDifference" Header="Difference Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
-                
+
                 <Separator x:Uid="menuContextDifference" />
                 <MenuItem x:Uid="menuContextDifference" Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
                 <Separator x:Uid="menuContextDifference"/>
@@ -27,7 +32,7 @@
                     <MenuItem Header="Plugin Assembly Description" Click="mIExportPluginAssembly1AssemblyDescription_Click" />
                     <MenuItem Header="Create Entity Description" Click="mIExportPluginAssembly1EntityDescription_Click"/>
                     <MenuItem Header="Binary Content" Click="mIExportPluginAssembly1BinaryContent_Click"/>
-                    
+
                     <Separator/>
                     <MenuItem Header="Pluing Assembly Explorer" Click="btnExportPluginAssembly1_Click"/>
                 </MenuItem>
@@ -37,7 +42,7 @@
                     <MenuItem Header="Plugin Assembly Description" Click="mIExportPluginAssembly2AssemblyDescription_Click" />
                     <MenuItem Header="Create Entity Description" Click="mIExportPluginAssembly2EntityDescription_Click"/>
                     <MenuItem Header="Binary Content" Click="mIExportPluginAssembly2BinaryContent_Click"/>
-                    
+
                     <Separator/>
                     <MenuItem Header="Pluing Assembly Explorer" Click="btnExportPluginAssembly2_Click"/>
                 </MenuItem>
@@ -45,7 +50,7 @@
             </ContextMenu>
 
         </ResourceDictionary>
-    </src:WindowBase.Resources>
+    </src:WindowWithConnectionList.Resources>
     <Grid>
 
         <Grid.RowDefinitions>
@@ -85,7 +90,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="50*"/>
-                
+
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="50*"/>
             </Grid.ColumnDefinitions>
@@ -97,7 +102,7 @@
 
             <Label Content="Connection 1 to CRM:" Grid.Row="0" Grid.Column="0" />
             <ComboBox x:Name="cmBConnection1" Grid.Row="0" Grid.Column="1" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" />
-            
+
             <Label Content="Connection 2 to CRM:" Grid.Row="0" Grid.Column="2"/>
             <ComboBox x:Name="cmBConnection2" Grid.Row="0" Grid.Column="3" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" />
 
@@ -153,44 +158,44 @@
                 </DockPanel.Resources>
                 <ToolBarPanel Orientation="Horizontal" >
                     <Button x:Name="btnShowDifferenceAll" Content="Show difference for All" Click="btnShowDifferenceAll_Click"/>
-                    
+
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBShowDifference" Header="Show Difference">
                             <MenuItem Header="Assembly Description" Click="mIShowDifferenceAssemblyDescription_Click"/>
-                            
+
                             <Separator/>
                             <MenuItem Header="Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
                         </MenuItem>
                     </Menu>
-                    
+
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection1" Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Export from {0}">
                             <MenuItem Header="Plugin Assembly Description" Click="mIExportPluginAssembly1AssemblyDescription_Click"/>
-                            
+
                             <Separator/>
                             <MenuItem Header="Create Entity Description" Click="mIExportPluginAssembly1EntityDescription_Click"/>
-                            
+
                             <Separator/>
                             <MenuItem Header="Binary Content" Click="mIExportPluginAssembly1BinaryContent_Click"/>
                         </MenuItem>
                     </Menu>
-                    
+
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection2" Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Export from {0}">
                             <MenuItem Header="Plugin Assembly Description" Click="mIExportPluginAssembly2AssemblyDescription_Click"/>
-                            
+
                             <Separator/>
                             <MenuItem Header="Create Entity Description" Click="mIExportPluginAssembly2EntityDescription_Click"/>
-                            
+
                             <Separator/>
                             <MenuItem Header="Binary Content" Click="mIExportPluginAssembly2BinaryContent_Click"/>
                         </MenuItem>
                     </Menu>
                 </ToolBarPanel>
-                
+
                 <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>
         </ToolBar>
@@ -200,4 +205,4 @@
             <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>
     </Grid>
-</src:WindowBase>
+</src:WindowWithConnectionList>

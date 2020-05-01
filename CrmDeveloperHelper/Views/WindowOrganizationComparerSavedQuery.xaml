@@ -1,12 +1,17 @@
-﻿<src:WindowBase x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowOrganizationComparerSavedQuery"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
-        xmlns:clr="clr-namespace:System;assembly=mscorlib"
-        xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
-        xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
-        Title="SavedQuery Comparer" Height="538.662" Width="752" WindowStartupLocation="Manual">
-    <src:WindowBase.Resources>
+﻿<src:WindowWithConnectionList
+    x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowOrganizationComparerSavedQuery"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
+    xmlns:clr="clr-namespace:System;assembly=mscorlib"
+    xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
+    xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
+    Title="SavedQuery Comparer"
+    Height="540"
+    Width="752"
+    WindowStartupLocation="Manual"
+    >
+    <src:WindowWithConnectionList.Resources>
         <ResourceDictionary>
 
             <ResourceDictionary.MergedDictionaries>
@@ -54,7 +59,7 @@
 
                     <Separator/>
                     <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="miConnection1OpenEntityMetadataInWeb_Click" />
-                    
+
                     <Separator/>
                     <MenuItem Header="Open Entity List in Web" VerticalAlignment="Center" Click="miConnection1OpenEntityInstanceListInWeb_Click" />
                 </MenuItem>
@@ -103,7 +108,7 @@
 
                     <Separator/>
                     <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="miConnection2OpenEntityMetadataInWeb_Click" />
-                    
+
                     <Separator/>
                     <MenuItem Header="Open Entity List in Web" VerticalAlignment="Center" Click="miConnection2OpenEntityInstanceListInWeb_Click" />
                 </MenuItem>
@@ -140,15 +145,15 @@
             </ContextMenu>
 
         </ResourceDictionary>
-    </src:WindowBase.Resources>
+    </src:WindowWithConnectionList.Resources>
     <Grid>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            
+
             <RowDefinition Height="100*" />
-            
+
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -264,7 +269,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="50*"/>
-                
+
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="50*"/>
 
@@ -350,7 +355,7 @@
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBShowDifference" Header="Show Difference">
                             <MenuItem Header="Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
-                            
+
                             <Separator/>
                             <MenuItem Header="Fetch XML" Click="mIShowDifferenceFetchXml_Click"/>
                             <MenuItem Header="Layout XML" Click="mIShowDifferenceLayoutXml_Click"/>
@@ -364,7 +369,7 @@
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection1" Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Export from {0}">
                             <MenuItem Header="Create Entity Description" Click="mIExportSavedQuery1EntityDescription_Click"/>
-                            
+
                             <Separator/>
                             <MenuItem Header="Fetch XML" Click="mIExportSavedQuery1FetchXml_Click"/>
                             <MenuItem Header="Layout XML" Click="mIExportSavedQuery1LayoutXml_Click"/>
@@ -378,7 +383,7 @@
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection2" Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Export from {0}">
                             <MenuItem Header="Create Entity Description" Click="mIExportSavedQuery2EntityDescription_Click"/>
-                            
+
                             <Separator/>
                             <MenuItem Header="Fetch XML" Click="mIExportSavedQuery2FetchXml_Click"/>
                             <MenuItem Header="Layout XML" Click="mIExportSavedQuery2LayoutXml_Click"/>
@@ -388,14 +393,14 @@
                         </MenuItem>
                     </Menu>
                 </ToolBarPanel>
-                
+
                 <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>
         </ToolBar>
-        
+
         <StatusBar Grid.Row="5">
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />
             <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>
     </Grid>
-</src:WindowBase>
+</src:WindowWithConnectionList>

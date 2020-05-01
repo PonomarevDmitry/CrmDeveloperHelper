@@ -1,12 +1,17 @@
-﻿<src:WindowBase x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowOrganizationComparerGlobalOptionSets"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
-        xmlns:clr="clr-namespace:System;assembly=mscorlib"
-        xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
-        xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
-        Title="Global OptionSets Comparer" Height="594.366" Width="701.333" WindowStartupLocation="Manual">
-    <src:WindowBase.Resources>
+﻿<src:WindowWithConnectionList
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
+    xmlns:clr="clr-namespace:System;assembly=mscorlib"
+    xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
+    xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
+    x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowOrganizationComparerGlobalOptionSets"
+    Title="Global OptionSets Comparer"
+    Height="595"
+    Width="700"
+    WindowStartupLocation="Manual"
+    >
+    <src:WindowWithConnectionList.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="StyleWindows.xaml"/>
@@ -14,12 +19,12 @@
 
             <clr:String x:Key="ConnectionName1">Connection 1</clr:String>
             <clr:String x:Key="ConnectionName2">Connection 2</clr:String>
-            
+
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
 
                 <MenuItem x:Uid="menuContextDifference" Header="Difference C# File Single OptionSet" Click="btnDifferenceCSharpFileSingle_Click" FontWeight="Bold" />
                 <Separator x:Uid="menuContextDifference" />
-                
+
                 <MenuItem x:Uid="menuContextDifference" Header="Difference JavaScript File Json Object Single OptionSet" Click="btnDifferenceJavaScriptFileSingleJsonObject_Click" />
                 <Separator x:Uid="menuContextDifference" />
 
@@ -43,7 +48,7 @@
                     <Separator/>
 
                     <MenuItem Header="Create C# File Single OptionSets" Click="btnConnection1CSharpSingle_Click" />
-                    
+
                     <Separator/>
                     <MenuItem Header="Create JavaScript File Json Object Single OptionSet" Click="btnConnection1JavaScriptSingleJsonObject_Click"/>
                 </MenuItem>
@@ -84,7 +89,7 @@
                     <Separator/>
 
                     <MenuItem Header="Create C# File Single OptionSets"  Click="btnConnection2CSharpSingle_Click" />
-                    
+
                     <Separator/>
                     <MenuItem Header="Create JavaScript Json Object File Single OptionSet" Click="btnConnection2JavaScriptSingleJsonObject_Click"/>
                 </MenuItem>
@@ -120,9 +125,9 @@
                 </MenuItem>
 
             </ContextMenu>
-            
+
         </ResourceDictionary>
-    </src:WindowBase.Resources>
+    </src:WindowWithConnectionList.Resources>
     <Grid>
 
         <Grid.RowDefinitions>
@@ -224,7 +229,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="50*"/>
-                
+
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="50*"/>
             </Grid.ColumnDefinitions>
@@ -235,7 +240,7 @@
 
             <Label Content="Connection 1 to CRM:" Grid.Row="0" Grid.Column="0"/>
             <ComboBox x:Name="cmBConnection1" Grid.Row="0" Grid.Column="1" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" />
-            
+
             <Label Content="Connection 2 to CRM:" Grid.Row="0" Grid.Column="2"/>
             <ComboBox x:Name="cmBConnection2" Grid.Row="0" Grid.Column="3" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" />
 
@@ -286,18 +291,18 @@
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBShowDifference" Header="Show Difference">
                             <MenuItem Header="C# File Single OptionSet" Click="btnDifferenceCSharpFileSingle_Click" />
-                            
+
                             <Separator />
                             <MenuItem Header="Difference JavaScript File Json Object Single OptionSet" Click="btnDifferenceJavaScriptFileSingleJsonObject_Click" />
-                            
+
                             <Separator/>
                             <MenuItem Header="C# File All OptionSets" Click="btnDifferenceCSharpFile_Click"  />
-                            
+
                             <Separator/>
                             <MenuItem Header="JavaScript File Json Object All OptionSets" Click="btnDifferenceJavaScriptFileJsonObject_Click"/>
                         </MenuItem>
                     </Menu>
-                    
+
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection1" Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Export from {0}">
@@ -305,18 +310,18 @@
 
                             <Separator/>
                             <MenuItem Header="Create C# File Single OptionSets" Click="btnConnection1CSharpSingle_Click"  />
-                            
+
                             <Separator/>
                             <MenuItem Header="Create JavaScript File Json Object Single OptionSet" Click="btnConnection1JavaScriptSingleJsonObject_Click"/>
-                            
+
                             <Separator/>
                             <MenuItem Header="Create C# File All OptionSets" Click="btnConnection1CSharp_Click"  />
-                            
+
                             <Separator/>
                             <MenuItem Header="Create JavaScript File Json Object All OptionSets" Click="btnConnection1JavaScriptJsonObject_Click" />
                         </MenuItem>
                     </Menu>
-                    
+
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection2" Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Export from {0}">
@@ -324,23 +329,23 @@
 
                             <Separator/>
                             <MenuItem Header="Create C# File Single OptionSets"  Click="btnConnection2CSharpSingle_Click" />
-                            
+
                             <Separator/>
                             <MenuItem Header="Create JavaScript File Json Object Single OptionSet" Click="btnConnection2JavaScriptSingleJsonObject_Click"/>
-                            
+
                             <Separator/>
                             <MenuItem Header="Create C# File All OptionSets" Click="btnConnection2CSharp_Click" />
-                            
+
                             <Separator/>
                             <MenuItem Header="Create JavaScript File Json Object All OptionSets" Click="btnConnection2JavaScriptJsonObject_Click" />
                         </MenuItem>
                     </Menu>
-                    
+
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Label Content="Action" HorizontalAlignment="Left" Padding="10,0" VerticalAlignment="Stretch" VerticalContentAlignment="Center"/>
                     <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" IsReadOnly="True" Padding="10,0" Width="180" SelectedIndex="0" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch" />
                 </ToolBarPanel>
-                
+
                 <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>
         </ToolBar>
@@ -350,4 +355,4 @@
             <StatusBarItem x:Name="stBIStatus" Content="" />
         </StatusBar>
     </Grid>
-</src:WindowBase>
+</src:WindowWithConnectionList>
