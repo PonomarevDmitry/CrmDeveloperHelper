@@ -104,10 +104,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , getWorkflowName: GetWorkflowName
             );
 
+            var compareWindowsHelper = new CompareWindowsHelper(_iWriteToOutput, _commonConfig, GetSelectedConnection, GetSelectedConnection
+                , getEntityName: GetEntityName
+                , getWorkflowName: GetWorkflowName
+            );
+
             explorersHelper.FillExplorers(miExplorers);
             explorersHelper.FillExplorers(miExplorers2);
-            explorersHelper.FillCompareWindows(miCompareOrganizations);
-            explorersHelper.FillCompareWindows(miCompareOrganizations2);
+
+            compareWindowsHelper.FillCompareWindows(miCompareOrganizations);
+            compareWindowsHelper.FillCompareWindows(miCompareOrganizations2);
 
             if (this.Resources.Contains("listContextMenu")
                 && this.Resources["listContextMenu"] is ContextMenu contextMenu
@@ -123,7 +129,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                     else if (string.Equals(item.Uid, "miCompareOrganizations", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        explorersHelper.FillCompareWindows(item);
+                        compareWindowsHelper.FillCompareWindows(item);
                     }
                 }
             }

@@ -1335,6 +1335,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , ConnectionData connection1
             , ConnectionData connection2
+            , string filter = null
         )
         {
             ExecuteInSTAThread(() =>
@@ -1344,6 +1345,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     , commonConfig
                     , connection1
                     , connection2
+                    , filter
                 )
             );
         }

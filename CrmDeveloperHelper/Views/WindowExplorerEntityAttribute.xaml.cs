@@ -121,8 +121,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , getEntityMetadataList: GetEntityMetadataList
             );
 
+            var compareWindowsHelper = new CompareWindowsHelper(_iWriteToOutput, _commonConfig, GetSelectedConnection, GetSelectedConnection
+                , getEntityName: GetEntityName
+            );
+
             explorersHelper.FillExplorers(miExplorers);
-            explorersHelper.FillCompareWindows(miCompareOrganizations);
+            compareWindowsHelper.FillCompareWindows(miCompareOrganizations);
 
             if (this.Resources.Contains("listContextMenu")
                 && this.Resources["listContextMenu"] is ContextMenu contextMenu
@@ -138,7 +142,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                     else if (string.Equals(item.Uid, "miCompareOrganizations", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        explorersHelper.FillCompareWindows(item);
+                        compareWindowsHelper.FillCompareWindows(item);
                     }
                 }
             }

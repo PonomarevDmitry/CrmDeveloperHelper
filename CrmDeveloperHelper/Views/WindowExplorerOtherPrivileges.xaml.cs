@@ -92,8 +92,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , getOtherPrivilegesList: GetOtherPrivilegesList
             );
 
+            var compareWindowsHelper = new CompareWindowsHelper(_iWriteToOutput, _commonConfig, GetSelectedConnection, GetSelectedConnection
+            );
+
             explorersHelper.FillExplorers(miExplorers);
-            explorersHelper.FillCompareWindows(miCompareOrganizations);
+            compareWindowsHelper.FillCompareWindows(miCompareOrganizations);
         }
 
         private string GetOtherPrivilegeName()

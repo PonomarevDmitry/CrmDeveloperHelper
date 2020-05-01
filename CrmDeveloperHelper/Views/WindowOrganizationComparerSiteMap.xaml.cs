@@ -33,6 +33,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , ConnectionData connection1
             , ConnectionData connection2
+            , string filter
         ) : base(iWriteToOutput, commonConfig, connection1)
         {
             this.IncreaseInit();
@@ -57,6 +58,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Resources["ConnectionName2"] = connection2.Name;
 
             LoadFromConfig();
+
+            if (!string.IsNullOrEmpty(filter))
+            {
+                txtBFilter.Text = filter;
+            }
 
             txtBFilter.SelectionLength = 0;
             txtBFilter.SelectionStart = txtBFilter.Text.Length;

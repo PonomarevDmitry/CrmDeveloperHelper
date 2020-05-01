@@ -1401,6 +1401,7 @@
     <Compile Include="UserControls\FileGenerationSdkMessageRequestsOptionsControl.xaml.cs">
       <DependentUpon>FileGenerationSdkMessageRequestsOptionsControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\BaseWindows\CompareWindowsHelper.cs" />
     <Compile Include="Views\BaseWindows\ExplorersHelper.cs" />
     <Compile Include="Views\BaseWindows\WindowWithConnectionList.cs" />
     <Compile Include="Views\BaseWindows\WindowWithOutputAndCommonConfig.cs" />

@@ -61,7 +61,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var explorersHelper = new ExplorersHelper(_iWriteToOutput, _commonConfig, GetService);
             explorersHelper.FillExplorers(miExplorers);
-            explorersHelper.FillCompareWindows(miCompareOrganizations);
+
+            var compareWindowsHelper = new CompareWindowsHelper(_iWriteToOutput, _commonConfig, GetSelectedConnection, GetSelectedConnection);
+            compareWindowsHelper.FillCompareWindows(miCompareOrganizations);
         }
 
         private void LoadFromConfig()
