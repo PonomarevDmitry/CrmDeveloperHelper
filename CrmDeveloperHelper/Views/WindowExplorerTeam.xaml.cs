@@ -133,19 +133,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 && this.Resources["listContextMenuEntityPrivileges"] is ContextMenu listContextMenuEntityPrivileges
             )
             {
+                explorersHelper.FillExplorers(listContextMenuEntityPrivileges, nameof(miExplorers));
+
+                compareWindowsHelper.FillCompareWindows(listContextMenuEntityPrivileges, nameof(miCompareOrganizations));
+
                 var items = listContextMenuEntityPrivileges.Items.OfType<MenuItem>();
 
                 foreach (var item in items)
                 {
-                    if (string.Equals(item.Uid, nameof(miExplorers), StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        explorersHelper.FillExplorers(item);
-                    }
-                    else if (string.Equals(item.Uid, nameof(miCompareOrganizations), StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        compareWindowsHelper.FillCompareWindows(item);
-                    }
-                    else if (string.Equals(item.Uid, "miEntityPrivilegesExplorer", StringComparison.InvariantCultureIgnoreCase))
+                    if (string.Equals(item.Uid, "miEntityPrivilegesExplorer", StringComparison.InvariantCultureIgnoreCase))
                     {
                         item.Click += explorersHelper.miEntityPrivilegesExplorer_Click;
                     }

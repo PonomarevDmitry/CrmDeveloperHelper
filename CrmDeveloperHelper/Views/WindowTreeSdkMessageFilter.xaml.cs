@@ -68,6 +68,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             trVMessageTree.ItemsSource = _messageTree;
 
+            FillExplorersMenuItems();
+
             this.DecreaseInit();
 
             ShowExistingMessages();
@@ -90,19 +92,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 && this.Resources["listContextMenu"] is ContextMenu listContextMenu
             )
             {
+                explorersHelper.FillExplorers(listContextMenu, nameof(miExplorers));
+
+                compareWindowsHelper.FillCompareWindows(listContextMenu, nameof(miCompareOrganizations));
+
                 var items = listContextMenu.Items.OfType<MenuItem>();
 
                 foreach (var item in items)
                 {
-                    if (string.Equals(item.Uid, nameof(miExplorers), StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        explorersHelper.FillExplorers(item);
-                    }
-                    else if (string.Equals(item.Uid, nameof(miCompareOrganizations), StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        compareWindowsHelper.FillCompareWindows(item);
-                    }
-                    else if (string.Equals(item.Uid, "mIOpenPluginTree", StringComparison.InvariantCultureIgnoreCase))
+                    if (string.Equals(item.Uid, "mIOpenPluginTree", StringComparison.InvariantCultureIgnoreCase))
                     {
                         item.Click += explorersHelper.miPluginTree_Click;
                     }
@@ -1331,6 +1329,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+            }
+        }
+
+        private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+            e.ContinueRouting = false;
+        }
+
+        private void treeViewCopy_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (trVMessageTree.SelectedItem != null && trVMessageTree.SelectedItem is PluginTreeViewItem nodeItem)
+            {
+                e.Handled = true;
+
+                ClipboardHelper.SetText(nodeItem.Name);
             }
         }
     }

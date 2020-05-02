@@ -502,7 +502,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private static IEnumerable<MenuItem> GetMenuItems(IEnumerable<Control> items)
+        public static IEnumerable<MenuItem> GetMenuItems(IEnumerable<Control> items)
         {
             foreach (var item in items.OfType<MenuItem>())
             {

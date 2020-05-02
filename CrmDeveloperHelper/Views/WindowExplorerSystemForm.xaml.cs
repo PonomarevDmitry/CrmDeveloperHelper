@@ -156,22 +156,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             compareWindowsHelper.FillCompareWindows(miCompareOrganizations);
 
             if (this.Resources.Contains("listContextMenu")
-                && this.Resources["listContextMenu"] is ContextMenu contextMenu
+                && this.Resources["listContextMenu"] is ContextMenu listContextMenu
             )
             {
-                var items = contextMenu.Items.OfType<MenuItem>();
+                explorersHelper.FillExplorers(listContextMenu, nameof(miExplorers));
 
-                foreach (var item in items)
-                {
-                    if (string.Equals(item.Uid, "miExplorers", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        explorersHelper.FillExplorers(item);
-                    }
-                    else if (string.Equals(item.Uid, "miCompareOrganizations", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        compareWindowsHelper.FillCompareWindows(item);
-                    }
-                }
+                compareWindowsHelper.FillCompareWindows(listContextMenu, nameof(miCompareOrganizations));
             }
         }
 

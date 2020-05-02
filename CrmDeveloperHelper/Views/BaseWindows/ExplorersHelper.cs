@@ -4,6 +4,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -170,6 +171,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             return null;
+        }
+
+        public void FillExplorers(ContextMenu contextMenu, params string[] uidList)
+        {
+            if (uidList == null || uidList.Length == 0)
+            {
+                return;
+            }
+
+            var items = contextMenu.Items.OfType<Control>();
+
+            FillExplorers(items, uidList);
+        }
+
+        public void FillExplorers(IEnumerable<Control> items, params string[] uidList)
+        {
+            if (uidList == null || uidList.Length == 0)
+            {
+                return;
+            }
+
+            HashSet<string> hash = new HashSet<string>(uidList, StringComparer.InvariantCultureIgnoreCase);
+
+            IEnumerable<MenuItem> source = WindowBase.GetMenuItems(items);
+
+            foreach (var item in source)
+            {
+                if (hash.Contains(item.Uid))
+                {
+                    FillExplorers(item);
+                }
+            }
         }
 
         public void FillExplorers(MenuItem miExplorers)

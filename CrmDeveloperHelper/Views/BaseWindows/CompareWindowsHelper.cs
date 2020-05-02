@@ -1,6 +1,8 @@
 ﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -38,6 +40,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         )
         {
             this.GetConnections = getConnections;
+        }
+
+        public void FillCompareWindows(ContextMenu contextMenu, params string[] uidList)
+        {
+            if (uidList == null || uidList.Length == 0)
+            {
+                return;
+            }
+
+            var items = contextMenu.Items.OfType<Control>();
+
+            FillCompareWindows(items, uidList);
+        }
+
+        public void FillCompareWindows(IEnumerable<Control> items, params string[] uidList)
+        {
+            if (uidList == null || uidList.Length == 0)
+            {
+                return;
+            }
+
+            HashSet<string> hash = new HashSet<string>(uidList, StringComparer.InvariantCultureIgnoreCase);
+
+            IEnumerable<MenuItem> source = WindowBase.GetMenuItems(items);
+
+            foreach (var item in source)
+            {
+                if (hash.Contains(item.Uid))
+                {
+                    FillCompareWindows(item);
+                }
+            }
         }
 
         public void FillCompareWindows(MenuItem miCompareOrganizations)

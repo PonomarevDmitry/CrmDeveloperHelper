@@ -169,6 +169,9 @@
 
                 </ToolBar>
                 <TreeView x:Name="trVMessageTree" SelectedItemChanged="trVMessageTree_SelectedItemChanged">
+                    <TreeView.CommandBindings>
+                        <CommandBinding Command="ApplicationCommands.Copy" Executed="treeViewCopy_Executed" CanExecute="CommandBinding_CanExecute" />
+                    </TreeView.CommandBindings>
                     <TreeView.Resources>
                         <HierarchicalDataTemplate DataType="{x:Type model:PluginTreeViewItem}" ItemsSource="{Binding Path=Items}">
                             <Grid>

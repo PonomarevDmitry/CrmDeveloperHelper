@@ -218,6 +218,9 @@
                 </ToolBar>
 
                 <TreeView x:Name="trVSdkMessageRequestTree" SelectedItemChanged="trVSdkMessageRequestTree_SelectedItemChanged">
+                    <TreeView.CommandBindings>
+                        <CommandBinding Command="ApplicationCommands.Copy" Executed="treeViewCopy_Executed" CanExecute="CommandBinding_CanExecute" />
+                    </TreeView.CommandBindings>
                     <TreeView.Resources>
                         <HierarchicalDataTemplate DataType="{x:Type model:SdkMessageRequestTreeViewItem}" ItemsSource="{Binding Path=Items}">
                             <Grid>

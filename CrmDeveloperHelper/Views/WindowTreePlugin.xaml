@@ -268,7 +268,7 @@
                 </ToolBar>
                 <TreeView x:Name="trVPluginTree" SelectedItemChanged="trVPluginTree_SelectedItemChanged">
                     <TreeView.CommandBindings>
-                        <CommandBinding Command="ApplicationCommands.Copy" Executed="trVPluginTreeCopy_Executed" CanExecute="CommandBinding_CanExecute" />
+                        <CommandBinding Command="ApplicationCommands.Copy" Executed="treeViewCopy_Executed" CanExecute="CommandBinding_CanExecute" />
                         <CommandBinding Command="ApplicationCommands.Delete" Executed="trVPluginTreeDelete_Executed" CanExecute="CommandBinding_CanExecute" />
                     </TreeView.CommandBindings>
                     <TreeView.ItemTemplate>

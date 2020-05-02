@@ -89,19 +89,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 && this.Resources["listContextMenu"] is ContextMenu listContextMenu
             )
             {
+                explorersHelper.FillExplorers(listContextMenu, nameof(miExplorers));
+
+                compareWindowsHelper.FillCompareWindows(listContextMenu, nameof(miCompareOrganizations));
+
                 var items = listContextMenu.Items.OfType<MenuItem>();
 
                 foreach (var item in items)
                 {
-                    if (string.Equals(item.Uid, nameof(miExplorers), StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        explorersHelper.FillExplorers(item);
-                    }
-                    else if (string.Equals(item.Uid, nameof(miCompareOrganizations), StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        compareWindowsHelper.FillCompareWindows(item);
-                    }
-                    else if (string.Equals(item.Uid, "mIOpenPluginTree", StringComparison.InvariantCultureIgnoreCase))
+                    if (string.Equals(item.Uid, "mIOpenPluginTree", StringComparison.InvariantCultureIgnoreCase))
                     {
                         item.Click += explorersHelper.miPluginTree_Click;
                     }
