@@ -207,11 +207,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         public void FillExplorers(MenuItem miExplorers)
         {
-            var miCreateMetadataFile = new MenuItem()
+            var miEntityMetadataExplorer = new MenuItem()
             {
                 Header = "Entity Metadata",
             };
-            miCreateMetadataFile.Click += miCreateMetadataFile_Click;
+            miEntityMetadataExplorer.Click += miEntityMetadataExplorer_Click;
 
 
             var miEntityAttributeExplorer = new MenuItem()
@@ -410,7 +410,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
 
 
-            miExplorers.Items.Add(miCreateMetadataFile);
+            miExplorers.Items.Add(miEntityMetadataExplorer);
 
             miExplorers.Items.Add(new Separator());
             miExplorers.Items.Add(miEntityAttributeExplorer);
@@ -477,7 +477,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         #region Кнопки открытия других форм с информация о сущности.
 
-        private async void miCreateMetadataFile_Click(object sender, RoutedEventArgs e)
+        public async void miEntityMetadataExplorer_Click(object sender, RoutedEventArgs e)
         {
             var entityName = GetEntityName();
 

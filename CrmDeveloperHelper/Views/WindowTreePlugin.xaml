@@ -76,7 +76,7 @@
                     <MenuItem Header="Open Entity List in Web" Click="mIOpenEntityListInWeb_Click" />
 
                     <Separator />
-                    <MenuItem Header="Open Entity Explorer" Click="mIOpenEntityExplorer_Click" />
+                    <MenuItem x:Uid="mIOpenEntityExplorer" Header="Open Entity Explorer" />
 
                     <Separator/>
                     <MenuItem x:Uid="contMnAddEntityToSolutionLast" Header="Add to Last Crm Solution">

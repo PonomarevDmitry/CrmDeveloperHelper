@@ -188,23 +188,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 compareWindowsHelper.FillCompareWindows(listContextMenu, nameof(miCompareOrganizations));
 
-                var items = listContextMenu.Items.OfType<MenuItem>();
+                AddMenuItemClickHandler(listContextMenu, explorersHelper.miEntityMetadataExplorer_Click, "mIOpenEntityExplorer");
 
-                foreach (var item in items)
-                {
-                    if (string.Equals(item.Uid, "mIOpenPluginTree", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        item.Click += explorersHelper.miPluginTree_Click;
-                    }
-                    else if (string.Equals(item.Uid, "mIOpenMessageExplorer", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        item.Click += explorersHelper.miMessageExplorer_Click;
-                    }
-                    else if (string.Equals(item.Uid, "mIOpenMessageFilterTree", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        item.Click += explorersHelper.miMessageFilterTree_Click;
-                    }
-                }
+                AddMenuItemClickHandler(listContextMenu, explorersHelper.miPluginTree_Click, "mIOpenPluginTree");
+
+                AddMenuItemClickHandler(listContextMenu, explorersHelper.miMessageExplorer_Click, "mIOpenMessageExplorer");
+
+                AddMenuItemClickHandler(listContextMenu, explorersHelper.miMessageFilterTree_Click, "mIOpenMessageFilterTree");
             }
         }
 
@@ -1485,27 +1475,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (connectionData != null)
             {
                 connectionData.OpenEntityInstanceListInWeb(nodeItem.EntityLogicalName);
-            }
-        }
-
-        private async void mIOpenEntityExplorer_Click(object sender, RoutedEventArgs e)
-        {
-            SdkMessageRequestTreeViewItem nodeItem = GetItemFromRoutedDataContext<SdkMessageRequestTreeViewItem>(e);
-
-            if (nodeItem == null
-                || !nodeItem.EntityLogicalName.IsValidEntityName()
-            )
-            {
-                return;
-            }
-
-            ConnectionData connectionData = GetSelectedConnection();
-
-            if (connectionData != null)
-            {
-                var service = await GetService();
-
-                WindowHelper.OpenEntityMetadataExplorer(this._iWriteToOutput, service, _commonConfig, nodeItem.EntityLogicalName);
             }
         }
 

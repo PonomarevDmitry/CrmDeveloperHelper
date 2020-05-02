@@ -137,30 +137,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 compareWindowsHelper.FillCompareWindows(listContextMenuEntityPrivileges, nameof(miCompareOrganizations));
 
-                var items = listContextMenuEntityPrivileges.Items.OfType<MenuItem>();
-
-                foreach (var item in items)
-                {
-                    if (string.Equals(item.Uid, "miEntityPrivilegesExplorer", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        item.Click += explorersHelper.miEntityPrivilegesExplorer_Click;
-                    }
-                }
+                AddMenuItemClickHandler(listContextMenuEntityPrivileges, explorersHelper.miEntityPrivilegesExplorer_Click, "miEntityPrivilegesExplorer");
             }
 
             if (this.Resources.Contains("listContextMenuOtherPrivileges")
                 && this.Resources["listContextMenuOtherPrivileges"] is ContextMenu listContextMenuOtherPrivileges
             )
             {
-                var items = listContextMenuOtherPrivileges.Items.OfType<MenuItem>();
-
-                foreach (var item in items)
-                {
-                    if (string.Equals(item.Uid, "mIOpenOtherPrivilegeExplorer", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        item.Click += explorersHelper.miOtherPrivilegesExplorer_Click;
-                    }
-                }
+                AddMenuItemClickHandler(listContextMenuOtherPrivileges, explorersHelper.miOtherPrivilegesExplorer_Click, "mIOpenOtherPrivilegeExplorer");
             }
         }
 

@@ -454,6 +454,41 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        public static void AddMenuItemClickHandler(ContextMenu contextMenu, RoutedEventHandler clickHandler, params string[] uidList)
+        {
+            if (uidList == null || uidList.Length == 0)
+            {
+                return;
+            }
+
+            var items = contextMenu.Items.OfType<Control>();
+
+            AddMenuItemClickHandler(items, clickHandler, uidList);
+        }
+
+        public static void AddMenuItemClickHandler(IEnumerable<Control> items, RoutedEventHandler clickHandler, params string[] uidList)
+        {
+            if (uidList == null || uidList.Length == 0)
+            {
+                return;
+            }
+
+            HashSet<string> hash = new HashSet<string>(uidList, StringComparer.InvariantCultureIgnoreCase);
+
+            IEnumerable<MenuItem> source = GetMenuItems(items);
+
+            foreach (var item in source)
+            {
+                if (hash.Contains(item.Uid))
+                {
+                    item.Click -= clickHandler;
+                    item.Click -= clickHandler;
+
+                    item.Click += clickHandler;
+                }
+            }
+        }
+
         public static void FillLastSolutionItems(ConnectionData connectionData, IEnumerable<Control> items, bool isEnabled, RoutedEventHandler clickHandler, params string[] uidList)
         {
             if (uidList == null || uidList.Length == 0)

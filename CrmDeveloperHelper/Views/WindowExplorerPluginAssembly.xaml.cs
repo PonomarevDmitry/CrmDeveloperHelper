@@ -92,19 +92,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 compareWindowsHelper.FillCompareWindows(listContextMenu, nameof(miCompareOrganizations));
 
-                var items = listContextMenu.Items.OfType<MenuItem>();
+                AddMenuItemClickHandler(listContextMenu, explorersHelper.miPluginTree_Click, nameof(mIOpenPluginTree));
 
-                foreach (var item in items)
-                {
-                    if (string.Equals(item.Uid, nameof(mIOpenPluginTree), StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        item.Click += explorersHelper.miPluginTree_Click;
-                    }
-                    else if (string.Equals(item.Uid, nameof(mIOpenPluginTypeExplorer), StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        item.Click += explorersHelper.miPluginTypes_Click;
-                    }
-                }
+                AddMenuItemClickHandler(listContextMenu, explorersHelper.miPluginTypes_Click, nameof(mIOpenPluginTypeExplorer));
             }
         }
 
