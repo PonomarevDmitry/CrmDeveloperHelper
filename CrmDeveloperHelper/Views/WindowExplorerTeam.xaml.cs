@@ -117,6 +117,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var explorersHelper = new ExplorersHelper(_iWriteToOutput, _commonConfig, GetService
                 , getEntityName: GetEntityName
+                , getOtherPrivilegeName: GetOtherPrivilegeName
                 , getEntityMetadataList: GetEntityMetadataList
                 , getOtherPrivilegesList: GetOtherPrivilegesList
             );
@@ -129,24 +130,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             compareWindowsHelper.FillCompareWindows(miCompareOrganizations);
 
             if (this.Resources.Contains("listContextMenuEntityPrivileges")
-                && this.Resources["listContextMenuEntityPrivileges"] is ContextMenu contextMenu
+                && this.Resources["listContextMenuEntityPrivileges"] is ContextMenu listContextMenuEntityPrivileges
             )
             {
-                var items = contextMenu.Items.OfType<MenuItem>();
+                var items = listContextMenuEntityPrivileges.Items.OfType<MenuItem>();
 
                 foreach (var item in items)
                 {
-                    if (string.Equals(item.Uid, "miExplorers", StringComparison.InvariantCultureIgnoreCase))
+                    if (string.Equals(item.Uid, nameof(miExplorers), StringComparison.InvariantCultureIgnoreCase))
                     {
                         explorersHelper.FillExplorers(item);
                     }
-                    else if (string.Equals(item.Uid, "miCompareOrganizations", StringComparison.InvariantCultureIgnoreCase))
+                    else if (string.Equals(item.Uid, nameof(miCompareOrganizations), StringComparison.InvariantCultureIgnoreCase))
                     {
                         compareWindowsHelper.FillCompareWindows(item);
                     }
                     else if (string.Equals(item.Uid, "miEntityPrivilegesExplorer", StringComparison.InvariantCultureIgnoreCase))
                     {
                         item.Click += explorersHelper.miEntityPrivilegesExplorer_Click;
+                    }
+                }
+            }
+
+            if (this.Resources.Contains("listContextMenuOtherPrivileges")
+                && this.Resources["listContextMenuOtherPrivileges"] is ContextMenu listContextMenuOtherPrivileges
+            )
+            {
+                var items = listContextMenuOtherPrivileges.Items.OfType<MenuItem>();
+
+                foreach (var item in items)
+                {
+                    if (string.Equals(item.Uid, "mIOpenOtherPrivilegeExplorer", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        item.Click += explorersHelper.miOtherPrivilegesExplorer_Click;
                     }
                 }
             }
@@ -157,6 +173,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var entity = GetSelectedEntity();
 
             return entity?.LogicalName;
+        }
+
+        private string GetOtherPrivilegeName()
+        {
+            var privilege = GetSelectedOtherPrivilege();
+
+            return privilege?.Name;
         }
 
         private IEnumerable<EntityMetadata> GetEntityMetadataList(Guid connectionId)
@@ -1871,8 +1894,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             StringBuilder content = new StringBuilder();
 
-            var privilegeComparer = PrivilegeNameComparer.Comparer;
-
             content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
             content.AppendLine(service.ConnectionData.GetConnectionDescription());
             content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
@@ -1963,8 +1984,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             string name2 = string.Format("User {0}", user2.FullName);
 
             StringBuilder content = new StringBuilder();
-
-            var privilegeComparer = PrivilegeNameComparer.Comparer;
 
             content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
             content.AppendLine(service.ConnectionData.GetConnectionDescription());
@@ -2058,8 +2077,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             StringBuilder content = new StringBuilder();
 
-            var privilegeComparer = PrivilegeNameComparer.Comparer;
-
             content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
             content.AppendLine(service.ConnectionData.GetConnectionDescription());
             content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
@@ -2130,19 +2147,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ConnectionData connectionData = GetSelectedConnection();
 
             FillLastSolutionItems(connectionData, items, true, AddOtherPrivilegeToCrmSolutionLast_Click, "contMnAddOtherPrivilegeToSolutionLast");
-        }
-
-        private async void mIOpenOtherPrivilegeExplorer_Click(object sender, RoutedEventArgs e)
-        {
-            var privilege = GetSelectedOtherPrivilege();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            IEnumerable<Privilege> privilegesList = GetOtherPrivilegesList(service.ConnectionData.ConnectionId);
-
-            WindowHelper.OpenOtherPrivilegesExplorer(this._iWriteToOutput, service, _commonConfig, privilege?.Name, privilegesList);
         }
 
         private void mIOtherPrivilegeOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)

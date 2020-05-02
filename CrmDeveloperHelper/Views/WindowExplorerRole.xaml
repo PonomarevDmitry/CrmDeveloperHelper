@@ -187,7 +187,7 @@
 
             <ContextMenu x:Key="listContextMenuOtherPrivileges" Opened="ContextMenuOtherPrivilege_Opened">
 
-                <MenuItem Header="Open Other Privilege Explorer" Click="mIOpenOtherPrivilegeExplorer_Click" />
+                <MenuItem x:Uid="mIOpenOtherPrivilegeExplorer" Header="Open Other Privilege Explorer" />
 
                 <Separator/>
                 <MenuItem x:Uid="contMnAddOtherPrivilegeToSolutionLast" Header="Add to Last Crm Solution" VerticalAlignment="Center" />

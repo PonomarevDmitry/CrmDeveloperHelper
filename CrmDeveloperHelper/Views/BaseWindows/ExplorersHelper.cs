@@ -496,7 +496,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenEntityPrivilegesExplorer(this._iWriteToOutput, service, _commonConfig, entityName, entityMetadataList);
         }
 
-        private async void miOtherPrivilegesExplorer_Click(object sender, RoutedEventArgs e)
+        public async void miOtherPrivilegesExplorer_Click(object sender, RoutedEventArgs e)
         {
             var otherPrivilegeName = GetOtherPrivilegeName();
 
