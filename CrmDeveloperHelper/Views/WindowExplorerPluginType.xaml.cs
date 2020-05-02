@@ -75,6 +75,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var explorersHelper = new ExplorersHelper(_iWriteToOutput, _commonConfig, GetService
                 , getPluginAssemblyName: GetPluginAssemblyName
+                , getPluginTypeName: GetPluginTypeName
             );
 
             var compareWindowsHelper = new CompareWindowsHelper(_iWriteToOutput, _commonConfig, () => Tuple.Create(GetSelectedConnection(), GetSelectedConnection())
@@ -85,20 +86,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             compareWindowsHelper.FillCompareWindows(miCompareOrganizations);
 
             if (this.Resources.Contains("listContextMenu")
-                && this.Resources["listContextMenu"] is ContextMenu contextMenu
+                && this.Resources["listContextMenu"] is ContextMenu listContextMenu
             )
             {
-                var items = contextMenu.Items.OfType<MenuItem>();
+                var items = listContextMenu.Items.OfType<MenuItem>();
 
                 foreach (var item in items)
                 {
-                    if (string.Equals(item.Uid, "miExplorers", StringComparison.InvariantCultureIgnoreCase))
+                    if (string.Equals(item.Uid, nameof(miExplorers), StringComparison.InvariantCultureIgnoreCase))
                     {
                         explorersHelper.FillExplorers(item);
                     }
-                    else if (string.Equals(item.Uid, "miCompareOrganizations", StringComparison.InvariantCultureIgnoreCase))
+                    else if (string.Equals(item.Uid, nameof(miCompareOrganizations), StringComparison.InvariantCultureIgnoreCase))
                     {
                         compareWindowsHelper.FillCompareWindows(item);
+                    }
+                    else if (string.Equals(item.Uid, "mIOpenPluginTree", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        item.Click += explorersHelper.miPluginTree_Click;
+                    }
+                    else if (string.Equals(item.Uid, "mIOpenPluginAssemblyExplorer", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        item.Click += explorersHelper.miPluginAssemblies_Click;
                     }
                 }
             }
@@ -108,7 +117,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var entity = GetSelectedEntity();
 
-            return entity?.AssemblyName ?? txtBFilter.Text.Trim();
+            return entity?.AssemblyName;
+        }
+
+        private string GetPluginTypeName()
+        {
+            var entity = GetSelectedEntity();
+
+            return entity?.TypeName ?? txtBFilter.Text.Trim();
         }
 
         private void LoadFromConfig()
@@ -873,29 +889,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ShowExistingPluginTypes();
             }
-        }
-
-        private async void mIOpenPluginTree_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            if (entity == null)
-            {
-                return;
-            }
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenPluginTree(
-                _iWriteToOutput
-                , service
-                , _commonConfig
-                , null
-                , entity.TypeName
-                , null
-            );
         }
 
         private void mIAddPluginStep_Click(object sender, RoutedEventArgs e)

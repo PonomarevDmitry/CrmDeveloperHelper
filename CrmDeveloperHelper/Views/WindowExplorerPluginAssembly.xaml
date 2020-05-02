@@ -20,8 +20,8 @@
                 <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
 
                 <Separator/>
-                <MenuItem Header="Open Plugin Tree" Click="mIOpenPluginTree_Click" />
-                <MenuItem Header="Open PluginType Explorer" Click="mIOpenPluginTypeExplorer_Click" />
+                <MenuItem x:Uid="mIOpenPluginTree" Header="Open Plugin Tree" />
+                <MenuItem x:Uid="mIOpenPluginTypeExplorer" Header="Open PluginType Explorer" />
 
                 <Separator/>
                 <MenuItem Header="Update Plugin Assembly" Click="mIUpdatePluginAssembly_Click" />
@@ -81,7 +81,7 @@
         </Grid.RowDefinitions>
 
         <ToolBar x:Name="toolBarHeader" Grid.Row="0">
-            
+
             <Menu Background="{x:Null}">
                 <MenuItem x:Name="miExplorers" Header="Get Other Entity Information" />
             </Menu>
@@ -90,7 +90,7 @@
             <Menu Background="{x:Null}">
                 <MenuItem x:Name="miCompareOrganizations" Header="Compare Information with other Organization" />
             </Menu>
-            
+
         </ToolBar>
 
         <Grid Grid.Row="1" Margin="5">
@@ -209,8 +209,8 @@
                             <MenuItem x:Name="mICompareWithLocalAssembly"  Header="Compare with Local Assembly" Click="mICompareWithLocalAssembly_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Open Plugin Tree" Click="mIOpenPluginTree_Click" />
-                            <MenuItem Header="Open PluginType Explorer" Click="mIOpenPluginTypeExplorer_Click" />
+                            <MenuItem x:Name="mIOpenPluginTree" Header="Open Plugin Tree" />
+                            <MenuItem x:Name="mIOpenPluginTypeExplorer" Header="Open PluginType Explorer" />
 
                             <Separator/>
                             <MenuItem Header="Update Plugin Assembly" Click="mIUpdatePluginAssembly_Click" />

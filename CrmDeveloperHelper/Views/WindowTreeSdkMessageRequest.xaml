@@ -103,8 +103,9 @@
                 <MenuItem x:Uid="contMnSdkMessageProxyClass" Header="Create C# Message Proxy Class" Click="mICreateMessageProxyClassCSharp_Click" />
 
                 <Separator x:Uid="contMnSdkMessage" />
-                <MenuItem x:Uid="contMnSdkMessage" Header="Open Plugin Tree" Click="mIOpenPluginTree_Click" />
-                <MenuItem x:Uid="contMnSdkMessage" Header="Open Sdk Message Filter Tree" Click="mIOpenSdkMessageTree_Click" />
+                <MenuItem x:Uid="mIOpenPluginTree" Header="Open Plugin Tree" />
+                <MenuItem x:Uid="mIOpenMessageExplorer" Header="Open Message Explorer" />
+                <MenuItem x:Uid="mIOpenMessageFilterTree" Header="Open Message Filter Tree" />
 
                 <Separator x:Uid="contMnDependentComponents"/>
                 <MenuItem x:Uid="contMnDependentComponents" Header="Open Solutions Containing Component in Explorer" VerticalAlignment="Center" Click="miOpenSolutionsContainingComponentInExplorer_Click" />
@@ -115,6 +116,12 @@
                     <Separator/>
                     <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
                 </MenuItem>
+
+                <Separator/>
+                <MenuItem x:Uid="miExplorers" Header="Get Other Entity Information" />
+
+                <Separator/>
+                <MenuItem x:Uid="miCompareOrganizations" Header="Compare Information with other Organization" />
 
             </ContextMenu>
 
@@ -135,6 +142,16 @@
         <ToolBar x:Name="toolBarHeader" Grid.Row="0">
 
             <Button Content="Options" Click="miOptions_Click"/>
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+            <Menu Background="{x:Null}">
+                <MenuItem x:Name="miExplorers" Header="Get Other Entity Information" />
+            </Menu>
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+            <Menu Background="{x:Null}">
+                <MenuItem x:Name="miCompareOrganizations" Header="Compare Information with other Organization" />
+            </Menu>
 
         </ToolBar>
 

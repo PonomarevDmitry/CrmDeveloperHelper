@@ -73,6 +73,65 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ShowExistingMessages();
         }
 
+        private void FillExplorersMenuItems()
+        {
+            var explorersHelper = new ExplorersHelper(_iWriteToOutput, _commonConfig, GetService
+                , getEntityName: GetEntityName
+                , getMessageName: GetMessageName
+            );
+
+            var compareWindowsHelper = new CompareWindowsHelper(_iWriteToOutput, _commonConfig, () => Tuple.Create(GetSelectedConnection(), GetSelectedConnection())
+            );
+
+            explorersHelper.FillExplorers(miExplorers);
+            compareWindowsHelper.FillCompareWindows(miCompareOrganizations);
+
+            if (this.Resources.Contains("listContextMenu")
+                && this.Resources["listContextMenu"] is ContextMenu listContextMenu
+            )
+            {
+                var items = listContextMenu.Items.OfType<MenuItem>();
+
+                foreach (var item in items)
+                {
+                    if (string.Equals(item.Uid, nameof(miExplorers), StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        explorersHelper.FillExplorers(item);
+                    }
+                    else if (string.Equals(item.Uid, nameof(miCompareOrganizations), StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        compareWindowsHelper.FillCompareWindows(item);
+                    }
+                    else if (string.Equals(item.Uid, "mIOpenPluginTree", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        item.Click += explorersHelper.miPluginTree_Click;
+                    }
+                    else if (string.Equals(item.Uid, "mIOpenMessageExplorer", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        item.Click += explorersHelper.miMessageExplorer_Click;
+                    }
+                    else if (string.Equals(item.Uid, "mIOpenMessageRequestTree", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        item.Click += explorersHelper.miMessageRequestTree_Click;
+                    }
+                }
+            }
+        }
+
+        private string GetEntityName()
+        {
+            var entity = GetSelectedEntity();
+
+            return entity?.EntityLogicalName ?? cmBEntityName.Text.Trim();
+        }
+
+        private string GetMessageName()
+        {
+            var entity = GetSelectedEntity();
+
+            return entity?.MessageName ?? txtBMessageFilter.Text.Trim();
+        }
+
         private void LoadFromConfig()
         {
             cmBFileAction.DataContext = _commonConfig;
@@ -843,30 +902,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 await AddComponentsToSolution(ComponentType.SdkMessageFilter, nodeItem.MessageFilterList, null, withSelect, solutionUniqueName);
             }
-        }
-
-        private async void mIOpenSdkMessageRequestTree_Click(object sender, RoutedEventArgs e)
-        {
-            PluginTreeViewItem nodeItem = GetItemFromRoutedDataContext<PluginTreeViewItem>(e);
-
-            string entityFilter = nodeItem?.EntityLogicalName;
-            string messageFilter = nodeItem?.MessageName;
-
-            var service = await GetService();
-
-            WindowHelper.OpenSdkMessageRequestTree(_iWriteToOutput, service, _commonConfig, entityFilter, messageFilter);
-        }
-
-        private async void mIOpenPluginTree_Click(object sender, RoutedEventArgs e)
-        {
-            PluginTreeViewItem nodeItem = GetItemFromRoutedDataContext<PluginTreeViewItem>(e);
-
-            string entityFilter = nodeItem?.EntityLogicalName;
-            string messageFilter = nodeItem?.MessageName;
-
-            var service = await GetService();
-
-            WindowHelper.OpenPluginTree(_iWriteToOutput, service, _commonConfig, entityFilter, null, messageFilter);
         }
 
         private void mICreateDescription_Click(object sender, RoutedEventArgs e)

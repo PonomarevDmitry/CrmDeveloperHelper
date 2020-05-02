@@ -160,9 +160,70 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             trVSdkMessageRequestTree.ItemsSource = _messageTree;
 
+            FillExplorersMenuItems();
+
             this.DecreaseInit();
 
             ShowExistingSdkMessageRequests();
+        }
+
+        private void FillExplorersMenuItems()
+        {
+            var explorersHelper = new ExplorersHelper(_iWriteToOutput, _commonConfig, GetService
+                , getEntityName: GetEntityName
+                , getMessageName: GetMessageName
+            );
+
+            var compareWindowsHelper = new CompareWindowsHelper(_iWriteToOutput, _commonConfig, () => Tuple.Create(GetSelectedConnection(), GetSelectedConnection())
+            );
+
+            explorersHelper.FillExplorers(miExplorers);
+            compareWindowsHelper.FillCompareWindows(miCompareOrganizations);
+
+            if (this.Resources.Contains("listContextMenu")
+                && this.Resources["listContextMenu"] is ContextMenu listContextMenu
+            )
+            {
+                var items = listContextMenu.Items.OfType<MenuItem>();
+
+                foreach (var item in items)
+                {
+                    if (string.Equals(item.Uid, nameof(miExplorers), StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        explorersHelper.FillExplorers(item);
+                    }
+                    else if (string.Equals(item.Uid, nameof(miCompareOrganizations), StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        compareWindowsHelper.FillCompareWindows(item);
+                    }
+                    else if (string.Equals(item.Uid, "mIOpenPluginTree", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        item.Click += explorersHelper.miPluginTree_Click;
+                    }
+                    else if (string.Equals(item.Uid, "mIOpenMessageExplorer", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        item.Click += explorersHelper.miMessageExplorer_Click;
+                    }
+                    else if (string.Equals(item.Uid, "mIOpenMessageFilterTree", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        item.Click += explorersHelper.miMessageFilterTree_Click;
+                    }
+                }
+            }
+        }
+
+        private string GetEntityName()
+        {
+            var entity = GetSelectedEntity();
+
+            return entity?.EntityLogicalName ?? cmBEntityName.Text.Trim();
+        }
+
+        private string GetMessageName()
+        {
+            var entity = GetSelectedEntity();
+
+            return entity?.MessageName ?? txtBMessageFilter.Text.Trim();
         }
 
         private void LoadFromConfig()
@@ -1369,7 +1430,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ActivateControls(items, showDependentComponents, "contMnDependentComponents");
 
-            ActivateControls(items, hasMessageName || hasEntityName, "contMnSdkMessage");
+            ActivateControls(items, hasMessageName || hasEntityName, "contMnSdkMessage", "mIOpenPluginTree", "mIOpenMessageExplorer", "mIOpenMessageFilterTree");
 
             ActivateControls(items, isSingleMessage, "contMnSdkMessageProxyClass");
 
@@ -1970,24 +2031,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
 
             CreateDescription(nodeItem);
-        }
-
-        private async void mIOpenPluginTree_Click(object sender, RoutedEventArgs e)
-        {
-            SdkMessageRequestTreeViewItem nodeItem = GetItemFromRoutedDataContext<SdkMessageRequestTreeViewItem>(e);
-
-            var service = await GetService();
-
-            WindowHelper.OpenPluginTree(_iWriteToOutput, service, _commonConfig, nodeItem?.EntityLogicalName, null, nodeItem?.MessageName);
-        }
-
-        private async void mIOpenSdkMessageTree_Click(object sender, RoutedEventArgs e)
-        {
-            SdkMessageRequestTreeViewItem nodeItem = GetItemFromRoutedDataContext<SdkMessageRequestTreeViewItem>(e);
-
-            var service = await GetService();
-
-            WindowHelper.OpenSdkMessageFilterTree(_iWriteToOutput, service, _commonConfig, nodeItem?.EntityLogicalName, nodeItem?.MessageName);
         }
 
         private void mIOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)

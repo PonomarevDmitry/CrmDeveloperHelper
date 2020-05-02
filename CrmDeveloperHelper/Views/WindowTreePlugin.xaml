@@ -108,7 +108,6 @@
                     </MenuItem>
                 </MenuItem>
 
-
                 <Separator x:Uid="contMnAddToSolution"/>
                 <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" />
                 <MenuItem x:Uid="contMnAddToSolution"     Header="Add to Crm Solution" Click="AddToCrmSolution_Click" />
@@ -126,8 +125,10 @@
                 <MenuItem x:Uid="contMnAddPluginAssemblyStepsToSolution" Header="Add All Steps for PluginAssembly to Crm Solution" Click="mIAddAssemblyStepsToSolution_Click" />
 
                 <Separator x:Uid="contMnSdkMessage" />
-                <MenuItem x:Uid="contMnSdkMessage" Header="Open Sdk Message Filter Tree" Click="mIOpenSdkMessageTree_Click" />
-                <MenuItem x:Uid="contMnSdkMessage" Header="Open Sdk Message Request Tree" Click="mIOpenSdkMessageRequestTree_Click" />
+                <MenuItem x:Uid="mIOpenMessageExplorer" Header="Open Message Explorer" />
+                <MenuItem x:Uid="mIOpenMessageFilterTree" Header="Open Message Filter Tree" />
+                <MenuItem x:Uid="mIOpenMessageRequestTree" Header="Open Message Request Tree" />
+
 
                 <Separator x:Uid="contMnWorkflowExlorer" />
                 <MenuItem x:Uid="contMnWorkflowExlorer" Header="Open Workflow Explorer" Click="mIOpenWorkflowExplorer_Click" />
@@ -141,6 +142,13 @@
                     <Separator/>
                     <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
                 </MenuItem>
+
+                <Separator/>
+                <MenuItem x:Uid="miExplorers" Header="Get Other Entity Information" />
+
+                <Separator/>
+                <MenuItem x:Uid="miCompareOrganizations" Header="Compare Information with other Organization" />
+                
             </ContextMenu>
 
         </ResourceDictionary>
@@ -150,6 +158,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
 
             <RowDefinition Height="100*" />
 
@@ -157,7 +166,20 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Margin="5">
+        <ToolBar x:Name="toolBarHeader" Grid.Row="0">
+
+            <Menu Background="{x:Null}">
+                <MenuItem x:Name="miExplorers" Header="Get Other Entity Information" />
+            </Menu>
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+            <Menu Background="{x:Null}">
+                <MenuItem x:Name="miCompareOrganizations" Header="Compare Information with other Organization" />
+            </Menu>
+
+        </ToolBar>
+
+        <Grid Grid.Row="1" Margin="5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
@@ -188,7 +210,7 @@
             <ComboBox x:Name="cmBStatusCode" Grid.Row="0" Grid.Column="7" IsEditable="False" SelectionChanged="cmBStatusCode_SelectionChanged" HorizontalContentAlignment="Stretch" />
         </Grid>
 
-        <Grid Grid.Row="1" Margin="5">
+        <Grid Grid.Row="2" Margin="5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
@@ -210,7 +232,7 @@
             <CheckBox x:Name="chBBusinessProcesses" Grid.Column="5" Grid.Row="0" Content="Business Processes"  />
         </Grid>
 
-        <GroupBox Header="Plugin Tree" Grid.Row="2" Margin="5">
+        <GroupBox Header="Plugin Tree" Grid.Row="3" Margin="5">
             <DockPanel LastChildFill="True">
                 <ToolBar DockPanel.Dock="Top" >
                     <ToolBarPanel Orientation="Horizontal">
@@ -272,7 +294,7 @@
             </DockPanel>
         </GroupBox>
 
-        <ToolBar Grid.Row="3">
+        <ToolBar Grid.Row="4">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
                     <Setter Property="Orientation" Value="Vertical"/>
@@ -294,12 +316,13 @@
             </DockPanel>
         </ToolBar>
 
-        <StatusBar Grid.Row="4">
+        <StatusBar Grid.Row="5">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" />
             <ComboBox x:Name="cmBCurrentConnection" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" />
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />
             <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
             <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>
+        
     </Grid>
 </src:WindowWithConnectionList>

@@ -27,7 +27,8 @@
                 <MenuItem Header="Add Plugin Step" Click="mIAddPluginStep_Click" />
                 
                 <Separator/>
-                <MenuItem Header="Open Plugin Tree" Click="mIOpenPluginTree_Click" />
+                <MenuItem x:Uid="mIOpenPluginTree" Header="Open Plugin Tree" />
+                <MenuItem x:Uid="mIOpenPluginAssemblyExplorer" Header="Open Plugin Assembly Explorer" />
                 
                 <Separator/>
                 <MenuItem x:Uid="contMnAddPluginTypeStepsToSolutionLast" Header="Add Steps for PluginType to Last Crm Solution"  />

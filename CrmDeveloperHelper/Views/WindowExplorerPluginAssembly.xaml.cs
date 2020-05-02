@@ -71,6 +71,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var explorersHelper = new ExplorersHelper(_iWriteToOutput, _commonConfig, GetService
                 , getPluginAssemblyName: GetPluginAssemblyName
+                , getPluginTypeName: GetPluginAssemblyName
             );
 
             var compareWindowsHelper = new CompareWindowsHelper(_iWriteToOutput, _commonConfig, () => Tuple.Create(GetSelectedConnection(), GetSelectedConnection())
@@ -80,21 +81,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             explorersHelper.FillExplorers(miExplorers);
             compareWindowsHelper.FillCompareWindows(miCompareOrganizations);
 
+            mIOpenPluginTree.Click += explorersHelper.miPluginTree_Click;
+            mIOpenPluginTypeExplorer.Click += explorersHelper.miPluginTypes_Click;
+
             if (this.Resources.Contains("listContextMenu")
-                && this.Resources["listContextMenu"] is ContextMenu contextMenu
+                && this.Resources["listContextMenu"] is ContextMenu listContextMenu
             )
             {
-                var items = contextMenu.Items.OfType<MenuItem>();
+                var items = listContextMenu.Items.OfType<MenuItem>();
 
                 foreach (var item in items)
                 {
-                    if (string.Equals(item.Uid, "miExplorers", StringComparison.InvariantCultureIgnoreCase))
+                    if (string.Equals(item.Uid, nameof(miExplorers), StringComparison.InvariantCultureIgnoreCase))
                     {
                         explorersHelper.FillExplorers(item);
                     }
-                    else if (string.Equals(item.Uid, "miCompareOrganizations", StringComparison.InvariantCultureIgnoreCase))
+                    else if (string.Equals(item.Uid, nameof(miCompareOrganizations), StringComparison.InvariantCultureIgnoreCase))
                     {
                         compareWindowsHelper.FillCompareWindows(item);
+                    }
+                    else if (string.Equals(item.Uid, nameof(mIOpenPluginTree), StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        item.Click += explorersHelper.miPluginTree_Click;
+                    }
+                    else if (string.Equals(item.Uid, nameof(mIOpenPluginTypeExplorer), StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        item.Click += explorersHelper.miPluginTypes_Click;
                     }
                 }
             }
@@ -834,40 +846,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ShowExistingPluginAssemblies();
             }
-        }
-
-        private async void mIOpenPluginTree_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenPluginTree(
-                _iWriteToOutput
-                , service
-                , _commonConfig
-                , null
-                , entity?.Name
-                , null
-            );
-        }
-
-        private async void mIOpenPluginTypeExplorer_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenPluginTypeExplorer(
-                _iWriteToOutput
-                , service
-                , _commonConfig
-                , entity?.Name
-            );
         }
 
         private async void btnNewPluginAssembly_Click(object sender, RoutedEventArgs e)

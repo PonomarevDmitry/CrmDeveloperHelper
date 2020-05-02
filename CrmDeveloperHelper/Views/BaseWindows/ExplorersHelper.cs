@@ -14,6 +14,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
     {
         private readonly Func<string> _getOtherPrivilegeName;
         private readonly Func<string> _getMessageName;
+        private readonly Func<string> _getPluginTypeName;
 
         private readonly Func<Task<IOrganizationServiceExtented>> GetService;
 
@@ -40,6 +41,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , Func<string> getPluginAssemblyName = null
             , Func<string> getOtherPrivilegeName = null
             , Func<string> getMessageName = null
+            , Func<string> getPluginTypeName = null
             , Func<Guid, IEnumerable<EntityMetadata>> getEntityMetadataList = null
             , Func<Guid, IEnumerable<Privilege>> getOtherPrivilegesList = null
             , Func<Guid, IEnumerable<OptionSetMetadata>> getGlobalOptionSetMetadataList = null
@@ -56,6 +58,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , getPluginAssemblyName
             , getOtherPrivilegeName
             , getMessageName
+            , getPluginTypeName
             , getEntityMetadataList
             , getOtherPrivilegesList
             , getGlobalOptionSetMetadataList
@@ -80,6 +83,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , Func<string> getPluginAssemblyName = null
             , Func<string> getOtherPrivilegeName = null
             , Func<string> getMessageName = null
+            , Func<string> getPluginTypeName = null
             , Func<Guid, IEnumerable<EntityMetadata>> getEntityMetadataList = null
             , Func<Guid, IEnumerable<Privilege>> getOtherPrivilegesList = null
             , Func<Guid, IEnumerable<OptionSetMetadata>> getGlobalOptionSetMetadataList = null
@@ -100,6 +104,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._getOtherPrivilegeName = getOtherPrivilegeName;
             this._getMessageName = getMessageName;
+            this._getPluginTypeName = getPluginTypeName;
 
             this._getEntityMetadataList = getEntityMetadataList;
             this._getOtherPrivilegesList = getOtherPrivilegesList;
@@ -121,6 +126,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (_getMessageName != null)
             {
                 return _getMessageName();
+            }
+
+            return string.Empty;
+        }
+
+
+        protected string GetPluginTypeName()
+        {
+            if (_getPluginTypeName != null)
+            {
+                return _getPluginTypeName();
             }
 
             return string.Empty;
@@ -682,7 +698,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenWorkflowExplorer(this._iWriteToOutput, service, _commonConfig, entityName, workflowName);
         }
 
-        private async void miPluginAssemblies_Click(object sender, RoutedEventArgs e)
+        public async void miPluginAssemblies_Click(object sender, RoutedEventArgs e)
         {
             var pluginAssemblyName = GetPluginAssemblyName();
 
@@ -693,28 +709,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenPluginAssemblyExplorer(this._iWriteToOutput, service, _commonConfig, pluginAssemblyName);
         }
 
-        private async void miPluginTypes_Click(object sender, RoutedEventArgs e)
+        public async void miPluginTypes_Click(object sender, RoutedEventArgs e)
         {
+            var pluginTypeName = GetPluginTypeName();
+
             var service = await GetService();
 
             _commonConfig.Save();
 
-            WindowHelper.OpenPluginTypeExplorer(this._iWriteToOutput, service, _commonConfig, null);
+            WindowHelper.OpenPluginTypeExplorer(this._iWriteToOutput, service, _commonConfig, pluginTypeName);
         }
 
-        private async void miPluginTree_Click(object sender, RoutedEventArgs e)
+        public async void miPluginTree_Click(object sender, RoutedEventArgs e)
         {
             var entityName = GetEntityName();
+            var pluginTypeName = GetPluginTypeName();
             var messageName = GetMessageName();
 
             _commonConfig.Save();
 
             var service = await GetService();
 
-            WindowHelper.OpenPluginTree(this._iWriteToOutput, service, _commonConfig, entityName, string.Empty, messageName);
+            WindowHelper.OpenPluginTree(this._iWriteToOutput, service, _commonConfig, entityName, pluginTypeName, messageName);
         }
 
-        private async void miMessageExplorer_Click(object sender, RoutedEventArgs e)
+        public async void miMessageExplorer_Click(object sender, RoutedEventArgs e)
         {
             var messageName = GetMessageName();
 
@@ -725,7 +744,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenSdkMessageExplorer(this._iWriteToOutput, service, _commonConfig, messageName);
         }
 
-        private async void miMessageFilterTree_Click(object sender, RoutedEventArgs e)
+        public async void miMessageFilterTree_Click(object sender, RoutedEventArgs e)
         {
             var entityName = GetEntityName();
             var messageName = GetMessageName();
@@ -737,7 +756,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenSdkMessageFilterTree(this._iWriteToOutput, service, _commonConfig, entityName, messageName);
         }
 
-        private async void miMessageRequestTree_Click(object sender, RoutedEventArgs e)
+        public async void miMessageRequestTree_Click(object sender, RoutedEventArgs e)
         {
             var entityName = GetEntityName();
             var messageName = GetMessageName();
@@ -749,7 +768,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenSdkMessageRequestTree(this._iWriteToOutput, service, _commonConfig, entityName, messageName);
         }
 
-        private async void miMessageRequestTreeSelectedItem_Click(object sender, RoutedEventArgs e)
+        public async void miMessageRequestTreeSelectedItem_Click(object sender, RoutedEventArgs e)
         {
             if (_selectedItem == null)
             {

@@ -21,9 +21,9 @@
                 <MenuItem Header="Create Entity Description" FontWeight="Bold" Click="mICreateEntityDescription_Click"/>
 
                 <Separator/>
-                <MenuItem Header="Open MessageFilter Tree" Click="mIOpenMessageFilterTree_Click" />
-                <MenuItem Header="Open MessageRequest Tree" Click="mIOpenMessageRequestTree_Click" />
-                <MenuItem Header="Open Plugin Tree" Click="mIOpenPluginTree_Click" />
+                <MenuItem x:Uid="mIOpenPluginTree" Header="Open Plugin Tree" />
+                <MenuItem x:Uid="mIOpenMessageFilterTree" Header="Open Message Filter Tree" />
+                <MenuItem x:Uid="mIOpenMessageRequestTree" Header="Open Message Request Tree" />
 
                 <Separator />
                 <MenuItem Header="Change Message in Editor" Click="mIChangeEntityInEditor_Click"/>
@@ -231,9 +231,9 @@
                             <MenuItem x:Name="mICreateEntityDescription" Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
 
                             <Separator/>
-                            <MenuItem Header="Open MessageFilter Tree" Click="mIOpenMessageFilterTree_Click" />
-                            <MenuItem Header="Open MessageRequest Tree" Click="mIOpenMessageRequestTree_Click" />
-                            <MenuItem Header="Open Plugin Tree" Click="mIOpenPluginTree_Click" />
+                            <MenuItem x:Name="mIOpenPluginTree" Header="Open Plugin Tree" />
+                            <MenuItem x:Name="mIOpenMessageFilterTree" Header="Open MessageFilter Tree" />
+                            <MenuItem x:Name="mIOpenMessageRequestTree" Header="Open MessageRequest Tree" />
 
                             <Separator />
                             <MenuItem Header="Change Message in Editor" Click="mIChangeEntityInEditor_Click"/>
