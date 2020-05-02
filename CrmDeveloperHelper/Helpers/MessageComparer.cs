@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
@@ -11,7 +10,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         }
 
-        private static List<string> coll = new List<string>() { "Create", "Update", "Delete", "SetState", "SetStateDynamicEntity", "Merge" };
+        private static Dictionary<string, int> coll = new Dictionary<string, int>(StringComparer.InvariantCultureIgnoreCase)
+        {
+            {  "Create", 0 }
+
+            , {  "Update", 1 }
+
+            , {  "Delete", 2 }
+
+            , {  "SetState", 3 }
+
+            , {  "SetStateDynamicEntity", 4 }
+
+            , {  "Merge", 5 }
+
+            //, {  "22222222222", 6 }
+        };
 
         public static MessageComparer Comparer { get; private set; }
 
@@ -32,25 +46,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return 1;
             }
 
-            if (coll.Contains(message1, StringComparer.InvariantCultureIgnoreCase)
-                && coll.Contains(message2, StringComparer.InvariantCultureIgnoreCase)
+            if (coll.ContainsKey(message1)
+                && coll.ContainsKey(message2)
             )
             {
-                var item1 = coll.First(i => StringComparer.InvariantCultureIgnoreCase.Equals(i, message1));
-                var item2 = coll.First(i => StringComparer.InvariantCultureIgnoreCase.Equals(i, message2));
-
-                int index1 = coll.IndexOf(item1);
-                int index2 = coll.IndexOf(item2);
+                int index1 = coll[message1];
+                int index2 = coll[message2];
 
                 return index1.CompareTo(index2);
             }
 
-            if (coll.Contains(message1, StringComparer.InvariantCultureIgnoreCase))
+            if (coll.ContainsKey(message1))
             {
                 return -1;
             }
 
-            if (coll.Contains(message2, StringComparer.InvariantCultureIgnoreCase))
+            if (coll.ContainsKey(message2))
             {
                 return 1;
             }
