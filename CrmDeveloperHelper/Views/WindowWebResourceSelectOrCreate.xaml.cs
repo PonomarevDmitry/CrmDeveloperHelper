@@ -90,12 +90,54 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             txtBFilter.Focus();
 
+            FillExplorersMenuItems();
+
             this.DecreaseInit();
 
             if (_service != null)
             {
                 ShowExistingWebResources(lastLinkedWebResource);
             }
+        }
+
+        private void FillExplorersMenuItems()
+        {
+            var explorersHelper = new ExplorersHelper(_iWriteToOutput, _commonConfig, () => Task.FromResult(_service)
+                , getWebResourceName: GetWebResourceName
+            );
+
+            var compareWindowsHelper = new CompareWindowsHelper(_iWriteToOutput, _commonConfig, () => Tuple.Create(_service.ConnectionData, _service.ConnectionData)
+                , getWebResourceName: GetWebResourceName
+            );
+
+            explorersHelper.FillExplorers(miExplorers);
+            compareWindowsHelper.FillCompareWindows(miCompareOrganizations);
+
+            if (this.Resources.Contains("listContextMenu")
+                && this.Resources["listContextMenu"] is ContextMenu contextMenu
+            )
+            {
+                var items = contextMenu.Items.OfType<MenuItem>();
+
+                foreach (var item in items)
+                {
+                    if (string.Equals(item.Uid, "miExplorers", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        explorersHelper.FillExplorers(item);
+                    }
+                    else if (string.Equals(item.Uid, "miCompareOrganizations", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        compareWindowsHelper.FillCompareWindows(item);
+                    }
+                }
+            }
+        }
+
+        private string GetWebResourceName()
+        {
+            var entity = GetSelectedEntity();
+
+            return entity?.WebResource?.Name ?? txtBFilter.Text.Trim();
         }
 
         private Dictionary<int, BitmapImage> _typeImageMapping = null;
@@ -719,7 +761,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _service.ConnectionData.OpenSolutionComponentDependentComponentsInWeb(ComponentType.WebResource, entity.WebResourceId.Value);
         }
 
-        private async void mIOpenInWeb_Click(object sender, RoutedEventArgs e)
+        private void mIOpenInWeb_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -861,7 +903,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void mIOpenDependentComponentsInExplorer_Click(object sender, RoutedEventArgs e)
+        private void mIOpenDependentComponentsInExplorer_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -882,7 +924,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , (int)ComponentType.WebResource
                 , entity.WebResourceId.Value
                 , null
-                );
+            );
         }
 
         private void mIExportWebResourceDependencyXml_Click(object sender, RoutedEventArgs e)
@@ -1286,29 +1328,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(_service.ConnectionData, Properties.OperationNames.PublishingWebResourceFormat2, _service.ConnectionData.Name, name);
         }
 
-        private async void btnOrganizationComparer_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            WindowHelper.OpenOrganizationComparerWindow(this._iWriteToOutput, _service.ConnectionData.ConnectionConfiguration, _commonConfig);
-        }
-
-        private async void btnCompareWebResources_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            WindowHelper.OpenOrganizationComparerWebResourcesWindow(
-                _iWriteToOutput
-                , _commonConfig
-                , _service.ConnectionData
-                , _service.ConnectionData
-                , entity?.WebResource?.Name ?? txtBFilter.Text
-            );
-        }
-
-        private async void mIOpenSolutionsContainingComponentInExplorer_Click(object sender, RoutedEventArgs e)
+        private void mIOpenSolutionsContainingComponentInExplorer_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1350,7 +1370,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity.WebResourceId.Value, entity.Name, PerformEntityEditor);
+            ExecuteAction(entity.WebResourceId.Value, entity.Name, PerformEntityEditorAsync);
         }
 
         private void mIDeleteWebResource_Click(object sender, RoutedEventArgs e)
@@ -1399,7 +1419,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async Task PerformEntityEditor(string folder, Guid idWebResource, string name)
+        private Task PerformEntityEditorAsync(string folder, Guid idWebResource, string name)
+        {
+            return Task.Run(() => PerformEntityEditor(folder, idWebResource, name));
+        }
+
+        private void PerformEntityEditor(string folder, Guid idWebResource, string name)
         {
             _commonConfig.Save();
 

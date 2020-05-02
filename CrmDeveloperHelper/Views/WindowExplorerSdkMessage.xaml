@@ -47,9 +47,10 @@
                 </MenuItem>
 
                 <Separator/>
-                <MenuItem Header="Compare Information with other Organization">
-                    <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
-                </MenuItem>
+                <MenuItem x:Uid="miExplorers" Header="Get Other Entity Information" />
+
+                <Separator/>
+                <MenuItem x:Uid="miCompareOrganizations" Header="Compare Information with other Organization" />
 
             </ContextMenu>
 
@@ -69,11 +70,16 @@
         </Grid.RowDefinitions>
 
         <ToolBar x:Name="toolBarHeader" Grid.Row="0">
+
             <Menu Background="{x:Null}">
-                <MenuItem Header="Compare Information with other Organization">
-                    <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
-                </MenuItem>
+                <MenuItem x:Name="miExplorers" Header="Get Other Entity Information" />
             </Menu>
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+            <Menu Background="{x:Null}">
+                <MenuItem x:Name="miCompareOrganizations" Header="Compare Information with other Organization" />
+            </Menu>
+
         </ToolBar>
 
         <Grid Grid.Row="1" Margin="5">

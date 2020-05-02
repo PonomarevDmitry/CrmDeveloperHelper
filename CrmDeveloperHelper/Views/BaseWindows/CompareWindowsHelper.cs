@@ -6,23 +6,9 @@ using System.Windows.Controls;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public class CompareWindowsHelper
+    public class CompareWindowsHelper : BaseExplorersHelper
     {
-        private readonly IWriteToOutput _iWriteToOutput;
-        private readonly CommonConfiguration _commonConfig;
-
         private readonly Func<Tuple<ConnectionData, ConnectionData>> GetConnections;
-
-        private readonly Func<string> _getEntityName;
-        private readonly Func<string> _getGlobalOptionSetName;
-        private readonly Func<string> _getWorkflowName;
-        private readonly Func<string> _getSystemFormName;
-        private readonly Func<string> _getSavedQueryName;
-        private readonly Func<string> _getSavedQueryVisualizationName;
-        private readonly Func<string> _getSiteMapName;
-        private readonly Func<string> _getReportName;
-        private readonly Func<string> _getWebResourceName;
-        private readonly Func<string> _getPluginAssemblyName;
 
         public CompareWindowsHelper(
             IWriteToOutput iWriteToOutput
@@ -38,122 +24,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , Func<string> getReportName = null
             , Func<string> getWebResourceName = null
             , Func<string> getPluginAssemblyName = null
+        ) : base(iWriteToOutput, commonConfig
+            , getEntityName
+            , getGlobalOptionSetName
+            , getWorkflowName
+            , getSystemFormName
+            , getSavedQueryName
+            , getSavedQueryVisualizationName
+            , getSiteMapName
+            , getReportName
+            , getWebResourceName
+            , getPluginAssemblyName
         )
         {
-            this._iWriteToOutput = iWriteToOutput;
-            this._commonConfig = commonConfig;
             this.GetConnections = getConnections;
-
-            this._getEntityName = getEntityName;
-            this._getGlobalOptionSetName = getGlobalOptionSetName;
-            this._getWorkflowName = getWorkflowName;
-            this._getSystemFormName = getSystemFormName;
-            this._getSavedQueryName = getSavedQueryName;
-            this._getSavedQueryVisualizationName = getSavedQueryVisualizationName;
-            this._getSiteMapName = getSiteMapName;
-            this._getReportName = getReportName;
-            this._getWebResourceName = getWebResourceName;
-            this._getPluginAssemblyName = getPluginAssemblyName;
-        }
-
-        private string GetEntityName()
-        {
-            if (_getEntityName != null)
-            {
-                return _getEntityName();
-            }
-
-            return string.Empty;
-        }
-
-        private string GetGlobalOptionSetName()
-        {
-            if (_getGlobalOptionSetName != null)
-            {
-                return _getGlobalOptionSetName();
-            }
-
-            return string.Empty;
-        }
-
-        private string GetWorkflowName()
-        {
-            if (_getWorkflowName != null)
-            {
-                return _getWorkflowName();
-            }
-
-            return string.Empty;
-        }
-
-        private string GetSystemFormName()
-        {
-            if (_getSystemFormName != null)
-            {
-                return _getSystemFormName();
-            }
-
-            return string.Empty;
-        }
-
-        private string GetSavedQueryName()
-        {
-            if (_getSavedQueryName != null)
-            {
-                return _getSavedQueryName();
-            }
-
-            return string.Empty;
-        }
-
-        private string GetSavedQueryVisualizationName()
-        {
-            if (_getSavedQueryVisualizationName != null)
-            {
-                return _getSavedQueryVisualizationName();
-            }
-
-            return string.Empty;
-        }
-
-        private string GetSiteMapName()
-        {
-            if (_getSiteMapName != null)
-            {
-                return _getSiteMapName();
-            }
-
-            return string.Empty;
-        }
-
-        private string GetReportName()
-        {
-            if (_getReportName != null)
-            {
-                return _getReportName();
-            }
-
-            return string.Empty;
-        }
-
-        private string GetWebResourceName()
-        {
-            if (_getWebResourceName != null)
-            {
-                return _getWebResourceName();
-            }
-
-            return string.Empty;
-        }
-
-        private string GetPluginAssemblyName()
-        {
-            if (_getPluginAssemblyName != null)
-            {
-                return _getPluginAssemblyName();
-            }
-
-            return string.Empty;
         }
 
         public void FillCompareWindows(MenuItem miCompareOrganizations)

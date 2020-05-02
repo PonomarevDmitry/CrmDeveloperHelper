@@ -57,12 +57,54 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBCurrentConnection.ItemsSource = service.ConnectionData.ConnectionConfiguration.Connections;
             cmBCurrentConnection.SelectedItem = service.ConnectionData;
 
+            FillExplorersMenuItems();
+
             this.DecreaseInit();
 
             if (service != null)
             {
                 ShowExistingReports();
             }
+        }
+
+        private void FillExplorersMenuItems()
+        {
+            var explorersHelper = new ExplorersHelper(_iWriteToOutput, _commonConfig, GetService
+                , getReportName: GetReportName
+            );
+
+            var compareWindowsHelper = new CompareWindowsHelper(_iWriteToOutput, _commonConfig, () => Tuple.Create(GetSelectedConnection(), GetSelectedConnection())
+                , getReportName: GetReportName
+            );
+
+            explorersHelper.FillExplorers(miExplorers);
+            compareWindowsHelper.FillCompareWindows(miCompareOrganizations);
+
+            if (this.Resources.Contains("listContextMenu")
+                && this.Resources["listContextMenu"] is ContextMenu contextMenu
+            )
+            {
+                var items = contextMenu.Items.OfType<MenuItem>();
+
+                foreach (var item in items)
+                {
+                    if (string.Equals(item.Uid, "miExplorers", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        explorersHelper.FillExplorers(item);
+                    }
+                    else if (string.Equals(item.Uid, "miCompareOrganizations", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        compareWindowsHelper.FillCompareWindows(item);
+                    }
+                }
+            }
+        }
+
+        private string GetReportName()
+        {
+            var entity = GetSelectedEntity();
+
+            return entity?.Name ?? txtBFilter.Text.Trim();
         }
 
         private void LoadFromConfig()
@@ -934,32 +976,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , (int)ComponentType.Report
                 , entity.Id
                 , null
-            );
-        }
-
-        private async void btnOrganizationComparer_Click(object sender, RoutedEventArgs e)
-        {
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenOrganizationComparerWindow(this._iWriteToOutput, service.ConnectionData.ConnectionConfiguration, _commonConfig);
-        }
-
-        private async void btnCompareReports_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            WindowHelper.OpenOrganizationComparerReportWindow(
-                _iWriteToOutput
-                , _commonConfig
-                , service.ConnectionData
-                , service.ConnectionData
-                , entity?.Name ?? txtBFilter.Text
             );
         }
 

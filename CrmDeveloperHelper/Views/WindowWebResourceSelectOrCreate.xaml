@@ -71,14 +71,14 @@
                 </MenuItem>
 
                 <Separator/>
-                <MenuItem Header="Compare Information with other Organization">
-                    <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
-                    <Separator/>
-                    <MenuItem Header="WebResources" Click="btnCompareWebResources_Click"/>
-                </MenuItem>
+                <MenuItem x:Uid="miExplorers" Header="Get Other Entity Information" />
+
+                <Separator/>
+                <MenuItem x:Uid="miCompareOrganizations" Header="Compare Information with other Organization" />
 
                 <Separator/>
                 <MenuItem Header="Export All WebResource Information" Click="btnExportAll_Click"/>
+                
             </ContextMenu>
 
         </ResourceDictionary>
@@ -86,6 +86,7 @@
     <Grid>
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -98,11 +99,23 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBox x:Name="txtBCurrentFile" Grid.Row="0" Margin="5" Height="50" TextWrapping="Wrap" IsReadOnlyCaretVisible="True" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
+        <ToolBar x:Name="toolBarHeader" Grid.Row="0">
 
-        <GridSplitter Grid.Row="1" Height="5" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+            <Menu Background="{x:Null}">
+                <MenuItem x:Name="miExplorers" Header="Get Other Entity Information" />
+            </Menu>
 
-        <Grid Grid.Row="2" Margin="5">
+            <Menu Background="{x:Null}">
+                <MenuItem x:Name="miCompareOrganizations" Header="Compare Information with other Organization" />
+            </Menu>
+
+        </ToolBar>
+
+        <TextBox x:Name="txtBCurrentFile" Grid.Row="1" Margin="5" Height="50" TextWrapping="Wrap" IsReadOnlyCaretVisible="True" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
+
+        <GridSplitter Grid.Row="2" Height="5" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+
+        <Grid Grid.Row="3" Margin="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="100*" />
@@ -163,7 +176,7 @@
 
         </Grid>
 
-        <Grid Grid.Row="3" Margin="0">
+        <Grid Grid.Row="4" Margin="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="10*" />
@@ -183,7 +196,7 @@
             </Label>
         </Grid>
 
-        <TreeView x:Name="trVWebResources" Grid.Row="4" Margin="5" SelectedItemChanged="trVWebResources_SelectedItemChanged" MouseDoubleClick="trVWebResources_MouseDoubleClick">
+        <TreeView x:Name="trVWebResources" Grid.Row="5" Margin="5" SelectedItemChanged="trVWebResources_SelectedItemChanged" MouseDoubleClick="trVWebResources_MouseDoubleClick">
             <TreeView.CommandBindings>
                 <CommandBinding Command="ApplicationCommands.Delete" CanExecute="trVWebResources_CanExecute" Executed="trVWebResources_Delete" />
             </TreeView.CommandBindings>
@@ -210,7 +223,7 @@
             </TreeView.ItemContainerStyle>
         </TreeView>
 
-        <Grid Grid.Row="5" Margin="5" x:Name="gridLastLink" Visibility="Collapsed">
+        <Grid Grid.Row="6" Margin="5" x:Name="gridLastLink" Visibility="Collapsed">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="100*" />
@@ -224,13 +237,13 @@
             <TextBox x:Name="txtBLastLink" Grid.Row="0" Grid.Column="1" IsReadOnlyCaretVisible="True" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
         </Grid>
 
-        <ToolBar Grid.Row="6">
+        <ToolBar Grid.Row="7">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
                     <Setter Property="Orientation" Value="Vertical"/>
                 </Style>
             </ToolBar.Resources>
-            
+
             <DockPanel>
                 <DockPanel.Resources>
                     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
@@ -240,23 +253,23 @@
                 </DockPanel.Resources>
                 <ToolBarPanel x:Name="toolStrip" Orientation="Horizontal" >
                     <Button x:Name="btnSelectWebResource" Content="Select WebResource" Click="btnSelectWebResource_Click" />
-                    
+
                     <Separator x:Name="sepCreateNewWebResource" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="20,0,20,0" IsEnabled="False" Visibility="Collapsed"/>
                     <Button x:Name="btnCreateNewWebResource" Content="Create New WebResource" IsEnabled="False" Visibility="Collapsed" Click="btnCreateNewWebResource_Click"/>
-                    
+
                     <Separator x:Name="sepLastLink" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="20,0,20,0" IsEnabled="False" Visibility="Collapsed"/>
                     <Button x:Name="btnSelectLastLink" Content="Select Last Link" IsEnabled="False" Visibility="Collapsed" Click="btnSelectLastLink_Click"/>
                 </ToolBarPanel>
-                
+
                 <Button Content="Cancel" Click="Button_Click" HorizontalContentAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
-                
+
                 <Separator x:Name="sepSkipFile" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="20,0,20,0" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" Visibility="Collapsed" />
                 <Button x:Name="btnSkipFile" Content="Skip File" HorizontalContentAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" Visibility="Collapsed" Click="btnSkipFile_Click"/>
-                
+
             </DockPanel>
         </ToolBar>
 
-        <StatusBar Grid.Row="7">
+        <StatusBar Grid.Row="8">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName" VerticalAlignment="Center"/>
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
             <StatusBarItem x:Name="stBIStatus"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>

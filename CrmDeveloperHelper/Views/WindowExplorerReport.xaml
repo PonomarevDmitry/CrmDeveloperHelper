@@ -18,10 +18,10 @@
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
                 <MenuItem Header="Open Report in Web" Click="mIOpenInWeb_Click" FontWeight="Bold" />
-                
+
                 <Separator/>
                 <MenuItem Header="Open Report List in Web" Click="mIOpenEntityListInWeb_Click" />
-                
+
                 <Separator/>
                 <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
 
@@ -31,11 +31,11 @@
 
                 <Separator/>
                 <MenuItem Header="Create New Report" Click="mICreateNewReport_Click" />
-                
+
                 <Separator/>
                 <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" />
                 <MenuItem Header="Add to Crm Solution" Click="AddToCrmSolution_Click" />
-                
+
                 <Separator/>
                 <MenuItem Header="Body Text" Click="mIExportReportBodyText_Click"/>
                 <MenuItem Header="Original Body Text" Click="mIExportReportOriginalBodyText_Click"/>
@@ -43,33 +43,32 @@
                 <MenuItem Header="Custom Report Xml" Click="mIExportReportCustomReportXml_Click"/>
                 <MenuItem Header="Schedule Xml" Click="mIExportReportScheduleXml_Click"/>
                 <MenuItem Header="Query Info" Click="mIExportReportQueryInfo_Click"/>
-                
+
                 <Separator/>
                 <MenuItem Header="Body Binary" Click="mIExportReportBodyBinary_Click"/>
-                
+
                 <Separator x:Uid="controlChangeEntityAttribute"/>
                 <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Report Attribute" >
                     <MenuItem Header="Body Text" Click="mIUpdateReportBodyText_Click"/>
                     <MenuItem Header="Default Filter" Click="mIUpdateReportDefaultFilter_Click"/>
                 </MenuItem>
-                
+
                 <Separator/>
                 <MenuItem Header="Open Solutions Containing Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
-                
+
                 <Separator/>
                 <MenuItem Header="Dependent Components">
                     <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />
                     <Separator/>
                     <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
                 </MenuItem>
-                
+
                 <Separator/>
-                <MenuItem Header="Compare Information with other Organization">
-                    <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Reports" Click="btnCompareReports_Click"/>
-                </MenuItem>
-                
+                <MenuItem x:Uid="miExplorers" Header="Get Other Entity Information" />
+
+                <Separator/>
+                <MenuItem x:Uid="miCompareOrganizations" Header="Compare Information with other Organization" />
+
                 <Separator/>
                 <MenuItem Header="Export All Report Information" Click="btnExportAll_Click"/>
             </ContextMenu>
@@ -91,22 +90,25 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            
+
             <RowDefinition Height="100*" />
-            
+
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <ToolBar x:Name="toolBarHeader" Grid.Row="0">
+
             <Menu Background="{x:Null}">
-                <MenuItem Header="Compare Information with other Organization">
-                    <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Reports" Click="btnCompareReports_Click"/>
-                </MenuItem>
+                <MenuItem x:Name="miExplorers" Header="Get Other Entity Information" />
             </Menu>
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+            <Menu Background="{x:Null}">
+                <MenuItem x:Name="miCompareOrganizations" Header="Compare Information with other Organization" />
+            </Menu>
+
         </ToolBar>
 
         <Grid Grid.Row="1" Margin="5">
@@ -302,10 +304,10 @@
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBExportReport" Header="Export Report Information" SubmenuOpened="tSDDBExportReport_SubmenuOpened">
                             <MenuItem Header="Open Report in Web" Click="mIOpenInWeb_Click" />
-                            
+
                             <Separator/>
                             <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
-                            
+
                             <Separator/>
                             <MenuItem Header="Body Text" Click="mIExportReportBodyText_Click"/>
                             <MenuItem Header="Original Body Text" Click="mIExportReportOriginalBodyText_Click"/>
@@ -313,19 +315,19 @@
                             <MenuItem Header="Custom Report Xml" Click="mIExportReportCustomReportXml_Click"/>
                             <MenuItem Header="ScheduleXml" Click="mIExportReportScheduleXml_Click"/>
                             <MenuItem Header="Query Info" Click="mIExportReportQueryInfo_Click"/>
-                            
+
                             <Separator/>
                             <MenuItem Header="Body Binary" Click="mIExportReportBodyBinary_Click"/>
-                            
+
                             <Separator x:Uid="controlChangeEntityAttribute"/>
                             <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Report Attribute" >
                                 <MenuItem Header="Body Text" Click="mIUpdateReportBodyText_Click"/>
                                 <MenuItem Header="Default Filter" Click="mIUpdateReportDefaultFilter_Click"/>
                             </MenuItem>
-                            
+
                             <Separator/>
                             <MenuItem Header="Open Solutions Containing Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
-                            
+
                             <Separator/>
                             <MenuItem Header="Dependent Components">
                                 <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />

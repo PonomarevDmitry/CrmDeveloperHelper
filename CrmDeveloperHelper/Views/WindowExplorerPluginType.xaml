@@ -54,13 +54,12 @@
                     <Separator/>
                     <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
                 </MenuItem>
-                
+
                 <Separator/>
-                <MenuItem Header="Compare Information with other Organization">
-                    <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Plugin Assemblies" Click="btnComparePluginAssemblies_Click"/>
-                </MenuItem>
+                <MenuItem x:Uid="miExplorers" Header="Get Other Entity Information" />
+
+                <Separator/>
+                <MenuItem x:Uid="miCompareOrganizations" Header="Compare Information with other Organization" />
                 
                 <Separator/>
                 <MenuItem Header="Export all Plugin Type Information" Click="btnExportAll_Click"/>
@@ -83,11 +82,15 @@
 
         <ToolBar x:Name="toolBarHeader" Grid.Row="0">
             <Menu Background="{x:Null}">
-                <MenuItem Header="Compare Information with other Organization">
-                    <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Plugin Assemblies" Click="btnComparePluginAssemblies_Click"/>
-                </MenuItem>
+
+                <Menu Background="{x:Null}">
+                    <MenuItem x:Name="miExplorers" Header="Get Other Entity Information" />
+                </Menu>
+
+                <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+                <Menu Background="{x:Null}">
+                    <MenuItem x:Name="miCompareOrganizations" Header="Compare Information with other Organization" />
+                </Menu>
             </Menu>
         </ToolBar>
 

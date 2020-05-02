@@ -10,23 +10,12 @@ using System.Windows.Controls;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public class ExplorersHelper
+    public class ExplorersHelper : BaseExplorersHelper
     {
-        private readonly IWriteToOutput _iWriteToOutput;
-        private readonly CommonConfiguration _commonConfig;
+        private readonly Func<string> _getOtherPrivilegeName;
+        private readonly Func<string> _getMessageName;
 
         private readonly Func<Task<IOrganizationServiceExtented>> GetService;
-
-        private readonly Func<string> _getEntityName;
-        private readonly Func<string> _getGlobalOptionSetName;
-        private readonly Func<string> _getWorkflowName;
-        private readonly Func<string> _getSystemFormName;
-        private readonly Func<string> _getSavedQueryName;
-        private readonly Func<string> _getSavedQueryVisualizationName;
-        private readonly Func<string> _getOtherPrivilegeName;
-        private readonly Func<string> _getSiteMapName;
-        private readonly Func<string> _getReportName;
-        private readonly Func<string> _getWebResourceName;
 
         private readonly Func<Guid, IEnumerable<EntityMetadata>> _getEntityMetadataList;
         private readonly Func<Guid, IEnumerable<Privilege>> _getOtherPrivilegesList;
@@ -40,32 +29,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , Func<Task<IOrganizationServiceExtented>> getService
             , EnvDTE.SelectedItem selectedItem
             , Func<string> getEntityName = null
-            , Func<Guid, IEnumerable<EntityMetadata>> getEntityMetadataList = null
-            , Func<Guid, IEnumerable<Privilege>> getOtherPrivilegesList = null
-            , Func<Guid, IEnumerable<OptionSetMetadata>> getGlobalOptionSetMetadataList = null
             , Func<string> getGlobalOptionSetName = null
             , Func<string> getWorkflowName = null
             , Func<string> getSystemFormName = null
             , Func<string> getSavedQueryName = null
             , Func<string> getSavedQueryVisualizationName = null
-            , Func<string> getOtherPrivilegeName = null
             , Func<string> getSiteMapName = null
             , Func<string> getReportName = null
             , Func<string> getWebResourceName = null
+            , Func<string> getPluginAssemblyName = null
+            , Func<string> getOtherPrivilegeName = null
+            , Func<string> getMessageName = null
+            , Func<Guid, IEnumerable<EntityMetadata>> getEntityMetadataList = null
+            , Func<Guid, IEnumerable<Privilege>> getOtherPrivilegesList = null
+            , Func<Guid, IEnumerable<OptionSetMetadata>> getGlobalOptionSetMetadataList = null
         ) : this(iWriteToOutput, commonConfig, getService
             , getEntityName
-            , getEntityMetadataList
-            , getOtherPrivilegesList
-            , getGlobalOptionSetMetadataList
             , getGlobalOptionSetName
             , getWorkflowName
             , getSystemFormName
             , getSavedQueryName
             , getSavedQueryVisualizationName
-            , getOtherPrivilegeName
             , getSiteMapName
             , getReportName
             , getWebResourceName
+            , getPluginAssemblyName
+            , getOtherPrivilegeName
+            , getMessageName
+            , getEntityMetadataList
+            , getOtherPrivilegesList
+            , getGlobalOptionSetMetadataList
         )
         {
             this._selectedItem = selectedItem;
@@ -76,101 +69,44 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , Func<Task<IOrganizationServiceExtented>> getService
             , Func<string> getEntityName = null
-            , Func<Guid, IEnumerable<EntityMetadata>> getEntityMetadataList = null
-            , Func<Guid, IEnumerable<Privilege>> getOtherPrivilegesList = null
-            , Func<Guid, IEnumerable<OptionSetMetadata>> getGlobalOptionSetMetadataList = null
             , Func<string> getGlobalOptionSetName = null
             , Func<string> getWorkflowName = null
             , Func<string> getSystemFormName = null
             , Func<string> getSavedQueryName = null
             , Func<string> getSavedQueryVisualizationName = null
-            , Func<string> getOtherPrivilegeName = null
             , Func<string> getSiteMapName = null
             , Func<string> getReportName = null
             , Func<string> getWebResourceName = null
+            , Func<string> getPluginAssemblyName = null
+            , Func<string> getOtherPrivilegeName = null
+            , Func<string> getMessageName = null
+            , Func<Guid, IEnumerable<EntityMetadata>> getEntityMetadataList = null
+            , Func<Guid, IEnumerable<Privilege>> getOtherPrivilegesList = null
+            , Func<Guid, IEnumerable<OptionSetMetadata>> getGlobalOptionSetMetadataList = null
+        ) : base(iWriteToOutput, commonConfig
+            , getEntityName
+            , getGlobalOptionSetName
+            , getWorkflowName
+            , getSystemFormName
+            , getSavedQueryName
+            , getSavedQueryVisualizationName
+            , getSiteMapName
+            , getReportName
+            , getWebResourceName
+            , getPluginAssemblyName
         )
         {
-            this._iWriteToOutput = iWriteToOutput;
-            this._commonConfig = commonConfig;
             this.GetService = getService;
+
+            this._getOtherPrivilegeName = getOtherPrivilegeName;
+            this._getMessageName = getMessageName;
 
             this._getEntityMetadataList = getEntityMetadataList;
             this._getOtherPrivilegesList = getOtherPrivilegesList;
             this._getGlobalOptionSetMetadataList = getGlobalOptionSetMetadataList;
-
-            this._getEntityName = getEntityName;
-            this._getGlobalOptionSetName = getGlobalOptionSetName;
-            this._getWorkflowName = getWorkflowName;
-            this._getSystemFormName = getSystemFormName;
-            this._getSavedQueryName = getSavedQueryName;
-            this._getSavedQueryVisualizationName = getSavedQueryVisualizationName;
-            this._getOtherPrivilegeName = getOtherPrivilegeName;
-            this._getSiteMapName = getSiteMapName;
-            this._getReportName = getReportName;
-            this._getWebResourceName = getWebResourceName;
         }
 
-        private string GetEntityName()
-        {
-            if (_getEntityName != null)
-            {
-                return _getEntityName();
-            }
-
-            return string.Empty;
-        }
-
-        private string GetGlobalOptionSetName()
-        {
-            if (_getGlobalOptionSetName != null)
-            {
-                return _getGlobalOptionSetName();
-            }
-
-            return string.Empty;
-        }
-
-        private string GetWorkflowName()
-        {
-            if (_getWorkflowName != null)
-            {
-                return _getWorkflowName();
-            }
-
-            return string.Empty;
-        }
-
-        private string GetSystemFormName()
-        {
-            if (_getSystemFormName != null)
-            {
-                return _getSystemFormName();
-            }
-
-            return string.Empty;
-        }
-
-        private string GetSavedQueryName()
-        {
-            if (_getSavedQueryName != null)
-            {
-                return _getSavedQueryName();
-            }
-
-            return string.Empty;
-        }
-
-        private string GetSavedQueryVisualizationName()
-        {
-            if (_getSavedQueryVisualizationName != null)
-            {
-                return _getSavedQueryVisualizationName();
-            }
-
-            return string.Empty;
-        }
-
-        private string GetOtherPrivilegeName()
+        protected string GetOtherPrivilegeName()
         {
             if (_getOtherPrivilegeName != null)
             {
@@ -180,31 +116,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return string.Empty;
         }
 
-        private string GetSiteMapName()
+        protected string GetMessageName()
         {
-            if (_getSiteMapName != null)
+            if (_getMessageName != null)
             {
-                return _getSiteMapName();
-            }
-
-            return string.Empty;
-        }
-
-        private string GetReportName()
-        {
-            if (_getReportName != null)
-            {
-                return _getReportName();
-            }
-
-            return string.Empty;
-        }
-
-        private string GetWebResourceName()
-        {
-            if (_getWebResourceName != null)
-            {
-                return _getWebResourceName();
+                return _getMessageName();
             }
 
             return string.Empty;
@@ -768,11 +684,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void miPluginAssemblies_Click(object sender, RoutedEventArgs e)
         {
+            var pluginAssemblyName = GetPluginAssemblyName();
+
             var service = await GetService();
 
             _commonConfig.Save();
 
-            WindowHelper.OpenPluginAssemblyExplorer(this._iWriteToOutput, service, _commonConfig, null);
+            WindowHelper.OpenPluginAssemblyExplorer(this._iWriteToOutput, service, _commonConfig, pluginAssemblyName);
         }
 
         private async void miPluginTypes_Click(object sender, RoutedEventArgs e)
@@ -787,43 +705,48 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async void miPluginTree_Click(object sender, RoutedEventArgs e)
         {
             var entityName = GetEntityName();
+            var messageName = GetMessageName();
 
             _commonConfig.Save();
 
             var service = await GetService();
 
-            WindowHelper.OpenPluginTree(this._iWriteToOutput, service, _commonConfig, entityName, string.Empty, string.Empty);
+            WindowHelper.OpenPluginTree(this._iWriteToOutput, service, _commonConfig, entityName, string.Empty, messageName);
         }
 
         private async void miMessageExplorer_Click(object sender, RoutedEventArgs e)
         {
+            var messageName = GetMessageName();
+
             _commonConfig.Save();
 
             var service = await GetService();
 
-            WindowHelper.OpenSdkMessageExplorer(this._iWriteToOutput, service, _commonConfig, string.Empty);
+            WindowHelper.OpenSdkMessageExplorer(this._iWriteToOutput, service, _commonConfig, messageName);
         }
 
         private async void miMessageFilterTree_Click(object sender, RoutedEventArgs e)
         {
             var entityName = GetEntityName();
+            var messageName = GetMessageName();
 
             _commonConfig.Save();
 
             var service = await GetService();
 
-            WindowHelper.OpenSdkMessageFilterTree(this._iWriteToOutput, service, _commonConfig, entityName, string.Empty);
+            WindowHelper.OpenSdkMessageFilterTree(this._iWriteToOutput, service, _commonConfig, entityName, messageName);
         }
 
         private async void miMessageRequestTree_Click(object sender, RoutedEventArgs e)
         {
             var entityName = GetEntityName();
+            var messageName = GetMessageName();
 
             _commonConfig.Save();
 
             var service = await GetService();
 
-            WindowHelper.OpenSdkMessageRequestTree(this._iWriteToOutput, service, _commonConfig, entityName);
+            WindowHelper.OpenSdkMessageRequestTree(this._iWriteToOutput, service, _commonConfig, entityName, messageName);
         }
 
         private async void miMessageRequestTreeSelectedItem_Click(object sender, RoutedEventArgs e)
@@ -834,12 +757,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var entityName = GetEntityName();
+            var messageName = GetMessageName();
 
             _commonConfig.Save();
 
             var service = await GetService();
 
-            WindowHelper.OpenSdkMessageRequestTree(this._iWriteToOutput, service, _commonConfig, string.Empty, false, _selectedItem, entityName, string.Empty);
+            WindowHelper.OpenSdkMessageRequestTree(this._iWriteToOutput, service, _commonConfig, string.Empty, false, _selectedItem, entityName, messageName);
         }
 
         #endregion Кнопки открытия других форм с информация о сущности.
