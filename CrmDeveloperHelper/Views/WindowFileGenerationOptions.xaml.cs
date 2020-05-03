@@ -20,7 +20,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Title = string.Format("File Generation Options - {0}", !string.IsNullOrEmpty(fileGenerationOptions.SolutionFilePath) ? fileGenerationOptions.SolutionFilePath : "Default");
 
             optionsEntityMetadataOptions.BindFileGenerationOptions(_fileGenerationOptions);
+
+            optionsJavaScriptOptions.BindFileGenerationOptions(_fileGenerationOptions);
+
             optionsGlobalOptionSetMetadataOptions.BindFileGenerationOptions(_fileGenerationOptions);
+
             optionsSdkMessageRequestsOptions.BindFileGenerationOptions(_fileGenerationOptions);
         }
 

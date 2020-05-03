@@ -861,13 +861,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private CreateFileJavaScriptConfiguration GetJavaScriptConfig(FileGenerationOptions fileGenerationOptions)
         {
-            var result = new CreateFileJavaScriptConfiguration(
-                fileGenerationOptions.GetTabSpacer()
-                , fileGenerationOptions.GenerateSchemaEntityOptionSetsWithDependentComponents
-                , fileGenerationOptions.GenerateSchemaIntoSchemaClass
-                , fileGenerationOptions.GenerateSchemaGlobalOptionSet
-                , fileGenerationOptions.NamespaceClassesJavaScript
-            );
+            var result = new CreateFileJavaScriptConfiguration(fileGenerationOptions);
 
             return result;
         }

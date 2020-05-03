@@ -84,29 +84,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private string _NamespaceClassesJavaScript;
-        [DataMember]
-        public string NamespaceClassesJavaScript
-        {
-            get => _NamespaceClassesJavaScript;
-            set
-            {
-                this.OnPropertyChanging(nameof(NamespaceClassesJavaScript));
-
-                if (!string.IsNullOrEmpty(value))
-                {
-                    value = value.Trim();
-                }
-                else
-                {
-                    value = string.Empty;
-                }
-
-                this._NamespaceClassesJavaScript = value;
-                this.OnPropertyChanged(nameof(NamespaceClassesJavaScript));
-            }
-        }
-
         private string _NamespaceGlobalOptionSetsCSharp;
         [DataMember]
         public string NamespaceGlobalOptionSetsCSharp
@@ -130,29 +107,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private string _NamespaceGlobalOptionSetsJavaScript;
-        [DataMember]
-        public string NamespaceGlobalOptionSetsJavaScript
-        {
-            get => _NamespaceGlobalOptionSetsJavaScript;
-            set
-            {
-                this.OnPropertyChanging(nameof(NamespaceGlobalOptionSetsJavaScript));
-
-                if (!string.IsNullOrEmpty(value))
-                {
-                    value = value.Trim();
-                }
-                else
-                {
-                    value = string.Empty;
-                }
-
-                this._NamespaceGlobalOptionSetsJavaScript = value;
-                this.OnPropertyChanged(nameof(NamespaceGlobalOptionSetsJavaScript));
-            }
-        }
-
         private string _NamespaceSdkMessagesCSharp;
         [DataMember]
         public string NamespaceSdkMessagesCSharp
@@ -173,29 +127,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
                 this._NamespaceSdkMessagesCSharp = value;
                 this.OnPropertyChanged(nameof(NamespaceSdkMessagesCSharp));
-            }
-        }
-
-        private string _NamespaceSdkMessagesJavaScript;
-        [DataMember]
-        public string NamespaceSdkMessagesJavaScript
-        {
-            get => _NamespaceSdkMessagesJavaScript;
-            set
-            {
-                this.OnPropertyChanging(nameof(NamespaceSdkMessagesJavaScript));
-
-                if (!string.IsNullOrEmpty(value))
-                {
-                    value = value.Trim();
-                }
-                else
-                {
-                    value = string.Empty;
-                }
-
-                this._NamespaceSdkMessagesJavaScript = value;
-                this.OnPropertyChanged(nameof(NamespaceSdkMessagesJavaScript));
             }
         }
 
@@ -236,13 +167,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
 
             this.NamespaceClassesCSharp = diskData.NamespaceClassesCSharp;
-            this.NamespaceClassesJavaScript = diskData.NamespaceClassesJavaScript;
-
             this.NamespaceGlobalOptionSetsCSharp = diskData.NamespaceGlobalOptionSetsCSharp;
-            this.NamespaceGlobalOptionSetsJavaScript = diskData.NamespaceGlobalOptionSetsJavaScript;
-
             this.NamespaceSdkMessagesCSharp = diskData.NamespaceSdkMessagesCSharp;
-            this.NamespaceSdkMessagesJavaScript = diskData.NamespaceSdkMessagesJavaScript;
+
+            this.SolutionComponentWithManagedInfo = diskData.SolutionComponentWithManagedInfo;
+            this.TypeConverterName = diskData.TypeConverterName;
 
             this.LoadFromDiskEntitySchema(diskData);
             this.LoadFromDiskGlobalOptionSetSchema(diskData);

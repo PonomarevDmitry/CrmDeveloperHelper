@@ -194,13 +194,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
 
-            var config = new CreateFileJavaScriptConfiguration(
-                fileGenerationOptions.GetTabSpacer()
-                , fileGenerationOptions.GenerateSchemaEntityOptionSetsWithDependentComponents
-                , fileGenerationOptions.GenerateSchemaIntoSchemaClass
-                , fileGenerationOptions.GenerateSchemaGlobalOptionSet
-                , fileGenerationOptions.NamespaceClassesJavaScript
-            );
+            var config = new CreateFileJavaScriptConfiguration(fileGenerationOptions);
 
             string operation = string.Format(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityListFormat4, service.ConnectionData.Name, number, totalCount, entityMetadata.LogicalName);
 

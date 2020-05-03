@@ -763,13 +763,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
 
-                var config = new CreateFileJavaScriptConfiguration(
-                    fileGenerationOptions.GetTabSpacer()
-                    , fileGenerationOptions.GenerateSchemaEntityOptionSetsWithDependentComponents
-                    , fileGenerationOptions.GenerateSchemaIntoSchemaClass
-                    , fileGenerationOptions.GenerateSchemaGlobalOptionSet
-                    , fileGenerationOptions.NamespaceClassesJavaScript
-                );
+                var config = new CreateFileJavaScriptConfiguration(fileGenerationOptions);
 
                 var doc = XElement.Parse(formXml);
 

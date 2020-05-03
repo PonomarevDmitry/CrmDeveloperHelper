@@ -99,7 +99,7 @@
 
                 <Separator/>
                 <MenuItem x:Uid="miExplorers" Header="Get Other Entity Information" />
-                
+
                 <Separator/>
                 <MenuItem x:Uid="miCompareOrganizations" Header="Compare Information with other Organization" />
 
@@ -132,12 +132,15 @@
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
 
             <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                <MenuItem Header="Options" Click="miExportEntityMetadataOptions_Click" />
-            </Menu>
+                <MenuItem Header="Options">
+                    
+                    <MenuItem Header="Export Xml Options" Click="miExportXmlOptions_Click" />
 
-            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                    <MenuItem Header="C# File Options" Click="miFileGenerationEntityMetadataOptions_Click" />
 
-                <MenuItem Header="File Options" ToolTip="File Generation Options" Click="miFileGenerationEntityMetadataOptions_Click" />
+                    <MenuItem Header="JavaScript File Options" Click="miFileGenerationJavaScriptOptions_Click" />
+                    
+                </MenuItem>
             </Menu>
 
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />

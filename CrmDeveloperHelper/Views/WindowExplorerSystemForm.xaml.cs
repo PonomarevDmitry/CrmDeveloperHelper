@@ -32,7 +32,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly ObservableCollection<EntityViewItem> _itemsSource;
 
-        private readonly Popup _optionsPopup;
+        private readonly Popup _popupExportXmlOptions;
+        private readonly Popup _popupFileGenerationJavaScriptOptions;
+
+        private readonly FileGenerationJavaScriptOptionsControl _optionsControlJavaScript;
 
         public WindowExplorerSystemForm(
              IWriteToOutput iWriteToOutput
@@ -58,9 +61,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var child = new ExportXmlOptionsControl(_commonConfig, XmlOptionsControls.FormXmlOptions);
             child.CloseClicked += Child_CloseClicked;
-            this._optionsPopup = new Popup
+            this._popupExportXmlOptions = new Popup
             {
                 Child = child,
+
+                PlacementTarget = toolBarHeader,
+                Placement = PlacementMode.Bottom,
+                StaysOpen = false,
+                Focusable = true,
+            };
+
+            _optionsControlJavaScript = new FileGenerationJavaScriptOptionsControl();
+            _optionsControlJavaScript.CloseClicked += this._optionsControlJavaScript_CloseClicked;
+            this._popupFileGenerationJavaScriptOptions = new Popup
+            {
+                Child = _optionsControlJavaScript,
 
                 PlacementTarget = toolBarHeader,
                 Placement = PlacementMode.Bottom,
@@ -1291,13 +1306,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
 
-                    var config = new CreateFileJavaScriptConfiguration(
-                        fileGenerationOptions.GetTabSpacer()
-                        , fileGenerationOptions.GenerateSchemaEntityOptionSetsWithDependentComponents
-                        , fileGenerationOptions.GenerateSchemaIntoSchemaClass
-                        , fileGenerationOptions.GenerateSchemaGlobalOptionSet
-                        , fileGenerationOptions.NamespaceClassesJavaScript
-                    );
+                    var config = new CreateFileJavaScriptConfiguration(fileGenerationOptions);
 
                     XElement doc = XElement.Parse(formXml);
 
@@ -1367,7 +1376,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         protected override bool CanCloseWindow(KeyEventArgs e)
         {
-            Popup[] _popupArray = new Popup[] { _optionsPopup };
+            Popup[] _popupArray = new Popup[] { _popupExportXmlOptions };
 
             foreach (var popup in _popupArray)
             {
@@ -1717,17 +1726,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void miOptions_Click(object sender, RoutedEventArgs e)
+        private void miExportXmlOptions_Click(object sender, RoutedEventArgs e)
         {
-            this._optionsPopup.IsOpen = true;
-            this._optionsPopup.Child.Focus();
+            this._popupExportXmlOptions.IsOpen = true;
+            this._popupExportXmlOptions.Child.Focus();
         }
 
         private void Child_CloseClicked(object sender, EventArgs e)
         {
-            if (_optionsPopup.IsOpen)
+            if (_popupExportXmlOptions.IsOpen)
             {
-                _optionsPopup.IsOpen = false;
+                _popupExportXmlOptions.IsOpen = false;
+                this.Focus();
+            }
+        }
+
+        private void miFileGenerationJavaScriptOptions_Click(object sender, RoutedEventArgs e)
+        {
+            var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
+
+            this._optionsControlJavaScript.BindFileGenerationOptions(fileGenerationOptions);
+
+            _popupFileGenerationJavaScriptOptions.IsOpen = true;
+            _popupFileGenerationJavaScriptOptions.Child.Focus();
+        }
+
+        private void _optionsControlJavaScript_CloseClicked(object sender, EventArgs e)
+        {
+            if (_popupFileGenerationJavaScriptOptions.IsOpen)
+            {
+                _popupFileGenerationJavaScriptOptions.IsOpen = false;
                 this.Focus();
             }
         }
@@ -1779,13 +1807,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
 
-                    var config = new CreateFileJavaScriptConfiguration(
-                        fileGenerationOptions.GetTabSpacer()
-                        , fileGenerationOptions.GenerateSchemaEntityOptionSetsWithDependentComponents
-                        , fileGenerationOptions.GenerateSchemaIntoSchemaClass
-                        , fileGenerationOptions.GenerateSchemaGlobalOptionSet
-                        , fileGenerationOptions.NamespaceClassesJavaScript
-                    );
+                    var config = new CreateFileJavaScriptConfiguration(fileGenerationOptions);
 
                     var doc = XElement.Parse(formXml);
 
@@ -1855,13 +1877,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
 
-                    var config = new CreateFileJavaScriptConfiguration(
-                        fileGenerationOptions.GetTabSpacer()
-                        , fileGenerationOptions.GenerateSchemaEntityOptionSetsWithDependentComponents
-                        , fileGenerationOptions.GenerateSchemaIntoSchemaClass
-                        , fileGenerationOptions.GenerateSchemaGlobalOptionSet
-                        , fileGenerationOptions.NamespaceClassesJavaScript
-                    );
+                    var config = new CreateFileJavaScriptConfiguration(fileGenerationOptions);
 
                     var text = new StringBuilder();
 

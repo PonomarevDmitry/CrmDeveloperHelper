@@ -124,31 +124,43 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private void WriteConstantsAndFunctions(string objectName)
         {
-            WriteElementNameStart("FormTypeEnum", "{");
-            Write(JavaScriptBodyFormTypeEnum);
-            WriteElementNameEnd();
+            if (_config.AddFormTypeEnum)
+            {
+                WriteElementNameStart("FormTypeEnum", "{");
+                Write(JavaScriptBodyFormTypeEnum);
+                WriteElementNameEnd();
+            }
 
-            WriteElementNameStart("RequiredLevelEnum", "{");
-            Write(JavaScriptBodyRequiredLevelEnum);
-            WriteElementNameEnd();
+            if (_config.AddRequiredLevelEnum)
+            {
+                WriteElementNameStart("RequiredLevelEnum", "{");
+                Write(JavaScriptBodyRequiredLevelEnum);
+                WriteElementNameEnd();
+            }
 
-            WriteElementNameStart("SubmitModeEnum", "{");
-            Write(JavaScriptBodySubmitModeEnum);
-            WriteElementNameEnd();
+            if (_config.AddSubmitModeEnum)
+            {
+                WriteElementNameStart("SubmitModeEnum", "{");
+                Write(JavaScriptBodySubmitModeEnum);
+                WriteElementNameEnd();
+            }
 
-            WriteElementNameStart("writeToConsoleInfo", "function (message) {");
-            Write(JavaScriptFunctionsWriteToConsoleInfo);
-            WriteElementNameEnd();
+            if (_config.AddConsoleFunctions)
+            {
+                WriteElementNameStart("writeToConsoleInfo", "function (message) {");
+                Write(JavaScriptFunctionsWriteToConsoleInfo);
+                WriteElementNameEnd();
 
-            WriteElementNameStart("writeToConsoleError", "function (message) {");
-            Write(JavaScriptFunctionsWriteToConsoleError);
-            WriteElementNameEnd();
+                WriteElementNameStart("writeToConsoleError", "function (message) {");
+                Write(JavaScriptFunctionsWriteToConsoleError);
+                WriteElementNameEnd();
 
-            string functionUse = GetFunctionAddress(objectName, "writeToConsoleError");
+                string functionUse = GetFunctionAddress(objectName, "writeToConsoleError");
 
-            WriteElementNameStart("handleError", "function (e) {");
-            Write(string.Format(JavaScriptFunctionsHandleError, functionUse));
-            WriteElementNameEnd();
+                WriteElementNameStart("handleError", "function (e) {");
+                Write(string.Format(JavaScriptFunctionsHandleError, functionUse));
+                WriteElementNameEnd();
+            }
         }
 
         private string GetFunctionAddress(string objectName, string functionName)

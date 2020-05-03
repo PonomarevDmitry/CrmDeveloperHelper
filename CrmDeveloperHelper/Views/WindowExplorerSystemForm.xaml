@@ -133,7 +133,16 @@
         </Grid.RowDefinitions>
 
         <ToolBar x:Name="toolBarHeader" Grid.Row="0">
-            <Button Content="Options" Click="miOptions_Click"/>
+
+            <Menu Background="{x:Null}">
+                <MenuItem Header="Options">
+
+                    <MenuItem Header="Export Xml Options" Click="miExportXmlOptions_Click" />
+
+                    <MenuItem Header="JavaScript File Options" Click="miFileGenerationJavaScriptOptions_Click" />
+
+                </MenuItem>
+            </Menu>
 
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
             <Menu Background="{x:Null}">
@@ -411,7 +420,7 @@
                 <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>
         </ToolBar>
-        
+
         <StatusBar Grid.Row="5">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" />
             <ComboBox x:Name="cmBCurrentConnection" SelectionChanged="cmBCurrentConnection_SelectionChanged" />

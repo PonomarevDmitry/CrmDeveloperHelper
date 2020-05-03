@@ -1149,6 +1149,7 @@
     <Compile Include="Model\FileGenerationOptions.cs" />
     <Compile Include="Model\FileGenerationOptions.EntitySchemaGeneration.cs" />
     <Compile Include="Model\FileGenerationOptions.GlobalOptionSetSchemaGeneration.cs" />
+    <Compile Include="Model\FileGenerationOptions.JavaScript.cs" />
     <Compile Include="Model\FileGenerationOptions.ProxyClassGeneration.cs" />
     <Compile Include="Model\FileGenerationOptions.SdkMessageRequestGeneration.cs" />
     <Compile Include="Model\FileMapping.cs" />
@@ -1397,6 +1398,9 @@
     </Compile>
     <Compile Include="UserControls\FileGenerationEntityMetadataOptionsControl.xaml.cs">
       <DependentUpon>FileGenerationEntityMetadataOptionsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\FileGenerationJavaScriptOptionsControl.xaml.cs">
+      <DependentUpon>FileGenerationJavaScriptOptionsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\FileGenerationSdkMessageRequestsOptionsControl.xaml.cs">
       <DependentUpon>FileGenerationSdkMessageRequestsOptionsControl.xaml</DependentUpon>
@@ -2136,6 +2140,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\FileGenerationEntityMetadataOptionsControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\FileGenerationJavaScriptOptionsControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
