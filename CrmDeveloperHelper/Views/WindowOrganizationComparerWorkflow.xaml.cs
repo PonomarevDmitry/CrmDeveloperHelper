@@ -169,7 +169,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         protected override void OnClosed(EventArgs e)
         {
-            _commonConfig.Save();
+            base.OnClosed(e);
 
             BindingOperations.ClearAllBindings(cmBConnection1);
             cmBConnection1.Items.DetachFromSourceCollection();
@@ -180,8 +180,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBConnection2.Items.DetachFromSourceCollection();
             cmBConnection2.DataContext = null;
             cmBConnection2.ItemsSource = null;
-
-            base.OnClosed(e);
         }
 
         private ConnectionData GetConnection1()

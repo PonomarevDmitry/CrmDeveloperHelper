@@ -3084,20 +3084,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            try
-            {
-                this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
-
-                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.Entity, new[] { idMetadata.Value }, rootComponentBehavior, withSelect);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-            }
+            await AddEntityMetadataToSolution(
+                connectionData
+                , new[] { idMetadata.Value }
+                , withSelect
+                , solutionUniqueName
+                , rootComponentBehavior
+            );
         }
 
         #endregion Entity Handlers

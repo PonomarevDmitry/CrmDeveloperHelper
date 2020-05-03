@@ -1213,33 +1213,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSBLoadPluginConfiguraion_Click(object sender, RoutedEventArgs e)
         {
-            string selectedPath = string.Empty;
-            var t = new Thread(() =>
-            {
-                try
-                {
-                    var openFileDialog1 = new Microsoft.Win32.OpenFileDialog
-                    {
-                        Filter = "Plugin Configuration (.xml)|*.xml",
-                        FilterIndex = 1,
-                        RestoreDirectory = true
-                    };
-
-                    if (openFileDialog1.ShowDialog().GetValueOrDefault())
-                    {
-                        selectedPath = openFileDialog1.FileName;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    _iWriteToOutput.WriteErrorToOutput(null, ex);
-                }
-            });
-
-            t.SetApartmentState(ApartmentState.STA);
-            t.Start();
-
-            t.Join();
+            var selectedPath = GetPluginConfigurationFilePath(this._iWriteToOutput);
 
             if (!string.IsNullOrEmpty(selectedPath))
             {

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -770,6 +771,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             return folder;
+        }
+
+        protected static string GetPluginConfigurationFilePath(IWriteToOutput iWriteToOutput)
+        {
+            string selectedPath = string.Empty;
+
+            var t = new Thread(() =>
+            {
+                try
+                {
+                    var openFileDialog1 = new Microsoft.Win32.OpenFileDialog
+                    {
+                        Filter = "Plugin Configuration (.xml)|*.xml",
+                        FilterIndex = 1,
+                        RestoreDirectory = true
+                    };
+
+                    if (openFileDialog1.ShowDialog().GetValueOrDefault())
+                    {
+                        selectedPath = openFileDialog1.FileName;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    iWriteToOutput.WriteErrorToOutput(null, ex);
+                }
+            });
+
+            t.SetApartmentState(ApartmentState.STA);
+            t.Start();
+
+            t.Join();
+
+            return selectedPath;
         }
     }
 }
