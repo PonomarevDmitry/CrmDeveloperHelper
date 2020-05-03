@@ -1048,41 +1048,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             EntityViewItem linkedEntityMetadata = GetItemFromRoutedDataContext<EntityViewItem>(e);
 
+            var hasTwoEntities = linkedEntityMetadata != null
+                && linkedEntityMetadata.Link != null
+                && linkedEntityMetadata.Link.Entity1 != null
+                && linkedEntityMetadata.Link.Entity2 != null;
+
+            var hasSecondEntity = linkedEntityMetadata != null
+                && linkedEntityMetadata.Link != null
+                && linkedEntityMetadata.Link.Entity2 != null;
+
             var items = contextMenu.Items.OfType<Control>();
 
-            foreach (var menuContextDifference in items.Where(i =>
-                string.Equals(i.Uid, "menuContextDifference", StringComparison.InvariantCultureIgnoreCase)
-                || string.Equals(i.Uid, "miCompareOrganizations", StringComparison.InvariantCultureIgnoreCase)
-            ))
-            {
-                menuContextDifference.IsEnabled = false;
-                menuContextDifference.Visibility = Visibility.Collapsed;
+            ActivateControls(items, hasTwoEntities, "menuContextDifference", "miCompareOrganizations");
 
-                if (linkedEntityMetadata != null
-                     && linkedEntityMetadata.Link != null
-                     && linkedEntityMetadata.Link.Entity1 != null
-                     && linkedEntityMetadata.Link.Entity2 != null
-                )
-                {
-                    menuContextDifference.IsEnabled = true;
-                    menuContextDifference.Visibility = Visibility.Visible;
-                }
-            }
-
-            foreach (var menuContextConnection2 in items.Where(i => string.Equals(i.Uid, "menuContextConnection2", StringComparison.InvariantCultureIgnoreCase)))
-            {
-                menuContextConnection2.IsEnabled = false;
-                menuContextConnection2.Visibility = Visibility.Collapsed;
-
-                if (linkedEntityMetadata != null
-                    && linkedEntityMetadata.Link != null
-                    && linkedEntityMetadata.Link.Entity2 != null
-                )
-                {
-                    menuContextConnection2.IsEnabled = true;
-                    menuContextConnection2.Visibility = Visibility.Visible;
-                }
-            }
+            ActivateControls(items, hasSecondEntity, "menuContextConnection2");
         }
 
         private async void mIConnection1OpenSolutionComponentInWeb_Click(object sender, RoutedEventArgs e)
