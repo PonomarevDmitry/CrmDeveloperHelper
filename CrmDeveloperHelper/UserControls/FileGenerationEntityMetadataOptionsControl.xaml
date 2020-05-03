@@ -147,11 +147,11 @@
                 <Label Content="Namespace Classes C#" Grid.Row="0" Grid.Column="0" />
                 <TextBox x:Name="txtBNamespaceClassesCSharp" Grid.Row="0" Grid.Column="1" d:DataContext="{x:Type model:FileGenerationOptions}" Text="{Binding Path=NamespaceClassesCSharp, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
 
-                <Label Content="Namespace Classes JavaScript" Grid.Row="1" Grid.Column="0" />
-                <TextBox x:Name="txtBNamespaceClassesJavaScript" Grid.Row="1" Grid.Column="1" d:DataContext="{x:Type model:FileGenerationOptions}" Text="{Binding Path=NamespaceClassesJavaScript, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
-
                 <Label Content="Namespace OptionSets C#" Grid.Row="2" Grid.Column="0" />
                 <TextBox x:Name="txtBNamespaceGlobalOptionSetsCSharp" Grid.Row="2" Grid.Column="1" d:DataContext="{x:Type model:FileGenerationOptions}" Text="{Binding Path=NamespaceGlobalOptionSetsCSharp, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
+
+                <Label Content="Namespace Classes JavaScript" Grid.Row="1" Grid.Column="0" />
+                <TextBox x:Name="txtBNamespaceClassesJavaScript" Grid.Row="1" Grid.Column="1" d:DataContext="{x:Type model:FileGenerationOptions}" Text="{Binding Path=NamespaceClassesJavaScript, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
 
                 <Label Content="Namespace OptionSets JavaScript" Grid.Row="3" Grid.Column="0" />
                 <TextBox x:Name="txtBNamespaceGlobalOptionSetsJavaScript" Grid.Row="3" Grid.Column="1" d:DataContext="{x:Type model:FileGenerationOptions}" Text="{Binding Path=NamespaceGlobalOptionSetsJavaScript, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
