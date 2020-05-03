@@ -803,20 +803,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            _commonConfig.Save();
-
-            var service = await GetService();
-
-            try
-            {
-                this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
-
-                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.Entity, entityList.Select(item => item.EntityMetadata.MetadataId.Value).ToList(), rootComponentBehavior, withSelect);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-            }
+            await AddEntityMetadataToSolution(
+                GetSelectedConnection()
+                , entityList.Select(item => item.EntityMetadata.MetadataId.Value)
+                , withSelect
+                , solutionUniqueName
+                , rootComponentBehavior
+            );
         }
 
         private async void AddEntityRelationshipToCrmSolution_Click(object sender, RoutedEventArgs e)

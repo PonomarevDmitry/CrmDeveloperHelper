@@ -1,4 +1,6 @@
-﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
@@ -106,6 +108,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
+        }
+
+        protected async Task AddEntityMetadataToSolution(ConnectionData connectionData, IEnumerable<Guid> idsEntityMetadataEnum, bool withSelect, string solutionUniqueName, SolutionComponent.Schema.OptionSets.rootcomponentbehavior rootComponentBehavior)
+        {
+            if (idsEntityMetadataEnum == null || !idsEntityMetadataEnum.Any())
+            {
+                return;
+            }
+
+            _commonConfig.Save();
+
+            var service = await GetOrganizationService(connectionData);
+
+            try
+            {
+                this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+
+                await SolutionController.AddSolutionComponentsGroupToSolution(
+                    _iWriteToOutput
+                    , service
+                    , null
+                    , _commonConfig
+                    , solutionUniqueName
+                    , ComponentType.Entity
+                    , idsEntityMetadataEnum
+                    , rootComponentBehavior
+                    , withSelect
+                );
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+            }
         }
     }
 }
