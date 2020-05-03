@@ -147,6 +147,52 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Окна с образами.
 
+        private static async Task<Solution> FindOrSelectSolution(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, string solutionUniqueName, bool withSelect)
+        {
+            Solution solution = null;
+
+            if (!withSelect && !string.IsNullOrEmpty(solutionUniqueName))
+            {
+                var repositorySolution = new SolutionRepository(service);
+
+                solution = await repositorySolution.GetSolutionByUniqueNameAsync(solutionUniqueName);
+
+                if (solution != null && solution.IsManaged.GetValueOrDefault())
+                {
+                    solution = null;
+                }
+            }
+
+            if (solution == null)
+            {
+                var t = new Thread(() =>
+                {
+                    try
+                    {
+                        var formSelectSolution = new WindowSolutionSelect(iWriteToOutput, service);
+
+                        formSelectSolution.ShowDialog().GetValueOrDefault();
+
+                        solution = formSelectSolution.SelectedSolution;
+                    }
+                    catch (Exception ex)
+                    {
+                        DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
+                    }
+                });
+                t.SetApartmentState(ApartmentState.STA);
+                t.Start();
+
+                t.Join();
+            }
+            else
+            {
+                iWriteToOutput.WriteToOutputSolutionUri(service.ConnectionData, solution.UniqueName, solution.Id);
+            }
+
+            return solution;
+        }
+
         #region Добавление веб-ресурса в решение.
 
         public async Task ExecuteAddingWebResourcesToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
@@ -252,46 +298,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            Solution solution = null;
-
-            if (!withSelect && !string.IsNullOrEmpty(solutionUniqueName))
-            {
-                var repositorySolution = new SolutionRepository(service);
-
-                solution = await repositorySolution.GetSolutionByUniqueNameAsync(solutionUniqueName);
-
-                if (solution != null && solution.IsManaged.GetValueOrDefault())
-                {
-                    solution = null;
-                }
-            }
-
-            if (solution == null)
-            {
-                var t = new Thread(() =>
-                {
-                    try
-                    {
-                        var formSelectSolution = new WindowSolutionSelect(_iWriteToOutput, service);
-
-                        formSelectSolution.ShowDialog().GetValueOrDefault();
-
-                        solution = formSelectSolution.SelectedSolution;
-                    }
-                    catch (Exception ex)
-                    {
-                        DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                    }
-                });
-                t.SetApartmentState(ApartmentState.STA);
-                t.Start();
-
-                t.Join();
-            }
-            else
-            {
-                this._iWriteToOutput.WriteToOutputSolutionUri(connectionData, solution.UniqueName, solution.Id);
-            }
+            var solution = await FindOrSelectSolution(_iWriteToOutput, service, solutionUniqueName, withSelect);
 
             if (solution == null)
             {
@@ -434,46 +441,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            Solution solution = null;
-
-            if (!withSelect && !string.IsNullOrEmpty(solutionUniqueName))
-            {
-                var repositorySolution = new SolutionRepository(service);
-
-                solution = await repositorySolution.GetSolutionByUniqueNameAsync(solutionUniqueName);
-
-                if (solution != null && solution.IsManaged.GetValueOrDefault())
-                {
-                    solution = null;
-                }
-            }
-
-            if (solution == null)
-            {
-                var t = new Thread(() =>
-                {
-                    try
-                    {
-                        var formSelectSolution = new WindowSolutionSelect(_iWriteToOutput, service);
-
-                        formSelectSolution.ShowDialog().GetValueOrDefault();
-
-                        solution = formSelectSolution.SelectedSolution;
-                    }
-                    catch (Exception ex)
-                    {
-                        DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                    }
-                });
-                t.SetApartmentState(ApartmentState.STA);
-                t.Start();
-
-                t.Join();
-            }
-            else
-            {
-                this._iWriteToOutput.WriteToOutputSolutionUri(connectionData, solution.UniqueName, solution.Id);
-            }
+            var solution = await FindOrSelectSolution(_iWriteToOutput, service, solutionUniqueName, withSelect);
 
             if (solution == null)
             {
@@ -584,46 +552,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     return;
                 }
 
-                Solution solution = null;
-
-                if (!withSelect && !string.IsNullOrEmpty(solutionUniqueName))
-                {
-                    var repositorySolution = new SolutionRepository(service);
-
-                    solution = await repositorySolution.GetSolutionByUniqueNameAsync(solutionUniqueName);
-
-                    if (solution != null && solution.IsManaged.GetValueOrDefault())
-                    {
-                        solution = null;
-                    }
-                }
-
-                if (solution == null)
-                {
-                    var t = new Thread(() =>
-                    {
-                        try
-                        {
-                            var formSelectSolution = new WindowSolutionSelect(iWriteToOutput, service);
-
-                            formSelectSolution.ShowDialog().GetValueOrDefault();
-
-                            solution = formSelectSolution.SelectedSolution;
-                        }
-                        catch (Exception ex)
-                        {
-                            DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
-                        }
-                    });
-                    t.SetApartmentState(ApartmentState.STA);
-                    t.Start();
-
-                    t.Join();
-                }
-                else
-                {
-                    iWriteToOutput.WriteToOutputSolutionUri(service.ConnectionData, solution.UniqueName, solution.Id);
-                }
+                var solution = await FindOrSelectSolution(iWriteToOutput, service, solutionUniqueName, withSelect);
 
                 if (solution == null)
                 {
@@ -758,46 +687,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     return;
                 }
 
-                Solution solution = null;
-
-                if (!withSelect && !string.IsNullOrEmpty(solutionUniqueName))
-                {
-                    var repositorySolution = new SolutionRepository(service);
-
-                    solution = await repositorySolution.GetSolutionByUniqueNameAsync(solutionUniqueName);
-
-                    if (solution != null && solution.IsManaged.GetValueOrDefault())
-                    {
-                        solution = null;
-                    }
-                }
-
-                if (solution == null)
-                {
-                    var t = new Thread(() =>
-                    {
-                        try
-                        {
-                            var formSelectSolution = new WindowSolutionSelect(iWriteToOutput, service);
-
-                            formSelectSolution.ShowDialog().GetValueOrDefault();
-
-                            solution = formSelectSolution.SelectedSolution;
-                        }
-                        catch (Exception ex)
-                        {
-                            DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
-                        }
-                    });
-                    t.SetApartmentState(ApartmentState.STA);
-                    t.Start();
-
-                    t.Join();
-                }
-                else
-                {
-                    iWriteToOutput.WriteToOutputSolutionUri(service.ConnectionData, solution.UniqueName, solution.Id);
-                }
+                var solution = await FindOrSelectSolution(iWriteToOutput, service, solutionUniqueName, withSelect);
 
                 if (solution == null)
                 {
@@ -874,46 +764,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 service.ConnectionData.Save();
 
-                Solution solution = null;
-
-                if (!withSelect && !string.IsNullOrEmpty(solutionUniqueName))
-                {
-                    var repositorySolution = new SolutionRepository(service);
-
-                    solution = await repositorySolution.GetSolutionByUniqueNameAsync(solutionUniqueName);
-
-                    if (solution != null && solution.IsManaged.GetValueOrDefault())
-                    {
-                        solution = null;
-                    }
-                }
-
-                if (solution == null)
-                {
-                    var t = new Thread(() =>
-                    {
-                        try
-                        {
-                            var formSelectSolution = new WindowSolutionSelect(iWriteToOutput, service);
-
-                            formSelectSolution.ShowDialog().GetValueOrDefault();
-
-                            solution = formSelectSolution.SelectedSolution;
-                        }
-                        catch (Exception ex)
-                        {
-                            DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
-                        }
-                    });
-                    t.SetApartmentState(ApartmentState.STA);
-                    t.Start();
-
-                    t.Join();
-                }
-                else
-                {
-                    iWriteToOutput.WriteToOutputSolutionUri(service.ConnectionData, solution.UniqueName, solution.Id);
-                }
+                var solution = await FindOrSelectSolution(iWriteToOutput, service, solutionUniqueName, withSelect);
 
                 if (solution == null)
                 {
@@ -1040,46 +891,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (knownAssemblies.Any())
             {
-                Solution solution = null;
-
-                if (!withSelect && !string.IsNullOrEmpty(solutionUniqueName))
-                {
-                    var repositorySolution = new SolutionRepository(service);
-
-                    solution = await repositorySolution.GetSolutionByUniqueNameAsync(solutionUniqueName);
-
-                    if (solution != null && solution.IsManaged.GetValueOrDefault())
-                    {
-                        solution = null;
-                    }
-                }
-
-                if (solution == null)
-                {
-                    var t = new Thread(() =>
-                    {
-                        try
-                        {
-                            var formSelectSolution = new WindowSolutionSelect(_iWriteToOutput, service);
-
-                            formSelectSolution.ShowDialog().GetValueOrDefault();
-
-                            solution = formSelectSolution.SelectedSolution;
-                        }
-                        catch (Exception ex)
-                        {
-                            DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                        }
-                    });
-                    t.SetApartmentState(ApartmentState.STA);
-                    t.Start();
-
-                    t.Join();
-                }
-                else
-                {
-                    this._iWriteToOutput.WriteToOutputSolutionUri(connectionData, solution.UniqueName, solution.Id);
-                }
+                var solution = await FindOrSelectSolution(_iWriteToOutput, service, solutionUniqueName, withSelect);
 
                 if (solution == null)
                 {
@@ -1233,46 +1045,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            Solution solution = null;
-
-            if (!withSelect && !string.IsNullOrEmpty(solutionUniqueName))
-            {
-                var repositorySolution = new SolutionRepository(service);
-
-                solution = await repositorySolution.GetSolutionByUniqueNameAsync(solutionUniqueName);
-
-                if (solution != null && solution.IsManaged.GetValueOrDefault())
-                {
-                    solution = null;
-                }
-            }
-
-            if (solution == null)
-            {
-                var t = new Thread(() =>
-                {
-                    try
-                    {
-                        var formSelectSolution = new WindowSolutionSelect(_iWriteToOutput, service);
-
-                        formSelectSolution.ShowDialog().GetValueOrDefault();
-
-                        solution = formSelectSolution.SelectedSolution;
-                    }
-                    catch (Exception ex)
-                    {
-                        DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                    }
-                });
-                t.SetApartmentState(ApartmentState.STA);
-                t.Start();
-
-                t.Join();
-            }
-            else
-            {
-                this._iWriteToOutput.WriteToOutputSolutionUri(connectionData, solution.UniqueName, solution.Id);
-            }
+            var solution = await FindOrSelectSolution(_iWriteToOutput, service, solutionUniqueName, withSelect);
 
             if (solution == null)
             {
@@ -1441,46 +1214,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            Solution solution = null;
-
-            if (!withSelect && !string.IsNullOrEmpty(solutionUniqueName))
-            {
-                var repositorySolution = new SolutionRepository(service);
-
-                solution = await repositorySolution.GetSolutionByUniqueNameAsync(solutionUniqueName);
-
-                if (solution != null && solution.IsManaged.GetValueOrDefault())
-                {
-                    solution = null;
-                }
-            }
-
-            if (solution == null)
-            {
-                var t = new Thread(() =>
-                {
-                    try
-                    {
-                        var formSelectSolution = new WindowSolutionSelect(_iWriteToOutput, service);
-
-                        formSelectSolution.ShowDialog().GetValueOrDefault();
-
-                        solution = formSelectSolution.SelectedSolution;
-                    }
-                    catch (Exception ex)
-                    {
-                        DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                    }
-                });
-                t.SetApartmentState(ApartmentState.STA);
-                t.Start();
-
-                t.Join();
-            }
-            else
-            {
-                this._iWriteToOutput.WriteToOutputSolutionUri(connectionData, solution.UniqueName, solution.Id);
-            }
+            var solution = await FindOrSelectSolution(_iWriteToOutput, service, solutionUniqueName, withSelect);
 
             if (solution == null)
             {
@@ -1589,46 +1323,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            Solution solution = null;
-
-            if (!withSelect && !string.IsNullOrEmpty(solutionUniqueName))
-            {
-                var repositorySolution = new SolutionRepository(service);
-
-                solution = await repositorySolution.GetSolutionByUniqueNameAsync(solutionUniqueName);
-
-                if (solution != null && solution.IsManaged.GetValueOrDefault())
-                {
-                    solution = null;
-                }
-            }
-
-            if (solution == null)
-            {
-                var t = new Thread(() =>
-                {
-                    try
-                    {
-                        var formSelectSolution = new WindowSolutionSelect(_iWriteToOutput, service);
-
-                        formSelectSolution.ShowDialog().GetValueOrDefault();
-
-                        solution = formSelectSolution.SelectedSolution;
-                    }
-                    catch (Exception ex)
-                    {
-                        DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                    }
-                });
-                t.SetApartmentState(ApartmentState.STA);
-                t.Start();
-
-                t.Join();
-            }
-            else
-            {
-                this._iWriteToOutput.WriteToOutputSolutionUri(connectionData, solution.UniqueName, solution.Id);
-            }
+            var solution = await FindOrSelectSolution(_iWriteToOutput, service, solutionUniqueName, withSelect);
 
             if (solution == null)
             {

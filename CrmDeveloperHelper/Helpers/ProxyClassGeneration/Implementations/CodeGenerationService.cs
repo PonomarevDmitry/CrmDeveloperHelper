@@ -1443,6 +1443,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
 
             var comments = iCodeGenerationServiceProvider.NamingService.GetCommentsForRelationshipOneToMany(entityMetadata, oneToMany, nullable);
 
+            AddCommentSummaryAndCSharpCodeAttributes(codeMemberProperty, comments);
+
+            return codeMemberProperty;
+        }
+
+        private void AddCommentSummaryAndCSharpCodeAttributes(CodeMemberProperty codeMemberProperty, IEnumerable<string> comments)
+        {
             if (_config.AddDescriptionAttribute)
             {
                 string description = comments.FirstOrDefault();
@@ -1459,8 +1466,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             }
 
             codeMemberProperty.Comments.AddRange(CommentSummary(comments));
-
-            return codeMemberProperty;
         }
 
         private CodeMemberProperty BuildOneToManyProperty(
@@ -1484,22 +1489,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
 
             var comments = iCodeGenerationServiceProvider.NamingService.GetCommentsForRelationshipOneToMany(entityMetadata, oneToMany, entityRole);
 
-            if (_config.AddDescriptionAttribute)
-            {
-                string description = comments.FirstOrDefault();
-
-                if (!string.IsNullOrEmpty(description))
-                {
-                    codeMemberProperty.CustomAttributes.Add(Attribute(DescriptionAttribute, AttributeArg(StringLiteral(description))));
-                }
-            }
-
-            if (this._config.GenerateWithDebuggerNonUserCode)
-            {
-                codeMemberProperty.CustomAttributes.Add(Attribute(DebuggerNonUserCodeAttribute));
-            }
-
-            codeMemberProperty.Comments.AddRange(CommentSummary(comments));
+            AddCommentSummaryAndCSharpCodeAttributes(codeMemberProperty, comments);
 
             return codeMemberProperty;
         }
@@ -1590,22 +1580,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
 
             var comments = iCodeGenerationServiceProvider.NamingService.GetCommentsForRelationshipManyToMany(entityMetadata, manyToMany, entityRole);
 
-            if (_config.AddDescriptionAttribute)
-            {
-                string description = comments.FirstOrDefault();
-
-                if (!string.IsNullOrEmpty(description))
-                {
-                    codeMemberProperty.CustomAttributes.Add(Attribute(DescriptionAttribute, AttributeArg(StringLiteral(description))));
-                }
-            }
-
-            if (this._config.GenerateWithDebuggerNonUserCode)
-            {
-                codeMemberProperty.CustomAttributes.Add(Attribute(DebuggerNonUserCodeAttribute));
-            }
-
-            codeMemberProperty.Comments.AddRange(CommentSummary(comments));
+            AddCommentSummaryAndCSharpCodeAttributes(codeMemberProperty, comments);
 
             return codeMemberProperty;
         }
@@ -1687,22 +1662,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
 
             var comments = iCodeGenerationServiceProvider.NamingService.GetCommentsForRelationshipManyToOne(entityMetadata, manyToOne, entityRole);
 
-            if (_config.AddDescriptionAttribute)
-            {
-                string description = comments.FirstOrDefault();
-
-                if (!string.IsNullOrEmpty(description))
-                {
-                    codeMemberProperty.CustomAttributes.Add(Attribute(DescriptionAttribute, AttributeArg(StringLiteral(description))));
-                }
-            }
-
-            if (this._config.GenerateWithDebuggerNonUserCode)
-            {
-                codeMemberProperty.CustomAttributes.Add(Attribute(DebuggerNonUserCodeAttribute));
-            }
-
-            codeMemberProperty.Comments.AddRange(CommentSummary(comments));
+            AddCommentSummaryAndCSharpCodeAttributes(codeMemberProperty, comments);
 
             return codeMemberProperty;
         }
@@ -1801,22 +1761,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
 
             var comments = iCodeGenerationServiceProvider.NamingService.GetCommentsForEntitySet(entity);
 
-            if (_config.AddDescriptionAttribute)
-            {
-                string description = comments.FirstOrDefault();
-
-                if (!string.IsNullOrEmpty(description))
-                {
-                    codeMemberProperty.CustomAttributes.Add(Attribute(DescriptionAttribute, AttributeArg(StringLiteral(description))));
-                }
-            }
-
-            if (this._config.GenerateWithDebuggerNonUserCode)
-            {
-                codeMemberProperty.CustomAttributes.Add(Attribute(DebuggerNonUserCodeAttribute));
-            }
-
-            codeMemberProperty.Comments.AddRange(CommentSummary(comments));
+            AddCommentSummaryAndCSharpCodeAttributes(codeMemberProperty, comments);
 
             return codeMemberProperty;
         }
