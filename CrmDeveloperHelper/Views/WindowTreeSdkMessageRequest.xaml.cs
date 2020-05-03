@@ -1936,21 +1936,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await codeGenerationService.WriteSdkMessagePairAsync(codeMessagePair, filePath, fileGenerationOptions.NamespaceSdkMessagesCSharp, options);
 
-                if (this._selectedItem != null)
-                {
-                    if (_selectedItem.ProjectItem != null)
-                    {
-                        _selectedItem.ProjectItem.ProjectItems.AddFromFileCopy(filePath);
-
-                        _selectedItem.ProjectItem.ContainingProject.Save();
-                    }
-                    else if (_selectedItem.Project != null)
-                    {
-                        _selectedItem.Project.ProjectItems.AddFromFile(filePath);
-
-                        _selectedItem.Project.Save();
-                    }
-                }
+                AddFileToVSProject(_selectedItem, filePath);
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedSdkMessageRequestFileForConnectionFormat3, service.ConnectionData.Name, codeMessagePair.Request.Name, filePath);
 
@@ -2223,21 +2209,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await codeGenerationService.WriteSdkMessageAsync(codeMessage, filePath, fileGenerationOptions.NamespaceSdkMessagesCSharp, options);
 
-                if (this._selectedItem != null)
-                {
-                    if (_selectedItem.ProjectItem != null)
-                    {
-                        _selectedItem.ProjectItem.ProjectItems.AddFromFileCopy(filePath);
-
-                        _selectedItem.ProjectItem.ContainingProject.Save();
-                    }
-                    else if (_selectedItem.Project != null)
-                    {
-                        _selectedItem.Project.ProjectItems.AddFromFile(filePath);
-
-                        _selectedItem.Project.Save();
-                    }
-                }
+                AddFileToVSProject(_selectedItem, filePath);
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedSdkMessageRequestFileForConnectionFormat3, service.ConnectionData.Name, codeMessage.Name, filePath);
 

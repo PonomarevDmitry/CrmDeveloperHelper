@@ -594,21 +594,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
 
-                if (this._selectedItem != null)
-                {
-                    if (_selectedItem.ProjectItem != null)
-                    {
-                        _selectedItem.ProjectItem.ProjectItems.AddFromFileCopy(filePath);
-
-                        _selectedItem.ProjectItem.ContainingProject.Save();
-                    }
-                    else if (_selectedItem.Project != null)
-                    {
-                        _selectedItem.Project.ProjectItems.AddFromFile(filePath);
-
-                        _selectedItem.Project.Save();
-                    }
-                }
+                AddFileToVSProject(_selectedItem, filePath);
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, entityMetadata.LogicalName, filePath);
 
@@ -672,21 +658,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await codeGenerationService.WriteEntityFileAsync(entityMetadataFull, filePath, fileGenerationOptions.NamespaceClassesCSharp, options);
 
-                if (this._selectedItem != null)
-                {
-                    if (_selectedItem.ProjectItem != null)
-                    {
-                        _selectedItem.ProjectItem.ProjectItems.AddFromFileCopy(filePath);
-
-                        _selectedItem.ProjectItem.ContainingProject.Save();
-                    }
-                    else if (_selectedItem.Project != null)
-                    {
-                        _selectedItem.Project.ProjectItems.AddFromFile(filePath);
-
-                        _selectedItem.Project.Save();
-                    }
-                }
+                AddFileToVSProject(_selectedItem, filePath);
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, entityMetadata.LogicalName, filePath);
 
@@ -787,21 +759,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
-                if (this._selectedItem != null)
-                {
-                    if (_selectedItem.ProjectItem != null)
-                    {
-                        _selectedItem.ProjectItem.ProjectItems.AddFromFileCopy(filePath);
-
-                        _selectedItem.ProjectItem.ContainingProject.Save();
-                    }
-                    else if (_selectedItem.Project != null)
-                    {
-                        _selectedItem.Project.ProjectItems.AddFromFile(filePath);
-
-                        _selectedItem.Project.Save();
-                    }
-                }
+                AddFileToVSProject(_selectedItem, filePath);
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
 
@@ -1818,21 +1776,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
 
-                if (this._selectedItem != null)
-                {
-                    if (_selectedItem.ProjectItem != null)
-                    {
-                        _selectedItem.ProjectItem.ProjectItems.AddFromFileCopy(filePath);
-
-                        _selectedItem.ProjectItem.ContainingProject.Save();
-                    }
-                    else if (_selectedItem.Project != null)
-                    {
-                        _selectedItem.Project.ProjectItems.AddFromFile(filePath);
-
-                        _selectedItem.Project.Save();
-                    }
-                }
+                AddFileToVSProject(_selectedItem, filePath);
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, entityMetadata.LogicalName, filePath);
 

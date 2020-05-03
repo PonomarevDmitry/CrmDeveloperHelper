@@ -1338,21 +1338,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         }
                     }
 
-                    if (this._selectedItem != null)
-                    {
-                        if (_selectedItem.ProjectItem != null)
-                        {
-                            _selectedItem.ProjectItem.ProjectItems.AddFromFileCopy(filePath);
-
-                            _selectedItem.ProjectItem.ContainingProject.Save();
-                        }
-                        else if (_selectedItem.Project != null)
-                        {
-                            _selectedItem.Project.ProjectItems.AddFromFile(filePath);
-
-                            _selectedItem.Project.Save();
-                        }
-                    }
+                    AddFileToVSProject(_selectedItem, filePath);
 
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, name, "Entity Metadata", filePath);
 

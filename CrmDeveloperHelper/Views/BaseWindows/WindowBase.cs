@@ -806,5 +806,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             return selectedPath;
         }
+
+        protected static void AddFileToVSProject(EnvDTE.SelectedItem _selectedItem, string filePath)
+        {
+            if (_selectedItem == null)
+            {
+                return;
+            }
+
+            if (_selectedItem.ProjectItem != null)
+            {
+                _selectedItem.ProjectItem.ProjectItems.AddFromFileCopy(filePath);
+
+                _selectedItem.ProjectItem.ContainingProject.Save();
+            }
+            else if (_selectedItem.Project != null)
+            {
+                _selectedItem.Project.ProjectItems.AddFromFile(filePath);
+
+                _selectedItem.Project.Save();
+            }
+        }
     }
 }
