@@ -791,17 +791,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async Task ExecuteActionAsync(IEnumerable<string> entityNames, Func<IEnumerable<string>, Task> action)
-        {
-            if (!this.IsControlsEnabled)
-            {
-                return;
-            }
-
-            await action(entityNames);
-        }
-
-        private void btnPublishEntity_Click(object sender, RoutedEventArgs e)
+        private async void btnPublishEntity_Click(object sender, RoutedEventArgs e)
         {
             var entityList = GetSelectedEntities();
 
@@ -810,40 +800,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entityList.Select(item => item.LogicalName).ToList(), PublishEntityAsync);
-        }
-
-        private async Task PublishEntityAsync(IEnumerable<string> entityNames)
-        {
-            if (!this.IsControlsEnabled)
-            {
-                return;
-            }
-
-            var service = await GetService();
-
-            var entityNamesOrdered = string.Join(",", entityNames.OrderBy(s => s));
-
-            this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
-
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
-
-            try
-            {
-                var repository = new PublishActionsRepository(service);
-
-                await repository.PublishEntitiesAsync(entityNames);
-
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.PublishingEntitiesCompletedFormat2, service.ConnectionData.Name, entityNamesOrdered);
-            }
-            catch (Exception ex)
-            {
-                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.PublishingEntitiesFailedFormat2, service.ConnectionData.Name, entityNamesOrdered);
-            }
-
-            this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
+            await PublishEntityAsync(GetSelectedConnection(), entityList.Select(item => item.LogicalName).ToList());
         }
 
         private void lstVwEntities_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1845,7 +1802,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         #endregion Set Attribute
 
-        private void hyperlinkPublishEntity_Click(object sender, RoutedEventArgs e)
+        private async void hyperlinkPublishEntity_Click(object sender, RoutedEventArgs e)
         {
             EntityMetadataListViewItem entity = GetItemFromRoutedDataContext<EntityMetadataListViewItem>(e);
 
@@ -1854,7 +1811,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(new[] { entity.LogicalName }, PublishEntityAsync);
+            await PublishEntityAsync(GetSelectedConnection(), new[] { entity.LogicalName });
         }
     }
 }
