@@ -64,89 +64,48 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             // Репозиторий для работы с веб-ресурсами
             WebResourceRepository webResourceRepository = new WebResourceRepository(service);
 
-            WebResource webresource = null;
+            WebResource webResource = null;
+            Guid? lastLinkedWebResourceId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
 
             if (!isCustom)
             {
-                webresource = await webResourceRepository.FindByNameAsync(selectedFile.FriendlyFilePath, selectedFile.Extension);
+                webResource = await webResourceRepository.FindByNameAsync(selectedFile.FriendlyFilePath, selectedFile.Extension);
 
-                if (webresource != null)
+                if (webResource != null)
                 {
-                    this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource founded by name.");
+                    this._iWriteToOutput.WriteToOutput(connectionData, "WebResource founded by name.");
                 }
-                else
+                else if (lastLinkedWebResourceId.HasValue)
                 {
-                    Guid? webId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
-
-                    if (webId.HasValue)
+                    if (webResource != null)
                     {
-                        webresource = await webResourceRepository.GetByIdAsync(webId.Value);
-                    }
-
-                    if (webresource != null)
-                    {
-                        this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource not founded by name. Last link web-resource is selected for difference.");
+                        this._iWriteToOutput.WriteToOutput(connectionData, "WebResource not founded by name. Last link WebResource is selected for difference.");
                     }
                     else
                     {
-                        this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource not founded by name and has not Last link.");
-                        this._iWriteToOutput.WriteToOutput(connectionData, "Starting Custom Web-resource selection form.");
+                        this._iWriteToOutput.WriteToOutput(connectionData, "WebResource not founded by name and has not Last link.");
+                        this._iWriteToOutput.WriteToOutput(connectionData, "Starting Custom WebResource selection form.");
                     }
                 }
             }
 
-            if (webresource == null)
+            if (webResource == null)
             {
-                Guid? webId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
-
-                bool? dialogResult = null;
-                Guid? selectedWebResourceId = null;
-
-                string selectedPath = string.Empty;
-                var t = new Thread(() =>
+                if (SelecteWebResourceInWindow(service, selectedFile, lastLinkedWebResourceId, out Guid selectedWebResourceId))
                 {
-                    try
-                    {
-                        var form = new Views.WindowWebResourceSelectOrCreate(this._iWriteToOutput, service, selectedFile, webId);
+                    this._iWriteToOutput.WriteToOutput(connectionData, "Custom WebResource is selected.");
 
-                        dialogResult = form.ShowDialog();
-                        selectedWebResourceId = form.SelectedWebResourceId;
-                    }
-                    catch (Exception ex)
-                    {
-                        DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                    }
-                });
-                t.SetApartmentState(ApartmentState.STA);
-                t.Start();
-
-                t.Join();
-
-                if (dialogResult.GetValueOrDefault() == false)
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.DifferenceWasCancelled);
-                    return;
-                }
-
-                if (selectedWebResourceId.HasValue)
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, "Custom Web-resource is selected.");
-
-                    webresource = await webResourceRepository.GetByIdAsync(selectedWebResourceId.Value);
-                }
-                else
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, "!Warning. WebResource not exists. name: {0}.", selectedFile.Name);
+                    webResource = await webResourceRepository.GetByIdAsync(selectedWebResourceId);
                 }
             }
 
-            if (webresource == null)
+            if (webResource == null)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource not founded in CRM: {0}", selectedFile.FileName);
+                this._iWriteToOutput.WriteToOutput(connectionData, "WebResource not founded in CRM: {0}", selectedFile.FileName);
                 return;
             }
 
-            connectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
+            connectionData.AddMapping(webResource.Id, selectedFile.FriendlyFilePath);
             connectionData.Save();
 
             string filePath1 = selectedFile.FilePath;
@@ -156,11 +115,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string fileTitle2 = string.Empty;
 
             {
-                var contentWebResource = webresource.Content ?? string.Empty;
+                var contentWebResource = webResource.Content ?? string.Empty;
 
                 var array = Convert.FromBase64String(contentWebResource);
 
-                filePath2 = FileOperations.GetNewTempFilePath(webresource.Name, selectedFile.Extension);
+                filePath2 = FileOperations.GetNewTempFilePath(webResource.Name, selectedFile.Extension);
 
                 File.WriteAllBytes(filePath2, array);
 
@@ -928,79 +887,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             WebResourceRepository webResourceRepository = new WebResourceRepository(service);
 
             WebResource webResource = await webResourceRepository.FindByNameAsync(selectedFile.FriendlyFilePath, selectedFile.Extension);
+            Guid? lastLinkedWebResourceId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
 
             if (webResource != null)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource founded by name.");
+                this._iWriteToOutput.WriteToOutput(connectionData, "WebResource founded by name.");
             }
-            else
+            else if (lastLinkedWebResourceId.HasValue)
             {
-                Guid? webId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
-
-                if (webId.HasValue)
-                {
-                    webResource = await webResourceRepository.GetByIdAsync(webId.Value);
-                }
+                webResource = await webResourceRepository.GetByIdAsync(lastLinkedWebResourceId.Value);
 
                 if (webResource != null)
                 {
-                    this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource not founded by name. Last link web-resource is selected for difference.");
-                }
-                else
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource not founded by name and has not Last link.");
-                    this._iWriteToOutput.WriteToOutput(connectionData, "Starting Custom Web-resource selection form.");
+                    this._iWriteToOutput.WriteToOutput(connectionData, "WebResource not founded by name. Last link WebResource is selected for difference.");
                 }
             }
 
             if (webResource == null)
             {
-                Guid? webId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, "WebResource not founded by name and has not Last link.");
+                this._iWriteToOutput.WriteToOutput(connectionData, "Starting Custom WebResource selection form.");
 
-                bool? dialogResult = null;
-                Guid? selectedWebResourceId = null;
-
-                string selectedPath = string.Empty;
-                var t = new Thread(() =>
+                if (SelecteWebResourceInWindow(service, selectedFile, lastLinkedWebResourceId, out Guid selectedWebResourceId))
                 {
-                    try
-                    {
-                        var form = new Views.WindowWebResourceSelectOrCreate(this._iWriteToOutput, service, selectedFile, webId);
+                    this._iWriteToOutput.WriteToOutput(connectionData, "Custom WebResource is selected.");
 
-                        dialogResult = form.ShowDialog();
-                        selectedWebResourceId = form.SelectedWebResourceId;
-                    }
-                    catch (Exception ex)
-                    {
-                        DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                    }
-                });
-                t.SetApartmentState(ApartmentState.STA);
-                t.Start();
-
-                t.Join();
-
-                if (dialogResult.GetValueOrDefault() == false)
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.DifferenceWasCancelled);
-                    return;
-                }
-
-                if (selectedWebResourceId.HasValue)
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, "Custom Web-resource is selected.");
-
-                    webResource = await webResourceRepository.GetByIdAsync(selectedWebResourceId.Value);
-                }
-                else
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, "!Warning. WebResource not exists. name: {0}.", selectedFile.Name);
+                    webResource = await webResourceRepository.GetByIdAsync(selectedWebResourceId);
                 }
             }
 
             if (webResource == null)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource not founded in CRM: {0}", selectedFile.FileName);
+                this._iWriteToOutput.WriteToOutput(connectionData, "WebResource not founded in CRM: {0}", selectedFile.FileName);
                 return;
             }
 
@@ -1062,82 +980,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             // Репозиторий для работы с веб-ресурсами
-            WebResourceRepository webResourceRepository = new WebResourceRepository(service);
+            var webResourceRepository = new WebResourceRepository(service);
 
             WebResource webResource = await webResourceRepository.FindByNameAsync(selectedFile.FriendlyFilePath, selectedFile.Extension);
 
+            Guid? lastLinkedWebResourceId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
+
             if (webResource != null)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource founded by name.");
+                this._iWriteToOutput.WriteToOutput(connectionData, "WebResource founded by name.");
             }
-            else
+            else if (lastLinkedWebResourceId.HasValue)
             {
-                Guid? webId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
-
-                if (webId.HasValue)
-                {
-                    webResource = await webResourceRepository.GetByIdAsync(webId.Value);
-                }
+                webResource = await webResourceRepository.GetByIdAsync(lastLinkedWebResourceId.Value);
 
                 if (webResource != null)
                 {
-                    this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource not founded by name. Last link web-resource is selected for difference.");
-                }
-                else
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource not founded by name and has not Last link.");
-                    this._iWriteToOutput.WriteToOutput(connectionData, "Starting Custom Web-resource selection form.");
+                    this._iWriteToOutput.WriteToOutput(connectionData, "WebResource not founded by name. Last link WebResource is selected for difference.");
                 }
             }
 
             if (webResource == null)
             {
-                Guid? webId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, "WebResource not founded by name and has not Last link.");
+                this._iWriteToOutput.WriteToOutput(connectionData, "Starting Custom WebResource selection form.");
 
-                bool? dialogResult = null;
-                Guid? selectedWebResourceId = null;
-
-                string selectedPath = string.Empty;
-                var t = new Thread(() =>
+                if (SelecteWebResourceInWindow(service, selectedFile, lastLinkedWebResourceId, out Guid selectedWebResourceId))
                 {
-                    try
-                    {
-                        var form = new Views.WindowWebResourceSelectOrCreate(this._iWriteToOutput, service, selectedFile, webId);
+                    this._iWriteToOutput.WriteToOutput(connectionData, "Custom WebResource is selected.");
 
-                        dialogResult = form.ShowDialog();
-                        selectedWebResourceId = form.SelectedWebResourceId;
-                    }
-                    catch (Exception ex)
-                    {
-                        DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                    }
-                });
-                t.SetApartmentState(ApartmentState.STA);
-                t.Start();
-
-                t.Join();
-
-                if (dialogResult.GetValueOrDefault() == false)
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.DifferenceWasCancelled);
-                    return;
-                }
-
-                if (selectedWebResourceId.HasValue)
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, "Custom Web-resource is selected.");
-
-                    webResource = await webResourceRepository.GetByIdAsync(selectedWebResourceId.Value);
-                }
-                else
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, "!Warning. WebResource not exists. name: {0}.", selectedFile.Name);
+                    webResource = await webResourceRepository.GetByIdAsync(selectedWebResourceId);
                 }
             }
 
             if (webResource == null)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource not founded in CRM: {0}", selectedFile.FileName);
+                this._iWriteToOutput.WriteToOutput(connectionData, "WebResource not founded in CRM: {0}", selectedFile.FileName);
                 return;
             }
 
@@ -1145,6 +1023,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             connectionData.Save();
 
             WindowHelper.OpenEntityEditor(_iWriteToOutput, service, commonConfig, WebResource.EntityLogicalName, webResource.Id);
+        }
+
+        private bool SelecteWebResourceInWindow(IOrganizationServiceExtented service, SelectedFile selectedFile, Guid? lastLinkedWebResourceId, out Guid selectedWebResourceId)
+        {
+            selectedWebResourceId = Guid.Empty;
+
+            bool? dialogResult = null;
+
+            Guid? webResourceId = null;
+
+            var t = new Thread(() =>
+            {
+                try
+                {
+                    var form = new WindowWebResourceSelectOrCreate(this._iWriteToOutput, service, selectedFile, lastLinkedWebResourceId);
+
+                    dialogResult = form.ShowDialog();
+
+                    webResourceId = form.SelectedWebResourceId;
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
+                }
+            });
+            t.SetApartmentState(ApartmentState.STA);
+            t.Start();
+
+            t.Join();
+
+            if (dialogResult.GetValueOrDefault() == false)
+            {
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.DifferenceWasCancelled);
+                return false;
+            }
+
+            if (!webResourceId.HasValue)
+            {
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "!Warning. WebResource not exists. name: {0}.", selectedFile.Name);
+                return false;
+            }
+
+            selectedWebResourceId = webResourceId.Value;
+
+            return true;
         }
 
         public async Task ExecuteWebResourceGettingAttribute(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, string fieldName, string fieldTitle)
@@ -1188,79 +1111,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             WebResourceRepository webResourceRepository = new WebResourceRepository(service);
 
             WebResource webResource = await webResourceRepository.FindByNameAsync(selectedFile.FriendlyFilePath, selectedFile.Extension);
+            Guid? lastLinkedWebResourceId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
 
             if (webResource != null)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource founded by name.");
+                this._iWriteToOutput.WriteToOutput(connectionData, "WebResource founded by name.");
             }
-            else
+            else if (lastLinkedWebResourceId.HasValue)
             {
-                Guid? webId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
-
-                if (webId.HasValue)
-                {
-                    webResource = await webResourceRepository.GetByIdAsync(webId.Value);
-                }
+                webResource = await webResourceRepository.GetByIdAsync(lastLinkedWebResourceId.Value);
 
                 if (webResource != null)
                 {
-                    this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource not founded by name. Last link web-resource is selected for difference.");
-                }
-                else
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource not founded by name and has not Last link.");
-                    this._iWriteToOutput.WriteToOutput(connectionData, "Starting Custom Web-resource selection form.");
+                    this._iWriteToOutput.WriteToOutput(connectionData, "WebResource not founded by name. Last link WebResource is selected for difference.");
                 }
             }
 
             if (webResource == null)
             {
-                Guid? webId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, "WebResource not founded by name and has not Last link.");
+                this._iWriteToOutput.WriteToOutput(connectionData, "Starting Custom WebResource selection form.");
 
-                bool? dialogResult = null;
-                Guid? selectedWebResourceId = null;
-
-                string selectedPath = string.Empty;
-                var t = new Thread(() =>
+                if (SelecteWebResourceInWindow(service, selectedFile, lastLinkedWebResourceId, out Guid selectedWebResourceId))
                 {
-                    try
-                    {
-                        var form = new Views.WindowWebResourceSelectOrCreate(this._iWriteToOutput, service, selectedFile, webId);
+                    this._iWriteToOutput.WriteToOutput(connectionData, "Custom WebResource is selected.");
 
-                        dialogResult = form.ShowDialog();
-                        selectedWebResourceId = form.SelectedWebResourceId;
-                    }
-                    catch (Exception ex)
-                    {
-                        DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                    }
-                });
-                t.SetApartmentState(ApartmentState.STA);
-                t.Start();
-
-                t.Join();
-
-                if (dialogResult.GetValueOrDefault() == false)
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.DifferenceWasCancelled);
-                    return;
-                }
-
-                if (selectedWebResourceId.HasValue)
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, "Custom Web-resource is selected.");
-
-                    webResource = await webResourceRepository.GetByIdAsync(selectedWebResourceId.Value);
-                }
-                else
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, "!Warning. WebResource not exists. name: {0}.", selectedFile.Name);
+                    webResource = await webResourceRepository.GetByIdAsync(selectedWebResourceId);
                 }
             }
 
             if (webResource == null)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource not founded in CRM: {0}", selectedFile.FileName);
+                this._iWriteToOutput.WriteToOutput(connectionData, "WebResource not founded in CRM: {0}", selectedFile.FileName);
                 return;
             }
 
