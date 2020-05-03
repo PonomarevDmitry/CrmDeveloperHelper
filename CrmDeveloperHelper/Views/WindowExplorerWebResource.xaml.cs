@@ -26,11 +26,9 @@ using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowExplorerWebResource : WindowWithConnectionList
+    public partial class WindowExplorerWebResource : WindowWithSolutionComponentDescriptor
     {
         private readonly ObservableCollection<EntityTreeViewItem> _webResourceTree = new ObservableCollection<EntityTreeViewItem>();
-
-        private readonly Dictionary<Guid, SolutionComponentDescriptor> _descriptorCache = new Dictionary<Guid, SolutionComponentDescriptor>();
 
         private readonly Popup _optionsPopup;
 
@@ -180,23 +178,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private Task<IOrganizationServiceExtented> GetService()
         {
             return GetOrganizationService(GetSelectedConnection());
-        }
-
-        private SolutionComponentDescriptor GetDescriptor(IOrganizationServiceExtented service)
-        {
-            if (service != null)
-            {
-                if (!_descriptorCache.ContainsKey(service.ConnectionData.ConnectionId))
-                {
-                    _descriptorCache[service.ConnectionData.ConnectionId] = new SolutionComponentDescriptor(service);
-                }
-
-                _descriptorCache[service.ConnectionData.ConnectionId].SetSettings(_commonConfig);
-
-                return _descriptorCache[service.ConnectionData.ConnectionId];
-            }
-
-            return null;
         }
 
         private async Task ShowExistingWebResources()
@@ -1161,7 +1142,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             var service = await GetService();
-            var descriptor = GetDescriptor(service);
+            var descriptor = GetSolutionComponentDescriptor(service);
 
             try
             {
@@ -1187,7 +1168,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             var service = await GetService();
-            var descriptor = GetDescriptor(service);
+            var descriptor = GetSolutionComponentDescriptor(service);
 
             WindowHelper.OpenSolutionComponentDependenciesExplorer(
                 _iWriteToOutput

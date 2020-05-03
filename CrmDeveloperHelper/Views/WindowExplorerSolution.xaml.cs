@@ -22,7 +22,7 @@ using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowExplorerSolution : WindowWithConnectionList
+    public partial class WindowExplorerSolution : WindowWithSolutionComponentDescriptor
     {
         private readonly EnvDTE.SelectedItem _selectedItem;
 
@@ -35,8 +35,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly ExportSolutionOptionsControl _optionsExportSolutionOptionsControl;
 
         private readonly ObservableCollection<EntityViewItem> _itemsSource;
-
-        private readonly Dictionary<Guid, SolutionComponentDescriptor> _descriptorCache = new Dictionary<Guid, SolutionComponentDescriptor>();
 
         private readonly Dictionary<Guid, object> _syncCacheObjects = new Dictionary<Guid, object>();
 
@@ -206,23 +204,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var connectionData = GetSelectedConnection();
 
             return GetOrganizationService(connectionData);
-        }
-
-        private SolutionComponentDescriptor GetDescriptor(IOrganizationServiceExtented service)
-        {
-            if (service != null)
-            {
-                if (!_descriptorCache.ContainsKey(service.ConnectionData.ConnectionId))
-                {
-                    _descriptorCache[service.ConnectionData.ConnectionId] = new SolutionComponentDescriptor(service);
-                }
-
-                _descriptorCache[service.ConnectionData.ConnectionId].SetSettings(_commonConfig);
-
-                return _descriptorCache[service.ConnectionData.ConnectionId];
-            }
-
-            return null;
         }
 
         private async Task ShowExistingSolutions()
@@ -987,7 +968,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async Task<bool> CheckImportPossibility(ConnectionData targetConnectionData, Solution solution)
         {
             var service = await GetService();
-            var descriptor = GetDescriptor(service);
+            var descriptor = GetSolutionComponentDescriptor(service);
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.GettingAllRequiredComponentsFormat1, solution.UniqueName);
 
@@ -1002,7 +983,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.RemovingComponentsExistingInTargetFormat1, targetConnectionData.Name);
 
             var targetService = await GetOrganizationService(targetConnectionData);
-            var targetDescription = GetDescriptor(targetService);
+
+            var targetDescription = GetSolutionComponentDescriptor(targetService);
 
             List<SolutionComponent> existingComponentsInTarget = new List<SolutionComponent>();
 
@@ -1439,7 +1421,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             try
             {
                 ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingFileWithSolutionImageFormat1, solution.UniqueName);
-                var descriptor = GetDescriptor(service);
+
+                var descriptor = GetSolutionComponentDescriptor(service);
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
 
@@ -1478,7 +1461,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingFileWithSolutionImageFormat1, solution.UniqueName);
 
-                var descriptor = GetDescriptor(service);
+                var descriptor = GetSolutionComponentDescriptor(service);
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
 
@@ -1505,7 +1488,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             try
             {
                 ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingTextFileWithComponentsFormat1, solution.UniqueName);
-                var descriptor = GetDescriptor(service);
+
+                var descriptor = GetSolutionComponentDescriptor(service);
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
 
@@ -1540,7 +1524,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             try
             {
                 _commonConfig.Save();
-                var descriptor = GetDescriptor(service);
+                var descriptor = GetSolutionComponentDescriptor(service);
 
                 WindowHelper.OpenSolutionComponentsExplorer(this._iWriteToOutput, service, descriptor, _commonConfig, solution.UniqueName, null);
             }
@@ -1585,7 +1569,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             try
             {
                 ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingTextFileWithMissingDependenciesFormat1, solution.UniqueName);
-                var descriptor = GetDescriptor(service);
+
+                var descriptor = GetSolutionComponentDescriptor(service);
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
 
@@ -1635,7 +1620,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             try
             {
                 ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingTextFileWithDependenciesForUninstallFormat1, solution.UniqueName);
-                var descriptor = GetDescriptor(service);
+
+                var descriptor = GetSolutionComponentDescriptor(service);
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
 
@@ -1772,7 +1758,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Comparing Solution Components '{0}' and '{1}'.", solution1.UniqueName, solution2.UniqueName);
-                var descriptor = GetDescriptor(service);
+
+                var descriptor = GetSolutionComponentDescriptor(service);
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
 
@@ -1796,7 +1783,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ComparingSolutionsFormat2, solution1.UniqueName, solution2.UniqueName);
 
-                var descriptor = GetDescriptor(service);
+                var descriptor = GetSolutionComponentDescriptor(service);
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
 
@@ -1935,7 +1922,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CopingSolutionComponentsToFromFormat2, solutionSource.UniqueName, solutionTarget.UniqueName);
 
-                var descriptor = GetDescriptor(service);
+                var descriptor = GetSolutionComponentDescriptor(service);
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
 
@@ -2048,7 +2035,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CopingSolutionComponentsToFromFormat2, solutionTarget.UniqueName, sourceName);
 
-                var descriptor = GetDescriptor(service);
+                var descriptor = GetSolutionComponentDescriptor(service);
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
 
@@ -2185,7 +2172,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ToggleControls(service.ConnectionData, false, Properties.OutputStrings.RemovingSolutionComponentsFromOwnedByFormat2, solutionSource.UniqueName, solutionTarget.UniqueName);
 
-                var descriptor = GetDescriptor(service);
+                var descriptor = GetSolutionComponentDescriptor(service);
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
 
@@ -2298,7 +2285,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ToggleControls(service.ConnectionData, false, Properties.OutputStrings.RemovingSolutionComponentsFromOwnedByFormat2, solutionTarget.UniqueName, sourceName);
 
-                var descriptor = GetDescriptor(service);
+                var descriptor = GetSolutionComponentDescriptor(service);
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
 
@@ -2485,7 +2472,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async Task PerformClearUnmanagedSolution(string folder, Solution solution)
         {
             var service = await GetService();
-            var descriptor = GetDescriptor(service);
+            var descriptor = GetSolutionComponentDescriptor(service);
 
             try
             {
@@ -2660,7 +2647,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingFileWithUsedEntitiesInWorkflowsFormat1, solution.UniqueName);
 
-                var descriptor = GetDescriptor(service);
+                var descriptor = GetSolutionComponentDescriptor(service);
 
                 var workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, descriptor);
 
@@ -2700,7 +2687,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingFileWithUsedNotExistsEntitiesInWorkflowsFormat1, solution.UniqueName);
 
-                var descriptor = GetDescriptor(service);
+                var descriptor = GetSolutionComponentDescriptor(service);
 
                 var workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, descriptor);
 
@@ -2951,7 +2938,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ToggleControls(service.ConnectionData, false, _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatingSolutionImageFromZipFile));
 
-                var descriptor = GetDescriptor(service);
+                var descriptor = GetSolutionComponentDescriptor(service);
 
                 var components = await descriptor.LoadSolutionComponentsFromZipFileAsync(selectedPath);
 

@@ -1,4 +1,4 @@
-﻿<src:WindowWithConnectionList
+﻿<src:WindowWithSolutionComponentDescriptor
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
@@ -11,7 +11,7 @@
     Width="717" 
     WindowStartupLocation="Manual"
     >
-    <src:WindowWithConnectionList.Resources>
+    <src:WindowWithSolutionComponentDescriptor.Resources>
         <ResourceDictionary>
 
             <ResourceDictionary.MergedDictionaries>
@@ -88,7 +88,7 @@
             </ContextMenu>
 
         </ResourceDictionary>
-    </src:WindowWithConnectionList.Resources>
+    </src:WindowWithSolutionComponentDescriptor.Resources>
     <Grid>
 
         <Grid.RowDefinitions>
@@ -315,4 +315,4 @@
             <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>
     </Grid>
-</src:WindowWithConnectionList>
+</src:WindowWithSolutionComponentDescriptor>

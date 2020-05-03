@@ -18,10 +18,8 @@ using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowSolutionImage : WindowWithConnectionList
+    public partial class WindowSolutionImage : WindowWithSolutionComponentDescriptor
     {
-        private readonly Dictionary<Guid, SolutionComponentDescriptor> _descriptorCache = new Dictionary<Guid, SolutionComponentDescriptor>();
-
         private SolutionImage _solutionImage = null;
 
         private readonly ObservableCollection<SolutionImageComponent> _itemsSource;
@@ -133,23 +131,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private Task<IOrganizationServiceExtented> GetService()
         {
             return GetOrganizationService(GetSelectedConnection());
-        }
-
-        private SolutionComponentDescriptor GetDescriptor(IOrganizationServiceExtented service)
-        {
-            if (service != null)
-            {
-                if (!_descriptorCache.ContainsKey(service.ConnectionData.ConnectionId))
-                {
-                    _descriptorCache[service.ConnectionData.ConnectionId] = new SolutionComponentDescriptor(service);
-                }
-
-                _descriptorCache[service.ConnectionData.ConnectionId].SetSettings(_commonConfig);
-
-                return _descriptorCache[service.ConnectionData.ConnectionId];
-            }
-
-            return null;
         }
 
         private async Task LoadSolutionImage(string filePath)
@@ -458,7 +439,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService();
-            var descriptor = GetDescriptor(service);
+            var descriptor = GetSolutionComponentDescriptor(service);
 
             var solutionComponents = await descriptor.GetSolutionComponentsListAsync(new[] { entity });
 
@@ -487,7 +468,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             var service = await GetService();
-            var descriptor = GetDescriptor(service);
+            var descriptor = GetSolutionComponentDescriptor(service);
 
             var solutionComponents = await descriptor.GetSolutionComponentsListAsync(new[] { entity });
 
@@ -521,7 +502,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService();
-            var descriptor = GetDescriptor(service);
+            var descriptor = GetSolutionComponentDescriptor(service);
 
             var solutionComponents = await descriptor.GetSolutionComponentsListAsync(new[] { entity });
 
@@ -553,7 +534,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             var service = await GetService();
-            var descriptor = GetDescriptor(service);
+            var descriptor = GetSolutionComponentDescriptor(service);
 
             var solutionComponents = await descriptor.GetSolutionComponentsListAsync(new[] { entity });
 
@@ -603,7 +584,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService();
-            var descriptor = GetDescriptor(service);
+            var descriptor = GetSolutionComponentDescriptor(service);
 
             var solutionComponents = await descriptor.GetSolutionComponentsListAsync(solutionImageComponents);
 

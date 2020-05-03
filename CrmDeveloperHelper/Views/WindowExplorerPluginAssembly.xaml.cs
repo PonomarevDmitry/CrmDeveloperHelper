@@ -19,7 +19,7 @@ using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowExplorerPluginAssembly : WindowWithConnectionList
+    public partial class WindowExplorerPluginAssembly : WindowWithSolutionComponentDescriptor
     {
         private readonly ObservableCollection<EntityViewItem> _itemsSource;
 
@@ -139,23 +139,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private Task<IOrganizationServiceExtented> GetService()
         {
             return GetOrganizationService(GetSelectedConnection());
-        }
-
-        private SolutionComponentDescriptor GetDescriptor(IOrganizationServiceExtented service)
-        {
-            if (service != null)
-            {
-                if (!_descriptorCache.ContainsKey(service.ConnectionData.ConnectionId))
-                {
-                    _descriptorCache[service.ConnectionData.ConnectionId] = new SolutionComponentDescriptor(service);
-                }
-
-                _descriptorCache[service.ConnectionData.ConnectionId].SetSettings(_commonConfig);
-
-                return _descriptorCache[service.ConnectionData.ConnectionId];
-            }
-
-            return null;
         }
 
         private async Task ShowExistingPluginAssemblies()
@@ -639,7 +622,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             var service = await GetService();
-            var descriptor = GetDescriptor(service);
+            var descriptor = GetSolutionComponentDescriptor(service);
 
             try
             {

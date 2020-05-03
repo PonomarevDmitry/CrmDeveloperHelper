@@ -110,7 +110,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
         }
 
-        protected async Task AddEntityMetadataToSolution(ConnectionData connectionData, IEnumerable<Guid> idsEntityMetadataEnum, bool withSelect, string solutionUniqueName, SolutionComponent.Schema.OptionSets.rootcomponentbehavior rootComponentBehavior)
+        protected virtual async Task AddEntityMetadataToSolution(
+            ConnectionData connectionData
+            , IEnumerable<Guid> idsEntityMetadataEnum
+            , bool withSelect
+            , string solutionUniqueName
+            , SolutionComponent.Schema.OptionSets.rootcomponentbehavior rootComponentBehavior
+        )
         {
             if (idsEntityMetadataEnum == null || !idsEntityMetadataEnum.Any())
             {

@@ -1406,6 +1406,7 @@
     <Compile Include="Views\BaseWindows\ExplorersHelper.cs" />
     <Compile Include="Views\BaseWindows\WindowWithConnectionList.cs" />
     <Compile Include="Views\BaseWindows\WindowWithOutputAndCommonConfig.cs" />
+    <Compile Include="Views\BaseWindows\WindowWithSolutionComponentDescriptor.cs" />
     <Compile Include="Views\WindowAttributeMultiSelect.xaml.cs">
       <DependentUpon>WindowAttributeMultiSelect.xaml</DependentUpon>
     </Compile>

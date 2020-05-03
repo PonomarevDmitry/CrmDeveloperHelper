@@ -26,13 +26,11 @@ using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowExplorerSystemForm : WindowWithConnectionList
+    public partial class WindowExplorerSystemForm : WindowWithSolutionComponentDescriptor
     {
         private readonly EnvDTE.SelectedItem _selectedItem;
 
         private readonly ObservableCollection<EntityViewItem> _itemsSource;
-
-        private readonly Dictionary<Guid, SolutionComponentDescriptor> _descriptorCache = new Dictionary<Guid, SolutionComponentDescriptor>();
 
         private readonly Popup _optionsPopup;
 
@@ -213,23 +211,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private Task<IOrganizationServiceExtented> GetService()
         {
             return GetOrganizationService(GetSelectedConnection());
-        }
-
-        private SolutionComponentDescriptor GetDescriptor(IOrganizationServiceExtented service)
-        {
-            if (service != null)
-            {
-                if (!_descriptorCache.ContainsKey(service.ConnectionData.ConnectionId))
-                {
-                    _descriptorCache[service.ConnectionData.ConnectionId] = new SolutionComponentDescriptor(service);
-                }
-
-                _descriptorCache[service.ConnectionData.ConnectionId].SetSettings(_commonConfig);
-
-                return _descriptorCache[service.ConnectionData.ConnectionId];
-            }
-
-            return null;
         }
 
         private async Task ShowExistingSystemForms()
@@ -1070,7 +1051,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingSystemFormDescriptionFormat2, entityName, name);
 
-            var descriptor = GetDescriptor(service);
+            var descriptor = GetSolutionComponentDescriptor(service);
             var handler = new FormDescriptionHandler(descriptor, new DependencyRepository(service));
 
             string fileName = EntityFileNameFormatter.GetSystemFormFileName(service.ConnectionData.Name, entityName, name, "FormDescription", "txt");
@@ -1152,7 +1133,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.DownloadingSystemFormWebResourcesFormat2, entityName, name);
 
-            var descriptor = GetDescriptor(service);
+            var descriptor = GetSolutionComponentDescriptor(service);
             var handler = new FormDescriptionHandler(descriptor, new DependencyRepository(service));
 
             var repository = new SystemFormRepository(service);
@@ -1283,7 +1264,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingEntityJavaScriptFileOnFormFormat2, entityName, name);
 
-            var descriptor = GetDescriptor(service);
+            var descriptor = GetSolutionComponentDescriptor(service);
             var handler = new FormDescriptionHandler(descriptor, new DependencyRepository(service));
 
             var repository = new SystemFormRepository(service);
@@ -1478,7 +1459,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             var service = await GetService();
-            var descriptor = GetDescriptor(service);
+            var descriptor = GetSolutionComponentDescriptor(service);
 
             try
             {
@@ -1559,21 +1540,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (entityMetadataId.HasValue)
                 {
-                    _commonConfig.Save();
-
-                    var service = await GetService();
-                    var descriptor = GetDescriptor(service);
-
-                    try
-                    {
-                        this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
-
-                        await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.Entity, new[] { entityMetadataId.Value }, rootComponentBehavior, withSelect);
-                    }
-                    catch (Exception ex)
-                    {
-                        this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-                    }
+                    await AddEntityMetadataToSolution(
+                        GetSelectedConnection()
+                        , new[] { entityMetadataId.Value }
+                        , withSelect
+                        , solutionUniqueName
+                        , rootComponentBehavior
+                    );
                 }
             }
         }
@@ -1640,7 +1613,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             var service = await GetService();
-            var descriptor = GetDescriptor(service);
+            var descriptor = GetSolutionComponentDescriptor(service);
 
             WindowHelper.OpenSolutionComponentDependenciesExplorer(
                 _iWriteToOutput
@@ -1830,7 +1803,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     var doc = XElement.Parse(formXml);
 
-                    var descriptor = GetDescriptor(service);
+                    var descriptor = GetSolutionComponentDescriptor(service);
                     var handler = new FormDescriptionHandler(descriptor, new DependencyRepository(service));
 
                     var tabs = handler.GetFormTabs(doc);
@@ -1880,7 +1853,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CopyingEntityJavaScriptContentOnFormFormat2, entityName, name);
 
-            var descriptor = GetDescriptor(service);
+            var descriptor = GetSolutionComponentDescriptor(service);
+
             var handler = new FormDescriptionHandler(descriptor, new DependencyRepository(service));
 
             var repository = new SystemFormRepository(service);

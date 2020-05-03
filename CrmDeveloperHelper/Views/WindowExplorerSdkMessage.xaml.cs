@@ -20,11 +20,9 @@ using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowExplorerSdkMessage : WindowWithConnectionList
+    public partial class WindowExplorerSdkMessage : WindowWithSolutionComponentDescriptor
     {
         private readonly ObservableCollection<EntityViewItem> _itemsSource;
-
-        private readonly Dictionary<Guid, SolutionComponentDescriptor> _descriptorCache = new Dictionary<Guid, SolutionComponentDescriptor>();
 
         public WindowExplorerSdkMessage(
              IWriteToOutput iWriteToOutput
@@ -143,23 +141,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private Task<IOrganizationServiceExtented> GetService()
         {
             return GetOrganizationService(GetSelectedConnection());
-        }
-
-        private SolutionComponentDescriptor GetDescriptor(IOrganizationServiceExtented service)
-        {
-            if (service != null)
-            {
-                if (!_descriptorCache.ContainsKey(service.ConnectionData.ConnectionId))
-                {
-                    _descriptorCache[service.ConnectionData.ConnectionId] = new SolutionComponentDescriptor(service);
-                }
-
-                _descriptorCache[service.ConnectionData.ConnectionId].SetSettings(_commonConfig);
-
-                return _descriptorCache[service.ConnectionData.ConnectionId];
-            }
-
-            return null;
         }
 
         private async Task ShowExistingMessages()
@@ -546,7 +527,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             var service = await GetService();
-            var descriptor = GetDescriptor(service);
+            var descriptor = GetSolutionComponentDescriptor(service);
 
             try
             {

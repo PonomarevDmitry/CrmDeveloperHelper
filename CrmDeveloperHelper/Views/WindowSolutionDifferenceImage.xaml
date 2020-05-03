@@ -1,4 +1,4 @@
-﻿<src:WindowWithConnectionList
+﻿<src:WindowWithSolutionComponentDescriptor
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
@@ -11,7 +11,7 @@
     Width="900"
     WindowStartupLocation="Manual"
     >
-    <src:WindowWithConnectionList.Resources>
+    <src:WindowWithSolutionComponentDescriptor.Resources>
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
             <MenuItem Header="Open Component in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click" />
 
@@ -29,7 +29,7 @@
                 <MenuItem Header="Open Dependent Components in Explorer" VerticalAlignment="Center" Click="mIOpenDependentComponentsInExplorer_Click" />
             </MenuItem>
         </ContextMenu>
-    </src:WindowWithConnectionList.Resources>
+    </src:WindowWithSolutionComponentDescriptor.Resources>
     <Grid>
         <Label Content="Loaded File" HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtBFilePath" Height="23" Margin="85,10,10,0"   VerticalAlignment="Top" IsReadOnlyCaretVisible="True" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
@@ -100,4 +100,4 @@
             <StatusBarItem x:Name="stBIStatus"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
         </StatusBar>
     </Grid>
-</src:WindowWithConnectionList>
+</src:WindowWithSolutionComponentDescriptor>
