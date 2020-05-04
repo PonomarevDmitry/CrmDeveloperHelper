@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Metadata;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
@@ -740,8 +741,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        #endregion Добавление компонентов в решение.
-
         public static async Task RemoveSolutionComponentsCollectionFromSolution(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, SolutionComponentDescriptor descriptor, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SolutionComponent> components, bool withSelect)
         {
             string operation = string.Format(Properties.OperationNames.RemovingComponentsFromSolutionFormat2, service?.ConnectionData?.Name, solutionUniqueName);
@@ -817,6 +816,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operation);
             }
         }
+
+        #endregion Добавление компонентов в решение.
 
         #region Добавление сборки в решение по имени.
 
@@ -1370,6 +1371,107 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             };
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.SystemFormsToAddToSolutionFormat2, solution.UniqueName, componentsToAdd.Count);
+
+            var desc = await solutionDesciptor.GetSolutionComponentsDescriptionAsync(componentsToAdd);
+
+            if (!string.IsNullOrEmpty(desc))
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, desc);
+            }
+
+            await solutionRep.AddSolutionComponentsAsync(solution.UniqueName, componentsToAdd);
+        }
+
+        public async Task ExecuteAddingEntityToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, bool withSelect, string entityName)
+        {
+            string operation = string.Format(Properties.OperationNames.AddingEntityToSolutionFormat2, connectionData?.Name, solutionUniqueName);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await AddingEntityToSolution(connectionData, commonConfig, solutionUniqueName, withSelect, entityName);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task AddingEntityToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, bool withSelect, string entityName)
+        {
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var repository = new EntityMetadataRepository(service);
+
+            EntityMetadata entityMetadata = await repository.GetEntityMetadataAsync(entityName);
+
+            if (entityMetadata == null)
+            {
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityNotExistsInConnectionFormat2, entityName, service.ConnectionData.Name);
+                _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+
+                WindowHelper.OpenEntityMetadataExplorer(_iWriteToOutput, service, commonConfig, entityName);
+
+                return;
+            }
+
+            var solution = await FindOrSelectSolution(_iWriteToOutput, service, solutionUniqueName, withSelect);
+
+            if (solution == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.SolutionNotSelected);
+                return;
+            }
+
+            connectionData.AddLastSelectedSolution(solution?.UniqueName);
+            connectionData.Save();
+
+            var dictForAdding = new HashSet<Guid>() { entityMetadata.MetadataId.Value };
+
+            var solutionRep = new SolutionComponentRepository(service);
+
+            {
+                var components = await solutionRep.GetSolutionComponentsByTypeAsync(solution.Id, ComponentType.Entity, new ColumnSet(SolutionComponent.Schema.Attributes.objectid));
+
+                foreach (var item in components.Where(s => s.ObjectId.HasValue).Select(s => s.ObjectId.Value))
+                {
+                    if (dictForAdding.Contains(item))
+                    {
+                        dictForAdding.Remove(item);
+                    }
+                }
+            }
+
+            if (!dictForAdding.Any())
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoEntitiesToAddInSolutionAllAllreadyInSolutionFormat2, connectionData.Name, solution.UniqueName);
+                return;
+            }
+
+            var componentsToAdd = dictForAdding.Select(e => new SolutionComponent(new
+            {
+                ObjectId = e,
+                ComponentType = new OptionSetValue((int)ComponentType.Entity),
+            })).ToList();
+
+            var solutionDesciptor = new SolutionComponentDescriptor(service)
+            {
+                WithManagedInfo = true,
+                WithSolutionsInfo = true,
+                WithUrls = true,
+            };
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntitiesToAddToSolutionFormat2, solution.UniqueName, componentsToAdd.Count);
 
             var desc = await solutionDesciptor.GetSolutionComponentsDescriptionAsync(componentsToAdd);
 

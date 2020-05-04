@@ -1852,6 +1852,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Entities to add to Solution {0}: {1}.
+        /// </summary>
+        internal static string EntitiesToAddToSolutionFormat2 {
+            get {
+                return ResourceManager.GetString("EntitiesToAddToSolutionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Entities with Ownership {0}: {1}.
         /// </summary>
         internal static string EntitiesWithOwnershipFormat2 {
@@ -3873,6 +3882,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string NoCurrentCRMConnection {
             get {
                 return ResourceManager.GetString("NoCurrentCRMConnection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: No Entities to add. All Entities already in Solution {1}..
+        /// </summary>
+        internal static string NoEntitiesToAddInSolutionAllAllreadyInSolutionFormat2 {
+            get {
+                return ResourceManager.GetString("NoEntitiesToAddInSolutionAllAllreadyInSolutionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: No Entities to add in solution {1}..
+        /// </summary>
+        internal static string NoEntitiesToAddInSolutionFormat2 {
+            get {
+                return ResourceManager.GetString("NoEntitiesToAddInSolutionFormat2", resourceCulture);
             }
         }
         

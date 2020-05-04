@@ -274,6 +274,10 @@
     <value>Publish RibbonDiffXml in {0} on
 {1}?</value>
   </data>
+  <data name="PublishEntityFormat2" xml:space="preserve">
+    <value>Publish Entity {0} on
+{1}?</value>
+  </data>
   <data name="DeleteFileActionFormat1" xml:space="preserve">
     <value>Delete FileAction for {0}</value>
   </data>

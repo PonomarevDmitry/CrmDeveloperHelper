@@ -218,7 +218,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             CodeJavaScriptFileGenerationOptionsCommand.Initialize(commandService);
 
-            // CodeJavaScriptLinkedSystemForm.Initialize(commandService);
+            CodeJavaScriptLinkedEntityAddToSolutionInConnectionCommand.Initialize(commandService);
+            CodeJavaScriptLinkedEntityAddToSolutionLastCommand.Initialize(commandService);
+            CodeJavaScriptLinkedEntityExplorerCommand.Initialize(commandService);
+            CodeJavaScriptLinkedEntityPublishInConnectionCommand.Initialize(commandService);
+            CodeJavaScriptLinkedEntityOpenComponentInConnectionCommand.Initialize(commandService);
+
+            // CodeJavaScriptLinkedEntity.Initialize(commandService);
 
             #endregion CodeJavaScript
 

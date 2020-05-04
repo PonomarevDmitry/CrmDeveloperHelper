@@ -209,6 +209,50 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group2_MenuOpenSolutionsContainingComponentInExplorerDyn_Group = 0x1411;
 
+            public const int codeMenuWebResource_GroupLinkedEntity = 0x142D;
+
+            public const int codeMenuWebResource_GroupLinkedEntity_Menu = 0x142E;
+
+            public const int codeMenuWebResource_GroupLinkedEntity_Menu_Group1 = 0x142F;
+
+            public const int codeMenuWebResource_GroupLinkedEntity_Menu_Group1_MenuOpenInWebConnectionDyn = 0x1430;
+
+            public const int codeMenuWebResource_GroupLinkedEntity_Menu_Group1_MenuOpenInWebConnectionDyn_Group = 0x1431;
+
+            public const int codeMenuWebResource_GroupLinkedEntity_Menu_Group1_MenuOpenListInWebConnectionDyn = 0x1432;
+
+            public const int codeMenuWebResource_GroupLinkedEntity_Menu_Group1_MenuOpenListInWebConnectionDyn_Group = 0x1433;
+
+            public const int codeMenuWebResource_GroupLinkedEntity_Menu_Group1_MenuPublishInConnectionDyn = 0x1434;
+
+            public const int codeMenuWebResource_GroupLinkedEntity_Menu_Group1_MenuPublishInConnectionDyn_Group = 0x1435;
+
+            public const int codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution = 0x1436;
+
+            public const int codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_Menu = 0x1437;
+
+            public const int codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_Menu_GroupLastSolution = 0x1438;
+
+            public const int codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn = 0x1439;
+
+            public const int codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn_Group = 0x143A;
+
+            public const int codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_Menu_GroupConnectionDyn = 0x143B;
+
+            public const int codeMenuWebResource_GroupLinkedEntity_Menu_Group2 = 0x143C;
+
+            public const int codeMenuWebResource_GroupLinkedEntity_Menu_Group2_MenuOpenDependentInWebDyn = 0x143D;
+
+            public const int codeMenuWebResource_GroupLinkedEntity_Menu_Group2_MenuOpenDependentInWebDyn_Group = 0x143E;
+
+            public const int codeMenuWebResource_GroupLinkedEntity_Menu_Group2_MenuOpenDependentInExplorerDyn = 0x143F;
+
+            public const int codeMenuWebResource_GroupLinkedEntity_Menu_Group2_MenuOpenDependentInExplorerDyn_Group = 0x1440;
+
+            public const int codeMenuWebResource_GroupLinkedEntity_Menu_Group2_MenuOpenSolutionsContainingComponentInExplorerDyn = 0x1441;
+
+            public const int codeMenuWebResource_GroupLinkedEntity_Menu_Group2_MenuOpenSolutionsContainingComponentInExplorerDyn_Group = 0x1442;
+
             public const int codeMenuWebResource_GroupCheckFileEncoding = 0x1005;
 
             public const int codeMenuWebResource_GroupEntity = 0x13BE;
@@ -2088,6 +2132,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeJavaScriptLinkedSystemFormGetCurrentTabsAndSectionsInConnectionJsonObjectCommandId = 0x3264;
 
+            public const int CodeJavaScriptLinkedEntityOpenInWebInConnectionCommandId = 0x32C8;
+
+            public const int CodeJavaScriptLinkedEntityOpenListInWebInConnectionCommandId = 0x32FA;
+
+            public const int CodeJavaScriptLinkedEntityOpenDependentInWebInConnectionCommandId = 0x332C;
+
+            public const int CodeJavaScriptLinkedEntityOpenDependentInExplorerInConnectionCommandId = 0x335E;
+
+            public const int CodeJavaScriptLinkedEntityOpenSolutionsContainingComponentInExplorerInConnectionCommandId = 0x3390;
+
+            public const int CodeJavaScriptLinkedEntityAddToSolutionLastCommandId = 0x33C2;
+
+            public const int CodeJavaScriptLinkedEntityAddToSolutionInConnectionCommandId = 0x33F4;
+
+            public const int CodeJavaScriptLinkedEntityPublishInConnectionCommandId = 0x3426;
+
             public const int CodeXmlFetchXmlExecuteRequestInConnectionsCommandId = 0x109A;
 
             public const int CodeXmlCommonXsdSchemaSetCommandId = 0x10FE;
@@ -2448,6 +2508,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int CodeJavaScriptFileGenerationOptionsCommandId = 0x2241;
 
             public const int CodeJavaScriptLinkedSystemFormExplorerCommandId = 0x223C;
+
+            public const int CodeJavaScriptLinkedEntityExplorerCommandId = 0x2245;
 
             public const int CodeXmlCommonUpdateCommandId = 0x2225;
 

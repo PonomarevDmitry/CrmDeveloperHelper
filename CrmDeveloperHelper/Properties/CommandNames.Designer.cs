@@ -133,6 +133,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open EntityMetadata Explorer.
+        /// </summary>
+        internal static string CodeJavaScriptLinkedEntityExplorerCommand {
+            get {
+                return ResourceManager.GetString("CodeJavaScriptLinkedEntityExplorerCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open SystemForm Explorer.
         /// </summary>
         internal static string CodeJavaScriptLinkedSystemFormExplorerCommand {

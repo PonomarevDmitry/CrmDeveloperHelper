@@ -529,6 +529,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Ribbon
 
+        public void StartEntityMetadataOpenInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, ActionOpenComponent action)
+            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteEntityMetadataOpenInWeb, commonConfig, entityName, action);
+
+        public void StartPublishEntityMetadata(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName)
+            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecutePublishEntity, commonConfig, entityName);
+
+        public void StartAddingEntityToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, bool withSelect, string entityName)
+            => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteAddingEntityToSolution, commonConfig, solutionUniqueName, withSelect, entityName);
+
         #region WebResource
 
         /// <summary>

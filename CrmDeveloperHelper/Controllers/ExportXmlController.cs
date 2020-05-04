@@ -713,7 +713,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     , commonConfig
                     , (int)ComponentType.SystemForm
                     , formId
-                    , null);
+                    , null
+                );
             }
             else if (action == ActionOpenComponent.OpenSolutionsContainingComponentInExplorer)
             {

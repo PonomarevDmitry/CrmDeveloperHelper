@@ -234,6 +234,12 @@
   <data name="NoSystemFormsToAddInSolutionAllAllreadyInSolutionFormat2" xml:space="preserve">
     <value>{0}: No SystemForms to add. All SystemForms already in Solution {1}.</value>
   </data>
+  <data name="NoEntitiesToAddInSolutionAllAllreadyInSolutionFormat2" xml:space="preserve">
+    <value>{0}: No Entities to add. All Entities already in Solution {1}.</value>
+  </data>
+  <data name="NoEntitiesToAddInSolutionFormat2" xml:space="preserve">
+    <value>{0}: No Entities to add in solution {1}.</value>
+  </data>
   <data name="ObjectsInCRMWereExportedToFormat1" xml:space="preserve">
     <value>Objects in CRM were exported to {0}</value>
   </data>
@@ -483,6 +489,10 @@
 
   <data name="ReportsToAddToSolutionFormat2" xml:space="preserve">
     <value>Reports to add to Solution {0}: {1}</value>
+  </data>
+
+  <data name="EntitiesToAddToSolutionFormat2" xml:space="preserve">
+    <value>Entities to add to Solution {0}: {1}</value>
   </data>
 
   <data name="NoObjectsToRemoveFromSolutionFormat1" xml:space="preserve">

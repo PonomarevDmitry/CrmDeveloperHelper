@@ -141,6 +141,9 @@
   <data name="AddingLinkedSystemFormToSolutionFormat2" xml:space="preserve">
     <value>{0} - Adding Linked SystemForm to Solution {1}</value>
   </data>
+  <data name="AddingEntityToSolutionFormat2" xml:space="preserve">
+    <value>{0} - Adding Entity to Solution {1}</value>
+  </data>
   <data name="CheckingComponentTypeEnumFormat1" xml:space="preserve">
     <value>{0} - Checking ComponentType Enum</value>
   </data>

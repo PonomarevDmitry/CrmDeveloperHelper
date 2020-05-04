@@ -476,6 +476,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Publish Entity {0} on
+        ///{1}?.
+        /// </summary>
+        internal static string PublishEntityFormat2 {
+            get {
+                return ResourceManager.GetString("PublishEntityFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Publish RibbonDiffXml in {0} on
         ///{1}?.
         /// </summary>

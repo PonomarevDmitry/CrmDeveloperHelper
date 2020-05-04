@@ -79,6 +79,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Adding Entity to Solution {1}.
+        /// </summary>
+        internal static string AddingEntityToSolutionFormat2 {
+            get {
+                return ResourceManager.GetString("AddingEntityToSolutionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Adding into Publish List Files {1}.
         /// </summary>
         internal static string AddingIntoPublishListFilesFormat2 {

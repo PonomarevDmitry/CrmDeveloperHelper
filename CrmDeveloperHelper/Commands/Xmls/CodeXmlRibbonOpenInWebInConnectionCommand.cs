@@ -11,7 +11,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
         private CodeXmlRibbonOpenInWebInConnectionCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidDynamicCommandSet.CodeXmlRibbonOpenInWebInConnectionCommandId)
         {
-
         }
 
         public static CodeXmlRibbonOpenInWebInConnectionCommand Instance { get; private set; }

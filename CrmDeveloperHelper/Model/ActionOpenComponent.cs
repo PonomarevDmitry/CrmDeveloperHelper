@@ -13,5 +13,7 @@
         OpenDependentComponentsInExplorer = 4,
 
         OpenSolutionsContainingComponentInExplorer = 5,
+
+        OpenListInWeb = 6,
     }
 }

@@ -32,7 +32,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Folders
 
             if (selectedItem != null)
             {
-                helper.HandleExportFileWithEntityMetadata(connectionData, selectedItem);
+                helper.HandleOpenEntityMetadataExplorer(connectionData, selectedItem);
             }
         }
 

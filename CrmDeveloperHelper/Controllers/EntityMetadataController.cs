@@ -1247,6 +1247,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
+            await OpenEntityInWeb(service, commonConfig, entityName, ActionOpenComponent.OpenInWeb);
+        }
+
+        public async Task ExecuteEntityMetadataOpenInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, ActionOpenComponent action)
+        {
+            await ConnectAndExecuteActionAsync(connectionData
+                , Properties.OperationNames.OpeningEntityMetadataExplorerFormat1
+                , (service) => OpenEntityInWeb(service, commonConfig, entityName, action)
+            );
+        }
+
+        private async Task OpenEntityInWeb(IOrganizationServiceExtented service, CommonConfiguration commonConfig, string entityName, ActionOpenComponent action)
+        {
             var repository = new EntityMetadataRepository(service);
 
             EntityMetadata entityMetadata = await repository.GetEntityMetadataAsync(entityName);
@@ -1261,7 +1274,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            service.ConnectionData.OpenEntityMetadataInWeb(entityMetadata.MetadataId.Value);
+            switch (action)
+            {
+                case ActionOpenComponent.OpenInWeb:
+                    service.ConnectionData.OpenEntityMetadataInWeb(entityMetadata.MetadataId.Value);
+                    break;
+
+                case ActionOpenComponent.OpenInExplorer:
+                    WindowHelper.OpenEntityMetadataExplorer(_iWriteToOutput, service, commonConfig, entityName);
+                    break;
+
+                case ActionOpenComponent.OpenDependentComponentsInWeb:
+                    service.ConnectionData.OpenSolutionComponentDependentComponentsInWeb(ComponentType.Entity, entityMetadata.MetadataId.Value);
+                    break;
+
+                case ActionOpenComponent.OpenDependentComponentsInExplorer:
+                    WindowHelper.OpenSolutionComponentDependenciesExplorer(
+                        _iWriteToOutput
+                        , service
+                        , null
+                        , commonConfig
+                        , (int)ComponentType.Entity
+                        , entityMetadata.MetadataId.Value
+                        , null
+                    );
+                    break;
+
+                case ActionOpenComponent.OpenSolutionsContainingComponentInExplorer:
+                    WindowHelper.OpenExplorerSolutionExplorer(
+                        _iWriteToOutput
+                        , service
+                        , commonConfig
+                        , (int)ComponentType.Entity
+                        , entityMetadata.MetadataId.Value
+                        , null
+                    );
+                    break;
+
+                case ActionOpenComponent.OpenListInWeb:
+                    service.ConnectionData.OpenEntityInstanceListInWeb(entityName);
+                    break;
+
+                case ActionOpenComponent.None:
+                default:
+                    break;
+            }
         }
 
         #endregion Open Entity in Web
@@ -1538,6 +1595,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 service.ConnectionData.OpenEntityMetadataInWeb(entityMetadata.MetadataId.Value);
             }
+        }
+
+        public async Task ExecutePublishEntity(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName)
+        {
+            await ConnectAndExecuteActionAsync(connectionData
+                , Properties.OperationNames.PublishingEntitiesFormat2
+                , (service) => PublishEntityAsync(service, commonConfig, entityName)
+                , entityName
+            );
+        }
+
+        private async Task PublishEntityAsync(IOrganizationServiceExtented service, CommonConfiguration commonConfig, string entityName)
+        {
+            var repository = new EntityMetadataRepository(service);
+
+            EntityMetadata entityMetadata = await repository.GetEntityMetadataAsync(entityName);
+
+            if (entityMetadata == null)
+            {
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityNotExistsInConnectionFormat2, entityName, service.ConnectionData.Name);
+                _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+
+                WindowHelper.OpenEntityMetadataExplorer(_iWriteToOutput, service, commonConfig, entityName);
+
+                return;
+            }
+
+            var publishRepository = new PublishActionsRepository(service);
+
+            await publishRepository.PublishEntitiesAsync(new[] { entityName });
         }
     }
 }

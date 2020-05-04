@@ -146,6 +146,11 @@
     <Compile Include="Commands\FindEdit\CommonFindEntityObjectsContainsStringInExplorerCommand.cs" />
     <Compile Include="Commands\FindEdit\CommonFindEntityObjectsMarkedToDeleteInExplorerCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptFileGenerationOptionsCommand.cs" />
+    <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedEntityAddToSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedEntityAddToSolutionLastCommand.cs" />
+    <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedEntityExplorerCommand.cs" />
+    <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedEntityOpenComponentInConnectionCommand.cs" />
+    <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedEntityPublishInConnectionCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedSystemFormAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedSystemFormAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedSystemFormChangeInEditorInConnectionCommand.cs" />

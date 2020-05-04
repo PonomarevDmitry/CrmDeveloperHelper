@@ -1,5 +1,7 @@
 ﻿using EnvDTE;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Views;
+using System;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
@@ -112,15 +114,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleExportFileWithEntityMetadata()
         {
-            HandleExportFileWithEntityMetadata(null, null);
+            HandleOpenEntityMetadataExplorer(null, null, null);
+        }
+
+        public void HandleExportFileWithEntityMetadata(string filter)
+        {
+            HandleOpenEntityMetadataExplorer(null, filter, null);
         }
 
         public void HandleExportFileWithEntityMetadata(ConnectionData connectionData)
         {
-            HandleExportFileWithEntityMetadata(connectionData, null);
+            HandleOpenEntityMetadataExplorer(connectionData, null, null);
         }
 
-        public void HandleExportFileWithEntityMetadata(ConnectionData connectionData, SelectedItem selectedItem)
+        public void HandleExportFileWithEntityMetadata(ConnectionData connectionData, string filter)
+        {
+            HandleOpenEntityMetadataExplorer(connectionData, filter, null);
+        }
+
+        public void HandleOpenEntityMetadataExplorer(ConnectionData connectionData, SelectedItem selectedItem)
         {
             string selection = string.Empty;
 
@@ -129,7 +141,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 selection = GetSelectedText();
             }
 
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartOpeningEntityMetadataExplorer(conn, commonConfig, selection, selectedItem));
+            HandleOpenEntityMetadataExplorer(connectionData, selection, selectedItem);
+        }
+
+        public void HandleOpenEntityMetadataExplorer(ConnectionData connectionData, string filter, SelectedItem selectedItem)
+        {
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartOpeningEntityMetadataExplorer(conn, commonConfig, filter, selectedItem));
         }
 
         public void HandleOpenEntityAttributeExplorer()
@@ -306,6 +323,111 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         public void HandleFileGenerationConfiguration()
         {
             GetConfigAndExecute((commonConfig) => Controller.StartOpeningFileGenerationConfiguration());
+        }
+
+        public void OpenEntityMetadataCommand(ConnectionData connectionData, string entityName, ActionOpenComponent action)
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null && commonConfig != null)
+            {
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                if (action == ActionOpenComponent.OpenListInWeb)
+                {
+                    connectionData.OpenEntityInstanceListInWeb(entityName);
+                    return;
+                }
+
+                var idEntityMetadata = connectionData.GetEntityMetadataId(entityName);
+
+                if (idEntityMetadata.HasValue)
+                {
+                    switch (action)
+                    {
+                        case ActionOpenComponent.OpenInWeb:
+                            connectionData.OpenEntityMetadataInWeb(idEntityMetadata.Value);
+                            return;
+
+                        case ActionOpenComponent.OpenDependentComponentsInWeb:
+                            connectionData.OpenSolutionComponentDependentComponentsInWeb(Entities.ComponentType.Entity, idEntityMetadata.Value);
+                            return;
+                    }
+                }
+
+                ActivateOutputWindow(connectionData);
+                WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                try
+                {
+                    Controller.StartEntityMetadataOpenInWeb(connectionData, commonConfig, entityName, action);
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToOutput(connectionData, ex);
+                }
+            }
+        }
+
+        public void HandlePublishEntityCommand(ConnectionData connectionData, string entityName)
+        {
+            if (string.IsNullOrEmpty(entityName))
+            {
+                return;
+            }
+
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null && commonConfig != null)
+            {
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                string message = string.Format(Properties.MessageBoxStrings.PublishEntityFormat2, entityName, connectionData.GetDescription());
+
+                var dialog = new WindowConfirmPublish(message, false);
+
+                if (dialog.ShowDialog().GetValueOrDefault())
+                {
+                    ActivateOutputWindow(connectionData);
+                    WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                    CheckWishToChangeCurrentConnection(connectionData);
+
+                    try
+                    {
+                        Controller.StartPublishEntityMetadata(connectionData, commonConfig, entityName);
+                    }
+                    catch (Exception ex)
+                    {
+                        WriteErrorToOutput(connectionData, ex);
+                    }
+                }
+            }
+        }
+
+        public void HandleAddingEntityToSolutionCommand(ConnectionData connectionData, string solutionUniqueName, bool withSelect, string entityName)
+        {
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartAddingEntityToSolution(conn, commonConfig, solutionUniqueName, withSelect, entityName));
         }
     }
 }
