@@ -1,4 +1,5 @@
 ﻿using EnvDTE;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Views;
 using System;
@@ -425,9 +426,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleAddingEntityToSolutionCommand(ConnectionData connectionData, string solutionUniqueName, bool withSelect, string entityName)
+        public void HandleAddingEntityToSolutionCommand(ConnectionData connectionData, string solutionUniqueName, bool withSelect, string entityName, SolutionComponent.Schema.OptionSets.rootcomponentbehavior rootComponentBehavior)
         {
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartAddingEntityToSolution(conn, commonConfig, solutionUniqueName, withSelect, entityName));
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartAddingEntityToSolution(conn, commonConfig, solutionUniqueName, withSelect, entityName, rootComponentBehavior));
         }
     }
 }

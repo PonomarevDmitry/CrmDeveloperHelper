@@ -91,9 +91,15 @@
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_Group1_MenuOpenListInWebConnectionDyn_Group" priority="0x06000"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_Group1_MenuPublishInConnectionDyn_Group" priority="0x06000"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution" priority="0x06000"/>
-      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_Menu_GroupLastSolution" priority="0x06000"/>
-      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn_Group" priority="0x06000"/>
-      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_Menu_GroupConnectionDyn" priority="0x06000"/>
+      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeSubcomponents_GroupLastSolution" priority="0x06000"/>
+      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeSubcomponents_GroupLastSolution_MenuLastSolutionDyn_Group" priority="0x06000"/>
+      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeSubcomponents_GroupConnectionDyn" priority="0x06000"/>
+      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuDoNotIncludeSubcomponents_GroupLastSolution" priority="0x06000"/>
+      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuDoNotIncludeSubcomponents_GroupLastSolution_MenuLastSolutionDyn_Group" priority="0x06000"/>
+      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuDoNotIncludeSubcomponents_GroupConnectionDyn" priority="0x06000"/>
+      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeAsShellOnly_GroupLastSolution" priority="0x06000"/>
+      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeAsShellOnly_GroupLastSolution_MenuLastSolutionDyn_Group" priority="0x06000"/>
+      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeAsShellOnly_GroupConnectionDyn" priority="0x06000"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_Group2" priority="0x06000"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_Group2_MenuOpenDependentInWebDyn_Group" priority="0x06000"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_Group2_MenuOpenDependentInExplorerDyn_Group" priority="0x06000"/>
@@ -1113,14 +1119,44 @@
         </Strings>
       </Menu>
 
-      <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_Menu" priority="0x06000" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeSubcomponents" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Add to Crm Solution</ButtonText>
-          <MenuText>Add to Crm Solution</MenuText>
+          <ButtonText>Add to Crm Solution Include Subcomponents</ButtonText>
+          <MenuText>Add to Crm Solution Include Subcomponents</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn" priority="0x06000" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeSubcomponents_GroupLastSolution_MenuLastSolutionDyn" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Last Selected Crm Solution</ButtonText>
+          <MenuText>Last Selected Crm Solution</MenuText>
+        </Strings>
+      </Menu>
+
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuDoNotIncludeSubcomponents" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Add to Crm Solution Do Not Include Subcomponents</ButtonText>
+          <MenuText>Add to Crm Solution Do Not Include Subcomponents</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuDoNotIncludeSubcomponents_GroupLastSolution_MenuLastSolutionDyn" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Last Selected Crm Solution</ButtonText>
+          <MenuText>Last Selected Crm Solution</MenuText>
+        </Strings>
+      </Menu>
+
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeAsShellOnly" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Add to Crm Solution Include As Shell Only</ButtonText>
+          <MenuText>Add to Crm Solution Include As Shell Only</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeAsShellOnly_GroupLastSolution_MenuLastSolutionDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Last Selected Crm Solution</ButtonText>
@@ -4216,7 +4252,7 @@
         </Strings>
       </Button>
 
-      <Button guid="guidDynamicCommandSet" id="CodeJavaScriptLinkedEntityAddToSolutionLastCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicCommandSet" id="CodeJavaScriptLinkedEntityAddToSolutionLastIncludeSubcomponentsCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -4224,10 +4260,10 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>CodeJavaScriptLinkedEntityAddToSolutionLastCommandId Placeholder</ButtonText>
+          <ButtonText>CodeJavaScriptLinkedEntityAddToSolutionLastIncludeSubcomponentsCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="CodeJavaScriptLinkedEntityAddToSolutionInConnectionCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicCommandSet" id="CodeJavaScriptLinkedEntityAddToSolutionLastDoNotIncludeSubcomponentsCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -4235,7 +4271,52 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>CodeJavaScriptLinkedEntityAddToSolutionInConnectionCommandId Placeholder</ButtonText>
+          <ButtonText>CodeJavaScriptLinkedEntityAddToSolutionLastDoNotIncludeSubcomponentsCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="CodeJavaScriptLinkedEntityAddToSolutionLastIncludeAsShellOnlyCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>CodeJavaScriptLinkedEntityAddToSolutionLastIncludeAsShellOnlyCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+      
+      <Button guid="guidDynamicCommandSet" id="CodeJavaScriptLinkedEntityAddToSolutionInConnectionIncludeSubcomponentsCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>CodeJavaScriptLinkedEntityAddToSolutionInConnectionIncludeSubcomponentsCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="CodeJavaScriptLinkedEntityAddToSolutionInConnectionDoNotIncludeSubcomponentsCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>CodeJavaScriptLinkedEntityAddToSolutionInConnectionDoNotIncludeSubcomponentsCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="CodeJavaScriptLinkedEntityAddToSolutionInConnectionIncludeAsShellOnlyCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>CodeJavaScriptLinkedEntityAddToSolutionInConnectionIncludeAsShellOnlyCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -12185,22 +12266,57 @@
 
     <!-- #region codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_Menu" priority="0x06000">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeSubcomponents" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuDoNotIncludeSubcomponents" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeAsShellOnly" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution" />
     </CommandPlacement>
 
     <!-- #endregion codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution -->
 
-    <!-- #region codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_Menu -->
+    <!-- #region codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeSubcomponents -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_Menu_GroupLastSolution" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_Menu" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeSubcomponents_GroupLastSolution" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeSubcomponents" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_Menu_GroupConnectionDyn" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_Menu" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeSubcomponents_GroupConnectionDyn" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeSubcomponents" />
     </CommandPlacement>
 
-    <!-- #endregion codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_Menu -->
+    <!-- #endregion codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeSubcomponents -->
+
+    <!-- #region codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuDoNotIncludeSubcomponents -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuDoNotIncludeSubcomponents_GroupLastSolution" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuDoNotIncludeSubcomponents" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuDoNotIncludeSubcomponents_GroupConnectionDyn" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuDoNotIncludeSubcomponents" />
+    </CommandPlacement>
+
+    <!-- #endregion codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuDoNotIncludeSubcomponents -->
+
+    <!-- #region codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeAsShellOnly -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeAsShellOnly_GroupLastSolution" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeAsShellOnly" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeAsShellOnly_GroupConnectionDyn" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeAsShellOnly" />
+    </CommandPlacement>
+
+    <!-- #endregion codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeAsShellOnly -->
+    
+    
+    
+    
+    
+    
+    
 
     <!-- #region codeMenuWebResource_GroupLinkedEntity_Menu_Group2 -->
 
@@ -17542,20 +17658,51 @@
 
 
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_Menu_GroupLastSolution" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeSubcomponents_GroupLastSolution_MenuLastSolutionDyn" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeSubcomponents_GroupLastSolution" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn_Group" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeSubcomponents_GroupLastSolution_MenuLastSolutionDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeSubcomponents_GroupLastSolution_MenuLastSolutionDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeJavaScriptLinkedEntityAddToSolutionLastCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn_Group" />
-    </CommandPlacement>
-
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeJavaScriptLinkedEntityAddToSolutionInConnectionCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_Menu_GroupConnectionDyn" />
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeJavaScriptLinkedEntityAddToSolutionLastIncludeSubcomponentsCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeSubcomponents_GroupLastSolution_MenuLastSolutionDyn_Group" />
     </CommandPlacement>
 
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeJavaScriptLinkedEntityAddToSolutionInConnectionIncludeSubcomponentsCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeSubcomponents_GroupConnectionDyn" />
+    </CommandPlacement>
+    
+    
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuDoNotIncludeSubcomponents_GroupLastSolution_MenuLastSolutionDyn" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuDoNotIncludeSubcomponents_GroupLastSolution" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuDoNotIncludeSubcomponents_GroupLastSolution_MenuLastSolutionDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuDoNotIncludeSubcomponents_GroupLastSolution_MenuLastSolutionDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeJavaScriptLinkedEntityAddToSolutionLastDoNotIncludeSubcomponentsCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuDoNotIncludeSubcomponents_GroupLastSolution_MenuLastSolutionDyn_Group" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeJavaScriptLinkedEntityAddToSolutionInConnectionDoNotIncludeSubcomponentsCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuDoNotIncludeSubcomponents_GroupConnectionDyn" />
+    </CommandPlacement>
+
+
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeAsShellOnly_GroupLastSolution_MenuLastSolutionDyn" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeAsShellOnly_GroupLastSolution" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeAsShellOnly_GroupLastSolution_MenuLastSolutionDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeAsShellOnly_GroupLastSolution_MenuLastSolutionDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeJavaScriptLinkedEntityAddToSolutionLastIncludeAsShellOnlyCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeAsShellOnly_GroupLastSolution_MenuLastSolutionDyn_Group" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeJavaScriptLinkedEntityAddToSolutionInConnectionIncludeAsShellOnlyCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeAsShellOnly_GroupConnectionDyn" />
+    </CommandPlacement>
 
 
 
@@ -19853,24 +20000,40 @@
 
       <IDSymbol name="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution" value="0x1436" />
 
-      <IDSymbol name="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_Menu" value="0x1437" />
+      <IDSymbol name="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeSubcomponents" value="0x1437" />
 
-      <IDSymbol name="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_Menu_GroupLastSolution" value="0x1438" />
-      <IDSymbol name="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn" value="0x1439" />
-      <IDSymbol name="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn_Group" value="0x143A" />
+      <IDSymbol name="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeSubcomponents_GroupLastSolution" value="0x1438" />
+      <IDSymbol name="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeSubcomponents_GroupLastSolution_MenuLastSolutionDyn" value="0x1439" />
+      <IDSymbol name="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeSubcomponents_GroupLastSolution_MenuLastSolutionDyn_Group" value="0x143A" />
 
-      <IDSymbol name="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_Menu_GroupConnectionDyn" value="0x143B" />
+      <IDSymbol name="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeSubcomponents_GroupConnectionDyn" value="0x143B" />
 
-      <IDSymbol name="codeMenuWebResource_GroupLinkedEntity_Menu_Group2" value="0x143C" />
+      <IDSymbol name="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuDoNotIncludeSubcomponents" value="0x143C" />
 
-      <IDSymbol name="codeMenuWebResource_GroupLinkedEntity_Menu_Group2_MenuOpenDependentInWebDyn" value="0x143D" />
-      <IDSymbol name="codeMenuWebResource_GroupLinkedEntity_Menu_Group2_MenuOpenDependentInWebDyn_Group" value="0x143E" />
+      <IDSymbol name="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuDoNotIncludeSubcomponents_GroupLastSolution" value="0x143D" />
+      <IDSymbol name="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuDoNotIncludeSubcomponents_GroupLastSolution_MenuLastSolutionDyn" value="0x143E" />
+      <IDSymbol name="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuDoNotIncludeSubcomponents_GroupLastSolution_MenuLastSolutionDyn_Group" value="0x143F" />
 
-      <IDSymbol name="codeMenuWebResource_GroupLinkedEntity_Menu_Group2_MenuOpenDependentInExplorerDyn" value="0x143F" />
-      <IDSymbol name="codeMenuWebResource_GroupLinkedEntity_Menu_Group2_MenuOpenDependentInExplorerDyn_Group" value="0x1440" />
+      <IDSymbol name="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuDoNotIncludeSubcomponents_GroupConnectionDyn" value="0x1440" />
+      
+      <IDSymbol name="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeAsShellOnly" value="0x1441" />
 
-      <IDSymbol name="codeMenuWebResource_GroupLinkedEntity_Menu_Group2_MenuOpenSolutionsContainingComponentInExplorerDyn" value="0x1441" />
-      <IDSymbol name="codeMenuWebResource_GroupLinkedEntity_Menu_Group2_MenuOpenSolutionsContainingComponentInExplorerDyn_Group" value="0x1442" />
+      <IDSymbol name="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeAsShellOnly_GroupLastSolution" value="0x1442" />
+      <IDSymbol name="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeAsShellOnly_GroupLastSolution_MenuLastSolutionDyn" value="0x1443" />
+      <IDSymbol name="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeAsShellOnly_GroupLastSolution_MenuLastSolutionDyn_Group" value="0x1444" />
+
+      <IDSymbol name="codeMenuWebResource_GroupLinkedEntity_Menu_GroupAddToSolution_MenuIncludeAsShellOnly_GroupConnectionDyn" value="0x1445" />
+
+      <IDSymbol name="codeMenuWebResource_GroupLinkedEntity_Menu_Group2" value="0x1446" />
+
+      <IDSymbol name="codeMenuWebResource_GroupLinkedEntity_Menu_Group2_MenuOpenDependentInWebDyn" value="0x1447" />
+      <IDSymbol name="codeMenuWebResource_GroupLinkedEntity_Menu_Group2_MenuOpenDependentInWebDyn_Group" value="0x1448" />
+
+      <IDSymbol name="codeMenuWebResource_GroupLinkedEntity_Menu_Group2_MenuOpenDependentInExplorerDyn" value="0x1449" />
+      <IDSymbol name="codeMenuWebResource_GroupLinkedEntity_Menu_Group2_MenuOpenDependentInExplorerDyn_Group" value="0x144A" />
+
+      <IDSymbol name="codeMenuWebResource_GroupLinkedEntity_Menu_Group2_MenuOpenSolutionsContainingComponentInExplorerDyn" value="0x144B" />
+      <IDSymbol name="codeMenuWebResource_GroupLinkedEntity_Menu_Group2_MenuOpenSolutionsContainingComponentInExplorerDyn_Group" value="0x144C" />
 
 
 
@@ -21457,10 +21620,15 @@
       <IDSymbol name="CodeJavaScriptLinkedEntityOpenDependentInExplorerInConnectionCommandId" value="13150" />
       <IDSymbol name="CodeJavaScriptLinkedEntityOpenSolutionsContainingComponentInExplorerInConnectionCommandId" value="13200" />
 
-      <IDSymbol name="CodeJavaScriptLinkedEntityAddToSolutionLastCommandId" value="13250" />
-      <IDSymbol name="CodeJavaScriptLinkedEntityAddToSolutionInConnectionCommandId" value="13300" />
+      <IDSymbol name="CodeJavaScriptLinkedEntityAddToSolutionLastIncludeSubcomponentsCommandId" value="13250" />
+      <IDSymbol name="CodeJavaScriptLinkedEntityAddToSolutionLastDoNotIncludeSubcomponentsCommandId" value="13300" />
+      <IDSymbol name="CodeJavaScriptLinkedEntityAddToSolutionLastIncludeAsShellOnlyCommandId" value="13350" />
+      
+      <IDSymbol name="CodeJavaScriptLinkedEntityAddToSolutionInConnectionIncludeSubcomponentsCommandId" value="13400" />
+      <IDSymbol name="CodeJavaScriptLinkedEntityAddToSolutionInConnectionDoNotIncludeSubcomponentsCommandId" value="13450" />
+      <IDSymbol name="CodeJavaScriptLinkedEntityAddToSolutionInConnectionIncludeAsShellOnlyCommandId" value="13500" />
 
-      <IDSymbol name="CodeJavaScriptLinkedEntityPublishInConnectionCommandId" value="13350" />
+      <IDSymbol name="CodeJavaScriptLinkedEntityPublishInConnectionCommandId" value="13550" />
 
       <!-- #endregion CodeJavaScript -->
 
@@ -22617,13 +22785,13 @@
 
 
     <!-- Groups and Menus -->
-    <!-- 0x1443 -->
+    <!-- 0x144D -->
 
     <!-- Commands -->
     <!-- 0x2246 -->
 
     <!-- Dynamic Commands -->
-    <!-- 13400 -->
+    <!-- 13600 -->
 
   </Symbols>
 
