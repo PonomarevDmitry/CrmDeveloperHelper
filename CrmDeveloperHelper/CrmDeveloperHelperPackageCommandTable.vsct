@@ -3824,6 +3824,17 @@
       <!-- #endregion CodeWebResource -->
 
       <!-- #region CodeJavaScript -->
+      
+      <Button guid="guidCommandSet" id="CodeJavaScriptFileGenerationOptionsCommandId" priority="0x0102" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>JavaScript File Generation Options</ButtonText>
+        </Strings>
+      </Button>
 
       <Button guid="guidDynamicCommandSet" id="CodeJavaScriptUpdateEntityMetadataFileCommandId" priority="0x0101" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
@@ -5758,6 +5769,17 @@
       <!-- #endregion DocumentsWebResource -->
 
       <!-- #region DocumentsJavaScript -->
+      
+      <Button guid="guidCommandSet" id="DocumentsJavaScriptFileGenerationOptionsCommandId" priority="0x0102" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>JavaScript File Generation Options</ButtonText>
+        </Strings>
+      </Button>
 
       <Button guid="guidDynamicCommandSet" id="DocumentsJavaScriptUpdateEntityMetadataFileCommandId" priority="0x0111" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
@@ -6781,6 +6803,17 @@
       <!-- #endregion FileWebResource -->
 
       <!-- #region FileJavaScript -->
+
+      <Button guid="guidCommandSet" id="FileJavaScriptFileGenerationOptionsCommandId" priority="0x0102" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>JavaScript File Generation Options</ButtonText>
+        </Strings>
+      </Button>
 
       <Button guid="guidDynamicCommandSet" id="FileJavaScriptUpdateEntityMetadataFileCommandId" priority="0x0111" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
@@ -7923,6 +7956,17 @@
       <!-- #endregion FolderWebResource -->
 
       <!-- #region FolderJavaScript -->
+
+      <Button guid="guidCommandSet" id="FolderJavaScriptFileGenerationOptionsCommandId" priority="0x0102" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>JavaScript File Generation Options</ButtonText>
+        </Strings>
+      </Button>
 
       <Button guid="guidDynamicCommandSet" id="FolderJavaScriptUpdateEntityMetadataFileCommandId" priority="0x011F" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
@@ -11721,10 +11765,13 @@
 
     <!-- #region codeMenuWebResource_GroupEntityMetadata -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupEntityMetadata_MenuConnectionDyn" priority="0x0101">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupEntityMetadata_MenuConnectionDyn" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupEntityMetadata" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CodeJavaScriptUpdateEntityMetadataFileWithSelectCommandId" priority="0x0102">
+    <CommandPlacement guid="guidCommandSet" id="CodeJavaScriptUpdateEntityMetadataFileWithSelectCommandId" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupEntityMetadata" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CodeJavaScriptFileGenerationOptionsCommandId" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupEntityMetadata" />
     </CommandPlacement>
 
@@ -11732,10 +11779,13 @@
 
     <!-- #region codeMenuWebResource_GroupGlobalOptionSetSingle -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupGlobalOptionSetSingle_MenuConnectionDyn" priority="0x0100">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupGlobalOptionSetSingle_MenuConnectionDyn" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupGlobalOptionSetSingle" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommandId" priority="0x0110">
+    <CommandPlacement guid="guidCommandSet" id="CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommandId" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupGlobalOptionSetSingle" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CodeJavaScriptFileGenerationOptionsCommandId" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupGlobalOptionSetSingle" />
     </CommandPlacement>
 
@@ -11744,6 +11794,9 @@
     <!-- #region codeMenuWebResource_GroupGlobalOptionSetAll -->
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupGlobalOptionSetAll_MenuConnectionDyn" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupGlobalOptionSetAll" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CodeJavaScriptFileGenerationOptionsCommandId" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupGlobalOptionSetAll" />
     </CommandPlacement>
 
@@ -13083,7 +13136,10 @@
 
     <!-- #region documentsMenuWebResource_GroupEntityMetadata -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupEntityMetadata_MenuSchemaDyn" priority="0x0111">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupEntityMetadata_MenuSchemaDyn" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupEntityMetadata" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="DocumentsJavaScriptFileGenerationOptionsCommandId" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupEntityMetadata" />
     </CommandPlacement>
 
@@ -13091,7 +13147,10 @@
 
     <!-- #region documentsMenuWebResource_GroupGlobalOptionSetSingle -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupGlobalOptionSetSingle_MenuSchemaDyn" priority="0x0111">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupGlobalOptionSetSingle_MenuSchemaDyn" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupGlobalOptionSetSingle" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="DocumentsJavaScriptFileGenerationOptionsCommandId" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupGlobalOptionSetSingle" />
     </CommandPlacement>
 
@@ -13763,10 +13822,13 @@
 
     <!-- #region fileMenuWebResource_GroupEntityMetadata -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEntityMetadata_MenuConnectionDyn" priority="0x0100">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEntityMetadata_MenuConnectionDyn" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEntityMetadata" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileJavaScriptUpdateEntityMetadataFileWithSelectCommandId" priority="0x0110">
+    <CommandPlacement guid="guidCommandSet" id="FileJavaScriptUpdateEntityMetadataFileWithSelectCommandId" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEntityMetadata" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="FileJavaScriptFileGenerationOptionsCommandId" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEntityMetadata" />
     </CommandPlacement>
 
@@ -13774,10 +13836,13 @@
 
     <!-- #region fileMenuWebResource_GroupGlobalOptionSetSingle -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupGlobalOptionSetSingle_MenuConnectionDyn" priority="0x0120">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupGlobalOptionSetSingle_MenuConnectionDyn" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupGlobalOptionSetSingle" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommandId" priority="0x0130">
+    <CommandPlacement guid="guidCommandSet" id="FileJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommandId" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupGlobalOptionSetSingle" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="FileJavaScriptFileGenerationOptionsCommandId" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupGlobalOptionSetSingle" />
     </CommandPlacement>
 
@@ -13785,7 +13850,10 @@
 
     <!-- #region fileMenuWebResource_GroupGlobalOptionSetAll -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupGlobalOptionSetAll_MenuConnectionDyn" priority="0x0120">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupGlobalOptionSetAll_MenuConnectionDyn" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupGlobalOptionSetAll" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="FileJavaScriptFileGenerationOptionsCommandId" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupGlobalOptionSetAll" />
     </CommandPlacement>
 
@@ -14633,7 +14701,10 @@
 
     <!-- #region folderMenuWebResource_GroupEntityMetadata -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEntityMetadata_MenuEntityDyn" priority="0x0100">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEntityMetadata_MenuEntityDyn" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEntityMetadata" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="FolderJavaScriptFileGenerationOptionsCommandId" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEntityMetadata" />
     </CommandPlacement>
 
@@ -14641,7 +14712,10 @@
 
     <!-- #region folderMenuWebResource_GroupGlobalOptionSetSingle -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupGlobalOptionSetSingle_MenuConnection" priority="0x0110">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupGlobalOptionSetSingle_MenuConnection" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupGlobalOptionSetSingle" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="FolderJavaScriptFileGenerationOptionsCommandId" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupGlobalOptionSetSingle" />
     </CommandPlacement>
 
@@ -21227,6 +21301,8 @@
       <IDSymbol name="CodeJavaScriptUpdateEntityMetadataFileWithSelectCommandId" value="0x219D" />
       <IDSymbol name="CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommandId" value="0x21A1" />
 
+      <IDSymbol name="CodeJavaScriptFileGenerationOptionsCommandId" value="0x2241" />
+
       <IDSymbol name="CodeJavaScriptLinkedSystemFormExplorerCommandId" value="0x223C" />
 
       <!-- #endregion CodeJavaScript -->
@@ -21378,6 +21454,12 @@
 
       <!-- #endregion DocumentsWebResource -->
 
+      <!-- #region DocumentsJavaScript -->
+
+      <IDSymbol name="DocumentsJavaScriptFileGenerationOptionsCommandId" value="0x2242" />
+
+      <!-- #endregion DocumentsJavaScript -->
+
       <!-- #region DocumentsXml -->
 
       <IDSymbol name="DocumentsXmlXsdSchemaRemoveCommandId" value="0x2197" />
@@ -21481,6 +21563,8 @@
 
       <IDSymbol name="FileJavaScriptUpdateEntityMetadataFileWithSelectCommandId" value="0x219E" />
       <IDSymbol name="FileJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommandId" value="0x21A2" />
+
+      <IDSymbol name="FileJavaScriptFileGenerationOptionsCommandId" value="0x2243" />
 
       <!-- #endregion FileJavaScript -->
 
@@ -21596,6 +21680,12 @@
       <IDSymbol name="FolderWebResourceAddIntoPublishListFilesWithMirrorComplexCommandId" value="0x20DB" />
 
       <!-- #endregion FolderWebResource -->
+
+      <!-- #region FolderJavaScript -->
+
+      <IDSymbol name="FolderJavaScriptFileGenerationOptionsCommandId" value="0x2244" />
+
+      <!-- #endregion FolderJavaScript -->
 
       <!-- #region FolderXml -->
 
@@ -21981,7 +22071,7 @@
     <!-- 0x142D -->
 
     <!-- Commands -->
-    <!-- 0x2241 -->
+    <!-- 0x2245 -->
 
     <!-- Dynamic Commands -->
     <!-- 13000 -->

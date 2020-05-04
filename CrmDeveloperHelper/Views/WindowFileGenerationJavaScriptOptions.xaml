@@ -1,4 +1,4 @@
-﻿<src:WindowBase 
+﻿<src:WindowBase
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
@@ -8,7 +8,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     mc:Ignorable="d"
                 
-    x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowExplorerEntityMetadataOptions"
+    x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowFileGenerationJavaScriptOptions"
     Title="EntityMetadata File Generation Options" 
     SizeToContent="WidthAndHeight"
     ResizeMode="NoResize"
@@ -19,9 +19,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="StyleWindows.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-
-
-
         </ResourceDictionary>
     </src:WindowBase.Resources>
     <Grid>
@@ -32,7 +29,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <local:FileGenerationEntityMetadataOptionsControl Grid.Row="0" x:Name="options" CloseClicked="options_CloseClicked" />
+        <local:FileGenerationJavaScriptOptionsControl Grid.Row="0" x:Name="options" CloseClicked="options_CloseClicked" />
 
         <StatusBar Grid.Row="1">
             <StatusBarItem Content="" />

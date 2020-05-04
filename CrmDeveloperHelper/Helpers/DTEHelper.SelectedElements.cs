@@ -152,6 +152,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return false;
         }
 
+        public bool TryGetLinkedEntityName(out string entityName)
+        {
+            entityName = string.Empty;
+
+            var document = this.GetOpenedDocumentInCodeWindow(FileOperations.SupportsJavaScriptType);
+
+            if (document == null)
+            {
+                return false;
+            }
+
+            var objTextDoc = document.Object("TextDocument");
+            if (objTextDoc != null
+                && objTextDoc is EnvDTE.TextDocument textDocument
+            )
+            {
+                string fileText = textDocument.StartPoint.CreateEditPoint().GetText(textDocument.EndPoint);
+
+                if (CommonHandlers.GetLinkedEntityName(fileText, out entityName))
+                {
+                    return true;
+                }
+            }
+
+            entityName = string.Empty;
+
+            return false;
+        }
+
         public IEnumerable<SelectedFile> GetOpenedDocuments(Func<string, bool> checkerFunction)
         {
             return GetOpenedDocuments(checkerFunction, true);

@@ -1581,32 +1581,81 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         #endregion Cache
 
-        private static Regex _regexAttributeEntityNameFormTypeFormId = new Regex(@"^\/\/\/ <crmdeveloperhelper entityname=\""(?<entityname>[\w]+)\"" systemformtype=\""(?<systemformtype>[0-9]+)\"" systemformid=\""(?<systemformid>\{?[0-9A-Fa-f]{8}[-][0-9A-Fa-f]{4}[-][0-9A-Fa-f]{4}[-][0-9A-Fa-f]{4}[-][0-9A-Fa-f]{12}\}?)\"" \/>\r?$", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
+        private static Regex _regexCrmDeveloperContent = new Regex(@"^\/\/\/ <crmdeveloperhelper (?<content>.+) \/>\r?$", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
+
+        private static Regex _regexAttributeEntityName = new Regex(@"entityname=\""(?<entityname>[\w]+)\""", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
+        private static Regex _regexAttributeFormType = new Regex(@"systemformtype=\""(?<systemformtype>[0-9]+)\""", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
+        private static Regex _regexAttributeFormId = new Regex(@"systemformid=\""(?<systemformid>\{?[0-9A-Fa-f]{8}[-][0-9A-Fa-f]{4}[-][0-9A-Fa-f]{4}[-][0-9A-Fa-f]{4}[-][0-9A-Fa-f]{12}\}?)\""", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public static bool GetLinkedSystemForm(string text, out string entityName, out Guid formId, out int formType)
         {
-            var matchEntityNameFormTypeFormId = _regexAttributeEntityNameFormTypeFormId.Match(text);
+            var matchCrmDeveloperContent = _regexCrmDeveloperContent.Match(text);
 
-            if (matchEntityNameFormTypeFormId.Success
-                && matchEntityNameFormTypeFormId.Groups["entityname"] != null
-                && matchEntityNameFormTypeFormId.Groups["systemformtype"] != null
-                && matchEntityNameFormTypeFormId.Groups["systemformid"] != null
+            if (matchCrmDeveloperContent.Success
+                && matchCrmDeveloperContent.Groups["content"] != null
             )
             {
-                string formIdString = matchEntityNameFormTypeFormId.Groups["systemformid"].Value;
-                string formTypeString = matchEntityNameFormTypeFormId.Groups["systemformtype"].Value;
+                string content = matchCrmDeveloperContent.Groups["content"].Value;
 
-                if (Guid.TryParse(formIdString, out formId) && int.TryParse(formTypeString, out formType))
+                var matchEntityName = _regexAttributeEntityName.Match(content);
+                var matchFormType = _regexAttributeFormType.Match(content);
+                var matchFormId = _regexAttributeFormId.Match(content);
+
+                if (matchEntityName.Success
+                    && matchFormType.Success
+                    && matchFormId.Success
+                    && matchEntityName.Groups["entityname"] != null
+                    && matchFormType.Groups["systemformtype"] != null
+                    && matchFormId.Groups["systemformid"] != null
+                )
                 {
-                    entityName = matchEntityNameFormTypeFormId.Groups["entityname"].Value;
+                    string formTypeString = matchFormType.Groups["systemformtype"].Value;
+                    string formIdString = matchFormId.Groups["systemformid"].Value;
+                    entityName = matchEntityName.Groups["entityname"].Value;
 
-                    return true;
+                    if (Guid.TryParse(formIdString, out formId)
+                        && int.TryParse(formTypeString, out formType)
+                        && !string.IsNullOrEmpty(entityName)
+                    )
+                    {
+                        return true;
+                    }
                 }
             }
 
             entityName = string.Empty;
             formId = Guid.Empty;
             formType = 0;
+
+            return false;
+        }
+
+        public static bool GetLinkedEntityName(string text, out string entityName)
+        {
+            var matchCrmDeveloperContent = _regexCrmDeveloperContent.Match(text);
+
+            if (matchCrmDeveloperContent.Success
+                && matchCrmDeveloperContent.Groups["content"] != null
+            )
+            {
+                string content = matchCrmDeveloperContent.Groups["content"].Value;
+
+                var matchEntityName = _regexAttributeEntityName.Match(content);
+
+                if (matchEntityName.Success
+                    && matchEntityName.Groups["entityname"] != null
+                )
+                {
+                    entityName = matchEntityName.Groups["entityname"].Value;
+
+                    if (!string.IsNullOrEmpty(entityName))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            entityName = string.Empty;
 
             return false;
         }
@@ -1644,6 +1693,54 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             string text = textDocument.StartPoint.CreateEditPoint().GetText(textDocument.EndPoint);
 
                             if (GetLinkedSystemForm(text, out _, out _, out _))
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(null, ex);
+                }
+            }
+
+            return false;
+        }
+
+        internal static void ActionBeforeQueryStatusActiveDocumentJavaScriptHasLinkedEntityName(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        {
+            bool visible = CacheValue(nameof(ActionBeforeQueryStatusActiveDocumentJavaScriptHasLinkedEntityName), applicationObject, ActionBeforeQueryStatusActiveDocumentJavaScriptHasLinkedEntityNameInternal);
+
+            if (visible == false)
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
+        }
+
+        private static bool ActionBeforeQueryStatusActiveDocumentJavaScriptHasLinkedEntityNameInternal(EnvDTE80.DTE2 applicationObject)
+        {
+            if (applicationObject.ActiveWindow != null
+                && applicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeDocument
+                && applicationObject.ActiveWindow.Document != null
+            )
+            {
+                try
+                {
+                    var document = applicationObject.ActiveWindow.Document;
+
+                    string filePath = applicationObject.ActiveWindow.Document.FullName.ToString().ToLower();
+
+                    if (FileOperations.SupportsJavaScriptType(filePath))
+                    {
+                        var objTextDoc = document.Object("TextDocument");
+                        if (objTextDoc != null
+                            && objTextDoc is EnvDTE.TextDocument textDocument
+                        )
+                        {
+                            string text = textDocument.StartPoint.CreateEditPoint().GetText(textDocument.EndPoint);
+
+                            if (GetLinkedEntityName(text, out _))
                             {
                                 return true;
                             }

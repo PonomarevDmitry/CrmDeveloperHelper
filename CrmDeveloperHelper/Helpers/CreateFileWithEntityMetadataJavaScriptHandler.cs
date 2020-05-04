@@ -84,9 +84,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 className += ".Schema";
             }
 
-            WriteNamespace(jsNamespace);
+            WriteCrmDeveloperAttribute(_entityMetadata.LogicalName);
 
-            WriteLine();
+            WriteNamespace(jsNamespace);
 
             WriteLine("{0} = {{", className);
 
@@ -98,6 +98,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteLine();
             Write("};");
+        }
+
+        public void WriteCrmDeveloperAttribute(string entityName)
+        {
+            StringBuilder systemInfo = new StringBuilder();
+
+            if (!string.IsNullOrEmpty(entityName))
+            {
+                systemInfo.AppendFormat(@" entityname=""{0}""", entityName);
+            }
+
+            if (systemInfo.Length > 0)
+            {
+                WriteLine($@"/// <crmdeveloperhelper{systemInfo.ToString()} />");
+                WriteLine();
+            }
         }
 
         private void WriteNamespace(string jsNamespace)
@@ -125,6 +141,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 WriteLine(str.ToString() + " = { __namespace: true };");
                 WriteLine("};");
             }
+
+            WriteLine();
         }
 
         private void WriteAttributesToFile()

@@ -759,6 +759,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartOpeningEntityMetadataFileGenerationOptions()
             => ExecuteInThreadVoid(this._explorerController.ExecuteOpeningEntityMetadataFileGenerationOptions);
 
+        public void StartOpeningJavaScriptFileGenerationOptions()
+            => ExecuteInThreadVoid(this._explorerController.ExecuteOpeningJavaScriptFileGenerationOptions);
+
         public void StartOpeningGlobalOptionSetsMetadataFileGenerationOptions()
             => ExecuteInThreadVoid(this._explorerController.ExecuteOpeningGlobalOptionSetsMetadataFileGenerationOptions);
 

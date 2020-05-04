@@ -96,6 +96,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Opening Entity Metadata File Generation Options
 
+        #region Opening Entity Metadata File Generation Options
+
+        public void ExecuteOpeningJavaScriptFileGenerationOptions()
+        {
+            GetFileGenerationOptionsAndOpenExplorer(
+                Properties.OperationNames.OpeningJavaScriptFileGenerationOptions
+                , WindowHelper.OpenJavaScriptFileGenerationOptions
+            );
+        }
+
+        #endregion Opening Entity Metadata File Generation Options
+
         #region Opening Global OptionSets Metadata File Generation Options
 
         public void ExecuteOpeningGlobalOptionSetsMetadataFileGenerationOptions()

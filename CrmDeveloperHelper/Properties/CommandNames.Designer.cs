@@ -934,6 +934,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to JavaScript File Generation Options.
+        /// </summary>
+        internal static string JavaScriptFileGenerationOptionsCommand {
+            get {
+                return ResourceManager.GetString("JavaScriptFileGenerationOptionsCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clear List.
         /// </summary>
         internal static string ListForPublishClearListCommand {

@@ -216,6 +216,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             CodeJavaScriptLinkedSystemFormGetCurrentTabsAndSectionsInConnectionCommand.Initialize(commandService);
 
+            CodeJavaScriptFileGenerationOptionsCommand.Initialize(commandService);
+
             // CodeJavaScriptLinkedSystemForm.Initialize(commandService);
 
             #endregion CodeJavaScript
@@ -224,6 +226,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             DocumentsJavaScriptUpdateEntityMetadataFileCommand.Initialize(commandService);
             DocumentsJavaScriptUpdateGlobalOptionSetSingleFileCommand.Initialize(commandService);
+
+            DocumentsJavaScriptFileGenerationOptionsCommand.Initialize(commandService);
 
             #endregion DocumentsJavaScript
 
@@ -237,12 +241,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             FileJavaScriptUpdateGlobalOptionSetAllFileCommand.Initialize(commandService);
 
+            FileJavaScriptFileGenerationOptionsCommand.Initialize(commandService);
+
             #endregion FileJavaScript
 
             #region FolderJavaScript
 
             FolderJavaScriptUpdateEntityMetadataFileCommand.Initialize(commandService);
             FolderJavaScriptUpdateGlobalOptionSetSingleFileCommand.Initialize(commandService);
+
+            FolderJavaScriptFileGenerationOptionsCommand.Initialize(commandService);
 
             #endregion FolderJavaScript
 

@@ -248,7 +248,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
 
-                WindowHelper.OpenEntityMetadataFileGenerationOptions(fileGenerationOptions);
+                if (isJavaScript)
+                {
+                    WindowHelper.OpenJavaScriptFileGenerationOptions(fileGenerationOptions);
+                }
+                else
+                {
+                    WindowHelper.OpenEntityMetadataFileGenerationOptions(fileGenerationOptions);
+                }
             }
 
             var service = await ConnectAndWriteToOutputAsync(connectionData);

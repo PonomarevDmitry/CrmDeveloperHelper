@@ -9,12 +9,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.JavaScripts
     internal sealed class FolderJavaScriptUpdateEntityMetadataFileCommand : AbstractDynamicCommandByConnectionAll
     {
         private FolderJavaScriptUpdateEntityMetadataFileCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.FolderJavaScriptUpdateEntityMetadataFileCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.FolderJavaScriptUpdateEntityMetadataFileCommandId)
         {
-
         }
 
         public static FolderJavaScriptUpdateEntityMetadataFileCommand Instance { get; private set; }

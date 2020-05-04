@@ -288,6 +288,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConfigAndExecute((commonConfig) => Controller.StartOpeningEntityMetadataFileGenerationOptions());
         }
 
+        public void HandleJavaScriptFileGenerationOptions()
+        {
+            GetConfigAndExecute((commonConfig) => Controller.StartOpeningJavaScriptFileGenerationOptions());
+        }
+
         public void HandleGlobalOptionSetsMetadataFileGenerationOptions()
         {
             GetConfigAndExecute((commonConfig) => Controller.StartOpeningGlobalOptionSetsMetadataFileGenerationOptions());

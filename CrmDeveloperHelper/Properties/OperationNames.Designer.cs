@@ -1645,6 +1645,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Opening JavaScript File Generation Options.
+        /// </summary>
+        internal static string OpeningJavaScriptFileGenerationOptions {
+            get {
+                return ResourceManager.GetString("OpeningJavaScriptFileGenerationOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Opening Linked SystemForm.
         /// </summary>
         internal static string OpeningLinkedSystemFormFormat1 {

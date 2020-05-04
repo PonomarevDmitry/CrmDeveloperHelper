@@ -552,14 +552,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 systemInfo.AppendFormat(@" systemformid=""{0:B}""", formId.Value);
             }
 
-            if (systemInfo.Length > 0)
+            if (systemInfo.Length > 0 || !string.IsNullOrEmpty(formTypeName) || !string.IsNullOrEmpty(formName))
             {
-                WriteLine($@"/// <crmdeveloperhelper{systemInfo.ToString()} />");
-            }
+                if (systemInfo.Length > 0)
+                {
+                    WriteLine($@"/// <crmdeveloperhelper{systemInfo.ToString()} />");
+                }
 
-            if (!string.IsNullOrEmpty(formTypeName) || !string.IsNullOrEmpty(formName))
-            {
-                WriteLine($@"/// <crmdeveloperhelper systemformtypename=""{formTypeName}"" systemformname=""{formName}"" />");
+                if (!string.IsNullOrEmpty(formTypeName) || !string.IsNullOrEmpty(formName))
+                {
+                    WriteLine($@"/// <crmdeveloperhelper systemformtypename=""{formTypeName}"" systemformname=""{formName}"" />");
+                }
+
+                WriteLine();
             }
         }
 

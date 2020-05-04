@@ -485,6 +485,11 @@
   <data name="CSharpGlobalOptionSetsMetadataFileGenerationOptionsCommand" xml:space="preserve">
     <value>Global OptionSets File Generation Options</value>
   </data>
+  <data name="JavaScriptFileGenerationOptionsCommand" xml:space="preserve">
+    <value>JavaScript File Generation Options</value>
+  </data>
+
+  
 
   <data name="CodeXmlCommonXsdSchemaSetProperCommandFormat1" xml:space="preserve">
     <value>Set Xsd Schema {0}</value>

@@ -2445,6 +2445,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommandId = 0x21A1;
 
+            public const int CodeJavaScriptFileGenerationOptionsCommandId = 0x2241;
+
             public const int CodeJavaScriptLinkedSystemFormExplorerCommandId = 0x223C;
 
             public const int CodeXmlCommonUpdateCommandId = 0x2225;
@@ -2627,6 +2629,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int DocumentsWebResourceAddFilesIntoListForPublishWithMirrorComplexCommandId = 0x20FC;
 
+            public const int DocumentsJavaScriptFileGenerationOptionsCommandId = 0x2242;
+
             public const int DocumentsXmlXsdSchemaRemoveCommandId = 0x2197;
 
             public const int DocumentsXmlXsdSchemaOpenFolderCommandId = 0x219A;
@@ -2760,6 +2764,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int FileJavaScriptUpdateEntityMetadataFileWithSelectCommandId = 0x219E;
 
             public const int FileJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommandId = 0x21A2;
+
+            public const int FileJavaScriptFileGenerationOptionsCommandId = 0x2243;
 
             public const int FileXmlXsdSchemaRemoveCommandId = 0x2198;
 
@@ -2908,6 +2914,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int FolderWebResourceAddIntoPublishListFilesWithMirrorDeletesCommandId = 0x20DA;
 
             public const int FolderWebResourceAddIntoPublishListFilesWithMirrorComplexCommandId = 0x20DB;
+
+            public const int FolderJavaScriptFileGenerationOptionsCommandId = 0x2244;
 
             public const int FolderXmlXsdSchemaRemoveCommandId = 0x2199;
 

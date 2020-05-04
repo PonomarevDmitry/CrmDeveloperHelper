@@ -145,6 +145,7 @@
     <Compile Include="Commands\FindEdit\CommonFindEntityObjectsByPrefixInExplorerCommand.cs" />
     <Compile Include="Commands\FindEdit\CommonFindEntityObjectsContainsStringInExplorerCommand.cs" />
     <Compile Include="Commands\FindEdit\CommonFindEntityObjectsMarkedToDeleteInExplorerCommand.cs" />
+    <Compile Include="Commands\JavaScripts\CodeJavaScriptFileGenerationOptionsCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedSystemFormAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedSystemFormAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedSystemFormChangeInEditorInConnectionCommand.cs" />
@@ -157,6 +158,9 @@
     <Compile Include="Commands\JavaScripts\CodeJavaScriptUpdateGlobalOptionSetAllFileCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptUpdateGlobalOptionSetSingleFileCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand.cs" />
+    <Compile Include="Commands\JavaScripts\DocumentsJavaScriptFileGenerationOptionsCommand.cs" />
+    <Compile Include="Commands\JavaScripts\FileJavaScriptMetadataFileGenerationOptionsCommand.cs" />
+    <Compile Include="Commands\JavaScripts\FolderJavaScriptFileGenerationOptionsCommand.cs" />
     <Compile Include="Commands\ListForPublish\ListForPublishMultiDifferenceCommand.cs" />
     <Compile Include="Commands\ListForPublish\ListForPublishOpenFilesCommand.cs" />
     <Compile Include="Commands\OutputWindows\Checks\OutputCheckUnknownFormControlTypes.cs" />
@@ -1537,6 +1541,9 @@
     <Compile Include="Views\WindowFileActionByExtension.xaml.cs">
       <DependentUpon>WindowFileActionByExtension.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WindowFileGenerationJavaScriptOptions.xaml.cs">
+      <DependentUpon>WindowFileGenerationJavaScriptOptions.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WindowFileGenerationOptions.xaml.cs">
       <DependentUpon>WindowFileGenerationOptions.xaml</DependentUpon>
     </Compile>
@@ -2316,6 +2323,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WindowFileActionByExtension.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowFileGenerationJavaScriptOptions.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -222,6 +222,10 @@
     <value>Opening Entity Metadata File Generation Options</value>
   </data>
 
+  <data name="OpeningJavaScriptFileGenerationOptions" xml:space="preserve">
+    <value>Opening JavaScript File Generation Options</value>
+  </data>
+  
   <data name="OpeningGlobalOptionSetsFileGenerationOptions" xml:space="preserve">
     <value>Opening Global OptionSets Metadata File Generation Options</value>
   </data>

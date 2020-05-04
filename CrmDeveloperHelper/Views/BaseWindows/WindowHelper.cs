@@ -124,6 +124,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             );
         }
 
+        public static void OpenJavaScriptFileGenerationOptions(FileGenerationOptions fileGenerationOptions)
+        {
+            ExecuteInSTAThread(() =>
+                new WindowFileGenerationJavaScriptOptions(fileGenerationOptions)
+            );
+        }
+
         public static void OpenGlobalOptionSetsFileGenerationOptions(FileGenerationOptions fileGenerationOptions)
         {
             ExecuteInSTAThread(() =>
