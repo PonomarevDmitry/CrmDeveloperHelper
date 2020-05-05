@@ -1,8 +1,6 @@
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
@@ -57,24 +55,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
             if (WebResourcesJavaScript == null)
             {
                 this.WebResourcesJavaScript = new ConcurrentDictionary<Guid, WebResource>();
-            }
-        }
-
-        public void LoadWebResources(IEnumerable<WebResource> webResources, ConcurrentDictionary<Guid, WebResource> container)
-        {
-            container.Clear();
-
-            if (!webResources.Any())
-            {
-                return;
-            }
-
-            foreach (var item in webResources)
-            {
-                if (!container.ContainsKey(item.Id))
-                {
-                    container.TryAdd(item.Id, item);
-                }
             }
         }
     }

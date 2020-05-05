@@ -8,22 +8,14 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 {
-    [DataContract]
     public class ConnectionIntellisenseData
     {
-        private const int _savePeriodInMinutes = 5;
-
-        private string FilePath { get; set; }
-
-        public DateTime? NextSaveFileDate { get; set; }
-
-        [DataMember]
         public Guid ConnectionId { get; set; }
 
-        [DataMember]
         public ConcurrentDictionary<string, EntityIntellisenseData> Entities { get; private set; }
 
         public ConnectionIntellisenseData()
@@ -90,175 +82,87 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
             SaveIntellisenseDataByTime();
         }
 
-        [OnDeserializing]
-        private void BeforeDeserialize(StreamingContext context)
+        public void GetDataFromDisk()
         {
-            if (Entities == null)
+            var directory = GetFolderPath(this.ConnectionId);
+
+            if (this.Entities == null)
             {
                 this.Entities = new ConcurrentDictionary<string, EntityIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
             }
-        }
 
-        private void SaveIntellisenseDataByTime()
-        {
-            bool saveData = !this.NextSaveFileDate.HasValue || this.NextSaveFileDate < DateTime.Now;
+            var directoryInfo = new DirectoryInfo(directory);
 
-            if (saveData)
+            if (directoryInfo.Exists)
             {
-                this.Save();
-            }
-        }
+                var files = directoryInfo.GetFiles("*.xml");
 
-        public static ConnectionIntellisenseData Get(ConnectionData connectionData)
-        {
-            var filePath = GetFilePath(connectionData.ConnectionId);
-
-            ConnectionIntellisenseData result = null;
-
-            if (File.Exists(filePath))
-            {
-                DataContractSerializer ser = new DataContractSerializer(typeof(ConnectionIntellisenseData));
-
-                using (Mutex mutex = new Mutex(false, FileOperations.GetMutexName(filePath)))
+                Parallel.ForEach(files, file =>
                 {
-                    try
-                    {
-                        mutex.WaitOne();
+                    var entityData = EntityIntellisenseData.Get(file.FullName);
 
-                        using (var sr = File.OpenRead(filePath))
+                    if (entityData != null)
+                    {
+                        if (!this.Entities.ContainsKey(entityData.EntityLogicalName))
                         {
-                            result = ser.ReadObject(sr) as ConnectionIntellisenseData;
-                            result.FilePath = filePath;
-                            result.ConnectionId = connectionData.ConnectionId;
+                            this.Entities.TryAdd(entityData.EntityLogicalName, entityData);
+                        }
+                        else
+                        {
+                            this.Entities[entityData.EntityLogicalName].MergeDataFromDisk(entityData);
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        DTEHelper.WriteExceptionToOutput(connectionData, ex);
-
-                        FileOperations.CreateBackUpFile(filePath, ex);
-                    }
-                    finally
-                    {
-                        mutex.ReleaseMutex();
-                    }
-                }
+                });
             }
-
-            return result;
         }
 
         public void Save()
         {
-            string filePath = GetFilePath(this.ConnectionId);
-
-            if (!string.IsNullOrEmpty(FilePath))
-            {
-                filePath = FilePath;
-            }
-
-            this.Save(filePath);
-        }
-
-        private void Save(string filePath)
-        {
-            string directory = Path.GetDirectoryName(filePath);
+            string directory = GetFolderPath(this.ConnectionId);
 
             if (!Directory.Exists(directory))
             {
                 Directory.CreateDirectory(directory);
             }
 
+            this.Save(directory);
+        }
+
+        private void Save(string directory)
+        {
             if (this.Entities.Any())
             {
-                this.NextSaveFileDate = DateTime.Now.AddMinutes(_savePeriodInMinutes);
-
-                byte[] fileBody = null;
-
-                using (var memoryStream = new MemoryStream())
-                {
-                    try
-                    {
-                        DataContractSerializer ser = new DataContractSerializer(typeof(ConnectionIntellisenseData));
-
-                        ser.WriteObject(memoryStream, this);
-
-                        memoryStream.Seek(0, SeekOrigin.Begin);
-
-                        fileBody = memoryStream.ToArray();
-                    }
-                    catch (Exception ex)
-                    {
-                        DTEHelper.WriteExceptionToLog(ex);
-
-                        fileBody = null;
-                    }
-                }
-
-                if (fileBody != null)
-                {
-                    using (Mutex mutex = new Mutex(false, FileOperations.GetMutexName(filePath)))
-                    {
-                        try
-                        {
-                            mutex.WaitOne();
-
-                            try
-                            {
-                                using (var stream = File.Open(filePath, FileMode.Create, FileAccess.Write, FileShare.None))
-                                {
-                                    stream.Write(fileBody, 0, fileBody.Length);
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                DTEHelper.WriteExceptionToLog(ex);
-                            }
-                        }
-                        finally
-                        {
-                            mutex.ReleaseMutex();
-                        }
-                    }
-                }
+                Parallel.ForEach(this.Entities.Values, entityData => entityData.Save(directory));
             }
         }
 
-        private static string GetFilePath(Guid connectionId)
+        private void SaveIntellisenseDataByTime()
         {
-            var fileName = string.Format("IntellisenseData.{0}.xml", connectionId.ToString());
+            string directory = GetFolderPath(this.ConnectionId);
 
-            var filePath = FileOperations.GetConnectionIntellisenseDataFullFilePath(fileName);
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
 
-            return filePath;
+            Parallel.ForEach(this.Entities.Values, entityData =>
+            {
+                bool saveData = !entityData.NextSaveFileDate.HasValue || entityData.NextSaveFileDate < DateTime.Now;
+
+                if (saveData)
+                {
+                    entityData.Save(directory);
+                }
+            });
         }
 
-        public void MergeDataFromDisk(ConnectionIntellisenseData data)
+        private static string GetFolderPath(Guid connectionId)
         {
-            if (data == null)
-            {
-                return;
-            }
+            var folderName = string.Format("IntellisenseData.{0}", connectionId.ToString());
 
-            if (data.Entities != null)
-            {
-                if (this.Entities == null)
-                {
-                    this.Entities = new ConcurrentDictionary<string, EntityIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
-                }
+            var folderPath = FileOperations.GetConnectionIntellisenseDataFolderPath(folderName);
 
-                foreach (var entityData in data.Entities.Values)
-                {
-                    if (!this.Entities.ContainsKey(entityData.EntityLogicalName))
-                    {
-                        this.Entities.TryAdd(entityData.EntityLogicalName, entityData);
-                    }
-                    else
-                    {
-                        this.Entities[entityData.EntityLogicalName].MergeDataFromDisk(entityData);
-                    }
-                }
-            }
+            return folderPath;
         }
     }
 }

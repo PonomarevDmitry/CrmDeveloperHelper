@@ -9,6 +9,7 @@ using System.Linq;
 using System.Collections.Concurrent;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 {
@@ -145,12 +146,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                             )
                         );
 
-                        _WebResourceIntellisenseData.LoadWebResources(listWebResources, _WebResourceIntellisenseData.WebResourcesAll);
+                        LoadWebResources(listWebResources, _WebResourceIntellisenseData.WebResourcesAll);
 
-                        _WebResourceIntellisenseData.LoadWebResources(listWebResources.Where(w => w.WebResourceTypeEnum == WebResource.Schema.OptionSets.webresourcetype.Webpage_HTML_1), _WebResourceIntellisenseData.WebResourcesHtml);
-                        _WebResourceIntellisenseData.LoadWebResources(listWebResources.Where(w => w.WebResourceTypeEnum == WebResource.Schema.OptionSets.webresourcetype.Script_JScript_3), _WebResourceIntellisenseData.WebResourcesJavaScript);
-
-                        _WebResourceIntellisenseData.NextLoadFileDate = DateTime.Now.AddMinutes(_loadPeriodInMinutes);
+                        LoadWebResources(listWebResources.Where(w => w.WebResourceTypeEnum == WebResource.Schema.OptionSets.webresourcetype.Webpage_HTML_1), _WebResourceIntellisenseData.WebResourcesHtml);
+                        LoadWebResources(listWebResources.Where(w => w.WebResourceTypeEnum == WebResource.Schema.OptionSets.webresourcetype.Script_JScript_3), _WebResourceIntellisenseData.WebResourcesJavaScript);
                     }
 
                     {
@@ -174,7 +173,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                             )
                         );
 
-                        _WebResourceIntellisenseData.LoadWebResources(listWebResources, _WebResourceIntellisenseData.WebResourcesIcon);
+                        LoadWebResources(listWebResources, _WebResourceIntellisenseData.WebResourcesIcon);
 
                         _WebResourceIntellisenseData.NextLoadFileDate = DateTime.Now.AddMinutes(_loadPeriodInMinutes);
                     }
@@ -233,6 +232,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
 
             return _staticCacheRepositories[connectionData.ConnectionId];
+        }
+
+        private static void LoadWebResources(IEnumerable<WebResource> webResources, ConcurrentDictionary<Guid, WebResource> container)
+        {
+            container.Clear();
+
+            if (!webResources.Any())
+            {
+                return;
+            }
+
+            foreach (var item in webResources)
+            {
+                if (!container.ContainsKey(item.Id))
+                {
+                    container.TryAdd(item.Id, item);
+                }
+            }
         }
 
         #region IDisposable Support

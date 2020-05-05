@@ -894,12 +894,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         private void LoadIntellisense()
         {
-            var data = ConnectionIntellisenseData.Get(this);
-
-            if (data != null)
-            {
-                this.IntellisenseData.MergeDataFromDisk(data);
-            }
+            this.IntellisenseData.GetDataFromDisk();
 
             AppDomain.CurrentDomain.ProcessExit -= CurrentDomain_ProcessExit;
             AppDomain.CurrentDomain.ProcessExit -= CurrentDomain_ProcessExit;

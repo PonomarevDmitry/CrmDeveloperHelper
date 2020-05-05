@@ -1,16 +1,23 @@
 ﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Metadata;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Threading;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 {
     [DataContract]
     public class EntityIntellisenseData
     {
+        private const int _savePeriodInMinutes = 5;
+
+        public DateTime? NextSaveFileDate { get; set; }
+
         [DataMember]
         public Guid? MetadataId { get; private set; }
 
@@ -553,6 +560,102 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                         {
                             result.Add(item.ChildEntityName);
                         }
+                    }
+                }
+            }
+        }
+
+        public static EntityIntellisenseData Get(string filePath)
+        {
+            EntityIntellisenseData result = null;
+
+            if (File.Exists(filePath))
+            {
+                DataContractSerializer ser = new DataContractSerializer(typeof(EntityIntellisenseData));
+
+                using (Mutex mutex = new Mutex(false, FileOperations.GetMutexName(filePath)))
+                {
+                    try
+                    {
+                        mutex.WaitOne();
+
+                        using (var sr = File.OpenRead(filePath))
+                        {
+                            result = ser.ReadObject(sr) as EntityIntellisenseData;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        DTEHelper.WriteExceptionToOutput(null, ex);
+
+                        FileOperations.CreateBackUpFile(filePath, ex);
+                    }
+                    finally
+                    {
+                        mutex.ReleaseMutex();
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public void Save(string directory)
+        {
+            string filePath = Path.Combine(directory, this.EntityLogicalName.ToLower() + ".xml");
+
+            this.SaveInternal(filePath);
+        }
+
+        private void SaveInternal(string filePath)
+        {
+            this.NextSaveFileDate = DateTime.Now.AddMinutes(_savePeriodInMinutes);
+
+            byte[] fileBody = null;
+
+            using (var memoryStream = new MemoryStream())
+            {
+                try
+                {
+                    DataContractSerializer ser = new DataContractSerializer(typeof(EntityIntellisenseData));
+
+                    ser.WriteObject(memoryStream, this);
+
+                    memoryStream.Seek(0, SeekOrigin.Begin);
+
+                    fileBody = memoryStream.ToArray();
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToLog(ex);
+
+                    fileBody = null;
+                }
+            }
+
+            if (fileBody != null)
+            {
+                using (Mutex mutex = new Mutex(false, FileOperations.GetMutexName(filePath)))
+                {
+                    try
+                    {
+                        mutex.WaitOne();
+
+                        try
+                        {
+                            using (var stream = File.Open(filePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                            {
+                                stream.Write(fileBody, 0, fileBody.Length);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            DTEHelper.WriteExceptionToLog(ex);
+                        }
+                    }
+                    finally
+                    {
+                        mutex.ReleaseMutex();
                     }
                 }
             }

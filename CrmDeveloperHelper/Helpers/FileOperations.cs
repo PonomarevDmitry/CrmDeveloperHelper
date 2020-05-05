@@ -274,7 +274,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return directory;
         }
 
-        public static string GetConnectionIntellisenseDataFullFilePath(string fileName)
+        public static string GetConnectionIntellisenseDataFolder()
         {
             string directory = Path.Combine(GetConfigurationFolder(), _folderIntellisenseCacheCacheSubdirectoryName);
 
@@ -283,7 +283,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 Directory.CreateDirectory(directory);
             }
 
-            return Path.Combine(directory, fileName);
+            return directory;
+        }
+
+        public static string GetConnectionIntellisenseDataFolderPath(string fileName)
+        {
+            string directory = GetConnectionIntellisenseDataFolder();
+
+            var result = Path.Combine(directory, fileName);
+
+            if (!Directory.Exists(result))
+            {
+                Directory.CreateDirectory(result);
+            }
+
+            return result;
         }
 
         public static void ClearTranslationLocalCache()
