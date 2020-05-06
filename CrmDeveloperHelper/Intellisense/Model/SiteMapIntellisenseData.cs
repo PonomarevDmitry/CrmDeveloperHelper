@@ -12,14 +12,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
     [DataContract]
     public class SiteMapIntellisenseData
     {
-        private const int _loadPeriodInMinutes = 5;
-
         private string FilePath { get; set; }
 
-        public DateTime? NextLoadFileDate { get; set; }
-
         [DataMember]
-        public Guid ConnectionId { get; set; }
+        public Guid ConnectionId { get; private set; }
 
         [DataMember]
         public SortedSet<string> Urls { get; private set; }
@@ -145,8 +141,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                 return;
             }
 
-            this.NextLoadFileDate = DateTime.Now.AddMinutes(_loadPeriodInMinutes);
-
             {
                 var nodeSiteMaps = docSiteMap.XPathSelectElements("SiteMap");
 
@@ -155,7 +149,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                     if (node.Attribute("Url") != null
                         && !string.IsNullOrEmpty(node.Attribute("Url").Value)
                         && !node.Attribute("Url").Value.StartsWith("$webresource:", StringComparison.InvariantCultureIgnoreCase)
-                        )
+                    )
                     {
                         this.Urls.Add(node.Attribute("Url").Value);
                     }
@@ -170,7 +164,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                     if (node.Attribute("Url") != null
                         && !string.IsNullOrEmpty(node.Attribute("Url").Value)
                         && !node.Attribute("Url").Value.StartsWith("$webresource:", StringComparison.InvariantCultureIgnoreCase)
-                        )
+                    )
                     {
                         this.Urls.Add(node.Attribute("Url").Value);
                     }
@@ -178,28 +172,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                     if (node.Attribute("Icon") != null
                         && !string.IsNullOrEmpty(node.Attribute("Icon").Value)
                         && !node.Attribute("Icon").Value.StartsWith("$webresource:", StringComparison.InvariantCultureIgnoreCase)
-                        )
+                    )
                     {
                         this.Icons.Add(node.Attribute("Icon").Value);
                     }
 
                     if (node.Attribute("ResourceId") != null
                         && !string.IsNullOrEmpty(node.Attribute("ResourceId").Value)
-                        )
+                    )
                     {
                         this.ResourceIds.Add(node.Attribute("ResourceId").Value);
                     }
 
                     if (node.Attribute("DescriptionResourceId") != null
                         && !string.IsNullOrEmpty(node.Attribute("DescriptionResourceId").Value)
-                        )
+                    )
                     {
                         this.DescriptionResourceIds.Add(node.Attribute("DescriptionResourceId").Value);
                     }
 
                     if (node.Attribute("ToolTipResourseId") != null
                         && !string.IsNullOrEmpty(node.Attribute("ToolTipResourseId").Value)
-                        )
+                    )
                     {
                         this.ToolTipResourseIds.Add(node.Attribute("ToolTipResourseId").Value);
                     }
@@ -214,7 +208,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                     if (node.Attribute("Url") != null
                         && !string.IsNullOrEmpty(node.Attribute("Url").Value)
                         && !node.Attribute("Url").Value.StartsWith("$webresource:", StringComparison.InvariantCultureIgnoreCase)
-                        )
+                    )
                     {
                         this.Urls.Add(node.Attribute("Url").Value);
                     }
@@ -222,28 +216,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                     if (node.Attribute("Icon") != null
                         && !string.IsNullOrEmpty(node.Attribute("Icon").Value)
                         && !node.Attribute("Icon").Value.StartsWith("$webresource:", StringComparison.InvariantCultureIgnoreCase)
-                        )
+                    )
                     {
                         this.Icons.Add(node.Attribute("Icon").Value);
                     }
 
                     if (node.Attribute("ResourceId") != null
-                        && !string.IsNullOrEmpty(node.Attribute("ResourceId").Value)
-                        )
+                        && !string.IsNullOrEmpty(node.Attribute("ResourceId").Value
+                    )
+                    )
                     {
                         this.ResourceIds.Add(node.Attribute("ResourceId").Value);
                     }
 
                     if (node.Attribute("DescriptionResourceId") != null
                         && !string.IsNullOrEmpty(node.Attribute("DescriptionResourceId").Value)
-                        )
+                    )
                     {
                         this.DescriptionResourceIds.Add(node.Attribute("DescriptionResourceId").Value);
                     }
 
                     if (node.Attribute("ToolTipResourseId") != null
                         && !string.IsNullOrEmpty(node.Attribute("ToolTipResourseId").Value)
-                        )
+                    )
                     {
                         this.ToolTipResourseIds.Add(node.Attribute("ToolTipResourseId").Value);
                     }
@@ -258,7 +253,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                     if (node.Attribute("Url") != null
                         && !string.IsNullOrEmpty(node.Attribute("Url").Value)
                         && !node.Attribute("Url").Value.StartsWith("$webresource:", StringComparison.InvariantCultureIgnoreCase)
-                        )
+                    )
                     {
                         this.Urls.Add(node.Attribute("Url").Value);
                     }
@@ -266,7 +261,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                     if (node.Attribute("Icon") != null
                         && !string.IsNullOrEmpty(node.Attribute("Icon").Value)
                         && !node.Attribute("Icon").Value.StartsWith("$webresource:", StringComparison.InvariantCultureIgnoreCase)
-                        )
+                    )
                     {
                         this.Icons.Add(node.Attribute("Icon").Value);
                     }
@@ -274,63 +269,63 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                     if (node.Attribute("OutlookShortcutIcon") != null
                         && !string.IsNullOrEmpty(node.Attribute("OutlookShortcutIcon").Value)
                         && !node.Attribute("OutlookShortcutIcon").Value.StartsWith("$webresource:", StringComparison.InvariantCultureIgnoreCase)
-                        )
+                    )
                     {
                         this.Icons.Add(node.Attribute("OutlookShortcutIcon").Value);
                     }
 
                     if (node.Attribute("ResourceId") != null
                         && !string.IsNullOrEmpty(node.Attribute("ResourceId").Value)
-                        )
+                    )
                     {
                         this.ResourceIds.Add(node.Attribute("ResourceId").Value);
                     }
 
                     if (node.Attribute("DescriptionResourceId") != null
                         && !string.IsNullOrEmpty(node.Attribute("DescriptionResourceId").Value)
-                        )
+                    )
                     {
                         this.DescriptionResourceIds.Add(node.Attribute("DescriptionResourceId").Value);
                     }
 
                     if (node.Attribute("ToolTipResourseId") != null
                         && !string.IsNullOrEmpty(node.Attribute("ToolTipResourseId").Value)
-                        )
+                    )
                     {
                         this.ToolTipResourseIds.Add(node.Attribute("ToolTipResourseId").Value);
                     }
 
                     if (node.Attribute("GetStartedPanePath") != null
                         && !string.IsNullOrEmpty(node.Attribute("GetStartedPanePath").Value)
-                        )
+                    )
                     {
                         this.GetStartedPanePaths.Add(node.Attribute("GetStartedPanePath").Value);
                     }
 
                     if (node.Attribute("GetStartedPanePathOutlook") != null
                         && !string.IsNullOrEmpty(node.Attribute("GetStartedPanePathOutlook").Value)
-                        )
+                    )
                     {
                         this.GetStartedPanePathOutlooks.Add(node.Attribute("GetStartedPanePathOutlook").Value);
                     }
 
                     if (node.Attribute("GetStartedPanePathAdmin") != null
                         && !string.IsNullOrEmpty(node.Attribute("GetStartedPanePathAdmin").Value)
-                        )
+                    )
                     {
                         this.GetStartedPanePathAdmins.Add(node.Attribute("GetStartedPanePathAdmin").Value);
                     }
 
                     if (node.Attribute("GetStartedPanePathAdminOutlook") != null
                         && !string.IsNullOrEmpty(node.Attribute("GetStartedPanePathAdminOutlook").Value)
-                        )
+                    )
                     {
                         this.GetStartedPanePathAdminOutlooks.Add(node.Attribute("GetStartedPanePathAdminOutlook").Value);
                     }
 
                     if (node.Attribute("CheckExtensionProperty") != null
                         && !string.IsNullOrEmpty(node.Attribute("CheckExtensionProperty").Value)
-                        )
+                    )
                     {
                         this.CheckExtensionProperties.Add(node.Attribute("CheckExtensionProperty").Value);
                     }
@@ -344,8 +339,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
             {
                 return;
             }
-
-            this.NextLoadFileDate = DateTime.Now.AddMinutes(_loadPeriodInMinutes);
 
             foreach (var item in systemForms)
             {

@@ -18,7 +18,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
     {
         private readonly object _syncObjectService = new object();
 
+        private const int _loadPeriodInMinutes = 1;
+
+        private DateTime? _nextLoadFileDate;
+
         private readonly object _syncObjectTaskGettingSiteMapInformation = new object();
+
         private Task _taskGettingSiteMapInformation;
 
         private IOrganizationServiceExtented _service;
@@ -81,7 +86,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 return null;
             }
 
-            if (!_siteMapIntellisenseData.NextLoadFileDate.HasValue || _siteMapIntellisenseData.NextLoadFileDate < DateTime.Now)
+            if (!_nextLoadFileDate.HasValue || _nextLoadFileDate < DateTime.Now)
             {
                 StartGettingSiteMapsAsync();
             }
@@ -224,6 +229,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                     _siteMapIntellisenseData.LoadDashboards(listSystemForms);
                 }
+
+                this._nextLoadFileDate = DateTime.Now.AddMinutes(_loadPeriodInMinutes);
             }
             catch (Exception ex)
             {

@@ -12,10 +12,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
     [DataContract]
     public class RibbonIntellisenseData
     {
-        private const int _loadPeriodInMinutes = 5;
-
-        public DateTime? NextLoadFileDate { get; set; }
-
         [DataMember]
         public Guid ConnectionId { get; private set; }
 
@@ -136,8 +132,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
             {
                 return;
             }
-
-            this.NextLoadFileDate = DateTime.Now.AddMinutes(_loadPeriodInMinutes);
 
             {
                 var elementsCommandDefinitions = docRibbon.XPathSelectElements("RibbonDefinitions/RibbonDefinition/CommandDefinitions/CommandDefinition");

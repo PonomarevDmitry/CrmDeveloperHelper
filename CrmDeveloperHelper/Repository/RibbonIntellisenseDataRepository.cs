@@ -12,6 +12,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 {
     public class RibbonIntellisenseDataRepository : IDisposable
     {
+        private const int _loadPeriodInMinutes = 5;
+
+        public DateTime? NextLoadFileDate { get; set; }
+
         private readonly object _syncObjectService = new object();
 
         private ConcurrentDictionary<string, object> _syncObjectTaskGettingRibbonInformationCache = new ConcurrentDictionary<string, object>(StringComparer.InvariantCultureIgnoreCase);
@@ -95,7 +99,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 _RibbonIntellisenseDataCache.TryAdd(entityName, new RibbonIntellisenseData(this._connectionData.ConnectionId, entityName));
             }
 
-            if (!_RibbonIntellisenseDataCache[entityName].NextLoadFileDate.HasValue || _RibbonIntellisenseDataCache[entityName].NextLoadFileDate < DateTime.Now)
+            if (!this.NextLoadFileDate.HasValue || this.NextLoadFileDate < DateTime.Now)
             {
                 StartGettingRibbonAsync(entityName);
             }
@@ -149,15 +153,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     return;
                 }
 
-                var ribbonData = _RibbonIntellisenseDataCache[entityName];
-
-                ribbonData.ClearData();
-
                 var repository = new RibbonCustomizationRepository(service);
 
                 XDocument docRibbon = await repository.GetEntityRibbonAsync(entityName);
 
+                var ribbonData = _RibbonIntellisenseDataCache[entityName];
+                ribbonData.ClearData();
                 ribbonData.LoadDataFromRibbon(docRibbon);
+
+                this.NextLoadFileDate = DateTime.Now.AddMinutes(_loadPeriodInMinutes);
             }
             catch (Exception ex)
             {
