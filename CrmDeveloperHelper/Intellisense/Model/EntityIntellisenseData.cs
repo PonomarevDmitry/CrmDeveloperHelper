@@ -586,7 +586,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                     }
                     catch (Exception ex)
                     {
-                        DTEHelper.WriteExceptionToOutput(null, ex);
+                        DTEHelper.WriteExceptionToLog(ex);
 
                         FileOperations.CreateBackUpFile(filePath, ex);
                     }

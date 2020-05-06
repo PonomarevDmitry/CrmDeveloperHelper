@@ -136,7 +136,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     }
                     else if (string.Equals(currentAttributeName, "imageproviderwebresource", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        FillWebResourcesTextWithWebResourcePrefix(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesJavaScript?.Values?.ToList(), "WebResources");
+                        FillWebResourcesTextWithWebResourcePrefix(completionSets, applicableTo, repositoryWebResource.GetConnectionWebResourceIntellisenseData()?.GetJavaScriptWebResources()?.ToList(), "WebResources");
                     }
                 }
             }

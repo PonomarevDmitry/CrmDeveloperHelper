@@ -5,28 +5,29 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
-using System.Linq;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 {
     public class WebResourceIntellisenseDataRepository : IDisposable
     {
-        private const int _loadPeriodInMinutes = 5;
+        private const int _loadPeriodInSeconds = 45;
 
         private readonly object _syncObjectService = new object();
 
         private readonly object _syncObjectTaskGettingWebResources = new object();
-        private Task _taskGettingWebResources;
-
-        private IOrganizationServiceExtented _service;
 
         private readonly ConnectionData _connectionData;
 
-        private WebResourceIntellisenseData _WebResourceIntellisenseData = new WebResourceIntellisenseData();
+        private Task _taskGettingWebResources;
+
+        private DateTime? _nextLoadFromCrmDate;
+
+        private IOrganizationServiceExtented _service;
 
         private CancellationTokenSource _cancellationTokenSource;
 
@@ -38,7 +39,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             _cancellationTokenSource = new CancellationTokenSource();
 
-            Task.Run(async () => await StartGettingWebResources(), _cancellationTokenSource.Token);
+            Task.Run(() => StartGettingWebResources(), _cancellationTokenSource.Token);
         }
 
         private async Task<IOrganizationServiceExtented> GetServiceAsync()
@@ -75,24 +76,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
         }
 
-        public WebResourceIntellisenseData GetWebResourceIntellisenseData()
+        public ConnectionWebResourceIntellisenseData GetConnectionWebResourceIntellisenseData()
         {
             if (_cancellationTokenSource.IsCancellationRequested)
             {
                 return null;
             }
 
-            if (!_WebResourceIntellisenseData.NextLoadFileDate.HasValue || _WebResourceIntellisenseData.NextLoadFileDate < DateTime.Now)
-            {
-                StartGettingWebResourcesAsync();
-            }
+            StartGettingWebResourcesAsync();
 
-            return _WebResourceIntellisenseData;
+            return _connectionData.WebResourceIntellisenseData;
         }
 
         private void StartGettingWebResourcesAsync()
         {
             if (_cancellationTokenSource.IsCancellationRequested)
+            {
+                return;
+            }
+
+            if (this._nextLoadFromCrmDate.HasValue && DateTime.Now < this._nextLoadFromCrmDate)
             {
                 return;
             }
@@ -109,12 +112,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     {
                         DTEHelper.WriteExceptionToLog(_taskGettingWebResources.Exception);
 
-                        _taskGettingWebResources = Task.Run(async () => await StartGettingWebResources(), _cancellationTokenSource.Token);
+                        _taskGettingWebResources = Task.Run(() => StartGettingWebResources(), _cancellationTokenSource.Token);
                     }
                 }
                 else
                 {
-                    _taskGettingWebResources = Task.Run(async () => await StartGettingWebResources(), _cancellationTokenSource.Token);
+                    _taskGettingWebResources = Task.Run(() => StartGettingWebResources(), _cancellationTokenSource.Token);
                 }
             }
         }
@@ -130,54 +133,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     return;
                 }
 
-                {
-                    var repository = new WebResourceRepository(service);
+                var repository = new WebResourceRepository(service);
 
-                    {
-                        var listWebResources = await repository.GetListAllAsync(
-                            null
-                            , new ColumnSet
-                            (
-                                WebResource.Schema.Attributes.name
-                                , WebResource.Schema.Attributes.displayname
-                                , WebResource.Schema.Attributes.description
-                                , WebResource.Schema.Attributes.webresourcetype
-                                , WebResource.Schema.Attributes.languagecode
-                            )
-                        );
+                var listWebResources = await repository.GetListAllAsync(
+                    null
+                    , new ColumnSet
+                    (
+                        WebResource.Schema.Attributes.name
+                        , WebResource.Schema.Attributes.displayname
+                        , WebResource.Schema.Attributes.description
+                        , WebResource.Schema.Attributes.webresourcetype
+                        , WebResource.Schema.Attributes.languagecode
+                    )
+                );
 
-                        LoadWebResources(listWebResources, _WebResourceIntellisenseData.WebResourcesAll);
+                LoadWebResources(listWebResources, _connectionData.WebResourceIntellisenseData.WebResourcesAll);
 
-                        LoadWebResources(listWebResources.Where(w => w.WebResourceTypeEnum == WebResource.Schema.OptionSets.webresourcetype.Webpage_HTML_1), _WebResourceIntellisenseData.WebResourcesHtml);
-                        LoadWebResources(listWebResources.Where(w => w.WebResourceTypeEnum == WebResource.Schema.OptionSets.webresourcetype.Script_JScript_3), _WebResourceIntellisenseData.WebResourcesJavaScript);
-                    }
+                this._nextLoadFromCrmDate = DateTime.Now.AddSeconds(_loadPeriodInSeconds);
 
-                    {
-                        var listWebResources = await repository.GetListByTypesAsync(
-                            new[]
-                            {
-                                (int)WebResource.Schema.OptionSets.webresourcetype.PNG_format_5
-                                , (int)WebResource.Schema.OptionSets.webresourcetype.JPG_format_6
-                                , (int)WebResource.Schema.OptionSets.webresourcetype.GIF_format_7
-                                , (int)WebResource.Schema.OptionSets.webresourcetype.ICO_format_10
-                                , (int)WebResource.Schema.OptionSets.webresourcetype.Vector_format_SVG_11
-                            }
-                            , new ColumnSet
-                            (
-                                WebResource.Schema.Attributes.name
-                                , WebResource.Schema.Attributes.displayname
-                                , WebResource.Schema.Attributes.description
-                                , WebResource.Schema.Attributes.webresourcetype
-                                , WebResource.Schema.Attributes.languagecode
-                                , WebResource.Schema.Attributes.content
-                            )
-                        );
+                _connectionData.WebResourceIntellisenseData.SaveIntellisenseDataByTime();
 
-                        LoadWebResources(listWebResources, _WebResourceIntellisenseData.WebResourcesIcon);
+                //{
+                //    var listWebResources = await repository.GetListByTypesAsync(
+                //        new[]
+                //        {
+                //            (int)WebResource.Schema.OptionSets.webresourcetype.PNG_format_5
+                //            , (int)WebResource.Schema.OptionSets.webresourcetype.JPG_format_6
+                //            , (int)WebResource.Schema.OptionSets.webresourcetype.GIF_format_7
+                //            , (int)WebResource.Schema.OptionSets.webresourcetype.ICO_format_10
+                //            , (int)WebResource.Schema.OptionSets.webresourcetype.Vector_format_SVG_11
+                //        }
+                //        , new ColumnSet
+                //        (
+                //            WebResource.Schema.Attributes.name
+                //            , WebResource.Schema.Attributes.displayname
+                //            , WebResource.Schema.Attributes.description
+                //            , WebResource.Schema.Attributes.webresourcetype
+                //            , WebResource.Schema.Attributes.languagecode
+                //            , WebResource.Schema.Attributes.content
+                //        )
+                //    );
 
-                        _WebResourceIntellisenseData.NextLoadFileDate = DateTime.Now.AddMinutes(_loadPeriodInMinutes);
-                    }
-                }
+                //    LoadWebResources(listWebResources, _WebResourceIntellisenseData.WebResourcesIcon);
+
+                //    _WebResourceIntellisenseData.NextLoadFileDate = DateTime.Now.AddMinutes(_loadPeriodInMinutes);
+                //}
             }
             catch (Exception ex)
             {
@@ -234,25 +234,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return _staticCacheRepositories[connectionData.ConnectionId];
         }
 
-        private static void LoadWebResources(IEnumerable<WebResource> webResources, ConcurrentDictionary<Guid, WebResource> container)
+        private static void LoadWebResources(IEnumerable<WebResource> webResources, ConcurrentDictionary<string, WebResourceIntellisenseData> concurrentDictionary)
         {
-            container.Clear();
+            concurrentDictionary.Clear();
 
             if (!webResources.Any())
             {
                 return;
             }
 
-            foreach (var item in webResources)
+            foreach (var item in webResources.OrderBy(e => e.Name))
             {
-                if (!container.ContainsKey(item.Id))
+                if (!concurrentDictionary.ContainsKey(item.Name))
                 {
-                    container.TryAdd(item.Id, item);
+                    concurrentDictionary.TryAdd(item.Name, new WebResourceIntellisenseData());
                 }
+
+                concurrentDictionary[item.Name].LoadData(item);
             }
         }
 
         #region IDisposable Support
+
         private bool disposedValue = false; // To detect redundant calls
 
         protected virtual void Dispose(bool disposing)
@@ -278,6 +281,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         {
             Dispose(true);
         }
-        #endregion
+
+        #endregion IDisposable Support
     }
 }

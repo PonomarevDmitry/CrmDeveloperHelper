@@ -455,7 +455,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             EntityQueryExpression entityQueryExpression = ConnectionIntellisenseDataRepository.GetEntityQueryExpression();
 
-            entityQueryExpression.Criteria.Conditions.Add(new MetadataConditionExpression("LogicalName", MetadataConditionOperator.Equals, entityName));
+            entityQueryExpression.Criteria.Conditions.Add(new MetadataConditionExpression(nameof(Entity.LogicalName), MetadataConditionOperator.Equals, entityName));
 
             var response = (RetrieveMetadataChangesResponse)this.ExecuteWithSyncMetadataHandling(
                 new RetrieveMetadataChangesRequest()
@@ -479,7 +479,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             EntityQueryExpression entityQueryExpression = ConnectionIntellisenseDataRepository.GetEntityQueryExpression();
 
-            entityQueryExpression.Criteria.Conditions.Add(new MetadataConditionExpression("LogicalName", MetadataConditionOperator.Equals, entityName));
+            entityQueryExpression.Criteria.Conditions.Add(new MetadataConditionExpression(nameof(Entity.LogicalName), MetadataConditionOperator.Equals, entityName));
 
             var response = (RetrieveMetadataChangesResponse)this.ExecuteWithSyncMetadataHandling(
                 new RetrieveMetadataChangesRequest()

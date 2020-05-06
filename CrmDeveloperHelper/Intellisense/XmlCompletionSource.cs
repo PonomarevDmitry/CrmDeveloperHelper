@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Text.Operations;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
@@ -414,7 +415,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             }
         }
 
-        private void FillWebResourcesTextWithWebResourcePrefix(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, IEnumerable<WebResource> webResources, string nameCompletionSet)
+        private void FillWebResourcesTextWithWebResourcePrefix(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, IEnumerable<WebResourceIntellisenseData> webResources, string nameCompletionSet)
         {
             if (webResources == null || !webResources.Any())
             {
@@ -710,7 +711,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             return new CrmCompletion(displayText, insertionText, description, glyph, null, compareValues);
         }
 
-        private void FillWebResourcesNames(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, IEnumerable<WebResource> webResources, string nameCompletionSet)
+        private void FillWebResourcesNames(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, IEnumerable<WebResourceIntellisenseData> webResources, string nameCompletionSet)
         {
             if (webResources == null || !webResources.Any())
             {

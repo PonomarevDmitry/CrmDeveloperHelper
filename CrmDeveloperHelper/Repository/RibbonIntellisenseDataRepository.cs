@@ -1,6 +1,4 @@
-﻿using Microsoft.Xrm.Sdk.Query;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
@@ -8,8 +6,6 @@ using System;
 using System.Collections.Concurrent;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Resources;
 using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository

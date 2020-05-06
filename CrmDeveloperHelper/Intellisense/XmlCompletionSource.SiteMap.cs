@@ -25,7 +25,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     {
                         FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().Urls, "Urls");
 
-                        FillWebResourcesTextWithWebResourcePrefix(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesHtml?.Values?.ToList(), "WebResources");
+                        FillWebResourcesTextWithWebResourcePrefix(completionSets, applicableTo, repositoryWebResource.GetConnectionWebResourceIntellisenseData()?.GetHtmlWebResources()?.ToList(), "WebResources");
                     }
 
                     #endregion Urls
@@ -38,7 +38,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     {
                         FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().Urls, "Urls");
 
-                        FillWebResourcesTextWithWebResourcePrefix(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesHtml?.Values?.ToList(), "WebResources");
+                        FillWebResourcesTextWithWebResourcePrefix(completionSets, applicableTo, repositoryWebResource.GetConnectionWebResourceIntellisenseData()?.GetHtmlWebResources()?.ToList(), "WebResources");
                     }
 
                     #endregion Urls
@@ -49,7 +49,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     {
                         FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().Icons, "Icons");
 
-                        FillWebResourcesIcons(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesIcon?.Values?.ToList(), "WebResources");
+#warning WebResourcesIcon
+                        //FillWebResourcesIcons(completionSets, applicableTo, repositoryWebResource.GetConnectionWebResourceIntellisenseData()?.WebResourcesIcon?.Values?.ToList(), "WebResources");
                     }
 
                     #endregion Icons
@@ -79,7 +80,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     {
                         FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().Urls, "Urls");
 
-                        FillWebResourcesTextWithWebResourcePrefix(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesHtml?.Values?.ToList(), "WebResources");
+                        FillWebResourcesTextWithWebResourcePrefix(completionSets, applicableTo, repositoryWebResource.GetConnectionWebResourceIntellisenseData()?.GetHtmlWebResources()?.ToList(), "WebResources");
                     }
 
                     #endregion Urls
@@ -90,7 +91,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     {
                         FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().Icons, "Icons");
 
-                        FillWebResourcesIcons(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesIcon?.Values?.ToList(), "WebResources");
+#warning WebResourcesIcon
+                        //FillWebResourcesIcons(completionSets, applicableTo, repositoryWebResource.GetConnectionWebResourceIntellisenseData()?.WebResourcesIcon?.Values?.ToList(), "WebResources");
                     }
 
                     #endregion Icons
@@ -120,7 +122,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     {
                         FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().Urls, "Urls");
 
-                        FillWebResourcesTextWithWebResourcePrefix(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesHtml?.Values?.ToList(), "WebResources");
+                        FillWebResourcesTextWithWebResourcePrefix(completionSets, applicableTo, repositoryWebResource.GetConnectionWebResourceIntellisenseData()?.GetHtmlWebResources()?.ToList(), "WebResources");
                     }
 
                     #endregion Urls
@@ -131,13 +133,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     {
                         FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().Icons, "Icons");
 
-                        FillWebResourcesIcons(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesIcon?.Values?.ToList(), "WebResources");
+#warning WebResourcesIcon
+                        //FillWebResourcesIcons(completionSets, applicableTo, repositoryWebResource.GetConnectionWebResourceIntellisenseData()?.WebResourcesIcon?.Values?.ToList(), "WebResources");
                     }
                     else if (string.Equals(currentAttributeName, "OutlookShortcutIcon", StringComparison.InvariantCultureIgnoreCase))
                     {
                         FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().Icons, "Icons");
 
-                        FillWebResourcesIcons(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesIcon?.Values?.ToList(), "WebResources");
+#warning WebResourcesIcon
+                        //FillWebResourcesIcons(completionSets, applicableTo, repositoryWebResource.GetConnectionWebResourceIntellisenseData()?.WebResourcesIcon?.Values?.ToList(), "WebResources");
                     }
 
                     #endregion Icons

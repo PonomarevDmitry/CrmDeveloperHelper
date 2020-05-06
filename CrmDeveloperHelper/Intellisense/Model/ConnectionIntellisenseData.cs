@@ -1,13 +1,10 @@
 ﻿using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
@@ -84,7 +81,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 
         public void GetDataFromDisk()
         {
-            var directory = GetFolderPath(this.ConnectionId);
+            var directory = FileOperations.GetConnectionIntellisenseDataFolderPathEntities(this.ConnectionId);
 
             if (this.Entities == null)
             {
@@ -118,7 +115,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 
         public void Save()
         {
-            string directory = GetFolderPath(this.ConnectionId);
+            string directory = FileOperations.GetConnectionIntellisenseDataFolderPathEntities(this.ConnectionId);
 
             if (!Directory.Exists(directory))
             {
@@ -138,7 +135,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 
         private void SaveIntellisenseDataByTime()
         {
-            string directory = GetFolderPath(this.ConnectionId);
+            string directory = FileOperations.GetConnectionIntellisenseDataFolderPathEntities(this.ConnectionId);
 
             if (!Directory.Exists(directory))
             {
@@ -154,15 +151,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                     entityData.Save(directory);
                 }
             });
-        }
-
-        private static string GetFolderPath(Guid connectionId)
-        {
-            var folderName = string.Format("IntellisenseData.{0}", connectionId.ToString());
-
-            var folderPath = FileOperations.GetConnectionIntellisenseDataFolderPath(folderName);
-
-            return folderPath;
         }
     }
 }

@@ -1,60 +1,88 @@
+using Microsoft.Xrm.Sdk;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using System;
-using System.Collections.Concurrent;
 using System.Runtime.Serialization;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 {
+    [DataContract]
     public class WebResourceIntellisenseData
     {
-        private string FilePath { get; set; }
-
-        public DateTime? NextLoadFileDate { get; set; }
+        [DataMember]
+        public Guid? WebResourceId { get; private set; }
 
         [DataMember]
-        public Guid ConnectionId { get; set; }
+        public string Name { get; private set; }
 
         [DataMember]
-        public ConcurrentDictionary<Guid, WebResource> WebResourcesAll { get; private set; }
+        public string DisplayName { get; private set; }
 
         [DataMember]
-        public ConcurrentDictionary<Guid, WebResource> WebResourcesHtml { get; private set; }
+        public string Description { get; private set; }
 
         [DataMember]
-        public ConcurrentDictionary<Guid, WebResource> WebResourcesIcon { get; private set; }
+        public OptionSetValue WebResourceType { get; private set; }
 
         [DataMember]
-        public ConcurrentDictionary<Guid, WebResource> WebResourcesJavaScript { get; private set; }
+        public int? LanguageCode { get; private set; }
 
-        public WebResourceIntellisenseData()
+        public void LoadData(WebResource webResource)
         {
-            this.WebResourcesAll = new ConcurrentDictionary<Guid, WebResource>();
-            this.WebResourcesHtml = new ConcurrentDictionary<Guid, WebResource>();
-            this.WebResourcesIcon = new ConcurrentDictionary<Guid, WebResource>();
-            this.WebResourcesJavaScript = new ConcurrentDictionary<Guid, WebResource>();
+            if (webResource.WebResourceId.HasValue)
+            {
+                this.WebResourceId = webResource.WebResourceId;
+            }
+
+            this.Name = webResource.Name;
+            this.DisplayName = webResource.DisplayName;
+            this.Description = webResource.Description;
+            this.WebResourceType = webResource.WebResourceType;
+            this.LanguageCode = webResource.LanguageCode;
         }
 
-        [OnDeserializing]
-        private void BeforeDeserialize(StreamingContext context)
+        public void MergeDataFromDisk(WebResourceIntellisenseData webResource)
         {
-            if (WebResourcesAll == null)
+            if (webResource == null)
             {
-                this.WebResourcesAll = new ConcurrentDictionary<Guid, WebResource>();
+                return;
             }
 
-            if (WebResourcesHtml == null)
+            if (!this.WebResourceId.HasValue
+                && webResource.WebResourceId.HasValue
+            )
             {
-                this.WebResourcesHtml = new ConcurrentDictionary<Guid, WebResource>();
+                this.WebResourceId = webResource.WebResourceId;
             }
 
-            if (WebResourcesIcon == null)
+            if (string.IsNullOrEmpty(this.Name)
+                && !string.IsNullOrEmpty(webResource.Name))
             {
-                this.WebResourcesIcon = new ConcurrentDictionary<Guid, WebResource>();
+                this.Name = webResource.Name;
             }
 
-            if (WebResourcesJavaScript == null)
+            if (string.IsNullOrEmpty(this.DisplayName)
+                && !string.IsNullOrEmpty(webResource.DisplayName))
             {
-                this.WebResourcesJavaScript = new ConcurrentDictionary<Guid, WebResource>();
+                this.DisplayName = webResource.DisplayName;
+            }
+
+            if (string.IsNullOrEmpty(this.Description)
+                && !string.IsNullOrEmpty(webResource.Description))
+            {
+                this.Description = webResource.Description;
+            }
+
+            if (this.WebResourceType == null
+                && webResource.WebResourceType != null)
+            {
+                this.WebResourceType = webResource.WebResourceType;
+            }
+
+            if (!this.LanguageCode.HasValue
+                && webResource.LanguageCode.HasValue
+            )
+            {
+                this.LanguageCode = webResource.LanguageCode;
             }
         }
     }

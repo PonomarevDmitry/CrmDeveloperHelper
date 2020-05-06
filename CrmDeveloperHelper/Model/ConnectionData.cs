@@ -29,7 +29,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         private object _syncObjectAttributes = new object();
 
-        private object _syncObjectIntellisense = new object();
+        private object _syncObjectEntitiesIntellisense = new object();
+
+        private object _syncObjectWebResourceIntellisense = new object();
 
         private object _syncObjectRequests = new object();
 
@@ -811,7 +813,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         private void BeforeDeserialize(StreamingContext context)
         {
             if (_syncObjectAttributes == null) { _syncObjectAttributes = new object(); }
-            if (_syncObjectIntellisense == null) { _syncObjectIntellisense = new object(); }
+            if (_syncObjectEntitiesIntellisense == null) { _syncObjectEntitiesIntellisense = new object(); }
+            if (_syncObjectWebResourceIntellisense == null) { _syncObjectWebResourceIntellisense = new object(); }
             if (_syncObjectRequests == null) { _syncObjectRequests = new object(); }
 
             lock (_syncObjectRequests)
@@ -894,7 +897,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         private void LoadIntellisense()
         {
-            this.IntellisenseData.GetDataFromDisk();
+            this.IntellisenseData.ConnectionId = this.ConnectionId;
+            this.WebResourceIntellisenseData.ConnectionId = this.ConnectionId;
+
+            var task1 = Task.Run(() => this.IntellisenseData.GetDataFromDisk());
+            var task2 = Task.Run(() => this.WebResourceIntellisenseData.GetDataFromDisk());
+
+            Task.WaitAll(task1, task2);
 
             AppDomain.CurrentDomain.ProcessExit -= CurrentDomain_ProcessExit;
             AppDomain.CurrentDomain.ProcessExit -= CurrentDomain_ProcessExit;
@@ -903,8 +912,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             AppDomain.CurrentDomain.DomainUnload -= CurrentDomain_ProcessExit;
             AppDomain.CurrentDomain.DomainUnload -= CurrentDomain_ProcessExit;
             AppDomain.CurrentDomain.DomainUnload += CurrentDomain_ProcessExit;
+        }
 
-            IntellisenseData.ConnectionId = this.ConnectionId;
+        private void CurrentDomain_ProcessExit(object sender, EventArgs e)
+        {
+            this.IntellisenseData.Save();
+            this.WebResourceIntellisenseData.Save();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -1454,7 +1467,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         {
             get
             {
-                lock (_syncObjectIntellisense)
+                lock (_syncObjectEntitiesIntellisense)
                 {
                     if (_intellisense == null)
                     {
@@ -1468,9 +1481,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private void CurrentDomain_ProcessExit(object sender, EventArgs e)
+        private ConnectionWebResourceIntellisenseData _webResourceIntellisenseData;
+
+        public ConnectionWebResourceIntellisenseData WebResourceIntellisenseData
         {
-            this.IntellisenseData.Save();
+            get
+            {
+                lock (_syncObjectWebResourceIntellisense)
+                {
+                    if (_webResourceIntellisenseData == null)
+                    {
+                        _webResourceIntellisenseData = new ConnectionWebResourceIntellisenseData(this.ConnectionId);
+                    }
+                }
+
+                _webResourceIntellisenseData.ConnectionId = this.ConnectionId;
+
+                return _webResourceIntellisenseData;
+            }
         }
 
         public static ConnectionData Get(Guid connectionId)

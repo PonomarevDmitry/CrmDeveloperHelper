@@ -1,5 +1,4 @@
-﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -274,9 +273,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return directory;
         }
 
-        public static string GetConnectionIntellisenseDataFolder()
+        private static string GetIntellisenseDataFolder()
         {
-            string directory = Path.Combine(GetConfigurationFolder(), _folderIntellisenseCacheCacheSubdirectoryName);
+            string directory = Path.Combine(GetConfigurationFolder(), _folderIntellisenseCacheSubdirectoryName);
 
             if (!Directory.Exists(directory))
             {
@@ -286,11 +285,41 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return directory;
         }
 
-        public static string GetConnectionIntellisenseDataFolderPath(string fileName)
+        public static string GetConnectionIntellisenseDataFolderPath(Guid connectionId)
         {
-            string directory = GetConnectionIntellisenseDataFolder();
+            string directory = GetIntellisenseDataFolder();
 
-            var result = Path.Combine(directory, fileName);
+            var folderName = string.Format("IntellisenseData.{0}", connectionId.ToString());
+
+            var result = Path.Combine(directory, folderName);
+
+            if (!Directory.Exists(result))
+            {
+                Directory.CreateDirectory(result);
+            }
+
+            return result;
+        }
+
+        public static string GetConnectionIntellisenseDataFolderPathEntities(Guid connectionId)
+        {
+            string directory = GetConnectionIntellisenseDataFolderPath(connectionId);
+
+            var result = Path.Combine(directory, _folderIntellisenseCacheEntitiesSubdirectoryName);
+
+            if (!Directory.Exists(result))
+            {
+                Directory.CreateDirectory(result);
+            }
+
+            return result;
+        }
+
+        public static string GetConnectionIntellisenseDataFolderPathRibbons(Guid connectionId)
+        {
+            string directory = GetConnectionIntellisenseDataFolderPath(connectionId);
+
+            var result = Path.Combine(directory, _folderIntellisenseCacheRibbonsSubdirectoryName);
 
             if (!Directory.Exists(result))
             {
@@ -377,7 +406,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private const string _folderXsdSchemasSubdirectoryName = "XsdSchemas";
 
-        private const string _folderIntellisenseCacheCacheSubdirectoryName = "IntellisenseCache";
+        private const string _folderIntellisenseCacheSubdirectoryName = "IntellisenseCache";
+
+        private const string _folderIntellisenseCacheEntitiesSubdirectoryName = "Entities";
+
+        private const string _folderIntellisenseCacheRibbonsSubdirectoryName = "Ribbons";
 
         private const string _folderOutputSubdirectoryName = "Output";
 

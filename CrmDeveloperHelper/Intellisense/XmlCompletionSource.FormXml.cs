@@ -30,7 +30,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 {
                     if (string.Equals(currentAttributeName, "name", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        FillWebResourcesNames(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesAll?.Values?.ToList(), "WebResources");
+                        FillWebResourcesNames(completionSets, applicableTo, repositoryWebResource.GetConnectionWebResourceIntellisenseData()?.WebResourcesAll?.Values?.ToList(), "WebResources");
                     }
                     else if (string.Equals(currentAttributeName, "libraryUniqueId", StringComparison.InvariantCultureIgnoreCase))
                     {

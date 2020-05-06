@@ -156,7 +156,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     && ImagesXmlAttributes.Contains(currentAttributeName)
                 )
                 {
-                    FillWebResourcesIcons(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesIcon?.Values?.ToList(), "WebResources");
+#warning WebResourcesIcon
+                    //FillWebResourcesIcons(completionSets, applicableTo, repositoryWebResource.GetConnectionWebResourceIntellisenseData()?.WebResourcesIcon?.Values?.ToList(), "WebResources");
 
                     if (ribbonIntellisenseData != null)
                     {
@@ -330,7 +331,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 {
                     if (string.Equals(currentAttributeName, "Library", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        FillWebResourcesTextWithWebResourcePrefix(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesJavaScript?.Values?.ToList(), "WebResources");
+                        FillWebResourcesTextWithWebResourcePrefix(completionSets, applicableTo, repositoryWebResource.GetConnectionWebResourceIntellisenseData()?.GetJavaScriptWebResources()?.ToList(), "WebResources");
 
                         if (ribbonIntellisenseData != null)
                         {
@@ -349,7 +350,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 {
                     if (string.Equals(currentAttributeName, "Library", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        FillWebResourcesTextWithWebResourcePrefix(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesJavaScript?.Values?.ToList(), "WebResources");
+                        FillWebResourcesTextWithWebResourcePrefix(completionSets, applicableTo, repositoryWebResource.GetConnectionWebResourceIntellisenseData()?.GetJavaScriptWebResources()?.ToList(), "WebResources");
 
                         if (ribbonIntellisenseData != null)
                         {

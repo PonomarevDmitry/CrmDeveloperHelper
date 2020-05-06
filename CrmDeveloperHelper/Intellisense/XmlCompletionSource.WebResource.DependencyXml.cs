@@ -2,6 +2,7 @@ using Microsoft.VisualStudio.Language.Intellisense;
 using Microsoft.VisualStudio.Text;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
@@ -47,19 +48,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 {
                     if (string.Equals(currentAttributeName, "name", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        FillWebResourcesNames(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesAll?.Values?.ToList(), "WebResources");
+                        FillWebResourcesNames(completionSets, applicableTo, repositoryWebResource.GetConnectionWebResourceIntellisenseData()?.WebResourcesAll?.Values?.ToList(), "WebResources");
                     }
                     else if (string.Equals(currentAttributeName, "description", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        FillSingleWebResourceAttribute(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesAll?.Values?.ToList(), currentXmlNode, WebResource.Schema.Attributes.description);
+                        FillSingleWebResourceAttribute(completionSets, applicableTo, repositoryWebResource.GetConnectionWebResourceIntellisenseData()?.WebResourcesAll?.Values?.ToList(), currentXmlNode, WebResource.Schema.Attributes.description, w => w.Description);
                     }
                     else if (string.Equals(currentAttributeName, "displayName", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        FillSingleWebResourceAttribute(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesAll?.Values?.ToList(), currentXmlNode, WebResource.Schema.Attributes.displayname);
+                        FillSingleWebResourceAttribute(completionSets, applicableTo, repositoryWebResource.GetConnectionWebResourceIntellisenseData()?.WebResourcesAll?.Values?.ToList(), currentXmlNode, WebResource.Schema.Attributes.displayname, w => w.DisplayName);
                     }
                     else if (string.Equals(currentAttributeName, "languagecode", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        FillSingleWebResourceAttribute(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesAll?.Values?.ToList(), currentXmlNode, WebResource.Schema.Attributes.languagecode);
+                        FillSingleWebResourceAttribute(completionSets, applicableTo, repositoryWebResource.GetConnectionWebResourceIntellisenseData()?.WebResourcesAll?.Values?.ToList(), currentXmlNode, WebResource.Schema.Attributes.languagecode, w => w.LanguageCode.ToString());
                     }
                     else if (string.Equals(currentAttributeName, "libraryUniqueId", StringComparison.InvariantCultureIgnoreCase))
                     {
@@ -73,9 +74,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             }
         }
 
-        private void FillSingleWebResourceAttribute(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, IEnumerable<WebResource> webResources, XElement currentXmlNode, string fieldName)
+        private void FillSingleWebResourceAttribute(
+            IList<CompletionSet> completionSets
+            , ITrackingSpan applicableTo
+            , IEnumerable<WebResourceIntellisenseData> webResourcesDataList
+            , XElement currentXmlNode
+            , string fieldName
+            , Func<WebResourceIntellisenseData, string> getValue
+        )
         {
-            if (webResources == null || !webResources.Any())
+            if (webResourcesDataList == null || !webResourcesDataList.Any())
             {
                 return;
             }
@@ -87,14 +95,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 return;
             }
 
-            var webResource = webResources.FirstOrDefault(w => string.Equals(webResourceName, w.Name));
+            var webResourceData = webResourcesDataList.FirstOrDefault(w => string.Equals(webResourceName, w.Name));
 
-            if (webResource == null || !webResource.Attributes.ContainsKey(fieldName) || webResource.Attributes[fieldName] == null)
+            if (webResourceData == null)
             {
                 return;
             }
 
-            string attributeValue = webResource.Attributes[fieldName].ToString();
+            string attributeValue = getValue(webResourceData);
 
             if (string.IsNullOrEmpty(attributeValue))
             {
@@ -103,20 +111,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
             List<CrmCompletion> list = new List<CrmCompletion>();
 
-            StringBuilder str = new StringBuilder(webResource.Name);
+            StringBuilder str = new StringBuilder(webResourceData.Name);
 
-            List<string> compareValues = new List<string>() { webResource.Name };
+            List<string> compareValues = new List<string>() { webResourceData.Name };
 
-            if (!string.IsNullOrEmpty(webResource.DisplayName))
+            if (!string.IsNullOrEmpty(webResourceData.DisplayName))
             {
-                compareValues.Add(webResource.DisplayName);
+                compareValues.Add(webResourceData.DisplayName);
 
-                str.AppendFormat(" - {0}", webResource.DisplayName);
+                str.AppendFormat(" - {0}", webResourceData.DisplayName);
             }
 
             str.AppendFormat(" - {0}", fieldName);
 
-            list.Add(CreateCompletion(str.ToString(), attributeValue, webResource.Description, _defaultGlyph, compareValues));
+            list.Add(CreateCompletion(str.ToString(), attributeValue, webResourceData.Description, _defaultGlyph, compareValues));
 
             string nameCompletionSet = $"WebResource - {fieldName}";
 
