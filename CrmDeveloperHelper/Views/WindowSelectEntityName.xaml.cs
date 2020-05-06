@@ -28,12 +28,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
-            LoadEntityNames(connectionData);
+            LoadEntityNames(cmBEntityTypeNameOrCode, connectionData);
 
             cmBConnection.ItemsSource = connectionData.ConnectionConfiguration.Connections;
             cmBConnection.SelectedItem = connectionData;
 
             cmBEntityTypeNameOrCode.Focus();
+
+            FocusOnComboBoxTextBox(cmBEntityTypeNameOrCode);
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
@@ -41,14 +43,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.DialogResult = false;
 
             this.Close();
-        }
-
-        private void LoadEntityNames(ConnectionData connectionData)
-        {
-            cmBEntityTypeNameOrCode.Dispatcher.Invoke(() =>
-            {
-                LoadEntityNames(cmBEntityTypeNameOrCode, connectionData);
-            });
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -123,7 +117,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void cmBConnection_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            LoadEntityNames(GetConnectionData());
+            LoadEntityNames(cmBEntityTypeNameOrCode, GetConnectionData());
         }
     }
 }

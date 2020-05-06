@@ -681,22 +681,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             string text = comboBox.Text;
 
-            comboBox.Items.Clear();
-
-            if (connectionData != null
-                && connectionData.IntellisenseData != null
-                && connectionData.IntellisenseData.Entities != null
-            )
+            comboBox.Dispatcher.Invoke(() =>
             {
-                var entityList = connectionData.IntellisenseData.Entities.Values.OrderBy(e => e.IsIntersectEntity).ThenBy(e => e.EntityLogicalName).ToList();
+                comboBox.Items.Clear();
 
-                foreach (var entityData in entityList)
+                if (connectionData != null
+                    && connectionData.IntellisenseData != null
+                    && connectionData.IntellisenseData.Entities != null
+                )
                 {
-                    comboBox.Items.Add(entityData.EntityLogicalName);
-                }
-            }
+                    var entityList = connectionData.IntellisenseData.Entities.Values.OrderBy(e => e.IsIntersectEntity).ThenBy(e => e.EntityLogicalName).ToList();
 
-            comboBox.Text = text;
+                    foreach (var entityData in entityList)
+                    {
+                        comboBox.Items.Add(entityData.EntityLogicalName);
+                    }
+                }
+
+                comboBox.Text = text;
+            });
         }
 
         protected void LoadEntityNames(ComboBox comboBox, ConnectionData connectionData1, ConnectionData connectionData2)
