@@ -61,12 +61,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task CreateFileAsync(string entityLogicalName)
         {
-            return Task.Run(async () => await CreateFile(entityLogicalName, null));
+            return Task.Run(() => CreateFile(entityLogicalName, null));
         }
 
         public Task CreateFileAsync(EntityMetadata entityMetadata)
         {
-            return Task.Run(async () => await CreateFile(entityMetadata.LogicalName, entityMetadata));
+            return Task.Run(() => CreateFile(entityMetadata.LogicalName, entityMetadata));
         }
 
         private async Task CreateFile(string entityLogicalName, EntityMetadata entityMetadata)

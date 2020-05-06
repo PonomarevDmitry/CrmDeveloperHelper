@@ -33,10 +33,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return Task.FromResult(Enumerable.Empty<Role>());
             }
 
-            return Task.Run(async () => await GetRoles(service, imageComponents));
+            return Task.Run(() => GetRoles(service, imageComponents));
         }
 
-        private async Task<IEnumerable<Role>> GetRoles(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
+        private static async Task<IEnumerable<Role>> GetRoles(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
         {
             var descriptor = new SolutionComponentDescriptor(service);
 
@@ -116,10 +116,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return Task.FromResult(new List<WebResource>());
             }
 
-            return Task.Run(async () => await GetWebResources(service, imageComponents));
+            return Task.Run(() => GetWebResources(service, imageComponents));
         }
 
-        private async Task<List<WebResource>> GetWebResources(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
+        private static async Task<List<WebResource>> GetWebResources(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
         {
             var descriptor = new SolutionComponentDescriptor(service);
 
@@ -142,10 +142,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return Task.FromResult(new List<ConnectionRole>());
             }
 
-            return Task.Run(async () => await GetConnectionRoles(service, imageComponents));
+            return Task.Run(() => GetConnectionRoles(service, imageComponents));
         }
 
-        private async Task<List<ConnectionRole>> GetConnectionRoles(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
+        private static async Task<List<ConnectionRole>> GetConnectionRoles(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
         {
             var descriptor = new SolutionComponentDescriptor(service);
 
@@ -168,10 +168,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return Task.FromResult(new List<ContractTemplate>());
             }
 
-            return Task.Run(async () => await GetContractTemplates(service, imageComponents));
+            return Task.Run(() => GetContractTemplates(service, imageComponents));
         }
 
-        private async Task<List<ContractTemplate>> GetContractTemplates(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
+        private static async Task<List<ContractTemplate>> GetContractTemplates(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
         {
             var descriptor = new SolutionComponentDescriptor(service);
 
@@ -194,10 +194,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return Task.FromResult(new List<KbArticleTemplate>());
             }
 
-            return Task.Run(async () => await GetKbArticleTemplate(service, imageComponents));
+            return Task.Run(() => GetKbArticleTemplate(service, imageComponents));
         }
 
-        private async Task<List<KbArticleTemplate>> GetKbArticleTemplate(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
+        private static async Task<List<KbArticleTemplate>> GetKbArticleTemplate(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
         {
             var descriptor = new SolutionComponentDescriptor(service);
 
@@ -220,10 +220,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return Task.FromResult(new List<MailMergeTemplate>());
             }
 
-            return Task.Run(async () => await GetMailMergeTemplate(service, imageComponents));
+            return Task.Run(() => GetMailMergeTemplate(service, imageComponents));
         }
 
-        private async Task<List<MailMergeTemplate>> GetMailMergeTemplate(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
+        private static async Task<List<MailMergeTemplate>> GetMailMergeTemplate(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
         {
             var descriptor = new SolutionComponentDescriptor(service);
 
@@ -246,10 +246,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return Task.FromResult(new List<Template>());
             }
 
-            return Task.Run(async () => await GetTemplate(service, imageComponents));
+            return Task.Run(() => GetTemplate(service, imageComponents));
         }
 
-        private async Task<List<Template>> GetTemplate(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
+        private static async Task<List<Template>> GetTemplate(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
         {
             var descriptor = new SolutionComponentDescriptor(service);
 
@@ -329,10 +329,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return Task.FromResult(new List<FieldSecurityProfile>());
             }
 
-            return Task.Run(async () => await GetFieldSecurityProfile(service, imageComponents));
+            return Task.Run(() => GetFieldSecurityProfile(service, imageComponents));
         }
 
-        private async Task<List<FieldSecurityProfile>> GetFieldSecurityProfile(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
+        private static async Task<List<FieldSecurityProfile>> GetFieldSecurityProfile(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
         {
             var descriptor = new SolutionComponentDescriptor(service);
 
@@ -412,10 +412,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return Task.FromResult(new List<PluginAssembly>());
             }
 
-            return Task.Run(async () => await GetPluginAssembly(service, imageComponents));
+            return Task.Run(() => GetPluginAssembly(service, imageComponents));
         }
 
-        private async Task<List<PluginAssembly>> GetPluginAssembly(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
+        private static async Task<List<PluginAssembly>> GetPluginAssembly(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
         {
             var descriptor = new SolutionComponentDescriptor(service);
 
@@ -438,10 +438,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return Task.FromResult(new List<PluginType>());
             }
 
-            return Task.Run(async () => await GetPluginType(service, imageComponents));
+            return Task.Run(() => GetPluginType(service, imageComponents));
         }
 
-        private async Task<List<PluginType>> GetPluginType(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
+        private static async Task<List<PluginType>> GetPluginType(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
         {
             var descriptor = new SolutionComponentDescriptor(service);
 
@@ -464,10 +464,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return Task.FromResult(new List<Report>());
             }
 
-            return Task.Run(async () => await GetReport(service, imageComponents));
+            return Task.Run(() => GetReport(service, imageComponents));
         }
 
-        private async Task<List<Report>> GetReport(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
+        private static async Task<List<Report>> GetReport(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
         {
             var descriptor = new SolutionComponentDescriptor(service);
 
@@ -490,10 +490,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return Task.FromResult(new List<SdkMessageProcessingStep>());
             }
 
-            return Task.Run(async () => await GetSdkMessageProcessingStep(service, imageComponents));
+            return Task.Run(() => GetSdkMessageProcessingStep(service, imageComponents));
         }
 
-        private async Task<List<SdkMessageProcessingStep>> GetSdkMessageProcessingStep(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
+        private static async Task<List<SdkMessageProcessingStep>> GetSdkMessageProcessingStep(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
         {
             var descriptor = new SolutionComponentDescriptor(service);
 
@@ -516,10 +516,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return Task.FromResult(new List<SiteMap>());
             }
 
-            return Task.Run(async () => await GetSiteMap(service, imageComponents));
+            return Task.Run(() => GetSiteMap(service, imageComponents));
         }
 
-        private async Task<List<SiteMap>> GetSiteMap(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
+        private static async Task<List<SiteMap>> GetSiteMap(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
         {
             var descriptor = new SolutionComponentDescriptor(service);
 
@@ -713,10 +713,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return Task.FromResult(new List<OptionSetMetadata>());
             }
 
-            return Task.Run(async () => await GetOptionSet(service, imageComponents));
+            return Task.Run(() => GetOptionSet(service, imageComponents));
         }
 
-        private async Task<List<OptionSetMetadata>> GetOptionSet(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
+        private static async Task<List<OptionSetMetadata>> GetOptionSet(IOrganizationServiceExtented service, IEnumerable<SolutionImageComponent> imageComponents)
         {
             var descriptor = new SolutionComponentDescriptor(service);
 
