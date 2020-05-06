@@ -259,7 +259,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private Task PerformAssemblyDescriptionAsync(string folder, PluginDescription pluginDescription, PluginAssembly pluginAssembly)
         {
-            return Task.Run(async () => await PerformAssemblyDescription(folder, pluginDescription, pluginAssembly));
+            return Task.Run(() => PerformAssemblyDescription(folder, pluginDescription, pluginAssembly));
         }
 
         private async Task PerformAssemblyDescription(string folder, PluginDescription pluginDescription, PluginAssembly pluginAssembly)

@@ -14,7 +14,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
     {
         public Task<string> CheckDisplayStringsAsync()
         {
-            return Task.Run(async () => await CheckDisplayStrings());
+            return Task.Run(() => CheckDisplayStrings());
         }
 
         private async Task<string> CheckDisplayStrings()
@@ -271,7 +271,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> CheckDefaultTranslationsAsync()
         {
-            return Task.Run(async () => await CheckDefaultTranslations());
+            return Task.Run(() => CheckDefaultTranslations());
         }
 
         private async Task<string> CheckDefaultTranslations()
@@ -323,7 +323,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> CheckFieldTranslationsAsync()
         {
-            return Task.Run(async () => await CheckFieldTranslations());
+            return Task.Run(() => CheckFieldTranslations());
         }
 
         private async Task<string> CheckFieldTranslations()

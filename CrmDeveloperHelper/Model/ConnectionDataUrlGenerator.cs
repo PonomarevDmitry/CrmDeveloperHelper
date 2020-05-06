@@ -138,7 +138,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
                         return $"/designer/sitemap/{Solution.Schema.InstancesUniqueId.DefaultId}/{objectId}#/SiteMapHome/{objectId}";
                     }
-                    break;
 
                 case ComponentType.AttributeMap:
                     {
@@ -225,7 +224,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
                         return $"/designer/app/{Solution.Schema.InstancesUniqueId.DefaultId}/{objectId}#/AppDesignerCanvas/{objectId}";
                     }
-                    break;
 
                 case ComponentType.AppModuleRoles:
                     {

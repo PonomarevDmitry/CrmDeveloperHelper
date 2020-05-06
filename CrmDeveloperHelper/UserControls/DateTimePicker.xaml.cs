@@ -1,3 +1,4 @@
+using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using System;
 using System.Globalization;
 using System.Windows;
@@ -650,6 +651,7 @@ namespace DTPicker
             catch (ArgumentException ex)
             {
                 //Catch dates with year over 9999 etc, dont throw
+                DTEHelper.WriteExceptionToLog(ex);
             }
 
             return retval;

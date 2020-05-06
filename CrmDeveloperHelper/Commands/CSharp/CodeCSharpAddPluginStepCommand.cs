@@ -17,7 +17,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
             Instance = new CodeCSharpAddPluginStepCommand(commandService);
         }
 
-        protected override async void CommandAction(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
+        {
+            System.Threading.Tasks.Task.Run(() => ExecuteAsync(helper));
+        }
+
+        private static async System.Threading.Tasks.Task ExecuteAsync(DTEHelper helper)
         {
             try
             {

@@ -36,7 +36,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> CheckMailMergeTemplatesAsync()
         {
-            return Task.Run(async () => await CheckMailMergeTemplates());
+            return Task.Run(() => CheckMailMergeTemplates());
         }
 
         private async Task<string> CheckMailMergeTemplates()
@@ -291,7 +291,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> CheckEMailTemplatesAsync()
         {
-            return Task.Run(async () => await CheckEMailTemplates());
+            return Task.Run(() => CheckEMailTemplates());
         }
 
         private async Task<string> CheckEMailTemplates()
@@ -561,7 +561,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> CheckKBArticleTemplatesAsync()
         {
-            return Task.Run(async () => await CheckKBArticleTemplates());
+            return Task.Run(() => CheckKBArticleTemplates());
         }
 
         private async Task<string> CheckKBArticleTemplates()
@@ -797,7 +797,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> CheckContractTemplatesAsync()
         {
-            return Task.Run(async () => await CheckContractTemplates());
+            return Task.Run(() => CheckContractTemplates());
         }
 
         private async Task<string> CheckContractTemplates()

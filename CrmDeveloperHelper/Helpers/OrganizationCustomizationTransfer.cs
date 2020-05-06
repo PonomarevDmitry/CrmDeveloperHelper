@@ -37,7 +37,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> TrasnferAuditAsync()
         {
-            return Task.Run(async () => await TrasnferAudit());
+            return Task.Run(() => TrasnferAudit());
         }
 
         private async Task<string> TrasnferAudit()
@@ -209,7 +209,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> TrasnferWorkflowsStatesAsync()
         {
-            return Task.Run(async () => await TrasnferWorkflowsStates());
+            return Task.Run(() => TrasnferWorkflowsStates());
         }
 
         private async Task<string> TrasnferWorkflowsStates()
@@ -476,7 +476,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> TrasnferPluginStepsStatesAsync()
         {
-            return Task.Run(async () => await TrasnferPluginStepsStates());
+            return Task.Run(() => TrasnferPluginStepsStates());
         }
 
         private async Task<string> TrasnferPluginStepsStates()

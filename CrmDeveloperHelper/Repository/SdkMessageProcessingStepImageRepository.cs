@@ -286,7 +286,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         public Task<SdkMessageProcessingStepImage> GetStepImageByIdAsync(Guid id)
         {
-            return Task.Run(async () => await GetStepImageById(id));
+            return Task.Run(() => GetStepImageById(id));
         }
 
         private async Task<SdkMessageProcessingStepImage> GetStepImageById(Guid id)

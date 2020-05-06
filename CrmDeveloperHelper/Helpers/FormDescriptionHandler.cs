@@ -36,7 +36,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> GetFormDescriptionAsync(XElement doc, string entityName, Guid formId, string name, string typeName)
         {
-            return Task.Run(async () => await GetFormDescription(doc, entityName, formId, name, typeName));
+            return Task.Run(() => GetFormDescription(doc, entityName, formId, name, typeName));
         }
 
         private async Task<string> GetFormDescription(XElement doc, string entityName, Guid formId, string name, string typeName)

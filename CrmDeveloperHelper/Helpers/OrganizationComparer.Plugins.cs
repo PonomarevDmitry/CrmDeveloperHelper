@@ -14,7 +14,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
     {
         public Task<string> CheckPluginAssembliesAsync()
         {
-            return Task.Run(async () => await CheckPluginAssemblies());
+            return Task.Run(() => CheckPluginAssemblies());
         }
 
         private async Task<string> CheckPluginAssemblies()
@@ -240,7 +240,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> CheckPluginTypesAsync()
         {
-            return Task.Run(async () => await CheckPluginTypes());
+            return Task.Run(() => CheckPluginTypes());
         }
 
         private async Task<string> CheckPluginTypes()
@@ -373,7 +373,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> CheckPluginStepsAsync()
         {
-            return Task.Run(async () => await CheckPluginSteps());
+            return Task.Run(() => CheckPluginSteps());
         }
 
         private async Task<string> CheckPluginSteps()
@@ -984,7 +984,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> CheckPluginStepsStatesAsync()
         {
-            return Task.Run(async () => await CheckPluginStepsStates());
+            return Task.Run(() => CheckPluginStepsStates());
         }
 
         private async Task<string> CheckPluginStepsStates()

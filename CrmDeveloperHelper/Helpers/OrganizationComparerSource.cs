@@ -122,7 +122,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return Task.FromResult(_EntityMetadataCollection1);
             }
 
-            return Task.Run(async () => await GetEntityMetadataCollection1InternalAsync());
+            return Task.Run(() => GetEntityMetadataCollection1InternalAsync());
         }
 
         protected virtual async Task<List<EntityMetadata>> GetEntityMetadataCollection1InternalAsync()
@@ -166,7 +166,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return Task.FromResult(_EntityMetadataCollection2);
             }
 
-            return Task.Run(async () => await GetEntityMetadataCollection2InternalAsync());
+            return Task.Run(() => GetEntityMetadataCollection2InternalAsync());
         }
 
         protected virtual async Task<List<EntityMetadata>> GetEntityMetadataCollection2InternalAsync()

@@ -78,7 +78,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         public static Task<Translation> GetFieldTranslationFromCacheAsync(Guid connectionId, IOrganizationServiceExtented service)
         {
-            return Task.Run(async () => await GetFieldTranslationFromCache(connectionId, service));
+            return Task.Run(() => GetFieldTranslationFromCache(connectionId, service));
         }
 
         private static async Task<Translation> GetFieldTranslationFromCache(Guid connectionId, IOrganizationServiceExtented service)

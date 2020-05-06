@@ -31,7 +31,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task CreateFileWithSolutionComponentsAsync(string filePath, Guid solutionId)
         {
-            return Task.Run(async () => await CreateFileWithSolutionComponents(filePath, solutionId));
+            return Task.Run(() => CreateFileWithSolutionComponents(filePath, solutionId));
         }
 
         private async Task CreateFileWithSolutionComponents(string filePath, Guid solutionId)
@@ -78,7 +78,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<SolutionImage> CreateSolutionImageAsync(Guid solutionId, string solutionUniqueName)
         {
-            return Task.Run(async () => await CreateSolutionImage(solutionId, solutionUniqueName));
+            return Task.Run(() => CreateSolutionImage(solutionId, solutionUniqueName));
         }
 
         private async Task<SolutionImage> CreateSolutionImage(Guid solutionId, string solutionUniqueName)
@@ -107,7 +107,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<SolutionImage> CreateSolutionImageWithComponentsAsync(string solutionName, IEnumerable<SolutionComponent> components)
         {
-            return Task.Run(async () => await CreateSolutionImageWithComponents(solutionName, components));
+            return Task.Run(() => CreateSolutionImageWithComponents(solutionName, components));
         }
 
         private async Task<SolutionImage> CreateSolutionImageWithComponents(string solutionName, IEnumerable<SolutionComponent> components)
@@ -147,7 +147,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task CreateFileWithSolutionDependenciesForUninstallAsync(string filePath, Guid solutionId, ComponentsGroupBy showComponents, string showString)
         {
-            return Task.Run(async () => await CreateFileWithSolutionDependenciesForUninstall(filePath, solutionId, showComponents, showString));
+            return Task.Run(() => CreateFileWithSolutionDependenciesForUninstall(filePath, solutionId, showComponents, showString));
         }
 
         private async Task CreateFileWithSolutionDependenciesForUninstall(string filePath, Guid solutionId, ComponentsGroupBy showComponents, string showString)
@@ -198,7 +198,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task CreateFileWithSolutionMissingDependenciesAsync(string filePath, Guid solutionId, ComponentsGroupBy showComponents, string showString)
         {
-            return Task.Run(async () => await CreateFileWithSolutionMissingDependencies(filePath, solutionId, showComponents, showString));
+            return Task.Run(() => CreateFileWithSolutionMissingDependencies(filePath, solutionId, showComponents, showString));
         }
 
         private async Task CreateFileWithSolutionMissingDependencies(string filePath, Guid solutionId, ComponentsGroupBy showComponents, string showString)
@@ -297,7 +297,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task FindUniqueComponentsInSolutionsAsync(Guid idSolution1, Guid idSolution2)
         {
-            return Task.Run(async () => await FindUniqueComponentsInSolutions(idSolution1, idSolution2));
+            return Task.Run(() => FindUniqueComponentsInSolutions(idSolution1, idSolution2));
         }
 
         private async Task FindUniqueComponentsInSolutions(Guid idSolution1, Guid idSolution2)
@@ -325,7 +325,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             , Guid idSolution2
             )
         {
-            return Task.Run(async () => await CreateFileWithUniqueComponentsInSolution1(filePath, idSolution1, idSolution2));
+            return Task.Run(() => CreateFileWithUniqueComponentsInSolution1(filePath, idSolution1, idSolution2));
         }
 
         private async Task CreateFileWithUniqueComponentsInSolution1(
@@ -421,7 +421,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             , int componentesOnlyInTargetCount
             )
         {
-            return Task.Run(async () => await CreateFileWithComponentsInSolution1(filePath
+            return Task.Run(() => CreateFileWithComponentsInSolution1(filePath
                 , sourceName
                 , solutionTargetUniqueName
                 , componentsSourceCount

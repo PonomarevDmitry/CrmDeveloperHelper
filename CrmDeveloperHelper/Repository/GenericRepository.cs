@@ -63,7 +63,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 return Task.FromResult<Entity>(null);
             }
 
-            return Task.Run(async () => await GetEntityById(idEntity, columnSet));
+            return Task.Run(() => GetEntityById(idEntity, columnSet));
         }
 
         private async Task<Entity> GetEntityById(Guid idEntity, ColumnSet columnSet)
@@ -129,7 +129,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         public Task<List<Entity>> GetEntitiesByFieldAsync(string fieldName, Guid idEntity, ColumnSet columnSet)
         {
-            return Task.Run(async () => await GetEntityById(fieldName, idEntity, columnSet));
+            return Task.Run(() => GetEntityById(fieldName, idEntity, columnSet));
         }
 
         private async Task<List<Entity>> GetEntityById(string fieldName, Guid idEntity, ColumnSet columnSet)
@@ -172,7 +172,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 return Task.FromResult<Entity>(null);
             }
 
-            return Task.Run(async () => await GetEntityByNameField(name, columnSet));
+            return Task.Run(() => GetEntityByNameField(name, columnSet));
         }
 
         private async Task<Entity> GetEntityByNameField(string name, ColumnSet columnSet)

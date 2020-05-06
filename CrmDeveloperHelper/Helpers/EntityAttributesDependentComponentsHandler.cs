@@ -22,7 +22,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> CreateFileAsync(string entityName, string filePath, bool allComponents)
         {
-            return Task.Run(async () => await CreateFile(entityName, filePath, allComponents));
+            return Task.Run(() => CreateFile(entityName, filePath, allComponents));
         }
 
         private async Task<string> CreateFile(string entityName, string filePath, bool allComponents)

@@ -16,7 +16,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
     {
         public Task<string> CheckEntitiesAsync()
         {
-            return Task.Run(async () => await CheckEntities());
+            return Task.Run(() => CheckEntities());
         }
 
         private async Task<string> CheckEntities()
@@ -219,7 +219,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> CheckEntitiesByAuditAsync()
         {
-            return Task.Run(async () => await CheckEntitiesByAudit());
+            return Task.Run(() => CheckEntitiesByAudit());
         }
 
         private async Task<string> CheckEntitiesByAudit()
@@ -454,7 +454,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> CheckEntityLabelsAsync()
         {
-            return Task.Run(async () => await CheckEntityLabels());
+            return Task.Run(() => CheckEntityLabels());
         }
 
         private async Task<string> CheckEntityLabels()
@@ -655,7 +655,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> CheckEntityMapsAsync()
         {
-            return Task.Run(async () => await CheckEntityMaps());
+            return Task.Run(() => CheckEntityMaps());
         }
 
         private async Task<string> CheckEntityMaps()
@@ -990,7 +990,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> CheckEntityRibbonsAsync(bool withDetails)
         {
-            return Task.Run(async () => await CheckEntityRibbons(withDetails));
+            return Task.Run(() => CheckEntityRibbons(withDetails));
         }
 
         private async Task<string> CheckEntityRibbons(bool withDetails)

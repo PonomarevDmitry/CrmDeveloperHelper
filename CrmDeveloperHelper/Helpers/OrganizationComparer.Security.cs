@@ -16,7 +16,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
     {
         public Task<string> CheckSecurityRolesAsync()
         {
-            return Task.Run(async () => await CheckSecurityRoles());
+            return Task.Run(() => CheckSecurityRoles());
         }
 
         private async Task<string> CheckSecurityRoles()
@@ -479,7 +479,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> CheckFieldSecurityProfilesAsync()
         {
-            return Task.Run(async () => await CheckFieldSecurityProfiles());
+            return Task.Run(() => CheckFieldSecurityProfiles());
         }
 
         private async Task<string> CheckFieldSecurityProfiles()

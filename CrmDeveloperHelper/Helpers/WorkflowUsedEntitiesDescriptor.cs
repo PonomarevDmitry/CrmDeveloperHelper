@@ -34,7 +34,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task GetDescriptionWithUsedEntitiesInSolutionWorkflowsAsync(StringBuilder strFile, Guid idSolution)
         {
-            return Task.Run(async () => await GetDescriptionWithUsedEntitiesInSolutionWorkflows(strFile, idSolution));
+            return Task.Run(() => GetDescriptionWithUsedEntitiesInSolutionWorkflows(strFile, idSolution));
         }
 
         private async Task GetDescriptionWithUsedEntitiesInSolutionWorkflows(StringBuilder strFile, Guid idSolution)
@@ -159,7 +159,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task GetDescriptionWithUsedNotExistsEntitiesInSolutionWorkflowsAsync(StringBuilder strFile, Guid idSolution)
         {
-            return Task.Run(async () => await GetDescriptionWithUsedNotExistsEntitiesInSolutionWorkflows(strFile, idSolution));
+            return Task.Run(() => GetDescriptionWithUsedNotExistsEntitiesInSolutionWorkflows(strFile, idSolution));
         }
 
         private async Task GetDescriptionWithUsedNotExistsEntitiesInSolutionWorkflows(StringBuilder strFile, Guid idSolution)
@@ -279,7 +279,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task GetDescriptionWithUsedEntitiesInAllWorkflowsAsync(StringBuilder strFile)
         {
-            return Task.Run(async () => await GetDescriptionWithUsedEntitiesInAllWorkflows(strFile));
+            return Task.Run(() => GetDescriptionWithUsedEntitiesInAllWorkflows(strFile));
         }
 
         private async Task GetDescriptionWithUsedEntitiesInAllWorkflows(StringBuilder strFile)
@@ -520,7 +520,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task GetDescriptionWithUsedNotExistsEntitiesInAllWorkflowsAsync(StringBuilder strFile)
         {
-            return Task.Run(async () => await GetDescriptionWithUsedNotExistsEntitiesInAllWorkflows(strFile));
+            return Task.Run(() => GetDescriptionWithUsedNotExistsEntitiesInAllWorkflows(strFile));
         }
 
         private async Task GetDescriptionWithUsedNotExistsEntitiesInAllWorkflows(StringBuilder strFile)

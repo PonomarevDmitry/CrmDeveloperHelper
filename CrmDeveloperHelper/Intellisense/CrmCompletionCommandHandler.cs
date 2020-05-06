@@ -5,9 +5,7 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.TextManager.Interop;
-using Microsoft.VisualStudio.Threading;
 using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 
@@ -30,6 +28,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
         public int QueryStatus(ref Guid pguidCmdGroup, uint cCmds, OLECMD[] prgCmds, IntPtr pCmdText)
         {
+            ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+
             var ret = _nextCommandHandler.QueryStatus(ref pguidCmdGroup, cCmds, prgCmds, pCmdText);
 
             if (pguidCmdGroup == VSConstants.VSStd2K)
@@ -102,12 +102,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 || nCmdID == (uint)VSConstants.VSStd2KCmdID.SHOWMEMBERLIST
                 || nCmdID == (uint)VSConstants.VSStd2KCmdID.COMPLETION_HIDE_ADVANCED
                 || nCmdID == (uint)VSConstants.VSStd2KCmdID.QUICKINFO
-                || (!typedChar.Equals(char.MinValue) 
-                    && (char.IsLetterOrDigit(typedChar) 
-                            || typedChar == ' ' 
-                            || typedChar == '_' 
-                            || typedChar == '-' 
-                            || typedChar == '.' 
+                || (!typedChar.Equals(char.MinValue)
+                    && (char.IsLetterOrDigit(typedChar)
+                            || typedChar == ' '
+                            || typedChar == '_'
+                            || typedChar == '-'
+                            || typedChar == '.'
                             || typedChar == ','
                             || typedChar == '/'
                             || typedChar == '\\'

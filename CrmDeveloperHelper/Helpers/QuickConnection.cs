@@ -147,7 +147,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public static Task<IOrganizationServiceExtented> ConnectAsync(ConnectionData connectionData)
         {
-            return Task.Run(async () => await Connect(connectionData));
+            return Task.Run(() => Connect(connectionData));
         }
 
         private static async Task<IOrganizationServiceExtented> Connect(ConnectionData connectionData)
@@ -183,7 +183,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public static Task<bool> TestConnectAsync(ConnectionData connectionData, IWriteToOutput iWriteToOutput, System.Windows.Window window)
         {
-            return Task.Run(async () => await TestConnect(connectionData, iWriteToOutput, window));
+            return Task.Run(() => TestConnect(connectionData, iWriteToOutput, window));
         }
 
         private static async Task<bool> TestConnect(ConnectionData connectionData, IWriteToOutput iWriteToOutput, System.Windows.Window window)

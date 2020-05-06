@@ -21,7 +21,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> GetDescriptionDependentAsync(List<Dependency> coll)
         {
-            return Task.Run(async () => await GetDescriptionDependent(coll));
+            return Task.Run(() => GetDescriptionDependent(coll));
         }
 
         private async Task<string> GetDescriptionDependent(List<Dependency> coll)
@@ -33,7 +33,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> GetDescriptionRequiredAsync(List<Dependency> coll)
         {
-            return Task.Run(async () => await GetDescriptionRequired(coll));
+            return Task.Run(() => GetDescriptionRequired(coll));
         }
 
         private async Task<string> GetDescriptionRequired(List<Dependency> coll)
@@ -45,7 +45,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> GetDescriptionFullAsynс(List<Dependency> list, ComponentsGroupBy showInList)
         {
-            return Task.Run(async () => await GetDescriptionFull(list, showInList));
+            return Task.Run(() => GetDescriptionFull(list, showInList));
         }
 
         private async Task<string> GetDescriptionFull(List<Dependency> list, ComponentsGroupBy showInList)

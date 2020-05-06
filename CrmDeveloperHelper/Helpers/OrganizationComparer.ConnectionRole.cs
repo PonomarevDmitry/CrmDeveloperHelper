@@ -16,7 +16,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
     {
         public Task<string> CheckConnectionRolesAsync()
         {
-            return Task.Run(async () => await CheckConnectionRoles());
+            return Task.Run(() => CheckConnectionRoles());
         }
 
         private async Task<string> CheckConnectionRoles()
@@ -354,7 +354,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> CheckConnectionRoleCategoriesAsync()
         {
-            return Task.Run(async () => await CheckConnectionRoleCategories());
+            return Task.Run(() => CheckConnectionRoleCategories());
         }
 
         private async Task<string> CheckConnectionRoleCategories()

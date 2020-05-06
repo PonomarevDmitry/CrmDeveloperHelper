@@ -347,7 +347,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 if (!_cacheTaskGettingEntity.ContainsKey(entityName))
                 {
-                    task = Task.Run(async () => await GetEntityFullDataForNameAsync(entityName), _cancellationTokenSource.Token);
+                    task = Task.Run(() => GetEntityFullDataForNameAsync(entityName), _cancellationTokenSource.Token);
                     _cacheTaskGettingEntity.TryAdd(entityName, task);
                 }
 
@@ -424,7 +424,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 if (!_cacheTaskGettingEntityObjectTypeCode.ContainsKey(entityObjectTypeCode))
                 {
-                    task = Task.Run(async () => await GetEntityFullDataForObjectTypeCodeAsync(entityObjectTypeCode), _cancellationTokenSource.Token);
+                    task = Task.Run(() => GetEntityFullDataForObjectTypeCodeAsync(entityObjectTypeCode), _cancellationTokenSource.Token);
                     _cacheTaskGettingEntityObjectTypeCode.TryAdd(entityObjectTypeCode, task);
                 }
 

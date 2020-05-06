@@ -10,13 +10,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
         private readonly ShowDifferenceThreeFileType _differenceType;
 
         private FileWebResourceShowDifferenceThreeFileCommand(OleMenuCommandService commandService, int baseIdStart, ShowDifferenceThreeFileType differenceType, string formatButtonName)
-            : base(
-                commandService
-                , baseIdStart
-                , formatButtonName
-            )
+            : base(commandService, baseIdStart, formatButtonName)
         {
-
+            this._differenceType = differenceType;
         }
 
         public static FileWebResourceShowDifferenceThreeFileCommand InstanceOneByOne { get; private set; }

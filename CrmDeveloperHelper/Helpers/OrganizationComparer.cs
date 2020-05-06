@@ -62,7 +62,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> CheckGlobalOptionSetsAsync()
         {
-            return Task.Run(async () => await CheckGlobalOptionSets());
+            return Task.Run(() => CheckGlobalOptionSets());
         }
 
         private async Task<string> CheckGlobalOptionSets()
@@ -322,7 +322,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> CheckWebResourcesAsync(bool withDetails)
         {
-            return Task.Run(async () => await CheckWebResources(withDetails));
+            return Task.Run(() => CheckWebResources(withDetails));
         }
 
         private async Task<string> CheckWebResources(bool withDetails)
@@ -732,7 +732,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> CheckSiteMapsAsync()
         {
-            return Task.Run(async () => await CheckSiteMaps());
+            return Task.Run(() => CheckSiteMaps());
         }
 
         private async Task<string> CheckSiteMaps()
@@ -949,7 +949,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> CheckOrganizationsAsync()
         {
-            return Task.Run(async () => await CheckOrganizations());
+            return Task.Run(() => CheckOrganizations());
         }
 
         private async Task<string> CheckOrganizations()
@@ -1106,7 +1106,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> CheckReportsAsync()
         {
-            return Task.Run(async () => await CheckReports());
+            return Task.Run(() => CheckReports());
         }
 
         private async Task<string> CheckReports()
@@ -1508,7 +1508,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> CheckWorkflowsAsync(bool withDetails)
         {
-            return Task.Run(async () => await CheckWorkflows(withDetails));
+            return Task.Run(() => CheckWorkflows(withDetails));
         }
 
         private async Task<string> CheckWorkflows(bool withDetails)
@@ -1837,7 +1837,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> CheckWorkflowsStatesAsync()
         {
-            return Task.Run(async () => await CheckWorkflowsStates());
+            return Task.Run(() => CheckWorkflowsStates());
         }
 
         private async Task<string> CheckWorkflowsStates()
@@ -2070,7 +2070,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> CheckApplicationRibbonsAsync(bool withDetails)
         {
-            return Task.Run(async () => await CheckApplicationRibbons(withDetails));
+            return Task.Run(() => CheckApplicationRibbons(withDetails));
         }
 
         private async Task<string> CheckApplicationRibbons(bool withDetails)

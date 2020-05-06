@@ -15,7 +15,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
     {
         public Task<string> CheckSystemFormsAsync()
         {
-            return Task.Run(async () => await CheckSystemForms());
+            return Task.Run(() => CheckSystemForms());
         }
 
         private async Task<string> CheckSystemForms()
@@ -358,7 +358,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> CheckSystemSavedQueriesAsync()
         {
-            return Task.Run(async () => await CheckSystemSavedQueries());
+            return Task.Run(() => CheckSystemSavedQueries());
         }
 
         private async Task<string> CheckSystemSavedQueries()
@@ -669,7 +669,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public Task<string> CheckSystemSavedQueryVisualizationsAsync()
         {
-            return Task.Run(async () => await CheckSystemSavedQueryVisualizations());
+            return Task.Run(() => CheckSystemSavedQueryVisualizations());
         }
 
         private async Task<string> CheckSystemSavedQueryVisualizations()
