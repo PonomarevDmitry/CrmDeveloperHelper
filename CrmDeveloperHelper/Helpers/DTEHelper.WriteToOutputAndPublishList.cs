@@ -104,7 +104,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             try
             {
-                var outputWindowLocal = await GetOutputWindow(connectionData);
+                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+
+                var outputWindowLocal = GetOutputWindow(connectionData);
 
                 if (outputWindowLocal != null)
                 {
@@ -475,6 +477,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             try
             {
+                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+
                 var loggerOutput = GetOutputLogger(connectionData);
 
                 loggerOutput.Info(string.Empty);
@@ -483,7 +487,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 loggerOutput.Info(string.Empty);
                 loggerOutput.Info(string.Empty);
 
-                var outputWindowLocal = await GetOutputWindow(connectionData);
+                var outputWindowLocal = GetOutputWindow(connectionData);
 
                 if (outputWindowLocal != null)
                 {
@@ -546,7 +550,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private async System.Threading.Tasks.Task ActivateOutputWindowInternal(ConnectionData connectionData)
         {
-            var outputWindowLocal = await GetOutputWindow(connectionData);
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+
+            var outputWindowLocal = GetOutputWindow(connectionData);
 
             if (outputWindowLocal != null)
             {
@@ -767,11 +773,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return loggerOutput;
         }
 
-        private async System.Threading.Tasks.Task<OutputWindowPane> GetOutputWindow(ConnectionData connectionData)
+        private OutputWindowPane GetOutputWindow(ConnectionData connectionData)
         {
             try
             {
                 string outputWindowPaneName = _outputWindowPaneName;
+
                 Guid outputWindowPaneId = _outputWindowPaneId;
 
                 if (connectionData != null)
@@ -788,7 +795,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     outputWindowPaneId = connectionData.ConnectionId;
                 }
 
-                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+                ThreadHelper.ThrowIfNotOnUIThread();
 
                 var iVsOutputWindowService = (IVsOutputWindow)Package.GetGlobalService(typeof(SVsOutputWindow));
 
@@ -1361,6 +1368,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public async System.Threading.Tasks.Task ProcessStartProgramComparerAsync(string filePath1, string filePath2, string fileTitle1, string fileTitle2)
         {
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
             if (File.Exists(filePath1) && File.Exists(filePath2))
@@ -1429,11 +1438,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             //Tools.DiffFiles
                             var args = $"\"{filePath1}\" \"{filePath2}\" \"{fileTitle1}\" \"{fileTitle2}\"";
 
-                            var commandService = await CrmDeveloperHelperPackage.Singleton?.GetServiceAsync(typeof(System.ComponentModel.Design.IMenuCommandService)) as Microsoft.VisualStudio.Shell.OleMenuCommandService;
+                            var commandService = await CrmDeveloperHelperPackage.Singleton?.GetServiceAsync(typeof(System.ComponentModel.Design.IMenuCommandService)) as OleMenuCommandService;
                             if (commandService != null)
                             {
-                                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
-
                                 diffExecuted = commandService.GlobalInvoke(ToolsDiffCommand, args);
                             }
                             else

@@ -1520,13 +1520,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingPlugins);
 
-            this.trVPluginTree.Dispatcher.Invoke(() =>
-            {
-                _pluginTree.Clear();
-
-                this.trVPluginTree.BeginInit();
-            });
-
             string entityName = string.Empty;
             string messageName = string.Empty;
             string pluginTypeName = string.Empty;
@@ -1535,24 +1528,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             bool withBusinessProcesses = false;
             SdkMessageProcessingStep.Schema.OptionSets.statuscode? statuscode = null;
 
-            this.Dispatcher.Invoke(() =>
-            {
-                entityName = cmBEntityName.Text?.Trim();
-                messageName = txtBMessageFilter.Text.Trim();
-                pluginTypeName = txtBPluginTypeFilter.Text.Trim();
-                withBusinessRules = chBBusinessRules.IsChecked.GetValueOrDefault();
-                withBusinessProcesses = chBBusinessProcesses.IsChecked.GetValueOrDefault();
-
-                if (cmBStatusCode.SelectedItem is SdkMessageProcessingStep.Schema.OptionSets.statuscode comboBoxItem)
-                {
-                    statuscode = comboBoxItem;
-                }
-            });
-
-            var stages = GetStages();
-
             try
             {
+
+                this.Dispatcher.Invoke(() =>
+                {
+                    this.trVPluginTree.BeginInit();
+
+                    _pluginTree.Clear();
+
+                    entityName = cmBEntityName.Text?.Trim();
+                    messageName = txtBMessageFilter.Text.Trim();
+                    pluginTypeName = txtBPluginTypeFilter.Text.Trim();
+                    withBusinessRules = chBBusinessRules.IsChecked.GetValueOrDefault();
+                    withBusinessProcesses = chBBusinessProcesses.IsChecked.GetValueOrDefault();
+
+                    if (cmBStatusCode.SelectedItem is SdkMessageProcessingStep.Schema.OptionSets.statuscode comboBoxItem)
+                    {
+                        statuscode = comboBoxItem;
+                    }
+                });
+
+                var stages = GetStages();
+
                 if (service != null)
                 {
                     List<RequestGroupBuilder> requestGroups = _currentGrouping.Select(g => _propertyGroups[g]).ToList();
@@ -1571,18 +1569,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         }
                     }
                 }
+
+                this.trVPluginTree.Dispatcher.Invoke(() =>
+                {
+                    this.trVPluginTree.EndInit();
+                });
+
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingPluginsCompleted);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
 
-            this.trVPluginTree.Dispatcher.Invoke(() =>
-            {
-                this.trVPluginTree.EndInit();
-            });
 
-            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingPluginsCompleted);
         }
 
         private async Task GetSdkMessageFiltersAsync(IOrganizationServiceExtented service)

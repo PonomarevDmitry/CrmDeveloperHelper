@@ -189,16 +189,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             message.AppendLine().AppendLine();
 
-            if (result != null)
-            {
-                message.Append("Assembly resolved.");
-            }
-            else
+            if (result == null)
             {
                 message.Append("Assembly NOT RESOLVED.");
-            }
 
-            DTEHelper.WriteToLog(message.ToString());
+                DTEHelper.WriteToLog(message.ToString());
+            }
 
             return result;
         }

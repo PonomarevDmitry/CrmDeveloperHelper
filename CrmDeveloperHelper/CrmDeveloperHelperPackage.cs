@@ -976,6 +976,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
         internal async System.Threading.Tasks.Task ExecuteFetchXmlQueryAsync(string filePath, ConnectionData connectionData, IWriteToOutput iWriteToOutput, bool strictConnection)
         {
+            await this.JoinableTaskFactory.SwitchToMainThreadAsync();
+
             var panes = FindOrCreateFetchXmlExecutorToolWindowPane(filePath);
 
             var connectionPane = panes.FirstOrDefault(p => p.ConnectionData.ConnectionId == connectionData.ConnectionId);
@@ -992,8 +994,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             {
                 item.Execute();
             }
-
-            await this.JoinableTaskFactory.SwitchToMainThreadAsync();
 
             if (connectionPane != null)
             {
