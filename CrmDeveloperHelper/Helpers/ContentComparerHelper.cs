@@ -459,6 +459,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public static async System.Threading.Tasks.Task GetTextViewAndMakeActionAsync(Document document, string operationName, Action<IWpfTextView, int, int> action)
         {
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+
             var vsTextView = GetIVsTextView(document.FullName);
 
             if (vsTextView == null)
@@ -478,6 +480,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             var componentModel = (IComponentModel)await CrmDeveloperHelperPackage.Singleton.GetServiceAsync(typeof(SComponentModel));
+
+            if (componentModel == null)
+            {
+                return;
+            }
+
             var undoHistoryRegistry = componentModel.DefaultExportProvider.GetExportedValue<ITextUndoHistoryRegistry>();
 
             undoHistoryRegistry.TryGetHistory(wpfTextView.TextBuffer, out var history);

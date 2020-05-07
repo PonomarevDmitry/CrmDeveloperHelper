@@ -40,7 +40,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
             AppDomain.CurrentDomain.DomainUnload += CurrentDomain_ProcessExit;
 
-            Task.Run(() => StartGettingListEntityHeader(), _cancellationTokenSource.Token);
+            var task = Task.Run(() => StartGettingListEntityHeader(), _cancellationTokenSource.Token);
         }
 
         private void CurrentDomain_ProcessExit(object sender, EventArgs e)
@@ -119,7 +119,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
             }
 
-            Task.Run(() => GetEntityDataForNames(new[] { entityName }), _cancellationTokenSource.Token);
+            var task = Task.Run(() => GetEntityDataForNames(new[] { entityName }), _cancellationTokenSource.Token);
 
             return null;
         }
@@ -148,7 +148,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
             }
 
-            Task.Run(() => GetEntityDataForObjectTypeCodes(new[] { entityTypeCode }), _cancellationTokenSource.Token);
+            var task = Task.Run(() => GetEntityDataForObjectTypeCodes(new[] { entityTypeCode }), _cancellationTokenSource.Token);
 
             return null;
         }
