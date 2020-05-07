@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -775,7 +776,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            GetTextViewAndMakeActionAsync(document, Properties.OperationNames.AddXmlSchemaLocation, (wpfTextView, oldCaretLine, oldCaretColumn) => ReplaceXsdSchemaInTextView(wpfTextView, schemas));
+            Task.Run(() => GetTextViewAndMakeActionAsync(document, Properties.OperationNames.AddXmlSchemaLocation, (wpfTextView, oldCaretLine, oldCaretColumn) => ReplaceXsdSchemaInTextView(wpfTextView, schemas)));
         }
 
         public static string RemoveInTextAllCustomXmlAttributesAndNamespaces(string text)

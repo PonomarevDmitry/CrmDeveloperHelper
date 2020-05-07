@@ -458,9 +458,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async Task PerformExportMouseDoubleClick(string folder, SolutionComponentViewItem item)
+        private Task PerformExportMouseDoubleClick(string folder, SolutionComponentViewItem item)
         {
-            _service.UrlGenerator.OpenSolutionComponentInWeb((ComponentType)item.SolutionComponent.ComponentType.Value, item.SolutionComponent.ObjectId.Value);
+            return Task.Run(() => _service.UrlGenerator.OpenSolutionComponentInWeb((ComponentType)item.SolutionComponent.ComponentType.Value, item.SolutionComponent.ObjectId.Value));
         }
 
         private void lstVwEntities_SelectionChanged(object sender, SelectionChangedEventArgs e)

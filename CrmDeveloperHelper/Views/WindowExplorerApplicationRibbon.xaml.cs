@@ -165,9 +165,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await action();
         }
 
-        private void miExportApplicationRibbon_Click(object sender, RoutedEventArgs e)
+        private async void miExportApplicationRibbon_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteActionOnApplicationRibbonAsync(PerformExportApplicationRibbon);
+            await ExecuteActionOnApplicationRibbonAsync(PerformExportApplicationRibbon);
         }
 
         private async Task PerformExportApplicationRibbon()
@@ -217,9 +217,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.ExportingApplicationRibbonFormat1, service.ConnectionData.Name);
         }
 
-        private void miExportApplicationRibbonArchive_Click(object sender, RoutedEventArgs e)
+        private async void miExportApplicationRibbonArchive_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteActionOnApplicationRibbonAsync(PerformExportApplicationRibbonArchive);
+            await ExecuteActionOnApplicationRibbonAsync(PerformExportApplicationRibbonArchive);
         }
 
         private async Task PerformExportApplicationRibbonArchive()
@@ -262,9 +262,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.ExportingApplicationRibbonFormat1, service.ConnectionData.Name);
         }
 
-        private void miExportApplicationRibbonDiffXml_Click(object sender, RoutedEventArgs e)
+        private async void miExportApplicationRibbonDiffXml_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteActionOnApplicationRibbonAsync(PerformExportApplicationRibbonDiffXml);
+            await ExecuteActionOnApplicationRibbonAsync(PerformExportApplicationRibbonDiffXml);
         }
 
         private async Task PerformExportApplicationRibbonDiffXml()
@@ -342,9 +342,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.ExportingApplicationRibbonDiffXmlFormat1, service.ConnectionData.Name);
         }
 
-        private void miUpdateApplicationRibbonDiffXml_Click(object sender, RoutedEventArgs e)
+        private async void miUpdateApplicationRibbonDiffXml_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteActionOnApplicationRibbonAsync(PerformUpdateApplicationRibbonDiffXml);
+            await ExecuteActionOnApplicationRibbonAsync(PerformUpdateApplicationRibbonDiffXml);
         }
 
         private async Task PerformUpdateApplicationRibbonDiffXml()

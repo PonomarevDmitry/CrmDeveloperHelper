@@ -7,7 +7,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
     internal sealed class CodeCSharpPluginTypeExplorerCommand : AbstractCommand
     {
         private CodeCSharpPluginTypeExplorerCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.guidCommandSet.CodeCSharpPluginTypeExplorerCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.CodeCSharpPluginTypeExplorerCommandId)
+        {
+        }
 
         public static CodeCSharpPluginTypeExplorerCommand Instance { get; private set; }
 
@@ -16,7 +18,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
             Instance = new CodeCSharpPluginTypeExplorerCommand(commandService);
         }
 
-        protected override async void CommandAction(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
+        {
+            System.Threading.Tasks.Task.WaitAll(ExecuteAsync(helper));
+        }
+
+        private static async System.Threading.Tasks.Task ExecuteAsync(DTEHelper helper)
         {
             try
             {

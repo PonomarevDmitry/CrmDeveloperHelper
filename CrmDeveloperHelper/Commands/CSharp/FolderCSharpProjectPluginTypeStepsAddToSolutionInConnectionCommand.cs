@@ -10,12 +10,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
     internal sealed class FolderCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
         private FolderCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.FolderCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.FolderCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommandId)
         {
-
         }
 
         public static FolderCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand Instance { get; private set; }
@@ -25,34 +21,46 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
             Instance = new FolderCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand(commandService);
         }
 
-        protected override async void CommandAction(DTEHelper helper, ConnectionData connectionData)
+        protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
-            var listFiles = helper.GetSelectedProjectItemsInSolutionExplorer(FileOperations.SupportsCSharpType, true).ToList();
+            System.Threading.Tasks.Task.WaitAll(ExecuteAsync(helper, connectionData));
+        }
 
-            var pluginTypeNames = new List<string>();
-            var handledFilePaths = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
-
-            helper.ActivateOutputWindow(null);
-
-            foreach (var item in listFiles)
+        private static async System.Threading.Tasks.Task ExecuteAsync(DTEHelper helper, ConnectionData connectionData)
+        {
+            try
             {
-                string filePath = item.FileNames[1];
+                var listFiles = helper.GetSelectedProjectItemsInSolutionExplorer(FileOperations.SupportsCSharpType, true).ToList();
 
-                if (handledFilePaths.Add(filePath))
+                var pluginTypeNames = new List<string>();
+                var handledFilePaths = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+
+                helper.ActivateOutputWindow(null);
+
+                foreach (var item in listFiles)
                 {
-                    helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, filePath);
-                    var typeName = await PropertiesHelper.GetTypeFullNameAsync(item);
+                    string filePath = item.FileNames[1];
 
-                    if (!string.IsNullOrEmpty(typeName))
+                    if (handledFilePaths.Add(filePath))
                     {
-                        pluginTypeNames.Add(typeName);
+                        helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, filePath);
+                        var typeName = await PropertiesHelper.GetTypeFullNameAsync(item);
+
+                        if (!string.IsNullOrEmpty(typeName))
+                        {
+                            pluginTypeNames.Add(typeName);
+                        }
                     }
                 }
-            }
 
-            if (pluginTypeNames.Any())
+                if (pluginTypeNames.Any())
+                {
+                    helper.HandlePluginTypeAddingProcessingStepsByProjectCommand(connectionData, null, true, pluginTypeNames.ToArray());
+                }
+            }
+            catch (Exception ex)
             {
-                helper.HandlePluginTypeAddingProcessingStepsByProjectCommand(connectionData, null, true, pluginTypeNames.ToArray());
+                DTEHelper.WriteExceptionToOutput(null, ex);
             }
         }
 

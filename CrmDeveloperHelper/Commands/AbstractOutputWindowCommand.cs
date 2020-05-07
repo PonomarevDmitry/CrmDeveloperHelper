@@ -23,6 +23,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
         {
             try
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
+
                 if (sender is OleMenuCommand menuCommand)
                 {
                     menuCommand.Enabled = menuCommand.Visible = false;
@@ -57,6 +59,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
         {
             try
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
+
                 OleMenuCommand menuCommand = sender as OleMenuCommand;
                 if (menuCommand == null)
                 {

@@ -2,9 +2,6 @@
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
@@ -12,11 +9,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
     {
         private readonly string _formatButtonName;
 
-        public AbstractDynamicCommandConnectionPair(
-            OleMenuCommandService commandService
-            , int baseIdStart
-            , string formatButtonName
-        ) : base(commandService, baseIdStart, ConnectionData.CountConnectionToQuickList)
+        public AbstractDynamicCommandConnectionPair(OleMenuCommandService commandService, int baseIdStart, string formatButtonName)
+            : base(commandService, baseIdStart, ConnectionData.CountConnectionToQuickList)
         {
             this._formatButtonName = formatButtonName;
         }

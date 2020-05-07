@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.OLE.Interop;
+using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
@@ -57,6 +58,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 }
             }
 
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             var ret = _nextCommandHandler.QueryStatus(ref pguidCmdGroup, cCmds, prgCmds, pCmdText);
 
             return ret;
@@ -86,6 +89,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 }
             }
 
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             int retVal = _nextCommandHandler.Exec(ref pguidCmdGroup, nCmdID, nCmdexecopt, pvaIn, pvaOut);
 
             return retVal;
@@ -93,6 +98,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
         private bool TryOpenUrlAtCaret()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             SnapshotPoint bufferPosition = _textView.Caret.Position.BufferPosition;
             ITextSnapshotLine containingLine = bufferPosition.GetContainingLine();
             int line = containingLine.LineNumber;
@@ -235,6 +242,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
                 int result = ErrorHandler.CallWithCOMConvention(() =>
                 {
+                    ThreadHelper.ThrowIfNotOnUIThread();
+
                     service.CreateExternalWebBrowser((uint)createFlags, resolution, uri.AbsoluteUri);
                 });
 

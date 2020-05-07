@@ -1282,7 +1282,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             UpdateButtonsEnable();
         }
 
-        private async void ExecuteActionOnSingleSolution(Solution solution, Func<string, Solution, Task> action)
+        private async Task ExecuteActionOnSingleSolution(Solution solution, Func<string, Solution, Task> action)
         {
             if (!this.IsControlsEnabled)
             {
@@ -1379,7 +1379,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 && !string.IsNullOrEmpty(solution.Description)
                 )
             {
-                ExecuteActionOnSingleSolutionWithoutFolderCheck(solution, PerformOpenSolutionDescriptionInExplorer);
+                ExecuteActionOnSingleSolutionWithoutFolderCheck(solution, PerformOpenSolutionDescriptionInExplorerAsync);
             }
         }
 
@@ -1523,7 +1523,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async Task PerformOpenSolutionDescriptionInExplorer(string folder, Solution solution)
+        private Task PerformOpenSolutionDescriptionInExplorerAsync(string folder, Solution solution)
+        {
+            return Task.Run(() => PerformOpenSolutionDescriptionInExplorer(folder, solution));
+        }
+
+        private void PerformOpenSolutionDescriptionInExplorer(string folder, Solution solution)
         {
             if (solution == null || string.IsNullOrEmpty(solution.Description))
             {
@@ -1679,7 +1684,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void ExecuteActionOnSolutionPair(Solution solution1, Solution solution2, Func<string, Solution, Solution, Task> action)
+        private async Task ExecuteActionOnSolutionPair(Solution solution1, Solution solution2, Func<string, Solution, Solution, Task> action)
         {
             if (!this.IsControlsEnabled)
             {
@@ -1710,7 +1715,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void ExecuteActionOnSolutionAndSolutionCollection(Solution[] solutionsArray, Solution solution, Func<string, Solution[], Solution, Task> action)
+        private async Task ExecuteActionOnSolutionAndSolutionCollection(Solution[] solutionsArray, Solution solution, Func<string, Solution[], Solution, Task> action)
         {
             if (!this.IsControlsEnabled)
             {

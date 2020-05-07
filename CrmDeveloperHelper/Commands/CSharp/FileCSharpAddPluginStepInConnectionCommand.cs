@@ -1,18 +1,15 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+using System;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
     internal sealed class FileCSharpAddPluginStepInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
         private FileCSharpAddPluginStepInConnectionCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.FileCSharpAddPluginStepInConnectionCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.FileCSharpAddPluginStepInConnectionCommandId)
         {
-
         }
 
         public static FileCSharpAddPluginStepInConnectionCommand Instance { get; private set; }
@@ -22,18 +19,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
             Instance = new FileCSharpAddPluginStepInConnectionCommand(commandService);
         }
 
-        protected override async void CommandAction(DTEHelper helper, ConnectionData connectionData)
+        protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
-            var projectItem = helper.GetSingleSelectedProjectItemInSolutionExplorer(FileOperations.SupportsCSharpType);
+            System.Threading.Tasks.Task.WaitAll(ExecuteAsync(helper, connectionData));
+        }
 
-            if (projectItem != null)
+        private static async System.Threading.Tasks.Task ExecuteAsync(DTEHelper helper, ConnectionData connectionData)
+        {
+            try
             {
-                helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, projectItem.FileNames[1]);
-                helper.ActivateOutputWindow(null);
+                var projectItem = helper.GetSingleSelectedProjectItemInSolutionExplorer(FileOperations.SupportsCSharpType);
 
-                string fileType = await PropertiesHelper.GetTypeFullNameAsync(projectItem);
+                if (projectItem != null)
+                {
+                    helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, projectItem.FileNames[1]);
+                    helper.ActivateOutputWindow(null);
 
-                helper.HandleAddPluginStep(fileType, connectionData);
+                    string fileType = await PropertiesHelper.GetTypeFullNameAsync(projectItem);
+
+                    helper.HandleAddPluginStep(fileType, connectionData);
+                }
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.WriteExceptionToOutput(null, ex);
             }
         }
 

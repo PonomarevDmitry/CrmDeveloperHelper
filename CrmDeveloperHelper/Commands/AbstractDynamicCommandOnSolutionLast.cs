@@ -9,16 +9,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
     {
         private readonly Collection<string> EmptyCollection = new Collection<string>();
 
-        public AbstractDynamicCommandOnSolutionLast(
-            OleMenuCommandService commandService
-            , int baseIdStart
-        ) : base(
-            commandService
-            , baseIdStart
-            , ConnectionData.CountLastSolutions
-        )
+        public AbstractDynamicCommandOnSolutionLast(OleMenuCommandService commandService, int baseIdStart)
+            : base(commandService, baseIdStart, ConnectionData.CountLastSolutions)
         {
-
         }
 
         protected override ICollection<string> GetElementSourceCollection()

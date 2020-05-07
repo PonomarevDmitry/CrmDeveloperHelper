@@ -6,15 +6,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
     internal abstract class AbstractDynamicCommandByConnectionByGroupWithCurrent : AbstractDynamicCommandByConnection
     {
-        public AbstractDynamicCommandByConnectionByGroupWithCurrent(
-            OleMenuCommandService commandService
-            , int baseIdStart
-        ) : base(
-            commandService
-            , baseIdStart
-        )
+        public AbstractDynamicCommandByConnectionByGroupWithCurrent(OleMenuCommandService commandService, int baseIdStart)
+            : base(commandService, baseIdStart)
         {
-
         }
 
         protected override ICollection<ConnectionData> GetElementSourceCollection()

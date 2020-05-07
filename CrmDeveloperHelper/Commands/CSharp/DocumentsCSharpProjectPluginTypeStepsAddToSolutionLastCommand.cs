@@ -1,6 +1,6 @@
 using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,12 +9,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
     internal sealed class DocumentsCSharpProjectPluginTypeStepsAddToSolutionLastCommand : AbstractDynamicCommandOnSolutionLast
     {
         private DocumentsCSharpProjectPluginTypeStepsAddToSolutionLastCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.DocumentsCSharpProjectPluginTypeStepsAddToSolutionLastCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.DocumentsCSharpProjectPluginTypeStepsAddToSolutionLastCommandId)
         {
-
         }
 
         public static DocumentsCSharpProjectPluginTypeStepsAddToSolutionLastCommand Instance { get; private set; }
@@ -24,28 +20,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
             Instance = new DocumentsCSharpProjectPluginTypeStepsAddToSolutionLastCommand(commandService);
         }
 
-        protected override async void CommandAction(DTEHelper helper, string solutionUniqueName)
+        protected override void CommandAction(DTEHelper helper, string solutionUniqueName)
         {
-            var list = helper.GetOpenedDocumentsAsDocument(FileOperations.SupportsCSharpType).ToList();
+            System.Threading.Tasks.Task.WaitAll(ExecuteAsync(helper, solutionUniqueName));
+        }
 
-            var pluginTypeNames = new List<string>();
-
-            helper.ActivateOutputWindow(null);
-
-            foreach (var item in list)
+        private static async System.Threading.Tasks.Task ExecuteAsync(DTEHelper helper, string solutionUniqueName)
+        {
+            try
             {
-                helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, item?.FullName);
-                var typeName = await PropertiesHelper.GetTypeFullNameAsync(item);
+                var list = helper.GetOpenedDocumentsAsDocument(FileOperations.SupportsCSharpType).ToList();
 
-                if (!string.IsNullOrEmpty(typeName))
+                var pluginTypeNames = new List<string>();
+
+                helper.ActivateOutputWindow(null);
+
+                foreach (var item in list)
                 {
-                    pluginTypeNames.Add(typeName);
+                    helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, item?.FullName);
+                    var typeName = await PropertiesHelper.GetTypeFullNameAsync(item);
+
+                    if (!string.IsNullOrEmpty(typeName))
+                    {
+                        pluginTypeNames.Add(typeName);
+                    }
+                }
+
+                if (pluginTypeNames.Any())
+                {
+                    helper.HandlePluginTypeAddingProcessingStepsByProjectCommand(null, solutionUniqueName, false, pluginTypeNames.ToArray());
                 }
             }
-
-            if (pluginTypeNames.Any())
+            catch (Exception ex)
             {
-                helper.HandlePluginTypeAddingProcessingStepsByProjectCommand(null, solutionUniqueName, false, pluginTypeNames.ToArray());
+                DTEHelper.WriteExceptionToOutput(null, ex);
             }
         }
 

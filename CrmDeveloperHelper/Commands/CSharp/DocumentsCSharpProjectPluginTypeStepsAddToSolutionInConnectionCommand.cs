@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,12 +10,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
     internal class DocumentsCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
         private DocumentsCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.DocumentsCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.DocumentsCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommandId)
         {
-
         }
 
         public static DocumentsCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand Instance { get; private set; }
@@ -24,28 +21,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
             Instance = new DocumentsCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand(commandService);
         }
 
-        protected override async void CommandAction(DTEHelper helper, ConnectionData connectionData)
+        protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
-            var listFiles = helper.GetOpenedDocumentsAsDocument(FileOperations.SupportsCSharpType).ToList();
+            System.Threading.Tasks.Task.WaitAll(ExecuteAsync(helper, connectionData));
+        }
 
-            var pluginTypeNames = new List<string>();
-
-            helper.ActivateOutputWindow(null);
-
-            foreach (var item in listFiles)
+        private static async System.Threading.Tasks.Task ExecuteAsync(DTEHelper helper, ConnectionData connectionData)
+        {
+            try
             {
-                helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, item?.FullName);
-                var typeName = await PropertiesHelper.GetTypeFullNameAsync(item);
+                var listFiles = helper.GetOpenedDocumentsAsDocument(FileOperations.SupportsCSharpType).ToList();
 
-                if (!string.IsNullOrEmpty(typeName))
+                var pluginTypeNames = new List<string>();
+
+                helper.ActivateOutputWindow(null);
+
+                foreach (var item in listFiles)
                 {
-                    pluginTypeNames.Add(typeName);
+                    helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, item?.FullName);
+                    var typeName = await PropertiesHelper.GetTypeFullNameAsync(item);
+
+                    if (!string.IsNullOrEmpty(typeName))
+                    {
+                        pluginTypeNames.Add(typeName);
+                    }
+                }
+
+                if (pluginTypeNames.Any())
+                {
+                    helper.HandlePluginTypeAddingProcessingStepsByProjectCommand(connectionData, null, true, pluginTypeNames.ToArray());
                 }
             }
-
-            if (pluginTypeNames.Any())
+            catch (Exception ex)
             {
-                helper.HandlePluginTypeAddingProcessingStepsByProjectCommand(connectionData, null, true, pluginTypeNames.ToArray());
+                DTEHelper.WriteExceptionToOutput(null, ex);
             }
         }
 

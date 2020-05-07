@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using System;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
@@ -8,7 +7,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
     internal sealed class FileCSharpPluginTypeExplorerCommand : AbstractCommand
     {
         private FileCSharpPluginTypeExplorerCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.guidCommandSet.FileCSharpPluginTypeExplorerCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.FileCSharpPluginTypeExplorerCommandId)
+        {
+        }
 
         public static FileCSharpPluginTypeExplorerCommand Instance { get; private set; }
 
@@ -17,7 +18,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
             Instance = new FileCSharpPluginTypeExplorerCommand(commandService);
         }
 
-        protected override async void CommandAction(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
+        {
+            System.Threading.Tasks.Task.WaitAll(ExecuteAsync(helper));
+        }
+
+        private static async System.Threading.Tasks.Task ExecuteAsync(DTEHelper helper)
         {
             try
             {

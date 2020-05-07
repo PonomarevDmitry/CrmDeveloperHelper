@@ -966,8 +966,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             Singleton = this;
 
-            System.Threading.Tasks.Task.Run(() => CommonConfiguration.Get());
-            System.Threading.Tasks.Task.Run(() => ConnectionConfiguration.Get());
+            var task1 = System.Threading.Tasks.Task.Run(() => CommonConfiguration.Get());
+            var task2 = System.Threading.Tasks.Task.Run(() => ConnectionConfiguration.Get());
+
+            System.Threading.Tasks.Task.WaitAll(task1, task2);
 
             //Repository.ConnectionIntellisenseDataRepository.LoadIntellisenseCache();
         }

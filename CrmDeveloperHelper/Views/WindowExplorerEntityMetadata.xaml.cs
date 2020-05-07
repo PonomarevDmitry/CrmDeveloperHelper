@@ -293,14 +293,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingEntities);
-
-            _itemsSource.Clear();
-
-            IEnumerable<EntityMetadata> list = Enumerable.Empty<EntityMetadata>();
-
             try
             {
+                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingEntities);
+
+                this.Dispatcher.Invoke(() =>
+                {
+                    _itemsSource.Clear();
+                });
+
+                IEnumerable<EntityMetadata> list = Enumerable.Empty<EntityMetadata>();
+
                 if (service != null)
                 {
                     if (!_cacheEntityMetadata.ContainsKey(service.ConnectionData.ConnectionId))
@@ -314,26 +317,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     list = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
                 }
+
+                string textName = string.Empty;
+                RoleEditorLayoutTab selectedTab = null;
+
+                this.Dispatcher.Invoke(() =>
+                {
+                    textName = txtBFilterEnitity.Text.Trim().ToLower();
+                    selectedTab = cmBRoleEditorLayoutTabs.SelectedItem as RoleEditorLayoutTab;
+                });
+
+                list = FilterList(list, textName, selectedTab);
+
+                LoadEntities(list);
+
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingEntitiesCompletedFormat1, list.Count());
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
-
-            string textName = string.Empty;
-            RoleEditorLayoutTab selectedTab = null;
-
-            this.Dispatcher.Invoke(() =>
-            {
-                textName = txtBFilterEnitity.Text.Trim().ToLower();
-                selectedTab = cmBRoleEditorLayoutTabs.SelectedItem as RoleEditorLayoutTab;
-            });
-
-            list = FilterList(list, textName, selectedTab);
-
-            LoadEntities(list);
-
-            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingEntitiesCompletedFormat1, list.Count());
         }
 
         private IEnumerable<EntityMetadata> FilterList(IEnumerable<EntityMetadata> list, string textName, RoleEditorLayoutTab selectedTab)
@@ -474,11 +477,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void txtBFilterEnitity_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBFilterEnitity_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                ShowExistingEntities();
+                await ShowExistingEntities();
             }
         }
 
@@ -493,7 +496,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Close();
         }
 
-        private void miCreateCSharpFileSchemaMetadata_Click(object sender, RoutedEventArgs e)
+        private async void miCreateCSharpFileSchemaMetadata_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -502,10 +505,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entity, CreateEntityMetadataFileCSharpSchemaAsync);
+            await ExecuteActionAsync(entity, CreateEntityMetadataFileCSharpSchemaAsync);
         }
 
-        private void miCreateCSharpFileProxyClass_Click(object sender, RoutedEventArgs e)
+        private async void miCreateCSharpFileProxyClass_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -514,7 +517,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entity, CreateEntityMetadataFileCSharpProxyClassAsync);
+            await ExecuteActionAsync(entity, CreateEntityMetadataFileCSharpProxyClassAsync);
         }
 
         private void lstVwEntities_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -692,7 +695,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.CreatingFileForEntityFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
         }
 
-        private void miCreateJavaScriptFile_Click(object sender, RoutedEventArgs e)
+        private async void miCreateJavaScriptFile_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -701,7 +704,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entity, CreateEntityMetadataFileJavaScriptAsync);
+            await ExecuteActionAsync(entity, CreateEntityMetadataFileJavaScriptAsync);
         }
 
         private async Task CreateEntityMetadataFileJavaScriptAsync(string folder, EntityMetadataListViewItem entityMetadata)
@@ -793,7 +796,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void miCreateNewEntityInstance_Click(object sender, RoutedEventArgs e)
+        private async void miCreateNewEntityInstance_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -802,7 +805,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entity, CreateNewEntityInstanceAsync);
+            await ExecuteActionAsync(entity, CreateNewEntityInstanceAsync);
         }
 
         private async Task CreateNewEntityInstanceAsync(string folder, EntityMetadataListViewItem entityMetadata)
@@ -819,7 +822,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, entityMetadata.EntityMetadata.LogicalName, Guid.Empty);
         }
 
-        private void miCreateFileAttributesDependentComponents_Click(object sender, RoutedEventArgs e)
+        private async void miCreateFileAttributesDependentComponents_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -828,7 +831,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entity, StartCreateFileWithAttibuteDependentAsync);
+            await ExecuteActionAsync(entity, StartCreateFileWithAttibuteDependentAsync);
         }
 
         private async Task StartCreateFileWithAttibuteDependentAsync(string folder, EntityMetadataListViewItem entityMetadata)
@@ -883,7 +886,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operation);
         }
 
-        private void miExportEntityXml_Click(object sender, RoutedEventArgs e)
+        private async void miExportEntityXml_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -892,10 +895,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entity, CreateEntityXmlFileAsync);
+            await ExecuteActionAsync(entity, CreateEntityXmlFileAsync);
         }
 
-        private void miPublishEntity_Click(object sender, RoutedEventArgs e)
+        private async void miPublishEntity_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -904,7 +907,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entity, PublishEntityAsync);
+            await ExecuteActionAsync(entity, PublishEntityAsync);
         }
 
         private async Task CreateEntityXmlFileAsync(string folder, EntityMetadataListViewItem entityMetadata)
@@ -952,35 +955,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.GettingEntityXmlFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
         }
 
-        private async Task PublishEntityAsync(string folder, EntityMetadataListViewItem entityMetadata)
+        protected Task PublishEntityAsync(string folder, EntityMetadataListViewItem entityMetadata)
         {
-            if (!this.IsControlsEnabled)
-            {
-                return;
-            }
-
-            var service = await GetService();
-
-            this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
-
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
-
-            try
-            {
-                var repository = new PublishActionsRepository(service);
-
-                await repository.PublishEntitiesAsync(new[] { entityMetadata.LogicalName });
-
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.PublishingEntitiesCompletedFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
-            }
-            catch (Exception ex)
-            {
-                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.PublishingEntitiesFailedFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
-            }
-
-            this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
+            return base.PublishEntityAsync(GetSelectedConnection(), new[] { entityMetadata.LogicalName });
         }
 
         private void lstVwEntities_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1194,7 +1171,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             );
         }
 
-        private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             foreach (var removed in e.RemovedItems.OfType<ConnectionData>())
             {
@@ -1217,7 +1194,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 UpdateButtonsEnable();
 
-                ShowExistingEntities();
+                await ShowExistingEntities();
             }
         }
 
@@ -1280,11 +1257,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _popupEntityMetadataFilter.Child.Focus();
         }
 
-        private void _popupEntityMetadataFilter_Closed(object sender, EventArgs e)
+        private async void _popupEntityMetadataFilter_Closed(object sender, EventArgs e)
         {
             if (_entityMetadataFilter.FilterChanged)
             {
-                ShowExistingEntities();
+                await ShowExistingEntities();
             }
         }
 
@@ -1297,7 +1274,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void miExportEntityRibbon_Click(object sender, RoutedEventArgs e)
+        private async void miExportEntityRibbon_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1306,7 +1283,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entity, PerformExportEntityRibbon);
+            await ExecuteActionAsync(entity, PerformExportEntityRibbon);
         }
 
         private async Task PerformExportEntityRibbon(string folder, EntityMetadataListViewItem entityMetadata)
@@ -1355,7 +1332,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ExportingRibbonForEntityCompletedFormat1, entityMetadata.LogicalName);
         }
 
-        private void miExportEntityRibbonArchive_Click(object sender, RoutedEventArgs e)
+        private async void miExportEntityRibbonArchive_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1364,7 +1341,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entity, PerformExportEntityRibbonArchive);
+            await ExecuteActionAsync(entity, PerformExportEntityRibbonArchive);
         }
 
         private async Task PerformExportEntityRibbonArchive(string folder, EntityMetadataListViewItem entityMetadata)
@@ -1406,7 +1383,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ExportingRibbonForEntityCompletedFormat1, entityMetadata.LogicalName);
         }
 
-        private void miExportEntityRibbonDiffXml_Click(object sender, RoutedEventArgs e)
+        private async void miExportEntityRibbonDiffXml_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1415,7 +1392,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entity, PerformExportEntityRibbonDiffXml);
+            await ExecuteActionAsync(entity, PerformExportEntityRibbonDiffXml);
         }
 
         private async Task PerformExportEntityRibbonDiffXml(string folder, EntityMetadataListViewItem entityMetadata)
@@ -1479,7 +1456,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.ExportingRibbonDiffXmlForEntityFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
         }
 
-        private void miUpdateEntityRibbonDiffXml_Click(object sender, RoutedEventArgs e)
+        private async void miUpdateEntityRibbonDiffXml_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1488,7 +1465,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entity, PerformUpdateEntityRibbonDiffXml);
+            await ExecuteActionAsync(entity, PerformUpdateEntityRibbonDiffXml);
         }
 
         private async Task PerformUpdateEntityRibbonDiffXml(string folder, EntityMetadataListViewItem entity)
@@ -1592,7 +1569,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             SetCurrentConnection(_iWriteToOutput, GetSelectedConnection());
         }
 
-        private void hyperlinkCSharpMetadata_Click(object sender, RoutedEventArgs e)
+        private async void hyperlinkCSharpMetadata_Click(object sender, RoutedEventArgs e)
         {
             EntityMetadataListViewItem entity = GetItemFromRoutedDataContext<EntityMetadataListViewItem>(e);
 
@@ -1601,10 +1578,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entity, CreateEntityMetadataFileCSharpSchemaAsync);
+            await ExecuteActionAsync(entity, CreateEntityMetadataFileCSharpSchemaAsync);
         }
 
-        private void hyperlinkCSharpProxy_Click(object sender, RoutedEventArgs e)
+        private async void hyperlinkCSharpProxy_Click(object sender, RoutedEventArgs e)
         {
             EntityMetadataListViewItem entity = GetItemFromRoutedDataContext<EntityMetadataListViewItem>(e);
 
@@ -1613,10 +1590,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entity, CreateEntityMetadataFileCSharpProxyClassAsync);
+            await ExecuteActionAsync(entity, CreateEntityMetadataFileCSharpProxyClassAsync);
         }
 
-        private void hyperlinkJavaScript_Click(object sender, RoutedEventArgs e)
+        private async void hyperlinkJavaScript_Click(object sender, RoutedEventArgs e)
         {
             EntityMetadataListViewItem entity = GetItemFromRoutedDataContext<EntityMetadataListViewItem>(e);
 
@@ -1625,10 +1602,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entity, CreateEntityMetadataFileJavaScriptAsync);
+            await ExecuteActionAsync(entity, CreateEntityMetadataFileJavaScriptAsync);
         }
 
-        private void hyperlinkPublishEntity_Click(object sender, RoutedEventArgs e)
+        private async void hyperlinkPublishEntity_Click(object sender, RoutedEventArgs e)
         {
             EntityMetadataListViewItem entity = GetItemFromRoutedDataContext<EntityMetadataListViewItem>(e);
 
@@ -1637,10 +1614,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entity, PublishEntityAsync);
+            await ExecuteActionAsync(entity, PublishEntityAsync);
         }
 
-        private void mICreateFormEntityJavaScriptFileJsonObject_Click(object sender, RoutedEventArgs e)
+        private async void mICreateFormEntityJavaScriptFileJsonObject_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1649,10 +1626,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteJavaScriptObjectTypeAsync(entity, JavaScriptObjectType.JsonObject, PerformCreateEntityJavaScriptFileForm);
+            await ExecuteJavaScriptObjectTypeAsync(entity, JavaScriptObjectType.JsonObject, PerformCreateEntityJavaScriptFileForm);
         }
 
-        private void mICreateFormEntityJavaScriptFileAnonymousConstructor_Click(object sender, RoutedEventArgs e)
+        private async void mICreateFormEntityJavaScriptFileAnonymousConstructor_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1661,10 +1638,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteJavaScriptObjectTypeAsync(entity, JavaScriptObjectType.AnonymousConstructor, PerformCreateEntityJavaScriptFileForm);
+            await ExecuteJavaScriptObjectTypeAsync(entity, JavaScriptObjectType.AnonymousConstructor, PerformCreateEntityJavaScriptFileForm);
         }
 
-        private void mICreateFormEntityJavaScriptFileTypeConstructor_Click(object sender, RoutedEventArgs e)
+        private async void mICreateFormEntityJavaScriptFileTypeConstructor_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1673,10 +1650,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteJavaScriptObjectTypeAsync(entity, JavaScriptObjectType.TypeConstructor, PerformCreateEntityJavaScriptFileForm);
+            await ExecuteJavaScriptObjectTypeAsync(entity, JavaScriptObjectType.TypeConstructor, PerformCreateEntityJavaScriptFileForm);
         }
 
-        private void mICreateRibbonEntityJavaScriptFileJsonObject_Click(object sender, RoutedEventArgs e)
+        private async void mICreateRibbonEntityJavaScriptFileJsonObject_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1685,10 +1662,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteJavaScriptObjectTypeAsync(entity, JavaScriptObjectType.JsonObject, PerformCreateEntityJavaScriptFileRibbon);
+            await ExecuteJavaScriptObjectTypeAsync(entity, JavaScriptObjectType.JsonObject, PerformCreateEntityJavaScriptFileRibbon);
         }
 
-        private void mICreateRibbonEntityJavaScriptFileAnonymousConstructor_Click(object sender, RoutedEventArgs e)
+        private async void mICreateRibbonEntityJavaScriptFileAnonymousConstructor_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1697,10 +1674,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteJavaScriptObjectTypeAsync(entity, JavaScriptObjectType.AnonymousConstructor, PerformCreateEntityJavaScriptFileRibbon);
+            await ExecuteJavaScriptObjectTypeAsync(entity, JavaScriptObjectType.AnonymousConstructor, PerformCreateEntityJavaScriptFileRibbon);
         }
 
-        private void mICreateRibbonEntityJavaScriptFileTypeConstructor_Click(object sender, RoutedEventArgs e)
+        private async void mICreateRibbonEntityJavaScriptFileTypeConstructor_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1709,7 +1686,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteJavaScriptObjectTypeAsync(entity, JavaScriptObjectType.TypeConstructor, PerformCreateEntityJavaScriptFileRibbon);
+            await ExecuteJavaScriptObjectTypeAsync(entity, JavaScriptObjectType.TypeConstructor, PerformCreateEntityJavaScriptFileRibbon);
         }
 
         private async Task ExecuteJavaScriptObjectTypeAsync(EntityMetadataListViewItem entityMetadata, JavaScriptObjectType javaScriptObjectType, Func<string, EntityMetadataListViewItem, JavaScriptObjectType, Task> action)
@@ -1811,7 +1788,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingFileForEntityCompletedFormat1, entityMetadata.LogicalName);
         }
 
-        private void mIClearEntityCacheAndRefresh_Click(object sender, RoutedEventArgs e)
+        private async void mIClearEntityCacheAndRefresh_Click(object sender, RoutedEventArgs e)
         {
             ConnectionData connectionData = GetSelectedConnection();
 
@@ -1821,13 +1798,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 UpdateButtonsEnable();
 
-                ShowExistingEntities();
+                await ShowExistingEntities();
             }
         }
 
-        private void cmBRoleEditorLayoutTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void cmBRoleEditorLayoutTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ShowExistingEntities();
+            await ShowExistingEntities();
         }
     }
 }

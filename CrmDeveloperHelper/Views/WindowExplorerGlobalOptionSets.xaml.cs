@@ -249,11 +249,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void txtBFilter_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBFilter_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                ShowExistingOptionSets();
+                await ShowExistingOptionSets();
             }
         }
 
@@ -966,7 +966,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             SetCurrentConnection(_iWriteToOutput, GetSelectedConnection());
         }
 
-        private void hyperlinkCSharp_Click(object sender, RoutedEventArgs e)
+        private async void hyperlinkCSharp_Click(object sender, RoutedEventArgs e)
         {
             OptionSetMetadataListViewItem item = GetItemFromRoutedDataContext<OptionSetMetadataListViewItem>(e);
 
@@ -975,10 +975,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            CreateCSharpFile(new[] { item.OptionSetMetadata });
+            await CreateCSharpFile(new[] { item.OptionSetMetadata });
         }
 
-        private void hyperlinkJavaScript_Click(object sender, RoutedEventArgs e)
+        private async void hyperlinkJavaScript_Click(object sender, RoutedEventArgs e)
         {
             OptionSetMetadataListViewItem item = GetItemFromRoutedDataContext<OptionSetMetadataListViewItem>(e);
 
@@ -987,10 +987,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            CreateJavaScriptFile(new[] { item.OptionSetMetadata });
+            await CreateJavaScriptFile(new[] { item.OptionSetMetadata });
         }
 
-        private void hyperlinkPublishOptionSet_Click(object sender, RoutedEventArgs e)
+        private async void hyperlinkPublishOptionSet_Click(object sender, RoutedEventArgs e)
         {
             OptionSetMetadataListViewItem item = GetItemFromRoutedDataContext<OptionSetMetadataListViewItem>(e);
 
@@ -999,7 +999,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            PublishOptionSetAsync(item.OptionSetMetadata.Name);
+            await PublishOptionSetAsync(item.OptionSetMetadata.Name);
         }
     }
 }

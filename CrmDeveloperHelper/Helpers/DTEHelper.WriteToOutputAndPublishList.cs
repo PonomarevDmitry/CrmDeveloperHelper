@@ -1,4 +1,5 @@
 using EnvDTE;
+using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.Xrm.Sdk;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense;
@@ -18,7 +19,6 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.ServiceModel;
 using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
@@ -85,8 +85,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public string WriteToOutput(ConnectionData connectionData, string format, params object[] args)
         {
-            StringBuilder str = new StringBuilder();
-
             string message = format;
 
             if (args != null && args.Any())
@@ -94,14 +92,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 message = string.Format(format, args);
             }
 
-            str.Append(message);
-
             var loggerOutput = GetOutputLogger(connectionData);
             loggerOutput.Info(message);
 
+            System.Threading.Tasks.Task.WaitAll(WriteToOutputInternal(connectionData, message));
+
+            return message;
+        }
+
+        private async System.Threading.Tasks.Task WriteToOutputInternal(ConnectionData connectionData, string message)
+        {
             try
             {
-                var outputWindowLocal = GetOutputWindow(connectionData);
+                var outputWindowLocal = await GetOutputWindow(connectionData);
 
                 if (outputWindowLocal != null)
                 {
@@ -131,15 +134,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             catch (Exception ex)
             {
-                str.AppendLine().Append(GetExceptionDescription(ex));
-
                 WriteExceptionToLog(ex);
 #if DEBUG
                 if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
 #endif
             }
-
-            return str.ToString();
         }
 
         public IWriteToOutput WriteToOutputEntityInstance(ConnectionData connectionData, Entity entity)
@@ -469,6 +468,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         /// </summary>
         private void WriteToOutputEmptyLines(ConnectionData connectionData, CommonConfiguration config)
         {
+            System.Threading.Tasks.Task.WaitAll(WriteToOutputEmptyLinesInternal(connectionData, config));
+        }
+
+        private async System.Threading.Tasks.Task WriteToOutputEmptyLinesInternal(ConnectionData connectionData, CommonConfiguration config)
+        {
             try
             {
                 var loggerOutput = GetOutputLogger(connectionData);
@@ -479,7 +483,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 loggerOutput.Info(string.Empty);
                 loggerOutput.Info(string.Empty);
 
-                var outputWindowLocal = GetOutputWindow(connectionData);
+                var outputWindowLocal = await GetOutputWindow(connectionData);
 
                 if (outputWindowLocal != null)
                 {
@@ -526,28 +530,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public IWriteToOutput ActivateOutputWindow(ConnectionData connectionData, System.Windows.Window window)
         {
-            var outputWindowLocal = GetOutputWindow(connectionData);
-
-            if (outputWindowLocal != null)
-            {
-                try
-                {
-                    outputWindowLocal.Activate();
-
-                    if (outputWindowLocal.Collection != null
-                        && outputWindowLocal.Collection.Parent != null
-                        && outputWindowLocal.Collection.Parent.Parent != null
-                        )
-                    {
-                        outputWindowLocal.Collection.Parent.Parent.SetFocus();
-                        outputWindowLocal.Collection.Parent.Parent.Visible = true;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    WriteExceptionToLog(ex);
-                }
-            }
+            System.Threading.Tasks.Task.WaitAll(ActivateOutputWindowInternal(connectionData));
 
             if (window != null)
             {
@@ -559,6 +542,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             return this;
+        }
+
+        private async System.Threading.Tasks.Task ActivateOutputWindowInternal(ConnectionData connectionData)
+        {
+            var outputWindowLocal = await GetOutputWindow(connectionData);
+
+            if (outputWindowLocal != null)
+            {
+                try
+                {
+                    outputWindowLocal.Activate();
+
+                    if (outputWindowLocal.Collection != null
+                        && outputWindowLocal.Collection.Parent != null
+                        && outputWindowLocal.Collection.Parent.Parent != null
+                    )
+                    {
+                        outputWindowLocal.Collection.Parent.Parent.SetFocus();
+                        outputWindowLocal.Collection.Parent.Parent.Visible = true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    WriteExceptionToLog(ex);
+                }
+            }
         }
 
         public IWriteToOutput ActivateVisualStudioWindow()
@@ -758,7 +767,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return loggerOutput;
         }
 
-        private OutputWindowPane GetOutputWindow(ConnectionData connectionData)
+        private async System.Threading.Tasks.Task<OutputWindowPane> GetOutputWindow(ConnectionData connectionData)
         {
             try
             {
@@ -779,11 +788,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     outputWindowPaneId = connectionData.ConnectionId;
                 }
 
-                var iVsOutputWindowService = (IVsOutputWindow)(Microsoft.VisualStudio.Shell.Package.GetGlobalService(typeof(SVsOutputWindow)));
+                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-                IVsOutputWindowPane outputWindowPane = null;
+                var iVsOutputWindowService = (IVsOutputWindow)Package.GetGlobalService(typeof(SVsOutputWindow));
 
-                iVsOutputWindowService.GetPane(ref outputWindowPaneId, out outputWindowPane);
+                iVsOutputWindowService.GetPane(ref outputWindowPaneId, out IVsOutputWindowPane outputWindowPane);
 
                 if (outputWindowPane == null)
                 {
@@ -797,7 +806,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (outputWindow != null
                     && outputWindow.OutputWindowPanes != null
-                    )
+                )
                 {
                     for (int i = 1; i <= outputWindow.OutputWindowPanes.Count; i++)
                     {
@@ -1350,7 +1359,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return this;
         }
 
-        public async Task ProcessStartProgramComparerAsync(string filePath1, string filePath2, string fileTitle1, string fileTitle2)
+        public async System.Threading.Tasks.Task ProcessStartProgramComparerAsync(string filePath1, string filePath2, string fileTitle1, string fileTitle2)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
@@ -1423,7 +1432,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             var commandService = await CrmDeveloperHelperPackage.Singleton?.GetServiceAsync(typeof(System.ComponentModel.Design.IMenuCommandService)) as Microsoft.VisualStudio.Shell.OleMenuCommandService;
                             if (commandService != null)
                             {
-                                await CrmDeveloperHelperPackage.Singleton.JoinableTaskFactory.SwitchToMainThreadAsync();
+                                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
                                 diffExecuted = commandService.GlobalInvoke(ToolsDiffCommand, args);
                             }
@@ -1538,7 +1547,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return this;
         }
 
-        public Task<int> BuildProjectAsync(Project project)
+        public System.Threading.Tasks.Task<int> BuildProjectAsync(Project project)
         {
             if (project == null
                 || string.IsNullOrEmpty(project.Name)
@@ -1548,15 +1557,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 || this.ApplicationObject.Solution.SolutionBuild.BuildState == vsBuildState.vsBuildStateInProgress
             )
             {
-                return Task.FromResult<int>(-1);
+                return System.Threading.Tasks.Task.FromResult<int>(-1);
             }
 
             var build = this.ApplicationObject.Solution.SolutionBuild;
 
-            return Task.Run(() => BuildProject(build, project));
+            return System.Threading.Tasks.Task.Run(() => BuildProject(build, project));
         }
 
-        private int BuildProject(SolutionBuild build, Project project)
+        private static int BuildProject(SolutionBuild build, Project project)
         {
             build.BuildProject(project.ConfigurationManager.ActiveConfiguration.ConfigurationName, project.UniqueName, WaitForBuildToFinish: true);
 

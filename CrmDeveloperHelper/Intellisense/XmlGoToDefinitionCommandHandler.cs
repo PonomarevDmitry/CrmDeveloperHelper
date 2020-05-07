@@ -1,17 +1,13 @@
 ﻿using Microsoft.VisualStudio;
-using Microsoft.VisualStudio.Language.Intellisense;
 using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.TextManager.Interop;
-using Microsoft.VisualStudio.Threading;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -50,11 +46,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 }
             }
 
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             return _nextCommandHandler.QueryStatus(ref pguidCmdGroup, cCmds, prgCmds, pCmdText);
         }
 
         public int Exec(ref Guid pguidCmdGroup, uint nCmdID, uint nCmdexecopt, IntPtr pvaIn, IntPtr pvaOut)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             if (VsShellUtilities.IsInAutomationFunction(_provider.ServiceProvider))
             {
                 return _nextCommandHandler.Exec(ref pguidCmdGroup, nCmdID, nCmdexecopt, pvaIn, pvaOut);

@@ -553,12 +553,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private string CreateFile(string folder, string entityName, string category, string name, string fieldTitle, string xmlContent, string extension)
         {
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData == null)
             {
@@ -1162,7 +1157,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], PerformChangeStateWorkflow);
+            await ExecuteAction(entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], PerformChangeStateWorkflow);
         }
 
         private void mIDeleteWorkflow_Click(object sender, RoutedEventArgs e)
@@ -1362,7 +1357,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData != null)
             {
@@ -1404,7 +1399,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void mIOpenListInWeb_Click(object sender, RoutedEventArgs e)
         {
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData != null)
             {
@@ -1423,7 +1418,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData != null)
             {
@@ -1442,7 +1437,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData != null)
             {
@@ -1550,7 +1545,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData != null)
             {
@@ -1585,12 +1580,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var items = contextMenu.Items.OfType<Control>();
 
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+            ConnectionData connectionData = GetSelectedConnection();
 
             FillLastSolutionItems(connectionData, items, true, AddToCrmSolutionLast_Click, "contMnAddToSolutionLast");
 
@@ -1700,18 +1690,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData != null)
             {
                 LoadEntityNames(cmBEntityName, connectionData);
 
-                ShowExistingWorkflows();
+                await ShowExistingWorkflows();
             }
         }
 
@@ -1777,7 +1762,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)
         {
-            SetCurrentConnection(_iWriteToOutput, cmBCurrentConnection.SelectedItem as ConnectionData);
+            SetCurrentConnection(_iWriteToOutput, GetSelectedConnection());
         }
 
         private void hyperlinkXaml_Click(object sender, RoutedEventArgs e)

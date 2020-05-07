@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using System;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
@@ -8,7 +7,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
     internal sealed class FileCSharpAddPluginStepCommand : AbstractCommand
     {
         private FileCSharpAddPluginStepCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.guidCommandSet.FileCSharpAddPluginStepCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.FileCSharpAddPluginStepCommandId)
+        {
+        }
 
         public static FileCSharpAddPluginStepCommand Instance { get; private set; }
 
@@ -17,7 +18,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
             Instance = new FileCSharpAddPluginStepCommand(commandService);
         }
 
-        protected override async void CommandAction(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
+        {
+            System.Threading.Tasks.Task.WaitAll(ExecuteAsync(helper));
+        }
+
+        private static async System.Threading.Tasks.Task ExecuteAsync(DTEHelper helper)
         {
             try
             {

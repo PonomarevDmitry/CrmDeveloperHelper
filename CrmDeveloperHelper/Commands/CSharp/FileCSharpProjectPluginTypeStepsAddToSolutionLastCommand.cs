@@ -1,10 +1,7 @@
 using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
 using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
@@ -12,12 +9,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
     internal sealed class FileCSharpProjectPluginTypeStepsAddToSolutionLastCommand : AbstractDynamicCommandOnSolutionLast
     {
         private FileCSharpProjectPluginTypeStepsAddToSolutionLastCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.FileCSharpProjectPluginTypeStepsAddToSolutionLastCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.FileCSharpProjectPluginTypeStepsAddToSolutionLastCommandId)
         {
-
         }
 
         public static FileCSharpProjectPluginTypeStepsAddToSolutionLastCommand Instance { get; private set; }
@@ -27,34 +20,46 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
             Instance = new FileCSharpProjectPluginTypeStepsAddToSolutionLastCommand(commandService);
         }
 
-        protected override async void CommandAction(DTEHelper helper, string solutionUniqueName)
+        protected override void CommandAction(DTEHelper helper, string solutionUniqueName)
         {
-            var listFiles = helper.GetSelectedProjectItemsInSolutionExplorer(FileOperations.SupportsCSharpType, false).ToList();
+            System.Threading.Tasks.Task.WaitAll(ExecuteAsync(helper, solutionUniqueName));
+        }
 
-            var pluginTypeNames = new List<string>();
-            var handledFilePaths = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
-
-            helper.ActivateOutputWindow(null);
-
-            foreach (var item in listFiles)
+        private static async System.Threading.Tasks.Task ExecuteAsync(DTEHelper helper, string solutionUniqueName)
+        {
+            try
             {
-                string filePath = item.FileNames[1];
+                var listFiles = helper.GetSelectedProjectItemsInSolutionExplorer(FileOperations.SupportsCSharpType, false).ToList();
 
-                if (handledFilePaths.Add(filePath))
+                var pluginTypeNames = new List<string>();
+                var handledFilePaths = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+
+                helper.ActivateOutputWindow(null);
+
+                foreach (var item in listFiles)
                 {
-                    helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, filePath);
-                    var typeName = await PropertiesHelper.GetTypeFullNameAsync(item);
+                    string filePath = item.FileNames[1];
 
-                    if (!string.IsNullOrEmpty(typeName))
+                    if (handledFilePaths.Add(filePath))
                     {
-                        pluginTypeNames.Add(typeName);
+                        helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, filePath);
+                        var typeName = await PropertiesHelper.GetTypeFullNameAsync(item);
+
+                        if (!string.IsNullOrEmpty(typeName))
+                        {
+                            pluginTypeNames.Add(typeName);
+                        }
                     }
                 }
-            }
 
-            if (pluginTypeNames.Any())
+                if (pluginTypeNames.Any())
+                {
+                    helper.HandlePluginTypeAddingProcessingStepsByProjectCommand(null, solutionUniqueName, false, pluginTypeNames.ToArray());
+                }
+            }
+            catch (Exception ex)
             {
-                helper.HandlePluginTypeAddingProcessingStepsByProjectCommand(null, solutionUniqueName, false, pluginTypeNames.ToArray());
+                DTEHelper.WriteExceptionToOutput(null, ex);
             }
         }
 

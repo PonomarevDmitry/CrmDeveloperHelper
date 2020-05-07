@@ -218,7 +218,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 _service = null;
             }
 
-            Task.Run(GetEntitiesFullInfoAsync, _cancellationTokenSource.Token);
+            var task1 = Task.Run(GetEntitiesFullInfoAsync, _cancellationTokenSource.Token);
             //Task.Run(() => GetEntitiesFullInfoOneByOneAsync(entities), _cancellationTokenSource.Token);
         }
 

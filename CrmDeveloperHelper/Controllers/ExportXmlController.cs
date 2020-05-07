@@ -288,7 +288,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 if (ParseXmlDocument(connectionData, selectedFile, out var doc))
                 {
-                    await CheckAttributeValidateGetSiteMapExecuteAction(connectionData, commonConfig, doc, selectedFile.FilePath, null, GetCurrentSiteMapXml);
+                    await CheckAttributeValidateGetSiteMapExecuteAction(connectionData, commonConfig, doc, selectedFile.FilePath, null, GetCurrentSiteMapXmlAsync);
                 }
             }
             catch (Exception ex)
@@ -476,7 +476,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             return Task.Run(() => service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.SiteMap, siteMap.Id));
         }
 
-        private async Task GetCurrentSiteMapXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, SiteMap siteMap)
+        private Task GetCurrentSiteMapXmlAsync(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, SiteMap siteMap)
+        {
+            return Task.Run(() => GetCurrentSiteMapXml(service, commonConfig, doc, filePath, siteMap));
+        }
+
+        private void GetCurrentSiteMapXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, SiteMap siteMap)
         {
             string siteMapXml = siteMap.SiteMapXml;
 
@@ -1271,7 +1276,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 if (ParseXmlDocument(connectionData, selectedFile, out var doc))
                 {
-                    await CheckAttributeValidateGetSavedQueryExecuteAction(connectionData, commonConfig, doc, selectedFile.FilePath, null, GetCurrentSavedQueryXml);
+                    await CheckAttributeValidateGetSavedQueryExecuteAction(connectionData, commonConfig, doc, selectedFile.FilePath, null, GetCurrentSavedQueryXmlAsync);
                 }
             }
             catch (Exception ex)
@@ -1528,7 +1533,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             return Task.Run(() => service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.SavedQuery, savedQuery.Id));
         }
 
-        private async Task GetCurrentSavedQueryXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, SavedQuery savedQuery)
+        private Task GetCurrentSavedQueryXmlAsync(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, SavedQuery savedQuery)
+        {
+            return Task.Run(() => GetCurrentSavedQueryXml(service, commonConfig, doc, filePath, savedQuery));
+        }
+
+        private void GetCurrentSavedQueryXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, SavedQuery savedQuery)
         {
             string fieldName = SavedQueryRepository.GetFieldNameByXmlRoot(doc.Root.Name.ToString());
             string fieldTitle = SavedQueryRepository.GetFieldTitleByXmlRoot(doc.Root.Name.ToString());
@@ -1684,7 +1694,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 if (ParseXmlDocument(connectionData, selectedFile, out var doc))
                 {
-                    await CheckAttributeValidateGetWorkflowExecuteAction(connectionData, commonConfig, doc, selectedFile.FilePath, null, GetCurrentWorkflowXaml);
+                    await CheckAttributeValidateGetWorkflowExecuteAction(connectionData, commonConfig, doc, selectedFile.FilePath, null, GetCurrentWorkflowXamlAsync);
                 }
             }
             catch (Exception ex)
@@ -1921,7 +1931,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             return Task.Run(() => service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.Workflow, workflow.Id));
         }
 
-        private async Task GetCurrentWorkflowXaml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, Workflow workflow)
+        private Task GetCurrentWorkflowXamlAsync(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, Workflow workflow)
+        {
+            return Task.Run(() => GetCurrentWorkflowXaml(service, commonConfig, doc, filePath, workflow));
+        }
+
+        private void GetCurrentWorkflowXaml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, Workflow workflow)
         {
             string workflowXaml = workflow.Xaml;
 
@@ -2084,7 +2099,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 if (ParseXmlDocument(connectionData, selectedFile, out var doc))
                 {
-                    await CheckAttributeValidateGetWebResourceExecuteAction(connectionData, commonConfig, doc, selectedFile.FilePath, null, GetCurrentWebResourceDependencyXml);
+                    await CheckAttributeValidateGetWebResourceExecuteAction(connectionData, commonConfig, doc, selectedFile.FilePath, null, GetCurrentWebResourceDependencyXmlAsync);
                 }
             }
             catch (Exception ex)
@@ -2289,7 +2304,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             return Task.Run(() => service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.WebResource, webResource.Id));
         }
 
-        private async Task GetCurrentWebResourceDependencyXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, WebResource webResource)
+        private Task GetCurrentWebResourceDependencyXmlAsync(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, WebResource webResource)
+        {
+            return Task.Run(() => GetCurrentWebResourceDependencyXml(service, commonConfig, doc, filePath, webResource));
+        }
+
+        private void GetCurrentWebResourceDependencyXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, WebResource webResource)
         {
             string dependencyXml = webResource.DependencyXml;
 
