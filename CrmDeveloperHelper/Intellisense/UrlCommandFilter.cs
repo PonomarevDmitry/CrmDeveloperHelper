@@ -104,11 +104,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             ITextSnapshotLine containingLine = bufferPosition.GetContainingLine();
             int line = containingLine.LineNumber;
             int column = bufferPosition - containingLine.Start;
+
             return TryOpenUrlAtPoint(line, column);
         }
 
         private bool TryOpenUrlAtPoint(int line, int column)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             if (!TryGetUrlSpan(line, column, out ITagSpan<IUrlTag> tagSpan))
                 return false;
 

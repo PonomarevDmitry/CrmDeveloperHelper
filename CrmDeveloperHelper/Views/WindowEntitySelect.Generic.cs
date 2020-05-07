@@ -47,12 +47,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false, Properties.OutputStrings.LoadingEntities);
 
-            this._itemsSource.Clear();
-
             string filter = string.Empty;
 
-            txtBFilterEnitity.Dispatcher.Invoke(() =>
+            this.Dispatcher.Invoke(() =>
             {
+                this._itemsSource.Clear();
                 filter = txtBFilterEnitity.Text.Trim();
             });
 
