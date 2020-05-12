@@ -24,12 +24,8 @@ using System.Windows.Media.Imaging;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowTreePlugin : WindowWithConnectionList
+    public partial class WindowTreePlugin : WindowWithMessageFilters
     {
-        private readonly Dictionary<Guid, Task> _cacheTaskGettingMessageFilters = new Dictionary<Guid, Task>();
-
-        private readonly Dictionary<Guid, List<SdkMessageFilter>> _cacheMessageFilters = new Dictionary<Guid, List<SdkMessageFilter>>();
-
         private readonly ObservableCollection<PluginTreeViewItem> _pluginTree = new ObservableCollection<PluginTreeViewItem>();
 
         private BitmapImage _imageRefresh;
@@ -152,6 +148,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var explorersHelper = new ExplorersHelper(_iWriteToOutput, _commonConfig, GetService
                 , getEntityName: GetEntityName
                 , getMessageName: GetMessageName
+                , getPluginTypeName: GetPluginTypeName
+                , getPluginAssemblyName: GetPluginAssemblyName
             );
 
             var compareWindowsHelper = new CompareWindowsHelper(_iWriteToOutput, _commonConfig, () => Tuple.Create(GetSelectedConnection(), GetSelectedConnection())
@@ -190,6 +188,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var entity = GetSelectedEntity();
 
             return entity?.MessageName ?? txtBMessageFilter.Text.Trim();
+        }
+
+        private string GetPluginTypeName()
+        {
+            var entity = GetSelectedEntity();
+
+            return entity?.PluginTypeName ?? txtBPluginTypeFilter.Text.Trim();
+        }
+
+        private string GetPluginAssemblyName()
+        {
+            var entity = GetSelectedEntity();
+
+            return entity?.PluginAssemblyName ?? txtBPluginTypeFilter.Text.Trim();
         }
 
         private void LoadFromConfig()
@@ -1106,6 +1118,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     Image = _imagePluginAssembly,
 
                     PluginAssemblyId = grPluginAssembly.Key.Id,
+                    PluginAssemblyName = grPluginAssembly.Key.Name,
                 };
 
                 if (requestGroups.Any() && requestGroups.First().GroupingProperty == GroupingProperty.PluginType)
@@ -1122,8 +1135,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             Name = pluginType.TypeName,
                             Image = pluginType.IsWorkflowActivity.GetValueOrDefault() ? _imageWorkflowActivity : _imagePluginType,
 
-                            PluginTypeId = pluginType.PluginTypeId,
                             PluginAssemblyId = pluginType.PluginAssemblyId?.Id,
+                            PluginAssemblyName = pluginType.AssemblyName,
+
+                            PluginTypeId = pluginType.PluginTypeId,
+                            PluginTypeName = pluginType.TypeName,
 
                             IsWorkflowActivity = pluginType.IsWorkflowActivity.GetValueOrDefault(),
                         };
@@ -1137,9 +1153,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                             var newActionOnChilds = new Action<PluginTreeViewItem>[]
                             {
-                                n => {
-                                    n.PluginTypeId = pluginType.PluginTypeId;
+                                n =>
+                                {
                                     n.PluginAssemblyId = pluginType.PluginAssemblyId?.Id;
+                                    n.PluginAssemblyName = pluginType.AssemblyName;
+
+                                    n.PluginTypeId = pluginType.PluginTypeId;
+                                    n.PluginTypeName = pluginType.TypeName;
                                 }
                             };
 
@@ -1149,7 +1169,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
                 else
                 {
-                    var newActionOnChilds = new Action<PluginTreeViewItem>[] { n => n.PluginAssemblyId = grPluginAssembly.Key.Id };
+                    var newActionOnChilds = new Action<PluginTreeViewItem>[]
+                    {
+                        n =>
+                        {
+                            n.PluginAssemblyId = grPluginAssembly.Key.Id;
+                            n.PluginAssemblyName = grPluginAssembly.Key.Name;
+                        }
+                    };
 
                     if (stepsByPluginAssemblyDict.ContainsKey(grPluginAssembly.Key.Id))
                     {
@@ -1191,6 +1218,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     Image = _imagePluginAssembly,
 
                     PluginAssemblyId = grPluginAssembly.Key.PluginAssemblyId,
+                    PluginAssemblyName = grPluginAssembly.Key.PluginAssemblyName,
                 };
 
                 foreach (var action in actionsOnChilds)
@@ -1198,7 +1226,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     action?.Invoke(nodePluginAssembly);
                 }
 
-                var newActionOnChilds = actionsOnChilds.Union(new Action<PluginTreeViewItem>[] { n => n.PluginAssemblyId = grPluginAssembly.Key.PluginAssemblyId });
+                var newActionOnChilds = actionsOnChilds.Union(new Action<PluginTreeViewItem>[]
+                {
+                    n =>
+                    {
+                        n.PluginAssemblyId = grPluginAssembly.Key.PluginAssemblyId;
+                        n.PluginAssemblyName = grPluginAssembly.Key.PluginAssemblyName;
+                    }
+                });
 
                 RecursiveGroup(service, nodePluginAssembly, search, grPluginAssembly, requestGroups, newActionOnChilds);
 
@@ -1239,8 +1274,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     Name = pluginType.TypeName,
                     Image = pluginType.IsWorkflowActivity.GetValueOrDefault() ? _imageWorkflowActivity : _imagePluginType,
 
-                    PluginTypeId = pluginType.PluginTypeId,
                     PluginAssemblyId = pluginType.PluginAssemblyId?.Id,
+                    PluginAssemblyName = pluginType.AssemblyName,
+
+                    PluginTypeId = pluginType.PluginTypeId,
+                    PluginTypeName = pluginType.TypeName,
 
                     IsWorkflowActivity = pluginType.IsWorkflowActivity.GetValueOrDefault(),
                 };
@@ -1251,9 +1289,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     var newActionOnChilds = new Action<PluginTreeViewItem>[]
                     {
-                        n => {
+                        n =>
+                        {
                             n.PluginTypeId = pluginType.PluginTypeId;
+                            n.PluginTypeName = pluginType.TypeName;
+
                             n.PluginAssemblyId = pluginType.PluginAssemblyId?.Id;
+                            n.PluginAssemblyName = pluginType.AssemblyName;
                         }
                     };
 
@@ -1294,8 +1336,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     Name = grPluginType.Key.PluginTypeName,
                     Image = _imagePluginType,
 
-                    PluginTypeId = grPluginType.Key.PluginTypeId,
                     PluginAssemblyId = grPluginType.Key.PluginAssemblyId,
+                    PluginAssemblyName = grPluginType.Key.PluginAssemblyName,
+
+                    PluginTypeId = grPluginType.Key.PluginTypeId,
+                    PluginTypeName = grPluginType.Key.PluginTypeName,
 
                     IsWorkflowActivity = false,
                 };
@@ -1306,13 +1351,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
 
                 var newActionOnChilds = actionsOnChilds.Union(new Action<PluginTreeViewItem>[]
+                {
+                    n =>
                     {
-                        n => {
-                            n.PluginTypeId = grPluginType.Key.PluginTypeId;
-                            n.PluginAssemblyId = grPluginType.Key.PluginAssemblyId;
-                        }
+                        n.PluginAssemblyId = grPluginType.Key.PluginAssemblyId;
+                        n.PluginAssemblyName = grPluginType.Key.PluginAssemblyName;
+
+                        n.PluginTypeId = grPluginType.Key.PluginTypeId;
+                        n.PluginTypeName = grPluginType.Key.PluginTypeName;
                     }
-                );
+                });
 
                 RecursiveGroup(service, nodePluginType, search, grPluginType, requestGroups, actionsOnChilds);
 
@@ -1561,13 +1609,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     ExpandNodes(_pluginTree);
 
-                    if (!_cacheMessageFilters.ContainsKey(service.ConnectionData.ConnectionId))
-                    {
-                        if (!_cacheTaskGettingMessageFilters.ContainsKey(service.ConnectionData.ConnectionId))
-                        {
-                            _cacheTaskGettingMessageFilters[service.ConnectionData.ConnectionId] = GetSdkMessageFiltersAsync(service);
-                        }
-                    }
+                    base.StartGettingSdkMessageFilters(service);
                 }
 
                 this.trVPluginTree.Dispatcher.Invoke(() =>
@@ -1583,18 +1625,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
 
-        }
-
-        private async Task GetSdkMessageFiltersAsync(IOrganizationServiceExtented service)
-        {
-            var repository = new SdkMessageFilterRepository(service);
-
-            var filters = await repository.GetAllAsync(new ColumnSet(SdkMessageFilter.Schema.Attributes.sdkmessageid, SdkMessageFilter.Schema.Attributes.primaryobjecttypecode, SdkMessageFilter.Schema.Attributes.secondaryobjecttypecode, SdkMessageFilter.Schema.Attributes.availability));
-
-            if (!_cacheMessageFilters.ContainsKey(service.ConnectionData.ConnectionId))
-            {
-                _cacheMessageFilters.Add(service.ConnectionData.ConnectionId, filters);
-            }
         }
 
         public List<PluginStage> GetStages()
@@ -1700,7 +1730,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     PluginTreeViewItem nodeImage = new PluginTreeViewItem(ComponentType.SdkMessageProcessingStepImage);
 
-                    FillNodeImageInformation(nodeImage, image, step.PrimaryObjectTypeCodeName, step.SdkMessageId?.Name, step.EventHandler?.Id, step.PluginAssemblyId);
+                    FillNodeImageInformation(nodeImage, image, step.PrimaryObjectTypeCodeName, step.SdkMessageId?.Name, step.EventHandler?.Id, step.EventHandler?.Name, step.PluginAssemblyId, step.PluginAssemblyName);
 
                     nodeStep.Items.Add(nodeImage);
                     nodeImage.Parent = nodeStep;
@@ -1737,6 +1767,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             nodeStep.Tooltip = tooltipStep;
             nodeStep.EntityLogicalName = step.PrimaryObjectTypeCodeName;
             nodeStep.PluginAssemblyId = step.PluginAssemblyId;
+            nodeStep.PluginAssemblyName = step.PluginAssemblyName;
             nodeStep.PluginTypeId = step.EventHandler?.Id;
             nodeStep.MessageName = step.SdkMessageId?.Name;
             nodeStep.StepId = step.Id;
@@ -1747,7 +1778,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             nodeStep.Image = step.StateCodeEnum == SdkMessageProcessingStep.Schema.OptionSets.statecode.Enabled_0 ? _imageStep : _imageStepDisabled;
         }
 
-        private void FillNodeImageInformation(PluginTreeViewItem nodeImage, SdkMessageProcessingStepImage image, string entityName, string messageName, Guid? idPluginType, Guid? idPluginAssembly)
+        private void FillNodeImageInformation(
+            PluginTreeViewItem nodeImage
+            , SdkMessageProcessingStepImage image
+            , string entityName
+            , string messageName
+            , Guid? idPluginType
+            , string pluginTypeName
+            , Guid? idPluginAssembly
+            , string pluginAssemblyName
+        )
         {
             string nameImage = GetImageName(image);
             string tooltipImage = GetImageTooltip(image);
@@ -1758,7 +1798,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             nodeImage.EntityLogicalName = entityName;
             nodeImage.MessageName = messageName;
             nodeImage.PluginAssemblyId = idPluginAssembly;
+            nodeImage.PluginAssemblyName = pluginAssemblyName;
             nodeImage.PluginTypeId = idPluginType;
+            nodeImage.PluginTypeName = pluginTypeName;
             nodeImage.StepId = image.SdkMessageProcessingStepImageId;
             nodeImage.StepImageId = image.Id;
         }
@@ -3449,6 +3491,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            await ExecuteAddingNewPluginStep(nodePluginType);
+        }
+
+        private async Task ExecuteAddingNewPluginStep(PluginTreeViewItem nodePluginType)
+        {
             var service = await GetService();
 
             var step = new SdkMessageProcessingStep()
@@ -3456,23 +3503,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 EventHandler = new EntityReference(PluginType.EntityLogicalName, nodePluginType.PluginTypeId.Value),
             };
 
-            List<SdkMessageFilter> filters = null;
-
-            if (!_cacheMessageFilters.ContainsKey(service.ConnectionData.ConnectionId))
-            {
-                if (!_cacheTaskGettingMessageFilters.ContainsKey(service.ConnectionData.ConnectionId))
-                {
-                    _cacheTaskGettingMessageFilters[service.ConnectionData.ConnectionId] = GetSdkMessageFiltersAsync(service);
-                }
-
-                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.GettingMessages);
-
-                await _cacheTaskGettingMessageFilters[service.ConnectionData.ConnectionId];
-
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.GettingMessagesCompleted);
-            }
-
-            filters = _cacheMessageFilters[service.ConnectionData.ConnectionId];
+            List<SdkMessageFilter> filters = await GetSdkMessageFiltersAsync(service);
 
             var form = new WindowSdkMessageProcessingStep(_iWriteToOutput, service, filters, step);
 
@@ -3490,6 +3521,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     nodePluginType.Items.Add(nodeStep);
                     nodeStep.Parent = nodePluginType;
+
+                    nodeStep.IsSelected = true;
+                    nodeStep.IsExpanded = true;
                 });
             }
         }
@@ -3507,6 +3541,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            await ExecuteAddingPluginStepImage(nodeStep);
+        }
+
+        private async Task ExecuteAddingPluginStepImage(PluginTreeViewItem nodeStep)
+        {
             var service = await GetService();
 
             var image = new SdkMessageProcessingStepImage()
@@ -3526,10 +3565,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     PluginTreeViewItem nodeImage = new PluginTreeViewItem(ComponentType.SdkMessageProcessingStepImage);
 
-                    FillNodeImageInformation(nodeImage, image, nodeStep.EntityLogicalName, nodeStep.MessageName, nodeStep.PluginTypeId, nodeStep.PluginAssemblyId);
+                    FillNodeImageInformation(nodeImage, image, nodeStep.EntityLogicalName, nodeStep.MessageName, nodeStep.PluginTypeId, nodeStep.PluginTypeName, nodeStep.PluginAssemblyId, nodeStep.PluginAssemblyName);
 
                     nodeStep.Items.Add(nodeImage);
                     nodeImage.Parent = nodeStep;
+
+                    nodeStep.IsExpanded = true;
+
+                    nodeImage.IsSelected = true;
+                    nodeImage.IsExpanded = true;
                 });
             }
         }
@@ -3543,11 +3587,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            await ExecuteUpdateSdkObject(nodeItem);
+        }
+
+        private async Task ExecuteUpdateSdkObject(PluginTreeViewItem nodeItem)
+        {
             var service = await GetService();
 
-            if (nodeItem.ComponentType == ComponentType.SdkMessageProcessingStepImage
-                && nodeItem.StepImageId.HasValue
-            )
+            if (nodeItem.ComponentType == ComponentType.SdkMessageProcessingStepImage && nodeItem.StepImageId.HasValue)
             {
                 var repositoryImage = new SdkMessageProcessingStepImageRepository(service);
 
@@ -3561,15 +3608,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this.trVPluginTree.Dispatcher.Invoke(() =>
                     {
-                        FillNodeImageInformation(nodeItem, image, nodeItem.EntityLogicalName, nodeItem.MessageName, nodeItem.PluginTypeId, nodeItem.PluginAssemblyId);
+                        FillNodeImageInformation(nodeItem, image, nodeItem.EntityLogicalName, nodeItem.MessageName, nodeItem.PluginTypeId, nodeItem.PluginTypeName, nodeItem.PluginAssemblyId, nodeItem.PluginAssemblyName);
 
                         this.trVPluginTree.UpdateLayout();
                     });
                 }
             }
-            else if (nodeItem.ComponentType == ComponentType.PluginAssembly
-                && nodeItem.PluginAssemblyId.HasValue
-            )
+            else if (nodeItem.ComponentType == ComponentType.PluginAssembly && nodeItem.PluginAssemblyId.HasValue)
             {
                 var repository = new PluginAssemblyRepository(service);
 
@@ -3579,30 +3624,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (form.ShowDialog().GetValueOrDefault())
                 {
-                    ShowExistingPlugins();
+                    await ShowExistingPlugins();
                 }
             }
-            else if (nodeItem.ComponentType == ComponentType.SdkMessageProcessingStep
-                && nodeItem.StepId.HasValue
-            )
+            else if (nodeItem.ComponentType == ComponentType.SdkMessageProcessingStep && nodeItem.StepId.HasValue)
             {
-                List<SdkMessageFilter> filters = null;
-
-                if (!_cacheMessageFilters.ContainsKey(service.ConnectionData.ConnectionId))
-                {
-                    if (!_cacheTaskGettingMessageFilters.ContainsKey(service.ConnectionData.ConnectionId))
-                    {
-                        _cacheTaskGettingMessageFilters[service.ConnectionData.ConnectionId] = GetSdkMessageFiltersAsync(service);
-                    }
-
-                    ToggleControls(service.ConnectionData, false, Properties.OutputStrings.GettingMessages);
-
-                    await _cacheTaskGettingMessageFilters[service.ConnectionData.ConnectionId];
-
-                    ToggleControls(service.ConnectionData, true, Properties.OutputStrings.GettingMessagesCompleted);
-                }
-
-                filters = _cacheMessageFilters[service.ConnectionData.ConnectionId];
+                List<SdkMessageFilter> filters = await GetSdkMessageFiltersAsync(service);
 
                 var repositoryStep = new SdkMessageProcessingStepRepository(service);
 
@@ -3733,33 +3760,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             EntityReference referenceToDelete = null;
 
-            if (nodeItem.ComponentType == ComponentType.SdkMessageProcessingStepImage
-                && nodeItem.StepImageId.HasValue
-            )
+            if (nodeItem.ComponentType == ComponentType.SdkMessageProcessingStepImage && nodeItem.StepImageId.HasValue)
             {
                 referenceToDelete = new EntityReference(SdkMessageProcessingStepImage.EntityLogicalName, nodeItem.StepImageId.Value);
             }
-            else if (nodeItem.ComponentType == ComponentType.SdkMessageProcessingStep
-                && nodeItem.StepId.HasValue
-            )
+            else if (nodeItem.ComponentType == ComponentType.SdkMessageProcessingStep && nodeItem.StepId.HasValue)
             {
                 referenceToDelete = new EntityReference(SdkMessageProcessingStep.EntityLogicalName, nodeItem.StepId.Value);
             }
-            else if (nodeItem.ComponentType == ComponentType.PluginType
-                && nodeItem.PluginTypeId.HasValue
-            )
+            else if (nodeItem.ComponentType == ComponentType.PluginType && nodeItem.PluginTypeId.HasValue)
             {
                 referenceToDelete = new EntityReference(PluginType.EntityLogicalName, nodeItem.PluginTypeId.Value);
             }
-            else if (nodeItem.ComponentType == ComponentType.PluginAssembly
-               && nodeItem.PluginAssemblyId.HasValue
-            )
+            else if (nodeItem.ComponentType == ComponentType.PluginAssembly && nodeItem.PluginAssemblyId.HasValue)
             {
                 referenceToDelete = new EntityReference(PluginAssembly.EntityLogicalName, nodeItem.PluginAssemblyId.Value);
             }
-            else if (nodeItem.ComponentType == ComponentType.Workflow
-               && nodeItem.WorkflowId.HasValue
-            )
+            else if (nodeItem.ComponentType == ComponentType.Workflow && nodeItem.WorkflowId.HasValue)
             {
                 referenceToDelete = new EntityReference(Workflow.EntityLogicalName, nodeItem.WorkflowId.Value);
             }
@@ -3851,6 +3868,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void tSBRegisterAssembly_Click(object sender, RoutedEventArgs e)
         {
+            await ExecuteRegisterNewAssembly();
+        }
+
+        private async Task ExecuteRegisterNewAssembly()
+        {
             var service = await GetService();
 
             var pluginAssembly = new PluginAssembly()
@@ -3861,7 +3883,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (form.ShowDialog().GetValueOrDefault())
             {
-                ShowExistingPlugins();
+                await ShowExistingPlugins();
             }
         }
 
@@ -3872,7 +3894,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = true;
+            e.CanExecute = this.IsControlsEnabled;
             e.ContinueRouting = false;
         }
 
@@ -3892,6 +3914,46 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 e.Handled = true;
                 await TryDeleteSdkObject(nodeItem);
+            }
+        }
+
+        private async void trVPluginTreeNew_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (trVPluginTree.SelectedItem != null && trVPluginTree.SelectedItem is PluginTreeViewItem nodeItem)
+            {
+                if (nodeItem.ComponentType == ComponentType.PluginType && nodeItem.PluginTypeId.HasValue)
+                {
+                    e.Handled = true;
+
+                    await ExecuteAddingNewPluginStep(nodeItem);
+                }
+                else if (nodeItem.ComponentType == ComponentType.SdkMessageProcessingStep && nodeItem.StepId.HasValue)
+                {
+                    e.Handled = true;
+
+                    await ExecuteAddingPluginStepImage(nodeItem);
+                }
+                else if (nodeItem.ComponentType == ComponentType.PluginAssembly)
+                {
+                    e.Handled = true;
+
+                    await ExecuteRegisterNewAssembly();
+                }
+            }
+        }
+
+        private async void trVPluginTreeOpenProperties_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (trVPluginTree.SelectedItem != null && trVPluginTree.SelectedItem is PluginTreeViewItem nodeItem)
+            {
+                if ((nodeItem.ComponentType == ComponentType.SdkMessageProcessingStepImage && nodeItem.StepImageId.HasValue)
+                    || (nodeItem.ComponentType == ComponentType.PluginAssembly && nodeItem.PluginAssemblyId.HasValue)
+                    || (nodeItem.ComponentType == ComponentType.SdkMessageProcessingStep && nodeItem.StepId.HasValue)
+                )
+                {
+                    e.Handled = true;
+                    await ExecuteUpdateSdkObject(nodeItem);
+                }
             }
         }
     }

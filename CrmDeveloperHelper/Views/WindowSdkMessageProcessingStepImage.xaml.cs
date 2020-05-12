@@ -93,7 +93,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private string GetImageTooltip(string attributes)
+        private static string GetImageTooltip(string attributes)
         {
             if (string.IsNullOrEmpty(attributes))
             {

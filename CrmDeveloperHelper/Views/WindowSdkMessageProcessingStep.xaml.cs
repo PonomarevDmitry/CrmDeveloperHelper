@@ -668,6 +668,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             rBSync.IsEnabled = rBAsync.IsEnabled = isPost;
 
+            if (isPost && !rBSync.IsChecked.GetValueOrDefault())
+            {
+                rBSync.IsChecked = true;
+                rBAsync.IsChecked = false;
+            }
+
             ChangeCheckBoxEnable();
         }
 

@@ -1,4 +1,4 @@
-﻿<src:WindowWithConnectionList
+﻿<src:WindowWithMessageFilters
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
@@ -10,7 +10,7 @@
     Width="717"
     WindowStartupLocation="Manual"
     >
-    <src:WindowWithConnectionList.Resources>
+    <src:WindowWithMessageFilters.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="StyleWindows.xaml"/>
@@ -67,7 +67,7 @@
             </ContextMenu>
 
         </ResourceDictionary>
-    </src:WindowWithConnectionList.Resources>
+    </src:WindowWithMessageFilters.Resources>
     <Grid>
 
         <Grid.RowDefinitions>
@@ -116,6 +116,7 @@
         <DataGrid x:Name="lstVwPluginTypes" AutoGenerateColumns="False" Grid.Row="2" Margin="5" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.CommandBindings>
                 <CommandBinding Command="ApplicationCommands.Delete" CanExecute="lstVwPluginTypes_CanExecute" Executed="lstVwPluginTypes_Delete" />
+                <CommandBinding Command="ApplicationCommands.New" CanExecute="lstVwPluginTypes_CanExecute" Executed="lstVwPluginTypes_New" />
             </DataGrid.CommandBindings>
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -221,4 +222,4 @@
             <StatusBarItem x:Name="stBIStatus"/>
         </StatusBar>
     </Grid>
-</src:WindowWithConnectionList>
+</src:WindowWithMessageFilters>

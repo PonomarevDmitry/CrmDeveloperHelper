@@ -21,13 +21,9 @@ using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowExplorerPluginType : WindowWithConnectionList
+    public partial class WindowExplorerPluginType : WindowWithMessageFilters
     {
         private readonly ObservableCollection<EntityViewItem> _itemsSource;
-
-        private readonly Dictionary<Guid, Task> _cacheTaskGettingMessageFilters = new Dictionary<Guid, Task>();
-
-        private readonly Dictionary<Guid, List<SdkMessageFilter>> _cacheMessageFilters = new Dictionary<Guid, List<SdkMessageFilter>>();
 
         public WindowExplorerPluginType(
              IWriteToOutput iWriteToOutput
@@ -191,6 +187,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             , PluginType.Schema.Attributes.pluginassemblyid
                         )
                     );
+
+                    base.StartGettingSdkMessageFilters(service);
                 }
             }
             catch (Exception ex)
@@ -198,7 +196,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
 
-            LoadPluginTypes(list);
+            this.lstVwPluginTypes.Dispatcher.Invoke(() =>
+            {
+                foreach (var entity in list
+                    .OrderBy(ent => ent.AssemblyName)
+                    .ThenBy(ent => ent.TypeName)
+                    .ThenBy(ent => ent.FriendlyName)
+                    .ThenBy(ent => ent.Id)
+                )
+                {
+                    var item = new EntityViewItem(entity);
+
+                    this._itemsSource.Add(item);
+                }
+
+                if (this.lstVwPluginTypes.Items.Count == 1)
+                {
+                    this.lstVwPluginTypes.SelectedItem = this.lstVwPluginTypes.Items[0];
+                }
+            });
 
             ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingPluginTypesCompletedFormat1, list.Count());
         }
@@ -229,29 +245,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this.PluginType = entity;
             }
-        }
-
-        private void LoadPluginTypes(IEnumerable<PluginType> results)
-        {
-            this.lstVwPluginTypes.Dispatcher.Invoke(() =>
-            {
-                foreach (var entity in results
-                    .OrderBy(ent => ent.AssemblyName)
-                    .ThenBy(ent => ent.TypeName)
-                    .ThenBy(ent => ent.FriendlyName)
-                    .ThenBy(ent => ent.Id)
-                )
-                {
-                    var item = new EntityViewItem(entity);
-
-                    this._itemsSource.Add(item);
-                }
-
-                if (this.lstVwPluginTypes.Items.Count == 1)
-                {
-                    this.lstVwPluginTypes.SelectedItem = this.lstVwPluginTypes.Items[0];
-                }
-            });
         }
 
         private void UpdateStatus(ConnectionData connectionData, string format, params object[] args)
@@ -877,7 +870,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mIAddPluginStep_Click(object sender, RoutedEventArgs e)
+        private async void mIAddPluginStep_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -886,37 +879,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity.Id, entity.TypeName, PerformAddingPluginStep);
+            await ExecuteAction(entity.Id, entity.TypeName, PerformAddingPluginStep);
         }
 
         private async Task PerformAddingPluginStep(string folder, Guid idPluginType, string name)
         {
             var service = await GetService();
 
-            List<SdkMessageFilter> filters = null;
-
-            if (!_cacheMessageFilters.ContainsKey(service.ConnectionData.ConnectionId))
-            {
-                if (!_cacheTaskGettingMessageFilters.ContainsKey(service.ConnectionData.ConnectionId))
-                {
-                    _cacheTaskGettingMessageFilters[service.ConnectionData.ConnectionId] = GetSdkMessageFiltersAsync(service);
-                }
-
-                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.GettingMessages);
-
-                await _cacheTaskGettingMessageFilters[service.ConnectionData.ConnectionId];
-
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.GettingMessagesCompleted);
-            }
-
-            filters = _cacheMessageFilters[service.ConnectionData.ConnectionId];
+            List<SdkMessageFilter> filters = await GetSdkMessageFiltersAsync(service);
 
             var step = new SdkMessageProcessingStep()
             {
                 EventHandler = new EntityReference(PluginType.EntityLogicalName, idPluginType),
             };
 
-            System.Threading.Thread worker = new System.Threading.Thread(() =>
+            var worker = new System.Threading.Thread(() =>
             {
                 try
                 {
@@ -935,18 +912,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        private async Task GetSdkMessageFiltersAsync(IOrganizationServiceExtented service)
-        {
-            var repository = new SdkMessageFilterRepository(service);
-
-            var filters = await repository.GetAllAsync(new ColumnSet(SdkMessageFilter.Schema.Attributes.sdkmessageid, SdkMessageFilter.Schema.Attributes.primaryobjecttypecode, SdkMessageFilter.Schema.Attributes.secondaryobjecttypecode, SdkMessageFilter.Schema.Attributes.availability));
-
-            if (!_cacheMessageFilters.ContainsKey(service.ConnectionData.ConnectionId))
-            {
-                _cacheMessageFilters.Add(service.ConnectionData.ConnectionId, filters);
-            }
-        }
-
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)
         {
             SetCurrentConnection(_iWriteToOutput, GetSelectedConnection());
@@ -954,13 +919,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void lstVwPluginTypes_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = true;
+            e.CanExecute = this.IsControlsEnabled;
             e.ContinueRouting = false;
         }
 
         private void lstVwPluginTypes_Delete(object sender, ExecutedRoutedEventArgs e)
         {
             mIDeletePluginType_Click(sender, e);
+        }
+
+        private async void lstVwPluginTypes_New(object sender, ExecutedRoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            await ExecuteAction(entity.Id, entity.TypeName, PerformAddingPluginStep);
         }
     }
 }

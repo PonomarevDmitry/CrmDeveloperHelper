@@ -465,21 +465,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private string GetCreateDescriptionName(PluginTreeViewItem item)
+        private static string GetCreateDescriptionName(PluginTreeViewItem item)
         {
             if (item == null)
             {
                 return "Create Description";
-            }
-
-            if (item.PluginAssemblyId.HasValue)
-            {
-                return "Create Plugin Assembly Description";
-            }
-
-            if (item.PluginTypeId.HasValue)
-            {
-                return "Create Plugin Type Description";
             }
 
             if (item.MessageList != null && item.MessageList.Any())
@@ -507,9 +497,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private bool CanCreateDescription(PluginTreeViewItem item)
         {
-            return item.PluginAssemblyId.HasValue
-                || item.PluginTypeId.HasValue
-                || (item.MessageList != null && item.MessageList.Any())
+            return (item.MessageList != null && item.MessageList.Any())
                 || (item.MessageFilterList != null && item.MessageFilterList.Any())
                 || item.StepId.HasValue
                 || item.StepImageId.HasValue
@@ -1303,7 +1291,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = true;
+            e.CanExecute = this.IsControlsEnabled;
             e.ContinueRouting = false;
         }
 

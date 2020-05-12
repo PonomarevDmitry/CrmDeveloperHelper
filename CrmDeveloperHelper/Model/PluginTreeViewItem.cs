@@ -186,6 +186,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public string MessageName { get; set; }
 
+        public string PluginAssemblyName { get; set; }
+
+        public string PluginTypeName { get; set; }
+
         public string MessageCategoryName { get; set; }
 
         public List<Guid> MessageList { get; }

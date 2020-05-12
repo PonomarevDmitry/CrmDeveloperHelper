@@ -1,4 +1,4 @@
-﻿<src:WindowWithConnectionList
+﻿<src:WindowWithMessageFilters
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
@@ -10,7 +10,7 @@
     Width="746"
     WindowStartupLocation="Manual"
     >
-    <src:WindowWithConnectionList.Resources>
+    <src:WindowWithMessageFilters.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="StyleWindows.xaml"/>
@@ -148,11 +148,11 @@
 
                 <Separator/>
                 <MenuItem x:Uid="miCompareOrganizations" Header="Compare Information with other Organization" />
-                
+
             </ContextMenu>
 
         </ResourceDictionary>
-    </src:WindowWithConnectionList.Resources>
+    </src:WindowWithMessageFilters.Resources>
     <Grid>
 
         <Grid.RowDefinitions>
@@ -269,7 +269,11 @@
                 <TreeView x:Name="trVPluginTree" SelectedItemChanged="trVPluginTree_SelectedItemChanged">
                     <TreeView.CommandBindings>
                         <CommandBinding Command="ApplicationCommands.Copy" Executed="treeViewCopy_Executed" CanExecute="CommandBinding_CanExecute" />
+
+                        <CommandBinding Command="ApplicationCommands.New" Executed="trVPluginTreeNew_Executed" CanExecute="CommandBinding_CanExecute" />
                         <CommandBinding Command="ApplicationCommands.Delete" Executed="trVPluginTreeDelete_Executed" CanExecute="CommandBinding_CanExecute" />
+
+                        <CommandBinding Command="ApplicationCommands.Properties" Executed="trVPluginTreeOpenProperties_Executed" CanExecute="CommandBinding_CanExecute" />
                     </TreeView.CommandBindings>
                     <TreeView.ItemTemplate>
                         <HierarchicalDataTemplate DataType="{x:Type model:PluginTreeViewItem}" ItemsSource="{Binding Items}">
@@ -323,6 +327,6 @@
             <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
             <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>
-        
+
     </Grid>
-</src:WindowWithConnectionList>
+</src:WindowWithMessageFilters>

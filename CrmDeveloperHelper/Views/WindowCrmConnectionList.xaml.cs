@@ -1266,7 +1266,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = true;
+            e.CanExecute = this.IsControlsEnabled;
             e.ContinueRouting = false;
         }
 
