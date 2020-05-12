@@ -903,8 +903,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             var task1 = Task.Run(() => this.IntellisenseData.GetDataFromDisk());
             var task2 = Task.Run(() => this.WebResourceIntellisenseData.GetDataFromDisk());
 
-            Task.WaitAll(task1, task2);
-
             AppDomain.CurrentDomain.ProcessExit -= CurrentDomain_ProcessExit;
             AppDomain.CurrentDomain.ProcessExit -= CurrentDomain_ProcessExit;
             AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
