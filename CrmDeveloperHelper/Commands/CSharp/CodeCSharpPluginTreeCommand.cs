@@ -1,7 +1,9 @@
 ﻿using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
+using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
@@ -21,21 +23,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 
         protected override void CommandAction(DTEHelper helper)
         {
-            System.Threading.Tasks.Task.WaitAll(ExecuteAsync(helper));
-        }
-
-        private static async System.Threading.Tasks.Task ExecuteAsync(DTEHelper helper)
-        {
             try
             {
                 var document = helper.GetOpenedDocumentInCodeWindow(FileOperations.SupportsCSharpType);
 
-                helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, document?.FullName);
-                helper.ActivateOutputWindow(null);
+                if (document != null)
+                {
+                    helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, document?.FullName);
+                    helper.ActivateOutputWindow(null);
 
-                string fileType = await PropertiesHelper.GetTypeFullNameAsync(document);
+                    VSProject2Info.GetPluginTypes(new[] { document }, out var pluginTypesNotCompiled, out var projectInfos);
 
-                helper.HandleOpenPluginTree(string.Empty, fileType, string.Empty);
+                    var task = ExecuteAsync(helper, pluginTypesNotCompiled, projectInfos);
+                }
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.WriteExceptionToOutput(null, ex);
+            }
+        }
+
+        private static async System.Threading.Tasks.Task ExecuteAsync(DTEHelper helper, string[] pluginTypesNotCompiled, VSProject2Info[] projectInfos)
+        {
+            try
+            {
+                string pluginType = await CSharpCodeHelper.GetSingleFileTypeFullNameAsync(pluginTypesNotCompiled, projectInfos);
+
+                helper.HandleOpenPluginTree(string.Empty, pluginType, string.Empty);
             }
             catch (Exception ex)
             {

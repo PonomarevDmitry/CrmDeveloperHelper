@@ -1221,6 +1221,7 @@
     <Compile Include="Model\TreeNodeEntity.cs" />
     <Compile Include="Model\TupleList.cs" />
     <Compile Include="Model\UserControlSettings.cs" />
+    <Compile Include="Model\VSProject2Info.cs" />
     <Compile Include="Model\VSSolutionConfiguration.cs" />
     <Compile Include="Model\WindowSettings.cs" />
     <Compile Include="Helpers\XNameComparer.cs" />
@@ -2572,7 +2573,9 @@
 )</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>del /s/q "$(TargetDir)\..\..\..\CompiledVSIXPackages\$(TargetName).vsix"</PreBuildEvent>
+    <PreBuildEvent>if exist "$(TargetDir)\..\..\..\CompiledVSIXPackages\$(TargetName).vsix" (
+    del /s/q "$(TargetDir)\..\..\..\CompiledVSIXPackages\$(TargetName).vsix"
+)</PreBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\Microsoft.VisualStudio.Threading.Analyzers.15.7.21\build\Microsoft.VisualStudio.Threading.Analyzers.targets" Condition="Exists('..\packages\Microsoft.VisualStudio.Threading.Analyzers.15.7.21\build\Microsoft.VisualStudio.Threading.Analyzers.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

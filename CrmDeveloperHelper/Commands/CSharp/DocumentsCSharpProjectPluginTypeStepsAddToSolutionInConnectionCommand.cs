@@ -23,33 +23,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
-            System.Threading.Tasks.Task.WaitAll(ExecuteAsync(helper, connectionData));
-        }
-
-        private static async System.Threading.Tasks.Task ExecuteAsync(DTEHelper helper, ConnectionData connectionData)
-        {
             try
             {
                 var listFiles = helper.GetOpenedDocumentsAsDocument(FileOperations.SupportsCSharpType).ToList();
-
-                var pluginTypeNames = new List<string>();
-
                 helper.ActivateOutputWindow(null);
 
-                foreach (var item in listFiles)
+                foreach (var document in listFiles.OrderBy(d => d.FullName))
                 {
-                    helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, item?.FullName);
-                    var typeName = await PropertiesHelper.GetTypeFullNameAsync(item);
-
-                    if (!string.IsNullOrEmpty(typeName))
-                    {
-                        pluginTypeNames.Add(typeName);
-                    }
+                    helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, document.FullName);
                 }
 
-                if (pluginTypeNames.Any())
+                VSProject2Info.GetPluginTypes(listFiles, out var pluginTypesNotCompiled, out var projectInfos);
+
+                var task = ExecuteAsync(helper, connectionData, pluginTypesNotCompiled, projectInfos);
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.WriteExceptionToOutput(null, ex);
+            }
+        }
+
+        private static async System.Threading.Tasks.Task ExecuteAsync(DTEHelper helper, ConnectionData connectionData, string[] pluginTypesNotCompiled, VSProject2Info[] projectInfos)
+        {
+            try
+            {
+                string[] pluginTypeArray = await CSharpCodeHelper.GetTypeFullNameListAsync(pluginTypesNotCompiled, projectInfos);
+
+                if (pluginTypeArray.Any())
                 {
-                    helper.HandlePluginTypeAddingProcessingStepsByProjectCommand(connectionData, null, true, pluginTypeNames.ToArray());
+                    helper.HandlePluginTypeAddingProcessingStepsByProjectCommand(connectionData, null, true, pluginTypeArray);
                 }
             }
             catch (Exception ex)

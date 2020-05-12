@@ -1,4 +1,5 @@
 using EnvDTE;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.IO;
 using System.Linq;
@@ -129,58 +130,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             return false;
-        }
-
-        public static Task<string> GetTypeFullNameAsync(ProjectItem item)
-        {
-            return Task.Run(() => GetTypeFullName(item));
-        }
-
-        private static string GetTypeFullName(ProjectItem item)
-        {
-            string fileType = string.Empty;
-
-            VSProject2 proj = item.ContainingProject?.Object as VSProject2;
-
-            if (item != null && item.FileCount > 0 && proj != null)
-            {
-                fileType = CSharpCodeHelper.GetFileTypeFullName(item.FileNames[1], proj);
-            }
-            else if (item != null && item.FileCount > 0)
-            {
-                fileType = item.Name.Split('.').FirstOrDefault();
-            }
-
-            return fileType;
-        }
-
-        public static Task<string> GetTypeFullNameAsync(EnvDTE.Document document)
-        {
-            return Task.Run(() => GetTypeFullName(document));
-        }
-
-        private static string GetTypeFullName(EnvDTE.Document document)
-        {
-            if (document == null)
-            {
-                return string.Empty;
-            }
-
-            string fileType = string.Empty;
-
-            VSProject2 proj = document?.ProjectItem?.ContainingProject?.Object as VSProject2;
-
-            if (proj != null)
-            {
-                fileType = CSharpCodeHelper.GetFileTypeFullName(document.FullName, proj);
-            }
-
-            if (string.IsNullOrEmpty(fileType))
-            {
-                fileType = Path.GetFileNameWithoutExtension(document.FullName).Split('.').FirstOrDefault();
-            }
-
-            return fileType;
         }
     }
 }

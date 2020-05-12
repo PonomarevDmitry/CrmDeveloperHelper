@@ -1,12 +1,13 @@
 using Microsoft.CSharp;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using VSLangProj;
-using VSLangProj80;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
@@ -30,75 +31,121 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return childDomain;
         }
 
-        public static string GetFileTypeFullName(string filePath, VSProject2 proj)
+        public static Task<string[]> GetTypeFullNameListAsync(string[] pluginTypesNotCompiled, VSProject2Info[] projectInfos)
         {
-            List<string> assembliesProjects = new List<string>();
-            List<string> assembliesReferences = new List<string>();
+            return Task.Run(() => GetTypeFullNameList(pluginTypesNotCompiled, projectInfos));
+        }
 
-            var hash = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+        private static string[] GetTypeFullNameList(string[] pluginTypesNotCompiled, VSProject2Info[] projectInfos)
+        {
+            var result = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
-            FillProjectReferences(proj, assembliesProjects, assembliesReferences, hash);
-
-            AppDomain childDomain = CreateChildDomain();
-
-            try
+            foreach (var item in pluginTypesNotCompiled)
             {
-                childDomain.SetData(configFilePath, filePath);
-                childDomain.SetData(configAssembliesProjects, assembliesProjects.ToArray());
-                childDomain.SetData(configAssemblies, assembliesReferences.ToArray());
-                childDomain.DoCallBack(new CrossAppDomainDelegate(GetFileTypeFullNameInAppDomain));
-
-                return childDomain.GetData(configResult)?.ToString();
+                if (!string.IsNullOrEmpty(item))
+                {
+                    result.Add(item);
+                }
             }
-            catch (Exception ex)
+
+            var compiledTypes = GetFileTypeFullName(projectInfos);
+
+            foreach (var item in compiledTypes)
             {
-                DTEHelper.WriteExceptionToOutput(null, ex);
+                if (!string.IsNullOrEmpty(item))
+                {
+                    result.Add(item);
+                }
             }
-            finally
+
+            return result.OrderBy(s => s).ToArray();
+        }
+
+        public static async Task<string> GetSingleFileTypeFullNameAsync(string[] pluginTypesNotCompiled, VSProject2Info[] projectInfos)
+        {
+            if (pluginTypesNotCompiled.Any())
             {
-                AppDomain.Unload(childDomain);
+                return pluginTypesNotCompiled.First();
+            }
+            else
+            {
+                var compiledFileTypes = await CSharpCodeHelper.GetFileTypeFullNameAsync(projectInfos);
+
+                if (compiledFileTypes.Any())
+                {
+                    return compiledFileTypes.First();
+                }
             }
 
             return string.Empty;
         }
 
-        private static void FillProjectReferences(VSProject2 proj, List<string> assembliesProjects, List<string> assembliesReferences, HashSet<string> hash)
+        public static Task<string[]> GetFileTypeFullNameAsync(IEnumerable<VSProject2Info> projInfoEnum)
         {
-            if (proj.Project != null)
-            {
-                var outputFilePath = PropertiesHelper.GetOutputFilePath(proj.Project);
+            return Task.Run(() => GetFileTypeFullName(projInfoEnum));
+        }
 
-                if (!string.IsNullOrEmpty(outputFilePath))
+        private static string[] GetFileTypeFullName(IEnumerable<VSProject2Info> projInfoEnum)
+        {
+            HashSet<string> result = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+
+            foreach (var projInfo in projInfoEnum)
+            {
+                AppDomain childDomainWithoutAssemblies = CreateChildDomain();
+                AppDomain childDomainWithAssemblies = CreateChildDomain();
+
+                childDomainWithoutAssemblies.SetData(configAssembliesProjects, projInfo.AssembliesProjects.ToArray());
+
+                childDomainWithAssemblies.SetData(configAssembliesProjects, projInfo.AssembliesProjects.ToArray());
+                childDomainWithAssemblies.SetData(configAssemblies, projInfo.AssembliesReferences.ToArray());
+
+                try
                 {
-                    if (hash.Add(Path.GetFileName(outputFilePath))
-                        && outputFilePath.IndexOf("mscorlib", StringComparison.InvariantCultureIgnoreCase) == -1
-                        )
+                    childDomainWithoutAssemblies.DoCallBack(new CrossAppDomainDelegate(FillRefferenceListInAppDomain));
+                    childDomainWithAssemblies.DoCallBack(new CrossAppDomainDelegate(FillRefferenceListInAppDomain));
+
+                    foreach (var filePath in projInfo.CSharpFiles)
                     {
-                        assembliesProjects.Add(outputFilePath);
+                        string fileType = string.Empty;
+
+                        if (string.IsNullOrEmpty(fileType))
+                        {
+                            childDomainWithoutAssemblies.SetData(configFilePath, filePath);
+                            childDomainWithoutAssemblies.DoCallBack(new CrossAppDomainDelegate(GetFileTypeFullNameInAppDomain));
+
+                            fileType = childDomainWithoutAssemblies.GetData(configResult)?.ToString();
+                        }
+
+                        if (string.IsNullOrEmpty(fileType))
+                        {
+                            childDomainWithAssemblies.SetData(configFilePath, filePath);
+                            childDomainWithAssemblies.DoCallBack(new CrossAppDomainDelegate(GetFileTypeFullNameInAppDomain));
+
+                            fileType = childDomainWithAssemblies.GetData(configResult)?.ToString();
+                        }
+
+                        if (!string.IsNullOrEmpty(fileType))
+                        {
+                            result.Add(fileType);
+                        }
+                        else
+                        {
+                            result.Add(Path.GetFileNameWithoutExtension(filePath).Split('.').FirstOrDefault());
+                        }
                     }
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(null, ex);
+                }
+                finally
+                {
+                    AppDomain.Unload(childDomainWithoutAssemblies);
+                    AppDomain.Unload(childDomainWithAssemblies);
                 }
             }
 
-            foreach (var item in proj.References.OfType<Reference>())
-            {
-                if (item.Type == prjReferenceType.prjReferenceTypeAssembly)
-                {
-                    if (hash.Add(Path.GetFileName(item.Path))
-                        && item.Path.IndexOf("mscorlib", StringComparison.InvariantCultureIgnoreCase) == -1
-                        )
-                    {
-                        assembliesReferences.Add(item.Path);
-                    }
-
-                    if (item.SourceProject != null
-                        && item.SourceProject.Object != null
-                        && item.SourceProject.Object is VSProject2 project2
-                        )
-                    {
-                        FillProjectReferences(project2, assembliesProjects, assembliesReferences, hash);
-                    }
-                }
-            }
+            return result.OrderBy(s => s).ToArray();
         }
 
         private const string configResult = "Result";
@@ -106,18 +153,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private const string configAssembliesProjects = "AssembliesProjects";
         private const string configAssemblies = "Assemblies";
 
-        public static void GetFileTypeFullNameInAppDomain()
+        private static string[] _refferencedAssemblies = null;
+
+        public static void FillRefferenceListInAppDomain()
         {
             try
             {
-                var filePath = (string)AppDomain.CurrentDomain.GetData(configFilePath);
-
                 var assembliesProjects = (string[])AppDomain.CurrentDomain.GetData(configAssembliesProjects);
-                var assemblies = (string[])AppDomain.CurrentDomain.GetData(configAssemblies);
-
-                AppDomain.CurrentDomain.SetData(configResult, string.Empty);
-
-                HashSet<string> list = new HashSet<string>(assembliesProjects, StringComparer.InvariantCultureIgnoreCase);
 
                 var resolver = new AssemblyResolver(assembliesProjects.Select(e => Path.GetDirectoryName(e)).ToArray());
 
@@ -128,37 +170,44 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 AppDomain.CurrentDomain.AssemblyResolve -= resolver.Domain_AssemblyResolve;
                 AppDomain.CurrentDomain.AssemblyResolve += resolver.Domain_AssemblyResolve;
 
+                HashSet<string> list = new HashSet<string>(assembliesProjects, StringComparer.InvariantCultureIgnoreCase);
+
                 var hash = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
-                foreach (var item in assemblies)
+                var configAssembliesObject = AppDomain.CurrentDomain.GetData(configAssemblies);
+
+                if (configAssembliesObject != null && configAssembliesObject is string[] assemblies)
                 {
-                    Assembly assembly = Assembly.ReflectionOnlyLoadFrom(item);
-
-                    if (hash.Add(Path.GetFileName(item)))
+                    foreach (var item in assemblies)
                     {
-                        list.Add(item);
-                    }
-                }
+                        Assembly assembly = Assembly.ReflectionOnlyLoadFrom(item);
 
-                foreach (var item in assemblies)
-                {
-                    Assembly assembly = Assembly.ReflectionOnlyLoadFrom(item);
-
-                    var files = assembly.GetReferencedAssemblies();
-
-                    foreach (var reference in files)
-                    {
-                        if (reference.Name != "mscorlib")
+                        if (hash.Add(Path.GetFileName(item)))
                         {
-                            var temp = Assembly.ReflectionOnlyLoad(reference.FullName);
+                            list.Add(item);
+                        }
+                    }
 
-                            if (!string.IsNullOrEmpty(temp.CodeBase))
+                    foreach (var item in assemblies)
+                    {
+                        Assembly assembly = Assembly.ReflectionOnlyLoadFrom(item);
+
+                        var files = assembly.GetReferencedAssemblies();
+
+                        foreach (var reference in files)
+                        {
+                            if (reference.Name != "mscorlib")
                             {
-                                var uri = new Uri(temp.CodeBase);
+                                var temp = Assembly.ReflectionOnlyLoad(reference.FullName);
 
-                                if (hash.Add(Path.GetFileName(uri.LocalPath)))
+                                if (!string.IsNullOrEmpty(temp.CodeBase))
                                 {
-                                    list.Add(uri.LocalPath);
+                                    var uri = new Uri(temp.CodeBase);
+
+                                    if (hash.Add(Path.GetFileName(uri.LocalPath)))
+                                    {
+                                        list.Add(uri.LocalPath);
+                                    }
                                 }
                             }
                         }
@@ -199,6 +248,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         }
                     }
                 }
+
+                _refferencedAssemblies = list.ToArray();
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.WriteExceptionToOutput(null, ex);
+            }
+        }
+
+        public static void GetFileTypeFullNameInAppDomain()
+        {
+            try
+            {
+                AppDomain.CurrentDomain.SetData(configResult, string.Empty);
+
+                var filePath = (string)AppDomain.CurrentDomain.GetData(configFilePath);
 
                 string code = File.ReadAllText(filePath);
 
@@ -208,7 +273,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     GenerateExecutable = false,
                 };
 
-                parameters.ReferencedAssemblies.AddRange(list.ToArray());
+                parameters.ReferencedAssemblies.AddRange(_refferencedAssemblies);
 
                 using (CSharpCodeProvider provider = new CSharpCodeProvider())
                 {
@@ -220,11 +285,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         AppDomain.CurrentDomain.SetData(configResult, types.FirstOrDefault()?.FullName);
                     }
+                    else
+                    {
+                        foreach (var error in compilerResults.Errors.OfType<CompilerError>())
+                        {
+                            StringBuilder stringBuilder = new StringBuilder();
 
-                    AppDomain.CurrentDomain.AssemblyResolve -= resolver.Domain_AssemblyResolve;
-                    AppDomain.CurrentDomain.AssemblyResolve -= resolver.Domain_AssemblyResolve;
-                    AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve -= resolver.Domain_ReflectionOnlyAssemblyResolve;
-                    AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve -= resolver.Domain_ReflectionOnlyAssemblyResolve;
+                            stringBuilder.AppendLine($"FileName     : {error.FileName}");
+                            stringBuilder.AppendLine($"Line         : {error.Line}");
+                            stringBuilder.AppendLine($"Column       : {error.Column}");
+                            stringBuilder.AppendLine($"ErrorNumber  : {error.ErrorNumber}");
+                            stringBuilder.AppendLine("ErrorText    :");
+                            stringBuilder.AppendLine(error.ErrorText);
+
+                            DTEHelper.WriteErrorToLog(stringBuilder.ToString());
+                        }
+                    }
                 }
             }
             catch (Exception ex)

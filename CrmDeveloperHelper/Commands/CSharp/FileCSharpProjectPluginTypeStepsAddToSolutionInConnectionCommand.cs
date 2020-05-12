@@ -23,39 +23,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
-            System.Threading.Tasks.Task.WaitAll(ExecuteAsync(helper, connectionData));
-        }
-
-        private static async System.Threading.Tasks.Task ExecuteAsync(DTEHelper helper, ConnectionData connectionData)
-        {
             try
             {
                 var listFiles = helper.GetSelectedProjectItemsInSolutionExplorer(FileOperations.SupportsCSharpType, false).ToList();
-
-                var pluginTypeNames = new List<string>();
-                var handledFilePaths = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
-
                 helper.ActivateOutputWindow(null);
 
-                foreach (var item in listFiles)
+                foreach (var projectItem in listFiles.OrderBy(d => d.FileNames[1]))
                 {
-                    string filePath = item.FileNames[1];
-
-                    if (handledFilePaths.Add(filePath))
-                    {
-                        helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, filePath);
-                        var typeName = await PropertiesHelper.GetTypeFullNameAsync(item);
-
-                        if (!string.IsNullOrEmpty(typeName))
-                        {
-                            pluginTypeNames.Add(typeName);
-                        }
-                    }
+                    helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, projectItem.FileNames[1]);
                 }
 
-                if (pluginTypeNames.Any())
+                VSProject2Info.GetPluginTypes(listFiles, out var pluginTypesNotCompiled, out var projectInfos);
+
+                var task = ExecuteAsync(helper, connectionData, pluginTypesNotCompiled, projectInfos);
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.WriteExceptionToOutput(null, ex);
+            }
+        }
+
+        private static async System.Threading.Tasks.Task ExecuteAsync(DTEHelper helper, ConnectionData connectionData, string[] pluginTypesNotCompiled, VSProject2Info[] projectInfos)
+        {
+            try
+            {
+                string[] pluginTypeArray = await CSharpCodeHelper.GetTypeFullNameListAsync(pluginTypesNotCompiled, projectInfos);
+
+                if (pluginTypeArray.Any())
                 {
-                    helper.HandlePluginTypeAddingProcessingStepsByProjectCommand(connectionData, null, true, pluginTypeNames.ToArray());
+                    helper.HandlePluginTypeAddingProcessingStepsByProjectCommand(connectionData, null, true, pluginTypeArray);
                 }
             }
             catch (Exception ex)

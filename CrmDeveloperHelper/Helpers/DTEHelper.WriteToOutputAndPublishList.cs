@@ -95,7 +95,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var loggerOutput = GetOutputLogger(connectionData);
             loggerOutput.Info(message);
 
-            System.Threading.Tasks.Task.WaitAll(WriteToOutputInternal(connectionData, message));
+            var task = WriteToOutputInternal(connectionData, message);
 
             return message;
         }
@@ -306,6 +306,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public static void WriteErrorToLog(string message = null, params object[] args)
+        {
+            if (!string.IsNullOrEmpty(message))
+            {
+                if (args != null && args.Length > 0)
+                {
+                    message = string.Format(message, args);
+                }
+
+                Log.Error(message);
+            }
+        }
+
         public static string GetExceptionDescription(Exception ex)
         {
             StringBuilder stringBuilder = new StringBuilder();
@@ -470,7 +483,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         /// </summary>
         private void WriteToOutputEmptyLines(ConnectionData connectionData, CommonConfiguration config)
         {
-            System.Threading.Tasks.Task.WaitAll(WriteToOutputEmptyLinesInternal(connectionData, config));
+            var task = WriteToOutputEmptyLinesInternal(connectionData, config);
         }
 
         private async System.Threading.Tasks.Task WriteToOutputEmptyLinesInternal(ConnectionData connectionData, CommonConfiguration config)
@@ -534,7 +547,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public IWriteToOutput ActivateOutputWindow(ConnectionData connectionData, System.Windows.Window window)
         {
-            System.Threading.Tasks.Task.WaitAll(ActivateOutputWindowInternal(connectionData));
+            var task = ActivateOutputWindowInternal(connectionData);
 
             if (window != null)
             {

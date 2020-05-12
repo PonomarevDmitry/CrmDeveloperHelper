@@ -2,6 +2,7 @@
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
+using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
@@ -21,21 +22,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
-            System.Threading.Tasks.Task.WaitAll(ExecuteAsync(helper, connectionData));
-        }
-
-        private static async System.Threading.Tasks.Task ExecuteAsync(DTEHelper helper, ConnectionData connectionData)
-        {
             try
             {
                 var document = helper.GetOpenedDocumentInCodeWindow(FileOperations.SupportsCSharpType);
 
-                helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, document?.FullName);
-                helper.ActivateOutputWindow(null);
+                if (document != null)
+                {
+                    helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, document?.FullName);
+                    helper.ActivateOutputWindow(null);
 
-                string fileType = await PropertiesHelper.GetTypeFullNameAsync(document);
+                    VSProject2Info.GetPluginTypes(new[] { document }, out var pluginTypesNotCompiled, out var projectInfos);
 
-                helper.HandleAddPluginStep(fileType, connectionData);
+                    var task = ExecuteAsync(helper, connectionData, pluginTypesNotCompiled, projectInfos);
+                }
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.WriteExceptionToOutput(null, ex);
+            }
+        }
+
+        private static async System.Threading.Tasks.Task ExecuteAsync(DTEHelper helper, ConnectionData connectionData, string[] pluginTypesNotCompiled, VSProject2Info[] projectInfos)
+        {
+            try
+            {
+                string pluginType = await CSharpCodeHelper.GetSingleFileTypeFullNameAsync(pluginTypesNotCompiled, projectInfos);
+
+                if (!string.IsNullOrEmpty(pluginType))
+                {
+                    helper.HandleAddPluginStep(pluginType, connectionData);
+                }
             }
             catch (Exception ex)
             {

@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,33 +23,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 
         protected override void CommandAction(DTEHelper helper, string solutionUniqueName)
         {
-            System.Threading.Tasks.Task.WaitAll(ExecuteAsync(helper, solutionUniqueName));
+            try
+            {
+                var listFiles = helper.GetOpenedDocumentsAsDocument(FileOperations.SupportsCSharpType).ToList();
+                helper.ActivateOutputWindow(null);
+
+                foreach (var document in listFiles.OrderBy(d => d.FullName))
+                {
+                    helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, document.FullName);
+                }
+
+                VSProject2Info.GetPluginTypes(listFiles, out var pluginTypesNotCompiled, out var projectInfos);
+
+                var task = ExecuteAsync(helper, solutionUniqueName, pluginTypesNotCompiled, projectInfos);
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.WriteExceptionToOutput(null, ex);
+            }
         }
 
-        private static async System.Threading.Tasks.Task ExecuteAsync(DTEHelper helper, string solutionUniqueName)
+        private static async System.Threading.Tasks.Task ExecuteAsync(DTEHelper helper, string solutionUniqueName, string[] pluginTypesNotCompiled, VSProject2Info[] projectInfos)
         {
             try
             {
-                var list = helper.GetOpenedDocumentsAsDocument(FileOperations.SupportsCSharpType).ToList();
+                string[] pluginTypeArray = await CSharpCodeHelper.GetTypeFullNameListAsync(pluginTypesNotCompiled, projectInfos);
 
-                var pluginTypeNames = new List<string>();
-
-                helper.ActivateOutputWindow(null);
-
-                foreach (var item in list)
+                if (pluginTypeArray.Any())
                 {
-                    helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, item?.FullName);
-                    var typeName = await PropertiesHelper.GetTypeFullNameAsync(item);
-
-                    if (!string.IsNullOrEmpty(typeName))
-                    {
-                        pluginTypeNames.Add(typeName);
-                    }
-                }
-
-                if (pluginTypeNames.Any())
-                {
-                    helper.HandlePluginTypeAddingProcessingStepsByProjectCommand(null, solutionUniqueName, false, pluginTypeNames.ToArray());
+                    helper.HandlePluginTypeAddingProcessingStepsByProjectCommand(null, solutionUniqueName, false, pluginTypeArray);
                 }
             }
             catch (Exception ex)
