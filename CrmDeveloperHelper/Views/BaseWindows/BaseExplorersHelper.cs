@@ -1,12 +1,6 @@
-﻿using Microsoft.Xrm.Sdk.Metadata;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {

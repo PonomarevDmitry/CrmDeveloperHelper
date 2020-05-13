@@ -241,15 +241,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             txtBName.Text = Step.Name;
-
-            if (Step.Rank.HasValue)
-            {
-                txtBExecutionOrder.Text = Step.Rank.ToString();
-            }
-            else
-            {
-                txtBExecutionOrder.Text = "1";
-            }
+            txtBExecutionOrder.Text = Step.Rank.GetValueOrDefault(1).ToString();
 
             txtBDescription.Text = Step.Description;
             txtBUnSecureConfiguration.Text = Step.Configuration;

@@ -276,10 +276,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
         }
 
+        ~WebResourceIntellisenseDataRepository()
+        {
+            Dispose(false);
+        }
+
         // This code added to correctly implement the disposable pattern.
         public void Dispose()
         {
             Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         #endregion IDisposable Support

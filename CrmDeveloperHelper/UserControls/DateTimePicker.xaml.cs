@@ -128,7 +128,7 @@ namespace DTPicker
                 {
                     adLayer.Add(_upDownButtons = new TextBoxUpDownAdorner(DateDisplay));
 
-                    _upDownButtons.Click += (textBox, direction) => { OnUpDown(direction); };
+                    _upDownButtons.Click += (sender, textBox, direction) => { OnUpDown(direction); };
                 }
             };
         }
@@ -688,7 +688,7 @@ namespace DTPicker
                 if (Click != null)
                 {
                     bool up = e.GetPosition(AdornedElement).Y < (_top + _bottom) / 2;
-                    Click((TextBox)AdornedElement, up ? 1 : -1);
+                    Click(this, (TextBox)AdornedElement, up ? 1 : -1);
                 }
             };
             adornedBox.LostFocus += RelevantEventOccurred;
@@ -718,7 +718,7 @@ namespace DTPicker
             InvalidateVisual();
         }
 
-        public event Action<TextBox, int> Click;
+        public event Action<object, TextBox, int> Click;
 
         // A common way to implement an adorner's rendering behavior is to override the OnRender 
         // method, which is called by the layout system as part of a rendering pass. 

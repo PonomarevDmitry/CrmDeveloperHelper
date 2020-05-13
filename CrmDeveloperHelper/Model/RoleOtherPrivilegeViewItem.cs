@@ -123,7 +123,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        public PrivilegeDepthExtended[] RightOptions => EntityPrivilegeViewItem.GetPrivilegeDepthsByAvailability(Privilege.CanBeBasic.GetValueOrDefault(), Privilege.CanBeLocal.GetValueOrDefault(), Privilege.CanBeDeep.GetValueOrDefault(), Privilege.CanBeGlobal.GetValueOrDefault());
+        public IEnumerable<PrivilegeDepthExtended> RightOptions => EntityPrivilegeViewItem.GetPrivilegeDepthsByAvailability(Privilege.CanBeBasic.GetValueOrDefault(), Privilege.CanBeLocal.GetValueOrDefault(), Privilege.CanBeDeep.GetValueOrDefault(), Privilege.CanBeGlobal.GetValueOrDefault());
 
         private static PrivilegeDepthExtended[] _optionsDefault = new PrivilegeDepthExtended[] { PrivilegeDepthExtended.None };
 

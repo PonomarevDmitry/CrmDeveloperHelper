@@ -62,7 +62,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             LoadData(role, rolePrivileges, entityPrivileges);
         }
 
-        public SecurityPrivilegeMetadata[] EntityPrivileges { get; private set; }
+        public IEnumerable<SecurityPrivilegeMetadata> EntityPrivileges { get; private set; }
 
         private HashSet<PrivilegeType> _availablePrivilegesTypes = new HashSet<PrivilegeType>();
 
@@ -325,23 +325,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        public PrivilegeDepthExtended[] CreateOptions => ReturnOptions(PrivilegeType.Create);
+        public IEnumerable<PrivilegeDepthExtended> CreateOptions => ReturnOptions(PrivilegeType.Create);
 
-        public PrivilegeDepthExtended[] ReadOptions => ReturnOptions(PrivilegeType.Read);
+        public IEnumerable<PrivilegeDepthExtended> ReadOptions => ReturnOptions(PrivilegeType.Read);
 
-        public PrivilegeDepthExtended[] UpdateOptions => ReturnOptions(PrivilegeType.Write);
+        public IEnumerable<PrivilegeDepthExtended> UpdateOptions => ReturnOptions(PrivilegeType.Write);
 
-        public PrivilegeDepthExtended[] DeleteOptions => ReturnOptions(PrivilegeType.Delete);
+        public IEnumerable<PrivilegeDepthExtended> DeleteOptions => ReturnOptions(PrivilegeType.Delete);
 
-        public PrivilegeDepthExtended[] AppendOptions => ReturnOptions(PrivilegeType.Append);
+        public IEnumerable<PrivilegeDepthExtended> AppendOptions => ReturnOptions(PrivilegeType.Append);
 
-        public PrivilegeDepthExtended[] AppendToOptions => ReturnOptions(PrivilegeType.AppendTo);
+        public IEnumerable<PrivilegeDepthExtended> AppendToOptions => ReturnOptions(PrivilegeType.AppendTo);
 
-        public PrivilegeDepthExtended[] AssignOptions => ReturnOptions(PrivilegeType.Assign);
+        public IEnumerable<PrivilegeDepthExtended> AssignOptions => ReturnOptions(PrivilegeType.Assign);
 
-        public PrivilegeDepthExtended[] ShareOptions => ReturnOptions(PrivilegeType.Share);
+        public IEnumerable<PrivilegeDepthExtended> ShareOptions => ReturnOptions(PrivilegeType.Share);
 
-        private static PrivilegeDepthExtended[] _optionsDefault = new PrivilegeDepthExtended[] { PrivilegeDepthExtended.None };
+        private static readonly PrivilegeDepthExtended[] _optionsDefault = new PrivilegeDepthExtended[] { PrivilegeDepthExtended.None };
 
         private static ConcurrentDictionary<Tuple<bool, bool, bool, bool>, PrivilegeDepthExtended[]> _optionsCache = new ConcurrentDictionary<Tuple<bool, bool, bool, bool>, PrivilegeDepthExtended[]>();
 
