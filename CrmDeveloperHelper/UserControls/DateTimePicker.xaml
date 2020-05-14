@@ -57,8 +57,8 @@
                     <RowDefinition Height="19*"/>
                 </Grid.RowDefinitions>
                 <Border x:Name="Highlight" BorderBrush="#FF45D6FA" BorderThickness="1" Grid.ColumnSpan="4" CornerRadius="0,0,1,1" Margin="-1" Opacity="0" Grid.Row="0" Grid.RowSpan="4"/>
-                <Border x:Name="Background" BorderBrush="White" BorderThickness="1" Background="#FF1F3B53" Grid.ColumnSpan="4" CornerRadius="0.5" Margin="0,-1,0,0" Opacity="1" Grid.Row="1" Grid.RowSpan="3"/>
-                <Border x:Name="BackgroundGradient" BorderBrush="#BF000000" BorderThickness="1" Grid.ColumnSpan="4" CornerRadius="0.5" Margin="0,-1,0,0" Opacity="1" Grid.Row="1" Grid.RowSpan="3">
+                <Border x:Name="BorderBackground" BorderBrush="White" BorderThickness="1" Background="#FF1F3B53" Grid.ColumnSpan="4" CornerRadius="0.5" Margin="0,-1,0,0" Opacity="1" Grid.Row="1" Grid.RowSpan="3"/>
+                <Border x:Name="BorderBackgroundGradient" BorderBrush="#BF000000" BorderThickness="1" Grid.ColumnSpan="4" CornerRadius="0.5" Margin="0,-1,0,0" Opacity="1" Grid.Row="1" Grid.RowSpan="3">
                     <Border.Background>
                         <LinearGradientBrush EndPoint="0.7,1" StartPoint="0.7,0">
                             <GradientStop Color="White" Offset="0"/>
