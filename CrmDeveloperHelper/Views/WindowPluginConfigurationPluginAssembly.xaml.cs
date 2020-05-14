@@ -55,7 +55,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!string.IsNullOrEmpty(filePath))
             {
-                LoadPluginConfiguration(filePath);
+                var task = LoadPluginConfiguration(filePath);
             }
         }
 
@@ -225,7 +225,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Close();
         }
 
-        private void lstVwEntities_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private async void lstVwEntities_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
@@ -233,7 +233,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (item != null)
                 {
-                    ExecuteAction(item, PerformAssemblyDescriptionAsync);
+                    await ExecuteAction(item, PerformAssemblyDescriptionAsync);
                 }
             }
         }
@@ -283,17 +283,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.PerformAction(null, filePath);
         }
 
-        private void tSBLoadPluginConfiguration_Click(object sender, RoutedEventArgs e)
+        private async void tSBLoadPluginConfiguration_Click(object sender, RoutedEventArgs e)
         {
             var selectedPath = GetPluginConfigurationFilePath(this._iWriteToOutput);
 
             if (!string.IsNullOrEmpty(selectedPath))
             {
-                LoadPluginConfiguration(selectedPath);
+                await LoadPluginConfiguration(selectedPath);
             }
         }
 
-        private void tSBCreateAssemblyDescription_Click(object sender, RoutedEventArgs e)
+        private async void tSBCreateAssemblyDescription_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -302,14 +302,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity, PerformAssemblyDescriptionAsync);
+            await ExecuteAction(entity, PerformAssemblyDescriptionAsync);
         }
 
-        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        protected override Task OnRefreshList(ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
 
             ShowExistingAssemblies();
+
+            return base.OnRefreshList(e);
         }
     }
 }

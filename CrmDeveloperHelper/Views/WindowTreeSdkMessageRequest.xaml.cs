@@ -164,7 +164,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.DecreaseInit();
 
-            ShowExistingSdkMessageRequests();
+            var task = ShowExistingSdkMessageRequests();
         }
 
         private void FillExplorersMenuItems()
@@ -312,11 +312,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._imageImageEndpoint = this.Resources["ImageEndpoint"] as BitmapImage;
         }
 
-        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        protected override async Task OnRefreshList(ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
 
-            ShowExistingSdkMessageRequests();
+            await ShowExistingSdkMessageRequests();
         }
 
         private ConnectionData GetSelectedConnection()
@@ -1080,11 +1080,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ;
         }
 
-        private void txtBFilter_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBFilter_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                ShowExistingSdkMessageRequests();
+                await ShowExistingSdkMessageRequests();
             }
         }
 
@@ -1353,7 +1353,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.CreatingFileWithDescriptionFormat1, service.ConnectionData.Name);
         }
 
-        private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             foreach (var removed in e.RemovedItems.OfType<ConnectionData>())
             {
@@ -1373,7 +1373,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 FillEntityNames(connectionData);
 
-                ShowExistingSdkMessageRequests();
+                await ShowExistingSdkMessageRequests();
             }
         }
 
@@ -1958,7 +1958,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         #endregion SdkMessagePair Handlers
 
-        private void mICreateDescription_Click(object sender, RoutedEventArgs e)
+        private async void mICreateDescription_Click(object sender, RoutedEventArgs e)
         {
             SdkMessageRequestTreeViewItem nodeItem = GetItemFromRoutedDataContext<SdkMessageRequestTreeViewItem>(e);
 
@@ -1974,7 +1974,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
 
-            CreateDescription(nodeItem);
+            await CreateDescription(nodeItem);
         }
 
         private void mIOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)
@@ -2229,9 +2229,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operation);
         }
 
-        private void tSBRefresh_Click(object sender, RoutedEventArgs e)
+        private async void tSBRefresh_Click(object sender, RoutedEventArgs e)
         {
-            ShowExistingSdkMessageRequests();
+            await ShowExistingSdkMessageRequests();
         }
 
         private void miOptions_Click(object sender, RoutedEventArgs e)

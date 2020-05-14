@@ -165,9 +165,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             this.dGrParameters.DataContext = cmBCurrentConnection;
         }
 
-        private void btnExecuteFetchXml_Click(object sender, RoutedEventArgs e)
+        private async void btnExecuteFetchXml_Click(object sender, RoutedEventArgs e)
         {
-            this.Execute();
+            await this.Execute();
         }
 
         private void UpdateStatus(ConnectionData connectionData, string format, params object[] args)

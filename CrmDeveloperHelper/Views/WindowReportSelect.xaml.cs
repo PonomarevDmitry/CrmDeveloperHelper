@@ -53,7 +53,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput = iWriteToOutput;
             this._lastLinkedReport = lastLinkedReport;
-            this._service = service;
+            this._service = service ?? throw new ArgumentNullException(nameof(service));
             this._file = selectedFile;
             this._fileExtension = selectedFile.Extension;
 
@@ -76,10 +76,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.lstVwReports.ItemsSource = _itemsSource;
 
-            if (_service != null)
-            {
-                ShowExistingReports();
-            }
+            var task = ShowExistingReports();
         }
 
         private async Task ShowExistingReports()
@@ -247,11 +244,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void txtBFilterEnitity_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBFilterEnitity_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                ShowExistingReports();
+                await ShowExistingReports();
             }
         }
 
@@ -316,11 +313,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        protected override async Task OnRefreshList(ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
 
-            ShowExistingReports();
+            await ShowExistingReports();
         }
 
         private void mIOpenInWeb_Click(object sender, RoutedEventArgs e)

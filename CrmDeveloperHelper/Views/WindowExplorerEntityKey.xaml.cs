@@ -87,7 +87,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.DecreaseInit();
 
-            ShowExistingEntities();
+            var task = ShowExistingEntities();
         }
 
         private void FillExplorersMenuItems()
@@ -196,11 +196,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _popupEntityMetadataFilter.Child.Focus();
         }
 
-        private void _popupEntityMetadataFilter_Closed(object sender, EventArgs e)
+        private async void _popupEntityMetadataFilter_Closed(object sender, EventArgs e)
         {
             if (_entityMetadataFilter.FilterChanged)
             {
-                ShowExistingEntities();
+                await ShowExistingEntities();
             }
         }
 
@@ -282,7 +282,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingEntitiesCompletedFormat1, list.Count());
 
-            ShowExistingEntityKeys();
+            await ShowExistingEntityKeys();
         }
 
         private IEnumerable<EntityMetadataListViewItem> FilterEntityList(IEnumerable<EntityMetadataListViewItem> list, string textName, RoleEditorLayoutTab selectedTab)
@@ -566,24 +566,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void txtBFilterEnitity_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBFilterEnitity_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                ShowExistingEntities();
+                await ShowExistingEntities();
             }
         }
 
-        private void cmBRoleEditorLayoutTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void cmBRoleEditorLayoutTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ShowExistingEntities();
+            await ShowExistingEntities();
         }
 
-        private void txtBFilterEntityKey_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBFilterEntityKey_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                ShowExistingEntityKeys();
+                await ShowExistingEntityKeys();
             }
         }
 
@@ -664,18 +664,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await PublishEntityAsync(GetSelectedConnection(), entityList.Select(item => item.LogicalName).ToList());
         }
 
-        private void lstVwEntities_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void lstVwEntities_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ShowExistingEntityKeys();
+            await ShowExistingEntityKeys();
 
             UpdateButtonsEnable();
         }
 
-        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        protected override async Task OnRefreshList(ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
 
-            ShowExistingEntities();
+            await ShowExistingEntities();
         }
 
         private void mIOpenEntityInWeb_Click(object sender, RoutedEventArgs e)
@@ -983,7 +983,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             );
         }
 
-        private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this.Dispatcher.Invoke(() =>
             {
@@ -1002,11 +1002,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 UpdateButtonsEnable();
 
-                ShowExistingEntities();
+                await ShowExistingEntities();
             }
         }
 
-        private void mIClearEntityCacheAndRefresh_Click(object sender, RoutedEventArgs e)
+        private async void mIClearEntityCacheAndRefresh_Click(object sender, RoutedEventArgs e)
         {
             ConnectionData connectionData = GetSelectedConnection();
 
@@ -1016,11 +1016,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 UpdateButtonsEnable();
 
-                ShowExistingEntities();
+                await ShowExistingEntities();
             }
         }
 
-        private void mIClearEntityKeyCacheAndRefresh_Click(object sender, RoutedEventArgs e)
+        private async void mIClearEntityKeyCacheAndRefresh_Click(object sender, RoutedEventArgs e)
         {
             ConnectionData connectionData = GetSelectedConnection();
 
@@ -1030,7 +1030,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 UpdateButtonsEnable();
 
-                ShowExistingEntityKeys();
+                await ShowExistingEntityKeys();
             }
         }
 

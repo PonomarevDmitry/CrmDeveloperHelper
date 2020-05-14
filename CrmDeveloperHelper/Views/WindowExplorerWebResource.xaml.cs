@@ -83,10 +83,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.DecreaseInit();
 
-            if (service != null)
-            {
-                ShowExistingWebResources();
-            }
+            var task = ShowExistingWebResources();
         }
 
         private void FillExplorersMenuItems()
@@ -436,11 +433,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void txtBFilterEnitity_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBFilterEnitity_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                ShowExistingWebResources();
+                await ShowExistingWebResources();
             }
         }
 
@@ -448,7 +445,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (this.trVWebResources.SelectedItem != null
                 && this.trVWebResources.SelectedItem is EntityTreeViewItem result
-                )
+            )
             {
                 return result;
             }
@@ -475,7 +472,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await action(folder, idWebResource, name);
         }
 
-        private void btnExportAll_Click(object sender, RoutedEventArgs e)
+        private async void btnExportAll_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -484,7 +481,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity.WebResourceId.Value, entity.Name, PerformExportAllXml);
+            await ExecuteAction(entity.WebResourceId.Value, entity.Name, PerformExportAllXml);
         }
 
         private async Task PerformExportAllXml(string folder, Guid idWebResource, string name)
@@ -512,7 +509,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await action(folder, idWebResource, name, fieldName, fieldTitle, extension);
         }
 
-        private void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
+        private async void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -521,10 +518,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity.WebResourceId.Value, entity.Name, PerformExportEntityDescription);
+            await ExecuteAction(entity.WebResourceId.Value, entity.Name, PerformExportEntityDescription);
         }
 
-        private void mIChangeEntityInEditor_Click(object sender, RoutedEventArgs e)
+        private async void mIChangeEntityInEditor_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -533,10 +530,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity.WebResourceId.Value, entity.Name, PerformEntityEditor);
+            await ExecuteAction(entity.WebResourceId.Value, entity.Name, PerformEntityEditor);
         }
 
-        private void mIDeleteWebResource_Click(object sender, RoutedEventArgs e)
+        private async void mIDeleteWebResource_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -545,7 +542,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity.WebResourceId.Value, entity.Name, PerformDeleteWebResource);
+            await ExecuteAction(entity.WebResourceId.Value, entity.Name, PerformDeleteWebResource);
         }
 
         private async Task PerformExportEntityDescription(string folder, Guid idWebResource, string name)
@@ -618,7 +615,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(service.ConnectionData, true, Properties.OutputStrings.DeletingEntityCompletedFormat2, service.ConnectionData.Name, WebResource.EntityLogicalName);
 
-                ShowExistingWebResources();
+                await ShowExistingWebResources();
             }
         }
 
@@ -627,7 +624,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             UpdateButtonsEnable();
         }
 
-        private void trVWebResources_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private async void trVWebResources_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
@@ -635,7 +632,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (item != null && item.WebResourceId.HasValue)
                 {
-                    ExecuteAction(item.WebResourceId.Value, item.Name, PerformExportMouseDoubleClick);
+                    await ExecuteAction(item.WebResourceId.Value, item.Name, PerformExportMouseDoubleClick);
                 }
             }
         }
@@ -695,7 +692,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mIExportWebResourceDependencyXml_Click(object sender, RoutedEventArgs e)
+        private async void mIExportWebResourceDependencyXml_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -704,10 +701,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.dependencyxml, WebResource.Schema.Headers.dependencyxml, "xml", PerformExportXmlToFile);
+            await ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.dependencyxml, WebResource.Schema.Headers.dependencyxml, "xml", PerformExportXmlToFile);
         }
 
-        private void mIExportWebResourceContentJson_Click(object sender, RoutedEventArgs e)
+        private async void mIExportWebResourceContentJson_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -716,7 +713,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.contentjson, WebResource.Schema.Headers.contentjson, "json", PerformExportXmlToFile);
+            await ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.contentjson, WebResource.Schema.Headers.contentjson, "json", PerformExportXmlToFile);
         }
 
         private async Task PerformExportXmlToFile(string folder, Guid idWebResource, string name, string fieldName, string fieldTitle, string extension)
@@ -1021,11 +1018,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return filePath;
         }
 
-        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        protected override async Task OnRefreshList(ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
 
-            ShowExistingWebResources();
+            await ShowExistingWebResources();
         }
 
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)
@@ -1102,7 +1099,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mIOpenContent_Click(object sender, RoutedEventArgs e)
+        private async void mIOpenContent_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1111,22 +1108,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity.WebResourceId.Value, entity.Name, PerformExportWebResourceContent);
+            await ExecuteAction(entity.WebResourceId.Value, entity.Name, PerformExportWebResourceContent);
         }
 
-        private void AddToCrmSolution_Click(object sender, RoutedEventArgs e)
+        private async void AddToCrmSolution_Click(object sender, RoutedEventArgs e)
         {
-            AddToSolution(true, null);
+            await AddToSolution(true, null);
         }
 
-        private void AddToCrmSolutionLast_Click(object sender, RoutedEventArgs e)
+        private async void AddToCrmSolutionLast_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag != null
                 && menuItem.Tag is string solutionUniqueName
-                )
+            )
             {
-                AddToSolution(false, solutionUniqueName);
+                await AddToSolution(false, solutionUniqueName);
             }
         }
 
@@ -1204,7 +1201,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             );
         }
 
-        private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this.Dispatcher.Invoke(() =>
             {
@@ -1220,11 +1217,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
-                ShowExistingWebResources();
+                await ShowExistingWebResources();
             }
         }
 
-        private void mIUpdateWebResourceDependencyXml_Click(object sender, RoutedEventArgs e)
+        private async void mIUpdateWebResourceDependencyXml_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1233,10 +1230,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.dependencyxml, WebResource.Schema.Headers.dependencyxml, "xml", PerformUpdateEntityField);
+            await ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.dependencyxml, WebResource.Schema.Headers.dependencyxml, "xml", PerformUpdateEntityField);
         }
 
-        private void mIUpdateWebResourceContent_Click(object sender, RoutedEventArgs e)
+        private async void mIUpdateWebResourceContent_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1245,10 +1242,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.content, WebResource.Schema.Headers.content, "js", PerformUpdateEntityField);
+            await ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.content, WebResource.Schema.Headers.content, "js", PerformUpdateEntityField);
         }
 
-        private void mIUpdateWebResourceContentFromFile_Click(object sender, RoutedEventArgs e)
+        private async void mIUpdateWebResourceContentFromFile_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1257,10 +1254,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.content, WebResource.Schema.Headers.content, "js", PerformUpdateEntityFieldFromFile);
+            await ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.content, WebResource.Schema.Headers.content, "js", PerformUpdateEntityFieldFromFile);
         }
 
-        private void mIUpdateWebResourceContentJson_Click(object sender, RoutedEventArgs e)
+        private async void mIUpdateWebResourceContentJson_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1269,10 +1266,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.contentjson, WebResource.Schema.Headers.contentjson, "json", PerformUpdateEntityField);
+            await ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.contentjson, WebResource.Schema.Headers.contentjson, "json", PerformUpdateEntityField);
         }
 
-        private void btnPublishWebResource_Click(object sender, RoutedEventArgs e)
+        private async void btnPublishWebResource_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1281,7 +1278,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity.WebResourceId.Value, entity.Name, PerformPublishWebResource);
+            await ExecuteAction(entity.WebResourceId.Value, entity.Name, PerformPublishWebResource);
         }
 
         private async Task PerformPublishWebResource(string folder, Guid idWebResource, string name)
@@ -1403,14 +1400,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (!IsControlsEnabled)
             {
                 return;
             }
 
-            ShowExistingWebResources();
+            await ShowExistingWebResources();
         }
 
         private void trVWebResources_CanExecute(object sender, CanExecuteRoutedEventArgs e)

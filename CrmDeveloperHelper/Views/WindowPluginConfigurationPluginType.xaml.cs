@@ -56,7 +56,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!string.IsNullOrEmpty(filePath))
             {
-                LoadPluginConfiguration(filePath);
+                var task = LoadPluginConfiguration(filePath);
             }
         }
 
@@ -247,7 +247,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Close();
         }
 
-        private void lstVwEntities_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private async void lstVwEntities_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
@@ -255,7 +255,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (item != null)
                 {
-                    ExecuteAction(item, PerformExportAllXml);
+                    await ExecuteAction(item, PerformExportAllXml);
                 }
             }
         }
@@ -279,7 +279,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await action(folder, entity);
         }
 
-        private void btnExportAll_Click(object sender, RoutedEventArgs e)
+        private async void btnExportAll_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -288,7 +288,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity, PerformExportAllXml);
+            await ExecuteAction(entity, PerformExportAllXml);
         }
 
         private async Task PerformExportAllXml(string folder, PluginTypeFullInfo pluginType)
@@ -296,7 +296,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await PerformPluginTypeDescriptionAsync(folder, pluginType);
         }
 
-        private void mICreatePluginTypeDescription_Click(object sender, RoutedEventArgs e)
+        private async void mICreatePluginTypeDescription_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -305,7 +305,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity, PerformPluginTypeDescriptionAsync);
+            await ExecuteAction(entity, PerformPluginTypeDescriptionAsync);
         }
 
         private Task PerformPluginTypeDescriptionAsync(string folder, PluginTypeFullInfo pluginType)
@@ -347,17 +347,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSBLoadPluginConfiguration_Click(object sender, RoutedEventArgs e)
+        private async void tSBLoadPluginConfiguration_Click(object sender, RoutedEventArgs e)
         {
             var selectedPath = GetPluginConfigurationFilePath(this._iWriteToOutput);
 
             if (!string.IsNullOrEmpty(selectedPath))
             {
-                LoadPluginConfiguration(selectedPath);
+                await LoadPluginConfiguration(selectedPath);
             }
         }
 
-        private void tSBCreatePluginTypeDescription_Click(object sender, RoutedEventArgs e)
+        private async void tSBCreatePluginTypeDescription_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -366,14 +366,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity, PerformPluginTypeDescriptionAsync);
+            await ExecuteAction(entity, PerformPluginTypeDescriptionAsync);
         }
 
-        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        protected override Task OnRefreshList(ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
 
             ShowExistingPluginTypes();
+
+            return base.OnRefreshList(e);
         }
     }
 }

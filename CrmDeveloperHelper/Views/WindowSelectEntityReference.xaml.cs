@@ -50,7 +50,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadEntityNames(entityNames);
 
-            LoadEntityMetadataAsync(entityNames);
+            var task = LoadEntityMetadataAsync(entityNames);
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
@@ -60,7 +60,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Close();
         }
 
-        private void LoadEntityNames(IEnumerable<string> entityNames)
+        protected void LoadEntityNames(IEnumerable<string> entityNames)
         {
             string text = cmBEntityName.Text;
 
@@ -368,13 +368,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void txtBFilter_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBFilter_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
                 e.Handled = true;
 
-                PerformSearchAsync();
+                await PerformSearchAsync();
             }
         }
 

@@ -82,7 +82,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.DecreaseInit();
 
-            ShowExistingOtherPrivileges();
+            var task = ShowExistingOtherPrivileges();
         }
 
         private void FillExplorersMenuItems()
@@ -259,7 +259,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingOtherPrivilegesCompletedFormat1, listOtherPrivileges.Count());
 
-            ShowExistingSecurityRoles();
+            await ShowExistingSecurityRoles();
         }
 
         private static IEnumerable<Privilege> FilterPrivilegeList(IEnumerable<Privilege> list, string textName, RoleEditorLayoutTab selectedTab)
@@ -522,24 +522,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void txtBOtherPrivilegesFilter_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBOtherPrivilegesFilter_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                ShowExistingOtherPrivileges();
+                await ShowExistingOtherPrivileges();
             }
         }
 
-        private void cmBRoleEditorLayoutTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void cmBRoleEditorLayoutTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ShowExistingOtherPrivileges();
+            await ShowExistingOtherPrivileges();
         }
 
-        private void txtBFilterSecurityRole_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBFilterSecurityRole_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                ShowExistingSecurityRoles();
+                await ShowExistingSecurityRoles();
             }
         }
 
@@ -571,16 +571,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await action(entityNames);
         }
 
-        private void lstVwOtherPrivileges_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void lstVwOtherPrivileges_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ShowExistingSecurityRoles();
+            await ShowExistingSecurityRoles();
         }
 
-        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        protected override async Task OnRefreshList(ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
 
-            ShowExistingOtherPrivileges();
+            await ShowExistingOtherPrivileges();
         }
 
         private async void mIOpenSecurityRoleInWeb_Click(object sender, RoutedEventArgs e)
@@ -686,7 +686,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var items = contextMenu.Items.OfType<Control>();
 
                 ConnectionData connectionData = GetSelectedConnection();
-                
+
                 FillLastSolutionItems(connectionData, items, true, AddSecurityRoleToCrmSolutionLast_Click, "contMnAddSecurityRoleToSolutionLast");
             }
         }
@@ -764,7 +764,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             );
         }
 
-        private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this.Dispatcher.Invoke(() =>
             {
@@ -781,11 +781,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
-                ShowExistingOtherPrivileges();
+                await ShowExistingOtherPrivileges();
             }
         }
 
-        private void btnClearOtherPrivilegesCacheAndRefresh_Click(object sender, RoutedEventArgs e)
+        private async void btnClearOtherPrivilegesCacheAndRefresh_Click(object sender, RoutedEventArgs e)
         {
             ConnectionData connectionData = GetSelectedConnection();
 
@@ -793,18 +793,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 _cachePrivileges.Remove(connectionData.ConnectionId);
 
-                ShowExistingOtherPrivileges();
+                await ShowExistingOtherPrivileges();
             }
         }
 
-        private void btnRefreshOtherPrivileges_Click(object sender, RoutedEventArgs e)
+        private async void btnRefreshOtherPrivileges_Click(object sender, RoutedEventArgs e)
         {
-            ShowExistingOtherPrivileges();
+            await ShowExistingOtherPrivileges();
         }
 
-        private void btnRefreshRoles_Click(object sender, RoutedEventArgs e)
+        private async void btnRefreshRoles_Click(object sender, RoutedEventArgs e)
         {
-            ShowExistingSecurityRoles();
+            await ShowExistingSecurityRoles();
         }
 
         private void lstVwSecurityRoles_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -990,7 +990,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
 
-            ShowExistingSecurityRoles();
+            await ShowExistingSecurityRoles();
         }
 
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)

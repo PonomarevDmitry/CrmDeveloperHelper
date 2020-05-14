@@ -506,7 +506,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public static void InsertIntellisenseContextEntityNameInDocument(EnvDTE.Document document, string entityName)
         {
-            GetTextViewAndMakeActionAsync(document, Properties.OperationNames.AddXmlSchemaLocation, (wpfTextView, oldCaretLine, oldCaretColumn) => InsertIntellisenseContextEntityNameInTextView(wpfTextView, entityName));
+            var task = GetTextViewAndMakeActionAsync(document, Properties.OperationNames.AddXmlSchemaLocation, (wpfTextView, oldCaretLine, oldCaretColumn) => InsertIntellisenseContextEntityNameInTextView(wpfTextView, entityName));
         }
 
         public static string FormatJson(string xmlContent)
@@ -528,17 +528,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public static void RemoveXsdSchemaInDocument(EnvDTE.Document document)
         {
-            GetTextViewAndMakeActionAsync(document, Properties.OperationNames.RemoveXmlSchemaLocation, RemoveXsdSchemaInTextView);
+            var task = GetTextViewAndMakeActionAsync(document, Properties.OperationNames.RemoveXmlSchemaLocation, RemoveXsdSchemaInTextView);
         }
 
         public static void RemoveAllCustomAttributesInDocument(EnvDTE.Document document)
         {
-            GetTextViewAndMakeActionAsync(document, Properties.OperationNames.RemoveXmlSchemaLocation, RemoveAllCustomAttributesInTextView);
+            var task = GetTextViewAndMakeActionAsync(document, Properties.OperationNames.RemoveXmlSchemaLocation, RemoveAllCustomAttributesInTextView);
         }
 
         public static void RemoveIntellisenseContextEntityNameInDocument(EnvDTE.Document document)
         {
-            GetTextViewAndMakeActionAsync(document, Properties.OperationNames.RemoveRibbonDiffIntellisenseContextEntityName, RemoveIntellisenseContextEntityNameInTextView);
+            var task = GetTextViewAndMakeActionAsync(document, Properties.OperationNames.RemoveRibbonDiffIntellisenseContextEntityName, RemoveIntellisenseContextEntityNameInTextView);
         }
 
         private static IVsTextView GetIVsTextView(string filePath)

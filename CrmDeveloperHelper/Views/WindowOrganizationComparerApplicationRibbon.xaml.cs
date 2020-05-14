@@ -177,9 +177,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Close();
         }
 
-        private void mIDifferenceApplicationRibbon_Click(object sender, RoutedEventArgs e)
+        private async void mIDifferenceApplicationRibbon_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteDifferenceApplicationRibbon();
+            await ExecuteDifferenceApplicationRibbon();
         }
 
         private async Task ExecuteDifferenceApplicationRibbon()
@@ -260,7 +260,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (File.Exists(filePath1) && File.Exists(filePath2))
                 {
-                    this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                    await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
                 }
                 else
                 {
@@ -279,9 +279,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.ExportingApplicationRibbonConnectionFormat2, service1.ConnectionData.Name, service1.ConnectionData.Name);
         }
 
-        private void mIDifferenceApplicationRibbonDiffXml_Click(object sender, RoutedEventArgs e)
+        private async void mIDifferenceApplicationRibbonDiffXml_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteDifferenceApplicationRibbonDiffXml();
+            await ExecuteDifferenceApplicationRibbonDiffXml();
         }
 
         private async Task ExecuteDifferenceApplicationRibbonDiffXml()
@@ -379,7 +379,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (File.Exists(filePath1) && File.Exists(filePath2))
                 {
-                    this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                    await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
                 }
                 else
                 {
@@ -400,14 +400,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.ExportingApplicationRibbonDiffXmlConnectionFormat2, service1.ConnectionData.Name, service1.ConnectionData.Name);
         }
 
-        private void mIConnection1ApplicationRibbon_Click(object sender, RoutedEventArgs e)
+        private async void mIConnection1ApplicationRibbon_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteCreatingApplicationRibbon(GetService1);
+            await ExecuteCreatingApplicationRibbon(GetService1);
         }
 
-        private void mIConnection2ApplicationRibbon_Click(object sender, RoutedEventArgs e)
+        private async void mIConnection2ApplicationRibbon_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteCreatingApplicationRibbon(GetService2);
+            await ExecuteCreatingApplicationRibbon(GetService2);
         }
 
         private async Task ExecuteCreatingApplicationRibbon(Func<Task<IOrganizationServiceExtented>> getService)
@@ -459,14 +459,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.ExportingApplicationRibbonFormat1, service.ConnectionData.Name);
         }
 
-        private void mIConnection1ApplicationRibbonArchive_Click(object sender, RoutedEventArgs e)
+        private async void mIConnection1ApplicationRibbonArchive_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteCreatingApplicationRibbonArchive(GetService1);
+            await ExecuteCreatingApplicationRibbonArchive(GetService1);
         }
 
-        private void mIConnection2ApplicationRibbonArchive_Click(object sender, RoutedEventArgs e)
+        private async void mIConnection2ApplicationRibbonArchive_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteCreatingApplicationRibbonArchive(GetService2);
+            await ExecuteCreatingApplicationRibbonArchive(GetService2);
         }
 
         private async Task ExecuteCreatingApplicationRibbonArchive(Func<Task<IOrganizationServiceExtented>> getService)
@@ -511,14 +511,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.ExportingApplicationRibbonFormat1, service.ConnectionData.Name);
         }
 
-        private void mIConnection1ApplicationRibbonDiffXml_Click(object sender, RoutedEventArgs e)
+        private async void mIConnection1ApplicationRibbonDiffXml_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteCreatingApplicationRibbonDiffXml(GetService1);
+            await ExecuteCreatingApplicationRibbonDiffXml(GetService1);
         }
 
-        private void mIConnection2ApplicationRibbonDiffXml_Click(object sender, RoutedEventArgs e)
+        private async void mIConnection2ApplicationRibbonDiffXml_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteCreatingApplicationRibbonDiffXml(GetService2);
+            await ExecuteCreatingApplicationRibbonDiffXml(GetService2);
         }
 
         private async Task ExecuteCreatingApplicationRibbonDiffXml(Func<Task<IOrganizationServiceExtented>> getService)

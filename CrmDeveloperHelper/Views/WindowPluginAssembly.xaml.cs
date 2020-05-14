@@ -392,7 +392,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void btnSelectFile_Click(object sender, RoutedEventArgs e)
+        private async void btnSelectFile_Click(object sender, RoutedEventArgs e)
         {
             string lastAssemblyPath = string.Empty;
             IEnumerable<string> lastPaths = Enumerable.Empty<string>();
@@ -456,27 +456,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            LoadLocalAssemblyAsync(assemblyPath);
+            await LoadLocalAssemblyAsync(assemblyPath);
         }
 
-        private void btnLoadAssembly_Click(object sender, RoutedEventArgs e)
+        private async void btnLoadAssembly_Click(object sender, RoutedEventArgs e)
         {
-            PerformLoadAssemblyClick();
+            await PerformLoadAssemblyClick();
         }
 
-        private void cmBAssemblyToLoad_KeyDown(object sender, KeyEventArgs e)
+        private async void cmBAssemblyToLoad_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                PerformLoadAssemblyClick();
+                await PerformLoadAssemblyClick();
             }
         }
 
-        private void PerformLoadAssemblyClick()
+        private async Task PerformLoadAssemblyClick()
         {
             var assemblyPath = cmBAssemblyToLoad.Text?.Trim();
 
-            LoadLocalAssemblyAsync(assemblyPath);
+            await LoadLocalAssemblyAsync(assemblyPath);
         }
 
         private async Task LoadLocalAssemblyAsync(string assemblyPath)

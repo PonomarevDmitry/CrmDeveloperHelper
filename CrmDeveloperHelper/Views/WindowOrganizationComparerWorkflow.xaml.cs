@@ -92,7 +92,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.DecreaseInit();
 
-            ShowExistingWorkflows();
+            var task = ShowExistingWorkflows();
         }
 
         private void FillExplorersMenuItems()
@@ -306,8 +306,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         var task1 = repository1.GetListAsync(filterEntity, category, mode, statuscode, columnSet);
                         var task2 = repository2.GetListAsync(filterEntity, category, mode, statuscode, columnSet);
 
-                        TranslationRepository.GetDefaultTranslationFromCacheAsync(service1.ConnectionData.ConnectionId, service1);
-                        TranslationRepository.GetDefaultTranslationFromCacheAsync(service2.ConnectionData.ConnectionId, service2);
+                        var taskLabels1 = TranslationRepository.GetDefaultTranslationFromCacheAsync(service1.ConnectionData.ConnectionId, service1);
+                        var taskLabels2 = TranslationRepository.GetDefaultTranslationFromCacheAsync(service2.ConnectionData.ConnectionId, service2);
 
                         var list1 = await task1;
                         var list2 = await task2;
@@ -330,7 +330,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         var task1 = repository1.GetListAsync(filterEntity, category, mode, statuscode, columnSet);
 
-                        TranslationRepository.GetDefaultTranslationFromCacheAsync(service1.ConnectionData.ConnectionId, service1);
+                        var taskLabels1 = TranslationRepository.GetDefaultTranslationFromCacheAsync(service1.ConnectionData.ConnectionId, service1);
 
                         var list1 = await task1;
 
@@ -524,11 +524,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void txtBFilter_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBFilter_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                ShowExistingWorkflows();
+                await ShowExistingWorkflows();
             }
         }
 
@@ -860,7 +860,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         if (File.Exists(filePath1) && File.Exists(filePath2))
                         {
-                            this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                            await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
                         }
                         else
                         {
@@ -938,7 +938,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (File.Exists(filePath1) && File.Exists(filePath2))
                     {
-                        this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                        await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
                     }
                     else
                     {
@@ -1255,7 +1255,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (File.Exists(filePath1) && File.Exists(filePath2))
                     {
-                        this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                        await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
                     }
                     else
                     {
@@ -1336,11 +1336,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteActionDescription(link.Link.Entity2.Id, GetService2, PerformExportDescriptionToFileAsync);
         }
 
-        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        protected override async Task OnRefreshList(ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
 
-            ShowExistingWorkflows();
+            await ShowExistingWorkflows();
         }
 
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1366,7 +1366,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     UpdateButtonsEnable();
 
-                    ShowExistingWorkflows();
+                    var task = ShowExistingWorkflows();
                 }
             });
         }
@@ -1494,9 +1494,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void cmBCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void cmBCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ShowExistingWorkflows();
+            await ShowExistingWorkflows();
         }
 
         private async void mIConnection1OpenWorkflowListInWeb_Click(object sender, RoutedEventArgs e)

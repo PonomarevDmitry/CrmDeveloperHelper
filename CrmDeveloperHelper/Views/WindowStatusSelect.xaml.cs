@@ -60,7 +60,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             txtBFilter.SelectionLength = 0;
             txtBFilter.Focus();
 
-            RetrieveEntityInformation();
+            var task = RetrieveEntityInformation();
         }
 
         private void FillExplorersMenuItems()
@@ -319,11 +319,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             SelectStatusCodeAction(statusItem);
         }
 
-        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        protected override Task OnRefreshList(ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
 
             FilterStatusCodes();
+
+            return base.OnRefreshList(e);
         }
 
         private void mIOpenEntityInstanceCustomizationInWeb_Click(object sender, RoutedEventArgs e)

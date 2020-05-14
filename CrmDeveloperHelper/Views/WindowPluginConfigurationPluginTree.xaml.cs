@@ -67,7 +67,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!string.IsNullOrEmpty(filePath))
             {
-                LoadPluginConfiguration(filePath);
+                var task = LoadPluginConfiguration(filePath);
             }
         }
 
@@ -174,11 +174,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._imageStepDisabled = this.Resources["ImageStepDisabled"] as BitmapImage;
         }
 
-        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        protected override Task OnRefreshList(ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
 
             ShowExistingPlugins();
+
+            return base.OnRefreshList(e);
         }
 
         private async Task LoadPluginConfiguration(string filePath)
@@ -1211,13 +1213,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.CreatingFileWithDescription);
         }
 
-        private void tSBLoadPluginConfiguraion_Click(object sender, RoutedEventArgs e)
+        private async void tSBLoadPluginConfiguraion_Click(object sender, RoutedEventArgs e)
         {
             var selectedPath = GetPluginConfigurationFilePath(this._iWriteToOutput);
 
             if (!string.IsNullOrEmpty(selectedPath))
             {
-                LoadPluginConfiguration(selectedPath);
+                await LoadPluginConfiguration(selectedPath);
             }
         }
 

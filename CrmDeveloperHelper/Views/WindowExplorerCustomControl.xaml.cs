@@ -78,10 +78,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.DecreaseInit();
 
-            if (service != null)
-            {
-                ShowExistingCustomControls();
-            }
+            var task = ShowExistingCustomControls();
         }
 
         private void FillExplorersMenuItems()
@@ -274,11 +271,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void txtBFilterEnitity_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBFilterEnitity_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                ShowExistingCustomControls();
+                await ShowExistingCustomControls();
             }
         }
 
@@ -369,7 +366,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return filePath;
         }
 
-        private void btnExportAll_Click(object sender, RoutedEventArgs e)
+        private async void btnExportAll_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -378,7 +375,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entity.Id, entity.Name, PerformExportAllXmlAsync);
+            await ExecuteActionAsync(entity.Id, entity.Name, PerformExportAllXmlAsync);
         }
 
         private async Task PerformExportAllXmlAsync(string folder, Guid idCustomControl, string name)
@@ -558,7 +555,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
+        private async void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -567,10 +564,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entity.Id, entity.Name, PerformExportEntityDescriptionAsync);
+            await ExecuteActionAsync(entity.Id, entity.Name, PerformExportEntityDescriptionAsync);
         }
 
-        private void mIChangeEntityInEditor_Click(object sender, RoutedEventArgs e)
+        private async void mIChangeEntityInEditor_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -579,10 +576,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entity.Id, entity.Name, PerformEntityEditor);
+            await ExecuteActionAsync(entity.Id, entity.Name, PerformEntityEditor);
         }
 
-        private void mIDeleteCustomControl_Click(object sender, RoutedEventArgs e)
+        private async void mIDeleteCustomControl_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -591,7 +588,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entity.Id, entity.Name, PerformDeleteEntity);
+            await ExecuteActionAsync(entity.Id, entity.Name, PerformDeleteEntity);
         }
 
         private async Task PerformExportEntityDescriptionAsync(string folder, Guid idCustomControl, string name)
@@ -662,11 +659,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(service.ConnectionData, true, Properties.OutputStrings.DeletingEntityCompletedFormat2, service.ConnectionData.Name, CustomControl.EntityLogicalName);
 
-                ShowExistingCustomControls();
+                await ShowExistingCustomControls();
             }
         }
 
-        private void mIExportCustomControlManifest_Click(object sender, RoutedEventArgs e)
+        private async void mIExportCustomControlManifest_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -675,10 +672,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntityAsync(entity.Id, entity.Name, CustomControl.Schema.Attributes.manifest, CustomControl.Schema.Headers.manifest, "xml", PerformExportXmlToFileAsync);
+            await ExecuteActionEntityAsync(entity.Id, entity.Name, CustomControl.Schema.Attributes.manifest, CustomControl.Schema.Headers.manifest, "xml", PerformExportXmlToFileAsync);
         }
 
-        private void mIExportCustomControlClientJson_Click(object sender, RoutedEventArgs e)
+        private async void mIExportCustomControlClientJson_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -687,14 +684,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntityAsync(entity.Id, entity.Name, CustomControl.Schema.Attributes.clientjson, CustomControl.Schema.Headers.clientjson, "json", PerformExportXmlToFileAsync);
+            await ExecuteActionEntityAsync(entity.Id, entity.Name, CustomControl.Schema.Attributes.clientjson, CustomControl.Schema.Headers.clientjson, "json", PerformExportXmlToFileAsync);
         }
 
-        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        protected override async Task OnRefreshList(ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
 
-            ShowExistingCustomControls();
+            await ShowExistingCustomControls();
         }
 
         protected override bool CanCloseWindow(KeyEventArgs e)
@@ -853,7 +850,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             );
         }
 
-        private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this.Dispatcher.Invoke(() =>
             {
@@ -869,11 +866,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
-                ShowExistingCustomControls();
+                await ShowExistingCustomControls();
             }
         }
 
-        private void mIUpdateCustomControlManifest_Click(object sender, RoutedEventArgs e)
+        private async void mIUpdateCustomControlManifest_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -882,10 +879,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntityAsync(entity.Id, entity.Name, CustomControl.Schema.Attributes.manifest, CustomControl.Schema.Headers.manifest, "xml", PerformUpdateEntityField);
+            await ExecuteActionEntityAsync(entity.Id, entity.Name, CustomControl.Schema.Attributes.manifest, CustomControl.Schema.Headers.manifest, "xml", PerformUpdateEntityField);
         }
 
-        private void mIUpdateCustomControlClientJson_Click(object sender, RoutedEventArgs e)
+        private async void mIUpdateCustomControlClientJson_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -894,7 +891,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntityAsync(entity.Id, entity.Name, CustomControl.Schema.Attributes.clientjson, CustomControl.Schema.Headers.clientjson, "json", PerformUpdateEntityField);
+            await ExecuteActionEntityAsync(entity.Id, entity.Name, CustomControl.Schema.Attributes.clientjson, CustomControl.Schema.Headers.clientjson, "json", PerformUpdateEntityField);
         }
 
         private void miOptions_Click(object sender, RoutedEventArgs e)
@@ -916,7 +913,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             SetCurrentConnection(_iWriteToOutput, GetSelectedConnection());
         }
 
-        private void hyperlinkManifest_Click(object sender, RoutedEventArgs e)
+        private async void hyperlinkManifest_Click(object sender, RoutedEventArgs e)
         {
             EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
 
@@ -927,10 +924,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var entity = item.CustomControl;
 
-            ExecuteActionEntityAsync(entity.Id, entity.Name, CustomControl.Schema.Attributes.manifest, CustomControl.Schema.Headers.manifest, "xml", PerformExportXmlToFileAsync);
+            await ExecuteActionEntityAsync(entity.Id, entity.Name, CustomControl.Schema.Attributes.manifest, CustomControl.Schema.Headers.manifest, "xml", PerformExportXmlToFileAsync);
         }
 
-        private void hyperlinkClientJson_Click(object sender, RoutedEventArgs e)
+        private async void hyperlinkClientJson_Click(object sender, RoutedEventArgs e)
         {
             EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
 
@@ -941,7 +938,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var entity = item.CustomControl;
 
-            ExecuteActionEntityAsync(entity.Id, entity.Name, CustomControl.Schema.Attributes.clientjson, CustomControl.Schema.Headers.clientjson, "json", PerformExportXmlToFileAsync);
+            await ExecuteActionEntityAsync(entity.Id, entity.Name, CustomControl.Schema.Attributes.clientjson, CustomControl.Schema.Headers.clientjson, "json", PerformExportXmlToFileAsync);
         }
 
         private void lstVwCustomControls_CanExecute(object sender, CanExecuteRoutedEventArgs e)

@@ -35,7 +35,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.lstVwEntities.ItemsSource = _itemsSource;
 
-            ShowExistingEntities();
+            var task = ShowExistingEntities();
         }
 
         protected override async Task ShowExistingEntities()

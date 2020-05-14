@@ -60,7 +60,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!string.IsNullOrEmpty(filePath))
             {
-                LoadPluginConfiguration(filePath, SetPluginConfig1, txtBFilePath1);
+                var task = LoadPluginConfiguration(filePath, SetPluginConfig1, txtBFilePath1);
             }
         }
 
@@ -289,7 +289,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Close();
         }
 
-        private void lstVwEntities_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private async void lstVwEntities_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
@@ -297,7 +297,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (item != null)
                 {
-                    ExecuteAction(item.Link, PerformShowingDifference);
+                    await ExecuteAction(item.Link, PerformShowingDifference);
                 }
             }
         }
@@ -342,7 +342,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (File.Exists(filePath1) && File.Exists(filePath2))
                 {
-                    this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                    await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
                 }
                 else
                 {
@@ -389,27 +389,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return filePath;
         }
 
-        private void tSBLoadPluginConfiguration1_Click(object sender, RoutedEventArgs e)
+        private async void tSBLoadPluginConfiguration1_Click(object sender, RoutedEventArgs e)
         {
             var selectedPath = GetPluginConfigurationFilePath(this._iWriteToOutput);
 
             if (!string.IsNullOrEmpty(selectedPath))
             {
-                LoadPluginConfiguration(selectedPath, SetPluginConfig1, txtBFilePath1);
+                await LoadPluginConfiguration(selectedPath, SetPluginConfig1, txtBFilePath1);
             }
         }
 
-        private void tSBLoadPluginConfiguration2_Click(object sender, RoutedEventArgs e)
+        private async void tSBLoadPluginConfiguration2_Click(object sender, RoutedEventArgs e)
         {
             var selectedPath = GetPluginConfigurationFilePath(this._iWriteToOutput);
 
             if (!string.IsNullOrEmpty(selectedPath))
             {
-                LoadPluginConfiguration(selectedPath, SetPluginConfig2, txtBFilePath2);
+                await LoadPluginConfiguration(selectedPath, SetPluginConfig2, txtBFilePath2);
             }
         }
 
-        private void tSMIExportPluginConfiguration1PluginAssemblyDescription_Click(object sender, RoutedEventArgs e)
+        private async void tSMIExportPluginConfiguration1PluginAssemblyDescription_Click(object sender, RoutedEventArgs e)
         {
             var link = GetSelectedEntity();
 
@@ -418,10 +418,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionPluginAssemblyDescription(_handler1, this._pluginDescription1, link.Entity1, PerformExportDescriptionToFile);
+            await ExecuteActionPluginAssemblyDescription(_handler1, this._pluginDescription1, link.Entity1, PerformExportDescriptionToFile);
         }
 
-        private void tSMIExportPluginConfiguration2PluginAssemblyDescription_Click(object sender, RoutedEventArgs e)
+        private async void tSMIExportPluginConfiguration2PluginAssemblyDescription_Click(object sender, RoutedEventArgs e)
         {
             var link = GetSelectedEntity();
 
@@ -430,7 +430,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionPluginAssemblyDescription(_handler2, this._pluginDescription2, link.Entity2, PerformExportDescriptionToFile);
+            await ExecuteActionPluginAssemblyDescription(_handler2, this._pluginDescription2, link.Entity2, PerformExportDescriptionToFile);
         }
 
         private async Task ExecuteActionPluginAssemblyDescription(
@@ -469,7 +469,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(true, Properties.OutputStrings.CreatingDescriptionCompleted);
         }
 
-        private void tSMIShowDifferencePluginAssemblyDescription_Click(object sender, RoutedEventArgs e)
+        private async void tSMIShowDifferencePluginAssemblyDescription_Click(object sender, RoutedEventArgs e)
         {
             var link = GetSelectedEntity();
 
@@ -478,14 +478,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(link, PerformShowingDifference);
+            await ExecuteAction(link, PerformShowingDifference);
         }
 
-        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        protected override Task OnRefreshList(ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
 
             ShowExistingAssemblies();
+
+            return base.OnRefreshList(e);
         }
     }
 }

@@ -136,11 +136,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         protected abstract void btnSelectEntity_Click(object sender, RoutedEventArgs e);
 
-        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        protected override async Task OnRefreshList(ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
 
-            ShowExistingEntities();
+            await ShowExistingEntities();
         }
 
         private void mIOpenEntityInstanceInWeb_Click(object sender, RoutedEventArgs e)

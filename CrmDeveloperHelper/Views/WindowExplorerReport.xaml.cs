@@ -61,10 +61,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.DecreaseInit();
 
-            if (service != null)
-            {
-                ShowExistingReports();
-            }
+            var task = ShowExistingReports();
         }
 
         private void FillExplorersMenuItems()
@@ -283,11 +280,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void txtBFilterEnitity_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBFilterEnitity_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                ShowExistingReports();
+                await ShowExistingReports();
             }
         }
 
@@ -393,7 +390,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return filePath;
         }
 
-        private void btnExportAll_Click(object sender, RoutedEventArgs e)
+        private async void btnExportAll_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -402,7 +399,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity.Id, entity.Name, entity.FileName, PerformExportAll);
+            await ExecuteAction(entity.Id, entity.Name, entity.FileName, PerformExportAll);
         }
 
         private async Task PerformExportAll(string folder, Guid idReport, string name, string filename)
@@ -542,7 +539,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
+        private async void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -551,10 +548,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity.Id, entity.Name, entity.FileName, PerformExportEntityDescription);
+            await ExecuteAction(entity.Id, entity.Name, entity.FileName, PerformExportEntityDescription);
         }
 
-        private void mIChangeEntityInEditor_Click(object sender, RoutedEventArgs e)
+        private async void mIChangeEntityInEditor_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -563,10 +560,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity.Id, entity.Name, entity.FileName, PerformEntityEditor);
+            await ExecuteAction(entity.Id, entity.Name, entity.FileName, PerformEntityEditor);
         }
 
-        private void mIDeleteReport_Click(object sender, RoutedEventArgs e)
+        private async void mIDeleteReport_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -575,7 +572,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity.Id, entity.Name, entity.FileName, PerformDeleteEntity);
+            await ExecuteAction(entity.Id, entity.Name, entity.FileName, PerformDeleteEntity);
         }
 
         private async Task PerformExportEntityDescription(string folder, Guid idReport, string name, string filename)
@@ -646,11 +643,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(service.ConnectionData, true, Properties.OutputStrings.DeletingEntityCompletedFormat2, service.ConnectionData.Name, Report.EntityLogicalName);
 
-                ShowExistingReports();
+                await ShowExistingReports();
             }
         }
 
-        private void mIExportReportBodyText_Click(object sender, RoutedEventArgs e)
+        private async void mIExportReportBodyText_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -659,10 +656,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.bodytext, Report.Schema.Headers.bodytext, PerformExportXmlToFile);
+            await ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.bodytext, Report.Schema.Headers.bodytext, PerformExportXmlToFile);
         }
 
-        private void mIExportReportOriginalBodyText_Click(object sender, RoutedEventArgs e)
+        private async void mIExportReportOriginalBodyText_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -671,10 +668,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.originalbodytext, Report.Schema.Headers.originalbodytext, PerformExportXmlToFile);
+            await ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.originalbodytext, Report.Schema.Headers.originalbodytext, PerformExportXmlToFile);
         }
 
-        private void mIExportReportBodyBinary_Click(object sender, RoutedEventArgs e)
+        private async void mIExportReportBodyBinary_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -683,10 +680,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.bodybinary, Report.Schema.Headers.bodybinary, PerformExportBodyBinary);
+            await ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.bodybinary, Report.Schema.Headers.bodybinary, PerformExportBodyBinary);
         }
 
-        private void mIExportReportDefaultFilter_Click(object sender, RoutedEventArgs e)
+        private async void mIExportReportDefaultFilter_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -695,10 +692,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.defaultfilter, Report.Schema.Headers.defaultfilter, PerformExportXmlToFile);
+            await ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.defaultfilter, Report.Schema.Headers.defaultfilter, PerformExportXmlToFile);
         }
 
-        private void mIExportReportCustomReportXml_Click(object sender, RoutedEventArgs e)
+        private async void mIExportReportCustomReportXml_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -707,10 +704,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.customreportxml, Report.Schema.Headers.customreportxml, PerformExportXmlToFile);
+            await ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.customreportxml, Report.Schema.Headers.customreportxml, PerformExportXmlToFile);
         }
 
-        private void mIExportReportScheduleXml_Click(object sender, RoutedEventArgs e)
+        private async void mIExportReportScheduleXml_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -719,10 +716,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.schedulexml, Report.Schema.Headers.schedulexml, PerformExportXmlToFile);
+            await ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.schedulexml, Report.Schema.Headers.schedulexml, PerformExportXmlToFile);
         }
 
-        private void mIExportReportQueryInfo_Click(object sender, RoutedEventArgs e)
+        private async void mIExportReportQueryInfo_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -731,7 +728,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.queryinfo, Report.Schema.Headers.queryinfo, PerformExportXmlToFile);
+            await ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.queryinfo, Report.Schema.Headers.queryinfo, PerformExportXmlToFile);
         }
 
         private async Task PerformExportBodyBinary(string folder, Guid idReport, string name, string filename, string fieldName, string fieldTitle)
@@ -785,11 +782,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        protected override async Task OnRefreshList(ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
 
-            ShowExistingReports();
+            await ShowExistingReports();
         }
 
         private void mIOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)
@@ -969,7 +966,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             );
         }
 
-        private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this.Dispatcher.Invoke(() =>
             {
@@ -985,11 +982,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
-                ShowExistingReports();
+                await ShowExistingReports();
             }
         }
 
-        private void mIUpdateReportBodyText_Click(object sender, RoutedEventArgs e)
+        private async void mIUpdateReportBodyText_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -998,10 +995,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.bodytext, Report.Schema.Headers.bodytext, PerformUpdateEntityField);
+            await ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.bodytext, Report.Schema.Headers.bodytext, PerformUpdateEntityField);
         }
 
-        private void mIUpdateReportDefaultFilter_Click(object sender, RoutedEventArgs e)
+        private async void mIUpdateReportDefaultFilter_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1010,7 +1007,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.defaultfilter, Report.Schema.Headers.defaultfilter, PerformUpdateEntityField);
+            await ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.defaultfilter, Report.Schema.Headers.defaultfilter, PerformUpdateEntityField);
         }
 
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)
@@ -1018,7 +1015,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             SetCurrentConnection(_iWriteToOutput, cmBCurrentConnection.SelectedItem as ConnectionData);
         }
 
-        private void hyperlinkBodyText_Click(object sender, RoutedEventArgs e)
+        private async void hyperlinkBodyText_Click(object sender, RoutedEventArgs e)
         {
             EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
 
@@ -1029,10 +1026,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var entity = item.Report;
 
-            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.bodytext, Report.Schema.Headers.bodytext, PerformExportXmlToFile);
+            await ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.bodytext, Report.Schema.Headers.bodytext, PerformExportXmlToFile);
         }
 
-        private void hyperlinkOriginalBodyText_Click(object sender, RoutedEventArgs e)
+        private async void hyperlinkOriginalBodyText_Click(object sender, RoutedEventArgs e)
         {
             EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
 
@@ -1043,10 +1040,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var entity = item.Report;
 
-            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.originalbodytext, Report.Schema.Headers.originalbodytext, PerformExportXmlToFile);
+            await ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.originalbodytext, Report.Schema.Headers.originalbodytext, PerformExportXmlToFile);
         }
 
-        private void hyperlinkDefaultFilter_Click(object sender, RoutedEventArgs e)
+        private async void hyperlinkDefaultFilter_Click(object sender, RoutedEventArgs e)
         {
             EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
 
@@ -1057,10 +1054,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var entity = item.Report;
 
-            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.defaultfilter, Report.Schema.Headers.defaultfilter, PerformExportXmlToFile);
+            await ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.defaultfilter, Report.Schema.Headers.defaultfilter, PerformExportXmlToFile);
         }
 
-        private void hyperlinkCustomReportXml_Click(object sender, RoutedEventArgs e)
+        private async void hyperlinkCustomReportXml_Click(object sender, RoutedEventArgs e)
         {
             EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
 
@@ -1071,10 +1068,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var entity = item.Report;
 
-            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.customreportxml, Report.Schema.Headers.customreportxml, PerformExportXmlToFile);
+            await ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.customreportxml, Report.Schema.Headers.customreportxml, PerformExportXmlToFile);
         }
 
-        private void hyperlinkScheduleXml_Click(object sender, RoutedEventArgs e)
+        private async void hyperlinkScheduleXml_Click(object sender, RoutedEventArgs e)
         {
             EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
 
@@ -1085,10 +1082,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var entity = item.Report;
 
-            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.schedulexml, Report.Schema.Headers.schedulexml, PerformExportXmlToFile);
+            await ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.schedulexml, Report.Schema.Headers.schedulexml, PerformExportXmlToFile);
         }
 
-        private void hyperlinkQueryInfo_Click(object sender, RoutedEventArgs e)
+        private async void hyperlinkQueryInfo_Click(object sender, RoutedEventArgs e)
         {
             EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
 
@@ -1099,10 +1096,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var entity = item.Report;
 
-            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.queryinfo, Report.Schema.Headers.queryinfo, PerformExportXmlToFile);
+            await ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.queryinfo, Report.Schema.Headers.queryinfo, PerformExportXmlToFile);
         }
 
-        private void hyperlinkBodyBinary_Click(object sender, RoutedEventArgs e)
+        private async void hyperlinkBodyBinary_Click(object sender, RoutedEventArgs e)
         {
             EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
 
@@ -1113,7 +1110,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var entity = item.Report;
 
-            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.bodybinary, Report.Schema.Headers.bodybinary, PerformExportBodyBinary);
+            await ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.bodybinary, Report.Schema.Headers.bodybinary, PerformExportBodyBinary);
         }
 
         private void lstVwReports_CanExecute(object sender, CanExecuteRoutedEventArgs e)

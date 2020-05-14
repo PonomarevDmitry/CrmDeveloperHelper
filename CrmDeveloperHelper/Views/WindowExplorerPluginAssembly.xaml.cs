@@ -61,10 +61,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.DecreaseInit();
 
-            if (service != null)
-            {
-                ShowExistingPluginAssemblies();
-            }
+            var task = ShowExistingPluginAssemblies();
         }
 
         private void FillExplorersMenuItems()
@@ -317,11 +314,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void txtBFilterEnitity_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBFilterEnitity_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                ShowExistingPluginAssemblies();
+                await ShowExistingPluginAssemblies();
             }
         }
 
@@ -336,7 +333,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Close();
         }
 
-        private void lstVwEntities_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private async void lstVwEntities_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
@@ -344,7 +341,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (item != null)
                 {
-                    ExecuteAction(item.PluginAssembly.Id, item.PluginAssembly.Name, PerformExportMouseDoubleClick);
+                    await ExecuteAction(item.PluginAssembly.Id, item.PluginAssembly.Name, PerformExportMouseDoubleClick);
                 }
             }
         }
@@ -380,7 +377,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void btnExportAll_Click(object sender, RoutedEventArgs e)
+        private async void btnExportAll_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -389,7 +386,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity.Id, entity.Name, PerformExportAllXml);
+            await ExecuteAction(entity.Id, entity.Name, PerformExportAllXml);
         }
 
         private async Task PerformExportAllXml(string folder, Guid idPluginAssembly, string name)
@@ -397,7 +394,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await PerformExportAssemblyDescription(folder, idPluginAssembly, name);
         }
 
-        private void mICreatePluginAssemblyDescription_Click(object sender, RoutedEventArgs e)
+        private async void mICreatePluginAssemblyDescription_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -406,10 +403,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity.Id, entity.Name, PerformExportAssemblyDescription);
+            await ExecuteAction(entity.Id, entity.Name, PerformExportAssemblyDescription);
         }
 
-        private void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
+        private async void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -418,10 +415,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity.Id, entity.Name, PerformExportEntityDescription);
+            await ExecuteAction(entity.Id, entity.Name, PerformExportEntityDescription);
         }
 
-        private void mIChangeEntityInEditor_Click(object sender, RoutedEventArgs e)
+        private async void mIChangeEntityInEditor_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -430,10 +427,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity.Id, entity.Name, PerformEntityEditor);
+            await ExecuteAction(entity.Id, entity.Name, PerformEntityEditor);
         }
 
-        private void mIDeletePluginAssembly_Click(object sender, RoutedEventArgs e)
+        private async void mIDeletePluginAssembly_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -442,10 +439,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity.Id, entity.Name, PerformDeleteEntity);
+            await ExecuteAction(entity.Id, entity.Name, PerformDeleteEntity);
         }
 
-        private void mIExportPluginAssemblyBinaryContent_Click(object sender, RoutedEventArgs e)
+        private async void mIExportPluginAssemblyBinaryContent_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -454,7 +451,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity.Id, entity.Name, ExecuteExportAssembly);
+            await ExecuteAction(entity.Id, entity.Name, ExecuteExportAssembly);
         }
 
         private async Task PerformExportAssemblyDescription(string folder, Guid idPluginAssembly, string name)
@@ -536,7 +533,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(service.ConnectionData, true, Properties.OutputStrings.DeletingEntityCompletedFormat2, service.ConnectionData.Name, PluginAssembly.EntityLogicalName);
 
-                ShowExistingPluginAssemblies();
+                await ShowExistingPluginAssemblies();
             }
         }
 
@@ -570,11 +567,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ExportingPluginAssemblyBodyBinaryCompletedFormat1, name);
         }
 
-        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        protected override async Task OnRefreshList(ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
 
-            ShowExistingPluginAssemblies();
+            await ShowExistingPluginAssemblies();
         }
 
         private void mIOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)
@@ -686,7 +683,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mICompareWithLocalAssembly_Click(object sender, RoutedEventArgs e)
+        private async void mICompareWithLocalAssembly_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -695,7 +692,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity.Id, entity.Name, PerformComparingAssembly);
+            await ExecuteAction(entity.Id, entity.Name, PerformComparingAssembly);
         }
 
         private async Task PerformComparingAssembly(string folder, Guid idPluginAssembly, string name)
@@ -797,7 +794,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             );
         }
 
-        private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this.Dispatcher.Invoke(() =>
             {
@@ -813,7 +810,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
-                ShowExistingPluginAssemblies();
+                await ShowExistingPluginAssemblies();
             }
         }
 
@@ -827,7 +824,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (form.ShowDialog().GetValueOrDefault())
             {
-                ShowExistingPluginAssemblies();
+                await ShowExistingPluginAssemblies();
             }
         }
 

@@ -147,10 +147,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.DecreaseInit();
 
-            if (service != null)
-            {
-                ShowExistingSystemForms();
-            }
+            var task = ShowExistingSystemForms();
         }
 
         private void FillExplorersMenuItems()
@@ -423,17 +420,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void txtBFilterEnitity_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBFilterEnitity_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                ShowExistingSystemForms();
+                await ShowExistingSystemForms();
             }
         }
 
-        private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ShowExistingSystemForms();
+            await ShowExistingSystemForms();
         }
 
         private SystemForm GetSelectedEntity()
@@ -542,7 +539,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return filePath;
         }
 
-        private void btnExportAll_Click(object sender, RoutedEventArgs e)
+        private async void btnExportAll_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -551,7 +548,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entity.Id, entity.ObjectTypeCode, entity.Name, PerformExportAllXmlAsync);
+            await ExecuteActionAsync(entity.Id, entity.ObjectTypeCode, entity.Name, PerformExportAllXmlAsync);
         }
 
         private async Task PerformExportAllXmlAsync(string folder, Guid idSystemForm, string entityName, string name)
@@ -768,7 +765,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
+        private async void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -777,10 +774,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entity.Id, entity.ObjectTypeCode, entity.Name, PerformExportEntityDescriptionAsync);
+            await ExecuteActionAsync(entity.Id, entity.ObjectTypeCode, entity.Name, PerformExportEntityDescriptionAsync);
         }
 
-        private void mIChangeEntityInEditor_Click(object sender, RoutedEventArgs e)
+        private async void mIChangeEntityInEditor_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -789,10 +786,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entity.Id, entity.ObjectTypeCode, entity.Name, PerformEntityEditor);
+            await ExecuteActionAsync(entity.Id, entity.ObjectTypeCode, entity.Name, PerformEntityEditor);
         }
 
-        private void mIChangeStateSystemForm_Click(object sender, RoutedEventArgs e)
+        private async void mIChangeStateSystemForm_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -801,10 +798,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entity.Id, entity.ObjectTypeCode, entity.Name, PerformChangeStateSystemForm);
+            await ExecuteActionAsync(entity.Id, entity.ObjectTypeCode, entity.Name, PerformChangeStateSystemForm);
         }
 
-        private void mIDeleteSystemForm_Click(object sender, RoutedEventArgs e)
+        private async void mIDeleteSystemForm_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -813,7 +810,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entity.Id, entity.ObjectTypeCode, entity.Name, PerformDeleteEntity);
+            await ExecuteActionAsync(entity.Id, entity.ObjectTypeCode, entity.Name, PerformDeleteEntity);
         }
 
         private async Task PerformExportEntityDescriptionAsync(string folder, Guid idSystemForm, string entityName, string name)
@@ -910,7 +907,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
             }
 
-            ShowExistingSystemForms();
+            await ShowExistingSystemForms();
         }
 
         private async Task PerformDeleteEntity(string folder, Guid idSystemForm, string entityName, string name)
@@ -938,11 +935,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(service.ConnectionData, true, Properties.OutputStrings.DeletingEntityCompletedFormat2, service.ConnectionData.Name, SystemForm.EntityLogicalName);
 
-                ShowExistingSystemForms();
+                await ShowExistingSystemForms();
             }
         }
 
-        private void mIPublishSystemForm_Click(object sender, RoutedEventArgs e)
+        private async void mIPublishSystemForm_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -951,7 +948,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entity.Id, entity.ObjectTypeCode, entity.Name, PerformPublishSystemFormAsync);
+            await ExecuteActionAsync(entity.Id, entity.ObjectTypeCode, entity.Name, PerformPublishSystemFormAsync);
         }
 
         private async Task PerformPublishSystemFormAsync(string folder, Guid idSystemForm, string entityName, string name)
@@ -1003,7 +1000,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.PublishingSystemFormFormat3, service.ConnectionData.Name, entityName, name);
         }
 
-        private void btnPublishEntity_Click(object sender, RoutedEventArgs e)
+        private async void btnPublishEntity_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1014,7 +1011,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entity.Id, entity.ObjectTypeCode, entity.Name, PerformPublishEntityAsync);
+            await ExecuteActionAsync(entity.Id, entity.ObjectTypeCode, entity.Name, PerformPublishEntityAsync);
         }
 
         private async Task PerformPublishEntityAsync(string folder, Guid idSystemForm, string entityName, string name)
@@ -1048,7 +1045,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
         }
 
-        private void mIExportSystemFormDescription_Click(object sender, RoutedEventArgs e)
+        private async void mIExportSystemFormDescription_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1057,7 +1054,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entity.Id, entity.ObjectTypeCode, entity.Name, PerformExportFormDescriptionToFileAsync);
+            await ExecuteActionAsync(entity.Id, entity.ObjectTypeCode, entity.Name, PerformExportFormDescriptionToFileAsync);
         }
 
         private async Task PerformExportFormDescriptionToFileAsync(string folder, Guid idSystemForm, string entityName, string name)
@@ -1106,7 +1103,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingSystemFormDescriptionCompletedFormat2, entityName, name);
         }
 
-        private void mIExportSystemFormFormXml_Click(object sender, RoutedEventArgs e)
+        private async void mIExportSystemFormFormXml_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1115,10 +1112,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntityAsync(entity.Id, entity.ObjectTypeCode, entity.Name, SystemForm.Schema.Attributes.formxml, SystemForm.Schema.Headers.formxml, "xml", PerformExportXmlToFileAsync);
+            await ExecuteActionEntityAsync(entity.Id, entity.ObjectTypeCode, entity.Name, SystemForm.Schema.Attributes.formxml, SystemForm.Schema.Headers.formxml, "xml", PerformExportXmlToFileAsync);
         }
 
-        private void mIExportSystemFormFormJson_Click(object sender, RoutedEventArgs e)
+        private async void mIExportSystemFormFormJson_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1127,10 +1124,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntityAsync(entity.Id, entity.ObjectTypeCode, entity.Name, SystemForm.Schema.Attributes.formjson, SystemForm.Schema.Headers.formjson, "json", PerformExportXmlToFileAsync);
+            await ExecuteActionEntityAsync(entity.Id, entity.ObjectTypeCode, entity.Name, SystemForm.Schema.Attributes.formjson, SystemForm.Schema.Headers.formjson, "json", PerformExportXmlToFileAsync);
         }
 
-        private void mIExportSystemFormWebResources_Click(object sender, RoutedEventArgs e)
+        private async void mIExportSystemFormWebResources_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1139,7 +1136,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entity.Id, entity.ObjectTypeCode, entity.Name, PerformDownloadWebResources);
+            await ExecuteActionAsync(entity.Id, entity.ObjectTypeCode, entity.Name, PerformDownloadWebResources);
         }
 
         private async Task PerformDownloadWebResources(string folder, Guid idSystemForm, string entityName, string name)
@@ -1237,7 +1234,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return localFilePath;
         }
 
-        private void mIExportSystemFormEntityJavaScriptFileJsonObject_Click(object sender, RoutedEventArgs e)
+        private async void mIExportSystemFormEntityJavaScriptFileJsonObject_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1246,10 +1243,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteJavaScriptObjectTypeAsync(entity.Id, entity.ObjectTypeCode, entity.Name, JavaScriptObjectType.JsonObject, PerformCreateEntityJavaScriptFileBasedOnForm);
+            await ExecuteJavaScriptObjectTypeAsync(entity.Id, entity.ObjectTypeCode, entity.Name, JavaScriptObjectType.JsonObject, PerformCreateEntityJavaScriptFileBasedOnForm);
         }
 
-        private void mIExportSystemFormEntityJavaScriptFileAnonymousConstructor_Click(object sender, RoutedEventArgs e)
+        private async void mIExportSystemFormEntityJavaScriptFileAnonymousConstructor_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1258,10 +1255,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteJavaScriptObjectTypeAsync(entity.Id, entity.ObjectTypeCode, entity.Name, JavaScriptObjectType.AnonymousConstructor, PerformCreateEntityJavaScriptFileBasedOnForm);
+            await ExecuteJavaScriptObjectTypeAsync(entity.Id, entity.ObjectTypeCode, entity.Name, JavaScriptObjectType.AnonymousConstructor, PerformCreateEntityJavaScriptFileBasedOnForm);
         }
 
-        private void mIExportSystemFormEntityJavaScriptFileTypeConstructor_Click(object sender, RoutedEventArgs e)
+        private async void mIExportSystemFormEntityJavaScriptFileTypeConstructor_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1270,7 +1267,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteJavaScriptObjectTypeAsync(entity.Id, entity.ObjectTypeCode, entity.Name, JavaScriptObjectType.TypeConstructor, PerformCreateEntityJavaScriptFileBasedOnForm);
+            await ExecuteJavaScriptObjectTypeAsync(entity.Id, entity.ObjectTypeCode, entity.Name, JavaScriptObjectType.TypeConstructor, PerformCreateEntityJavaScriptFileBasedOnForm);
         }
 
         private async Task PerformCreateEntityJavaScriptFileBasedOnForm(string folder, Guid idSystemForm, string entityName, string name, JavaScriptObjectType javaScriptObjectType)
@@ -1367,11 +1364,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingEntityJavaScriptFileOnFormCompletedFormat2, entityName, name);
         }
 
-        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        protected override async Task OnRefreshList(ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
 
-            ShowExistingSystemForms();
+            await ShowExistingSystemForms();
         }
 
         protected override bool CanCloseWindow(KeyEventArgs e)
@@ -1644,7 +1641,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             );
         }
 
-        private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this.Dispatcher.Invoke(() =>
             {
@@ -1660,11 +1657,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
-                ShowExistingSystemForms();
+                await ShowExistingSystemForms();
             }
         }
 
-        private void mIUpdateSystemFormFormXml_Click(object sender, RoutedEventArgs e)
+        private async void mIUpdateSystemFormFormXml_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1673,10 +1670,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntityAsync(entity.Id, entity.ObjectTypeCode, entity.Name, SystemForm.Schema.Attributes.formxml, SystemForm.Schema.Headers.formxml, "xml", PerformUpdateEntityField);
+            await ExecuteActionEntityAsync(entity.Id, entity.ObjectTypeCode, entity.Name, SystemForm.Schema.Attributes.formxml, SystemForm.Schema.Headers.formxml, "xml", PerformUpdateEntityField);
         }
 
-        private void mIUpdateSystemFormFormJson_Click(object sender, RoutedEventArgs e)
+        private async void mIUpdateSystemFormFormJson_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1685,7 +1682,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntityAsync(entity.Id, entity.ObjectTypeCode, entity.Name, SystemForm.Schema.Attributes.formjson, SystemForm.Schema.Headers.formjson, "json", PerformUpdateEntityField);
+            await ExecuteActionEntityAsync(entity.Id, entity.ObjectTypeCode, entity.Name, SystemForm.Schema.Attributes.formjson, SystemForm.Schema.Headers.formjson, "json", PerformUpdateEntityField);
         }
 
         private void mIOpenEntityInWeb_Click(object sender, RoutedEventArgs e)
@@ -1765,7 +1762,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             SetCurrentConnection(_iWriteToOutput, GetSelectedConnection());
         }
 
-        private void mISystemFormCopyJsonObject_Click(object sender, RoutedEventArgs e)
+        private async void mISystemFormCopyJsonObject_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1774,10 +1771,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteJavaScriptObjectTypeAsync(entity.Id, entity.ObjectTypeCode, entity.Name, JavaScriptObjectType.JsonObject, PerformCopyBasedOnForm);
+            await ExecuteJavaScriptObjectTypeAsync(entity.Id, entity.ObjectTypeCode, entity.Name, JavaScriptObjectType.JsonObject, PerformCopyBasedOnForm);
         }
 
-        private void mISystemFormCopyConstructor_Click(object sender, RoutedEventArgs e)
+        private async void mISystemFormCopyConstructor_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1786,7 +1783,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteJavaScriptObjectTypeAsync(entity.Id, entity.ObjectTypeCode, entity.Name, JavaScriptObjectType.TypeConstructor, PerformCopyBasedOnForm);
+            await ExecuteJavaScriptObjectTypeAsync(entity.Id, entity.ObjectTypeCode, entity.Name, JavaScriptObjectType.TypeConstructor, PerformCopyBasedOnForm);
         }
 
         private async Task PerformCopyBasedOnForm(string folder, Guid idSystemForm, string entityName, string name, JavaScriptObjectType javaScriptObjectType)
@@ -1843,7 +1840,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CopyingEntityJavaScriptContentOnFormCompletedFormat2, entityName, name);
         }
 
-        private void mISystemFormCopyFormProperties_Click(object sender, RoutedEventArgs e)
+        private async void mISystemFormCopyFormProperties_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1852,7 +1849,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteJavaScriptObjectTypeAsync(entity.Id, entity.ObjectTypeCode, entity.Name, JavaScriptObjectType.TypeConstructor, PerformCopyFormPropertiesBasedOnForm);
+            await ExecuteJavaScriptObjectTypeAsync(entity.Id, entity.ObjectTypeCode, entity.Name, JavaScriptObjectType.TypeConstructor, PerformCopyFormPropertiesBasedOnForm);
         }
 
         private async Task PerformCopyFormPropertiesBasedOnForm(string folder, Guid idSystemForm, string entityName, string name, JavaScriptObjectType javaScriptObjectType)
@@ -1908,7 +1905,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CopyingEntityJavaScriptContentOnFormCompletedFormat2, entityName, name);
         }
 
-        private void hyperlinkFormDescription_Click(object sender, RoutedEventArgs e)
+        private async void hyperlinkFormDescription_Click(object sender, RoutedEventArgs e)
         {
             EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
 
@@ -1919,10 +1916,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var entity = item.SystemForm;
 
-            ExecuteActionAsync(entity.Id, entity.ObjectTypeCode, entity.Name, PerformExportFormDescriptionToFileAsync);
+            await ExecuteActionAsync(entity.Id, entity.ObjectTypeCode, entity.Name, PerformExportFormDescriptionToFileAsync);
         }
 
-        private void hyperlinkFormXml_Click(object sender, RoutedEventArgs e)
+        private async void hyperlinkFormXml_Click(object sender, RoutedEventArgs e)
         {
             EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
 
@@ -1933,10 +1930,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var entity = item.SystemForm;
 
-            ExecuteActionEntityAsync(entity.Id, entity.ObjectTypeCode, entity.Name, SystemForm.Schema.Attributes.formxml, SystemForm.Schema.Headers.formxml, "xml", PerformExportXmlToFileAsync);
+            await ExecuteActionEntityAsync(entity.Id, entity.ObjectTypeCode, entity.Name, SystemForm.Schema.Attributes.formxml, SystemForm.Schema.Headers.formxml, "xml", PerformExportXmlToFileAsync);
         }
 
-        private void hyperlinkFormJson_Click(object sender, RoutedEventArgs e)
+        private async void hyperlinkFormJson_Click(object sender, RoutedEventArgs e)
         {
             EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
 
@@ -1947,10 +1944,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var entity = item.SystemForm;
 
-            ExecuteActionEntityAsync(entity.Id, entity.ObjectTypeCode, entity.Name, SystemForm.Schema.Attributes.formjson, SystemForm.Schema.Headers.formjson, "json", PerformExportXmlToFileAsync);
+            await ExecuteActionEntityAsync(entity.Id, entity.ObjectTypeCode, entity.Name, SystemForm.Schema.Attributes.formjson, SystemForm.Schema.Headers.formjson, "json", PerformExportXmlToFileAsync);
         }
 
-        private void hyperlinkJavaScriptFileJsonObject_Click(object sender, RoutedEventArgs e)
+        private async void hyperlinkJavaScriptFileJsonObject_Click(object sender, RoutedEventArgs e)
         {
             EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
 
@@ -1961,10 +1958,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var entity = item.SystemForm;
 
-            ExecuteJavaScriptObjectTypeAsync(entity.Id, entity.ObjectTypeCode, entity.Name, JavaScriptObjectType.JsonObject, PerformCreateEntityJavaScriptFileBasedOnForm);
+            await ExecuteJavaScriptObjectTypeAsync(entity.Id, entity.ObjectTypeCode, entity.Name, JavaScriptObjectType.JsonObject, PerformCreateEntityJavaScriptFileBasedOnForm);
         }
 
-        private void hyperlinkJavaScriptFileAnonymousConstructor_Click(object sender, RoutedEventArgs e)
+        private async void hyperlinkJavaScriptFileAnonymousConstructor_Click(object sender, RoutedEventArgs e)
         {
             EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
 
@@ -1975,10 +1972,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var entity = item.SystemForm;
 
-            ExecuteJavaScriptObjectTypeAsync(entity.Id, entity.ObjectTypeCode, entity.Name, JavaScriptObjectType.AnonymousConstructor, PerformCreateEntityJavaScriptFileBasedOnForm);
+            await ExecuteJavaScriptObjectTypeAsync(entity.Id, entity.ObjectTypeCode, entity.Name, JavaScriptObjectType.AnonymousConstructor, PerformCreateEntityJavaScriptFileBasedOnForm);
         }
 
-        private void hyperlinkJavaScriptFileTypeConstructor_Click(object sender, RoutedEventArgs e)
+        private async void hyperlinkJavaScriptFileTypeConstructor_Click(object sender, RoutedEventArgs e)
         {
             EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
 
@@ -1989,10 +1986,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var entity = item.SystemForm;
 
-            ExecuteJavaScriptObjectTypeAsync(entity.Id, entity.ObjectTypeCode, entity.Name, JavaScriptObjectType.TypeConstructor, PerformCreateEntityJavaScriptFileBasedOnForm);
+            await ExecuteJavaScriptObjectTypeAsync(entity.Id, entity.ObjectTypeCode, entity.Name, JavaScriptObjectType.TypeConstructor, PerformCreateEntityJavaScriptFileBasedOnForm);
         }
 
-        private void hyperlinkPublishSystemForm_Click(object sender, RoutedEventArgs e)
+        private async void hyperlinkPublishSystemForm_Click(object sender, RoutedEventArgs e)
         {
             EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
 
@@ -2003,10 +2000,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var entity = item.SystemForm;
 
-            ExecuteActionAsync(entity.Id, entity.ObjectTypeCode, entity.Name, PerformPublishSystemFormAsync);
+            await ExecuteActionAsync(entity.Id, entity.ObjectTypeCode, entity.Name, PerformPublishSystemFormAsync);
         }
 
-        private void hyperlinkPublishEntity_Click(object sender, RoutedEventArgs e)
+        private async void hyperlinkPublishEntity_Click(object sender, RoutedEventArgs e)
         {
             EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
 
@@ -2024,7 +2021,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entity.Id, entity.ObjectTypeCode, entity.Name, PerformPublishEntityAsync);
+            await ExecuteActionAsync(entity.Id, entity.ObjectTypeCode, entity.Name, PerformPublishEntityAsync);
         }
 
         private void lstVwSystemForms_CanExecute(object sender, CanExecuteRoutedEventArgs e)

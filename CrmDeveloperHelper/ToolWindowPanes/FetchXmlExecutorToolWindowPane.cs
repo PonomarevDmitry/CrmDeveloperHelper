@@ -45,7 +45,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.ToolWindowPanes
             this.Caption = string.Format(Properties.CommandNames.FetchXmlExecutorNameFormat2, Path.GetFileName(FilePath), this._control.ConnectionData?.Name);
         }
 
-        public void Execute() => this._control.Execute();
+        public void Execute()
+        {
+            var task = this._control.Execute();
+        }
 
         protected override void Dispose(bool disposing)
         {

@@ -57,7 +57,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!string.IsNullOrEmpty(filePath))
             {
-                LoadSolutionImage(filePath);
+                var task = LoadSolutionImage(filePath);
             }
         }
 
@@ -367,7 +367,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         //}
 
-        private void tSBLoadSolutionImage_Click(object sender, RoutedEventArgs e)
+        private async void tSBLoadSolutionImage_Click(object sender, RoutedEventArgs e)
         {
             string selectedPath = string.Empty;
             var t = new Thread(() =>
@@ -399,15 +399,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!string.IsNullOrEmpty(selectedPath))
             {
-                LoadSolutionImage(selectedPath);
+                await LoadSolutionImage(selectedPath);
             }
         }
 
-        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        protected override Task OnRefreshList(ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
 
             FilteringSolutionImageComponents();
+
+            return base.OnRefreshList(e);
         }
 
         private void cmBComponentType_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -558,19 +560,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void AddToSolution_Click(object sender, RoutedEventArgs e)
+        private async void AddToSolution_Click(object sender, RoutedEventArgs e)
         {
-            AddToSolutionAsync(true, null);
+            await AddToSolutionAsync(true, null);
         }
 
-        private void AddToSolutionLast_Click(object sender, RoutedEventArgs e)
+        private async void AddToSolutionLast_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
               && menuItem.Tag != null
               && menuItem.Tag is string solutionUniqueName
               )
             {
-                AddToSolutionAsync(false, solutionUniqueName);
+                await AddToSolutionAsync(false, solutionUniqueName);
             }
         }
 

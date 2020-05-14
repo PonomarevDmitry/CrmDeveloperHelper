@@ -108,10 +108,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             FocusOnComboBoxTextBox(cmBFilter);
 
-            if (service != null)
-            {
-                ShowExistingSolutions();
-            }
+            var task = ShowExistingSolutions();
         }
 
         private void FillExplorersMenuItems()
@@ -544,7 +541,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         tSDDBClearUnmanagedSolution.IsEnabled = tSDDBClearUnmanagedSolution.Items.Count > 0;
                     }
 
-                    FillChangeComponentsToLastSelectedSolutionsAsync();
+                    var task = FillChangeComponentsToLastSelectedSolutionsAsync();
                 }
                 catch (Exception ex)
                 {
@@ -1264,11 +1261,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void cmBFilterEnitity_KeyDown(object sender, KeyEventArgs e)
+        private async void cmBFilterEnitity_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                ShowExistingSolutions();
+                await ShowExistingSolutions();
             }
         }
 
@@ -1332,33 +1329,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mIComponents_Click(object sender, RoutedEventArgs e)
+        private async void mIComponents_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag is Solution solution
-                )
+            )
             {
-                ExecuteActionOnSingleSolution(solution, PerformCreateFileWithSolutionComponents);
+                await ExecuteActionOnSingleSolution(solution, PerformCreateFileWithSolutionComponents);
             }
         }
 
-        private void mICreateSolutionImage_Click(object sender, RoutedEventArgs e)
+        private async void mICreateSolutionImage_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag is Solution solution
-                )
+            )
             {
-                ExecuteActionOnSingleSolution(solution, PerformCreateSolutionImage);
+                await ExecuteActionOnSingleSolution(solution, PerformCreateSolutionImage);
             }
         }
 
-        private void mICreateSolutionImageAndOpenOrganizationComparer_Click(object sender, RoutedEventArgs e)
+        private async void mICreateSolutionImageAndOpenOrganizationComparer_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag is Solution solution
-                )
+            )
             {
-                ExecuteActionOnSingleSolution(solution, PerformCreateSolutionImageAndOpenOrganizationComparer);
+                await ExecuteActionOnSingleSolution(solution, PerformCreateSolutionImageAndOpenOrganizationComparer);
             }
         }
 
@@ -1366,7 +1363,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag is Solution solution
-                )
+            )
             {
                 ExecuteActionOnSingleSolutionWithoutFolderCheck(solution, PerformOpenSolutionComponentsInExplorer);
             }
@@ -1377,29 +1374,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (sender is MenuItem menuItem
                 && menuItem.Tag is Solution solution
                 && !string.IsNullOrEmpty(solution.Description)
-                )
+            )
             {
                 ExecuteActionOnSingleSolutionWithoutFolderCheck(solution, PerformOpenSolutionDescriptionInExplorerAsync);
             }
         }
 
-        private void mIMissingComponents_Click(object sender, RoutedEventArgs e)
+        private async void mIMissingComponents_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
-               && menuItem.Tag is Solution solution
-               )
+                && menuItem.Tag is Solution solution
+            )
             {
-                ExecuteActionOnSingleSolution(solution, PerformShowingMissingDependencies);
+                await ExecuteActionOnSingleSolution(solution, PerformShowingMissingDependencies);
             }
         }
 
-        private void mIUninstallComponents_Click(object sender, RoutedEventArgs e)
+        private async void mIUninstallComponents_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
-               && menuItem.Tag is Solution solution
-               )
+                && menuItem.Tag is Solution solution
+            )
             {
-                ExecuteActionOnSingleSolution(solution, PerformShowingDependenciesForUninstall);
+                await ExecuteActionOnSingleSolution(solution, PerformShowingDependenciesForUninstall);
             }
         }
 
@@ -1658,29 +1655,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mICompareSolutions_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is MenuItem menuItem
-               && menuItem.Tag is Tuple<Solution, Solution> solutionPair
-               && solutionPair.Item1 != null
-               && solutionPair.Item2 != null
-               && !string.Equals(solutionPair.Item1.UniqueName, solutionPair.Item2.UniqueName, StringComparison.InvariantCultureIgnoreCase)
-               )
-            {
-                ExecuteActionOnSolutionPair(solutionPair.Item1, solutionPair.Item2, PerformCompareSolutions);
-            }
-        }
-
-        private void mIShowUniqueComponentsInSolution_Click(object sender, RoutedEventArgs e)
+        private async void mICompareSolutions_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag is Tuple<Solution, Solution> solutionPair
                 && solutionPair.Item1 != null
                 && solutionPair.Item2 != null
                 && !string.Equals(solutionPair.Item1.UniqueName, solutionPair.Item2.UniqueName, StringComparison.InvariantCultureIgnoreCase)
-                )
+            )
             {
-                ExecuteActionOnSolutionPair(solutionPair.Item1, solutionPair.Item2, PerformCompareSolutionsAndShowUnique);
+                await ExecuteActionOnSolutionPair(solutionPair.Item1, solutionPair.Item2, PerformCompareSolutions);
+            }
+        }
+
+        private async void mIShowUniqueComponentsInSolution_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+                && menuItem.Tag is Tuple<Solution, Solution> solutionPair
+                && solutionPair.Item1 != null
+                && solutionPair.Item2 != null
+                && !string.Equals(solutionPair.Item1.UniqueName, solutionPair.Item2.UniqueName, StringComparison.InvariantCultureIgnoreCase)
+            )
+            {
+                await ExecuteActionOnSolutionPair(solutionPair.Item1, solutionPair.Item2, PerformCompareSolutionsAndShowUnique);
             }
         }
 
@@ -1806,15 +1803,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mICopyComponentsFromSolution1ToSolution2_Click(object sender, RoutedEventArgs e)
+        private async void mICopyComponentsFromSolution1ToSolution2_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
-               && menuItem.Tag is Tuple<Solution, Solution> solutionPair
-               && solutionPair.Item1 != null
-               && solutionPair.Item2 != null
-               && !string.Equals(solutionPair.Item1.UniqueName, solutionPair.Item2.UniqueName, StringComparison.InvariantCultureIgnoreCase)
-               && solutionPair.Item2.IsManaged.GetValueOrDefault() == false
-               )
+                && menuItem.Tag is Tuple<Solution, Solution> solutionPair
+                && solutionPair.Item1 != null
+                && solutionPair.Item2 != null
+                && !string.Equals(solutionPair.Item1.UniqueName, solutionPair.Item2.UniqueName, StringComparison.InvariantCultureIgnoreCase)
+                && solutionPair.Item2.IsManaged.GetValueOrDefault() == false
+            )
             {
                 string question = string.Format(Properties.MessageBoxStrings.CopySolutionComponentsFromToFormat2, solutionPair.Item1.UniqueName, solutionPair.Item2.UniqueName);
 
@@ -1823,18 +1820,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     return;
                 }
 
-                ExecuteActionOnSolutionPair(solutionPair.Item1, solutionPair.Item2, PerformCopyFromSolution1ToSolution2);
+                await ExecuteActionOnSolutionPair(solutionPair.Item1, solutionPair.Item2, PerformCopyFromSolution1ToSolution2);
             }
         }
 
-        private void mICopyComponentsFromSolutionCollectionToSolution_Click(object sender, RoutedEventArgs e)
+        private async void mICopyComponentsFromSolutionCollectionToSolution_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
-               && menuItem.Tag is Tuple<Solution[], Solution> solutionPair
-               && solutionPair.Item1 != null
-               && solutionPair.Item2 != null
-               && solutionPair.Item2.IsManaged.GetValueOrDefault() == false
-               )
+                && menuItem.Tag is Tuple<Solution[], Solution> solutionPair
+                && solutionPair.Item1 != null
+                && solutionPair.Item2 != null
+                && solutionPair.Item2.IsManaged.GetValueOrDefault() == false
+            )
             {
                 foreach (var item in solutionPair.Item1)
                 {
@@ -1853,19 +1850,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     return;
                 }
 
-                ExecuteActionOnSolutionAndSolutionCollection(solutionPair.Item1, solutionPair.Item2, PerformCopyFromSolutionCollectionToSolution);
+                await ExecuteActionOnSolutionAndSolutionCollection(solutionPair.Item1, solutionPair.Item2, PerformCopyFromSolutionCollectionToSolution);
             }
         }
 
-        private void mIRemoveComponentsOwnedSolution1FromSolution2_Click(object sender, RoutedEventArgs e)
+        private async void mIRemoveComponentsOwnedSolution1FromSolution2_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
-               && menuItem.Tag is Tuple<Solution, Solution> solutionPair
-               && solutionPair.Item1 != null
-               && solutionPair.Item2 != null
-               && !string.Equals(solutionPair.Item1.UniqueName, solutionPair.Item2.UniqueName, StringComparison.InvariantCultureIgnoreCase)
-               && solutionPair.Item2.IsManaged.GetValueOrDefault() == false
-               )
+                && menuItem.Tag is Tuple<Solution, Solution> solutionPair
+                && solutionPair.Item1 != null
+                && solutionPair.Item2 != null
+                && !string.Equals(solutionPair.Item1.UniqueName, solutionPair.Item2.UniqueName, StringComparison.InvariantCultureIgnoreCase)
+                && solutionPair.Item2.IsManaged.GetValueOrDefault() == false
+            )
             {
                 string question = string.Format(Properties.MessageBoxStrings.RemoveSolutionComponentsFromToFormat2, solutionPair.Item1.UniqueName, solutionPair.Item2.UniqueName);
 
@@ -1874,18 +1871,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     return;
                 }
 
-                ExecuteActionOnSolutionPair(solutionPair.Item1, solutionPair.Item2, PerformRemoveFromSolution1ToSolution2);
+                await ExecuteActionOnSolutionPair(solutionPair.Item1, solutionPair.Item2, PerformRemoveFromSolution1ToSolution2);
             }
         }
 
-        private void mIRemoveComponentsOwnedSolutionCollectionFromSolution_Click(object sender, RoutedEventArgs e)
+        private async void mIRemoveComponentsOwnedSolutionCollectionFromSolution_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
-               && menuItem.Tag is Tuple<Solution[], Solution> solutionPair
-               && solutionPair.Item1 != null
-               && solutionPair.Item2 != null
-               && solutionPair.Item2.IsManaged.GetValueOrDefault() == false
-               )
+                && menuItem.Tag is Tuple<Solution[], Solution> solutionPair
+                && solutionPair.Item1 != null
+                && solutionPair.Item2 != null
+                && solutionPair.Item2.IsManaged.GetValueOrDefault() == false
+            )
             {
                 foreach (var item in solutionPair.Item1)
                 {
@@ -1904,7 +1901,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     return;
                 }
 
-                ExecuteActionOnSolutionAndSolutionCollection(solutionPair.Item1, solutionPair.Item2, PerformRemoveFromSolutionCollectionToSolution);
+                await ExecuteActionOnSolutionAndSolutionCollection(solutionPair.Item1, solutionPair.Item2, PerformRemoveFromSolutionCollectionToSolution);
             }
         }
 
@@ -2445,12 +2442,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             service.ConnectionData.OpenSolutionInWeb(Solution.Schema.InstancesUniqueId.DefaultId);
         }
 
-        private void mIClearUnmanagedSolution_Click(object sender, RoutedEventArgs e)
+        private async void mIClearUnmanagedSolution_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag is Solution solution
                 && solution.IsManaged.GetValueOrDefault() == false
-                )
+            )
             {
                 string question = string.Format(Properties.MessageBoxStrings.ClearSolutionFormat1, solution.UniqueName);
 
@@ -2459,7 +2456,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     return;
                 }
 
-                ExecuteActionOnSingleSolution(solution, PerformClearUnmanagedSolution);
+                await ExecuteActionOnSingleSolution(solution, PerformClearUnmanagedSolution);
             }
         }
 
@@ -2522,11 +2519,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        protected override async Task OnRefreshList(ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
 
-            ShowExistingSolutions();
+            await ShowExistingSolutions();
         }
 
         protected override bool CanCloseWindow(KeyEventArgs e)
@@ -2562,33 +2559,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
+        private async void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag is Solution solution
-                )
+            )
             {
-                ExecuteActionOnSingleSolution(solution, PerformCreateEntityDescription);
+                await ExecuteActionOnSingleSolution(solution, PerformCreateEntityDescription);
             }
         }
 
-        private void mIUsedEntitiesInWorkflows_Click(object sender, RoutedEventArgs e)
+        private async void mIUsedEntitiesInWorkflows_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag is Solution solution
-                )
+            )
             {
-                ExecuteActionOnSingleSolution(solution, PerformCreateFileWithUsedEntitiesInWorkflows);
+                await ExecuteActionOnSingleSolution(solution, PerformCreateFileWithUsedEntitiesInWorkflows);
             }
         }
 
-        private void mIUsedNotExistsEntitiesInWorkflows_Click(object sender, RoutedEventArgs e)
+        private async void mIUsedNotExistsEntitiesInWorkflows_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag is Solution solution
-                )
+            )
             {
-                ExecuteActionOnSingleSolution(solution, PerformCreateFileWithUsedNotExistsEntitiesInWorkflows);
+                await ExecuteActionOnSingleSolution(solution, PerformCreateFileWithUsedNotExistsEntitiesInWorkflows);
             }
         }
 
@@ -2756,7 +2753,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void btnClearSolutionComponentFilter_Click(object sender, RoutedEventArgs e)
+        private async void btnClearSolutionComponentFilter_Click(object sender, RoutedEventArgs e)
         {
             this._componentType = null;
             this._objectId = null;
@@ -2767,10 +2764,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 sepClearSolutionComponentFilter.Visibility = btnClearSolutionComponentFilter.Visibility = Visibility.Collapsed;
             });
 
-            ShowExistingSolutions();
+            await ShowExistingSolutions();
         }
 
-        private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             foreach (var removed in e.RemovedItems.OfType<ConnectionData>())
             {
@@ -2801,9 +2798,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
-                FillChangeComponentsToLastSelectedSolutionsAsync();
+                await FillChangeComponentsToLastSelectedSolutionsAsync();
 
-                ShowExistingSolutions();
+                await ShowExistingSolutions();
             }
         }
 

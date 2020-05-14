@@ -146,7 +146,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.DecreaseInit();
 
-            ShowExistingOptionSets();
+            var task = ShowExistingOptionSets();
         }
 
         private void FillExplorersMenuItems()
@@ -678,11 +678,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             UpdateButtonsEnable();
         }
 
-        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        protected override async Task OnRefreshList(ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
 
-            ShowExistingOptionSets();
+            await ShowExistingOptionSets();
         }
 
         protected override bool CanCloseWindow(KeyEventArgs e)
@@ -915,7 +915,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             );
         }
 
-        private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             foreach (var removed in e.RemovedItems.OfType<ConnectionData>())
             {
@@ -938,7 +938,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 LoadEntityNames(cmBEntityName, connectionData);
 
-                ShowExistingOptionSets();
+                await ShowExistingOptionSets();
             }
         }
 

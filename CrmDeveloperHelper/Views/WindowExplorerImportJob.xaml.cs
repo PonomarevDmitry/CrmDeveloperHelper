@@ -76,10 +76,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.DecreaseInit();
 
-            if (service != null)
-            {
-                ShowExistingImportJobs();
-            }
+            var task = ShowExistingImportJobs();
         }
 
         private void LoadFromConfig()
@@ -286,11 +283,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void txtBFilterEnitity_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBFilterEnitity_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                ShowExistingImportJobs();
+                await ShowExistingImportJobs();
             }
         }
 
@@ -305,7 +302,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Close();
         }
 
-        private void lstVwImportJobs_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private async void lstVwImportJobs_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
@@ -313,7 +310,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (item != null)
                 {
-                    ExecuteAction(item.ImportJob.Id, item.ImportJob.SolutionName, item.ImportJob.CreatedOn, PerformExportMouseDoubleClick);
+                    await ExecuteAction(item.ImportJob.Id, item.ImportJob.SolutionName, item.ImportJob.CreatedOn, PerformExportMouseDoubleClick);
                 }
             }
         }
@@ -378,7 +375,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return filePath;
         }
 
-        private void btnExportAll_Click(object sender, RoutedEventArgs e)
+        private async void btnExportAll_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -387,7 +384,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity.Id, entity.SolutionName, entity.CreatedOn, PerformExportAllXml);
+            await ExecuteAction(entity.Id, entity.SolutionName, entity.CreatedOn, PerformExportAllXml);
         }
 
         private async Task PerformExportAllXml(string folder, Guid idImportJob, string solutionName, DateTime? createdOn)
@@ -446,7 +443,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mIExportImportJobData_Click(object sender, RoutedEventArgs e)
+        private async void mIExportImportJobData_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -455,10 +452,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.SolutionName, entity.CreatedOn, ImportJob.Schema.Attributes.data, ImportJob.Schema.Headers.data, PerformExportXmlToFile);
+            await ExecuteActionEntity(entity.Id, entity.SolutionName, entity.CreatedOn, ImportJob.Schema.Attributes.data, ImportJob.Schema.Headers.data, PerformExportXmlToFile);
         }
 
-        private void mIExportImportJobFormattedResults_Click(object sender, RoutedEventArgs e)
+        private async void mIExportImportJobFormattedResults_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -467,7 +464,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity.Id, entity.SolutionName, entity.CreatedOn, PerformExportFormattedResults);
+            await ExecuteAction(entity.Id, entity.SolutionName, entity.CreatedOn, PerformExportFormattedResults);
         }
 
         private async Task PerformExportFormattedResults(string folder, Guid idImportJob, string solutionName, DateTime? createdOn)
@@ -543,7 +540,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
+        private async void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -552,7 +549,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity.Id, entity.SolutionName, entity.CreatedOn, PerformExportEntityDescription);
+            await ExecuteAction(entity.Id, entity.SolutionName, entity.CreatedOn, PerformExportEntityDescription);
         }
 
         private async Task PerformExportEntityDescription(string folder, Guid idImportJob, string solutionName, DateTime? createdOn)
@@ -589,11 +586,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        protected override async Task OnRefreshList(ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
 
-            ShowExistingImportJobs();
+            await ShowExistingImportJobs();
         }
 
         protected override bool CanCloseWindow(KeyEventArgs e)
@@ -631,7 +628,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this.Dispatcher.Invoke(() =>
             {
@@ -647,7 +644,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
-                ShowExistingImportJobs();
+                await ShowExistingImportJobs();
             }
         }
 
@@ -671,7 +668,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             SetCurrentConnection(_iWriteToOutput, GetSelectedConnection());
         }
 
-        private void hyperlinkData_Click(object sender, RoutedEventArgs e)
+        private async void hyperlinkData_Click(object sender, RoutedEventArgs e)
         {
             EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
 
@@ -682,10 +679,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var entity = item.ImportJob;
 
-            ExecuteActionEntity(entity.Id, entity.SolutionName, entity.CreatedOn, ImportJob.Schema.Attributes.data, ImportJob.Schema.Headers.data, PerformExportXmlToFile);
+            await ExecuteActionEntity(entity.Id, entity.SolutionName, entity.CreatedOn, ImportJob.Schema.Attributes.data, ImportJob.Schema.Headers.data, PerformExportXmlToFile);
         }
 
-        private void hyperlinkFormattedResults_Click(object sender, RoutedEventArgs e)
+        private async void hyperlinkFormattedResults_Click(object sender, RoutedEventArgs e)
         {
             EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
 
@@ -696,7 +693,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var entity = item.ImportJob;
 
-            ExecuteAction(entity.Id, entity.SolutionName, entity.CreatedOn, PerformExportFormattedResults);
+            await ExecuteAction(entity.Id, entity.SolutionName, entity.CreatedOn, PerformExportFormattedResults);
         }
     }
 }

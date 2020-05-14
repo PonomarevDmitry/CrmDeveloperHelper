@@ -100,7 +100,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.DecreaseInit();
 
-            ShowExistingEntities();
+            var task = ShowExistingEntities();
         }
 
         private void FillExplorersMenuItems()
@@ -126,26 +126,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             compareWindowsHelper.FillCompareWindows(miCompareOrganizations2);
 
             if (this.Resources.Contains("listContextMenu")
-                && this.Resources["listContextMenu"] is ContextMenu contextMenu
+                && this.Resources["listContextMenu"] is ContextMenu listContextMenu
             )
             {
-                var items = contextMenu.Items.OfType<MenuItem>();
-
-                foreach (var item in items)
-                {
-                    if (string.Equals(item.Uid, "miExplorers1", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        explorersHelper1.FillExplorers(item);
-                    }
-                    else if (string.Equals(item.Uid, "miExplorers2", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        explorersHelper2.FillExplorers(item);
-                    }
-                    else if (string.Equals(item.Uid, "miCompareOrganizations", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        compareWindowsHelper.FillCompareWindows(item);
-                    }
-                }
+                explorersHelper1.FillExplorers(listContextMenu, "miExplorers1");
+                explorersHelper2.FillExplorers(listContextMenu, "miExplorers2");
+                compareWindowsHelper.FillCompareWindows(listContextMenu, "miCompareOrganizations");
             }
         }
 
@@ -461,17 +447,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void txtBFilterEnitity_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBFilterEnitity_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                ShowExistingEntities();
+                await ShowExistingEntities();
             }
         }
 
-        private void cmBRoleEditorLayoutTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void cmBRoleEditorLayoutTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ShowExistingEntities();
+            await ShowExistingEntities();
         }
 
         private LinkedEntityMetadata GetSelectedLinkedEntityMetadata()
@@ -485,7 +471,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Close();
         }
 
-        private void lstVwEntities_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private async void lstVwEntities_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
@@ -493,7 +479,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (item != null)
                 {
-                    ExecuteDifferenceCSharpSchema(item);
+                    await ExecuteDifferenceCSharpSchema(item);
                 }
             }
         }
@@ -503,7 +489,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             UpdateButtonsEnable();
         }
 
-        private void btnDifferenceCSharpFileSchema_Click(object sender, RoutedEventArgs e)
+        private async void btnDifferenceCSharpFileSchema_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedLinkedEntityMetadata();
 
@@ -514,7 +500,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteDifferenceCSharpSchema(entity);
+            await ExecuteDifferenceCSharpSchema(entity);
         }
 
         private async Task ExecuteDifferenceCSharpSchema(LinkedEntityMetadata linkedEntityMetadata)
@@ -627,7 +613,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (File.Exists(filePath1) && File.Exists(filePath2))
             {
-                this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
             }
             else
             {
@@ -641,7 +627,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityConnectionsFormat3, linkedEntityMetadata.LogicalName, service1.ConnectionData.Name, service2.ConnectionData.Name);
         }
 
-        private void btnDifferenceCSharpFileProxyClass_Click(object sender, RoutedEventArgs e)
+        private async void btnDifferenceCSharpFileProxyClass_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedLinkedEntityMetadata();
 
@@ -652,7 +638,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteDifferenceCSharpProxyClass(entity);
+            await ExecuteDifferenceCSharpProxyClass(entity);
         }
 
         private async Task ExecuteDifferenceCSharpProxyClass(LinkedEntityMetadata linkedEntityMetadata)
@@ -725,7 +711,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (File.Exists(filePath1) && File.Exists(filePath2))
             {
-                this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
             }
             else
             {
@@ -739,7 +725,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityConnectionsFormat3, linkedEntityMetadata.LogicalName, service1.ConnectionData.Name, service2.ConnectionData.Name);
         }
 
-        private void btnDifferenceJavaScriptFile_Click(object sender, RoutedEventArgs e)
+        private async void btnDifferenceJavaScriptFile_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedLinkedEntityMetadata();
 
@@ -750,7 +736,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteDifferenceJavaScript(entity);
+            await ExecuteDifferenceJavaScript(entity);
         }
 
         private async Task ExecuteDifferenceJavaScript(LinkedEntityMetadata linkedEntityMetadata)
@@ -845,7 +831,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (File.Exists(filePath1) && File.Exists(filePath2))
             {
-                this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
             }
             else
             {
@@ -866,7 +852,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return result;
         }
 
-        private void btnConnection1CSharpSchema_Click(object sender, RoutedEventArgs e)
+        private async void btnConnection1CSharpSchema_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedLinkedEntityMetadata();
 
@@ -877,10 +863,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            CreateEntityMetadataFileCSharpSchema(GetService1, entity.EntityMetadata1);
+            await CreateEntityMetadataFileCSharpSchema(GetService1, entity.EntityMetadata1);
         }
 
-        private void btnConnection2CSharpSchema_Click(object sender, RoutedEventArgs e)
+        private async void btnConnection2CSharpSchema_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedLinkedEntityMetadata();
 
@@ -891,7 +877,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            CreateEntityMetadataFileCSharpSchema(GetService2, entity.EntityMetadata2);
+            await CreateEntityMetadataFileCSharpSchema(GetService2, entity.EntityMetadata2);
         }
 
         private async Task CreateEntityMetadataFileCSharpSchema(Func<Task<IOrganizationServiceExtented>> getService, EntityMetadata entityMetadata)
@@ -970,7 +956,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
         }
 
-        private void btnConnection1CSharpProxyClass_Click(object sender, RoutedEventArgs e)
+        private async void btnConnection1CSharpProxyClass_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedLinkedEntityMetadata();
 
@@ -981,10 +967,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            CreateEntityMetadataFileCSharpProxyClass(GetService1, entity.EntityMetadata1);
+            await CreateEntityMetadataFileCSharpProxyClass(GetService1, entity.EntityMetadata1);
         }
 
-        private void btnConnection2CSharpProxyClass_Click(object sender, RoutedEventArgs e)
+        private async void btnConnection2CSharpProxyClass_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedLinkedEntityMetadata();
 
@@ -995,7 +981,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            CreateEntityMetadataFileCSharpProxyClass(GetService2, entity.EntityMetadata2);
+            await CreateEntityMetadataFileCSharpProxyClass(GetService2, entity.EntityMetadata2);
         }
 
         private async Task CreateEntityMetadataFileCSharpProxyClass(Func<Task<IOrganizationServiceExtented>> getService, EntityMetadata entityMetadata)
@@ -1059,7 +1045,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
         }
 
-        private void btnConnection1JavaScript_Click(object sender, RoutedEventArgs e)
+        private async void btnConnection1JavaScript_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedLinkedEntityMetadata();
 
@@ -1068,10 +1054,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            CreateEntityMetadataFileJavaScript(GetService1, entity?.LogicalName);
+            await CreateEntityMetadataFileJavaScript(GetService1, entity?.LogicalName);
         }
 
-        private void btnConnection2JavaScript_Click(object sender, RoutedEventArgs e)
+        private async void btnConnection2JavaScript_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedLinkedEntityMetadata();
 
@@ -1080,7 +1066,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            CreateEntityMetadataFileJavaScript(GetService2, entity?.LogicalName);
+            await CreateEntityMetadataFileJavaScript(GetService2, entity?.LogicalName);
         }
 
         private async Task CreateEntityMetadataFileJavaScript(Func<Task<IOrganizationServiceExtented>> getService, string entityName)
@@ -1149,11 +1135,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, service.ConnectionData.Name, entityName);
         }
 
-        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        protected override async Task OnRefreshList(ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
 
-            ShowExistingEntities();
+            await ShowExistingEntities();
         }
 
         protected override bool CanCloseWindow(KeyEventArgs e)
@@ -1200,7 +1186,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     UpdateButtonsEnable();
 
-                    ShowExistingEntities();
+                    var task = ShowExistingEntities();
                 }
             });
         }
@@ -1252,7 +1238,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mIDifferenceEntityRibbon_Click(object sender, RoutedEventArgs e)
+        private async void mIDifferenceEntityRibbon_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedLinkedEntityMetadata();
 
@@ -1261,7 +1247,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteDifferenceEntityRibbon(entity.LogicalName);
+            await ExecuteDifferenceEntityRibbon(entity.LogicalName);
         }
 
         private async Task ExecuteDifferenceEntityRibbon(string entityName)
@@ -1341,7 +1327,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (File.Exists(filePath1) && File.Exists(filePath2))
                 {
-                    this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                    await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
                 }
                 else
                 {
@@ -1362,7 +1348,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.ExportingEntityRibbonConnectionFormat3, entityName, service1.ConnectionData.Name, service1.ConnectionData.Name);
         }
 
-        private void mIDifferenceEntityRibbonDiffXml_Click(object sender, RoutedEventArgs e)
+        private async void mIDifferenceEntityRibbonDiffXml_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedLinkedEntityMetadata();
 
@@ -1371,7 +1357,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteDifferenceEntityRibbonDiffXml(entity);
+            await ExecuteDifferenceEntityRibbonDiffXml(entity);
         }
 
         private async Task ExecuteDifferenceEntityRibbonDiffXml(LinkedEntityMetadata entity)
@@ -1461,7 +1447,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (File.Exists(filePath1) && File.Exists(filePath2))
                 {
-                    this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                    await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
                 }
                 else
                 {
@@ -1482,7 +1468,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.ExportingEntityRibbonDiffXmlConnectionFormat3, entity.LogicalName, service1.ConnectionData.Name, service1.ConnectionData.Name);
         }
 
-        private void mIConnection1EntityRibbon_Click(object sender, RoutedEventArgs e)
+        private async void mIConnection1EntityRibbon_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedLinkedEntityMetadata();
 
@@ -1491,10 +1477,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteCreatingEntityRibbon(GetService1, entity.LogicalName);
+            await ExecuteCreatingEntityRibbon(GetService1, entity.LogicalName);
         }
 
-        private void mIConnection2EntityRibbon_Click(object sender, RoutedEventArgs e)
+        private async void mIConnection2EntityRibbon_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedLinkedEntityMetadata();
 
@@ -1503,7 +1489,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteCreatingEntityRibbon(GetService2, entity.LogicalName);
+            await ExecuteCreatingEntityRibbon(GetService2, entity.LogicalName);
         }
 
         private async Task ExecuteCreatingEntityRibbon(Func<Task<IOrganizationServiceExtented>> getService, string entityName)
@@ -1555,7 +1541,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.ExportingRibbonForEntityFormat2, service.ConnectionData.Name, entityName);
         }
 
-        private void mIConnection1EntityRibbonArchive_Click(object sender, RoutedEventArgs e)
+        private async void mIConnection1EntityRibbonArchive_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedLinkedEntityMetadata();
 
@@ -1564,10 +1550,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteCreatingEntityRibbonArchive(GetService1, entity.LogicalName);
+            await ExecuteCreatingEntityRibbonArchive(GetService1, entity.LogicalName);
         }
 
-        private void mIConnection2EntityRibbonArchive_Click(object sender, RoutedEventArgs e)
+        private async void mIConnection2EntityRibbonArchive_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedLinkedEntityMetadata();
 
@@ -1576,7 +1562,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteCreatingEntityRibbonArchive(GetService2, entity.LogicalName);
+            await ExecuteCreatingEntityRibbonArchive(GetService2, entity.LogicalName);
         }
 
         private async Task ExecuteCreatingEntityRibbonArchive(Func<Task<IOrganizationServiceExtented>> getService, string entityName)
@@ -1621,7 +1607,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.ExportingRibbonForEntityFormat2, service.ConnectionData.Name, entityName);
         }
 
-        private void mIConnection1EntityRibbonDiffXml_Click(object sender, RoutedEventArgs e)
+        private async void mIConnection1EntityRibbonDiffXml_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedLinkedEntityMetadata();
 
@@ -1630,10 +1616,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteCreatingEntityRibbonDiffXml(GetService1, entity.EntityMetadata1);
+            await ExecuteCreatingEntityRibbonDiffXml(GetService1, entity.EntityMetadata1);
         }
 
-        private void mIConnection2EntityRibbonDiffXml_Click(object sender, RoutedEventArgs e)
+        private async void mIConnection2EntityRibbonDiffXml_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedLinkedEntityMetadata();
 
@@ -1642,7 +1628,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteCreatingEntityRibbonDiffXml(GetService2, entity.EntityMetadata2);
+            await ExecuteCreatingEntityRibbonDiffXml(GetService2, entity.EntityMetadata2);
         }
 
         private async Task ExecuteCreatingEntityRibbonDiffXml(Func<Task<IOrganizationServiceExtented>> getService, EntityMetadata entityMetadata)

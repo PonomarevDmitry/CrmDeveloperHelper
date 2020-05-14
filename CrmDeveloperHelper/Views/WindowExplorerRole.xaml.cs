@@ -107,7 +107,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.DecreaseInit();
 
-            ShowExistingRoles();
+            var task = ShowExistingRoles();
         }
 
         private void FillExplorersMenuItems()
@@ -219,11 +219,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _popupEntityMetadataFilter.Child.Focus();
         }
 
-        private void _popupEntityMetadataFilter_Closed(object sender, EventArgs e)
+        private async void _popupEntityMetadataFilter_Closed(object sender, EventArgs e)
         {
             if (_entityMetadataFilter.FilterChanged)
             {
-                ShowRoleEntityPrivileges();
+                await ShowRoleEntityPrivileges();
             }
         }
 
@@ -752,40 +752,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             UpdateSaveRoleChangesButtons();
         }
 
-        private void txtBFilterSystemUser_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBFilterSystemUser_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                ShowRoleSystemUsers();
+                await ShowRoleSystemUsers();
             }
         }
 
-        private void txtBEntityFilter_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBEntityFilter_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                ShowRoleEntityPrivileges();
+                await ShowRoleEntityPrivileges();
             }
         }
 
-        private void cmBRoleEditorLayoutTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void cmBRoleEditorLayoutTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ShowRoleEntityPrivileges();
+            await ShowRoleEntityPrivileges();
         }
 
-        private void txtBFilterTeams_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBFilterTeams_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                ShowRoleTeams();
+                await ShowRoleTeams();
             }
         }
 
-        private void txtBFilterRole_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBFilterRole_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                ShowExistingRoles();
+                await ShowExistingRoles();
             }
         }
 
@@ -930,7 +930,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await action(entityNames);
         }
 
-        private void btnPublishEntity_Click(object sender, RoutedEventArgs e)
+        private async void btnPublishEntity_Click(object sender, RoutedEventArgs e)
         {
             var entityList = GetSelectedEntities();
 
@@ -939,45 +939,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entityList.Select(item => item.LogicalName).ToList(), PublishEntityAsync);
+            await ExecuteActionAsync(entityList.Select(item => item.LogicalName).ToList(), PublishEntityAsync);
         }
 
-        private async Task PublishEntityAsync(IEnumerable<string> entityNames)
+        protected async Task PublishEntityAsync(IEnumerable<string> entityNames)
         {
             if (!this.IsControlsEnabled)
             {
                 return;
             }
 
-            var service = await GetService();
-
-            var entityNamesOrdered = string.Join(", ", entityNames.OrderBy(s => s));
-
-            this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
-
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
-
-            try
-            {
-                var repository = new PublishActionsRepository(service);
-
-                await repository.PublishEntitiesAsync(entityNames);
-
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.PublishingEntitiesCompletedFormat2, service.ConnectionData.Name, entityNamesOrdered);
-            }
-            catch (Exception ex)
-            {
-                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.PublishingEntitiesFailedFormat2, service.ConnectionData.Name, entityNamesOrdered);
-            }
-
-            this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
+            await base.PublishEntityAsync(GetSelectedConnection(), entityNames);
         }
 
-        private void lstVwSecurityRoles_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void lstVwSecurityRoles_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            RefreshRoleInfo();
+            await RefreshRoleInfo();
         }
 
         private async Task RefreshRoleInfo()
@@ -998,11 +975,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        protected override async Task OnRefreshList(ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
 
-            ShowExistingRoles();
+            await ShowExistingRoles();
         }
 
         #region Entity Operations
@@ -1184,7 +1161,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         #endregion Entity Operations
 
-        private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (!this.IsControlsEnabled)
             {
@@ -1195,11 +1172,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
-                ShowExistingRoles();
+                await ShowExistingRoles();
             }
         }
 
-        private void mIClearEntityCacheAndRefresh_Click(object sender, RoutedEventArgs e)
+        private async void mIClearEntityCacheAndRefresh_Click(object sender, RoutedEventArgs e)
         {
             ConnectionData connectionData = GetSelectedConnection();
 
@@ -1208,7 +1185,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _cacheEntityMetadata.Remove(connectionData.ConnectionId);
                 _cachePrivileges.Remove(connectionData.ConnectionId);
 
-                RefreshRoleInfo();
+                await RefreshRoleInfo();
             }
         }
 
@@ -1600,7 +1577,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(service.ConnectionData, true, Properties.OutputStrings.AssigningRolesToUsersCompletedFormat3, service.ConnectionData.Name, rolesName, usersName);
 
-            RefreshRoleInfo();
+            await RefreshRoleInfo();
         }
 
         private async void btnRemoveRoleFromUser_Click(object sender, RoutedEventArgs e)
@@ -1652,7 +1629,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
 
-            RefreshRoleInfo();
+            await RefreshRoleInfo();
         }
 
         private async void btnAssignRoleToTeam_Click(object sender, RoutedEventArgs e)
@@ -1729,7 +1706,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
 
-            RefreshRoleInfo();
+            await RefreshRoleInfo();
         }
 
         private async void btnRemoveRoleFromTeam_Click(object sender, RoutedEventArgs e)
@@ -1781,7 +1758,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
 
-            RefreshRoleInfo();
+            await RefreshRoleInfo();
         }
 
         #endregion Role Operations
@@ -1861,24 +1838,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void btnRefreshSystemUsers_Click(object sender, RoutedEventArgs e)
+        private async void btnRefreshSystemUsers_Click(object sender, RoutedEventArgs e)
         {
-            ShowRoleSystemUsers();
+            await ShowRoleSystemUsers();
         }
 
-        private void btnRefreshRoles_Click(object sender, RoutedEventArgs e)
+        private async void btnRefreshRoles_Click(object sender, RoutedEventArgs e)
         {
-            ShowExistingRoles();
+            await ShowExistingRoles();
         }
 
-        private void btnRefreshTeams_Click(object sender, RoutedEventArgs e)
+        private async void btnRefreshTeams_Click(object sender, RoutedEventArgs e)
         {
-            ShowRoleTeams();
+            await ShowRoleTeams();
         }
 
-        private void btnRefreshEntites_Click(object sender, RoutedEventArgs e)
+        private async void btnRefreshEntites_Click(object sender, RoutedEventArgs e)
         {
-            ShowRoleEntityPrivileges();
+            await ShowRoleEntityPrivileges();
         }
 
         private async void mISaveRoleChanges_Click(object sender, RoutedEventArgs e)
@@ -1970,7 +1947,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
 
-            ShowRoleEntityPrivileges();
+            await ShowRoleEntityPrivileges();
         }
 
         private void UpdateSaveRoleChangesButtons()
@@ -2296,7 +2273,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
             }
 
-            ShowRoleEntityPrivileges();
+            await ShowRoleEntityPrivileges();
         }
 
         private async void mIAddUniquePrivilegesFromRole_Click(object sender, RoutedEventArgs e)
@@ -2347,7 +2324,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             await AddUniquePrivilegesFromSourceToTarget(service, sourceRole, targetRole);
 
-            ShowRoleEntityPrivileges();
+            await ShowRoleEntityPrivileges();
         }
 
         private async void mIMergeCommonPrivilegesToMaxFromRole_Click(object sender, RoutedEventArgs e)
@@ -2398,7 +2375,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             await MergePrivilegesFromSourceToTarget(service, sourceRole, targetRole);
 
-            ShowRoleEntityPrivileges();
+            await ShowRoleEntityPrivileges();
         }
 
         private async void mIReplacePrivilegesFromRole_Click(object sender, RoutedEventArgs e)
@@ -2449,7 +2426,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             await ReplacePrivilegesFromSourceToTarget(service, sourceRole, targetRole);
 
-            ShowRoleEntityPrivileges();
+            await ShowRoleEntityPrivileges();
         }
 
         private async Task AddUniquePrivilegesFromSourceToTarget(IOrganizationServiceExtented service, Role sourceRole, Role targetRole)

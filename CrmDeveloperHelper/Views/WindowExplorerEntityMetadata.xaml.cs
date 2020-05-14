@@ -202,7 +202,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             else if (service != null)
             {
-                ShowExistingEntities();
+                var task = ShowExistingEntities();
             }
         }
 
@@ -965,11 +965,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             UpdateButtonsEnable();
         }
 
-        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        protected override async Task OnRefreshList(ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
 
-            ShowExistingEntities();
+            await ShowExistingEntities();
         }
 
         protected override bool CanCloseWindow(KeyEventArgs e)

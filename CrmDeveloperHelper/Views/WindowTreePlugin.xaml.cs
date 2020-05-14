@@ -140,7 +140,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.DecreaseInit();
 
-            ShowExistingPlugins();
+            var task = ShowExistingPlugins();
         }
 
         private void FillExplorersMenuItems()
@@ -211,7 +211,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         protected override void OnClosed(EventArgs e)
         {
-            _commonConfig.Save();
+            base.OnClosed(e);
 
             BindingOperations.ClearAllBindings(cmBCurrentConnection);
 
@@ -219,8 +219,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             cmBCurrentConnection.DataContext = null;
             cmBCurrentConnection.ItemsSource = null;
-
-            base.OnClosed(e);
         }
 
         private const string paramEntityName = "EntityName";
@@ -359,11 +357,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._imageWorkflowActivity = this.Resources["ImageWorkflowActivity"] as BitmapImage;
         }
 
-        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        protected override async Task OnRefreshList(ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
 
-            ShowExistingPlugins();
+            await ShowExistingPlugins();
         }
 
         private ConnectionData GetSelectedConnection()
@@ -2260,17 +2258,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ;
         }
 
-        private void txtBFilter_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBFilter_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                ShowExistingPlugins();
+                await ShowExistingPlugins();
             }
         }
 
-        private void cmBStatusCode_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void cmBStatusCode_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ShowExistingPlugins();
+            await ShowExistingPlugins();
         }
 
         private PluginTreeViewItem GetSelectedEntity()
@@ -2712,20 +2710,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.CreatingFileWithDescriptionFormat1, service.ConnectionData.Name);
         }
 
-        private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ConnectionData connectionData = null;
-
-            this.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData != null)
             {
                 FillEntityNames(connectionData);
 
-                ShowExistingPlugins();
+                await ShowExistingPlugins();
             }
         }
 
@@ -2762,12 +2755,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             bool showDependentComponents = nodeItem.GetId().HasValue && nodeItem.ComponentType.HasValue;
 
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+            ConnectionData connectionData = GetSelectedConnection();
 
             ActivateControls(items, CanCreateDescription(nodeItem), "contMnCreateDescription");
             SetControlsName(items, GetCreateDescriptionName(nodeItem), "contMnCreateDescription");
@@ -2814,7 +2802,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             CheckSeparatorVisible(items);
         }
 
-        private void mICreateDescription_Click(object sender, RoutedEventArgs e)
+        private async void mICreateDescription_Click(object sender, RoutedEventArgs e)
         {
             PluginTreeViewItem nodeItem = GetItemFromRoutedDataContext<PluginTreeViewItem>(e);
 
@@ -2830,7 +2818,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
 
-            CreateDescription(nodeItem);
+            await CreateDescription(nodeItem);
         }
 
         private async void mIOpenInWeb_Click(object sender, RoutedEventArgs e)
@@ -2865,7 +2853,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData != null)
             {
@@ -2884,7 +2872,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData != null)
             {
@@ -2950,7 +2938,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData == null)
             {
@@ -2994,7 +2982,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData == null)
             {
@@ -3027,7 +3015,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData == null)
             {
@@ -3112,7 +3100,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData == null)
             {
@@ -3173,7 +3161,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData == null)
             {
@@ -3200,7 +3188,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData != null)
             {
@@ -3225,7 +3213,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData == null)
             {
@@ -3889,7 +3877,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)
         {
-            SetCurrentConnection(_iWriteToOutput, cmBCurrentConnection.SelectedItem as ConnectionData);
+            SetCurrentConnection(_iWriteToOutput, GetSelectedConnection());
         }
 
         private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)

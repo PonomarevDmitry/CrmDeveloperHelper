@@ -83,10 +83,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.DecreaseInit();
 
-            if (service != null)
-            {
-                ShowExistingCharts();
-            }
+            var task = ShowExistingCharts();
         }
 
         private void FillExplorersMenuItems()
@@ -338,11 +335,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void txtBFilterEnitity_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBFilterEnitity_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                ShowExistingCharts();
+                await ShowExistingCharts();
             }
         }
 
@@ -446,7 +443,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return filePath;
         }
 
-        private void btnExportAll_Click(object sender, RoutedEventArgs e)
+        private async void btnExportAll_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -455,7 +452,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, PerformExportAllXml);
+            await ExecuteAction(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, PerformExportAllXml);
         }
 
         private async Task PerformExportAllXml(string folder, Guid idSavedQueryVisualization, string entityName, string name)
@@ -595,7 +592,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mIExportSystemChartDataDescription_Click(object sender, RoutedEventArgs e)
+        private async void mIExportSystemChartDataDescription_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -604,10 +601,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, SavedQueryVisualization.Schema.Attributes.datadescription, SavedQueryVisualization.Schema.Headers.datadescription, PerformExportXmlToFile);
+            await ExecuteActionEntity(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, SavedQueryVisualization.Schema.Attributes.datadescription, SavedQueryVisualization.Schema.Headers.datadescription, PerformExportXmlToFile);
         }
 
-        private void mIExportSystemChartPresentationDescription_Click(object sender, RoutedEventArgs e)
+        private async void mIExportSystemChartPresentationDescription_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -616,10 +613,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, SavedQueryVisualization.Schema.Attributes.presentationdescription, SavedQueryVisualization.Schema.Headers.presentationdescription, PerformExportXmlToFile);
+            await ExecuteActionEntity(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, SavedQueryVisualization.Schema.Attributes.presentationdescription, SavedQueryVisualization.Schema.Headers.presentationdescription, PerformExportXmlToFile);
         }
 
-        private void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
+        private async void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -628,10 +625,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, PerformExportEntityDescription);
+            await ExecuteAction(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, PerformExportEntityDescription);
         }
 
-        private void mIChangeEntityInEditor_Click(object sender, RoutedEventArgs e)
+        private async void mIChangeEntityInEditor_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -640,10 +637,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, PerformEntityEditor);
+            await ExecuteAction(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, PerformEntityEditor);
         }
 
-        private void mIDeleteChart_Click(object sender, RoutedEventArgs e)
+        private async void mIDeleteChart_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -652,7 +649,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, PerformDeleteEntity);
+            await ExecuteAction(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, PerformDeleteEntity);
         }
 
         private async Task PerformExportEntityDescription(string folder, Guid idSavedQueryVisualization, string entityName, string name)
@@ -725,15 +722,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(service.ConnectionData, true, Properties.OutputStrings.DeletingEntityCompletedFormat2, service.ConnectionData.Name, SavedQueryVisualization.EntityLogicalName);
 
-                ShowExistingCharts();
+                await ShowExistingCharts();
             }
         }
 
-        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        protected override async Task OnRefreshList(ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
 
-            ShowExistingCharts();
+            await ShowExistingCharts();
         }
 
         protected override bool CanCloseWindow(KeyEventArgs e)
@@ -997,7 +994,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             );
         }
 
-        private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this.Dispatcher.Invoke(() =>
             {
@@ -1015,11 +1012,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 LoadEntityNames(cmBEntityName, connectionData);
 
-                ShowExistingCharts();
+                await ShowExistingCharts();
             }
         }
 
-        private void mIUpdateSystemChartDataDescription_Click(object sender, RoutedEventArgs e)
+        private async void mIUpdateSystemChartDataDescription_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1028,10 +1025,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, SavedQueryVisualization.Schema.Attributes.datadescription, SavedQueryVisualization.Schema.Headers.datadescription, PerformUpdateEntityField);
+            await ExecuteActionEntity(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, SavedQueryVisualization.Schema.Attributes.datadescription, SavedQueryVisualization.Schema.Headers.datadescription, PerformUpdateEntityField);
         }
 
-        private void mIUpdateSystemChartPresentationDescription_Click(object sender, RoutedEventArgs e)
+        private async void mIUpdateSystemChartPresentationDescription_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1040,10 +1037,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, SavedQueryVisualization.Schema.Attributes.presentationdescription, SavedQueryVisualization.Schema.Headers.presentationdescription, PerformUpdateEntityField);
+            await ExecuteActionEntity(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, SavedQueryVisualization.Schema.Attributes.presentationdescription, SavedQueryVisualization.Schema.Headers.presentationdescription, PerformUpdateEntityField);
         }
 
-        private void btnPublishEntity_Click(object sender, RoutedEventArgs e)
+        private async void btnPublishEntity_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1054,7 +1051,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, PerformPublishEntityAsync);
+            await ExecuteAction(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, PerformPublishEntityAsync);
         }
 
         private async Task PerformPublishEntityAsync(string folder, Guid idSavedQueryVisualization, string entityName, string name)
@@ -1146,7 +1143,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             SetCurrentConnection(_iWriteToOutput, GetSelectedConnection());
         }
 
-        private void hyperlinkDataDescription_Click(object sender, RoutedEventArgs e)
+        private async void hyperlinkDataDescription_Click(object sender, RoutedEventArgs e)
         {
             EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
 
@@ -1157,10 +1154,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var entity = item.SavedQueryVisualization;
 
-            ExecuteActionEntity(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, SavedQueryVisualization.Schema.Attributes.datadescription, SavedQueryVisualization.Schema.Headers.datadescription, PerformExportXmlToFile);
+            await ExecuteActionEntity(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, SavedQueryVisualization.Schema.Attributes.datadescription, SavedQueryVisualization.Schema.Headers.datadescription, PerformExportXmlToFile);
         }
 
-        private void hyperlinkPresentationDescription_Click(object sender, RoutedEventArgs e)
+        private async void hyperlinkPresentationDescription_Click(object sender, RoutedEventArgs e)
         {
             EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
 
@@ -1171,10 +1168,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var entity = item.SavedQueryVisualization;
 
-            ExecuteActionEntity(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, SavedQueryVisualization.Schema.Attributes.presentationdescription, SavedQueryVisualization.Schema.Headers.presentationdescription, PerformExportXmlToFile);
+            await ExecuteActionEntity(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, SavedQueryVisualization.Schema.Attributes.presentationdescription, SavedQueryVisualization.Schema.Headers.presentationdescription, PerformExportXmlToFile);
         }
 
-        private void hyperlinkPublishEntity_Click(object sender, RoutedEventArgs e)
+        private async void hyperlinkPublishEntity_Click(object sender, RoutedEventArgs e)
         {
             EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
 
@@ -1192,7 +1189,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, PerformPublishEntityAsync);
+            await ExecuteAction(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, PerformPublishEntityAsync);
         }
 
         private void lstVwCharts_CanExecute(object sender, CanExecuteRoutedEventArgs e)

@@ -61,10 +61,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             FocusOnComboBoxTextBox(cmBFilter);
 
-            if (service != null)
-            {
-                OpenFilesInFoldersAsync();
-            }
+            var task = OpenFilesInFoldersAsync();
         }
 
         private void LoadFromConfig()
@@ -366,17 +363,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void cmBFilterEnitity_KeyDown(object sender, KeyEventArgs e)
+        private async void cmBFilterEnitity_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
                 if (_loadedRecords.Count == 0)
                 {
-                    OpenFilesInFoldersAsync();
+                    await OpenFilesInFoldersAsync();
                 }
                 else
                 {
-                    FilterExistingTraceRecords();
+                    await FilterExistingTraceRecords();
                 }
             }
         }
@@ -386,14 +383,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Close();
         }
 
-        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        protected override async Task OnRefreshList(ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
 
-            OpenFilesInFoldersAsync();
+            await OpenFilesInFoldersAsync();
         }
 
-        private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this.Dispatcher.Invoke(() =>
             {
@@ -420,7 +417,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
-                OpenFilesInFoldersAsync();
+                await OpenFilesInFoldersAsync();
             }
         }
 

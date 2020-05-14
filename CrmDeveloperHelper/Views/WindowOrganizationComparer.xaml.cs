@@ -1467,14 +1467,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.TransferingDataFormat2, connectionSource.Name, connectionTarget.Name);
         }
 
-        private void tSMITransferAuditFrom1To2_Click(object sender, RoutedEventArgs e)
+        private async void tSMITransferAuditFrom1To2_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteOperationFrom1To2Async(TrasnferAudit);
+            await ExecuteOperationFrom1To2Async(TrasnferAudit);
         }
 
-        private void tSMITransferAuditFrom2To1_Click(object sender, RoutedEventArgs e)
+        private async void tSMITransferAuditFrom2To1_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteOperationFrom2To1Async(TrasnferAudit);
+            await ExecuteOperationFrom2To1Async(TrasnferAudit);
         }
 
         private async Task TrasnferAudit(OrganizationCustomizationTransfer handler)
@@ -1495,14 +1495,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMITransferWorkflowsStatesFrom1To2_Click(object sender, RoutedEventArgs e)
+        private async void tSMITransferWorkflowsStatesFrom1To2_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteOperationFrom1To2Async(TrasnferWorkflowsStates);
+            await ExecuteOperationFrom1To2Async(TrasnferWorkflowsStates);
         }
 
-        private void tSMITransferWorkflowsStatesFrom2To1_Click(object sender, RoutedEventArgs e)
+        private async void tSMITransferWorkflowsStatesFrom2To1_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteOperationFrom2To1Async(TrasnferWorkflowsStates);
+            await ExecuteOperationFrom2To1Async(TrasnferWorkflowsStates);
         }
 
         private async Task TrasnferWorkflowsStates(OrganizationCustomizationTransfer handler)
@@ -1523,14 +1523,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMITransferPluginStepsStatesFrom1To2_Click(object sender, RoutedEventArgs e)
+        private async void tSMITransferPluginStepsStatesFrom1To2_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteOperationFrom1To2Async(TrasnferPluginStepsStates);
+            await ExecuteOperationFrom1To2Async(TrasnferPluginStepsStates);
         }
 
-        private void tSMITransferPluginStepsStatesFrom2To1_Click(object sender, RoutedEventArgs e)
+        private async void tSMITransferPluginStepsStatesFrom2To1_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteOperationFrom2To1Async(TrasnferPluginStepsStates);
+            await ExecuteOperationFrom2To1Async(TrasnferPluginStepsStates);
         }
 
         private async Task TrasnferPluginStepsStates(OrganizationCustomizationTransfer handler)
@@ -1553,7 +1553,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         #endregion Transfer Buttons.
 
-        private void tSBLoadSolutionImageFromFile_Click(object sender, RoutedEventArgs e)
+        private async void tSBLoadSolutionImageFromFile_Click(object sender, RoutedEventArgs e)
         {
             string selectedPath = string.Empty;
             var t = new Thread(() =>
@@ -1585,11 +1585,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!string.IsNullOrEmpty(selectedPath))
             {
-                LoadSolutionImage(selectedPath);
+                await LoadSolutionImage(selectedPath);
             }
         }
 
-        private void tSBLoadSolutionImageFromZipFile_Click(object sender, RoutedEventArgs e)
+        private async void tSBLoadSolutionImageFromZipFile_Click(object sender, RoutedEventArgs e)
         {
             var connectionData = GetSelectedSingleConnection();
 
@@ -1628,7 +1628,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!string.IsNullOrEmpty(selectedPath))
             {
-                LoadSolutionImageFromZip(connectionData, selectedPath);
+                await LoadSolutionImageFromZip(connectionData, selectedPath);
             }
         }
 

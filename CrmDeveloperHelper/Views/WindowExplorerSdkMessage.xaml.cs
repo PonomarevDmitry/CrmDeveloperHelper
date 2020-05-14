@@ -60,10 +60,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.DecreaseInit();
 
-            if (service != null)
-            {
-                ShowExistingMessages();
-            }
+            var task = ShowExistingMessages();
         }
 
         private void FillExplorersMenuItems()
@@ -312,11 +309,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void txtBFilterEnitity_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBFilterEnitity_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                ShowExistingMessages();
+                await ShowExistingMessages();
             }
         }
 
@@ -331,7 +328,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Close();
         }
 
-        private void lstVwMessages_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private async void lstVwMessages_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
@@ -339,7 +336,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (item != null)
                 {
-                    ExecuteAction(item.SdkMessage.Id, item.SdkMessage.Name, PerformExportMouseDoubleClick);
+                    await ExecuteAction(item.SdkMessage.Id, item.SdkMessage.Name, PerformExportMouseDoubleClick);
                 }
             }
         }
@@ -375,7 +372,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
+        private async void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -384,10 +381,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity.Id, entity.Name, PerformExportEntityDescription);
+            await ExecuteAction(entity.Id, entity.Name, PerformExportEntityDescription);
         }
 
-        private void mIChangeEntityInEditor_Click(object sender, RoutedEventArgs e)
+        private async void mIChangeEntityInEditor_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -396,10 +393,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity.Id, entity.Name, PerformEntityEditor);
+            await ExecuteAction(entity.Id, entity.Name, PerformEntityEditor);
         }
 
-        private void mIDeleteMessage_Click(object sender, RoutedEventArgs e)
+        private async void mIDeleteMessage_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -408,7 +405,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity.Id, entity.Name, PerformDeleteEntity);
+            await ExecuteAction(entity.Id, entity.Name, PerformDeleteEntity);
         }
 
         private async Task PerformExportEntityDescription(string folder, Guid idSdkMessage, string name)
@@ -471,15 +468,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(service.ConnectionData, true, Properties.OutputStrings.DeletingEntityCompletedFormat2, service.ConnectionData.Name, SdkMessage.EntityLogicalName);
 
-                ShowExistingMessages();
+                await ShowExistingMessages();
             }
         }
 
-        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        protected override async Task OnRefreshList(ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
 
-            ShowExistingMessages();
+            await ShowExistingMessages();
         }
 
         private void mIOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)
@@ -600,7 +597,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             );
         }
 
-        private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this.Dispatcher.Invoke(() =>
             {
@@ -616,7 +613,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
-                ShowExistingMessages();
+                await ShowExistingMessages();
             }
         }
 
@@ -636,7 +633,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             mIDeleteMessage_Click(sender, e);
         }
 
-        private void mIExportThrottleSettingsXml_Click(object sender, RoutedEventArgs e)
+        private async void mIExportThrottleSettingsXml_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -645,7 +642,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.Name, SdkMessage.Schema.Attributes.throttlesettings, nameof(SdkMessage.ThrottleSettings), "xml", PerformExportXmlToFile);
+            await ExecuteActionEntity(entity.Id, entity.Name, SdkMessage.Schema.Attributes.throttlesettings, nameof(SdkMessage.ThrottleSettings), "xml", PerformExportXmlToFile);
         }
 
         private async Task ExecuteActionEntity(Guid idMessage, string name, string fieldName, string fieldTitle, string extension, Func<string, Guid, string, string, string, string, Task> action)

@@ -59,7 +59,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!string.IsNullOrEmpty(filePath))
             {
-                LoadOrganizationDifferenceImage(filePath);
+                var task = LoadOrganizationDifferenceImage(filePath);
             }
         }
 
@@ -406,7 +406,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await action(folder, entity);
         }
 
-        private void tSBLoadOrganizationDifferenceImage_Click(object sender, RoutedEventArgs e)
+        private async void tSBLoadOrganizationDifferenceImage_Click(object sender, RoutedEventArgs e)
         {
             string selectedPath = string.Empty;
             var t = new Thread(() =>
@@ -438,15 +438,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!string.IsNullOrEmpty(selectedPath))
             {
-                LoadOrganizationDifferenceImage(selectedPath);
+                await LoadOrganizationDifferenceImage(selectedPath);
             }
         }
 
-        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        protected override Task OnRefreshList(ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
 
             FilteringOrganizationDifferenceImageComponents();
+
+            return base.OnRefreshList(e);
         }
 
         private void cmBComponentType_SelectionChanged(object sender, SelectionChangedEventArgs e)

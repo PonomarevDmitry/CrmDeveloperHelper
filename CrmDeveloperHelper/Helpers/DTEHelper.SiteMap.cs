@@ -190,7 +190,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 this.WriteToOutputFilePathUri(null, filePath);
 
-                this.ProcessStartProgramComparerAsync(selectedFile.FilePath, filePath, selectedFile.FileName, fileName);
+                var task = this.ProcessStartProgramComparerAsync(selectedFile.FilePath, filePath, selectedFile.FileName, fileName);
             }
             catch (Exception ex)
             {

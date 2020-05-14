@@ -91,7 +91,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.DecreaseInit();
 
-            ShowExistingSystemForms();
+            var task = ShowExistingSystemForms();
         }
 
         private void FillExplorersMenuItems()
@@ -501,17 +501,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void txtBFilterEnitity_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBFilterEnitity_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                ShowExistingSystemForms();
+                await ShowExistingSystemForms();
             }
         }
 
-        private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ShowExistingSystemForms();
+            await ShowExistingSystemForms();
         }
 
         private EntityViewItem GetSelectedEntity()
@@ -710,7 +710,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         if (File.Exists(filePath1) && File.Exists(filePath2))
                         {
-                            this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                            await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
                         }
                         else
                         {
@@ -787,7 +787,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (File.Exists(filePath1) && File.Exists(filePath2))
                     {
-                        this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                        await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
                     }
                     else
                     {
@@ -886,7 +886,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         if (File.Exists(filePath1) && File.Exists(filePath2))
                         {
-                            this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                            await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
                         }
                         else
                         {
@@ -980,7 +980,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                                     if (File.Exists(localFilePath1) && File.Exists(localFilePath2))
                                     {
-                                        this._iWriteToOutput.ProcessStartProgramComparerAsync(localFilePath1, localFilePath2, Path.GetFileName(localFilePath1), Path.GetFileName(localFilePath2));
+                                        await this._iWriteToOutput.ProcessStartProgramComparerAsync(localFilePath1, localFilePath2, Path.GetFileName(localFilePath1), Path.GetFileName(localFilePath2));
                                     }
                                     else
                                     {
@@ -1369,11 +1369,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(true, Properties.OutputStrings.DownloadingSystemFormWebResourcesCompletedFormat2, entityName, name);
         }
 
-        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        protected override async Task OnRefreshList(ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
 
-            ShowExistingSystemForms();
+            await ShowExistingSystemForms();
         }
 
         protected override bool CanCloseWindow(KeyEventArgs e)
@@ -1417,7 +1417,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     UpdateButtonsEnable();
 
-                    ShowExistingSystemForms();
+                    var task = ShowExistingSystemForms();
                 }
             });
         }

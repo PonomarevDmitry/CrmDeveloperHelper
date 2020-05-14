@@ -74,7 +74,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._attributeChecker = a => a.IsValidForCreate.GetValueOrDefault() && !_ignoredAttributes.Contains(a.LogicalName);
 
-            RetrieveEntityInformation();
+            var task = RetrieveEntityInformation();
         }
 
         private void FillExplorersMenuItems()
@@ -448,11 +448,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        protected override Task OnRefreshList(ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
 
             FilterEntityAttributes(null);
+
+            return base.OnRefreshList(e);
         }
 
         private void mIOpenEntityInstanceInWeb_Click(object sender, RoutedEventArgs e)

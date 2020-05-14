@@ -68,7 +68,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._attributeChecker = a => a.IsValidForUpdate.GetValueOrDefault();
 
-            RetrieveEntityInformation();
+            var task = RetrieveEntityInformation();
         }
 
         private void FillExplorersMenuItems()

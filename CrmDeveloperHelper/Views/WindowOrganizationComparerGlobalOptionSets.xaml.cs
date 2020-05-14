@@ -90,7 +90,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.DecreaseInit();
 
-            ShowExistingOptionSets();
+            var task = ShowExistingOptionSets();
         }
 
         private void FillExplorersMenuItems()
@@ -118,26 +118,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             compareWindowsHelper.FillCompareWindows(miCompareOrganizations);
 
             if (this.Resources.Contains("listContextMenu")
-                && this.Resources["listContextMenu"] is ContextMenu contextMenu
+                && this.Resources["listContextMenu"] is ContextMenu listContextMenu
             )
             {
-                var items = contextMenu.Items.OfType<MenuItem>();
+                explorersHelper1.FillExplorers(listContextMenu, "miExplorers1");
 
-                foreach (var item in items)
-                {
-                    if (string.Equals(item.Uid, "miExplorers1", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        explorersHelper1.FillExplorers(item);
-                    }
-                    else if (string.Equals(item.Uid, "miExplorers2", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        explorersHelper2.FillExplorers(item);
-                    }
-                    else if (string.Equals(item.Uid, "miCompareOrganizations", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        compareWindowsHelper.FillCompareWindows(item);
-                    }
-                }
+                explorersHelper1.FillExplorers(listContextMenu, "miExplorers2");
+
+                compareWindowsHelper.FillCompareWindows(listContextMenu, "miCompareOrganizations");
             }
         }
 
@@ -177,7 +165,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         protected override void OnClosed(EventArgs e)
         {
-            _commonConfig.Save();
+            base.OnClosed(e);
+
             FileGenerationConfiguration.SaveConfiguration();
 
             (cmBConnection1.SelectedItem as ConnectionData)?.Save();
@@ -192,8 +181,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBConnection2.Items.DetachFromSourceCollection();
             cmBConnection2.DataContext = null;
             cmBConnection2.ItemsSource = null;
-
-            base.OnClosed(e);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -653,7 +640,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (File.Exists(filePath1) && File.Exists(filePath2))
                     {
-                        this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                        await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
                     }
                     else
                     {
@@ -821,7 +808,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (File.Exists(filePath1) && File.Exists(filePath2))
                     {
-                        this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                        await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
                     }
                     else
                     {
@@ -843,27 +830,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void btnConnection1CSharp_Click(object sender, RoutedEventArgs e)
+        private async void btnConnection1CSharp_Click(object sender, RoutedEventArgs e)
         {
             ConnectionData connection1 = cmBConnection1.SelectedItem as ConnectionData;
 
             if (connection1 != null && _cacheOptionSetMetadata.TryGetValue(connection1.ConnectionId, out var optionSets))
             {
-                CreateGlobalOptionSetsCSharpFile(GetService1, optionSets);
+                await CreateGlobalOptionSetsCSharpFile(GetService1, optionSets);
             }
         }
 
-        private void btnConnection2CSharp_Click(object sender, RoutedEventArgs e)
+        private async void btnConnection2CSharp_Click(object sender, RoutedEventArgs e)
         {
             ConnectionData connection2 = cmBConnection2.SelectedItem as ConnectionData;
 
             if (connection2 != null && _cacheOptionSetMetadata.TryGetValue(connection2.ConnectionId, out var optionSets))
             {
-                CreateGlobalOptionSetsCSharpFile(GetService2, optionSets);
+                await CreateGlobalOptionSetsCSharpFile(GetService2, optionSets);
             }
         }
 
-        private void btnConnection1CSharpSingle_Click(object sender, RoutedEventArgs e)
+        private async void btnConnection1CSharpSingle_Click(object sender, RoutedEventArgs e)
         {
             var link = GetSelectedEntity();
 
@@ -874,10 +861,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var optionSets = new[] { link.OptionSetMetadata1 };
 
-            CreateGlobalOptionSetsCSharpFile(GetService1, optionSets);
+            await CreateGlobalOptionSetsCSharpFile(GetService1, optionSets);
         }
 
-        private void btnConnection2CSharpSingle_Click(object sender, RoutedEventArgs e)
+        private async void btnConnection2CSharpSingle_Click(object sender, RoutedEventArgs e)
         {
             var link = GetSelectedEntity();
 
@@ -888,7 +875,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var optionSets = new[] { link.OptionSetMetadata2 };
 
-            CreateGlobalOptionSetsCSharpFile(GetService2, optionSets);
+            await CreateGlobalOptionSetsCSharpFile(GetService2, optionSets);
         }
 
         private async Task CreateGlobalOptionSetsCSharpFile(Func<Task<IOrganizationServiceExtented>> getService, IEnumerable<OptionSetMetadata> optionSets)
@@ -965,27 +952,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.CreatingFileWithGlobalOptionSetsFormat1, optionSetsName);
         }
 
-        private void btnConnection1JavaScriptJsonObject_Click(object sender, RoutedEventArgs e)
+        private async void btnConnection1JavaScriptJsonObject_Click(object sender, RoutedEventArgs e)
         {
             ConnectionData connection1 = cmBConnection1.SelectedItem as ConnectionData;
 
             if (connection1 != null && _cacheOptionSetMetadata.TryGetValue(connection1.ConnectionId, out var optionSets))
             {
-                CreateGlobalOptionSetsJavaScriptFile(GetService1, optionSets);
+                await CreateGlobalOptionSetsJavaScriptFile(GetService1, optionSets);
             }
         }
 
-        private void btnConnection2JavaScriptJsonObject_Click(object sender, RoutedEventArgs e)
+        private async void btnConnection2JavaScriptJsonObject_Click(object sender, RoutedEventArgs e)
         {
             ConnectionData connection2 = cmBConnection2.SelectedItem as ConnectionData;
 
             if (connection2 != null && _cacheOptionSetMetadata.TryGetValue(connection2.ConnectionId, out var optionSets))
             {
-                CreateGlobalOptionSetsJavaScriptFile(GetService2, optionSets);
+                await CreateGlobalOptionSetsJavaScriptFile(GetService2, optionSets);
             }
         }
 
-        private void btnConnection1JavaScriptSingleJsonObject_Click(object sender, RoutedEventArgs e)
+        private async void btnConnection1JavaScriptSingleJsonObject_Click(object sender, RoutedEventArgs e)
         {
             var link = GetSelectedEntity();
 
@@ -996,10 +983,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var optionSets = new[] { link.OptionSetMetadata1 };
 
-            CreateGlobalOptionSetsJavaScriptFile(GetService1, optionSets);
+            await CreateGlobalOptionSetsJavaScriptFile(GetService1, optionSets);
         }
 
-        private void btnConnection2JavaScriptSingleJsonObject_Click(object sender, RoutedEventArgs e)
+        private async void btnConnection2JavaScriptSingleJsonObject_Click(object sender, RoutedEventArgs e)
         {
             var link = GetSelectedEntity();
 
@@ -1010,7 +997,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var optionSets = new[] { link.OptionSetMetadata2 };
 
-            CreateGlobalOptionSetsJavaScriptFile(GetService2, optionSets);
+            await CreateGlobalOptionSetsJavaScriptFile(GetService2, optionSets);
         }
 
         private async Task CreateGlobalOptionSetsJavaScriptFile(Func<Task<IOrganizationServiceExtented>> getService, IEnumerable<OptionSetMetadata> optionSets)
@@ -1093,19 +1080,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.CreatingFileWithGlobalOptionSetsFormat1, optionSetsName);
         }
 
-        private void txtBFilter_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBFilter_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                ShowExistingOptionSets();
+                await ShowExistingOptionSets();
             }
         }
 
-        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        protected override async Task OnRefreshList(ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
 
-            ShowExistingOptionSets();
+            await ShowExistingOptionSets();
         }
 
         protected override bool CanCloseWindow(KeyEventArgs e)
@@ -1126,7 +1113,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return true;
         }
 
-        private void lstVwOptionSets_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private async void lstVwOptionSets_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
@@ -1137,7 +1124,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     var optionSets1 = new[] { item.OptionSetMetadata1 };
                     var optionSets2 = new[] { item.OptionSetMetadata2 };
 
-                    PerformComparingCSharpFiles(optionSets1, optionSets2);
+                    await PerformComparingCSharpFiles(optionSets1, optionSets2);
                 }
             }
         }
@@ -1201,7 +1188,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     UpdateButtonsEnable();
 
-                    ShowExistingOptionSets();
+                    var task = ShowExistingOptionSets();
                 }
             });
         }

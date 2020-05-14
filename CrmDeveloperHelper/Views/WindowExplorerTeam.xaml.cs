@@ -108,7 +108,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.DecreaseInit();
 
-            ShowExistingTeams();
+            var task = ShowExistingTeams();
         }
 
         private void FillExplorersMenuItems()
@@ -193,11 +193,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _popupEntityMetadataFilter.Child.Focus();
         }
 
-        private void _popupEntityMetadataFilter_Closed(object sender, EventArgs e)
+        private async void _popupEntityMetadataFilter_Closed(object sender, EventArgs e)
         {
             if (_entityMetadataFilter.FilterChanged)
             {
-                ShowTeamEntityPrivileges();
+                await ShowTeamEntityPrivileges();
             }
         }
 
@@ -753,45 +753,45 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             UpdateTeamButtons();
         }
 
-        private void txtBFilterSystemUser_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBFilterSystemUser_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                ShowTeamSystemUsers();
+                await ShowTeamSystemUsers();
             }
         }
 
-        private void txtBEntityFilter_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBEntityFilter_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                ShowTeamEntityPrivileges();
+                await ShowTeamEntityPrivileges();
             }
         }
 
-        private void cmBRoleEditorLayoutTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void cmBRoleEditorLayoutTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ShowTeamEntityPrivileges();
+            await ShowTeamEntityPrivileges();
         }
 
-        private void txtBFilterTeams_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBFilterTeams_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                ShowExistingTeams();
+                await ShowExistingTeams();
             }
         }
 
-        private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ShowExistingTeams();
+            await ShowExistingTeams();
         }
 
-        private void txtBFilterRole_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBFilterRole_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                ShowTeamRoles();
+                await ShowTeamRoles();
             }
         }
 
@@ -920,7 +920,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await action(entityNames);
         }
 
-        private void btnPublishEntity_Click(object sender, RoutedEventArgs e)
+        private async void btnPublishEntity_Click(object sender, RoutedEventArgs e)
         {
             var entityList = GetSelectedEntities();
 
@@ -929,45 +929,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entityList.Select(item => item.LogicalName).ToList(), PublishEntityAsync);
+            await ExecuteActionAsync(entityList.Select(item => item.LogicalName).ToList(), PublishEntityAsync);
         }
 
-        private async Task PublishEntityAsync(IEnumerable<string> entityNames)
+        protected async Task PublishEntityAsync(IEnumerable<string> entityNames)
         {
             if (!this.IsControlsEnabled)
             {
                 return;
             }
 
-            var service = await GetService();
-
-            var entityNamesOrdered = string.Join(", ", entityNames.OrderBy(s => s));
-
-            this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
-
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
-
-            try
-            {
-                var repository = new PublishActionsRepository(service);
-
-                await repository.PublishEntitiesAsync(entityNames);
-
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.PublishingEntitiesCompletedFormat2, service.ConnectionData.Name, entityNamesOrdered);
-            }
-            catch (Exception ex)
-            {
-                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.PublishingEntitiesFailedFormat2, service.ConnectionData.Name, entityNamesOrdered);
-            }
-
-            this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
+            await base.PublishEntityAsync(GetSelectedConnection(), entityNames);
         }
 
-        private void lstVwTeam_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void lstVwTeam_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            RefreshTeamInfo();
+            await RefreshTeamInfo();
         }
 
         private void lstVwSecurityRoles_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1086,11 +1063,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        protected override async Task OnRefreshList(ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
 
-            ShowExistingTeams();
+            await ShowExistingTeams();
         }
 
         private void mIOpenEntityInWeb_Click(object sender, RoutedEventArgs e)
@@ -1268,7 +1245,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             );
         }
 
-        private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (!this.IsControlsEnabled)
             {
@@ -1279,11 +1256,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
-                ShowExistingTeams();
+                await ShowExistingTeams();
             }
         }
 
-        private void mIClearEntityCacheAndRefresh_Click(object sender, RoutedEventArgs e)
+        private async void mIClearEntityCacheAndRefresh_Click(object sender, RoutedEventArgs e)
         {
             ConnectionData connectionData = GetSelectedConnection();
 
@@ -1292,7 +1269,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _cacheEntityMetadata.Remove(connectionData.ConnectionId);
                 _cachePrivileges.Remove(connectionData.ConnectionId);
 
-                RefreshTeamInfo();
+                await RefreshTeamInfo();
             }
         }
 
@@ -1589,7 +1566,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
 
-            RefreshTeamInfo();
+            await RefreshTeamInfo();
         }
 
         private async void btnRemoveRoleFromTeam_Click(object sender, RoutedEventArgs e)
@@ -1636,7 +1613,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
 
-            RefreshTeamInfo();
+            await RefreshTeamInfo();
         }
 
         private async void btnAddUserToTeam_Click(object sender, RoutedEventArgs e)
@@ -1722,7 +1699,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
 
-            RefreshTeamInfo();
+            await RefreshTeamInfo();
         }
 
         private async void btnRemoveUserFromTeam_Click(object sender, RoutedEventArgs e)
@@ -1769,27 +1746,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
 
-            RefreshTeamInfo();
+            await RefreshTeamInfo();
         }
 
-        private void btnRefreshSystemUsers_Click(object sender, RoutedEventArgs e)
+        private async void btnRefreshSystemUsers_Click(object sender, RoutedEventArgs e)
         {
-            ShowTeamSystemUsers();
+            await ShowTeamSystemUsers();
         }
 
-        private void btnRefreshRoles_Click(object sender, RoutedEventArgs e)
+        private async void btnRefreshRoles_Click(object sender, RoutedEventArgs e)
         {
-            ShowTeamRoles();
+            await ShowTeamRoles();
         }
 
-        private void btnRefreshTeams_Click(object sender, RoutedEventArgs e)
+        private async void btnRefreshTeams_Click(object sender, RoutedEventArgs e)
         {
-            ShowExistingTeams();
+            await ShowExistingTeams();
         }
 
-        private void btnRefreshEntites_Click(object sender, RoutedEventArgs e)
+        private async void btnRefreshEntites_Click(object sender, RoutedEventArgs e)
         {
-            ShowTeamEntityPrivileges();
+            await ShowTeamEntityPrivileges();
         }
 
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)

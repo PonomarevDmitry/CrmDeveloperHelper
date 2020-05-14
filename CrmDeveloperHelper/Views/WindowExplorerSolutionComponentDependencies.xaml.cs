@@ -63,7 +63,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
             this._iWriteToOutput = iWriteToOutput;
-            this._service = service;
+            this._service = service ?? throw new ArgumentNullException(nameof(service));
             this._commonConfig = commonConfig;
             this._componentType = componentType;
             this._objectId = objectId;
@@ -117,10 +117,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             DecreaseInit();
 
-            if (_service != null)
-            {
-                ShowExistingSolutionComponents();
-            }
+            var task = ShowExistingSolutionComponents();
         }
 
         private void LoadFromConfig()
@@ -426,11 +423,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void txtBFilterEnitity_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBFilterEnitity_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                ShowExistingSolutionComponents();
+                await ShowExistingSolutionComponents();
             }
         }
 
@@ -445,7 +442,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Close();
         }
 
-        private void lstVwEntities_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private async void lstVwEntities_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
@@ -453,7 +450,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (item != null)
                 {
-                    ExecuteAction(item, PerformExportMouseDoubleClick);
+                    await ExecuteAction(item, PerformExportMouseDoubleClick);
                 }
             }
         }
@@ -482,7 +479,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await action(folder, item);
         }
 
-        private void btnExportAll_Click(object sender, RoutedEventArgs e)
+        private async void btnExportAll_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedSolutionComponent();
 
@@ -491,7 +488,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity, PerformExportAllXml);
+            await ExecuteAction(entity, PerformExportAllXml);
         }
 
         private async Task PerformExportAllXml(string folder, SolutionComponentViewItem solutionComponentViewItem)
@@ -499,7 +496,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await PerformExportEntityDescription(folder, solutionComponentViewItem);
         }
 
-        private void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
+        private async void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedSolutionComponent();
 
@@ -508,7 +505,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteAction(entity, PerformExportEntityDescription);
+            await ExecuteAction(entity, PerformExportEntityDescription);
         }
 
         private async Task PerformExportEntityDescription(string folder, SolutionComponentViewItem solutionComponentViewItem)
@@ -557,11 +554,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(_service.ConnectionData, Properties.OperationNames.CreatingEntityDescriptionFormat1, _service.ConnectionData.Name);
         }
 
-        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        protected override async Task OnRefreshList(ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
 
-            ShowExistingSolutionComponents();
+            await ShowExistingSolutionComponents();
         }
 
         private void mIOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)
@@ -1154,7 +1151,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         #endregion Linked Solution Components
 
-        private void cmBComponentType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void cmBComponentType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (!this.IsControlsEnabled)
             {
@@ -1163,17 +1160,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             FillDataGridColumns();
 
-            ShowExistingSolutionComponents();
+            await ShowExistingSolutionComponents();
         }
 
-        private void cmBDependencyType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void cmBDependencyType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (!this.IsControlsEnabled)
             {
                 return;
             }
 
-            ShowExistingSolutionComponents();
+            await ShowExistingSolutionComponents();
         }
 
         private void FillDataGridColumns()

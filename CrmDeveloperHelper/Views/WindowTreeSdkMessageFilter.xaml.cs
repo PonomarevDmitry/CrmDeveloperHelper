@@ -72,7 +72,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.DecreaseInit();
 
-            ShowExistingMessages();
+            var task = ShowExistingMessages();
         }
 
         private void FillExplorersMenuItems()
@@ -200,11 +200,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._imageMessage = this.Resources["ImageMessage"] as BitmapImage;
         }
 
-        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        protected override async Task OnRefreshList(ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
 
-            ShowExistingMessages();
+            await ShowExistingMessages();
         }
 
         private ConnectionData GetSelectedConnection()
@@ -504,11 +504,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ;
         }
 
-        private void txtBFilter_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBFilter_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                ShowExistingMessages();
+                await ShowExistingMessages();
             }
         }
 
@@ -536,23 +536,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             UpdateButtonsEnable();
         }
 
-        private void rBViewByEntity_Checked(object sender, RoutedEventArgs e)
+        private async void rBViewByEntity_Checked(object sender, RoutedEventArgs e)
         {
             if (this._currentView != View.ByEntity)
             {
                 this._currentView = View.ByEntity;
 
-                ShowExistingMessages();
+                await ShowExistingMessages();
             }
         }
 
-        private void rBViewByMessage_Checked(object sender, RoutedEventArgs e)
+        private async void rBViewByMessage_Checked(object sender, RoutedEventArgs e)
         {
             if (this._currentView != View.ByMessage)
             {
                 this._currentView = View.ByMessage;
 
-                ShowExistingMessages();
+                await ShowExistingMessages();
             }
         }
 
@@ -737,14 +737,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.CreatingFileWithDescriptionFormat1, service.ConnectionData.Name);
         }
 
-        private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData != null)
             {
                 FillEntityNames(connectionData);
-                ShowExistingMessages();
+                await ShowExistingMessages();
             }
         }
 
@@ -880,7 +880,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mICreateDescription_Click(object sender, RoutedEventArgs e)
+        private async void mICreateDescription_Click(object sender, RoutedEventArgs e)
         {
             PluginTreeViewItem nodeItem = GetItemFromRoutedDataContext<PluginTreeViewItem>(e);
 
@@ -896,7 +896,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.CheckFolderForExportExists(_iWriteToOutput);
 
-            CreateDescription(nodeItem);
+            await CreateDescription(nodeItem);
         }
 
         private async void miOpenSolutionsContainingComponentInExplorer_Click(object sender, RoutedEventArgs e)

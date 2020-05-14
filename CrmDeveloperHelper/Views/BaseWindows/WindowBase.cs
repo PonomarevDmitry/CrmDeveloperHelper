@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -35,14 +36,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.CommandBindings.Add(binding);
         }
 
-        private void Refresh_Executed(object sender, ExecutedRoutedEventArgs e)
+        private async void Refresh_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            OnRefreshList(e);
+            await OnRefreshList(e);
         }
 
-        protected virtual void OnRefreshList(ExecutedRoutedEventArgs e)
+        protected virtual Task OnRefreshList(ExecutedRoutedEventArgs e)
         {
-
+            return Task.CompletedTask;
         }
 
         protected bool IsControlsEnabled => this._initCounter <= 0;

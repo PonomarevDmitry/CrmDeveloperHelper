@@ -44,7 +44,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
-            this._service = service;
+            this._service = service ?? throw new ArgumentNullException(nameof(service));
             this._iWriteToOutput = outputWindow;
 
             this.tSSLblConnectionName.Content = this._service.ConnectionData.Name;
@@ -59,10 +59,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             FocusOnComboBoxTextBox(cmBFilter);
 
-            if (_service != null)
-            {
-                ShowExistingSolutions(this._service.ConnectionData.LastSelectedSolutionsUniqueName.FirstOrDefault());
-            }
+            var task = ShowExistingSolutions(this._service.ConnectionData.LastSelectedSolutionsUniqueName.FirstOrDefault());
         }
 
         protected override void OnClosed(EventArgs e)
@@ -234,11 +231,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void cmBFilterEnitity_KeyDown(object sender, KeyEventArgs e)
+        private async void cmBFilterEnitity_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                ShowExistingSolutions();
+                await ShowExistingSolutions();
             }
         }
 
@@ -310,11 +307,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             SelectSolutioAction(entity);
         }
 
-        protected override void OnRefreshList(ExecutedRoutedEventArgs e)
+        protected override async Task OnRefreshList(ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
 
-            ShowExistingSolutions();
+            await ShowExistingSolutions();
         }
 
         private void btnSelectLastSolution_Click(object sender, RoutedEventArgs e)
