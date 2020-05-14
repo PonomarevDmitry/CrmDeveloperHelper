@@ -24,6 +24,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.ToolWindowPanes
             this._control = new FetchXmlExecutorControl();
 
             this._control.ConnectionChanged += _control_ConnectionChanged;
+        }
+
+        protected override void OnCreate()
+        {
+            base.OnCreate();
 
             this.Content = this._control;
         }
