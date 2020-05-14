@@ -1,9 +1,12 @@
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Threading;
 using System.Xml.Linq;
 using System.Xml.XPath;
 
@@ -15,7 +18,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
         private string FilePath { get; set; }
 
         [DataMember]
-        public Guid ConnectionId { get; private set; }
+        public Guid ConnectionId { get; set; }
 
         [DataMember]
         public SortedSet<string> Urls { get; private set; }
@@ -48,7 +51,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
         public SortedSet<string> CheckExtensionProperties { get; private set; }
 
         [DataMember]
-        public ConcurrentDictionary<Guid, SystemForm> Dashboards { get; private set; }
+        public ConcurrentDictionary<Guid, SystemFormIntellisenseData> Dashboards { get; private set; }
 
         public SiteMapIntellisenseData()
         {
@@ -57,6 +60,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 
         [OnDeserializing]
         private void BeforeDeserialize(StreamingContext context)
+        {
+            CreateCollectionIfNeaded();
+        }
+
+        private void CreateCollectionIfNeaded()
         {
             if (Urls == null)
             {
@@ -110,7 +118,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 
             if (Dashboards == null)
             {
-                this.Dashboards = new ConcurrentDictionary<Guid, SystemForm>();
+                this.Dashboards = new ConcurrentDictionary<Guid, SystemFormIntellisenseData>();
             }
         }
 
@@ -131,7 +139,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 
             this.CheckExtensionProperties = new SortedSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
-            this.Dashboards = new ConcurrentDictionary<Guid, SystemForm>();
+            this.Dashboards = new ConcurrentDictionary<Guid, SystemFormIntellisenseData>();
         }
 
         public void LoadDataFromSiteMap(XDocument docSiteMap)
@@ -344,8 +352,185 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
             {
                 if (!this.Dashboards.ContainsKey(item.Id))
                 {
-                    this.Dashboards.TryAdd(item.Id, item);
+                    this.Dashboards.TryAdd(item.Id, new SystemFormIntellisenseData());
                 }
+
+                this.Dashboards[item.Id].LoadData(item);
+            }
+        }
+
+        private static SiteMapIntellisenseData Get(Guid connectionId)
+        {
+            var filePath = GetFilePath(connectionId);
+
+            SiteMapIntellisenseData result = null;
+
+            if (File.Exists(filePath))
+            {
+                DataContractSerializer ser = new DataContractSerializer(typeof(SiteMapIntellisenseData));
+
+                using (Mutex mutex = new Mutex(false, FileOperations.GetMutexName(filePath)))
+                {
+                    try
+                    {
+                        mutex.WaitOne();
+
+                        using (var sr = File.OpenRead(filePath))
+                        {
+                            result = ser.ReadObject(sr) as SiteMapIntellisenseData;
+                            result.FilePath = filePath;
+                            result.ConnectionId = connectionId;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        DTEHelper.WriteExceptionToLog(ex);
+
+                        FileOperations.CreateBackUpFile(filePath, ex);
+                    }
+                    finally
+                    {
+                        mutex.ReleaseMutex();
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public void Save()
+        {
+            string filePath = GetFilePath(this.ConnectionId);
+
+            if (!string.IsNullOrEmpty(FilePath))
+            {
+                filePath = FilePath;
+            }
+
+            this.Save(filePath);
+        }
+
+        private void Save(string filePath)
+        {
+            byte[] fileBody = null;
+
+            using (var memoryStream = new MemoryStream())
+            {
+                try
+                {
+                    DataContractSerializer ser = new DataContractSerializer(typeof(SiteMapIntellisenseData));
+
+                    ser.WriteObject(memoryStream, this);
+
+                    memoryStream.Seek(0, SeekOrigin.Begin);
+
+                    fileBody = memoryStream.ToArray();
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToLog(ex);
+
+                    fileBody = null;
+                }
+            }
+
+            if (fileBody != null)
+            {
+                using (Mutex mutex = new Mutex(false, FileOperations.GetMutexName(filePath)))
+                {
+                    try
+                    {
+                        mutex.WaitOne();
+
+                        try
+                        {
+                            using (var stream = File.Open(filePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                            {
+                                stream.Write(fileBody, 0, fileBody.Length);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            DTEHelper.WriteExceptionToLog(ex);
+                        }
+                    }
+                    finally
+                    {
+                        mutex.ReleaseMutex();
+                    }
+                }
+            }
+        }
+
+        private static string GetFilePath(Guid connectionId)
+        {
+            string folderPath = FileOperations.GetConnectionIntellisenseDataFolderPath(connectionId);
+
+            var fileName = "SiteMapIntellisenseData.xml";
+
+            var filePath = Path.Combine(folderPath, fileName);
+
+            return filePath;
+        }
+
+        private void MergeDataFromDisk(SiteMapIntellisenseData data)
+        {
+            if (data == null)
+            {
+                return;
+            }
+
+            CreateCollectionIfNeaded();
+
+            LoadSortedSet(data, d => d.Urls);
+
+            LoadSortedSet(data, d => d.ResourceIds);
+            LoadSortedSet(data, d => d.DescriptionResourceIds);
+            LoadSortedSet(data, d => d.ToolTipResourseIds);
+
+            LoadSortedSet(data, d => d.Icons);
+
+            LoadSortedSet(data, d => d.GetStartedPanePaths);
+            LoadSortedSet(data, d => d.GetStartedPanePathOutlooks);
+            LoadSortedSet(data, d => d.GetStartedPanePathAdmins);
+            LoadSortedSet(data, d => d.GetStartedPanePathAdminOutlooks);
+
+            LoadSortedSet(data, d => d.CheckExtensionProperties);
+
+            foreach (var dashboardData in data.Dashboards.Values)
+            {
+                if (!this.Dashboards.ContainsKey(dashboardData.FormId.Value))
+                {
+                    this.Dashboards.TryAdd(dashboardData.FormId.Value, dashboardData);
+                }
+                else
+                {
+                    this.Dashboards[dashboardData.FormId.Value].MergeDataFromDisk(dashboardData);
+                }
+            }
+        }
+
+        private void LoadSortedSet(SiteMapIntellisenseData data, Func<SiteMapIntellisenseData, SortedSet<string>> getSortedSet)
+        {
+            var thisSortedSet = getSortedSet(this);
+            var dataSortedSet = getSortedSet(data);
+
+            foreach (var value in thisSortedSet)
+            {
+                if (!thisSortedSet.Contains(value))
+                {
+                    thisSortedSet.Add(value);
+                }
+            }
+        }
+
+        internal void GetDataFromDisk()
+        {
+            var data = Get(this.ConnectionId);
+
+            if (data != null)
+            {
+                this.MergeDataFromDisk(data);
             }
         }
     }

@@ -1099,6 +1099,7 @@
     <Compile Include="Intellisense\Model\RibbonIntellisenseData.cs" />
     <Compile Include="Intellisense\Model\RibbonLocation.cs" />
     <Compile Include="Intellisense\Model\RibbonLocationControl.cs" />
+    <Compile Include="Intellisense\Model\SystemFormIntellisenseData.cs" />
     <Compile Include="Intellisense\XmlCompletionSource.cs" />
     <Compile Include="Intellisense\XmlCompletionSource.Fetch.cs" />
     <Compile Include="Intellisense\XmlCompletionSource.Ribbon.cs" />

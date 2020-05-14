@@ -14,10 +14,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
     [DataContract]
     public class ConnectionWebResourceIntellisenseData
     {
-        private const int _savePeriodInMinutes = 5;
-
-        private DateTime? _nextSaveFileDate;
-
         private string FilePath { get; set; }
 
         [DataMember]
@@ -60,16 +56,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
         public IEnumerable<WebResourceIntellisenseData> GetJavaScriptWebResources()
         {
             return WebResourcesAll.Values.Where(w => w.WebResourceType != null && w.WebResourceType.Value == (int)WebResource.Schema.OptionSets.webresourcetype.Script_JScript_3);
-        }
-
-        public void SaveIntellisenseDataByTime()
-        {
-            if (this._nextSaveFileDate.HasValue && DateTime.Now < this._nextSaveFileDate)
-            {
-                return;
-            }
-
-            this.Save();
         }
 
         private static ConnectionWebResourceIntellisenseData Get(Guid connectionId)
@@ -173,8 +159,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                     }
                 }
             }
-
-            this._nextSaveFileDate = DateTime.Now.AddMinutes(_savePeriodInMinutes);
         }
 
         private static string GetFilePath(Guid connectionId)

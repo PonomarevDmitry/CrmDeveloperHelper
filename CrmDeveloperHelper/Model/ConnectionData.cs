@@ -35,6 +35,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         private object _syncObjectRibbonIntellisense = new object();
 
+        private object _syncObjectSiteMapIntellisense = new object();
+
         private object _syncObjectRequests = new object();
 
         private FileSystemWatcher _watcher = null;
@@ -818,6 +820,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             if (_syncObjectEntitiesIntellisense == null) { _syncObjectEntitiesIntellisense = new object(); }
             if (_syncObjectWebResourceIntellisense == null) { _syncObjectWebResourceIntellisense = new object(); }
             if (_syncObjectRibbonIntellisense == null) { _syncObjectRibbonIntellisense = new object(); }
+            if (_syncObjectSiteMapIntellisense == null) { _syncObjectSiteMapIntellisense = new object(); }
             if (_syncObjectRequests == null) { _syncObjectRequests = new object(); }
 
             lock (_syncObjectRequests)
@@ -903,24 +906,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.EntitiesIntellisenseData.ConnectionId = this.ConnectionId;
             this.WebResourceIntellisenseData.ConnectionId = this.ConnectionId;
             this.RibbonIntellisense.ConnectionId = this.ConnectionId;
+            this.SiteMapIntellisenseData.ConnectionId = this.ConnectionId;
 
             var task1 = Task.Run(() => this.EntitiesIntellisenseData.GetDataFromDisk());
             var task2 = Task.Run(() => this.WebResourceIntellisenseData.GetDataFromDisk());
             var task3 = Task.Run(() => this.RibbonIntellisense.GetDataFromDisk());
-
-            AppDomain.CurrentDomain.ProcessExit -= CurrentDomain_ProcessExit;
-            AppDomain.CurrentDomain.ProcessExit -= CurrentDomain_ProcessExit;
-            AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
-
-            AppDomain.CurrentDomain.DomainUnload -= CurrentDomain_ProcessExit;
-            AppDomain.CurrentDomain.DomainUnload -= CurrentDomain_ProcessExit;
-            AppDomain.CurrentDomain.DomainUnload += CurrentDomain_ProcessExit;
-        }
-
-        private void CurrentDomain_ProcessExit(object sender, EventArgs e)
-        {
-            this.EntitiesIntellisenseData.Save();
-            this.WebResourceIntellisenseData.Save();
+            var task4 = Task.Run(() => this.SiteMapIntellisenseData.GetDataFromDisk());
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -1500,6 +1491,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 _ribbonIntellisense.ConnectionId = this.ConnectionId;
 
                 return _ribbonIntellisense;
+            }
+        }
+
+        private SiteMapIntellisenseData _siteMapIntellisenseData;
+
+        public SiteMapIntellisenseData SiteMapIntellisenseData
+        {
+            get
+            {
+                lock (_syncObjectSiteMapIntellisense)
+                {
+                    if (_siteMapIntellisenseData == null)
+                    {
+                        _siteMapIntellisenseData = new SiteMapIntellisenseData();
+                    }
+                }
+
+                _siteMapIntellisenseData.ConnectionId = this.ConnectionId;
+
+                return _siteMapIntellisenseData;
             }
         }
 

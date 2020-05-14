@@ -968,8 +968,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             var task1 = System.Threading.Tasks.Task.Run(() => CommonConfiguration.Get());
             var task2 = System.Threading.Tasks.Task.Run(() => ConnectionConfiguration.Get());
-
-            //Repository.ConnectionIntellisenseDataRepository.LoadIntellisenseCache();
         }
 
         internal async System.Threading.Tasks.Task ExecuteFetchXmlQueryAsync(string filePath, ConnectionData connectionData, IWriteToOutput iWriteToOutput, bool strictConnection)

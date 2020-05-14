@@ -151,7 +151,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 this._nextLoadFromCrmDate = DateTime.Now.AddSeconds(_loadPeriodInSeconds);
 
-                _connectionData.WebResourceIntellisenseData.SaveIntellisenseDataByTime();
+                _connectionData.WebResourceIntellisenseData.Save();
 
                 //{
                 //    var listWebResources = await repository.GetListByTypesAsync(

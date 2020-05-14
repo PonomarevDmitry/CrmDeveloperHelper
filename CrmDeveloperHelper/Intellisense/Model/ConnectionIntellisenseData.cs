@@ -40,9 +40,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                 }
 
                 this.Entities[entityMetadata.LogicalName].LoadData(entityMetadata);
+                var task = this.Entities[entityMetadata.LogicalName].SaveAsync(this.ConnectionId);
             }
-
-            SaveIntellisenseDataByTime();
         }
 
         public void LoadFullData(IEnumerable<EntityMetadata> entityMetadataList)
@@ -61,6 +60,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                 }
 
                 this.Entities[entityMetadata.LogicalName].LoadData(entityMetadata);
+                var task = this.Entities[entityMetadata.LogicalName].SaveAsync(this.ConnectionId);
             }
 
             foreach (var entityName in this.Entities.Keys.ToList())
@@ -70,8 +70,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                     this.Entities.TryRemove(entityName, out _);
                 }
             }
-
-            SaveIntellisenseDataByTime();
         }
 
         public void LoadData(EntityMetadata entityMetadata)
@@ -90,7 +88,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 
             this.Entities[entityMetadata.LogicalName].LoadData(entityMetadata);
 
-            SaveIntellisenseDataByTime();
+            var task = this.Entities[entityMetadata.LogicalName].SaveAsync(this.ConnectionId);
         }
 
         public void GetDataFromDisk()
@@ -122,38 +120,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                     }
                 });
             }
-        }
-
-        public void Save()
-        {
-            string directory = FileOperations.GetConnectionIntellisenseDataFolderPathEntities(this.ConnectionId);
-
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-
-            this.Save(directory);
-        }
-
-        private void Save(string directory)
-        {
-            if (this.Entities.Any())
-            {
-                Parallel.ForEach(this.Entities.Values, entityData => entityData.Save(directory));
-            }
-        }
-
-        private void SaveIntellisenseDataByTime()
-        {
-            string directory = FileOperations.GetConnectionIntellisenseDataFolderPathEntities(this.ConnectionId);
-
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-
-            Parallel.ForEach(this.Entities.Values, entityData => entityData.SaveIntellisenseDataByTime(directory));
         }
     }
 }

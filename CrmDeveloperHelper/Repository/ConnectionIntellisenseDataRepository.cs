@@ -37,9 +37,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             _cancellationTokenSource = new CancellationTokenSource();
 
-            AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
-            AppDomain.CurrentDomain.DomainUnload += CurrentDomain_ProcessExit;
-
             var task = Task.Run(() => StartGettingListEntityHeader(), _cancellationTokenSource.Token);
         }
 
@@ -49,8 +46,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 return;
             }
-
-            _connectionData.EntitiesIntellisenseData.Save();
 
             _cancellationTokenSource.Cancel();
         }

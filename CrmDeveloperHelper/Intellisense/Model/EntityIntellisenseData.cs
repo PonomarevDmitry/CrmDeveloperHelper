@@ -8,16 +8,13 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 {
     [DataContract]
     public class EntityIntellisenseData
     {
-        private const int _savePeriodInMinutes = 5;
-
-        private DateTime? NextSaveFileDate;
-
         [DataMember]
         public Guid? MetadataId { get; private set; }
 
@@ -600,8 +597,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
             return result;
         }
 
-        public void Save(string directory)
+        public Task SaveAsync(Guid connectionId)
         {
+            return Task.Run(() => Save(connectionId));
+        }
+
+        public void Save(Guid connectionId)
+        {
+            string directory = FileOperations.GetConnectionIntellisenseDataFolderPathEntities(connectionId);
+
             string filePath = Path.Combine(directory, this.EntityLogicalName.ToLower() + ".xml");
 
             this.SaveInternal(filePath);
@@ -657,18 +661,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                     }
                 }
             }
-
-            this.NextSaveFileDate = DateTime.Now.AddMinutes(_savePeriodInMinutes);
-        }
-
-        public void SaveIntellisenseDataByTime(string directory)
-        {
-            if (this.NextSaveFileDate.HasValue && DateTime.Now < this.NextSaveFileDate)
-            {
-                return;
-            }
-
-            this.Save(directory);
         }
     }
 }

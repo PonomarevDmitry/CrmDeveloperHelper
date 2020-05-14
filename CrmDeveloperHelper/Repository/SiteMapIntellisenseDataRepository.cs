@@ -30,8 +30,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private ConnectionData _connectionData;
 
-        private SiteMapIntellisenseData _siteMapIntellisenseData = new SiteMapIntellisenseData();
-
         private CancellationTokenSource _cancellationTokenSource;
 
         private static ConcurrentDictionary<Guid, SiteMapIntellisenseDataRepository> _staticCacheRepositories = new ConcurrentDictionary<Guid, SiteMapIntellisenseDataRepository>();
@@ -91,7 +89,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 StartGettingSiteMapsAsync();
             }
 
-            return _siteMapIntellisenseData;
+            return _connectionData.SiteMapIntellisenseData;
         }
 
         private void StartGettingSiteMapsAsync()
@@ -134,7 +132,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     return;
                 }
 
-                _siteMapIntellisenseData.ClearData();
+                _connectionData.SiteMapIntellisenseData.ClearData();
 
                 if (Version.TryParse(_connectionData.OrganizationVersion, out var organizationVersion))
                 {
@@ -172,7 +170,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                     var doc = XDocument.Load(info.Stream);
 
-                    _siteMapIntellisenseData.LoadDataFromSiteMap(doc);
+                    _connectionData.SiteMapIntellisenseData.LoadDataFromSiteMap(doc);
 
                     info.Stream.Dispose();
                 }
@@ -191,7 +189,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                         if (ContentComparerHelper.TryParseXmlDocument(item.SiteMapXml, out var doc))
                         {
-                            _siteMapIntellisenseData.LoadDataFromSiteMap(doc);
+                            _connectionData.SiteMapIntellisenseData.LoadDataFromSiteMap(doc);
                         }
                     }
                 }
@@ -208,7 +206,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         {
                             if (ContentComparerHelper.TryParseXmlDocument(organization.ReferenceSiteMapXml, out var doc))
                             {
-                                _siteMapIntellisenseData.LoadDataFromSiteMap(doc);
+                                _connectionData.SiteMapIntellisenseData.LoadDataFromSiteMap(doc);
                             }
                         }
 
@@ -216,7 +214,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         {
                             if (ContentComparerHelper.TryParseXmlDocument(organization.SiteMapXml, out var doc))
                             {
-                                _siteMapIntellisenseData.LoadDataFromSiteMap(doc);
+                                _connectionData.SiteMapIntellisenseData.LoadDataFromSiteMap(doc);
                             }
                         }
                     }
@@ -225,10 +223,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     var repository = new SystemFormRepository(service);
 
-                    var listSystemForms = await repository.GetListByTypeAsync((int)SystemForm.Schema.OptionSets.type.Dashboard_0, new ColumnSet(SystemForm.Schema.Attributes.objecttypecode, SystemForm.Schema.Attributes.name, SystemForm.Schema.Attributes.description));
+                    var listSystemForms = await repository.GetListByTypeAsync((int)SystemForm.Schema.OptionSets.type.Dashboard_0
+                        , new ColumnSet
+                        (
+                            SystemForm.Schema.EntityPrimaryIdAttribute
+                            , SystemForm.Schema.Attributes.objecttypecode
+                            , SystemForm.Schema.Attributes.name
+                            , SystemForm.Schema.Attributes.description
+                        )
+                    );
 
-                    _siteMapIntellisenseData.LoadDashboards(listSystemForms);
+                    _connectionData.SiteMapIntellisenseData.LoadDashboards(listSystemForms);
                 }
+
+                _connectionData.SiteMapIntellisenseData.Save();
 
                 this._nextLoadFileDate = DateTime.Now.AddMinutes(_loadPeriodInMinutes);
             }
@@ -288,6 +296,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         }
 
         #region IDisposable Support
+
         private bool disposedValue = false; // To detect redundant calls
 
         protected virtual void Dispose(bool disposing)
@@ -319,6 +328,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
         #endregion
     }
 }

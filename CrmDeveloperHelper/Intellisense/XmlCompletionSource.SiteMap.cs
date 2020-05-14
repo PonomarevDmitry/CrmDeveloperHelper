@@ -2,6 +2,7 @@ using Microsoft.VisualStudio.Language.Intellisense;
 using Microsoft.VisualStudio.Text;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
@@ -240,7 +241,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             }
         }
 
-        private void FillDashboards(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, IEnumerable<SystemForm> dashboards, string nameCompletionSet)
+        private void FillDashboards(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, IEnumerable<SystemFormIntellisenseData> dashboards, string nameCompletionSet)
         {
             if (dashboards == null || !dashboards.Any())
             {
@@ -262,7 +263,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
                 List<string> compareValues = new List<string>() { dashboard.Name, dashboard.ObjectTypeCode };
 
-                list.Add(CreateCompletion(str.ToString(), dashboard.Id.ToString().ToLower(), dashboard.Description, _defaultGlyph, compareValues));
+                list.Add(CreateCompletion(str.ToString(), dashboard.FormId.ToString().ToLower(), dashboard.Description, _defaultGlyph, compareValues));
             }
 
             completionSets.Add(new CrmCompletionSet(SourceNameMonikerDefaultSingle, nameCompletionSet, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
