@@ -137,11 +137,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (_service != null
                     && _service.ConnectionData != null
-                    && _service.ConnectionData.IntellisenseData != null
-                    && _service.ConnectionData.IntellisenseData.Entities != null
+                    && _service.ConnectionData.EntitiesIntellisenseData != null
+                    && _service.ConnectionData.EntitiesIntellisenseData.Entities != null
                 )
                 {
-                    var entityIntellisense = _service.ConnectionData.IntellisenseData.Entities.Values.FirstOrDefault(e => e.ObjectTypeCode == urlObjectTypeCode.Value);
+                    var entityIntellisense = _service.ConnectionData.EntitiesIntellisenseData.Entities.Values.FirstOrDefault(e => e.ObjectTypeCode == urlObjectTypeCode.Value);
 
                     if (entityIntellisense != null)
                     {

@@ -47,7 +47,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         {
             if (!_cancellationTokenSource.IsCancellationRequested)
             {
-                _connectionData.IntellisenseData.Save();
+                _connectionData.EntitiesIntellisenseData.Save();
 
                 _cancellationTokenSource.Cancel();
             }
@@ -96,7 +96,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             StartGettingListEntityHeader();
 
-            return _connectionData.IntellisenseData;
+            return _connectionData.EntitiesIntellisenseData;
         }
 
         public EntityIntellisenseData GetEntityAttributeIntellisense(string entityName)
@@ -106,12 +106,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 return null;
             }
 
-            if (_connectionData.IntellisenseData != null
-                && _connectionData.IntellisenseData.Entities != null
-                && _connectionData.IntellisenseData.Entities.ContainsKey(entityName)
+            if (_connectionData.EntitiesIntellisenseData != null
+                && _connectionData.EntitiesIntellisenseData.Entities != null
+                && _connectionData.EntitiesIntellisenseData.Entities.ContainsKey(entityName)
             )
             {
-                var entityData = _connectionData.IntellisenseData.Entities[entityName];
+                var entityData = _connectionData.EntitiesIntellisenseData.Entities[entityName];
 
                 if (entityData.Attributes != null)
                 {
@@ -131,12 +131,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 return null;
             }
 
-            if (_connectionData.IntellisenseData != null
-                && _connectionData.IntellisenseData.Entities != null
-                && _connectionData.IntellisenseData.Entities.Values != null
+            if (_connectionData.EntitiesIntellisenseData != null
+                && _connectionData.EntitiesIntellisenseData.Entities != null
+                && _connectionData.EntitiesIntellisenseData.Entities.Values != null
             )
             {
-                var list = _connectionData.IntellisenseData.Entities.Values.ToList();
+                var list = _connectionData.EntitiesIntellisenseData.Entities.Values.ToList();
 
                 var entityData = list.SingleOrDefault(e => e.ObjectTypeCode.HasValue && e.ObjectTypeCode == entityTypeCode);
 
@@ -232,12 +232,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 return;
             }
 
-            if (_connectionData.IntellisenseData.Entities == null)
+            if (_connectionData.EntitiesIntellisenseData.Entities == null)
             {
                 return;
             }
 
-            var entities = _connectionData.IntellisenseData.Entities.Values.Where(e => !e.IsFullData()).Select(e => e.EntityLogicalName).ToArray();
+            var entities = _connectionData.EntitiesIntellisenseData.Entities.Values.Where(e => !e.IsFullData()).Select(e => e.EntityLogicalName).ToArray();
 
             while (entities.Length > 0)
             {
@@ -330,11 +330,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             var hash = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
-            if (_connectionData.IntellisenseData.Entities != null)
+            if (_connectionData.EntitiesIntellisenseData.Entities != null)
             {
                 foreach (var entityName in entityCollection)
                 {
-                    if (_connectionData.IntellisenseData.Entities.ContainsKey(entityName))
+                    if (_connectionData.EntitiesIntellisenseData.Entities.ContainsKey(entityName))
                     {
                         hash.Add(entityName);
                     }
@@ -368,9 +368,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             foreach (var entityName in hash)
             {
-                if (_connectionData.IntellisenseData.Entities.ContainsKey(entityName))
+                if (_connectionData.EntitiesIntellisenseData.Entities.ContainsKey(entityName))
                 {
-                    var entityData = _connectionData.IntellisenseData.Entities[entityName];
+                    var entityData = _connectionData.EntitiesIntellisenseData.Entities[entityName];
 
                     var related = entityData.GetRelatedEntities();
 
@@ -445,7 +445,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             foreach (var entityObjectTypeCode in hash)
             {
-                var entityData = _connectionData.IntellisenseData?.Entities?.Values?.FirstOrDefault(e => e.ObjectTypeCode.HasValue && e.ObjectTypeCode == entityObjectTypeCode);
+                var entityData = _connectionData.EntitiesIntellisenseData?.Entities?.Values?.FirstOrDefault(e => e.ObjectTypeCode.HasValue && e.ObjectTypeCode == entityObjectTypeCode);
 
                 if (entityData != null)
                 {
@@ -460,7 +460,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             foreach (var entityObjectTypeCode in hash)
             {
-                var entityData = _connectionData.IntellisenseData?.Entities?.Values?.FirstOrDefault(e => e.ObjectTypeCode.HasValue && e.ObjectTypeCode == entityObjectTypeCode);
+                var entityData = _connectionData.EntitiesIntellisenseData?.Entities?.Values?.FirstOrDefault(e => e.ObjectTypeCode.HasValue && e.ObjectTypeCode == entityObjectTypeCode);
 
                 if (entityData != null)
                 {
@@ -585,7 +585,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             var hashEntities = new HashSet<string>();
 
-            var intellisenseData = this._connectionData.IntellisenseData;
+            var intellisenseData = this._connectionData.EntitiesIntellisenseData;
 
             if (intellisenseData != null && intellisenseData.Entities != null)
             {

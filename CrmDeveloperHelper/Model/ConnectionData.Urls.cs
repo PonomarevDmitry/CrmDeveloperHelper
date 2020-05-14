@@ -346,12 +346,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         public Guid? GetEntityMetadataId(string entityName)
         {
             if (entityName.IsValidEntityName()
-                && this.IntellisenseData.Entities != null
-                && this.IntellisenseData.Entities.ContainsKey(entityName)
-                && this.IntellisenseData.Entities[entityName].MetadataId.HasValue
+                && this.EntitiesIntellisenseData.Entities != null
+                && this.EntitiesIntellisenseData.Entities.ContainsKey(entityName)
+                && this.EntitiesIntellisenseData.Entities[entityName].MetadataId.HasValue
             )
             {
-                return this.IntellisenseData.Entities[entityName].MetadataId.Value;
+                return this.EntitiesIntellisenseData.Entities[entityName].MetadataId.Value;
             }
 
             return null;
@@ -360,9 +360,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         public bool IsValidEntityName(string entityName)
         {
             if (entityName.IsValidEntityName()
-                && this.IntellisenseData != null
-                && this.IntellisenseData.Entities != null
-                && this.IntellisenseData.Entities.ContainsKey(entityName)
+                && this.EntitiesIntellisenseData != null
+                && this.EntitiesIntellisenseData.Entities != null
+                && this.EntitiesIntellisenseData.Entities.ContainsKey(entityName)
             )
             {
                 return true;
@@ -554,9 +554,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
                 case ComponentType.Attribute:
                     {
-                        if (this.IntellisenseData != null)
+                        if (this.EntitiesIntellisenseData != null)
                         {
-                            var entityMetadataId = (from ent in this.IntellisenseData?.Entities.Values
+                            var entityMetadataId = (from ent in this.EntitiesIntellisenseData?.Entities.Values
                                                     where ent.MetadataId.HasValue
                                                     from attr in ent.Attributes?.Values
                                                     where attr.MetadataId == objectId
@@ -572,9 +572,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
                 case ComponentType.EntityKey:
                     {
-                        if (this.IntellisenseData != null)
+                        if (this.EntitiesIntellisenseData != null)
                         {
-                            var entityMetadataId = (from ent in this.IntellisenseData?.Entities.Values
+                            var entityMetadataId = (from ent in this.EntitiesIntellisenseData?.Entities.Values
                                                     where ent.MetadataId.HasValue
                                                     from key in ent.Keys?.Values
                                                     where key.MetadataId == objectId
@@ -590,10 +590,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
                 case ComponentType.EntityRelationship:
                     {
-                        if (this.IntellisenseData != null)
+                        if (this.EntitiesIntellisenseData != null)
                         {
                             {
-                                var entityMetadataId = (from ent in this.IntellisenseData?.Entities.Values
+                                var entityMetadataId = (from ent in this.EntitiesIntellisenseData?.Entities.Values
                                                         where ent.MetadataId.HasValue
                                                         from rel in ent.ManyToOneRelationships?.Values
                                                         where rel.MetadataId == objectId
@@ -606,7 +606,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                             }
 
                             {
-                                var entityMetadataId = (from ent in this.IntellisenseData?.Entities.Values
+                                var entityMetadataId = (from ent in this.EntitiesIntellisenseData?.Entities.Values
                                                         where ent.MetadataId.HasValue
                                                         from rel in ent.ManyToManyRelationships?.Values
                                                         where rel.MetadataId == objectId
@@ -710,13 +710,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                     return $"/m/Console/EntityConfig.aspx?appSolutionId=%7b{Solution.Schema.InstancesUniqueId.DefaultId}%7d&etn={entityName}&formid=%7b{formId}%7d";
 
                 default:
-                    if ((this.IntellisenseData?.Entities?.ContainsKey(entityName)).GetValueOrDefault())
+                    if ((this.EntitiesIntellisenseData?.Entities?.ContainsKey(entityName)).GetValueOrDefault())
                     {
                         string formTypeString = SystemFormRepository.GetFormTypeString(formType);
 
                         if (!string.IsNullOrEmpty(formTypeString))
                         {
-                            var linkedEntityObjectCode = this.IntellisenseData.Entities[entityName].ObjectTypeCode;
+                            var linkedEntityObjectCode = this.EntitiesIntellisenseData.Entities[entityName].ObjectTypeCode;
 
                             if (linkedEntityObjectCode.HasValue)
                             {

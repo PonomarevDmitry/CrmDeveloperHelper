@@ -90,9 +90,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
                         if (chart != null && !string.IsNullOrEmpty(chart.PrimaryEntityTypeCode))
                         {
-                            if ((this._service.ConnectionData.IntellisenseData?.Entities?.ContainsKey(chart.PrimaryEntityTypeCode)).GetValueOrDefault())
+                            if ((this._service.ConnectionData.EntitiesIntellisenseData?.Entities?.ContainsKey(chart.PrimaryEntityTypeCode)).GetValueOrDefault())
                             {
-                                var linkedEntityObjectCode = this._service.ConnectionData.IntellisenseData.Entities[chart.PrimaryEntityTypeCode].ObjectTypeCode;
+                                var linkedEntityObjectCode = this._service.ConnectionData.EntitiesIntellisenseData.Entities[chart.PrimaryEntityTypeCode].ObjectTypeCode;
 
                                 if (linkedEntityObjectCode.HasValue)
                                 {

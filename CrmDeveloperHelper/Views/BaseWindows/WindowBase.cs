@@ -687,11 +687,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 comboBox.Items.Clear();
 
                 if (connectionData != null
-                    && connectionData.IntellisenseData != null
-                    && connectionData.IntellisenseData.Entities != null
+                    && connectionData.EntitiesIntellisenseData != null
+                    && connectionData.EntitiesIntellisenseData.Entities != null
                 )
                 {
-                    var entityList = connectionData.IntellisenseData.Entities.Values.OrderBy(e => e.IsIntersectEntity).ThenBy(e => e.EntityLogicalName).ToList();
+                    var entityList = connectionData.EntitiesIntellisenseData.Entities.Values.OrderBy(e => e.IsIntersectEntity).ThenBy(e => e.EntityLogicalName).ToList();
 
                     foreach (var entityData in entityList)
                     {
@@ -712,22 +712,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             comboBox.Items.Clear();
 
             if (connectionData1 != null
-                && connectionData1.IntellisenseData != null
-                && connectionData1.IntellisenseData.Entities != null
+                && connectionData1.EntitiesIntellisenseData != null
+                && connectionData1.EntitiesIntellisenseData.Entities != null
             )
             {
-                foreach (var item in connectionData1.IntellisenseData.Entities.Keys)
+                foreach (var item in connectionData1.EntitiesIntellisenseData.Entities.Keys)
                 {
                     entities.Add(item);
                 }
             }
 
             if (connectionData2 != null
-                && connectionData2.IntellisenseData != null
-                && connectionData2.IntellisenseData.Entities != null
+                && connectionData2.EntitiesIntellisenseData != null
+                && connectionData2.EntitiesIntellisenseData.Entities != null
             )
             {
-                var entityList = connectionData2.IntellisenseData.Entities.Values.OrderBy(e => e.IsIntersectEntity).ThenBy(e => e.EntityLogicalName).ToList();
+                var entityList = connectionData2.EntitiesIntellisenseData.Entities.Values.OrderBy(e => e.IsIntersectEntity).ThenBy(e => e.EntityLogicalName).ToList();
 
                 foreach (var entityData in entityList)
                 {

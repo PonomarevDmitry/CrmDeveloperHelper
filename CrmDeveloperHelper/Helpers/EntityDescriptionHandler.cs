@@ -390,11 +390,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         continue;
                     }
 
-                    if (connectionData.IntellisenseData != null
-                        && connectionData.IntellisenseData.Entities != null
-                        && connectionData.IntellisenseData.Entities.ContainsKey(entity.LogicalName)
+                    if (connectionData.EntitiesIntellisenseData != null
+                        && connectionData.EntitiesIntellisenseData.Entities != null
+                        && connectionData.EntitiesIntellisenseData.Entities.ContainsKey(entity.LogicalName)
                         && value is Guid idValue
-                        && string.Equals(connectionData.IntellisenseData.Entities[entity.LogicalName].EntityPrimaryIdAttribute, attributeName, StringComparison.InvariantCultureIgnoreCase)
+                        && string.Equals(connectionData.EntitiesIntellisenseData.Entities[entity.LogicalName].EntityPrimaryIdAttribute, attributeName, StringComparison.InvariantCultureIgnoreCase)
                     )
                     {
                         value = new PrimaryGuidView(connectionData, entity.LogicalName, idValue);
@@ -406,11 +406,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         columnName = string.Format("{0}___{1}___{2}", attributeName.Replace(".", "_"), aliasedValue.EntityLogicalName, aliasedValue.AttributeLogicalName);
 
-                        if (connectionData.IntellisenseData != null
-                            && connectionData.IntellisenseData.Entities != null
-                            && connectionData.IntellisenseData.Entities.ContainsKey(aliasedValue.EntityLogicalName)
+                        if (connectionData.EntitiesIntellisenseData != null
+                            && connectionData.EntitiesIntellisenseData.Entities != null
+                            && connectionData.EntitiesIntellisenseData.Entities.ContainsKey(aliasedValue.EntityLogicalName)
                             && aliasedValue.Value is Guid refIdValue
-                            && string.Equals(connectionData.IntellisenseData.Entities[aliasedValue.EntityLogicalName].EntityPrimaryIdAttribute, aliasedValue.AttributeLogicalName, StringComparison.InvariantCultureIgnoreCase)
+                            && string.Equals(connectionData.EntitiesIntellisenseData.Entities[aliasedValue.EntityLogicalName].EntityPrimaryIdAttribute, aliasedValue.AttributeLogicalName, StringComparison.InvariantCultureIgnoreCase)
                         )
                         {
                             value = new PrimaryGuidView(connectionData, aliasedValue.EntityLogicalName, refIdValue);
@@ -547,7 +547,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                                 }
                             }
 
-                            var intellisenseData = connectionData.IntellisenseData;
+                            var intellisenseData = connectionData.EntitiesIntellisenseData;
 
                             if (intellisenseData != null
                                 && intellisenseData.Entities != null

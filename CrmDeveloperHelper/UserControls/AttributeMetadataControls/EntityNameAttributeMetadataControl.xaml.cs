@@ -77,11 +77,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                 cmBValue.Items.Add(currentItem);
             }
 
-            if (_service.ConnectionData.IntellisenseData != null
-                && _service.ConnectionData.IntellisenseData.Entities != null
+            if (_service.ConnectionData.EntitiesIntellisenseData != null
+                && _service.ConnectionData.EntitiesIntellisenseData.Entities != null
             )
             {
-                var entityArray = _service.ConnectionData.IntellisenseData.Entities.Values.ToList().OrderBy(e => e.IsIntersectEntity).ThenBy(e => e.EntityLogicalName).ToArray();
+                var entityArray = _service.ConnectionData.EntitiesIntellisenseData.Entities.Values.ToList().OrderBy(e => e.IsIntersectEntity).ThenBy(e => e.EntityLogicalName).ToArray();
 
                 foreach (var entityData in entityArray)
                 {

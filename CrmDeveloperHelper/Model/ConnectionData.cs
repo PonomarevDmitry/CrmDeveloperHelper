@@ -897,10 +897,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         private void LoadIntellisense()
         {
-            this.IntellisenseData.ConnectionId = this.ConnectionId;
+            this.EntitiesIntellisenseData.ConnectionId = this.ConnectionId;
             this.WebResourceIntellisenseData.ConnectionId = this.ConnectionId;
 
-            var task1 = Task.Run(() => this.IntellisenseData.GetDataFromDisk());
+            var task1 = Task.Run(() => this.EntitiesIntellisenseData.GetDataFromDisk());
             var task2 = Task.Run(() => this.WebResourceIntellisenseData.GetDataFromDisk());
 
             AppDomain.CurrentDomain.ProcessExit -= CurrentDomain_ProcessExit;
@@ -914,7 +914,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         private void CurrentDomain_ProcessExit(object sender, EventArgs e)
         {
-            this.IntellisenseData.Save();
+            this.EntitiesIntellisenseData.Save();
             this.WebResourceIntellisenseData.Save();
         }
 
@@ -1203,7 +1203,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         {
             lock (_syncObjectAttributes)
             {
-                var intellisense = this.IntellisenseData;
+                var intellisense = this.EntitiesIntellisenseData;
 
                 if (intellisense.Entities != null
                     && intellisense.Entities.ContainsKey(entityName)
@@ -1224,7 +1224,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         {
             lock (_syncObjectAttributes)
             {
-                var intellisense = this.IntellisenseData;
+                var intellisense = this.EntitiesIntellisenseData;
 
                 if (intellisense.Entities != null
                     && intellisense.Entities.ContainsKey(entityName)
@@ -1459,23 +1459,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private ConnectionIntellisenseData _intellisense;
+        private ConnectionIntellisenseData _entitiesIntellisense;
 
-        public ConnectionIntellisenseData IntellisenseData
+        public ConnectionIntellisenseData EntitiesIntellisenseData
         {
             get
             {
                 lock (_syncObjectEntitiesIntellisense)
                 {
-                    if (_intellisense == null)
+                    if (_entitiesIntellisense == null)
                     {
-                        _intellisense = new ConnectionIntellisenseData();
+                        _entitiesIntellisense = new ConnectionIntellisenseData();
                     }
                 }
 
-                _intellisense.ConnectionId = this.ConnectionId;
+                _entitiesIntellisense.ConnectionId = this.ConnectionId;
 
-                return _intellisense;
+                return _entitiesIntellisense;
             }
         }
 
