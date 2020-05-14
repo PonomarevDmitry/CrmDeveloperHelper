@@ -45,12 +45,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private void CurrentDomain_ProcessExit(object sender, EventArgs e)
         {
-            if (!_cancellationTokenSource.IsCancellationRequested)
+            if (_cancellationTokenSource.IsCancellationRequested)
             {
-                _connectionData.EntitiesIntellisenseData.Save();
-
-                _cancellationTokenSource.Cancel();
+                return;
             }
+
+            _connectionData.EntitiesIntellisenseData.Save();
+
+            _cancellationTokenSource.Cancel();
         }
 
         private async Task<IOrganizationServiceExtented> GetServiceAsync()
@@ -140,9 +142,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 var entityData = list.SingleOrDefault(e => e.ObjectTypeCode.HasValue && e.ObjectTypeCode == entityTypeCode);
 
-                if (entityData != null
-                    && entityData.Attributes != null
-                    )
+                if (entityData != null && entityData.Attributes != null)
                 {
                     return entityData;
                 }

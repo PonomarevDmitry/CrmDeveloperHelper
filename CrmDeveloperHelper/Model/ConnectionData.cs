@@ -33,6 +33,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         private object _syncObjectWebResourceIntellisense = new object();
 
+        private object _syncObjectRibbonIntellisense = new object();
+
         private object _syncObjectRequests = new object();
 
         private FileSystemWatcher _watcher = null;
@@ -815,6 +817,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             if (_syncObjectAttributes == null) { _syncObjectAttributes = new object(); }
             if (_syncObjectEntitiesIntellisense == null) { _syncObjectEntitiesIntellisense = new object(); }
             if (_syncObjectWebResourceIntellisense == null) { _syncObjectWebResourceIntellisense = new object(); }
+            if (_syncObjectRibbonIntellisense == null) { _syncObjectRibbonIntellisense = new object(); }
             if (_syncObjectRequests == null) { _syncObjectRequests = new object(); }
 
             lock (_syncObjectRequests)
@@ -899,9 +902,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         {
             this.EntitiesIntellisenseData.ConnectionId = this.ConnectionId;
             this.WebResourceIntellisenseData.ConnectionId = this.ConnectionId;
+            this.RibbonIntellisense.ConnectionId = this.ConnectionId;
 
             var task1 = Task.Run(() => this.EntitiesIntellisenseData.GetDataFromDisk());
             var task2 = Task.Run(() => this.WebResourceIntellisenseData.GetDataFromDisk());
+            var task3 = Task.Run(() => this.RibbonIntellisense.GetDataFromDisk());
 
             AppDomain.CurrentDomain.ProcessExit -= CurrentDomain_ProcessExit;
             AppDomain.CurrentDomain.ProcessExit -= CurrentDomain_ProcessExit;
@@ -1177,27 +1182,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 }
             }
         }
-
-        //public bool RemoveAssemblyMapping(string assemblyName)
-        //{
-        //    bool result = false;
-
-        //    if (string.IsNullOrEmpty(assemblyName))
-        //    {
-        //        return result;
-        //    }
-
-        //    var mapping = this.AssemblyMappings.FirstOrDefault(x => x.AssemblyName.Equals(assemblyName, StringComparison.InvariantCultureIgnoreCase));
-
-        //    if (mapping != null)
-        //    {
-        //        this.AssemblyMappings.Remove(mapping);
-
-        //        result = true;
-        //    }
-
-        //    return result;
-        //}
 
         public HashSet<string> GetEntityAttributes(string entityName)
         {
@@ -1496,6 +1480,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 _webResourceIntellisenseData.ConnectionId = this.ConnectionId;
 
                 return _webResourceIntellisenseData;
+            }
+        }
+
+        private ConnectionRibbonIntellisenseData _ribbonIntellisense;
+
+        public ConnectionRibbonIntellisenseData RibbonIntellisense
+        {
+            get
+            {
+                lock (_syncObjectRibbonIntellisense)
+                {
+                    if (_ribbonIntellisense == null)
+                    {
+                        _ribbonIntellisense = new ConnectionRibbonIntellisenseData();
+                    }
+                }
+
+                _ribbonIntellisense.ConnectionId = this.ConnectionId;
+
+                return _ribbonIntellisense;
             }
         }
 

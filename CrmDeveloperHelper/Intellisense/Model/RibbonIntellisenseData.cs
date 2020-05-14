@@ -1,63 +1,52 @@
-﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
+﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Threading;
 using System.Xml.Linq;
 using System.Xml.XPath;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 {
-    [DataContract]
     public class RibbonIntellisenseData
     {
-        [DataMember]
-        public Guid ConnectionId { get; private set; }
+        public string EntityLogicalName { get; private set; }
 
-        [DataMember]
-        public string EntityName { get; private set; }
-
-        [DataMember]
         public SortedSet<string> LabelTexts { get; private set; }
 
-        [DataMember]
         public SortedSet<string> Images { get; private set; }
 
-        [DataMember]
         public SortedSet<string> ModernImages { get; private set; }
 
-        [DataMember]
-        public Dictionary<string, XElement> CommandDefinitions { get; private set; }
+        public ConcurrentDictionary<string, XElement> CommandDefinitions { get; private set; }
 
-        [DataMember]
-        public Dictionary<string, XElement> EnableRules { get; private set; }
+        public ConcurrentDictionary<string, XElement> EnableRules { get; private set; }
 
-        [DataMember]
-        public Dictionary<string, XElement> DisplayRules { get; private set; }
+        public ConcurrentDictionary<string, XElement> DisplayRules { get; private set; }
 
-        [DataMember]
         public SortedSet<string> Libraries { get; private set; }
 
-        [DataMember]
         public SortedSet<string> FunctionsNames { get; private set; }
 
-        [DataMember]
-        public Dictionary<string, RibbonLocation> Locations { get; private set; }
+        public ConcurrentDictionary<string, RibbonLocation> Locations { get; private set; }
 
-        [DataMember]
-        public Dictionary<string, RibbonGroupTemplate> Templates { get; private set; }
+        public ConcurrentDictionary<string, RibbonGroupTemplate> Templates { get; private set; }
 
-        public RibbonIntellisenseData(Guid connectionId, string entityName)
+        public RibbonIntellisenseData()
         {
-            this.ConnectionId = connectionId;
-            this.EntityName = entityName ?? string.Empty;
-
             ClearData();
         }
 
-        [OnDeserializing]
-        private void BeforeDeserialize(StreamingContext context)
+        public RibbonIntellisenseData(string entityName)
+            : this()
+        {
+            this.EntityLogicalName = entityName;
+        }
+
+        private void CreateCollectionsIfNeeded()
         {
             if (LabelTexts == null)
             {
@@ -76,17 +65,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 
             if (CommandDefinitions == null)
             {
-                this.CommandDefinitions = new Dictionary<string, XElement>(StringComparer.InvariantCultureIgnoreCase);
+                this.CommandDefinitions = new ConcurrentDictionary<string, XElement>(StringComparer.InvariantCultureIgnoreCase);
             }
 
             if (EnableRules == null)
             {
-                this.EnableRules = new Dictionary<string, XElement>(StringComparer.InvariantCultureIgnoreCase);
+                this.EnableRules = new ConcurrentDictionary<string, XElement>(StringComparer.InvariantCultureIgnoreCase);
             }
 
             if (DisplayRules == null)
             {
-                this.DisplayRules = new Dictionary<string, XElement>(StringComparer.InvariantCultureIgnoreCase);
+                this.DisplayRules = new ConcurrentDictionary<string, XElement>(StringComparer.InvariantCultureIgnoreCase);
             }
 
             if (Libraries == null)
@@ -101,33 +90,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 
             if (Locations == null)
             {
-                this.Locations = new Dictionary<string, RibbonLocation>(StringComparer.InvariantCultureIgnoreCase);
+                this.Locations = new ConcurrentDictionary<string, RibbonLocation>(StringComparer.InvariantCultureIgnoreCase);
             }
 
             if (Templates == null)
             {
-                this.Templates = new Dictionary<string, RibbonGroupTemplate>(StringComparer.InvariantCultureIgnoreCase);
+                this.Templates = new ConcurrentDictionary<string, RibbonGroupTemplate>(StringComparer.InvariantCultureIgnoreCase);
             }
         }
 
-        public void ClearData()
+        private void ClearData()
         {
             this.LabelTexts = new SortedSet<string>(StringComparer.InvariantCultureIgnoreCase);
             this.Images = new SortedSet<string>(StringComparer.InvariantCultureIgnoreCase);
             this.ModernImages = new SortedSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
-            this.CommandDefinitions = new Dictionary<string, XElement>(StringComparer.InvariantCultureIgnoreCase);
-            this.EnableRules = new Dictionary<string, XElement>(StringComparer.InvariantCultureIgnoreCase);
-            this.DisplayRules = new Dictionary<string, XElement>(StringComparer.InvariantCultureIgnoreCase);
+            this.CommandDefinitions = new ConcurrentDictionary<string, XElement>(StringComparer.InvariantCultureIgnoreCase);
+            this.EnableRules = new ConcurrentDictionary<string, XElement>(StringComparer.InvariantCultureIgnoreCase);
+            this.DisplayRules = new ConcurrentDictionary<string, XElement>(StringComparer.InvariantCultureIgnoreCase);
 
             this.Libraries = new SortedSet<string>(StringComparer.InvariantCultureIgnoreCase);
             this.FunctionsNames = new SortedSet<string>(StringComparer.InvariantCultureIgnoreCase);
-            this.Locations = new Dictionary<string, RibbonLocation>(StringComparer.InvariantCultureIgnoreCase);
-            this.Templates = new Dictionary<string, RibbonGroupTemplate>(StringComparer.InvariantCultureIgnoreCase);
+
+            this.Locations = new ConcurrentDictionary<string, RibbonLocation>(StringComparer.InvariantCultureIgnoreCase);
+            this.Templates = new ConcurrentDictionary<string, RibbonGroupTemplate>(StringComparer.InvariantCultureIgnoreCase);
         }
 
         public void LoadDataFromRibbon(XDocument docRibbon)
         {
+            ClearData();
+
             if (docRibbon == null)
             {
                 return;
@@ -144,7 +136,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                     {
                         if (!this.CommandDefinitions.ContainsKey(id))
                         {
-                            this.CommandDefinitions.Add(id, command);
+                            this.CommandDefinitions.TryAdd(id, command);
                         }
                     }
                 }
@@ -161,7 +153,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                     {
                         if (!this.EnableRules.ContainsKey(id))
                         {
-                            this.EnableRules.Add(id, enableRule);
+                            this.EnableRules.TryAdd(id, enableRule);
                         }
                     }
                 }
@@ -178,7 +170,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                     {
                         if (!this.DisplayRules.ContainsKey(id))
                         {
-                            this.DisplayRules.Add(id, displayRule);
+                            this.DisplayRules.TryAdd(id, displayRule);
                         }
                     }
                 }
@@ -281,7 +273,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                             Id = id,
                         };
 
-                        this.Templates.Add(id, newItem);
+                        this.Templates.TryAdd(id, newItem);
 
                         foreach (var item in template.Descendants("OverflowSection"))
                         {
@@ -317,7 +309,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                             newItem.Template = this.Templates[parentTemplateId];
                         }
 
-                        this.Locations.Add(id, newItem);
+                        this.Locations.TryAdd(id, newItem);
 
                         foreach (var item in controls.Elements())
                         {
@@ -335,6 +327,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                     }
                 }
             }
+        }
+
+        public static RibbonIntellisenseData Get(string filePath, string entityName)
+        {
+            RibbonIntellisenseData result = null;
+
+            if (File.Exists(filePath))
+            {
+                using (Mutex mutex = new Mutex(false, FileOperations.GetMutexName(filePath)))
+                {
+                    try
+                    {
+                        mutex.WaitOne();
+
+                        var arrayXml = File.ReadAllBytes(filePath);
+
+                        arrayXml = FileOperations.UnzipRibbon(arrayXml);
+
+                        using (var memStream = new MemoryStream())
+                        {
+                            memStream.Write(arrayXml, 0, arrayXml.Length);
+
+                            memStream.Position = 0;
+
+                            XDocument doc = XDocument.Load(memStream);
+
+                            result = new RibbonIntellisenseData(entityName);
+
+                            result.LoadDataFromRibbon(doc);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        DTEHelper.WriteExceptionToLog(ex);
+
+                        FileOperations.CreateBackUpFile(filePath, ex);
+                    }
+                    finally
+                    {
+                        mutex.ReleaseMutex();
+                    }
+                }
+            }
+
+            return result;
         }
     }
 }

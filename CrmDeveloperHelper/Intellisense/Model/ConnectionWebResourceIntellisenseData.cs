@@ -181,7 +181,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
         {
             string folderPath = FileOperations.GetConnectionIntellisenseDataFolderPath(connectionId);
 
-            var fileName = string.Format("WebResourceIntellisenseData.{0}.xml", connectionId.ToString());
+            var fileName = "WebResourceIntellisenseData.xml";
 
             var filePath = Path.Combine(folderPath, fileName);
 

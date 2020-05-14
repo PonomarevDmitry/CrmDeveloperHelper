@@ -1095,6 +1095,7 @@
     <Compile Include="Intellisense\Model\ConnectionWebResourceIntellisenseData.cs" />
     <Compile Include="Intellisense\Model\IntellisenseContext.cs" />
     <Compile Include="Intellisense\Model\RibbonGroupTemplate.cs" />
+    <Compile Include="Intellisense\Model\ConnectionRibbonIntellisenseData.cs" />
     <Compile Include="Intellisense\Model\RibbonIntellisenseData.cs" />
     <Compile Include="Intellisense\Model\RibbonLocation.cs" />
     <Compile Include="Intellisense\Model\RibbonLocationControl.cs" />

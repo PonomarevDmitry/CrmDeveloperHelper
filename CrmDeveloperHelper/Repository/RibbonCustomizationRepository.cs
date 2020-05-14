@@ -186,8 +186,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 arrayXml = this.ExportApplicationRibbonByteArray();
             }
 
-            arrayXml = FileOperations.UnzipRibbon(arrayXml);
-
             XDocument doc = null;
 
             using (var memStream = new MemoryStream())
@@ -399,8 +397,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         {
             byte[] byteXml = ExportApplicationRibbonByteArray();
 
-            byteXml = FileOperations.UnzipRibbon(byteXml);
-
             XElement doc = null;
 
             using (var memStream = new MemoryStream())
@@ -423,8 +419,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         private string ExportingEntityRibbon(string entityName, RibbonLocationFilters filter)
         {
             byte[] byteXml = ExportEntityRibbonByteArray(entityName, filter);
-
-            byteXml = FileOperations.UnzipRibbon(byteXml);
 
             XElement doc = null;
 
@@ -450,7 +444,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             RetrieveApplicationRibbonRequest appribReq = new RetrieveApplicationRibbonRequest();
             RetrieveApplicationRibbonResponse appribResp = (RetrieveApplicationRibbonResponse)_service.Execute(appribReq);
 
-            return appribResp.CompressedApplicationRibbonXml;
+            string fileName = "ApplicationRibbon.zip";
+            string directory = FileOperations.GetConnectionIntellisenseDataFolderPath(this._service.ConnectionData.ConnectionId);
+
+            string filePath = Path.Combine(directory, fileName);
+
+            var arrayXml = FileOperations.UnzipRibbon(appribResp.CompressedApplicationRibbonXml);
+
+            try
+            {
+                File.WriteAllBytes(filePath, appribResp.CompressedApplicationRibbonXml);
+
+                using (var memStream = new MemoryStream())
+                {
+                    memStream.Write(arrayXml, 0, arrayXml.Length);
+
+                    memStream.Position = 0;
+
+                    XDocument doc = XDocument.Load(memStream);
+
+                    _service.ConnectionData.RibbonIntellisense.ApplicationRibbonData.LoadDataFromRibbon(doc);
+                }
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.WriteExceptionToOutput(this._service.ConnectionData, ex);
+            }
+
+            return arrayXml;
         }
 
         public Task<byte[]> ExportEntityRibbonByteArrayAsync(string entityName, RibbonLocationFilters filter)
@@ -468,7 +489,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             RetrieveEntityRibbonResponse entRibResp = (RetrieveEntityRibbonResponse)_service.Execute(entRibReq);
 
-            return entRibResp.CompressedEntityXml;
+            string fileName = entityName.ToLower() + ".zip";
+            string directory = FileOperations.GetConnectionIntellisenseDataFolderPathRibbons(this._service.ConnectionData.ConnectionId);
+
+            string filePath = Path.Combine(directory, fileName);
+
+            var arrayXml = FileOperations.UnzipRibbon(entRibResp.CompressedEntityXml);
+
+            try
+            {
+                File.WriteAllBytes(filePath, entRibResp.CompressedEntityXml);
+
+                using (var memStream = new MemoryStream())
+                {
+                    memStream.Write(arrayXml, 0, arrayXml.Length);
+
+                    memStream.Position = 0;
+
+                    XDocument doc = XDocument.Load(memStream);
+
+                    if (!_service.ConnectionData.RibbonIntellisense.EntitiesRibbonData.ContainsKey(entityName))
+                    {
+                        _service.ConnectionData.RibbonIntellisense.EntitiesRibbonData.TryAdd(entityName, new Intellisense.Model.RibbonIntellisenseData(entityName));
+                    }
+
+                    _service.ConnectionData.RibbonIntellisense.EntitiesRibbonData[entityName].LoadDataFromRibbon(doc);
+                }
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.WriteExceptionToOutput(this._service.ConnectionData, ex);
+            }
+
+            return arrayXml;
         }
 
         public Task<RibbonCustomization> FindApplicationRibbonCustomizationAsync()

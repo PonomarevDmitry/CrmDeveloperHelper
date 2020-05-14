@@ -17,11 +17,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 
         public ConnectionIntellisenseData()
         {
-            this.Entities = new ConcurrentDictionary<string, EntityIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
+            CreateCollectionsIfNeeded();
+        }
+
+        private void CreateCollectionsIfNeeded()
+        {
+            if (this.Entities == null)
+            {
+                this.Entities = new ConcurrentDictionary<string, EntityIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
+            }
         }
 
         public void LoadSomeData(IEnumerable<EntityMetadata> entityMetadataList)
         {
+            CreateCollectionsIfNeeded();
+
             foreach (var entityMetadata in entityMetadataList)
             {
                 if (!this.Entities.ContainsKey(entityMetadata.LogicalName))
@@ -37,6 +47,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 
         public void LoadFullData(IEnumerable<EntityMetadata> entityMetadataList)
         {
+            CreateCollectionsIfNeeded();
+
             var hashSet = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
             foreach (var entityMetadata in entityMetadataList)
@@ -64,6 +76,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 
         public void LoadData(EntityMetadata entityMetadata)
         {
+            CreateCollectionsIfNeeded();
+
             if (entityMetadata == null)
             {
                 return;
@@ -81,12 +95,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 
         public void GetDataFromDisk()
         {
-            var directory = FileOperations.GetConnectionIntellisenseDataFolderPathEntities(this.ConnectionId);
+            CreateCollectionsIfNeeded();
 
-            if (this.Entities == null)
-            {
-                this.Entities = new ConcurrentDictionary<string, EntityIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
-            }
+            var directory = FileOperations.GetConnectionIntellisenseDataFolderPathEntities(this.ConnectionId);
 
             var directoryInfo = new DirectoryInfo(directory);
 
@@ -142,15 +153,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                 Directory.CreateDirectory(directory);
             }
 
-            Parallel.ForEach(this.Entities.Values, entityData =>
-            {
-                bool saveData = !entityData.NextSaveFileDate.HasValue || entityData.NextSaveFileDate < DateTime.Now;
-
-                if (saveData)
-                {
-                    entityData.Save(directory);
-                }
-            });
+            Parallel.ForEach(this.Entities.Values, entityData => entityData.SaveIntellisenseDataByTime(directory));
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
     {
         private const int _savePeriodInMinutes = 5;
 
-        public DateTime? NextSaveFileDate { get; set; }
+        private DateTime? NextSaveFileDate;
 
         [DataMember]
         public Guid? MetadataId { get; private set; }
@@ -609,8 +609,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
 
         private void SaveInternal(string filePath)
         {
-            this.NextSaveFileDate = DateTime.Now.AddMinutes(_savePeriodInMinutes);
-
             byte[] fileBody = null;
 
             using (var memoryStream = new MemoryStream())
@@ -659,6 +657,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                     }
                 }
             }
+
+            this.NextSaveFileDate = DateTime.Now.AddMinutes(_savePeriodInMinutes);
+        }
+
+        public void SaveIntellisenseDataByTime(string directory)
+        {
+            if (this.NextSaveFileDate.HasValue && DateTime.Now < this.NextSaveFileDate)
+            {
+                return;
+            }
+
+            this.Save(directory);
         }
     }
 }

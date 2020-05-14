@@ -12,13 +12,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 {
     public class RibbonIntellisenseDataRepository : IDisposable
     {
-        private const int _loadPeriodInMinutes = 5;
-
-        public DateTime? NextLoadFileDate { get; set; }
+        private const int _loadPeriodInSeconds = 45;
 
         private readonly object _syncObjectService = new object();
 
         private ConcurrentDictionary<string, object> _syncObjectTaskGettingRibbonInformationCache = new ConcurrentDictionary<string, object>(StringComparer.InvariantCultureIgnoreCase);
+
+        private IOrganizationServiceExtented _service;
+
+        private readonly ConnectionData _connectionData;
+
+        private CancellationTokenSource _cancellationTokenSource;
+
+        private ConcurrentDictionary<string, DateTime> _nextLoadDateTime = new ConcurrentDictionary<string, DateTime>();
+
+        private ConcurrentDictionary<string, Task> _taskGettingRibbonInformationCache = new ConcurrentDictionary<string, Task>(StringComparer.InvariantCultureIgnoreCase);
+
+        private static ConcurrentDictionary<Guid, RibbonIntellisenseDataRepository> _staticCacheRepositories = new ConcurrentDictionary<Guid, RibbonIntellisenseDataRepository>();
+
+        private RibbonIntellisenseDataRepository(ConnectionData connectionData)
+        {
+            this._connectionData = connectionData ?? throw new ArgumentNullException(nameof(connectionData));
+
+            _cancellationTokenSource = new CancellationTokenSource();
+        }
 
         private object GetEntitySyncObject(string entityName)
         {
@@ -30,25 +47,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
 
             return _syncObjectTaskGettingRibbonInformationCache[entityName];
-        }
-
-        private ConcurrentDictionary<string, Task> _taskGettingRibbonInformationCache = new ConcurrentDictionary<string, Task>(StringComparer.InvariantCultureIgnoreCase);
-
-        private IOrganizationServiceExtented _service;
-
-        private readonly ConnectionData _connectionData;
-
-        private ConcurrentDictionary<string, RibbonIntellisenseData> _RibbonIntellisenseDataCache = new ConcurrentDictionary<string, RibbonIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
-
-        private CancellationTokenSource _cancellationTokenSource;
-
-        private static ConcurrentDictionary<Guid, RibbonIntellisenseDataRepository> _staticCacheRepositories = new ConcurrentDictionary<Guid, RibbonIntellisenseDataRepository>();
-
-        private RibbonIntellisenseDataRepository(ConnectionData connectionData)
-        {
-            this._connectionData = connectionData ?? throw new ArgumentNullException(nameof(connectionData));
-
-            _cancellationTokenSource = new CancellationTokenSource();
         }
 
         private async Task<IOrganizationServiceExtented> GetServiceAsync()
@@ -92,19 +90,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 return null;
             }
 
-            entityName = entityName ?? string.Empty;
+            StartGettingRibbonAsync(entityName);
 
-            if (!_RibbonIntellisenseDataCache.ContainsKey(entityName))
+            if (_connectionData.RibbonIntellisense != null)
             {
-                _RibbonIntellisenseDataCache.TryAdd(entityName, new RibbonIntellisenseData(this._connectionData.ConnectionId, entityName));
+                if (string.IsNullOrEmpty(entityName))
+                {
+                    return _connectionData.RibbonIntellisense.ApplicationRibbonData;
+                }
+                else
+                {
+                    if (_connectionData.RibbonIntellisense.EntitiesRibbonData != null
+                        && _connectionData.RibbonIntellisense.EntitiesRibbonData.ContainsKey(entityName)
+                    )
+                    {
+                        return _connectionData.RibbonIntellisense.EntitiesRibbonData[entityName];
+                    }
+                }
             }
 
-            if (!this.NextLoadFileDate.HasValue || this.NextLoadFileDate < DateTime.Now)
-            {
-                StartGettingRibbonAsync(entityName);
-            }
-
-            return _RibbonIntellisenseDataCache[entityName];
+            return null;
         }
 
         private void StartGettingRibbonAsync(string entityName)
@@ -115,6 +120,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
 
             entityName = entityName ?? string.Empty;
+
+            if (_nextLoadDateTime.ContainsKey(entityName) && DateTime.Now < _nextLoadDateTime[entityName])
+            {
+                return;
+            }
 
             var syncObject = GetEntitySyncObject(entityName);
 
@@ -157,11 +167,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 XDocument docRibbon = await repository.GetEntityRibbonAsync(entityName);
 
-                var ribbonData = _RibbonIntellisenseDataCache[entityName];
-                ribbonData.ClearData();
-                ribbonData.LoadDataFromRibbon(docRibbon);
-
-                this.NextLoadFileDate = DateTime.Now.AddMinutes(_loadPeriodInMinutes);
+                this._nextLoadDateTime[entityName] = DateTime.Now.AddSeconds(_loadPeriodInSeconds);
             }
             catch (Exception ex)
             {
