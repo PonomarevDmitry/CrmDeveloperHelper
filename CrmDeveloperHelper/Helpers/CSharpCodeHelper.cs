@@ -279,27 +279,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     var compilerResults = provider.CompileAssemblyFromSource(parameters, code);
 
-                    if (compilerResults.Errors.Count == 0)
+                    if (compilerResults.Output.Count > 0)
+                    {
+                        DTEHelper.WriteToLog(string.Join(Environment.NewLine, compilerResults.Output.OfType<string>()));
+                    }
+
+                    foreach (var error in compilerResults.Errors.OfType<CompilerError>())
+                    {
+                        WriteErrorToLog(filePath, error);
+                    }
+
+                    if (!compilerResults.Errors.HasErrors)
                     {
                         var types = compilerResults.CompiledAssembly.DefinedTypes;
 
                         AppDomain.CurrentDomain.SetData(configResult, types.FirstOrDefault()?.FullName);
-                    }
-                    else
-                    {
-                        foreach (var error in compilerResults.Errors.OfType<CompilerError>())
-                        {
-                            StringBuilder stringBuilder = new StringBuilder();
-
-                            stringBuilder.AppendLine($"FileName     : {error.FileName}");
-                            stringBuilder.AppendLine($"Line         : {error.Line}");
-                            stringBuilder.AppendLine($"Column       : {error.Column}");
-                            stringBuilder.AppendLine($"ErrorNumber  : {error.ErrorNumber}");
-                            stringBuilder.AppendLine("ErrorText    :");
-                            stringBuilder.AppendLine(error.ErrorText);
-
-                            DTEHelper.WriteErrorToLog(stringBuilder.ToString());
-                        }
                     }
                 }
             }
@@ -307,6 +301,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 DTEHelper.WriteExceptionToOutput(null, ex);
             }
+        }
+
+        private static void WriteErrorToLog(string filePath, CompilerError error)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+
+            stringBuilder.AppendLine($"FilePath     : {filePath}");
+            stringBuilder.AppendLine($"FileName     : {error.FileName}");
+            stringBuilder.AppendLine($"Line         : {error.Line}");
+            stringBuilder.AppendLine($"Column       : {error.Column}");
+            stringBuilder.AppendLine($"IsWarning    : {error.IsWarning}");
+            stringBuilder.AppendLine($"ErrorNumber  : {error.ErrorNumber}");
+            stringBuilder.AppendLine("ErrorText    :");
+            stringBuilder.AppendLine(error.ErrorText);
+
+            DTEHelper.WriteErrorToLog(stringBuilder.ToString());
         }
 
         private class AssemblyResolver
