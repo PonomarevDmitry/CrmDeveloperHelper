@@ -587,8 +587,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , service
                 , _commonConfig
                 , optionSetMetadataList
-                , optionSetName
                 , entityName
+                , optionSetName
                 , null
                 , false
                 , null

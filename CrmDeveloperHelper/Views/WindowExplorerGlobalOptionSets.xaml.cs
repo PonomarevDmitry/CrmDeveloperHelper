@@ -43,7 +43,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IOrganizationServiceExtented service
             , IEnumerable<OptionSetMetadata> optionSetMetadataEnum
             , string filterEntityName
-            , string selection
+            , string filter
             , string filePath
             , bool isJavaScript
             , EnvDTE.SelectedItem selectedItem
@@ -127,7 +127,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             cmBEntityName.Text = filterEntityName;
 
-            txtBFilter.Text = selection;
+            txtBFilter.Text = filter;
             txtBFilter.SelectionLength = 0;
             txtBFilter.SelectionStart = txtBFilter.Text.Length;
 
