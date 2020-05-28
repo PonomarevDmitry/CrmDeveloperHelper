@@ -60,5 +60,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             txtBDescription.Focus();
         }
+
+        private void txtBDescription_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyboardDevice != null && (e.KeyboardDevice.Modifiers & ModifierKeys.Alt) != 0)
+            {
+                if (e.SystemKey == Key.Up || e.Key == Key.Up)
+                {
+                    e.Handled = true;
+
+                    OnNextClicked();
+                    return;
+                }
+                else if (e.SystemKey == Key.Down || e.Key == Key.Down)
+                {
+                    e.Handled = true;
+
+                    OnPreviousClicked();
+                    return;
+                }
+            }
+        }
     }
 }

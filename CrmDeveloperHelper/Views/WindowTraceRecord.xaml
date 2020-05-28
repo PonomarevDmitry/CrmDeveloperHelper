@@ -24,7 +24,7 @@
         </ToolBar>
 
         <Label Content="Description" HorizontalAlignment="Left" Margin="10,32,0,0" VerticalAlignment="Top" Padding="0"/>
-        <TextBox x:Name="txtBDescription" IsReadOnly="True" IsReadOnlyCaretVisible="True" Margin="10,53,10,43" AcceptsTab="True" AcceptsReturn="True" TextWrapping="NoWrap" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" />
+        <TextBox x:Name="txtBDescription" IsReadOnly="True" IsReadOnlyCaretVisible="True" Margin="10,53,10,43" AcceptsTab="True" AcceptsReturn="True" TextWrapping="NoWrap" KeyDown="txtBDescription_PreviewKeyDown" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" />
 
         <Button Content="Close" Margin="0,0,10,10" Click="btnCancel_Click" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
     </Grid>
