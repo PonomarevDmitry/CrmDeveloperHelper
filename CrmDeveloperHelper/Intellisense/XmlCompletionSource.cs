@@ -445,7 +445,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             completionSets.Add(new CrmCompletionSet(SourceNameMonikerWebResourcesText, nameCompletionSet, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
         }
 
-        private void FillWebResourcesIcons(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, IEnumerable<WebResource> webResources, string nameCompletionSet)
+        private void FillWebResourcesIcons(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, IEnumerable<WebResourceIntellisenseData> webResources, string nameCompletionSet)
         {
             if (webResources == null || !webResources.Any())
             {

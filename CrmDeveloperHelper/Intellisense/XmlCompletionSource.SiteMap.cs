@@ -50,8 +50,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     {
                         FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().Icons, "Icons");
 
-#warning WebResourcesIcon
-                        //FillWebResourcesIcons(completionSets, applicableTo, repositoryWebResource.GetConnectionWebResourceIntellisenseData()?.WebResourcesIcon?.Values?.ToList(), "WebResources");
+                        FillWebResourcesIcons(completionSets, applicableTo, repositoryWebResource.GetWebResourcesIcon()?.Values?.ToList(), "WebResources");
                     }
 
                     #endregion Icons
@@ -92,8 +91,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     {
                         FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().Icons, "Icons");
 
-#warning WebResourcesIcon
-                        //FillWebResourcesIcons(completionSets, applicableTo, repositoryWebResource.GetConnectionWebResourceIntellisenseData()?.WebResourcesIcon?.Values?.ToList(), "WebResources");
+                        FillWebResourcesIcons(completionSets, applicableTo, repositoryWebResource.GetWebResourcesIcon()?.Values?.ToList(), "WebResources");
                     }
 
                     #endregion Icons
@@ -134,15 +132,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     {
                         FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().Icons, "Icons");
 
-#warning WebResourcesIcon
-                        //FillWebResourcesIcons(completionSets, applicableTo, repositoryWebResource.GetConnectionWebResourceIntellisenseData()?.WebResourcesIcon?.Values?.ToList(), "WebResources");
+                        FillWebResourcesIcons(completionSets, applicableTo, repositoryWebResource.GetWebResourcesIcon()?.Values?.ToList(), "WebResources");
                     }
                     else if (string.Equals(currentAttributeName, "OutlookShortcutIcon", StringComparison.InvariantCultureIgnoreCase))
                     {
                         FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().Icons, "Icons");
 
-#warning WebResourcesIcon
-                        //FillWebResourcesIcons(completionSets, applicableTo, repositoryWebResource.GetConnectionWebResourceIntellisenseData()?.WebResourcesIcon?.Values?.ToList(), "WebResources");
+                        FillWebResourcesIcons(completionSets, applicableTo, repositoryWebResource.GetWebResourcesIcon()?.Values?.ToList(), "WebResources");
                     }
 
                     #endregion Icons

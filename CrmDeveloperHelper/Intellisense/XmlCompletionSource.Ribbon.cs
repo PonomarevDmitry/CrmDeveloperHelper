@@ -157,8 +157,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     && ImagesXmlAttributes.Contains(currentAttributeName)
                 )
                 {
-#warning WebResourcesIcon
-                    //FillWebResourcesIcons(completionSets, applicableTo, repositoryWebResource.GetConnectionWebResourceIntellisenseData()?.WebResourcesIcon?.Values?.ToList(), "WebResources");
+                    FillWebResourcesIcons(completionSets, applicableTo, repositoryWebResource.GetWebResourcesIcon()?.Values?.ToList(), "WebResources");
 
                     if (ribbonIntellisenseData != null)
                     {

@@ -31,6 +31,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private CancellationTokenSource _cancellationTokenSource;
 
+        private readonly ConcurrentDictionary<string, WebResourceIntellisenseData> _webResourcesIcon = new ConcurrentDictionary<string, WebResourceIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
+
         private static ConcurrentDictionary<Guid, WebResourceIntellisenseDataRepository> _staticCacheRepositories = new ConcurrentDictionary<Guid, WebResourceIntellisenseDataRepository>();
 
         private WebResourceIntellisenseDataRepository(ConnectionData connectionData)
@@ -88,6 +90,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return _connectionData.WebResourceIntellisenseData;
         }
 
+        public ConcurrentDictionary<string, WebResourceIntellisenseData> GetWebResourcesIcon()
+        {
+            if (_cancellationTokenSource.IsCancellationRequested)
+            {
+                return null;
+            }
+
+            StartGettingWebResourcesAsync();
+
+            return this._webResourcesIcon;
+        }
+
         private void StartGettingWebResourcesAsync()
         {
             if (_cancellationTokenSource.IsCancellationRequested)
@@ -135,49 +149,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 var repository = new WebResourceRepository(service);
 
-                var listWebResources = await repository.GetListAllAsync(
-                    null
-                    , new ColumnSet
-                    (
-                        WebResource.Schema.Attributes.name
-                        , WebResource.Schema.Attributes.displayname
-                        , WebResource.Schema.Attributes.description
-                        , WebResource.Schema.Attributes.webresourcetype
-                        , WebResource.Schema.Attributes.languagecode
-                    )
-                );
+                {
+                    var listWebResources = await repository.GetListAllAsync(
+                        null
+                        , new ColumnSet
+                        (
+                            WebResource.Schema.Attributes.name
+                            , WebResource.Schema.Attributes.displayname
+                            , WebResource.Schema.Attributes.description
+                            , WebResource.Schema.Attributes.webresourcetype
+                            , WebResource.Schema.Attributes.languagecode
+                        )
+                    );
 
-                LoadWebResources(listWebResources, _connectionData.WebResourceIntellisenseData.WebResourcesAll);
+                    LoadWebResources(listWebResources, _connectionData.WebResourceIntellisenseData.WebResourcesAll);
+                }
 
                 this._nextLoadFromCrmDate = DateTime.Now.AddSeconds(_loadPeriodInSeconds);
 
                 _connectionData.WebResourceIntellisenseData.Save();
 
-                //{
-                //    var listWebResources = await repository.GetListByTypesAsync(
-                //        new[]
-                //        {
-                //            (int)WebResource.Schema.OptionSets.webresourcetype.PNG_format_5
-                //            , (int)WebResource.Schema.OptionSets.webresourcetype.JPG_format_6
-                //            , (int)WebResource.Schema.OptionSets.webresourcetype.GIF_format_7
-                //            , (int)WebResource.Schema.OptionSets.webresourcetype.ICO_format_10
-                //            , (int)WebResource.Schema.OptionSets.webresourcetype.Vector_format_SVG_11
-                //        }
-                //        , new ColumnSet
-                //        (
-                //            WebResource.Schema.Attributes.name
-                //            , WebResource.Schema.Attributes.displayname
-                //            , WebResource.Schema.Attributes.description
-                //            , WebResource.Schema.Attributes.webresourcetype
-                //            , WebResource.Schema.Attributes.languagecode
-                //            , WebResource.Schema.Attributes.content
-                //        )
-                //    );
+                {
+                    var listWebResources = await repository.GetListByTypesAsync(
+                        new[]
+                        {
+                            (int)WebResource.Schema.OptionSets.webresourcetype.PNG_format_5
+                            , (int)WebResource.Schema.OptionSets.webresourcetype.JPG_format_6
+                            , (int)WebResource.Schema.OptionSets.webresourcetype.GIF_format_7
+                            , (int)WebResource.Schema.OptionSets.webresourcetype.ICO_format_10
+                            , (int)WebResource.Schema.OptionSets.webresourcetype.Vector_format_SVG_11
+                        }
+                        , new ColumnSet
+                        (
+                            WebResource.Schema.Attributes.name
+                            , WebResource.Schema.Attributes.displayname
+                            , WebResource.Schema.Attributes.description
+                            , WebResource.Schema.Attributes.webresourcetype
+                            , WebResource.Schema.Attributes.languagecode
+                            , WebResource.Schema.Attributes.content
+                        )
+                    );
 
-                //    LoadWebResources(listWebResources, _WebResourceIntellisenseData.WebResourcesIcon);
-
-                //    _WebResourceIntellisenseData.NextLoadFileDate = DateTime.Now.AddMinutes(_loadPeriodInMinutes);
-                //}
+                    LoadWebResources(listWebResources, _webResourcesIcon);
+                }
             }
             catch (Exception ex)
             {

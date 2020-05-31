@@ -26,6 +26,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
         [DataMember]
         public int? LanguageCode { get; private set; }
 
+        public string Content { get; private set; }
+
         public void LoadData(WebResource webResource)
         {
             if (webResource.WebResourceId.HasValue)
@@ -38,6 +40,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
             this.Description = webResource.Description;
             this.WebResourceType = webResource.WebResourceType;
             this.LanguageCode = webResource.LanguageCode;
+
+            this.Content = webResource.Content;
         }
 
         public void MergeDataFromDisk(WebResourceIntellisenseData webResource)
