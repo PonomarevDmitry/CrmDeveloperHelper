@@ -69,6 +69,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
+        private bool _GenerateProxyClassesOverrideToStringMethod = true;
+        [DataMember]
+        public bool GenerateProxyClassesOverrideToStringMethod
+        {
+            get => _GenerateProxyClassesOverrideToStringMethod;
+            set
+            {
+                this.OnPropertyChanging(nameof(GenerateProxyClassesOverrideToStringMethod));
+                this._GenerateProxyClassesOverrideToStringMethod = value;
+                this.OnPropertyChanged(nameof(GenerateProxyClassesOverrideToStringMethod));
+            }
+        }
+
         private bool _GenerateProxyClassesAddDescriptionAttribute = true;
         [DataMember]
         public bool GenerateProxyClassesAddDescriptionAttribute

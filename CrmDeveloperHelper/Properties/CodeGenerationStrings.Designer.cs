@@ -158,5 +158,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
                 return ResourceManager.GetString("StateAndStatusOptionSets", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overide ToString Method.
+        /// </summary>
+        internal static string ToString {
+            get {
+                return ResourceManager.GetString("ToString", resourceCulture);
+            }
+        }
     }
 }

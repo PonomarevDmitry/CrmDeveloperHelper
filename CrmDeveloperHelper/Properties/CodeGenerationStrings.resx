@@ -139,4 +139,8 @@
     <value>EntityKeys</value>
   </data>
 
+  <data name="ToString" xml:space="preserve">
+    <value>Overide ToString Method</value>
+  </data>
+
 </root>

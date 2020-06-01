@@ -36,42 +36,44 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 , rBReadOnly
                 , rBConst
 
-                , chBAttributesProxyClass
-                , chBManyToOneProxyClass
-                , chBManyToManyProxyClass
-                , chBOneToManyProxyClass
-                , chBLocalOptionSetsProxyClass
-                , chBGlobalOptionSetsProxyClass
-                , chBStatusProxyClass
+                , chBProxyClassesAttributes
+                , chBProxyClassesManyToOne
+                , chBProxyClassesManyToMany
+                , chBProxyClassesOneToMany
 
-                , chBProxyClassWithDebuggerNonUserCode
-                , chBAttributesProxyClassWithNameOf
-                , chBProxyClassUseSchemaConstInCSharpAttributes
+                , chBProxyClassesLocalOptionSet
+                , chBProxyClassesGlobalOptionSet
+                , chBProxyClassesStatusOptionSet
+
+                , chBProxyClassesWithDebuggerNonUserCode
+                , chBProxyClassesAttributesWithNameOf
+                , chBProxyClassesUseSchemaConstInCSharpAttributes
                 , chBProxyClassesWithoutObsoleteAttribute
                 , chBProxyClassesMakeAllPropertiesEditable
                 , chBProxyClassesAddConstructorWithAnonymousTypeObject
+                , chBProxyClassesOverrideToStringMethod
+                , chBProxyClassesAddDescriptionAttribute
 
-                , cmBAttributesProxyClassEnumsStateStatus
-                , cmBAttributesProxyClassEnumsLocal
-                , cmBAttributesProxyClassEnumsGlobal
+                , cmBProxyClassesAttributesEnumsStateStatus
+                , cmBProxyClassesAttributesEnumsLocal
+                , cmBProxyClassesAttributesEnumsGlobal
 
-                , chBAttributesProxyClassEnumsUseSchemaStateStatusEnum
-                , chBAttributesProxyClassEnumsUseSchemaLocalEnum
-                , cmBAttributesProxyClassEnumsUseSchemaGlobalEnum
+                , chBProxyClassesAttributesEnumsUseSchemaStateStatusEnum
+                , chBProxyClassesAttributesEnumsUseSchemaLocalEnum
+                , cmBProxyClassesAttributesEnumsUseSchemaGlobalEnum
 
-                , chBAddDescriptionAttribute
-                , chBProxyClassAddDescriptionAttribute
+                , chBSchemaAddDescriptionAttribute
 
-                , chBAddTypeConverterAttributeForEnums
+                , chBSchemaAddTypeConverterAttributeForEnums
 
-                , chBAttributesSchema
-                , chBManyToOneSchema
-                , chBManyToManySchema
-                , chBOneToManySchema
-                , chBLocalOptionSetsSchema
-                , chBGlobalOptionSetsSchema
-                , chBStatusSchema
-                , chBKeysSchema
+                , chBSchemaAttributes
+                , chBSchemaManyToOne
+                , chBSchemaManyToMany
+                , chBSchemaOneToMany
+                , chBSchemaLocalOptionSet
+                , chBSchemaGlobalOptionSet
+                , chBSchemaStatusOptionSet
+                , chBSchemaKeys
 
                 , chBIntoSchemaClass
 
