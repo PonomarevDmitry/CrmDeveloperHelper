@@ -15,7 +15,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
         {
             List<string> lines = new List<string>();
 
-            if (entity.IsIntersectEntity)
+            if (entity.IsIntersectEntity.GetValueOrDefault())
             {
                 lines.Add("IntersectEntity");
 
@@ -82,7 +82,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
         {
             List<string> lines = new List<string>();
 
-            if (entity.IsIntersectEntity)
+            if (entity.IsIntersectEntity.GetValueOrDefault())
             {
                 lines.Add("IntersectEntity");
 
@@ -148,7 +148,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 result.AppendFormat(" - {0}", temp);
             }
 
-            if (entityData.IsIntersectEntity)
+            if (entityData.IsIntersectEntity.GetValueOrDefault())
             {
                 result.Append(" - IntersectEntity");
             }
@@ -201,7 +201,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     result.AppendFormat(" - {0}", temp);
                 }
 
-                if (entityData.IsIntersectEntity)
+                if (entityData.IsIntersectEntity.GetValueOrDefault())
                 {
                     result.Append(" - IntersectEntity");
                 }
@@ -245,7 +245,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
             result.Add(entityData.EntityLogicalName);
 
-            if (entityData.IsIntersectEntity)
+            if (entityData.IsIntersectEntity.GetValueOrDefault())
             {
                 result.Add("IntersectEntity");
             }

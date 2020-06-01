@@ -288,7 +288,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 }
             }
 
-            if (entityData.IsIntersectEntity && entityData.ManyToManyRelationships != null)
+            if (entityData.IsIntersectEntity.GetValueOrDefault() && entityData.ManyToManyRelationships != null)
             {
                 foreach (var item in entityData.ManyToManyRelationships.Values)
                 {
@@ -327,7 +327,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 }
             }
 
-            if (entityData.IsIntersectEntity)
+            if (entityData.IsIntersectEntity.GetValueOrDefault())
             {
                 if (entityData.ManyToManyRelationships != null)
                 {

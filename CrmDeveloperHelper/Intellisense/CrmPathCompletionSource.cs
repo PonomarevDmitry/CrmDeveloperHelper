@@ -252,7 +252,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                         }
                         else if (attribute.AttributeType == Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Uniqueidentifier)
                         {
-                            if (sourceEntity.IsIntersectEntity)
+                            if (sourceEntity.IsIntersectEntity.GetValueOrDefault())
                             {
                                 var rel = sourceEntity?.ManyToManyRelationships?.Values?.FirstOrDefault(r => string.Equals(r.IntersectEntityName, sourceEntity.EntityLogicalName, StringComparison.InvariantCultureIgnoreCase));
 
@@ -418,7 +418,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                         }
                         else if (attribute.AttributeType == Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Uniqueidentifier)
                         {
-                            if (sourceEntity.IsIntersectEntity)
+                            if (sourceEntity.IsIntersectEntity.GetValueOrDefault())
                             {
                                 var rel = sourceEntity?.ManyToManyRelationships?.Values?.FirstOrDefault(r => string.Equals(r.IntersectEntityName, sourceEntity.EntityLogicalName, StringComparison.InvariantCultureIgnoreCase));
 
@@ -573,7 +573,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 }
             }
 
-            if (!entityData.IsIntersectEntity && entityData.ManyToManyRelationships != null)
+            if (!entityData.IsIntersectEntity.GetValueOrDefault() && entityData.ManyToManyRelationships != null)
             {
                 foreach (var item in entityData.ManyToManyRelationships.Values)
                 {

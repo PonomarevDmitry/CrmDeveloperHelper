@@ -40,7 +40,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
         public Label Description { get; private set; }
 
         [DataMember]
-        public bool IsIntersectEntity { get; private set; }
+        public bool? IsIntersectEntity { get; private set; }
 
         [DataMember]
         public ConcurrentDictionary<string, AttributeIntellisenseData> Attributes { get; private set; }
@@ -325,7 +325,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                 this.DisplayCollectionName = entityData.DisplayCollectionName;
             }
 
-            if (entityData.IsIntersectEntity)
+            if (entityData.IsIntersectEntity.HasValue)
             {
                 this.IsIntersectEntity = entityData.IsIntersectEntity;
             }
@@ -525,7 +525,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
             {
                 foreach (var item in entityData.ManyToManyRelationships.Values.ToList())
                 {
-                    if (entityData.IsIntersectEntity)
+                    if (entityData.IsIntersectEntity.GetValueOrDefault())
                     {
                         if (!string.IsNullOrEmpty(item.Entity1Name))
                         {
