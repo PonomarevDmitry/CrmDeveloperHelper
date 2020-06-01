@@ -51,7 +51,7 @@
                             <ColumnDefinition Width="100*" />
                         </Grid.ColumnDefinitions>
 
-                        <Label Grid.Column="0" Content="GroupName"  Margin="5"/>
+                        <Label Grid.Column="0" Content="GroupName" Margin="5"/>
                         <TextBox Grid.Column="1" x:Name="txtBGroupName" Margin="5" />
                     </Grid>
 
@@ -162,25 +162,25 @@
                     <TextBox x:Name="txtBVersion" Grid.Row="0" Grid.Column="1"  />
 
                     <Label Content="FriendlyName" Grid.Row="1" Grid.Column="0"/>
-                    <TextBox x:Name="txtBFriendlyName"  Grid.Row="1" Grid.Column="1" />
+                    <TextBox x:Name="txtBFriendlyName" Grid.Row="1" Grid.Column="1" />
 
-                    <Label Content="OrganizationId"  Grid.Row="2" Grid.Column="0"/>
-                    <TextBox x:Name="txtBOrganizationId"  Grid.Row="2" Grid.Column="1" />
+                    <Label Content="OrganizationId" Grid.Row="2" Grid.Column="0"/>
+                    <TextBox x:Name="txtBOrganizationId" Grid.Row="2" Grid.Column="1" />
 
-                    <Label Content="OrganizationState"  Grid.Row="3" Grid.Column="0"/>
-                    <TextBox x:Name="txtBOrganizationState"  Grid.Row="3" Grid.Column="1" />
+                    <Label Content="OrganizationState" Grid.Row="3" Grid.Column="0"/>
+                    <TextBox x:Name="txtBOrganizationState" Grid.Row="3" Grid.Column="1" />
 
-                    <Label Content="UrlName"  Grid.Row="4" Grid.Column="0"/>
-                    <TextBox x:Name="txtBUrlName"  Grid.Row="4" Grid.Column="1" />
+                    <Label Content="UrlName" Grid.Row="4" Grid.Column="0"/>
+                    <TextBox x:Name="txtBUrlName" Grid.Row="4" Grid.Column="1" />
 
-                    <Label Content="Base Currency"  Grid.Row="5" Grid.Column="0"/>
-                    <TextBox x:Name="txtBBaseCurrency"  Grid.Row="5" Grid.Column="1" />
+                    <Label Content="Base Currency" Grid.Row="5" Grid.Column="0"/>
+                    <TextBox x:Name="txtBBaseCurrency" Grid.Row="5" Grid.Column="1" />
 
-                    <Label Content="Default Language"  Grid.Row="6" Grid.Column="0"/>
-                    <TextBox x:Name="txtBDefaultLanguage"  Grid.Row="6" Grid.Column="1" />
+                    <Label Content="Default Language" Grid.Row="6" Grid.Column="0"/>
+                    <TextBox x:Name="txtBDefaultLanguage" Grid.Row="6" Grid.Column="1" />
 
-                    <Label Content="Installed LanguagePacks"  Grid.Row="7" Grid.Column="0"/>
-                    <TextBox x:Name="txtBInstalledLanguagePacks"  Grid.Row="7" Grid.Column="1" />
+                    <Label Content="Installed LanguagePacks" Grid.Row="7" Grid.Column="0"/>
+                    <TextBox x:Name="txtBInstalledLanguagePacks" Grid.Row="7" Grid.Column="1" />
                 </Grid>
             </TabItem>
 

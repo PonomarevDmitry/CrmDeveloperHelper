@@ -1,17 +1,18 @@
-﻿<UserControl x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.FileGenerationSdkMessageRequestsOptionsControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.UserControls"
-             xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
-             xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
-             mc:Ignorable="d" 
-             Focusable="True" 
-             BorderThickness="1"
-             BorderBrush="Black"
-             >
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
+    xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
+    mc:Ignorable="d" 
+    x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.FileGenerationSdkMessageRequestsOptionsControl"
+    Focusable="True" 
+    BorderThickness="1"
+    BorderBrush="Black"
+    >
     <UserControl.Resources>
+        <helpers:EnumToBooleanConverter x:Key="EnumToBooleanConverter"/>
 
         <Style TargetType="{x:Type CheckBox}">
             <Setter Property="Padding" Value="2"/>
@@ -70,7 +71,44 @@
 
         </ToolBar>
 
-        <GroupBox Header="File Generation Options" Margin="5">
+        <GroupBox Margin="5" Header="Common File Generation Options">
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="100*" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox x:Name="chBWithManagedInfo" Content="With Managed Info" IsChecked="{Binding Path=SolutionComponentWithManagedInfo, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                        <CheckBox x:Name="chBAllDescriptions" Content="All descriptions" IsChecked="{Binding Path=GenerateCommonAllDescriptions, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox x:Name="chBWithDependentComponents" Content="With dependent components for Global OptionSets" IsChecked="{Binding Path=GenerateSchemaEntityOptionSetsWithDependentComponents, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                    </StackPanel>
+                </StackPanel>
+
+                <GroupBox Header="Indent" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="100*" />
+                        </Grid.ColumnDefinitions>
+
+                        <RadioButton x:Name="rBTab" Grid.Column="0" GroupName="IndentTypeSdkMessageRequestsOptions" Content="Tab" IsChecked="{Binding Path=GenerateCommonIndentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:IndentType.Tab}}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                        <RadioButton x:Name="rBSpaces" Grid.Column="1" GroupName="IndentTypeSdkMessageRequestsOptions" Content="Spaces" IsChecked="{Binding Path=GenerateCommonIndentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:IndentType.Spaces}}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                        <TextBox x:Name="txtBSpaceCount" Grid.Column="2" Text="{Binding Path=GenerateCommonSpaceCount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                    </Grid>
+                </GroupBox>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="SdkMessageRequest File Generation Options" Margin="5">
 
             <Grid>
 
@@ -86,17 +124,17 @@
                     <ColumnDefinition Width="100*" />
                 </Grid.ColumnDefinitions>
 
-                <CheckBox Grid.Row="0" Grid.Column="0" x:Name="chBSdkMessageRequestAttributesWithNameOf" d:DataContext="{x:Type model:FileGenerationOptions}" IsChecked="{Binding Path=GenerateSdkMessageRequestAttributesWithNameOf}" Content="Use nameof in Indexer" />
+                <CheckBox Grid.Row="0" Grid.Column="0" x:Name="chBSdkMessageRequestAttributesWithNameOf" Content="Use nameof in Indexer" IsChecked="{Binding Path=GenerateSdkMessageRequestAttributesWithNameOf, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
 
-                <CheckBox Grid.Row="0" Grid.Column="1" x:Name="chBSdkMessageRequestWithDebuggerNonUserCode" d:DataContext="{x:Type model:FileGenerationOptions}" IsChecked="{Binding Path=GenerateSdkMessageRequestWithDebuggerNonUserCode}" Content="Add DebuggerNonUserCode Attribute" />
+                <CheckBox Grid.Row="0" Grid.Column="1" x:Name="chBSdkMessageRequestWithDebuggerNonUserCode" Content="Add DebuggerNonUserCode Attribute" IsChecked="{Binding Path=GenerateSdkMessageRequestWithDebuggerNonUserCode, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
 
-                <CheckBox Grid.Row="0" Grid.Column="2" x:Name="chBSdkMessageRequestMakeAllPropertiesEditable" d:DataContext="{x:Type model:FileGenerationOptions}" IsChecked="{Binding Path=GenerateSdkMessageRequestMakeAllPropertiesEditable}" Content="Make All Properties Editable" />
+                <CheckBox Grid.Row="0" Grid.Column="2" x:Name="chBSdkMessageRequestMakeAllPropertiesEditable" Content="Make All Properties Editable" IsChecked="{Binding Path=GenerateSdkMessageRequestMakeAllPropertiesEditable, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
 
                 <Label Content="Namespace Messages C#" Grid.Row="1" Grid.Column="0" />
-                <TextBox x:Name="txtBNamespaceSdkMessagesCSharp" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" d:DataContext="{x:Type model:FileGenerationOptions}" Text="{Binding Path=NamespaceSdkMessagesCSharp, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
+                <TextBox x:Name="txtBNamespaceSdkMessagesCSharp" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Path=NamespaceSdkMessagesCSharp, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
 
                 <Label Content="Namespace Messages JavaScript" Grid.Row="2" Grid.Column="0" />
-                <TextBox x:Name="txtBNamespaceSdkMessagesJavaScript" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" d:DataContext="{x:Type model:FileGenerationOptions}" Text="{Binding Path=NamespaceSdkMessagesJavaScript, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
+                <TextBox x:Name="txtBNamespaceSdkMessagesJavaScript" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Path=NamespaceSdkMessagesJavaScript, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
 
             </Grid>
         </GroupBox>

@@ -20,31 +20,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
         {
             this._fileGenerationOptions = fileGenerationOptions;
 
-            txtBSpaceCount.DataContext = fileGenerationOptions;
+            System.Windows.FrameworkElement[] dataContextElements =
+            {
+                chBWithManagedInfo
+                , chBAllDescriptions
+                , chBWithDependentComponents
 
-            rBTab.DataContext = fileGenerationOptions;
-            rBSpaces.DataContext = fileGenerationOptions;
+                , rBTab
+                , rBSpaces
+                , txtBSpaceCount
 
-            rBClasses.DataContext = fileGenerationOptions;
-            rBEnums.DataContext = fileGenerationOptions;
+                , rBClasses
+                , rBEnums
 
-            rBReadOnly.DataContext = fileGenerationOptions;
-            rBConst.DataContext = fileGenerationOptions;
+                , rBReadOnly
+                , rBConst
 
-            chBAllDescriptions.DataContext = fileGenerationOptions;
+                , chBSchemaAddDescriptionAttribute
 
-            chBWithDependentComponents.DataContext = fileGenerationOptions;
+                , chBSchemaAddTypeConverterAttributeForEnums
 
-            chBWithManagedInfo.DataContext = fileGenerationOptions;
+                , txtBNamespaceGlobalOptionSetsCSharp
+                , txtBNamespaceGlobalOptionSetsJavaScript
 
-            chBSchemaAddDescriptionAttribute.DataContext = fileGenerationOptions;
+                , txtBTypeConverterName
+            };
 
-            chBSchemaAddTypeConverterAttributeForEnums.DataContext = fileGenerationOptions;
-
-            txtBNamespaceGlobalOptionSetsCSharp.DataContext = fileGenerationOptions;
-            txtBNamespaceGlobalOptionSetsJavaScript.DataContext = fileGenerationOptions;
-
-            txtBTypeConverterName.DataContext = fileGenerationOptions;
+            foreach (var element in dataContextElements)
+            {
+                element.DataContext = fileGenerationOptions;
+            }
         }
 
         public event EventHandler<EventArgs> CloseClicked;

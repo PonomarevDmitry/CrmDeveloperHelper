@@ -7,11 +7,11 @@ using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 {
-    public partial class FileGenerationEntityMetadataOptionsControl : UserControl
+    public partial class FileGenerationEntityMetadataCSharpOptionsControl : UserControl
     {
         private FileGenerationOptions _fileGenerationOptions;
 
-        public FileGenerationEntityMetadataOptionsControl()
+        public FileGenerationEntityMetadataCSharpOptionsControl()
         {
             InitializeComponent();
         }
@@ -20,71 +20,70 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
         {
             this._fileGenerationOptions = fileGenerationOptions;
 
-            txtBSpaceCount.DataContext = fileGenerationOptions;
+            System.Windows.FrameworkElement[] dataContextElements =
+            {
+                chBWithManagedInfo
+                , chBAllDescriptions
+                , chBWithDependentComponents
 
-            rBTab.DataContext = fileGenerationOptions;
-            rBSpaces.DataContext = fileGenerationOptions;
+                , rBTab
+                , rBSpaces
+                , txtBSpaceCount
 
-            rBClasses.DataContext = fileGenerationOptions;
-            rBEnums.DataContext = fileGenerationOptions;
+                , rBClasses
+                , rBEnums
 
-            rBReadOnly.DataContext = fileGenerationOptions;
-            rBConst.DataContext = fileGenerationOptions;
+                , rBReadOnly
+                , rBConst
 
-            chBAttributesProxyClass.DataContext = fileGenerationOptions;
-            chBManyToOneProxyClass.DataContext = fileGenerationOptions;
-            chBManyToManyProxyClass.DataContext = fileGenerationOptions;
-            chBOneToManyProxyClass.DataContext = fileGenerationOptions;
-            chBLocalOptionSetsProxyClass.DataContext = fileGenerationOptions;
-            chBGlobalOptionSetsProxyClass.DataContext = fileGenerationOptions;
-            chBStatusProxyClass.DataContext = fileGenerationOptions;
+                , chBAttributesProxyClass
+                , chBManyToOneProxyClass
+                , chBManyToManyProxyClass
+                , chBOneToManyProxyClass
+                , chBLocalOptionSetsProxyClass
+                , chBGlobalOptionSetsProxyClass
+                , chBStatusProxyClass
 
-            chBProxyClassWithDebuggerNonUserCode.DataContext = fileGenerationOptions;
-            chBAttributesProxyClassWithNameOf.DataContext = fileGenerationOptions;
-            chBProxyClassUseSchemaConstInCSharpAttributes.DataContext = fileGenerationOptions;
-            chBProxyClassesWithoutObsoleteAttribute.DataContext = fileGenerationOptions;
-            chBProxyClassesMakeAllPropertiesEditable.DataContext = fileGenerationOptions;
-            chBProxyClassesAddConstructorWithAnonymousTypeObject.DataContext = fileGenerationOptions;
+                , chBProxyClassWithDebuggerNonUserCode
+                , chBAttributesProxyClassWithNameOf
+                , chBProxyClassUseSchemaConstInCSharpAttributes
+                , chBProxyClassesWithoutObsoleteAttribute
+                , chBProxyClassesMakeAllPropertiesEditable
+                , chBProxyClassesAddConstructorWithAnonymousTypeObject
 
-            cmBAttributesProxyClassEnumsStateStatus.DataContext = fileGenerationOptions;
-            cmBAttributesProxyClassEnumsLocal.DataContext = fileGenerationOptions;
-            cmBAttributesProxyClassEnumsGlobal.DataContext = fileGenerationOptions;
+                , cmBAttributesProxyClassEnumsStateStatus
+                , cmBAttributesProxyClassEnumsLocal
+                , cmBAttributesProxyClassEnumsGlobal
 
-            chBAttributesProxyClassEnumsUseSchemaStateStatusEnum.DataContext = fileGenerationOptions;
-            chBAttributesProxyClassEnumsUseSchemaLocalEnum.DataContext = fileGenerationOptions;
-            cmBAttributesProxyClassEnumsUseSchemaGlobalEnum.DataContext = fileGenerationOptions;
+                , chBAttributesProxyClassEnumsUseSchemaStateStatusEnum
+                , chBAttributesProxyClassEnumsUseSchemaLocalEnum
+                , cmBAttributesProxyClassEnumsUseSchemaGlobalEnum
 
-            chBAddDescriptionAttribute.DataContext = fileGenerationOptions;
-            chBProxyClassAddDescriptionAttribute.DataContext = fileGenerationOptions;
+                , chBAddDescriptionAttribute
+                , chBProxyClassAddDescriptionAttribute
 
-            chBAddTypeConverterAttributeForEnums.DataContext = fileGenerationOptions;
+                , chBAddTypeConverterAttributeForEnums
 
-            chBAttributesSchema.DataContext = fileGenerationOptions;
-            chBManyToOneSchema.DataContext = fileGenerationOptions;
-            chBManyToManySchema.DataContext = fileGenerationOptions;
-            chBOneToManySchema.DataContext = fileGenerationOptions;
-            chBLocalOptionSetsSchema.DataContext = fileGenerationOptions;
-            chBGlobalOptionSetsSchema.DataContext = fileGenerationOptions;
-            chBStatusSchema.DataContext = fileGenerationOptions;
-            chBKeysSchema.DataContext = fileGenerationOptions;
+                , chBAttributesSchema
+                , chBManyToOneSchema
+                , chBManyToManySchema
+                , chBOneToManySchema
+                , chBLocalOptionSetsSchema
+                , chBGlobalOptionSetsSchema
+                , chBStatusSchema
+                , chBKeysSchema
 
-            chBIntoSchemaClass.DataContext = fileGenerationOptions;
+                , chBIntoSchemaClass
 
-            chBAllDescriptions.DataContext = fileGenerationOptions;
+                , txtBNamespaceClassesCSharp
+                , txtBNamespaceGlobalOptionSetsCSharp
+                , txtBTypeConverterName
+            };
 
-            chBWithDependentComponents.DataContext = fileGenerationOptions;
-
-            chBWithManagedInfo.DataContext = fileGenerationOptions;
-
-
-
-            txtBNamespaceClassesCSharp.DataContext = fileGenerationOptions;
-            txtBNamespaceClassesJavaScript.DataContext = fileGenerationOptions;
-
-            txtBNamespaceGlobalOptionSetsCSharp.DataContext = fileGenerationOptions;
-            txtBNamespaceGlobalOptionSetsJavaScript.DataContext = fileGenerationOptions;
-
-            txtBTypeConverterName.DataContext = fileGenerationOptions;
+            foreach (var element in dataContextElements)
+            {
+                element.DataContext = fileGenerationOptions;
+            }
         }
 
         public event EventHandler<EventArgs> CloseClicked;

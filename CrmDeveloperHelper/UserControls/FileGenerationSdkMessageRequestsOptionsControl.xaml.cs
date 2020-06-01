@@ -20,12 +20,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
         {
             this._fileGenerationOptions = fileGenerationOptions;
 
-            chBSdkMessageRequestAttributesWithNameOf.DataContext = fileGenerationOptions;
-            chBSdkMessageRequestMakeAllPropertiesEditable.DataContext = fileGenerationOptions;
-            chBSdkMessageRequestWithDebuggerNonUserCode.DataContext = fileGenerationOptions;
+            System.Windows.FrameworkElement[] dataContextElements =
+            {
+                chBSdkMessageRequestAttributesWithNameOf
+                , chBSdkMessageRequestMakeAllPropertiesEditable
+                , chBSdkMessageRequestWithDebuggerNonUserCode
 
-            txtBNamespaceSdkMessagesCSharp.DataContext = fileGenerationOptions;
-            txtBNamespaceSdkMessagesJavaScript.DataContext = fileGenerationOptions;
+                , txtBNamespaceSdkMessagesCSharp
+                , txtBNamespaceSdkMessagesJavaScript
+
+                , chBWithManagedInfo
+                , chBAllDescriptions
+                , chBWithDependentComponents
+
+                , rBTab
+                , rBSpaces
+                , txtBSpaceCount
+            };
+
+            foreach (var element in dataContextElements)
+            {
+                element.DataContext = fileGenerationOptions;
+            }
         }
 
         public event EventHandler<EventArgs> CloseClicked;

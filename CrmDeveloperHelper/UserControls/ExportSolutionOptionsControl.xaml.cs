@@ -113,31 +113,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         private void LoadFromConfig()
         {
-            chBAutoNumbering.DataContext = _cmBExportSolutionProfile;
-            chBCalendar.DataContext = _cmBExportSolutionProfile;
-            chBCustomization.DataContext = _cmBExportSolutionProfile;
-            chBEmailTracking.DataContext = _cmBExportSolutionProfile;
-            chBExternalApplications.DataContext = _cmBExportSolutionProfile;
-            chBGeneral.DataContext = _cmBExportSolutionProfile;
-            chBISVConfig.DataContext = _cmBExportSolutionProfile;
-            chBMarketing.DataContext = _cmBExportSolutionProfile;
-            chBOutlookSynchronization.DataContext = _cmBExportSolutionProfile;
-            chBRelashionshipRoles.DataContext = _cmBExportSolutionProfile;
-            chBSales.DataContext = _cmBExportSolutionProfile;
+            System.Windows.FrameworkElement[] dataContextElements =
+            {
+                chBAutoNumbering
+                , chBCalendar
+                , chBCustomization
+                , chBEmailTracking
+                , chBExternalApplications
+                , chBGeneral
+                , chBISVConfig
+                , chBMarketing
+                , chBOutlookSynchronization
+                , chBRelashionshipRoles
+                , chBSales
 
-            chBIsManaged.DataContext = _cmBExportSolutionProfile;
+                , chBIsManaged
 
-            chBOverrideSolutionNameAndVersion.DataContext = _cmBExportSolutionProfile;
-            chBOverrideSolutionDescription.DataContext = _cmBExportSolutionProfile;
+                , chBOverrideSolutionNameAndVersion
+                , chBOverrideSolutionDescription
 
-            chBCreateFolderForVersion.DataContext = _cmBExportSolutionProfile;
-            chBCopyFileToClipBoard.DataContext = _cmBExportSolutionProfile;
+                , chBCreateFolderForVersion
+                , chBCopyFileToClipBoard
 
-            cmBUniqueName.DataContext = _cmBExportSolutionProfile;
-            cmBDisplayName.DataContext = _cmBExportSolutionProfile;
-            cmBVersion.DataContext = _cmBExportSolutionProfile;
+                , cmBUniqueName
+                , cmBDisplayName
+                , cmBVersion
 
-            txtBDescription.DataContext = _cmBExportSolutionProfile;
+                , txtBDescription
+            };
+
+            foreach (var element in dataContextElements)
+            {
+                element.DataContext = _cmBExportSolutionProfile;
+            }
         }
 
         public void DetachCollections()

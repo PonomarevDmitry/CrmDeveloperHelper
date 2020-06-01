@@ -28,7 +28,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
     {
         private readonly Popup _popupEntityMetadataOptions;
         private readonly Popup _popupFileGenerationEntityMetadataOptions;
-        private readonly FileGenerationEntityMetadataOptionsControl _optionsControlFileGeneration;
+        private readonly FileGenerationEntityMetadataCSharpOptionsControl _optionsControlFileGeneration;
 
         private readonly Dictionary<Guid, List<EntityMetadata>> _cacheEntityMetadata = new Dictionary<Guid, List<EntityMetadata>>();
 
@@ -60,7 +60,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 Focusable = true,
             };
 
-            _optionsControlFileGeneration = new FileGenerationEntityMetadataOptionsControl();
+            _optionsControlFileGeneration = new FileGenerationEntityMetadataCSharpOptionsControl();
             _optionsControlFileGeneration.CloseClicked += this._optionsControlFileGeneration_CloseClicked;
             this._popupFileGenerationEntityMetadataOptions = new Popup
             {

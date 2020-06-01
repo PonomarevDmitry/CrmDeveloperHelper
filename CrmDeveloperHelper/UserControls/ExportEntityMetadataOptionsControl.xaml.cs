@@ -23,26 +23,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         public void BindCommonConfiguration(CommonConfiguration commonConfig)
         {
-            chBForm.DataContext = commonConfig;
-            chBHomepageGrid.DataContext = commonConfig;
-            chBSubGrid.DataContext = commonConfig;
+            System.Windows.FrameworkElement[] dataContextElements =
+            {
+                chBForm
+                , chBHomepageGrid
+                , chBSubGrid
 
-            chBSortRibbonCommandsAndRulesById.DataContext = commonConfig;
-            chBSortXmlAttributes.DataContext = commonConfig;
+                , chBSortRibbonCommandsAndRulesById
+                , chBSortXmlAttributes
 
-            chBXmlAttributeOnNewLine.DataContext = commonConfig;
+                , chBXmlAttributeOnNewLine
 
-            chBSetXmlSchemas.DataContext = commonConfig;
+                , chBSetXmlSchemas
 
-            chBSetIntellisenseContext.DataContext = commonConfig;
-
-
-
-
+                , chBSetIntellisenseContext
 
 
-            rBAllcomponents.DataContext = commonConfig;
-            rBWorkflowPlugin.DataContext = commonConfig;
+
+                , rBAllcomponents
+                , rBWorkflowPlugin
+            };
+
+            foreach (var element in dataContextElements)
+            {
+                element.DataContext = commonConfig;
+            }
         }
 
         public event EventHandler<EventArgs> CloseClicked;

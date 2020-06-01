@@ -32,12 +32,12 @@
 
         <TabControl x:Name="tabControl" Grid.Row="0">
 
-            <TabItem x:Name="tbEntityMetadataOptions" IsSelected="False" Header="EntityMetadata" >
-                <local:FileGenerationEntityMetadataOptionsControl Grid.Row="0" x:Name="optionsEntityMetadataOptions" CloseClicked="options_CloseClicked" />
+            <TabItem x:Name="tbEntityMetadataOptions" IsSelected="False" Header="EntityMetadata C#" >
+                <local:FileGenerationEntityMetadataCSharpOptionsControl Grid.Row="0" x:Name="optionsCSharpOptions" CloseClicked="options_CloseClicked" />
             </TabItem>
 
-            <TabItem x:Name="tbJavaScriptOptions" IsSelected="False" Header="EntityMetadata" >
-                <local:FileGenerationJavaScriptOptionsControl Grid.Row="0" x:Name="optionsJavaScriptOptions" CloseClicked="options_CloseClicked" />
+            <TabItem x:Name="tbJavaScriptOptions" IsSelected="False" Header="EntityMetadata JavaScript" >
+                <local:FileGenerationEntityMetadataJavaScriptOptionsControl Grid.Row="0" x:Name="optionsJavaScriptOptions" CloseClicked="options_CloseClicked" />
             </TabItem>
 
             <TabItem x:Name="tbGlobalOptionSetMetadataOptions" IsSelected="False" Header="Global OptionSets" >

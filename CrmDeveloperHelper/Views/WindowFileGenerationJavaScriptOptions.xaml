@@ -29,7 +29,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <local:FileGenerationJavaScriptOptionsControl Grid.Row="0" x:Name="options" CloseClicked="options_CloseClicked" />
+        <local:FileGenerationEntityMetadataJavaScriptOptionsControl Grid.Row="0" x:Name="options" CloseClicked="options_CloseClicked" />
 
         <StatusBar Grid.Row="1">
             <StatusBarItem Content="" />

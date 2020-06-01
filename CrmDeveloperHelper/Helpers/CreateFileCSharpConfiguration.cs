@@ -63,6 +63,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public bool AddConstructorWithAnonymousTypeObject { get; private set; }
 
+        public bool OverrideMethodToString { get; private set; }
+
         public bool GenerateServiceContext { get; private set; }
 
         public bool AddDescriptionAttribute { get; private set; }

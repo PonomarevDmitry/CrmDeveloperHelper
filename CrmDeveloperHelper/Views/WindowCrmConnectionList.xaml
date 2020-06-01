@@ -138,24 +138,24 @@
                                 <Menu Background="{x:Null}" VerticalContentAlignment="Center" VerticalAlignment="Center">
                                     <MenuItem x:Name="mICreate" Header="Create" VerticalContentAlignment="Center" VerticalAlignment="Center">
                                         <MenuItem.Icon>
-                                            <Image Width="16" Height="16"  Source="{StaticResource ImageAdd}"  />
+                                            <Image Width="16" Height="16" Source="{StaticResource ImageAdd}"  />
                                         </MenuItem.Icon>
 
                                         <MenuItem x:Name="tSBCreate" Header="New" Click="tSBCreate_Click">
                                             <MenuItem.Icon>
-                                                <Image Width="16" Height="16"  Source="{StaticResource ImageAdd}"  />
+                                                <Image Width="16" Height="16" Source="{StaticResource ImageAdd}"  />
                                             </MenuItem.Icon>
                                         </MenuItem>
 
                                         <MenuItem x:Name="tSBCreateCopy" Header="Create Copy" Click="tSBCreateCopy_Click">
                                             <MenuItem.Icon>
-                                                <Image Width="16" Height="16"  Source="{StaticResource ImageCopy}"  />
+                                                <Image Width="16" Height="16" Source="{StaticResource ImageCopy}"  />
                                             </MenuItem.Icon>
                                         </MenuItem>
 
                                         <MenuItem x:Name="tSBLoadFromFile" Header="Load from File" Click="tSBLoadFromFile_Click">
                                             <MenuItem.Icon>
-                                                <Image Width="16" Height="16"  Source="{StaticResource ImageAdd}"  />
+                                                <Image Width="16" Height="16" Source="{StaticResource ImageAdd}"  />
                                             </MenuItem.Icon>
                                         </MenuItem>
                                     </MenuItem>
@@ -163,7 +163,7 @@
 
                                 <Button x:Name="tSBEdit" HorizontalAlignment="Left" IsEnabled="False" Click="tSBEdit_Click">
                                     <StackPanel>
-                                        <Image Width="16" Height="16"  Source="{StaticResource ImageEdit}"  />
+                                        <Image Width="16" Height="16" Source="{StaticResource ImageEdit}"  />
                                         <TextBlock >Edit</TextBlock>
                                     </StackPanel>
                                 </Button>
@@ -171,7 +171,7 @@
                                 <Separator/>
                                 <Button x:Name="tSBTestConnection" HorizontalAlignment="Left" IsEnabled="False" Click="tSBTestConnection_Click">
                                     <StackPanel>
-                                        <Image  Width="16" Height="16"  Source="{StaticResource ImageCheck}"  />
+                                        <Image  Width="16" Height="16" Source="{StaticResource ImageCheck}"  />
                                         <TextBlock >Test Connection</TextBlock>
                                     </StackPanel>
                                 </Button>
@@ -179,20 +179,20 @@
                                 <Separator/>
                                 <Button x:Name="tSBUp" HorizontalAlignment="Left" IsEnabled="False" Click="tSBUp_Click">
                                     <StackPanel>
-                                        <Image Width="16" Height="16"  Source="{StaticResource ImageUp}"  />
+                                        <Image Width="16" Height="16" Source="{StaticResource ImageUp}"  />
                                     </StackPanel>
                                 </Button>
 
                                 <Button x:Name="tSBDown" HorizontalAlignment="Left" IsEnabled="False" Click="tSBDown_Click">
                                     <StackPanel>
-                                        <Image Width="16" Height="16"  Source="{StaticResource ImageDown}"  />
+                                        <Image Width="16" Height="16" Source="{StaticResource ImageDown}"  />
                                     </StackPanel>
                                 </Button>
 
                                 <Separator/>
                                 <Button x:Name="tSBOpenFolder" HorizontalAlignment="Left" Click="tSBOpenFolder_Click" >
                                     <StackPanel>
-                                        <Image Width="16" Height="16"  Source="{StaticResource ImageOpenFolder}"  />
+                                        <Image Width="16" Height="16" Source="{StaticResource ImageOpenFolder}"  />
                                         <TextBlock >Open Folder</TextBlock>
                                     </StackPanel>
                                 </Button>
@@ -206,7 +206,7 @@
 
                             <Button x:Name="tSBMoveToArchive" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" Click="tSBMoveToArchive_Click" >
                                 <StackPanel>
-                                    <Image Width="16" Height="16"  Source="{StaticResource ImageDelete}"  />
+                                    <Image Width="16" Height="16" Source="{StaticResource ImageDelete}"  />
                                     <TextBlock >Move to Archive</TextBlock>
                                 </StackPanel>
                             </Button>
@@ -219,7 +219,7 @@
                         <ListView.ItemContainerStyle>
                             <Style TargetType="{x:Type ListViewItem}">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                <Setter Property="VerticalContentAlignment"  Value="Stretch"/>
+                                <Setter Property="VerticalContentAlignment" Value="Stretch"/>
                                 <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
                             </Style>
                         </ListView.ItemContainerStyle>
@@ -346,31 +346,31 @@
                             <ToolBarPanel Orientation="Horizontal" >
                                 <Button x:Name="tSBCreateUser" HorizontalAlignment="Left" Click="tSBCreateUser_Click">
                                     <StackPanel>
-                                        <Image Width="16" Height="16"  Source="{StaticResource ImageAdd}"  />
+                                        <Image Width="16" Height="16" Source="{StaticResource ImageAdd}"  />
                                         <TextBlock >Create User</TextBlock>
                                     </StackPanel>
                                 </Button>
                                 <Button x:Name="tSBEditUser" HorizontalAlignment="Left" IsEnabled="False" Click="tSBEditUser_Click" >
                                     <StackPanel>
-                                        <Image Width="16" Height="16"  Source="{StaticResource ImageEdit}"  />
+                                        <Image Width="16" Height="16" Source="{StaticResource ImageEdit}"  />
                                         <TextBlock >Edit User</TextBlock>
                                     </StackPanel>
                                 </Button>
                                 <Separator/>
                                 <Button x:Name="tSBUserUp" HorizontalAlignment="Left" IsEnabled="False" Click="tSBUserUp_Click" >
                                     <StackPanel>
-                                        <Image Width="16" Height="16"  Source="{StaticResource ImageUp}"  />
+                                        <Image Width="16" Height="16" Source="{StaticResource ImageUp}"  />
                                     </StackPanel>
                                 </Button>
                                 <Button x:Name="tSBUserDown" HorizontalAlignment="Left" IsEnabled="False" Click="tSBUserDown_Click" >
                                     <StackPanel>
-                                        <Image Width="16" Height="16"  Source="{StaticResource ImageDown}"  />
+                                        <Image Width="16" Height="16" Source="{StaticResource ImageDown}"  />
                                     </StackPanel>
                                 </Button>
                             </ToolBarPanel>
                             <Button x:Name="tSBDeleteUser" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" Click="tSBDeleteUser_Click" >
                                 <StackPanel>
-                                    <Image Width="16" Height="16"  Source="{StaticResource ImageDelete}"  />
+                                    <Image Width="16" Height="16" Source="{StaticResource ImageDelete}"  />
                                     <TextBlock >Delete User</TextBlock>
                                 </StackPanel>
                             </Button>
@@ -383,7 +383,7 @@
                         <ListView.ItemContainerStyle>
                             <Style TargetType="{x:Type ListViewItem}">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                <Setter Property="VerticalContentAlignment"  Value="Stretch"/>
+                                <Setter Property="VerticalContentAlignment" Value="Stretch"/>
                             </Style>
                         </ListView.ItemContainerStyle>
                         <ListView.View>

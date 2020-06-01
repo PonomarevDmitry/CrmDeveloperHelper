@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
-using System.Linq;
+using System.Collections.Concurrent;
 using System.Windows.Markup;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
     public class EnumBindingSourceExtension : MarkupExtension
     {
+        private readonly static ConcurrentDictionary<Tuple<Type, bool, bool>, Array> _knownTypeSources = new ConcurrentDictionary<Tuple<Type, bool, bool>, Array>();
+
         private Type _enumType;
         public Type EnumType
         {
@@ -44,19 +46,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             if (this._enumType == null)
                 throw new InvalidOperationException("The EnumType must be specified.");
 
-            Type actualEnumType = Nullable.GetUnderlyingType(this._enumType) ?? this._enumType;
+            var key = Tuple.Create(_enumType, this.SortByName, this.SortByIntValue);
+
+            if (_knownTypeSources.ContainsKey(key))
+            {
+                return _knownTypeSources[key];
+            }
+
+            var result = GetTypeArray(_enumType, this.SortByName, this.SortByIntValue);
+
+            _knownTypeSources.TryAdd(key, result);
+
+            return result;
+        }
+
+        private static Array GetTypeArray(Type enumType, bool sortByName, bool sortByIntValue)
+        {
+            Type actualEnumType = Nullable.GetUnderlyingType(enumType) ?? enumType;
             Array enumValues = Enum.GetValues(actualEnumType);
 
-            if (this.SortByName)
+            if (sortByName)
             {
                 Array.Sort(enumValues, EnumSorterByName.Comparer);
             }
-            else if (this.SortByIntValue)
+            else if (sortByIntValue)
             {
                 Array.Sort(enumValues, EnumSorterByValue.Comparer);
             }
 
-            if (actualEnumType == this._enumType)
+            if (actualEnumType == enumType)
                 return enumValues;
 
             object[] tempArray = new object[enumValues.Length + 1];

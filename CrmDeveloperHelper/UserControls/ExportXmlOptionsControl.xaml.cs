@@ -42,21 +42,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         private void LoadFromConfig()
         {
-            chBForm.DataContext = _commonConfig;
-            chBHomepageGrid.DataContext = _commonConfig;
-            chBSubGrid.DataContext = _commonConfig;
+            System.Windows.FrameworkElement[] dataContextElements =
+            {
+                chBForm
+                , chBHomepageGrid
+                , chBSubGrid
 
-            chBSortRibbonCommandsAndRulesById.DataContext = _commonConfig;
-            chBSortFormXmlElements.DataContext = _commonConfig;
-            chBSortXmlAttributes.DataContext = _commonConfig;
+                , chBSortRibbonCommandsAndRulesById
+                , chBSortFormXmlElements
+                , chBSortXmlAttributes
 
-            chBXmlAttributeOnNewLine.DataContext = _commonConfig;
-            chBSetXmlSchemas.DataContext = _commonConfig;
-            chBSetIntellisenseContext.DataContext = _commonConfig;
+                , chBXmlAttributeOnNewLine
+                , chBSetXmlSchemas
+                , chBSetIntellisenseContext
 
-            chBSolutionComponentWithManagedInfo.DataContext = _commonConfig;
-            chBSolutionComponentWithSolutionInfo.DataContext = _commonConfig;
-            chBSolutionComponentWithUrl.DataContext = _commonConfig;
+                , chBSolutionComponentWithManagedInfo
+                , chBSolutionComponentWithSolutionInfo
+                , chBSolutionComponentWithUrl
+            };
+
+            foreach (var element in dataContextElements)
+            {
+                element.DataContext = _commonConfig;
+            }
         }
 
         public event EventHandler<EventArgs> CloseClicked;

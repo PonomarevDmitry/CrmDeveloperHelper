@@ -9,7 +9,7 @@
     mc:Ignorable="d"
                 
     x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowExplorerEntityMetadataOptions"
-    Title="EntityMetadata File Generation Options" 
+    Title="EntityMetadata C# File Generation Options" 
     SizeToContent="WidthAndHeight"
     ResizeMode="NoResize"
     WindowStartupLocation="Manual"
@@ -32,7 +32,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <local:FileGenerationEntityMetadataOptionsControl Grid.Row="0" x:Name="options" CloseClicked="options_CloseClicked" />
+        <local:FileGenerationEntityMetadataCSharpOptionsControl Grid.Row="0" x:Name="options" CloseClicked="options_CloseClicked" />
 
         <StatusBar Grid.Row="1">
             <StatusBarItem Content="" />

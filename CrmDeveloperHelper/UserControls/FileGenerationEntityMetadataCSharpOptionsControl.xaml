@@ -1,0 +1,323 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
+    xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
+    mc:Ignorable="d" 
+    x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.FileGenerationEntityMetadataCSharpOptionsControl"
+    Focusable="True" 
+    BorderThickness="1"
+    BorderBrush="Black"
+    >
+    <UserControl.Resources>
+        <helpers:EnumToBooleanConverter x:Key="EnumToBooleanConverter"/>
+        <helpers:BoolToOppositeBoolConverter x:Key="BoolInverter"/>
+
+        <Style TargetType="{x:Type CheckBox}">
+            <Setter Property="Padding" Value="2"/>
+            <Setter Property="Margin" Value="3"/>
+
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="{x:Type ComboBox}">
+            <Setter Property="Padding" Value="2"/>
+            <Setter Property="Margin" Value="3"/>
+
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="{x:Type RadioButton}">
+            <Setter Property="Padding" Value="2"/>
+            <Setter Property="Margin" Value="3"/>
+
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="{x:Type StackPanel}">
+            <Setter Property="Margin" Value="0"/>
+        </Style>
+
+        <Style TargetType="{x:Type GroupBox}">
+            <Setter Property="Padding" Value="2"/>
+            <Setter Property="Margin" Value="0"/>
+        </Style>
+
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Padding" Value="2"/>
+            <Setter Property="Margin" Value="3"/>
+
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="Padding" Value="2"/>
+            <Setter Property="Margin" Value="3"/>
+
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+    </UserControl.Resources>
+
+    <StackPanel Orientation="Vertical" Background="White">
+
+        <ToolBar>
+
+            <Button Content="Load Configuration" Click="btnLoadConfiguration_Click"/>
+
+            <Separator />
+
+            <Button Content="Save Configuration" Click="btnSaveConfiguration_Click"/>
+
+        </ToolBar>
+
+        <GroupBox Margin="5" Header="Common File Generation Options">
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="100*" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox x:Name="chBWithManagedInfo" Content="With Managed Info" IsChecked="{Binding Path=SolutionComponentWithManagedInfo, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                        <CheckBox x:Name="chBAllDescriptions" Content="All descriptions" IsChecked="{Binding Path=GenerateCommonAllDescriptions, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox x:Name="chBWithDependentComponents" Content="With dependent components for Global OptionSets" IsChecked="{Binding Path=GenerateSchemaEntityOptionSetsWithDependentComponents, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                    </StackPanel>
+                </StackPanel>
+
+                <GroupBox Header="Indent" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="100*" />
+                        </Grid.ColumnDefinitions>
+
+                        <RadioButton x:Name="rBTab" Grid.Column="0" GroupName="IndentTypeEntityMetadataCSharp" Content="Tab" IsChecked="{Binding Path=GenerateCommonIndentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:IndentType.Tab}}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                        <RadioButton x:Name="rBSpaces" Grid.Column="1" GroupName="IndentTypeEntityMetadataCSharp" Content="Spaces" IsChecked="{Binding Path=GenerateCommonIndentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:IndentType.Spaces}}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                        <TextBox x:Name="txtBSpaceCount" Grid.Column="2" Text="{Binding Path=GenerateCommonSpaceCount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                    </Grid>
+                </GroupBox>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Margin="5" Header="Namespaces">
+            <StackPanel Orientation="Vertical">
+
+                <Label Content="Namespace Classes C#" />
+                <TextBox x:Name="txtBNamespaceClassesCSharp" Text="{Binding Path=NamespaceClassesCSharp, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+
+                <Label Content="Namespace OptionSets C#" />
+                <TextBox x:Name="txtBNamespaceGlobalOptionSetsCSharp" Text="{Binding Path=NamespaceGlobalOptionSetsCSharp, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+
+                <Label Content="TypeConverter Name" />
+                <TextBox x:Name="txtBTypeConverterName" Text="{Binding Path=TypeConverterName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Header="EntityMetadata Schema Options" Margin="5">
+            <StackPanel Orientation="Vertical">
+
+                <CheckBox x:Name="chBIntoSchemaClass" Content="Into Schema class" IsChecked="{Binding Path=GenerateSchemaIntoSchemaClass, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+
+                <Separator />
+
+                <Grid>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100*" />
+                        <ColumnDefinition Width="100*" />
+                        <ColumnDefinition Width="100*" />
+                        <ColumnDefinition Width="100*" />
+                        <ColumnDefinition Width="100*" />
+                    </Grid.ColumnDefinitions>
+
+                    <CheckBox Grid.Column="0" x:Name="chBAttributesSchema" Content="Attributes" IsChecked="{Binding Path=GenerateSchemaAttributes, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                    <CheckBox Grid.Column="1" x:Name="chBOneToManySchema" Content="One to Many" IsChecked="{Binding Path=GenerateSchemaOneToMany, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                    <CheckBox Grid.Column="2" x:Name="chBManyToOneSchema" Content="Many to One" IsChecked="{Binding Path=GenerateSchemaManyToOne, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                    <CheckBox Grid.Column="3" x:Name="chBManyToManySchema" Content="Many to Many" IsChecked="{Binding Path=GenerateSchemaManyToMany, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                    <CheckBox Grid.Column="4" x:Name="chBKeysSchema" Content="Keys" IsChecked="{Binding Path=GenerateSchemaKeys, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                </Grid>
+
+                <Separator />
+
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100*" />
+                        <ColumnDefinition Width="60*" />
+                        <ColumnDefinition Width="60*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Content="Generate OptionSets Enums:" />
+
+                    <CheckBox Grid.Row="1" Grid.Column="0" x:Name="chBStatusSchema" Content="Status and StatusReason OptionSets" IsChecked="{Binding Path=GenerateSchemaStatusOptionSet, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                    <CheckBox Grid.Row="1" Grid.Column="1" x:Name="chBLocalOptionSetsSchema" Content="Local OptionSets" IsChecked="{Binding Path=GenerateSchemaLocalOptionSet, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                    <CheckBox Grid.Row="1" Grid.Column="2" x:Name="chBGlobalOptionSetsSchema" Content="Global OptionSets" IsChecked="{Binding Path=GenerateSchemaGlobalOptionSet, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+
+                    <Separator Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" />
+
+                    <CheckBox Grid.Row="3" Grid.Column="0" x:Name="chBAddDescriptionAttribute" Content="Add Description Attribute" IsChecked="{Binding Path=GenerateSchemaAddDescriptionAttribute, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                    <CheckBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" x:Name="chBAddTypeConverterAttributeForEnums" Content="Add TypeConverterAttribute for Enums" IsChecked="{Binding Path=GenerateSchemaAddTypeConverterAttributeForEnums, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                </Grid>
+
+                <Grid>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="100*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Stretch">
+                        <Label Content="Field Type:" />
+                        <RadioButton x:Name="rBConst" GroupName="ConstantType" Content="Const" IsChecked="{Binding Path=GenerateSchemaConstantType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:ConstantType.Constant}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                        <RadioButton x:Name="rBReadOnly" GroupName="ConstantType" Content="ReadOnly" IsChecked="{Binding Path=GenerateSchemaConstantType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:ConstantType.ReadOnlyField}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                    </StackPanel>
+
+                    <Separator Grid.Column="1"  />
+
+                    <StackPanel Orientation="Horizontal" Grid.Column="2" HorizontalAlignment="Stretch">
+                        <Label Content="OptionSets Values:" />
+                        <RadioButton x:Name="rBEnums" GroupName="OptionSets" Content="Enum" IsChecked="{Binding Path=GenerateSchemaOptionSetExportType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:OptionSetExportType.Enums}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                        <RadioButton x:Name="rBClasses" GroupName="OptionSets" Content="Class" IsChecked="{Binding Path=GenerateSchemaOptionSetExportType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:OptionSetExportType.Classes}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Header="EntityMetadata Proxy Class Options" Margin="5">
+            <StackPanel Orientation="Vertical">
+                <Grid>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100*" />
+                        <ColumnDefinition Width="100*" />
+                        <ColumnDefinition Width="100*" />
+                        <ColumnDefinition Width="100*" />
+                    </Grid.ColumnDefinitions>
+
+                    <CheckBox Grid.Column="0" x:Name="chBAttributesProxyClass" Content="Attributes" IsChecked="{Binding Path=GenerateProxyClassesAttributes, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                    <CheckBox Grid.Column="1" x:Name="chBOneToManyProxyClass" Content="One to Many" IsChecked="{Binding Path=GenerateProxyClassesOneToMany, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                    <CheckBox Grid.Column="2" x:Name="chBManyToOneProxyClass" Content="Many to One" IsChecked="{Binding Path=GenerateProxyClassesManyToOne, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                    <CheckBox Grid.Column="3" x:Name="chBManyToManyProxyClass" Content="Many to Many" IsChecked="{Binding Path=GenerateProxyClassesManyToMany, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                </Grid>
+
+                <Separator />
+
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="100*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Content="Status and StatusReason Enum Attributes:" />
+                    <ComboBox Grid.Row="0" Grid.Column="1" x:Name="cmBAttributesProxyClassEnumsStateStatus" SelectedItem="{Binding Path=GenerateProxyClassesAttributesEnumsStateStatus, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:ProxyClassAttributeEnums}}}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+
+                    <Label Grid.Row="1" Grid.Column="0" Content="Local OptionSets Enum Attributes:" />
+                    <ComboBox Grid.Row="1" Grid.Column="1" x:Name="cmBAttributesProxyClassEnumsLocal" SelectedItem="{Binding Path=GenerateProxyClassesAttributesEnumsLocal, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:ProxyClassAttributeEnums}}}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+
+                    <Label Grid.Row="2" Grid.Column="0" Content="Global OptionSets Enum Attributes:" />
+                    <ComboBox Grid.Row="2" Grid.Column="1" x:Name="cmBAttributesProxyClassEnumsGlobal" SelectedItem="{Binding Path=GenerateProxyClassesAttributesEnumsGlobal, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:ProxyClassAttributeEnums}}}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                </Grid>
+
+                <Separator />
+
+                <Grid>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="100*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <CheckBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" x:Name="chBAttributesProxyClassEnumsUseSchemaStateStatusEnum" Content="Use Schema Enums for Status and StatusReason" IsChecked="{Binding Path=GenerateProxyClassesAttributesEnumsUseSchemaStateStatusEnum, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                    <CheckBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" x:Name="chBAttributesProxyClassEnumsUseSchemaLocalEnum" Content="Use Schema Enums for Local OptionSets" IsChecked="{Binding Path=GenerateProxyClassesAttributesEnumsUseSchemaLocalEnum, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+
+                    <Label Grid.Row="2" Grid.Column="0" Content="Global OptionSets Enum:" />
+                    <ComboBox Grid.Row="2" Grid.Column="1" x:Name="cmBAttributesProxyClassEnumsUseSchemaGlobalEnum" SelectedItem="{Binding Path=GenerateProxyClassesAttributesEnumsUseSchemaGlobalEnum, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:ProxyClassAttributeEnumsGlobalOptionSetLocation}}}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                </Grid>
+
+                <Separator />
+
+
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="100*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Content="Generate OptionSets Enums:" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" />
+
+                    <CheckBox Grid.Row="1" Grid.Column="0" x:Name="chBStatusProxyClass" Content="Status and StatusReason OptionSets" IsChecked="{Binding Path=GenerateProxyClassesStatusOptionSet, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                    <CheckBox Grid.Row="1" Grid.Column="1" x:Name="chBLocalOptionSetsProxyClass" Content="Local OptionSets" IsChecked="{Binding Path=GenerateProxyClassesLocalOptionSet, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                    <CheckBox Grid.Row="1" Grid.Column="2" x:Name="chBGlobalOptionSetsProxyClass" Content="Global OptionSets" IsChecked="{Binding Path=GenerateProxyClassesGlobalOptionSet, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+
+                    <Separator Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" />
+
+                    <CheckBox Grid.Row="3" Grid.Column="0" x:Name="chBProxyClassAddDescriptionAttribute" Content="Add Description Attribute" IsChecked="{Binding Path=GenerateProxyClassesAddDescriptionAttribute, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+
+                    <CheckBox Grid.Row="4" Grid.Column="0" x:Name="chBProxyClassWithDebuggerNonUserCode" Content="Add DebuggerNonUserCode Attribute" IsChecked="{Binding Path=GenerateProxyClassesWithDebuggerNonUserCode, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                    <CheckBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" x:Name="chBAttributesProxyClassWithNameOf" Content="Notify Property Change with nameof" IsChecked="{Binding Path=GenerateProxyClassesAttributesWithNameOf, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+
+                    <CheckBox Grid.Row="5" Grid.Column="0" x:Name="chBProxyClassUseSchemaConstInCSharpAttributes" Content="Use Schema Const In C# Attributes" IsChecked="{Binding Path=GenerateProxyClassesUseSchemaConstInCSharpAttributes, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                    <CheckBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" x:Name="chBProxyClassesAddConstructorWithAnonymousTypeObject" Content="Add Constructor With AnonymousType Object" IsChecked="{Binding Path=GenerateProxyClassesAddConstructorWithAnonymousTypeObject, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+
+                    <CheckBox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" x:Name="chBProxyClassesMakeAllPropertiesEditable" Content="Make All Properties Editable" IsChecked="{Binding Path=GenerateProxyClassesMakeAllPropertiesEditable, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                    <CheckBox Grid.Row="6" Grid.Column="1" x:Name="chBProxyClassesWithoutObsoleteAttribute" Content="Without ObsoleteAttribute" IsChecked="{Binding Path=GenerateProxyClassesWithoutObsoleteAttribute, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+
+                </Grid>
+            </StackPanel>
+        </GroupBox>
+
+    </StackPanel>
+</UserControl>

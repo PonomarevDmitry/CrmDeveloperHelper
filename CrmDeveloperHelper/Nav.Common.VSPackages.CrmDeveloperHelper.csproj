@@ -1408,11 +1408,11 @@
     <Compile Include="UserControls\FetchXmlExecutorControl.xaml.cs">
       <DependentUpon>FetchXmlExecutorControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\FileGenerationEntityMetadataOptionsControl.xaml.cs">
-      <DependentUpon>FileGenerationEntityMetadataOptionsControl.xaml</DependentUpon>
+    <Compile Include="UserControls\FileGenerationEntityMetadataCSharpOptionsControl.xaml.cs">
+      <DependentUpon>FileGenerationEntityMetadataCSharpOptionsControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\FileGenerationJavaScriptOptionsControl.xaml.cs">
-      <DependentUpon>FileGenerationJavaScriptOptionsControl.xaml</DependentUpon>
+    <Compile Include="UserControls\FileGenerationEntityMetadataJavaScriptOptionsControl.xaml.cs">
+      <DependentUpon>FileGenerationEntityMetadataJavaScriptOptionsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\FileGenerationSdkMessageRequestsOptionsControl.xaml.cs">
       <DependentUpon>FileGenerationSdkMessageRequestsOptionsControl.xaml</DependentUpon>
@@ -2155,11 +2155,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\FileGenerationEntityMetadataOptionsControl.xaml">
+    <Page Include="UserControls\FileGenerationEntityMetadataCSharpOptionsControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\FileGenerationJavaScriptOptionsControl.xaml">
+    <Page Include="UserControls\FileGenerationEntityMetadataJavaScriptOptionsControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

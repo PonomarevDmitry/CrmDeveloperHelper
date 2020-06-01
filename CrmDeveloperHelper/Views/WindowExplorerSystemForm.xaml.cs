@@ -35,7 +35,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly Popup _popupExportXmlOptions;
         private readonly Popup _popupFileGenerationJavaScriptOptions;
 
-        private readonly FileGenerationJavaScriptOptionsControl _optionsControlJavaScript;
+        private readonly FileGenerationEntityMetadataJavaScriptOptionsControl _optionsControlJavaScript;
 
         public WindowExplorerSystemForm(
              IWriteToOutput iWriteToOutput
@@ -71,7 +71,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 Focusable = true,
             };
 
-            _optionsControlJavaScript = new FileGenerationJavaScriptOptionsControl();
+            _optionsControlJavaScript = new FileGenerationEntityMetadataJavaScriptOptionsControl();
             _optionsControlJavaScript.CloseClicked += this._optionsControlJavaScript_CloseClicked;
             this._popupFileGenerationJavaScriptOptions = new Popup
             {

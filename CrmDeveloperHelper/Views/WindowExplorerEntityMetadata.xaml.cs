@@ -33,8 +33,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly Popup _popupFileGenerationJavaScriptOptions;
         private readonly Popup _popupEntityMetadataFilter;
 
-        private readonly FileGenerationEntityMetadataOptionsControl _optionsControlEntityMetadata;
-        private readonly FileGenerationJavaScriptOptionsControl _optionsControlJavaScript;
+        private readonly FileGenerationEntityMetadataCSharpOptionsControl _optionsControlEntityMetadata;
+        private readonly FileGenerationEntityMetadataJavaScriptOptionsControl _optionsControlJavaScript;
         private readonly EntityMetadataFilter _entityMetadataFilter;
 
         private readonly string _filePath;
@@ -87,7 +87,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 Focusable = true,
             };
 
-            _optionsControlEntityMetadata = new FileGenerationEntityMetadataOptionsControl();
+            _optionsControlEntityMetadata = new FileGenerationEntityMetadataCSharpOptionsControl();
             _optionsControlEntityMetadata.CloseClicked += this._optionsControlFileGeneration_CloseClicked;
             this._popupFileGenerationEntityMetadataOptions = new Popup
             {
@@ -99,7 +99,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 Focusable = true,
             };
 
-            _optionsControlJavaScript = new FileGenerationJavaScriptOptionsControl();
+            _optionsControlJavaScript = new FileGenerationEntityMetadataJavaScriptOptionsControl();
             _optionsControlJavaScript.CloseClicked += this._optionsControlJavaScript_CloseClicked;
             this._popupFileGenerationJavaScriptOptions = new Popup
             {

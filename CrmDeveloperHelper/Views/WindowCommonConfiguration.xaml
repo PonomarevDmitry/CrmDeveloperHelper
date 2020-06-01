@@ -24,11 +24,11 @@
                     <CheckBox x:Name="chBClearOutputWindow" Content="Clear Output Window before CRM Operation" Margin="210,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                     <Label Content="Folder for Export" HorizontalAlignment="Left" Margin="10,25,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="txtBFolderForExport" Height="23" Margin="10,51,127,0"   VerticalAlignment="Top" TabIndex="2147483647"/>
-                    <Button x:Name="btnSelectFolderForExport" Content="Select Folder" Margin="0,51,10,0"  Height="23" VerticalAlignment="Top" HorizontalAlignment="Right" IsTabStop="False" Padding="2" Width="103" Click="btnSelectFolderForExport_Click"/>
+                    <Button x:Name="btnSelectFolderForExport" Content="Select Folder" Margin="0,51,10,0" Height="23" VerticalAlignment="Top" HorizontalAlignment="Right" IsTabStop="False" Padding="2" Width="103" Click="btnSelectFolderForExport_Click"/>
                     <Label Content="Plugin Configuration File Name" HorizontalAlignment="Left" Margin="10,74,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="txtBFileNamePluginConfiguration" Height="23" Margin="10,100,0,0"  Text="Plugins Configuration" VerticalAlignment="Top" TabIndex="2147483647" HorizontalAlignment="Left" Width="283"/>
+                    <TextBox x:Name="txtBFileNamePluginConfiguration" Height="23" Margin="10,100,0,0" Text="Plugins Configuration" VerticalAlignment="Top" TabIndex="2147483647" HorizontalAlignment="Left" Width="283"/>
                     <Label Content="Forms Events File Name" HorizontalAlignment="Left" Margin="308,74,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="txtBFileNameFormsEvents" Height="23" Margin="308,100,0,0"  Text="System Forms Events" VerticalAlignment="Top" TabIndex="2147483647" HorizontalAlignment="Left" Width="283"/>
+                    <TextBox x:Name="txtBFileNameFormsEvents" Height="23" Margin="308,100,0,0" Text="System Forms Events" VerticalAlignment="Top" TabIndex="2147483647" HorizontalAlignment="Left" Width="283"/>
                     <Grid Margin="10,128,10,0" VerticalAlignment="Top">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -93,21 +93,21 @@
                             <ToolBarPanel Orientation="Horizontal" >
                                 <Button x:Name="tSBFileActionCreate" HorizontalAlignment="Left" Click="tSBFileActionCreate_Click">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <Image Width="16" Height="16"  Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                        <Image Width="16" Height="16" Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                         <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Create</TextBlock>
                                     </StackPanel>
                                 </Button>
                                 <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                                 <Button x:Name="tSBFileActionEdit" HorizontalAlignment="Left" IsEnabled="False" Click="tSBFileActionEdit_Click">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <Image Width="16" Height="16"  Source="{StaticResource ImageEdit}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                        <Image Width="16" Height="16" Source="{StaticResource ImageEdit}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                         <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Edit</TextBlock>
                                     </StackPanel>
                                 </Button>
                             </ToolBarPanel>
                             <Button x:Name="tSBFileActionDelete" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" Click="tSBFileActionDelete_Click">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <Image Width="16" Height="16"  Source="{StaticResource ImageDelete}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <Image Width="16" Height="16" Source="{StaticResource ImageDelete}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Delete</TextBlock>
                                 </StackPanel>
                             </Button>
@@ -121,7 +121,7 @@
                         <ListView.ItemContainerStyle>
                             <Style TargetType="{x:Type ListViewItem}">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                <Setter Property="VerticalContentAlignment"  Value="Stretch"/>
+                                <Setter Property="VerticalContentAlignment" Value="Stretch"/>
                             </Style>
                         </ListView.ItemContainerStyle>
                         <ListView.View>

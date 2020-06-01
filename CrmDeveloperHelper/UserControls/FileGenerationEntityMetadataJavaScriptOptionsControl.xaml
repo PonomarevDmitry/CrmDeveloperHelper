@@ -1,4 +1,4 @@
-﻿<UserControl 
+﻿<UserControl
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,7 +6,7 @@
     xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
     xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
     mc:Ignorable="d" 
-    x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.FileGenerationGlobalOptionSetMetadataOptionsControl"
+    x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.FileGenerationEntityMetadataJavaScriptOptionsControl"
     Focusable="True" 
     BorderThickness="1"
     BorderBrush="Black"
@@ -102,9 +102,9 @@
                             <ColumnDefinition Width="100*" />
                         </Grid.ColumnDefinitions>
 
-                        <RadioButton x:Name="rBTab" Grid.Column="0" GroupName="IndentTypeGlobalOptionSetMetadata" Content="Tab" IsChecked="{Binding Path=GenerateCommonIndentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:IndentType.Tab}}" d:DataContext="{x:Type model:FileGenerationOptions}" />
-                        <RadioButton x:Name="rBSpaces" Grid.Column="1" GroupName="IndentTypeGlobalOptionSetMetadata" Content="Spaces" IsChecked="{Binding Path=GenerateCommonIndentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:IndentType.Spaces}}" d:DataContext="{x:Type model:FileGenerationOptions}" />
-                        <TextBox x:Name="txtBSpaceCount" Grid.Column="2" Text="{Binding Path=GenerateCommonSpaceCount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                        <RadioButton x:Name="rBTab" Grid.Column="0" GroupName="IndentTypeEntityMetadataJavaScript" Content="Tab" IsChecked="{Binding Path=GenerateCommonIndentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:IndentType.Tab}}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                        <RadioButton x:Name="rBSpaces" Grid.Column="1" GroupName="IndentTypeEntityMetadataJavaScript" Content="Spaces" IsChecked="{Binding Path=GenerateCommonIndentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:IndentType.Spaces}}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                        <TextBox x:Name="txtBSpaceCount" MinWidth="90" Grid.Column="2" Text="{Binding Path=GenerateCommonSpaceCount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
                     </Grid>
                 </GroupBox>
 
@@ -116,46 +116,50 @@
 
             <StackPanel Orientation="Vertical">
 
-                <Label Content="Namespace OptionSets C#" />
-                <TextBox x:Name="txtBNamespaceGlobalOptionSetsCSharp" Text="{Binding Path=NamespaceGlobalOptionSetsCSharp, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                <Label Content="Namespace Classes JavaScript" />
+                <TextBox x:Name="txtBNamespaceClassesJavaScript" Text="{Binding Path=NamespaceClassesJavaScript, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
 
                 <Label Content="Namespace OptionSets JavaScript" />
                 <TextBox x:Name="txtBNamespaceGlobalOptionSetsJavaScript" Text="{Binding Path=NamespaceGlobalOptionSetsJavaScript, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
 
-                <Label Content="TypeConverter Name" />
-                <TextBox x:Name="txtBTypeConverterName" Text="{Binding Path=TypeConverterName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
             </StackPanel>
         </GroupBox>
 
-        <GroupBox Header="Global OptionSets Metadata Options" Margin="5">
+        <GroupBox Header="Form JavaScript File Generation Options" Margin="5">
+            <StackPanel Orientation="Vertical">
 
-            <StackPanel Orientation="Horizontal">
+                <CheckBox x:Name="chBGenerateJavaScriptIntoSchemaClass" Content="Into Schema class" IsChecked="{Binding Path=GenerateJavaScriptIntoSchemaClass, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
 
-                <StackPanel Orientation="Vertical" Background="White">
+                <Separator />
 
-                    <CheckBox x:Name="chBSchemaAddDescriptionAttribute" Content="Add Description Attribute" IsChecked="{Binding Path=GenerateSchemaAddDescriptionAttribute, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                <CheckBox x:Name="chBGenerateJavaScriptGlobalOptionSet" Content="Generate Global OptionSets Enums" IsChecked="{Binding Path=GenerateJavaScriptGlobalOptionSet, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
 
-                    <CheckBox x:Name="chBSchemaAddTypeConverterAttributeForEnums" Content="Add TypeConverterAttribute for Enums" IsChecked="{Binding Path=GenerateSchemaAddTypeConverterAttributeForEnums, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                <Separator />
 
-                </StackPanel>
+                <Grid>
 
-                <GroupBox Header="Field Type" Grid.Column="0" HorizontalAlignment="Stretch">
-                    <StackPanel Orientation="Horizontal">
-                        <RadioButton x:Name="rBConst" GroupName="ConstantType" Content="Const" IsChecked="{Binding Path=GenerateSchemaConstantType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:ConstantType.Constant}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
-                        <RadioButton x:Name="rBReadOnly" GroupName="ConstantType" Content="ReadOnly" IsChecked="{Binding Path=GenerateSchemaConstantType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:ConstantType.ReadOnlyField}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
-                    </StackPanel>
-                </GroupBox>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
 
-                <GroupBox Header="OptionSets Values" Grid.Column="1" HorizontalAlignment="Stretch">
-                    <StackPanel Orientation="Horizontal" >
-                        <RadioButton x:Name="rBEnums" GroupName="OptionSets" Content="Enum" IsChecked="{Binding Path=GenerateSchemaOptionSetExportType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:OptionSetExportType.Enums}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
-                        <RadioButton x:Name="rBClasses" GroupName="OptionSets" Content="Class" IsChecked="{Binding Path=GenerateSchemaOptionSetExportType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:OptionSetExportType.Classes}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
-                    </StackPanel>
-                </GroupBox>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50*" />
+                        <ColumnDefinition Width="50*" />
+                        <ColumnDefinition Width="50*" />
+                    </Grid.ColumnDefinitions>
+
+                    <CheckBox Grid.Row="0" Grid.Column="0" x:Name="chBJavaScriptAddFormTypeEnum" Content="Add FormTypeEnum" IsChecked="{Binding Path=JavaScriptAddFormTypeEnum, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+
+                    <CheckBox Grid.Row="0" Grid.Column="1" x:Name="chBJavaScriptAddRequiredLevelEnum" Content="Add RequiredLevelEnum" IsChecked="{Binding Path=JavaScriptAddRequiredLevelEnum, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+
+                    <CheckBox Grid.Row="0" Grid.Column="2" x:Name="chBJavaScriptAddSubmitModeEnum" Content="Add SubmitModeEnum" IsChecked="{Binding Path=JavaScriptAddSubmitModeEnum, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+
+                    <CheckBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" x:Name="chBJavaScriptAddConsoleFunctions" Content="Add Console Functions" IsChecked="{Binding Path=JavaScriptAddConsoleFunctions, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+
+                </Grid>
 
             </StackPanel>
-
-
         </GroupBox>
 
     </StackPanel>

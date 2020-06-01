@@ -15,7 +15,7 @@
         <GroupBox x:Name="grBRibbon" Header="Ribbon" Margin="5">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                 <CheckBox x:Name="chBForm" IsChecked="{Binding Path=ExportRibbonXmlForm}" Content="Form" HorizontalAlignment="Left" Margin="5" />
-                <CheckBox x:Name="chBHomepageGrid" IsChecked="{Binding Path=ExportRibbonXmlHomepageGrid}" Content="HomepageGrid" HorizontalAlignment="Left"  Margin="5" />
+                <CheckBox x:Name="chBHomepageGrid" IsChecked="{Binding Path=ExportRibbonXmlHomepageGrid}" Content="HomepageGrid" HorizontalAlignment="Left" Margin="5" />
                 <CheckBox x:Name="chBSubGrid" IsChecked="{Binding Path=ExportRibbonXmlSubGrid}" Content="SubGrid" HorizontalAlignment="Left" Margin="5" />
             </StackPanel>
         </GroupBox>

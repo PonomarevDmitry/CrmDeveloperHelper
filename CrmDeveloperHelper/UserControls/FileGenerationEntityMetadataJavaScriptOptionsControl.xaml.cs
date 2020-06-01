@@ -7,11 +7,11 @@ using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 {
-    public partial class FileGenerationJavaScriptOptionsControl : UserControl
+    public partial class FileGenerationEntityMetadataJavaScriptOptionsControl : UserControl
     {
         private FileGenerationOptions _fileGenerationOptions;
 
-        public FileGenerationJavaScriptOptionsControl()
+        public FileGenerationEntityMetadataJavaScriptOptionsControl()
         {
             InitializeComponent();
         }
@@ -20,31 +20,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
         {
             this._fileGenerationOptions = fileGenerationOptions;
 
-            txtBSpaceCount.DataContext = fileGenerationOptions;
+            System.Windows.FrameworkElement[] dataContextElements =
+            {
+                chBWithManagedInfo
+                , chBAllDescriptions
+                , chBWithDependentComponents
 
-            rBTab.DataContext = fileGenerationOptions;
-            rBSpaces.DataContext = fileGenerationOptions;
+                , rBTab
+                , rBSpaces
+                , txtBSpaceCount
 
-            chBAllDescriptions.DataContext = fileGenerationOptions;
+                , txtBNamespaceClassesJavaScript
+                , txtBNamespaceGlobalOptionSetsJavaScript
 
-            chBWithDependentComponents.DataContext = fileGenerationOptions;
+                , chBGenerateJavaScriptIntoSchemaClass
 
-            chBWithManagedInfo.DataContext = fileGenerationOptions;
+                , chBGenerateJavaScriptGlobalOptionSet
 
-            txtBNamespaceClassesJavaScript.DataContext = fileGenerationOptions;
-            txtBNamespaceGlobalOptionSetsJavaScript.DataContext = fileGenerationOptions;
+                , chBJavaScriptAddConsoleFunctions
 
-            chBGenerateJavaScriptIntoSchemaClass.DataContext = fileGenerationOptions;
+                , chBJavaScriptAddFormTypeEnum
 
-            chBGenerateJavaScriptGlobalOptionSet.DataContext = fileGenerationOptions;
+                , chBJavaScriptAddRequiredLevelEnum
 
-            chBJavaScriptAddConsoleFunctions.DataContext = fileGenerationOptions;
+                , chBJavaScriptAddSubmitModeEnum
+            };
 
-            chBJavaScriptAddFormTypeEnum.DataContext = fileGenerationOptions;
-
-            chBJavaScriptAddRequiredLevelEnum.DataContext = fileGenerationOptions;
-
-            chBJavaScriptAddSubmitModeEnum.DataContext = fileGenerationOptions;
+            foreach (var element in dataContextElements)
+            {
+                element.DataContext = fileGenerationOptions;
+            }
         }
 
         public event EventHandler<EventArgs> CloseClicked;
