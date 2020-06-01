@@ -403,26 +403,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
                 , Attribute(typeof(DataContractAttribute))
             );
 
-            CodeExpression entityLogicalNameAttributeRef = FieldRef(iCodeGenerationServiceProvider.TypeMappingService.GetTypeForEntity(entityMetadata), EntityLogicalNameFieldName);
+            entityClass.Comments.AddRange(CommentSummary(iCodeGenerationServiceProvider.NamingService.GetCommentsForEntity(entityMetadata)));
 
+            CodeExpression entityLogicalNameAttributeRef = FieldRef(iCodeGenerationServiceProvider.TypeMappingService.GetTypeForEntity(entityMetadata), EntityLogicalNameFieldName);
             entityClass.CustomAttributes.Add(Attribute(EntityLogicalNameAttribute, AttributeArg(entityLogicalNameAttributeRef)));
 
-            if (_config.AddDescriptionAttribute)
-            {
-                string description = CreateFileHandler.GetLocalizedLabel(entityMetadata.DisplayName);
-
-                if (string.IsNullOrEmpty(description))
-                {
-                    description = CreateFileHandler.GetLocalizedLabel(entityMetadata.Description);
-                }
-
-                if (!string.IsNullOrEmpty(description))
-                {
-                    entityClass.CustomAttributes.Add(Attribute(DescriptionAttribute, AttributeArg(StringLiteral(description))));
-                }
-            }
-
-            entityClass.Comments.AddRange(CommentSummary(iCodeGenerationServiceProvider.NamingService.GetCommentsForEntity(entityMetadata)));
+            AddDescriptionAttribute(entityClass.CustomAttributes, entityMetadata.DisplayName, entityMetadata.Description);
 
             this.InitializeEntityClass(entityClass, entityMetadata);
 
@@ -434,6 +420,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             declarationCollection.Add(entityClass);
 
             return declarationCollection;
+        }
+
+        private void AddDescriptionAttribute(CodeAttributeDeclarationCollection customAttributes, Label lableDisplayName, Label labelDescription)
+        {
+            if (!_config.AddDescriptionAttribute)
+            {
+                return;
+            }
+
+            string descriptionString = CreateFileHandler.GetLocalizedLabel(lableDisplayName);
+
+            if (labelDescription != null && string.IsNullOrEmpty(descriptionString))
+            {
+                descriptionString = CreateFileHandler.GetLocalizedLabel(labelDescription);
+            }
+
+            if (!string.IsNullOrEmpty(descriptionString))
+            {
+                customAttributes.Add(Attribute(DescriptionAttribute, AttributeArg(StringLiteral(descriptionString))));
+            }
         }
 
         public static HashSet<string> GetLinkedEntities(EntityMetadata entityMetadata)
@@ -951,20 +957,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
 
             codeMemberProperty.CustomAttributes.Add(Attribute(AttributeLogicalNameAttribute, AttributeArg(attributeNameRef)));
 
-            if (_config.AddDescriptionAttribute)
-            {
-                string description = CreateFileHandler.GetLocalizedLabel(attributeMetadata.DisplayName);
-
-                if (string.IsNullOrEmpty(description))
-                {
-                    description = CreateFileHandler.GetLocalizedLabel(attributeMetadata.Description);
-                }
-
-                if (!string.IsNullOrEmpty(description))
-                {
-                    codeMemberProperty.CustomAttributes.Add(Attribute(DescriptionAttribute, AttributeArg(StringLiteral(description))));
-                }
-            }
+            AddDescriptionAttribute(codeMemberProperty.CustomAttributes, attributeMetadata.DisplayName, attributeMetadata.Description);
 
             if (!string.IsNullOrEmpty(attributeMetadata.DeprecatedVersion) && !_config.WithoutObsoleteAttribute)
             {
@@ -1201,20 +1194,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
 
             codeMemberProperty.CustomAttributes.Add(Attribute(AttributeLogicalNameAttribute, AttributeArg(attributeNameRef)));
 
-            if (_config.AddDescriptionAttribute)
-            {
-                string description = CreateFileHandler.GetLocalizedLabel(attributeMetadata.DisplayName);
-
-                if (string.IsNullOrEmpty(description))
-                {
-                    description = CreateFileHandler.GetLocalizedLabel(attributeMetadata.Description);
-                }
-
-                if (!string.IsNullOrEmpty(description))
-                {
-                    codeMemberProperty.CustomAttributes.Add(Attribute(DescriptionAttribute, AttributeArg(StringLiteral(description))));
-                }
-            }
+            AddDescriptionAttribute(codeMemberProperty.CustomAttributes, attributeMetadata.DisplayName, attributeMetadata.Description);
 
             if (this._config.GenerateWithDebuggerNonUserCode)
             {
@@ -1452,7 +1432,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
         {
             if (_config.AddDescriptionAttribute)
             {
-                string description = comments.FirstOrDefault();
+                string description = comments.FirstOrDefault(s => !string.IsNullOrEmpty(s));
 
                 if (!string.IsNullOrEmpty(description))
                 {
