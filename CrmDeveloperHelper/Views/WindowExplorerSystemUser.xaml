@@ -196,7 +196,7 @@
         <ToolBar Margin="0" VerticalAlignment="Top" Height="Auto" DockPanel.Dock="Top">
             <Button x:Name="btnRefreshSystemUsers" HorizontalAlignment="Left" Click="btnRefreshSystemUsers_Click">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Image Width="16" Height="16" Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Refresh Users</TextBlock>
                 </StackPanel>
             </Button>
@@ -209,7 +209,7 @@
             <ComboBox x:Name="cmBCurrentConnection" IsReadOnly="True" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch"/>
             <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
-            <StatusBarItem x:Name="stBIStatus"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <StatusBarItem x:Name="stBIStatus" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
         </StatusBar>
         <Grid Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" DockPanel.Dock="Bottom">
             <Grid.ColumnDefinitions>
@@ -227,7 +227,7 @@
                     </Grid.ColumnDefinitions>
 
                     <Label Content="Filter" HorizontalAlignment="Left" VerticalAlignment="Stretch" Padding="0" Margin="5" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="0"/>
-                    <TextBox x:Name="txtBFilterSystemUser"  Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBFilterSystemUser_KeyDown" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="1" />
+                    <TextBox x:Name="txtBFilterSystemUser" Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBFilterSystemUser_KeyDown" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="1" />
                 </Grid>
 
                 <DataGrid x:Name="lstVwSystemUsers" Margin="5" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Extended" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntity_MouseDoubleClick" SelectionChanged="lstVwSystemUsers_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" DockPanel.Dock="Top">
@@ -267,7 +267,7 @@
                         <ToolBar Margin="0" VerticalAlignment="Top" Height="Auto" DockPanel.Dock="Top">
                             <Button x:Name="btnRefreshRoles" HorizontalAlignment="Left" Click="btnRefreshRoles_Click">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <Image Width="16" Height="16" Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Refresh Roles</TextBlock>
                                 </StackPanel>
                             </Button>
@@ -283,7 +283,7 @@
                             </Grid.ColumnDefinitions>
 
                             <Label Content="Filter" HorizontalAlignment="Left" VerticalAlignment="Stretch" Padding="0" Margin="5" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="0"/>
-                            <TextBox x:Name="txtBFilterRole"  Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBFilterRole_KeyDown" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="1" />
+                            <TextBox x:Name="txtBFilterRole" Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBFilterRole_KeyDown" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="1" />
                         </Grid>
 
                         <Grid Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" DockPanel.Dock="Bottom">
@@ -293,7 +293,7 @@
                                 <RowDefinition Height="50*"/>
                             </Grid.RowDefinitions>
 
-                            <DataGrid x:Name="lstVwSecurityRoles" Grid.Row="0" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" MouseDoubleClick="lstVwEntity_MouseDoubleClick"  Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" SelectionChanged="lstVwSecurityRoles_SelectionChanged" Grid.Column="2">
+                            <DataGrid x:Name="lstVwSecurityRoles" Grid.Row="0" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" MouseDoubleClick="lstVwEntity_MouseDoubleClick" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" SelectionChanged="lstVwSecurityRoles_SelectionChanged" Grid.Column="2">
                                 <DataGrid.Resources>
                                     <Style TargetType="{x:Type DataGridColumnHeader}">
                                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -315,7 +315,7 @@
 
                             <GridSplitter Grid.Row="1" Height="5" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
 
-                            <DataGrid x:Name="lstVwSecurityRolesByTeams" Grid.Row="2" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" MouseDoubleClick="lstVwEntity_MouseDoubleClick"  Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
+                            <DataGrid x:Name="lstVwSecurityRolesByTeams" Grid.Row="2" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" MouseDoubleClick="lstVwEntity_MouseDoubleClick" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
                                 <DataGrid.Resources>
                                     <Style TargetType="{x:Type DataGridColumnHeader}">
                                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -353,7 +353,7 @@
                         <ToolBar Margin="0" VerticalAlignment="Top" Height="Auto" DockPanel.Dock="Top">
                             <Button x:Name="btnRefreshTeams" HorizontalAlignment="Left" Click="btnRefreshTeams_Click">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <Image Width="16" Height="16" Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Refresh Teams</TextBlock>
                                 </StackPanel>
                             </Button>
@@ -369,7 +369,7 @@
                             </Grid.ColumnDefinitions>
 
                             <Label Content="Filter" HorizontalAlignment="Left" VerticalAlignment="Stretch" Padding="0" Margin="5" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="0"/>
-                            <TextBox x:Name="txtBFilterTeams"  Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBFilterTeams_KeyDown" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="1" />
+                            <TextBox x:Name="txtBFilterTeams" Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBFilterTeams_KeyDown" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="1" />
                         </Grid>
 
                         <DataGrid x:Name="lstVwTeams" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" MouseDoubleClick="lstVwEntity_MouseDoubleClick" SelectionChanged="LstVwTeams_SelectionChanged" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
@@ -412,7 +412,7 @@
                         <ToolBar Margin="0" VerticalAlignment="Top" Height="27" DockPanel.Dock="Top">
                             <Button x:Name="btnRefreshEntites" HorizontalAlignment="Left" Click="btnRefreshEntites_Click">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <Image Width="16" Height="16" Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Refresh Entities Privileges</TextBlock>
                                 </StackPanel>
                             </Button>
@@ -446,10 +446,10 @@
                             <Button x:Name="btnEntityMetadataFilter" Grid.Row="0" Grid.Column="2" Content="Filter" Padding="0" Margin="5" Click="btnEntityMetadataFilter_Click" IsTabStop="False" />
 
                             <Label Content="Filter" HorizontalAlignment="Left" VerticalAlignment="Stretch" Padding="0" Margin="5" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="0"/>
-                            <TextBox x:Name="txtBEntityFilter"  Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBEntityFilter_KeyDown" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" />
+                            <TextBox x:Name="txtBEntityFilter" Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBEntityFilter_KeyDown" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" />
                         </Grid>
 
-                        <DataGrid x:Name="lstVwEntityPrivileges" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" MouseDoubleClick="LstVwEntityPrivileges_MouseDoubleClick"  Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
+                        <DataGrid x:Name="lstVwEntityPrivileges" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" MouseDoubleClick="LstVwEntityPrivileges_MouseDoubleClick" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
                             <DataGrid.Resources>
                                 <Style TargetType="{x:Type DataGridColumnHeader}">
                                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -545,7 +545,7 @@
 
                                 <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="AssignRight" CanUserResize="False">
                                     <DataGridTemplateColumn.Header>
-                                        <Label Content="As" Margin="0" Padding="0" ToolTip="Assign"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                                        <Label Content="As" Margin="0" Padding="0" ToolTip="Assign" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                                     </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
@@ -576,7 +576,7 @@
                         <ToolBar Margin="0" VerticalAlignment="Top" Height="27" DockPanel.Dock="Top">
                             <Button x:Name="btnRefreshOtherPrivileges" HorizontalAlignment="Left" Click="btnRefreshEntites_Click">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <Image Width="16" Height="16" Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Refresh Role Privileges</TextBlock>
                                 </StackPanel>
                             </Button>
@@ -598,7 +598,7 @@
                             <ComboBox x:Name="cmBRoleEditorLayoutTabsPrivileges" IsReadOnly="True" Grid.Row="0" Grid.Column="1" Padding="0" Margin="5" SelectionChanged="cmBRoleEditorLayoutTabs_SelectionChanged" />
 
                             <Label Content="Filter" HorizontalAlignment="Left" VerticalAlignment="Stretch" Padding="0" Margin="5" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="0"/>
-                            <TextBox x:Name="txtBOtherPrivilegesFilter"  Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBEntityFilter_KeyDown" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="1" />
+                            <TextBox x:Name="txtBOtherPrivilegesFilter" Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBEntityFilter_KeyDown" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="1" />
                         </Grid>
 
                         <DataGrid x:Name="lstVwOtherPrivileges" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">

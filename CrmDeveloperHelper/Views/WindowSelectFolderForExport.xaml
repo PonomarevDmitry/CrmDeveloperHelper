@@ -8,10 +8,10 @@
         Title="Select Export Folder" Height="183.957" Width="635" WindowStartupLocation="Manual">
     <Grid>
         <Label Content="Folder" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="26" Width="187"/>
-        <TextBox x:Name="txtBFolder" Height="23" Margin="10,36,10,0"   VerticalAlignment="Top" TabIndex="2147483647"/>
+        <TextBox x:Name="txtBFolder" Height="23" Margin="10,36,10,0" VerticalAlignment="Top" TabIndex="2147483647"/>
 
         <Label x:Name="lblConnection" Content="Connection to CRM:" VerticalAlignment="Top" Grid.Row="0" Grid.Column="0" Margin="10,75,0,0" HorizontalAlignment="Left" Width="126" Height="25"/>
-        <ComboBox x:Name="cmBConnection" IsReadOnly="True" HorizontalContentAlignment="Stretch" VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="10,0"  Grid.Row="0" Margin="141,75,10,0" Height="25"/>
+        <ComboBox x:Name="cmBConnection" IsReadOnly="True" HorizontalContentAlignment="Stretch" VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="10,0" Grid.Row="0" Margin="141,75,10,0" Height="25"/>
 
         <Label Content="Action" HorizontalAlignment="Left" Margin="10,0,0,11" Padding="10,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Height="26" Width="53"/>
         <ComboBox x:Name="cmBFileAction" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="68,0,292,11" Padding="10,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center" IsReadOnly="True" SelectedIndex="0" Height="26" />

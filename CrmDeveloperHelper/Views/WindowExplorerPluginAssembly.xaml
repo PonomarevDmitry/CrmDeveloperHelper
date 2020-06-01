@@ -206,7 +206,7 @@
                             <MenuItem x:Name="mICreateEntityDescription" Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
 
                             <Separator/>
-                            <MenuItem x:Name="mICompareWithLocalAssembly"  Header="Compare with Local Assembly" Click="mICompareWithLocalAssembly_Click" />
+                            <MenuItem x:Name="mICompareWithLocalAssembly" Header="Compare with Local Assembly" Click="mICompareWithLocalAssembly_Click" />
 
                             <Separator/>
                             <MenuItem x:Name="mIOpenPluginTree" Header="Open Plugin Tree" />

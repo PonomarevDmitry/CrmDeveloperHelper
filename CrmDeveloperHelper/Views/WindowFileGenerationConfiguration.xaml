@@ -30,7 +30,7 @@
 
                             <Button x:Name="tSBFileGenerationOptionsEditDefaultOptions" HorizontalAlignment="Left" Click="tSBFileGenerationOptionsEditDefaultOptions_Click">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <Image Width="16" Height="16"  Source="{StaticResource ImageEdit}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <Image Width="16" Height="16" Source="{StaticResource ImageEdit}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Edit Default Options</TextBlock>
                                 </StackPanel>
                             </Button>
@@ -39,14 +39,14 @@
 
                             <Button x:Name="tSBFileGenerationOptionsEdit" HorizontalAlignment="Left" IsEnabled="False" Click="tSBFileGenerationOptionsEdit_Click">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <Image Width="16" Height="16"  Source="{StaticResource ImageEdit}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <Image Width="16" Height="16" Source="{StaticResource ImageEdit}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Edit</TextBlock>
                                 </StackPanel>
                             </Button>
                         </ToolBarPanel>
                         <Button x:Name="tSBFileGenerationOptionsDelete" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" Click="tSBFileGenerationOptionsDelete_Click">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Image Width="16" Height="16"  Source="{StaticResource ImageDelete}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <Image Width="16" Height="16" Source="{StaticResource ImageDelete}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Delete</TextBlock>
                             </StackPanel>
                         </Button>
@@ -60,7 +60,7 @@
                     <ListView.ItemContainerStyle>
                         <Style TargetType="{x:Type ListViewItem}">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                            <Setter Property="VerticalContentAlignment"  Value="Stretch"/>
+                            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
                         </Style>
                     </ListView.ItemContainerStyle>
                     <ListView.View>

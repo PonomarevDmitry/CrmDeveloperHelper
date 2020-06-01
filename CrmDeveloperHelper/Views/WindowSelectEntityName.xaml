@@ -14,7 +14,7 @@
         <ComboBox x:Name="cmBEntityTypeNameOrCode" Height="23" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Margin="156,10,10,0" VerticalContentAlignment="Center" VerticalAlignment="Top" />
 
         <Label Content="Connection to CRM:" VerticalAlignment="Top" Grid.Row="0" Grid.Column="0" Margin="10,38,0,0" HorizontalAlignment="Left" Padding="0" Height="25" Width="141" />
-        <ComboBox x:Name="cmBConnection" IsReadOnly="True" HorizontalContentAlignment="Stretch" VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="10,0"  Grid.Row="0" Margin="156,38,10,0" Height="25" SelectionChanged="cmBConnection_SelectionChanged" />
+        <ComboBox x:Name="cmBConnection" IsReadOnly="True" HorizontalContentAlignment="Stretch" VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="10,0" Grid.Row="0" Margin="156,38,10,0" Height="25" SelectionChanged="cmBConnection_SelectionChanged" />
 
         <Button x:Name="btnOK" Content="OK" Margin="0,0,127,12" Click="btnOK_Click" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="103" Height="25"/>
         <Button x:Name="btnCancel" Content="Cancel" Margin="0,0,10,12" Click="btnCancel_Click" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>

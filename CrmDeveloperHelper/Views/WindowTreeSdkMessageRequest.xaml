@@ -97,7 +97,7 @@
 
                 <Separator x:Uid="contMnAddToSolution"/>
                 <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" />
-                <MenuItem x:Uid="contMnAddToSolution"     Header="Add to Crm Solution" Click="AddToCrmSolution_Click" />
+                <MenuItem x:Uid="contMnAddToSolution" Header="Add to Crm Solution" Click="AddToCrmSolution_Click" />
 
                 <Separator x:Uid="contMnSdkMessageProxyClass" />
                 <MenuItem x:Uid="contMnSdkMessageProxyClass" Header="Create C# Message Proxy Class" Click="mICreateMessageProxyClassCSharp_Click" />
@@ -206,7 +206,7 @@
                         <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                         <Button x:Name="tSBRefresh" Click="tSBRefresh_Click">
                             <StackPanel Orientation="Horizontal">
-                                <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" />
+                                <Image Width="16" Height="16" Source="{StaticResource ImageRefresh}" />
                                 <TextBlock>Refresh</TextBlock>
                             </StackPanel>
                         </Button>
@@ -260,7 +260,7 @@
                 </DockPanel.Resources>
                 <ToolBarPanel Orientation="Horizontal" >
                     <Label Content="Action" Padding="10,0"/>
-                    <ComboBox x:Name="cmBFileAction"  SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Padding="10,0" IsReadOnly="True" Width="260" SelectedIndex="0" />
+                    <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Padding="10,0" IsReadOnly="True" Width="260" SelectedIndex="0" />
                 </ToolBarPanel>
                 <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>

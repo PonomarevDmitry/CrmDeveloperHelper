@@ -218,7 +218,7 @@
         <ToolBar Grid.Row="0">
             <Button x:Name="btnRefreshRoles" HorizontalAlignment="Left" Click="btnRefreshRoles_Click">
                 <StackPanel Orientation="Horizontal">
-                    <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" />
+                    <Image Width="16" Height="16" Source="{StaticResource ImageRefresh}" />
                     <TextBlock>Refresh Roles</TextBlock>
                 </StackPanel>
             </Button>
@@ -307,7 +307,7 @@
                         <ToolBar Grid.Row="0" Margin="0">
                             <Button x:Name="btnRefreshSystemUsers" HorizontalAlignment="Left" Click="btnRefreshSystemUsers_Click">
                                 <StackPanel Orientation="Horizontal">
-                                    <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" />
+                                    <Image Width="16" Height="16" Source="{StaticResource ImageRefresh}" />
                                     <TextBlock>Refresh Users</TextBlock>
                                 </StackPanel>
                             </Button>
@@ -373,7 +373,7 @@
                         <ToolBar Grid.Row="0" Margin="0">
                             <Button x:Name="btnRefreshTeams" HorizontalAlignment="Left" Click="btnRefreshTeams_Click">
                                 <StackPanel Orientation="Horizontal">
-                                    <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" />
+                                    <Image Width="16" Height="16" Source="{StaticResource ImageRefresh}" />
                                     <TextBlock>Refresh Teams</TextBlock>
                                 </StackPanel>
                             </Button>
@@ -437,7 +437,7 @@
                         <ToolBar Grid.Row="0" Margin="0">
                             <Button x:Name="btnRefreshEntites" HorizontalAlignment="Left" Click="btnRefreshEntites_Click">
                                 <StackPanel Orientation="Horizontal">
-                                    <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" />
+                                    <Image Width="16" Height="16" Source="{StaticResource ImageRefresh}" />
                                     <TextBlock>Refresh Entity Privileges</TextBlock>
                                 </StackPanel>
                             </Button>
@@ -944,7 +944,7 @@
                         <ToolBar Grid.Row="0" Margin="0">
                             <Button x:Name="btnRefreshOtherPrivileges" HorizontalAlignment="Left" Click="btnRefreshEntites_Click">
                                 <StackPanel Orientation="Horizontal">
-                                    <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" />
+                                    <Image Width="16" Height="16" Source="{StaticResource ImageRefresh}" />
                                     <TextBlock>Refresh Other Privileges</TextBlock>
                                 </StackPanel>
                             </Button>

@@ -114,7 +114,7 @@
             <ComboBox x:Name="cmBCurrentConnection" IsReadOnly="True" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch"/>
             <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
-            <StatusBarItem x:Name="stBIStatus"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <StatusBarItem x:Name="stBIStatus" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
         </StatusBar>
 
         <Grid Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" DockPanel.Dock="Bottom">
@@ -129,7 +129,7 @@
                 <ToolBar Margin="0" VerticalAlignment="Top" Height="Auto" DockPanel.Dock="Top">
                     <Button x:Name="btnRefreshEntites" HorizontalAlignment="Left" Click="btnRefreshEntites_Click">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <Image Width="16" Height="16" Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Refresh Entites</TextBlock>
                         </StackPanel>
                     </Button>
@@ -221,7 +221,7 @@
                 <ToolBar Margin="0" VerticalAlignment="Top" Height="Auto" DockPanel.Dock="Top">
                     <Button x:Name="btnRefreshRoles" HorizontalAlignment="Left" Click="btnRefreshRoles_Click">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <Image Width="16" Height="16" Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Refresh Roles</TextBlock>
                         </StackPanel>
                     </Button>
@@ -499,7 +499,7 @@
                     </Grid.ColumnDefinitions>
 
                     <Label Content="Filter" HorizontalAlignment="Left" VerticalAlignment="Stretch" Padding="0" Margin="5" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="0"/>
-                    <TextBox x:Name="txtBFilterSecurityRole"  Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBFilterSecurityRole_KeyDown" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="1" />
+                    <TextBox x:Name="txtBFilterSecurityRole" Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBFilterSecurityRole_KeyDown" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="1" />
                 </Grid>
 
                 <DataGrid x:Name="lstVwSecurityRoles" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" MouseDoubleClick="lstVwSecurityRoles_MouseDoubleClick" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
@@ -654,7 +654,7 @@
 
                         <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="AssignRight" CanUserResize="False">
                             <DataGridTemplateColumn.Header>
-                                <Label Content="As" Margin="0" Padding="0" ToolTip="Assign"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                                <Label Content="As" Margin="0" Padding="0" ToolTip="Assign" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                             </DataGridTemplateColumn.Header>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>

@@ -32,13 +32,13 @@
     </src:WindowWithSolutionComponentDescriptor.Resources>
     <Grid>
         <Label Content="Loaded File" HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtBFilePath" Height="23" Margin="85,10,10,0"   VerticalAlignment="Top" IsReadOnlyCaretVisible="True" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
+        <TextBox x:Name="txtBFilePath" Height="23" Margin="85,10,10,0" VerticalAlignment="Top" IsReadOnlyCaretVisible="True" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
 
         <Label Content="Folder" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Height="23" Margin="85,38,381,0"   VerticalAlignment="Top" />
+        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Height="23" Margin="85,38,381,0" VerticalAlignment="Top" />
 
         <Label Content="Filter" HorizontalAlignment="Left" Margin="10,63,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtBFilter" Height="23" Margin="85,66,381,0"   VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown"  VerticalContentAlignment="Center" />
+        <TextBox x:Name="txtBFilter" Height="23" Margin="85,66,381,0" VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
 
         <Label Content="Location" HorizontalAlignment="Right" Margin="0,38,280,0" VerticalAlignment="Top" Padding="2" Height="23" VerticalContentAlignment="Stretch" Width="96"/>
         <ComboBox x:Name="cmBComponentLocation" SelectedIndex="0" Height="23" Margin="0,38,10,0" VerticalAlignment="Top" IsEditable="False" HorizontalAlignment="Right" SelectionChanged="cmBComponentType_SelectionChanged" Width="265">
@@ -97,7 +97,7 @@
             <ComboBox x:Name="cmBCurrentConnection" Height="25" IsReadOnly="True" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" VerticalContentAlignment="Center" Padding="10,0" />
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="25" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
             <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
-            <StatusBarItem x:Name="stBIStatus"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <StatusBarItem x:Name="stBIStatus" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
         </StatusBar>
     </Grid>
 </src:WindowWithSolutionComponentDescriptor>

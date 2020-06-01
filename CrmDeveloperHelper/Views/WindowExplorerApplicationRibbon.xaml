@@ -109,7 +109,7 @@
                         <Setter Property="Padding" Value="3" />
                     </Style>
                 </DockPanel.Resources>
-                <Button Content="Close" Click="Button_Click"  HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>
         </ToolBar>
 

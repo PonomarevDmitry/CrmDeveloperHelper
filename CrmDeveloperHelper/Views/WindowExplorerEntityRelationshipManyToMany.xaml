@@ -99,7 +99,7 @@
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
             <Button x:Name="mIClearEntityCacheAndRefresh" HorizontalAlignment="Left" Click="mIClearEntityCacheAndRefresh_Click">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Image Width="16" Height="16" Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Clear Entity Cache and Refresh</TextBlock>
                 </StackPanel>
             </Button>
@@ -107,7 +107,7 @@
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
             <Button x:Name="mIClearEntityRelationshipCacheAndRefresh" HorizontalAlignment="Left" Click="mIClearEntityRelationshipCacheAndRefresh_Click">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Image Width="16" Height="16" Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Clear EntityRelationship Cache and Refresh</TextBlock>
                 </StackPanel>
             </Button>
@@ -118,7 +118,7 @@
             <ComboBox x:Name="cmBCurrentConnection" IsReadOnly="True" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch"/>
             <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
-            <StatusBarItem x:Name="stBIStatus"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <StatusBarItem x:Name="stBIStatus" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
         </StatusBar>
 
         <Grid Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" DockPanel.Dock="Bottom">
@@ -204,10 +204,10 @@
                     </Grid.ColumnDefinitions>
 
                     <Label Content="Filter" HorizontalAlignment="Left" VerticalAlignment="Stretch" Padding="0" Margin="5" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="0"/>
-                    <TextBox x:Name="txtBFilterEntityRelationship"  Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBFilterEntityRelationship_KeyDown" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="1" />
+                    <TextBox x:Name="txtBFilterEntityRelationship" Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBFilterEntityRelationship_KeyDown" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="1" />
                 </Grid>
 
-                <DataGrid x:Name="lstVwEntityRelationships" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" MouseDoubleClick="LstVwEntityRelationships_MouseDoubleClick"  SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
+                <DataGrid x:Name="lstVwEntityRelationships" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" MouseDoubleClick="LstVwEntityRelationships_MouseDoubleClick" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
                     <DataGrid.Resources>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>

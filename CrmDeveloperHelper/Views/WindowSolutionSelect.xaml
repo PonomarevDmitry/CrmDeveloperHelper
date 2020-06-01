@@ -53,7 +53,7 @@
             </DataGrid.Columns>
         </DataGrid>
         <Label x:Name="lblLastLink" Content="Last Selected Solution" HorizontalAlignment="Left" Margin="10,0,0,62" VerticalAlignment="Bottom" IsEnabled="False" Visibility="Visible" Padding="0" Height="22" VerticalContentAlignment="Center" />
-        <TextBox x:Name="txtBLastLink" Margin="131,0,10,62"   VerticalAlignment="Bottom" IsReadOnlyCaretVisible="True" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" IsEnabled="False" Visibility="Visible" Padding="2" VerticalContentAlignment="Center" />
+        <TextBox x:Name="txtBLastLink" Margin="131,0,10,62" VerticalAlignment="Bottom" IsReadOnlyCaretVisible="True" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" IsEnabled="False" Visibility="Visible" Padding="2" VerticalContentAlignment="Center" />
         <ToolBar Margin="0,0,0,24" VerticalAlignment="Bottom" Height="33">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
@@ -84,7 +84,7 @@
         <StatusBar Height="24" VerticalAlignment="Bottom">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName" VerticalAlignment="Center"/>
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-            <StatusBarItem x:Name="stBIStatus"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <StatusBarItem x:Name="stBIStatus" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
         </StatusBar>
     </Grid>
 </src:WindowBase>

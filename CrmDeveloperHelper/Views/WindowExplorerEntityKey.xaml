@@ -113,7 +113,7 @@
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
             <Button x:Name="mIClearEntityCacheAndRefresh" HorizontalAlignment="Left" Click="mIClearEntityCacheAndRefresh_Click">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Image Width="16" Height="16" Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Clear Entity Cache and Refresh</TextBlock>
                 </StackPanel>
             </Button>
@@ -121,7 +121,7 @@
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
             <Button x:Name="mIClearEntityKeyCacheAndRefresh" HorizontalAlignment="Left" Click="mIClearEntityKeyCacheAndRefresh_Click">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Image Width="16" Height="16" Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Clear EntityKey Cache and Refresh</TextBlock>
                 </StackPanel>
             </Button>
@@ -227,7 +227,7 @@
                     <TextBox x:Name="txtBFilterEntityKey" Grid.Row="0" Grid.Column="1" KeyDown="txtBFilterEntityKey_KeyDown" />
                 </Grid>
 
-                <DataGrid x:Name="lstVwEntityKeys" Grid.Row="1" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntityKeys_MouseDoubleClick"  CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
+                <DataGrid x:Name="lstVwEntityKeys" Grid.Row="1" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntityKeys_MouseDoubleClick" CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
                     <DataGrid.Resources>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>

@@ -124,7 +124,7 @@
 
             <Button x:Name="mIClearEntityCacheAndRefresh" Click="mIClearEntityCacheAndRefresh_Click">
                 <StackPanel Orientation="Horizontal">
-                    <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" />
+                    <Image Width="16" Height="16" Source="{StaticResource ImageRefresh}" />
                     <TextBlock>Clear Entity Cache and Refresh</TextBlock>
                 </StackPanel>
             </Button>
@@ -205,7 +205,7 @@
             <ComboBox x:Name="cmBCurrentConnection" IsReadOnly="True" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalAlignment="Stretch" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch"/>
             <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
-            <StatusBarItem x:Name="stBIStatus"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <StatusBarItem x:Name="stBIStatus" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
         </StatusBar>
 
         <ToolBar DockPanel.Dock="Bottom">
@@ -248,7 +248,7 @@
                     </Menu>
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Label Content="Action" HorizontalAlignment="Left" Padding="10,0" VerticalAlignment="Stretch" VerticalContentAlignment="Center"/>
-                    <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" IsReadOnly="True" Padding="10,0" Width="180" SelectedIndex="0" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch" />
+                    <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" IsReadOnly="True" Padding="10,0" Width="180" SelectedIndex="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch" />
                 </ToolBarPanel>
                 <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>

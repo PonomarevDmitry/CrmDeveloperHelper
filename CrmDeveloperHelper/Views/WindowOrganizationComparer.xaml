@@ -59,7 +59,7 @@
     </src:WindowBase.Resources>
     <Grid>
         <Label Content="Folder for Export" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="5,0" Height="25" Width="123"/>
-        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Height="23" Margin="148,12,10,0"   VerticalAlignment="Top" VerticalContentAlignment="Center" TabIndex="2147483647"/>
+        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Height="23" Margin="148,12,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center" TabIndex="2147483647"/>
 
         <Label Content="Solution Image" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Height="23" VerticalContentAlignment="Center" Padding="5,0" />
         <ComboBox x:Name="cmBSolutionImage" IsTabStop="True" Height="23" Margin="148,40,10,0" VerticalAlignment="Top" />
@@ -99,24 +99,24 @@
                         <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                             <MenuItem Header="Create">
                                 <MenuItem.Icon>
-                                    <Image Width="16" Height="16"  Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <Image Width="16" Height="16" Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                 </MenuItem.Icon>
 
                                 <MenuItem x:Name="tSBCreate" Header="New" Click="tSBCreate_Click">
                                     <MenuItem.Icon>
-                                        <Image Width="16" Height="16"  Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                        <Image Width="16" Height="16" Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     </MenuItem.Icon>
                                 </MenuItem>
 
                                 <MenuItem x:Name="tSBCreateCopy" Header="Create Copy" Click="tSBCreateCopy_Click">
                                     <MenuItem.Icon>
-                                        <Image Width="16" Height="16"  Source="{StaticResource ImageCopy}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                        <Image Width="16" Height="16" Source="{StaticResource ImageCopy}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     </MenuItem.Icon>
                                 </MenuItem>
 
                                 <MenuItem x:Name="tSBLoadFromFile" Header="Load from File" Click="tSBLoadFromFile_Click">
                                     <MenuItem.Icon>
-                                        <Image Width="16" Height="16"  Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                        <Image Width="16" Height="16" Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     </MenuItem.Icon>
                                 </MenuItem>
                             </MenuItem>
@@ -124,7 +124,7 @@
 
                         <Button x:Name="tSBEdit" HorizontalAlignment="Left" IsEnabled="False" Click="tSBEdit_Click">
                             <StackPanel>
-                                <Image Width="16" Height="16"  Source="{StaticResource ImageEdit}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <Image Width="16" Height="16" Source="{StaticResource ImageEdit}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Edit</TextBlock>
                             </StackPanel>
                         </Button>
@@ -132,7 +132,7 @@
                         <Separator/>
                         <Button x:Name="tSBTestConnection" HorizontalAlignment="Left" IsEnabled="False" Click="tSBTestConnection_Click">
                             <StackPanel>
-                                <Image  Width="16" Height="16"  Source="{StaticResource ImageCheck}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <Image  Width="16" Height="16" Source="{StaticResource ImageCheck}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,0,0,0">Test Connection</TextBlock>
                             </StackPanel>
                         </Button>
@@ -140,12 +140,12 @@
                         <Separator/>
                         <Button x:Name="tSBUp" HorizontalAlignment="Left" IsEnabled="False" Click="tSBUp_Click">
                             <StackPanel  Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Image Width="16" Height="16"  Source="{StaticResource ImageUp}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <Image Width="16" Height="16" Source="{StaticResource ImageUp}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                             </StackPanel>
                         </Button>
                         <Button x:Name="tSBDown" HorizontalAlignment="Left" IsEnabled="False" Click="tSBDown_Click">
                             <StackPanel>
-                                <Image Width="16" Height="16"  Source="{StaticResource ImageDown}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <Image Width="16" Height="16" Source="{StaticResource ImageDown}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                             </StackPanel>
                         </Button>
 
@@ -155,26 +155,26 @@
 
                                 <MenuItem Header="Load Solution Image from File" Click="tSBLoadSolutionImageFromFile_Click">
                                     <MenuItem.Icon>
-                                        <Image Width="16" Height="16"  Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                        <Image Width="16" Height="16" Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     </MenuItem.Icon>
                                 </MenuItem>
 
                                 <MenuItem x:Name="miLoadSolutionImageFromZipFile" Header="Load Solution Image from Zip-File" Click="tSBLoadSolutionImageFromZipFile_Click" IsEnabled="False">
                                     <MenuItem.Icon>
-                                        <Image Width="16" Height="16"  Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                        <Image Width="16" Height="16" Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     </MenuItem.Icon>
                                 </MenuItem>
 
                                 <MenuItem x:Name="miSelectSolutionImageFromConnectionSolution" Header="Select Solution Image from Connection Solution" Click="miSelectSolutionImageFromConnectionSolution_Click" IsEnabled="False">
                                     <MenuItem.Icon>
-                                        <Image Width="16" Height="16"  Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                        <Image Width="16" Height="16" Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     </MenuItem.Icon>
                                 </MenuItem>
 
                                 <Separator />
                                 <MenuItem x:Name="tSBClearSolutionImage" Header="Clear Solution Image" Click="tSBClearSolutionImage_Click">
                                     <MenuItem.Icon>
-                                        <Image Width="16" Height="16"  Source="{StaticResource ImageDelete}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                        <Image Width="16" Height="16" Source="{StaticResource ImageDelete}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     </MenuItem.Icon>
                                 </MenuItem>
                             </MenuItem>
@@ -221,7 +221,7 @@
 
                     <Button x:Name="tSBMoveToArchive" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" Click="tSBMoveToArchive_Click" >
                         <StackPanel>
-                            <Image Width="16" Height="16"  Source="{StaticResource ImageDelete}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <Image Width="16" Height="16" Source="{StaticResource ImageDelete}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Move to Archive</TextBlock>
                         </StackPanel>
                     </Button>
@@ -236,7 +236,7 @@
                 <ListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                        <Setter Property="VerticalContentAlignment"  Value="Stretch"/>
+                        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
                         <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
                     </Style>
                 </ListView.ItemContainerStyle>

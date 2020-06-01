@@ -12,10 +12,10 @@
     >
     <Grid>
         <Label Content="Folder" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Height="23" Margin="10,26,10,0"   VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Height="23" Margin="10,26,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
 
         <Label Content="Entity Id" HorizontalAlignment="Left" Margin="10,49,0,0" VerticalAlignment="Top" Height="26"/>
-        <TextBox x:Name="txtBEntityId" Height="23" Margin="10,75,10,0"   VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="txtBEntityId" Height="23" Margin="10,75,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
 
         <Label Content="EntityType Name or Code" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Grid.Column="0" Margin="10,103,0,0" Padding="0" Height="23" Width="141"/>
         <ComboBox x:Name="cmBEntityTypeNameOrCode" Height="23" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Margin="156,103,10,0" VerticalContentAlignment="Center" VerticalAlignment="Top" />
@@ -24,7 +24,7 @@
         <TextBox x:Name="txtBEntityUrl" Margin="10,158,10,79" AcceptsReturn="True"/>
 
         <Label Content="Connection to CRM:" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="0" Margin="10,0,0,49" HorizontalAlignment="Left" Width="126" Height="25"/>
-        <ComboBox x:Name="cmBConnection" IsReadOnly="True" HorizontalContentAlignment="Stretch" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Padding="10,0"  Grid.Row="0" Margin="141,0,10,49" Height="25" SelectionChanged="cmBConnection_SelectionChanged" />
+        <ComboBox x:Name="cmBConnection" IsReadOnly="True" HorizontalContentAlignment="Stretch" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Padding="10,0" Grid.Row="0" Margin="141,0,10,49" Height="25" SelectionChanged="cmBConnection_SelectionChanged" />
 
         <Label Content="Action" HorizontalAlignment="Left" Margin="10,0,0,12" VerticalContentAlignment="Center" Padding="10,0" Width="53" Height="25" VerticalAlignment="Bottom"/>
         <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="68,0,0,12" Padding="10,0" VerticalContentAlignment="Center" IsReadOnly="True" SelectedIndex="0" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="254" />

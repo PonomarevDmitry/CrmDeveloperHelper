@@ -11,13 +11,13 @@
         <ToolBar VerticalAlignment="Top" >
             <Button x:Name="tSBUp" HorizontalAlignment="Left" Click="tSBUp_Click">
                 <StackPanel Orientation="Horizontal">
-                    <Image Width="16" Height="16"  Source="{StaticResource ImageUp}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Image Width="16" Height="16" Source="{StaticResource ImageUp}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Next Record</TextBlock>
                 </StackPanel>
             </Button>
             <Button x:Name="tSBDown" HorizontalAlignment="Left" Click="tSBDown_Click">
                 <StackPanel Orientation="Horizontal">
-                    <Image Width="16" Height="16"  Source="{StaticResource ImageDown}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Image Width="16" Height="16" Source="{StaticResource ImageDown}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Previous Record</TextBlock>
                 </StackPanel>
             </Button>

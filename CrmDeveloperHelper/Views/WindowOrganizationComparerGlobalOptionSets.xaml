@@ -49,7 +49,7 @@
                     <MenuItem Header="Open OptionSet in Web" VerticalAlignment="Center" Click="mIConnection2OpenSolutionComponentInWeb_Click" />
                     <Separator/>
 
-                    <MenuItem Header="Create C# File Single OptionSets"  Click="btnConnection2CSharpSingle_Click" />
+                    <MenuItem Header="Create C# File Single OptionSets" Click="btnConnection2CSharpSingle_Click" />
 
                     <Separator/>
                     <MenuItem Header="Create JavaScript Json Object File Single OptionSet" Click="btnConnection2JavaScriptSingleJsonObject_Click"/>
@@ -196,7 +196,7 @@
                             <MenuItem Header="Open OptionSet in Web" VerticalAlignment="Center" Click="mIConnection2OpenSolutionComponentInWeb_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Create C# File Single OptionSets"  Click="btnConnection2CSharpSingle_Click" />
+                            <MenuItem Header="Create C# File Single OptionSets" Click="btnConnection2CSharpSingle_Click" />
 
                             <Separator/>
                             <MenuItem Header="Create JavaScript File Json Object Single OptionSet" Click="btnConnection2JavaScriptSingleJsonObject_Click"/>
@@ -211,7 +211,7 @@
 
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Label Content="Action" HorizontalAlignment="Left" Padding="10,0" VerticalAlignment="Stretch" VerticalContentAlignment="Center"/>
-                    <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" IsReadOnly="True" Padding="10,0" Width="180" SelectedIndex="0" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch" />
+                    <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" IsReadOnly="True" Padding="10,0" Width="180" SelectedIndex="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch" />
                 </ToolBarPanel>
 
                 <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>

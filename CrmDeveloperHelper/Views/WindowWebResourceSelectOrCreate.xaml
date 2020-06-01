@@ -272,7 +272,7 @@
         <StatusBar Grid.Row="8">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName" VerticalAlignment="Center"/>
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-            <StatusBarItem x:Name="stBIStatus"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <StatusBarItem x:Name="stBIStatus" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
         </StatusBar>
     </Grid>
 </src:WindowBase>
