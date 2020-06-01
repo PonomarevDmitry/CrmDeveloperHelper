@@ -102,8 +102,8 @@
                             <ColumnDefinition Width="100*" />
                         </Grid.ColumnDefinitions>
 
-                        <RadioButton x:Name="rBTab" Grid.Column="0" GroupName="IndentTypeEntityMetadataJavaScript" Content="Tab" IsChecked="{Binding Path=GenerateCommonIndentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:IndentType.Tab}}" d:DataContext="{x:Type model:FileGenerationOptions}" />
-                        <RadioButton x:Name="rBSpaces" Grid.Column="1" GroupName="IndentTypeEntityMetadataJavaScript" Content="Spaces" IsChecked="{Binding Path=GenerateCommonIndentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:IndentType.Spaces}}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                        <RadioButton x:Name="rBTab" Grid.Column="0" GroupName="IndentTypeEntityMetadataJavaScript" Content="Tab" IsChecked="{Binding Path=GenerateCommonIndentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:IndentType.Tab}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
+                        <RadioButton x:Name="rBSpaces" Grid.Column="1" GroupName="IndentTypeEntityMetadataJavaScript" Content="Spaces" IsChecked="{Binding Path=GenerateCommonIndentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:IndentType.Spaces}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
                         <TextBox x:Name="txtBSpaceCount" MinWidth="90" Grid.Column="2" Text="{Binding Path=GenerateCommonSpaceCount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" d:DataContext="{x:Type model:FileGenerationOptions}" />
                     </Grid>
                 </GroupBox>
