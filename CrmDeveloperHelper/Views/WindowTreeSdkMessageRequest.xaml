@@ -4,6 +4,7 @@
     xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
     xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
     xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
+    xmlns:entities="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Entities"
     x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowTreeSdkMessageRequest"
     Title="Sdk Message Request Tree"
     Height="540"
@@ -135,6 +136,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
 
             <RowDefinition Height="100*" />
 
@@ -189,38 +191,46 @@
             <TextBox Grid.Row="1" Grid.Column="5" x:Name="txtBEndpoint" TextWrapping="NoWrap" KeyDown="txtBFilter_KeyDown"/>
         </Grid>
 
-        <GroupBox Header="Sdk Message Request Tree" Grid.Row="2" Margin="5">
-            <DockPanel LastChildFill="True">
-                <ToolBar DockPanel.Dock="Top" >
-                    <ToolBarPanel Orientation="Horizontal">
-                        <ToolBarPanel.Resources>
-                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
-                            </Style>
-                            <Style TargetType="{x:Type Menu}" BasedOn="{StaticResource {x:Static ToolBar.MenuStyleKey}}">
-                                <Setter Property="Background" Value="{x:Null}" />
-                            </Style>
-                        </ToolBarPanel.Resources>
-                        <Menu x:Name="menuView" IsEnabled="False">
-                            <MenuItem x:Name="mIView" Header="View" />
-                        </Menu>
+        <ToolBar Grid.Row="2">
+            <ToolBarPanel Orientation="Horizontal">
+                <ToolBarPanel.Resources>
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                    </Style>
+                    <Style TargetType="{x:Type Menu}" BasedOn="{StaticResource {x:Static ToolBar.MenuStyleKey}}">
+                        <Setter Property="Background" Value="{x:Null}" />
+                    </Style>
+                </ToolBarPanel.Resources>
 
-                        <Button x:Name="tSBCreateDescription" Content="Create Description" Click="tSBCreateDescription_Click" IsEnabled="False"  />
+                <Menu x:Name="menuView" IsEnabled="False">
+                    <MenuItem x:Name="mIView" Header="View" />
+                </Menu>
 
-                        <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
-                        <Button x:Name="tSBRefresh" Click="tSBRefresh_Click">
-                            <StackPanel Orientation="Horizontal">
-                                <Image Width="16" Height="16" Source="{StaticResource ImageRefresh}" />
-                                <TextBlock>Refresh</TextBlock>
-                            </StackPanel>
-                        </Button>
+                <Button x:Name="tSBCreateDescription" Content="Create Description" Click="tSBCreateDescription_Click" IsEnabled="False"  />
 
-                        <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
-                        <Button x:Name="tSBCollapseAll" Content="Collapse All" Click="tSBCollapseAll_Click" IsEnabled="False" />
-                        <Button x:Name="tSBExpandAll" Content="Expand All" Click="tSBExpandAll_Click" IsEnabled="False" />
-                    </ToolBarPanel>
-                </ToolBar>
+                <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+                <Button x:Name="tSBRefresh" Click="tSBRefresh_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Width="16" Height="16" Source="{StaticResource ImageRefresh}" />
+                        <TextBlock>Refresh</TextBlock>
+                    </StackPanel>
+                </Button>
 
-                <TreeView x:Name="trVSdkMessageRequestTree" SelectedItemChanged="trVSdkMessageRequestTree_SelectedItemChanged">
+                <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+                <Button x:Name="tSBCollapseAll" Content="Collapse All" Click="tSBCollapseAll_Click" IsEnabled="False" />
+                <Button x:Name="tSBExpandAll" Content="Expand All" Click="tSBExpandAll_Click" IsEnabled="False" />
+            </ToolBarPanel>
+        </ToolBar>
+
+        <Grid Grid.Row="3" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="columnTree" Width="450"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="50*"/>
+            </Grid.ColumnDefinitions>
+
+            <GroupBox Header="Sdk Message Request Tree" Grid.Column="0" Margin="5">
+                <TreeView x:Name="trVSdkMessageRequestTree" Grid.Row="1" SelectedItemChanged="trVSdkMessageRequestTree_SelectedItemChanged">
                     <TreeView.CommandBindings>
                         <CommandBinding Command="ApplicationCommands.Copy" Executed="treeViewCopy_Executed" CanExecute="CommandBinding_CanExecute" />
                     </TreeView.CommandBindings>
@@ -245,10 +255,116 @@
                         </Style>
                     </TreeView.ItemContainerStyle>
                 </TreeView>
-            </DockPanel>
-        </GroupBox>
+            </GroupBox>
 
-        <ToolBar Grid.Row="3">
+            <GridSplitter Grid.Column="1" Width="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+
+            <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50*"/>
+
+                    <RowDefinition Height="Auto"/>
+
+                    <RowDefinition Height="50*"/>
+                </Grid.RowDefinitions>
+
+                <GroupBox Header="SdkMessageRequest Fields" Grid.Row="0" Margin="5">
+                    <DataGrid x:Name="lstVwSdkMessageRequestFields" DataContext="{x:Type entities:SdkMessageRequestField}" AutoGenerateColumns="False" Grid.Row="2" Margin="5" SelectionMode="Single" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+                        <DataGrid.Resources>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGrid.Resources>
+                        <DataGrid.Columns>
+
+                            <DataGridTextColumn Width="Auto" Binding="{Binding Path=Position, Mode=OneTime}" CanUserResize="False">
+                                <DataGridTextColumn.Header>
+                                    <Label Content="P" Margin="0" Padding="0" ToolTip="Position" />
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn Header="Name" Width="305" Binding="{Binding Path=Name, Mode=OneTime}" />
+
+                            <DataGridTextColumn Header="PublicName" Width="165" Binding="{Binding Path=PublicName, Mode=OneTime}" />
+
+                            <DataGridCheckBoxColumn Width="Auto" Binding="{Binding Path=Optional, Mode=OneTime}" CanUserResize="False">
+                                <DataGridCheckBoxColumn.Header>
+                                    <Label Content="O" Margin="0" Padding="0" ToolTip="Optional" />
+                                </DataGridCheckBoxColumn.Header>
+                            </DataGridCheckBoxColumn>
+
+                            <DataGridTextColumn Header="Parser" Width="165" Binding="{Binding Path=Parser, Mode=OneTime}" />
+
+                            <DataGridTextColumn Header="ClrParser" Width="165" Binding="{Binding Path=ClrParser, Mode=OneTime}" />
+
+                            <DataGridTextColumn Header="FieldMask" Width="165" Binding="{Binding Path=FieldMask, Mode=OneTime}" />
+
+                            <DataGridTextColumn Width="Auto" Binding="{Binding Path=CustomizationLevel, Mode=OneTime}" CanUserResize="False">
+                                <DataGridTextColumn.Header>
+                                    <Label Content="C" Margin="0" Padding="0" ToolTip="CustomizationLevel" />
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+
+                            <DataGridCheckBoxColumn Width="Auto" Binding="{Binding Path=IsManaged, Mode=OneTime}" CanUserResize="False">
+                                <DataGridCheckBoxColumn.Header>
+                                    <Label Content="M" Margin="0" Padding="0" ToolTip="IsManaged" />
+                                </DataGridCheckBoxColumn.Header>
+                            </DataGridCheckBoxColumn>
+
+                            <DataGridTextColumn Header="ParameterBindingInformation" Width="165" Binding="{Binding Path=ParameterBindingInformation, Mode=OneTime}" />
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </GroupBox>
+
+                <GridSplitter Grid.Row="1" Height="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+
+                <GroupBox Header="SdkMessageResponse Fields" Grid.Row="2" Margin="5">
+                    <DataGrid x:Name="lstVwSdkMessageResponseFields" DataContext="{x:Type entities:SdkMessageResponseField}" AutoGenerateColumns="False" Grid.Row="2" Margin="5" SelectionMode="Single" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+                        <DataGrid.Resources>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGrid.Resources>
+                        <DataGrid.Columns>
+
+                            <DataGridTextColumn Width="Auto" Binding="{Binding Path=Position, Mode=OneTime}" CanUserResize="False">
+                                <DataGridTextColumn.Header>
+                                    <Label Content="P" Margin="0" Padding="0" ToolTip="Position" />
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn Header="Name" Width="305" Binding="{Binding Path=Name, Mode=OneTime}" />
+
+                            <DataGridTextColumn Header="PublicName" Width="165" Binding="{Binding Path=PublicName, Mode=OneTime}" />
+
+                            <DataGridTextColumn Header="Value" Width="165" Binding="{Binding Path=Value, Mode=OneTime}" />
+
+                            <DataGridTextColumn Header="Formatter" Width="165" Binding="{Binding Path=Formatter, Mode=OneTime}" />
+
+                            <DataGridTextColumn Header="ClrFormatter" Width="165" Binding="{Binding Path=ClrFormatter, Mode=OneTime}" />
+
+                            <DataGridTextColumn Width="Auto" Binding="{Binding Path=CustomizationLevel, Mode=OneTime}" CanUserResize="False">
+                                <DataGridTextColumn.Header>
+                                    <Label Content="C" Margin="0" Padding="0" ToolTip="CustomizationLevel" />
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+
+                            <DataGridCheckBoxColumn Width="Auto" Binding="{Binding Path=IsManaged, Mode=OneTime}" CanUserResize="False">
+                                <DataGridCheckBoxColumn.Header>
+                                    <Label Content="M" Margin="0" Padding="0" ToolTip="IsManaged" />
+                                </DataGridCheckBoxColumn.Header>
+                            </DataGridCheckBoxColumn>
+
+                            <DataGridTextColumn Header="ParameterBindingInformation" Width="165" Binding="{Binding Path=ParameterBindingInformation, Mode=OneTime}" />
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </GroupBox>
+            </Grid>
+        </Grid>
+
+        <ToolBar Grid.Row="4">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
                     <Setter Property="Orientation" Value="Vertical"/>
@@ -269,7 +385,7 @@
             </DockPanel>
         </ToolBar>
 
-        <StatusBar Grid.Row="4">
+        <StatusBar Grid.Row="5">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection"/>
             <ComboBox x:Name="cmBCurrentConnection" Height="25" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="15"/>

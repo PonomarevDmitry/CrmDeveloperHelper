@@ -28,7 +28,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
              IWriteToOutput iWriteToOutput
             , CommonConfiguration commonConfig
             , IOrganizationServiceExtented service
-            , string selection
+            , string filterMessage
         ) : base(iWriteToOutput, commonConfig, service)
         {
             this.IncreaseInit();
@@ -39,9 +39,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadFromConfig();
 
-            if (!string.IsNullOrEmpty(selection))
+            if (!string.IsNullOrEmpty(filterMessage))
             {
-                txtBFilter.Text = selection;
+                txtBFilter.Text = filterMessage;
             }
 
             txtBFilter.SelectionLength = 0;

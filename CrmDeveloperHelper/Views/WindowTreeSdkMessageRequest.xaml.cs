@@ -31,6 +31,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
     public partial class WindowTreeSdkMessageRequest : WindowWithConnectionList
     {
         private readonly ObservableCollection<SdkMessageRequestTreeViewItem> _messageTree = new ObservableCollection<SdkMessageRequestTreeViewItem>();
+        private readonly ObservableCollection<SdkMessageRequestField> _sourceRequestFields = new ObservableCollection<SdkMessageRequestField>();
+        private readonly ObservableCollection<SdkMessageResponseField> _sourceResponseFields = new ObservableCollection<SdkMessageResponseField>();
 
         private SdkMessageSearchResult _sdkMessageSearchResult = null;
 
@@ -159,6 +161,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBCurrentConnection.SelectedItem = service.ConnectionData;
 
             trVSdkMessageRequestTree.ItemsSource = _messageTree;
+            lstVwSdkMessageRequestFields.ItemsSource = _sourceRequestFields;
+            lstVwSdkMessageResponseFields.ItemsSource = _sourceResponseFields;
 
             FillExplorersMenuItems();
 
@@ -597,6 +601,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.trVSdkMessageRequestTree.Dispatcher.Invoke(() =>
             {
                 _messageTree.Clear();
+                _sourceRequestFields.Clear();
+                _sourceResponseFields.Clear();
             });
 
             if (_sdkMessageSearchResult != null)
@@ -635,6 +641,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.trVSdkMessageRequestTree.Dispatcher.Invoke(() =>
             {
                 _messageTree.Clear();
+                _sourceRequestFields.Clear();
+                _sourceResponseFields.Clear();
             });
 
             string entityName = string.Empty;
@@ -660,10 +668,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , SdkMessageRequest.Schema.Attributes.sdkmessagepairid
                     )
                 );
-                search.RequestFields = await new SdkMessageRequestFieldRepository(service).GetListAsync(new ColumnSet(SdkMessageRequestField.Schema.Attributes.name, SdkMessageRequestField.Schema.Attributes.sdkmessagerequestid, SdkMessageRequestField.Schema.Attributes.clrparser, SdkMessageRequestField.Schema.Attributes.parser, SdkMessageRequestField.Schema.Attributes.position));
 
                 search.Responses = await new SdkMessageResponseRepository(service).GetListAsync(new ColumnSet(SdkMessageResponse.Schema.Attributes.sdkmessagerequestid));
-                search.ResponseFields = await new SdkMessageResponseFieldRepository(service).GetListAsync(new ColumnSet(SdkMessageResponseField.Schema.Attributes.name, SdkMessageResponseField.Schema.Attributes.sdkmessageresponseid, SdkMessageResponseField.Schema.Attributes.clrformatter, SdkMessageResponseField.Schema.Attributes.position));
             }
             catch (Exception ex)
             {
@@ -756,42 +762,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             foreach (var sdkRequest in requests.OrderBy(s => s.Name))
             {
-                SdkMessageRequestTreeViewItem nodeRequest = CreateNodeRequest(sdkRequest);
+                var response = search.Responses.FirstOrDefault(r => r.SdkMessageRequestId?.Id == sdkRequest.SdkMessageRequestId);
 
-                {
-                    var fields = search.RequestFields.Where(f => f.SdkMessageRequestId?.Id == sdkRequest.SdkMessageRequestId).OrderBy(f => f.Position).ThenBy(f => f.Name);
+                SdkMessageRequestTreeViewItem nodeRequest = CreateNodeRequest(sdkRequest, response);
 
-                    foreach (var field in fields)
-                    {
-                        SdkMessageRequestTreeViewItem nodeRequestField = CreateNodeRequestField(sdkRequest, field);
-
-                        nodeRequest.Items.Add(nodeRequestField);
-                    }
-
-                    nodeRequest.IsExpanded = true;
-                }
+                nodeRequest.IsExpanded = true;
 
                 yield return nodeRequest;
-
-                var responses = search.Responses.Where(r => r.SdkMessageRequestId?.Id == sdkRequest.SdkMessageRequestId);
-
-                foreach (var response in responses)
-                {
-                    SdkMessageRequestTreeViewItem nodeRespose = CreateNodeResponse(sdkRequest, sdkRequest.Name + " - Response", response);
-
-                    var fields = search.ResponseFields.Where(f => f.SdkMessageResponseId?.Id == response.SdkMessageResponseId).OrderBy(f => f.Position).ThenBy(f => f.Name);
-
-                    foreach (var field in fields)
-                    {
-                        SdkMessageRequestTreeViewItem nodeResposeField = CreateNodeResponseField(sdkRequest, field);
-
-                        nodeRespose.Items.Add(nodeResposeField);
-                    }
-
-                    nodeRespose.IsExpanded = true;
-
-                    yield return nodeRespose;
-                }
             }
         }
 
@@ -805,7 +782,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 MessageName = message,
             };
 
-            nodeMessage.MessageList.AddRange(steps.Where(s => s.SdkMessageId != null).Select(s => s.SdkMessageId.Value).Distinct());
+            nodeMessage.MessageIdsList.AddRange(steps.Where(s => s.SdkMessageId != null).Select(s => s.SdkMessageId.Value).Distinct());
 
             return nodeMessage;
         }
@@ -820,7 +797,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 MessageCategoryName = messageCategory,
             };
 
-            nodeMessage.MessageList.AddRange(steps.Where(s => s.SdkMessageId != null).Select(s => s.SdkMessageId.Value).Distinct());
+            nodeMessage.MessageIdsList.AddRange(steps.Where(s => s.SdkMessageId != null).Select(s => s.SdkMessageId.Value).Distinct());
 
             return nodeMessage;
         }
@@ -835,7 +812,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 EntityLogicalName = entityName,
             };
 
-            node.MessageList.AddRange(steps.Where(s => s.SdkMessageId != null).Select(s => s.SdkMessageId.Value).Distinct());
+            node.MessageIdsList.AddRange(steps.Where(s => s.SdkMessageId != null).Select(s => s.SdkMessageId.Value).Distinct());
 
             return node;
         }
@@ -848,7 +825,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 Image = _imageNamespace,
             };
 
-            node.MessageList.AddRange(steps.Where(s => s.SdkMessageId != null).Select(s => s.SdkMessageId.Value).Distinct());
+            node.MessageIdsList.AddRange(steps.Where(s => s.SdkMessageId != null).Select(s => s.SdkMessageId.Value).Distinct());
 
             return node;
         }
@@ -861,131 +838,119 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 Image = _imageImageEndpoint,
             };
 
-            node.MessageList.AddRange(steps.Where(s => s.SdkMessageId != null).Select(s => s.SdkMessageId.Value).Distinct());
+            node.MessageIdsList.AddRange(steps.Where(s => s.SdkMessageId != null).Select(s => s.SdkMessageId.Value).Distinct());
 
             return node;
         }
 
-        private SdkMessageRequestTreeViewItem CreateNodeRequest(SdkMessageRequest sdkRequest)
+        private SdkMessageRequestTreeViewItem CreateNodeRequest(SdkMessageRequest sdkRequest, SdkMessageResponse response)
         {
             var node = new SdkMessageRequestTreeViewItem(ComponentType.SdkMessageRequest)
             {
-                Name = sdkRequest.Name + " - Request",
                 Image = _imageRequest,
 
                 EntityLogicalName = sdkRequest.PrimaryObjectTypeCode,
                 MessageName = sdkRequest.SdkMessageName,
-                SdkMessagePair = sdkRequest.SdkMessagePairId?.Id,
+                SdkMessagePairId = sdkRequest.SdkMessagePairId?.Id,
 
-                SdkMessageRequest = sdkRequest.SdkMessageRequestId,
+                SdkMessageRequestId = sdkRequest.SdkMessageRequestId,
             };
+
+            StringBuilder nameBuilder = new StringBuilder(sdkRequest.Name + " - Request");
+
+            if (response != null)
+            {
+                nameBuilder.Append(" with Response");
+
+                node.SdkMessageResponseId = response.SdkMessageResponseId;
+            }
+
+            node.Name = nameBuilder.ToString();
 
             if (sdkRequest.SdkMessageId.HasValue)
             {
-                node.MessageList.Add(sdkRequest.SdkMessageId.Value);
+                node.MessageIdsList.Add(sdkRequest.SdkMessageId.Value);
             }
 
             return node;
         }
 
-        private SdkMessageRequestTreeViewItem CreateNodeRequestField(SdkMessageRequest sdkRequest, SdkMessageRequestField field)
-        {
-            StringBuilder name = new StringBuilder();
-            name.AppendFormat("{0}. {1}", field.Position, field.Name);
+        //private SdkMessageRequestTreeViewItem CreateNodeRequestField(SdkMessageRequest sdkRequest, SdkMessageRequestField field)
+        //{
+        //    StringBuilder name = new StringBuilder();
+        //    name.AppendFormat("{0}. {1}", field.Position, field.Name);
 
-            if (!string.IsNullOrEmpty(field.ClrParser))
-            {
-                name.AppendFormat("      ({0})", field.ClrParser);
-            }
+        //    if (!string.IsNullOrEmpty(field.ClrParser))
+        //    {
+        //        name.AppendFormat("      ({0})", field.ClrParser);
+        //    }
 
-            if (!string.IsNullOrEmpty(field.Parser)
-                && !string.Equals(field.ClrParser, field.Parser, StringComparison.InvariantCultureIgnoreCase)
-            )
-            {
-                name.AppendFormat("      ({0})", field.Parser);
-            }
+        //    if (!string.IsNullOrEmpty(field.Parser)
+        //        && !string.Equals(field.ClrParser, field.Parser, StringComparison.InvariantCultureIgnoreCase)
+        //    )
+        //    {
+        //        name.AppendFormat("      ({0})", field.Parser);
+        //    }
 
-            var node = new SdkMessageRequestTreeViewItem(ComponentType.SdkMessageRequestField)
-            {
-                Name = name.ToString(),
-                Image = _imageField,
+        //    var node = new SdkMessageRequestTreeViewItem(ComponentType.SdkMessageRequestField)
+        //    {
+        //        Name = name.ToString(),
+        //        Image = _imageField,
 
-                EntityLogicalName = sdkRequest.PrimaryObjectTypeCode,
-                MessageName = sdkRequest.SdkMessageName,
-                SdkMessagePair = sdkRequest.SdkMessagePairId?.Id,
+        //        EntityLogicalName = sdkRequest.PrimaryObjectTypeCode,
+        //        MessageName = sdkRequest.SdkMessageName,
+        //        SdkMessagePair = sdkRequest.SdkMessagePairId?.Id,
 
-                SdkMessageRequest = field.SdkMessageRequestId?.Id,
+        //        SdkMessageRequest = field.SdkMessageRequestId?.Id,
 
-                SdkMessageRequestField = field.Id,
-            };
+        //        SdkMessageRequestField = field.Id,
+        //    };
 
-            if (sdkRequest.SdkMessageId.HasValue)
-            {
-                node.MessageList.Add(sdkRequest.SdkMessageId.Value);
-            }
+        //    if (sdkRequest.SdkMessageId.HasValue)
+        //    {
+        //        node.MessageList.Add(sdkRequest.SdkMessageId.Value);
+        //    }
 
-            return node;
-        }
+        //    return node;
+        //}
 
-        private SdkMessageRequestTreeViewItem CreateNodeResponse(SdkMessageRequest sdkRequest, string name, SdkMessageResponse response)
-        {
-            var node = new SdkMessageRequestTreeViewItem(ComponentType.SdkMessageResponse)
-            {
-                Name = name,
-                Image = _imageResponse,
+        //private SdkMessageRequestTreeViewItem CreateNodeResponseField(SdkMessageRequest sdkRequest, SdkMessageResponseField field)
+        //{
+        //    StringBuilder name = new StringBuilder();
+        //    name.AppendFormat("{0}. {1}", field.Position, field.Name);
 
-                EntityLogicalName = sdkRequest.PrimaryObjectTypeCode,
-                MessageName = sdkRequest.SdkMessageName,
-                SdkMessagePair = sdkRequest.SdkMessagePairId?.Id,
+        //    if (!string.IsNullOrEmpty(field.ClrFormatter))
+        //    {
+        //        name.AppendFormat("      ({0})", field.ClrFormatter);
+        //    }
 
-                SdkMessageResponse = response.SdkMessageResponseId,
-            };
+        //    if (!string.IsNullOrEmpty(field.Formatter)
+        //        && !string.Equals(field.ClrFormatter, field.Formatter, StringComparison.InvariantCultureIgnoreCase)
+        //    )
+        //    {
+        //        name.AppendFormat("      ({0})", field.Formatter);
+        //    }
 
-            if (sdkRequest.SdkMessageId.HasValue)
-            {
-                node.MessageList.Add(sdkRequest.SdkMessageId.Value);
-            }
+        //    var node = new SdkMessageRequestTreeViewItem(ComponentType.SdkMessageResponseField)
+        //    {
+        //        Name = name.ToString(),
+        //        Image = _imageField,
 
-            return node;
-        }
+        //        EntityLogicalName = sdkRequest.PrimaryObjectTypeCode,
+        //        MessageName = sdkRequest.SdkMessageName,
+        //        SdkMessagePair = sdkRequest.SdkMessagePairId?.Id,
 
-        private SdkMessageRequestTreeViewItem CreateNodeResponseField(SdkMessageRequest sdkRequest, SdkMessageResponseField field)
-        {
-            StringBuilder name = new StringBuilder();
-            name.AppendFormat("{0}. {1}", field.Position, field.Name);
+        //        SdkMessageResponse = field.SdkMessageResponseId?.Id,
+        //        SdkMessageResponseField = field.Id,
+        //    };
 
-            if (!string.IsNullOrEmpty(field.ClrFormatter))
-            {
-                name.AppendFormat("      ({0})", field.ClrFormatter);
-            }
+        //    if (sdkRequest.SdkMessageId.HasValue)
+        //    {
+        //        node.MessageList.Add(sdkRequest.SdkMessageId.Value);
+        //    }
 
-            if (!string.IsNullOrEmpty(field.Formatter)
-                && !string.Equals(field.ClrFormatter, field.Formatter, StringComparison.InvariantCultureIgnoreCase)
-            )
-            {
-                name.AppendFormat("      ({0})", field.Formatter);
-            }
-
-            var node = new SdkMessageRequestTreeViewItem(ComponentType.SdkMessageResponseField)
-            {
-                Name = name.ToString(),
-                Image = _imageField,
-
-                EntityLogicalName = sdkRequest.PrimaryObjectTypeCode,
-                MessageName = sdkRequest.SdkMessageName,
-                SdkMessagePair = sdkRequest.SdkMessagePairId?.Id,
-
-                SdkMessageResponse = field.SdkMessageResponseId?.Id,
-                SdkMessageResponseField = field.Id,
-            };
-
-            if (sdkRequest.SdkMessageId.HasValue)
-            {
-                node.MessageList.Add(sdkRequest.SdkMessageId.Value);
-            }
-
-            return node;
-        }
+        //    return node;
+        //}
 
         private void UpdateStatus(ConnectionData connectionData, string format, params object[] args)
         {
@@ -1029,9 +994,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 try
                 {
                     bool enabled = this.IsControlsEnabled
-                                        && this.trVSdkMessageRequestTree.SelectedItem != null
-                                        && this.trVSdkMessageRequestTree.SelectedItem is SdkMessageRequestTreeViewItem
-                                        && CanCreateDescription(this.trVSdkMessageRequestTree.SelectedItem as SdkMessageRequestTreeViewItem);
+                        && this.trVSdkMessageRequestTree.SelectedItem != null
+                        && this.trVSdkMessageRequestTree.SelectedItem is SdkMessageRequestTreeViewItem
+                        && CanCreateDescription(this.trVSdkMessageRequestTree.SelectedItem as SdkMessageRequestTreeViewItem);
 
                     UIElement[] list = { tSBCreateDescription };
 
@@ -1055,17 +1020,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return "Create Description";
             }
 
-            if (item.SdkMessageRequest.HasValue)
+            if (item.SdkMessageRequestId.HasValue)
             {
                 return "Create SdkMessageRequest Description";
             }
 
-            if (item.SdkMessageResponse.HasValue)
+            if (item.SdkMessageResponseId.HasValue)
             {
                 return "Create SdkMessageResponse Description";
             }
 
-            if (item.MessageList != null && item.MessageList.Any())
+            if (item.MessageIdsList != null && item.MessageIdsList.Any())
             {
                 return "Create Message Description";
             }
@@ -1076,9 +1041,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private bool CanCreateDescription(SdkMessageRequestTreeViewItem item)
         {
             return
-                (item.MessageList != null && item.MessageList.Any())
-                || item.SdkMessageRequest.HasValue
-                || item.SdkMessageResponse.HasValue
+                (item.MessageIdsList != null && item.MessageIdsList.Any())
+                || item.SdkMessageRequestId.HasValue
+                || item.SdkMessageResponseId.HasValue
                 ;
         }
 
@@ -1096,7 +1061,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (this.trVSdkMessageRequestTree.SelectedItem != null
                 && this.trVSdkMessageRequestTree.SelectedItem is SdkMessageRequestTreeViewItem
-                )
+            )
             {
                 result = this.trVSdkMessageRequestTree.SelectedItem as SdkMessageRequestTreeViewItem;
             }
@@ -1109,9 +1074,81 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Close();
         }
 
-        private void trVSdkMessageRequestTree_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        private async void trVSdkMessageRequestTree_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             UpdateButtonsEnable();
+
+            await ShowRequestResponseFields();
+        }
+
+        private async Task ShowRequestResponseFields()
+        {
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            var service = await GetService();
+
+            ToggleControls(service.ConnectionData, false, string.Empty);
+
+            SdkMessageRequestTreeViewItem selectedNode = null;
+
+            this.Dispatcher.Invoke(() =>
+            {
+                _sourceRequestFields.Clear();
+                _sourceResponseFields.Clear();
+
+                selectedNode = GetSelectedEntity();
+            });
+
+            IEnumerable<SdkMessageRequestField> listRequestFields = Enumerable.Empty<SdkMessageRequestField>();
+            IEnumerable<SdkMessageResponseField> listResponseFields = Enumerable.Empty<SdkMessageResponseField>();
+
+            try
+            {
+                if (service != null && selectedNode != null)
+                {
+                    if (selectedNode.SdkMessageRequestId.HasValue)
+                    {
+                        var repository = new SdkMessageRequestFieldRepository(service);
+
+                        listRequestFields = await repository.GetListByRequestIdAsync(selectedNode.SdkMessageRequestId.Value, new ColumnSet(true));
+                    }
+
+                    if (selectedNode.SdkMessageResponseId.HasValue)
+                    {
+                        var repository = new SdkMessageResponseFieldRepository(service);
+
+                        listResponseFields = await repository.GetListByResponseIdAsync(selectedNode.SdkMessageResponseId.Value, new ColumnSet(true));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+            }
+
+            this.Dispatcher.Invoke(() =>
+            {
+                foreach (var entity in listRequestFields
+                    .OrderBy(s => s.Position)
+                    .ThenBy(s => s.Name)
+                )
+                {
+                    _sourceRequestFields.Add(entity);
+                }
+
+                foreach (var entity in listResponseFields
+                    .OrderBy(s => s.Position)
+                    .ThenBy(s => s.Name)
+                )
+                {
+                    _sourceResponseFields.Add(entity);
+                }
+            });
+
+            ToggleControls(service.ConnectionData, true, string.Empty);
         }
 
         private void tSBCollapseAll_Click(object sender, RoutedEventArgs e)
@@ -1229,10 +1266,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             string fileName = string.Empty;
 
-            if (node.MessageList != null && node.MessageList.Any())
+            if (node.MessageIdsList != null && node.MessageIdsList.Any())
             {
                 var repository = new SdkMessageRepository(service);
-                List<SdkMessage> listMessages = await repository.GetMessageByIdsAsync(node.MessageList.ToArray());
+                List<SdkMessage> listMessages = await repository.GetMessageByIdsAsync(node.MessageIdsList.ToArray());
 
                 if (string.IsNullOrEmpty(fileName))
                 {
@@ -1255,10 +1292,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            if (node.SdkMessageRequest.HasValue)
+            if (node.SdkMessageRequestId.HasValue)
             {
                 var repository = new SdkMessageRequestRepository(service);
-                var request = await repository.GetByIdAsync(node.SdkMessageRequest.Value, new ColumnSet(true));
+                var request = await repository.GetByIdAsync(node.SdkMessageRequestId.Value, new ColumnSet(true));
 
                 if (string.IsNullOrEmpty(fileName))
                 {
@@ -1298,10 +1335,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            if (node.SdkMessageResponse.HasValue)
+            if (node.SdkMessageResponseId.HasValue)
             {
                 var repository = new SdkMessageResponseRepository(service);
-                var Response = await repository.GetByIdAsync(node.SdkMessageResponse.Value, new ColumnSet(true));
+                var Response = await repository.GetByIdAsync(node.SdkMessageResponseId.Value, new ColumnSet(true));
 
                 if (string.IsNullOrEmpty(fileName))
                 {
@@ -1406,7 +1443,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             bool hasEntityName = nodeItem.EntityLogicalName.IsValidEntityName();
             bool hasMessageName = !string.IsNullOrEmpty(nodeItem.MessageName);
 
-            bool isSingleMessage = nodeItem.MessageList != null && nodeItem.MessageList.Count == 1;
+            bool isSingleMessage = nodeItem.MessageIdsList != null && nodeItem.MessageIdsList.Count == 1;
 
             bool showDependentComponents = nodeItem.GetId().HasValue && nodeItem.ComponentType.HasValue;
             bool hasIds = nodeItem.GetIdEnumerable().Any() && nodeItem.ComponentType.HasValue;
@@ -1425,8 +1462,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ActivateControls(items, hasIds, "contMnAddToSolution", "contMnAddToSolutionLast");
             FillLastSolutionItems(connectionData, items, hasIds, AddToCrmSolutionLast_Click, "contMnAddToSolutionLast");
 
-            ActivateControls(items, nodeItem.SdkMessagePair.HasValue, "contMnSdkMessagePair", "contMnSdkMessagePairAddToSolutionLast");
-            FillLastSolutionItems(connectionData, items, nodeItem.SdkMessagePair.HasValue, mIAddSdkMessagePairToCrmSolutionLast_Click, "contMnSdkMessagePairAddToSolutionLast");
+            ActivateControls(items, nodeItem.SdkMessagePairId.HasValue, "contMnSdkMessagePair", "contMnSdkMessagePairAddToSolutionLast");
+            FillLastSolutionItems(connectionData, items, nodeItem.SdkMessagePairId.HasValue, mIAddSdkMessagePairToCrmSolutionLast_Click, "contMnSdkMessagePairAddToSolutionLast");
 
             //ActivateControls(items, nodeItem.PluginAssembly.HasValue, "contMnAddPluginAssemblyStepsToSolution", "contMnAddPluginAssemblyStepsToSolutionLast");
             //FillLastSolutionItems(connectionData, items, nodeItem.PluginAssembly.HasValue, mIAddAssemblyStepsToSolutionLast_Click, "contMnAddPluginAssemblyStepsToSolutionLast");
@@ -1732,7 +1769,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             SdkMessageRequestTreeViewItem nodeItem = GetItemFromRoutedDataContext<SdkMessageRequestTreeViewItem>(e);
 
             if (nodeItem == null
-                || !nodeItem.SdkMessagePair.HasValue
+                || !nodeItem.SdkMessagePairId.HasValue
             )
             {
                 return;
@@ -1752,7 +1789,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , service
                 , _commonConfig
                 , (int)ComponentType.SdkMessagePair
-                , nodeItem.SdkMessagePair.Value
+                , nodeItem.SdkMessagePairId.Value
                 , null
             );
         }
@@ -1762,7 +1799,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             SdkMessageRequestTreeViewItem nodeItem = GetItemFromRoutedDataContext<SdkMessageRequestTreeViewItem>(e);
 
             if (nodeItem == null
-                || !nodeItem.SdkMessagePair.HasValue
+                || !nodeItem.SdkMessagePairId.HasValue
             )
             {
                 return;
@@ -1780,7 +1817,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            connectionData.OpenSolutionComponentDependentComponentsInWeb(ComponentType.SdkMessagePair, nodeItem.SdkMessagePair.Value);
+            connectionData.OpenSolutionComponentDependentComponentsInWeb(ComponentType.SdkMessagePair, nodeItem.SdkMessagePairId.Value);
         }
 
         private async void miOpenSdkMessagePairDependentComponentsInExplorer_Click(object sender, RoutedEventArgs e)
@@ -1788,7 +1825,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             SdkMessageRequestTreeViewItem nodeItem = GetItemFromRoutedDataContext<SdkMessageRequestTreeViewItem>(e);
 
             if (nodeItem == null
-                || !nodeItem.SdkMessagePair.HasValue
+                || !nodeItem.SdkMessagePairId.HasValue
             )
             {
                 return;
@@ -1803,7 +1840,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSolutionComponentDependenciesExplorer(_iWriteToOutput, service, null, _commonConfig, (int)ComponentType.SdkMessagePair, nodeItem.SdkMessagePair.Value, null);
+            WindowHelper.OpenSolutionComponentDependenciesExplorer(_iWriteToOutput, service, null, _commonConfig, (int)ComponentType.SdkMessagePair, nodeItem.SdkMessagePairId.Value, null);
         }
 
         private async void mIAddSdkMessagePairToCrmSolution_Click(object sender, RoutedEventArgs e)
@@ -1827,7 +1864,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             SdkMessageRequestTreeViewItem nodeItem = GetItemFromRoutedDataContext<SdkMessageRequestTreeViewItem>(e);
 
             if (nodeItem == null
-                || !nodeItem.SdkMessagePair.HasValue
+                || !nodeItem.SdkMessagePairId.HasValue
             )
             {
                 return;
@@ -1846,7 +1883,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
-                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.SdkMessagePair, new[] { nodeItem.SdkMessagePair.Value }, null, withSelect);
+                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.SdkMessagePair, new[] { nodeItem.SdkMessagePairId.Value }, null, withSelect);
             }
             catch (Exception ex)
             {
@@ -1859,7 +1896,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             SdkMessageRequestTreeViewItem nodeItem = GetItemFromRoutedDataContext<SdkMessageRequestTreeViewItem>(e);
 
             if (nodeItem == null
-                || !nodeItem.SdkMessagePair.HasValue
+                || !nodeItem.SdkMessagePairId.HasValue
             )
             {
                 return;
@@ -1876,7 +1913,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            var sdkMessagePair = await new SdkMessagePairRepository(service).GetByIdAsync(nodeItem.SdkMessagePair.Value, new ColumnSet(true));
+            var sdkMessagePair = await new SdkMessagePairRepository(service).GetByIdAsync(nodeItem.SdkMessagePairId.Value, new ColumnSet(true));
 
             var sdkMessage = await new SdkMessageRepository(service).GetByIdAsync(sdkMessagePair.SdkMessageId.Id, new ColumnSet(true));
 
@@ -2131,8 +2168,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             SdkMessageRequestTreeViewItem nodeItem = GetItemFromRoutedDataContext<SdkMessageRequestTreeViewItem>(e);
 
             if (nodeItem == null
-                || nodeItem.MessageList == null
-                || !nodeItem.MessageList.Any()
+                || nodeItem.MessageIdsList == null
+                || !nodeItem.MessageIdsList.Any()
             )
             {
                 return;
@@ -2149,7 +2186,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            Guid idMessage = nodeItem.MessageList.First();
+            Guid idMessage = nodeItem.MessageIdsList.First();
 
             var sdkMessage = await new SdkMessageRepository(service).GetByIdAsync(idMessage, new ColumnSet(true));
 

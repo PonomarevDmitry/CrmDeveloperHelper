@@ -7,19 +7,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
     {
         public List<SdkMessageRequest> Requests { get; set; }
 
-        public List<SdkMessageRequestField> RequestFields { get; set; }
-
         public List<SdkMessageResponse> Responses { get; set; }
-
-        public List<SdkMessageResponseField> ResponseFields { get; set; }
 
         public SdkMessageSearchResult()
         {
             this.Requests = new List<SdkMessageRequest>();
-            this.RequestFields = new List<SdkMessageRequestField>();
 
             this.Responses = new List<SdkMessageResponse>();
-            this.ResponseFields = new List<SdkMessageResponseField>();
         }
     }
 }

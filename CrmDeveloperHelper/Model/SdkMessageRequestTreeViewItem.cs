@@ -126,17 +126,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public string EntityLogicalName { get; set; }
 
-        public List<Guid> MessageList { get; }
+        public List<Guid> MessageIdsList { get; }
 
-        public Guid? SdkMessagePair { get; set; }
+        public Guid? SdkMessagePairId { get; set; }
 
-        public Guid? SdkMessageRequest { get; set; }
+        public Guid? SdkMessageRequestId { get; set; }
 
-        public Guid? SdkMessageRequestField { get; set; }
-
-        public Guid? SdkMessageResponse { get; set; }
-
-        public Guid? SdkMessageResponseField { get; set; }
+        public Guid? SdkMessageResponseId { get; set; }
 
         public ComponentType? ComponentType { get; private set; }
 
@@ -168,7 +164,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             this.Items = new ObservableCollection<SdkMessageRequestTreeViewItem>();
 
-            this.MessageList = new List<Guid>();
+            this.MessageIdsList = new List<Guid>();
         }
 
         public override string ToString()
@@ -178,29 +174,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public Guid? GetId()
         {
-            if (this.SdkMessageRequest.HasValue && this.ComponentType == Entities.ComponentType.SdkMessageRequest)
+            if (this.SdkMessageRequestId.HasValue && this.ComponentType == Entities.ComponentType.SdkMessageRequest)
             {
-                return this.SdkMessageRequest.Value;
+                return this.SdkMessageRequestId.Value;
             }
 
-            if (this.SdkMessageRequestField.HasValue && this.ComponentType == Entities.ComponentType.SdkMessageRequestField)
+            if (this.SdkMessageResponseId.HasValue && this.ComponentType == Entities.ComponentType.SdkMessageResponse)
             {
-                return this.SdkMessageRequestField.Value;
+                return this.SdkMessageResponseId.Value;
             }
 
-            if (this.SdkMessageResponse.HasValue && this.ComponentType == Entities.ComponentType.SdkMessageResponse)
+            if (this.MessageIdsList.Count == 1 && this.ComponentType == Entities.ComponentType.SdkMessage)
             {
-                return this.SdkMessageResponse.Value;
-            }
-
-            if (this.SdkMessageResponseField.HasValue && this.ComponentType == Entities.ComponentType.SdkMessageResponseField)
-            {
-                return this.SdkMessageResponseField.Value;
-            }
-
-            if (this.MessageList.Count == 1 && this.ComponentType == Entities.ComponentType.SdkMessage)
-            {
-                return this.MessageList.First();
+                return this.MessageIdsList.First();
             }
 
             return null;
@@ -208,29 +194,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public IEnumerable<Guid> GetIdEnumerable()
         {
-            if (this.SdkMessageRequest.HasValue && this.ComponentType == Entities.ComponentType.SdkMessageRequest)
+            if (this.SdkMessageRequestId.HasValue && this.ComponentType == Entities.ComponentType.SdkMessageRequest)
             {
-                yield return this.SdkMessageRequest.Value;
+                yield return this.SdkMessageRequestId.Value;
             }
 
-            if (this.SdkMessageRequestField.HasValue && this.ComponentType == Entities.ComponentType.SdkMessageRequestField)
+            if (this.SdkMessageResponseId.HasValue && this.ComponentType == Entities.ComponentType.SdkMessageResponse)
             {
-                yield return this.SdkMessageRequestField.Value;
-            }
-
-            if (this.SdkMessageResponse.HasValue && this.ComponentType == Entities.ComponentType.SdkMessageResponse)
-            {
-                yield return this.SdkMessageResponse.Value;
-            }
-
-            if (this.SdkMessageResponseField.HasValue && this.ComponentType == Entities.ComponentType.SdkMessageResponseField)
-            {
-                yield return this.SdkMessageResponseField.Value;
+                yield return this.SdkMessageResponseId.Value;
             }
 
             if (this.ComponentType == Entities.ComponentType.SdkMessage)
             {
-                foreach (var item in this.MessageList)
+                foreach (var item in this.MessageIdsList)
                 {
                     yield return item;
                 }
