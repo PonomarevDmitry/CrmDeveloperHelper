@@ -1565,7 +1565,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int commonMenu_GroupEntityInformation_MenuPluginInformation = 0x10E0;
 
-            public const int commonMenu_GroupEntityInformation_MenuPluginInformation_GroupDescription = 0x10E1;
+            public const int commonMenu_GroupEntityInformation_MenuPluginInformation_GroupPluginExplorers = 0x10E1;
+
+            public const int commonMenu_GroupEntityInformation_MenuPluginInformation_GroupSdkObjectExplorers = 0x144D;
 
             public const int commonMenu_GroupEntityInformation_MenuPluginInformation_GroupTree = 0x10E2;
 
@@ -1885,7 +1887,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int outputMenu_GroupEntityInformation_MenuPluginInformation = 0x1352;
 
-            public const int outputMenu_GroupEntityInformation_MenuPluginInformation_GroupExplorers = 0x1353;
+            public const int outputMenu_GroupEntityInformation_MenuPluginInformation_GroupPluginExplorers = 0x1353;
+
+            public const int outputMenu_GroupEntityInformation_MenuPluginInformation_GroupSdkObjectExplorers = 0x144E;
 
             public const int outputMenu_GroupEntityInformation_MenuPluginInformation_GroupTree = 0x1354;
 
@@ -3183,6 +3187,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CommonSdkMessageExplorerCommandId = 0x223F;
 
+            public const int CommonSdkMessageFilterExplorerCommandId = 0x2246;
+
             public const int CommonSdkMessageFilterTreeCommandId = 0x2116;
 
             public const int CommonSdkMessageRequestTreeCommandId = 0x2117;
@@ -3411,9 +3417,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int OutputPluginAssemblyExplorerCommandId = 0x21F2;
 
-            public const int OutputPluginTreeCommandId = 0x21F3;
-
             public const int OutputSdkMessageExplorerCommandId = 0x2240;
+
+            public const int OutputSdkMessageFilterExplorerCommandId = 0x2247;
+
+            public const int OutputPluginTreeCommandId = 0x21F3;
 
             public const int OutputSdkMessageFilterTreeCommandId = 0x21F4;
 

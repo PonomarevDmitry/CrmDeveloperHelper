@@ -20,15 +20,16 @@ using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowExplorerSdkMessage : WindowWithSolutionComponentDescriptor
+    public partial class WindowExplorerSdkMessageFilter : WindowWithSolutionComponentDescriptor
     {
         private readonly ObservableCollection<EntityViewItem> _itemsSource;
 
-        public WindowExplorerSdkMessage(
+        public WindowExplorerSdkMessageFilter(
              IWriteToOutput iWriteToOutput
             , CommonConfiguration commonConfig
             , IOrganizationServiceExtented service
-            , string selection
+            , string filterEntity
+            , string filterMessage
         ) : base(iWriteToOutput, commonConfig, service)
         {
             this.IncreaseInit();
@@ -39,44 +40,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadFromConfig();
 
-            if (!string.IsNullOrEmpty(selection))
+            cmBEntityName.Text = filterEntity;
+            txtBMessageFilter.Text = filterMessage;
+
+            FillEntityNames(service.ConnectionData);
+
+            if (!string.IsNullOrEmpty(filterMessage))
             {
-                txtBFilter.Text = selection;
+                txtBMessageFilter.Text = filterEntity;
             }
-
-            txtBFilter.SelectionLength = 0;
-            txtBFilter.SelectionStart = txtBFilter.Text.Length;
-
-            txtBFilter.Focus();
 
             this._itemsSource = new ObservableCollection<EntityViewItem>();
 
-            this.lstVwMessages.ItemsSource = _itemsSource;
+            this.lstVwMessageFilters.ItemsSource = _itemsSource;
 
             cmBCurrentConnection.ItemsSource = service.ConnectionData.ConnectionConfiguration.Connections;
             cmBCurrentConnection.SelectedItem = service.ConnectionData;
 
             FillExplorersMenuItems();
 
+            FocusOnComboBoxTextBox(cmBEntityName);
+
             this.DecreaseInit();
 
-            var task = ShowExistingMessages();
+            var task = ShowExistingMessageFilters();
         }
 
         private void FillExplorersMenuItems()
         {
             var explorersHelper = new ExplorersHelper(_iWriteToOutput, _commonConfig, GetService
+                , getEntityName: GetEntityName
                 , getMessageName: GetMessageName
             );
 
             var compareWindowsHelper = new CompareWindowsHelper(_iWriteToOutput, _commonConfig, () => Tuple.Create(GetSelectedConnection(), GetSelectedConnection())
+                , getEntityName: GetEntityName
             );
 
             explorersHelper.FillExplorers(miExplorers);
             compareWindowsHelper.FillCompareWindows(miCompareOrganizations);
 
-            mIOpenMessageFilterExplorer.Click += explorersHelper.miMessageFilterExplorer_Click;
-
+            mIOpenMessageExplorer.Click += explorersHelper.miMessageExplorer_Click;
             mIOpenPluginTree.Click += explorersHelper.miPluginTree_Click;
             mIOpenMessageFilterTree.Click += explorersHelper.miMessageFilterTree_Click;
             mIOpenMessageRequestTree.Click += explorersHelper.miMessageRequestTree_Click;
@@ -89,7 +93,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 compareWindowsHelper.FillCompareWindows(listContextMenu, nameof(miCompareOrganizations));
 
-                AddMenuItemClickHandler(listContextMenu, explorersHelper.miMessageFilterExplorer_Click, nameof(mIOpenMessageFilterExplorer));
+                AddMenuItemClickHandler(listContextMenu, explorersHelper.miMessageExplorer_Click, nameof(mIOpenMessageExplorer));
 
                 AddMenuItemClickHandler(listContextMenu, explorersHelper.miPluginTree_Click, nameof(mIOpenPluginTree));
 
@@ -99,11 +103,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        private string GetEntityName()
+        {
+            var entity = GetSelectedEntity();
+
+            return entity?.PrimaryObjectTypeCode ?? cmBEntityName.Text.Trim();
+        }
+
         private string GetMessageName()
         {
             var entity = GetSelectedEntity();
 
-            return entity?.Name ?? txtBFilter.Text.Trim();
+            return entity?.MessageName ?? txtBMessageFilter.Text.Trim();
         }
 
         private void LoadFromConfig()
@@ -115,7 +126,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         protected override void OnClosed(EventArgs e)
         {
-            _commonConfig.Save();
+            base.OnClosed(e);
 
             BindingOperations.ClearAllBindings(cmBCurrentConnection);
 
@@ -123,8 +134,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             cmBCurrentConnection.DataContext = null;
             cmBCurrentConnection.ItemsSource = null;
-
-            base.OnClosed(e);
         }
 
         private ConnectionData GetSelectedConnection()
@@ -144,7 +153,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return GetOrganizationService(GetSelectedConnection());
         }
 
-        private async Task ShowExistingMessages()
+        private async Task ShowExistingMessageFilters()
         {
             if (!this.IsControlsEnabled)
             {
@@ -153,42 +162,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingSdkMessage);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.LoadingSdkMessageFilter);
 
-            this._itemsSource.Clear();
+            string entityName = string.Empty;
+            string messageName = string.Empty;
 
-            string textName = string.Empty;
-
-            txtBFilter.Dispatcher.Invoke(() =>
+            this.Dispatcher.Invoke(() =>
             {
-                textName = txtBFilter.Text.Trim().ToLower();
+                this._itemsSource.Clear();
+
+                entityName = cmBEntityName.Text?.Trim();
+                messageName = txtBMessageFilter.Text.Trim();
             });
 
-            IEnumerable<SdkMessage> list = Enumerable.Empty<SdkMessage>();
+            IEnumerable<SdkMessageFilter> list = Enumerable.Empty<SdkMessageFilter>();
 
             try
             {
                 if (service != null)
                 {
-                    var repository = new SdkMessageRepository(service);
+                    var repository = new SdkMessageFilterRepository(service);
 
-                    list = await repository.GetMessagesAsync(textName
+                    list = await repository.GetAllSdkMessageFiltersWithMessageAsync(messageName, entityName
                         , new ColumnSet
                         (
-                            SdkMessage.Schema.Attributes.name
-                            , SdkMessage.Schema.Attributes.categoryname
-                            , SdkMessage.Schema.Attributes.autotransact
-                            , SdkMessage.Schema.Attributes.availability
-                            , SdkMessage.Schema.Attributes.customizationlevel
-                            , SdkMessage.Schema.Attributes.ismanaged
-                            , SdkMessage.Schema.Attributes.expand
-                            , SdkMessage.Schema.Attributes.isactive
-                            , SdkMessage.Schema.Attributes.isprivate
-                            , SdkMessage.Schema.Attributes.isreadonly
-                            , SdkMessage.Schema.Attributes.isvalidforexecuteasync
-                            , SdkMessage.Schema.Attributes.workflowsdkstepenabled
-                            , SdkMessage.Schema.Attributes.throttlesettings
-                            , SdkMessage.Schema.Attributes.template
+                            SdkMessageFilter.Schema.Attributes.primaryobjecttypecode
+                            , SdkMessageFilter.Schema.Attributes.secondaryobjecttypecode
+                            , SdkMessageFilter.Schema.Attributes.availability
+                            , SdkMessageFilter.Schema.Attributes.customizationlevel
+                            , SdkMessageFilter.Schema.Attributes.ismanaged
+                            , SdkMessageFilter.Schema.Attributes.workflowsdkstepenabled
+                            , SdkMessageFilter.Schema.Attributes.isvisible
+                            , SdkMessageFilter.Schema.Attributes.iscustomprocessingstepallowed
+                            , SdkMessageFilter.Schema.Attributes.restrictionlevel
                         )
                     );
                 }
@@ -198,60 +204,53 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
 
-            LoadSdkMessages(list);
+            LoadSdkMessageFilters(list);
 
-            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingSdkMessageCompletedFormat1, list.Count());
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.LoadingSdkMessageFilterCompletedFormat1, list.Count());
         }
 
         private class EntityViewItem
         {
-            public string Name => SdkMessage.Name;
+            public string MessageName => SdkMessageFilter.MessageName;
 
-            public string CategoryName => SdkMessage.CategoryName;
+            public string MessageCategoryName => SdkMessageFilter.MessageCategoryName;
 
-            public bool AutoTransact => SdkMessage.AutoTransact.GetValueOrDefault();
+            public string PrimaryObjectTypeCode => SdkMessageFilter.PrimaryObjectTypeCode;
 
-            public int? Availability => SdkMessage.Availability;
+            public string SecondaryObjectTypeCode => SdkMessageFilter.SecondaryObjectTypeCode;
 
-            public Entities.GlobalOptionSets.AvailabilityEnum? AvailabilityEnum => SdkMessage.AvailabilityEnum;
+            public int? Availability => SdkMessageFilter.Availability;
 
-            public int? CustomizationLevel => SdkMessage.CustomizationLevel;
+            public Entities.GlobalOptionSets.AvailabilityEnum? AvailabilityEnum => SdkMessageFilter.AvailabilityEnum;
 
-            public bool IsManaged => SdkMessage.IsManaged.GetValueOrDefault();
+            public int? CustomizationLevel => SdkMessageFilter.CustomizationLevel;
 
-            public bool Expand => SdkMessage.Expand.GetValueOrDefault();
+            public int? RestrictionLevel => SdkMessageFilter.RestrictionLevel;
 
-            public bool IsActive => SdkMessage.IsActive.GetValueOrDefault();
+            public bool IsManaged => SdkMessageFilter.IsManaged.GetValueOrDefault();
 
-            public bool IsPrivate => SdkMessage.IsPrivate.GetValueOrDefault();
+            public bool IsVisible => SdkMessageFilter.IsVisible.GetValueOrDefault();
 
-            public bool IsReadOnly => SdkMessage.IsReadOnly.GetValueOrDefault();
+            public bool IsCustomProcessingStepAllowed => SdkMessageFilter.IsCustomProcessingStepAllowed.GetValueOrDefault();
 
-            public bool IsValidForExecuteAsync => SdkMessage.IsValidForExecuteAsync.GetValueOrDefault();
+            public bool WorkflowSdkStepEnabled => SdkMessageFilter.WorkflowSdkStepEnabled.GetValueOrDefault();
 
-            public bool WorkflowSdkStepEnabled => SdkMessage.WorkflowSdkStepEnabled.GetValueOrDefault();
+            public SdkMessageFilter SdkMessageFilter { get; }
 
-            public bool Template => SdkMessage.Template.GetValueOrDefault();
-
-            public string ThrottleSettings => SdkMessage.ThrottleSettings;
-
-            public bool HasThrottleSettings => !string.IsNullOrEmpty(SdkMessage.ThrottleSettings);
-
-            public SdkMessage SdkMessage { get; }
-
-            public EntityViewItem(SdkMessage entity)
+            public EntityViewItem(SdkMessageFilter entity)
             {
-                this.SdkMessage = entity;
+                this.SdkMessageFilter = entity;
             }
         }
 
-        private void LoadSdkMessages(IEnumerable<SdkMessage> results)
+        private void LoadSdkMessageFilters(IEnumerable<SdkMessageFilter> results)
         {
-            this.lstVwMessages.Dispatcher.Invoke(() =>
+            this.lstVwMessageFilters.Dispatcher.Invoke(() =>
             {
                 foreach (var entity in results
-                    .OrderBy(ent => ent.CategoryName, MessageComparer.Comparer)
-                    .ThenBy(ent => ent.Name, MessageComparer.Comparer)
+                    .OrderBy(ent => ent.MessageCategoryName, MessageComparer.Comparer)
+                    .ThenBy(ent => ent.MessageName, MessageComparer.Comparer)
+                    .ThenBy(ent => ent.PrimaryObjectTypeCode)
                 )
                 {
                     var item = new EntityViewItem(entity);
@@ -259,9 +258,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _itemsSource.Add(item);
                 }
 
-                if (this.lstVwMessages.Items.Count == 1)
+                if (this.lstVwMessageFilters.Items.Count == 1)
                 {
-                    this.lstVwMessages.SelectedItem = this.lstVwMessages.Items[0];
+                    this.lstVwMessageFilters.SelectedItem = this.lstVwMessageFilters.Items[0];
                 }
             });
         }
@@ -296,13 +295,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void UpdateButtonsEnable()
         {
-            this.lstVwMessages.Dispatcher.Invoke(() =>
+            this.lstVwMessageFilters.Dispatcher.Invoke(() =>
             {
                 try
                 {
-                    bool enabled = this.IsControlsEnabled && this.lstVwMessages.SelectedItems.Count > 0;
+                    bool enabled = this.IsControlsEnabled && this.lstVwMessageFilters.SelectedItems.Count > 0;
 
-                    UIElement[] list = { tSDDBExportMessage };
+                    UIElement[] list = { tSDDBExportMessageFilter };
 
                     foreach (var button in list)
                     {
@@ -319,14 +318,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.Key == Key.Enter)
             {
-                await ShowExistingMessages();
+                await ShowExistingMessageFilters();
             }
         }
 
-        private SdkMessage GetSelectedEntity()
+        private SdkMessageFilter GetSelectedEntity()
         {
-            return this.lstVwMessages.SelectedItems.OfType<EntityViewItem>().Count() == 1
-                ? this.lstVwMessages.SelectedItems.OfType<EntityViewItem>().Select(e => e.SdkMessage).SingleOrDefault() : null;
+            return this.lstVwMessageFilters.SelectedItems.OfType<EntityViewItem>().Count() == 1
+                ? this.lstVwMessageFilters.SelectedItems.OfType<EntityViewItem>().Select(e => e.SdkMessageFilter).SingleOrDefault() : null;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -334,7 +333,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Close();
         }
 
-        private async void lstVwMessages_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private async void lstVwMessageFilters_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
@@ -342,22 +341,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (item != null)
                 {
-                    await ExecuteAction(item.SdkMessage.Id, item.SdkMessage.Name, PerformExportMouseDoubleClick);
+                    await ExecuteAction(item.SdkMessageFilter.Id, item.SdkMessageFilter.PrimaryObjectTypeCode, PerformExportMouseDoubleClick);
                 }
             }
         }
 
-        private async Task PerformExportMouseDoubleClick(string folder, Guid idSdkMessage, string name)
+        private async Task PerformExportMouseDoubleClick(string folder, Guid idSdkMessageFilter, string entityName)
         {
-            await PerformExportEntityDescription(folder, idSdkMessage, name);
+            await PerformExportEntityDescription(folder, idSdkMessageFilter, entityName);
         }
 
-        private void lstVwMessages_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void lstVwMessageFilters_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             UpdateButtonsEnable();
         }
 
-        private async Task ExecuteAction(Guid idAssembly, string name, Func<string, Guid, string, Task> action)
+        private async Task ExecuteAction(Guid idSdkMessageFilter, string entityName, Func<string, Guid, string, Task> action)
         {
             if (!this.IsControlsEnabled)
             {
@@ -370,7 +369,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                await action(folder, idAssembly, name);
+                await action(folder, idSdkMessageFilter, entityName);
             }
             catch (Exception ex)
             {
@@ -387,7 +386,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            await ExecuteAction(entity.Id, entity.Name, PerformExportEntityDescription);
+            await ExecuteAction(entity.Id, entity.PrimaryObjectTypeCode, PerformExportEntityDescription);
         }
 
         private async void mIChangeEntityInEditor_Click(object sender, RoutedEventArgs e)
@@ -399,10 +398,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            await ExecuteAction(entity.Id, entity.Name, PerformEntityEditor);
+            await ExecuteAction(entity.Id, entity.PrimaryObjectTypeCode, PerformEntityEditor);
         }
 
-        private async void mIDeleteMessage_Click(object sender, RoutedEventArgs e)
+        private async void mIDeleteMessageFilter_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -411,20 +410,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            await ExecuteAction(entity.Id, entity.Name, PerformDeleteEntity);
+            await ExecuteAction(entity.Id, entity.PrimaryObjectTypeCode, PerformDeleteEntity);
         }
 
-        private async Task PerformExportEntityDescription(string folder, Guid idSdkMessage, string name)
+        private async Task PerformExportEntityDescription(string folder, Guid idSdkMessageFilter, string entityName)
         {
             var service = await GetService();
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingEntityDescription);
 
-            var repository = new SdkMessageRepository(service);
+            var repository = new SdkMessageFilterRepository(service);
 
-            var message = await repository.GetByIdAsync(idSdkMessage, new ColumnSet(true));
+            var message = await repository.GetByIdAsync(idSdkMessageFilter);
 
-            string fileName = EntityFileNameFormatter.GetMessageFileName(service.ConnectionData.Name, name, EntityFileNameFormatter.Headers.EntityDescription);
+            string fileName = EntityFileNameFormatter.GetMessageFilterFileName(service.ConnectionData.Name, entityName, EntityFileNameFormatter.Headers.EntityDescription);
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
             await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, message, null, service.ConnectionData);
@@ -440,31 +439,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingEntityDescriptionCompleted);
         }
 
-        private async Task PerformEntityEditor(string folder, Guid idSdkMessage, string name)
+        private async Task PerformEntityEditor(string folder, Guid idSdkMessageFilter, string entityName)
         {
             var service = await GetService();
 
             _commonConfig.Save();
 
-            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, SdkMessage.EntityLogicalName, idSdkMessage);
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, SdkMessageFilter.EntityLogicalName, idSdkMessageFilter);
         }
 
-        private async Task PerformDeleteEntity(string folder, Guid idSdkMessage, string name)
+        private async Task PerformDeleteEntity(string folder, Guid idSdkMessageFilter, string entityName)
         {
-            string message = string.Format(Properties.MessageBoxStrings.AreYouSureDeleteSdkObjectFormat2, SdkMessage.EntityLogicalName, name);
+            string message = string.Format(Properties.MessageBoxStrings.AreYouSureDeleteSdkObjectFormat2, SdkMessageFilter.EntityLogicalName, entityName);
 
             if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
             {
                 var service = await GetService();
 
-                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.DeletingEntityFormat2, service.ConnectionData.Name, SdkMessage.EntityLogicalName);
+                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.DeletingEntityFormat2, service.ConnectionData.Name, SdkMessageFilter.EntityLogicalName);
 
                 try
                 {
                     _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.DeletingEntity);
-                    _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, SdkMessage.EntityLogicalName, idSdkMessage);
+                    _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, SdkMessageFilter.EntityLogicalName, idSdkMessageFilter);
 
-                    await service.DeleteAsync(SdkMessage.EntityLogicalName, idSdkMessage);
+                    await service.DeleteAsync(SdkMessageFilter.EntityLogicalName, idSdkMessageFilter);
                 }
                 catch (Exception ex)
                 {
@@ -472,9 +471,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 }
 
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.DeletingEntityCompletedFormat2, service.ConnectionData.Name, SdkMessage.EntityLogicalName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.DeletingEntityCompletedFormat2, service.ConnectionData.Name, SdkMessageFilter.EntityLogicalName);
 
-                await ShowExistingMessages();
+                await ShowExistingMessageFilters();
             }
         }
 
@@ -482,7 +481,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             e.Handled = true;
 
-            await ShowExistingMessages();
+            await ShowExistingMessageFilters();
         }
 
         private void mIOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)
@@ -498,7 +497,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
-                connectionData.OpenSolutionComponentDependentComponentsInWeb(ComponentType.SdkMessage, entity.Id);
+                connectionData.OpenSolutionComponentDependentComponentsInWeb(ComponentType.SdkMessageFilter, entity.Id);
             }
         }
 
@@ -536,7 +535,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
-                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.SdkMessage, new[] { entity.Id }, null, withSelect);
+                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.SdkMessageFilter, new[] { entity.Id }, null, withSelect);
             }
             catch (Exception ex)
             {
@@ -574,7 +573,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , service
                 , null
                 , _commonConfig
-                , (int)ComponentType.SdkMessage
+                , (int)ComponentType.SdkMessageFilter
                 , entity.Id
                 , null
             );
@@ -597,7 +596,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _iWriteToOutput
                 , service
                 , _commonConfig
-                , (int)ComponentType.SdkMessage
+                , (int)ComponentType.SdkMessageFilter
                 , entity.Id
                 , null
             );
@@ -619,8 +618,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
-                await ShowExistingMessages();
+                FillEntityNames(connectionData);
+                await ShowExistingMessageFilters();
             }
+        }
+
+        private void FillEntityNames(ConnectionData connectionData)
+        {
+            cmBEntityName.Dispatcher.Invoke(() =>
+            {
+                LoadEntityNames(cmBEntityName, connectionData);
+            });
         }
 
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)
@@ -628,119 +636,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             SetCurrentConnection(_iWriteToOutput, GetSelectedConnection());
         }
 
-        private void lstVwMessages_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        private void lstVwMessageFilters_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = this.IsControlsEnabled;
             e.ContinueRouting = false;
         }
 
-        private void lstVwMessages_Delete(object sender, ExecutedRoutedEventArgs e)
+        private void lstVwMessageFilters_Delete(object sender, ExecutedRoutedEventArgs e)
         {
-            mIDeleteMessage_Click(sender, e);
-        }
-
-        private async void mIExportThrottleSettingsXml_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            if (entity == null)
-            {
-                return;
-            }
-
-            await ExecuteActionEntity(entity.Id, entity.Name, SdkMessage.Schema.Attributes.throttlesettings, nameof(SdkMessage.ThrottleSettings), "xml", PerformExportXmlToFile);
-        }
-
-        private async Task ExecuteActionEntity(Guid idMessage, string name, string fieldName, string fieldTitle, string extension, Func<string, Guid, string, string, string, string, Task> action)
-        {
-            if (!this.IsControlsEnabled)
-            {
-                return;
-            }
-
-            string folder = txtBFolder.Text.Trim();
-
-            folder = CorrectFolderIfEmptyOrNotExists(_iWriteToOutput, folder);
-
-            await action(folder, idMessage, name, fieldName, fieldTitle, extension);
-        }
-
-        private async Task PerformExportXmlToFile(string folder, Guid idMessage, string name, string fieldName, string fieldTitle, string extension)
-        {
-            if (!this.IsControlsEnabled)
-            {
-                return;
-            }
-
-            var service = await GetService();
-
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ExportingXmlFieldToFileFormat1, fieldTitle);
-
-            try
-            {
-                var repository = new SdkMessageRepository(service);
-
-                var messageEntity = await repository.GetByIdAsync(idMessage, new ColumnSet(fieldName));
-
-                string xmlContent = messageEntity.GetAttributeValue<string>(fieldName);
-
-                string filePath = await CreateFileAsync(folder, idMessage, name, fieldTitle, extension, xmlContent);
-
-                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
-
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ExportingXmlFieldToFileCompletedFormat1, fieldName);
-            }
-            catch (Exception ex)
-            {
-                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ExportingXmlFieldToFileFailedFormat1, fieldName);
-            }
-        }
-
-        private Task<string> CreateFileAsync(string folder, Guid idMessage, string name, string fieldTitle, string extension, string xmlContent)
-        {
-            return Task.Run(() => CreateFile(folder, idMessage, name, fieldTitle, extension, xmlContent));
-        }
-
-        private string CreateFile(string folder, Guid idMessage, string name, string fieldTitle, string extension, string xmlContent)
-        {
-            ConnectionData connectionData = GetSelectedConnection();
-
-            if (connectionData == null)
-            {
-                return null;
-            }
-
-            if (string.IsNullOrEmpty(xmlContent))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionData.Name, SdkMessage.Schema.EntityLogicalName, name, fieldTitle);
-                this._iWriteToOutput.ActivateOutputWindow(connectionData);
-
-                return null;
-            }
-
-            string fileName = EntityFileNameFormatter.GetMessageFileName(connectionData.Name, name, fieldTitle, extension);
-            string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
-
-            try
-            {
-                xmlContent = ContentComparerHelper.FormatXmlByConfiguration(
-                    xmlContent
-                    , _commonConfig
-                    , XmlOptionsControls.None
-                );
-
-                File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, SdkMessage.Schema.EntityLogicalName, name, fieldTitle, filePath);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-
-            return filePath;
+            mIDeleteMessageFilter_Click(sender, e);
         }
     }
 }

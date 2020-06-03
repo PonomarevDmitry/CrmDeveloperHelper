@@ -316,6 +316,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion SdkMessage Explorer
 
+        #region SdkMessageFilter Explorer
+
+        public async Task ExecuteShowingSdkMessageFilterExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string messageFilter)
+        {
+            await ConnectAndExecuteActionAsync(connectionData
+                , Properties.OperationNames.ShowingSdkMessageFilterExplorerFormat1
+                , (service) => WindowHelper.OpenSdkMessageFilterExplorer(this._iWriteToOutput, service, commonConfig, null, messageFilter)
+            );
+        }
+
+        #endregion SdkMessageFilter Explorer
+
         #region SdkMessageFilter Tree
 
         public async Task ExecuteShowingSdkMessageFilterTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string messageFilter)

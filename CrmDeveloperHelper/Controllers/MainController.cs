@@ -892,6 +892,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartShowingSdkMessageExplorer(ConnectionData connectionData, CommonConfiguration commonConfig,  string messageFilter)
             => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteShowingSdkMessageExplorer, commonConfig,  messageFilter);
 
+        public void StartShowingSdkMessageFilterExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string messageFilter)
+            => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteShowingSdkMessageFilterExplorer, commonConfig, messageFilter);
+
         public void StartShowingSdkMessageFilterTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string messageFilter)
             => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteShowingSdkMessageFilterTree, commonConfig, entityFilter, messageFilter);
 

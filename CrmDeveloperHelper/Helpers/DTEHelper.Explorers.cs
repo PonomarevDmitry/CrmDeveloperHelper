@@ -32,6 +32,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartShowingSdkMessageExplorer(conn, commonConfig, selection));
         }
 
+        public void HandleSdkMessageFilterExplorer()
+        {
+            HandleSdkMessageFilterExplorer(null);
+        }
+
+        public void HandleSdkMessageFilterExplorer(ConnectionData connectionData)
+        {
+            string selection = GetSelectedText();
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartShowingSdkMessageFilterExplorer(conn, commonConfig, selection));
+        }
+
         public void HandleSdkMessageFilterTree()
         {
             HandleSdkMessageFilterTree(null);

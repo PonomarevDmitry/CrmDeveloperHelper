@@ -1321,6 +1321,15 @@
   <data name="LoadingSdkMessageCompleted" xml:space="preserve">
     <value>Loading Sdk Messages completed.</value>
   </data>
+  <data name="LoadingSdkMessageFilter" xml:space="preserve">
+    <value>Loading Sdk Message Filters...</value>
+  </data>
+  <data name="LoadingSdkMessageFilterCompletedFormat1" xml:space="preserve">
+    <value>{0} Sdk Message Filters loaded.</value>
+  </data>
+  <data name="LoadingSdkMessageFilterCompleted" xml:space="preserve">
+    <value>Loading Sdk Message Filters completed.</value>
+  </data>
   <data name="LoadingSdkMessageRequests" xml:space="preserve">
     <value>Loading Sdk Message Requests...</value>
   </data>

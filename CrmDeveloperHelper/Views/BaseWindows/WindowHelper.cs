@@ -559,7 +559,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
-            , string messageFilter = null
+            , string messageFilter
         )
         {
             ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
@@ -568,6 +568,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     iWriteToOutput
                     , commonConfig
                     , service
+                    , messageFilter
+                )
+            );
+        }
+
+        public static void OpenSdkMessageFilterExplorer(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+        )
+        {
+            OpenSdkMessageFilterExplorer(iWriteToOutput, service, commonConfig, null, null);
+        }
+
+        public static void OpenSdkMessageFilterExplorer(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string entityFilter
+            , string messageFilter
+        )
+        {
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowExplorerSdkMessageFilter
+                (
+                    iWriteToOutput
+                    , commonConfig
+                    , service
+                    , entityFilter
                     , messageFilter
                 )
             );

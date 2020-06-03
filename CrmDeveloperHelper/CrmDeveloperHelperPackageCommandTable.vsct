@@ -737,7 +737,9 @@
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuEntityInformation_GroupEntityComponents" priority="0x0609" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuEntityInformation_GroupEntityPrivileges" priority="0x0609" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuEntityInformation_GroupFormViewChart" priority="0x060B" />
-      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuPluginInformation_GroupDescription" priority="0x060A" />
+      
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuPluginInformation_GroupPluginExplorers" priority="0x060A" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuPluginInformation_GroupSdkObjectExplorers" priority="0x060A" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuPluginInformation_GroupTree" priority="0x060B" />
 
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation" priority="0x060B" />
@@ -876,7 +878,8 @@
       <Group guid="guidGroupAndMenuSet" id="outputMenu_GroupEntityInformation_MenuEntityInformation_GroupEntityPrivileges" priority="0x6000" />
       <Group guid="guidGroupAndMenuSet" id="outputMenu_GroupEntityInformation_MenuEntityInformation_GroupFormViewChart" priority="0x6000" />
 
-      <Group guid="guidGroupAndMenuSet" id="outputMenu_GroupEntityInformation_MenuPluginInformation_GroupExplorers" priority="0x6000" />
+      <Group guid="guidGroupAndMenuSet" id="outputMenu_GroupEntityInformation_MenuPluginInformation_GroupPluginExplorers" priority="0x6000" />
+      <Group guid="guidGroupAndMenuSet" id="outputMenu_GroupEntityInformation_MenuPluginInformation_GroupSdkObjectExplorers" priority="0x6000" />
       <Group guid="guidGroupAndMenuSet" id="outputMenu_GroupEntityInformation_MenuPluginInformation_GroupTree" priority="0x6000" />
 
       <Group guid="guidGroupAndMenuSet" id="outputMenu_GroupSecurityInformation" priority="0x6000" />
@@ -9659,6 +9662,16 @@
         </Strings>
       </Button>
 
+      <Button guid="guidCommandSet" id="CommonSdkMessageFilterExplorerCommandId" priority="0x0124" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Message Filter Explorer</ButtonText>
+        </Strings>
+      </Button>
+      
       <Button guid="guidCommandSet" id="CommonSdkMessageFilterTreeCommandId" priority="0x0124" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -10974,6 +10987,16 @@
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
           <ButtonText>Message Explorer</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidCommandSet" id="OutputSdkMessageFilterExplorerCommandId" priority="0x6000" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Message Filter Explorer</ButtonText>
         </Strings>
       </Button>
 
@@ -16239,38 +16262,49 @@
 
     <!-- #region commonMenu_GroupEntityInformation_MenuPluginInformation -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuPluginInformation_GroupDescription" priority="0x060A">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuPluginInformation_GroupPluginExplorers" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuPluginInformation" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuPluginInformation_GroupTree" priority="0x060B">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuPluginInformation_GroupSdkObjectExplorers" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuPluginInformation" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuPluginInformation_GroupTree" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuPluginInformation" />
     </CommandPlacement>
 
     <!-- #endregion commonMenu_GroupEntityInformation_MenuPluginInformation -->
 
-    <!-- #region commonMenu_GroupEntityInformation_MenuPluginInformation_GroupDescription -->
+    <!-- #region commonMenu_GroupEntityInformation_MenuPluginInformation_GroupPluginExplorers -->
 
     <CommandPlacement guid="guidCommandSet" id="CommonPluginTypeExplorerCommandId" priority="0x0122">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuPluginInformation_GroupDescription" />
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuPluginInformation_GroupPluginExplorers" />
     </CommandPlacement>
     <CommandPlacement guid="guidCommandSet" id="CommonPluginAssemblyExplorerCommandId" priority="0x0123">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuPluginInformation_GroupDescription" />
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuPluginInformation_GroupPluginExplorers" />
     </CommandPlacement>
 
-    <!-- #endregion commonMenu_GroupEntityInformation_MenuPluginInformation_GroupDescription -->
+    <!-- #endregion commonMenu_GroupEntityInformation_MenuPluginInformation_GroupPluginExplorers -->
+
+    <!-- #region commonMenu_GroupEntityInformation_MenuPluginInformation_GroupSdkObjectExplorers -->
+
+    <CommandPlacement guid="guidCommandSet" id="CommonSdkMessageExplorerCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuPluginInformation_GroupSdkObjectExplorers" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CommonSdkMessageFilterExplorerCommandId" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuPluginInformation_GroupSdkObjectExplorers" />
+    </CommandPlacement>
+
+    <!-- #endregion commonMenu_GroupEntityInformation_MenuPluginInformation_GroupSdkObjectExplorers -->
 
     <!-- #region commonMenu_GroupEntityInformation_MenuPluginInformation_GroupTree -->
 
     <CommandPlacement guid="guidCommandSet" id="CommonPluginTreeCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuPluginInformation_GroupTree" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonSdkMessageExplorerCommandId" priority="0x06010">
+    <CommandPlacement guid="guidCommandSet" id="CommonSdkMessageFilterTreeCommandId" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuPluginInformation_GroupTree" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonSdkMessageFilterTreeCommandId" priority="0x06020">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuPluginInformation_GroupTree" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonSdkMessageRequestTreeCommandId" priority="0x06030">
+    <CommandPlacement guid="guidCommandSet" id="CommonSdkMessageRequestTreeCommandId" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuPluginInformation_GroupTree" />
     </CommandPlacement>
 
@@ -19307,38 +19341,49 @@
 
     <!-- #region outputMenu_GroupEntityInformation_MenuPluginInformation -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="outputMenu_GroupEntityInformation_MenuPluginInformation_GroupExplorers" priority="0x0600">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="outputMenu_GroupEntityInformation_MenuPluginInformation_GroupPluginExplorers" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupEntityInformation_MenuPluginInformation" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="outputMenu_GroupEntityInformation_MenuPluginInformation_GroupTree" priority="0x0610">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="outputMenu_GroupEntityInformation_MenuPluginInformation_GroupSdkObjectExplorers" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupEntityInformation_MenuPluginInformation" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="outputMenu_GroupEntityInformation_MenuPluginInformation_GroupTree" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupEntityInformation_MenuPluginInformation" />
     </CommandPlacement>
 
     <!-- #endregion outputMenu_GroupEntityInformation_MenuPluginInformation -->
 
-    <!-- #region outputMenu_GroupEntityInformation_MenuPluginInformation_GroupExplorers -->
+    <!-- #region outputMenu_GroupEntityInformation_MenuPluginInformation_GroupPluginExplorers -->
 
-    <CommandPlacement guid="guidCommandSet" id="OutputPluginTypeExplorerCommandId" priority="0x0122">
-      <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupEntityInformation_MenuPluginInformation_GroupExplorers" />
+    <CommandPlacement guid="guidCommandSet" id="OutputPluginTypeExplorerCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupEntityInformation_MenuPluginInformation_GroupPluginExplorers" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="OutputPluginAssemblyExplorerCommandId" priority="0x0123">
-      <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupEntityInformation_MenuPluginInformation_GroupExplorers" />
+    <CommandPlacement guid="guidCommandSet" id="OutputPluginAssemblyExplorerCommandId" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupEntityInformation_MenuPluginInformation_GroupPluginExplorers" />
     </CommandPlacement>
 
-    <!-- #endregion outputMenu_GroupEntityInformation_MenuPluginInformation_GroupExplorers -->
+    <!-- #endregion outputMenu_GroupEntityInformation_MenuPluginInformation_GroupPluginExplorers -->
+
+    <!-- #region outputMenu_GroupEntityInformation_MenuPluginInformation_GroupSdkObjectExplorers -->
+
+    <CommandPlacement guid="guidCommandSet" id="OutputSdkMessageExplorerCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupEntityInformation_MenuPluginInformation_GroupSdkObjectExplorers" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="OutputSdkMessageFilterExplorerCommandId" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupEntityInformation_MenuPluginInformation_GroupSdkObjectExplorers" />
+    </CommandPlacement>
+
+    <!-- #endregion outputMenu_GroupEntityInformation_MenuPluginInformation_GroupSdkObjectExplorers -->
 
     <!-- #region outputMenu_GroupEntityInformation_MenuPluginInformation_GroupTree -->
 
     <CommandPlacement guid="guidCommandSet" id="OutputPluginTreeCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupEntityInformation_MenuPluginInformation_GroupTree" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="OutputSdkMessageExplorerCommandId" priority="0x06010">
+    <CommandPlacement guid="guidCommandSet" id="OutputSdkMessageFilterTreeCommandId" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupEntityInformation_MenuPluginInformation_GroupTree" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="OutputSdkMessageFilterTreeCommandId" priority="0x06020">
-      <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupEntityInformation_MenuPluginInformation_GroupTree" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="OutputSdkMessageRequestTreeCommandId" priority="0x06030">
+    <CommandPlacement guid="guidCommandSet" id="OutputSdkMessageRequestTreeCommandId" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupEntityInformation_MenuPluginInformation_GroupTree" />
     </CommandPlacement>
 
@@ -21143,7 +21188,8 @@
       <IDSymbol name="commonMenu_GroupEntityInformation_MenuEntityInformation_GroupFormViewChart" value="0x10DF" />
 
       <IDSymbol name="commonMenu_GroupEntityInformation_MenuPluginInformation" value="0x10E0" />
-      <IDSymbol name="commonMenu_GroupEntityInformation_MenuPluginInformation_GroupDescription" value="0x10E1" />
+      <IDSymbol name="commonMenu_GroupEntityInformation_MenuPluginInformation_GroupPluginExplorers" value="0x10E1" />
+      <IDSymbol name="commonMenu_GroupEntityInformation_MenuPluginInformation_GroupSdkObjectExplorers" value="0x144D" />
       <IDSymbol name="commonMenu_GroupEntityInformation_MenuPluginInformation_GroupTree" value="0x10E2" />
 
       <IDSymbol name="commonMenu_GroupSecurityInformation" value="0x124A" />
@@ -21398,7 +21444,8 @@
       <IDSymbol name="outputMenu_GroupEntityInformation_MenuEntityInformation_GroupFormViewChart" value="0x1351" />
 
       <IDSymbol name="outputMenu_GroupEntityInformation_MenuPluginInformation" value="0x1352" />
-      <IDSymbol name="outputMenu_GroupEntityInformation_MenuPluginInformation_GroupExplorers" value="0x1353" />
+      <IDSymbol name="outputMenu_GroupEntityInformation_MenuPluginInformation_GroupPluginExplorers" value="0x1353" />
+      <IDSymbol name="outputMenu_GroupEntityInformation_MenuPluginInformation_GroupSdkObjectExplorers" value="0x144E" />
       <IDSymbol name="outputMenu_GroupEntityInformation_MenuPluginInformation_GroupTree" value="0x1354" />
 
       <IDSymbol name="outputMenu_GroupSecurityInformation" value="0x1355" />
@@ -22564,6 +22611,8 @@
 
       <IDSymbol name="CommonSdkMessageExplorerCommandId" value="0x223F" />
 
+      <IDSymbol name="CommonSdkMessageFilterExplorerCommandId" value="0x2246" />
+
       <IDSymbol name="CommonSdkMessageFilterTreeCommandId" value="0x2116" />
 
       <IDSymbol name="CommonSdkMessageRequestTreeCommandId" value="0x2117" />
@@ -22752,9 +22801,11 @@
       <IDSymbol name="OutputPluginTypeExplorerCommandId" value="0x21F1" />
       <IDSymbol name="OutputPluginAssemblyExplorerCommandId" value="0x21F2" />
 
-      <IDSymbol name="OutputPluginTreeCommandId" value="0x21F3" />
-
       <IDSymbol name="OutputSdkMessageExplorerCommandId" value="0x2240" />
+
+      <IDSymbol name="OutputSdkMessageFilterExplorerCommandId" value="0x2247" />
+
+      <IDSymbol name="OutputPluginTreeCommandId" value="0x21F3" />
 
       <IDSymbol name="OutputSdkMessageFilterTreeCommandId" value="0x21F4" />
 
@@ -22785,10 +22836,10 @@
 
 
     <!-- Groups and Menus -->
-    <!-- 0x144D -->
+    <!-- 0x144F -->
 
     <!-- Commands -->
-    <!-- 0x2246 -->
+    <!-- 0x2248 -->
 
     <!-- Dynamic Commands -->
     <!-- 13600 -->

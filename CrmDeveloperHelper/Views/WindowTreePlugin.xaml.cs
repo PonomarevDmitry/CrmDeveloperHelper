@@ -170,6 +170,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 AddMenuItemClickHandler(listContextMenu, explorersHelper.miMessageExplorer_Click, "mIOpenMessageExplorer");
 
+                AddMenuItemClickHandler(listContextMenu, explorersHelper.miMessageFilterExplorer_Click, "mIOpenMessageFilterExplorer");
+
                 AddMenuItemClickHandler(listContextMenu, explorersHelper.miMessageFilterTree_Click, "mIOpenMessageFilterTree");
 
                 AddMenuItemClickHandler(listContextMenu, explorersHelper.miMessageRequestTree_Click, "mIOpenMessageRequestTree");
@@ -2779,7 +2781,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ActivateControls(items, showDependentComponents, "contMnDependentComponents");
 
-            ActivateControls(items, isMessage || isEntity, "contMnSdkMessage", "mIOpenMessageExplorer", "mIOpenMessageFilterTree", "mIOpenMessageRequestTree");
+            ActivateControls(items, isMessage || isEntity, "contMnSdkMessage", "mIOpenMessageExplorer", "mIOpenMessageFilterExplorer", "mIOpenMessageFilterTree", "mIOpenMessageRequestTree");
 
             ActivateControls(items, nodeItem.PluginAssemblyId.HasValue && nodeItem.ComponentType != ComponentType.PluginAssembly, "contMnAddPluginAssemblyToSolution", "contMnAddPluginAssemblyToSolutionLast");
             FillLastSolutionItems(connectionData, items, nodeItem.PluginAssemblyId.HasValue && nodeItem.ComponentType != ComponentType.PluginAssembly, AddAssemblyToCrmSolutionLast_Click, "contMnAddPluginAssemblyToSolutionLast");

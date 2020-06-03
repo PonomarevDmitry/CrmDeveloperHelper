@@ -2032,6 +2032,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Showing Sdk Message Filter Explorer.
+        /// </summary>
+        internal static string ShowingSdkMessageFilterExplorerFormat1 {
+            get {
+                return ResourceManager.GetString("ShowingSdkMessageFilterExplorerFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Showing Sdk Message Filter Tree.
         /// </summary>
         internal static string ShowingSdkMessageFilterTreeFormat1 {

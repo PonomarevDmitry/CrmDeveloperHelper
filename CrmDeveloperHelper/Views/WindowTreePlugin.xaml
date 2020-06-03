@@ -126,6 +126,8 @@
 
                 <Separator x:Uid="contMnSdkMessage" />
                 <MenuItem x:Uid="mIOpenMessageExplorer" Header="Open Message Explorer" />
+                <MenuItem x:Uid="mIOpenMessageFilterExplorer" Header="Open Message Filter Explorer" />
+                <Separator x:Uid="contMnSdkMessage" />
                 <MenuItem x:Uid="mIOpenMessageFilterTree" Header="Open Message Filter Tree" />
                 <MenuItem x:Uid="mIOpenMessageRequestTree" Header="Open Message Request Tree" />
 

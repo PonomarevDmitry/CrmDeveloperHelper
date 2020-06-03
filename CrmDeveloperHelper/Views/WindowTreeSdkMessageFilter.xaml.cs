@@ -61,14 +61,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadConfiguration();
 
-            FocusOnComboBoxTextBox(cmBEntityName);
-
             cmBCurrentConnection.ItemsSource = service.ConnectionData.ConnectionConfiguration.Connections;
             cmBCurrentConnection.SelectedItem = service.ConnectionData;
 
             trVMessageTree.ItemsSource = _messageTree;
 
             FillExplorersMenuItems();
+
+            FocusOnComboBoxTextBox(cmBEntityName);
 
             this.DecreaseInit();
 
@@ -98,9 +98,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 AddMenuItemClickHandler(listContextMenu, explorersHelper.miEntityMetadataExplorer_Click, "mIOpenEntityExplorer");
 
-                AddMenuItemClickHandler(listContextMenu, explorersHelper.miPluginTree_Click, "mIOpenPluginTree");
-
                 AddMenuItemClickHandler(listContextMenu, explorersHelper.miMessageExplorer_Click, "mIOpenMessageExplorer");
+
+                AddMenuItemClickHandler(listContextMenu, explorersHelper.miMessageFilterExplorer_Click, "mIOpenMessageFilterExplorer");
+
+                AddMenuItemClickHandler(listContextMenu, explorersHelper.miPluginTree_Click, "mIOpenPluginTree");
 
                 AddMenuItemClickHandler(listContextMenu, explorersHelper.miMessageRequestTree_Click, "mIOpenMessageRequestTree");
             }

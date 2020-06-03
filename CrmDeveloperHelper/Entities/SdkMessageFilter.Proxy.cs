@@ -212,9 +212,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
+                this.OnPropertyChanging(nameof(AvailabilityEnum));
                 this.OnPropertyChanging(nameof(Availability));
                 this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageFilter.Schema.Attributes.availability, value);
                 this.OnPropertyChanged(nameof(Availability));
+                this.OnPropertyChanged(nameof(AvailabilityEnum));
             }
         }
         

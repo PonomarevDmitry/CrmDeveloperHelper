@@ -3472,6 +3472,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Loading Sdk Message Filters....
+        /// </summary>
+        internal static string LoadingSdkMessageFilter {
+            get {
+                return ResourceManager.GetString("LoadingSdkMessageFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading Sdk Message Filters completed..
+        /// </summary>
+        internal static string LoadingSdkMessageFilterCompleted {
+            get {
+                return ResourceManager.GetString("LoadingSdkMessageFilterCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} Sdk Message Filters loaded..
+        /// </summary>
+        internal static string LoadingSdkMessageFilterCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("LoadingSdkMessageFilterCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loading Sdk Message Requests....
         /// </summary>
         internal static string LoadingSdkMessageRequests {

@@ -4,8 +4,8 @@
     xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
     xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
     xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
-    x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowExplorerSdkMessage"
-    Title="Message Explorer"
+    x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowExplorerSdkMessageFilter"
+    Title="MessageFilter Explorer"
     Height="540"
     Width="717"
     WindowStartupLocation="Manual"
@@ -19,21 +19,18 @@
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
 
                 <MenuItem Header="Create Entity Description" FontWeight="Bold" Click="mICreateEntityDescription_Click"/>
-                
+
                 <Separator/>
-                <MenuItem x:Uid="mIOpenMessageFilterExplorer" Header="Open Message Filter Explorer" />
+                <MenuItem x:Uid="mIOpenMessageExplorer" Header="Open Message Explorer" />
 
                 <Separator/>
                 <MenuItem x:Uid="mIOpenPluginTree" Header="Open Plugin Tree" />
-                <MenuItem x:Uid="mIOpenMessageFilterTree" Header="Open Message Filter Tree" />
-                <MenuItem x:Uid="mIOpenMessageRequestTree" Header="Open Message Request Tree" />
+                <MenuItem x:Uid="mIOpenMessageFilterTree" Header="Open MessageFilter Tree" />
+                <MenuItem x:Uid="mIOpenMessageRequestTree" Header="Open MessageRequest Tree" />
 
                 <Separator />
-                <MenuItem Header="Change Message in Editor" Click="mIChangeEntityInEditor_Click"/>
-                <MenuItem Header="Delete Message" Click="mIDeleteMessage_Click" />
-
-                <Separator/>
-                <MenuItem Header="ThrottleSettings Xml" Click="mIExportThrottleSettingsXml_Click"/>
+                <MenuItem Header="Change MessageFilter in Editor" Click="mIChangeEntityInEditor_Click"/>
+                <MenuItem Header="Delete MessageFilter" Click="mIDeleteMessageFilter_Click" />
 
                 <Separator/>
                 <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" />
@@ -86,26 +83,30 @@
         </ToolBar>
 
         <Grid Grid.Row="1" Margin="5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="100*" />
-            </Grid.ColumnDefinitions>
-
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="100*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="100*" />
+            </Grid.ColumnDefinitions>
 
             <Label Content="Folder" Grid.Row="0" Grid.Column="0" />
-            <TextBox x:Name="txtBFolder" Grid.Row="0" Grid.Column="1" Text="{Binding Path=FolderForExport, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+            <TextBox x:Name="txtBFolder" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding Path=FolderForExport, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
 
-            <Label Content="Filter" Grid.Row="1" Grid.Column="0" />
-            <TextBox x:Name="txtBFilter" Grid.Row="1" Grid.Column="1" KeyDown="txtBFilterEnitity_KeyDown" />
+            <Label Content="Entity Name" Grid.Row="1" Grid.Column="0"/>
+            <ComboBox Grid.Row="1" Grid.Column="1" x:Name="cmBEntityName" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" KeyDown="txtBFilterEnitity_KeyDown" />
+
+            <Label Content="Message" Grid.Row="1" Grid.Column="2"/>
+            <TextBox Grid.Row="1" Grid.Column="3" x:Name="txtBMessageFilter" TextWrapping="NoWrap" KeyDown="txtBFilterEnitity_KeyDown" />
         </Grid>
 
-        <DataGrid x:Name="lstVwMessages" AutoGenerateColumns="False" Grid.Row="2" Margin="5" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwMessages_MouseDoubleClick" SelectionChanged="lstVwMessages_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+        <DataGrid x:Name="lstVwMessageFilters" AutoGenerateColumns="False" Grid.Row="2" Margin="5" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwMessageFilters_MouseDoubleClick" SelectionChanged="lstVwMessageFilters_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.CommandBindings>
-                <CommandBinding Command="ApplicationCommands.Delete" CanExecute="lstVwMessages_CanExecute" Executed="lstVwMessages_Delete" />
+                <CommandBinding Command="ApplicationCommands.Delete" CanExecute="lstVwMessageFilters_CanExecute" Executed="lstVwMessageFilters_Delete" />
             </DataGrid.CommandBindings>
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -120,9 +121,13 @@
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
 
-                <DataGridTextColumn Header="CategoryName" Width="165" Binding="{Binding Path=CategoryName}" />
+                <DataGridTextColumn Header="Message Category" Width="165" Binding="{Binding Path=MessageCategoryName}" />
 
-                <DataGridTextColumn Header="Name" Width="305" Binding="{Binding Path=Name}" />
+                <DataGridTextColumn Header="Message Name" Width="305" Binding="{Binding Path=MessageName}" />
+
+                <DataGridTextColumn Header="Primary Entity" Width="165" Binding="{Binding Path=PrimaryObjectTypeCode}" />
+
+                <DataGridTextColumn Header="Secondary Entity" Width="165" Binding="{Binding Path=SecondaryObjectTypeCode}" />
 
                 <DataGridTextColumn Width="Auto" Binding="{Binding AvailabilityEnum, Mode=OneTime}" CanUserResize="False">
                     <DataGridTextColumn.Header>
@@ -136,11 +141,11 @@
                     </DataGridTextColumn.Header>
                 </DataGridTextColumn>
 
-                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding AutoTransact, Mode=OneTime}" CanUserResize="False">
-                    <DataGridCheckBoxColumn.Header>
-                        <Label Content="AT" Margin="0" Padding="0" ToolTip="AutoTransact" />
-                    </DataGridCheckBoxColumn.Header>
-                </DataGridCheckBoxColumn>
+                <DataGridTextColumn Width="Auto" Binding="{Binding RestrictionLevel, Mode=OneTime}" CanUserResize="False">
+                    <DataGridTextColumn.Header>
+                        <Label Content="R" Margin="0" Padding="0" ToolTip="RestrictionLevel" />
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
 
                 <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsManaged, Mode=OneTime}" CanUserResize="False">
                     <DataGridCheckBoxColumn.Header>
@@ -148,51 +153,21 @@
                     </DataGridCheckBoxColumn.Header>
                 </DataGridCheckBoxColumn>
 
-                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding Expand, Mode=OneTime}" CanUserResize="False">
+                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsVisible, Mode=OneTime}" CanUserResize="False">
                     <DataGridCheckBoxColumn.Header>
-                        <Label Content="E" Margin="0" Padding="0" ToolTip="Expand" />
+                        <Label Content="V" Margin="0" Padding="0" ToolTip="IsVisible" />
                     </DataGridCheckBoxColumn.Header>
                 </DataGridCheckBoxColumn>
 
-                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsActive, Mode=OneTime}" CanUserResize="False">
+                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsCustomProcessingStepAllowed, Mode=OneTime}" CanUserResize="False">
                     <DataGridCheckBoxColumn.Header>
-                        <Label Content="A" Margin="0" Padding="0" ToolTip="IsActive" />
-                    </DataGridCheckBoxColumn.Header>
-                </DataGridCheckBoxColumn>
-
-                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsPrivate, Mode=OneTime}" CanUserResize="False">
-                    <DataGridCheckBoxColumn.Header>
-                        <Label Content="P" Margin="0" Padding="0" ToolTip="IsPrivate" />
-                    </DataGridCheckBoxColumn.Header>
-                </DataGridCheckBoxColumn>
-
-                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsReadOnly, Mode=OneTime}" CanUserResize="False">
-                    <DataGridCheckBoxColumn.Header>
-                        <Label Content="R" Margin="0" Padding="0" ToolTip="IsReadOnly" />
-                    </DataGridCheckBoxColumn.Header>
-                </DataGridCheckBoxColumn>
-
-                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsValidForExecuteAsync, Mode=OneTime}" CanUserResize="False">
-                    <DataGridCheckBoxColumn.Header>
-                        <Label Content="VfE" Margin="0" Padding="0" ToolTip="IsValidForExecuteAsync" />
+                        <Label Content="CPSA" Margin="0" Padding="0" ToolTip="IsCustomProcessingStepAllowed" />
                     </DataGridCheckBoxColumn.Header>
                 </DataGridCheckBoxColumn>
 
                 <DataGridCheckBoxColumn Width="Auto" Binding="{Binding WorkflowSdkStepEnabled, Mode=OneTime}" CanUserResize="False">
                     <DataGridCheckBoxColumn.Header>
                         <Label Content="WSE" Margin="0" Padding="0" ToolTip="WorkflowSdkStepEnabled" />
-                    </DataGridCheckBoxColumn.Header>
-                </DataGridCheckBoxColumn>
-
-                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding Template, Mode=OneTime}" CanUserResize="False">
-                    <DataGridCheckBoxColumn.Header>
-                        <Label Content="T" Margin="0" Padding="0" ToolTip="Template" />
-                    </DataGridCheckBoxColumn.Header>
-                </DataGridCheckBoxColumn>
-
-                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding HasThrottleSettings, Mode=OneTime}" CanUserResize="False">
-                    <DataGridCheckBoxColumn.Header>
-                        <Label Content="TS" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0" Padding="0" ToolTip="ThrottleSettings" />
                     </DataGridCheckBoxColumn.Header>
                 </DataGridCheckBoxColumn>
 
@@ -229,24 +204,21 @@
                 </DockPanel.Resources>
                 <ToolBarPanel Orientation="Horizontal" >
                     <Menu Background="{x:Null}">
-                        <MenuItem x:Name="tSDDBExportMessage" Header="Export Message Information">
+                        <MenuItem x:Name="tSDDBExportMessageFilter" Header="Export MessageFilter Information">
 
                             <MenuItem x:Name="mICreateEntityDescription" Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
 
                             <Separator/>
-                            <MenuItem x:Name="mIOpenMessageFilterExplorer" Header="Open Message Filter Explorer" />
+                            <MenuItem x:Name="mIOpenMessageExplorer" Header="Open Message Explorer" />
 
                             <Separator/>
                             <MenuItem x:Name="mIOpenPluginTree" Header="Open Plugin Tree" />
-                            <MenuItem x:Name="mIOpenMessageFilterTree" Header="Open Message Filter Tree" />
-                            <MenuItem x:Name="mIOpenMessageRequestTree" Header="Open Message Request Tree" />
+                            <MenuItem x:Name="mIOpenMessageFilterTree" Header="Open MessageFilter Tree" />
+                            <MenuItem x:Name="mIOpenMessageRequestTree" Header="Open MessageRequest Tree" />
 
                             <Separator />
-                            <MenuItem Header="Change Message in Editor" Click="mIChangeEntityInEditor_Click"/>
-                            <MenuItem Header="Delete Message" Click="mIDeleteMessage_Click" />
-
-                            <Separator/>
-                            <MenuItem Header="ThrottleSettings Xml" Click="mIExportThrottleSettingsXml_Click"/>
+                            <MenuItem Header="Change MessageFilter in Editor" Click="mIChangeEntityInEditor_Click"/>
+                            <MenuItem Header="Delete MessageFilter" Click="mIDeleteMessageFilter_Click" />
 
                             <Separator/>
                             <MenuItem Header="Open Solutions Containing Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />

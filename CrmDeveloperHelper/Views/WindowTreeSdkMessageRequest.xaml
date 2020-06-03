@@ -103,8 +103,11 @@
                 <MenuItem x:Uid="contMnSdkMessageProxyClass" Header="Create C# Message Proxy Class" Click="mICreateMessageProxyClassCSharp_Click" />
 
                 <Separator x:Uid="contMnSdkMessage" />
-                <MenuItem x:Uid="mIOpenPluginTree" Header="Open Plugin Tree" />
                 <MenuItem x:Uid="mIOpenMessageExplorer" Header="Open Message Explorer" />
+                <MenuItem x:Uid="mIOpenMessageFilterExplorer" Header="Open Message Filter Explorer" />
+                
+                <Separator x:Uid="contMnSdkMessage" />
+                <MenuItem x:Uid="mIOpenPluginTree" Header="Open Plugin Tree" />
                 <MenuItem x:Uid="mIOpenMessageFilterTree" Header="Open Message Filter Tree" />
 
                 <Separator x:Uid="contMnDependentComponents"/>

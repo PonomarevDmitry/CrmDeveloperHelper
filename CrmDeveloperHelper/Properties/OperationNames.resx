@@ -431,6 +431,9 @@
   <data name="ShowingSdkMessageExplorerFormat1" xml:space="preserve">
     <value>{0} - Showing Sdk Message Explorer</value>
   </data>
+  <data name="ShowingSdkMessageFilterExplorerFormat1" xml:space="preserve">
+    <value>{0} - Showing Sdk Message Filter Explorer</value>
+  </data>
   <data name="ShowingSolutionImageWindowFormat1" xml:space="preserve">
     <value>{0} - Showing SolutionImage Window</value>
   </data>

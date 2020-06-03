@@ -791,6 +791,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             CommonPluginTreeCommand.Initialize(commandService);
             CommonSdkMessageExplorerCommand.Initialize(commandService);
+            CommonSdkMessageFilterExplorerCommand.Initialize(commandService);
             CommonSdkMessageFilterTreeCommand.Initialize(commandService);
             CommonSdkMessageRequestTreeCommand.Initialize(commandService);
 
@@ -923,9 +924,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             OutputPluginTreeCommand.Initialize(commandService);
             OutputPluginTypeExplorerCommand.Initialize(commandService);
             OutputReportExplorerCommand.Initialize(commandService);
+
             OutputSdkMessageExplorerCommand.Initialize(commandService);
+            OutputSdkMessageFilterExplorerCommand.Initialize(commandService);
             OutputSdkMessageFilterTreeCommand.Initialize(commandService);
             OutputSdkMessageRequestTreeCommand.Initialize(commandService);
+
             OutputSecurityRolesExplorerCommand.Initialize(commandService);
             OutputSiteMapExplorerCommand.Initialize(commandService);
             OutputSolutionExplorerCommand.Initialize(commandService);

@@ -121,6 +121,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return coll.Count == 1 ? coll.Select(e => e.ToEntityReference()).SingleOrDefault() : null;
         }
 
+        public Task<SdkMessageFilter> GetByIdAsync(Guid id)
+        {
+            return Task.Run(() => GetMessageFiltersByIds(new[] { id }).FirstOrDefault());
+        }
+
         public Task<List<SdkMessageFilter>> GetMessageFiltersByIdsAsync(Guid[] ids)
         {
             return Task.Run(() => GetMessageFiltersByIds(ids));
@@ -148,17 +153,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     new LinkEntity()
                     {
+                        JoinOperator = JoinOperator.LeftOuter,
+
                         LinkFromEntityName = SdkMessageFilter.EntityLogicalName,
                         LinkFromAttributeName = SdkMessageFilter.Schema.Attributes.sdkmessageid,
 
                         LinkToEntityName = SdkMessage.EntityLogicalName,
                         LinkToAttributeName = SdkMessage.EntityPrimaryIdAttribute,
 
-                        Columns = new ColumnSet(true),
-
                         EntityAlias = SdkMessageFilter.Schema.Attributes.sdkmessageid,
 
-                        JoinOperator = JoinOperator.LeftOuter,
+                        Columns = new ColumnSet(true),
                     },
                 },
             };
