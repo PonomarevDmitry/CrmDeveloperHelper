@@ -68,9 +68,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 if (Guid.TryParse(filter, out Guid tempGuid))
                 {
-                    query.Criteria.FilterOperator = LogicalOperator.Or;
-                    query.Criteria.AddCondition(CustomControl.Schema.Attributes.customcontrolid, ConditionOperator.Equal, tempGuid);
-                    query.Criteria.AddCondition(CustomControl.Schema.Attributes.customcontrolidunique, ConditionOperator.Equal, tempGuid);
+                    query.Criteria.Filters.Add(new FilterExpression(LogicalOperator.Or)
+                    {
+                        Conditions =
+                        {
+                            new ConditionExpression(CustomControl.Schema.Attributes.customcontrolid, ConditionOperator.Equal, tempGuid),
+                            new ConditionExpression(CustomControl.Schema.Attributes.customcontrolidunique, ConditionOperator.Equal, tempGuid),
+                        },
+                    });
                 }
                 else
                 {

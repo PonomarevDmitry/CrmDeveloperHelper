@@ -113,8 +113,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 Criteria =
                 {
-                    FilterOperator = LogicalOperator.Or,
-
                     Conditions =
                     {
                         new ConditionExpression(Privilege.Schema.Attributes.accessright, ConditionOperator.Equal, (int)AccessRights.None),

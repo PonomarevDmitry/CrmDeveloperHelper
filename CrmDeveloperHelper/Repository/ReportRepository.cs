@@ -58,12 +58,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (!string.IsNullOrEmpty(name))
             {
-                FilterExpression filter = new FilterExpression(LogicalOperator.Or);
-
-                filter.AddCondition(Report.Schema.Attributes.name, ConditionOperator.Like, "%" + name + "%");
-                filter.AddCondition(Report.Schema.Attributes.filename, ConditionOperator.Like, "%" + name + "%");
-
-                query.Criteria.Filters.Add(filter);
+                query.Criteria.Filters.Add(new FilterExpression(LogicalOperator.Or)
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(Report.Schema.Attributes.name, ConditionOperator.Like, "%" + name + "%"),
+                        new ConditionExpression(Report.Schema.Attributes.filename, ConditionOperator.Like, "%" + name + "%"),
+                    },
+                });
             }
 
             return _service.RetrieveMultipleAll<Report>(query);

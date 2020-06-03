@@ -72,9 +72,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (!string.IsNullOrEmpty(name))
             {
-                var filter = query.Criteria.AddFilter(LogicalOperator.Or);
-                filter.Conditions.Add(new ConditionExpression(Solution.Schema.Attributes.uniquename, ConditionOperator.Like, "%" + name + "%"));
-                filter.Conditions.Add(new ConditionExpression(Solution.Schema.Attributes.friendlyname, ConditionOperator.Like, "%" + name + "%"));
+                query.Criteria.Filters.Add(new FilterExpression(LogicalOperator.Or)
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(Solution.Schema.Attributes.uniquename, ConditionOperator.Like, "%" + name + "%"),
+                        new ConditionExpression(Solution.Schema.Attributes.friendlyname, ConditionOperator.Like, "%" + name + "%"),
+                    },
+                });
             }
 
             return _service.RetrieveMultipleAll<Solution>(query);
@@ -225,9 +230,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (!string.IsNullOrEmpty(name))
             {
-                var filter = query.Criteria.AddFilter(LogicalOperator.Or);
-                filter.Conditions.Add(new ConditionExpression(Solution.Schema.Attributes.uniquename, ConditionOperator.Like, "%" + name + "%"));
-                filter.Conditions.Add(new ConditionExpression(Solution.Schema.Attributes.friendlyname, ConditionOperator.Like, "%" + name + "%"));
+                query.Criteria.Filters.Add(new FilterExpression(LogicalOperator.Or)
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(Solution.Schema.Attributes.uniquename, ConditionOperator.Like, "%" + name + "%"),
+                        new ConditionExpression(Solution.Schema.Attributes.friendlyname, ConditionOperator.Like, "%" + name + "%"),
+                    },
+                });
             }
 
             if (objectId.HasValue && componentType.HasValue)
@@ -330,9 +340,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (!string.IsNullOrEmpty(name))
             {
-                var filter = query.Criteria.AddFilter(LogicalOperator.Or);
-                filter.Conditions.Add(new ConditionExpression(Solution.Schema.Attributes.uniquename, ConditionOperator.Like, "%" + name + "%"));
-                filter.Conditions.Add(new ConditionExpression(Solution.Schema.Attributes.friendlyname, ConditionOperator.Like, "%" + name + "%"));
+                query.Criteria.Filters.Add(new FilterExpression(LogicalOperator.Or)
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(Solution.Schema.Attributes.uniquename, ConditionOperator.Like, "%" + name + "%"),
+                        new ConditionExpression(Solution.Schema.Attributes.friendlyname, ConditionOperator.Like, "%" + name + "%"),
+                    },
+                });
             }
 
             return _service.RetrieveMultipleAll<Solution>(query);
