@@ -18,8 +18,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 {
     public class PluginController : BaseController<IWriteToOutput>
     {
-        private const string _tabspacer = "      ";
-
         /// <summary>
         /// Конструктор контроллера
         /// </summary>
@@ -246,7 +244,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 content.AppendFormat(format, collection.Count()).AppendLine();
                 foreach (var item in collection.OrderBy(s => s))
                 {
-                    content.AppendLine(_tabspacer + item);
+                    content.AppendLine(_tabSpacer + item);
                 }
             }
         }
@@ -583,7 +581,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     foreach (var item in pluginsOnlyInCrm.OrderBy(s => s))
                     {
-                        this._iWriteToOutput.WriteToOutput(connectionData, _tabspacer + item);
+                        this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item);
                     }
                 }
 
@@ -593,7 +591,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     foreach (var item in workflowOnlyInCrm.OrderBy(s => s))
                     {
-                        this._iWriteToOutput.WriteToOutput(connectionData, _tabspacer + item);
+                        this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item);
                     }
                 }
 
@@ -732,5 +730,101 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         }
 
         #endregion Регистрация сборки плагинов.
+
+        #region Opening PluginAssembly
+
+        public async Task ExecuteOpeningProjectPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList, ActionOpenComponent actionOpen)
+        {
+            string operation = string.Format(Properties.OperationNames.BuildingProjectAndUpdatingPluginAssemblyFormat1
+                , connectionData?.Name
+            );
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await OpeningProjectPluginAssembly(connectionData, commonConfig, projectList, actionOpen);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task OpeningProjectPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList, ActionOpenComponent actionOpen)
+        {
+            if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.AssemblyNameIsEmpty);
+                return;
+            }
+
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var repositoryAssembly = new PluginAssemblyRepository(service);
+
+            foreach (var project in projectList)
+            {
+                var assembly = await repositoryAssembly.FindAssemblyAsync(project.Name);
+
+                if (assembly == null)
+                {
+                    assembly = await repositoryAssembly.FindAssemblyByLikeNameAsync(project.Name);
+                }
+
+                if (assembly == null)
+                {
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PluginAssemblyNotFoundedByNameFormat1, project.Name);
+
+                    WindowHelper.OpenPluginAssemblyExplorer(
+                        this._iWriteToOutput
+                        , service
+                        , commonConfig
+                        , project.Name
+                    );
+
+                    continue;
+                }
+
+                if (actionOpen == ActionOpenComponent.OpenDependentComponentsInWeb)
+                {
+                    connectionData.OpenSolutionComponentDependentComponentsInWeb(ComponentType.PluginAssembly, assembly.Id);
+                }
+                else if (actionOpen == ActionOpenComponent.OpenDependentComponentsInExplorer)
+                {
+                    WindowHelper.OpenSolutionComponentDependenciesExplorer(
+                        _iWriteToOutput
+                        , service
+                        , null
+                        , commonConfig
+                        , (int)ComponentType.PluginAssembly
+                        , assembly.Id
+                        , null
+                    );
+                }
+                else if (actionOpen == ActionOpenComponent.OpenSolutionsContainingComponentInExplorer)
+                {
+                    WindowHelper.OpenExplorerSolutionExplorer(
+                        _iWriteToOutput
+                        , service
+                        , commonConfig
+                        , (int)ComponentType.PluginAssembly
+                        , assembly.Id
+                        , null
+                    );
+                }
+            }
+        }
+
+        #endregion Opening PluginAssembly
     }
 }

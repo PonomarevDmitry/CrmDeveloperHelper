@@ -18,8 +18,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 {
     public class SolutionController : BaseController<IWriteToOutput>
     {
-        private const string _tabSpacer = "      ";
-
         public SolutionController(IWriteToOutput iWriteToOutput)
             : base(iWriteToOutput)
         {

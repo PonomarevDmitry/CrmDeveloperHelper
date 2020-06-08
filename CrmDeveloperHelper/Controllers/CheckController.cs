@@ -8,13 +8,11 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDescript
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Views;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -22,8 +20,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 {
     public class CheckController : BaseController<IWriteToOutput>
     {
-        private const string _tabSpacer = "    ";
-
         public CheckController(IWriteToOutput iWriteToOutput)
             : base(iWriteToOutput)
         {

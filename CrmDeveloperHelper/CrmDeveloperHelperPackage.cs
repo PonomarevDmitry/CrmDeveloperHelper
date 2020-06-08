@@ -645,6 +645,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             ProjectPluginAssemblyStepsAddToSolutionInConnectionCommand.Initialize(commandService);
 
             ProjectPluginAssemblyExplorerCommand.Initialize(commandService);
+
+            ProjectPluginAssemblyOpenInWebInConnectionCommand.Initialize(commandService);
+
             ProjectPluginTypeExplorerCommand.Initialize(commandService);
             ProjectPluginTreeCommand.Initialize(commandService);
 

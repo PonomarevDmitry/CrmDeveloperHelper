@@ -54,6 +54,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartPluginAssemblyBuildProjectUpdate(conn, commonConfig, projectList, registerPlugins));
         }
 
+        public void HandlePluginAssemblyProjectOpenCommand(ConnectionData connectionData, List<Project> projectList, ActionOpenComponent actionOpen)
+        {
+            if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartPluginAssemblyOpen(conn, commonConfig, projectList, actionOpen));
+        }
+
         public void HandlePluginAssemblyRegisterCommand(ConnectionData connectionData, List<EnvDTE.Project> projectList)
         {
             if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))

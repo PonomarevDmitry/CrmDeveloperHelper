@@ -1391,7 +1391,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int folderMenuProject_GroupAddToSolution_MenuAddAssemblyStepsToSolution_GroupConnectionDyn = 0x12BB;
 
-            public const int folderMenuProject_GroupDescription = 0x10FC;
+            public const int folderMenuProject_GroupExplorers = 0x10FC;
+
+            public const int folderMenuProject_GroupOpenInWeb = 0x1451;
+
+            public const int folderMenuProject_GroupOpenInWeb_MenuOpenDependentInWebDyn = 0x1452;
+
+            public const int folderMenuProject_GroupOpenInWeb_MenuOpenDependentInWebDyn_Group = 0x1453;
+
+            public const int folderMenuProject_GroupOpenInWeb_MenuOpenDependentInExplorerDyn = 0x1454;
+
+            public const int folderMenuProject_GroupOpenInWeb_MenuOpenDependentInExplorerDyn_Group = 0x1455;
+
+            public const int folderMenuProject_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn = 0x1456;
+
+            public const int folderMenuProject_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn_Group = 0x1457;
 
             public const int AddGroupFolder = 0x13A2;
 
@@ -2513,6 +2527,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int ProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId = 0x2B5C;
 
             public const int ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId = 0x2B8E;
+
+            public const int ProjectPluginAssemblyOpenDependentInWebInConnectionCommandId = 0x3552;
+
+            public const int ProjectPluginAssemblyOpenDependentInExplorerInConnectionCommandId = 0x3584;
+
+            public const int ProjectPluginAssemblyOpenSolutionsContainingComponentInExplorerInConnectionCommandId = 0x35B6;
 
             public const int OutputExportOpenLastSelectedSolutionInWebCommandId = 0x27D8;
 

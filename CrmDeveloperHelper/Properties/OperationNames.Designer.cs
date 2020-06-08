@@ -1690,6 +1690,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Opening PluginAssembly.
+        /// </summary>
+        internal static string OpeningPluginAssemblyFormat1 {
+            get {
+                return ResourceManager.GetString("OpeningPluginAssemblyFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Opening Report Explorer.
         /// </summary>
         internal static string OpeningReportExplorerFormat1 {
