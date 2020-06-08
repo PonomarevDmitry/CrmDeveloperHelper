@@ -7,7 +7,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
     internal sealed class ProjectBuildLoadUpdatePluginAssemblyCommand : AbstractCommand
     {
         private ProjectBuildLoadUpdatePluginAssemblyCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.guidCommandSet.ProjectBuildLoadUpdatePluginAssemblyCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.ProjectBuildLoadUpdatePluginAssemblyCommandId)
+        {
+        }
 
         public static ProjectBuildLoadUpdatePluginAssemblyCommand Instance { get; private set; }
 

@@ -374,6 +374,12 @@
   <data name="OpeningPluginAssemblyFormat1" xml:space="preserve">
     <value>{0} - Opening PluginAssembly</value>
   </data>
+  <data name="CreatingPluginAssemblyEntityDescriptionFormat1" xml:space="preserve">
+    <value>{0} - Creating PluginAssembly EntityDescription</value>
+  </data>
+  <data name="CreatingPluginAssemblyDescriptionFormat1" xml:space="preserve">
+    <value>{0} - Creating PluginAssembly Description</value>
+  </data>
   <data name="GettingWebResourceCurrentDependencyXmlFormat1" xml:space="preserve">
     <value>{0} - Getting WebResource Current DependencyXml</value>
   </data>

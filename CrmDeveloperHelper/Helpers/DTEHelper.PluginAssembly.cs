@@ -54,6 +54,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartPluginAssemblyBuildProjectUpdate(conn, commonConfig, projectList, registerPlugins));
         }
 
+        public void HandlePluginAssemblyCreateEntityDescriptionCommand(ConnectionData connectionData, List<Project> projectList)
+        {
+            if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartPluginAssemblyCreateEntityDescription(conn, commonConfig, projectList));
+        }
+
+        public void HandlePluginAssemblyCreateDescriptionCommand(ConnectionData connectionData, List<Project> projectList)
+        {
+            if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartPluginAssemblyCreateDescription(conn, commonConfig, projectList));
+        }
+
         public void HandlePluginAssemblyProjectOpenCommand(ConnectionData connectionData, List<Project> projectList, ActionOpenComponent actionOpen)
         {
             if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))

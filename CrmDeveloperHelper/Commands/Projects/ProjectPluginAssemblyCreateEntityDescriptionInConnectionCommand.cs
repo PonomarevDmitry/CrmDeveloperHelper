@@ -6,25 +6,25 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
 {
-    internal sealed class ProjectBuildLoadUpdatePluginAssemblyInConnectionCommand : AbstractDynamicCommandByConnectionWithoutCurrent
+    internal sealed class ProjectPluginAssemblyCreateEntityDescriptionInConnectionCommand : AbstractDynamicCommandByConnectionWithoutCurrent
     {
-        private ProjectBuildLoadUpdatePluginAssemblyInConnectionCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.guidDynamicCommandSet.ProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId)
+        private ProjectPluginAssemblyCreateEntityDescriptionInConnectionCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.guidDynamicCommandSet.ProjectPluginAssemblyCreateEntityDescriptionInConnectionCommandId)
         {
         }
 
-        public static ProjectBuildLoadUpdatePluginAssemblyInConnectionCommand Instance { get; private set; }
+        public static ProjectPluginAssemblyCreateEntityDescriptionInConnectionCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new ProjectBuildLoadUpdatePluginAssemblyInConnectionCommand(commandService);
+            Instance = new ProjectPluginAssemblyCreateEntityDescriptionInConnectionCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
             var projectList = helper.GetSelectedProjects().ToList();
 
-            helper.HandlePluginAssemblyBuildProjectUpdateCommand(connectionData, false, projectList);
+            helper.HandlePluginAssemblyCreateEntityDescriptionCommand(connectionData, projectList);
         }
 
         protected override void CommandBeforeQueryStatus(DTE2 applicationObject, ConnectionData element, OleMenuCommand menuCommand)

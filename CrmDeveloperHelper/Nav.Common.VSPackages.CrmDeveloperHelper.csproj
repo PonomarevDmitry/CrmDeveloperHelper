@@ -249,6 +249,10 @@
     <Compile Include="Commands\Projects\ProjectBuildLoadUpdatePluginAssemblyInConnectionCommand.cs" />
     <Compile Include="Commands\Projects\ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand.cs" />
     <Compile Include="Commands\Projects\ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommand.cs" />
+    <Compile Include="Commands\Projects\ProjectPluginAssemblyCreateEntityDescriptionCommand.cs" />
+    <Compile Include="Commands\Projects\ProjectPluginAssemblyCreateEntityDescriptionInConnectionCommand.cs" />
+    <Compile Include="Commands\Projects\ProjectPluginAssemblyCreateDescriptionCommand.cs" />
+    <Compile Include="Commands\Projects\ProjectPluginAssemblyCreateDescriptionInConnectionCommand.cs" />
     <Compile Include="Commands\Projects\ProjectPluginAssemblyOpenInWebInConnectionCommand.cs" />
     <Compile Include="Commands\Reports\CodeReportAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\Reports\CodeReportCreateCommand.cs" />

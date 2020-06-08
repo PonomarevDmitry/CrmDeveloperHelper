@@ -452,6 +452,14 @@
     <value>Build Projects, Update PluginAssemblies and Register New Plugins</value>
   </data>
 
+  <data name="ProjectPluginAssemblyCreateEntityDescriptionCommand" xml:space="preserve">
+    <value>Create PluginAssembly EntityDescription</value>
+  </data>
+
+  <data name="ProjectPluginAssemblyCreateDescriptionCommand" xml:space="preserve">
+    <value>Create PluginAssembly Description</value>
+  </data>
+
   <data name="ShowDifferenceOneByOneCommandFormat2" xml:space="preserve">
     <value>Local File &lt;-&gt; {0}      Local File &lt;-&gt; {1}      {0} &lt;-&gt; {1}</value>
   </data>

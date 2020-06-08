@@ -6,25 +6,25 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
 {
-    internal sealed class ProjectBuildLoadUpdatePluginAssemblyInConnectionCommand : AbstractDynamicCommandByConnectionWithoutCurrent
+    internal sealed class ProjectPluginAssemblyCreateDescriptionInConnectionCommand : AbstractDynamicCommandByConnectionWithoutCurrent
     {
-        private ProjectBuildLoadUpdatePluginAssemblyInConnectionCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.guidDynamicCommandSet.ProjectBuildLoadUpdatePluginAssemblyInConnectionCommandId)
+        private ProjectPluginAssemblyCreateDescriptionInConnectionCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.guidDynamicCommandSet.ProjectPluginAssemblyCreateDescriptionInConnectionCommandId)
         {
         }
 
-        public static ProjectBuildLoadUpdatePluginAssemblyInConnectionCommand Instance { get; private set; }
+        public static ProjectPluginAssemblyCreateDescriptionInConnectionCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new ProjectBuildLoadUpdatePluginAssemblyInConnectionCommand(commandService);
+            Instance = new ProjectPluginAssemblyCreateDescriptionInConnectionCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
             var projectList = helper.GetSelectedProjects().ToList();
 
-            helper.HandlePluginAssemblyBuildProjectUpdateCommand(connectionData, false, projectList);
+            helper.HandlePluginAssemblyCreateDescriptionCommand(connectionData, projectList);
         }
 
         protected override void CommandBeforeQueryStatus(DTE2 applicationObject, ConnectionData element, OleMenuCommand menuCommand)

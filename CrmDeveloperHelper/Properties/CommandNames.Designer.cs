@@ -1069,6 +1069,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create PluginAssembly Description.
+        /// </summary>
+        internal static string ProjectPluginAssemblyCreateDescriptionCommand {
+            get {
+                return ResourceManager.GetString("ProjectPluginAssemblyCreateDescriptionCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create PluginAssembly EntityDescription.
+        /// </summary>
+        internal static string ProjectPluginAssemblyCreateEntityDescriptionCommand {
+            get {
+                return ResourceManager.GetString("ProjectPluginAssemblyCreateEntityDescriptionCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update PluginAssemblies in Window.
         /// </summary>
         internal static string ProjectUpdatePluginAssemblyCommand {

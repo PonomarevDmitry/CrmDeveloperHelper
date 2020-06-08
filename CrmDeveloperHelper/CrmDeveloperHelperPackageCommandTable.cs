@@ -1407,6 +1407,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int folderMenuProject_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn_Group = 0x1457;
 
+            public const int folderMenuProject_GroupEntityDescription = 0x1458;
+
+            public const int folderMenuProject_GroupEntityDescription_MenuDyn = 0x1459;
+
+            public const int folderMenuProject_GroupEntityDescription_MenuDyn_Group = 0x145A;
+
+            public const int folderMenuProject_GroupDescription = 0x145B;
+
+            public const int folderMenuProject_GroupDescription_MenuDyn = 0x145C;
+
+            public const int folderMenuProject_GroupDescription_MenuDyn_Group = 0x145D;
+
             public const int AddGroupFolder = 0x13A2;
 
             public const int AddGroupMetadata = 0x13A3;
@@ -2534,6 +2546,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int ProjectPluginAssemblyOpenSolutionsContainingComponentInExplorerInConnectionCommandId = 0x35B6;
 
+            public const int ProjectPluginAssemblyCreateEntityDescriptionInConnectionCommandId = 0x35E8;
+
+            public const int ProjectPluginAssemblyCreateDescriptionInConnectionCommandId = 0x361A;
+
             public const int OutputExportOpenLastSelectedSolutionInWebCommandId = 0x27D8;
 
             public const int OutputExportOpenLastSelectedSolutionInExplorerCommandId = 0x280A;
@@ -3064,6 +3080,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int ProjectBuildLoadUpdatePluginAssemblyCommandId = 0x221F;
 
             public const int ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommandId = 0x2220;
+
+            public const int ProjectPluginAssemblyCreateEntityDescriptionCommandId = 0x2249;
+
+            public const int ProjectPluginAssemblyCreateDescriptionCommandId = 0x224A;
 
             public const int ListForPublishCompareCommandId = 0x2015;
 

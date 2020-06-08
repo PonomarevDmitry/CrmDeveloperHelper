@@ -735,7 +735,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpeningProjectPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList, ActionOpenComponent actionOpen)
         {
-            string operation = string.Format(Properties.OperationNames.BuildingProjectAndUpdatingPluginAssemblyFormat1
+            string operation = string.Format(Properties.OperationNames.OpeningPluginAssemblyFormat1
                 , connectionData?.Name
             );
 
@@ -826,5 +826,169 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         }
 
         #endregion Opening PluginAssembly
+
+        #region Creating PluginAssembly EntityDescription
+
+        public async Task ExecuteCreatingPluginAssemblyEntityDescription(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList)
+        {
+            string operation = string.Format(Properties.OperationNames.CreatingPluginAssemblyEntityDescriptionFormat1
+                , connectionData?.Name
+            );
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await CreatingPluginAssemblyEntityDescription(connectionData, commonConfig, projectList);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task CreatingPluginAssemblyEntityDescription(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList)
+        {
+            if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.AssemblyNameIsEmpty);
+                return;
+            }
+
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
+
+            if (service == null)
+            {
+                return;
+            }
+
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+
+            var repositoryAssembly = new PluginAssemblyRepository(service);
+
+            foreach (var project in projectList)
+            {
+                var assembly = await repositoryAssembly.FindAssemblyAsync(project.Name);
+
+                if (assembly == null)
+                {
+                    assembly = await repositoryAssembly.FindAssemblyByLikeNameAsync(project.Name);
+                }
+
+                if (assembly == null)
+                {
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PluginAssemblyNotFoundedByNameFormat1, project.Name);
+
+                    WindowHelper.OpenPluginAssemblyExplorer(
+                        this._iWriteToOutput
+                        , service
+                        , commonConfig
+                        , project.Name
+                    );
+
+                    continue;
+                }
+
+                string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(service.ConnectionData.Name, assembly.Name, EntityFileNameFormatter.Headers.EntityDescription, "txt");
+                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, assembly, EntityFileNameFormatter.PluginAssemblyIgnoreFields, service.ConnectionData);
+
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
+                    , service.ConnectionData.Name
+                    , assembly.LogicalName
+                    , filePath
+                );
+
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+            }
+        }
+
+        #endregion Creating PluginAssembly EntityDescription
+
+        #region Creating PluginAssembly Description
+
+        public async Task ExecuteCreatingPluginAssemblyDescription(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList)
+        {
+            string operation = string.Format(Properties.OperationNames.CreatingPluginAssemblyDescriptionFormat1
+                , connectionData?.Name
+            );
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await CreatingPluginAssemblyDescription(connectionData, commonConfig, projectList);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task CreatingPluginAssemblyDescription(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList)
+        {
+            if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.AssemblyNameIsEmpty);
+                return;
+            }
+
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
+
+            if (service == null)
+            {
+                return;
+            }
+
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+
+            var repositoryAssembly = new PluginAssemblyRepository(service);
+
+            PluginAssemblyDescriptionHandler handler = new PluginAssemblyDescriptionHandler(service, service.ConnectionData.GetConnectionInfo());
+
+            foreach (var project in projectList)
+            {
+                var assembly = await repositoryAssembly.FindAssemblyAsync(project.Name);
+
+                if (assembly == null)
+                {
+                    assembly = await repositoryAssembly.FindAssemblyByLikeNameAsync(project.Name);
+                }
+
+                if (assembly == null)
+                {
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PluginAssemblyNotFoundedByNameFormat1, project.Name);
+
+                    WindowHelper.OpenPluginAssemblyExplorer(
+                        this._iWriteToOutput
+                        , service
+                        , commonConfig
+                        , project.Name
+                    );
+
+                    continue;
+                }
+
+                string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(service.ConnectionData.Name, assembly.Name, "Description", "txt");
+                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                await handler.CreateFileWithDescriptionAsync(filePath, assembly.Id, assembly.Name, DateTime.Now);
+
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, PluginAssembly.Schema.EntityLogicalName, assembly.Name, "Description", filePath);
+
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+            }
+        }
+
+        #endregion Creating PluginAssembly Description
     }
 }
