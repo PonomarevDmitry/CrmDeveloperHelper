@@ -18,7 +18,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             , "365.8.2"
         };
 
-        public AbstractDynamicCommandDefaultSiteMap(
+        protected AbstractDynamicCommandDefaultSiteMap(
             OleMenuCommandService commandService
             , int baseIdStart
         ) : base(

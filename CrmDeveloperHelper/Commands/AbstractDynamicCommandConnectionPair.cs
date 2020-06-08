@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
     {
         private readonly string _formatButtonName;
 
-        public AbstractDynamicCommandConnectionPair(OleMenuCommandService commandService, int baseIdStart, string formatButtonName)
+        protected AbstractDynamicCommandConnectionPair(OleMenuCommandService commandService, int baseIdStart, string formatButtonName)
             : base(commandService, baseIdStart, ConnectionData.CountConnectionToQuickList)
         {
             this._formatButtonName = formatButtonName;

@@ -12,7 +12,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
     {
         protected readonly int _baseIdStart;
 
-        public AbstractOutputWindowDynamicCommand(
+        protected AbstractOutputWindowDynamicCommand(
             OleMenuCommandService commandService
             , int baseIdStart
             , int commandsCount

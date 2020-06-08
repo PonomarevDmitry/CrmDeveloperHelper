@@ -76,7 +76,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             , {  SchemaVisualizationDataDescription, new string[] { "VisualizationDataDescription.xsd" } }
         };
 
-        public AbstractDynamicCommandXsdSchemas(OleMenuCommandService commandService, int baseIdStart)
+        protected AbstractDynamicCommandXsdSchemas(OleMenuCommandService commandService, int baseIdStart)
             : base(commandService, baseIdStart, ListXsdSchemas.Count)
         {
         }

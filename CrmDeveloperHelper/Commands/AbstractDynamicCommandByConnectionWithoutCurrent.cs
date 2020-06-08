@@ -6,7 +6,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
     internal abstract class AbstractDynamicCommandByConnectionWithoutCurrent : AbstractDynamicCommandByConnection
     {
-        public AbstractDynamicCommandByConnectionWithoutCurrent(OleMenuCommandService commandService, int baseIdStart)
+        protected AbstractDynamicCommandByConnectionWithoutCurrent(OleMenuCommandService commandService, int baseIdStart)
             : base(commandService, baseIdStart)
         {
         }

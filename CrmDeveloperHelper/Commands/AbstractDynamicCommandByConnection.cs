@@ -5,7 +5,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
     internal abstract class AbstractDynamicCommandByConnection : AbstractDynamicCommand<ConnectionData>
     {
-        public AbstractDynamicCommandByConnection(
+        protected AbstractDynamicCommandByConnection(
             OleMenuCommandService commandService
             , int baseIdStart
         ) : base(commandService, baseIdStart, ConnectionData.CountConnectionToQuickList)
