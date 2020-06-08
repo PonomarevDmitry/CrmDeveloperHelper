@@ -1738,7 +1738,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             else if (entity is Workflow workflow)
             {
-                string nameStep = GetStepName(workflow.Rank, workflow.Name, workflow.TriggerOnUpdateAttributeList);
+                string nameStep = GetStepName(workflow.Rank, workflow.Name, workflow.Name, workflow.TriggerOnUpdateAttributeList);
 
                 nodeStep = new PluginTreeViewItem(ComponentType.Workflow)
                 {
@@ -1760,7 +1760,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void FillNodeStepInformation(PluginTreeViewItem nodeStep, SdkMessageProcessingStep step)
         {
-            string nameStep = GetStepName(step.Rank, step.EventHandler?.Name ?? "Unknown", step.FilteringAttributesStringsSorted);
+            string nameStep = GetStepName(step.Rank, step.Name, step.EventHandler?.Name ?? "Unknown", step.FilteringAttributesStringsSorted);
             string tooltipStep = GetStepTooltip(step);
 
             nodeStep.Name = nameStep;
@@ -1837,7 +1837,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return nodeStep;
         }
 
-        private string GetStepTooltip(SdkMessageProcessingStep step)
+        private static string GetStepTooltip(SdkMessageProcessingStep step)
         {
             StringBuilder tooltipStep = new StringBuilder();
 
@@ -1849,6 +1849,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
 
                 tooltipStep.AppendFormat("Name: {0}", step.Name);
+            }
+
+            if (step.EventHandler != null && !string.IsNullOrEmpty(step.EventHandler.Name))
+            {
+                if (tooltipStep.Length > 0)
+                {
+                    tooltipStep.AppendLine();
+                }
+
+                tooltipStep.AppendFormat("EventHandler: {0}", step.EventHandler.Name);
             }
 
             if (!string.IsNullOrEmpty(step.Description))
@@ -1876,19 +1886,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            return tooltipStep.ToString();
+            if (tooltipStep.Length > 0)
+            {
+                return tooltipStep.ToString();
+            }
+            else
+            {
+                return null;
+            }
         }
 
-        private string GetStepName(int? rank, string name, string filteringAttributesStringsSorted)
+        private static string GetStepName(int? rank, string stepName, string eventHandlerName, string filteringAttributesStringsSorted)
         {
             StringBuilder nameStep = new StringBuilder();
 
             if (rank.HasValue)
             {
-                nameStep.AppendFormat("{0}. ", rank.ToString());
+                nameStep.AppendFormat("{0}.", rank.ToString());
             }
 
-            nameStep.Append(name);
+            if (!string.IsNullOrEmpty(stepName))
+            {
+                nameStep.AppendFormat($" {stepName}");
+            }
+            else
+            {
+                nameStep.AppendFormat($" {eventHandlerName}");
+            }
 
             if (!string.IsNullOrEmpty(filteringAttributesStringsSorted))
             {
@@ -1898,7 +1922,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return nameStep.ToString();
         }
 
-        private string GetImageTooltip(SdkMessageProcessingStepImage image)
+        private static string GetImageTooltip(SdkMessageProcessingStepImage image)
         {
             StringBuilder tooltipImage = new StringBuilder();
 
@@ -1961,11 +1985,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return tooltipImage.ToString();
             }
-
-            return null;
+            else
+            {
+                return null;
+            }
         }
 
-        private string GetImageName(SdkMessageProcessingStepImage image)
+        private static string GetImageName(SdkMessageProcessingStepImage image)
         {
             StringBuilder nameImage = new StringBuilder();
 
