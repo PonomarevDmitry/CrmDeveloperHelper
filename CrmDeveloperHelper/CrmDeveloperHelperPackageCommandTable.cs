@@ -1823,11 +1823,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int commonMenu_GroupConfiguration_MenuOpenWebSite_Group2_Menu2_Group2_MenuNewsDyn_Group = 0x139F;
 
-            public const int commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntityMetadata = 0x1429;
+            public const int commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntity = 0x1429;
 
-            public const int commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntityMetadata_MenuDyn = 0x142A;
+            public const int commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntity_MenuMetadataDyn = 0x142A;
 
-            public const int commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntityMetadata_MenuDyn_Group = 0x142B;
+            public const int commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntity_MenuMetadataDyn_Group = 0x142B;
+
+            public const int commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntity_MenuListDyn = 0x144F;
+
+            public const int commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntity_MenuListDyn_Group = 0x1450;
 
             public const int commonMenu_GroupConfiguration_MenuSelectFileConnectionDyn = 0x137F;
 
@@ -2053,6 +2057,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int CommonOpenNewsCommandId = 0x2B2A;
 
             public const int CommonOpenCrmWebSiteEntityMetadataCommandId = 0x3296;
+
+            public const int CommonOpenCrmWebSiteEntityListCommandId = 0x3520;
 
             public const int CommonTraceReaderCommandId = 0x0CE4;
 
@@ -3324,6 +3330,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int OutputOpenNewsCommandId = 0x2214;
 
             public const int OutputOpenCrmWebSiteEntityMetadataCommandId = 0x223E;
+
+            public const int OutputOpenCrmWebSiteEntityListCommandId = 0x2248;
 
             public const int OutputExportFormEventsCommandId = 0x21CB;
 

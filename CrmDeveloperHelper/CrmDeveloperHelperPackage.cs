@@ -835,6 +835,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             CommonOpenCrmWebSiteCommand.Initialize(commandService);
             CommonOpenCrmWebSiteEntityMetadataCommand.Initialize(commandService);
+            CommonOpenCrmWebSiteEntityListCommand.Initialize(commandService);
 
             CommonExportDefaultSiteMapsCommand.Initialize(commandService);
             CommonXsdSchemaExportCommand.Initialize(commandService);
@@ -850,6 +851,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             OutputOpenCrmWebSiteCommand.Initialize(commandService);
             OutputOpenCrmWebSiteEntityMetadataCommand.Initialize(commandService);
+            OutputOpenCrmWebSiteEntityListCommand.Initialize(commandService);
+
             OutputExportOpenLastSelectedSolutionCommand.Initialize(commandService);
             OutputOpenDefaultSolutionInWebCommand.Initialize(commandService);
 

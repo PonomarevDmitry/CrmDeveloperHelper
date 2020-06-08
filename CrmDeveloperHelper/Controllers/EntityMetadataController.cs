@@ -1597,6 +1597,55 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
+        public async Task ExecuteOpeningEntityListInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode)
+        {
+            string operation = string.Format(Properties.OperationNames.OpeningEntityListInWebFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await OpeningEntityListInWeb(connectionData, commonConfig, entityName, entityTypeCode);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task OpeningEntityListInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode)
+        {
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var repository = new EntityMetadataRepository(service);
+
+            var entityMetadataList = await repository.GetEntitiesPropertiesAsync(entityName, entityTypeCode
+                , nameof(EntityMetadata.LogicalName)
+            );
+
+            if (!entityMetadataList.Any())
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoObjectsInCRMWereFounded);
+                this._iWriteToOutput.ActivateOutputWindow(connectionData);
+
+                return;
+            }
+
+            foreach (var entityMetadata in entityMetadataList)
+            {
+                service.ConnectionData.OpenEntityInstanceListInWeb(entityMetadata.LogicalName);
+            }
+        }
+
         public async Task ExecutePublishEntity(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName)
         {
             await ConnectAndExecuteActionAsync(connectionData

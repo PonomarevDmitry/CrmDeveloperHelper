@@ -683,6 +683,9 @@
   <data name="OpeningEntityInWebFormat1" xml:space="preserve">
     <value>{0} - Opening Entity in Web</value>
   </data>
+  <data name="OpeningEntityListInWebFormat1" xml:space="preserve">
+    <value>{0} - Opening Entity List in Web</value>
+  </data>
   <data name="DifferenceRibbonDiffXmlFormat1" xml:space="preserve">
     <value>{0} - Difference RibbonDiffXml</value>
   </data>

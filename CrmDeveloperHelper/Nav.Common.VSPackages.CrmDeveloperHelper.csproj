@@ -104,6 +104,7 @@
     <Compile Include="Commands\Checks\CommonCheckUnknownFormControlTypes.cs" />
     <Compile Include="Commands\Commons\CommonFileGenerationConfigurationCommand.cs" />
     <Compile Include="Commands\Commons\CommonFileGenerationOptionsCommand.cs" />
+    <Compile Include="Commands\Commons\CommonOpenCrmWebSiteEntityListCommand.cs" />
     <Compile Include="Commands\Commons\CommonOpenCrmWebSiteEntityMetadataCommand.cs" />
     <Compile Include="Commands\Connections\CommonCrmConnectionEditCommand.cs" />
     <Compile Include="Commands\Connections\CommonCrmConnectionSelectFileCommand.cs" />
@@ -182,6 +183,7 @@
     <Compile Include="Commands\OutputWindows\Checks\OutputCheckWorkflowsUsedNotExistsEntitiesCommand.cs" />
     <Compile Include="Commands\OutputWindows\Explorers\OutputSdkMessageExplorerCommand.cs" />
     <Compile Include="Commands\OutputWindows\Explorers\OutputSdkMessageFilterExplorerCommand.cs" />
+    <Compile Include="Commands\OutputWindows\OutputOpenCrmWebSiteEntityListCommand.cs" />
     <Compile Include="Commands\OutputWindows\OutputOpenCrmWebSiteEntityMetadataCommand.cs" />
     <Compile Include="Commands\OutputWindows\Explorers\OutputApplicationRibbonExplorerCommand.cs" />
     <Compile Include="Commands\OutputWindows\Explorers\OutputCustomControlExplorerCommand.cs" />

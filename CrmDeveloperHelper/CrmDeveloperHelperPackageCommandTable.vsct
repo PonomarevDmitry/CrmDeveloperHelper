@@ -844,8 +844,9 @@
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_Group2_Menu2_Group2_MenuNewsDyn_Group" priority="0x0606" />
 
 
-      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntityMetadata" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntityMetadata_MenuDyn_Group" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntity" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntity_MenuMetadataDyn_Group" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntity_MenuListDyn_Group" priority="0x06000" />
 
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuEditConnectionDyn_Group" priority="0x0607" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuSelectFileConnectionDyn_Group" priority="0x0607" />
@@ -3499,11 +3500,18 @@
           <MenuText>News</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntityMetadata_MenuDyn" priority="0x0107" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntity_MenuMetadataDyn" priority="0x0107" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Entity Customization</ButtonText>
           <MenuText>Entity Customization</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntity_MenuListDyn" priority="0x0107" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Entity List</ButtonText>
+          <MenuText>Entity List</MenuText>
         </Strings>
       </Menu>
 
@@ -10333,6 +10341,17 @@
           <ButtonText>CommonOpenCrmWebSiteEntityMetadataCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidDynamicCommandSet" id="CommonOpenCrmWebSiteEntityListCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>CommonOpenCrmWebSiteEntityListCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
 
 
 
@@ -11522,6 +11541,15 @@
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
           <ButtonText>Entity Customization</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommandSet" id="OutputOpenCrmWebSiteEntityListCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Entity List</ButtonText>
         </Strings>
       </Button>
 
@@ -16656,7 +16684,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_Group2" priority="0x6050">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntityMetadata" priority="0x6060">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntity" priority="0x6060">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite" />
     </CommandPlacement>
 
@@ -16823,13 +16851,16 @@
     <!-- #endregion commonMenu_GroupConfiguration_MenuOpenWebSite_Group2_Menu2_Group2 -->
 
 
-    <!-- #region commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntityMetadata -->
+    <!-- #region commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntity -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntityMetadata_MenuDyn" priority="0x6000">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntityMetadata" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntity_MenuMetadataDyn" priority="0x6000">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntity" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntity_MenuListDyn" priority="0x6010">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntity" />
     </CommandPlacement>
 
-    <!-- #endregion commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntityMetadata -->
+    <!-- #endregion commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntity -->
 
 
 
@@ -17094,11 +17125,18 @@
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_Group2_Menu2_Group2_MenuNewsDyn_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntityMetadata_MenuDyn_Group" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntityMetadata_MenuDyn" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntity_MenuMetadataDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntity_MenuMetadataDyn" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="CommonOpenCrmWebSiteEntityMetadataCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntityMetadata_MenuDyn_Group" />
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntity_MenuMetadataDyn_Group" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntity_MenuListDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntity_MenuListDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CommonOpenCrmWebSiteEntityListCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntity_MenuListDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuSelectFileConnectionDyn_Group" priority="0x06000">
@@ -19845,6 +19883,9 @@
     <CommandPlacement guid="guidCommandSet" id="OutputOpenCrmWebSiteEntityMetadataCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntityMetadata" />
     </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="OutputOpenCrmWebSiteEntityListCommandId" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntityMetadata" />
+    </CommandPlacement>
 
     <!-- #endregion outputMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntityMetadata -->
 
@@ -21390,10 +21431,13 @@
       <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_Group2_Menu2_Group2_MenuNewsDyn" value="0x139E" />
       <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_Group2_Menu2_Group2_MenuNewsDyn_Group" value="0x139F" />
 
-      <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntityMetadata" value="0x1429" />
+      <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntity" value="0x1429" />
 
-      <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntityMetadata_MenuDyn" value="0x142A" />
-      <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntityMetadata_MenuDyn_Group" value="0x142B" />
+      <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntity_MenuMetadataDyn" value="0x142A" />
+      <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntity_MenuMetadataDyn_Group" value="0x142B" />
+
+      <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntity_MenuListDyn" value="0x144F" />
+      <IDSymbol name="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntity_MenuListDyn_Group" value="0x1450" />
 
 
 
@@ -21573,6 +21617,7 @@
       <IDSymbol name="CommonOpenNewsCommandId" value="11050" />
 
       <IDSymbol name="CommonOpenCrmWebSiteEntityMetadataCommandId" value="12950" />
+      <IDSymbol name="CommonOpenCrmWebSiteEntityListCommandId" value="13600" />
 
       <IDSymbol name="CommonTraceReaderCommandId" value="3300" />
 
@@ -22714,6 +22759,7 @@
       <IDSymbol name="OutputOpenNewsCommandId" value="0x2214" />
 
       <IDSymbol name="OutputOpenCrmWebSiteEntityMetadataCommandId" value="0x223E" />
+      <IDSymbol name="OutputOpenCrmWebSiteEntityListCommandId" value="0x2248" />
 
 
       <IDSymbol name="OutputExportFormEventsCommandId" value="0x21CB" />
@@ -22836,13 +22882,13 @@
 
 
     <!-- Groups and Menus -->
-    <!-- 0x144F -->
+    <!-- 0x1451 -->
 
     <!-- Commands -->
-    <!-- 0x2248 -->
+    <!-- 0x2249 -->
 
     <!-- Dynamic Commands -->
-    <!-- 13600 -->
+    <!-- 13650 -->
 
   </Symbols>
 

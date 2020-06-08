@@ -509,6 +509,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartOpeningEntityMetadataInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode)
             => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteOpeningEntityMetadataInWeb, commonConfig, entityName, entityTypeCode);
 
+        public void StartOpeningEntityListInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode)
+            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteOpeningEntityListInWeb, commonConfig, entityName, entityTypeCode);
+
         #endregion RibbonDiff
 
         #region Ribbon

@@ -336,6 +336,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             stringBuilder.AppendLine();
+            stringBuilder.AppendLine();
             stringBuilder.AppendFormat("Exception.Message - {0}", ex.Message).AppendLine();
             stringBuilder.AppendFormat("Exception.HResult - {0}", ex.HResult).AppendLine();
             stringBuilder.AppendLine(ex.Source);

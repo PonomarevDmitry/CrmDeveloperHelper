@@ -1555,6 +1555,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Opening Entity List in Web.
+        /// </summary>
+        internal static string OpeningEntityListInWebFormat1 {
+            get {
+                return ResourceManager.GetString("OpeningEntityListInWebFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Opening Entity Metadata Explorer.
         /// </summary>
         internal static string OpeningEntityMetadataExplorerFormat1 {
