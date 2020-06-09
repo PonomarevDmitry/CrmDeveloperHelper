@@ -738,7 +738,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string operation = string.Format(
                 Properties.OperationNames.ActionOnComponentFormat3
                 , connectionData?.Name
-                , PluginAssembly.EntityLogicalName
+                , PluginAssembly.EntitySchemaName
                 , EnumDescriptionTypeConverter.GetEnumNameByDescriptionAttribute(actionOpen)
             );
 

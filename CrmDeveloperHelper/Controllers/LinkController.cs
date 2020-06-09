@@ -236,7 +236,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string operation = string.Format(
                 Properties.OperationNames.ActionOnComponentFormat3
                 , connectionData?.Name
-                , Report.EntityLogicalName
+                , Report.EntitySchemaName
                 , EnumDescriptionTypeConverter.GetEnumNameByDescriptionAttribute(action)
             );
 
@@ -401,7 +401,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string operation = string.Format(
                 Properties.OperationNames.ActionOnComponentFormat3
                 , connectionData?.Name
-                , WebResource.EntityLogicalName
+                , WebResource.EntitySchemaName
                 , EnumDescriptionTypeConverter.GetEnumNameByDescriptionAttribute(action)
             );
 
@@ -566,7 +566,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string operation = string.Format(
                 Properties.OperationNames.ActionOnComponentFormat3
                 , connectionData?.Name
-                , Solution.EntityLogicalName
+                , Solution.EntitySchemaName
                 , EnumDescriptionTypeConverter.GetEnumNameByDescriptionAttribute(action)
             );
 

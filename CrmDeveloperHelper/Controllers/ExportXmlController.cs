@@ -260,7 +260,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string operation = string.Format(
                 Properties.OperationNames.ActionOnComponentFormat3
                 , connectionData?.Name
-                , SiteMap.EntityLogicalName
+                , SiteMap.EntitySchemaName
                 , EnumDescriptionTypeConverter.GetEnumNameByDescriptionAttribute(ActionOnComponent.OpenInWeb)
             );
 
@@ -619,7 +619,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string operation = string.Format(
                 Properties.OperationNames.ActionOnComponentFormat3
                 , connectionData?.Name
-                , SystemForm.EntityLogicalName
+                , SystemForm.EntitySchemaName
                 , EnumDescriptionTypeConverter.GetEnumNameByDescriptionAttribute(ActionOnComponent.OpenInWeb)
             );
 
@@ -706,7 +706,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.ActionOnComponentFormat3
                 , (service) => OpeningLinkedSystemForm(service, commonConfig, action, entityName, formId, formType)
-                , "Linked " + SystemForm.EntityLogicalName
+                , "Linked " + SystemForm.EntitySchemaName
                 , EnumDescriptionTypeConverter.GetEnumNameByDescriptionAttribute(ActionOnComponent.OpenInWeb)
             );
         }
@@ -1260,7 +1260,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string operation = string.Format(
                 Properties.OperationNames.ActionOnComponentFormat3
                 , connectionData?.Name
-                , SavedQuery.EntityLogicalName
+                , SavedQuery.EntitySchemaName
                 , EnumDescriptionTypeConverter.GetEnumNameByDescriptionAttribute(ActionOnComponent.OpenInWeb)
             );
 
@@ -1683,7 +1683,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string operation = string.Format(
                 Properties.OperationNames.ActionOnComponentFormat3
                 , connectionData?.Name
-                , Workflow.EntityLogicalName
+                , Workflow.EntitySchemaName
                 , EnumDescriptionTypeConverter.GetEnumNameByDescriptionAttribute(ActionOnComponent.OpenInWeb)
             );
 
@@ -2093,7 +2093,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string operation = string.Format(
                 Properties.OperationNames.ActionOnComponentFormat3
                 , connectionData?.Name
-                , WebResource.EntityLogicalName
+                , WebResource.EntitySchemaName
                 , EnumDescriptionTypeConverter.GetEnumNameByDescriptionAttribute(ActionOnComponent.OpenInWeb)
             );
 
