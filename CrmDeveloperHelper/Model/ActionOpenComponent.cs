@@ -15,5 +15,11 @@
         OpenSolutionsContainingComponentInExplorer = 5,
 
         OpenListInWeb = 6,
+
+        SingleField = 7,
+
+        EntityDescription = 8,
+
+        FormDescription = 9,
     }
 }

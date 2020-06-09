@@ -429,7 +429,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartSystemFormGetCurrentFormXml(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
             => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteGetSystemFormCurrentXml, commonConfig, selectedFile);
 
-        public void StartSystemFormGetCurrentAttribute(ConnectionData connectionData, CommonConfiguration commonConfig, Guid formId, ActionGetCurrent action, string fieldName, string fieldTitle)
+        public void StartSystemFormGetCurrentAttribute(ConnectionData connectionData, CommonConfiguration commonConfig, Guid formId, ActionOpenComponent action, string fieldName, string fieldTitle)
             => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteGetSystemFormCurrentAttribute, commonConfig, formId, action, fieldName, fieldTitle);
 
         public void StartOpeningLinkedSystemForm(ConnectionData connectionData, CommonConfiguration commonConfig, ActionOpenComponent action, string entityName, Guid formId, int formType)

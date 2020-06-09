@@ -11,14 +11,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
     internal sealed class CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
-        private readonly ActionGetCurrent _action;
+        private readonly ActionOpenComponent _action;
         private readonly string _fieldName;
         private readonly string _fieldTitle;
 
         private CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand(
             OleMenuCommandService commandService
             , int baseIdStart
-            , ActionGetCurrent action
+            , ActionOpenComponent action
             , string fieldName
             , string fieldTitle
         ) : base(commandService, baseIdStart)
@@ -41,7 +41,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
             InstanceEntityDescription = new CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedSystemFormGetCurrentEntityDescriptionInConnectionCommandId
-                , ActionGetCurrent.EntityDescription
+                , ActionOpenComponent.EntityDescription
                 , string.Empty
                 , string.Empty
             );
@@ -49,7 +49,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
             InstanceFormDescription = new CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedSystemFormGetCurrentFormDescriptionInConnectionCommandId
-                , ActionGetCurrent.FormDescription
+                , ActionOpenComponent.FormDescription
                 , string.Empty
                 , string.Empty
             );
@@ -57,7 +57,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
             InstanceFormXml = new CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedSystemFormGetCurrentFormXmlInConnectionCommandId
-                , ActionGetCurrent.SingleField
+                , ActionOpenComponent.SingleField
                 , SystemForm.Schema.Attributes.formxml
                 , SystemForm.Schema.Headers.formxml
             );
@@ -65,7 +65,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
             InstanceFormJson = new CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand(
                 commandService
                , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedSystemFormGetCurrentFormJsonInConnectionCommandId
-               , ActionGetCurrent.SingleField
+               , ActionOpenComponent.SingleField
                , SystemForm.Schema.Attributes.formjson
                , SystemForm.Schema.Headers.formjson
            );

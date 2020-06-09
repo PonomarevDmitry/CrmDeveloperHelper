@@ -655,7 +655,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        public async Task ExecuteGetSystemFormCurrentAttribute(ConnectionData connectionData, CommonConfiguration commonConfig, Guid formId, ActionGetCurrent action, string fieldName, string fieldTitle)
+        public async Task ExecuteGetSystemFormCurrentAttribute(ConnectionData connectionData, CommonConfiguration commonConfig, Guid formId, ActionOpenComponent action, string fieldName, string fieldTitle)
         {
             await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.GettingSystemFormCurrentAttributeFormat2
@@ -664,13 +664,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             );
         }
 
-        private async Task GettingSystemFormCurrentAttribute(IOrganizationServiceExtented service, CommonConfiguration commonConfig, Guid formId, ActionGetCurrent action, string fieldName, string fieldTitle)
+        private async Task GettingSystemFormCurrentAttribute(IOrganizationServiceExtented service, CommonConfiguration commonConfig, Guid formId, ActionOpenComponent action, string fieldName, string fieldTitle)
         {
             var repositorySystemForm = new SystemFormRepository(service);
 
             var systemForm = await repositorySystemForm.GetByIdAsync(formId, new ColumnSet(true));
 
-            if (action == ActionGetCurrent.SingleField)
+            if (action == ActionOpenComponent.SingleField)
             {
                 if (string.Equals(fieldName, SystemForm.Schema.Attributes.formxml, StringComparison.InvariantCultureIgnoreCase))
                 {
@@ -681,11 +681,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     GetCurrentSystemFormJson(service, commonConfig, systemForm);
                 }
             }
-            else if (action == ActionGetCurrent.EntityDescription)
+            else if (action == ActionOpenComponent.EntityDescription)
             {
                 await GetCurrentEntityDescription(service, commonConfig, systemForm);
             }
-            else if (action == ActionGetCurrent.FormDescription)
+            else if (action == ActionOpenComponent.FormDescription)
             {
                 await GetCurrentFormDescription(service, commonConfig, systemForm);
             }

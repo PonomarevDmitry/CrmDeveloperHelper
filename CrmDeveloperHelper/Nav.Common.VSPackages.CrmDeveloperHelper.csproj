@@ -1136,7 +1136,6 @@
     <Compile Include="Interfaces\IOrganizationComparerSource.cs" />
     <Compile Include="Interfaces\IOrganizationServiceExtented.cs" />
     <Compile Include="Interfaces\ISolutionComponentDescriptionBuilder.cs" />
-    <Compile Include="Model\ActionGetCurrent.cs" />
     <Compile Include="Model\ActionOpenComponent.cs" />
     <Compile Include="Model\AssemblyMapping.cs" />
     <Compile Include="Model\AttributeMetadataViewItem.cs" />

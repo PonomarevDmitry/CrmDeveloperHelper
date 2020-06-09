@@ -507,6 +507,10 @@
     <value>No Project Names.</value>
   </data>
 
+  <data name="NoPluginTypesNames" xml:space="preserve">
+    <value>No PluginType Names.</value>
+  </data>
+
   <data name="NoPluginAssembliesToAddToSolution" xml:space="preserve">
     <value>No PluginAssemblies to add to Solution.</value>
   </data>

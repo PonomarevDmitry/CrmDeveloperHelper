@@ -1176,7 +1176,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (pluginTypeNames == null || !pluginTypeNames.Any())
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoProjectNames);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoPluginTypesNames);
                 return;
             }
 

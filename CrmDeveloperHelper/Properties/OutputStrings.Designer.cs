@@ -4021,6 +4021,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No PluginType Names..
+        /// </summary>
+        internal static string NoPluginTypesNames {
+            get {
+                return ResourceManager.GetString("NoPluginTypesNames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No Privileges to add..
         /// </summary>
         internal static string NoPrivilegesToAdd {
