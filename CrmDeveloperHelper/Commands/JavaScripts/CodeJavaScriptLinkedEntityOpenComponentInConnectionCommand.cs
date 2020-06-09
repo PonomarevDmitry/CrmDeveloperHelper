@@ -7,9 +7,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
     internal sealed class CodeJavaScriptLinkedEntityOpenComponentInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
-        private readonly ActionOpenComponent _actionOpen;
+        private readonly ActionOnComponent _actionOpen;
 
-        private CodeJavaScriptLinkedEntityOpenComponentInConnectionCommand(OleMenuCommandService commandService, int baseIdStart, ActionOpenComponent action)
+        private CodeJavaScriptLinkedEntityOpenComponentInConnectionCommand(OleMenuCommandService commandService, int baseIdStart, ActionOnComponent action)
             : base(commandService, baseIdStart)
         {
             this._actionOpen = action;
@@ -30,31 +30,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
             InstanceOpenInWebInConnection = new CodeJavaScriptLinkedEntityOpenComponentInConnectionCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedEntityOpenInWebInConnectionCommandId
-                , ActionOpenComponent.OpenInWeb
+                , ActionOnComponent.OpenInWeb
             );
             
             InstanceOpenListInWebInConnection = new CodeJavaScriptLinkedEntityOpenComponentInConnectionCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedEntityOpenListInWebInConnectionCommandId
-                , ActionOpenComponent.OpenListInWeb
+                , ActionOnComponent.OpenListInWeb
             );
 
             InstanceOpenDependentComponentsInWebInConnection = new CodeJavaScriptLinkedEntityOpenComponentInConnectionCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedEntityOpenDependentInWebInConnectionCommandId
-                , ActionOpenComponent.OpenDependentComponentsInWeb
+                , ActionOnComponent.OpenDependentComponentsInWeb
             );
 
             InstanceOpenDependentComponentsInExplorerInConnection = new CodeJavaScriptLinkedEntityOpenComponentInConnectionCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedEntityOpenDependentInExplorerInConnectionCommandId
-                , ActionOpenComponent.OpenDependentComponentsInExplorer
+                , ActionOnComponent.OpenDependentComponentsInExplorer
             );
 
             InstanceOpenSolutionsContainingComponentInExplorerInConnection = new CodeJavaScriptLinkedEntityOpenComponentInConnectionCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedEntityOpenSolutionsContainingComponentInExplorerInConnectionCommandId
-                , ActionOpenComponent.OpenSolutionsContainingComponentInExplorer
+                , ActionOnComponent.OpenSolutionsContainingComponentInExplorer
             );
         }
 

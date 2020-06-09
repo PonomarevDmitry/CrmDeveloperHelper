@@ -1254,7 +1254,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData != null && !string.IsNullOrEmpty(solutionUniqueName))
             {
-                this.HandleSolutionOpenLastSelected(connectionData, solutionUniqueName, ActionOpenComponent.OpenInExplorer);
+                this.HandleSolutionOpenLastSelected(connectionData, solutionUniqueName, ActionOnComponent.OpenInExplorer);
             }
 
             return this;

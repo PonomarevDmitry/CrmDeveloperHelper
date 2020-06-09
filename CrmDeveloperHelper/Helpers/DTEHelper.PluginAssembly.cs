@@ -74,7 +74,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartPluginAssemblyCreateDescription(conn, commonConfig, projectList));
         }
 
-        public void HandlePluginAssemblyProjectOpenCommand(ConnectionData connectionData, List<Project> projectList, ActionOpenComponent actionOpen)
+        public void HandlePluginAssemblyProjectOpenCommand(ConnectionData connectionData, List<Project> projectList, ActionOnComponent actionOpen)
         {
             if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
             {

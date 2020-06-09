@@ -7,9 +7,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
 {
     internal sealed class ProjectPluginAssemblyOpenInWebInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
-        private readonly ActionOpenComponent _actionOpen;
+        private readonly ActionOnComponent _actionOpen;
 
-        private ProjectPluginAssemblyOpenInWebInConnectionCommand(OleMenuCommandService commandService, int baseIdStart, ActionOpenComponent action)
+        private ProjectPluginAssemblyOpenInWebInConnectionCommand(OleMenuCommandService commandService, int baseIdStart, ActionOnComponent action)
             : base(commandService, baseIdStart)
         {
             this._actionOpen = action;
@@ -26,19 +26,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
             InstanceOpenDependentComponentsInWebInConnection = new ProjectPluginAssemblyOpenInWebInConnectionCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.ProjectPluginAssemblyOpenDependentInWebInConnectionCommandId
-                , ActionOpenComponent.OpenDependentComponentsInWeb
+                , ActionOnComponent.OpenDependentComponentsInWeb
             );
 
             InstanceOpenDependentComponentsInExplorerInConnection = new ProjectPluginAssemblyOpenInWebInConnectionCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.ProjectPluginAssemblyOpenDependentInExplorerInConnectionCommandId
-                , ActionOpenComponent.OpenDependentComponentsInExplorer
+                , ActionOnComponent.OpenDependentComponentsInExplorer
             );
 
             InstanceOpenSolutionsContainingComponentInExplorerInConnection = new ProjectPluginAssemblyOpenInWebInConnectionCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.ProjectPluginAssemblyOpenSolutionsContainingComponentInExplorerInConnectionCommandId
-                , ActionOpenComponent.OpenSolutionsContainingComponentInExplorer
+                , ActionOnComponent.OpenSolutionsContainingComponentInExplorer
             );
         }
 

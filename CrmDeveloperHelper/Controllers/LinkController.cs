@@ -231,7 +231,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Открытие отчетов.
 
-        public async Task ExecuteOpeningReport(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, ActionOpenComponent action)
+        public async Task ExecuteOpeningReport(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, ActionOnComponent action)
         {
             string operation = string.Format(Properties.OperationNames.OpeningReportFormat1, connectionData?.Name);
 
@@ -251,7 +251,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task OpeningReport(CommonConfiguration commonConfig, ConnectionData connectionData, SelectedFile selectedFile, ActionOpenComponent action)
+        private async Task OpeningReport(CommonConfiguration commonConfig, ConnectionData connectionData, SelectedFile selectedFile, ActionOnComponent action)
         {
             if (!File.Exists(selectedFile.FilePath))
             {
@@ -355,15 +355,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            if (action == ActionOpenComponent.OpenInWeb)
+            if (action == ActionOnComponent.OpenInWeb)
             {
                 service.UrlGenerator.OpenSolutionComponentInWeb(Entities.ComponentType.Report, reportEntity.Id);
             }
-            else if (action == ActionOpenComponent.OpenDependentComponentsInWeb)
+            else if (action == ActionOnComponent.OpenDependentComponentsInWeb)
             {
                 connectionData.OpenSolutionComponentDependentComponentsInWeb(Entities.ComponentType.Report, reportEntity.Id);
             }
-            else if (action == ActionOpenComponent.OpenDependentComponentsInExplorer)
+            else if (action == ActionOnComponent.OpenDependentComponentsInExplorer)
             {
                 WindowHelper.OpenSolutionComponentDependenciesExplorer(
                     _iWriteToOutput
@@ -374,7 +374,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     , reportEntity.Id
                     , null);
             }
-            else if (action == ActionOpenComponent.OpenSolutionsContainingComponentInExplorer)
+            else if (action == ActionOnComponent.OpenSolutionsContainingComponentInExplorer)
             {
                 WindowHelper.OpenExplorerSolutionExplorer(
                     _iWriteToOutput
@@ -391,7 +391,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Открытие веб-ресурсов.
 
-        public async Task ExecuteOpeningWebResource(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, ActionOpenComponent action)
+        public async Task ExecuteOpeningWebResource(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, ActionOnComponent action)
         {
             string operation = string.Format(Properties.OperationNames.OpeningWebResourceFormat1, connectionData?.Name);
 
@@ -413,7 +413,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task OpeningWebResource(CommonConfiguration commonConfig, ConnectionData connectionData, SelectedFile selectedFile, ActionOpenComponent action)
+        private async Task OpeningWebResource(CommonConfiguration commonConfig, ConnectionData connectionData, SelectedFile selectedFile, ActionOnComponent action)
         {
             if (!File.Exists(selectedFile.FilePath))
             {
@@ -517,15 +517,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            if (action == ActionOpenComponent.OpenInWeb)
+            if (action == ActionOnComponent.OpenInWeb)
             {
                 service.UrlGenerator.OpenSolutionComponentInWeb(Entities.ComponentType.WebResource, webresource.Id);
             }
-            else if (action == ActionOpenComponent.OpenDependentComponentsInWeb)
+            else if (action == ActionOnComponent.OpenDependentComponentsInWeb)
             {
                 connectionData.OpenSolutionComponentDependentComponentsInWeb(Entities.ComponentType.WebResource, webresource.Id);
             }
-            else if (action == ActionOpenComponent.OpenDependentComponentsInExplorer)
+            else if (action == ActionOnComponent.OpenDependentComponentsInExplorer)
             {
                 WindowHelper.OpenSolutionComponentDependenciesExplorer(
                     _iWriteToOutput
@@ -536,7 +536,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     , webresource.Id
                     , null);
             }
-            else if (action == ActionOpenComponent.OpenSolutionsContainingComponentInExplorer)
+            else if (action == ActionOnComponent.OpenSolutionsContainingComponentInExplorer)
             {
                 WindowHelper.OpenExplorerSolutionExplorer(
                     _iWriteToOutput
@@ -551,7 +551,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Открытие веб-ресурсов.
 
-        public async Task ExecuteOpeningSolutionAsync(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, ActionOpenComponent action)
+        public async Task ExecuteOpeningSolutionAsync(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, ActionOnComponent action)
         {
             string operation = string.Format(Properties.OperationNames.OpeningSolutionFormat1, connectionData?.Name);
 
@@ -571,7 +571,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task OpeningSolutionAsync(CommonConfiguration commonConfig, ConnectionData connectionData, string solutionUniqueName, ActionOpenComponent action)
+        private async Task OpeningSolutionAsync(CommonConfiguration commonConfig, ConnectionData connectionData, string solutionUniqueName, ActionOnComponent action)
         {
             var service = await ConnectAndWriteToOutputAsync(connectionData);
 
@@ -598,11 +598,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            if (action == ActionOpenComponent.OpenInWeb)
+            if (action == ActionOnComponent.OpenInWeb)
             {
                 connectionData.OpenSolutionInWeb(solution.Id);
             }
-            else if (action == ActionOpenComponent.OpenInExplorer)
+            else if (action == ActionOnComponent.OpenInExplorer)
             {
                 WindowHelper.OpenSolutionComponentsExplorer(this._iWriteToOutput, service, null, commonConfig, solution.UniqueName, null);
             }

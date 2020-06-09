@@ -1247,10 +1247,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            await OpenEntityInWeb(service, commonConfig, entityName, ActionOpenComponent.OpenInWeb);
+            await OpenEntityInWeb(service, commonConfig, entityName, ActionOnComponent.OpenInWeb);
         }
 
-        public async Task ExecuteEntityMetadataOpenInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, ActionOpenComponent action)
+        public async Task ExecuteEntityMetadataOpenInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, ActionOnComponent action)
         {
             await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.OpeningEntityMetadataExplorerFormat1
@@ -1258,7 +1258,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             );
         }
 
-        private async Task OpenEntityInWeb(IOrganizationServiceExtented service, CommonConfiguration commonConfig, string entityName, ActionOpenComponent action)
+        private async Task OpenEntityInWeb(IOrganizationServiceExtented service, CommonConfiguration commonConfig, string entityName, ActionOnComponent action)
         {
             var repository = new EntityMetadataRepository(service);
 
@@ -1276,19 +1276,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             switch (action)
             {
-                case ActionOpenComponent.OpenInWeb:
+                case ActionOnComponent.OpenInWeb:
                     service.ConnectionData.OpenEntityMetadataInWeb(entityMetadata.MetadataId.Value);
                     break;
 
-                case ActionOpenComponent.OpenInExplorer:
+                case ActionOnComponent.OpenInExplorer:
                     WindowHelper.OpenEntityMetadataExplorer(_iWriteToOutput, service, commonConfig, entityName);
                     break;
 
-                case ActionOpenComponent.OpenDependentComponentsInWeb:
+                case ActionOnComponent.OpenDependentComponentsInWeb:
                     service.ConnectionData.OpenSolutionComponentDependentComponentsInWeb(ComponentType.Entity, entityMetadata.MetadataId.Value);
                     break;
 
-                case ActionOpenComponent.OpenDependentComponentsInExplorer:
+                case ActionOnComponent.OpenDependentComponentsInExplorer:
                     WindowHelper.OpenSolutionComponentDependenciesExplorer(
                         _iWriteToOutput
                         , service
@@ -1300,7 +1300,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     );
                     break;
 
-                case ActionOpenComponent.OpenSolutionsContainingComponentInExplorer:
+                case ActionOnComponent.OpenSolutionsContainingComponentInExplorer:
                     WindowHelper.OpenExplorerSolutionExplorer(
                         _iWriteToOutput
                         , service
@@ -1311,11 +1311,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     );
                     break;
 
-                case ActionOpenComponent.OpenListInWeb:
+                case ActionOnComponent.OpenListInWeb:
                     service.ConnectionData.OpenEntityInstanceListInWeb(entityName);
                     break;
 
-                case ActionOpenComponent.None:
+                case ActionOnComponent.None:
                 default:
                     break;
             }

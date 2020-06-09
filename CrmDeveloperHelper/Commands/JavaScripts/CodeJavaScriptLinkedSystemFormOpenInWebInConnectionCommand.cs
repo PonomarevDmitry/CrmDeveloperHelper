@@ -7,9 +7,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
     internal sealed class CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
-        private readonly ActionOpenComponent _actionOpen;
+        private readonly ActionOnComponent _actionOpen;
 
-        private CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand(OleMenuCommandService commandService, int baseIdStart, ActionOpenComponent action)
+        private CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand(OleMenuCommandService commandService, int baseIdStart, ActionOnComponent action)
             : base(commandService, baseIdStart)
         {
             this._actionOpen = action;
@@ -28,25 +28,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
             InstanceOpenInWebInConnection = new CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommandId
-                , ActionOpenComponent.OpenInWeb
+                , ActionOnComponent.OpenInWeb
             );
 
             InstanceOpenDependentComponentsInWebInConnection = new CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedSystemFormOpenDependentInWebInConnectionCommandId
-                , ActionOpenComponent.OpenDependentComponentsInWeb
+                , ActionOnComponent.OpenDependentComponentsInWeb
             );
 
             InstanceOpenDependentComponentsInExplorerInConnection = new CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedSystemFormOpenDependentInExplorerInConnectionCommandId
-                , ActionOpenComponent.OpenDependentComponentsInExplorer
+                , ActionOnComponent.OpenDependentComponentsInExplorer
             );
 
             InstanceOpenSolutionsContainingComponentInExplorerInConnection = new CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedSystemFormOpenSolutionsContainingComponentInExplorerInConnectionCommandId
-                , ActionOpenComponent.OpenSolutionsContainingComponentInExplorer
+                , ActionOnComponent.OpenSolutionsContainingComponentInExplorer
             );
         }
 

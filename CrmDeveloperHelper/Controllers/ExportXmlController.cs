@@ -655,7 +655,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        public async Task ExecuteGetSystemFormCurrentAttribute(ConnectionData connectionData, CommonConfiguration commonConfig, Guid formId, ActionOpenComponent action, string fieldName, string fieldTitle)
+        public async Task ExecuteGetSystemFormCurrentAttribute(ConnectionData connectionData, CommonConfiguration commonConfig, Guid formId, ActionOnComponent action, string fieldName, string fieldTitle)
         {
             await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.GettingSystemFormCurrentAttributeFormat2
@@ -664,13 +664,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             );
         }
 
-        private async Task GettingSystemFormCurrentAttribute(IOrganizationServiceExtented service, CommonConfiguration commonConfig, Guid formId, ActionOpenComponent action, string fieldName, string fieldTitle)
+        private async Task GettingSystemFormCurrentAttribute(IOrganizationServiceExtented service, CommonConfiguration commonConfig, Guid formId, ActionOnComponent action, string fieldName, string fieldTitle)
         {
             var repositorySystemForm = new SystemFormRepository(service);
 
             var systemForm = await repositorySystemForm.GetByIdAsync(formId, new ColumnSet(true));
 
-            if (action == ActionOpenComponent.SingleField)
+            if (action == ActionOnComponent.SingleField)
             {
                 if (string.Equals(fieldName, SystemForm.Schema.Attributes.formxml, StringComparison.InvariantCultureIgnoreCase))
                 {
@@ -681,17 +681,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     GetCurrentSystemFormJson(service, commonConfig, systemForm);
                 }
             }
-            else if (action == ActionOpenComponent.EntityDescription)
+            else if (action == ActionOnComponent.EntityDescription)
             {
                 await GetCurrentEntityDescription(service, commonConfig, systemForm);
             }
-            else if (action == ActionOpenComponent.Description)
+            else if (action == ActionOnComponent.Description)
             {
                 await GetCurrentFormDescription(service, commonConfig, systemForm);
             }
         }
 
-        public async Task ExecuteOpeningLinkedSystemForm(ConnectionData connectionData, CommonConfiguration commonConfig, ActionOpenComponent action, string entityName, Guid formId, int formType)
+        public async Task ExecuteOpeningLinkedSystemForm(ConnectionData connectionData, CommonConfiguration commonConfig, ActionOnComponent action, string entityName, Guid formId, int formType)
         {
             await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.OpeningLinkedSystemFormFormat1
@@ -699,17 +699,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             );
         }
 
-        private void OpeningLinkedSystemForm(IOrganizationServiceExtented service, CommonConfiguration commonConfig, ActionOpenComponent action, string entityName, Guid formId, int formType)
+        private void OpeningLinkedSystemForm(IOrganizationServiceExtented service, CommonConfiguration commonConfig, ActionOnComponent action, string entityName, Guid formId, int formType)
         {
-            if (action == ActionOpenComponent.OpenInWeb)
+            if (action == ActionOnComponent.OpenInWeb)
             {
                 service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.SystemForm, formId);
             }
-            else if (action == ActionOpenComponent.OpenDependentComponentsInWeb)
+            else if (action == ActionOnComponent.OpenDependentComponentsInWeb)
             {
                 service.ConnectionData.OpenSolutionComponentDependentComponentsInWeb(ComponentType.SystemForm, formId);
             }
-            else if (action == ActionOpenComponent.OpenDependentComponentsInExplorer)
+            else if (action == ActionOnComponent.OpenDependentComponentsInExplorer)
             {
                 WindowHelper.OpenSolutionComponentDependenciesExplorer(
                     _iWriteToOutput
@@ -721,7 +721,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     , null
                 );
             }
-            else if (action == ActionOpenComponent.OpenSolutionsContainingComponentInExplorer)
+            else if (action == ActionOnComponent.OpenSolutionsContainingComponentInExplorer)
             {
                 WindowHelper.OpenExplorerSolutionExplorer(
                     _iWriteToOutput

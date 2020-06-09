@@ -6,9 +6,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 {
     internal sealed class FileReportOpenInWebInConnectionCommand : AbstractDynamicCommandByConnectionByGroupWithCurrent
     {
-        private readonly ActionOpenComponent _actionOpen;
+        private readonly ActionOnComponent _actionOpen;
 
-        private FileReportOpenInWebInConnectionCommand(OleMenuCommandService commandService, int baseIdStart, ActionOpenComponent action)
+        private FileReportOpenInWebInConnectionCommand(OleMenuCommandService commandService, int baseIdStart, ActionOnComponent action)
             : base(commandService, baseIdStart)
         {
             this._actionOpen = action;
@@ -24,13 +24,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            InstanceOpenInWebInConnection = new FileReportOpenInWebInConnectionCommand(commandService, PackageIds.guidDynamicCommandSet.FileReportOpenInWebInConnectionCommandId, ActionOpenComponent.OpenInWeb);
+            InstanceOpenInWebInConnection = new FileReportOpenInWebInConnectionCommand(commandService, PackageIds.guidDynamicCommandSet.FileReportOpenInWebInConnectionCommandId, ActionOnComponent.OpenInWeb);
 
-            InstanceOpenDependentComponentsInWebInConnection = new FileReportOpenInWebInConnectionCommand(commandService, PackageIds.guidDynamicCommandSet.FileReportOpenDependentInWebInConnectionCommandId, ActionOpenComponent.OpenDependentComponentsInWeb);
+            InstanceOpenDependentComponentsInWebInConnection = new FileReportOpenInWebInConnectionCommand(commandService, PackageIds.guidDynamicCommandSet.FileReportOpenDependentInWebInConnectionCommandId, ActionOnComponent.OpenDependentComponentsInWeb);
 
-            InstanceOpenDependentComponentsInExplorerInConnection = new FileReportOpenInWebInConnectionCommand(commandService, PackageIds.guidDynamicCommandSet.FileReportOpenDependentInExplorerInConnectionCommandId, ActionOpenComponent.OpenDependentComponentsInExplorer);
+            InstanceOpenDependentComponentsInExplorerInConnection = new FileReportOpenInWebInConnectionCommand(commandService, PackageIds.guidDynamicCommandSet.FileReportOpenDependentInExplorerInConnectionCommandId, ActionOnComponent.OpenDependentComponentsInExplorer);
 
-            InstanceOpenSolutionsContainingComponentInExplorerInConnection = new FileReportOpenInWebInConnectionCommand(commandService, PackageIds.guidDynamicCommandSet.FileReportOpenSolutionsContainingComponentInExplorerInConnectionCommandId, ActionOpenComponent.OpenSolutionsContainingComponentInExplorer);
+            InstanceOpenSolutionsContainingComponentInExplorerInConnection = new FileReportOpenInWebInConnectionCommand(commandService, PackageIds.guidDynamicCommandSet.FileReportOpenSolutionsContainingComponentInExplorerInConnectionCommandId, ActionOnComponent.OpenSolutionsContainingComponentInExplorer);
         }
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)

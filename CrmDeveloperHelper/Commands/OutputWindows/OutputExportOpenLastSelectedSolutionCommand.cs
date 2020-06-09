@@ -10,9 +10,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows
 {
     internal sealed class OutputExportOpenLastSelectedSolutionCommand : AbstractOutputWindowDynamicCommand<string>
     {
-        private readonly ActionOpenComponent _actionOpen;
+        private readonly ActionOnComponent _actionOpen;
 
-        private OutputExportOpenLastSelectedSolutionCommand(OleMenuCommandService commandService, int baseIdStart, ActionOpenComponent action)
+        private OutputExportOpenLastSelectedSolutionCommand(OleMenuCommandService commandService, int baseIdStart, ActionOnComponent action)
             : base(
                 commandService
                 , baseIdStart
@@ -28,9 +28,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            InstanceOpenInWeb = new OutputExportOpenLastSelectedSolutionCommand(commandService, PackageIds.guidDynamicCommandSet.OutputExportOpenLastSelectedSolutionInWebCommandId, ActionOpenComponent.OpenInWeb);
+            InstanceOpenInWeb = new OutputExportOpenLastSelectedSolutionCommand(commandService, PackageIds.guidDynamicCommandSet.OutputExportOpenLastSelectedSolutionInWebCommandId, ActionOnComponent.OpenInWeb);
 
-            InstanceOpenInExplorer = new OutputExportOpenLastSelectedSolutionCommand(commandService, PackageIds.guidDynamicCommandSet.OutputExportOpenLastSelectedSolutionInExplorerCommandId, ActionOpenComponent.OpenInExplorer);
+            InstanceOpenInExplorer = new OutputExportOpenLastSelectedSolutionCommand(commandService, PackageIds.guidDynamicCommandSet.OutputExportOpenLastSelectedSolutionInExplorerCommandId, ActionOnComponent.OpenInExplorer);
         }
 
         protected override ICollection<string> GetElementSourceCollection(ConnectionData connectionData)

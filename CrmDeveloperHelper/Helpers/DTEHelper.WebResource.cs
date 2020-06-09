@@ -284,7 +284,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleOpenWebResource(ConnectionData connectionData, ActionOpenComponent action)
+        public void HandleOpenWebResource(ConnectionData connectionData, ActionOnComponent action)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
@@ -315,11 +315,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     switch (action)
                     {
-                        case ActionOpenComponent.OpenInWeb:
+                        case ActionOnComponent.OpenInWeb:
                             connectionData.OpenEntityInstanceInWeb(Entities.WebResource.EntityLogicalName, objectId.Value);
                             return;
 
-                        case ActionOpenComponent.OpenDependentComponentsInWeb:
+                        case ActionOnComponent.OpenDependentComponentsInWeb:
                             connectionData.OpenSolutionComponentDependentComponentsInWeb(Entities.ComponentType.WebResource, objectId.Value);
                             return;
                     }
@@ -336,7 +336,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleOpenLinkedSystemForm(ConnectionData connectionData, ActionOpenComponent action, string entityName, Guid formId, int formType)
+        public void HandleOpenLinkedSystemForm(ConnectionData connectionData, ActionOnComponent action, string entityName, Guid formId, int formType)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
@@ -359,11 +359,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 switch (action)
                 {
-                    case ActionOpenComponent.OpenInWeb:
+                    case ActionOnComponent.OpenInWeb:
                         connectionData.OpenSystemFormInWeb(entityName, formId, formType);
                         return;
 
-                    case ActionOpenComponent.OpenDependentComponentsInWeb:
+                    case ActionOnComponent.OpenDependentComponentsInWeb:
                         connectionData.OpenSolutionComponentDependentComponentsInWeb(Entities.ComponentType.SystemForm, formId);
                         return;
                 }

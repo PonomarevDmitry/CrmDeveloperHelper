@@ -6,7 +6,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
     public partial class DTEHelper
     {
-        public void HandleSolutionOpenLastSelected(ConnectionData connectionData, string solutionUniqueName, ActionOpenComponent action)
+        public void HandleSolutionOpenLastSelected(ConnectionData connectionData, string solutionUniqueName, ActionOnComponent action)
         {
             if (string.IsNullOrEmpty(solutionUniqueName))
             {

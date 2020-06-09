@@ -429,10 +429,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartSystemFormGetCurrentFormXml(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
             => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteGetSystemFormCurrentXml, commonConfig, selectedFile);
 
-        public void StartSystemFormGetCurrentAttribute(ConnectionData connectionData, CommonConfiguration commonConfig, Guid formId, ActionOpenComponent action, string fieldName, string fieldTitle)
+        public void StartSystemFormGetCurrentAttribute(ConnectionData connectionData, CommonConfiguration commonConfig, Guid formId, ActionOnComponent action, string fieldName, string fieldTitle)
             => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteGetSystemFormCurrentAttribute, commonConfig, formId, action, fieldName, fieldTitle);
 
-        public void StartOpeningLinkedSystemForm(ConnectionData connectionData, CommonConfiguration commonConfig, ActionOpenComponent action, string entityName, Guid formId, int formType)
+        public void StartOpeningLinkedSystemForm(ConnectionData connectionData, CommonConfiguration commonConfig, ActionOnComponent action, string entityName, Guid formId, int formType)
              => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteOpeningLinkedSystemForm, commonConfig, action, entityName, formId, formType);
 
         public void StartAddingLinkedSystemFormToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, bool withSelect, string entityName, Guid formId, int formType)
@@ -533,7 +533,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Ribbon
 
-        public void StartEntityMetadataOpenInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, ActionOpenComponent action)
+        public void StartEntityMetadataOpenInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, ActionOnComponent action)
             => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteEntityMetadataOpenInWeb, commonConfig, entityName, action);
 
         public void StartPublishEntityMetadata(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName)
@@ -889,7 +889,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartPluginAssemblyCreateDescription(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList)
             => ExecuteWithConnectionInThread(connectionData, this._pluginController.ExecuteCreatingPluginAssemblyDescription, commonConfig, projectList);
 
-        public void StartPluginAssemblyOpen(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList, ActionOpenComponent actionOpen)
+        public void StartPluginAssemblyOpen(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList, ActionOnComponent actionOpen)
             => ExecuteWithConnectionInThread(connectionData, this._pluginController.ExecuteOpeningProjectPluginAssembly, commonConfig, projectList, actionOpen);
 
         public void StartPluginAssemblyRegister(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList)
@@ -952,13 +952,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartOpeningFiles(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, OpenFilesType openFilesType, bool isTextEditor)
             => ExecuteWithConnectionInThread(connectionData, this._openFilesController.ExecuteOpenFiles, commonConfig, selectedFiles, openFilesType, isTextEditor);
 
-        public void StartOpeningReport(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, ActionOpenComponent action)
+        public void StartOpeningReport(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, ActionOnComponent action)
             => ExecuteWithConnectionInThread(connectionData, this._linkController.ExecuteOpeningReport, commonConfig, selectedFile, action);
 
-        public void StartSolutionOpening(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, ActionOpenComponent action)
+        public void StartSolutionOpening(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, ActionOnComponent action)
             => ExecuteWithConnectionInThread(connectionData, this._linkController.ExecuteOpeningSolutionAsync, commonConfig, solutionUniqueName, action);
 
-        public void StartOpeningWebResource(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, ActionOpenComponent action)
+        public void StartOpeningWebResource(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, ActionOnComponent action)
             => ExecuteWithConnectionInThread(connectionData, this._linkController.ExecuteOpeningWebResource, commonConfig, selectedFile, action);
 
         public void StartPublishAll(ConnectionData connectionData)

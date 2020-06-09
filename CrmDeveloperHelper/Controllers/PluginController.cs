@@ -733,7 +733,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Opening PluginAssembly
 
-        public async Task ExecuteOpeningProjectPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList, ActionOpenComponent actionOpen)
+        public async Task ExecuteOpeningProjectPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList, ActionOnComponent actionOpen)
         {
             string operation = string.Format(Properties.OperationNames.OpeningPluginAssemblyFormat1
                 , connectionData?.Name
@@ -755,7 +755,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task OpeningProjectPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList, ActionOpenComponent actionOpen)
+        private async Task OpeningProjectPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList, ActionOnComponent actionOpen)
         {
             if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
             {
@@ -795,11 +795,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     continue;
                 }
 
-                if (actionOpen == ActionOpenComponent.OpenDependentComponentsInWeb)
+                if (actionOpen == ActionOnComponent.OpenDependentComponentsInWeb)
                 {
                     connectionData.OpenSolutionComponentDependentComponentsInWeb(ComponentType.PluginAssembly, assembly.Id);
                 }
-                else if (actionOpen == ActionOpenComponent.OpenDependentComponentsInExplorer)
+                else if (actionOpen == ActionOnComponent.OpenDependentComponentsInExplorer)
                 {
                     WindowHelper.OpenSolutionComponentDependenciesExplorer(
                         _iWriteToOutput
@@ -811,7 +811,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         , null
                     );
                 }
-                else if (actionOpen == ActionOpenComponent.OpenSolutionsContainingComponentInExplorer)
+                else if (actionOpen == ActionOnComponent.OpenSolutionsContainingComponentInExplorer)
                 {
                     WindowHelper.OpenExplorerSolutionExplorer(
                         _iWriteToOutput
