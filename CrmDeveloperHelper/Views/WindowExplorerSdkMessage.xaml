@@ -40,7 +40,7 @@
                 <MenuItem Header="Add to Crm Solution" Click="AddToCrmSolution_Click" />
 
                 <Separator/>
-                <MenuItem Header="Open Solutions Containing Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
+                <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
 
                 <Separator/>
                 <MenuItem Header="Dependent Components">
@@ -249,7 +249,7 @@
                             <MenuItem Header="ThrottleSettings Xml" Click="mIExportThrottleSettingsXml_Click"/>
 
                             <Separator/>
-                            <MenuItem Header="Open Solutions Containing Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
+                            <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
 
                             <Separator/>
                             <MenuItem Header="Dependent Components">

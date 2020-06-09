@@ -49,7 +49,7 @@
                 <MenuItem x:Uid="contMnLinkedComponents" Header="Linked Components" />
 
                 <Separator/>
-                <MenuItem Header="Open Solutions Containing Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
+                <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
 
                 <Separator/>
                 <MenuItem Header="Dependent Components">
@@ -203,7 +203,7 @@
                             <MenuItem x:Name="mICreateEntityDescription" Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
                             
                             <Separator/>
-                            <MenuItem Header="Open Solutions Containing Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
+                            <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
                             
                             <Separator/>
                             <MenuItem Header="Dependent Components">

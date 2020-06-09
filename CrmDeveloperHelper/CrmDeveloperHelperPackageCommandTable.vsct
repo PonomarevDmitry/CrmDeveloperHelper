@@ -1095,8 +1095,8 @@
       <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedSystemForm_Menu_Group2_MenuOpenSolutionsContainingComponentInExplorerDyn" priority="0x0107" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Solutions Containing in Explorer</ButtonText>
-          <MenuText>Open Solutions Containing in Explorer</MenuText>
+          <ButtonText>Open Solutions List with Form in Explorer</ButtonText>
+          <MenuText>Open Solutions List with Form in Explorer</MenuText>
         </Strings>
       </Menu>
 
@@ -1196,8 +1196,8 @@
       <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLinkedEntity_Menu_Group2_MenuOpenSolutionsContainingComponentInExplorerDyn" priority="0x0107" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Solutions Containing in Explorer</ButtonText>
-          <MenuText>Open Solutions Containing in Explorer</MenuText>
+          <ButtonText>Open Solutions with Entity in Explorer</ButtonText>
+          <MenuText>Open Solutions with Entity in Explorer</MenuText>
         </Strings>
       </Menu>
 
@@ -1325,8 +1325,8 @@
       <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_Menu_Group_MenuOpenSolutionsContainingComponentInExplorerDyn" priority="0x0107" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Solutions Containing WebResource in Explorer</ButtonText>
-          <MenuText>Open Solutions Containing WebResource in Explorer</MenuText>
+          <ButtonText>Open Solutions List with WebResource in Explorer</ButtonText>
+          <MenuText>Open Solutions List with WebResource in Explorer</MenuText>
         </Strings>
       </Menu>
 
@@ -1713,8 +1713,8 @@
       <Menu guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_Menu_Group_MenuOpenSolutionsContainingComponentInExplorerDyn" priority="0x0107" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Solutions Containing Report in Explorer</ButtonText>
-          <MenuText>Open Solutions Containing Report in Explorer</MenuText>
+          <ButtonText>Open Solutions List with Report in Explorer</ButtonText>
+          <MenuText>Open Solutions List with Report in Explorer</MenuText>
         </Strings>
       </Menu>
 
@@ -2295,8 +2295,8 @@
       <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_Menu_Group_MenuOpenSolutionsContainingComponentInExplorerDyn" priority="0x0107" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Solutions Containing WebResource in Explorer</ButtonText>
-          <MenuText>Open Solutions Containing WebResource in Explorer</MenuText>
+          <ButtonText>Open Solutions List with WebResource in Explorer</ButtonText>
+          <MenuText>Open Solutions List with WebResource in Explorer</MenuText>
         </Strings>
       </Menu>
 
@@ -2392,8 +2392,8 @@
       <Menu guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_Menu_Group_MenuOpenSolutionsContainingComponentInExplorerDyn" priority="0x0107" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Solutions Containing Report in Explorer</ButtonText>
-          <MenuText>Open Solutions Containing Report in Explorer</MenuText>
+          <ButtonText>Open Solutions List with Report in Explorer</ButtonText>
+          <MenuText>Open Solutions List with Report in Explorer</MenuText>
         </Strings>
       </Menu>
 
@@ -2895,8 +2895,8 @@
       <Menu guid="guidGroupAndMenuSet" id="folderMenuProject_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Solutions Containing PluginAssembly in Explorer</ButtonText>
-          <MenuText>Open Solutions Containing PluginAssembly in Explorer</MenuText>
+          <ButtonText>Open Solutions List with PluginAssembly in Explorer</ButtonText>
+          <MenuText>Open Solutions List with PluginAssembly in Explorer</MenuText>
         </Strings>
       </Menu>
 

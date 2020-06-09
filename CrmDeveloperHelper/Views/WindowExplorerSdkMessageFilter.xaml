@@ -37,7 +37,7 @@
                 <MenuItem Header="Add to Crm Solution" Click="AddToCrmSolution_Click" />
 
                 <Separator/>
-                <MenuItem Header="Open Solutions Containing Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
+                <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
 
                 <Separator/>
                 <MenuItem Header="Dependent Components">
@@ -221,7 +221,7 @@
                             <MenuItem Header="Delete MessageFilter" Click="mIDeleteMessageFilter_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Open Solutions Containing Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
+                            <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
 
                             <Separator/>
                             <MenuItem Header="Dependent Components">

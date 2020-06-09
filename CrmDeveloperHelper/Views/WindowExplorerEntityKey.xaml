@@ -41,7 +41,7 @@
                 <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
 
                 <Separator/>
-                <MenuItem Header="Open Solutions Containing Component in Explorer" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
+                <MenuItem Header="Open Solutions List with Component in Explorer" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
 
                 <Separator/>
                 <MenuItem Header="Dependent Components">
@@ -66,7 +66,7 @@
                 <MenuItem Header="Add to Crm Solution" VerticalAlignment="Center" Click="AddEntityKeyToCrmSolution_Click" />
 
                 <Separator/>
-                <MenuItem Header="Open Solutions Containing Component in Explorer" VerticalAlignment="Center" Click="mIEntityKeyOpenSolutionsContainingComponentInExplorer_Click" />
+                <MenuItem Header="Open Solutions List with Component in Explorer" VerticalAlignment="Center" Click="mIEntityKeyOpenSolutionsContainingComponentInExplorer_Click" />
 
                 <Separator/>
                 <MenuItem Header="Dependent Components">

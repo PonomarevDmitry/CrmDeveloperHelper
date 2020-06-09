@@ -98,7 +98,7 @@
                     <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
 
                     <Separator/>
-                    <MenuItem Header="Open Solutions Containing Component in Explorer" VerticalAlignment="Center" Click="miOpenEntitySolutionsContainingComponentInExplorer_Click" />
+                    <MenuItem Header="Open Solutions List with Component in Explorer" VerticalAlignment="Center" Click="miOpenEntitySolutionsContainingComponentInExplorer_Click" />
 
                     <Separator/>
                     <MenuItem Header="Dependent Components">
@@ -136,7 +136,7 @@
                 <MenuItem x:Uid="contMnWorkflowExlorer" Header="Open Workflow Explorer" Click="mIOpenWorkflowExplorer_Click" />
 
                 <Separator x:Uid="contMnDependentComponents"/>
-                <MenuItem x:Uid="contMnDependentComponents" Header="Open Solutions Containing Component in Explorer" VerticalAlignment="Center" Click="miOpenSolutionsContainingComponentInExplorer_Click" />
+                <MenuItem x:Uid="contMnDependentComponents" Header="Open Solutions List with Component in Explorer" VerticalAlignment="Center" Click="miOpenSolutionsContainingComponentInExplorer_Click" />
 
                 <Separator x:Uid="contMnDependentComponents" />
                 <MenuItem x:Uid="contMnDependentComponents" Header="Dependent Components">
