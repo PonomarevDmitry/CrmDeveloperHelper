@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
-    internal sealed class CodeCSharpAddPluginStepInConnectionCommand : AbstractDynamicCommandByConnectionAll
+    internal sealed class CodeCSharpAddPluginStepInConnectionCommand : AbstractDynamicCommandByConnectionAllWithoutCurrent
     {
         private CodeCSharpAddPluginStepInConnectionCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidDynamicCommandSet.CodeCSharpAddPluginStepInConnectionCommandId)

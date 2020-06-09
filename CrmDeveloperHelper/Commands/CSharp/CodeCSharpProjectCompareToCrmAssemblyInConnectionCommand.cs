@@ -4,7 +4,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
-    internal sealed class CodeCSharpProjectCompareToCrmAssemblyInConnectionCommand : AbstractDynamicCommandByConnectionAll
+    internal sealed class CodeCSharpProjectCompareToCrmAssemblyInConnectionCommand : AbstractDynamicCommandByConnectionAllWithoutCurrent
     {
         private CodeCSharpProjectCompareToCrmAssemblyInConnectionCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidDynamicCommandSet.CodeCSharpProjectCompareToCrmAssemblyInConnectionCommandId)

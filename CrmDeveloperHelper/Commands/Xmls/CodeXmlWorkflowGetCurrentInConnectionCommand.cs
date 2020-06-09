@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlWorkflowGetCurrentInConnectionCommand : AbstractDynamicCommandByConnectionAll
+    internal sealed class CodeXmlWorkflowGetCurrentInConnectionCommand : AbstractDynamicCommandByConnectionAllWithoutCurrent
     {
         private CodeXmlWorkflowGetCurrentInConnectionCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidDynamicCommandSet.CodeXmlWorkflowGetCurrentInConnectionCommandId)

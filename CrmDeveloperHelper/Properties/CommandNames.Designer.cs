@@ -115,7 +115,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Update Global OptionSet File with Select.
+        ///   Looks up a localized string similar to Update Global OptionSets File with Select.
         /// </summary>
         internal static string CodeCSharpUpdateGlobalOptionSetsFileWithSelectCommand {
             get {

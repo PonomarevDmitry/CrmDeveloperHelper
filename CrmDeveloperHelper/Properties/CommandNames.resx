@@ -139,7 +139,7 @@
     <value>Update EntityMetadata Proxy Class or Schema File with Select Entity</value>
   </data>
   <data name="CodeCSharpUpdateGlobalOptionSetsFileWithSelectCommand" xml:space="preserve">
-    <value>Update Global OptionSet File with Select</value>
+    <value>Update Global OptionSets File with Select</value>
   </data>
   <data name="CodeCSharpUpdateProxyClassesCommand" xml:space="preserve">
     <value>Update Proxy Classes</value>

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlSiteMapGetCurrentInConnectionCommand : AbstractDynamicCommandByConnectionAll
+    internal sealed class CodeXmlSiteMapGetCurrentInConnectionCommand : AbstractDynamicCommandByConnectionAllWithoutCurrent
     {
         private CodeXmlSiteMapGetCurrentInConnectionCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidDynamicCommandSet.CodeXmlSiteMapGetCurrentInConnectionCommandId)
