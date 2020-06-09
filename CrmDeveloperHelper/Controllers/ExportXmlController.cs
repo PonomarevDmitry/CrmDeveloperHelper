@@ -685,7 +685,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 await GetCurrentEntityDescription(service, commonConfig, systemForm);
             }
-            else if (action == ActionOpenComponent.FormDescription)
+            else if (action == ActionOpenComponent.Description)
             {
                 await GetCurrentFormDescription(service, commonConfig, systemForm);
             }

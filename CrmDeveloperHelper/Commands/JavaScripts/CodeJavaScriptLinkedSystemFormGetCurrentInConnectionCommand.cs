@@ -49,7 +49,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
             InstanceFormDescription = new CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedSystemFormGetCurrentFormDescriptionInConnectionCommandId
-                , ActionOpenComponent.FormDescription
+                , ActionOpenComponent.Description
                 , string.Empty
                 , string.Empty
             );

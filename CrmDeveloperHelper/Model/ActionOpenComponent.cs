@@ -20,6 +20,6 @@
 
         EntityDescription = 8,
 
-        FormDescription = 9,
+        Description = 9,
     }
 }
