@@ -257,7 +257,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpenInWebSiteMap(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
-            string operation = string.Format(Properties.OperationNames.OpeningSiteMapInWebFormat1, connectionData?.Name);
+            string operation = string.Format(
+                Properties.OperationNames.ActionOnComponentFormat3
+                , connectionData?.Name
+                , SiteMap.EntityLogicalName
+                , EnumDescriptionTypeConverter.GetEnumNameByDescriptionAttribute(ActionOnComponent.OpenInWeb)
+            );
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
@@ -611,7 +616,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpenInWebSystemForm(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
-            string operation = string.Format(Properties.OperationNames.OpeningSystemFormInWebFormat1, connectionData?.Name);
+            string operation = string.Format(
+                Properties.OperationNames.ActionOnComponentFormat3
+                , connectionData?.Name
+                , SystemForm.EntityLogicalName
+                , EnumDescriptionTypeConverter.GetEnumNameByDescriptionAttribute(ActionOnComponent.OpenInWeb)
+            );
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
@@ -694,8 +704,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public async Task ExecuteOpeningLinkedSystemForm(ConnectionData connectionData, CommonConfiguration commonConfig, ActionOnComponent action, string entityName, Guid formId, int formType)
         {
             await ConnectAndExecuteActionAsync(connectionData
-                , Properties.OperationNames.OpeningLinkedSystemFormFormat1
+                , Properties.OperationNames.ActionOnComponentFormat3
                 , (service) => OpeningLinkedSystemForm(service, commonConfig, action, entityName, formId, formType)
+                , "Linked " + SystemForm.EntityLogicalName
+                , EnumDescriptionTypeConverter.GetEnumNameByDescriptionAttribute(ActionOnComponent.OpenInWeb)
             );
         }
 
@@ -1245,7 +1257,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpenInWebSavedQuery(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
-            string operation = string.Format(Properties.OperationNames.OpeningSavedQueryInWebFormat1, connectionData?.Name);
+            string operation = string.Format(
+                Properties.OperationNames.ActionOnComponentFormat3
+                , connectionData?.Name
+                , SavedQuery.EntityLogicalName
+                , EnumDescriptionTypeConverter.GetEnumNameByDescriptionAttribute(ActionOnComponent.OpenInWeb)
+            );
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
@@ -1663,7 +1680,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpenInWebWorkflow(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
-            string operation = string.Format(Properties.OperationNames.OpeningWorkflowInWebFormat1, connectionData?.Name);
+            string operation = string.Format(
+                Properties.OperationNames.ActionOnComponentFormat3
+                , connectionData?.Name
+                , Workflow.EntityLogicalName
+                , EnumDescriptionTypeConverter.GetEnumNameByDescriptionAttribute(ActionOnComponent.OpenInWeb)
+            );
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
@@ -2068,7 +2090,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpenInWebWebResourceDependencyXml(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
-            string operation = string.Format(Properties.OperationNames.OpeningWebResourceFormat1, connectionData?.Name);
+            string operation = string.Format(
+                Properties.OperationNames.ActionOnComponentFormat3
+                , connectionData?.Name
+                , WebResource.EntityLogicalName
+                , EnumDescriptionTypeConverter.GetEnumNameByDescriptionAttribute(ActionOnComponent.OpenInWeb)
+            );
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 

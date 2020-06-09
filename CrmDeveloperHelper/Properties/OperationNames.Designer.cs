@@ -61,6 +61,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - {1} - {2}.
+        /// </summary>
+        internal static string ActionOnComponentFormat3 {
+            get {
+                return ResourceManager.GetString("ActionOnComponentFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Activating {1} {2}.
         /// </summary>
         internal static string ActivatingEntityFormat3 {
@@ -1609,20 +1618,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Opening Entity Relationship Many-To-Many.
+        ///   Looks up a localized string similar to {0} - Opening Entity Relationship Many-To-Many Explorer.
         /// </summary>
-        internal static string OpeningEntityRelationshipManyToManyFormat1 {
+        internal static string OpeningEntityRelationshipManyToManyExplorerFormat1 {
             get {
-                return ResourceManager.GetString("OpeningEntityRelationshipManyToManyFormat1", resourceCulture);
+                return ResourceManager.GetString("OpeningEntityRelationshipManyToManyExplorerFormat1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Opening Entity Relationship One-To-Many.
+        ///   Looks up a localized string similar to {0} - Opening Entity Relationship One-To-Many Explorer.
         /// </summary>
-        internal static string OpeningEntityRelationshipOneToManyFormat1 {
+        internal static string OpeningEntityRelationshipOneToManyExplorerFormat1 {
             get {
-                return ResourceManager.GetString("OpeningEntityRelationshipOneToManyFormat1", resourceCulture);
+                return ResourceManager.GetString("OpeningEntityRelationshipOneToManyExplorerFormat1", resourceCulture);
             }
         }
         
@@ -1690,29 +1699,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Opening Linked SystemForm.
-        /// </summary>
-        internal static string OpeningLinkedSystemFormFormat1 {
-            get {
-                return ResourceManager.GetString("OpeningLinkedSystemFormFormat1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0} - Opening Other Privileges Explorer.
         /// </summary>
         internal static string OpeningOtherPrivilegesExplorerFormat1 {
             get {
                 return ResourceManager.GetString("OpeningOtherPrivilegesExplorerFormat1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} - Opening PluginAssembly.
-        /// </summary>
-        internal static string OpeningPluginAssemblyFormat1 {
-            get {
-                return ResourceManager.GetString("OpeningPluginAssemblyFormat1", resourceCulture);
             }
         }
         
@@ -1726,15 +1717,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Opening Report.
-        /// </summary>
-        internal static string OpeningReportFormat1 {
-            get {
-                return ResourceManager.GetString("OpeningReportFormat1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0} - Opening Ribbon Explorer.
         /// </summary>
         internal static string OpeningRibbonExplorerFormat1 {
@@ -1744,47 +1726,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Opening SavedQuery in Web.
-        /// </summary>
-        internal static string OpeningSavedQueryInWebFormat1 {
-            get {
-                return ResourceManager.GetString("OpeningSavedQueryInWebFormat1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0} - Opening SecurityRoles Explorer.
         /// </summary>
         internal static string OpeningSecurityRolesExplorerFormat1 {
             get {
                 return ResourceManager.GetString("OpeningSecurityRolesExplorerFormat1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} - Opening SiteMap in Web.
-        /// </summary>
-        internal static string OpeningSiteMapInWebFormat1 {
-            get {
-                return ResourceManager.GetString("OpeningSiteMapInWebFormat1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} - Opening Solution.
-        /// </summary>
-        internal static string OpeningSolutionFormat1 {
-            get {
-                return ResourceManager.GetString("OpeningSolutionFormat1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} - Opening SystemForm in Web.
-        /// </summary>
-        internal static string OpeningSystemFormInWebFormat1 {
-            get {
-                return ResourceManager.GetString("OpeningSystemFormInWebFormat1", resourceCulture);
             }
         }
         
@@ -1812,24 +1758,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string OpeningWebResourceExplorerFormat1 {
             get {
                 return ResourceManager.GetString("OpeningWebResourceExplorerFormat1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} - Opening WebResource.
-        /// </summary>
-        internal static string OpeningWebResourceFormat1 {
-            get {
-                return ResourceManager.GetString("OpeningWebResourceFormat1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} - Opening Workflow in Web.
-        /// </summary>
-        internal static string OpeningWorkflowInWebFormat1 {
-            get {
-                return ResourceManager.GetString("OpeningWorkflowInWebFormat1", resourceCulture);
             }
         }
         

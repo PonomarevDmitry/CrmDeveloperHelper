@@ -350,11 +350,11 @@
   <data name="OpeningEntityKeyExplorerFormat1" xml:space="preserve">
     <value>{0} - Opening Entity Key Explorer</value>
   </data>
-  <data name="OpeningEntityRelationshipManyToManyFormat1" xml:space="preserve">
-    <value>{0} - Opening Entity Relationship Many-To-Many</value>
+  <data name="OpeningEntityRelationshipManyToManyExplorerFormat1" xml:space="preserve">
+    <value>{0} - Opening Entity Relationship Many-To-Many Explorer</value>
   </data>
-  <data name="OpeningEntityRelationshipOneToManyFormat1" xml:space="preserve">
-    <value>{0} - Opening Entity Relationship One-To-Many</value>
+  <data name="OpeningEntityRelationshipOneToManyExplorerFormat1" xml:space="preserve">
+    <value>{0} - Opening Entity Relationship One-To-Many Explorer</value>
   </data>
   <data name="OpeningFilesFormat2" xml:space="preserve">
     <value>{0} - Opening Files {1}</value>
@@ -362,17 +362,8 @@
   <data name="OpeningFilesWithoutUTF8Encoding" xml:space="preserve">
     <value>Opening Files without UTF8 Encoding</value>
   </data>
-  <data name="OpeningReportFormat1" xml:space="preserve">
-    <value>{0} - Opening Report</value>
-  </data>
-  <data name="OpeningSolutionFormat1" xml:space="preserve">
-    <value>{0} - Opening Solution</value>
-  </data>
-  <data name="OpeningWebResourceFormat1" xml:space="preserve">
-    <value>{0} - Opening WebResource</value>
-  </data>
-  <data name="OpeningPluginAssemblyFormat1" xml:space="preserve">
-    <value>{0} - Opening PluginAssembly</value>
+  <data name="ActionOnComponentFormat3" xml:space="preserve">
+    <value>{0} - {1} - {2}</value>
   </data>
   <data name="CreatingPluginAssemblyEntityDescriptionFormat1" xml:space="preserve">
     <value>{0} - Creating PluginAssembly EntityDescription</value>
@@ -740,29 +731,17 @@
   <data name="UpdatingSiteMapFormat1" xml:space="preserve">
     <value>{0} - Updating SiteMap</value>
   </data>
-  <data name="OpeningSiteMapInWebFormat1" xml:space="preserve">
-    <value>{0} - Opening SiteMap in Web</value>
-  </data>
   <data name="DifferenceSystemFormFormat1" xml:space="preserve">
     <value>{0} - Difference SystemForm</value>
   </data>
   <data name="UpdatingSystemFormFormat1" xml:space="preserve">
     <value>{0} - Updating SystemForm</value>
   </data>
-  <data name="OpeningSystemFormInWebFormat1" xml:space="preserve">
-    <value>{0} - Opening SystemForm in Web</value>
-  </data>
-  <data name="OpeningLinkedSystemFormFormat1" xml:space="preserve">
-    <value>{0} - Opening Linked SystemForm</value>
-  </data>
   <data name="DifferenceSavedQueryFormat1" xml:space="preserve">
     <value>{0} - Difference SavedQuery</value>
   </data>
   <data name="UpdatingSavedQueryFormat1" xml:space="preserve">
     <value>{0} - Updating SavedQuery</value>
-  </data>
-  <data name="OpeningSavedQueryInWebFormat1" xml:space="preserve">
-    <value>{0} - Opening SavedQuery in Web</value>
   </data>
   <data name="CheckingWorkflowsStatusCodesFormat2" xml:space="preserve">
     <value>Checking Workflow states in {0} and {1}</value>
@@ -859,9 +838,6 @@
   </data>
   <data name="UpdatingWorkflowFormat1" xml:space="preserve">
     <value>{0} - Updating Workflow</value>
-  </data>
-  <data name="OpeningWorkflowInWebFormat1" xml:space="preserve">
-    <value>{0} - Opening Workflow in Web</value>
   </data>
   <data name="CreatingWebResourceEntityDescriptionFormat1" xml:space="preserve">
     <value>{0} - Creating WebResource Entity Description</value>

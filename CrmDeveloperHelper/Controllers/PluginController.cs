@@ -735,8 +735,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpeningProjectPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList, ActionOnComponent actionOpen)
         {
-            string operation = string.Format(Properties.OperationNames.OpeningPluginAssemblyFormat1
+            string operation = string.Format(
+                Properties.OperationNames.ActionOnComponentFormat3
                 , connectionData?.Name
+                , PluginAssembly.EntityLogicalName
+                , EnumDescriptionTypeConverter.GetEnumNameByDescriptionAttribute(actionOpen)
             );
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);

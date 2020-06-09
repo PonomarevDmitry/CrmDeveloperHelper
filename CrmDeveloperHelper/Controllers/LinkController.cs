@@ -233,7 +233,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpeningReport(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, ActionOnComponent action)
         {
-            string operation = string.Format(Properties.OperationNames.OpeningReportFormat1, connectionData?.Name);
+            string operation = string.Format(
+                Properties.OperationNames.ActionOnComponentFormat3
+                , connectionData?.Name
+                , Report.EntityLogicalName
+                , EnumDescriptionTypeConverter.GetEnumNameByDescriptionAttribute(action)
+            );
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
@@ -393,7 +398,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpeningWebResource(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, ActionOnComponent action)
         {
-            string operation = string.Format(Properties.OperationNames.OpeningWebResourceFormat1, connectionData?.Name);
+            string operation = string.Format(
+                Properties.OperationNames.ActionOnComponentFormat3
+                , connectionData?.Name
+                , WebResource.EntityLogicalName
+                , EnumDescriptionTypeConverter.GetEnumNameByDescriptionAttribute(action)
+            );
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
@@ -553,7 +563,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         public async Task ExecuteOpeningSolutionAsync(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, ActionOnComponent action)
         {
-            string operation = string.Format(Properties.OperationNames.OpeningSolutionFormat1, connectionData?.Name);
+            string operation = string.Format(
+                Properties.OperationNames.ActionOnComponentFormat3
+                , connectionData?.Name
+                , Solution.EntityLogicalName
+                , EnumDescriptionTypeConverter.GetEnumNameByDescriptionAttribute(action)
+            );
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 

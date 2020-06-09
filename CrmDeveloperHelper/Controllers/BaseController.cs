@@ -157,7 +157,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             ConnectionData connectionData
             , string operationNameFormat
             , Action<IOrganizationServiceExtented> action
-            , params object[] args
+            , params string[] args
         )
         {
             var operation = FormatOperationName(connectionData, operationNameFormat, args);
@@ -189,7 +189,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             ConnectionData connectionData
             , string operationNameFormat
             , Func<IOrganizationServiceExtented, Task> action
-            , params object[] args
+            , params string[] args
         )
         {
             var operation = FormatOperationName(connectionData, operationNameFormat, args);
@@ -263,7 +263,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             , IEnumerable<SelectedFile> selectedFiles
             , bool checkReadOnly
             , Func<IOrganizationServiceExtented, Task> action
-            , params object[] args
+            , params string[] args
         )
         {
             var operation = FormatOperationName(connectionData, operationNameFormat, args);
@@ -314,7 +314,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             , List<SelectedFile> selectedFiles
             , OpenFilesType openFilesType
             , Action<Tuple<IOrganizationServiceExtented, TupleList<SelectedFile, WebResource>>> action
-            , params object[] args
+            , params string[] args
         )
         {
             var operation = FormatOperationName(connectionData, operationNameFormat, args);
@@ -356,7 +356,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             , List<SelectedFile> selectedFiles
             , OpenFilesType openFilesType
             , Func<Tuple<IOrganizationServiceExtented, TupleList<SelectedFile, WebResource>>, Task> action
-            , params object[] args
+            , params string[] args
         )
         {
             var operation = FormatOperationName(connectionData, operationNameFormat, args);
@@ -392,7 +392,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private static string FormatOperationName(ConnectionData connectionData, string operationNameFormat, object[] args)
+        private static string FormatOperationName(ConnectionData connectionData, string operationNameFormat, string[] args)
         {
             var formatArgs = new List<object>() { connectionData?.Name };
 

@@ -41,7 +41,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public async Task ExecuteOpeningEntityRelationshipOneToManyExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             await ConnectAndExecuteActionAsync(connectionData
-                , Properties.OperationNames.OpeningEntityRelationshipOneToManyFormat1
+                , Properties.OperationNames.OpeningEntityRelationshipOneToManyExplorerFormat1
                 , (service) => WindowHelper.OpenEntityRelationshipOneToManyExplorer(this._iWriteToOutput, service, commonConfig, selection)
             );
         }
@@ -49,7 +49,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public async Task ExecuteOpeningEntityRelationshipManyToManyExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             await ConnectAndExecuteActionAsync(connectionData
-                , Properties.OperationNames.OpeningEntityRelationshipManyToManyFormat1
+                , Properties.OperationNames.OpeningEntityRelationshipManyToManyExplorerFormat1
                 , (service) => WindowHelper.OpenEntityRelationshipManyToManyExplorer(this._iWriteToOutput, service, commonConfig, selection)
             );
         }
