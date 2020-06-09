@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlWebResourceDependencyXmlUpdateInConnectionCommand : AbstractDynamicCommandByConnectionWithoutCurrent
+    internal sealed class CodeXmlWebResourceDependencyXmlUpdateInConnectionCommand : AbstractDynamicCommandByConnectionAllWithoutCurrent
     {
         private CodeXmlWebResourceDependencyXmlUpdateInConnectionCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidDynamicCommandSet.CodeXmlWebResourceDependencyXmlUpdateInConnectionCommandId)

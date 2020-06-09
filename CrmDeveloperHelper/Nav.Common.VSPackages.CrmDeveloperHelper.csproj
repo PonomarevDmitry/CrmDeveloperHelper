@@ -95,7 +95,7 @@
     <Compile Include="Commands\AbstractDynamicCommandByConnectionAll.cs" />
     <Compile Include="Commands\AbstractDynamicCommandByConnectionByGroupWithCurrent.cs" />
     <Compile Include="Commands\AbstractDynamicCommandByConnectionByGroupWithoutCurrent.cs" />
-    <Compile Include="Commands\AbstractDynamicCommandByConnectionWithoutCurrent.cs" />
+    <Compile Include="Commands\AbstractDynamicCommandByConnectionAllWithoutCurrent.cs" />
     <Compile Include="Commands\AbstractDynamicCommand.cs" />
     <Compile Include="Commands\AbstractDynamicCommandConnectionPair.cs" />
     <Compile Include="Commands\AbstractDynamicCommandXsdSchemas.cs" />

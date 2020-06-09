@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal abstract class AbstractDynamicCommandByConnectionWithoutCurrent : AbstractDynamicCommandByConnection
+    internal abstract class AbstractDynamicCommandByConnectionAllWithoutCurrent : AbstractDynamicCommandByConnection
     {
-        protected AbstractDynamicCommandByConnectionWithoutCurrent(OleMenuCommandService commandService, int baseIdStart)
+        protected AbstractDynamicCommandByConnectionAllWithoutCurrent(OleMenuCommandService commandService, int baseIdStart)
             : base(commandService, baseIdStart)
         {
         }

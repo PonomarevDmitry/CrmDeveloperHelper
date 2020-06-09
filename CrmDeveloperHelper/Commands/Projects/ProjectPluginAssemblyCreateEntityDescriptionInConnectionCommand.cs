@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
 {
-    internal sealed class ProjectPluginAssemblyCreateEntityDescriptionInConnectionCommand : AbstractDynamicCommandByConnectionWithoutCurrent
+    internal sealed class ProjectPluginAssemblyCreateEntityDescriptionInConnectionCommand : AbstractDynamicCommandByConnectionAllWithoutCurrent
     {
         private ProjectPluginAssemblyCreateEntityDescriptionInConnectionCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidDynamicCommandSet.ProjectPluginAssemblyCreateEntityDescriptionInConnectionCommandId)
