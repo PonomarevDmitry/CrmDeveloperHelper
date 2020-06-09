@@ -9,7 +9,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
         private CodeWebResourceCreateEntityDescriptionInConnectionCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidDynamicCommandSet.CodeWebResourceCreateEntityDescriptionInConnectionCommandId)
         {
-
         }
 
         public static CodeWebResourceCreateEntityDescriptionInConnectionCommand Instance { get; private set; }

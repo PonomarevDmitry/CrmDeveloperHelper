@@ -9,12 +9,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
     internal sealed class FolderCSharpUpdateEntityMetadataFileProxyClassCommand : AbstractDynamicCommandByConnectionAll
     {
         private FolderCSharpUpdateEntityMetadataFileProxyClassCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.FolderCSharpUpdateEntityMetadataFileProxyClassCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.FolderCSharpUpdateEntityMetadataFileProxyClassCommandId)
         {
-
         }
 
         public static FolderCSharpUpdateEntityMetadataFileProxyClassCommand Instance { get; private set; }

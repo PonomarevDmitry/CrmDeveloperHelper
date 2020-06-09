@@ -7,12 +7,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
     internal sealed class CodeCSharpProjectUpdatePluginAssemblyInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
         private CodeCSharpProjectUpdatePluginAssemblyInConnectionCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.CodeCSharpProjectUpdatePluginAssemblyInConnectionCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.CodeCSharpProjectUpdatePluginAssemblyInConnectionCommandId)
         {
-
         }
 
         public static CodeCSharpProjectUpdatePluginAssemblyInConnectionCommand Instance { get; private set; }

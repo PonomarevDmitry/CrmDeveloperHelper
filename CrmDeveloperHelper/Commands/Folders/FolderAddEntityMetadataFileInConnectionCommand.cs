@@ -1,22 +1,15 @@
 ﻿using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
-using System;
-using System.ComponentModel.Design;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Folders
 {
     internal sealed class FolderAddEntityMetadataFileInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
         private FolderAddEntityMetadataFileInConnectionCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.FolderAddEntityMetadataFileInConnectionCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.FolderAddEntityMetadataFileInConnectionCommandId)
         {
-
         }
 
         public static FolderAddEntityMetadataFileInConnectionCommand Instance { get; private set; }

@@ -10,7 +10,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
         private CodeJavaScriptLinkedSystemFormAddToSolutionInConnectionCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedSystemFormAddToSolutionInConnectionCommandId)
         {
-
         }
 
         public static CodeJavaScriptLinkedSystemFormAddToSolutionInConnectionCommand Instance { get; private set; }

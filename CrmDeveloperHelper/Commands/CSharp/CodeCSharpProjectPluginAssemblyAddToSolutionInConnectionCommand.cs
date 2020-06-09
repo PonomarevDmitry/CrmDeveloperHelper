@@ -7,12 +7,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
     internal sealed class CodeCSharpProjectPluginAssemblyAddToSolutionInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
         private CodeCSharpProjectPluginAssemblyAddToSolutionInConnectionCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.CodeCSharpProjectPluginAssemblyAddToSolutionInConnectionCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.CodeCSharpProjectPluginAssemblyAddToSolutionInConnectionCommandId)
         {
-
         }
 
         public static CodeCSharpProjectPluginAssemblyAddToSolutionInConnectionCommand Instance { get; private set; }

@@ -7,12 +7,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Connections
     internal sealed class CommonPublishAllInCrmConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
         private CommonPublishAllInCrmConnectionCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.CommonPublishAllInCrmConnectionCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.CommonPublishAllInCrmConnectionCommandId)
         {
-
         }
 
         public static CommonPublishAllInCrmConnectionCommand Instance { get; private set; }

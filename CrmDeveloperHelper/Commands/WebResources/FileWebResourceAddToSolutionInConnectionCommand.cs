@@ -9,12 +9,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
     internal sealed class FileWebResourceAddToSolutionInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
         private FileWebResourceAddToSolutionInConnectionCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.FileWebResourceAddToSolutionInConnectionCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.FileWebResourceAddToSolutionInConnectionCommandId)
         {
-
         }
 
         public static FileWebResourceAddToSolutionInConnectionCommand Instance { get; private set; }

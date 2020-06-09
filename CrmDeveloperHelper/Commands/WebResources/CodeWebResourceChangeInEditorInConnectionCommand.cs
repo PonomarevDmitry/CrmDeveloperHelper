@@ -9,7 +9,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
         private CodeWebResourceChangeInEditorInConnectionCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidDynamicCommandSet.CodeWebResourceChangeInEditorInConnectionCommandId)
         {
-
         }
 
         public static CodeWebResourceChangeInEditorInConnectionCommand Instance { get; private set; }

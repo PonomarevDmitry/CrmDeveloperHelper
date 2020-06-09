@@ -10,10 +10,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Commons
         private readonly OpenCrmWebSiteType _crmWebSiteType;
 
         private CommonOpenCrmWebSiteCommand(OleMenuCommandService commandService, int baseIdStart, OpenCrmWebSiteType crmWebSiteType)
-            : base(
-                commandService
-                , baseIdStart
-            )
+            : base(commandService, baseIdStart)
         {
             this._crmWebSiteType = crmWebSiteType;
         }

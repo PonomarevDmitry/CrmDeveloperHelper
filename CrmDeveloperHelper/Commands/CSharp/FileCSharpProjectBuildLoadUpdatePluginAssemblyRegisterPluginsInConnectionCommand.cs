@@ -8,12 +8,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
     internal sealed class FileCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
         private FileCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.FileCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.FileCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId)
         {
-
         }
 
         public static FileCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommand Instance { get; private set; }

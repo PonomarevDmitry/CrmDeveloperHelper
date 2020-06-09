@@ -8,12 +8,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Folders
     internal sealed class FolderAddSystemFormJavaScriptFileInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
         private FolderAddSystemFormJavaScriptFileInConnectionCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.FolderAddSystemFormJavaScriptFileInConnectionCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.FolderAddSystemFormJavaScriptFileInConnectionCommandId)
         {
-
         }
 
         public static FolderAddSystemFormJavaScriptFileInConnectionCommand Instance { get; private set; }

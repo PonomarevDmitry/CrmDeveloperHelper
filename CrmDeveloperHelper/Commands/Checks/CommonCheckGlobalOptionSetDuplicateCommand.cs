@@ -7,12 +7,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Checks
     internal sealed class CommonCheckGlobalOptionSetDuplicateCommand : AbstractDynamicCommandByConnectionAll
     {
         private CommonCheckGlobalOptionSetDuplicateCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.CommonCheckGlobalOptionSetDuplicateCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.CommonCheckGlobalOptionSetDuplicateCommandId)
         {
-
         }
 
         public static CommonCheckGlobalOptionSetDuplicateCommand Instance { get; private set; }

@@ -9,12 +9,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Folders
     internal sealed class FolderAddSdkMessageRequestFileInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
         private FolderAddSdkMessageRequestFileInConnectionCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.FolderAddSdkMessageRequestFileInConnectionCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.FolderAddSdkMessageRequestFileInConnectionCommandId)
         {
-
         }
 
         public static FolderAddSdkMessageRequestFileInConnectionCommand Instance { get; private set; }

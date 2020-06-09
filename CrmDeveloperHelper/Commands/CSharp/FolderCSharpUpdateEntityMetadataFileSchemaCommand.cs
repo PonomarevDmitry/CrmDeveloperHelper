@@ -9,12 +9,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
     internal sealed class FolderCSharpUpdateEntityMetadataFileSchemaCommand : AbstractDynamicCommandByConnectionAll
     {
         private FolderCSharpUpdateEntityMetadataFileSchemaCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.FolderCSharpUpdateEntityMetadataFileSchemaCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.FolderCSharpUpdateEntityMetadataFileSchemaCommandId)
         {
-
         }
 
         public static FolderCSharpUpdateEntityMetadataFileSchemaCommand Instance { get; private set; }

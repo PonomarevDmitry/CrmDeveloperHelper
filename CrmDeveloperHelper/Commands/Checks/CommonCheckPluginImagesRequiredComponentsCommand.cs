@@ -7,12 +7,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Checks
     internal sealed class CommonCheckPluginImagesRequiredComponentsCommand : AbstractDynamicCommandByConnectionAll
     {
         private CommonCheckPluginImagesRequiredComponentsCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.CommonCheckPluginImagesRequiredComponentsCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.CommonCheckPluginImagesRequiredComponentsCommandId)
         {
-
         }
 
         public static CommonCheckPluginImagesRequiredComponentsCommand Instance { get; private set; }

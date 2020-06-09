@@ -8,12 +8,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Commons
     internal sealed class CommonOpenDefaultSolutionInWebCommand : AbstractDynamicCommandByConnectionAll
     {
         private CommonOpenDefaultSolutionInWebCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.CommonOpenDefaultSolutionInWebCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.CommonOpenDefaultSolutionInWebCommandId)
         {
-
         }
 
         public static CommonOpenDefaultSolutionInWebCommand Instance { get; private set; }

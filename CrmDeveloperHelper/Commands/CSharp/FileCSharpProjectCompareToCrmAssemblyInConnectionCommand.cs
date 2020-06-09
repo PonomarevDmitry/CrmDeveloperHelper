@@ -7,12 +7,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
     internal sealed class FileCSharpProjectCompareToCrmAssemblyInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
         private FileCSharpProjectCompareToCrmAssemblyInConnectionCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.FileCSharpProjectCompareToCrmAssemblyInConnectionCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.FileCSharpProjectCompareToCrmAssemblyInConnectionCommandId)
         {
-
         }
 
         public static FileCSharpProjectCompareToCrmAssemblyInConnectionCommand Instance { get; private set; }

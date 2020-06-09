@@ -9,12 +9,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
     internal sealed class DocumentsCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommand : AbstractDynamicCommandByConnectionAll
     {
         private DocumentsCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.DocumentsCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.DocumentsCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommandId)
         {
-
         }
 
         public static DocumentsCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommand Instance { get; private set; }

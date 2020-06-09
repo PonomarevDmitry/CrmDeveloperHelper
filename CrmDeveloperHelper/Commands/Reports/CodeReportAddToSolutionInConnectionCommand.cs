@@ -9,12 +9,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
     internal sealed class CodeReportAddToSolutionInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
         private CodeReportAddToSolutionInConnectionCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.CodeReportAddToSolutionInConnectionCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.CodeReportAddToSolutionInConnectionCommandId)
         {
-
         }
 
         public static CodeReportAddToSolutionInConnectionCommand Instance { get; private set; }

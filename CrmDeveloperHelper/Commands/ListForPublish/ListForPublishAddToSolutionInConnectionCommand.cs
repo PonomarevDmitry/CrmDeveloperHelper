@@ -9,12 +9,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
     internal sealed class ListForPublishAddToSolutionInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
         private ListForPublishAddToSolutionInConnectionCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.ListForPublishAddToSolutionInConnectionCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.ListForPublishAddToSolutionInConnectionCommandId)
         {
-
         }
 
         public static ListForPublishAddToSolutionInConnectionCommand Instance { get; private set; }

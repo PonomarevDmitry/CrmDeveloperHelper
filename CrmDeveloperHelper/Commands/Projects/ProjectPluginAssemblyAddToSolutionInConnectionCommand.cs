@@ -8,12 +8,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
     internal sealed class ProjectPluginAssemblyAddToSolutionInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
         private ProjectPluginAssemblyAddToSolutionInConnectionCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.ProjectPluginAssemblyAddToSolutionInConnectionCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.ProjectPluginAssemblyAddToSolutionInConnectionCommandId)
         {
-
         }
 
         public static ProjectPluginAssemblyAddToSolutionInConnectionCommand Instance { get; private set; }

@@ -7,12 +7,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Checks
     internal sealed class CommonCheckCreateAllDependencyNodeDescriptionCommand : AbstractDynamicCommandByConnectionAll
     {
         private CommonCheckCreateAllDependencyNodeDescriptionCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.CommonCheckCreateAllDependencyNodeDescriptionCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.CommonCheckCreateAllDependencyNodeDescriptionCommandId)
         {
-
         }
 
         public static CommonCheckCreateAllDependencyNodeDescriptionCommand Instance { get; private set; }

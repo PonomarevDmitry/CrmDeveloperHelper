@@ -9,12 +9,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
     internal sealed class DocumentsCSharpUpdateGlobalOptionSetsFileCommand : AbstractDynamicCommandByConnectionAll
     {
         private DocumentsCSharpUpdateGlobalOptionSetsFileCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.DocumentsCSharpUpdateGlobalOptionSetsFileCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.DocumentsCSharpUpdateGlobalOptionSetsFileCommandId)
         {
-
         }
 
         public static DocumentsCSharpUpdateGlobalOptionSetsFileCommand Instance { get; private set; }

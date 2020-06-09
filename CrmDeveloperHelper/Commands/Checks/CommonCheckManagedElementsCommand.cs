@@ -7,12 +7,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Checks
     internal sealed class CommonCheckManagedElementsCommand : AbstractDynamicCommandByConnectionAll
     {
         private CommonCheckManagedElementsCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.CommonCheckManagedElementsCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.CommonCheckManagedElementsCommandId)
         {
-
         }
 
         public static CommonCheckManagedElementsCommand Instance { get; private set; }

@@ -7,12 +7,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
     internal sealed class CommonTraceReaderCommand : AbstractDynamicCommandByConnectionAll
     {
         private CommonTraceReaderCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.CommonTraceReaderCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.CommonTraceReaderCommandId)
         {
-
         }
 
         public static CommonTraceReaderCommand Instance { get; private set; }

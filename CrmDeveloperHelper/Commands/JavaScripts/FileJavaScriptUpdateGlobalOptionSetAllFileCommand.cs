@@ -9,12 +9,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.JavaScripts
     internal sealed class FileJavaScriptUpdateGlobalOptionSetAllFileCommand : AbstractDynamicCommandByConnectionAll
     {
         private FileJavaScriptUpdateGlobalOptionSetAllFileCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.FileJavaScriptUpdateGlobalOptionSetAllFileCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.FileJavaScriptUpdateGlobalOptionSetAllFileCommandId)
         {
-
         }
 
         public static FileJavaScriptUpdateGlobalOptionSetAllFileCommand Instance { get; private set; }

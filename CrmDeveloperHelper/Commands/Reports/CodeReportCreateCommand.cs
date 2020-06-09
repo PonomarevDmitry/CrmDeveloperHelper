@@ -7,12 +7,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
     internal sealed class CodeReportCreateCommand : AbstractDynamicCommandByConnectionAll
     {
         private CodeReportCreateCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.CodeReportCreateCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.CodeReportCreateCommandId)
         {
-
         }
 
         public static CodeReportCreateCommand Instance { get; private set; }

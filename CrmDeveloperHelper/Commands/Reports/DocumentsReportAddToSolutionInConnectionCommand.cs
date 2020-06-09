@@ -9,12 +9,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
     internal sealed class DocumentsReportAddToSolutionInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
         private DocumentsReportAddToSolutionInConnectionCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.DocumentsReportAddToSolutionInConnectionCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.DocumentsReportAddToSolutionInConnectionCommandId)
         {
-
         }
 
         public static DocumentsReportAddToSolutionInConnectionCommand Instance { get; private set; }

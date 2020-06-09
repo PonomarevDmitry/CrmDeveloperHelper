@@ -7,12 +7,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
     internal sealed class CommonImportJobExplorerInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
         private CommonImportJobExplorerInConnectionCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.CommonImportJobExplorerInConnectionCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.CommonImportJobExplorerInConnectionCommandId)
         {
-
         }
 
         public static CommonImportJobExplorerInConnectionCommand Instance { get; private set; }

@@ -7,12 +7,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Checks
     internal sealed class CommonCheckUnknownFormControlTypes : AbstractDynamicCommandByConnectionAll
     {
         private CommonCheckUnknownFormControlTypes(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.CommonCheckUnknownFormControlTypesId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.CommonCheckUnknownFormControlTypesId)
         {
-
         }
 
         public static CommonCheckUnknownFormControlTypes Instance { get; private set; }

@@ -7,12 +7,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Connections
     internal sealed class CommonCrmConnectionEditCommand : AbstractDynamicCommandByConnectionAll
     {
         private CommonCrmConnectionEditCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.CommonCrmConnectionEditCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.CommonCrmConnectionEditCommandId)
         {
-
         }
 
         public static CommonCrmConnectionEditCommand Instance { get; private set; }

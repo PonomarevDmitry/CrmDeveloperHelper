@@ -7,12 +7,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Connections
     internal sealed class CommonCrmConnectionTestCommand : AbstractDynamicCommandByConnectionAll
     {
         private CommonCrmConnectionTestCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.CommonCrmConnectionTestCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.CommonCrmConnectionTestCommandId)
         {
-
         }
 
         public static CommonCrmConnectionTestCommand Instance { get; private set; }

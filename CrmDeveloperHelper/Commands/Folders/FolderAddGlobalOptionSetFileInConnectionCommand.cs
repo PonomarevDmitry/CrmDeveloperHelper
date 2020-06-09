@@ -8,12 +8,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Folders
     internal sealed class FolderAddGlobalOptionSetFileInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
         private FolderAddGlobalOptionSetFileInConnectionCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.FolderAddGlobalOptionSetFileInConnectionCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.FolderAddGlobalOptionSetFileInConnectionCommandId)
         {
-
         }
 
         public static FolderAddGlobalOptionSetFileInConnectionCommand Instance { get; private set; }

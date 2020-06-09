@@ -9,12 +9,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
     internal sealed class DocumentsWebResourceAddToSolutionInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
         private DocumentsWebResourceAddToSolutionInConnectionCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.DocumentsWebResourceAddToSolutionInConnectionCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.DocumentsWebResourceAddToSolutionInConnectionCommandId)
         {
-
         }
 
         public static DocumentsWebResourceAddToSolutionInConnectionCommand Instance { get; private set; }

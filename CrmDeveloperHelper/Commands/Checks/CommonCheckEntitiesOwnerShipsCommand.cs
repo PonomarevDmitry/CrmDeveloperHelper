@@ -7,12 +7,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Checks
     internal sealed class CommonCheckEntitiesOwnerShipsCommand : AbstractDynamicCommandByConnectionAll
     {
         private CommonCheckEntitiesOwnerShipsCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.CommonCheckEntitiesOwnerShipsCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.CommonCheckEntitiesOwnerShipsCommandId)
         {
-
         }
 
         public static CommonCheckEntitiesOwnerShipsCommand Instance { get; private set; }
