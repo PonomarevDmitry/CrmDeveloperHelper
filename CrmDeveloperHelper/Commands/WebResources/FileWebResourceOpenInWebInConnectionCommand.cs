@@ -6,12 +6,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
     internal sealed class FileWebResourceOpenInWebInConnectionCommand : AbstractDynamicCommandByConnectionByGroupWithCurrent
     {
-        private readonly ActionOnComponent _actionOpen;
+        private readonly ActionOnComponent _actionOnComponent;
 
-        private FileWebResourceOpenInWebInConnectionCommand(OleMenuCommandService commandService, int baseIdStart, ActionOnComponent action)
+        private FileWebResourceOpenInWebInConnectionCommand(OleMenuCommandService commandService, int baseIdStart, ActionOnComponent actionOnComponent)
             : base(commandService, baseIdStart)
         {
-            this._actionOpen = action;
+            this._actionOnComponent = actionOnComponent;
         }
 
         public static FileWebResourceOpenInWebInConnectionCommand InstanceOpenInWebInConnection { get; private set; }
@@ -24,18 +24,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            InstanceOpenInWebInConnection = new FileWebResourceOpenInWebInConnectionCommand(commandService, PackageIds.guidDynamicCommandSet.FileWebResourceOpenInWebInConnectionCommandId, ActionOnComponent.OpenInWeb);
+            InstanceOpenInWebInConnection = new FileWebResourceOpenInWebInConnectionCommand(
+                commandService
+                , PackageIds.guidDynamicCommandSet.FileWebResourceOpenInWebInConnectionCommandId
+                , ActionOnComponent.OpenInWeb
+            );
 
-            InstanceOpenDependentComponentsInWebInConnection = new FileWebResourceOpenInWebInConnectionCommand(commandService, PackageIds.guidDynamicCommandSet.FileWebResourceOpenDependentInWebInConnectionCommandId, ActionOnComponent.OpenDependentComponentsInWeb);
+            InstanceOpenDependentComponentsInWebInConnection = new FileWebResourceOpenInWebInConnectionCommand(
+                commandService
+                , PackageIds.guidDynamicCommandSet.FileWebResourceOpenDependentInWebInConnectionCommandId
+                , ActionOnComponent.OpenDependentComponentsInWeb
+            );
 
-            InstanceOpenDependentComponentsInExplorerInConnection = new FileWebResourceOpenInWebInConnectionCommand(commandService, PackageIds.guidDynamicCommandSet.FileWebResourceOpenDependentInExplorerInConnectionCommandId, ActionOnComponent.OpenDependentComponentsInExplorer);
+            InstanceOpenDependentComponentsInExplorerInConnection = new FileWebResourceOpenInWebInConnectionCommand(
+                commandService
+                , PackageIds.guidDynamicCommandSet.FileWebResourceOpenDependentInExplorerInConnectionCommandId
+                , ActionOnComponent.OpenDependentComponentsInExplorer
+            );
 
-            InstanceOpenSolutionsContainingComponentInExplorerInConnection = new FileWebResourceOpenInWebInConnectionCommand(commandService, PackageIds.guidDynamicCommandSet.FileWebResourceOpenSolutionsContainingComponentInExplorerInConnectionCommandId, ActionOnComponent.OpenSolutionsContainingComponentInExplorer);
+            InstanceOpenSolutionsContainingComponentInExplorerInConnection = new FileWebResourceOpenInWebInConnectionCommand(
+                commandService
+                , PackageIds.guidDynamicCommandSet.FileWebResourceOpenSolutionsContainingComponentInExplorerInConnectionCommandId
+                , ActionOnComponent.OpenSolutionsContainingComponentInExplorer
+            );
         }
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
-            helper.HandleOpenWebResource(connectionData, this._actionOpen);
+            helper.HandleOpenWebResource(connectionData, this._actionOnComponent);
         }
 
         protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, ConnectionData connectionData, OleMenuCommand menuCommand)

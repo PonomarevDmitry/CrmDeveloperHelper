@@ -1250,15 +1250,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             await OpenEntityInWeb(service, commonConfig, entityName, ActionOnComponent.OpenInWeb);
         }
 
-        public async Task ExecuteEntityMetadataOpenInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, ActionOnComponent action)
+        public async Task ExecuteEntityMetadataOpenInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, ActionOnComponent actionOnComponent)
         {
             await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.OpeningEntityMetadataExplorerFormat1
-                , (service) => OpenEntityInWeb(service, commonConfig, entityName, action)
+                , (service) => OpenEntityInWeb(service, commonConfig, entityName, actionOnComponent)
             );
         }
 
-        private async Task OpenEntityInWeb(IOrganizationServiceExtented service, CommonConfiguration commonConfig, string entityName, ActionOnComponent action)
+        private async Task OpenEntityInWeb(IOrganizationServiceExtented service, CommonConfiguration commonConfig, string entityName, ActionOnComponent actionOnComponent)
         {
             var repository = new EntityMetadataRepository(service);
 
@@ -1274,7 +1274,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            switch (action)
+            switch (actionOnComponent)
             {
                 case ActionOnComponent.OpenInWeb:
                     service.ConnectionData.OpenEntityMetadataInWeb(entityMetadata.MetadataId.Value);

@@ -338,7 +338,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConfigAndExecute((commonConfig) => Controller.StartOpeningFileGenerationConfiguration());
         }
 
-        public void OpenEntityMetadataCommand(ConnectionData connectionData, string entityName, ActionOnComponent action)
+        public void OpenEntityMetadataCommand(ConnectionData connectionData, string entityName, ActionOnComponent actionOnComponent)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
@@ -356,7 +356,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 CheckWishToChangeCurrentConnection(connectionData);
 
-                if (action == ActionOnComponent.OpenListInWeb)
+                if (actionOnComponent == ActionOnComponent.OpenListInWeb)
                 {
                     connectionData.OpenEntityInstanceListInWeb(entityName);
                     return;
@@ -366,7 +366,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (idEntityMetadata.HasValue)
                 {
-                    switch (action)
+                    switch (actionOnComponent)
                     {
                         case ActionOnComponent.OpenInWeb:
                             connectionData.OpenEntityMetadataInWeb(idEntityMetadata.Value);
@@ -383,7 +383,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartEntityMetadataOpenInWeb(connectionData, commonConfig, entityName, action);
+                    Controller.StartEntityMetadataOpenInWeb(connectionData, commonConfig, entityName, actionOnComponent);
                 }
                 catch (Exception ex)
                 {

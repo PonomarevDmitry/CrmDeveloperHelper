@@ -7,12 +7,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
     internal sealed class CodeJavaScriptLinkedEntityOpenComponentInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
-        private readonly ActionOnComponent _actionOpen;
+        private readonly ActionOnComponent _actionOnComponent;
 
-        private CodeJavaScriptLinkedEntityOpenComponentInConnectionCommand(OleMenuCommandService commandService, int baseIdStart, ActionOnComponent action)
+        private CodeJavaScriptLinkedEntityOpenComponentInConnectionCommand(OleMenuCommandService commandService, int baseIdStart, ActionOnComponent actionOnComponent)
             : base(commandService, baseIdStart)
         {
-            this._actionOpen = action;
+            this._actionOnComponent = actionOnComponent;
         }
 
         public static CodeJavaScriptLinkedEntityOpenComponentInConnectionCommand InstanceOpenInWebInConnection { get; private set; }
@@ -62,7 +62,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
         {
             if (helper.TryGetLinkedEntityName(out string entityName))
             {
-                helper.OpenEntityMetadataCommand(connectionData, entityName, this._actionOpen);
+                helper.OpenEntityMetadataCommand(connectionData, entityName, this._actionOnComponent);
             }
         }
 

@@ -6,15 +6,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Commons
 {
     internal sealed class CommonExportOpenLastSelectedSolutionCommand : AbstractDynamicCommandOnSolutionLast
     {
-        private readonly ActionOnComponent _actionOpen;
+        private readonly ActionOnComponent _actionOnComponent;
 
-        private CommonExportOpenLastSelectedSolutionCommand(OleMenuCommandService commandService, int baseIdStart, ActionOnComponent action)
-            : base(
-                commandService
-                , baseIdStart
-            )
+        private CommonExportOpenLastSelectedSolutionCommand(OleMenuCommandService commandService, int baseIdStart, ActionOnComponent actionOnComponent)
+            : base(commandService, baseIdStart)
         {
-            this._actionOpen = action;
+            this._actionOnComponent = actionOnComponent;
         }
 
         public static CommonExportOpenLastSelectedSolutionCommand InstanceOpenInWeb { get; private set; }
@@ -34,7 +31,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Commons
 
             if (connectionConfig.CurrentConnectionData != null)
             {
-                helper.HandleSolutionOpenLastSelected(connectionConfig.CurrentConnectionData, solutionUniqueName, this._actionOpen);
+                helper.HandleSolutionOpenLastSelected(connectionConfig.CurrentConnectionData, solutionUniqueName, this._actionOnComponent);
             }
         }
     }

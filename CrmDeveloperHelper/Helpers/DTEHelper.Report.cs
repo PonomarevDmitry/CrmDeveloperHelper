@@ -75,7 +75,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(null, (conn, commonConfig) => Controller.StartOpenReportExplorer(conn, commonConfig, selectedFiles[0].FileName));
         }
 
-        public void HandleOpenReportCommand(ConnectionData connectionData, ActionOnComponent action)
+        public void HandleOpenReportCommand(ConnectionData connectionData, ActionOnComponent actionOnComponent)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
@@ -101,7 +101,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (objectId.HasValue)
                 {
-                    switch (action)
+                    switch (actionOnComponent)
                     {
                         case ActionOnComponent.OpenInWeb:
                             connectionData.OpenEntityInstanceInWeb(Entities.Report.EntityLogicalName, objectId.Value);
@@ -118,7 +118,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartOpeningReport(connectionData, commonConfig, selectedFile, action);
+                    Controller.StartOpeningReport(connectionData, commonConfig, selectedFile, actionOnComponent);
                 }
                 catch (Exception ex)
                 {

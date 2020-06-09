@@ -7,12 +7,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
     internal sealed class CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
-        private readonly ActionOnComponent _actionOpen;
+        private readonly ActionOnComponent _actionOnComponent;
 
-        private CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand(OleMenuCommandService commandService, int baseIdStart, ActionOnComponent action)
+        private CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand(OleMenuCommandService commandService, int baseIdStart, ActionOnComponent actionOnComponent)
             : base(commandService, baseIdStart)
         {
-            this._actionOpen = action;
+            this._actionOnComponent = actionOnComponent;
         }
 
         public static CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand InstanceOpenInWebInConnection { get; private set; }
@@ -54,7 +54,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
         {
             if (helper.TryGetLinkedSystemForm(out string entityName, out Guid formId, out int formType))
             {
-                helper.HandleOpenLinkedSystemForm(connectionData, this._actionOpen, entityName, formId, formType);
+                helper.HandleOpenLinkedSystemForm(connectionData, this._actionOnComponent, entityName, formId, formType);
             }
         }
 

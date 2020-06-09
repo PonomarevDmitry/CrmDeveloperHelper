@@ -961,24 +961,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Creating PluginAssembly Description.
-        /// </summary>
-        internal static string CreatingPluginAssemblyDescriptionFormat1 {
-            get {
-                return ResourceManager.GetString("CreatingPluginAssemblyDescriptionFormat1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} - Creating PluginAssembly EntityDescription.
-        /// </summary>
-        internal static string CreatingPluginAssemblyEntityDescriptionFormat1 {
-            get {
-                return ResourceManager.GetString("CreatingPluginAssemblyEntityDescriptionFormat1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0} - Creating PluginType Description.
         /// </summary>
         internal static string CreatingPluginTypeDescriptionFormat1 {

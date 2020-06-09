@@ -665,22 +665,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        public async Task ExecuteGetSystemFormCurrentAttribute(ConnectionData connectionData, CommonConfiguration commonConfig, Guid formId, ActionOnComponent action, string fieldName, string fieldTitle)
+        public async Task ExecuteGetSystemFormCurrentAttribute(ConnectionData connectionData, CommonConfiguration commonConfig, Guid formId, ActionOnComponent actionOnComponent, string fieldName, string fieldTitle)
         {
             await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.GettingSystemFormCurrentAttributeFormat2
-                , (service) => GettingSystemFormCurrentAttribute(service, commonConfig, formId, action, fieldName, fieldTitle)
+                , (service) => GettingSystemFormCurrentAttribute(service, commonConfig, formId, actionOnComponent, fieldName, fieldTitle)
                 , fieldTitle
             );
         }
 
-        private async Task GettingSystemFormCurrentAttribute(IOrganizationServiceExtented service, CommonConfiguration commonConfig, Guid formId, ActionOnComponent action, string fieldName, string fieldTitle)
+        private async Task GettingSystemFormCurrentAttribute(IOrganizationServiceExtented service, CommonConfiguration commonConfig, Guid formId, ActionOnComponent actionOnComponent, string fieldName, string fieldTitle)
         {
             var repositorySystemForm = new SystemFormRepository(service);
 
             var systemForm = await repositorySystemForm.GetByIdAsync(formId, new ColumnSet(true));
 
-            if (action == ActionOnComponent.SingleField)
+            if (actionOnComponent == ActionOnComponent.SingleField)
             {
                 if (string.Equals(fieldName, SystemForm.Schema.Attributes.formxml, StringComparison.InvariantCultureIgnoreCase))
                 {
@@ -691,37 +691,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     GetCurrentSystemFormJson(service, commonConfig, systemForm);
                 }
             }
-            else if (action == ActionOnComponent.EntityDescription)
+            else if (actionOnComponent == ActionOnComponent.EntityDescription)
             {
                 await GetCurrentEntityDescription(service, commonConfig, systemForm);
             }
-            else if (action == ActionOnComponent.Description)
+            else if (actionOnComponent == ActionOnComponent.Description)
             {
                 await GetCurrentFormDescription(service, commonConfig, systemForm);
             }
         }
 
-        public async Task ExecuteOpeningLinkedSystemForm(ConnectionData connectionData, CommonConfiguration commonConfig, ActionOnComponent action, string entityName, Guid formId, int formType)
+        public async Task ExecuteOpeningLinkedSystemForm(ConnectionData connectionData, CommonConfiguration commonConfig, ActionOnComponent actionOnComponent, string entityName, Guid formId, int formType)
         {
             await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.ActionOnComponentFormat3
-                , (service) => OpeningLinkedSystemForm(service, commonConfig, action, entityName, formId, formType)
+                , (service) => OpeningLinkedSystemForm(service, commonConfig, actionOnComponent, entityName, formId, formType)
                 , "Linked " + SystemForm.EntitySchemaName
                 , EnumDescriptionTypeConverter.GetEnumNameByDescriptionAttribute(ActionOnComponent.OpenInWeb)
             );
         }
 
-        private void OpeningLinkedSystemForm(IOrganizationServiceExtented service, CommonConfiguration commonConfig, ActionOnComponent action, string entityName, Guid formId, int formType)
+        private void OpeningLinkedSystemForm(IOrganizationServiceExtented service, CommonConfiguration commonConfig, ActionOnComponent actionOnComponent, string entityName, Guid formId, int formType)
         {
-            if (action == ActionOnComponent.OpenInWeb)
+            if (actionOnComponent == ActionOnComponent.OpenInWeb)
             {
                 service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.SystemForm, formId);
             }
-            else if (action == ActionOnComponent.OpenDependentComponentsInWeb)
+            else if (actionOnComponent == ActionOnComponent.OpenDependentComponentsInWeb)
             {
                 service.ConnectionData.OpenSolutionComponentDependentComponentsInWeb(ComponentType.SystemForm, formId);
             }
-            else if (action == ActionOnComponent.OpenDependentComponentsInExplorer)
+            else if (actionOnComponent == ActionOnComponent.OpenDependentComponentsInExplorer)
             {
                 WindowHelper.OpenSolutionComponentDependenciesExplorer(
                     _iWriteToOutput
@@ -733,7 +733,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     , null
                 );
             }
-            else if (action == ActionOnComponent.OpenSolutionsContainingComponentInExplorer)
+            else if (actionOnComponent == ActionOnComponent.OpenSolutionsContainingComponentInExplorer)
             {
                 WindowHelper.OpenExplorerSolutionExplorer(
                     _iWriteToOutput

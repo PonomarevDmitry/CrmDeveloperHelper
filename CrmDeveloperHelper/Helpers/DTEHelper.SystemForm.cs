@@ -67,9 +67,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartSystemFormGetCurrentFormXml(conn, commonConfig, selectedFile));
         }
 
-        public void HandleSystemFormGetCurrentAttributeCommand(ConnectionData connectionData, Guid formId, ActionOnComponent action, string fieldName, string fieldTitle)
+        public void HandleSystemFormGetCurrentAttributeCommand(ConnectionData connectionData, Guid formId, ActionOnComponent actionOnComponent, string fieldName, string fieldTitle)
         {
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartSystemFormGetCurrentAttribute(conn, commonConfig, formId, action, fieldName, fieldTitle));
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartSystemFormGetCurrentAttribute(conn, commonConfig, formId, actionOnComponent, fieldName, fieldTitle));
         }
 
         public void HandleLinkedSystemFormAddingToSolutionCommand(ConnectionData connectionData, string solutionUniqueName, bool withSelect, string entityName, Guid formId, int formType)

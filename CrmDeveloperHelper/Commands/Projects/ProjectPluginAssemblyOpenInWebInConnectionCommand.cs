@@ -7,12 +7,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
 {
     internal sealed class ProjectPluginAssemblyOpenInWebInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
-        private readonly ActionOnComponent _actionOpen;
+        private readonly ActionOnComponent _actionOnComponent;
 
-        private ProjectPluginAssemblyOpenInWebInConnectionCommand(OleMenuCommandService commandService, int baseIdStart, ActionOnComponent action)
+        private ProjectPluginAssemblyOpenInWebInConnectionCommand(OleMenuCommandService commandService, int baseIdStart, ActionOnComponent actionOnComponent)
             : base(commandService, baseIdStart)
         {
-            this._actionOpen = action;
+            this._actionOnComponent = actionOnComponent;
         }
 
         public static ProjectPluginAssemblyOpenInWebInConnectionCommand InstanceOpenDependentComponentsInWebInConnection { get; private set; }
@@ -46,7 +46,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
         {
             var projectList = helper.GetSelectedProjects().ToList();
 
-            helper.HandlePluginAssemblyProjectOpenCommand(connectionData,  projectList, this._actionOpen);
+            helper.HandleActionOnProjectPluginAssemblyCommand(connectionData,  projectList, this._actionOnComponent);
         }
 
         protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, ConnectionData connectionData, OleMenuCommand menuCommand)

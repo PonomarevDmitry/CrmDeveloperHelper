@@ -6,14 +6,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
     public partial class DTEHelper
     {
-        public void HandleSolutionOpenLastSelected(ConnectionData connectionData, string solutionUniqueName, ActionOnComponent action)
+        public void HandleSolutionOpenLastSelected(ConnectionData connectionData, string solutionUniqueName, ActionOnComponent actionOnComponent)
         {
             if (string.IsNullOrEmpty(solutionUniqueName))
             {
                 return;
             }
 
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartSolutionOpening(conn, commonConfig, solutionUniqueName, action));
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartSolutionOpening(conn, commonConfig, solutionUniqueName, actionOnComponent));
         }
 
         public string GetLastSolutionUniqueName()

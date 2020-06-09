@@ -22,7 +22,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
         {
             var projectList = helper.GetSelectedProjects().ToList();
 
-            helper.HandlePluginAssemblyCreateEntityDescriptionCommand(null, projectList);
+            helper.HandleActionOnProjectPluginAssemblyCommand(null, projectList, Model.ActionOnComponent.EntityDescription);
         }
 
         protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)

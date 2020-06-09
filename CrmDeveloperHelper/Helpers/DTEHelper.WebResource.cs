@@ -284,7 +284,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleOpenWebResource(ConnectionData connectionData, ActionOnComponent action)
+        public void HandleOpenWebResource(ConnectionData connectionData, ActionOnComponent actionOnComponent)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
@@ -313,7 +313,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (objectId.HasValue)
                 {
-                    switch (action)
+                    switch (actionOnComponent)
                     {
                         case ActionOnComponent.OpenInWeb:
                             connectionData.OpenEntityInstanceInWeb(Entities.WebResource.EntityLogicalName, objectId.Value);
@@ -327,7 +327,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartOpeningWebResource(connectionData, commonConfig, selectedFile, action);
+                    Controller.StartOpeningWebResource(connectionData, commonConfig, selectedFile, actionOnComponent);
                 }
                 catch (Exception ex)
                 {
@@ -336,7 +336,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleOpenLinkedSystemForm(ConnectionData connectionData, ActionOnComponent action, string entityName, Guid formId, int formType)
+        public void HandleOpenLinkedSystemForm(ConnectionData connectionData, ActionOnComponent actionOnComponent, string entityName, Guid formId, int formType)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
@@ -357,7 +357,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 CheckWishToChangeCurrentConnection(connectionData);
 
-                switch (action)
+                switch (actionOnComponent)
                 {
                     case ActionOnComponent.OpenInWeb:
                         connectionData.OpenSystemFormInWeb(entityName, formId, formType);
@@ -370,7 +370,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartOpeningLinkedSystemForm(connectionData, commonConfig, action, entityName, formId, formType);
+                    Controller.StartOpeningLinkedSystemForm(connectionData, commonConfig, actionOnComponent, entityName, formId, formType);
                 }
                 catch (Exception ex)
                 {

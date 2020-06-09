@@ -11,19 +11,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
     internal sealed class CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
-        private readonly ActionOnComponent _action;
+        private readonly ActionOnComponent _actionOnComponent;
         private readonly string _fieldName;
         private readonly string _fieldTitle;
 
         private CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand(
             OleMenuCommandService commandService
             , int baseIdStart
-            , ActionOnComponent action
+            , ActionOnComponent actionOnComponent
             , string fieldName
             , string fieldTitle
         ) : base(commandService, baseIdStart)
         {
-            this._action = action;
+            this._actionOnComponent = actionOnComponent;
             this._fieldName = fieldName;
             this._fieldTitle = fieldTitle;
         }
@@ -75,7 +75,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
         {
             if (helper.TryGetLinkedSystemForm(out string entityName, out Guid formId, out int formType))
             {
-                helper.HandleSystemFormGetCurrentAttributeCommand(connectionData, formId, _action, this._fieldName, this._fieldTitle);
+                helper.HandleSystemFormGetCurrentAttributeCommand(connectionData, formId, _actionOnComponent, this._fieldName, this._fieldTitle);
             }
         }
 
