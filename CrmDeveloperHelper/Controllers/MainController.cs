@@ -877,19 +877,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartPluginAssemblyComparingWithLocalAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, string projectName, string defaultOutputFilePath)
             => ExecuteWithConnectionInThread(connectionData, this._pluginController.ExecuteComparingAssemblyAndCrmSolution, commonConfig, projectName, defaultOutputFilePath);
 
-        public void StartPluginAssemblyUpdatingInWindow(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList)
+        public void StartPluginAssemblyUpdatingInWindow(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<EnvDTE.Project> projectList)
             => ExecuteWithConnectionInThread(connectionData, this._pluginController.ExecuteUpdatingPluginAssembliesInWindow, commonConfig, projectList);
 
-        public void StartPluginAssemblyBuildProjectUpdate(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList, bool registerPlugins)
+        public void StartPluginAssemblyBuildProjectUpdate(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<EnvDTE.Project> projectList, bool registerPlugins)
             => ExecuteWithConnectionInThread(connectionData, this._pluginController.ExecuteBuildingProjectAndUpdatingPluginAssembly, commonConfig, projectList, registerPlugins);
 
-        public void StartActionOnPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList, ActionOnComponent actionOnComponent)
+        public void StartActionOnPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<EnvDTE.Project> projectList, ActionOnComponent actionOnComponent)
             => ExecuteWithConnectionInThread(connectionData, this._pluginController.ExecuteActionOnProjectPluginAssembly, commonConfig, projectList, actionOnComponent);
 
-        public void StartActionOnPluginTypes(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<string> pluginTypeNames, ActionOnComponent actionOnComponent)
-            => ExecuteWithConnectionInThread(connectionData, this._pluginController.ExecuteActionOnPluginTypes, commonConfig, pluginTypeNames, actionOnComponent);
+        public void StartActionOnPluginTypes(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<string> pluginTypeNames, ActionOnComponent actionOnComponent, string fieldName, string fieldTitle)
+            => ExecuteWithConnectionInThread(connectionData, this._pluginController.ExecuteActionOnPluginTypes, commonConfig, pluginTypeNames, actionOnComponent, fieldName, fieldTitle);
 
-        public void StartPluginAssemblyRegister(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList)
+        public void StartPluginAssemblyRegister(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<EnvDTE.Project> projectList)
             => ExecuteWithConnectionInThread(connectionData, this._pluginController.ExecuteRegisterPluginAssembly, commonConfig, projectList);
 
         public void StartReportAddingToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SelectedFile> selectedFiles, bool withSelect)

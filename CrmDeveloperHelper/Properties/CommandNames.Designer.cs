@@ -97,6 +97,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create PluginType Description.
+        /// </summary>
+        internal static string CodeCSharpProjectPluginTypeCreateDescriptionCommand {
+            get {
+                return ResourceManager.GetString("CodeCSharpProjectPluginTypeCreateDescriptionCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create PluginType EntityDescription.
+        /// </summary>
+        internal static string CodeCSharpProjectPluginTypeCreateEntityDescriptionCommand {
+            get {
+                return ResourceManager.GetString("CodeCSharpProjectPluginTypeCreateEntityDescriptionCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get PluginType CustomWorkflowActivityInfo.
+        /// </summary>
+        internal static string CodeCSharpProjectPluginTypeGetCustomWorkflowActivityInfoCommand {
+            get {
+                return ResourceManager.GetString("CodeCSharpProjectPluginTypeGetCustomWorkflowActivityInfoCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update PluginAssembly in Window.
         /// </summary>
         internal static string CodeCSharpProjectUpdatePluginAssemblyCommand {

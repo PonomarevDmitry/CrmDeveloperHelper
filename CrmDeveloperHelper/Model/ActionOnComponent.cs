@@ -34,5 +34,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         [Description("Getting Description")]
         Description = 9,
+
+        [Description("Getting Single Xml Field")]
+        SingleXmlField = 10,
     }
 }

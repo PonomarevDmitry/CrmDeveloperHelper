@@ -680,13 +680,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var systemForm = await repositorySystemForm.GetByIdAsync(formId, new ColumnSet(true));
 
-            if (actionOnComponent == ActionOnComponent.SingleField)
+            if (actionOnComponent == ActionOnComponent.SingleXmlField)
             {
                 if (string.Equals(fieldName, SystemForm.Schema.Attributes.formxml, StringComparison.InvariantCultureIgnoreCase))
                 {
                     GetCurrentSystemFormXml(service, commonConfig, systemForm);
                 }
-                else if (string.Equals(fieldName, SystemForm.Schema.Attributes.formjson, StringComparison.InvariantCultureIgnoreCase))
+            }
+            else if (actionOnComponent == ActionOnComponent.SingleField)
+            {
+                if (string.Equals(fieldName, SystemForm.Schema.Attributes.formjson, StringComparison.InvariantCultureIgnoreCase))
                 {
                     GetCurrentSystemFormJson(service, commonConfig, systemForm);
                 }

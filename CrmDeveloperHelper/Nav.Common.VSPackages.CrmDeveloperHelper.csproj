@@ -110,8 +110,13 @@
     <Compile Include="Commands\Connections\CommonCrmConnectionSelectFileCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpEntityMetadataFileGenerationOptionsCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommand.cs" />
+    <Compile Include="Commands\CSharp\CodeCSharpProjectPluginAssemblyActionOnComponentInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectPluginAssemblyAddToSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\CSharp\CodeCSharpProjectPluginAssemblyCreateDescriptionCommand.cs" />
+    <Compile Include="Commands\CSharp\CodeCSharpProjectPluginAssemblyCreateDescriptionInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectPluginTypeActionOnComponentInConnectionCommand.cs" />
+    <Compile Include="Commands\CSharp\CodeCSharpProjectPluginTypeCreateDescriptionCommand.cs" />
+    <Compile Include="Commands\CSharp\CodeCSharpProjectPluginTypeCreateDescriptionInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpAddPluginStepCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpAddPluginStepInConnectionCommand.cs" />

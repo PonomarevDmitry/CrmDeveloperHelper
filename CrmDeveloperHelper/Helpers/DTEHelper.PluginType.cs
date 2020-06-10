@@ -16,14 +16,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartPluginTypeAddingProcessingStepsToSolution(conn, commonConfig, solutionUniqueName, pluginTypeNames, withSelect));
         }
 
-        public void HandleActionOnPluginTypesCommand(ConnectionData connectionData,  ActionOnComponent actionOnComponent, params string[] pluginTypeNames)
+        public void HandleActionOnPluginTypesCommand(ConnectionData connectionData, ActionOnComponent actionOnComponent, string[] pluginTypeNames)
+        {
+            HandleActionOnPluginTypesCommand(connectionData, actionOnComponent, string.Empty, string.Empty, pluginTypeNames);
+        }
+
+        public void HandleActionOnPluginTypesCommand(ConnectionData connectionData, ActionOnComponent actionOnComponent, string fieldName, string fieldTitle, string[] pluginTypeNames)
         {
             if (pluginTypeNames == null || !pluginTypeNames.Any())
             {
                 return;
             }
 
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartActionOnPluginTypes(conn, commonConfig, pluginTypeNames, actionOnComponent));
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartActionOnPluginTypes(conn, commonConfig, pluginTypeNames, actionOnComponent, fieldName, fieldTitle));
         }
 
         public void HandleOpenPluginTypeExplorer(string selection)

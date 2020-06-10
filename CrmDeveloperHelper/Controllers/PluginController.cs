@@ -347,7 +347,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Обновление сборки плагинов.
 
-        public async Task ExecuteUpdatingPluginAssembliesInWindow(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList)
+        public async Task ExecuteUpdatingPluginAssembliesInWindow(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<EnvDTE.Project> projectList)
         {
             string operation = string.Format(Properties.OperationNames.UpdatingPluginAssemblyInWindowFormat1, connectionData?.Name);
 
@@ -367,7 +367,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task UpdatingPluginAssembliesInWindow(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList)
+        private async Task UpdatingPluginAssembliesInWindow(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<EnvDTE.Project> projectList)
         {
             if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
             {
@@ -420,7 +420,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Building Project, Updating Assembly and Register New Plugins
 
-        public async Task ExecuteBuildingProjectAndUpdatingPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList, bool registerPlugins)
+        public async Task ExecuteBuildingProjectAndUpdatingPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<EnvDTE.Project> projectList, bool registerPlugins)
         {
             string operation = string.Format(registerPlugins ? Properties.OperationNames.BuildingProjectAndUpdatingPluginAssemblyFormat1 : Properties.OperationNames.BuildingProjectUpdatingPluginAssemblyRegisteringPluginsFormat1
                 , connectionData?.Name
@@ -442,7 +442,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task BuildingProjectAndUpdatingPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList, bool registerPlugins)
+        private async Task BuildingProjectAndUpdatingPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<EnvDTE.Project> projectList, bool registerPlugins)
         {
             if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
             {
@@ -681,7 +681,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Регистрация сборки плагинов.
 
-        public async Task ExecuteRegisterPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList)
+        public async Task ExecuteRegisterPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<EnvDTE.Project> projectList)
         {
             string operation = string.Format(Properties.OperationNames.RegisteringPluginAssemblyFormat1, connectionData?.Name);
 
@@ -701,7 +701,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task RegisterPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList)
+        private async Task RegisterPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<EnvDTE.Project> projectList)
         {
             if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
             {
@@ -733,7 +733,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Action on PluginAssembly
 
-        public async Task ExecuteActionOnProjectPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList, ActionOnComponent actionOnComponent)
+        public async Task ExecuteActionOnProjectPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<EnvDTE.Project> projectList, ActionOnComponent actionOnComponent)
         {
             string operation = string.Format(
                 Properties.OperationNames.ActionOnComponentFormat3
@@ -758,7 +758,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task ExecutingActionOnProjectPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList, ActionOnComponent actionOnComponent)
+        private async Task ExecutingActionOnProjectPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<EnvDTE.Project> projectList, ActionOnComponent actionOnComponent)
         {
             if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
             {
@@ -862,7 +862,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Action on PluginType
 
-        public async Task ExecuteActionOnPluginTypes(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<string> pluginTypeNames, ActionOnComponent actionOnComponent)
+        public async Task ExecuteActionOnPluginTypes(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<string> pluginTypeNames, ActionOnComponent actionOnComponent, string fieldName, string fieldTitle)
         {
             string operation = string.Format(
                 Properties.OperationNames.ActionOnComponentFormat3
@@ -875,7 +875,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await ExecutingActionOnPluginTypes(connectionData, commonConfig, pluginTypeNames, actionOnComponent);
+                await ExecutingActionOnPluginTypes(connectionData, commonConfig, pluginTypeNames, actionOnComponent, fieldName, fieldTitle);
             }
             catch (Exception ex)
             {
@@ -887,7 +887,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task ExecutingActionOnPluginTypes(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<string> pluginTypeNames, ActionOnComponent actionOnComponent)
+        private async Task ExecutingActionOnPluginTypes(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<string> pluginTypeNames, ActionOnComponent actionOnComponent, string fieldName, string fieldTitle)
         {
             if (pluginTypeNames == null || !pluginTypeNames.Any(p => !string.IsNullOrEmpty(p)))
             {
@@ -995,8 +995,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     string fileName = EntityFileNameFormatter.GetPluginTypeFileName(service.ConnectionData.Name, pluginType.TypeName, "Description");
                     string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-
-
                     var allSteps = await repStep.GetAllStepsByPluginTypeAsync(pluginType.Id);
                     var queryImage = await repImage.GetImagesByPluginTypeAsync(pluginType.Id);
 
@@ -1012,13 +1010,46 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     if (hasDescription)
                     {
-                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, PluginType.EntityLogicalName, pluginType.TypeName, "Description", filePath);
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, PluginType.EntitySchemaName, pluginType.TypeName, "Description", filePath);
                         this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
                     }
                     else
                     {
-                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, PluginType.EntityLogicalName, pluginType.TypeName, "Description");
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, PluginType.EntitySchemaName, pluginType.TypeName, "Description");
                         this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                    }
+                }
+                else if (actionOnComponent == ActionOnComponent.SingleXmlField)
+                {
+                    string xmlContent = pluginType.GetAttributeValue<string>(fieldName);
+
+                    if (!string.IsNullOrEmpty(xmlContent))
+                    {
+                        try
+                        {
+                            string fileName = EntityFileNameFormatter.GetPluginTypeFileName(service.ConnectionData.Name, pluginType.TypeName, fieldTitle, "xml");
+                            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                            if (ContentComparerHelper.TryParseXml(xmlContent, out var doc))
+                            {
+                                xmlContent = doc.ToString();
+                            }
+
+                            File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
+
+                            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, PluginType.Schema.EntitySchemaName, pluginType.TypeName, fieldTitle, filePath);
+
+                            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+                        }
+                        catch (Exception ex)
+                        {
+                            this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+                        }
+                    }
+                    else
+                    {
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionData.Name, PluginType.Schema.EntitySchemaName, pluginType.TypeName, fieldTitle);
+                        this._iWriteToOutput.ActivateOutputWindow(connectionData);
                     }
                 }
             }

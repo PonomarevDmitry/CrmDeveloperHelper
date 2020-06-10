@@ -508,6 +508,15 @@
   </data>
 
 
+  <data name="CodeCSharpProjectPluginTypeCreateEntityDescriptionCommand" xml:space="preserve">
+    <value>Create PluginType EntityDescription</value>
+  </data>
+  <data name="CodeCSharpProjectPluginTypeGetCustomWorkflowActivityInfoCommand" xml:space="preserve">
+    <value>Get PluginType CustomWorkflowActivityInfo</value>
+  </data>
+  <data name="CodeCSharpProjectPluginTypeCreateDescriptionCommand" xml:space="preserve">
+    <value>Create PluginType Description</value>
+  </data>
 
 
 

@@ -57,7 +57,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
             InstanceFormXml = new CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedSystemFormGetCurrentFormXmlInConnectionCommandId
-                , ActionOnComponent.SingleField
+                , ActionOnComponent.SingleXmlField
                 , SystemForm.Schema.Attributes.formxml
                 , SystemForm.Schema.Headers.formxml
             );

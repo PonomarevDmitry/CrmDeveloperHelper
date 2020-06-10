@@ -515,9 +515,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeCSharpProjectPluginAssemblyStepsAddToSolutionLastCommand.Initialize(commandService);
             CodeCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommand.Initialize(commandService);
 
+            CodeCSharpProjectPluginAssemblyCreateDescriptionCommand.Initialize(commandService);
+            CodeCSharpProjectPluginAssemblyCreateDescriptionInConnectionCommand.Initialize(commandService);
+
+            CodeCSharpProjectPluginAssemblyActionOnComponentInConnectionCommand.Initialize(commandService);
+
             CodeCSharpProjectPluginTypeStepsAddToSolutionLastCommand.Initialize(commandService);
             CodeCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand.Initialize(commandService);
             CodeCSharpProjectPluginTypeActionOnComponentInConnectionCommand.Initialize(commandService);
+
+            CodeCSharpProjectPluginTypeCreateDescriptionCommand.Initialize(commandService);
+            CodeCSharpProjectPluginTypeCreateDescriptionInConnectionCommand.Initialize(commandService);
 
             #endregion CodeCSharp
 
