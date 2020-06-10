@@ -733,7 +733,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     , null
                 );
             }
-            else if (actionOnComponent == ActionOnComponent.OpenSolutionsContainingComponentInExplorer)
+            else if (actionOnComponent == ActionOnComponent.OpenSolutionsListWithComponentInExplorer)
             {
                 WindowHelper.OpenExplorerSolutionExplorer(
                     _iWriteToOutput

@@ -886,6 +886,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartActionOnPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList, ActionOnComponent actionOnComponent)
             => ExecuteWithConnectionInThread(connectionData, this._pluginController.ExecuteActionOnProjectPluginAssembly, commonConfig, projectList, actionOnComponent);
 
+        public void StartActionOnPluginTypes(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<string> pluginTypeNames, ActionOnComponent actionOnComponent)
+            => ExecuteWithConnectionInThread(connectionData, this._pluginController.ExecuteActionOnPluginTypes, commonConfig, pluginTypeNames, actionOnComponent);
+
         public void StartPluginAssemblyRegister(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList)
             => ExecuteWithConnectionInThread(connectionData, this._pluginController.ExecuteRegisterPluginAssembly, commonConfig, projectList);
 

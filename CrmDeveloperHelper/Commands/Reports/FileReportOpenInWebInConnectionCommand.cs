@@ -44,8 +44,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 
             InstanceOpenSolutionsContainingComponentInExplorerInConnection = new FileReportOpenInWebInConnectionCommand(
                 commandService
-                , PackageIds.guidDynamicCommandSet.FileReportOpenSolutionsContainingComponentInExplorerInConnectionCommandId
-                , ActionOnComponent.OpenSolutionsContainingComponentInExplorer
+                , PackageIds.guidDynamicCommandSet.FileReportOpenSolutionsListWithComponentInExplorerInConnectionCommandId
+                , ActionOnComponent.OpenSolutionsListWithComponentInExplorer
             );
         }
 

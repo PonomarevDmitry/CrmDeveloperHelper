@@ -5,40 +5,40 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
 {
-    internal sealed class ProjectPluginAssemblyOpenInWebInConnectionCommand : AbstractDynamicCommandByConnectionAll
+    internal sealed class ProjectPluginAssemblyActionOnComponentInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
         private readonly ActionOnComponent _actionOnComponent;
 
-        private ProjectPluginAssemblyOpenInWebInConnectionCommand(OleMenuCommandService commandService, int baseIdStart, ActionOnComponent actionOnComponent)
+        private ProjectPluginAssemblyActionOnComponentInConnectionCommand(OleMenuCommandService commandService, int baseIdStart, ActionOnComponent actionOnComponent)
             : base(commandService, baseIdStart)
         {
             this._actionOnComponent = actionOnComponent;
         }
 
-        public static ProjectPluginAssemblyOpenInWebInConnectionCommand InstanceOpenDependentComponentsInWebInConnection { get; private set; }
+        public static ProjectPluginAssemblyActionOnComponentInConnectionCommand InstanceOpenDependentComponentsInWebInConnection { get; private set; }
 
-        public static ProjectPluginAssemblyOpenInWebInConnectionCommand InstanceOpenDependentComponentsInExplorerInConnection { get; private set; }
+        public static ProjectPluginAssemblyActionOnComponentInConnectionCommand InstanceOpenDependentComponentsInExplorerInConnection { get; private set; }
 
-        public static ProjectPluginAssemblyOpenInWebInConnectionCommand InstanceOpenSolutionsContainingComponentInExplorerInConnection { get; private set; }
+        public static ProjectPluginAssemblyActionOnComponentInConnectionCommand InstanceOpenSolutionsListWithComponentInExplorerInConnection { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            InstanceOpenDependentComponentsInWebInConnection = new ProjectPluginAssemblyOpenInWebInConnectionCommand(
+            InstanceOpenDependentComponentsInWebInConnection = new ProjectPluginAssemblyActionOnComponentInConnectionCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.ProjectPluginAssemblyOpenDependentInWebInConnectionCommandId
                 , ActionOnComponent.OpenDependentComponentsInWeb
             );
 
-            InstanceOpenDependentComponentsInExplorerInConnection = new ProjectPluginAssemblyOpenInWebInConnectionCommand(
+            InstanceOpenDependentComponentsInExplorerInConnection = new ProjectPluginAssemblyActionOnComponentInConnectionCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.ProjectPluginAssemblyOpenDependentInExplorerInConnectionCommandId
                 , ActionOnComponent.OpenDependentComponentsInExplorer
             );
 
-            InstanceOpenSolutionsContainingComponentInExplorerInConnection = new ProjectPluginAssemblyOpenInWebInConnectionCommand(
+            InstanceOpenSolutionsListWithComponentInExplorerInConnection = new ProjectPluginAssemblyActionOnComponentInConnectionCommand(
                 commandService
-                , PackageIds.guidDynamicCommandSet.ProjectPluginAssemblyOpenSolutionsContainingComponentInExplorerInConnectionCommandId
-                , ActionOnComponent.OpenSolutionsContainingComponentInExplorer
+                , PackageIds.guidDynamicCommandSet.ProjectPluginAssemblyOpenSolutionsListWithComponentInExplorerInConnectionCommandId
+                , ActionOnComponent.OpenSolutionsListWithComponentInExplorer
             );
         }
 

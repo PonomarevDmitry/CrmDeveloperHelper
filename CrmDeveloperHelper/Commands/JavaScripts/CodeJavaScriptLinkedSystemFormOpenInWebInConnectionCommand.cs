@@ -45,8 +45,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 
             InstanceOpenSolutionsContainingComponentInExplorerInConnection = new CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand(
                 commandService
-                , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedSystemFormOpenSolutionsContainingComponentInExplorerInConnectionCommandId
-                , ActionOnComponent.OpenSolutionsContainingComponentInExplorer
+                , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedSystemFormOpenSolutionsListWithComponentInExplorerInConnectionCommandId
+                , ActionOnComponent.OpenSolutionsListWithComponentInExplorer
             );
         }
 

@@ -544,7 +544,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , allSteps
                 , queryImage
                 , listSecure
-                );
+            );
 
             if (hasDescription)
             {

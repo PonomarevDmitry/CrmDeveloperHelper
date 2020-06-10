@@ -111,6 +111,7 @@
     <Compile Include="Commands\CSharp\CodeCSharpEntityMetadataFileGenerationOptionsCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectPluginAssemblyAddToSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\CSharp\CodeCSharpProjectPluginTypeActionOnComponentInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpAddPluginStepCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpAddPluginStepInConnectionCommand.cs" />
@@ -124,12 +125,15 @@
     <Compile Include="Commands\CSharp\CodeCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommand.cs" />
     <Compile Include="Commands\CSharp\DocumentsCSharpEntityMetadataFileGenerationOptionsCommand.cs" />
     <Compile Include="Commands\CSharp\DocumentsCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommand.cs" />
+    <Compile Include="Commands\CSharp\DocumentsCSharpProjectPluginTypeActionOnComponentInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\DocumentsCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommand.cs" />
     <Compile Include="Commands\CSharp\FileCSharpEntityMetadataFileGenerationOptionsCommand.cs" />
     <Compile Include="Commands\CSharp\FileCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommand.cs" />
+    <Compile Include="Commands\CSharp\FileCSharpProjectPluginTypeActionOnComponentInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\FileCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommand.cs" />
     <Compile Include="Commands\CSharp\FolderCSharpEntityMetadataFileGenerationOptionsCommand.cs" />
     <Compile Include="Commands\CSharp\FolderCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommand.cs" />
+    <Compile Include="Commands\CSharp\FolderCSharpProjectPluginTypeActionOnComponentInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\FolderCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectBuildLoadUpdatePluginAssemblyCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommand.cs" />
@@ -150,7 +154,7 @@
     <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedEntityAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedEntityAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedEntityExplorerCommand.cs" />
-    <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedEntityOpenComponentInConnectionCommand.cs" />
+    <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedEntityActionOnComponentInConnectionCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedEntityPublishInConnectionCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedSystemFormAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedSystemFormAddToSolutionLastCommand.cs" />
@@ -253,7 +257,7 @@
     <Compile Include="Commands\Projects\ProjectPluginAssemblyCreateEntityDescriptionInConnectionCommand.cs" />
     <Compile Include="Commands\Projects\ProjectPluginAssemblyCreateDescriptionCommand.cs" />
     <Compile Include="Commands\Projects\ProjectPluginAssemblyCreateDescriptionInConnectionCommand.cs" />
-    <Compile Include="Commands\Projects\ProjectPluginAssemblyOpenInWebInConnectionCommand.cs" />
+    <Compile Include="Commands\Projects\ProjectPluginAssemblyActionOnComponentInConnectionCommand.cs" />
     <Compile Include="Commands\Reports\CodeReportAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\Reports\CodeReportCreateCommand.cs" />
     <Compile Include="Commands\Reports\CodeReportShowDifferenceInConnectionGroupCommand.cs" />

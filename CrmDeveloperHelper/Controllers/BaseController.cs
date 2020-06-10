@@ -5,6 +5,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Views;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -1311,6 +1312,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             return Tuple.Create(service, dictFilesEqualByTextNotContent, dictFilesNotEqualByText);
+        }
+
+        protected void OpenWindowForUnknownPluginTypes(CommonConfiguration commonConfig, IOrganizationServiceExtented service, List<string> unknownPluginTypes)
+        {
+            if (!unknownPluginTypes.Any())
+            {
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PluginTypesNotFoundedByNameFormat1, unknownPluginTypes.Count);
+
+            foreach (var pluginTypeName in unknownPluginTypes)
+            {
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "{0}{1}", _tabSpacer, pluginTypeName);
+            }
+
+            WindowHelper.OpenPluginTypeExplorer(
+                this._iWriteToOutput
+                , service
+                , commonConfig
+                , unknownPluginTypes.FirstOrDefault()
+            );
         }
     }
 }

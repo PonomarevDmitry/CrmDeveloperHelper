@@ -1297,26 +1297,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             OpenWindowForUnknownPluginTypes(commonConfig, service, unknownPluginTypes);
         }
 
-        private void OpenWindowForUnknownPluginTypes(CommonConfiguration commonConfig, IOrganizationServiceExtented service, List<string> unknownPluginTypes)
-        {
-            if (unknownPluginTypes.Any())
-            {
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PluginTypesNotFoundedByNameFormat1, unknownPluginTypes.Count);
-
-                foreach (var pluginTypeName in unknownPluginTypes)
-                {
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "{0}{1}", _tabSpacer, pluginTypeName);
-                }
-
-                WindowHelper.OpenPluginTypeExplorer(
-                    this._iWriteToOutput
-                    , service
-                    , commonConfig
-                    , unknownPluginTypes.FirstOrDefault()
-                );
-            }
-        }
-
         #endregion Добавление в решение шагов плагинов типа плагина по имени.
 
         public async Task ExecuteAddingLinkedSystemFormToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, bool withSelect, string entityName, Guid formId, int formType)

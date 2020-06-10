@@ -21,7 +21,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         OpenDependentComponentsInExplorer = 4,
 
         [Description("Opening Solutions List with Component in Explorer")]
-        OpenSolutionsContainingComponentInExplorer = 5,
+        OpenSolutionsListWithComponentInExplorer = 5,
 
         [Description("Opening List in Web")]
         OpenListInWeb = 6,

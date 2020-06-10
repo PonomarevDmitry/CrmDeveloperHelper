@@ -222,7 +222,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeJavaScriptLinkedEntityAddToSolutionLastCommand.Initialize(commandService);
             CodeJavaScriptLinkedEntityExplorerCommand.Initialize(commandService);
             CodeJavaScriptLinkedEntityPublishInConnectionCommand.Initialize(commandService);
-            CodeJavaScriptLinkedEntityOpenComponentInConnectionCommand.Initialize(commandService);
+            CodeJavaScriptLinkedEntityActionOnComponentInConnectionCommand.Initialize(commandService);
 
             // CodeJavaScriptLinkedEntity.Initialize(commandService);
 
@@ -517,6 +517,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             CodeCSharpProjectPluginTypeStepsAddToSolutionLastCommand.Initialize(commandService);
             CodeCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand.Initialize(commandService);
+            CodeCSharpProjectPluginTypeActionOnComponentInConnectionCommand.Initialize(commandService);
 
             #endregion CodeCSharp
 
@@ -540,6 +541,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             DocumentsCSharpProjectPluginTypeStepsAddToSolutionLastCommand.Initialize(commandService);
             DocumentsCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand.Initialize(commandService);
+            DocumentsCSharpProjectPluginTypeActionOnComponentInConnectionCommand.Initialize(commandService);
 
             #endregion DocumentsCSharp
 
@@ -584,6 +586,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             FileCSharpProjectPluginTypeStepsAddToSolutionLastCommand.Initialize(commandService);
             FileCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand.Initialize(commandService);
+            FileCSharpProjectPluginTypeActionOnComponentInConnectionCommand.Initialize(commandService);
 
             #endregion FileCSharp
 
@@ -600,6 +603,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             FolderCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand.Initialize(commandService);
             FolderCSharpProjectPluginTypeStepsAddToSolutionLastCommand.Initialize(commandService);
+            FolderCSharpProjectPluginTypeActionOnComponentInConnectionCommand.Initialize(commandService);
 
             FolderCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommand.Initialize(commandService);
             FolderCSharpUpdateEntityMetadataFileSchemaCommand.Initialize(commandService);
@@ -646,7 +650,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             ProjectPluginAssemblyExplorerCommand.Initialize(commandService);
 
-            ProjectPluginAssemblyOpenInWebInConnectionCommand.Initialize(commandService);
+            ProjectPluginAssemblyActionOnComponentInConnectionCommand.Initialize(commandService);
 
             ProjectPluginTypeExplorerCommand.Initialize(commandService);
             ProjectPluginTreeCommand.Initialize(commandService);

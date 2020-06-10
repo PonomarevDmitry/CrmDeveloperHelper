@@ -379,7 +379,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     , reportEntity.Id
                     , null);
             }
-            else if (actionOnComponent == ActionOnComponent.OpenSolutionsContainingComponentInExplorer)
+            else if (actionOnComponent == ActionOnComponent.OpenSolutionsListWithComponentInExplorer)
             {
                 WindowHelper.OpenExplorerSolutionExplorer(
                     _iWriteToOutput
@@ -546,7 +546,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     , webresource.Id
                     , null);
             }
-            else if (actionOnComponent == ActionOnComponent.OpenSolutionsContainingComponentInExplorer)
+            else if (actionOnComponent == ActionOnComponent.OpenSolutionsListWithComponentInExplorer)
             {
                 WindowHelper.OpenExplorerSolutionExplorer(
                     _iWriteToOutput

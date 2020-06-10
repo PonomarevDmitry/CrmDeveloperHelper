@@ -371,7 +371,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.AssemblyNameIsEmpty);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoProjectNames);
                 return;
             }
 
@@ -446,7 +446,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.AssemblyNameIsEmpty);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoProjectNames);
                 return;
             }
 
@@ -705,7 +705,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.AssemblyNameIsEmpty);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoProjectNames);
                 return;
             }
 
@@ -731,7 +731,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Регистрация сборки плагинов.
 
-        #region Opening PluginAssembly
+        #region Action on PluginAssembly
 
         public async Task ExecuteActionOnProjectPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, List<EnvDTE.Project> projectList, ActionOnComponent actionOnComponent)
         {
@@ -762,7 +762,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.AssemblyNameIsEmpty);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoProjectNames);
                 return;
             }
 
@@ -776,6 +776,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             var handler = new PluginAssemblyDescriptionHandler(service, service.ConnectionData.GetConnectionInfo());
 
             var repositoryAssembly = new PluginAssemblyRepository(service);
+
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
             foreach (var project in projectList)
             {
@@ -816,7 +818,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         , null
                     );
                 }
-                else if (actionOnComponent == ActionOnComponent.OpenSolutionsContainingComponentInExplorer)
+                else if (actionOnComponent == ActionOnComponent.OpenSolutionsListWithComponentInExplorer)
                 {
                     WindowHelper.OpenExplorerSolutionExplorer(
                         _iWriteToOutput
@@ -856,6 +858,172 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        #endregion Opening PluginAssembly
+        #endregion Action on PluginAssembly
+
+        #region Action on PluginType
+
+        public async Task ExecuteActionOnPluginTypes(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<string> pluginTypeNames, ActionOnComponent actionOnComponent)
+        {
+            string operation = string.Format(
+                Properties.OperationNames.ActionOnComponentFormat3
+                , connectionData?.Name
+                , PluginType.EntitySchemaName
+                , EnumDescriptionTypeConverter.GetEnumNameByDescriptionAttribute(actionOnComponent)
+            );
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await ExecutingActionOnPluginTypes(connectionData, commonConfig, pluginTypeNames, actionOnComponent);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task ExecutingActionOnPluginTypes(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<string> pluginTypeNames, ActionOnComponent actionOnComponent)
+        {
+            if (pluginTypeNames == null || !pluginTypeNames.Any(p => !string.IsNullOrEmpty(p)))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoPluginTypesNames);
+                return;
+            }
+
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var repository = new PluginTypeRepository(service);
+
+            Dictionary<Guid, PluginType> knownPluginTypes = new Dictionary<Guid, PluginType>();
+
+            List<string> unknownPluginTypes = new List<string>();
+
+            foreach (var pluginTypeName in pluginTypeNames)
+            {
+                var pluginType = await repository.FindPluginTypeByLikeNameAsync(pluginTypeName);
+
+                if (pluginType != null)
+                {
+                    if (!knownPluginTypes.ContainsKey(pluginType.Id))
+                    {
+                        knownPluginTypes.Add(pluginType.Id, pluginType);
+                    }
+                }
+                else
+                {
+                    unknownPluginTypes.Add(pluginTypeName);
+                }
+            }
+
+            if (!knownPluginTypes.Any() && !unknownPluginTypes.Any())
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoPluginTypesFounded);
+                return;
+            }
+
+            OpenWindowForUnknownPluginTypes(commonConfig, service, unknownPluginTypes);
+
+            if (!knownPluginTypes.Any())
+            {
+                return;
+            }
+
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+
+            var repStep = new SdkMessageProcessingStepRepository(service);
+            var repImage = new SdkMessageProcessingStepImageRepository(service);
+            var repSecure = new SdkMessageProcessingStepSecureConfigRepository(service);
+
+            var listSecure = await repSecure.GetAllSdkMessageProcessingStepSecureConfigAsync();
+
+            foreach (var pluginType in knownPluginTypes.Values.OrderBy(p => p.TypeName))
+            {
+                if (actionOnComponent == ActionOnComponent.OpenDependentComponentsInWeb)
+                {
+                    connectionData.OpenSolutionComponentDependentComponentsInWeb(ComponentType.PluginType, pluginType.Id);
+                }
+                else if (actionOnComponent == ActionOnComponent.OpenDependentComponentsInExplorer)
+                {
+                    WindowHelper.OpenSolutionComponentDependenciesExplorer(
+                        _iWriteToOutput
+                        , service
+                        , null
+                        , commonConfig
+                        , (int)ComponentType.PluginType
+                        , pluginType.Id
+                        , null
+                    );
+                }
+                else if (actionOnComponent == ActionOnComponent.OpenSolutionsListWithComponentInExplorer)
+                {
+                    WindowHelper.OpenExplorerSolutionExplorer(
+                        _iWriteToOutput
+                        , service
+                        , commonConfig
+                        , (int)ComponentType.PluginType
+                        , pluginType.Id
+                        , null
+                    );
+                }
+                else if (actionOnComponent == ActionOnComponent.EntityDescription)
+                {
+                    string fileName = EntityFileNameFormatter.GetPluginTypeFileName(service.ConnectionData.Name, pluginType.TypeName, EntityFileNameFormatter.Headers.EntityDescription, "txt");
+                    string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                    await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, pluginType, EntityFileNameFormatter.PluginAssemblyIgnoreFields, service.ConnectionData);
+
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
+                        , service.ConnectionData.Name
+                        , pluginType.LogicalName
+                        , filePath
+                    );
+
+                    this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+                }
+                else if (actionOnComponent == ActionOnComponent.Description)
+                {
+                    string fileName = EntityFileNameFormatter.GetPluginTypeFileName(service.ConnectionData.Name, pluginType.TypeName, "Description");
+                    string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+
+
+                    var allSteps = await repStep.GetAllStepsByPluginTypeAsync(pluginType.Id);
+                    var queryImage = await repImage.GetImagesByPluginTypeAsync(pluginType.Id);
+
+                    bool hasDescription = await PluginTypeDescriptionHandler.CreateFileWithDescriptionAsync(
+                        service.ConnectionData.GetConnectionInfo()
+                        , filePath
+                        , pluginType.Id
+                        , pluginType.TypeName
+                        , allSteps
+                        , queryImage
+                        , listSecure
+                    );
+
+                    if (hasDescription)
+                    {
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, PluginType.EntityLogicalName, pluginType.TypeName, "Description", filePath);
+                        this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+                    }
+                    else
+                    {
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, PluginType.EntityLogicalName, pluginType.TypeName, "Description");
+                        this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                    }
+                }
+            }
+        }
+
+        #endregion Action on PluginType
     }
 }

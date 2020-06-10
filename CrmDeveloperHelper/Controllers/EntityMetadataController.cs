@@ -1300,7 +1300,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     );
                     break;
 
-                case ActionOnComponent.OpenSolutionsContainingComponentInExplorer:
+                case ActionOnComponent.OpenSolutionsListWithComponentInExplorer:
                     WindowHelper.OpenExplorerSolutionExplorer(
                         _iWriteToOutput
                         , service

@@ -44,8 +44,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 
             InstanceOpenSolutionsContainingComponentInExplorerInConnection = new CodeWebResourceOpenInWebInConnectionCommand(
                 commandService
-                , PackageIds.guidDynamicCommandSet.CodeWebResourceOpenSolutionsContainingComponentInExplorerInConnectionCommandId
-                , ActionOnComponent.OpenSolutionsContainingComponentInExplorer
+                , PackageIds.guidDynamicCommandSet.CodeWebResourceOpenSolutionsListWithComponentInExplorerInConnectionCommandId
+                , ActionOnComponent.OpenSolutionsListWithComponentInExplorer
             );
         }
 
