@@ -4,45 +4,45 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
-    internal sealed class FileWebResourceOpenInWebInConnectionCommand : AbstractDynamicCommandByConnectionByGroupWithCurrent
+    internal sealed class FileWebResourceActionOnComponentInConnectionCommand : AbstractDynamicCommandByConnectionByGroupWithCurrent
     {
         private readonly ActionOnComponent _actionOnComponent;
 
-        private FileWebResourceOpenInWebInConnectionCommand(OleMenuCommandService commandService, int baseIdStart, ActionOnComponent actionOnComponent)
+        private FileWebResourceActionOnComponentInConnectionCommand(OleMenuCommandService commandService, int baseIdStart, ActionOnComponent actionOnComponent)
             : base(commandService, baseIdStart)
         {
             this._actionOnComponent = actionOnComponent;
         }
 
-        public static FileWebResourceOpenInWebInConnectionCommand InstanceOpenInWebInConnection { get; private set; }
+        public static FileWebResourceActionOnComponentInConnectionCommand InstanceOpenInWebInConnection { get; private set; }
 
-        public static FileWebResourceOpenInWebInConnectionCommand InstanceOpenDependentComponentsInWebInConnection { get; private set; }
+        public static FileWebResourceActionOnComponentInConnectionCommand InstanceOpenDependentComponentsInWebInConnection { get; private set; }
 
-        public static FileWebResourceOpenInWebInConnectionCommand InstanceOpenDependentComponentsInExplorerInConnection { get; private set; }
+        public static FileWebResourceActionOnComponentInConnectionCommand InstanceOpenDependentComponentsInExplorerInConnection { get; private set; }
 
-        public static FileWebResourceOpenInWebInConnectionCommand InstanceOpenSolutionsContainingComponentInExplorerInConnection { get; private set; }
+        public static FileWebResourceActionOnComponentInConnectionCommand InstanceOpenSolutionsContainingComponentInExplorerInConnection { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            InstanceOpenInWebInConnection = new FileWebResourceOpenInWebInConnectionCommand(
+            InstanceOpenInWebInConnection = new FileWebResourceActionOnComponentInConnectionCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.FileWebResourceOpenInWebInConnectionCommandId
                 , ActionOnComponent.OpenInWeb
             );
 
-            InstanceOpenDependentComponentsInWebInConnection = new FileWebResourceOpenInWebInConnectionCommand(
+            InstanceOpenDependentComponentsInWebInConnection = new FileWebResourceActionOnComponentInConnectionCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.FileWebResourceOpenDependentInWebInConnectionCommandId
                 , ActionOnComponent.OpenDependentComponentsInWeb
             );
 
-            InstanceOpenDependentComponentsInExplorerInConnection = new FileWebResourceOpenInWebInConnectionCommand(
+            InstanceOpenDependentComponentsInExplorerInConnection = new FileWebResourceActionOnComponentInConnectionCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.FileWebResourceOpenDependentInExplorerInConnectionCommandId
                 , ActionOnComponent.OpenDependentComponentsInExplorer
             );
 
-            InstanceOpenSolutionsContainingComponentInExplorerInConnection = new FileWebResourceOpenInWebInConnectionCommand(
+            InstanceOpenSolutionsContainingComponentInExplorerInConnection = new FileWebResourceActionOnComponentInConnectionCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.FileWebResourceOpenSolutionsListWithComponentInExplorerInConnectionCommandId
                 , ActionOnComponent.OpenSolutionsListWithComponentInExplorer

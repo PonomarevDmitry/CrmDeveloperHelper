@@ -162,7 +162,7 @@
     <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedSystemFormExplorerCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedSystemFormGetCurrentTabsAndSectionsInConnectionCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand.cs" />
-    <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand.cs" />
+    <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedSystemFormActionOnComponentInConnectionCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptUpdateEntityMetadataFileCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptUpdateEntityMetadataFileWithSelectCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptUpdateGlobalOptionSetAllFileCommand.cs" />
@@ -278,7 +278,7 @@
     <Compile Include="Commands\WebResources\CodeWebResourceCreateEntityDescriptionInConnectionCommand.cs" />
     <Compile Include="Commands\WebResources\CodeWebResourceCompareWithDetailsInConnectionGroupCommand.cs" />
     <Compile Include="Commands\WebResources\CodeWebResourceChangeInEditorInConnectionCommand.cs" />
-    <Compile Include="Commands\WebResources\CodeWebResourceOpenInWebInConnectionCommand.cs" />
+    <Compile Include="Commands\WebResources\CodeWebResourceActionOnComponentInConnectionCommand.cs" />
     <Compile Include="Commands\ListForPublish\CodePublishListAddCommand.cs" />
     <Compile Include="Commands\WebResources\CodeWebResourceCheckEncodingCommand.cs" />
     <Compile Include="Commands\Reports\CodeReportLinkClearCommand.cs" />
@@ -287,7 +287,7 @@
     <Compile Include="Commands\WebResources\CodeWebResourceLinkCreateCommand.cs" />
     <Compile Include="Commands\ListForPublish\CodePublishListRemoveCommand.cs" />
     <Compile Include="Commands\Reports\CodeReportAddToSolutionLastCommand.cs" />
-    <Compile Include="Commands\Reports\CodeReportOpenInWebInConnectionCommand.cs" />
+    <Compile Include="Commands\Reports\CodeReportActionOnComponentInConnectionCommand.cs" />
     <Compile Include="Commands\Reports\CodeReportUpdateCommand.cs" />
     <Compile Include="Commands\WebResources\CodeWebResourceShowDifferenceCommand.cs" />
     <Compile Include="Commands\WebResources\CodeWebResourceShowDifferenceCustomCommand.cs" />
@@ -488,11 +488,11 @@
     <Compile Include="Commands\JavaScripts\FileJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand.cs" />
     <Compile Include="Commands\Reports\FileReportAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\Reports\FileReportCreateCommand.cs" />
-    <Compile Include="Commands\Reports\FileReportOpenInWebInConnectionCommand.cs" />
+    <Compile Include="Commands\Reports\FileReportActionOnComponentInConnectionCommand.cs" />
     <Compile Include="Commands\Reports\FileReportUpdateCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceCompareInConnectionGroupCommand.cs" />
-    <Compile Include="Commands\WebResources\FileWebResourceOpenInWebInConnectionCommand.cs" />
+    <Compile Include="Commands\WebResources\FileWebResourceActionOnComponentInConnectionCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceShowDifferenceInConnectionGroupCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceShowDifferenceThreeFileCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceUpdateContentPublishGroupConnectionCommand.cs" />

@@ -5,45 +5,45 @@ using System;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand : AbstractDynamicCommandByConnectionAll
+    internal sealed class CodeJavaScriptLinkedSystemFormActionOnComponentInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
         private readonly ActionOnComponent _actionOnComponent;
 
-        private CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand(OleMenuCommandService commandService, int baseIdStart, ActionOnComponent actionOnComponent)
+        private CodeJavaScriptLinkedSystemFormActionOnComponentInConnectionCommand(OleMenuCommandService commandService, int baseIdStart, ActionOnComponent actionOnComponent)
             : base(commandService, baseIdStart)
         {
             this._actionOnComponent = actionOnComponent;
         }
 
-        public static CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand InstanceOpenInWebInConnection { get; private set; }
+        public static CodeJavaScriptLinkedSystemFormActionOnComponentInConnectionCommand InstanceOpenInWebInConnection { get; private set; }
 
-        public static CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand InstanceOpenDependentComponentsInWebInConnection { get; private set; }
+        public static CodeJavaScriptLinkedSystemFormActionOnComponentInConnectionCommand InstanceOpenDependentComponentsInWebInConnection { get; private set; }
 
-        public static CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand InstanceOpenDependentComponentsInExplorerInConnection { get; private set; }
+        public static CodeJavaScriptLinkedSystemFormActionOnComponentInConnectionCommand InstanceOpenDependentComponentsInExplorerInConnection { get; private set; }
 
-        public static CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand InstanceOpenSolutionsContainingComponentInExplorerInConnection { get; private set; }
+        public static CodeJavaScriptLinkedSystemFormActionOnComponentInConnectionCommand InstanceOpenSolutionsContainingComponentInExplorerInConnection { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            InstanceOpenInWebInConnection = new CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand(
+            InstanceOpenInWebInConnection = new CodeJavaScriptLinkedSystemFormActionOnComponentInConnectionCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommandId
                 , ActionOnComponent.OpenInWeb
             );
 
-            InstanceOpenDependentComponentsInWebInConnection = new CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand(
+            InstanceOpenDependentComponentsInWebInConnection = new CodeJavaScriptLinkedSystemFormActionOnComponentInConnectionCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedSystemFormOpenDependentInWebInConnectionCommandId
                 , ActionOnComponent.OpenDependentComponentsInWeb
             );
 
-            InstanceOpenDependentComponentsInExplorerInConnection = new CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand(
+            InstanceOpenDependentComponentsInExplorerInConnection = new CodeJavaScriptLinkedSystemFormActionOnComponentInConnectionCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedSystemFormOpenDependentInExplorerInConnectionCommandId
                 , ActionOnComponent.OpenDependentComponentsInExplorer
             );
 
-            InstanceOpenSolutionsContainingComponentInExplorerInConnection = new CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand(
+            InstanceOpenSolutionsContainingComponentInExplorerInConnection = new CodeJavaScriptLinkedSystemFormActionOnComponentInConnectionCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedSystemFormOpenSolutionsListWithComponentInExplorerInConnectionCommandId
                 , ActionOnComponent.OpenSolutionsListWithComponentInExplorer

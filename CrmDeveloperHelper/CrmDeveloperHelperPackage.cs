@@ -97,7 +97,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeWebResourceChangeInEditorInConnectionCommand.Initialize(commandService);
             CodeWebResourceGetAttributeInConnectionCommand.Initialize(commandService);
             CodeWebResourceExplorerCommand.Initialize(commandService);
-            CodeWebResourceOpenInWebInConnectionCommand.Initialize(commandService);
+            CodeWebResourceActionOnComponentInConnectionCommand.Initialize(commandService);
             CodeWebResourceLinkClearCommand.Initialize(commandService);
             CodeWebResourceLinkCreateCommand.Initialize(commandService);
             CodeWebResourceUpdateContentPublishCommand.Initialize(commandService);
@@ -144,7 +144,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FileWebResourceChangeInEditorInConnectionCommand.Initialize(commandService);
             FileWebResourceGetAttributeInConnectionCommand.Initialize(commandService);
             FileWebResourceExplorerCommand.Initialize(commandService);
-            FileWebResourceOpenInWebInConnectionCommand.Initialize(commandService);
+            FileWebResourceActionOnComponentInConnectionCommand.Initialize(commandService);
             FileWebResourceLinkClearCommand.Initialize(commandService);
             FileWebResourceLinkCreateCommand.Initialize(commandService);
             FileWebResourceShowDependentComponentsCommand.Initialize(commandService);
@@ -208,7 +208,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             CodeJavaScriptLinkedSystemFormExplorerCommand.Initialize(commandService);
             CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand.Initialize(commandService);
-            CodeJavaScriptLinkedSystemFormOpenInWebInConnectionCommand.Initialize(commandService);
+            CodeJavaScriptLinkedSystemFormActionOnComponentInConnectionCommand.Initialize(commandService);
 
             CodeJavaScriptLinkedSystemFormAddToSolutionInConnectionCommand.Initialize(commandService);
             CodeJavaScriptLinkedSystemFormAddToSolutionLastCommand.Initialize(commandService);
@@ -444,7 +444,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeReportShowDifferenceInConnectionGroupCommand.Initialize(commandService);
             CodeReportShowDifferenceThreeFileCommand.Initialize(commandService);
             CodeReportExplorerCommand.Initialize(commandService);
-            CodeReportOpenInWebInConnectionCommand.Initialize(commandService);
+            CodeReportActionOnComponentInConnectionCommand.Initialize(commandService);
 
             CodeReportAddToSolutionLastCommand.Initialize(commandService);
             CodeReportAddToSolutionInConnectionCommand.Initialize(commandService);
@@ -467,7 +467,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FileReportLinkCreateCommand.Initialize(commandService);
             FileReportUpdateCommand.Initialize(commandService);
             FileReportCreateCommand.Initialize(commandService);
-            FileReportOpenInWebInConnectionCommand.Initialize(commandService);
+            FileReportActionOnComponentInConnectionCommand.Initialize(commandService);
 
             FileReportAddToSolutionLastCommand.Initialize(commandService);
             FileReportAddToSolutionInConnectionCommand.Initialize(commandService);

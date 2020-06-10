@@ -299,27 +299,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuWebResource_GroupExplorer = 0x1006;
 
-            public const int codeMenuWebResource_GroupOpenInWeb = 0x107D;
+            public const int codeMenuWebResource_GroupActionOnComponent = 0x107D;
 
-            public const int codeMenuWebResource_GroupOpenInWeb_Menu = 0x13F9;
+            public const int codeMenuWebResource_GroupActionOnComponent_Menu = 0x13F9;
 
-            public const int codeMenuWebResource_GroupOpenInWeb_Menu_Group = 0x13FA;
+            public const int codeMenuWebResource_GroupActionOnComponent_Menu_Group = 0x13FA;
 
-            public const int codeMenuWebResource_GroupOpenInWeb_Menu_Group_MenuOpenInWebDyn = 0x113C;
+            public const int codeMenuWebResource_GroupActionOnComponent_Menu_Group_MenuOpenInWebDyn = 0x113C;
 
-            public const int codeMenuWebResource_GroupOpenInWeb_Menu_Group_MenuOpenInWebDyn_Group = 0x113D;
+            public const int codeMenuWebResource_GroupActionOnComponent_Menu_Group_MenuOpenInWebDyn_Group = 0x113D;
 
-            public const int codeMenuWebResource_GroupOpenInWeb_Menu_Group_MenuOpenDependentInWebDyn = 0x113E;
+            public const int codeMenuWebResource_GroupActionOnComponent_Menu_Group_MenuOpenDependentInWebDyn = 0x113E;
 
-            public const int codeMenuWebResource_GroupOpenInWeb_Menu_Group_MenuOpenDependentInWebDyn_Group = 0x113F;
+            public const int codeMenuWebResource_GroupActionOnComponent_Menu_Group_MenuOpenDependentInWebDyn_Group = 0x113F;
 
-            public const int codeMenuWebResource_GroupOpenInWeb_Menu_Group_MenuOpenDependentInExplorerDyn = 0x1140;
+            public const int codeMenuWebResource_GroupActionOnComponent_Menu_Group_MenuOpenDependentInExplorerDyn = 0x1140;
 
-            public const int codeMenuWebResource_GroupOpenInWeb_Menu_Group_MenuOpenDependentInExplorerDyn_Group = 0x1141;
+            public const int codeMenuWebResource_GroupActionOnComponent_Menu_Group_MenuOpenDependentInExplorerDyn_Group = 0x1141;
 
-            public const int codeMenuWebResource_GroupOpenInWeb_Menu_Group_MenuOpenSolutionsListWithComponentInExplorerDyn = 0x1142;
+            public const int codeMenuWebResource_GroupActionOnComponent_Menu_Group_MenuOpenSolutionsListWithComponentInExplorerDyn = 0x1142;
 
-            public const int codeMenuWebResource_GroupOpenInWeb_Menu_Group_MenuOpenSolutionsListWithComponentInExplorerDyn_Group = 0x1143;
+            public const int codeMenuWebResource_GroupActionOnComponent_Menu_Group_MenuOpenSolutionsListWithComponentInExplorerDyn_Group = 0x1143;
 
             public const int codeMenuWebResource_GroupAddToSolution = 0x10F3;
 
@@ -571,27 +571,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuReport_GroupExplorer = 0x100E;
 
-            public const int codeMenuReport_GroupOpenInWeb = 0x10F2;
+            public const int codeMenuReport_GroupActionOnComponent = 0x10F2;
 
-            public const int codeMenuReport_GroupOpenInWeb_Menu = 0x13FB;
+            public const int codeMenuReport_GroupActionOnComponent_Menu = 0x13FB;
 
-            public const int codeMenuReport_GroupOpenInWeb_Menu_Group = 0x13FC;
+            public const int codeMenuReport_GroupActionOnComponent_Menu_Group = 0x13FC;
 
-            public const int codeMenuReport_GroupOpenInWeb_Menu_Group_MenuOpenInWebDyn = 0x1144;
+            public const int codeMenuReport_GroupActionOnComponent_Menu_Group_MenuOpenInWebDyn = 0x1144;
 
-            public const int codeMenuReport_GroupOpenInWeb_Menu_Group_MenuOpenInWebDyn_Group = 0x1145;
+            public const int codeMenuReport_GroupActionOnComponent_Menu_Group_MenuOpenInWebDyn_Group = 0x1145;
 
-            public const int codeMenuReport_GroupOpenInWeb_Menu_Group_MenuOpenDependentInWebDyn = 0x1146;
+            public const int codeMenuReport_GroupActionOnComponent_Menu_Group_MenuOpenDependentInWebDyn = 0x1146;
 
-            public const int codeMenuReport_GroupOpenInWeb_Menu_Group_MenuOpenDependentInWebDyn_Group = 0x1147;
+            public const int codeMenuReport_GroupActionOnComponent_Menu_Group_MenuOpenDependentInWebDyn_Group = 0x1147;
 
-            public const int codeMenuReport_GroupOpenInWeb_Menu_Group_MenuOpenDependentInExplorerDyn = 0x1148;
+            public const int codeMenuReport_GroupActionOnComponent_Menu_Group_MenuOpenDependentInExplorerDyn = 0x1148;
 
-            public const int codeMenuReport_GroupOpenInWeb_Menu_Group_MenuOpenDependentInExplorerDyn_Group = 0x1149;
+            public const int codeMenuReport_GroupActionOnComponent_Menu_Group_MenuOpenDependentInExplorerDyn_Group = 0x1149;
 
-            public const int codeMenuReport_GroupOpenInWeb_Menu_Group_MenuOpenSolutionsListWithComponentInExplorerDyn = 0x114A;
+            public const int codeMenuReport_GroupActionOnComponent_Menu_Group_MenuOpenSolutionsListWithComponentInExplorerDyn = 0x114A;
 
-            public const int codeMenuReport_GroupOpenInWeb_Menu_Group_MenuOpenSolutionsListWithComponentInExplorerDyn_Group = 0x114B;
+            public const int codeMenuReport_GroupActionOnComponent_Menu_Group_MenuOpenSolutionsListWithComponentInExplorerDyn_Group = 0x114B;
 
             public const int codeMenuReport_GroupAddToSolution = 0x10F4;
 
@@ -1013,27 +1013,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int fileMenuWebResource_GroupExplorer = 0x1026;
 
-            public const int fileMenuWebResource_GroupOpenInWeb = 0x107E;
+            public const int fileMenuWebResource_GroupActionOnComponent = 0x107E;
 
-            public const int fileMenuWebResource_GroupOpenInWeb_Menu = 0x13FD;
+            public const int fileMenuWebResource_GroupActionOnComponent_Menu = 0x13FD;
 
-            public const int fileMenuWebResource_GroupOpenInWeb_Menu_Group = 0x13FE;
+            public const int fileMenuWebResource_GroupActionOnComponent_Menu_Group = 0x13FE;
 
-            public const int fileMenuWebResource_GroupOpenInWeb_Menu_Group_MenuOpenInWebDyn = 0x114C;
+            public const int fileMenuWebResource_GroupActionOnComponent_Menu_Group_MenuOpenInWebDyn = 0x114C;
 
-            public const int fileMenuWebResource_GroupOpenInWeb_Menu_Group_MenuOpenInWebDyn_Group = 0x114D;
+            public const int fileMenuWebResource_GroupActionOnComponent_Menu_Group_MenuOpenInWebDyn_Group = 0x114D;
 
-            public const int fileMenuWebResource_GroupOpenInWeb_Menu_Group_MenuOpenDependentInWebDyn = 0x114E;
+            public const int fileMenuWebResource_GroupActionOnComponent_Menu_Group_MenuOpenDependentInWebDyn = 0x114E;
 
-            public const int fileMenuWebResource_GroupOpenInWeb_Menu_Group_MenuOpenDependentInWebDyn_Group = 0x114F;
+            public const int fileMenuWebResource_GroupActionOnComponent_Menu_Group_MenuOpenDependentInWebDyn_Group = 0x114F;
 
-            public const int fileMenuWebResource_GroupOpenInWeb_Menu_Group_MenuOpenDependentInExplorerDyn = 0x1150;
+            public const int fileMenuWebResource_GroupActionOnComponent_Menu_Group_MenuOpenDependentInExplorerDyn = 0x1150;
 
-            public const int fileMenuWebResource_GroupOpenInWeb_Menu_Group_MenuOpenDependentInExplorerDyn_Group = 0x1151;
+            public const int fileMenuWebResource_GroupActionOnComponent_Menu_Group_MenuOpenDependentInExplorerDyn_Group = 0x1151;
 
-            public const int fileMenuWebResource_GroupOpenInWeb_Menu_Group_MenuOpenSolutionsListWithComponentInExplorerDyn = 0x1152;
+            public const int fileMenuWebResource_GroupActionOnComponent_Menu_Group_MenuOpenSolutionsListWithComponentInExplorerDyn = 0x1152;
 
-            public const int fileMenuWebResource_GroupOpenInWeb_Menu_Group_MenuOpenSolutionsListWithComponentInExplorerDyn_Group = 0x1153;
+            public const int fileMenuWebResource_GroupActionOnComponent_Menu_Group_MenuOpenSolutionsListWithComponentInExplorerDyn_Group = 0x1153;
 
             public const int fileMenuWebResource_GroupAddToSolution = 0x10F5;
 
@@ -1067,27 +1067,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int fileMenuReport_GroupUpdate_MenuConnectionDyn_Group = 0x132F;
 
-            public const int fileMenuReport_GroupOpenInWeb = 0x107F;
+            public const int fileMenuReport_GroupActionOnComponent = 0x107F;
 
-            public const int fileMenuReport_GroupOpenInWeb_Menu = 0x13FF;
+            public const int fileMenuReport_GroupActionOnComponent_Menu = 0x13FF;
 
-            public const int fileMenuReport_GroupOpenInWeb_Menu_Group = 0x1400;
+            public const int fileMenuReport_GroupActionOnComponent_Menu_Group = 0x1400;
 
-            public const int fileMenuReport_GroupOpenInWeb_Menu_Group_MenuOpenInWebDyn = 0x1154;
+            public const int fileMenuReport_GroupActionOnComponent_Menu_Group_MenuOpenInWebDyn = 0x1154;
 
-            public const int fileMenuReport_GroupOpenInWeb_Menu_Group_MenuOpenInWebDyn_Group = 0x1155;
+            public const int fileMenuReport_GroupActionOnComponent_Menu_Group_MenuOpenInWebDyn_Group = 0x1155;
 
-            public const int fileMenuReport_GroupOpenInWeb_Menu_Group_MenuOpenDependentInWebDyn = 0x1156;
+            public const int fileMenuReport_GroupActionOnComponent_Menu_Group_MenuOpenDependentInWebDyn = 0x1156;
 
-            public const int fileMenuReport_GroupOpenInWeb_Menu_Group_MenuOpenDependentInWebDyn_Group = 0x1157;
+            public const int fileMenuReport_GroupActionOnComponent_Menu_Group_MenuOpenDependentInWebDyn_Group = 0x1157;
 
-            public const int fileMenuReport_GroupOpenInWeb_Menu_Group_MenuOpenDependentInExplorerDyn = 0x1158;
+            public const int fileMenuReport_GroupActionOnComponent_Menu_Group_MenuOpenDependentInExplorerDyn = 0x1158;
 
-            public const int fileMenuReport_GroupOpenInWeb_Menu_Group_MenuOpenDependentInExplorerDyn_Group = 0x1159;
+            public const int fileMenuReport_GroupActionOnComponent_Menu_Group_MenuOpenDependentInExplorerDyn_Group = 0x1159;
 
-            public const int fileMenuReport_GroupOpenInWeb_Menu_Group_MenuOpenSolutionsListWithComponentInExplorerDyn = 0x115A;
+            public const int fileMenuReport_GroupActionOnComponent_Menu_Group_MenuOpenSolutionsListWithComponentInExplorerDyn = 0x115A;
 
-            public const int fileMenuReport_GroupOpenInWeb_Menu_Group_MenuOpenSolutionsListWithComponentInExplorerDyn_Group = 0x115B;
+            public const int fileMenuReport_GroupActionOnComponent_Menu_Group_MenuOpenSolutionsListWithComponentInExplorerDyn_Group = 0x115B;
 
             public const int fileMenuReport_GroupCreate = 0x1333;
 
@@ -1465,19 +1465,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int folderMenuProject_GroupExplorers = 0x10FC;
 
-            public const int folderMenuProject_GroupOpenInWeb = 0x1451;
+            public const int folderMenuProject_GroupActionOnComponent = 0x1451;
 
-            public const int folderMenuProject_GroupOpenInWeb_MenuOpenDependentInWebDyn = 0x1452;
+            public const int folderMenuProject_GroupActionOnComponent_MenuOpenDependentInWebDyn = 0x1452;
 
-            public const int folderMenuProject_GroupOpenInWeb_MenuOpenDependentInWebDyn_Group = 0x1453;
+            public const int folderMenuProject_GroupActionOnComponent_MenuOpenDependentInWebDyn_Group = 0x1453;
 
-            public const int folderMenuProject_GroupOpenInWeb_MenuOpenDependentInExplorerDyn = 0x1454;
+            public const int folderMenuProject_GroupActionOnComponent_MenuOpenDependentInExplorerDyn = 0x1454;
 
-            public const int folderMenuProject_GroupOpenInWeb_MenuOpenDependentInExplorerDyn_Group = 0x1455;
+            public const int folderMenuProject_GroupActionOnComponent_MenuOpenDependentInExplorerDyn_Group = 0x1455;
 
-            public const int folderMenuProject_GroupOpenInWeb_MenuOpenSolutionsListWithComponentInExplorerDyn = 0x1456;
+            public const int folderMenuProject_GroupActionOnComponent_MenuOpenSolutionsListWithComponentInExplorerDyn = 0x1456;
 
-            public const int folderMenuProject_GroupOpenInWeb_MenuOpenSolutionsListWithComponentInExplorerDyn_Group = 0x1457;
+            public const int folderMenuProject_GroupActionOnComponent_MenuOpenSolutionsListWithComponentInExplorerDyn_Group = 0x1457;
 
             public const int folderMenuProject_GroupEntityDescription = 0x1458;
 

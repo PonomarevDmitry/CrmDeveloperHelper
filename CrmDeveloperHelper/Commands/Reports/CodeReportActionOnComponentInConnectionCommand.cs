@@ -4,45 +4,45 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 {
-    internal sealed class CodeReportOpenInWebInConnectionCommand : AbstractDynamicCommandByConnectionByGroupWithCurrent
+    internal sealed class CodeReportActionOnComponentInConnectionCommand : AbstractDynamicCommandByConnectionByGroupWithCurrent
     {
         private readonly ActionOnComponent _actionOnComponent;
 
-        private CodeReportOpenInWebInConnectionCommand(OleMenuCommandService commandService, int baseIdStart, ActionOnComponent actionOnComponent)
+        private CodeReportActionOnComponentInConnectionCommand(OleMenuCommandService commandService, int baseIdStart, ActionOnComponent actionOnComponent)
             : base(commandService, baseIdStart)
         {
             this._actionOnComponent = actionOnComponent;
         }
 
-        public static CodeReportOpenInWebInConnectionCommand InstanceOpenInWebInConnection { get; private set; }
+        public static CodeReportActionOnComponentInConnectionCommand InstanceOpenInWebInConnection { get; private set; }
 
-        public static CodeReportOpenInWebInConnectionCommand InstanceOpenDependentComponentsInWebInConnection { get; private set; }
+        public static CodeReportActionOnComponentInConnectionCommand InstanceOpenDependentComponentsInWebInConnection { get; private set; }
 
-        public static CodeReportOpenInWebInConnectionCommand InstanceOpenDependentComponentsInExplorerInConnection { get; private set; }
+        public static CodeReportActionOnComponentInConnectionCommand InstanceOpenDependentComponentsInExplorerInConnection { get; private set; }
 
-        public static CodeReportOpenInWebInConnectionCommand InstanceOpenSolutionsContainingComponentInExplorerInConnection { get; private set; }
+        public static CodeReportActionOnComponentInConnectionCommand InstanceOpenSolutionsContainingComponentInExplorerInConnection { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            InstanceOpenInWebInConnection = new CodeReportOpenInWebInConnectionCommand(
+            InstanceOpenInWebInConnection = new CodeReportActionOnComponentInConnectionCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.CodeReportOpenInWebInConnectionCommandId
                 , ActionOnComponent.OpenInWeb
             );
 
-            InstanceOpenDependentComponentsInWebInConnection = new CodeReportOpenInWebInConnectionCommand(
+            InstanceOpenDependentComponentsInWebInConnection = new CodeReportActionOnComponentInConnectionCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.CodeReportOpenDependentInWebInConnectionCommandId
                 , ActionOnComponent.OpenDependentComponentsInWeb
             );
 
-            InstanceOpenDependentComponentsInExplorerInConnection = new CodeReportOpenInWebInConnectionCommand(
+            InstanceOpenDependentComponentsInExplorerInConnection = new CodeReportActionOnComponentInConnectionCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.CodeReportOpenDependentInExplorerInConnectionCommandId
                 , ActionOnComponent.OpenDependentComponentsInExplorer
             );
 
-            InstanceOpenSolutionsContainingComponentInExplorerInConnection = new CodeReportOpenInWebInConnectionCommand(
+            InstanceOpenSolutionsContainingComponentInExplorerInConnection = new CodeReportActionOnComponentInConnectionCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.CodeReportOpenSolutionsListWithComponentInExplorerInConnectionCommandId
                 , ActionOnComponent.OpenSolutionsListWithComponentInExplorer
