@@ -550,6 +550,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusActiveDocumentWebResourceText(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusActiveDocumentWebResourceText), applicationObject, ActionBeforeQueryStatusActiveDocumentWebResourceTextInternal);
 
             if (visible == false)
@@ -565,6 +570,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusActiveDocumentWebResource(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusActiveDocumentWebResource), applicationObject, ActionBeforeQueryStatusActiveDocumentWebResourceInternal);
 
             if (visible == false)
@@ -580,6 +590,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusActiveDocumentXml(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusActiveDocumentXml), applicationObject, ActionBeforeQueryStatusActiveDocumentXmlInternal);
 
             if (visible == false)
@@ -597,6 +612,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             doc = null;
 
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = false;
 
             visible = CheckActiveDocumentIsXml(applicationObject, out doc);
@@ -610,6 +630,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         internal static void ActionBeforeQueryStatusActiveDocumentIsXmlWithRoot(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand, out XElement doc, params string[] rootNames)
         {
             doc = null;
+
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
 
             bool visible = false;
 
@@ -631,6 +656,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             attribute = null;
 
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = false;
 
             visible = CheckActiveDocumentIsXmlWithRootWithAttribute(applicationObject, attributeName, out attribute, rootNames);
@@ -651,6 +681,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             attribute = null;
 
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = false;
 
             visible = CheckActiveDocumentIsXmlWithRootWithAttribute(applicationObject, attributeName, out attribute, rootNames);
@@ -663,6 +698,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusActiveDocumentReport(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusActiveDocumentReport), applicationObject, ActionBeforeQueryStatusActiveDocumentReportInternal);
 
             if (visible == false)
@@ -678,6 +718,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusActiveDocumentCSharp(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusActiveDocumentCSharp), applicationObject, ActionBeforeQueryStatusActiveDocumentCSharpInternal);
 
             if (visible == false)
@@ -693,6 +738,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusActiveDocumentJavaScript(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusActiveDocumentJavaScript), applicationObject, ActionBeforeQueryStatusActiveDocumentJavaScriptInternal);
 
             if (visible == false)
@@ -708,6 +758,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusActiveDocumentContainingProject(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusActiveDocumentContainingProject), applicationObject, ActionBeforeQueryStatusActiveDocumentContainingProjectInternal);
 
             if (visible == false)
@@ -730,6 +785,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusSolutionExplorerSingleItemContainsProject(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusSolutionExplorerSingleItemContainsProject), applicationObject, ActionBeforeQueryStatusSolutionExplorerSingleItemContainsProjectInternal);
 
             if (visible == false)
@@ -749,6 +809,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusSolutionExplorerItemContainsProjectAny(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusSolutionExplorerItemContainsProjectAny), applicationObject, ActionBeforeQueryStatusSolutionExplorerItemContainsProjectAnyInternal);
 
             if (visible == false)
@@ -764,6 +829,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusSolutionExplorerItemContainsProjectRecursive(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusSolutionExplorerItemContainsProjectRecursive), applicationObject, ActionBeforeQueryStatusSolutionExplorerItemContainsProjectRecursiveInternal);
 
             if (visible == false)
@@ -796,6 +866,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusOpenedDocumentsWebResourceText(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusOpenedDocumentsWebResourceText), applicationObject, ActionBeforeQueryStatusOpenedDocumentsWebResourceTextInternal);
 
             if (visible == false)
@@ -811,6 +886,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusOpenedDocumentsWebResource(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusOpenedDocumentsWebResource), applicationObject, ActionBeforeQueryStatusOpenedDocumentsWebResourceInternal);
 
             if (visible == false)
@@ -826,6 +906,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusOpenedDocumentsReport(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusOpenedDocumentsReport), applicationObject, ActionBeforeQueryStatusOpenedDocumentsReportInternal);
 
             if (visible == false)
@@ -841,6 +926,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusOpenedDocumentsCSharp(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusOpenedDocumentsCSharp), applicationObject, ActionBeforeQueryStatusOpenedDocumentsCSharpInternal);
 
             if (visible == false)
@@ -856,6 +946,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusOpenedDocumentsJavaScript(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusOpenedDocumentsJavaScript), applicationObject, ActionBeforeQueryStatusOpenedDocumentsJavaScriptInternal);
 
             if (visible == false)
@@ -871,6 +966,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusOpenedDocumentsXml(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusOpenedDocumentsXml), applicationObject, ActionBeforeQueryStatusOpenedDocumentsXmlInternal);
 
             if (visible == false)
@@ -886,6 +986,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusSolutionExplorerCSharpSingle(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusSolutionExplorerCSharpSingle), applicationObject, ActionBeforeQueryStatusSolutionExplorerCSharpSingleInternal);
 
             if (visible == false)
@@ -901,6 +1006,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusSolutionExplorerCSharpAny(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusSolutionExplorerCSharpAny), applicationObject, ActionBeforeQueryStatusSolutionExplorerCSharpAnyInternal);
 
             if (visible == false)
@@ -916,6 +1026,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusSolutionExplorerCSharpRecursive(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusSolutionExplorerCSharpRecursive), applicationObject, ActionBeforeQueryStatusSolutionExplorerCSharpRecursiveInternal);
 
             if (visible == false)
@@ -931,6 +1046,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusSolutionExplorerJavaScriptSingle(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusSolutionExplorerJavaScriptSingle), applicationObject, ActionBeforeQueryStatusSolutionExplorerJavaScriptSingleInternal);
 
             if (visible == false)
@@ -946,6 +1066,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusSolutionExplorerJavaScriptAny(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusSolutionExplorerJavaScriptAny), applicationObject, ActionBeforeQueryStatusSolutionExplorerJavaScriptAnyInternal);
 
             if (visible == false)
@@ -961,6 +1086,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusSolutionExplorerJavaScriptRecursive(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusSolutionExplorerJavaScriptRecursive), applicationObject, ActionBeforeQueryStatusSolutionExplorerJavaScriptRecursiveInternal);
 
             if (visible == false)
@@ -976,6 +1106,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusSolutionExplorerWebResourceSingle(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusSolutionExplorerWebResourceSingle), applicationObject, ActionBeforeQueryStatusSolutionExplorerWebResourceSingleInternal);
 
             if (visible == false)
@@ -991,6 +1126,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusSolutionExplorerWebResourceAny(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusSolutionExplorerWebResourceAny), applicationObject, ActionBeforeQueryStatusSolutionExplorerWebResourceAnyInternal);
 
             if (visible == false)
@@ -1006,6 +1146,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusSolutionExplorerWebResourceRecursive(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusSolutionExplorerWebResourceRecursive), applicationObject, ActionBeforeQueryStatusSolutionExplorerWebResourceRecursiveInternal);
 
             if (visible == false)
@@ -1021,6 +1166,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusSolutionExplorerWebResourceTextSingle(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusSolutionExplorerWebResourceTextSingle), applicationObject, ActionBeforeQueryStatusSolutionExplorerWebResourceTextSingleInternal);
 
             if (visible == false)
@@ -1036,6 +1186,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusSolutionExplorerWebResourceTextAny(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusSolutionExplorerWebResourceTextAny), applicationObject, ActionBeforeQueryStatusSolutionExplorerWebResourceTextAnyInternal);
 
             if (visible == false)
@@ -1051,6 +1206,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusSolutionExplorerXmlAny(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusSolutionExplorerXmlAny), applicationObject, ActionBeforeQueryStatusSolutionExplorerXmlAnyInternal);
 
             if (visible == false)
@@ -1066,6 +1226,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusSolutionExplorerWebResourceTextRecursive(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusSolutionExplorerWebResourceTextRecursive), applicationObject, ActionBeforeQueryStatusSolutionExplorerWebResourceTextRecursiveInternal);
 
             if (visible == false)
@@ -1081,6 +1246,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusSolutionExplorerXmlRecursive(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusSolutionExplorerXmlRecursive), applicationObject, ActionBeforeQueryStatusSolutionExplorerXmlRecursiveInternal);
 
             if (visible == false)
@@ -1096,6 +1266,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusSolutionExplorerReportSingle(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusSolutionExplorerReportSingle), applicationObject, ActionBeforeQueryStatusSolutionExplorerReportSingleInternal);
 
             if (visible == false)
@@ -1111,6 +1286,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusSolutionExplorerReportAny(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusSolutionExplorerReportAny), applicationObject, ActionBeforeQueryStatusSolutionExplorerReportAnyInternal);
 
             if (visible == false)
@@ -1126,6 +1306,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusSolutionExplorerReportRecursive(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusSolutionExplorerReportRecursive), applicationObject, ActionBeforeQueryStatusSolutionExplorerReportRecursiveInternal);
 
             if (visible == false)
@@ -1141,6 +1326,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActiveSolutionExplorerFolderSingle(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = false;
 
             if (applicationObject.ActiveWindow != null
@@ -1166,6 +1356,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActiveSolutionExplorerProjectSingle(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActiveSolutionExplorerProjectSingle), applicationObject, ActiveSolutionExplorerProjectSingleInternal);
 
             if (visible == false)
@@ -1201,6 +1396,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActiveSolutionExplorerProjectAny(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActiveSolutionExplorerProjectAny), applicationObject, ActiveSolutionExplorerProjectAnyInternal);
 
             if (visible == false)
@@ -1278,6 +1478,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusListForPublishWebResourceTextSingle(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusListForPublishWebResourceTextSingle), applicationObject, ActionBeforeQueryStatusListForPublishWebResourceTextSingleInternal);
 
             if (visible == false)
@@ -1293,6 +1498,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusListForPublishWebResourceTextAny(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusListForPublishWebResourceTextAny), applicationObject, ActionBeforeQueryStatusListForPublishWebResourceTextAnyInternal);
 
             if (visible == false)
@@ -1308,6 +1518,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusListForPublishWebResourceSingle(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusListForPublishWebResourceSingle), applicationObject, ActionBeforeQueryStatusListForPublishWebResourceSingleInternal);
 
             if (visible == false)
@@ -1323,6 +1538,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusListForPublishWebResourceAny(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusListForPublishWebResourceAny), applicationObject, ActionBeforeQueryStatusListForPublishWebResourceAnyInternal);
 
             if (visible == false)
@@ -1338,6 +1558,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusFilesToAdd(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusFilesToAdd), applicationObject, ActionBeforeQueryStatusFilesToAddInternal);
 
             if (visible == false)
@@ -1386,6 +1611,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void CorrectCommandNameForConnectionName(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand, string name)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             var helper = DTEHelper.Create(applicationObject);
             var connectionData = helper.GetCurrentConnection();
 
@@ -1394,6 +1624,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void CorrectCommandNameForConnectionName(OleMenuCommand menuCommand, string name, ConnectionData connectionData)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             if (connectionData != null)
             {
                 name = string.Format(Properties.CommandNames.CommandNameWithConnectionFormat2, name, connectionData.Name);
@@ -1404,6 +1639,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusTextEditorProgramExists(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusTextEditorProgramExists), applicationObject, ActionBeforeQueryStatusTextEditorProgramExistsInternal);
 
             if (visible == false)
@@ -1419,6 +1659,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusConnectionIsNotReadOnly(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusConnectionIsNotReadOnly), applicationObject, ActionBeforeQueryStatusConnectionIsNotReadOnlyInternal);
 
             if (visible == false)
@@ -1434,6 +1679,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusClipboardIsText(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusClipboardIsText), applicationObject, ActionBeforeQueryStatusClipboardIsTextInternal);
 
             if (visible == false)
@@ -1662,6 +1912,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusActiveDocumentJavaScriptHasLinkedSystemForm(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusActiveDocumentJavaScriptHasLinkedSystemForm), applicationObject, ActionBeforeQueryStatusActiveDocumentJavaScriptHasLinkedSystemFormInternal);
 
             if (visible == false)
@@ -1710,6 +1965,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         internal static void ActionBeforeQueryStatusActiveDocumentJavaScriptHasLinkedEntityName(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
             bool visible = CacheValue(nameof(ActionBeforeQueryStatusActiveDocumentJavaScriptHasLinkedEntityName), applicationObject, ActionBeforeQueryStatusActiveDocumentJavaScriptHasLinkedEntityNameInternal);
 
             if (visible == false)
