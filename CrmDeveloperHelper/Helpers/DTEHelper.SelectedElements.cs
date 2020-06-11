@@ -132,7 +132,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return false;
             }
 
-            var objTextDoc = document.Object("TextDocument");
+            var objTextDoc = document.Object(nameof(EnvDTE.TextDocument));
             if (objTextDoc != null
                 && objTextDoc is EnvDTE.TextDocument textDocument
             )
@@ -163,7 +163,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return false;
             }
 
-            var objTextDoc = document.Object("TextDocument");
+            var objTextDoc = document.Object(nameof(EnvDTE.TextDocument));
             if (objTextDoc != null
                 && objTextDoc is EnvDTE.TextDocument textDocument
             )

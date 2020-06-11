@@ -54,7 +54,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (FileOperations.SupportsXmlType(file))
                     {
-                        var objTextDoc = applicationObject.ActiveWindow.Document.Object("TextDocument");
+                        var objTextDoc = applicationObject.ActiveWindow.Document.Object(nameof(EnvDTE.TextDocument));
                         if (objTextDoc != null
                             && objTextDoc is EnvDTE.TextDocument textDocument
                         )
@@ -100,7 +100,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (FileOperations.SupportsXmlType(file))
                     {
-                        var objTextDoc = applicationObject.ActiveWindow.Document.Object("TextDocument");
+                        var objTextDoc = applicationObject.ActiveWindow.Document.Object(nameof(EnvDTE.TextDocument));
                         if (objTextDoc != null
                             && objTextDoc is EnvDTE.TextDocument textDocument
                         )
@@ -154,7 +154,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (FileOperations.SupportsXmlType(file))
                     {
-                        var objTextDoc = applicationObject.ActiveWindow.Document.Object("TextDocument");
+                        var objTextDoc = applicationObject.ActiveWindow.Document.Object(nameof(EnvDTE.TextDocument));
                         if (objTextDoc != null
                             && objTextDoc is EnvDTE.TextDocument textDocument
                         )
@@ -213,7 +213,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (FileOperations.SupportsXmlType(file))
                     {
-                        var objTextDoc = applicationObject.ActiveWindow.Document.Object("TextDocument");
+                        var objTextDoc = applicationObject.ActiveWindow.Document.Object(nameof(EnvDTE.TextDocument));
                         if (objTextDoc != null
                             && objTextDoc is EnvDTE.TextDocument textDocument
                         )
@@ -1940,7 +1940,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (FileOperations.SupportsJavaScriptType(filePath))
                     {
-                        var objTextDoc = document.Object("TextDocument");
+                        var objTextDoc = document.Object(nameof(EnvDTE.TextDocument));
                         if (objTextDoc != null
                             && objTextDoc is EnvDTE.TextDocument textDocument
                         )
@@ -1993,7 +1993,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (FileOperations.SupportsJavaScriptType(filePath))
                     {
-                        var objTextDoc = document.Object("TextDocument");
+                        var objTextDoc = document.Object(nameof(EnvDTE.TextDocument));
                         if (objTextDoc != null
                             && objTextDoc is EnvDTE.TextDocument textDocument
                         )

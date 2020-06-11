@@ -22,7 +22,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 
             if (document != null)
             {
-                var objTextDoc = document.Object("TextDocument");
+                var objTextDoc = document.Object(nameof(EnvDTE.TextDocument));
                 if (objTextDoc != null
                     && objTextDoc is EnvDTE.TextDocument textDocument
                 )
