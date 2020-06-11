@@ -2644,6 +2644,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Folder does not exist: {0}.
+        /// </summary>
+        internal static string FolderDoesNotExistsFormat1 {
+            get {
+                return ResourceManager.GetString("FolderDoesNotExistsFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Folder for Export does not exist: {0}.
         /// </summary>
         internal static string FolderForExportDoesNotExistsFormat1 {

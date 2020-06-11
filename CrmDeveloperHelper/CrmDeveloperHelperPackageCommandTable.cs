@@ -1817,6 +1817,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int commonMenu_GroupFileGenerationOptions_Menu_GroupCurrent = 0x13F0;
 
+            public const int commonMenu_GroupFetchXml = 0x149A;
+
+            public const int commonMenu_GroupFetchXml_MenuFetchXmlFolderDyn = 0x149B;
+
+            public const int commonMenu_GroupFetchXml_MenuFetchXmlFolderDyn_Group = 0x149C;
+
+            public const int commonMenu_GroupFetchXml_MenuFetchXmlFileDyn = 0x149E;
+
+            public const int commonMenu_GroupFetchXml_MenuFetchXmlFileDyn_Group = 0x149F;
+
             public const int commonMenu_GroupConfiguration = 0x10F1;
 
             public const int commonMenu_GroupConfiguration_MenuOpenWebSite = 0x115C;
@@ -2103,6 +2113,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int outputMenu_GroupPublishAll = 0x136C;
 
+            public const int outputMenu_GroupOpenEntityFetchXmlFile = 0x149D;
+
             public const int outputMenu_GroupConfiguration = 0x136D;
 
             public const int outputMenu_GroupConfiguration_MenuOpenWebSite = 0x136E;
@@ -2139,6 +2151,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int CommonExportOpenLastSelectedSolutionInExplorerCommandId = 0x01A4;
 
             public const int CommonPublishAllInCrmConnectionCommandId = 0x0898;
+
+            public const int CommonFetchXmlOpenEntityFileInConnectionCommandId = 0x3A34;
+
+            public const int CommonFetchXmlOpenFolderInConnectionCommandId = 0x3A66;
 
             public const int CommonOpenCrmWebSiteCommandId = 0x06A4;
 
@@ -3546,6 +3562,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int OutputExportFormEventsCommandId = 0x21CB;
 
             public const int OutputPublishAllInCrmConnectionCommandId = 0x21CC;
+
+            public const int OutputFetchXmlOpenFolderCommandId = 0x2252;
+
+            public const int OutputFetchXmlOpenEntityFileCommandId = 0x2250;
+
+            public const int OutputOpenConfigFolderCommandId = 0x2251;
 
             public const int OutputTraceReaderCommandId = 0x021D;
 

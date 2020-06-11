@@ -102,6 +102,8 @@
     <Compile Include="Commands\AbstractOutputWindowCommand.cs" />
     <Compile Include="Commands\AbstractOutputWindowDynamicCommand.cs" />
     <Compile Include="Commands\Checks\CommonCheckUnknownFormControlTypes.cs" />
+    <Compile Include="Commands\Commons\CommonFetchXmlOpenEntityFileInConnectionCommand.cs" />
+    <Compile Include="Commands\Commons\CommonFetchXmlOpenFolderInConnectionCommand.cs" />
     <Compile Include="Commands\Commons\CommonFileGenerationConfigurationCommand.cs" />
     <Compile Include="Commands\Commons\CommonFileGenerationOptionsCommand.cs" />
     <Compile Include="Commands\Commons\CommonOpenCrmWebSiteEntityListCommand.cs" />
@@ -192,6 +194,9 @@
     <Compile Include="Commands\OutputWindows\Checks\OutputCheckWorkflowsUsedNotExistsEntitiesCommand.cs" />
     <Compile Include="Commands\OutputWindows\Explorers\OutputSdkMessageExplorerCommand.cs" />
     <Compile Include="Commands\OutputWindows\Explorers\OutputSdkMessageFilterExplorerCommand.cs" />
+    <Compile Include="Commands\OutputWindows\OutputFetchXmlOpenEntityFileCommand.cs" />
+    <Compile Include="Commands\OutputWindows\OutputFetchXmlOpenFolderCommand.cs" />
+    <Compile Include="Commands\OutputWindows\OutputOpenConfigFolderCommand.cs" />
     <Compile Include="Commands\OutputWindows\OutputOpenCrmWebSiteEntityListCommand.cs" />
     <Compile Include="Commands\OutputWindows\OutputOpenCrmWebSiteEntityMetadataCommand.cs" />
     <Compile Include="Commands\OutputWindows\Explorers\OutputApplicationRibbonExplorerCommand.cs" />

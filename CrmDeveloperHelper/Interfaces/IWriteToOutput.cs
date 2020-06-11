@@ -146,6 +146,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
         IWriteToOutput OpenFileInVisualStudio(ConnectionData connectionData, string filePath);
 
         /// <summary>
+        /// <see cref="Helpers.DTEHelper.OpenFetchXmlFile(ConnectionData, CommonConfiguration, string)"/>
+        /// </summary>
+        /// <param name="connectionData"></param>
+        /// <param name="commonConfig"></param>
+        /// <param name="entityName"></param>
+        /// <returns></returns>
+        IWriteToOutput OpenFetchXmlFile(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName);
+
+        /// <summary>
         /// <see cref="Helpers.DTEHelper.OpenFileInTextEditor(ConnectionData, string)"/>
         /// </summary>
         /// <param name="connectionData"></param>
@@ -168,6 +177,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
         /// <param name="filePath"></param>
         /// <returns></returns>
         IWriteToOutput SelectFileInFolder(ConnectionData connectionData, string filePath);
+
+        /// <summary>
+        /// <see cref="Helpers.DTEHelper.OpenFolder(ConnectionData, string)"/>
+        /// </summary>
+        /// <param name="folderPath"></param>
+        /// <returns></returns>
+        IWriteToOutput OpenFolder(ConnectionData connectionData, string folderPath);
 
         /// <summary>
         /// <see cref="Helpers.DTEHelper.ProcessStartProgramComparerAsync(string, string, string, string)"/>

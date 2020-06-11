@@ -1546,6 +1546,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Opening Entity FetchXml File.
+        /// </summary>
+        internal static string OpeningEntityFetchXmlFileFormat1 {
+            get {
+                return ResourceManager.GetString("OpeningEntityFetchXmlFileFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Opening Entity in Web.
         /// </summary>
         internal static string OpeningEntityInWebFormat1 {

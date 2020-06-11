@@ -301,6 +301,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return result;
         }
 
+        private static string GetFetchXmlFolder()
+        {
+            string directory = Path.Combine(GetConfigurationFolder(), _folderFetchXmlSubdirectoryName);
+
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            return directory;
+        }
+
+        public static string GetConnectionFetchXmlFolderPath(Guid connectionId)
+        {
+            string directory = GetFetchXmlFolder();
+
+            var folderName = string.Format("FetchXml.{0}", connectionId.ToString());
+
+            var result = Path.Combine(directory, folderName);
+
+            if (!Directory.Exists(result))
+            {
+                Directory.CreateDirectory(result);
+            }
+
+            return result;
+        }
+
         public static string GetConnectionIntellisenseDataFolderPathEntities(Guid connectionId)
         {
             string directory = GetConnectionIntellisenseDataFolderPath(connectionId);
@@ -407,6 +435,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private const string _folderXsdSchemasSubdirectoryName = "XsdSchemas";
 
         private const string _folderIntellisenseCacheSubdirectoryName = "IntellisenseCache";
+
+        private const string _folderFetchXmlSubdirectoryName = "FetchXml";
 
         private const string _folderIntellisenseCacheEntitiesSubdirectoryName = "Entities";
 

@@ -442,6 +442,83 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public void HandleConnectionOpenFetchXmlFile(ConnectionData connectionData)
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null)
+            {
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                var dialog = new WindowSelectEntityName(connectionData, "EntityName");
+
+                if (dialog.ShowDialog().GetValueOrDefault())
+                {
+                    string entityName = dialog.EntityTypeName;
+                    int? entityTypeCode = dialog.EntityTypeCode;
+
+                    connectionData = dialog.GetConnectionData();
+
+                    CheckWishToChangeCurrentConnection(connectionData);
+
+                    var idEntityMetadata = connectionData.GetEntityMetadataId(entityName);
+
+                    if (idEntityMetadata.HasValue)
+                    {
+                        this.OpenFetchXmlFile(connectionData, commonConfig, entityName);
+                    }
+                    else
+                    {
+                        ActivateOutputWindow(connectionData);
+                        WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                        try
+                        {
+                            Controller.StartOpeningEntityFetchXmlFile(connectionData, commonConfig, entityName, entityTypeCode);
+                        }
+                        catch (Exception ex)
+                        {
+                            WriteErrorToOutput(connectionData, ex);
+                        }
+                    }
+                }
+            }
+        }
+
+        public void HandleConnectionOpenFetchXmlFolder(ConnectionData connectionData)
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null)
+            {
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                string directoryPath = FileOperations.GetConnectionFetchXmlFolderPath(connectionData.ConnectionId);
+
+                this.OpenFolder(connectionData, directoryPath);
+            }
+        }
+
         public void HandleConnectionPublishAll(ConnectionData connectionData)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
@@ -640,9 +717,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleXsdSchemaOpenFolder()
         {
-            var folder = FileOperations.GetSchemaXsdFolder();
+            var folderPath = FileOperations.GetSchemaXsdFolder();
 
-            this.OpenFolder(folder);
+            this.OpenFolder(null, folderPath);
         }
 
         public void HandleExportTraceEnableFile()
@@ -709,6 +786,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                 }
             }
+        }
+
+        public void HandleOpenConfigFolderCommand()
+        {
+            var directoryPath = FileOperations.GetConfigurationFolder();
+
+            this.OpenFolder(null, directoryPath);
         }
 
         public static string GetRelativePath(EnvDTE.Project project)

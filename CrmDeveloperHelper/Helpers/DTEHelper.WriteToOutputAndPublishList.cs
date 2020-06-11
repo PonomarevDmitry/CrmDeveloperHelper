@@ -20,6 +20,8 @@ using System.Runtime.CompilerServices;
 using System.ServiceModel;
 using System.Text;
 using System.Web;
+using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
@@ -974,14 +976,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return this;
         }
 
-        public IWriteToOutput OpenFolder(string folderPath)
+        public IWriteToOutput OpenFolder(ConnectionData connectionData, string folderPath)
         {
             if (!Directory.Exists(folderPath))
             {
+                this.WriteToOutput(connectionData, OutputStrings.FolderDoesNotExistsFormat1, folderPath);
                 return this;
             }
 
-            this.WriteToOutput(null, "Opening folder {0}", folderPath);
+            this.WriteToOutput(connectionData, "Opening folder {0}", folderPath);
 
             ProcessStartInfo info = new ProcessStartInfo
             {
@@ -1006,7 +1009,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             catch (Exception ex)
             {
-                this.WriteErrorToOutput(null, ex);
+                this.WriteErrorToOutput(connectionData, ex);
             }
 
             return this;
@@ -1080,6 +1083,139 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             ApplicationObject.ItemOperations.OpenFile(filePath);
             ApplicationObject.MainWindow.Activate();
 
+            return this;
+        }
+
+        public IWriteToOutput OpenFetchXmlFile(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName)
+        {
+            if (string.IsNullOrEmpty(entityName))
+            {
+                return this;
+            }
+
+            entityName = entityName.ToLower();
+
+            string fileName = $"{entityName}.xml";
+            string folder = FileOperations.GetConnectionFetchXmlFolderPath(connectionData.ConnectionId);
+
+            string filePath = Path.Combine(folder, fileName);
+
+            if (!File.Exists(filePath))
+            {
+                var fetchXmlString = new StringBuilder();
+
+                try
+                {
+                    List<object> fetchContent = new List<object>();
+
+                    var entityIntellisenseData = connectionData.EntitiesIntellisenseData?.Entities?[entityName];
+
+                    if (entityIntellisenseData != null)
+                    {
+                        fetchContent.Add(new FetchAttributeType()
+                        {
+                            name = entityIntellisenseData.EntityPrimaryIdAttribute,
+                        });
+
+                        if (!string.IsNullOrEmpty(entityIntellisenseData.EntityPrimaryNameAttribute))
+                        {
+                            fetchContent.Add(new FetchAttributeType()
+                            {
+                                name = entityIntellisenseData.EntityPrimaryNameAttribute,
+                            });
+
+                            fetchContent.Add(new FetchOrderType()
+                            {
+                                attribute = entityIntellisenseData.EntityPrimaryNameAttribute,
+                                descending = false,
+                            });
+                        }
+                        else
+                        {
+                            fetchContent.Add(new FetchOrderType()
+                            {
+                                attribute = entityIntellisenseData.EntityPrimaryIdAttribute,
+                                descending = false,
+                            });
+                        }
+                    }
+                    else
+                    {
+                        fetchContent.Add(new allattributes());
+                    }
+
+                    FetchType fetchXml = new FetchType()
+                    {
+                        nolock = true,
+                        version = "1.0",
+
+                        mapping = FetchTypeMapping.logical,
+                        mappingSpecified = true,
+
+                        outputformat = FetchTypeOutputformat.xmlplatform,
+                        outputformatSpecified = true,
+
+                        Items = new object[]
+                        {
+                            new FetchEntityType()
+                            {
+                                name = entityName,
+
+                                Items = fetchContent.ToArray(),
+                            },
+                        },
+                    };
+
+                    var serializer = new XmlSerializer(typeof(FetchType));
+
+                    using (var writer = new StringWriter(fetchXmlString))
+                    {
+                        serializer.Serialize(writer, fetchXml, new XmlSerializerNamespaces());
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+
+                string xmlContent = fetchXmlString.ToString();
+
+                if (ContentComparerHelper.TryParseXml(xmlContent, out XElement doc))
+                {
+                    var attributesAll = doc.Attributes().ToList();
+
+                    foreach (var attribute in attributesAll)
+                    {
+                        if (attribute.IsNamespaceDeclaration)
+                        {
+                            attribute.Remove();
+                        }
+                    }
+
+                    xmlContent = doc.ToString();
+                }
+
+                try
+                {
+                    xmlContent = ContentComparerHelper.FormatXmlByConfiguration(
+                        xmlContent
+                        , commonConfig
+                        , XmlOptionsControls.SavedQueryXmlOptions
+                        , schemaName: Commands.AbstractDynamicCommandXsdSchemas.SchemaFetch
+                        , entityName: entityName
+                    );
+
+                    File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
+                }
+                catch (Exception ex)
+                {
+                    this.WriteErrorToOutput(connectionData, ex);
+                }
+            }
+
+            this.WriteToOutputFilePathUri(connectionData, filePath);
+
+            this.OpenFileInVisualStudio(connectionData, filePath);
             return this;
         }
 

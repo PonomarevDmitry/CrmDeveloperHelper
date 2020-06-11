@@ -459,6 +459,10 @@
     <value>Folder for Export does not exist: {0}</value>
   </data>
 
+  <data name="FolderDoesNotExistsFormat1" xml:space="preserve">
+    <value>Folder does not exist: {0}</value>
+  </data>
+
   <data name="NoObjectsToAddToSolution" xml:space="preserve">
     <value>No Objects to add to Solution.</value>
   </data>

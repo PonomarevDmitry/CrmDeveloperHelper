@@ -1,8 +1,5 @@
 using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using System;
-using System.Diagnostics;
-using System.IO;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Commons
 {
@@ -20,20 +17,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Commons
 
         protected override void CommandAction(DTEHelper helper)
         {
-            var directory = FileOperations.GetConfigurationFolder();
-
-            if (!string.IsNullOrEmpty(directory))
-            {
-                if (Directory.Exists(directory))
-                {
-                    try
-                    {
-                        Process.Start(directory);
-                    }
-                    catch (Exception)
-                    { }
-                }
-            }
+            helper.HandleOpenConfigFolderCommand();
         }
     }
 }

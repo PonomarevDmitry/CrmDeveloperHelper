@@ -44,7 +44,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     WriteLineIfHasLine(ref isFirstLineWrited);
                     WriteLine($"{nameof(QueryExpression.TopCount)} = {top},");
                 }
-                else if (!string.IsNullOrEmpty(fetchXml.count) && int.TryParse(fetchXml.top, out int count))
+                else if (!string.IsNullOrEmpty(fetchXml.count) && int.TryParse(fetchXml.count, out int count))
                 {
                     WriteLineIfHasLine(ref isFirstLineWrited);
                     WriteLine($"{nameof(QueryExpression.TopCount)} = {count},");

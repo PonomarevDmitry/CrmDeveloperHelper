@@ -598,18 +598,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var directory = FileOperations.GetConfigurationFolder();
 
-            if (!string.IsNullOrEmpty(directory))
-            {
-                if (Directory.Exists(directory))
-                {
-                    try
-                    {
-                        Process.Start(directory);
-                    }
-                    catch (Exception)
-                    { }
-                }
-            }
+            this._iWriteToOutput.OpenFolder(null, directory);
         }
 
         private void tSBSelectConnection_Click(object sender, RoutedEventArgs e)

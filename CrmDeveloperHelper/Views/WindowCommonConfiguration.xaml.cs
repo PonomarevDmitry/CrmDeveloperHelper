@@ -262,8 +262,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         Process.Start(folder);
                     }
-                    catch (Exception)
-                    { }
+                    catch (Exception ex)
+                    {
+                        Helpers.DTEHelper.WriteExceptionToOutput(null, ex);
+                    }
                 }
             }
         }
