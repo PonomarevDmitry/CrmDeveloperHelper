@@ -1104,6 +1104,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        private void mIOpenEntityFetchXmlFile_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null
+                || !entity.PrimaryEntityTypeCode.IsValidEntityName()
+            )
+            {
+                return;
+            }
+
+            ConnectionData connectionData = GetSelectedConnection();
+
+            if (connectionData != null)
+            {
+                this._iWriteToOutput.OpenFetchXmlFile(connectionData, _commonConfig, entity.PrimaryEntityTypeCode);
+            }
+        }
+
         private void mIOpenEntityListInWeb_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();

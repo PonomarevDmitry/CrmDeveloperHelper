@@ -16,10 +16,13 @@
             <BitmapImage x:Key="ImageRefresh" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Refresh_16.png" />
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-                <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" FontWeight="Bold" />
+                <MenuItem Header="Open Entity Customization in Web" Click="mIOpenEntityInWeb_Click" FontWeight="Bold" />
 
                 <Separator/>
-                <MenuItem Header="Open Entity List in Web" VerticalAlignment="Center" Click="mIOpenEntityListInWeb_Click" />
+                <MenuItem Header="Open Entity FetchXml File" Click="mIOpenEntityFetchXmlFile_Click" />
+
+                <Separator/>
+                <MenuItem Header="Open Entity List in Web" Click="mIOpenEntityListInWeb_Click" />
 
                 <Separator/>
                 <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution">
@@ -41,13 +44,13 @@
                 <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
 
                 <Separator/>
-                <MenuItem Header="Open Solutions List with Component in Explorer" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
+                <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
 
                 <Separator/>
                 <MenuItem Header="Dependent Components">
-                    <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
+                    <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />
                     <Separator/>
-                    <MenuItem Header="Open Dependent Components in Explorer" VerticalAlignment="Center" Click="mIOpenDependentComponentsInExplorer_Click" />
+                    <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
                 </MenuItem>
 
                 <Separator/>
@@ -59,20 +62,20 @@
             </ContextMenu>
 
             <ContextMenu x:Key="listContextMenuEntityKey" Opened="ContextMenuEntityKey_Opened">
-                <MenuItem Header="Open EntityKey Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityKeyInWeb_Click" FontWeight="Bold" />
+                <MenuItem Header="Open EntityKey Customization in Web" Click="mIOpenEntityKeyInWeb_Click" FontWeight="Bold" />
 
                 <Separator/>
-                <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" VerticalAlignment="Center" />
-                <MenuItem Header="Add to Crm Solution" VerticalAlignment="Center" Click="AddEntityKeyToCrmSolution_Click" />
+                <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" />
+                <MenuItem Header="Add to Crm Solution" Click="AddEntityKeyToCrmSolution_Click" />
 
                 <Separator/>
-                <MenuItem Header="Open Solutions List with Component in Explorer" VerticalAlignment="Center" Click="mIEntityKeyOpenSolutionsContainingComponentInExplorer_Click" />
+                <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIEntityKeyOpenSolutionsContainingComponentInExplorer_Click" />
 
                 <Separator/>
                 <MenuItem Header="Dependent Components">
-                    <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIEntityKeyOpenDependentComponentsInWeb_Click" />
+                    <MenuItem Header="Open Dependent Components in Web" Click="mIEntityKeyOpenDependentComponentsInWeb_Click" />
                     <Separator/>
-                    <MenuItem Header="Open Dependent Components in Explorer" VerticalAlignment="Center" Click="mIEntityKeyOpenDependentComponentsInExplorer_Click" />
+                    <MenuItem Header="Open Dependent Components in Explorer" Click="mIEntityKeyOpenDependentComponentsInExplorer_Click" />
                 </MenuItem>
             </ContextMenu>
 

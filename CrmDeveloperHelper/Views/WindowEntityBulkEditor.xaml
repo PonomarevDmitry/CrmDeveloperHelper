@@ -19,6 +19,9 @@
 
                     <Separator/>
                     <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceCustomizationInWeb_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Open Entity FetchXml File" VerticalAlignment="Center" Click="mIOpenEntityFetchXmlFile_Click" />
                 </MenuItem>
             </Menu>
 

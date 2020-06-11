@@ -1745,6 +1745,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             service.ConnectionData.OpenEntityMetadataInWeb(entity.EntityMetadata2.MetadataId.Value);
         }
 
+        private async void miConnection1OpenEntityFetchXmlFile_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedLinkedEntityMetadata();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            var service = await GetService1();
+
+            this._iWriteToOutput.OpenFetchXmlFile(service.ConnectionData, _commonConfig, entity.EntityMetadata1.LogicalName);
+        }
+
+        private async void miConnection2OpenEntityFetchXmlFile_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedLinkedEntityMetadata();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            var service = await GetService2();
+
+            this._iWriteToOutput.OpenFetchXmlFile(service.ConnectionData, _commonConfig, entity.EntityMetadata2.LogicalName);
+        }
+
         private async void miConnection1OpenEntityInstanceListInWeb_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedLinkedEntityMetadata();

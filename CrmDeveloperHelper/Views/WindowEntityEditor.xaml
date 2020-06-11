@@ -22,6 +22,9 @@
                     <Separator/>
                     <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceCustomizationInWeb_Click" />
 
+                    <Separator/>
+                    <MenuItem Header="Open Entity FetchXml File" VerticalAlignment="Center" Click="mIOpenEntityFetchXmlFile_Click" />
+
                     <Separator x:Uid="mIEntityInstance"/>
                     <MenuItem x:Uid="mIEntityInstance" Header="Copy Entity Id to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceIdToClipboard_Click" />
                     <MenuItem x:Uid="mIEntityInstance" Header="Copy Entity Url to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceUrlToClipboard_Click" />

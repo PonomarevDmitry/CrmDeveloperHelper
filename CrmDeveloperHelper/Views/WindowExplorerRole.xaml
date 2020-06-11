@@ -107,13 +107,13 @@
                 <MenuItem Header="Add to Crm Solution" Click="AddRoleToCrmSolution_Click" />
 
                 <Separator/>
-                <MenuItem Header="Open Solutions List with Component in Explorer" VerticalAlignment="Center" Click="mIRoleOpenSolutionsContainingComponentInExplorer_Click" />
+                <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIRoleOpenSolutionsContainingComponentInExplorer_Click" />
 
                 <Separator/>
                 <MenuItem Header="Dependent Components">
-                    <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIRoleOpenDependentComponentsInWeb_Click" />
+                    <MenuItem Header="Open Dependent Components in Web" Click="mIRoleOpenDependentComponentsInWeb_Click" />
                     <Separator/>
-                    <MenuItem Header="Open Dependent Components in Explorer" VerticalAlignment="Center" Click="mIRoleOpenDependentComponentsInExplorer_Click" />
+                    <MenuItem Header="Open Dependent Components in Explorer" Click="mIRoleOpenDependentComponentsInExplorer_Click" />
                 </MenuItem>
             </ContextMenu>
 
@@ -141,6 +141,9 @@
 
             <ContextMenu x:Key="listContextMenuEntityPrivileges" Opened="ContextMenuEntityPrivileges_Opened">
                 <MenuItem Header="Open Entity Customization in Web" Click="mIOpenEntityInWeb_Click" FontWeight="Bold" />
+
+                <Separator/>
+                <MenuItem Header="Open Entity FetchXml File" Click="mIOpenEntityFetchXmlFile_Click" />
 
                 <Separator/>
                 <MenuItem Header="Open Entity List in Web" Click="mIOpenEntityListInWeb_Click" />
@@ -190,17 +193,17 @@
                 <MenuItem x:Uid="mIOpenOtherPrivilegeExplorer" Header="Open Other Privilege Explorer" />
 
                 <Separator/>
-                <MenuItem x:Uid="contMnAddOtherPrivilegeToSolutionLast" Header="Add to Last Crm Solution" VerticalAlignment="Center" />
-                <MenuItem Header="Add to Crm Solution" VerticalAlignment="Center" Click="AddOtherPrivilegeToCrmSolution_Click" />
+                <MenuItem x:Uid="contMnAddOtherPrivilegeToSolutionLast" Header="Add to Last Crm Solution" />
+                <MenuItem Header="Add to Crm Solution" Click="AddOtherPrivilegeToCrmSolution_Click" />
 
                 <Separator/>
-                <MenuItem Header="Open Solutions List with Component in Explorer" VerticalAlignment="Center" Click="mIOtherPrivilegeOpenSolutionsContainingComponentInExplorer_Click" />
+                <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOtherPrivilegeOpenSolutionsContainingComponentInExplorer_Click" />
 
                 <Separator/>
                 <MenuItem Header="Dependent Components">
-                    <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOtherPrivilegeOpenDependentComponentsInWeb_Click" />
+                    <MenuItem Header="Open Dependent Components in Web" Click="mIOtherPrivilegeOpenDependentComponentsInWeb_Click" />
                     <Separator/>
-                    <MenuItem Header="Open Dependent Components in Explorer" VerticalAlignment="Center" Click="mIOtherPrivilegeOpenDependentComponentsInExplorer_Click" />
+                    <MenuItem Header="Open Dependent Components in Explorer" Click="mIOtherPrivilegeOpenDependentComponentsInExplorer_Click" />
                 </MenuItem>
             </ContextMenu>
 

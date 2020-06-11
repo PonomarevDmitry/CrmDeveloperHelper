@@ -13,11 +13,14 @@
         <ToolBar x:Name="toolBarHeader" Margin="0,0,0,0" VerticalAlignment="Top" Height="33">
 
             <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                <MenuItem x:Name="mIEntityInformation" Header="Entity Information" VerticalAlignment="Center">
-                    <MenuItem Header="Open Entity List in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceListInWeb_Click" />
+                <MenuItem x:Name="mIEntityInformation" Header="Entity Information">
+                    <MenuItem Header="Open Entity List in Web" Click="mIOpenEntityInstanceListInWeb_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceCustomizationInWeb_Click" />
+                    <MenuItem Header="Open Entity Customization in Web" Click="mIOpenEntityInstanceCustomizationInWeb_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Open Entity FetchXml File" Click="mIOpenEntityFetchXmlFile_Click" />
 
                 </MenuItem>
             </Menu>

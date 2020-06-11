@@ -18,6 +18,9 @@
                 <MenuItem Header="Open Entity Customization in Web" Click="mIOpenEntityInWeb_Click" />
 
                 <Separator/>
+                <MenuItem Header="Open Entity FetchXml File" Click="mIOpenEntityFetchXmlFile_Click" />
+
+                <Separator/>
                 <MenuItem Header="Open Entity List in Web" Click="mIOpenEntityListInWeb_Click"/>
 
                 <Separator/>
@@ -65,6 +68,9 @@
 
                 <Separator/>
                 <MenuItem Header="Open EntityReference Customization in Web" Click="mIOpenEntityReferenceCustomizationInWeb_Click" />
+
+                <Separator/>
+                <MenuItem Header="Open EntityReference FetchXml File" Click="mIOpenEntityReferenceFetchXmlFile_Click" />
 
                 <Separator/>
                 <MenuItem Header="Open EntityReference List in Web" Click="mIOpenEntityReferenceListInWeb_Click"/>

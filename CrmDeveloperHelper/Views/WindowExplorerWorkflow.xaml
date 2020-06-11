@@ -39,6 +39,9 @@
                 <MenuItem x:Uid="contMnEntity" Header="Open Entity List in Web" Click="mIOpenEntityListInWeb_Click" />
 
                 <Separator x:Uid="contMnEntity" />
+                <MenuItem x:Uid="contMnEntity" Header="Open Entity FetchXml File" Click="mIOpenEntityFetchXmlFile_Click" />
+
+                <Separator x:Uid="contMnEntity" />
                 <MenuItem x:Uid="contMnAddEntityToSolutionLast" Header="Add Entity to Last Crm Solution">
                     <MenuItem x:Uid="contMnAddEntityToSolutionLastIncludeSubcomponents" Header="Include Subcomponents" />
                     <Separator/>

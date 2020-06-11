@@ -754,6 +754,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             this.ConnectionData?.OpenEntityMetadataInWeb(entity.LogicalName);
         }
 
+        private void mIOpenEntityFetchXmlFile_Click(object sender, RoutedEventArgs e)
+        {
+            if (!TryFindEntityFromDataRowView(e, out var entity))
+            {
+                return;
+            }
+
+            var commonConfig = CommonConfiguration.Get();
+
+            this._iWriteToOutput.OpenFetchXmlFile(this.ConnectionData, commonConfig, entity.LogicalName);
+        }
+
         private void mIOpenInstanceInWeb_Click(object sender, RoutedEventArgs e)
         {
             if (!TryFindEntityFromDataRowView(e, out var entity))
@@ -894,6 +906,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
 
             this.ConnectionData?.OpenEntityMetadataInWeb(entityReferenceView.LogicalName);
+        }
+
+        private void mIOpenEntityReferenceFetchXmlFile_Click(object sender, RoutedEventArgs e)
+        {
+            if (!TryFindEntityReferenceViewFromRow(e, out var entityReferenceView))
+            {
+                return;
+            }
+
+            var commonConfig = CommonConfiguration.Get();
+
+            this._iWriteToOutput.OpenFetchXmlFile(this.ConnectionData, commonConfig, entityReferenceView.LogicalName);
         }
 
         private void mIOpenEntityReferenceInWeb_Click(object sender, RoutedEventArgs e)

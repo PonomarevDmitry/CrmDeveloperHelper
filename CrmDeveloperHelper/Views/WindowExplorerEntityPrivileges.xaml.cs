@@ -832,6 +832,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        private void mIOpenEntityFetchXmlFile_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ConnectionData connectionData = GetSelectedConnection();
+
+            if (connectionData != null)
+            {
+                this._iWriteToOutput.OpenFetchXmlFile(connectionData, _commonConfig, entity.EntityMetadata.LogicalName);
+            }
+        }
+
         private async void mIOpenSecurityRoleInWeb_Click(object sender, RoutedEventArgs e)
         {
             var role = GetSelectedSecurityRole();

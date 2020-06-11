@@ -19,10 +19,13 @@
             <BitmapImage x:Key="ImageRefresh" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Refresh_16.png" />
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-                <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="miOpenEntityInWeb_Click" FontWeight="Bold" />
+                <MenuItem Header="Open Entity Customization in Web" Click="miOpenEntityInWeb_Click" FontWeight="Bold" />
 
                 <Separator/>
-                <MenuItem Header="Open Entity List in Web" VerticalAlignment="Center" Click="miOpenEntityListInWeb_Click" />
+                <MenuItem Header="Open Entity FetchXml File" Click="mIOpenEntityFetchXmlFile_Click" />
+
+                <Separator/>
+                <MenuItem Header="Open Entity List in Web" Click="miOpenEntityListInWeb_Click" />
 
                 <Separator/>
                 <MenuItem Header="Entity Ribbon">
@@ -32,7 +35,7 @@
                     <Separator/>
                     <MenuItem Header="Export Entity Ribbon Archive" Click="miExportEntityRibbonArchive_Click" />
                     <Separator/>
-                    <MenuItem Header="Update Entity RibbonDiffXml" VerticalAlignment="Center" Click="miUpdateEntityRibbonDiffXml_Click"/>
+                    <MenuItem Header="Update Entity RibbonDiffXml" Click="miUpdateEntityRibbonDiffXml_Click"/>
                 </MenuItem>
 
                 <Separator/>
@@ -88,13 +91,13 @@
                 <MenuItem Header="Publish Entity" Click="miPublishEntity_Click"/>
 
                 <Separator/>
-                <MenuItem Header="Open Solutions List with Component in Explorer" VerticalAlignment="Center" Click="miOpenSolutionsContainingComponentInExplorer_Click" />
+                <MenuItem Header="Open Solutions List with Component in Explorer" Click="miOpenSolutionsContainingComponentInExplorer_Click" />
 
                 <Separator/>
                 <MenuItem Header="Dependent Components">
-                    <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="miOpenDependentComponentsInWeb_Click" />
+                    <MenuItem Header="Open Dependent Components in Web" Click="miOpenDependentComponentsInWeb_Click" />
                     <Separator/>
-                    <MenuItem Header="Open Dependent Components in Explorer" VerticalAlignment="Center" Click="miOpenDependentComponentsInExplorer_Click" />
+                    <MenuItem Header="Open Dependent Components in Explorer" Click="miOpenDependentComponentsInExplorer_Click" />
                 </MenuItem>
 
                 <Separator/>

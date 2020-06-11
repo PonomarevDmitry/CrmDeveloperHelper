@@ -33,6 +33,9 @@
                     <MenuItem Header="Open Entity Customization in Web" Click="mIOpenEntityInWeb_Click" />
                     <MenuItem Header="Open Entity List in Web" Click="mIOpenEntityListInWeb_Click" />
 
+                    <Separator/>
+                    <MenuItem Header="Open Entity FetchXml File" Click="mIOpenEntityFetchXmlFile_Click" />
+
                     <Separator />
                     <MenuItem x:Uid="mIOpenEntityExplorer" Header="Open Entity Explorer" />
 
@@ -56,13 +59,13 @@
                     <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
 
                     <Separator/>
-                    <MenuItem Header="Open Solutions List with Component in Explorer" VerticalAlignment="Center" Click="miOpenEntitySolutionsContainingComponentInExplorer_Click" />
+                    <MenuItem Header="Open Solutions List with Component in Explorer" Click="miOpenEntitySolutionsContainingComponentInExplorer_Click" />
 
                     <Separator/>
                     <MenuItem Header="Dependent Components">
-                        <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="miOpenEntityDependentComponentsInWeb_Click" />
+                        <MenuItem Header="Open Dependent Components in Web" Click="miOpenEntityDependentComponentsInWeb_Click" />
                         <Separator/>
-                        <MenuItem Header="Open Dependent Components in Explorer" VerticalAlignment="Center" Click="miOpenEntityDependentComponentsInExplorer_Click" />
+                        <MenuItem Header="Open Dependent Components in Explorer" Click="miOpenEntityDependentComponentsInExplorer_Click" />
                     </MenuItem>
                 </MenuItem>
 
@@ -82,7 +85,7 @@
                 <MenuItem x:Uid="mIOpenMessageRequestTree" Header="Open Message Request Tree" />
 
                 <Separator x:Uid="contMnDependentComponents"/>
-                <MenuItem x:Uid="contMnDependentComponents" Header="Open Solutions List with Component in Explorer" VerticalAlignment="Center" Click="miOpenSolutionsContainingComponentInExplorer_Click" />
+                <MenuItem x:Uid="contMnDependentComponents" Header="Open Solutions List with Component in Explorer" Click="miOpenSolutionsContainingComponentInExplorer_Click" />
 
                 <Separator x:Uid="contMnDependentComponents" />
                 <MenuItem x:Uid="contMnDependentComponents" Header="Dependent Components">

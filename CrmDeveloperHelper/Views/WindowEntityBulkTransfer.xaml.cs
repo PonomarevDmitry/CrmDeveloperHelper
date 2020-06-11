@@ -380,6 +380,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _service.ConnectionData.OpenEntityMetadataInWeb(_entityMetadata.LogicalName);
         }
 
+        private void mIOpenEntityFetchXmlFile_Click(object sender, RoutedEventArgs e)
+        {
+            this._iWriteToOutput.OpenFetchXmlFile(_service.ConnectionData, _commonConfig, _entityMetadata.LogicalName);
+        }
+
         private void mIOpenEntityInstanceListInWeb_Click(object sender, RoutedEventArgs e)
         {
             _service.ConnectionData.OpenEntityInstanceListInWeb(_entityMetadata.LogicalName);

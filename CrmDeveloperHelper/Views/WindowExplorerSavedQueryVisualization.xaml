@@ -45,6 +45,9 @@
                 <MenuItem x:Uid="contMnEntity" Header="Open Entity Customization in Web" Click="mIOpenEntityInWeb_Click" />
                 <MenuItem x:Uid="contMnEntity" Header="Open Entity List in Web" Click="mIOpenEntityListInWeb_Click" />
 
+                <Separator x:Uid="contMnEntity" />
+                <MenuItem x:Uid="contMnEntity" Header="Open Entity FetchXml File" Click="mIOpenEntityFetchXmlFile_Click" />
+
                 <Separator x:Uid="contMnEntity"/>
                 <MenuItem x:Uid="contMnEntity" Header="Publish Entity" Click="btnPublishEntity_Click"/>
 
@@ -243,7 +246,7 @@
                 </DockPanel.Resources>
                 <ToolBarPanel Orientation="Horizontal" >
                     <Button x:Name="btnExportAll" Content="Export All Chart Information" Click="btnExportAll_Click" />
-                    
+
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBExportChart" Header="Export Chart Information" SubmenuOpened="tSDDBExportChart_SubmenuOpened">
@@ -276,7 +279,7 @@
                         </MenuItem>
                     </Menu>
                 </ToolBarPanel>
-                
+
                 <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>
         </ToolBar>

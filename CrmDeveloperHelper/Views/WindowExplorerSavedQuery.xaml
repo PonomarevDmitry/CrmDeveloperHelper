@@ -40,6 +40,9 @@
                 <MenuItem x:Uid="contMnEntity" Header="Open Entity List in Web" Click="mIOpenEntityListInWeb_Click" />
 
                 <Separator x:Uid="contMnEntity" />
+                <MenuItem x:Uid="contMnEntity" Header="Open Entity FetchXml File" Click="mIOpenEntityFetchXmlFile_Click" />
+
+                <Separator x:Uid="contMnEntity" />
                 <MenuItem x:Uid="contMnEntity" Header="Publish Entity" Click="btnPublishEntity_Click"/>
 
                 <Separator x:Uid="contMnEntity" />

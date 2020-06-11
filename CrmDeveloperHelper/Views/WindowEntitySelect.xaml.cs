@@ -201,6 +201,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _connectionData.OpenEntityMetadataInWeb(_entityName);
         }
 
+        private void mIOpenEntityFetchXmlFile_Click(object sender, RoutedEventArgs e)
+        {
+            var commonConfig = CommonConfiguration.Get();
+
+            this._iWriteToOutput.OpenFetchXmlFile(_connectionData, commonConfig, _entityName);
+        }
+
         private void mIOpenEntityInstanceListInWeb_Click(object sender, RoutedEventArgs e)
         {
             _connectionData.OpenEntityInstanceListInWeb(_entityName);

@@ -2889,6 +2889,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        private void mIOpenEntityFetchXmlFile_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null
+                || !entity.EntityLogicalName.IsValidEntityName()
+            )
+            {
+                return;
+            }
+
+            ConnectionData connectionData = GetSelectedConnection();
+
+            if (connectionData != null)
+            {
+                this._iWriteToOutput.OpenFetchXmlFile(connectionData, _commonConfig, entity.EntityLogicalName);
+            }
+        }
+
         private void mIOpenEntityListInWeb_Click(object sender, RoutedEventArgs e)
         {
             PluginTreeViewItem nodeItem = GetItemFromRoutedDataContext<PluginTreeViewItem>(e);

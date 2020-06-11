@@ -20,6 +20,9 @@
                 <MenuItem Header="Open Entity Customization in Web" Click="mIOpenEntityInWeb_Click" FontWeight="Bold" />
 
                 <Separator/>
+                <MenuItem Header="Open Entity FetchXml File" Click="mIOpenEntityFetchXmlFile_Click" />
+
+                <Separator/>
                 <MenuItem Header="Open Entity List in Web" Click="mIOpenEntityListInWeb_Click" />
 
                 <Separator/>

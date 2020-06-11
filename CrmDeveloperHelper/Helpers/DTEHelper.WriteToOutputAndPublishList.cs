@@ -1088,7 +1088,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public IWriteToOutput OpenFetchXmlFile(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName)
         {
-            if (string.IsNullOrEmpty(entityName))
+            if (connectionData == null || string.IsNullOrEmpty(entityName))
             {
                 return this;
             }

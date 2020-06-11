@@ -17,85 +17,88 @@
         <BooleanToVisibilityConverter x:Key="boolToVisibility"/>
 
         <ContextMenu x:Key="listContextMenuSystemUser">
-            <MenuItem Header="Open User in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceInWeb_Click" FontWeight="Bold" />
+            <MenuItem Header="Open User in Web" Click="mIOpenEntityInstanceInWeb_Click" FontWeight="Bold" />
 
             <Separator/>
-            <MenuItem Header="Open User List in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceListInWeb_Click" />
+            <MenuItem Header="Open User List in Web" Click="mIOpenEntityInstanceListInWeb_Click" />
 
             <Separator/>
-            <MenuItem Header="Open User Explorer" VerticalAlignment="Center" Click="mIOpenEntityExplorer_Click" />
+            <MenuItem Header="Open User Explorer" Click="mIOpenEntityExplorer_Click" />
 
             <Separator/>
-            <MenuItem Header="Create User Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click" />
+            <MenuItem Header="Create User Entity Description" Click="mICreateEntityDescription_Click" />
 
             <Separator/>
             <MenuItem Header="Clipboard">
-                <MenuItem Header="Copy User Id to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceIdToClipboard_Click" />
-                <MenuItem Header="Copy User Url to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceUrlToClipboard_Click" />
+                <MenuItem Header="Copy User Id to Clipboard" Click="mICopyEntityInstanceIdToClipboard_Click" />
+                <MenuItem Header="Copy User Url to Clipboard" Click="mICopyEntityInstanceUrlToClipboard_Click" />
             </MenuItem>
 
             <Separator/>
-            <MenuItem Header="Remove User from Team" VerticalAlignment="Center" Click="btnRemoveUserFromTeam_Click" />
+            <MenuItem Header="Remove User from Team" Click="btnRemoveUserFromTeam_Click" />
         </ContextMenu>
 
         <ContextMenu x:Key="listContextMenuRole" Opened="ContextMenuRole_Opened">
-            <MenuItem Header="Open Role in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceInWeb_Click" FontWeight="Bold" />
+            <MenuItem Header="Open Role in Web" Click="mIOpenEntityInstanceInWeb_Click" FontWeight="Bold" />
 
             <Separator/>
-            <MenuItem Header="Open Role List in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceListInWeb_Click" />
+            <MenuItem Header="Open Role List in Web" Click="mIOpenEntityInstanceListInWeb_Click" />
 
             <Separator/>
-            <MenuItem Header="Open Role Explorer" VerticalAlignment="Center" Click="mIOpenEntityExplorer_Click" />
+            <MenuItem Header="Open Role Explorer" Click="mIOpenEntityExplorer_Click" />
 
             <Separator/>
-            <MenuItem Header="Create Role Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click" />
+            <MenuItem Header="Create Role Entity Description" Click="mICreateEntityDescription_Click" />
 
             <Separator/>
             <MenuItem Header="Clipboard">
-                <MenuItem Header="Copy Role Id to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceIdToClipboard_Click" />
-                <MenuItem Header="Copy Role Url to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceUrlToClipboard_Click" />
+                <MenuItem Header="Copy Role Id to Clipboard" Click="mICopyEntityInstanceIdToClipboard_Click" />
+                <MenuItem Header="Copy Role Url to Clipboard" Click="mICopyEntityInstanceUrlToClipboard_Click" />
             </MenuItem>
 
             <Separator/>
-            <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" VerticalAlignment="Center" />
-            <MenuItem Header="Add to Crm Solution" VerticalAlignment="Center" Click="AddRoleToCrmSolution_Click" />
+            <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" />
+            <MenuItem Header="Add to Crm Solution" Click="AddRoleToCrmSolution_Click" />
 
             <Separator/>
-            <MenuItem Header="Remove Role from Team" VerticalAlignment="Center" Click="btnRemoveRoleFromTeam_Click" />
+            <MenuItem Header="Remove Role from Team" Click="btnRemoveRoleFromTeam_Click" />
         </ContextMenu>
 
         <ContextMenu x:Key="listContextMenuTeam">
-            <MenuItem Header="Open Team in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceInWeb_Click" FontWeight="Bold" />
+            <MenuItem Header="Open Team in Web" Click="mIOpenEntityInstanceInWeb_Click" FontWeight="Bold" />
 
             <Separator/>
-            <MenuItem Header="Open Team List in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceListInWeb_Click" />
+            <MenuItem Header="Open Team List in Web" Click="mIOpenEntityInstanceListInWeb_Click" />
 
             <Separator/>
-            <MenuItem Header="Create Team Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click" />
+            <MenuItem Header="Create Team Entity Description" Click="mICreateEntityDescription_Click" />
 
             <Separator/>
             <MenuItem Header="Compare Team Privileges">
-                <MenuItem Header="With Role Privileges" VerticalAlignment="Center" Click="mIRolePrivilegesWithRolePrivileges_Click" />
+                <MenuItem Header="With Role Privileges" Click="mIRolePrivilegesWithRolePrivileges_Click" />
 
                 <Separator/>
-                <MenuItem Header="With User Privileges" VerticalAlignment="Center" Click="mIRolePrivilegesWithUserPrivileges_Click" />
+                <MenuItem Header="With User Privileges" Click="mIRolePrivilegesWithUserPrivileges_Click" />
 
                 <Separator/>
-                <MenuItem Header="With Team Privileges" VerticalAlignment="Center" Click="mIRolePrivilegesWithTeamPrivileges_Click" />
+                <MenuItem Header="With Team Privileges" Click="mIRolePrivilegesWithTeamPrivileges_Click" />
             </MenuItem>
 
             <Separator/>
             <MenuItem Header="Clipboard">
-                <MenuItem Header="Copy Team Id to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceIdToClipboard_Click" />
-                <MenuItem Header="Copy Team Url to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceUrlToClipboard_Click" />
+                <MenuItem Header="Copy Team Id to Clipboard" Click="mICopyEntityInstanceIdToClipboard_Click" />
+                <MenuItem Header="Copy Team Url to Clipboard" Click="mICopyEntityInstanceUrlToClipboard_Click" />
             </MenuItem>
         </ContextMenu>
 
         <ContextMenu x:Key="listContextMenuEntityPrivileges" Opened="ContextMenuEntityPrivileges_Opened">
-            <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" FontWeight="Bold" />
+            <MenuItem Header="Open Entity Customization in Web" Click="mIOpenEntityInWeb_Click" FontWeight="Bold" />
 
             <Separator/>
-            <MenuItem Header="Open Entity List in Web" VerticalAlignment="Center" Click="mIOpenEntityListInWeb_Click" />
+            <MenuItem Header="Open Entity FetchXml File" Click="mIOpenEntityFetchXmlFile_Click" />
+
+            <Separator/>
+            <MenuItem Header="Open Entity List in Web" Click="mIOpenEntityListInWeb_Click" />
 
             <Separator/>
             <MenuItem x:Uid="miEntityPrivilegesExplorer" Header="Entity Privileges Explorer" />
@@ -120,13 +123,13 @@
             <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
 
             <Separator/>
-            <MenuItem Header="Open Solutions List with Component in Explorer" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
+            <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
 
             <Separator/>
             <MenuItem Header="Dependent Components">
-                <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
+                <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />
                 <Separator/>
-                <MenuItem Header="Open Dependent Components in Explorer" VerticalAlignment="Center" Click="mIOpenDependentComponentsInExplorer_Click" />
+                <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
             </MenuItem>
             
             <Separator/>
@@ -142,17 +145,17 @@
             <MenuItem x:Uid="mIOpenOtherPrivilegeExplorer" Header="Open Other Privilege Explorer" />
 
             <Separator/>
-            <MenuItem x:Uid="contMnAddOtherPrivilegeToSolutionLast" Header="Add to Last Crm Solution" VerticalAlignment="Center" />
-            <MenuItem Header="Add to Crm Solution" VerticalAlignment="Center" Click="AddOtherPrivilegeToCrmSolution_Click" />
+            <MenuItem x:Uid="contMnAddOtherPrivilegeToSolutionLast" Header="Add to Last Crm Solution" />
+            <MenuItem Header="Add to Crm Solution" Click="AddOtherPrivilegeToCrmSolution_Click" />
 
             <Separator/>
-            <MenuItem Header="Open Solutions List with Component in Explorer" VerticalAlignment="Center" Click="mIOtherPrivilegeOpenSolutionsContainingComponentInExplorer_Click" />
+            <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOtherPrivilegeOpenSolutionsContainingComponentInExplorer_Click" />
 
             <Separator/>
             <MenuItem Header="Dependent Components">
-                <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOtherPrivilegeOpenDependentComponentsInWeb_Click" />
+                <MenuItem Header="Open Dependent Components in Web" Click="mIOtherPrivilegeOpenDependentComponentsInWeb_Click" />
                 <Separator/>
-                <MenuItem Header="Open Dependent Components in Explorer" VerticalAlignment="Center" Click="mIOtherPrivilegeOpenDependentComponentsInExplorer_Click" />
+                <MenuItem Header="Open Dependent Components in Explorer" Click="mIOtherPrivilegeOpenDependentComponentsInExplorer_Click" />
             </MenuItem>
         </ContextMenu>
 

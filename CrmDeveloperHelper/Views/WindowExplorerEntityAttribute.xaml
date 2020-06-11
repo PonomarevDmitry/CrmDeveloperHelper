@@ -20,7 +20,10 @@
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
                 <MenuItem Header="Open Entity Customization in Web" Click="mIOpenEntityInWeb_Click" FontWeight="Bold" />
-                
+
+                <Separator/>
+                <MenuItem Header="Open Entity FetchXml File" Click="mIOpenEntityFetchXmlFile_Click" />
+
                 <Separator/>
                 <MenuItem Header="Open Entity List in Web" Click="mIOpenEntityListInWeb_Click" />
 
@@ -42,17 +45,17 @@
 
                 <Separator/>
                 <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
-                
+
                 <Separator/>
                 <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
-                
+
                 <Separator/>
                 <MenuItem Header="Dependent Components">
                     <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />
                     <Separator/>
                     <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
                 </MenuItem>
-                
+
                 <Separator/>
                 <MenuItem x:Uid="miExplorers" Header="Get Other Entity Information" />
 
@@ -63,14 +66,14 @@
 
             <ContextMenu x:Key="listContextMenuAttribute" Opened="ContextMenuAttribute_Opened">
                 <MenuItem Header="Open Attribute Customization in Web" Click="mIOpenAttributeInWeb_Click" FontWeight="Bold" />
-                
+
                 <Separator/>
                 <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" />
                 <MenuItem Header="Add to Crm Solution" Click="AddAttributeToCrmSolution_Click" />
-                
+
                 <Separator/>
                 <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIAttributeOpenSolutionsContainingComponentInExplorer_Click" />
-                
+
                 <Separator/>
                 <MenuItem Header="Dependent Components">
                     <MenuItem Header="Open Dependent Components in Web" Click="mIAttributeOpenDependentComponentsInWeb_Click" />
@@ -98,7 +101,7 @@
             <RowDefinition Height="100*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        
+
         <ToolBar Grid.Row="0">
             <Menu Background="{x:Null}">
                 <MenuItem x:Name="miExplorers" Header="Open Entity Information" />
@@ -156,7 +159,7 @@
                 </ToolBar>
 
                 <Grid Grid.Row="1">
-                    
+
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -206,7 +209,7 @@
                                     <Setter Property="HorizontalAlignment" Value="Center"/>
                                 </Style>
                             </DataGridCheckBoxColumn.EditingElementStyle>
-                          
+
                         </DataGridCheckBoxColumn>
 
                         <DataGridTextColumn x:Name="colEntityName" Header="Entity Name" Width="260" Binding="{Binding LogicalName}" IsReadOnly="True" >

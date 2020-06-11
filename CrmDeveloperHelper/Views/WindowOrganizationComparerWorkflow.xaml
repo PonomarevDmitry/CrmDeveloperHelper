@@ -55,6 +55,9 @@
                     <MenuItem Header="Open Entity Customization in Web" Click="miConnection1OpenEntityMetadataInWeb_Click" />
 
                     <Separator/>
+                    <MenuItem Header="Open Entity FetchXml File" Click="miConnection1OpenEntityFetchXmlFile_Click" />
+
+                    <Separator/>
                     <MenuItem Header="Open Entity List in Web" Click="miConnection1OpenEntityInstanceListInWeb_Click" />
                 </MenuItem>
 
@@ -79,6 +82,9 @@
 
                     <Separator/>
                     <MenuItem Header="Open Entity Customization in Web" Click="miConnection2OpenEntityMetadataInWeb_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Open Entity FetchXml File" Click="miConnection2OpenEntityFetchXmlFile_Click" />
 
                     <Separator/>
                     <MenuItem Header="Open Entity List in Web" Click="miConnection2OpenEntityInstanceListInWeb_Click" />
@@ -282,6 +288,9 @@
                             <MenuItem Header="Open Entity Customization in Web" Click="miConnection1OpenEntityMetadataInWeb_Click" />
 
                             <Separator/>
+                            <MenuItem Header="Open Entity FetchXml File" Click="miConnection1OpenEntityFetchXmlFile_Click" />
+
+                            <Separator/>
                             <MenuItem Header="Open Entity List in Web" Click="miConnection1OpenEntityInstanceListInWeb_Click" />
                         </MenuItem>
                     </Menu>
@@ -307,6 +316,9 @@
 
                             <Separator/>
                             <MenuItem Header="Open Entity Customization in Web" Click="miConnection2OpenEntityMetadataInWeb_Click" />
+
+                            <Separator/>
+                            <MenuItem Header="Open Entity FetchXml File" Click="miConnection2OpenEntityFetchXmlFile_Click" />
 
                             <Separator/>
                             <MenuItem Header="Open Entity List in Web" Click="miConnection2OpenEntityInstanceListInWeb_Click" />
