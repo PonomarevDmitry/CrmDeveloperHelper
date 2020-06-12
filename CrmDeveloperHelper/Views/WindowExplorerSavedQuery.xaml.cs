@@ -905,7 +905,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var savedQuery = await repository.GetByIdAsync(idSavedQuery, new ColumnSet(true));
 
-                await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, savedQuery, EntityFileNameFormatter.SavedQueryIgnoreFields, service.ConnectionData);
+                await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, savedQuery, service.ConnectionData);
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
                     , service.ConnectionData.Name

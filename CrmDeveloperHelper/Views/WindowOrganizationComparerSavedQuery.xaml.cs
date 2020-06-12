@@ -998,8 +998,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     var savedQuery1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
                     var savedQuery2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
 
-                    var desc1 = await EntityDescriptionHandler.GetEntityDescriptionAsync(savedQuery1, EntityFileNameFormatter.SavedQueryIgnoreFields);
-                    var desc2 = await EntityDescriptionHandler.GetEntityDescriptionAsync(savedQuery2, EntityFileNameFormatter.SavedQueryIgnoreFields);
+                    var desc1 = await EntityDescriptionHandler.GetEntityDescriptionAsync(savedQuery1);
+                    var desc2 = await EntityDescriptionHandler.GetEntityDescriptionAsync(savedQuery2);
 
                     if (showAllways || desc1 != desc2)
                     {
@@ -1058,7 +1058,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var savedQuery = await repository.GetByIdAsync(idSavedQuery, new ColumnSet(true));
 
-                var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(savedQuery, EntityFileNameFormatter.SavedQueryIgnoreFields, service.ConnectionData);
+                var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(savedQuery, service.ConnectionData);
 
                 string filePath = await CreateDescriptionFileAsync(service.ConnectionData, savedQuery.ReturnedTypeCode, savedQuery.Name, EntityFileNameFormatter.Headers.EntityDescription, description);
 

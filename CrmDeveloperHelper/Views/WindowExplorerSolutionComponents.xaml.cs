@@ -545,7 +545,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var stringBuilder = new StringBuilder();
 
-            var desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(solutionComponentViewItem.SolutionComponent, null, _service.ConnectionData);
+            var desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(solutionComponentViewItem.SolutionComponent, _service.ConnectionData);
 
             if (!string.IsNullOrEmpty(desc))
             {
@@ -558,7 +558,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (entity != null)
             {
-                desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(entity, null, _service.ConnectionData);
+                desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(entity, _service.ConnectionData);
 
                 if (!string.IsNullOrEmpty(desc))
                 {
@@ -1414,7 +1414,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, solutionFull, EntityFileNameFormatter.WebResourceIgnoreFields, _service.ConnectionData);
+                await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, solutionFull, _service.ConnectionData);
 
                 this._iWriteToOutput.WriteToOutput(_service.ConnectionData
                     , Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3

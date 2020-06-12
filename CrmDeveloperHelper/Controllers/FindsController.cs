@@ -1452,7 +1452,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             .AppendLine(new string('-', 150))
                             .AppendLine()
                             .AppendLine()
-                            .AppendLine(await EntityDescriptionHandler.GetEntityDescriptionAsync(entity, null, connectionData))
+                            .AppendLine(await EntityDescriptionHandler.GetEntityDescriptionAsync(entity, connectionData))
                             ;
                     }
                 }
@@ -1552,7 +1552,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                                 .AppendLine(new string('-', 150))
                                 .AppendLine()
                                 .AppendLine()
-                                .AppendLine(await EntityDescriptionHandler.GetEntityDescriptionAsync(entity, null, connectionData))
+                                .AppendLine(await EntityDescriptionHandler.GetEntityDescriptionAsync(entity, connectionData))
                             ;
                         }
                     }

@@ -1385,7 +1385,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 string fileName = EntityFileNameFormatter.GetWebResourceFileName(_service.ConnectionData.Name, name, EntityFileNameFormatter.Headers.EntityDescription, "txt");
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, webresource, EntityFileNameFormatter.WebResourceIgnoreFields, _service.ConnectionData);
+                await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, webresource, _service.ConnectionData);
 
                 this._iWriteToOutput.WriteToOutput(_service.ConnectionData
                     , Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3

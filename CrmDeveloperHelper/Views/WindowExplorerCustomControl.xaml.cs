@@ -606,7 +606,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var customControl = await repository.GetByIdAsync(idCustomControl, new ColumnSet(true));
 
-                await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, customControl, EntityFileNameFormatter.CustomControlIgnoreFields, service.ConnectionData);
+                await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, customControl, service.ConnectionData);
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
                     , service.ConnectionData.Name

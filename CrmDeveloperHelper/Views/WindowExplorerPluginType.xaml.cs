@@ -612,7 +612,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var pluginType = await repository.GetPluginTypeByIdAsync(idPluginType);
 
-            await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, pluginType, null, service.ConnectionData);
+            await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, pluginType, service.ConnectionData);
 
             this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
                 , service.ConnectionData.Name

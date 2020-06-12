@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xrm.Sdk;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.IO;
 using System.Linq;
@@ -15,29 +17,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
     {
         private const string _defaultTabSpacer = "    ";
 
-        public static Task ExportEntityDescriptionAsync(string filePath, Entity entity, IEnumerable<string> list, ConnectionData connectionData = null)
+        public static Task ExportEntityDescriptionAsync(string filePath, Entity entity, ConnectionData connectionData = null)
         {
-            return Task.Run(() => ExportEntityDescription(filePath, entity, list, connectionData));
+            return Task.Run(() => ExportEntityDescription(filePath, entity, connectionData));
         }
 
-        private static void ExportEntityDescription(string filePath, Entity entity, IEnumerable<string> list, ConnectionData connectionData)
+        private static void ExportEntityDescription(string filePath, Entity entity, ConnectionData connectionData)
         {
-            string content = GetEntityDescription(entity, list, connectionData);
+            string content = GetEntityDescription(entity, connectionData);
 
             File.WriteAllText(filePath, content, new UTF8Encoding(false));
         }
 
-        public static Task<string> GetEntityDescriptionAsync(Entity entity, IEnumerable<string> attributeToIgnore, ConnectionData connectionData = null)
+        public static Task<string> GetEntityDescriptionAsync(Entity entity, ConnectionData connectionData = null)
         {
-            return Task.Run(() => GetEntityDescription(entity, attributeToIgnore, connectionData));
+            return Task.Run(() => GetEntityDescription(entity, connectionData));
         }
 
-        private static string GetEntityDescription(Entity entity, IEnumerable<string> attributeToIgnore, ConnectionData connectionData)
+        private static string GetEntityDescription(Entity entity, ConnectionData connectionData)
         {
             StringBuilder result = new StringBuilder();
 
-            result.AppendFormat("Entity: {0}", entity.LogicalName).AppendLine();
-            result.AppendFormat("Id: {0}", entity.Id).AppendLine();
+            result.AppendFormat("Entity : {0}", entity.LogicalName).AppendLine();
+            result.AppendFormat("Id     : {0}", entity.Id).AppendLine();
 
             if (connectionData != null)
             {
@@ -45,7 +47,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (!string.IsNullOrEmpty(url))
                 {
-                    result.AppendFormat("Url: {0}", url).AppendLine();
+                    result.AppendFormat("Url    : {0}", url).AppendLine();
                 }
             }
 
@@ -54,13 +56,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             FormatTextTableHandler table = new FormatTextTableHandler();
             table.SetHeader("Field Name", "Type", "Value");
 
-            HashSet<string> hash = new HashSet<string>(attributeToIgnore ?? Enumerable.Empty<string>(), StringComparer.InvariantCultureIgnoreCase);
+            IEnumerable<string> attributeToIgnore = GetAttributesToIgnore(entity.LogicalName);
+
+            HashSet<string> hashAttributeToIgnore = new HashSet<string>(attributeToIgnore, StringComparer.InvariantCultureIgnoreCase);
 
             foreach (var attr in entity.Attributes.OrderBy(s => s.Key))
             {
-                if (hash.Any())
+                if (hashAttributeToIgnore.Any())
                 {
-                    if (hash.Contains(attr.Key))
+                    if (hashAttributeToIgnore.Contains(attr.Key))
                     {
                         continue;
                     }
@@ -228,7 +232,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 foreach (var item in entityCollection.Entities)
                 {
-                    string entityDesc = GetEntityDescription(item, null, connectionData);
+                    string entityDesc = GetEntityDescription(item, connectionData);
 
                     if (!string.IsNullOrEmpty(entityDesc))
                     {
@@ -596,5 +600,131 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             return string.Equals(element.Name.LocalName, "all-attributes", StringComparison.InvariantCultureIgnoreCase);
         }
+
+        private static IEnumerable<string> GetAttributesToIgnore(string entityLogicalName)
+        {
+            entityLogicalName = entityLogicalName.ToLower();
+
+            switch (entityLogicalName)
+            {
+                case CustomControl.EntityLogicalName:
+                    return CustomControlIgnoreFields;
+
+                case WebResource.EntityLogicalName:
+                    return WebResourceIgnoreFields;
+
+                case SystemForm.EntityLogicalName:
+                    return SystemFormIgnoreFields;
+
+                case SavedQuery.EntityLogicalName:
+                    return SavedQueryIgnoreFields;
+
+                case SavedQueryVisualization.EntityLogicalName:
+                    return SavedQueryVisualizationIgnoreFields;
+
+                case SiteMap.EntityLogicalName:
+                    return SiteMapIgnoreFields;
+
+                case Report.EntityLogicalName:
+                    return ReportIgnoreFields;
+
+                case PluginAssembly.EntityLogicalName:
+                    return PluginAssemblyIgnoreFields;
+
+                case PluginType.EntityLogicalName:
+                    return PluginTypeIgnoreFields;
+
+                case Organization.EntityLogicalName:
+                    return OrganizationIgnoreFields;
+
+                case ImportJob.EntityLogicalName:
+                    return ImportJobIgnoreFields;
+            }
+
+            return Enumerable.Empty<string>();
+        }
+
+        #region IgnoreAttributes
+
+        private static readonly IReadOnlyCollection<string> CustomControlIgnoreFields = new ReadOnlyCollection<string>(new[]
+        {
+            CustomControl.Schema.Attributes.manifest
+            , CustomControl.Schema.Attributes.clientjson
+        });
+
+        private static readonly IReadOnlyCollection<string> WebResourceIgnoreFields = new ReadOnlyCollection<string>(new[]
+        {
+            WebResource.Schema.Attributes.content
+            , WebResource.Schema.Attributes.contentjson
+            , WebResource.Schema.Attributes.dependencyxml
+        });
+
+        private static readonly IReadOnlyCollection<string> SystemFormIgnoreFields = new ReadOnlyCollection<string>(new[]
+        {
+            SystemForm.Schema.Attributes.formxml
+            , SystemForm.Schema.Attributes.formjson
+        });
+
+        private static readonly IReadOnlyCollection<string> SavedQueryIgnoreFields = new ReadOnlyCollection<string>(new[]
+        {
+            SavedQuery.Schema.Attributes.fetchxml
+            , SavedQuery.Schema.Attributes.layoutxml
+            , SavedQuery.Schema.Attributes.columnsetxml
+            , SavedQuery.Schema.Attributes.layoutjson
+            , SavedQuery.Schema.Attributes.offlinesqlquery
+        });
+
+        private static readonly IReadOnlyCollection<string> SavedQueryVisualizationIgnoreFields = new ReadOnlyCollection<string>(new[]
+        {
+            SavedQueryVisualization.Schema.Attributes.datadescription
+            , SavedQueryVisualization.Schema.Attributes.presentationdescription
+        });
+
+        private static readonly IReadOnlyCollection<string> SiteMapIgnoreFields = new ReadOnlyCollection<string>(new[]
+        {
+            SiteMap.Schema.Attributes.sitemapxml
+        });
+
+        private static readonly IReadOnlyCollection<string> ReportIgnoreFields = new ReadOnlyCollection<string>(new[]
+        {
+            Report.Schema.Attributes.bodytext
+            , Report.Schema.Attributes.originalbodytext
+            , Report.Schema.Attributes.bodybinary
+            , Report.Schema.Attributes.defaultfilter
+            , Report.Schema.Attributes.customreportxml
+            , Report.Schema.Attributes.schedulexml
+            , Report.Schema.Attributes.queryinfo
+        });
+
+        private static readonly IReadOnlyCollection<string> PluginAssemblyIgnoreFields = new ReadOnlyCollection<string>(new[]
+        {
+            PluginAssembly.Schema.Attributes.content
+        });
+
+        private static readonly IReadOnlyCollection<string> PluginTypeIgnoreFields = new ReadOnlyCollection<string>(new[]
+        {
+            PluginType.Schema.Attributes.customworkflowactivityinfo
+        });
+
+        private static readonly IReadOnlyCollection<string> OrganizationIgnoreFields = new ReadOnlyCollection<string>(new[]
+        {
+            Organization.Schema.Attributes.defaultemailsettings
+            , Organization.Schema.Attributes.externalpartycorrelationkeys
+            , Organization.Schema.Attributes.externalpartyentitysettings
+            , Organization.Schema.Attributes.featureset
+            , Organization.Schema.Attributes.kmsettings
+            , Organization.Schema.Attributes.referencesitemapxml
+            , Organization.Schema.Attributes.sitemapxml
+            , Organization.Schema.Attributes.defaultthemedata
+            , Organization.Schema.Attributes.highcontrastthemedata
+            , Organization.Schema.Attributes.slapausestates
+        });
+
+        private static readonly IReadOnlyCollection<string> ImportJobIgnoreFields = new ReadOnlyCollection<string>(new[]
+        {
+            ImportJob.Schema.Attributes.data
+        });
+
+        #endregion IgnoreAttributes
     }
 }

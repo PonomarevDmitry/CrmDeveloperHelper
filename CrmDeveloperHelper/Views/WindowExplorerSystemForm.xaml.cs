@@ -828,7 +828,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var systemForm = await repository.GetByIdAsync(idSystemForm, new ColumnSet(true));
 
-                await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, systemForm, EntityFileNameFormatter.SystemFormIgnoreFields, service.ConnectionData);
+                await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, systemForm, service.ConnectionData);
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
                     , service.ConnectionData.Name

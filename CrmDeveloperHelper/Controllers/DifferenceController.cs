@@ -930,7 +930,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string fileName = EntityFileNameFormatter.GetWebResourceFileName(service.ConnectionData.Name, webResource.Name, EntityFileNameFormatter.Headers.EntityDescription, "txt");
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-            await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, webResource, EntityFileNameFormatter.WebResourceIgnoreFields, service.ConnectionData);
+            await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, webResource, service.ConnectionData);
 
             this._iWriteToOutput.WriteToOutput(service.ConnectionData
                 , Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3

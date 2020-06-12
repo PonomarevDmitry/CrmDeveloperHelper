@@ -1246,7 +1246,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 Workflow workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(true));
 
-                await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, workflow, EntityFileNameFormatter.WorkflowIgnoreFields, service.ConnectionData);
+                await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, workflow, service.ConnectionData);
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
                     , service.ConnectionData.Name

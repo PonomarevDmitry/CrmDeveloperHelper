@@ -834,7 +834,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(service.ConnectionData.Name, assembly.Name, EntityFileNameFormatter.Headers.EntityDescription, "txt");
                     string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-                    await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, assembly, EntityFileNameFormatter.PluginAssemblyIgnoreFields, service.ConnectionData);
+                    await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, assembly, service.ConnectionData);
 
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
                         , service.ConnectionData.Name
@@ -980,7 +980,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     string fileName = EntityFileNameFormatter.GetPluginTypeFileName(service.ConnectionData.Name, pluginType.TypeName, EntityFileNameFormatter.Headers.EntityDescription, "txt");
                     string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-                    await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, pluginType, EntityFileNameFormatter.PluginAssemblyIgnoreFields, service.ConnectionData);
+                    await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, pluginType, service.ConnectionData);
 
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
                         , service.ConnectionData.Name

@@ -442,7 +442,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         if (entity != null)
                         {
-                            var desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(entity, null, _service.ConnectionData);
+                            var desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(entity, _service.ConnectionData);
 
                             strFile
                                 .AppendLine(desc)

@@ -1236,8 +1236,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var workflow1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
                 var workflow2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
 
-                var desc1 = await EntityDescriptionHandler.GetEntityDescriptionAsync(workflow1, EntityFileNameFormatter.WorkflowIgnoreFields);
-                var desc2 = await EntityDescriptionHandler.GetEntityDescriptionAsync(workflow2, EntityFileNameFormatter.WorkflowIgnoreFields);
+                var desc1 = await EntityDescriptionHandler.GetEntityDescriptionAsync(workflow1);
+                var desc2 = await EntityDescriptionHandler.GetEntityDescriptionAsync(workflow2);
 
                 if (showAllways || desc1 != desc2)
                 {
@@ -1302,7 +1302,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 string name = workflow.Name;
                 string category = workflow.FormattedValues[Workflow.Schema.Attributes.category];
 
-                var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(workflow, EntityFileNameFormatter.WorkflowIgnoreFields, service.ConnectionData);
+                var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(workflow, service.ConnectionData);
 
                 string filePath = await CreateDescriptionFileAsync(service.ConnectionData, entityName, category, name, "Description", "txt", description);
 

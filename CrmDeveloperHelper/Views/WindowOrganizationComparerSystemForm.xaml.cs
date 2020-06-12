@@ -700,8 +700,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     var systemForm1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
                     var systemForm2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
 
-                    var desc1 = await EntityDescriptionHandler.GetEntityDescriptionAsync(systemForm1, EntityFileNameFormatter.SystemFormIgnoreFields);
-                    var desc2 = await EntityDescriptionHandler.GetEntityDescriptionAsync(systemForm2, EntityFileNameFormatter.SystemFormIgnoreFields);
+                    var desc1 = await EntityDescriptionHandler.GetEntityDescriptionAsync(systemForm1);
+                    var desc2 = await EntityDescriptionHandler.GetEntityDescriptionAsync(systemForm2);
 
                     if (showAllways || desc1 != desc2)
                     {
@@ -1112,7 +1112,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var systemForm = await repository.GetByIdAsync(idSystemForm, new ColumnSet(true));
 
-                var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(systemForm, EntityFileNameFormatter.SystemFormIgnoreFields, service.ConnectionData);
+                var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(systemForm, service.ConnectionData);
 
                 string filePath = await CreateDescriptionFileAsync(service.ConnectionData, systemForm.ObjectTypeCode, systemForm.Name, EntityFileNameFormatter.Headers.EntityDescription, description);
 

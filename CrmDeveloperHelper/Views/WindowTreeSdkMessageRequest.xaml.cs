@@ -1281,7 +1281,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 foreach (var message in listMessages)
                 {
-                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(message, null, service.ConnectionData);
+                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(message, service.ConnectionData);
 
                     if (!string.IsNullOrEmpty(desc))
                     {
@@ -1306,7 +1306,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
 
                 {
-                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(request, null, service.ConnectionData);
+                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(request, service.ConnectionData);
 
                     if (!string.IsNullOrEmpty(desc))
                     {
@@ -1323,7 +1323,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     foreach (var field in queryFields.OrderBy(f => f.Position).ThenBy(f => f.Name))
                     {
-                        var desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(field, null, service.ConnectionData);
+                        var desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(field, service.ConnectionData);
 
                         if (!string.IsNullOrEmpty(desc))
                         {
@@ -1349,7 +1349,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
 
                 {
-                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(Response, null, service.ConnectionData);
+                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(Response, service.ConnectionData);
 
                     if (!string.IsNullOrEmpty(desc))
                     {
@@ -1366,7 +1366,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     foreach (var field in queryFields.OrderBy(f => f.Position).ThenBy(f => f.Name))
                     {
-                        var desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(field, null, service.ConnectionData);
+                        var desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(field, service.ConnectionData);
 
                         if (!string.IsNullOrEmpty(desc))
                         {

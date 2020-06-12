@@ -2609,7 +2609,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, solutionFull, EntityFileNameFormatter.WebResourceIgnoreFields, service.ConnectionData);
+                await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, solutionFull, service.ConnectionData);
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData
                     , Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3

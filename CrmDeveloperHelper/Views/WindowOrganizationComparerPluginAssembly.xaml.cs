@@ -501,8 +501,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     var assembly1 = await repository1.GetAssemblyByIdRetrieveRequestAsync(linked.Entity1.Id, new ColumnSet(true));
                     var assembly2 = await repository2.GetAssemblyByIdRetrieveRequestAsync(linked.Entity2.Id, new ColumnSet(true));
 
-                    var desc1 = await EntityDescriptionHandler.GetEntityDescriptionAsync(assembly1, EntityFileNameFormatter.PluginAssemblyIgnoreFields);
-                    var desc2 = await EntityDescriptionHandler.GetEntityDescriptionAsync(assembly2, EntityFileNameFormatter.PluginAssemblyIgnoreFields);
+                    var desc1 = await EntityDescriptionHandler.GetEntityDescriptionAsync(assembly1);
+                    var desc2 = await EntityDescriptionHandler.GetEntityDescriptionAsync(assembly2);
 
                     if (showAllways || desc1 != desc2)
                     {
@@ -699,7 +699,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var assembly = await repository.GetAssemblyByIdRetrieveRequestAsync(pluginAssemblyId, new ColumnSet(true));
 
-                var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(assembly, EntityFileNameFormatter.PluginAssemblyIgnoreFields, service.ConnectionData);
+                var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(assembly, service.ConnectionData);
 
                 string filePath = await CreateDescriptionFileAsync(service.ConnectionData, assembly.Name, EntityFileNameFormatter.Headers.EntityDescription, description);
 

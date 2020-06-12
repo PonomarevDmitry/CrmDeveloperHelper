@@ -831,8 +831,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     var chart1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
                     var chart2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
 
-                    var desc1 = await EntityDescriptionHandler.GetEntityDescriptionAsync(chart1, EntityFileNameFormatter.SavedQueryVisualizationIgnoreFields);
-                    var desc2 = await EntityDescriptionHandler.GetEntityDescriptionAsync(chart2, EntityFileNameFormatter.SavedQueryVisualizationIgnoreFields);
+                    var desc1 = await EntityDescriptionHandler.GetEntityDescriptionAsync(chart1);
+                    var desc2 = await EntityDescriptionHandler.GetEntityDescriptionAsync(chart2);
 
                     if (showAllways || desc1 != desc2)
                     {
@@ -891,7 +891,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var chart = await repository.GetByIdAsync(idChart, new ColumnSet(true));
 
-                var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(chart, EntityFileNameFormatter.SavedQueryVisualizationIgnoreFields, service.ConnectionData);
+                var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(chart, service.ConnectionData);
 
                 string filePath = await CreateDescriptionFileAsync(service.ConnectionData, chart.PrimaryEntityTypeCode, chart.Name, EntityFileNameFormatter.Headers.EntityDescription, description);
 

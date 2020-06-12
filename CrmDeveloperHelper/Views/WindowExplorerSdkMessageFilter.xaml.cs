@@ -426,7 +426,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             string fileName = EntityFileNameFormatter.GetMessageFilterFileName(service.ConnectionData.Name, entityName, EntityFileNameFormatter.Headers.EntityDescription);
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-            await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, message, null, service.ConnectionData);
+            await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, message, service.ConnectionData);
 
             this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
                 , service.ConnectionData.Name

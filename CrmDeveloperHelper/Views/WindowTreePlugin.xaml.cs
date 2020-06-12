@@ -2466,7 +2466,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
 
                 {
-                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(pluginAssembly, null, service.ConnectionData);
+                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(pluginAssembly, service.ConnectionData);
 
                     if (!string.IsNullOrEmpty(desc))
                     {
@@ -2520,7 +2520,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
 
                 {
-                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(pluginType, null, service.ConnectionData);
+                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(pluginType, service.ConnectionData);
 
                     if (!string.IsNullOrEmpty(desc))
                     {
@@ -2573,7 +2573,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
 
                 {
-                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(step, null, service.ConnectionData);
+                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(step, service.ConnectionData);
 
                     if (!string.IsNullOrEmpty(desc))
                     {
@@ -2614,7 +2614,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
 
                 {
-                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(stepImage, null, service.ConnectionData);
+                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(stepImage, service.ConnectionData);
 
                     if (!string.IsNullOrEmpty(desc))
                     {
@@ -2645,7 +2645,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 foreach (var message in listMessages)
                 {
-                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(message, null, service.ConnectionData);
+                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(message, service.ConnectionData);
 
                     if (!string.IsNullOrEmpty(desc))
                     {
@@ -2676,7 +2676,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 foreach (var message in listMessages)
                 {
-                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(message, null, service.ConnectionData);
+                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(message, service.ConnectionData);
 
                     if (!string.IsNullOrEmpty(desc))
                     {
@@ -2713,7 +2713,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
 
                 {
-                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(workflow, new List<string>() { Workflow.Schema.Attributes.xaml }, service.ConnectionData);
+                    string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(workflow, service.ConnectionData);
 
                     if (!string.IsNullOrEmpty(desc))
                     {

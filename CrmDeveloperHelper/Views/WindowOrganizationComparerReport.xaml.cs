@@ -843,8 +843,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     var report1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
                     var report2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
 
-                    var desc1 = await EntityDescriptionHandler.GetEntityDescriptionAsync(report1, EntityFileNameFormatter.ReportIgnoreFields);
-                    var desc2 = await EntityDescriptionHandler.GetEntityDescriptionAsync(report2, EntityFileNameFormatter.ReportIgnoreFields);
+                    var desc1 = await EntityDescriptionHandler.GetEntityDescriptionAsync(report1);
+                    var desc2 = await EntityDescriptionHandler.GetEntityDescriptionAsync(report2);
 
                     if (showAllways || desc1 != desc2)
                     {
@@ -903,7 +903,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var report = await repository.GetByIdAsync(idReport, new ColumnSet(true));
 
-                var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(report, EntityFileNameFormatter.ReportIgnoreFields, service.ConnectionData);
+                var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(report, service.ConnectionData);
 
                 string filePath = await CreateDescriptionFileAsync(service.ConnectionData, report.Name, report.Id, "Description", description);
 
