@@ -1207,29 +1207,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int fileMenuCSharp_GroupGlobalOptionSets_MenuConnectionDyn_Group = 0x127E;
 
-            public const int fileMenuCSharp_GroupPluginAssemblyBuildUpdate = 0x13B8;
+            public const int fileMenuCSharp_GroupActionOnPluginAssembly = 0x14BB;
 
-            public const int fileMenuCSharp_GroupPluginAssemblyBuildUpdate_MenuConnectionDyn = 0x13B9;
+            public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu = 0x14BC;
 
-            public const int fileMenuCSharp_GroupPluginAssemblyBuildUpdate_MenuConnectionDyn_Group = 0x13BA;
+            public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupBuildUpdate = 0x13B8;
 
-            public const int fileMenuCSharp_GroupPluginAssemblyBuildUpdateRegister = 0x13BB;
+            public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupBuildUpdate_MenuConnectionDyn = 0x13B9;
 
-            public const int fileMenuCSharp_GroupPluginAssemblyBuildUpdateRegister_MenuConnectionDyn = 0x13BC;
+            public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupBuildUpdate_MenuConnectionDyn_Group = 0x13BA;
 
-            public const int fileMenuCSharp_GroupPluginAssemblyBuildUpdateRegister_MenuConnectionDyn_Group = 0x13BD;
+            public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupBuildUpdateRegister = 0x13BB;
 
-            public const int fileMenuCSharp_GroupPluginAssemblyUpdate = 0x128A;
+            public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupBuildUpdateRegister_MenuConnectionDyn = 0x13BC;
 
-            public const int fileMenuCSharp_GroupPluginAssemblyUpdate_MenuConnectionDyn = 0x128B;
+            public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupBuildUpdateRegister_MenuConnectionDyn_Group = 0x13BD;
 
-            public const int fileMenuCSharp_GroupPluginAssemblyUpdate_MenuConnectionDyn_Group = 0x128C;
+            public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupUpdate = 0x128A;
 
-            public const int fileMenuCSharp_GroupPluginAssemblyCompare = 0x1126;
+            public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupUpdate_MenuConnectionDyn = 0x128B;
 
-            public const int fileMenuCSharp_GroupPluginAssemblyCompare_MenuConnectionDyn = 0x1138;
+            public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupUpdate_MenuConnectionDyn_Group = 0x128C;
 
-            public const int fileMenuCSharp_GroupPluginAssemblyCompare_MenuConnectionDyn_Group = 0x1139;
+            public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompare = 0x1126;
+
+            public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompare_MenuConnectionDyn = 0x1138;
+
+            public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompare_MenuConnectionDyn_Group = 0x1139;
 
             public const int fileMenuCSharp_GroupAddToSolution = 0x1127;
 

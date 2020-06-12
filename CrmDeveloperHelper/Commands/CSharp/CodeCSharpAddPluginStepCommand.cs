@@ -32,24 +32,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 
                     VSProject2Info.GetPluginTypes(new[] { document }, out var pluginTypesNotCompiled, out var projectInfos);
 
-                    var task = ExecuteAsync(helper, pluginTypesNotCompiled, projectInfos);
-                }
-            }
-            catch (Exception ex)
-            {
-                DTEHelper.WriteExceptionToOutput(null, ex);
-            }
-        }
-
-        private static async System.Threading.Tasks.Task ExecuteAsync(DTEHelper helper, string[] pluginTypesNotCompiled, VSProject2Info[] projectInfos)
-        {
-            try
-            {
-                string pluginType = await CSharpCodeHelper.GetSingleFileTypeFullNameAsync(pluginTypesNotCompiled, projectInfos);
-
-                if (!string.IsNullOrEmpty(pluginType))
-                {
-                    helper.HandleAddPluginStep(pluginType, null);
+                    var task = ExecuteAddPluginStepAsync(helper, null, pluginTypesNotCompiled, projectInfos);
                 }
             }
             catch (Exception ex)

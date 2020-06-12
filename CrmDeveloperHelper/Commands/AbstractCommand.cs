@@ -43,5 +43,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                 DTEHelper.WriteExceptionToOutput(connectionData, ex);
             }
         }
+
+        protected static async Task ExecuteAddPluginStepAsync(
+            DTEHelper helper
+            , ConnectionData connectionData
+            , string[] pluginTypesNotCompiled
+            , VSProject2Info[] projectInfos
+        )
+        {
+            try
+            {
+                string pluginType = await CSharpCodeHelper.GetSingleFileTypeFullNameAsync(pluginTypesNotCompiled, projectInfos);
+
+                if (!string.IsNullOrEmpty(pluginType))
+                {
+                    helper.HandleAddPluginStep(pluginType, connectionData);
+                }
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.WriteExceptionToOutput(connectionData, ex);
+            }
+        }
     }
 }
