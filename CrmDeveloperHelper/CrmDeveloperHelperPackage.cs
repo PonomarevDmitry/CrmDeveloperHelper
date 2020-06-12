@@ -550,6 +550,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             DocumentsCSharpProjectPluginTypeStepsAddToSolutionLastCommand.Initialize(commandService);
             DocumentsCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand.Initialize(commandService);
             DocumentsCSharpProjectPluginTypeActionOnComponentInConnectionCommand.Initialize(commandService);
+            DocumentsCSharpProjectPluginTypeCreateDescriptionCommand.Initialize(commandService);
+            DocumentsCSharpProjectPluginTypeCreateDescriptionInConnectionCommand.Initialize(commandService);
 
             #endregion DocumentsCSharp
 
@@ -595,6 +597,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FileCSharpProjectPluginTypeStepsAddToSolutionLastCommand.Initialize(commandService);
             FileCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand.Initialize(commandService);
             FileCSharpProjectPluginTypeActionOnComponentInConnectionCommand.Initialize(commandService);
+            FileCSharpProjectPluginTypeCreateDescriptionCommand.Initialize(commandService);
+            FileCSharpProjectPluginTypeCreateDescriptionInConnectionCommand.Initialize(commandService);
 
             #endregion FileCSharp
 
@@ -612,6 +616,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FolderCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand.Initialize(commandService);
             FolderCSharpProjectPluginTypeStepsAddToSolutionLastCommand.Initialize(commandService);
             FolderCSharpProjectPluginTypeActionOnComponentInConnectionCommand.Initialize(commandService);
+            FolderCSharpProjectPluginTypeCreateDescriptionCommand.Initialize(commandService);
+            FolderCSharpProjectPluginTypeCreateDescriptionInConnectionCommand.Initialize(commandService);
 
             FolderCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommand.Initialize(commandService);
             FolderCSharpUpdateEntityMetadataFileSchemaCommand.Initialize(commandService);

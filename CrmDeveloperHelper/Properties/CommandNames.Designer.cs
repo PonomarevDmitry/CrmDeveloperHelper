@@ -736,6 +736,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create PluginTypes Description.
+        /// </summary>
+        internal static string DocumentsCSharpProjectPluginTypeCreateDescriptionCommand {
+            get {
+                return ResourceManager.GetString("DocumentsCSharpProjectPluginTypeCreateDescriptionCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create PluginTypes EntityDescription.
+        /// </summary>
+        internal static string DocumentsCSharpProjectPluginTypeCreateEntityDescriptionCommand {
+            get {
+                return ResourceManager.GetString("DocumentsCSharpProjectPluginTypeCreateEntityDescriptionCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get PluginTypes CustomWorkflowActivityInfo.
+        /// </summary>
+        internal static string DocumentsCSharpProjectPluginTypeGetCustomWorkflowActivityInfoCommand {
+            get {
+                return ResourceManager.GetString("DocumentsCSharpProjectPluginTypeGetCustomWorkflowActivityInfoCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Compare Files.
         /// </summary>
         internal static string DocumentsWebResourceCompareCommand {
@@ -804,6 +831,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string FileCSharpProjectCompareToCrmAssemblyCommand {
             get {
                 return ResourceManager.GetString("FileCSharpProjectCompareToCrmAssemblyCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create PluginTypes Description.
+        /// </summary>
+        internal static string FileCSharpProjectPluginTypeCreateDescriptionCommand {
+            get {
+                return ResourceManager.GetString("FileCSharpProjectPluginTypeCreateDescriptionCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create PluginTypes EntityDescription.
+        /// </summary>
+        internal static string FileCSharpProjectPluginTypeCreateEntityDescriptionCommand {
+            get {
+                return ResourceManager.GetString("FileCSharpProjectPluginTypeCreateEntityDescriptionCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get PluginTypes CustomWorkflowActivityInfo.
+        /// </summary>
+        internal static string FileCSharpProjectPluginTypeGetCustomWorkflowActivityInfoCommand {
+            get {
+                return ResourceManager.GetString("FileCSharpProjectPluginTypeGetCustomWorkflowActivityInfoCommand", resourceCulture);
             }
         }
         
@@ -939,6 +993,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string FolderAddSolutionFileCommand {
             get {
                 return ResourceManager.GetString("FolderAddSolutionFileCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create PluginTypes Description (Recursive).
+        /// </summary>
+        internal static string FolderCSharpProjectPluginTypeCreateDescriptionCommand {
+            get {
+                return ResourceManager.GetString("FolderCSharpProjectPluginTypeCreateDescriptionCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create PluginTypes EntityDescription (Recursive).
+        /// </summary>
+        internal static string FolderCSharpProjectPluginTypeCreateEntityDescriptionCommand {
+            get {
+                return ResourceManager.GetString("FolderCSharpProjectPluginTypeCreateEntityDescriptionCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get PluginTypes CustomWorkflowActivityInfo (Recursive).
+        /// </summary>
+        internal static string FolderCSharpProjectPluginTypeGetCustomWorkflowActivityInfoCommand {
+            get {
+                return ResourceManager.GetString("FolderCSharpProjectPluginTypeGetCustomWorkflowActivityInfoCommand", resourceCulture);
             }
         }
         

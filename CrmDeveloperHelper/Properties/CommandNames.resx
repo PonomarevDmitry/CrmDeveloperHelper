@@ -519,5 +519,38 @@
   </data>
 
 
+  <data name="FileCSharpProjectPluginTypeCreateEntityDescriptionCommand" xml:space="preserve">
+    <value>Create PluginTypes EntityDescription</value>
+  </data>
+  <data name="FileCSharpProjectPluginTypeGetCustomWorkflowActivityInfoCommand" xml:space="preserve">
+    <value>Get PluginTypes CustomWorkflowActivityInfo</value>
+  </data>
+  <data name="FileCSharpProjectPluginTypeCreateDescriptionCommand" xml:space="preserve">
+    <value>Create PluginTypes Description</value>
+  </data>
+
+
+  <data name="DocumentsCSharpProjectPluginTypeCreateEntityDescriptionCommand" xml:space="preserve">
+    <value>Create PluginTypes EntityDescription</value>
+  </data>
+  <data name="DocumentsCSharpProjectPluginTypeGetCustomWorkflowActivityInfoCommand" xml:space="preserve">
+    <value>Get PluginTypes CustomWorkflowActivityInfo</value>
+  </data>
+  <data name="DocumentsCSharpProjectPluginTypeCreateDescriptionCommand" xml:space="preserve">
+    <value>Create PluginTypes Description</value>
+  </data>
+
+
+  <data name="FolderCSharpProjectPluginTypeCreateEntityDescriptionCommand" xml:space="preserve">
+    <value>Create PluginTypes EntityDescription (Recursive)</value>
+  </data>
+  <data name="FolderCSharpProjectPluginTypeGetCustomWorkflowActivityInfoCommand" xml:space="preserve">
+    <value>Get PluginTypes CustomWorkflowActivityInfo (Recursive)</value>
+  </data>
+  <data name="FolderCSharpProjectPluginTypeCreateDescriptionCommand" xml:space="preserve">
+    <value>Create PluginTypes Description (Recursive)</value>
+  </data>
+
+
 
 </root>

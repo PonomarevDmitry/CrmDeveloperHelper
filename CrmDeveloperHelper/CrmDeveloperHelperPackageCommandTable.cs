@@ -895,19 +895,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int documentsMenuCSharp_GroupActionOnPluginType_Menu = 0x1468;
 
-            public const int documentsMenuCSharp_GroupActionOnPluginType_Menu_Group = 0x1469;
+            public const int documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription = 0x14A9;
 
-            public const int documentsMenuCSharp_GroupActionOnPluginType_Menu_Group_MenuOpenDependentInWebDyn = 0x146A;
+            public const int documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription_MenuDyn = 0x14AA;
 
-            public const int documentsMenuCSharp_GroupActionOnPluginType_Menu_Group_MenuOpenDependentInWebDyn_Group = 0x146B;
+            public const int documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription_MenuDyn_Group = 0x14AB;
 
-            public const int documentsMenuCSharp_GroupActionOnPluginType_Menu_Group_MenuOpenDependentInExplorerDyn = 0x146C;
+            public const int documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo = 0x14AC;
 
-            public const int documentsMenuCSharp_GroupActionOnPluginType_Menu_Group_MenuOpenDependentInExplorerDyn_Group = 0x146D;
+            public const int documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn = 0x14AD;
 
-            public const int documentsMenuCSharp_GroupActionOnPluginType_Menu_Group_MenuOpenSolutionsListWithComponentInExplorerDyn = 0x146E;
+            public const int documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn_Group = 0x14AE;
 
-            public const int documentsMenuCSharp_GroupActionOnPluginType_Menu_Group_MenuOpenSolutionsListWithComponentInExplorerDyn_Group = 0x146F;
+            public const int documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription = 0x14AF;
+
+            public const int documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription_MenuDyn = 0x14B0;
+
+            public const int documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription_MenuDyn_Group = 0x14B1;
+
+            public const int documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupOther = 0x1469;
+
+            public const int documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenDependentInWebDyn = 0x146A;
+
+            public const int documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenDependentInWebDyn_Group = 0x146B;
+
+            public const int documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenDependentInExplorerDyn = 0x146C;
+
+            public const int documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenDependentInExplorerDyn_Group = 0x146D;
+
+            public const int documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenSolutionsListWithComponentInExplorerDyn = 0x146E;
+
+            public const int documentsMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenSolutionsListWithComponentInExplorerDyn_Group = 0x146F;
 
             public const int documentsMenuCSharp_GroupEntityMetadata = 0x1187;
 
@@ -1249,19 +1267,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int fileMenuCSharp_GroupActionOnPluginType_Menu = 0x1471;
 
-            public const int fileMenuCSharp_GroupActionOnPluginType_Menu_Group = 0x1472;
+            public const int fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription = 0x14A0;
 
-            public const int fileMenuCSharp_GroupActionOnPluginType_Menu_Group_MenuOpenDependentInWebDyn = 0x1473;
+            public const int fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription_MenuDyn = 0x14A1;
 
-            public const int fileMenuCSharp_GroupActionOnPluginType_Menu_Group_MenuOpenDependentInWebDyn_Group = 0x1474;
+            public const int fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription_MenuDyn_Group = 0x14A2;
 
-            public const int fileMenuCSharp_GroupActionOnPluginType_Menu_Group_MenuOpenDependentInExplorerDyn = 0x1475;
+            public const int fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo = 0x14A3;
 
-            public const int fileMenuCSharp_GroupActionOnPluginType_Menu_Group_MenuOpenDependentInExplorerDyn_Group = 0x1476;
+            public const int fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn = 0x14A4;
 
-            public const int fileMenuCSharp_GroupActionOnPluginType_Menu_Group_MenuOpenSolutionsListWithComponentInExplorerDyn = 0x1477;
+            public const int fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn_Group = 0x14A5;
 
-            public const int fileMenuCSharp_GroupActionOnPluginType_Menu_Group_MenuOpenSolutionsListWithComponentInExplorerDyn_Group = 0x1478;
+            public const int fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription = 0x14A6;
+
+            public const int fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription_MenuDyn = 0x14A7;
+
+            public const int fileMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription_MenuDyn_Group = 0x14A8;
+
+            public const int fileMenuCSharp_GroupActionOnPluginType_Menu_GroupOther = 0x1472;
+
+            public const int fileMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenDependentInWebDyn = 0x1473;
+
+            public const int fileMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenDependentInWebDyn_Group = 0x1474;
+
+            public const int fileMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenDependentInExplorerDyn = 0x1475;
+
+            public const int fileMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenDependentInExplorerDyn_Group = 0x1476;
+
+            public const int fileMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenSolutionsListWithComponentInExplorerDyn = 0x1477;
+
+            public const int fileMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenSolutionsListWithComponentInExplorerDyn_Group = 0x1478;
 
             public const int folderMenuWebResource = 0x1061;
 
@@ -1401,19 +1437,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int folderMenuCSharp_GroupActionOnPluginType_Menu = 0x147A;
 
-            public const int folderMenuCSharp_GroupActionOnPluginType_Menu_Group = 0x147B;
+            public const int folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription = 0x14B2;
 
-            public const int folderMenuCSharp_GroupActionOnPluginType_Menu_Group_MenuOpenDependentInWebDyn = 0x147C;
+            public const int folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription_MenuDyn = 0x14B3;
 
-            public const int folderMenuCSharp_GroupActionOnPluginType_Menu_Group_MenuOpenDependentInWebDyn_Group = 0x147D;
+            public const int folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeEntityDescription_MenuDyn_Group = 0x14B4;
 
-            public const int folderMenuCSharp_GroupActionOnPluginType_Menu_Group_MenuOpenDependentInExplorerDyn = 0x147E;
+            public const int folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo = 0x14B5;
 
-            public const int folderMenuCSharp_GroupActionOnPluginType_Menu_Group_MenuOpenDependentInExplorerDyn_Group = 0x147F;
+            public const int folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn = 0x14B6;
 
-            public const int folderMenuCSharp_GroupActionOnPluginType_Menu_Group_MenuOpenSolutionsListWithComponentInExplorerDyn = 0x1480;
+            public const int folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeGetCustomWorkflowActivityInfo_MenuDyn_Group = 0x14B7;
 
-            public const int folderMenuCSharp_GroupActionOnPluginType_Menu_Group_MenuOpenSolutionsListWithComponentInExplorerDyn_Group = 0x1481;
+            public const int folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription = 0x14B8;
+
+            public const int folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription_MenuDyn = 0x14B9;
+
+            public const int folderMenuCSharp_GroupActionOnPluginType_Menu_GroupPluginTypeDescription_MenuDyn_Group = 0x14BA;
+
+            public const int folderMenuCSharp_GroupActionOnPluginType_Menu_GroupOther = 0x147B;
+
+            public const int folderMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenDependentInWebDyn = 0x147C;
+
+            public const int folderMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenDependentInWebDyn_Group = 0x147D;
+
+            public const int folderMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenDependentInExplorerDyn = 0x147E;
+
+            public const int folderMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenDependentInExplorerDyn_Group = 0x147F;
+
+            public const int folderMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenSolutionsListWithComponentInExplorerDyn = 0x1480;
+
+            public const int folderMenuCSharp_GroupActionOnPluginType_Menu_GroupOther_MenuOpenSolutionsListWithComponentInExplorerDyn_Group = 0x1481;
 
             public const int folderMenuCSharp_GroupEntityMetadata = 0x107A;
 
@@ -2532,6 +2586,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int DocumentsCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommandId = 0x209E;
 
+            public const int DocumentsCSharpProjectPluginTypeCreateEntityDescriptionInConnectionCommandId = 0x3B2E;
+
+            public const int DocumentsCSharpProjectPluginTypeGetCustomWorkflowActivityInfoInConnectionCommandId = 0x3B60;
+
+            public const int DocumentsCSharpProjectPluginTypeCreateDescriptionInConnectionCommandId = 0x3B92;
+
             public const int DocumentsCSharpProjectPluginTypeOpenDependentInWebInConnectionCommandId = 0x36E2;
 
             public const int DocumentsCSharpProjectPluginTypeOpenDependentInExplorerInConnectionCommandId = 0x3714;
@@ -2628,6 +2688,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FileCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommandId = 0x2008;
 
+            public const int FileCSharpProjectPluginTypeCreateEntityDescriptionInConnectionCommandId = 0x3A98;
+
+            public const int FileCSharpProjectPluginTypeGetCustomWorkflowActivityInfoInConnectionCommandId = 0x3ACA;
+
+            public const int FileCSharpProjectPluginTypeCreateDescriptionInConnectionCommandId = 0x3AFC;
+
             public const int FileCSharpProjectPluginTypeOpenDependentInWebInConnectionCommandId = 0x3778;
 
             public const int FileCSharpProjectPluginTypeOpenDependentInExplorerInConnectionCommandId = 0x37AA;
@@ -2671,6 +2737,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int FolderCSharpProjectPluginTypeStepsAddToSolutionLastCommandId = 0x2198;
 
             public const int FolderCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommandId = 0x21CA;
+
+            public const int FolderCSharpProjectPluginTypeCreateEntityDescriptionInConnectionCommandId = 0x3BC4;
+
+            public const int FolderCSharpProjectPluginTypeGetCustomWorkflowActivityInfoInConnectionCommandId = 0x3BF6;
+
+            public const int FolderCSharpProjectPluginTypeCreateDescriptionInConnectionCommandId = 0x3C28;
 
             public const int FolderCSharpProjectPluginTypeOpenDependentInWebInConnectionCommandId = 0x380E;
 
@@ -2965,6 +3037,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int DocumentsCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommandId = 0x2218;
 
+            public const int DocumentsCSharpProjectPluginTypeCreateEntityDescriptionCommandId = 0x2256;
+
+            public const int DocumentsCSharpProjectPluginTypeGetCustomWorkflowActivityInfoCommandId = 0x2257;
+
+            public const int DocumentsCSharpProjectPluginTypeCreateDescriptionCommandId = 0x2258;
+
             public const int FileWebResourceUpdateContentPublishCommandId = 0x2043;
 
             public const int FileWebResourceShowDifferenceCommandId = 0x2045;
@@ -3125,6 +3203,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FileCSharpAddPluginStepCommandId = 0x218D;
 
+            public const int FileCSharpProjectPluginTypeCreateEntityDescriptionCommandId = 0x2253;
+
+            public const int FileCSharpProjectPluginTypeGetCustomWorkflowActivityInfoCommandId = 0x2254;
+
+            public const int FileCSharpProjectPluginTypeCreateDescriptionCommandId = 0x2255;
+
             public const int FolderWebResourceUpdateContentPublishCommandId = 0x205D;
 
             public const int FolderWebResourceShowDependentComponentsCommandId = 0x205F;
@@ -3248,6 +3332,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int FolderCSharpEntityMetadataFileGenerationOptionsCommandId = 0x221B;
 
             public const int FolderCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommandId = 0x221C;
+
+            public const int FolderCSharpProjectPluginTypeCreateEntityDescriptionCommandId = 0x2259;
+
+            public const int FolderCSharpProjectPluginTypeGetCustomWorkflowActivityInfoCommandId = 0x225A;
+
+            public const int FolderCSharpProjectPluginTypeCreateDescriptionCommandId = 0x225B;
 
             public const int FolderAddSolutionFileCommandId = 0x206E;
 

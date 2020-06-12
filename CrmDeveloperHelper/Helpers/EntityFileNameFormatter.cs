@@ -45,7 +45,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             , SavedQueryVisualization.Schema.Attributes.presentationdescription
         });
 
-        internal static IReadOnlyCollection<string> SiteMapIgnoreFields = new ReadOnlyCollection<string>(new[] 
+        internal static IReadOnlyCollection<string> SiteMapIgnoreFields = new ReadOnlyCollection<string>(new[]
         {
             SiteMap.Schema.Attributes.sitemapxml
         });
@@ -70,9 +70,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             , Report.Schema.Attributes.queryinfo
         });
 
-        internal static IReadOnlyCollection<string> PluginAssemblyIgnoreFields = new ReadOnlyCollection<string>(new[] 
+        internal static IReadOnlyCollection<string> PluginAssemblyIgnoreFields = new ReadOnlyCollection<string>(new[]
         {
             PluginAssembly.Schema.Attributes.content
+        });
+
+        internal static IReadOnlyCollection<string> PluginTypeIgnoreFields = new ReadOnlyCollection<string>(new[]
+        {
+            PluginType.Schema.Attributes.customworkflowactivityinfo
         });
 
         internal static IReadOnlyCollection<string> OrganizationIgnoreFields = new ReadOnlyCollection<string>(new[]
@@ -96,7 +101,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private const string WorkflowFormatFile = "{0}.{1} Workflow {2} - {3} - {4} at {5}.{6}";
 
-        internal static IReadOnlyList<string> WorkflowIgnoreFields = new ReadOnlyCollection<string>(new[] 
+        internal static IReadOnlyList<string> WorkflowIgnoreFields = new ReadOnlyCollection<string>(new[]
         {
             Workflow.Schema.Attributes.xaml
             , Workflow.Schema.Attributes.inputparameters
