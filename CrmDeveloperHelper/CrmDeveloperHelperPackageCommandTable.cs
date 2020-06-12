@@ -1567,31 +1567,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int folderMenuProject_GroupExplorers = 0x10FC;
 
-            public const int folderMenuProject_GroupActionOnComponent = 0x1451;
+            public const int folderMenuProject_GroupPluginAssemblyActionOnComponent = 0x1451;
 
-            public const int folderMenuProject_GroupActionOnComponent_MenuOpenDependentInWebDyn = 0x1452;
+            public const int folderMenuProject_GroupPluginAssemblyActionOnComponent_MenuOpenDependentInWebDyn = 0x1452;
 
-            public const int folderMenuProject_GroupActionOnComponent_MenuOpenDependentInWebDyn_Group = 0x1453;
+            public const int folderMenuProject_GroupPluginAssemblyActionOnComponent_MenuOpenDependentInWebDyn_Group = 0x1453;
 
-            public const int folderMenuProject_GroupActionOnComponent_MenuOpenDependentInExplorerDyn = 0x1454;
+            public const int folderMenuProject_GroupPluginAssemblyActionOnComponent_MenuOpenDependentInExplorerDyn = 0x1454;
 
-            public const int folderMenuProject_GroupActionOnComponent_MenuOpenDependentInExplorerDyn_Group = 0x1455;
+            public const int folderMenuProject_GroupPluginAssemblyActionOnComponent_MenuOpenDependentInExplorerDyn_Group = 0x1455;
 
-            public const int folderMenuProject_GroupActionOnComponent_MenuOpenSolutionsListWithComponentInExplorerDyn = 0x1456;
+            public const int folderMenuProject_GroupPluginAssemblyActionOnComponent_MenuOpenSolutionsListWithComponentInExplorerDyn = 0x1456;
 
-            public const int folderMenuProject_GroupActionOnComponent_MenuOpenSolutionsListWithComponentInExplorerDyn_Group = 0x1457;
+            public const int folderMenuProject_GroupPluginAssemblyActionOnComponent_MenuOpenSolutionsListWithComponentInExplorerDyn_Group = 0x1457;
 
-            public const int folderMenuProject_GroupEntityDescription = 0x1458;
+            public const int folderMenuProject_GroupPluginAssemblyEntityDescription = 0x1458;
 
-            public const int folderMenuProject_GroupEntityDescription_MenuDyn = 0x1459;
+            public const int folderMenuProject_GroupPluginAssemblyEntityDescription_MenuDyn = 0x1459;
 
-            public const int folderMenuProject_GroupEntityDescription_MenuDyn_Group = 0x145A;
+            public const int folderMenuProject_GroupPluginAssemblyEntityDescription_MenuDyn_Group = 0x145A;
 
-            public const int folderMenuProject_GroupDescription = 0x145B;
+            public const int folderMenuProject_GroupPluginAssemblyDescription = 0x145B;
 
-            public const int folderMenuProject_GroupDescription_MenuDyn = 0x145C;
+            public const int folderMenuProject_GroupPluginAssemblyDescription_MenuDyn = 0x145C;
 
-            public const int folderMenuProject_GroupDescription_MenuDyn_Group = 0x145D;
+            public const int folderMenuProject_GroupPluginAssemblyDescription_MenuDyn_Group = 0x145D;
 
             public const int AddGroupFolder = 0x13A2;
 
