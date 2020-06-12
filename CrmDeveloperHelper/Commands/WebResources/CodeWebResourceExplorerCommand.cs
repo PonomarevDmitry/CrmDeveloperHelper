@@ -4,7 +4,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
-    internal sealed class CodeWebResourceExplorerCommand : AbstractCommand
+    internal sealed class CodeWebResourceExplorerCommand : AbstractSingleCommand
     {
         private CodeWebResourceExplorerCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.CodeWebResourceExplorerCommandId) { }

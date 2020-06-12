@@ -3,7 +3,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
 {
-    internal sealed class CommonSdkMessageRequestTreeCommand : AbstractCommand
+    internal sealed class CommonSdkMessageRequestTreeCommand : AbstractSingleCommand
     {
         private CommonSdkMessageRequestTreeCommand(OleMenuCommandService commandService)
            : base(commandService, PackageIds.guidCommandSet.CommonSdkMessageRequestTreeCommandId) { }

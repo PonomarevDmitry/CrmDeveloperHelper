@@ -3,7 +3,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Commons
 {
-    internal sealed class CommonExportFormEventsCommand : AbstractCommand
+    internal sealed class CommonExportFormEventsCommand : AbstractSingleCommand
     {
         private CommonExportFormEventsCommand(OleMenuCommandService commandService)
            : base(commandService, PackageIds.guidCommandSet.CommonExportFormEventsCommandId) { }

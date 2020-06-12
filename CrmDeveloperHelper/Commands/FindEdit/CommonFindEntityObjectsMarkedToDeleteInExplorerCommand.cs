@@ -3,7 +3,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.FindEdit
 {
-    internal sealed class CommonFindEntityObjectsMarkedToDeleteInExplorerCommand : AbstractCommand
+    internal sealed class CommonFindEntityObjectsMarkedToDeleteInExplorerCommand : AbstractSingleCommand
     {
         private CommonFindEntityObjectsMarkedToDeleteInExplorerCommand(OleMenuCommandService commandService)
            : base(commandService, PackageIds.guidCommandSet.CommonFindEntityObjectsMarkedToDeleteInExplorerCommandId) { }

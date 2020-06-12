@@ -10,7 +10,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
     /// <summary>
     /// Command handler
     /// </summary>
-    internal sealed class CodeWebResourceCompareWithDetailsCommand : AbstractCommand
+    internal sealed class CodeWebResourceCompareWithDetailsCommand : AbstractSingleCommand
     {
         private CodeWebResourceCompareWithDetailsCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.CodeWebResourceCompareWithDetailsCommandId) { }

@@ -3,7 +3,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlCommonXsdSchemaSetProperCommand : AbstractCommand
+    internal sealed class CodeXmlCommonXsdSchemaSetProperCommand : AbstractSingleCommand
     {
         private CodeXmlCommonXsdSchemaSetProperCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.CodeXmlCommonXsdSchemaSetProperCommandId)

@@ -1,13 +1,14 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
 {
-    internal sealed class CodeCSharpProjectBuildLoadUpdatePluginAssemblyCommand : AbstractCommand
+    internal sealed class CodeCSharpProjectBuildLoadUpdatePluginAssemblyCommand : AbstractSingleCommand
     {
         private CodeCSharpProjectBuildLoadUpdatePluginAssemblyCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.guidCommandSet.CodeCSharpProjectBuildLoadUpdatePluginAssemblyCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.CodeCSharpProjectBuildLoadUpdatePluginAssemblyCommandId)
+        {
+        }
 
         public static CodeCSharpProjectBuildLoadUpdatePluginAssemblyCommand Instance { get; private set; }
 

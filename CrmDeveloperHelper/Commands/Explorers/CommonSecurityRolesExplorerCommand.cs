@@ -3,7 +3,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
 {
-    internal sealed class CommonSecurityRolesExplorerCommand : AbstractCommand
+    internal sealed class CommonSecurityRolesExplorerCommand : AbstractSingleCommand
     {
         private CommonSecurityRolesExplorerCommand(OleMenuCommandService commandService)
            : base(commandService, PackageIds.guidCommandSet.CommonSecurityRolesExplorerCommandId) { }

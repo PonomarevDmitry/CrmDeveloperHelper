@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
-    internal sealed class FileWebResourceLinkClearCommand : AbstractCommand
+    internal sealed class FileWebResourceLinkClearCommand : AbstractSingleCommand
     {
         private FileWebResourceLinkClearCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.FileWebResourceLinkClearCommandId) { }

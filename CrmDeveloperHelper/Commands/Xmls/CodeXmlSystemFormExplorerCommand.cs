@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlSystemFormExplorerCommand : AbstractCommand
+    internal sealed class CodeXmlSystemFormExplorerCommand : AbstractSingleCommand
     {
         private CodeXmlSystemFormExplorerCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.CodeXmlSystemFormExplorerCommandId) { }

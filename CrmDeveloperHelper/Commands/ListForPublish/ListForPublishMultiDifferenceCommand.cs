@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
 {
-    internal sealed class ListForPublishMultiDifferenceCommand : AbstractCommand
+    internal sealed class ListForPublishMultiDifferenceCommand : AbstractSingleCommand
     {
         private readonly OpenFilesType _openFilesType;
 

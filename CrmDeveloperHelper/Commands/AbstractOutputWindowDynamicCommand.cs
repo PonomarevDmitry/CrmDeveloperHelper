@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal abstract class AbstractOutputWindowDynamicCommand<T>
+    internal abstract class AbstractOutputWindowDynamicCommand<T> : AbstractCommand
     {
         protected readonly int _baseIdStart;
 

@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
-    internal sealed class DocumentsWebResourceMultiDifferenceCommand : AbstractCommand
+    internal sealed class DocumentsWebResourceMultiDifferenceCommand : AbstractSingleCommand
     {
         private readonly OpenFilesType _openFilesType;
 

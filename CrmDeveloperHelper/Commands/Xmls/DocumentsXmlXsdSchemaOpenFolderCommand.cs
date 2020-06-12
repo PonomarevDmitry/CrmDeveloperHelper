@@ -3,7 +3,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    class DocumentsXmlXsdSchemaOpenFolderCommand : AbstractCommand
+    class DocumentsXmlXsdSchemaOpenFolderCommand : AbstractSingleCommand
     {
         private DocumentsXmlXsdSchemaOpenFolderCommand(OleMenuCommandService commandService)
            : base(commandService, PackageIds.guidCommandSet.DocumentsXmlXsdSchemaOpenFolderCommandId) { }

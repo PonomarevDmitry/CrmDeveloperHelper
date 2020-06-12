@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 {
-    internal sealed class FileReportLinkCreateCommand : AbstractCommand
+    internal sealed class FileReportLinkCreateCommand : AbstractSingleCommand
     {
         private FileReportLinkCreateCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.FileReportLinkCreateCommandId) { }

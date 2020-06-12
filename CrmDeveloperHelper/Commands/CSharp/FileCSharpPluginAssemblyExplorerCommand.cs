@@ -4,7 +4,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
-    internal sealed class FileCSharpPluginAssemblyExplorerCommand : AbstractCommand
+    internal sealed class FileCSharpPluginAssemblyExplorerCommand : AbstractSingleCommand
     {
         private FileCSharpPluginAssemblyExplorerCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.FileCSharpPluginAssemblyExplorerCommandId) { }

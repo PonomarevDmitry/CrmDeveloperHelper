@@ -3,7 +3,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.FindEdit
 {
-    internal sealed class CommonEditEntitiesByIdCommand : AbstractCommand
+    internal sealed class CommonEditEntitiesByIdCommand : AbstractSingleCommand
     {
         private CommonEditEntitiesByIdCommand(OleMenuCommandService commandService)
            : base(commandService, PackageIds.guidCommandSet.CommonEditEntitiesByIdCommandId) { }

@@ -4,7 +4,7 @@ using System;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlCommonShowDifferenceCommand : AbstractCommand
+    internal sealed class CodeXmlCommonShowDifferenceCommand : AbstractSingleCommand
     {
         private CodeXmlCommonShowDifferenceCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.CodeXmlCommonShowDifferenceCommandId) { }

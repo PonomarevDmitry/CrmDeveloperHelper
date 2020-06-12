@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
-    internal sealed class FileCSharpPluginTypeExplorerCommand : AbstractCommand
+    internal sealed class FileCSharpPluginTypeExplorerCommand : AbstractSingleCommand
     {
         private FileCSharpPluginTypeExplorerCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.FileCSharpPluginTypeExplorerCommandId)

@@ -5,7 +5,7 @@ using System.Windows;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
 {
-    internal sealed class ListForPublishClearListCommand : AbstractCommand
+    internal sealed class ListForPublishClearListCommand : AbstractSingleCommand
     {
         private ListForPublishClearListCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.ListForPublishClearListCommandId) { }

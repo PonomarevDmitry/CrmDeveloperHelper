@@ -3,7 +3,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
-    internal sealed class CodeCSharpProjectUpdatePluginAssemblyCommand : AbstractCommand
+    internal sealed class CodeCSharpProjectUpdatePluginAssemblyCommand : AbstractSingleCommand
     {
         private CodeCSharpProjectUpdatePluginAssemblyCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.CodeCSharpProjectUpdatePluginAssemblyCommandId) { }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
-    internal sealed class CodeCSharpProjectPluginAssemblyCreateDescriptionCommand : AbstractCommand
+    internal sealed class CodeCSharpProjectPluginAssemblyCreateDescriptionCommand : AbstractSingleCommand
     {
         private readonly ActionOnComponent _actionOnComponent;
 

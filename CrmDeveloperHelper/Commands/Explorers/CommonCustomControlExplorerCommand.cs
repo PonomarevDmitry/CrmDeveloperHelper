@@ -3,7 +3,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
 {
-    internal sealed class CommonCustomControlExplorerCommand : AbstractCommand
+    internal sealed class CommonCustomControlExplorerCommand : AbstractSingleCommand
     {
         private CommonCustomControlExplorerCommand(OleMenuCommandService commandService)
            : base(commandService, PackageIds.guidCommandSet.CommonCustomControlExplorerCommandId) { }

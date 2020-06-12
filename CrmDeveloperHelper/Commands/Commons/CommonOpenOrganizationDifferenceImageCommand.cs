@@ -3,7 +3,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Commons
 {
-    internal sealed class CommonOpenOrganizationDifferenceImageCommand : AbstractCommand
+    internal sealed class CommonOpenOrganizationDifferenceImageCommand : AbstractSingleCommand
     {
         private CommonOpenOrganizationDifferenceImageCommand(OleMenuCommandService commandService)
            : base(commandService, PackageIds.guidCommandSet.CommonOpenOrganizationDifferenceImageCommandId) { }

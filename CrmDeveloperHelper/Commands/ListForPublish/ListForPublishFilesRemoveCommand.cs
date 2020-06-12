@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
 {
-    internal sealed class ListForPublishFilesRemoveCommand : AbstractCommand
+    internal sealed class ListForPublishFilesRemoveCommand : AbstractSingleCommand
     {
         private ListForPublishFilesRemoveCommand(OleMenuCommandService commandService)
            : base(commandService, PackageIds.guidCommandSet.ListForPublishFilesRemoveCommandId) { }

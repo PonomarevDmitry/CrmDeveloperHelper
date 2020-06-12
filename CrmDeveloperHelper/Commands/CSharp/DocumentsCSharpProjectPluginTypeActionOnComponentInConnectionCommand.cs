@@ -57,24 +57,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 
                 VSProject2Info.GetPluginTypes(listFiles, out var pluginTypesNotCompiled, out var projectInfos);
 
-                var task = ExecuteAsync(helper, connectionData, pluginTypesNotCompiled, projectInfos);
-            }
-            catch (Exception ex)
-            {
-                DTEHelper.WriteExceptionToOutput(null, ex);
-            }
-        }
-
-        private async System.Threading.Tasks.Task ExecuteAsync(DTEHelper helper, ConnectionData connectionData, string[] pluginTypesNotCompiled, VSProject2Info[] projectInfos)
-        {
-            try
-            {
-                string[] pluginTypeArray = await CSharpCodeHelper.GetTypeFullNameListAsync(pluginTypesNotCompiled, projectInfos);
-
-                if (pluginTypeArray.Any())
-                {
-                    helper.HandleActionOnPluginTypesCommand(connectionData, this._actionOnComponent, pluginTypeArray);
-                }
+                var task = ExecuteActionOnPluginTypesAsync(helper, connectionData, pluginTypesNotCompiled, projectInfos, this._actionOnComponent);
             }
             catch (Exception ex)
             {

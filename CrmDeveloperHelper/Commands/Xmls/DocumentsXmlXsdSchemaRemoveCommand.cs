@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class DocumentsXmlXsdSchemaRemoveCommand : AbstractCommand
+    internal sealed class DocumentsXmlXsdSchemaRemoveCommand : AbstractSingleCommand
     {
         private DocumentsXmlXsdSchemaRemoveCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.DocumentsXmlXsdSchemaRemoveCommandId) { }

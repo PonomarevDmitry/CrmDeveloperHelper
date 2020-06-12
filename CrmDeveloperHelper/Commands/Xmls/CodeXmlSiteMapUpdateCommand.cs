@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlSiteMapUpdateCommand : AbstractCommand
+    internal sealed class CodeXmlSiteMapUpdateCommand : AbstractSingleCommand
     {
         private CodeXmlSiteMapUpdateCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.CodeXmlSiteMapUpdateCommandId) { }

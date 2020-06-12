@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
-    internal sealed class FileWebResourceMultiDifferenceCommand : AbstractCommand
+    internal sealed class FileWebResourceMultiDifferenceCommand : AbstractSingleCommand
     {
         private readonly OpenFilesType _openFilesType;
 

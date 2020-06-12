@@ -3,7 +3,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlCommonRemoveCustomAttributesCommand : AbstractCommand
+    internal sealed class CodeXmlCommonRemoveCustomAttributesCommand : AbstractSingleCommand
     {
         private CodeXmlCommonRemoveCustomAttributesCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.CodeXmlCommonRemoveCustomAttributesCommandId)

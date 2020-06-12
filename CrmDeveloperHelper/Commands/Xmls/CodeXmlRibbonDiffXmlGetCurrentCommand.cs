@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlRibbonDiffXmlGetCurrentCommand : AbstractCommand
+    internal sealed class CodeXmlRibbonDiffXmlGetCurrentCommand : AbstractSingleCommand
     {
         private CodeXmlRibbonDiffXmlGetCurrentCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.CodeXmlRibbonDiffXmlGetCurrentCommandId)

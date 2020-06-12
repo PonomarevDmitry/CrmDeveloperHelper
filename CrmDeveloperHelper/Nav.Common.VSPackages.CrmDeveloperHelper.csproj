@@ -89,6 +89,7 @@
     <DeployExtension>False</DeployExtension>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Commands\AbstractCommand.cs" />
     <Compile Include="Commands\AbstractDynamicCommandDefaultSiteMap.cs" />
     <Compile Include="Commands\AbstractDynamicCommandOnSolutionLast.cs" />
     <Compile Include="Commands\AbstractDynamicCommandByConnection.cs" />
@@ -544,7 +545,7 @@
     <Compile Include="Commands\WebResources\FolderWebResourceUpdateContentPublishEqualByTextCommand.cs" />
     <Compile Include="Commands\CSharp\FolderCSharpUpdateEntityMetadataFileSchemaCommand.cs" />
     <Compile Include="Commands\CSharp\FolderCSharpUpdateGlobalOptionSetsFileCommand.cs" />
-    <Compile Include="Commands\AbstractCommand.cs" />
+    <Compile Include="Commands\AbstractSingleCommand.cs" />
     <Compile Include="Commands\WebResources\FolderWebResourceUpdateContentPublishGroupConnectionCommand.cs" />
     <Compile Include="Commands\Xmls\FolderXmlXsdSchemaOpenFolderCommand.cs" />
     <Compile Include="Commands\Xmls\FolderXmlRemoveCustomAttributesCommand.cs" />

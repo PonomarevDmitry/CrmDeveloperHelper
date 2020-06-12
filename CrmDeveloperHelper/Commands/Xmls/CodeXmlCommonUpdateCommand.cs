@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlCommonUpdateCommand : AbstractCommand
+    internal sealed class CodeXmlCommonUpdateCommand : AbstractSingleCommand
     {
         private CodeXmlCommonUpdateCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.CodeXmlCommonUpdateCommandId) { }

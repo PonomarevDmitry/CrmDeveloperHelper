@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlRibbonGetCurrentCommand : AbstractCommand
+    internal sealed class CodeXmlRibbonGetCurrentCommand : AbstractSingleCommand
     {
         private CodeXmlRibbonGetCurrentCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.CodeXmlRibbonGetCurrentCommandId)

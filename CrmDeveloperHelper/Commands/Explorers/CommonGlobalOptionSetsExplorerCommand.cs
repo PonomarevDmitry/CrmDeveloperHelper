@@ -3,7 +3,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
 {
-    internal sealed class CommonGlobalOptionSetsExplorerCommand : AbstractCommand
+    internal sealed class CommonGlobalOptionSetsExplorerCommand : AbstractSingleCommand
     {
         private CommonGlobalOptionSetsExplorerCommand(OleMenuCommandService commandService)
            : base(commandService, PackageIds.guidCommandSet.CommonGlobalOptionSetsExplorerCommandId) { }

@@ -4,7 +4,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Connections
 {
-    internal sealed class CommonCurrentConnectionCommand : AbstractCommand
+    internal sealed class CommonCurrentConnectionCommand : AbstractSingleCommand
     {
         private CommonCurrentConnectionCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.CommonCurrentConnectionCommandId) { }

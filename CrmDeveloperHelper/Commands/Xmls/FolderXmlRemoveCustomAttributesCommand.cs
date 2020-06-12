@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class FolderXmlRemoveCustomAttributesCommand : AbstractCommand
+    internal sealed class FolderXmlRemoveCustomAttributesCommand : AbstractSingleCommand
     {
         private FolderXmlRemoveCustomAttributesCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.FolderXmlRemoveCustomAttributesCommandId)

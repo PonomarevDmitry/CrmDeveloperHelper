@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
-    internal sealed class DocumentsWebResourceCompareWithDetailsCommand : AbstractCommand
+    internal sealed class DocumentsWebResourceCompareWithDetailsCommand : AbstractSingleCommand
     {
         private DocumentsWebResourceCompareWithDetailsCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.DocumentsWebResourceCompareWithDetailsCommandId) { }

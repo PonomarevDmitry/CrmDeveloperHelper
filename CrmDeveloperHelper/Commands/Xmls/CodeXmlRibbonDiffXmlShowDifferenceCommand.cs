@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlRibbonDiffXmlShowDifferenceCommand : AbstractCommand
+    internal sealed class CodeXmlRibbonDiffXmlShowDifferenceCommand : AbstractSingleCommand
     {
         private CodeXmlRibbonDiffXmlShowDifferenceCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.CodeXmlRibbonDiffXmlShowDifferenceCommandId) { }

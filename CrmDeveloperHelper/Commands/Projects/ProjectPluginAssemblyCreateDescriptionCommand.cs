@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
 {
-    internal sealed class ProjectPluginAssemblyCreateDescriptionCommand : AbstractCommand
+    internal sealed class ProjectPluginAssemblyCreateDescriptionCommand : AbstractSingleCommand
     {
         private readonly ActionOnComponent _actionOnComponent;
 

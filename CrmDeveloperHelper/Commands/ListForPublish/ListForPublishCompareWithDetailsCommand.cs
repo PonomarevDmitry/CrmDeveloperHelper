@@ -4,7 +4,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
 {
-    internal sealed class ListForPublishCompareWithDetailsCommand : AbstractCommand
+    internal sealed class ListForPublishCompareWithDetailsCommand : AbstractSingleCommand
     {
         private ListForPublishCompareWithDetailsCommand(OleMenuCommandService commandService)
           : base(commandService, PackageIds.guidCommandSet.ListForPublishCompareWithDetailsCommandId) { }

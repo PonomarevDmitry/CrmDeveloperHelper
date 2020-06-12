@@ -3,7 +3,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlFetchXmlConvertToQueryExpressionCommand : AbstractCommand
+    internal sealed class CodeXmlFetchXmlConvertToQueryExpressionCommand : AbstractSingleCommand
     {
         private CodeXmlFetchXmlConvertToQueryExpressionCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.CodeXmlFetchXmlConvertToQueryExpressionCommandId)

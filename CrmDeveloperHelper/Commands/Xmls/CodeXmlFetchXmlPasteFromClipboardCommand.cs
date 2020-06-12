@@ -3,7 +3,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlFetchXmlPasteFromClipboardCommand : AbstractCommand
+    internal sealed class CodeXmlFetchXmlPasteFromClipboardCommand : AbstractSingleCommand
     {
         private CodeXmlFetchXmlPasteFromClipboardCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.CodeXmlFetchXmlPasteFromClipboardCommandId) { }

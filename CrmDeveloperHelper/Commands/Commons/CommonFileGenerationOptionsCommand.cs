@@ -3,7 +3,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Commons
 {
-    internal sealed class CommonFileGenerationOptionsCommand : AbstractCommand
+    internal sealed class CommonFileGenerationOptionsCommand : AbstractSingleCommand
     {
         private CommonFileGenerationOptionsCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.CommonFileGenerationOptionsCommandId)

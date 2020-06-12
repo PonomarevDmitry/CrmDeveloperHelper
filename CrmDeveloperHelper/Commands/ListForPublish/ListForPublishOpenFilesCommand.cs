@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
 {
-    internal sealed class ListForPublishOpenFilesCommand : AbstractCommand
+    internal sealed class ListForPublishOpenFilesCommand : AbstractSingleCommand
     {
         private readonly bool _inTextEditor;
         private readonly OpenFilesType _openFilesType;

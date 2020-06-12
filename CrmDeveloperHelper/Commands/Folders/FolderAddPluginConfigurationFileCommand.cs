@@ -4,7 +4,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Folders
 {
-    internal sealed class FolderAddPluginConfigurationFileCommand : AbstractCommand
+    internal sealed class FolderAddPluginConfigurationFileCommand : AbstractSingleCommand
     {
         private FolderAddPluginConfigurationFileCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.FolderAddPluginConfigurationFileCommandId) { }

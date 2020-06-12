@@ -3,7 +3,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.PluginConfigurations
 {
-    internal sealed class CommonPluginConfigurationPluginTypeCommand : AbstractCommand
+    internal sealed class CommonPluginConfigurationPluginTypeCommand : AbstractSingleCommand
     {
         private CommonPluginConfigurationPluginTypeCommand(OleMenuCommandService commandService)
            : base(commandService, PackageIds.guidCommandSet.CommonPluginConfigurationPluginTypeCommandId) { }

@@ -44,7 +44,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             HandlePluginAssemblyBuildProjectUpdateCommand(connectionData, registerPlugins, projectList.ToList());
         }
 
-        public void HandlePluginAssemblyBuildProjectUpdateCommand(ConnectionData connectionData, bool registerPlugins, List<Project> projectList)
+        public void HandlePluginAssemblyBuildProjectUpdateCommand(ConnectionData connectionData, bool registerPlugins, IEnumerable<Project> projectList)
         {
             if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
             {

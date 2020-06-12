@@ -3,7 +3,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlCommonConvertToJavaScriptCodeCommand : AbstractCommand
+    internal sealed class CodeXmlCommonConvertToJavaScriptCodeCommand : AbstractSingleCommand
     {
         private CodeXmlCommonConvertToJavaScriptCodeCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.CodeXmlCommonConvertToJavaScriptCodeCommandId) { }

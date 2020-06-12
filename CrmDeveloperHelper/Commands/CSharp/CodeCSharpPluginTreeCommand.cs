@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
-    internal sealed class CodeCSharpPluginTreeCommand : AbstractCommand
+    internal sealed class CodeCSharpPluginTreeCommand : AbstractSingleCommand
     {
         private CodeCSharpPluginTreeCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.CodeCSharpPluginTreeCommandId)

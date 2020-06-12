@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
-    internal sealed class CodeWebResourceLinkCreateCommand : AbstractCommand
+    internal sealed class CodeWebResourceLinkCreateCommand : AbstractSingleCommand
     {
         private CodeWebResourceLinkCreateCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.CodeWebResourceLinkCreateCommandId) { }

@@ -3,7 +3,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
-    internal sealed class FolderCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommand : AbstractCommand
+    internal sealed class FolderCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommand : AbstractSingleCommand
     {
         private FolderCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommand(OleMenuCommandService commandService)
             : base(

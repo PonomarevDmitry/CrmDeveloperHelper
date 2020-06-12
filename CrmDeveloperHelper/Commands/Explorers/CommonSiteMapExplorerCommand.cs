@@ -3,7 +3,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
 {
-    internal sealed class CommonSiteMapExplorerCommand : AbstractCommand
+    internal sealed class CommonSiteMapExplorerCommand : AbstractSingleCommand
     {
         private CommonSiteMapExplorerCommand(OleMenuCommandService commandService)
            : base(commandService, PackageIds.guidCommandSet.CommonSiteMapExplorerCommandId) { }

@@ -3,7 +3,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
 {
-    internal sealed class CommonApplicationRibbonExplorerCommand : AbstractCommand
+    internal sealed class CommonApplicationRibbonExplorerCommand : AbstractSingleCommand
     {
         private CommonApplicationRibbonExplorerCommand(OleMenuCommandService commandService)
            : base(commandService, PackageIds.guidCommandSet.CommonApplicationRibbonExplorerCommandId) { }

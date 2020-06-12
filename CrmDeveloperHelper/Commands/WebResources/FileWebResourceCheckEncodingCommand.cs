@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
-    internal sealed class FileWebResourceCheckEncodingCommand : AbstractCommand
+    internal sealed class FileWebResourceCheckEncodingCommand : AbstractSingleCommand
     {
         private FileWebResourceCheckEncodingCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.FileWebResourceCheckEncodingCommandId) { }

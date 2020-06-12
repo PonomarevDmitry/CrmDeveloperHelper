@@ -4,7 +4,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
-    internal sealed class FileWebResourceShowDifferenceCustomCommand : AbstractCommand
+    internal sealed class FileWebResourceShowDifferenceCustomCommand : AbstractSingleCommand
     {
         private FileWebResourceShowDifferenceCustomCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.FileWebResourceShowDifferenceCustomCommandId) { }

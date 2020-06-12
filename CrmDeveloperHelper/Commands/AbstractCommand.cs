@@ -1,83 +1,47 @@
-﻿using Microsoft.VisualStudio.Shell;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
-using System.ComponentModel.Design;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
     internal abstract class AbstractCommand
     {
-        protected AbstractCommand(OleMenuCommandService commandService, int idCommand)
+        protected static Task ExecuteActionOnPluginTypesAsync(
+            DTEHelper helper
+            , ConnectionData connectionData
+            , string[] pluginTypesNotCompiled
+            , VSProject2Info[] projectInfos
+            , ActionOnComponent actionOnComponent
+        )
         {
-            var menuCommandID = new CommandID(PackageGuids.guidCommandSet, idCommand);
-
-            var menuItem = new OleMenuCommand(this.menuItemCallback, menuCommandID);
-
-            menuItem.BeforeQueryStatus += menuItem_BeforeQueryStatus;
-
-            commandService.AddCommand(menuItem);
+            return ExecuteActionOnPluginTypesAsync(helper, connectionData, pluginTypesNotCompiled, projectInfos, actionOnComponent, string.Empty, string.Empty);
         }
 
-        protected void menuItem_BeforeQueryStatus(object sender, EventArgs e)
+        protected static async Task ExecuteActionOnPluginTypesAsync(
+            DTEHelper helper
+            , ConnectionData connectionData
+            , string[] pluginTypesNotCompiled
+            , VSProject2Info[] projectInfos
+            , ActionOnComponent actionOnComponent
+            , string fieldName
+            , string fieldTitle
+        )
         {
             try
             {
-                ThreadHelper.ThrowIfNotOnUIThread();
+                string[] pluginTypeArray = await CSharpCodeHelper.GetTypeFullNameListAsync(pluginTypesNotCompiled, projectInfos);
 
-                if (sender is OleMenuCommand menuCommand)
+                if (pluginTypeArray.Any())
                 {
-                    menuCommand.Enabled = menuCommand.Visible = false;
-
-                    var applicationObject = CrmDeveloperHelperPackage.Singleton?.ApplicationObject;
-                    if (applicationObject == null)
-                    {
-                        return;
-                    }
-
-                    menuCommand.Enabled = menuCommand.Visible = true;
-
-                    CommandBeforeQueryStatus(applicationObject, menuCommand);
+                    helper.HandleActionOnPluginTypesCommand(connectionData, actionOnComponent, fieldName, fieldTitle, pluginTypeArray);
                 }
             }
             catch (Exception ex)
             {
-                DTEHelper.WriteExceptionToOutput(null, ex);
+                DTEHelper.WriteExceptionToOutput(connectionData, ex);
             }
-        }
-
-        protected void menuItemCallback(object sender, EventArgs e)
-        {
-            try
-            {
-                ThreadHelper.ThrowIfNotOnUIThread();
-
-                OleMenuCommand menuCommand = sender as OleMenuCommand;
-                if (menuCommand == null)
-                {
-                    return;
-                }
-
-                var applicationObject = CrmDeveloperHelperPackage.Singleton?.ApplicationObject;
-                if (applicationObject == null)
-                {
-                    return;
-                }
-
-                var helper = DTEHelper.Create(applicationObject);
-
-                CommandAction(helper);
-            }
-            catch (Exception ex)
-            {
-                DTEHelper.WriteExceptionToOutput(null, ex);
-            }
-        }
-
-        protected abstract void CommandAction(DTEHelper helper);
-
-        protected virtual void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
-        {
-
         }
     }
 }

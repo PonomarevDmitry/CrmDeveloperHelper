@@ -3,7 +3,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Checks
 {
-    internal sealed class CommonCheckWorkflowsUsedEntitiesCommand : AbstractCommand
+    internal sealed class CommonCheckWorkflowsUsedEntitiesCommand : AbstractSingleCommand
     {
         private CommonCheckWorkflowsUsedEntitiesCommand(OleMenuCommandService commandService)
            : base(commandService, PackageIds.guidCommandSet.CommonCheckWorkflowsUsedEntitiesCommandId) { }

@@ -4,7 +4,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 {
-    internal sealed class CodeReportShowDifferenceCommand : AbstractCommand
+    internal sealed class CodeReportShowDifferenceCommand : AbstractSingleCommand
     {
         private readonly string _fieldName;
         private readonly string _fieldTitle;

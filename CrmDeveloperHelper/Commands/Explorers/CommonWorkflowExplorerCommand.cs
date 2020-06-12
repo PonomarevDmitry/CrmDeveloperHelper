@@ -3,7 +3,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
 {
-    internal sealed class CommonWorkflowExplorerCommand : AbstractCommand
+    internal sealed class CommonWorkflowExplorerCommand : AbstractSingleCommand
     {
         private CommonWorkflowExplorerCommand(OleMenuCommandService commandService)
            : base(commandService, PackageIds.guidCommandSet.CommonWorkflowExplorerCommandId) { }

@@ -3,7 +3,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
-    internal sealed class FileJavaScriptFileGenerationOptionsCommand : AbstractCommand
+    internal sealed class FileJavaScriptFileGenerationOptionsCommand : AbstractSingleCommand
     {
         private FileJavaScriptFileGenerationOptionsCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.FileJavaScriptFileGenerationOptionsCommandId)

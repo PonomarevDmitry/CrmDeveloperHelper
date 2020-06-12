@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlWorkflowGetCurrentCommand : AbstractCommand
+    internal sealed class CodeXmlWorkflowGetCurrentCommand : AbstractSingleCommand
     {
         private CodeXmlWorkflowGetCurrentCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.CodeXmlWorkflowGetCurrentCommandId)

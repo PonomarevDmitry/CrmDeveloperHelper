@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
-    internal sealed class CodeWebResourceIncludeReferencesToDependencyXmlCommand : AbstractCommand
+    internal sealed class CodeWebResourceIncludeReferencesToDependencyXmlCommand : AbstractSingleCommand
     {
         private CodeWebResourceIncludeReferencesToDependencyXmlCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.CodeWebResourceIncludeReferencesToDependencyXmlCommandId)

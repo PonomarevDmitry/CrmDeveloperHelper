@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlWorkflowExplorerCommand : AbstractCommand
+    internal sealed class CodeXmlWorkflowExplorerCommand : AbstractSingleCommand
     {
         private CodeXmlWorkflowExplorerCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.CodeXmlWorkflowExplorerCommandId) { }

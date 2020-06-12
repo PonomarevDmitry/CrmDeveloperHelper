@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlWorkflowShowDifferenceCommand : AbstractCommand
+    internal sealed class CodeXmlWorkflowShowDifferenceCommand : AbstractSingleCommand
     {
         private CodeXmlWorkflowShowDifferenceCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.CodeXmlWorkflowShowDifferenceCommandId) { }

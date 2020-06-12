@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlRibbonDiffRemoveIntellisenseContextCommand : AbstractCommand
+    internal sealed class CodeXmlRibbonDiffRemoveIntellisenseContextCommand : AbstractSingleCommand
     {
         private CodeXmlRibbonDiffRemoveIntellisenseContextCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.CodeXmlRibbonDiffRemoveIntellisenseContextCommandId) { }

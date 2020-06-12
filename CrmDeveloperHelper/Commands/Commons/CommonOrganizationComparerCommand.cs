@@ -3,7 +3,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Commons
 {
-    internal sealed class CommonOrganizationComparerCommand : AbstractCommand
+    internal sealed class CommonOrganizationComparerCommand : AbstractSingleCommand
     {
         private CommonOrganizationComparerCommand(OleMenuCommandService commandService)
            : base(commandService, PackageIds.guidCommandSet.CommonOrganizationComparerCommandId) { }

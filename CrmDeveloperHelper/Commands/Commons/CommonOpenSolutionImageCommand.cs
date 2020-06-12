@@ -4,7 +4,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Commons
 {
-    internal sealed class CommonOpenSolutionImageCommand : AbstractCommand
+    internal sealed class CommonOpenSolutionImageCommand : AbstractSingleCommand
     {
         private CommonOpenSolutionImageCommand(OleMenuCommandService commandService)
            : base(commandService, PackageIds.guidCommandSet.CommonOpenSolutionImageCommandId) { }

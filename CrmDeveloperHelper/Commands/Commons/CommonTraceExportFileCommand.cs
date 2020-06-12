@@ -3,7 +3,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Commons
 {
-    internal class CommonTraceExportFileCommand : AbstractCommand
+    internal class CommonTraceExportFileCommand : AbstractSingleCommand
     {
         private CommonTraceExportFileCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.CommonTraceExportFileCommandId) { }

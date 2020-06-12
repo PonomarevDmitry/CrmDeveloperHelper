@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
-    internal sealed class DocumentsCSharpProjectPluginTypeCreateDescriptionCommand : AbstractCommand
+    internal sealed class DocumentsCSharpProjectPluginTypeCreateDescriptionCommand : AbstractSingleCommand
     {
         private readonly ActionOnComponent _actionOnComponent;
         private readonly string _fieldName = string.Empty;
@@ -69,24 +69,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 
                 VSProject2Info.GetPluginTypes(listFiles, out var pluginTypesNotCompiled, out var projectInfos);
 
-                var task = ExecuteAsync(helper, pluginTypesNotCompiled, projectInfos);
-            }
-            catch (Exception ex)
-            {
-                DTEHelper.WriteExceptionToOutput(null, ex);
-            }
-        }
-
-        private async System.Threading.Tasks.Task ExecuteAsync(DTEHelper helper, string[] pluginTypesNotCompiled, VSProject2Info[] projectInfos)
-        {
-            try
-            {
-                string[] pluginTypeArray = await CSharpCodeHelper.GetTypeFullNameListAsync(pluginTypesNotCompiled, projectInfos);
-
-                if (pluginTypeArray.Any())
-                {
-                    helper.HandleActionOnPluginTypesCommand(null, this._actionOnComponent, this._fieldName, this._fieldTitle, pluginTypeArray);
-                }
+                var task = ExecuteActionOnPluginTypesAsync(helper, null, pluginTypesNotCompiled, projectInfos, this._actionOnComponent, this._fieldName, this._fieldTitle);
             }
             catch (Exception ex)
             {

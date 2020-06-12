@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
-    internal sealed class DocumentsWebResourceShowDependentComponentsCommand : AbstractCommand
+    internal sealed class DocumentsWebResourceShowDependentComponentsCommand : AbstractSingleCommand
     {
         private DocumentsWebResourceShowDependentComponentsCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.DocumentsWebResourceShowDependentComponentsCommandId) { }

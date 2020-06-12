@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
-    internal sealed class FolderWebResourceOpenFilesCommand : AbstractCommand
+    internal sealed class FolderWebResourceOpenFilesCommand : AbstractSingleCommand
     {
         private readonly bool _inTextEditor;
         private readonly OpenFilesType _openFilesType;

@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal abstract class AbstractDynamicCommand<T>
+    internal abstract class AbstractDynamicCommand<T> : AbstractCommand
     {
         protected readonly int _baseIdStart;
 

@@ -4,7 +4,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
 {
-    internal sealed class ProjectCompareToCrmAssemblyCommand : AbstractCommand
+    internal sealed class ProjectCompareToCrmAssemblyCommand : AbstractSingleCommand
     {
         private ProjectCompareToCrmAssemblyCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.ProjectCompareToCrmAssemblyCommandId) { }

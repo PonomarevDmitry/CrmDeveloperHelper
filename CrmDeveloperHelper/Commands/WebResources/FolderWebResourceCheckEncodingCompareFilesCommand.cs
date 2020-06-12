@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
-    internal sealed class FolderWebResourceCheckEncodingCompareFilesCommand : AbstractCommand
+    internal sealed class FolderWebResourceCheckEncodingCompareFilesCommand : AbstractSingleCommand
     {
         private FolderWebResourceCheckEncodingCompareFilesCommand(OleMenuCommandService commandService)
               : base(commandService, PackageIds.guidCommandSet.FolderWebResourceCheckEncodingCompareFilesCommandId) { }

@@ -1,14 +1,13 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.ComponentModel.Design;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal abstract class AbstractOutputWindowCommand : AbstractCommand
+    internal abstract class AbstractSingleCommand : AbstractCommand
     {
-        protected AbstractOutputWindowCommand(OleMenuCommandService commandService, int idCommand)
+        protected AbstractSingleCommand(OleMenuCommandService commandService, int idCommand)
         {
             var menuCommandID = new CommandID(PackageGuids.guidCommandSet, idCommand);
 
@@ -35,18 +34,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                         return;
                     }
 
-                    var helper = DTEHelper.Create(applicationObject);
-
-                    var connectionData = helper.GetOutputWindowConnection();
-
-                    if (connectionData == null)
-                    {
-                        return;
-                    }
-
                     menuCommand.Enabled = menuCommand.Visible = true;
 
-                    CommandBeforeQueryStatus(applicationObject, connectionData, menuCommand);
+                    CommandBeforeQueryStatus(applicationObject, menuCommand);
                 }
             }
             catch (Exception ex)
@@ -75,14 +65,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                 var helper = DTEHelper.Create(applicationObject);
 
-                var connectionData = helper.GetOutputWindowConnection();
-
-                if (connectionData == null)
-                {
-                    return;
-                }
-
-                CommandAction(helper, connectionData);
+                CommandAction(helper);
             }
             catch (Exception ex)
             {
@@ -90,9 +73,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             }
         }
 
-        protected abstract void CommandAction(DTEHelper helper, ConnectionData connectionData);
+        protected abstract void CommandAction(DTEHelper helper);
 
-        protected virtual void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, ConnectionData connectionData, OleMenuCommand menuCommand)
+        protected virtual void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
 
         }

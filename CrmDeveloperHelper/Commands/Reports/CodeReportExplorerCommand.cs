@@ -3,7 +3,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 {
-    internal sealed class CodeReportExplorerCommand : AbstractCommand
+    internal sealed class CodeReportExplorerCommand : AbstractSingleCommand
     {
         private CodeReportExplorerCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.CodeReportExplorerCommandId) { }

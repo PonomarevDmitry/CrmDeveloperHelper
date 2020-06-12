@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlSiteMapGetCurrentCommand : AbstractCommand
+    internal sealed class CodeXmlSiteMapGetCurrentCommand : AbstractSingleCommand
     {
         private CodeXmlSiteMapGetCurrentCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.CodeXmlSiteMapGetCurrentCommandId)

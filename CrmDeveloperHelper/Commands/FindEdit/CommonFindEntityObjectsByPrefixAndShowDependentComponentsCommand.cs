@@ -3,7 +3,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.FindEdit
 {
-    internal sealed class CommonFindEntityObjectsByPrefixAndShowDependentComponentsCommand : AbstractCommand
+    internal sealed class CommonFindEntityObjectsByPrefixAndShowDependentComponentsCommand : AbstractSingleCommand
     {
         private CommonFindEntityObjectsByPrefixAndShowDependentComponentsCommand(OleMenuCommandService commandService)
            : base(commandService, PackageIds.guidCommandSet.CommonFindEntityObjectsByPrefixAndShowDependentComponentsCommandId) { }

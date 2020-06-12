@@ -3,7 +3,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
 {
-    internal sealed class CommonTeamsExplorerCommand : AbstractCommand
+    internal sealed class CommonTeamsExplorerCommand : AbstractSingleCommand
     {
         private CommonTeamsExplorerCommand(OleMenuCommandService commandService)
            : base(commandService, PackageIds.guidCommandSet.CommonTeamsExplorerCommandId) { }

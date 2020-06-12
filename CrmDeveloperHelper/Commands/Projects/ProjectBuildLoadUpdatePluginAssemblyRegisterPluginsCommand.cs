@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
 {
-    internal sealed class ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand : AbstractCommand
+    internal sealed class ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand : AbstractSingleCommand
     {
         private ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommandId) { }

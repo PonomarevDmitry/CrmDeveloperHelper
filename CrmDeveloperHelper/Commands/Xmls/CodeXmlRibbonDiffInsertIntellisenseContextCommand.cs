@@ -4,7 +4,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlRibbonDiffInsertIntellisenseContextCommand : AbstractCommand
+    internal sealed class CodeXmlRibbonDiffInsertIntellisenseContextCommand : AbstractSingleCommand
     {
         private CodeXmlRibbonDiffInsertIntellisenseContextCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidCommandSet.CodeXmlRibbonDiffInsertIntellisenseContextCommandId) { }

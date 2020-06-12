@@ -4,7 +4,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Folders
 {
-    internal sealed class FolderAddSolutionFileCommand : AbstractCommand
+    internal sealed class FolderAddSolutionFileCommand : AbstractSingleCommand
     {
         private FolderAddSolutionFileCommand(OleMenuCommandService commandService)
               : base(commandService, PackageIds.guidCommandSet.FolderAddSolutionFileCommandId) { }

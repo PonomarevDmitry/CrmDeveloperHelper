@@ -3,7 +3,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
 {
-    internal sealed class ListForPublishFilesAddCommand : AbstractCommand
+    internal sealed class ListForPublishFilesAddCommand : AbstractSingleCommand
     {
         private ListForPublishFilesAddCommand(OleMenuCommandService commandService)
            : base(commandService, PackageIds.guidCommandSet.ListForPublishFilesAddCommandId) { }
