@@ -1235,6 +1235,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompare_MenuConnectionDyn_Group = 0x1139;
 
+            public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyEntityDescription = 0x14BD;
+
+            public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyEntityDescription_MenuDyn = 0x14BE;
+
+            public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyEntityDescription_MenuDyn_Group = 0x14BF;
+
+            public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyDescription = 0x14C0;
+
+            public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyDescription_MenuDyn = 0x14C1;
+
+            public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyDescription_MenuDyn_Group = 0x14C2;
+
+            public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther = 0x14C3;
+
+            public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenDependentInWebDyn = 0x14C4;
+
+            public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenDependentInWebDyn_Group = 0x14C5;
+
+            public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenDependentInExplorerDyn = 0x14C6;
+
+            public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenDependentInExplorerDyn_Group = 0x14C7;
+
+            public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenSolutionsListWithComponentInExplorerDyn = 0x14C8;
+
+            public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenSolutionsListWithComponentInExplorerDyn_Group = 0x14C9;
+
             public const int fileMenuCSharp_GroupAddToSolution = 0x1127;
 
             public const int fileMenuCSharp_GroupAddToSolution_MenuAddPluginAssemblyToSolution = 0x12B0;
@@ -2704,6 +2730,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FileCSharpProjectPluginTypeOpenSolutionsListWithComponentInExplorerInConnectionCommandId = 0x37DC;
 
+            public const int FileCSharpProjectPluginAssemblyCreateEntityDescriptionInConnectionCommandId = 0x3C5A;
+
+            public const int FileCSharpProjectPluginAssemblyCreateDescriptionInConnectionCommandId = 0x3C8C;
+
+            public const int FileCSharpProjectPluginAssemblyOpenDependentComponentsInWebInConnectionCommandId = 0x3CBE;
+
+            public const int FileCSharpProjectPluginAssemblyOpenDependentComponentsInExplorerInConnectionCommandId = 0x3CF0;
+
+            public const int FileCSharpProjectPluginAssemblyOpenSolutionsListWithComponentInExplorerInConnectionCommandId = 0x3D22;
+
             public const int FolderWebResourceAddToSolutionLastCommandId = 0x0140;
 
             public const int FolderWebResourceUpdateContentPublishEqualByTextCommandId = 0x0DDE;
@@ -3212,6 +3248,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int FileCSharpProjectPluginTypeGetCustomWorkflowActivityInfoCommandId = 0x2254;
 
             public const int FileCSharpProjectPluginTypeCreateDescriptionCommandId = 0x2255;
+
+            public const int FileCSharpProjectPluginAssemblyCreateEntityDescriptionCommandId = 0x14CA;
+
+            public const int FileCSharpProjectPluginAssemblyCreateDescriptionCommandId = 0x14CB;
 
             public const int FolderWebResourceUpdateContentPublishCommandId = 0x205D;
 

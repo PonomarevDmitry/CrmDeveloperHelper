@@ -516,7 +516,7 @@
       <!-- #endregion fileMenuReport -->
 
       <!-- #region fileMenuCSharp -->
-      
+
       <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly" priority="0x06000" />
 
       <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupBuildUpdate" priority="0x06000" />
@@ -530,6 +530,17 @@
 
       <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompare" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompare_MenuConnectionDyn_Group" priority="0x06000" />
+
+      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyEntityDescription" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyEntityDescription_MenuDyn_Group" priority="0x06000" />
+
+      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyDescription" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyDescription_MenuDyn_Group" priority="0x06000" />
+
+      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenDependentInWebDyn_Group" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenDependentInExplorerDyn_Group" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenSolutionsListWithComponentInExplorerDyn_Group" priority="0x06000" />
 
       <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddToSolution" priority="0x06000" />
 
@@ -2727,8 +2738,8 @@
           <MenuText>Add Plugin Step in Connection</MenuText>
         </Strings>
       </Menu>
-      
-      
+
+
 
       <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -2769,6 +2780,47 @@
           <MenuText>Compare with Crm PluginAssembly in Connection</MenuText>
         </Strings>
       </Menu>
+
+
+
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyEntityDescription_MenuDyn" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Create PluginAssembly EntityDescription in Connection</ButtonText>
+          <MenuText>Create PluginAssembly EntityDescription in Connection</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyDescription_MenuDyn" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Create PluginAssembly Description in Connection</ButtonText>
+          <MenuText>Create PluginAssembly Description in Connection</MenuText>
+        </Strings>
+      </Menu>
+
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenDependentInWebDyn" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Open Dependent Components in Web</ButtonText>
+          <MenuText>Open Dependent Components in Web</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenDependentInExplorerDyn" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Open Dependent Components in Explorer</ButtonText>
+          <MenuText>Open Dependent Components in Explorer</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenSolutionsListWithComponentInExplorerDyn" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Open Solutions List with PluginAssembly in Explorer</ButtonText>
+          <MenuText>Open Solutions List with PluginAssembly in Explorer</MenuText>
+        </Strings>
+      </Menu>
+
+
 
       <Menu guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginType_Menu" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -8142,6 +8194,85 @@
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>FileCSharpProjectCompareToCrmAssemblyInConnectionCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidCommandSet" id="FileCSharpProjectPluginAssemblyCreateEntityDescriptionCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Create PluginAssembly EntityDescription</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="FileCSharpProjectPluginAssemblyCreateEntityDescriptionInConnectionCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>FileCSharpProjectPluginAssemblyCreateEntityDescriptionInConnectionCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommandSet" id="FileCSharpProjectPluginAssemblyCreateDescriptionCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Create PluginAssembly Description</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="FileCSharpProjectPluginAssemblyCreateDescriptionInConnectionCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>FileCSharpProjectPluginAssemblyCreateDescriptionInConnectionCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+
+
+
+      <Button guid="guidDynamicCommandSet" id="FileCSharpProjectPluginAssemblyOpenDependentComponentsInWebInConnectionCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>FileCSharpProjectPluginAssemblyOpenDependentComponentsInWebInConnectionCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="FileCSharpProjectPluginAssemblyOpenDependentComponentsInExplorerInConnectionCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>FileCSharpProjectPluginAssemblyOpenDependentComponentsInExplorerInConnectionCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="FileCSharpProjectPluginAssemblyOpenSolutionsListWithComponentInExplorerInConnectionCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>FileCSharpProjectPluginAssemblyOpenSolutionsListWithComponentInExplorerInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -15875,6 +16006,15 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompare" priority="0x06030">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu" />
     </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyEntityDescription" priority="0x06040">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyDescription" priority="0x06050">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther" priority="0x06060">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu" />
+    </CommandPlacement>
 
     <!-- #endregion fileMenuCSharp_GroupActionOnPluginAssembly_Menu -->
 
@@ -15921,6 +16061,44 @@
     </CommandPlacement>
 
     <!-- #endregion fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompare -->
+
+    <!-- #region fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyEntityDescription -->
+
+    <CommandPlacement guid="guidCommandSet" id="FileCSharpProjectPluginAssemblyCreateEntityDescriptionCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyEntityDescription" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyEntityDescription_MenuDyn" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyEntityDescription" />
+    </CommandPlacement>
+
+    <!-- #endregion fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyEntityDescription -->
+
+    <!-- #region fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyDescription -->
+
+    <CommandPlacement guid="guidCommandSet" id="FileCSharpProjectPluginAssemblyCreateDescriptionCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyDescription" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyDescription_MenuDyn" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyDescription" />
+    </CommandPlacement>
+
+    <!-- #endregion fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyDescription -->
+
+    <!-- #region fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenDependentInWebDyn" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenDependentInExplorerDyn" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenSolutionsListWithComponentInExplorerDyn" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther" />
+    </CommandPlacement>
+
+    <!-- #endregion fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther -->
+
+
 
     <!-- #region fileMenuCSharp_GroupAddToSolution -->
 
@@ -20257,6 +20435,45 @@
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompare_MenuConnectionDyn_Group" />
     </CommandPlacement>
 
+
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyEntityDescription_MenuDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyEntityDescription_MenuDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileCSharpProjectPluginAssemblyCreateEntityDescriptionInConnectionCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyEntityDescription_MenuDyn_Group" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyDescription_MenuDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyDescription_MenuDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileCSharpProjectPluginAssemblyCreateDescriptionInConnectionCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyDescription_MenuDyn_Group" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenDependentInWebDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenDependentInWebDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileCSharpProjectPluginAssemblyOpenDependentComponentsInWebInConnectionCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenDependentInWebDyn_Group" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenDependentInExplorerDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenDependentInExplorerDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileCSharpProjectPluginAssemblyOpenDependentComponentsInExplorerInConnectionCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenDependentInExplorerDyn_Group" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenSolutionsListWithComponentInExplorerDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenSolutionsListWithComponentInExplorerDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileCSharpProjectPluginAssemblyOpenSolutionsListWithComponentInExplorerInConnectionCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenSolutionsListWithComponentInExplorerDyn_Group" />
+    </CommandPlacement>
+
+
+
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddToSolution_MenuAddPluginAssemblyToSolution_GroupLastSolution_MenuLastSolutionDyn" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddToSolution_MenuAddPluginAssemblyToSolution_GroupLastSolution" />
     </CommandPlacement>
@@ -22689,6 +22906,25 @@
       <IDSymbol name="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompare_MenuConnectionDyn" value="0x1138" />
       <IDSymbol name="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompare_MenuConnectionDyn_Group" value="0x1139" />
 
+      <IDSymbol name="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyEntityDescription" value="0x14BD" />
+      <IDSymbol name="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyEntityDescription_MenuDyn" value="0x14BE" />
+      <IDSymbol name="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyEntityDescription_MenuDyn_Group" value="0x14BF" />
+
+      <IDSymbol name="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyDescription" value="0x14C0" />
+      <IDSymbol name="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyDescription_MenuDyn" value="0x14C1" />
+      <IDSymbol name="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyDescription_MenuDyn_Group" value="0x14C2" />
+
+      <IDSymbol name="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther" value="0x14C3" />
+
+      <IDSymbol name="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenDependentInWebDyn" value="0x14C4" />
+      <IDSymbol name="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenDependentInWebDyn_Group" value="0x14C5" />
+
+      <IDSymbol name="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenDependentInExplorerDyn" value="0x14C6" />
+      <IDSymbol name="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenDependentInExplorerDyn_Group" value="0x14C7" />
+
+      <IDSymbol name="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenSolutionsListWithComponentInExplorerDyn" value="0x14C8" />
+      <IDSymbol name="fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupOther_MenuOpenSolutionsListWithComponentInExplorerDyn_Group" value="0x14C9" />
+
       <IDSymbol name="fileMenuCSharp_GroupAddToSolution" value="0x1127" />
 
       <IDSymbol name="fileMenuCSharp_GroupAddToSolution_MenuAddPluginAssemblyToSolution" value="0x12B0" />
@@ -23926,6 +24162,13 @@
       <IDSymbol name="FileCSharpProjectPluginTypeOpenDependentInExplorerInConnectionCommandId" value="14250" />
       <IDSymbol name="FileCSharpProjectPluginTypeOpenSolutionsListWithComponentInExplorerInConnectionCommandId" value="14300" />
 
+      <IDSymbol name="FileCSharpProjectPluginAssemblyCreateEntityDescriptionInConnectionCommandId" value="15450" />
+      <IDSymbol name="FileCSharpProjectPluginAssemblyCreateDescriptionInConnectionCommandId" value="15500" />
+
+      <IDSymbol name="FileCSharpProjectPluginAssemblyOpenDependentComponentsInWebInConnectionCommandId" value="15550" />
+      <IDSymbol name="FileCSharpProjectPluginAssemblyOpenDependentComponentsInExplorerInConnectionCommandId" value="15600" />
+      <IDSymbol name="FileCSharpProjectPluginAssemblyOpenSolutionsListWithComponentInExplorerInConnectionCommandId" value="15650" />
+
       <!-- #endregion FileCSharp -->
 
 
@@ -24411,6 +24654,9 @@
       <IDSymbol name="FileCSharpProjectPluginTypeGetCustomWorkflowActivityInfoCommandId" value="0x2254" />
       <IDSymbol name="FileCSharpProjectPluginTypeCreateDescriptionCommandId" value="0x2255" />
 
+      <IDSymbol name="FileCSharpProjectPluginAssemblyCreateEntityDescriptionCommandId" value="0x14CA" />
+      <IDSymbol name="FileCSharpProjectPluginAssemblyCreateDescriptionCommandId" value="0x14CB" />
+
       <!-- #endregion FileCSharp -->
 
 
@@ -24887,13 +25133,13 @@
 
 
     <!-- Groups and Menus -->
-    <!-- 0x14BD -->
+    <!-- 0x14CC -->
 
     <!-- Commands -->
     <!-- 0x225C -->
 
     <!-- Dynamic Commands -->
-    <!-- 15450 -->
+    <!-- 15700 -->
 
   </Symbols>
 

@@ -139,6 +139,9 @@
     <Compile Include="Commands\CSharp\DocumentsCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommand.cs" />
     <Compile Include="Commands\CSharp\FileCSharpEntityMetadataFileGenerationOptionsCommand.cs" />
     <Compile Include="Commands\CSharp\FileCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommand.cs" />
+    <Compile Include="Commands\CSharp\FileCSharpProjectPluginAssemblyActionOnComponentInConnectionCommand.cs" />
+    <Compile Include="Commands\CSharp\FileCSharpProjectPluginAssemblyCreateDescriptionCommand.cs" />
+    <Compile Include="Commands\CSharp\FileCSharpProjectPluginAssemblyCreateDescriptionInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\FileCSharpProjectPluginTypeActionOnComponentInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\FileCSharpProjectPluginTypeCreateDescriptionCommand.cs" />
     <Compile Include="Commands\CSharp\FileCSharpProjectPluginTypeCreateDescriptionInConnectionCommand.cs" />
