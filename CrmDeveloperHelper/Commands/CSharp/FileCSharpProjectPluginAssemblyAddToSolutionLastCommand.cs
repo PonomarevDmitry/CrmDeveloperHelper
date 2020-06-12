@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Linq;
 
@@ -9,12 +8,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
     internal sealed class FileCSharpProjectPluginAssemblyAddToSolutionLastCommand : AbstractDynamicCommandOnSolutionLast
     {
         private FileCSharpProjectPluginAssemblyAddToSolutionLastCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.FileCSharpProjectPluginAssemblyAddToSolutionLastCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.FileCSharpProjectPluginAssemblyAddToSolutionLastCommandId)
         {
-
         }
 
         public static FileCSharpProjectPluginAssemblyAddToSolutionLastCommand Instance { get; private set; }
