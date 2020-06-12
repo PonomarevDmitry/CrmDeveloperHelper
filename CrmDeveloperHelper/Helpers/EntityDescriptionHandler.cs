@@ -634,6 +634,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 case PluginType.EntityLogicalName:
                     return PluginTypeIgnoreFields;
 
+                case Workflow.EntityLogicalName:
+                    return WorkflowIgnoreFields;
+
                 case Organization.EntityLogicalName:
                     return OrganizationIgnoreFields;
 
@@ -704,6 +707,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private static readonly IReadOnlyCollection<string> PluginTypeIgnoreFields = new ReadOnlyCollection<string>(new[]
         {
             PluginType.Schema.Attributes.customworkflowactivityinfo
+        });
+
+        private static readonly IReadOnlyCollection<string> WorkflowIgnoreFields = new ReadOnlyCollection<string>(new[]
+        {
+            Workflow.Schema.Attributes.xaml
+            , Workflow.Schema.Attributes.inputparameters
+            , Workflow.Schema.Attributes.clientdata
+            , Workflow.Schema.Attributes.uidata
         });
 
         private static readonly IReadOnlyCollection<string> OrganizationIgnoreFields = new ReadOnlyCollection<string>(new[]

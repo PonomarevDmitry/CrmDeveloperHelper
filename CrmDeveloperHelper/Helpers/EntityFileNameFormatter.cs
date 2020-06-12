@@ -22,14 +22,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private const string WorkflowFormatFile = "{0}.{1} Workflow {2} - {3} - {4} at {5}.{6}";
 
-        internal static IReadOnlyList<string> WorkflowIgnoreFields = new ReadOnlyCollection<string>(new[]
-        {
-            Workflow.Schema.Attributes.xaml
-            , Workflow.Schema.Attributes.inputparameters
-            , Workflow.Schema.Attributes.clientdata
-            , Workflow.Schema.Attributes.uidata
-        });
-
         internal static string GetWorkflowFileName(string connectionName, string entityName, string category, string name, string fieldTitle, string extension)
         {
             return string.Format(WorkflowFormatFile, connectionName, entityName, category, name, fieldTitle, GetDateString(), extension.Trim('.'));
