@@ -2191,11 +2191,15 @@
     <value>Loading Other Privileges...</value>
   </data>
 
-  <!--
-  <data name="111111" xml:space="preserve">
-    <value>2222222</value>
+  <data name="GettingClassTypeFullNameFromFileFormat2" xml:space="preserve">
+    <value>Class Type.FullName from file {0} - {1}</value>
   </data>
-  
+
+  <data name="GettingClassTypeFullNameFromFilesFormat" xml:space="preserve">
+    <value>Getting Class Type.FullName from files: {0}</value>
+  </data>
+
+  <!--
   <data name="111111" xml:space="preserve">
     <value>2222222</value>
   </data>

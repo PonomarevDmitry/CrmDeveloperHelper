@@ -1150,6 +1150,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PluginType Explorer.
+        /// </summary>
+        internal static string PluginTypeExplorer {
+            get {
+                return ResourceManager.GetString("PluginTypeExplorer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Build Projects and Update PluginAssemblies.
         /// </summary>
         internal static string ProjectBuildLoadUpdatePluginAssemblyCommand {

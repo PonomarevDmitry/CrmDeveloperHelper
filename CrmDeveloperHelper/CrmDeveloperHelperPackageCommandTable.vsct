@@ -6102,6 +6102,7 @@
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>PluginType Explorer</ButtonText>
         </Strings>
@@ -8350,6 +8351,7 @@
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>PluginType Explorer</ButtonText>
         </Strings>
@@ -9765,8 +9767,9 @@
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Plugin Type Explorer</ButtonText>
+          <ButtonText>PluginType Explorer</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="ProjectPluginAssemblyExplorerCommandId" priority="0x06000" type="Button">
@@ -9775,7 +9778,7 @@
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>Plugin Assembly Explorer</ButtonText>
+          <ButtonText>PluginAssembly Explorer</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="ProjectPluginTreeCommandId" priority="0x06000" type="Button">
@@ -10751,7 +10754,7 @@
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>Plugin Type Explorer</ButtonText>
+          <ButtonText>PluginType Explorer</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="CommonPluginAssemblyExplorerCommandId" priority="0x06000" type="Button">
@@ -10760,7 +10763,7 @@
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>Plugin Assembly Explorer</ButtonText>
+          <ButtonText>PluginAssembly Explorer</ButtonText>
         </Strings>
       </Button>
 
@@ -12143,7 +12146,7 @@
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>Plugin Type Explorer</ButtonText>
+          <ButtonText>PluginType Explorer</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="OutputPluginAssemblyExplorerCommandId" priority="0x06000" type="Button">
@@ -12152,7 +12155,7 @@
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>Plugin Assembly Explorer</ButtonText>
+          <ButtonText>PluginAssembly Explorer</ButtonText>
         </Strings>
       </Button>
 

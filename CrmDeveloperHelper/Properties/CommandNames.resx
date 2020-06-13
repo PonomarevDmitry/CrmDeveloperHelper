@@ -552,5 +552,10 @@
   </data>
 
 
+  <data name="PluginTypeExplorer" xml:space="preserve">
+    <value>PluginType Explorer</value>
+  </data>
 
+
+  
 </root>

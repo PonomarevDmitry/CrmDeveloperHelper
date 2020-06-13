@@ -2,7 +2,6 @@
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
-using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
@@ -28,29 +27,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 
                 if (document != null)
                 {
-                    helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, document?.FullName);
-                    helper.ActivateOutputWindow(null);
-
-                    VSProject2Info.GetPluginTypes(new[] { document }, out var pluginTypesNotCompiled, out var projectInfos);
-
-                    var task = ExecuteAsync(helper, connectionData, pluginTypesNotCompiled, projectInfos);
-                }
-            }
-            catch (Exception ex)
-            {
-                DTEHelper.WriteExceptionToOutput(null, ex);
-            }
-        }
-
-        private static async System.Threading.Tasks.Task ExecuteAsync(DTEHelper helper, ConnectionData connectionData, string[] pluginTypesNotCompiled, VSProject2Info[] projectInfos)
-        {
-            try
-            {
-                string[] pluginTypeArray = await CSharpCodeHelper.GetTypeFullNameListAsync(pluginTypesNotCompiled, projectInfos);
-
-                if (pluginTypeArray.Any())
-                {
-                    helper.HandlePluginTypeAddingProcessingStepsByProjectCommand(connectionData, null, true, pluginTypeArray);
+                    helper.HandlePluginTypeAddingProcessingStepsByProjectCommand(connectionData, null, true, document);
                 }
             }
             catch (Exception ex)

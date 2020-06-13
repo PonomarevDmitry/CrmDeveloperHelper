@@ -2788,6 +2788,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Class Type.FullName from file {0} - {1}.
+        /// </summary>
+        internal static string GettingClassTypeFullNameFromFileFormat2 {
+            get {
+                return ResourceManager.GetString("GettingClassTypeFullNameFromFileFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Getting Class Type.FullName from files: {0}.
+        /// </summary>
+        internal static string GettingClassTypeFullNameFromFilesFormat {
+            get {
+                return ResourceManager.GetString("GettingClassTypeFullNameFromFilesFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Getting Entities Metadata....
         /// </summary>
         internal static string GettingEntitiesMetadata {

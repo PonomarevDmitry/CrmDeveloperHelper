@@ -48,16 +48,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
             try
             {
                 var listFiles = helper.GetOpenedDocumentsAsDocument(FileOperations.SupportsCSharpType).ToList();
-                helper.ActivateOutputWindow(null);
 
-                foreach (var document in listFiles.OrderBy(d => d.FullName))
+                if (listFiles.Any())
                 {
-                    helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, document.FullName);
+                    helper.HandleActionOnPluginTypesCommand(connectionData, this._actionOnComponent, listFiles);
                 }
-
-                VSProject2Info.GetPluginTypes(listFiles, out var pluginTypesNotCompiled, out var projectInfos);
-
-                var task = ExecuteActionOnPluginTypesAsync(helper, connectionData, pluginTypesNotCompiled, projectInfos, this._actionOnComponent);
             }
             catch (Exception ex)
             {

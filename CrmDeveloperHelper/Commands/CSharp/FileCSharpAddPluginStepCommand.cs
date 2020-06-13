@@ -1,8 +1,6 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
-using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
@@ -28,12 +26,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 
                 if (projectItem != null)
                 {
-                    helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, projectItem.FileNames[1]);
-                    helper.ActivateOutputWindow(null);
-
-                    VSProject2Info.GetPluginTypes(new[] { projectItem }, out var pluginTypesNotCompiled, out var projectInfos);
-
-                    var task = ExecuteAddPluginStepAsync(helper, null, pluginTypesNotCompiled, projectInfos);
+                    helper.HandleAddPluginStep(null, projectItem);
                 }
             }
             catch (Exception ex)

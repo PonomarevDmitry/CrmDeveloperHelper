@@ -60,16 +60,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
             try
             {
                 var listFiles = helper.GetSelectedProjectItemsInSolutionExplorer(FileOperations.SupportsCSharpType, true).ToList();
-                helper.ActivateOutputWindow(null);
 
-                foreach (var projectItem in listFiles.OrderBy(d => d.FileNames[1]))
+                if (listFiles.Any())
                 {
-                    helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, projectItem.FileNames[1]);
+                    helper.HandleActionOnPluginTypesCommand(null, this._actionOnComponent, this._fieldName, this._fieldTitle, listFiles);
                 }
-
-                VSProject2Info.GetPluginTypes(listFiles, out var pluginTypesNotCompiled, out var projectInfos);
-
-                var task = ExecuteActionOnPluginTypesAsync(helper, null, pluginTypesNotCompiled, projectInfos, this._actionOnComponent, this._fieldName, this._fieldTitle);
             }
             catch (Exception ex)
             {

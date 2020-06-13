@@ -2,7 +2,6 @@
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
@@ -26,32 +25,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
             try
             {
                 var listFiles = helper.GetOpenedDocumentsAsDocument(FileOperations.SupportsCSharpType).ToList();
-                helper.ActivateOutputWindow(null);
 
-                foreach (var document in listFiles.OrderBy(d => d.FullName))
+                if (listFiles.Any())
                 {
-                    helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, document.FullName);
-                }
-
-                VSProject2Info.GetPluginTypes(listFiles, out var pluginTypesNotCompiled, out var projectInfos);
-
-                var task = ExecuteAsync(helper, connectionData, pluginTypesNotCompiled, projectInfos);
-            }
-            catch (Exception ex)
-            {
-                DTEHelper.WriteExceptionToOutput(null, ex);
-            }
-        }
-
-        private static async System.Threading.Tasks.Task ExecuteAsync(DTEHelper helper, ConnectionData connectionData, string[] pluginTypesNotCompiled, VSProject2Info[] projectInfos)
-        {
-            try
-            {
-                string[] pluginTypeArray = await CSharpCodeHelper.GetTypeFullNameListAsync(pluginTypesNotCompiled, projectInfos);
-
-                if (pluginTypeArray.Any())
-                {
-                    helper.HandlePluginTypeAddingProcessingStepsByProjectCommand(connectionData, null, true, pluginTypeArray);
+                    helper.HandlePluginTypeAddingProcessingStepsByProjectCommand(connectionData, null, true, listFiles);
                 }
             }
             catch (Exception ex)

@@ -63,12 +63,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 
                 if (document != null)
                 {
-                    helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, document?.FullName);
-                    helper.ActivateOutputWindow(null);
-
-                    VSProject2Info.GetPluginTypes(new[] { document }, out var pluginTypesNotCompiled, out var projectInfos);
-
-                    var task = ExecuteActionOnPluginTypesAsync(helper, null, pluginTypesNotCompiled, projectInfos, this._actionOnComponent, this._fieldName, this._fieldTitle);
+                    helper.HandleActionOnPluginTypesCommand(null, this._actionOnComponent, this._fieldName, this._fieldTitle, document);
                 }
             }
             catch (Exception ex)
