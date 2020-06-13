@@ -111,8 +111,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuWebResource_GroupShowDifferenceMultiple_Menu_Group_MenuThreeWayDyn_Group = 0x1163;
 
-            public const int codeMenuWebResource_GroupShowDifferenceCustom = 0x122A;
-
             public const int codeMenuWebResource_GroupCompareFile = 0x1004;
 
             public const int codeMenuWebResource_GroupCompareFile_MenuConnectionDyn = 0x122C;
@@ -982,8 +980,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int fileMenuWebResource_GroupShowDifferenceMultiple_Menu_Group_MenuThreeWayDyn = 0x1164;
 
             public const int fileMenuWebResource_GroupShowDifferenceMultiple_Menu_Group_MenuThreeWayDyn_Group = 0x1165;
-
-            public const int fileMenuWebResource_GroupShowDifferenceCustom = 0x122B;
 
             public const int fileMenuWebResource_GroupShowDependentComponents = 0x1012;
 
