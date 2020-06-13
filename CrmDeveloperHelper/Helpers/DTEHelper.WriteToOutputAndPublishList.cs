@@ -5,6 +5,7 @@ using Microsoft.Xrm.Sdk;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model.XsdModels;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Properties;
 using NLog;
 using NLog.Config;

@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xrm.Sdk.Query;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model.XsdModels;
 using System;
 using System.Collections.Generic;
 using System.IO;

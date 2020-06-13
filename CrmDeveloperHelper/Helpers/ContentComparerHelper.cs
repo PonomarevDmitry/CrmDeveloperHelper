@@ -397,13 +397,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             try
             {
-                var serializer = new XmlSerializer(typeof(FetchType));
+                var serializer = new XmlSerializer(typeof(Model.XsdModels.FetchType));
 
-                FetchType fetchXmlProxy;
+                Model.XsdModels.FetchType fetchXmlProxy;
 
                 using (TextReader reader = new StringReader(fetchXml))
                 {
-                    fetchXmlProxy = serializer.Deserialize(reader) as FetchType;
+                    fetchXmlProxy = serializer.Deserialize(reader) as Model.XsdModels.FetchType;
                 }
 
                 using (var writer = new StringWriter(codeCSharp))
