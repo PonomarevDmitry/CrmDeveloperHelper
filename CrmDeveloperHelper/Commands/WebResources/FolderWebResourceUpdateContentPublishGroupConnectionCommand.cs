@@ -9,12 +9,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
     internal sealed class FolderWebResourceUpdateContentPublishGroupConnectionCommand : AbstractDynamicCommandByConnectionByGroupWithoutCurrent
     {
         private FolderWebResourceUpdateContentPublishGroupConnectionCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.FolderWebResourceUpdateContentPublishGroupConnectionCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.FolderWebResourceUpdateContentPublishGroupConnectionCommandId)
         {
-
         }
 
         public static FolderWebResourceUpdateContentPublishGroupConnectionCommand Instance { get; private set; }

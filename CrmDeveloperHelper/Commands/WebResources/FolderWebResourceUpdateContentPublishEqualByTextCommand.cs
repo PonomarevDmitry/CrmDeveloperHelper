@@ -9,12 +9,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
     internal sealed class FolderWebResourceUpdateContentPublishEqualByTextCommand : AbstractDynamicCommandByConnectionByGroupWithCurrent
     {
         private FolderWebResourceUpdateContentPublishEqualByTextCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.FolderWebResourceUpdateContentPublishEqualByTextCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.FolderWebResourceUpdateContentPublishEqualByTextCommandId)
         {
-
         }
 
         public static FolderWebResourceUpdateContentPublishEqualByTextCommand Instance { get; private set; }

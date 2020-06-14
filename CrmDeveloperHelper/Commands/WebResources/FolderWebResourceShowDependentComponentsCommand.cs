@@ -9,7 +9,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
     internal sealed class FolderWebResourceShowDependentComponentsCommand : AbstractSingleCommand
     {
         private FolderWebResourceShowDependentComponentsCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.guidCommandSet.FolderWebResourceShowDependentComponentsCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.FolderWebResourceShowDependentComponentsCommandId)
+        {
+        }
 
         public static FolderWebResourceShowDependentComponentsCommand Instance { get; private set; }
 

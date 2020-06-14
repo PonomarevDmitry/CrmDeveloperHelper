@@ -7,12 +7,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
     internal sealed class FileWebResourceShowDifferenceInConnectionGroupCommand : AbstractDynamicCommandByConnectionByGroupWithoutCurrent
     {
         private FileWebResourceShowDifferenceInConnectionGroupCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.FileWebResourceShowDifferenceInConnectionGroupCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.FileWebResourceShowDifferenceInConnectionGroupCommandId)
         {
-
         }
 
         public static FileWebResourceShowDifferenceInConnectionGroupCommand Instance { get; private set; }
