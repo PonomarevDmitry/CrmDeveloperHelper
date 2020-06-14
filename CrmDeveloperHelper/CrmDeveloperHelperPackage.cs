@@ -238,6 +238,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             DocumentsJavaScriptFileGenerationOptionsCommand.Initialize(commandService);
 
+            DocumentsJavaScriptIncludeReferencesToDependencyXmlCommand.Initialize(commandService);
+            DocumentsJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommand.Initialize(commandService);
+
             #endregion DocumentsJavaScript
 
             #region FileJavaScript
@@ -251,6 +254,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FileJavaScriptUpdateGlobalOptionSetAllFileCommand.Initialize(commandService);
 
             FileJavaScriptFileGenerationOptionsCommand.Initialize(commandService);
+            FileJavaScriptIncludeReferencesToDependencyXmlCommand.Initialize(commandService);
+            FileJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommand.Initialize(commandService);
 
             #endregion FileJavaScript
 
@@ -260,6 +265,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FolderJavaScriptUpdateGlobalOptionSetSingleFileCommand.Initialize(commandService);
 
             FolderJavaScriptFileGenerationOptionsCommand.Initialize(commandService);
+
+            FolderJavaScriptIncludeReferencesToDependencyXmlCommand.Initialize(commandService);
+            FolderJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommand.Initialize(commandService);
 
             #endregion FolderJavaScript
 

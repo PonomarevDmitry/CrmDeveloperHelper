@@ -283,6 +283,8 @@
     <Compile Include="Commands\Reports\CodeReportShowDifferenceThreeFileCommand.cs" />
     <Compile Include="Commands\WebResources\CodeWebResourceIncludeReferencesToDependencyXmlCommand.cs" />
     <Compile Include="Commands\WebResources\CodeWebResourceIncludeReferencesToDependencyXmlInConnectionCommand.cs" />
+    <Compile Include="Commands\JavaScripts\DocumentsJavaScriptIncludeReferencesToDependencyXmlCommand.cs" />
+    <Compile Include="Commands\JavaScripts\DocumentsJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceChangeInEditorInConnectionCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceCreateEntityDescriptionInConnectionCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceGetAttributeInConnectionCommand.cs" />
@@ -323,9 +325,13 @@
     <Compile Include="Commands\WebResources\DocumentsWebResourceAddFilesIntoListForPublishCommand.cs" />
     <Compile Include="Commands\WebResources\DocumentsWebResourceMultiDifferenceCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceAddFilesIntoListForPublishCommand.cs" />
+    <Compile Include="Commands\JavaScripts\FileJavaScriptIncludeReferencesToDependencyXmlCommand.cs" />
+    <Compile Include="Commands\JavaScripts\FileJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceMultiDifferenceCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceOpenFilesCommand.cs" />
     <Compile Include="Commands\WebResources\FolderWebResourceAddFilesIntoListForPublishCommand.cs" />
+    <Compile Include="Commands\JavaScripts\FolderJavaScriptIncludeReferencesToDependencyXmlCommand.cs" />
+    <Compile Include="Commands\JavaScripts\FolderJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommand.cs" />
     <Compile Include="Commands\WebResources\FolderWebResourceMultiDifferenceCommand.cs" />
     <Compile Include="Commands\WebResources\FolderWebResourceOpenFilesCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlCommonCopyToClipboardWithoutSchemaCommand.cs" />

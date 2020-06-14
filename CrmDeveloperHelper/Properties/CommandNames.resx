@@ -175,7 +175,7 @@
     <value>Publish File</value>
   </data>
   <data name="CodeWebResourceIncludeReferencesToDependencyXmlCommand" xml:space="preserve">
-    <value>Include References To DependencyXml</value>
+    <value>Include References To WebResource DependencyXml</value>
   </data>
 
   <data name="CodeXmlFetchXmlExecuteRequestCommand" xml:space="preserve">
@@ -557,5 +557,16 @@
   </data>
 
 
+  <data name="FileJavaScriptIncludeReferencesToDependencyXmlCommand" xml:space="preserve">
+    <value>Include References to WebResources DependencyXml in Connection Group</value>
+  </data>
+  <data name="DocumentsJavaScriptIncludeReferencesToDependencyXmlCommand" xml:space="preserve">
+    <value>Include References to WebResources DependencyXml in Connection Group</value>
+  </data>
+  <data name="FolderJavaScriptIncludeReferencesToDependencyXmlCommand" xml:space="preserve">
+    <value>Include References to WebResources DependencyXml in Connection Group (Recursive)</value>
+  </data>
+
   
+
 </root>

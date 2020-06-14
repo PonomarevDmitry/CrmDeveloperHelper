@@ -1519,7 +1519,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Including JavaScript References to DependencyXml and Publishing.
+        ///   Looks up a localized string similar to {0} - Including JavaScript References to WebResources DependencyXml and Publishing.
         /// </summary>
         internal static string IncludeReferencesToDependencyXmlAndPublishingFormat1 {
             get {
