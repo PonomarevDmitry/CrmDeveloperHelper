@@ -2,7 +2,7 @@
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
-namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.JavaScripts
 {
     internal sealed class CodeJavaScriptLinkedEntityAddToSolutionLastCommand : AbstractDynamicCommandOnSolutionLast
     {

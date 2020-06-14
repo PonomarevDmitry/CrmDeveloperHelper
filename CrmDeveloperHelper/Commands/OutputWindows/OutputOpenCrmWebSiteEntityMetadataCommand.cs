@@ -2,7 +2,7 @@
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
-namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Commons
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows
 {
     internal sealed class OutputOpenCrmWebSiteEntityMetadataCommand : AbstractOutputWindowCommand
     {

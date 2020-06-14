@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
-namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.JavaScripts
 {
     internal sealed class FileJavaScriptFileGenerationOptionsCommand : AbstractSingleCommand
     {

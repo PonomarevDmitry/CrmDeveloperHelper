@@ -2,7 +2,7 @@
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
-namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.Explorers
 {
     internal sealed class OutputWebResourceExplorerCommand : AbstractOutputWindowCommand
     {
