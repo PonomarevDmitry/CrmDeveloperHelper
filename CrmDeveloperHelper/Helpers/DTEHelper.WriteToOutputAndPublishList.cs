@@ -1169,9 +1169,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     var serializer = new XmlSerializer(typeof(FetchType));
 
+                    XmlSerializerNamespaces namespaces = new XmlSerializerNamespaces();
+                    namespaces.Add(string.Empty, string.Empty);
+
                     using (var writer = new StringWriter(fetchXmlString))
                     {
-                        serializer.Serialize(writer, fetchXml, new XmlSerializerNamespaces());
+                        serializer.Serialize(writer, fetchXml, namespaces);
                     }
                 }
                 catch (Exception ex)
