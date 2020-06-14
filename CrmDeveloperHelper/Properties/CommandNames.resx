@@ -174,9 +174,6 @@
   <data name="CodeWebResourceUpdateContentPublishCommand" xml:space="preserve">
     <value>Publish File</value>
   </data>
-  <data name="CodeWebResourceIncludeReferencesToDependencyXmlCommand" xml:space="preserve">
-    <value>Include References To WebResource DependencyXml</value>
-  </data>
 
   <data name="CodeXmlFetchXmlExecuteRequestCommand" xml:space="preserve">
     <value>Execute Fetch Xml All</value>
@@ -263,7 +260,7 @@
   <data name="CodeXmlSystemFormGetCurrentCommand" xml:space="preserve">
     <value>Get SystemForm Current Xml</value>
   </data>
-  
+
   <data name="CodeJavaScriptLinkedSystemFormExplorerCommand" xml:space="preserve">
     <value>Open SystemForm Explorer</value>
   </data>
@@ -501,7 +498,7 @@
     <value>JavaScript File Generation Options</value>
   </data>
 
-  
+
 
   <data name="CodeXmlCommonXsdSchemaSetProperCommandFormat1" xml:space="preserve">
     <value>Set Xsd Schema {0}</value>
@@ -557,16 +554,19 @@
   </data>
 
 
+  <data name="CodeJavaScriptIncludeReferencesToDependencyXmlCommand" xml:space="preserve">
+    <value>Include References To WebResource DependencyXml</value>
+  </data>
   <data name="FileJavaScriptIncludeReferencesToDependencyXmlCommand" xml:space="preserve">
-    <value>Include References to WebResources DependencyXml in Connection Group</value>
+    <value>Include References to WebResources DependencyXml</value>
   </data>
   <data name="DocumentsJavaScriptIncludeReferencesToDependencyXmlCommand" xml:space="preserve">
-    <value>Include References to WebResources DependencyXml in Connection Group</value>
+    <value>Include References to WebResources DependencyXml</value>
   </data>
   <data name="FolderJavaScriptIncludeReferencesToDependencyXmlCommand" xml:space="preserve">
-    <value>Include References to WebResources DependencyXml in Connection Group (Recursive)</value>
+    <value>Include References to WebResources DependencyXml (Recursive)</value>
   </data>
 
-  
+
 
 </root>

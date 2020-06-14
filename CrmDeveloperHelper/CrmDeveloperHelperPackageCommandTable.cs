@@ -2396,7 +2396,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeWebResourceGetAttributeDependencyXmlInConnectionCommandId = 0x2D1E;
 
-            public const int CodeWebResourceIncludeReferencesToDependencyXmlInConnectionCommandId = 0x3D54;
+            public const int CodeJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommandId = 0x3D54;
 
             public const int CodeJavaScriptUpdateEntityMetadataFileCommandId = 0x22F6;
 
@@ -2889,7 +2889,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeWebResourceLinkClearCommandId = 0x2008;
 
-            public const int CodeWebResourceIncludeReferencesToDependencyXmlCommandId = 0x223B;
+            public const int CodeJavaScriptIncludeReferencesToDependencyXmlCommandId = 0x223B;
 
             public const int CodeJavaScriptUpdateEntityMetadataFileWithSelectCommandId = 0x219D;
 

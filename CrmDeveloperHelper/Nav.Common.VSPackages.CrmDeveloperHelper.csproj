@@ -281,8 +281,8 @@
     <Compile Include="Commands\Reports\CodeReportCreateCommand.cs" />
     <Compile Include="Commands\Reports\CodeReportShowDifferenceInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Reports\CodeReportShowDifferenceThreeFileCommand.cs" />
-    <Compile Include="Commands\WebResources\CodeWebResourceIncludeReferencesToDependencyXmlCommand.cs" />
-    <Compile Include="Commands\WebResources\CodeWebResourceIncludeReferencesToDependencyXmlInConnectionCommand.cs" />
+    <Compile Include="Commands\JavaScripts\CodeJavaScriptIncludeReferencesToDependencyXmlCommand.cs" />
+    <Compile Include="Commands\JavaScripts\CodeJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommand.cs" />
     <Compile Include="Commands\JavaScripts\DocumentsJavaScriptIncludeReferencesToDependencyXmlCommand.cs" />
     <Compile Include="Commands\JavaScripts\DocumentsJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceChangeInEditorInConnectionCommand.cs" />

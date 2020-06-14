@@ -160,6 +160,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Include References To WebResource DependencyXml.
+        /// </summary>
+        internal static string CodeJavaScriptIncludeReferencesToDependencyXmlCommand {
+            get {
+                return ResourceManager.GetString("CodeJavaScriptIncludeReferencesToDependencyXmlCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open EntityMetadata Explorer.
         /// </summary>
         internal static string CodeJavaScriptLinkedEntityExplorerCommand {
@@ -237,15 +246,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string CodeWebResourceExplorerCommand {
             get {
                 return ResourceManager.GetString("CodeWebResourceExplorerCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Include References To WebResource DependencyXml.
-        /// </summary>
-        internal static string CodeWebResourceIncludeReferencesToDependencyXmlCommand {
-            get {
-                return ResourceManager.GetString("CodeWebResourceIncludeReferencesToDependencyXmlCommand", resourceCulture);
             }
         }
         
@@ -763,7 +763,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Include References to WebResources DependencyXml in Connection Group.
+        ///   Looks up a localized string similar to Include References to WebResources DependencyXml.
         /// </summary>
         internal static string DocumentsJavaScriptIncludeReferencesToDependencyXmlCommand {
             get {
@@ -907,7 +907,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Include References to WebResources DependencyXml in Connection Group.
+        ///   Looks up a localized string similar to Include References to WebResources DependencyXml.
         /// </summary>
         internal static string FileJavaScriptIncludeReferencesToDependencyXmlCommand {
             get {
@@ -1042,7 +1042,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Include References to WebResources DependencyXml in Connection Group (Recursive).
+        ///   Looks up a localized string similar to Include References to WebResources DependencyXml (Recursive).
         /// </summary>
         internal static string FolderJavaScriptIncludeReferencesToDependencyXmlCommand {
             get {
