@@ -1502,46 +1502,84 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return false;
         }
 
+        public static bool HasExplorer(int? componentType)
+        {
+            if (!SolutionComponent.IsDefinedComponentType(componentType))
+            {
+                return false;
+            }
+
+            return WindowHelper.IsDefinedExplorer((ComponentType)componentType);
+        }
+
         public static void OpenComponentExplorer(
-            ComponentType componentType
-            , IWriteToOutput iWriteToOutput
+            IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
-            , string componentName
-            , string parameter
+            , SolutionComponentDescriptor descriptor
+            , ComponentType componentType
+            , Guid objectId
         )
         {
             switch (componentType)
             {
                 case ComponentType.Entity:
-                    OpenEntityMetadataExplorer(iWriteToOutput, service, commonConfig, null, componentName);
+                    {
+                        var entityMetadata = descriptor.MetadataSource.GetEntityMetadata(objectId);
+
+                        OpenEntityMetadataExplorer(iWriteToOutput, service, commonConfig, entityMetadata.LogicalName);
+                    }
                     break;
 
                 case ComponentType.Attribute:
-                    OpenEntityAttributeExplorer(iWriteToOutput, service, commonConfig, componentName);
+                    {
+                        var attributeMetadata = descriptor.MetadataSource.GetAttributeMetadata(objectId);
+
+                        OpenEntityAttributeExplorer(iWriteToOutput, service, commonConfig, attributeMetadata.EntityLogicalName);
+                    }
                     break;
 
                 case ComponentType.OptionSet:
-                    OpenGlobalOptionSetsExplorer(iWriteToOutput, service, commonConfig, componentName);
+                    {
+                        var globalOptionSetName = descriptor.GetName(new SolutionComponent()
+                        {
+                            ComponentTypeEnum = Entities.GlobalOptionSets.componenttype.Option_Set_9,
+                            ObjectId = objectId,
+                        });
+
+                        OpenGlobalOptionSetsExplorer(iWriteToOutput, service, commonConfig, globalOptionSetName);
+                    }
                     break;
 
                 case ComponentType.EntityRelationship:
-                    if (string.Equals(parameter, typeof(OneToManyRelationshipMetadata).Name, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        OpenEntityRelationshipOneToManyExplorer(iWriteToOutput, service, commonConfig, componentName);
-                    }
-                    else if (string.Equals(parameter, typeof(ManyToManyRelationshipMetadata).Name, StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        OpenEntityRelationshipManyToManyExplorer(iWriteToOutput, service, commonConfig, componentName);
+                        var relationMetadata = descriptor.MetadataSource.GetRelationshipMetadata(objectId);
+
+                        if (relationMetadata is OneToManyRelationshipMetadata oneToManyRelationshipMetadata)
+                        {
+                            OpenEntityRelationshipOneToManyExplorer(iWriteToOutput, service, commonConfig, oneToManyRelationshipMetadata.ReferencedEntity);
+                        }
+                        else if (relationMetadata is ManyToManyRelationshipMetadata manyToManyRelationshipMetadata)
+                        {
+                            OpenEntityRelationshipManyToManyExplorer(iWriteToOutput, service, commonConfig, manyToManyRelationshipMetadata.Entity1LogicalName);
+                        }
                     }
                     break;
 
                 case ComponentType.EntityKey:
-                    OpenEntityKeyExplorer(iWriteToOutput, service, commonConfig, componentName);
+                    {
+                        var entityKeyMetatadata = descriptor.MetadataSource.GetEntityKeyMetadata(objectId);
+
+                        OpenEntityKeyExplorer(iWriteToOutput, service, commonConfig, entityKeyMetatadata.EntityLogicalName);
+                    }
                     break;
 
                 case ComponentType.Role:
-                    OpenRolesExplorer(iWriteToOutput, service, commonConfig, componentName, null, null);
+                    {
+                        var role = descriptor.GetEntity<Role>((int)ComponentType.Role, objectId);
+
+                        OpenRolesExplorer(iWriteToOutput, service, commonConfig, role.Name, null, null);
+                    }
                     break;
 
                 case ComponentType.Organization:
@@ -1549,27 +1587,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     break;
 
                 case ComponentType.SavedQuery:
-                    OpenSavedQueryExplorer(iWriteToOutput, service, commonConfig, null, componentName);
+                    {
+                        var savedQuery = descriptor.GetEntity<SavedQuery>((int)ComponentType.SavedQuery, objectId);
+
+                        OpenSavedQueryExplorer(iWriteToOutput, service, commonConfig, savedQuery.ReturnedTypeCode, savedQuery.Name);
+                    }
                     break;
 
                 case ComponentType.SavedQueryVisualization:
-                    OpenSavedQueryVisualizationExplorer(iWriteToOutput, service, commonConfig, null, componentName);
+                    {
+                        var savedQueryVisualization = descriptor.GetEntity<SavedQueryVisualization>((int)ComponentType.SavedQueryVisualization, objectId);
+
+                        OpenSavedQueryVisualizationExplorer(iWriteToOutput, service, commonConfig, savedQueryVisualization.PrimaryEntityTypeCode, savedQueryVisualization.Name);
+                    }
                     break;
 
                 case ComponentType.SystemForm:
-                    OpenSystemFormExplorer(iWriteToOutput, service, commonConfig, null, componentName);
+                    {
+                        var systemForm = descriptor.GetEntity<SystemForm>((int)ComponentType.SystemForm, objectId);
+
+                        OpenSystemFormExplorer(iWriteToOutput, service, commonConfig, systemForm.ObjectTypeCode, systemForm.Name);
+                    }
                     break;
 
                 case ComponentType.Workflow:
-                    OpenWorkflowExplorer(iWriteToOutput, service, commonConfig, null, componentName);
+                    {
+                        var workflow = descriptor.GetEntity<Workflow>((int)ComponentType.Workflow, objectId);
+
+                        OpenWorkflowExplorer(iWriteToOutput, service, commonConfig, workflow.PrimaryEntity, workflow.Name);
+                    }
                     break;
 
                 case ComponentType.Report:
-                    OpenReportExplorer(iWriteToOutput, service, commonConfig, componentName);
+                    {
+                        var report = descriptor.GetEntity<Report>((int)ComponentType.Report, objectId);
+
+                        OpenReportExplorer(iWriteToOutput, service, commonConfig, report.Name);
+                    }
                     break;
 
                 case ComponentType.WebResource:
-                    OpenWebResourceExplorer(iWriteToOutput, service, commonConfig, componentName);
+                    {
+                        var webResource = descriptor.GetEntity<WebResource>((int)ComponentType.WebResource, objectId);
+
+                        OpenWebResourceExplorer(iWriteToOutput, service, commonConfig, webResource.Name);
+                    }
                     break;
 
                 case ComponentType.SiteMap:
@@ -1577,11 +1639,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     break;
 
                 case ComponentType.PluginType:
-                    OpenPluginTypeExplorer(iWriteToOutput, service, commonConfig, componentName);
+                    {
+                        var pluginType = descriptor.GetEntity<PluginType>((int)ComponentType.PluginType, objectId);
+
+                        OpenPluginTypeExplorer(iWriteToOutput, service, commonConfig, pluginType.TypeName);
+                    }
                     break;
 
                 case ComponentType.PluginAssembly:
-                    OpenPluginAssemblyExplorer(iWriteToOutput, service, commonConfig, componentName);
+                    {
+                        var pluginAssembly = descriptor.GetEntity<PluginAssembly>((int)ComponentType.PluginAssembly, objectId);
+
+                        OpenPluginAssemblyExplorer(iWriteToOutput, service, commonConfig, pluginAssembly.Name);
+                    }
                     break;
 
                 case ComponentType.SdkMessageProcessingStep:
@@ -1590,17 +1660,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     break;
 
                 case ComponentType.SdkMessage:
-                    OpenSdkMessageExplorer(iWriteToOutput, service, commonConfig, componentName);
+                    {
+                        var sdkMessage = descriptor.GetEntity<SdkMessage>((int)ComponentType.SdkMessage, objectId);
+
+                        OpenSdkMessageExplorer(iWriteToOutput, service, commonConfig, sdkMessage.Name);
+                    }
                     break;
 
                 case ComponentType.SdkMessageFilter:
-                    OpenSdkMessageFilterTree(iWriteToOutput, service, commonConfig, null, componentName);
+                    {
+                        var sdkMessageFilter = descriptor.GetEntity<SdkMessageFilter>((int)ComponentType.SdkMessageFilter, objectId);
+
+                        OpenSdkMessageFilterExplorer(iWriteToOutput, service, commonConfig, sdkMessageFilter.PrimaryObjectTypeCode, sdkMessageFilter.SdkMessageId?.Name ?? sdkMessageFilter.MessageName);
+                    }
                     break;
 
                 case ComponentType.SdkMessagePair:
-                    OpenSdkMessageRequestTree(iWriteToOutput, service, commonConfig, null, componentName);
-                    break;
-
                 case ComponentType.SdkMessageRequest:
                 case ComponentType.SdkMessageRequestField:
                 case ComponentType.SdkMessageResponse:
@@ -1613,7 +1688,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     break;
 
                 case ComponentType.CustomControl:
-                    OpenCustomControlExplorer(iWriteToOutput, service, commonConfig, componentName);
+                    {
+                        var customControl = descriptor.GetEntity<CustomControl>((int)ComponentType.CustomControl, objectId);
+
+                        OpenCustomControlExplorer(iWriteToOutput, service, commonConfig, customControl.Name);
+                    }
                     break;
             }
         }

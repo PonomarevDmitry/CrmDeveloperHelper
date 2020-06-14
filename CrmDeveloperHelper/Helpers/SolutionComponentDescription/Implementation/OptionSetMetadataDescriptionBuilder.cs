@@ -76,7 +76,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         {
             if (solutionImageComponent == null
                 || string.IsNullOrEmpty(solutionImageComponent.SchemaName)
-                )
+            )
             {
                 return;
             }

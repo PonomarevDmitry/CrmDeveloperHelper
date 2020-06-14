@@ -658,7 +658,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (selectedSolutionComponent != null)
             {
-                hasExplorer = HasExplorer(selectedSolutionComponent.SolutionComponent.ComponentType?.Value);
+                hasExplorer = WindowHelper.HasExplorer(selectedSolutionComponent.SolutionComponent.ComponentType?.Value);
 
                 if (hasExplorer)
                 {
@@ -732,7 +732,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 itemCollection.Add(mILinkedComponentOpenEntityListInWeb);
             }
 
-            if (HasExplorer(solutionComponent.ComponentType?.Value))
+            if (WindowHelper.HasExplorer(solutionComponent.ComponentType?.Value))
             {
                 MenuItem mILinkedComponentOpenExplorer = new MenuItem()
                 {
@@ -953,28 +953,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            if (!HasExplorer(solutionComponent.ComponentType?.Value))
+            if (!WindowHelper.HasExplorer(solutionComponent.ComponentType?.Value))
             {
                 return;
             }
 
             var componentType = (ComponentType)solutionComponent.ComponentType.Value;
 
-            string parameter = string.Empty;
-
-            if (componentType == ComponentType.EntityRelationship)
-            {
-                var relation = _descriptor.MetadataSource.GetRelationshipMetadata(solutionComponent.ObjectId.Value);
-
-                if (relation != null)
-                {
-                    parameter = relation.GetType().Name;
-                }
-            }
-
-            var name = _descriptor.GetName(solutionComponent);
-
-            WindowHelper.OpenComponentExplorer(componentType, _iWriteToOutput, _service, _commonConfig, name, parameter);
+            WindowHelper.OpenComponentExplorer(_iWriteToOutput, _service, _commonConfig, _descriptor, componentType, solutionComponent.ObjectId.Value);
         }
 
         private async void MILinkedComponentAddToCurrentSolution_Click(object sender, RoutedEventArgs e)
@@ -1490,36 +1476,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            if (!HasExplorer(entity.SolutionComponent.ComponentType?.Value))
+            if (!WindowHelper.HasExplorer(entity.SolutionComponent.ComponentType?.Value))
             {
                 return;
             }
 
             var componentType = (ComponentType)entity.SolutionComponent.ComponentType.Value;
 
-            string parameter = string.Empty;
-
-            if (componentType == ComponentType.EntityRelationship)
-            {
-                var relation = _descriptor.MetadataSource.GetRelationshipMetadata(entity.SolutionComponent.ObjectId.Value);
-
-                if (relation != null)
-                {
-                    parameter = relation.GetType().Name;
-                }
-            }
-
-            WindowHelper.OpenComponentExplorer(componentType, _iWriteToOutput, _service, _commonConfig, entity.Name, parameter);
-        }
-
-        private bool HasExplorer(int? componentType)
-        {
-            if (!SolutionComponent.IsDefinedComponentType(componentType))
-            {
-                return false;
-            }
-
-            return WindowHelper.IsDefinedExplorer((ComponentType)componentType);
+            WindowHelper.OpenComponentExplorer(_iWriteToOutput, _service, _commonConfig, _descriptor, componentType, entity.SolutionComponent.ObjectId.Value);
         }
 
         private void miDescriptionOptions_Click(object sender, RoutedEventArgs e)
