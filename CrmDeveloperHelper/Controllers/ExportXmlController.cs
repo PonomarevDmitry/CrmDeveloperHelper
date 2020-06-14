@@ -2241,9 +2241,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task UpdateWebResourceDependencyXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, WebResource webResource)
         {
-            string fieldTitle = WebResource.Schema.Headers.dependencyxml;
-
             {
+                string fieldTitle = WebResource.Schema.Headers.dependencyxml;
+
                 string dependencyXml = webResource.DependencyXml;
 
                 if (!string.IsNullOrEmpty(dependencyXml))

@@ -1519,6 +1519,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Including JavaScript References to DependencyXml and Publishing.
+        /// </summary>
+        internal static string IncludeReferencesToDependencyXmlAndPublishingFormat1 {
+            get {
+                return ResourceManager.GetString("IncludeReferencesToDependencyXmlAndPublishingFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Merging Privileges to Maximum from {1} to {2}.
         /// </summary>
         internal static string MergingPrivilegesToMaximumFromRoleToRoleFormat3 {

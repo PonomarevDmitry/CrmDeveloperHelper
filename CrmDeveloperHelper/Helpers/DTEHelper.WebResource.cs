@@ -159,7 +159,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 connectionData = crmConfig.CurrentConnectionData;
             }
 
-            if (connectionData != null && commonConfig != null && selectedFiles.Count > 0)
+            if (connectionData != null && commonConfig != null)
             {
                 CheckWishToChangeCurrentConnection(connectionData);
 
@@ -194,7 +194,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     try
                     {
-                        Controller.StartIncludeReferencesToDependencyXml(connectionData, selectedFiles);
+                        Controller.StartIncludeReferencesToDependencyXml(connectionData, commonConfig, selectedFiles);
                     }
                     catch (Exception ex)
                     {

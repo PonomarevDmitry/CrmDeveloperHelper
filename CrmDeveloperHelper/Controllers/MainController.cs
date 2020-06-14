@@ -563,8 +563,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartUpdateContentAndPublishEqualByText(ConnectionData connectionData, List<SelectedFile> selectedFiles)
             => ExecuteWithConnectionInThread(connectionData, this._publishController.ExecuteUpdateContentAndPublishEqualByText, selectedFiles);
 
-        public void StartIncludeReferencesToDependencyXml(ConnectionData connectionData, List<SelectedFile> selectedFiles)
-            => ExecuteWithConnectionInThread(connectionData, this._publishController.ExecuteIncludeReferencesToDependencyXml, selectedFiles);
+        public void StartIncludeReferencesToDependencyXml(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
+            => ExecuteWithConnectionInThread(connectionData, this._publishController.ExecuteIncludeReferencesToDependencyXml, commonConfig, selectedFiles);
 
         /// <summary>
         /// Старт сравнения

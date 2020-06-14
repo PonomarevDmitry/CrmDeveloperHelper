@@ -440,6 +440,9 @@
   <data name="UpdatingContentAndPublishingFormat1" xml:space="preserve">
     <value>{0} - Updating Content and Publishing</value>
   </data>
+  <data name="IncludeReferencesToDependencyXmlAndPublishingFormat1" xml:space="preserve">
+    <value>{0} - Including JavaScript References to DependencyXml and Publishing</value>
+  </data>
   <data name="UpdatingContentWebResourcesEqualByTextAndPublishingFormat1" xml:space="preserve">
     <value>{0} - Updating Content Web Resources equal by Text and Publishing</value>
   </data>

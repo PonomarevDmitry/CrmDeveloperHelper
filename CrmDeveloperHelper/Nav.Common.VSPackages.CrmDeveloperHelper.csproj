@@ -282,6 +282,7 @@
     <Compile Include="Commands\Reports\CodeReportShowDifferenceInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Reports\CodeReportShowDifferenceThreeFileCommand.cs" />
     <Compile Include="Commands\WebResources\CodeWebResourceIncludeReferencesToDependencyXmlCommand.cs" />
+    <Compile Include="Commands\WebResources\CodeWebResourceIncludeReferencesToDependencyXmlInConnectionCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceChangeInEditorInConnectionCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceCreateEntityDescriptionInConnectionCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceGetAttributeInConnectionCommand.cs" />
@@ -1185,6 +1186,7 @@
     <Compile Include="Model\ExportSolutionConfig.cs" />
     <Compile Include="Model\ExportSolutionOverrideInformation.cs" />
     <Compile Include="Model\ExportSolutionProfile.cs" />
+    <Compile Include="Model\XsdModels\DependencyXml.Proxy.cs" />
     <Compile Include="Model\XsdModels\FetchXml.Proxy.cs" />
     <Compile Include="Model\FetchXmlRequestParameter.cs" />
     <Compile Include="Model\FileAction.cs" />

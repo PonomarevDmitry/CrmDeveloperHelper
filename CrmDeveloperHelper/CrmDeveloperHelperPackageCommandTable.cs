@@ -117,6 +117,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuWebResource_GroupCompareFile_MenuConnectionDyn_Group = 0x122D;
 
+            public const int codeMenuWebResource_GroupIncludeIncludeReferencesToDependencyXml = 0x14CC;
+
+            public const int codeMenuWebResource_GroupIncludeIncludeReferencesToDependencyXml_MenuConnectionDyn = 0x14CD;
+
+            public const int codeMenuWebResource_GroupIncludeIncludeReferencesToDependencyXml_MenuConnectionDyn_Group = 0x14CE;
+
             public const int codeMenuWebResource_GroupEntityMetadata = 0x12F7;
 
             public const int codeMenuWebResource_GroupEntityMetadata_MenuConnectionDyn = 0x12F8;
@@ -2371,6 +2377,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int CodeWebResourceGetAttributeContentJsonInConnectionCommandId = 0x2CEC;
 
             public const int CodeWebResourceGetAttributeDependencyXmlInConnectionCommandId = 0x2D1E;
+
+            public const int CodeWebResourceIncludeReferencesToDependencyXmlInConnectionCommandId = 0x3D54;
 
             public const int CodeJavaScriptUpdateEntityMetadataFileCommandId = 0x22F6;
 
