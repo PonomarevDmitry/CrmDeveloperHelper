@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.JavaScripts
 {
-    internal sealed class DocumentsJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommand : AbstractDynamicCommandByConnectionByGroupWithCurrent
+    internal sealed class DocumentsJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommand : AbstractDynamicCommandByConnectionByGroupWithoutCurrent
     {
         private DocumentsJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.guidDynamicCommandSet.DocumentsJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommandId)
