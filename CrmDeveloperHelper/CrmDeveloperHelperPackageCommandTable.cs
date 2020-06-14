@@ -117,11 +117,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuWebResource_GroupCompareFile_MenuConnectionDyn_Group = 0x122D;
 
-            public const int codeMenuWebResource_GroupIncludeIncludeReferencesToDependencyXml = 0x14CC;
+            public const int codeMenuWebResource_GroupIncludeReferencesToDependencyXml = 0x14CC;
 
-            public const int codeMenuWebResource_GroupIncludeIncludeReferencesToDependencyXml_MenuConnectionDyn = 0x14CD;
+            public const int codeMenuWebResource_GroupIncludeReferencesToDependencyXml_MenuConnectionDyn = 0x14CD;
 
-            public const int codeMenuWebResource_GroupIncludeIncludeReferencesToDependencyXml_MenuConnectionDyn_Group = 0x14CE;
+            public const int codeMenuWebResource_GroupIncludeReferencesToDependencyXml_MenuConnectionDyn_Group = 0x14CE;
 
             public const int codeMenuWebResource_GroupEntityMetadata = 0x12F7;
 
