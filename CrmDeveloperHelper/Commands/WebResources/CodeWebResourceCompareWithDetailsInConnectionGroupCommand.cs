@@ -9,10 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
     internal sealed class CodeWebResourceCompareWithDetailsInConnectionGroupCommand : AbstractDynamicCommandByConnectionByGroupWithoutCurrent
     {
         private CodeWebResourceCompareWithDetailsInConnectionGroupCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.CodeWebResourceCompareWithDetailsInConnectionGroupCommandId
-            )
+            : base(commandService, PackageIds.guidDynamicCommandSet.CodeWebResourceCompareWithDetailsInConnectionGroupCommandId)
         {
 
         }
