@@ -42,7 +42,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public async Task ExecuteUpdateContentAndPublish(ConnectionData connectionData, List<SelectedFile> selectedFiles)
         {
             await CheckEncodingCheckReadOnlyConnectExecuteActionAsync(connectionData
-                , Properties.OperationNames.OpeningEntityMetadataExplorerFormat1
+                , Properties.OperationNames.UpdatingContentAndPublishingFormat1
                 , selectedFiles
                 , true
                 , (service) => UpdatingContentAndPublish(service, selectedFiles)
