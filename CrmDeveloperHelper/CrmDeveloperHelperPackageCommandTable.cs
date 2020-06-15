@@ -795,6 +795,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int documentsMenuWebResource_GroupIncludeReferencesToDependencyXml_MenuConnectionDyn_Group = 0x14D4;
 
+            public const int documentsMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries = 0x14DD;
+
+            public const int documentsMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuConnectionDyn = 0x14DE;
+
+            public const int documentsMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuConnectionDyn_Group = 0x14DF;
+
             public const int documentsMenuWebResource_GroupOpenMultiAdd = 0x1172;
 
             public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference = 0x1173;
@@ -1014,6 +1020,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int fileMenuWebResource_GroupIncludeReferencesToDependencyXml_MenuConnectionDyn = 0x14D0;
 
             public const int fileMenuWebResource_GroupIncludeReferencesToDependencyXml_MenuConnectionDyn_Group = 0x14D1;
+
+            public const int fileMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries = 0x14DA;
+
+            public const int fileMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuConnectionDyn = 0x14DB;
+
+            public const int fileMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuConnectionDyn_Group = 0x14DC;
 
             public const int fileMenuWebResource_GroupOpenMultiAdd = 0x1014;
 
@@ -1376,6 +1388,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int folderMenuWebResource_GroupIncludeReferencesToDependencyXml_MenuConnectionDyn = 0x14D6;
 
             public const int folderMenuWebResource_GroupIncludeReferencesToDependencyXml_MenuConnectionDyn_Group = 0x14D7;
+
+            public const int folderMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries = 0x14E0;
+
+            public const int folderMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuConnectionDyn = 0x14E1;
+
+            public const int folderMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuConnectionDyn_Group = 0x14E2;
 
             public const int folderMenuWebResource_GroupOpenMultiAdd = 0x1065;
 
@@ -2620,6 +2638,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int DocumentsJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommandId = 0x3DB8;
 
+            public const int DocumentsJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId = 0x3E80;
+
             public const int DocumentsXmlXsdSchemaSetCommandId = 0x2260;
 
             public const int DocumentsReportAddToSolutionLastCommandId = 0x0104;
@@ -2701,6 +2721,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int FileJavaScriptUpdateGlobalOptionSetAllFileCommandId = 0x25B2;
 
             public const int FileJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommandId = 0x3D86;
+
+            public const int FileJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId = 0x3E4E;
 
             public const int FileXmlXsdSchemaSetCommandId = 0x2279;
 
@@ -2789,6 +2811,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int FolderJavaScriptUpdateGlobalOptionSetSingleFileCommandId = 0x254E;
 
             public const int FolderJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommandId = 0x3DEA;
+
+            public const int FolderJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId = 0x3EB2;
 
             public const int FolderXmlXsdSchemaSetCommandId = 0x2292;
 
@@ -3103,6 +3127,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int DocumentsJavaScriptIncludeReferencesToDependencyXmlCommandId = 0x225D;
 
+            public const int DocumentsJavaScriptIncludeReferencesToLinkedSystemFormCommandId = 0x2261;
+
             public const int DocumentsXmlXsdSchemaRemoveCommandId = 0x2197;
 
             public const int DocumentsXmlXsdSchemaOpenFolderCommandId = 0x219A;
@@ -3246,6 +3272,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int FileJavaScriptFileGenerationOptionsCommandId = 0x2243;
 
             public const int FileJavaScriptIncludeReferencesToDependencyXmlCommandId = 0x225C;
+
+            public const int FileJavaScriptIncludeReferencesToLinkedSystemFormCommandId = 0x2260;
 
             public const int FileXmlXsdSchemaRemoveCommandId = 0x2198;
 
@@ -3408,6 +3436,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int FolderJavaScriptFileGenerationOptionsCommandId = 0x2244;
 
             public const int FolderJavaScriptIncludeReferencesToDependencyXmlCommandId = 0x225E;
+
+            public const int FolderJavaScriptIncludeReferencesToLinkedSystemFormCommandId = 0x2262;
 
             public const int FolderXmlXsdSchemaRemoveCommandId = 0x2199;
 

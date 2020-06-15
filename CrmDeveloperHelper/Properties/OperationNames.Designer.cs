@@ -1528,7 +1528,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Including JavaScript References to Linked SystemForms Libraries DependencyXml and Publishing.
+        ///   Looks up a localized string similar to {0} - Including JavaScript References to Linked SystemForms Libraries and Publishing.
         /// </summary>
         internal static string IncludeReferencesToLinkedSystemFormsLibrariesFormat1 {
             get {

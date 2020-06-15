@@ -329,6 +329,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             DocumentsJavaScriptIncludeReferencesToDependencyXmlCommand.Initialize,
             DocumentsJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommand.Initialize,
 
+            DocumentsJavaScriptIncludeReferencesToLinkedSystemFormCommand.Initialize,
+            DocumentsJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommand.Initialize,
+
             #endregion DocumentsJavaScript
 
             #region FileJavaScript
@@ -345,6 +348,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FileJavaScriptIncludeReferencesToDependencyXmlCommand.Initialize,
             FileJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommand.Initialize,
 
+            FileJavaScriptIncludeReferencesToLinkedSystemFormCommand.Initialize,
+            FileJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommand.Initialize,
+
             #endregion FileJavaScript
 
             #region FolderJavaScript
@@ -356,6 +362,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             FolderJavaScriptIncludeReferencesToDependencyXmlCommand.Initialize,
             FolderJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommand.Initialize,
+
+            FolderJavaScriptIncludeReferencesToLinkedSystemFormCommand.Initialize,
+            FolderJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommand.Initialize,
 
             #endregion FolderJavaScript
 

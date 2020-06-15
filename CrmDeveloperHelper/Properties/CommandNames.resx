@@ -571,6 +571,15 @@
   <data name="CodeJavaScriptIncludeReferencesToLinkedSystemFormCommand" xml:space="preserve">
     <value>Include References to Linked SystemForm Libraries</value>
   </data>
+  <data name="FileJavaScriptIncludeReferencesToLinkedSystemFormCommand" xml:space="preserve">
+    <value>Include References to Linked SystemForms Libraries</value>
+  </data>
+  <data name="DocumentsJavaScriptIncludeReferencesToLinkedSystemFormCommand" xml:space="preserve">
+    <value>Include References to Linked SystemForms Libraries</value>
+  </data>
+  <data name="FolderJavaScriptIncludeReferencesToLinkedSystemFormCommand" xml:space="preserve">
+    <value>Include References to Linked SystemForms Libraries (Recursive)</value>
+  </data>
   
 
 </root>

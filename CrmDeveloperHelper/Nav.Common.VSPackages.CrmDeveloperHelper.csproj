@@ -189,8 +189,14 @@
     <Compile Include="Commands\JavaScripts\CodeJavaScriptUpdateGlobalOptionSetSingleFileCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand.cs" />
     <Compile Include="Commands\JavaScripts\DocumentsJavaScriptFileGenerationOptionsCommand.cs" />
+    <Compile Include="Commands\JavaScripts\DocumentsJavaScriptIncludeReferencesToLinkedSystemFormCommand.cs" />
+    <Compile Include="Commands\JavaScripts\DocumentsJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\JavaScripts\FileJavaScriptIncludeReferencesToLinkedSystemFormCommand.cs" />
+    <Compile Include="Commands\JavaScripts\FileJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommand.cs" />
     <Compile Include="Commands\JavaScripts\FileJavaScriptMetadataFileGenerationOptionsCommand.cs" />
     <Compile Include="Commands\JavaScripts\FolderJavaScriptFileGenerationOptionsCommand.cs" />
+    <Compile Include="Commands\JavaScripts\FolderJavaScriptIncludeReferencesToLinkedSystemFormCommand.cs" />
+    <Compile Include="Commands\JavaScripts\FolderJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommand.cs" />
     <Compile Include="Commands\ListForPublish\ListForPublishMultiDifferenceCommand.cs" />
     <Compile Include="Commands\ListForPublish\ListForPublishOpenFilesCommand.cs" />
     <Compile Include="Commands\OutputWindows\Checks\OutputCheckUnknownFormControlTypes.cs" />
