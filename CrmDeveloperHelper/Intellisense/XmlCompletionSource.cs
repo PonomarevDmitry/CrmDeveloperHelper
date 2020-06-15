@@ -749,7 +749,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
             foreach (var format in _guidFormats)
             {
-                list.Add(CreateCompletion($"New Guid Format {format}", newGuid.ToString(format), string.Empty, _defaultGlyph, new[] { format }));
+                var stringGuid = newGuid.ToString(format);
+
+                list.Add(CreateCompletion($"New Guid Format {format}: {stringGuid}", stringGuid, string.Empty, _defaultGlyph, new[] { format }));
             }
 
             completionSets.Add(new CrmCompletionSet(SourceNameMonikerNewGuid, "New Guid", applicableTo, list, Enumerable.Empty<CrmCompletion>()));
