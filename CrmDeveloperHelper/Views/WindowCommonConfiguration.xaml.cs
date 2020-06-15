@@ -48,7 +48,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             chBClearOutputWindow.IsChecked = _config.ClearOutputWindowBeforeCRMOperation;
 
-            chBDoNotPromtPublishMessage.IsChecked = _config.DoNotPropmPublishMessage;
+            chBDoNotPromtPublishMessage.IsChecked = _config.DoNotPromtPublishMessage;
 
             txtBFolderForExport.Text = _config.FolderForExport;
 
@@ -69,7 +69,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             _config.ClearOutputWindowBeforeCRMOperation = chBClearOutputWindow.IsChecked.GetValueOrDefault();
 
-            _config.DoNotPropmPublishMessage = chBDoNotPromtPublishMessage.IsChecked.GetValueOrDefault();
+            _config.DoNotPromtPublishMessage = chBDoNotPromtPublishMessage.IsChecked.GetValueOrDefault();
 
             _config.FolderForExport = txtBFolderForExport.Text.Trim();
 

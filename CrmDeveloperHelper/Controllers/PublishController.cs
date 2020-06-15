@@ -1,4 +1,5 @@
-﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
+﻿using Microsoft.Xrm.Sdk.Query;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
@@ -436,99 +437,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
 
                 string javaScriptCode = File.ReadAllText(selectedFile.FilePath);
-
-                var matches = _regexReference.Matches(javaScriptCode);
-
                 string selectedFileFolder = Path.GetDirectoryName(selectedFile.FilePath);
 
-                List<string> referenceFilePathList = new List<string>();
+                var referenceFilePathList = GetFileReferencesFilePaths(javaScriptCode, selectedFileFolder, selectedFile.SolutionDirectoryPath);
 
-                foreach (var match in matches.OfType<Match>())
-                {
-                    if (match.Success && match.Groups["path"] != null)
-                    {
-                        var path = match.Groups["path"].Value;
-
-                        if (!string.IsNullOrEmpty(path))
-                        {
-                            string referenceFilePath = path;
-
-                            if (path.StartsWith("~"))
-                            {
-                                referenceFilePath = Path.Combine(selectedFile.SolutionDirectoryPath, path.Substring(1));
-                            }
-
-                            if (path.StartsWith(".."))
-                            {
-                                referenceFilePath = Path.Combine(selectedFileFolder, path);
-                            }
-                            else if (!File.Exists(referenceFilePath))
-                            {
-                                referenceFilePath = Path.Combine(selectedFileFolder, path);
-                            }
-
-                            FileInfo fileInfo = new FileInfo(referenceFilePath);
-
-                            if (fileInfo.Exists)
-                            {
-                                referenceFilePathList.Add(fileInfo.FullName);
-                            }
-                        }
-                    }
-                }
-
-                var referenceFilePathDictionary = new Dictionary<string, WebResource>(StringComparer.InvariantCultureIgnoreCase);
-
-                foreach (var filePath in referenceFilePathList)
-                {
-                    string extension = Path.GetExtension(filePath).ToLower();
-
-                    if (!WebResourceRepository.IsSupportedExtension(extension))
-                    {
-                        continue;
-                    }
-
-                    if (!knownWebResources.ContainsKey(filePath))
-                    {
-                        string fileName = Path.GetFileName(filePath);
-                        string friendlyFilePath = SelectedFile.GetFriendlyPath(filePath, selectedFile.SolutionDirectoryPath);
-
-                        var dict = webResourceRepository.FindMultiple(extension, new[] { friendlyFilePath });
-
-                        var webresource = WebResourceRepository.FindWebResourceInDictionary(dict, friendlyFilePath, extension);
-
-                        if (webresource == null)
-                        {
-                            if (fileName.StartsWith(service.ConnectionData.Name + "."))
-                            {
-                                string newFileName = fileName.Replace(service.ConnectionData.Name + ".", string.Empty);
-
-                                string newFilePath = Path.Combine(Path.GetDirectoryName(friendlyFilePath), newFileName);
-
-                                var newSelectedFile = new SelectedFile(newFilePath, selectedFile.SolutionDirectoryPath);
-
-                                var newDict = webResourceRepository.FindMultiple(newSelectedFile.Extension, new[] { newSelectedFile.FriendlyFilePath });
-
-                                webresource = WebResourceRepository.FindWebResourceInDictionary(newDict, newSelectedFile.FriendlyFilePath.ToLower(), newSelectedFile.Extension);
-                            }
-                        }
-
-                        if (webresource != null)
-                        {
-                            // Запоминается файл
-                            service.ConnectionData.AddMapping(webresource.Id, friendlyFilePath);
-
-                            knownWebResources.Add(filePath, webresource);
-                        }
-                    }
-
-                    if (knownWebResources.ContainsKey(filePath))
-                    {
-                        var knowWebResource = knownWebResources[filePath];
-
-                        referenceFilePathDictionary.Add(knowWebResource.Name, knowWebResource);
-                    }
-                }
+                var referenceWebResourceDictionary = GetRefernecedWebResources(service.ConnectionData, webResourceRepository, knownWebResources, selectedFile.SolutionDirectoryPath, referenceFilePathList);
 
                 IEnumerable<string> currentWebResourceDependenciesStrings = Enumerable.Empty<string>();
 
@@ -543,9 +456,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 HashSet<string> currentWebResourceDependencies = new HashSet<string>(currentWebResourceDependenciesStrings, StringComparer.InvariantCultureIgnoreCase);
 
-                var fileDependencies = new HashSet<string>(referenceFilePathDictionary.Keys, StringComparer.InvariantCultureIgnoreCase);
+                var fileDependencies = new HashSet<string>(referenceWebResourceDictionary.Keys, StringComparer.InvariantCultureIgnoreCase);
 
-                var newDependencies = fileDependencies.Except(currentWebResourceDependencies);
+                var newDependencies = fileDependencies.Except(currentWebResourceDependencies, StringComparer.InvariantCultureIgnoreCase);
 
                 if (!newDependencies.Any())
                 {
@@ -632,7 +545,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 foreach (var item in newDependencies)
                 {
-                    var newWebResource = referenceFilePathDictionary[item];
+                    var newWebResource = referenceWebResourceDictionary[item];
 
                     librariesWebResource.Add(new DependenciesDependencyLibrary()
                     {
@@ -716,6 +629,324 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Published web-resources: {0}", webResourceToPublish.Count);
         }
 
+        private static Dictionary<string, WebResource> GetRefernecedWebResources(
+            ConnectionData connectionData
+            , WebResourceRepository webResourceRepository
+            , Dictionary<string, WebResource> knownWebResources
+            , string SolutionDirectoryPath
+            , IEnumerable<string> referenceFilePathList
+        )
+        {
+            var result = new Dictionary<string, WebResource>(StringComparer.InvariantCultureIgnoreCase);
+
+            foreach (var filePath in referenceFilePathList)
+            {
+                string extension = Path.GetExtension(filePath).ToLower();
+
+                if (!WebResourceRepository.IsSupportedExtension(extension))
+                {
+                    continue;
+                }
+
+                if (!knownWebResources.ContainsKey(filePath))
+                {
+                    string fileName = Path.GetFileName(filePath);
+                    string friendlyFilePath = SelectedFile.GetFriendlyPath(filePath, SolutionDirectoryPath);
+
+                    var dict = webResourceRepository.FindMultiple(extension, new[] { friendlyFilePath });
+
+                    var webresource = WebResourceRepository.FindWebResourceInDictionary(dict, friendlyFilePath, extension);
+
+                    if (webresource == null)
+                    {
+                        if (fileName.StartsWith(connectionData.Name + "."))
+                        {
+                            string newFileName = fileName.Replace(connectionData.Name + ".", string.Empty);
+
+                            string newFilePath = Path.Combine(Path.GetDirectoryName(friendlyFilePath), newFileName);
+
+                            var newSelectedFile = new SelectedFile(newFilePath, SolutionDirectoryPath);
+
+                            var newDict = webResourceRepository.FindMultiple(newSelectedFile.Extension, new[] { newSelectedFile.FriendlyFilePath });
+
+                            webresource = WebResourceRepository.FindWebResourceInDictionary(newDict, newSelectedFile.FriendlyFilePath.ToLower(), newSelectedFile.Extension);
+                        }
+                    }
+
+                    if (webresource != null)
+                    {
+                        // Запоминается файл
+                        connectionData.AddMapping(webresource.Id, friendlyFilePath);
+
+                        knownWebResources.Add(filePath, webresource);
+                    }
+                }
+
+                if (knownWebResources.ContainsKey(filePath))
+                {
+                    var knowWebResource = knownWebResources[filePath];
+
+                    result.Add(knowWebResource.Name, knowWebResource);
+                }
+            }
+
+            return result;
+        }
+
         private static Regex _regexReference = new Regex(@"^\/\/\/[\s]+<reference[\s]+path=\""(?<path>.+)\""[\s]+\/>[\s]*\r?$", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
+
+        private static HashSet<string> GetFileReferencesFilePaths(string javaScriptCode, string selectedFileFolder, string solutionDirectoryPath)
+        {
+            HashSet<string> result = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+
+            var matches = _regexReference.Matches(javaScriptCode);
+
+            foreach (var match in matches.OfType<Match>())
+            {
+                if (match.Success && match.Groups["path"] != null)
+                {
+                    var path = match.Groups["path"].Value;
+
+                    if (!string.IsNullOrEmpty(path))
+                    {
+                        string referenceFilePath = path;
+
+                        if (path.StartsWith("~"))
+                        {
+                            referenceFilePath = Path.Combine(solutionDirectoryPath, path.Substring(1));
+                        }
+
+                        if (path.StartsWith(".."))
+                        {
+                            referenceFilePath = Path.Combine(selectedFileFolder, path);
+                        }
+                        else if (!File.Exists(referenceFilePath))
+                        {
+                            referenceFilePath = Path.Combine(selectedFileFolder, path);
+                        }
+
+                        FileInfo fileInfo = new FileInfo(referenceFilePath);
+
+                        if (fileInfo.Exists)
+                        {
+                            result.Add(fileInfo.FullName);
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public async Task ExecuteIncludeReferencesToLinkedSystemFormsLibraries(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
+        {
+            await CheckEncodingCheckReadOnlyConnectExecuteActionAsync(connectionData
+                , Properties.OperationNames.IncludeReferencesToLinkedSystemFormsLibrariesFormat1
+                , selectedFiles
+                , true
+                , (service) => IncludingReferencesToLinkedSystemFormsLibraries(service, commonConfig, selectedFiles)
+            );
+        }
+
+        private async Task IncludingReferencesToLinkedSystemFormsLibraries(IOrganizationServiceExtented service, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
+        {
+            Dictionary<string, WebResource> knownWebResources = new Dictionary<string, WebResource>(StringComparer.InvariantCultureIgnoreCase);
+
+            var systemFormRepository = new SystemFormRepository(service);
+
+            // Репозиторий для работы с веб-ресурсами
+            var webResourceRepository = new WebResourceRepository(service);
+
+            var changedSystemForms = new TupleList<SelectedFile, SystemForm, string>();
+
+            foreach (var selectedFile in selectedFiles)
+            {
+                if (!File.Exists(selectedFile.FilePath))
+                {
+                    continue;
+                }
+
+                string javaScriptCode = File.ReadAllText(selectedFile.FilePath);
+
+                if (!CommonHandlers.GetLinkedSystemForm(javaScriptCode, out string entityName, out Guid formId, out int formType))
+                {
+                    continue;
+                }
+
+                var systemForm = await systemFormRepository.GetByIdAsync(formId, new ColumnSet(true));
+
+                if (systemForm == null)
+                {
+                    continue;
+                }
+
+                if (string.IsNullOrEmpty(systemForm.FormXml))
+                {
+                    continue;
+                }
+
+                if (!ContentComparerHelper.TryParseXml(systemForm.FormXml, out var docFormXml))
+                {
+                    continue;
+                }
+
+                string selectedFileFolder = Path.GetDirectoryName(selectedFile.FilePath);
+
+                var referenceFilePathList = GetFileReferencesFilePaths(javaScriptCode, selectedFileFolder, selectedFile.SolutionDirectoryPath);
+
+                var referenceWebResourceDictionary = GetRefernecedWebResources(service.ConnectionData, webResourceRepository, knownWebResources, selectedFile.SolutionDirectoryPath, referenceFilePathList);
+
+                var formLibraries = docFormXml.Element("formLibraries");
+
+                if (formLibraries != null)
+                {
+                    HashSet<string> currentWebResourceDependenciesStrings = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+
+                    var allLibraries = formLibraries.Descendants("Library");
+
+                    foreach (var nodeLibrary in allLibraries)
+                    {
+                        var name = (string)nodeLibrary.Attribute("name");
+
+                        if (!string.IsNullOrEmpty(name))
+                        {
+                            currentWebResourceDependenciesStrings.Add(name);
+                        }
+                    }
+
+                    var fileDependencies = new HashSet<string>(referenceWebResourceDictionary.Keys, StringComparer.InvariantCultureIgnoreCase);
+
+                    var newDependencies = fileDependencies.Except(currentWebResourceDependenciesStrings, StringComparer.InvariantCultureIgnoreCase);
+
+                    if (!newDependencies.Any())
+                    {
+                        continue;
+                    }
+
+                    {
+                        string fieldTitle = SystemForm.Schema.Headers.formxml;
+
+                        string formXml = systemForm.FormXml;
+
+                        if (!string.IsNullOrEmpty(formXml))
+                        {
+                            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+
+                            string fileNameBackUp = EntityFileNameFormatter.GetSystemFormFileName(service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name, fieldTitle + " BackUp", "xml");
+                            string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
+
+                            try
+                            {
+                                formXml = ContentComparerHelper.FormatXmlByConfiguration(
+                                    formXml
+                                    , commonConfig
+                                    , XmlOptionsControls.FormXmlOptions
+                                    , schemaName: Commands.AbstractDynamicCommandXsdSchemas.SchemaFormXml
+                                    , formId: systemForm.Id
+                                    , entityName: systemForm.ObjectTypeCode
+                                );
+
+                                File.WriteAllText(filePathBackUp, formXml, new UTF8Encoding(false));
+
+                                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, SystemForm.Schema.EntitySchemaName, systemForm.Name, fieldTitle, filePathBackUp);
+                            }
+                            catch (Exception ex)
+                            {
+                                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                            }
+                        }
+                        else
+                        {
+                            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, SystemForm.Schema.EntitySchemaName, systemForm.Name, fieldTitle);
+                            this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                        }
+                    }
+
+                    foreach (var webResourceName in newDependencies)
+                    {
+                        formLibraries.Add(
+                            new XElement("Library"
+                                , new XAttribute("name", webResourceName)
+                                , new XAttribute("libraryUniqueId", Guid.NewGuid().ToString("B").ToLower())
+                            )
+                        );
+                    }
+
+                    ContentComparerHelper.ClearRoot(docFormXml);
+
+                    var newFormXml = docFormXml.ToString(SaveOptions.DisableFormatting);
+
+                    changedSystemForms.Add(selectedFile, systemForm, newFormXml);
+                }
+            }
+
+            if (!changedSystemForms.Any())
+            {
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NothingToPublish);
+                return;
+            }
+
+            {
+                FormatTextTableHandler tableUpdated = new FormatTextTableHandler();
+                tableUpdated.SetHeader("FileName", "Form Entity", "FormType", "FormName");
+
+                foreach (var tuple in changedSystemForms
+                    .OrderBy(e => e.Item2.ObjectTypeCode)
+                    .ThenBy(e => (int?)e.Item2.TypeEnum)
+                    .ThenBy(e => e.Item2.Name)
+                )
+                {
+                    var filePath = tuple.Item1.FilePath;
+                    var systemForm = tuple.Item2;
+
+                    systemForm.FormattedValues.TryGetValue(SystemForm.Schema.Attributes.type, out var formTypeName);
+
+                    tableUpdated.AddLine(filePath, systemForm.ObjectTypeCode, formTypeName, systemForm.Name);
+                }
+
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Updating SystemForm FormXml and Publishing...");
+
+                tableUpdated.GetFormatedLines(false).ForEach(item => _iWriteToOutput.WriteToOutput(service.ConnectionData, "{0}{1}", _tabSpacer, item));
+            }
+
+            foreach (var tuple in changedSystemForms
+                .OrderBy(e => e.Item2.ObjectTypeCode)
+                .ThenBy(e => (int?)e.Item2.TypeEnum)
+                .ThenBy(e => e.Item2.Name)
+            )
+            {
+                var systemForm = tuple.Item2;
+                var newFormXml = tuple.Item3;
+
+                var updateSystemForm = new SystemForm()
+                {
+                    Id = systemForm.Id,
+                    FormId = systemForm.Id,
+
+                    FormXml = newFormXml,
+                };
+
+                await service.UpdateAsync(updateSystemForm);
+            }
+
+            this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Update SystemForms FormXml Completed.");
+
+            this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Publishing SystemForms...");
+
+            var repositoryPublish = new PublishActionsRepository(service);
+            await repositoryPublish.PublishDashboardsAsync(changedSystemForms.Select(e => e.Item2.Id));
+
+            this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Published SystemForms: {0}", changedSystemForms.Count);
+
+            HashSet<string> formsEntityNames = new HashSet<string>(changedSystemForms.Where(e => e.Item2.ObjectTypeCode.IsValidEntityName()).Select(e => e.Item2.ObjectTypeCode), StringComparer.InvariantCultureIgnoreCase);
+
+            if (formsEntityNames.Any())
+            {
+                var entityNamesOrdered = string.Join(",", formsEntityNames.OrderBy(s => s));
+
+                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
+                await repositoryPublish.PublishEntitiesAsync(formsEntityNames);
+            }
+        }
     }
 }

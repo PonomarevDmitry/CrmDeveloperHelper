@@ -385,12 +385,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Include References from JavaScript toW WebResources DependencyXml and Publish {0} files on
+        ///   Looks up a localized string similar to Include References from JavaScript to WebResources DependencyXml and Publish {0} files on
         ///{1}?.
         /// </summary>
         internal static string IncludeReferencesToDependencyXmlAndPublishWebResourcesFormat2 {
             get {
                 return ResourceManager.GetString("IncludeReferencesToDependencyXmlAndPublishWebResourcesFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include References from JavaScript to Linked SystemForms Libraries and Publish Forms {0} files on
+        ///{1}?.
+        /// </summary>
+        internal static string IncludeReferencesToLinkedSystemFormsLibrariesAndPublishFormat2 {
+            get {
+                return ResourceManager.GetString("IncludeReferencesToLinkedSystemFormsLibrariesAndPublishFormat2", resourceCulture);
             }
         }
         

@@ -222,7 +222,11 @@
 {1}?</value>
   </data>
   <data name="IncludeReferencesToDependencyXmlAndPublishWebResourcesFormat2" xml:space="preserve">
-    <value>Include References from JavaScript toW WebResources DependencyXml and Publish {0} files on
+    <value>Include References from JavaScript to WebResources DependencyXml and Publish {0} files on
+{1}?</value>
+  </data>
+  <data name="IncludeReferencesToLinkedSystemFormsLibrariesAndPublishFormat2" xml:space="preserve">
+    <value>Include References from JavaScript to Linked SystemForms Libraries and Publish Forms {0} files on
 {1}?</value>
   </data>
   <data name="CannotParseGuid" xml:space="preserve">

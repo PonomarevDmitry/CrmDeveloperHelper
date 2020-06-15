@@ -568,5 +568,9 @@
   </data>
 
 
+  <data name="CodeJavaScriptIncludeReferencesToLinkedSystemFormCommand" xml:space="preserve">
+    <value>Include References to Linked SystemForm Libraries</value>
+  </data>
+  
 
 </root>

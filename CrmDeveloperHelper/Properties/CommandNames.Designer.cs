@@ -169,6 +169,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Include References to Linked SystemForm Libraries.
+        /// </summary>
+        internal static string CodeJavaScriptIncludeReferencesToLinkedSystemFormCommand {
+            get {
+                return ResourceManager.GetString("CodeJavaScriptIncludeReferencesToLinkedSystemFormCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open EntityMetadata Explorer.
         /// </summary>
         internal static string CodeJavaScriptLinkedEntityExplorerCommand {

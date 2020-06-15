@@ -1831,7 +1831,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         #endregion Cache
 
-        private static Regex _regexCrmDeveloperContent = new Regex(@"^\/\/\/ <crmdeveloperhelper (?<content>.+) \/>\r?$", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
+        private static Regex _regexCrmDeveloperContent = new Regex(@"^\/\/\/[\s]+<crmdeveloperhelper[\s]+(?<content>.+)[\s]*\/>[\s]*\r?$", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         private static Regex _regexAttributeEntityName = new Regex(@"entityname=\""(?<entityname>[\w]+)\""", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
         private static Regex _regexAttributeFormType = new Regex(@"systemformtype=\""(?<systemformtype>[0-9]+)\""", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
@@ -1839,36 +1839,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public static bool GetLinkedSystemForm(string text, out string entityName, out Guid formId, out int formType)
         {
-            var matchCrmDeveloperContent = _regexCrmDeveloperContent.Match(text);
+            var matches = _regexCrmDeveloperContent.Matches(text);
 
-            if (matchCrmDeveloperContent.Success
-                && matchCrmDeveloperContent.Groups["content"] != null
-            )
+            foreach (var matchCrmDeveloperContent in matches.OfType<Match>())
             {
-                string content = matchCrmDeveloperContent.Groups["content"].Value;
-
-                var matchEntityName = _regexAttributeEntityName.Match(content);
-                var matchFormType = _regexAttributeFormType.Match(content);
-                var matchFormId = _regexAttributeFormId.Match(content);
-
-                if (matchEntityName.Success
-                    && matchFormType.Success
-                    && matchFormId.Success
-                    && matchEntityName.Groups["entityname"] != null
-                    && matchFormType.Groups["systemformtype"] != null
-                    && matchFormId.Groups["systemformid"] != null
+                if (matchCrmDeveloperContent.Success
+                    && matchCrmDeveloperContent.Groups["content"] != null
                 )
                 {
-                    string formTypeString = matchFormType.Groups["systemformtype"].Value;
-                    string formIdString = matchFormId.Groups["systemformid"].Value;
-                    entityName = matchEntityName.Groups["entityname"].Value;
+                    string content = matchCrmDeveloperContent.Groups["content"].Value;
 
-                    if (Guid.TryParse(formIdString, out formId)
-                        && int.TryParse(formTypeString, out formType)
-                        && !string.IsNullOrEmpty(entityName)
+                    var matchEntityName = _regexAttributeEntityName.Match(content);
+                    var matchFormType = _regexAttributeFormType.Match(content);
+                    var matchFormId = _regexAttributeFormId.Match(content);
+
+                    if (matchEntityName.Success
+                        && matchFormType.Success
+                        && matchFormId.Success
+                        && matchEntityName.Groups["entityname"] != null
+                        && matchFormType.Groups["systemformtype"] != null
+                        && matchFormId.Groups["systemformid"] != null
                     )
                     {
-                        return true;
+                        string formTypeString = matchFormType.Groups["systemformtype"].Value;
+                        string formIdString = matchFormId.Groups["systemformid"].Value;
+                        entityName = matchEntityName.Groups["entityname"].Value;
+
+                        if (Guid.TryParse(formIdString, out formId)
+                            && int.TryParse(formTypeString, out formType)
+                            && !string.IsNullOrEmpty(entityName)
+                        )
+                        {
+                            return true;
+                        }
                     }
                 }
             }
@@ -1882,25 +1885,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public static bool GetLinkedEntityName(string text, out string entityName)
         {
-            var matchCrmDeveloperContent = _regexCrmDeveloperContent.Match(text);
+            var matches = _regexCrmDeveloperContent.Matches(text);
 
-            if (matchCrmDeveloperContent.Success
-                && matchCrmDeveloperContent.Groups["content"] != null
-            )
+            foreach (var matchCrmDeveloperContent in matches.OfType<Match>())
             {
-                string content = matchCrmDeveloperContent.Groups["content"].Value;
-
-                var matchEntityName = _regexAttributeEntityName.Match(content);
-
-                if (matchEntityName.Success
-                    && matchEntityName.Groups["entityname"] != null
+                if (matchCrmDeveloperContent.Success
+                    && matchCrmDeveloperContent.Groups["content"] != null
                 )
                 {
-                    entityName = matchEntityName.Groups["entityname"].Value;
+                    string content = matchCrmDeveloperContent.Groups["content"].Value;
 
-                    if (!string.IsNullOrEmpty(entityName))
+                    var matchEntityName = _regexAttributeEntityName.Match(content);
+
+                    if (matchEntityName.Success
+                        && matchEntityName.Groups["entityname"] != null
+                    )
                     {
-                        return true;
+                        entityName = matchEntityName.Groups["entityname"].Value;
+
+                        if (!string.IsNullOrEmpty(entityName))
+                        {
+                            return true;
+                        }
                     }
                 }
             }

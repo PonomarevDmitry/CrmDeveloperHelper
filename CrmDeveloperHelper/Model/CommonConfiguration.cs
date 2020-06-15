@@ -47,19 +47,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private bool _DoNotPropmPublishMessage;
+        private bool _DoNotPromtPublishMessage;
         /// <summary>
         /// Не показывать сообщение при публикации
         /// </summary>
         [DataMember]
-        public bool DoNotPropmPublishMessage
+        public bool DoNotPromtPublishMessage
         {
-            get => _DoNotPropmPublishMessage;
+            get => _DoNotPromtPublishMessage;
             set
             {
-                this.OnPropertyChanging(nameof(DoNotPropmPublishMessage));
-                this._DoNotPropmPublishMessage = value;
-                this.OnPropertyChanged(nameof(DoNotPropmPublishMessage));
+                this.OnPropertyChanging(nameof(DoNotPromtPublishMessage));
+                this._DoNotPromtPublishMessage = value;
+                this.OnPropertyChanged(nameof(DoNotPromtPublishMessage));
             }
         }
 
@@ -476,7 +476,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         {
             this.FolderForExport = diskData.FolderForExport;
 
-            this.DoNotPropmPublishMessage = diskData.DoNotPropmPublishMessage;
+            this.DoNotPromtPublishMessage = diskData.DoNotPromtPublishMessage;
             this.ClearOutputWindowBeforeCRMOperation = diskData.ClearOutputWindowBeforeCRMOperation;
 
             this.CompareProgram = diskData.CompareProgram;

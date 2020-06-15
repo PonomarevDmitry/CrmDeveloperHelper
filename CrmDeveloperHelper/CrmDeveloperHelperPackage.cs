@@ -312,6 +312,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeJavaScriptIncludeReferencesToDependencyXmlCommand.Initialize,
             CodeJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommand.Initialize,
 
+            CodeJavaScriptIncludeReferencesToLinkedSystemFormCommand.Initialize,
+            CodeJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommand.Initialize,
+
             // CodeJavaScriptLinkedEntity.Initialize,
 
             #endregion CodeJavaScript

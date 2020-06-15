@@ -87,14 +87,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             StringBuilder content = new StringBuilder();
 
-            foreach (var savedQuery in allForms)
+            foreach (var systemForm in allForms)
             {
-                string entityName = savedQuery.ObjectTypeCode;
-                string name = savedQuery.Name;
+                string entityName = systemForm.ObjectTypeCode;
+                string name = systemForm.Name;
 
-                string typeName = savedQuery.FormattedValues[SystemForm.Schema.Attributes.type];
+                string typeName = systemForm.FormattedValues[SystemForm.Schema.Attributes.type];
 
-                string formXml = savedQuery.FormXml;
+                string formXml = systemForm.FormXml;
 
                 if (!string.IsNullOrEmpty(formXml))
                 {
@@ -929,9 +929,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task UpdateSystemFormXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, SystemForm systemForm)
         {
-            string fieldTitle = SystemForm.Schema.Headers.formxml;
-
             {
+                string fieldTitle = SystemForm.Schema.Headers.formxml;
+
                 string formXml = systemForm.FormXml;
 
                 if (!string.IsNullOrEmpty(formXml))
@@ -954,7 +954,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         File.WriteAllText(filePathBackUp, formXml, new UTF8Encoding(false));
 
-                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, systemForm.Name, fieldTitle, filePathBackUp);
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, SystemForm.Schema.EntitySchemaName, systemForm.Name, fieldTitle, filePathBackUp);
                     }
                     catch (Exception ex)
                     {
@@ -963,7 +963,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 else
                 {
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, systemForm.Name, fieldTitle);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, SystemForm.Schema.EntitySchemaName, systemForm.Name, fieldTitle);
                     this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 }
             }

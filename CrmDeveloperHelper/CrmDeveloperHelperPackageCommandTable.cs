@@ -143,75 +143,79 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuWebResource_GroupLinkedSystemForm = 0x1405;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu = 0x1406;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuIncludeReferencesToFormLibrariesDyn = 0x14D8;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group1 = 0x1407;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuIncludeReferencesToFormLibrariesDyn_Group = 0x14D9;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group1_MenuOpenInWebConnectionDyn = 0x1408;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm = 0x1406;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_Group1_MenuOpenInWebConnectionDyn_Group = 0x1409;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupOpenInWebOrExplorer = 0x1407;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupGetCurrentTabsAndSections = 0x1424;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupOpenInWebOrExplorer_MenuOpenInWebConnectionDyn = 0x1408;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupGetCurrentTabsAndSections_MenuTypeConstructorDyn = 0x1425;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupOpenInWebOrExplorer_MenuOpenInWebConnectionDyn_Group = 0x1409;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupGetCurrentTabsAndSections_MenuTypeConstructorDyn_Group = 0x1426;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupGetCurrentTabsAndSections = 0x1424;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupGetCurrentTabsAndSections_MenuJsonObjectDyn = 0x1427;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupGetCurrentTabsAndSections_MenuTypeConstructorDyn = 0x1425;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupGetCurrentTabsAndSections_MenuJsonObjectDyn_Group = 0x1428;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupGetCurrentTabsAndSections_MenuTypeConstructorDyn_Group = 0x1426;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupGetCurrentAttribute = 0x1423;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupGetCurrentTabsAndSections_MenuJsonObjectDyn = 0x1427;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupGetCurrentAttribute_MenuGetCurrentFormXmlDyn = 0x140A;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupGetCurrentTabsAndSections_MenuJsonObjectDyn_Group = 0x1428;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupGetCurrentAttribute_MenuGetCurrentFormXmlDyn_Group = 0x140B;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupGetCurrentAttribute = 0x1423;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupGetCurrentAttribute_MenuGetCurrentFormJsonDyn = 0x1412;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupGetCurrentAttribute_MenuGetCurrentFormXmlDyn = 0x140A;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupGetCurrentAttribute_MenuGetCurrentFormJsonDyn_Group = 0x1413;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupGetCurrentAttribute_MenuGetCurrentFormXmlDyn_Group = 0x140B;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupGetCurrentDescription = 0x1422;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupGetCurrentAttribute_MenuGetCurrentFormJsonDyn = 0x1412;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupGetCurrentDescription_MenuEntityDescriptionDyn = 0x141D;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupGetCurrentAttribute_MenuGetCurrentFormJsonDyn_Group = 0x1413;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupGetCurrentDescription_MenuEntityDescriptionDyn_Group = 0x141E;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupGetCurrentDescription = 0x1422;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupGetCurrentDescription_MenuFormDescriptionDyn = 0x141F;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupGetCurrentDescription_MenuEntityDescriptionDyn = 0x141D;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupGetCurrentDescription_MenuFormDescriptionDyn_Group = 0x1420;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupGetCurrentDescription_MenuEntityDescriptionDyn_Group = 0x141E;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupChange = 0x1421;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupGetCurrentDescription_MenuFormDescriptionDyn = 0x141F;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupChange_MenuChangeInEditorDyn = 0x141B;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupGetCurrentDescription_MenuFormDescriptionDyn_Group = 0x1420;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupChange_MenuChangeInEditorDyn_Group = 0x141C;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupChange = 0x1421;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupAddToSolution = 0x1415;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupChange_MenuChangeInEditorDyn = 0x141B;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupAddToSolution_Menu = 0x1416;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupChange_MenuChangeInEditorDyn_Group = 0x141C;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupAddToSolution_Menu_GroupLastSolution = 0x1417;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution = 0x1415;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn = 0x1418;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu = 0x1416;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn_Group = 0x1419;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution = 0x1417;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupAddToSolution_Menu_GroupConnectionDyn = 0x141A;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn = 0x1418;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupActionOnComponent = 0x1414;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn_Group = 0x1419;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupActionOnComponent_MenuOpenDependentInWebDyn = 0x140C;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupConnectionDyn = 0x141A;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupActionOnComponent_MenuOpenDependentInWebDyn_Group = 0x140D;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupActionOnComponent = 0x1414;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupActionOnComponent_MenuOpenDependentInExplorerDyn = 0x140E;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupActionOnComponent_MenuOpenDependentInWebDyn = 0x140C;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupActionOnComponent_MenuOpenDependentInExplorerDyn_Group = 0x140F;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupActionOnComponent_MenuOpenDependentInWebDyn_Group = 0x140D;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupActionOnComponent_MenuOpenSolutionsListWithComponentInExplorerDyn = 0x1410;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupActionOnComponent_MenuOpenDependentInExplorerDyn = 0x140E;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_Menu_GroupActionOnComponent_MenuOpenSolutionsListWithComponentInExplorerDyn_Group = 0x1411;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupActionOnComponent_MenuOpenDependentInExplorerDyn_Group = 0x140F;
+
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupActionOnComponent_MenuOpenSolutionsListWithComponentInExplorerDyn = 0x1410;
+
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupActionOnComponent_MenuOpenSolutionsListWithComponentInExplorerDyn_Group = 0x1411;
 
             public const int codeMenuWebResource_GroupLinkedEntity = 0x142D;
 
@@ -2398,6 +2402,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommandId = 0x3D54;
 
+            public const int CodeJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId = 0x3E1C;
+
             public const int CodeJavaScriptUpdateEntityMetadataFileCommandId = 0x22F6;
 
             public const int CodeJavaScriptUpdateGlobalOptionSetSingleFileCommandId = 0x24B8;
@@ -2890,6 +2896,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int CodeWebResourceLinkClearCommandId = 0x2008;
 
             public const int CodeJavaScriptIncludeReferencesToDependencyXmlCommandId = 0x223B;
+
+            public const int CodeJavaScriptIncludeReferencesToLinkedSystemFormCommandId = 0x225F;
 
             public const int CodeJavaScriptUpdateEntityMetadataFileWithSelectCommandId = 0x219D;
 
