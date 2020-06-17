@@ -264,6 +264,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Публикация всего.
 
+        #region Including References to WebResources DependencyXml
+
         public async Task ExecuteIncludeReferencesToDependencyXml(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
         {
             await CheckEncodingCheckReadOnlyConnectExecuteActionAsync(connectionData
@@ -413,7 +415,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 knownWebResources.Add(tuple.Item1.FilePath, tuple.Item2);
             }
 
-            var webResourceToPublish = new TupleList<string, WebResource, string>();
+            var webResourceToPublish = new TupleList<string, WebResource, string, int, string>();
 
             foreach (var tuple in list)
             {
@@ -458,7 +460,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 var fileDependencies = new HashSet<string>(referenceWebResourceDictionary.Keys, StringComparer.InvariantCultureIgnoreCase);
 
-                var newDependencies = fileDependencies.Except(currentWebResourceDependencies, StringComparer.InvariantCultureIgnoreCase);
+                var newDependencies = fileDependencies.Except(currentWebResourceDependencies, StringComparer.InvariantCultureIgnoreCase).ToList();
 
                 if (!newDependencies.Any())
                 {
@@ -578,7 +580,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     newDependencyXml = doc.ToString(SaveOptions.DisableFormatting);
                 }
 
-                webResourceToPublish.Add(selectedFile.FilePath, webResource, newDependencyXml);
+                webResourceToPublish.Add(selectedFile.FilePath, webResource, newDependencyXml, newDependencies.Count, string.Join(", ", newDependencies.OrderBy(s => s)));
             }
 
             if (!webResourceToPublish.Any())
@@ -589,7 +591,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             {
                 FormatTextTableHandler tableUpdated = new FormatTextTableHandler();
-                tableUpdated.SetHeader("FileName", "WebResourceName", "WebResourceType");
+                tableUpdated.SetHeader("FileName", "Dependencies", "WebResourceName", "WebResourceType", "New Dependencies");
 
                 foreach (var tuple in webResourceToPublish.OrderBy(e => e.Item1))
                 {
@@ -597,7 +599,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     var webResource = tuple.Item2;
 
                     webResource.FormattedValues.TryGetValue(WebResource.Schema.Attributes.webresourcetype, out var webresourcetype);
-                    tableUpdated.AddLine(filePath, webResource.Name, webresourcetype);
+                    tableUpdated.AddLine(filePath, tuple.Item4.ToString(), webResource.Name, webresourcetype, tuple.Item5);
                 }
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Updating WebResources DependencyXml and Publishing...");
@@ -628,6 +630,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Published web-resources: {0}", webResourceToPublish.Count);
         }
+
+        #endregion Including References to WebResources DependencyXml
 
         private static Dictionary<string, WebResource> GetRefernecedWebResources(
             ConnectionData connectionData
@@ -738,6 +742,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             return result;
         }
 
+        #region Including References to Linked SystemForms Libraries
+
         public async Task ExecuteIncludeReferencesToLinkedSystemFormsLibraries(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
         {
             await CheckEncodingCheckReadOnlyConnectExecuteActionAsync(connectionData
@@ -757,7 +763,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             // Репозиторий для работы с веб-ресурсами
             var webResourceRepository = new WebResourceRepository(service);
 
-            var changedSystemForms = new TupleList<SelectedFile, SystemForm, string>();
+            var changedSystemForms = new TupleList<SelectedFile, SystemForm, string, int, string>();
 
             foreach (var selectedFile in selectedFiles)
             {
@@ -816,7 +822,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     var fileDependencies = new HashSet<string>(referenceWebResourceDictionary.Keys, StringComparer.InvariantCultureIgnoreCase);
 
-                    var newDependencies = fileDependencies.Except(currentWebResourceDependenciesStrings, StringComparer.InvariantCultureIgnoreCase);
+                    var newDependencies = fileDependencies.Except(currentWebResourceDependenciesStrings, StringComparer.InvariantCultureIgnoreCase).ToList();
 
                     if (!newDependencies.Any())
                     {
@@ -876,7 +882,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     var newFormXml = docFormXml.ToString(SaveOptions.DisableFormatting);
 
-                    changedSystemForms.Add(selectedFile, systemForm, newFormXml);
+                    changedSystemForms.Add(selectedFile, systemForm, newFormXml, newDependencies.Count, string.Join(", ", newDependencies.OrderBy(s => s)));
                 }
             }
 
@@ -888,7 +894,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             {
                 FormatTextTableHandler tableUpdated = new FormatTextTableHandler();
-                tableUpdated.SetHeader("FileName", "Form Entity", "FormType", "FormName");
+                tableUpdated.SetHeader("FileName", "Dependencies", "Form Entity", "FormType", "FormName", "New Dependencies");
 
                 foreach (var tuple in changedSystemForms
                     .OrderBy(e => e.Item2.ObjectTypeCode)
@@ -901,7 +907,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     systemForm.FormattedValues.TryGetValue(SystemForm.Schema.Attributes.type, out var formTypeName);
 
-                    tableUpdated.AddLine(filePath, systemForm.ObjectTypeCode, formTypeName, systemForm.Name);
+                    tableUpdated.AddLine(filePath, tuple.Item4.ToString(), systemForm.ObjectTypeCode, formTypeName, systemForm.Name, tuple.Item5);
                 }
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Updating SystemForm FormXml and Publishing...");
@@ -948,5 +954,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 await repositoryPublish.PublishEntitiesAsync(formsEntityNames);
             }
         }
+
+        #endregion Including References to Linked SystemForms Libraries
     }
 }
