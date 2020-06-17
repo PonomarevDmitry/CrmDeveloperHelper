@@ -3577,8 +3577,8 @@
       <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet_MenuUnknownFormControlTypesDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Unknow Form Control Types</ButtonText>
-          <MenuText>Unknow Form Control Types</MenuText>
+          <ButtonText>Unknown Form Control Types</ButtonText>
+          <MenuText>Unknown Form Control Types</MenuText>
         </Strings>
       </Menu>
 
