@@ -470,49 +470,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _propertyGroups[GroupingProperty.Entity] = new RequestGroupBuilder()
             {
                 GroupingProperty = GroupingProperty.Entity,
-                FillTree = FillTreeByEntity,
+                GetTreeNodes = GetTreeNodesByEntity,
                 GroupSteps = GroupStepsByEntity,
             };
 
             _propertyGroups[GroupingProperty.Message] = new RequestGroupBuilder()
             {
                 GroupingProperty = GroupingProperty.Message,
-                FillTree = FillTreeByMessage,
+                GetTreeNodes = GetTreeNodesByMessage,
                 GroupSteps = GroupStepsByMessage,
             };
 
             _propertyGroups[GroupingProperty.MessageCategory] = new RequestGroupBuilder()
             {
                 GroupingProperty = GroupingProperty.MessageCategory,
-                FillTree = FillTreeByMessageCategory,
+                GetTreeNodes = GetTreeNodesByMessageCategory,
                 GroupSteps = GroupStepsByMessageCategory,
             };
 
             _propertyGroups[GroupingProperty.PluginAssembly] = new RequestGroupBuilder()
             {
                 GroupingProperty = GroupingProperty.PluginAssembly,
-                FillTree = FillTreeByPluginAssembly,
+                GetTreeNodes = GetTreeNodesByPluginAssembly,
                 GroupSteps = GroupStepsByPluginAssembly,
             };
 
             _propertyGroups[GroupingProperty.PluginType] = new RequestGroupBuilder()
             {
                 GroupingProperty = GroupingProperty.PluginType,
-                FillTree = FillTreeByPluginType,
+                GetTreeNodes = GetTreeNodesByPluginType,
                 GroupSteps = GroupStepsByPluginType,
             };
 
             _propertyGroups[GroupingProperty.Stage] = new RequestGroupBuilder()
             {
                 GroupingProperty = GroupingProperty.Stage,
-                FillTree = FillTreeByStage,
+                GetTreeNodes = GetTreeNodesByStage,
                 GroupSteps = GroupStepsByStage,
             };
 
             _propertyGroups[GroupingProperty.Mode] = new RequestGroupBuilder()
             {
                 GroupingProperty = GroupingProperty.Mode,
-                FillTree = FillTreeByMode,
+                GetTreeNodes = GetTreeNodesByMode,
                 GroupSteps = GroupStepsByMode,
             };
 
@@ -726,8 +726,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , SdkMessageProcessingStep.Schema.OptionSets.statuscode?
                 , IEnumerable<RequestGroupBuilder>
 
-                , Task> // Func Result
-                FillTree
+                , Task<IList<PluginTreeViewItem>>> // Func Result
+                GetTreeNodes
             { get; set; }
 
             public Func<
@@ -746,7 +746,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         #region Entity
 
-        private async Task FillTreeByEntity(
+        private async Task<IList<PluginTreeViewItem>> GetTreeNodesByEntity(
             IOrganizationServiceExtented service
             , List<PluginStage> stages
             , string pluginTypeNameFilter
@@ -760,19 +760,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             IDictionary<Guid, List<SdkMessageProcessingStepImage>> imagesByStep = await GetImagesForStepsAsync(service, stages);
 
-            foreach (var nodeEntity in GroupStepsByEntity(
+            var result = GroupStepsByEntity(
                 service
                 , stepsEnum
                 , imagesByStep
                 , requestGroups
-                , new Action<PluginTreeViewItem>[0]
-            ))
-            {
-                this.Dispatcher.Invoke(() =>
-                {
-                    _pluginTree.Add(nodeEntity);
-                });
-            }
+                , Array.Empty<Action<PluginTreeViewItem>>()
+            ).ToList();
+
+            return result;
 
             //var groupsList = steps.GroupBy(s => s.PrimaryObjectTypeCodeName, StringComparer.InvariantCultureIgnoreCase);
 
@@ -994,7 +990,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         #region Message
 
-        private async Task FillTreeByMessage(
+        private async Task<IList<PluginTreeViewItem>> GetTreeNodesByMessage(
             IOrganizationServiceExtented service
             , List<PluginStage> stages
             , string pluginTypeNameFilter
@@ -1008,19 +1004,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             IDictionary<Guid, List<SdkMessageProcessingStepImage>> imagesByStep = await GetImagesForStepsAsync(service, stages);
 
-            foreach (var nodeMessage in GroupStepsByMessage(
+            var result = GroupStepsByMessage(
                 service
                 , stepsEnum
                 , imagesByStep
                 , requestGroups
                 , Array.Empty<Action<PluginTreeViewItem>>()
-            ))
-            {
-                this.Dispatcher.Invoke(() =>
-                {
-                    _pluginTree.Add(nodeMessage);
-                });
-            }
+            ).ToList();
+
+            return result;
         }
 
         private IEnumerable<PluginTreeViewItem> GroupStepsByMessage(
@@ -1064,7 +1056,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         #region Message Category
 
-        private async Task FillTreeByMessageCategory(
+        private async Task<IList<PluginTreeViewItem>> GetTreeNodesByMessageCategory(
             IOrganizationServiceExtented service
             , List<PluginStage> stages
             , string pluginTypeNameFilter
@@ -1078,19 +1070,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             IDictionary<Guid, List<SdkMessageProcessingStepImage>> imagesByStep = await GetImagesForStepsAsync(service, stages);
 
-            foreach (var nodeEntity in GroupStepsByMessageCategory(
+            var result = GroupStepsByMessageCategory(
                 service
                 , stepsEnum
                 , imagesByStep
                 , requestGroups
                 , Array.Empty<Action<PluginTreeViewItem>>()
-            ))
-            {
-                this.Dispatcher.Invoke(() =>
-                {
-                    _pluginTree.Add(nodeEntity);
-                });
-            }
+            ).ToList();
+
+            return result;
         }
 
         private IEnumerable<PluginTreeViewItem> GroupStepsByMessageCategory(
@@ -1130,7 +1118,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         #region PluginAssembly
 
-        private async Task FillTreeByPluginAssembly(
+        private async Task<IList<PluginTreeViewItem>> GetTreeNodesByPluginAssembly(
             IOrganizationServiceExtented service
             , List<PluginStage> stages
             , string pluginTypeNameFilter
@@ -1153,6 +1141,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var groupAssemblyList = pluginTypeList.GroupBy(p => new { p.PluginAssemblyId.Id, Name = p.AssemblyName }).OrderBy(a => a.Key.Name);
 
             var stepsByPluginAssemblyDict = stepsEnum.GroupBy(s => s.PluginAssemblyId).ToDictionary(s => s.Key);
+
+            var result = new List<PluginTreeViewItem>();
 
             foreach (var grPluginAssembly in groupAssemblyList)
             {
@@ -1230,11 +1220,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
 
-                this.Dispatcher.Invoke(() =>
-                {
-                    _pluginTree.Add(nodePluginAssembly);
-                });
+                result.Add(nodePluginAssembly);
             }
+
+            return result;
         }
 
         private IEnumerable<PluginTreeViewItem> GroupStepsByPluginAssembly(
@@ -1289,7 +1278,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         #region PluginType
 
-        private async Task FillTreeByPluginType(
+        private async Task<IList<PluginTreeViewItem>> GetTreeNodesByPluginType(
             IOrganizationServiceExtented service
             , List<PluginStage> stages
             , string pluginTypeNameFilter
@@ -1310,6 +1299,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IDictionary<Guid, List<SdkMessageProcessingStepImage>> imagesByStep = await GetImagesForStepsAsync(service, stages);
 
             var stepsByPluginTypeDict = stepsEnum.GroupBy(s => s.EventHandler.Id).ToDictionary(s => s.Key);
+
+            var result = new List<PluginTreeViewItem>();
 
             foreach (var pluginType in pluginTypeList
                 .OrderBy(p => p.IsWorkflowActivity.GetValueOrDefault())
@@ -1350,11 +1341,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     RecursiveGroup(service, nodePluginType, steps, imagesByStep, requestGroups, newActionOnChilds);
                 }
 
-                this.Dispatcher.Invoke(() =>
-                {
-                    _pluginTree.Add(nodePluginType);
-                });
+                result.Add(nodePluginType);
             }
+
+            return result;
         }
 
         private IEnumerable<PluginTreeViewItem> GroupStepsByPluginType(
@@ -1420,7 +1410,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         #region Stage
 
-        private async Task FillTreeByStage(
+        private async Task<IList<PluginTreeViewItem>> GetTreeNodesByStage(
             IOrganizationServiceExtented service
             , List<PluginStage> stages
             , string pluginTypeNameFilter
@@ -1434,19 +1424,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             IDictionary<Guid, List<SdkMessageProcessingStepImage>> imagesByStep = await GetImagesForStepsAsync(service, stages);
 
-            foreach (var grStage in GroupStepsByStage(
+            var result = GroupStepsByStage(
                 service
                 , stepsEnum
                 , imagesByStep
                 , requestGroups
                 , Array.Empty<Action<PluginTreeViewItem>>()
-            ))
-            {
-                this.Dispatcher.Invoke(() =>
-                {
-                    _pluginTree.Add(grStage);
-                });
-            }
+            ).ToList();
+
+            return result;
         }
 
         private IEnumerable<PluginTreeViewItem> GroupStepsByStage(
@@ -1484,7 +1470,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         #region Mode
 
-        private async Task FillTreeByMode(
+        private async Task<IList<PluginTreeViewItem>> GetTreeNodesByMode(
             IOrganizationServiceExtented service
             , List<PluginStage> stages
             , string pluginTypeNameFilter
@@ -1498,19 +1484,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             IDictionary<Guid, List<SdkMessageProcessingStepImage>> imagesByStep = await GetImagesForStepsAsync(service, stages);
 
-            foreach (var grMode in GroupStepsByMode(
+            var result = GroupStepsByMode(
                 service
                 , stepsEnum
                 , imagesByStep
                 , requestGroups
                 , Array.Empty<Action<PluginTreeViewItem>>()
-            ))
-            {
-                this.Dispatcher.Invoke(() =>
-                {
-                    _pluginTree.Add(grMode);
-                });
-            }
+            ).ToList();
+
+            return result;
         }
 
         private IEnumerable<PluginTreeViewItem> GroupStepsByMode(
@@ -1640,6 +1622,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     _pluginTree.Clear();
 
+                    this.trVPluginTree.EndInit();
+
                     entityName = cmBEntityName.Text?.Trim();
                     messageName = txtBMessageFilter.Text.Trim();
                     pluginTypeName = txtBPluginTypeFilter.Text.Trim();
@@ -1654,21 +1638,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var stages = GetStages();
 
+                IEnumerable<PluginTreeViewItem> listNewNodes = Enumerable.Empty<PluginTreeViewItem>();
+
                 if (service != null)
                 {
                     List<RequestGroupBuilder> requestGroups = _currentGrouping.Select(g => _propertyGroups[g]).ToList();
 
                     var first = requestGroups.First();
 
-                    await first.FillTree(service, stages, pluginTypeName, messageName, entityName, statuscode, requestGroups.Skip(1));
+                    var temp = await first.GetTreeNodes(service, stages, pluginTypeName, messageName, entityName, statuscode, requestGroups.Skip(1));
 
-                    ExpandNodes(_pluginTree);
+                    ExpandNodes(temp);
+
+                    listNewNodes = temp;
 
                     base.StartGettingSdkMessageFilters(service);
                 }
 
-                this.trVPluginTree.Dispatcher.Invoke(() =>
+                this.Dispatcher.Invoke(() =>
                 {
+                    this.trVPluginTree.BeginInit();
+
+                    foreach (var nodeEntity in listNewNodes)
+                    {
+                        _pluginTree.Add(nodeEntity);
+                    }
+
                     this.trVPluginTree.EndInit();
                 });
 
@@ -2091,7 +2086,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return nameImage.ToString();
         }
 
-        private void ExpandNodes(ObservableCollection<PluginTreeViewItem> list)
+        private void ExpandNodes(IList<PluginTreeViewItem> list)
         {
             if (list.Count == 1)
             {
