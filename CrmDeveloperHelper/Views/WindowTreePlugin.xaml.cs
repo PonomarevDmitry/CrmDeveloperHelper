@@ -1677,9 +1677,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                ToggleControls(service.ConnectionData, true, string.Empty);
             }
-
-
         }
 
         public List<PluginStage> GetStages()
