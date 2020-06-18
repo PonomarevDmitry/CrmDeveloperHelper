@@ -3526,6 +3526,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Loading SdkMessageProcessingStep Images....
+        /// </summary>
+        internal static string LoadingSdkMessageProcessingStepImages {
+            get {
+                return ResourceManager.GetString("LoadingSdkMessageProcessingStepImages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading SdkMessageProcessingSteps.....
+        /// </summary>
+        internal static string LoadingSdkMessageProcessingSteps {
+            get {
+                return ResourceManager.GetString("LoadingSdkMessageProcessingSteps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loading Sdk Message Requests....
         /// </summary>
         internal static string LoadingSdkMessageRequests {

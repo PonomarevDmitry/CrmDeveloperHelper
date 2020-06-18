@@ -2199,15 +2199,14 @@
     <value>Getting Class Type.FullName from files: {0}</value>
   </data>
 
+  <data name="LoadingSdkMessageProcessingSteps" xml:space="preserve">
+    <value>Loading SdkMessageProcessingSteps....</value>
+  </data>
+  <data name="LoadingSdkMessageProcessingStepImages" xml:space="preserve">
+    <value>Loading SdkMessageProcessingStep Images...</value>
+  </data>
+  
   <!--
-  <data name="111111" xml:space="preserve">
-    <value>2222222</value>
-  </data>
-  
-  <data name="111111" xml:space="preserve">
-    <value>2222222</value>
-  </data>
-  
   <data name="111111" xml:space="preserve">
     <value>2222222</value>
   </data>

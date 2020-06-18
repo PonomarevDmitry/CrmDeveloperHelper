@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xrm.Sdk.Query;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 {
@@ -139,11 +140,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             content.AppendLine(connectionData.GetConnectionDescription());
             content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
 
-            var repository = new PluginSearchRepository(service);
+            var repositoryStep = new SdkMessageProcessingStepRepository(service);
+            var repositoryStepImage = new SdkMessageProcessingStepImageRepository(service);
 
-            var search = await repository.FindAllAsync(null, null, null, null, null);
+            var stepEnum = await repositoryStep.FindSdkMessageProcessingStepWithEntityNameAsync(null, null, null, null, null);
 
-            var querySteps = search.SdkMessageProcessingStep
+            var imagesList = await repositoryStepImage.GetAllSdkMessageProcessingStepImageAsync(null, new ColumnSet(true));
+
+            var imagesDictionary = imagesList.GroupBy(e => e.SdkMessageProcessingStepId.Id).ToDictionary(g => g.Key, g => g.ToList());
+
+            var querySteps = stepEnum
                             .OrderBy(ent => ent.EventHandler?.Name ?? "Unknown")
                             .ThenBy(ent => ent.PrimaryObjectTypeCodeName)
                             .ThenBy(ent => ent.SdkMessageId?.Name ?? "Unknown", MessageComparer.Comparer)
@@ -159,11 +165,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             foreach (var step in querySteps)
             {
-                var queryImage = from image in search.SdkMessageProcessingStepImage
-                                 where image.SdkMessageProcessingStepId != null
-                                 where image.SdkMessageProcessingStepId.Id == step.Id
+                var queryImage = Enumerable.Empty<SdkMessageProcessingStepImage>();
+
+                if (imagesDictionary.TryGetValue(step.Id, out var listImages))
+                {
+                    queryImage = from image in listImages
                                  orderby image.ImageType.Value, image.CreatedOn, image.Name
                                  select image;
+                }
 
                 var preImages = queryImage.Where(im => im.ImageType.Value == 0 || im.ImageType.Value == 2);
                 var postImages = queryImage.Where(im => im.ImageType.Value == 1 || im.ImageType.Value == 2);
@@ -272,11 +281,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             content.AppendLine(connectionData.GetConnectionDescription());
             content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
 
-            var repository = new PluginSearchRepository(service);
+            var repositoryStep = new SdkMessageProcessingStepRepository(service);
+            var repositoryStepImage = new SdkMessageProcessingStepImageRepository(service);
 
-            var search = await repository.FindAllAsync(null, null, null, null, null);
+            var stepEnum = await repositoryStep.FindSdkMessageProcessingStepWithEntityNameAsync(null, null, null, null, null);
 
-            var querySteps = search.SdkMessageProcessingStep
+            var imagesList = await repositoryStepImage.GetAllSdkMessageProcessingStepImageAsync(null, new ColumnSet(true));
+
+            var imagesDictionary = imagesList.GroupBy(e => e.SdkMessageProcessingStepId.Id).ToDictionary(g => g.Key, g => g.ToList());
+
+            var querySteps = stepEnum
                             .OrderBy(ent => ent.EventHandler?.Name ?? "Unknown")
                             .ThenBy(ent => ent.PrimaryObjectTypeCodeName)
                             .ThenBy(ent => ent.SdkMessageId?.Name ?? "Unknown", MessageComparer.Comparer)
@@ -330,13 +344,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         , SdkMessageProcessingStepRepository.GetStageName(step.Stage.Value, step.Mode.Value)
                         , step.Rank.ToString()
                         , step.FormattedValues[SdkMessageProcessingStep.Schema.Attributes.statuscode]
-                        ).AppendLine();
+                    ).AppendLine();
 
-                    var queryImage = from image in search.SdkMessageProcessingStepImage
-                                     where image.SdkMessageProcessingStepId != null
-                                     where image.SdkMessageProcessingStepId.Id == step.Id
+                    var queryImage = Enumerable.Empty<SdkMessageProcessingStepImage>();
+
+                    if (imagesDictionary.TryGetValue(step.Id, out var listImages))
+                    {
+                        queryImage = from image in listImages
                                      orderby image.ImageType.Value, image.CreatedOn, image.Name
                                      select image;
+                    }
 
                     int numberImage = 1;
 
@@ -415,11 +432,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             content.AppendLine(connectionData.GetConnectionDescription());
             content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
 
-            var repository = new PluginSearchRepository(service);
+            var repositoryStep = new SdkMessageProcessingStepRepository(service);
 
-            var search = await repository.FindAllAsync(null, null, null, null, null);
+            var stepEnum = await repositoryStep.FindSdkMessageProcessingStepWithEntityNameAsync(null, null, null, null, null);
 
-            var querySteps = search.SdkMessageProcessingStep
+            var querySteps = stepEnum
                             .OrderBy(ent => ent.EventHandler.Name)
                             .ThenBy(ent => ent.PrimaryObjectTypeCodeName)
                             .ThenBy(ent => ent.SdkMessageId.Name, MessageComparer.Comparer)
@@ -669,7 +686,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             content.AppendLine(connectionData.GetConnectionDescription());
             content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
 
-            var repository = new PluginSearchRepository(service);
             var repositoryImage = new SdkMessageProcessingStepImageRepository(service);
 
             var listImages = await repositoryImage.GetAllImagesAsync();

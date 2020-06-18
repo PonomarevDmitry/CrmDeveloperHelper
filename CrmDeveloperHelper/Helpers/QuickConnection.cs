@@ -25,14 +25,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private static ConcurrentDictionary<Uri, IServiceManagement<IDiscoveryService>> _cacheDiscoveryServiceManagement = new ConcurrentDictionary<Uri, IServiceManagement<IDiscoveryService>>();
         private static ConcurrentDictionary<Uri, IServiceManagement<IOrganizationService>> _cacheOrganizationServiceManagement = new ConcurrentDictionary<Uri, IServiceManagement<IOrganizationService>>();
 
+        static QuickConnection()
+        {
+            IgnoreCertificateValidation();
+        }
+
         private static IServiceManagement<IDiscoveryService> GetDiscoveryServiceConfiguration(ConnectionData connectionData, Uri uri)
         {
             if (_cacheDiscoveryServiceManagement.ContainsKey(uri))
             {
                 return _cacheDiscoveryServiceManagement[uri];
             }
-
-            IgnoreCertificateValidation();
 
             if (!UrlIsAvailable(uri))
             {
@@ -64,8 +67,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 return _cacheOrganizationServiceManagement[uri];
             }
-
-            IgnoreCertificateValidation();
 
             if (!UrlIsAvailable(uri))
             {
@@ -382,8 +383,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             , out OrganizationDetail organizationDetail
         )
         {
-            IgnoreCertificateValidation();
-
             organizationDetail = null;
 
             Uri orgUri = null;
@@ -468,8 +467,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private static DiscoveryServiceProxy CreateDiscoveryService(ConnectionData connectionData, Uri discoveryUrl, string username, string password)
         {
-            IgnoreCertificateValidation();
-
             try
             {
                 var serviceManagement = GetDiscoveryServiceConfiguration(connectionData, discoveryUrl);
@@ -489,8 +486,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public static DiscoveryServiceProxy CreateDiscoveryService(IServiceManagement<IDiscoveryService> serviceManagement, string username, string password)
         {
-            IgnoreCertificateValidation();
-
             DiscoveryServiceProxy service = null;
 
             var credentials = GetCredentials(serviceManagement, username, password);

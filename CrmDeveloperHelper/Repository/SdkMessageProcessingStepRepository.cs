@@ -28,12 +28,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
-        public Task<List<SdkMessageProcessingStep>> GetAllSdkMessageProcessingStepAsync(List<PluginStage> list, string pluginName, string messageName, SdkMessageProcessingStep.Schema.OptionSets.statuscode? statuscode)
+        public Task<List<SdkMessageProcessingStep>> FindSdkMessageProcessingStepWithEntityNameAsync(string entityName, List<PluginStage> listStages, string pluginName, string messageName, SdkMessageProcessingStep.Schema.OptionSets.statuscode? statuscode)
         {
-            return Task.Run(() => GetAllSdkMessageProcessingStep(list, pluginName, messageName, statuscode));
+            return Task.Run(() => FindSdkMessageProcessingStepWithEntityName(entityName, listStages, pluginName, messageName, statuscode));
         }
 
-        private List<SdkMessageProcessingStep> GetAllSdkMessageProcessingStep(List<PluginStage> list, string pluginName, string messageName, SdkMessageProcessingStep.Schema.OptionSets.statuscode? statuscode)
+        private List<SdkMessageProcessingStep> FindSdkMessageProcessingStepWithEntityName(string entityName, List<PluginStage> listStages, string pluginName, string messageName, SdkMessageProcessingStep.Schema.OptionSets.statuscode? statuscode)
+        {
+            var listSteps = FindSdkMessageProcessingStep(listStages, pluginName, messageName, statuscode);
+
+            if (string.IsNullOrEmpty(entityName))
+            {
+                return listSteps;
+            }
+            else
+            {
+                return listSteps.Where(ent => ent.PrimaryObjectTypeCodeName.IndexOf(entityName, StringComparison.InvariantCultureIgnoreCase) > -1).ToList();
+            }
+        }
+
+        public Task<List<SdkMessageProcessingStep>> FindSdkMessageProcessingStepAsync(List<PluginStage> listStages, string pluginName, string messageName, SdkMessageProcessingStep.Schema.OptionSets.statuscode? statuscode)
+        {
+            return Task.Run(() => FindSdkMessageProcessingStep(listStages, pluginName, messageName, statuscode));
+        }
+
+        private List<SdkMessageProcessingStep> FindSdkMessageProcessingStep(List<PluginStage> listStages, string pluginName, string messageName, SdkMessageProcessingStep.Schema.OptionSets.statuscode? statuscode)
         {
             var linkPluginType = new LinkEntity()
             {
@@ -115,11 +134,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 linkMessage.LinkCriteria.Conditions.Add(new ConditionExpression(SdkMessage.Schema.Attributes.name, ConditionOperator.Like, messageName + "%"));
             }
 
-            if (list != null && list.Count > 0)
+            if (listStages != null && listStages.Count > 0)
             {
                 FilterExpression filter = new FilterExpression(LogicalOperator.Or);
 
-                if (list.Contains(PluginStage.PreValidation))
+                if (listStages.Contains(PluginStage.PreValidation))
                 {
                     var temp = new FilterExpression(LogicalOperator.And);
 
@@ -128,7 +147,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     filter.AddFilter(temp);
                 }
 
-                if (list.Contains(PluginStage.Pre))
+                if (listStages.Contains(PluginStage.Pre))
                 {
                     var temp = new FilterExpression(LogicalOperator.And);
 
@@ -137,7 +156,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     filter.AddFilter(temp);
                 }
 
-                if (list.Contains(PluginStage.PostSynch))
+                if (listStages.Contains(PluginStage.PostSynch))
                 {
                     var temp = new FilterExpression(LogicalOperator.And);
 
@@ -147,7 +166,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     filter.AddFilter(temp);
                 }
 
-                if (list.Contains(PluginStage.PostAsych))
+                if (listStages.Contains(PluginStage.PostAsych))
                 {
                     var temp = new FilterExpression(LogicalOperator.And);
 

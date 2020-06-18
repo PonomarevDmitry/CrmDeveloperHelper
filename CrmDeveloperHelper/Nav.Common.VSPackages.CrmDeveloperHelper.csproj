@@ -1241,7 +1241,6 @@
     <Compile Include="Model\OrganizationServiceExtentedProxy.cs" />
     <Compile Include="Model\OtherPrivilegeListViewItem.cs" />
     <Compile Include="Model\OtherPrivilegeViewItem.cs" />
-    <Compile Include="Model\PluginSearchResult.cs" />
     <Compile Include="Model\PluginStage.cs" />
     <Compile Include="Model\PluginTreeViewItem.cs" />
     <Compile Include="Model\PrimaryGuidView.cs" />
@@ -1346,7 +1345,6 @@
     <Compile Include="Repository\OptionSetRepository.cs" />
     <Compile Include="Repository\OrganizationRepository.cs" />
     <Compile Include="Repository\PluginAssemblyRepository.cs" />
-    <Compile Include="Repository\PluginSearchRepository.cs" />
     <Compile Include="Repository\PluginTypeRepository.cs" />
     <Compile Include="Repository\PublishActionsRepository.cs" />
     <Compile Include="Repository\PublisherRepository.cs" />

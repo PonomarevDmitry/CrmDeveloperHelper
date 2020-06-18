@@ -3,6 +3,7 @@ using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,20 +27,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
-        public Task<List<SdkMessageProcessingStepImage>> GetAllSdkMessageProcessingStepImageAsync()
+        public Task<List<SdkMessageProcessingStepImage>> GetAllSdkMessageProcessingStepImageAsync(List<PluginStage> listStages, ColumnSet columnSet)
         {
-            return Task.Run(() => GetAllSdkMessageProcessingStepImage());
+            return Task.Run(() => GetAllSdkMessageProcessingStepImage(listStages, columnSet));
         }
 
-        private List<SdkMessageProcessingStepImage> GetAllSdkMessageProcessingStepImage()
+        private List<SdkMessageProcessingStepImage> GetAllSdkMessageProcessingStepImage(List<PluginStage> listStages, ColumnSet columnSet)
         {
+            var linkPluginStep = new LinkEntity()
+            {
+                LinkFromEntityName = SdkMessageProcessingStepImage.EntityLogicalName,
+                LinkFromAttributeName = SdkMessageProcessingStepImage.Schema.Attributes.sdkmessageprocessingstepid,
+
+                LinkToEntityName = SdkMessageProcessingStep.EntityLogicalName,
+                LinkToAttributeName = SdkMessageProcessingStep.EntityPrimaryIdAttribute,
+            };
+
             QueryExpression query = new QueryExpression()
             {
                 NoLock = true,
 
                 EntityName = SdkMessageProcessingStepImage.EntityLogicalName,
 
-                ColumnSet = new ColumnSet(true),
+                ColumnSet = columnSet ?? new ColumnSet(false),
+
+                LinkEntities =
+                {
+                    linkPluginStep
+                },
 
                 Orders =
                 {
@@ -49,6 +64,60 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new OrderExpression(SdkMessageProcessingStepImage.Schema.Attributes.createdon, OrderType.Ascending),
                 },
             };
+
+            if (listStages != null && listStages.Count > 0)
+            {
+                FilterExpression filter = new FilterExpression(LogicalOperator.Or);
+
+                if (listStages.Contains(PluginStage.PreValidation))
+                {
+                    var temp = new FilterExpression(LogicalOperator.And);
+
+                    temp.AddCondition(SdkMessageProcessingStep.Schema.Attributes.stage, ConditionOperator.Equal, (int)SdkMessageProcessingStep.Schema.OptionSets.stage.Pre_validation_10);
+
+                    filter.AddFilter(temp);
+                }
+
+                if (listStages.Contains(PluginStage.Pre))
+                {
+                    var temp = new FilterExpression(LogicalOperator.And);
+
+                    temp.AddCondition(SdkMessageProcessingStep.Schema.Attributes.stage, ConditionOperator.Equal, (int)SdkMessageProcessingStep.Schema.OptionSets.stage.Pre_operation_20);
+
+                    filter.AddFilter(temp);
+                }
+
+                if (listStages.Contains(PluginStage.PostSynch))
+                {
+                    var temp = new FilterExpression(LogicalOperator.And);
+
+                    temp.AddCondition(SdkMessageProcessingStep.Schema.Attributes.stage, ConditionOperator.Equal, (int)SdkMessageProcessingStep.Schema.OptionSets.stage.Post_operation_40);
+                    temp.AddCondition(SdkMessageProcessingStep.Schema.Attributes.mode, ConditionOperator.Equal, (int)SdkMessageProcessingStep.Schema.OptionSets.mode.Synchronous_0);
+
+                    filter.AddFilter(temp);
+                }
+
+                if (listStages.Contains(PluginStage.PostAsych))
+                {
+                    var temp = new FilterExpression(LogicalOperator.And);
+
+                    temp.AddCondition(SdkMessageProcessingStep.Schema.Attributes.stage, ConditionOperator.Equal, (int)SdkMessageProcessingStep.Schema.OptionSets.stage.Post_operation_40);
+                    temp.AddCondition(SdkMessageProcessingStep.Schema.Attributes.mode, ConditionOperator.Equal, (int)SdkMessageProcessingStep.Schema.OptionSets.mode.Asynchronous_1);
+
+                    filter.AddFilter(temp);
+                }
+
+                linkPluginStep.LinkCriteria.Filters.Add(filter);
+            }
+            else
+            {
+                linkPluginStep.LinkCriteria.AddCondition(
+                    SdkMessageProcessingStep.Schema.Attributes.stage, ConditionOperator.In
+                    , (int)SdkMessageProcessingStep.Schema.OptionSets.stage.Pre_validation_10
+                    , (int)SdkMessageProcessingStep.Schema.OptionSets.stage.Pre_operation_20
+                    , (int)SdkMessageProcessingStep.Schema.OptionSets.stage.Post_operation_40
+                );
+            }
 
             return _service.RetrieveMultipleAll<SdkMessageProcessingStepImage>(query);
         }

@@ -732,8 +732,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             public Func<
                 IOrganizationServiceExtented
-                , PluginSearchResult
                 , IEnumerable<SdkMessageProcessingStep>
+                , IDictionary<Guid, List<SdkMessageProcessingStepImage>>
                 , IEnumerable<RequestGroupBuilder>
                 , IEnumerable<Action<PluginTreeViewItem>>
 
@@ -756,14 +756,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IEnumerable<RequestGroupBuilder> requestGroups
         )
         {
-            PluginSearchRepository repository = new PluginSearchRepository(service);
+            IEnumerable<SdkMessageProcessingStep> stepsEnum = await FindStepsAsync(service, stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter, statuscode);
 
-            PluginSearchResult search = await repository.FindAllAsync(stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter, statuscode);
+            IDictionary<Guid, List<SdkMessageProcessingStepImage>> imagesByStep = await GetImagesForStepsAsync(service, stages);
 
             foreach (var nodeEntity in GroupStepsByEntity(
                 service
-                , search
-                , search.SdkMessageProcessingStep
+                , stepsEnum
+                , imagesByStep
                 , requestGroups
                 , new Action<PluginTreeViewItem>[0]
             ))
@@ -917,10 +917,50 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             //}
         }
 
+        private async Task<IEnumerable<SdkMessageProcessingStep>> FindStepsAsync(
+            IOrganizationServiceExtented service
+            , List<PluginStage> stages
+            , string pluginTypeNameFilter
+            , string messageNameFilter
+            , string entityNameFilter
+            , SdkMessageProcessingStep.Schema.OptionSets.statuscode? statuscode
+        )
+        {
+            UpdateStatus(service.ConnectionData, Properties.OutputStrings.LoadingSdkMessageProcessingSteps);
+
+            var repository = new SdkMessageProcessingStepRepository(service);
+
+            var result = await repository.FindSdkMessageProcessingStepWithEntityNameAsync(entityNameFilter, stages, pluginTypeNameFilter, messageNameFilter, statuscode);
+
+            return result;
+        }
+
+        private async Task<IDictionary<Guid, List<SdkMessageProcessingStepImage>>> GetImagesForStepsAsync(IOrganizationServiceExtented service, List<PluginStage> stages)
+        {
+            UpdateStatus(service.ConnectionData, Properties.OutputStrings.LoadingSdkMessageProcessingStepImages);
+
+            var repositoryStepImage = new SdkMessageProcessingStepImageRepository(service);
+
+            var imagesList = await repositoryStepImage.GetAllSdkMessageProcessingStepImageAsync(stages, new ColumnSet(
+                SdkMessageProcessingStepImage.EntityPrimaryIdAttribute
+                , SdkMessageProcessingStepImage.Schema.Attributes.name
+                , SdkMessageProcessingStepImage.Schema.Attributes.imagetype
+                , SdkMessageProcessingStepImage.Schema.Attributes.entityalias
+                , SdkMessageProcessingStepImage.Schema.Attributes.description
+                , SdkMessageProcessingStepImage.Schema.Attributes.imagetype
+                , SdkMessageProcessingStepImage.Schema.Attributes.sdkmessageprocessingstepid
+                , SdkMessageProcessingStepImage.Schema.Attributes.attributes
+                , SdkMessageProcessingStepImage.Schema.Attributes.messagepropertyname
+                , SdkMessageProcessingStepImage.Schema.Attributes.relatedattributename
+            ));
+
+            return imagesList.GroupBy(e => e.SdkMessageProcessingStepId.Id).ToDictionary(g => g.Key, g => g.ToList());
+        }
+
         private IEnumerable<PluginTreeViewItem> GroupStepsByEntity(
             IOrganizationServiceExtented service
-            , PluginSearchResult search
             , IEnumerable<SdkMessageProcessingStep> steps
+            , IDictionary<Guid, List<SdkMessageProcessingStepImage>> imagesByStep
             , IEnumerable<RequestGroupBuilder> requestGroups
             , IEnumerable<Action<PluginTreeViewItem>> actionsOnChilds
         )
@@ -944,7 +984,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var newActionOnChilds = actionsOnChilds.Union(new Action<PluginTreeViewItem>[] { n => n.EntityLogicalName = grEntity.Key });
 
-                RecursiveGroup(service, nodeEntity, search, grEntity, requestGroups, newActionOnChilds);
+                RecursiveGroup(service, nodeEntity, grEntity, imagesByStep, requestGroups, newActionOnChilds);
 
                 yield return nodeEntity;
             }
@@ -964,16 +1004,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IEnumerable<RequestGroupBuilder> requestGroups
         )
         {
-            PluginSearchRepository repository = new PluginSearchRepository(service);
+            IEnumerable<SdkMessageProcessingStep> stepsEnum = await FindStepsAsync(service, stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter, statuscode);
 
-            PluginSearchResult search = await repository.FindAllAsync(stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter, statuscode);
+            IDictionary<Guid, List<SdkMessageProcessingStepImage>> imagesByStep = await GetImagesForStepsAsync(service, stages);
 
             foreach (var nodeMessage in GroupStepsByMessage(
                 service
-                , search
-                , search.SdkMessageProcessingStep
+                , stepsEnum
+                , imagesByStep
                 , requestGroups
-                , new Action<PluginTreeViewItem>[0]
+                , Array.Empty<Action<PluginTreeViewItem>>()
             ))
             {
                 this.Dispatcher.Invoke(() =>
@@ -985,8 +1025,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private IEnumerable<PluginTreeViewItem> GroupStepsByMessage(
             IOrganizationServiceExtented service
-            , PluginSearchResult search
             , IEnumerable<SdkMessageProcessingStep> steps
+            , IDictionary<Guid, List<SdkMessageProcessingStepImage>> imagesByStep
             , IEnumerable<RequestGroupBuilder> requestGroups
             , IEnumerable<Action<PluginTreeViewItem>> actionsOnChilds
         )
@@ -1014,7 +1054,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var newActionOnChilds = actionsOnChilds.Union(new Action<PluginTreeViewItem>[] { n => n.MessageName = grMessage.Key });
 
-                RecursiveGroup(service, nodeMessage, search, grMessage, requestGroups, newActionOnChilds);
+                RecursiveGroup(service, nodeMessage, grMessage, imagesByStep, requestGroups, newActionOnChilds);
 
                 yield return nodeMessage;
             }
@@ -1034,16 +1074,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IEnumerable<RequestGroupBuilder> requestGroups
         )
         {
-            PluginSearchRepository repository = new PluginSearchRepository(service);
+            IEnumerable<SdkMessageProcessingStep> stepsEnum = await FindStepsAsync(service, stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter, statuscode);
 
-            PluginSearchResult search = await repository.FindAllAsync(stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter, statuscode);
+            IDictionary<Guid, List<SdkMessageProcessingStepImage>> imagesByStep = await GetImagesForStepsAsync(service, stages);
 
             foreach (var nodeEntity in GroupStepsByMessageCategory(
                 service
-                , search
-                , search.SdkMessageProcessingStep
+                , stepsEnum
+                , imagesByStep
                 , requestGroups
-                , new Action<PluginTreeViewItem>[0]
+                , Array.Empty<Action<PluginTreeViewItem>>()
             ))
             {
                 this.Dispatcher.Invoke(() =>
@@ -1055,8 +1095,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private IEnumerable<PluginTreeViewItem> GroupStepsByMessageCategory(
             IOrganizationServiceExtented service
-            , PluginSearchResult search
             , IEnumerable<SdkMessageProcessingStep> steps
+            , IDictionary<Guid, List<SdkMessageProcessingStepImage>> imagesByStep
             , IEnumerable<RequestGroupBuilder> requestGroups
             , IEnumerable<Action<PluginTreeViewItem>> actionsOnChilds
         )
@@ -1080,7 +1120,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var newActionOnChilds = actionsOnChilds.Union(new Action<PluginTreeViewItem>[] { n => n.MessageCategoryName = grMessageCategory.Key });
 
-                RecursiveGroup(service, nodeMessageCategory, search, grMessageCategory, requestGroups, newActionOnChilds);
+                RecursiveGroup(service, nodeMessageCategory, grMessageCategory, imagesByStep, requestGroups, newActionOnChilds);
 
                 yield return nodeMessageCategory;
             }
@@ -1101,14 +1141,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         )
         {
             var repositoryPluginType = new PluginTypeRepository(service);
+
+            UpdateStatus(service.ConnectionData, Properties.OutputStrings.LoadingPluginTypes);
+
             var pluginTypeList = await repositoryPluginType.GetPluginTypesAsync(pluginTypeNameFilter, null);
 
-            var repository = new PluginSearchRepository(service);
-            PluginSearchResult search = await repository.FindAllAsync(stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter, statuscode);
+            IEnumerable<SdkMessageProcessingStep> stepsEnum = await FindStepsAsync(service, stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter, statuscode);
+
+            IDictionary<Guid, List<SdkMessageProcessingStepImage>> imagesByStep = await GetImagesForStepsAsync(service, stages);
 
             var groupAssemblyList = pluginTypeList.GroupBy(p => new { p.PluginAssemblyId.Id, Name = p.AssemblyName }).OrderBy(a => a.Key.Name);
 
-            var stepsByPluginAssemblyDict = search.SdkMessageProcessingStep.GroupBy(s => s.PluginAssemblyId).ToDictionary(s => s.Key);
+            var stepsByPluginAssemblyDict = stepsEnum.GroupBy(s => s.PluginAssemblyId).ToDictionary(s => s.Key);
 
             foreach (var grPluginAssembly in groupAssemblyList)
             {
@@ -1123,7 +1167,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (requestGroups.Any() && requestGroups.First().GroupingProperty == GroupingProperty.PluginType)
                 {
-                    var stepsByPluginTypeDict = search.SdkMessageProcessingStep.GroupBy(s => s.EventHandler.Id).ToDictionary(s => s.Key);
+                    var stepsByPluginTypeDict = stepsEnum.GroupBy(s => s.EventHandler.Id).ToDictionary(s => s.Key);
 
                     foreach (var pluginType in grPluginAssembly
                         .OrderBy(p => p.IsWorkflowActivity.GetValueOrDefault())
@@ -1163,7 +1207,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                                 }
                             };
 
-                            RecursiveGroup(service, nodePluginType, search, steps, requestGroups.Skip(1), newActionOnChilds);
+                            RecursiveGroup(service, nodePluginType, steps, imagesByStep, requestGroups.Skip(1), newActionOnChilds);
                         }
                     }
                 }
@@ -1182,7 +1226,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var steps = stepsByPluginAssemblyDict[grPluginAssembly.Key.Id];
 
-                        RecursiveGroup(service, nodePluginAssembly, search, steps, requestGroups, newActionOnChilds);
+                        RecursiveGroup(service, nodePluginAssembly, steps, imagesByStep, requestGroups, newActionOnChilds);
                     }
                 }
 
@@ -1195,8 +1239,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private IEnumerable<PluginTreeViewItem> GroupStepsByPluginAssembly(
             IOrganizationServiceExtented service
-            , PluginSearchResult search
             , IEnumerable<SdkMessageProcessingStep> steps
+            , IDictionary<Guid, List<SdkMessageProcessingStepImage>> imagesByStep
             , IEnumerable<RequestGroupBuilder> requestGroups
             , IEnumerable<Action<PluginTreeViewItem>> actionsOnChilds
         )
@@ -1235,7 +1279,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 });
 
-                RecursiveGroup(service, nodePluginAssembly, search, grPluginAssembly, requestGroups, newActionOnChilds);
+                RecursiveGroup(service, nodePluginAssembly, grPluginAssembly, imagesByStep, requestGroups, newActionOnChilds);
 
                 yield return nodePluginAssembly;
             }
@@ -1256,12 +1300,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         )
         {
             var repositoryPluginType = new PluginTypeRepository(service);
+
+            UpdateStatus(service.ConnectionData, Properties.OutputStrings.LoadingPluginTypes);
+
             var pluginTypeList = await repositoryPluginType.GetPluginTypesAsync(pluginTypeNameFilter, null);
 
-            var repository = new PluginSearchRepository(service);
-            PluginSearchResult search = await repository.FindAllAsync(stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter, statuscode);
+            IEnumerable<SdkMessageProcessingStep> stepsEnum = await FindStepsAsync(service, stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter, statuscode);
 
-            var stepsByPluginTypeDict = search.SdkMessageProcessingStep.GroupBy(s => s.EventHandler.Id).ToDictionary(s => s.Key);
+            IDictionary<Guid, List<SdkMessageProcessingStepImage>> imagesByStep = await GetImagesForStepsAsync(service, stages);
+
+            var stepsByPluginTypeDict = stepsEnum.GroupBy(s => s.EventHandler.Id).ToDictionary(s => s.Key);
 
             foreach (var pluginType in pluginTypeList
                 .OrderBy(p => p.IsWorkflowActivity.GetValueOrDefault())
@@ -1299,7 +1347,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         }
                     };
 
-                    RecursiveGroup(service, nodePluginType, search, steps, requestGroups, newActionOnChilds);
+                    RecursiveGroup(service, nodePluginType, steps, imagesByStep, requestGroups, newActionOnChilds);
                 }
 
                 this.Dispatcher.Invoke(() =>
@@ -1311,8 +1359,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private IEnumerable<PluginTreeViewItem> GroupStepsByPluginType(
             IOrganizationServiceExtented service
-            , PluginSearchResult search
             , IEnumerable<SdkMessageProcessingStep> steps
+            , IDictionary<Guid, List<SdkMessageProcessingStepImage>> imagesByStep
             , IEnumerable<RequestGroupBuilder> requestGroups
             , IEnumerable<Action<PluginTreeViewItem>> actionsOnChilds
         )
@@ -1362,7 +1410,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 });
 
-                RecursiveGroup(service, nodePluginType, search, grPluginType, requestGroups, actionsOnChilds);
+                RecursiveGroup(service, nodePluginType, grPluginType, imagesByStep, requestGroups, actionsOnChilds);
 
                 yield return nodePluginType;
             }
@@ -1382,16 +1430,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IEnumerable<RequestGroupBuilder> requestGroups
         )
         {
-            PluginSearchRepository repository = new PluginSearchRepository(service);
+            IEnumerable<SdkMessageProcessingStep> stepsEnum = await FindStepsAsync(service, stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter, statuscode);
 
-            PluginSearchResult search = await repository.FindAllAsync(stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter, statuscode);
+            IDictionary<Guid, List<SdkMessageProcessingStepImage>> imagesByStep = await GetImagesForStepsAsync(service, stages);
 
             foreach (var grStage in GroupStepsByStage(
                 service
-                , search
-                , search.SdkMessageProcessingStep
+                , stepsEnum
+                , imagesByStep
                 , requestGroups
-                , new Action<PluginTreeViewItem>[0]
+                , Array.Empty<Action<PluginTreeViewItem>>()
             ))
             {
                 this.Dispatcher.Invoke(() =>
@@ -1403,8 +1451,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private IEnumerable<PluginTreeViewItem> GroupStepsByStage(
             IOrganizationServiceExtented service
-            , PluginSearchResult search
             , IEnumerable<SdkMessageProcessingStep> steps
+            , IDictionary<Guid, List<SdkMessageProcessingStepImage>> imagesByStep
             , IEnumerable<RequestGroupBuilder> requestGroups
             , IEnumerable<Action<PluginTreeViewItem>> actionsOnChilds
         )
@@ -1426,7 +1474,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     action?.Invoke(nodeStage);
                 }
 
-                RecursiveGroup(service, nodeStage, search, grStage, requestGroups, actionsOnChilds);
+                RecursiveGroup(service, nodeStage, grStage, imagesByStep, requestGroups, actionsOnChilds);
 
                 yield return nodeStage;
             }
@@ -1446,16 +1494,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IEnumerable<RequestGroupBuilder> requestGroups
         )
         {
-            PluginSearchRepository repository = new PluginSearchRepository(service);
+            IEnumerable<SdkMessageProcessingStep> stepsEnum = await FindStepsAsync(service, stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter, statuscode);
 
-            PluginSearchResult search = await repository.FindAllAsync(stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter, statuscode);
+            IDictionary<Guid, List<SdkMessageProcessingStepImage>> imagesByStep = await GetImagesForStepsAsync(service, stages);
 
             foreach (var grMode in GroupStepsByMode(
                 service
-                , search
-                , search.SdkMessageProcessingStep
+                , stepsEnum
+                , imagesByStep
                 , requestGroups
-                , new Action<PluginTreeViewItem>[0]
+                , Array.Empty<Action<PluginTreeViewItem>>()
             ))
             {
                 this.Dispatcher.Invoke(() =>
@@ -1467,8 +1515,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private IEnumerable<PluginTreeViewItem> GroupStepsByMode(
             IOrganizationServiceExtented service
-            , PluginSearchResult search
             , IEnumerable<SdkMessageProcessingStep> steps
+            , IDictionary<Guid, List<SdkMessageProcessingStepImage>> imagesByStep
             , IEnumerable<RequestGroupBuilder> requestGroups
             , IEnumerable<Action<PluginTreeViewItem>> actionsOnChilds
         )
@@ -1490,7 +1538,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     action?.Invoke(nodeMode);
                 }
 
-                RecursiveGroup(service, nodeMode, search, grMode, requestGroups, actionsOnChilds);
+                RecursiveGroup(service, nodeMode, grMode, imagesByStep, requestGroups, actionsOnChilds);
 
                 yield return nodeMode;
             }
@@ -1501,8 +1549,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private void RecursiveGroup(
             IOrganizationServiceExtented service
             , PluginTreeViewItem nodeParent
-            , PluginSearchResult search
             , IEnumerable<SdkMessageProcessingStep> steps
+            , IDictionary<Guid, List<SdkMessageProcessingStepImage>> imagesByStep
             , IEnumerable<RequestGroupBuilder> requestGroups
             , IEnumerable<Action<PluginTreeViewItem>> newActionOnChilds
         )
@@ -1513,8 +1561,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 foreach (var node in groupBuilder.GroupSteps(
                     service
-                    , search
                     , steps
+                    , imagesByStep
                     , requestGroups.Skip(1)
                     , newActionOnChilds
                 ))
@@ -1525,7 +1573,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             else
             {
-                foreach (var node in GetAllSteps(search, steps, newActionOnChilds))
+                foreach (var node in GetAllSteps(steps, imagesByStep, newActionOnChilds))
                 {
                     nodeParent.Items.Add(node);
                     node.Parent = nodeParent;
@@ -1534,8 +1582,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         }
 
         private IEnumerable<PluginTreeViewItem> GetAllSteps(
-            PluginSearchResult search
-            , IEnumerable<SdkMessageProcessingStep> steps
+            IEnumerable<SdkMessageProcessingStep> steps
+            , IDictionary<Guid, List<SdkMessageProcessingStepImage>> imagesByStep
             , IEnumerable<Action<PluginTreeViewItem>> actionsOnChilds
         )
         {
@@ -1546,7 +1594,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 .ThenBy(s => s.Name)
             )
             {
-                PluginTreeViewItem nodeStep = CreateNodeStep(step, search.SdkMessageProcessingStepImage);
+                IEnumerable<SdkMessageProcessingStepImage> images = Enumerable.Empty<SdkMessageProcessingStepImage>();
+
+                if (imagesByStep.ContainsKey(step.Id))
+                {
+                    images = imagesByStep[step.Id];
+                }
+
+                PluginTreeViewItem nodeStep = CreateNodeStep(step, images);
 
                 foreach (var action in actionsOnChilds)
                 {
@@ -1721,8 +1776,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 FillNodeStepInformation(nodeStep, step);
 
                 var queryImage = from image in images
-                                 where image.SdkMessageProcessingStepId != null
-                                 where image.SdkMessageProcessingStepId.Id == step.Id
                                  orderby image.ImageType.Value
                                  select image;
 
@@ -1780,7 +1833,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void FillNodeImageInformation(
             PluginTreeViewItem nodeImage
-            , SdkMessageProcessingStepImage image
+            , SdkMessageProcessingStepImage imageEntity
             , string entityName
             , string messageName
             , Guid? idPluginType
@@ -1789,8 +1842,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string pluginAssemblyName
         )
         {
-            string nameImage = GetImageName(image);
-            string tooltipImage = GetImageTooltip(image);
+            string nameImage = GetImageName(imageEntity);
+            string tooltipImage = GetImageTooltip(imageEntity);
 
             nodeImage.Name = nameImage;
             nodeImage.Tooltip = tooltipImage;
@@ -1801,8 +1854,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             nodeImage.PluginAssemblyName = pluginAssemblyName;
             nodeImage.PluginTypeId = idPluginType;
             nodeImage.PluginTypeName = pluginTypeName;
-            nodeImage.StepId = image.SdkMessageProcessingStepImageId;
-            nodeImage.StepImageId = image.Id;
+            nodeImage.StepId = imageEntity.SdkMessageProcessingStepImageId;
+            nodeImage.StepImageId = imageEntity.Id;
         }
 
         private PluginTreeViewItem CreateNodeBusinessRules(string entityName)
@@ -1922,51 +1975,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return nameStep.ToString();
         }
 
-        private static string GetImageTooltip(SdkMessageProcessingStepImage image)
+        private static string GetImageTooltip(SdkMessageProcessingStepImage imageEntity)
         {
             StringBuilder tooltipImage = new StringBuilder();
 
-            if (!string.IsNullOrEmpty(image.Name))
+            if (!string.IsNullOrEmpty(imageEntity.Name))
             {
                 if (tooltipImage.Length > 0)
                 {
                     tooltipImage.AppendLine();
                 }
 
-                tooltipImage.AppendFormat("Name: {0}", image.Name);
+                tooltipImage.AppendFormat("Name: {0}", imageEntity.Name);
             }
 
-            if (!string.IsNullOrEmpty(image.Description))
+            if (!string.IsNullOrEmpty(imageEntity.Description))
             {
                 if (tooltipImage.Length > 0)
                 {
                     tooltipImage.AppendLine();
                 }
 
-                tooltipImage.AppendFormat("Description: {0}", image.Description);
+                tooltipImage.AppendFormat("Description: {0}", imageEntity.Description);
             }
 
-            if (!string.IsNullOrEmpty(image.MessagePropertyName))
+            if (!string.IsNullOrEmpty(imageEntity.MessagePropertyName))
             {
                 if (tooltipImage.Length > 0)
                 {
                     tooltipImage.AppendLine();
                 }
 
-                tooltipImage.AppendFormat("MessagePropertyName: {0}", image.MessagePropertyName);
+                tooltipImage.AppendFormat("MessagePropertyName: {0}", imageEntity.MessagePropertyName);
             }
 
-            if (!string.IsNullOrEmpty(image.RelatedAttributeName))
+            if (!string.IsNullOrEmpty(imageEntity.RelatedAttributeName))
             {
                 if (tooltipImage.Length > 0)
                 {
                     tooltipImage.AppendLine();
                 }
 
-                tooltipImage.AppendFormat("RelatedAttributeName: {0}", image.RelatedAttributeName);
+                tooltipImage.AppendFormat("RelatedAttributeName: {0}", imageEntity.RelatedAttributeName);
             }
 
-            if (!string.IsNullOrEmpty(image.Attributes1))
+            if (!string.IsNullOrEmpty(imageEntity.Attributes1))
             {
                 if (tooltipImage.Length > 0)
                 {
@@ -1975,7 +2028,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 tooltipImage.AppendLine("Attributes:");
 
-                foreach (string item in image.Attributes1Strings)
+                foreach (string item in imageEntity.Attributes1Strings)
                 {
                     tooltipImage.AppendLine().Append(item);
                 }
@@ -1991,45 +2044,45 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private static string GetImageName(SdkMessageProcessingStepImage image)
+        private static string GetImageName(SdkMessageProcessingStepImage imageEntity)
         {
             StringBuilder nameImage = new StringBuilder();
 
-            if (image.ImageType != null)
+            if (imageEntity.ImageType != null)
             {
-                if (image.ImageType.Value == (int)SdkMessageProcessingStepImage.Schema.OptionSets.imagetype.PreImage_0)
+                if (imageEntity.ImageType.Value == (int)SdkMessageProcessingStepImage.Schema.OptionSets.imagetype.PreImage_0)
                 {
                     nameImage.Append("PreImage");
                 }
-                else if (image.ImageType.Value == (int)SdkMessageProcessingStepImage.Schema.OptionSets.imagetype.PostImage_1)
+                else if (imageEntity.ImageType.Value == (int)SdkMessageProcessingStepImage.Schema.OptionSets.imagetype.PostImage_1)
                 {
                     nameImage.Append("PostImage");
                 }
-                else if (image.ImageType.Value == (int)SdkMessageProcessingStepImage.Schema.OptionSets.imagetype.Both_2)
+                else if (imageEntity.ImageType.Value == (int)SdkMessageProcessingStepImage.Schema.OptionSets.imagetype.Both_2)
                 {
                     nameImage.Append("BothImage");
                 }
             }
 
-            if (!string.IsNullOrEmpty(image.EntityAlias))
+            if (!string.IsNullOrEmpty(imageEntity.EntityAlias))
             {
                 if (nameImage.Length > 0) { nameImage.Append(", "); }
 
-                nameImage.Append(image.EntityAlias);
+                nameImage.Append(imageEntity.EntityAlias);
             }
 
-            if (!string.IsNullOrEmpty(image.Name))
+            if (!string.IsNullOrEmpty(imageEntity.Name))
             {
                 if (nameImage.Length > 0) { nameImage.Append(", "); }
 
-                nameImage.Append(image.Name);
+                nameImage.Append(imageEntity.Name);
             }
 
             if (nameImage.Length > 0) { nameImage.Append(", "); }
 
-            if (!string.IsNullOrEmpty(image.Attributes1))
+            if (!string.IsNullOrEmpty(imageEntity.Attributes1))
             {
-                nameImage.AppendFormat("Attributes: {0}", image.Attributes1StringsSorted);
+                nameImage.AppendFormat("Attributes: {0}", imageEntity.Attributes1StringsSorted);
             }
             else
             {
