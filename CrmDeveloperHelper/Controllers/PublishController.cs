@@ -697,7 +697,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             return result;
         }
 
-        private static Regex _regexReference = new Regex(@"^[\/]{2,}[\s]+<reference[\s]+path=\""(?<path>.+)\""[\s]+\/>[\s]*\r?$", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
+        private static Regex _regexReference = new Regex(@"^[\/]{3,}[\s]+<reference[\s]+path=\""(?<path>.+)\""[\s]+\/>[\s]*\r?$", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         private static HashSet<string> GetFileReferencesFilePaths(string javaScriptCode, string selectedFileFolder, string solutionDirectoryPath)
         {
