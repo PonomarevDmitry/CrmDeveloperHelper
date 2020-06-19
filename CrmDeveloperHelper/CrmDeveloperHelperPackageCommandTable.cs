@@ -117,11 +117,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuWebResource_GroupCompareFile_MenuConnectionDyn_Group = 0x122D;
 
-            public const int codeMenuWebResource_GroupIncludeReferencesToDependencyXml = 0x14CC;
+            public const int codeMenuWebResource_GroupWebResourceDependencyXml = 0x14CC;
 
-            public const int codeMenuWebResource_GroupIncludeReferencesToDependencyXml_MenuConnectionDyn = 0x14CD;
+            public const int codeMenuWebResource_GroupWebResourceDependencyXml_MenuIncludeReferencesToConnectionDyn = 0x14CD;
 
-            public const int codeMenuWebResource_GroupIncludeReferencesToDependencyXml_MenuConnectionDyn_Group = 0x14CE;
+            public const int codeMenuWebResource_GroupWebResourceDependencyXml_MenuIncludeReferencesToConnectionDyn_Group = 0x14CE;
+
+            public const int codeMenuWebResource_GroupWebResourceDependencyXml_MenuGetAttributeDependencyXmlDyn = 0x14E3;
+
+            public const int codeMenuWebResource_GroupWebResourceDependencyXml_MenuGetAttributeDependencyXmlDyn_Group = 0x14E4;
 
             public const int codeMenuWebResource_GroupEntityMetadata = 0x12F7;
 
@@ -283,27 +287,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuWebResource_GroupCheckFileEncoding = 0x1005;
 
-            public const int codeMenuWebResource_GroupEntity = 0x13BE;
+            public const int codeMenuWebResource_GroupWebResourceEntity = 0x13BE;
 
-            public const int codeMenuWebResource_GroupEntity_Menu = 0x1401;
+            public const int codeMenuWebResource_GroupWebResourceEntity_Menu = 0x1401;
 
-            public const int codeMenuWebResource_GroupEntity_Menu_Group = 0x1402;
+            public const int codeMenuWebResource_GroupWebResourceEntity_Menu_Group = 0x1402;
 
-            public const int codeMenuWebResource_GroupEntity_Menu_Group_MenuCreateEntityDescriptionDyn = 0x13BF;
+            public const int codeMenuWebResource_GroupWebResourceEntity_Menu_Group_MenuCreateEntityDescriptionDyn = 0x13BF;
 
-            public const int codeMenuWebResource_GroupEntity_Menu_Group_MenuCreateEntityDescriptionDyn_Group = 0x13C0;
+            public const int codeMenuWebResource_GroupWebResourceEntity_Menu_Group_MenuCreateEntityDescriptionDyn_Group = 0x13C0;
 
-            public const int codeMenuWebResource_GroupEntity_Menu_Group_MenuChangeInEntityEditorDyn = 0x13C1;
+            public const int codeMenuWebResource_GroupWebResourceEntity_Menu_Group_MenuChangeInEntityEditorDyn = 0x13C1;
 
-            public const int codeMenuWebResource_GroupEntity_Menu_Group_MenuChangeInEntityEditorDyn_Group = 0x13C2;
+            public const int codeMenuWebResource_GroupWebResourceEntity_Menu_Group_MenuChangeInEntityEditorDyn_Group = 0x13C2;
 
-            public const int codeMenuWebResource_GroupEntity_Menu_Group_MenuGetAttributeContentJsonDyn = 0x13C3;
+            public const int codeMenuWebResource_GroupWebResourceEntity_Menu_Group_MenuGetAttributeContentJsonDyn = 0x13C3;
 
-            public const int codeMenuWebResource_GroupEntity_Menu_Group_MenuGetAttributeContentJsonDyn_Group = 0x13C4;
+            public const int codeMenuWebResource_GroupWebResourceEntity_Menu_Group_MenuGetAttributeContentJsonDyn_Group = 0x13C4;
 
-            public const int codeMenuWebResource_GroupEntity_Menu_Group_MenuGetAttributeDependencyXmlDyn = 0x13C5;
+            public const int codeMenuWebResource_GroupWebResourceEntity_Menu_Group_MenuGetAttributeDependencyXmlDyn = 0x13C5;
 
-            public const int codeMenuWebResource_GroupEntity_Menu_Group_MenuGetAttributeDependencyXmlDyn_Group = 0x13C6;
+            public const int codeMenuWebResource_GroupWebResourceEntity_Menu_Group_MenuGetAttributeDependencyXmlDyn_Group = 0x13C6;
 
             public const int codeMenuWebResource_GroupExplorer = 0x1006;
 
@@ -1015,11 +1019,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int fileMenuWebResource_GroupCompareFile_MenuConnectionWithDetailsDyn_Group = 0x1235;
 
-            public const int fileMenuWebResource_GroupIncludeReferencesToDependencyXml = 0x14CF;
+            public const int fileMenuWebResource_GroupWebResourceDependencyXml = 0x14CF;
 
-            public const int fileMenuWebResource_GroupIncludeReferencesToDependencyXml_MenuConnectionDyn = 0x14D0;
+            public const int fileMenuWebResource_GroupWebResourceDependencyXml_MenuIncludeReferencesToConnectionDyn = 0x14D0;
 
-            public const int fileMenuWebResource_GroupIncludeReferencesToDependencyXml_MenuConnectionDyn_Group = 0x14D1;
+            public const int fileMenuWebResource_GroupWebResourceDependencyXml_MenuIncludeReferencesToConnectionDyn_Group = 0x14D1;
+
+            public const int fileMenuWebResource_GroupWebResourceDependencyXml_MenuGetAttributeDependencyXmlDyn = 0x14E5;
+
+            public const int fileMenuWebResource_GroupWebResourceDependencyXml_MenuGetAttributeDependencyXmlDyn_Group = 0x14E6;
 
             public const int fileMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries = 0x14DA;
 
@@ -1085,27 +1093,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int fileMenuWebResource_GroupEncoding_MenuCommands_GroupCommands = 0x118A;
 
-            public const int fileMenuWebResource_GroupEntity = 0x13C7;
+            public const int fileMenuWebResource_GroupWebResourceEntity = 0x13C7;
 
-            public const int fileMenuWebResource_GroupEntity_Menu = 0x1403;
+            public const int fileMenuWebResource_GroupWebResourceEntity_Menu = 0x1403;
 
-            public const int fileMenuWebResource_GroupEntity_Menu_Group = 0x1404;
+            public const int fileMenuWebResource_GroupWebResourceEntity_Menu_Group = 0x1404;
 
-            public const int fileMenuWebResource_GroupEntity_Menu_Group_MenuCreateEntityDescriptionDyn = 0x13C8;
+            public const int fileMenuWebResource_GroupWebResourceEntity_Menu_Group_MenuCreateEntityDescriptionDyn = 0x13C8;
 
-            public const int fileMenuWebResource_GroupEntity_Menu_Group_MenuCreateEntityDescriptionDyn_Group = 0x13C9;
+            public const int fileMenuWebResource_GroupWebResourceEntity_Menu_Group_MenuCreateEntityDescriptionDyn_Group = 0x13C9;
 
-            public const int fileMenuWebResource_GroupEntity_Menu_Group_MenuChangeInEntityEditorDyn = 0x13CA;
+            public const int fileMenuWebResource_GroupWebResourceEntity_Menu_Group_MenuChangeInEntityEditorDyn = 0x13CA;
 
-            public const int fileMenuWebResource_GroupEntity_Menu_Group_MenuChangeInEntityEditorDyn_Group = 0x13CB;
+            public const int fileMenuWebResource_GroupWebResourceEntity_Menu_Group_MenuChangeInEntityEditorDyn_Group = 0x13CB;
 
-            public const int fileMenuWebResource_GroupEntity_Menu_Group_MenuGetAttributeContentJsonDyn = 0x13CC;
+            public const int fileMenuWebResource_GroupWebResourceEntity_Menu_Group_MenuGetAttributeContentJsonDyn = 0x13CC;
 
-            public const int fileMenuWebResource_GroupEntity_Menu_Group_MenuGetAttributeContentJsonDyn_Group = 0x13CD;
+            public const int fileMenuWebResource_GroupWebResourceEntity_Menu_Group_MenuGetAttributeContentJsonDyn_Group = 0x13CD;
 
-            public const int fileMenuWebResource_GroupEntity_Menu_Group_MenuGetAttributeDependencyXmlDyn = 0x13CE;
+            public const int fileMenuWebResource_GroupWebResourceEntity_Menu_Group_MenuGetAttributeDependencyXmlDyn = 0x13CE;
 
-            public const int fileMenuWebResource_GroupEntity_Menu_Group_MenuGetAttributeDependencyXmlDyn_Group = 0x13CF;
+            public const int fileMenuWebResource_GroupWebResourceEntity_Menu_Group_MenuGetAttributeDependencyXmlDyn_Group = 0x13CF;
 
             public const int fileMenuWebResource_GroupExplorer = 0x1026;
 
