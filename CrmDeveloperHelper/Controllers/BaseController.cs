@@ -351,6 +351,48 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
+        protected async Task CheckEncodingConnectFindWebResourceExecuteAwaitedActionAsync(
+            ConnectionData connectionData
+            , string operationNameFormat
+            , List<SelectedFile> selectedFiles
+            , OpenFilesType openFilesType
+            , Func<Tuple<IOrganizationServiceExtented, TupleList<SelectedFile, WebResource>>, Task> action
+            , params string[] args
+        )
+        {
+            var operation = FormatOperationName(connectionData, operationNameFormat, args);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                CheckingFilesEncodingAndWriteEmptyLines(connectionData, selectedFiles, out _);
+
+                if (connectionData == null)
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                    return;
+                }
+
+                var compareResult = await GetWebResourcesWithType(connectionData, selectedFiles, openFilesType);
+
+                if (compareResult == null || compareResult.Item1 == null)
+                {
+                    return;
+                }
+
+                await action(compareResult);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
         protected async Task CheckEncodingConnectFindWebResourceExecuteActionTaskAsync(
             ConnectionData connectionData
             , string operationNameFormat

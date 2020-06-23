@@ -652,6 +652,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Continue Create/Update WebResources, Include References from JavaScript to WebResources DependencyXml and Publish {0} files on
+        ///{1}?.
+        /// </summary>
+        internal static string UpdateContentIncludeReferencesToDependencyXmlAndPublishWebResourcesFormat2 {
+            get {
+                return ResourceManager.GetString("UpdateContentIncludeReferencesToDependencyXmlAndPublishWebResourcesFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to UserName is empty..
         /// </summary>
         internal static string UserNameIsEmpty {

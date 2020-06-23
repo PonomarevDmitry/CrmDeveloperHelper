@@ -225,6 +225,10 @@
     <value>Include References from JavaScript to WebResources DependencyXml and Publish {0} files on
 {1}?</value>
   </data>
+  <data name="UpdateContentIncludeReferencesToDependencyXmlAndPublishWebResourcesFormat2" xml:space="preserve">
+    <value>Continue Create/Update WebResources, Include References from JavaScript to WebResources DependencyXml and Publish {0} files on
+{1}?</value>
+  </data>
   <data name="IncludeReferencesToLinkedSystemFormsLibrariesAndPublishFormat2" xml:space="preserve">
     <value>Include References from JavaScript to Linked SystemForms Libraries and Publish Forms {0} files on
 {1}?</value>

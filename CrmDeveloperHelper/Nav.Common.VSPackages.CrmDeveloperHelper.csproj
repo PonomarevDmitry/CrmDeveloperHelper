@@ -191,12 +191,17 @@
     <Compile Include="Commands\JavaScripts\DocumentsJavaScriptFileGenerationOptionsCommand.cs" />
     <Compile Include="Commands\JavaScripts\DocumentsJavaScriptIncludeReferencesToLinkedSystemFormCommand.cs" />
     <Compile Include="Commands\JavaScripts\DocumentsJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\JavaScripts\DocumentsJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommand.cs" />
     <Compile Include="Commands\JavaScripts\FileJavaScriptIncludeReferencesToLinkedSystemFormCommand.cs" />
     <Compile Include="Commands\JavaScripts\FileJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommand.cs" />
     <Compile Include="Commands\JavaScripts\FileJavaScriptMetadataFileGenerationOptionsCommand.cs" />
+    <Compile Include="Commands\JavaScripts\FileJavaScriptUpdateContentIncludeReferencesPublishCommand.cs" />
+    <Compile Include="Commands\JavaScripts\FileJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommand.cs" />
     <Compile Include="Commands\JavaScripts\FolderJavaScriptFileGenerationOptionsCommand.cs" />
     <Compile Include="Commands\JavaScripts\FolderJavaScriptIncludeReferencesToLinkedSystemFormCommand.cs" />
     <Compile Include="Commands\JavaScripts\FolderJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\JavaScripts\FolderJavaScriptUpdateContentIncludeReferencesPublishCommand.cs" />
+    <Compile Include="Commands\JavaScripts\FolderJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommand.cs" />
     <Compile Include="Commands\ListForPublish\ListForPublishMultiDifferenceCommand.cs" />
     <Compile Include="Commands\ListForPublish\ListForPublishOpenFilesCommand.cs" />
     <Compile Include="Commands\OutputWindows\Checks\OutputCheckUnknownFormControlTypes.cs" />
@@ -293,6 +298,8 @@
     <Compile Include="Commands\JavaScripts\CodeJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommand.cs" />
     <Compile Include="Commands\JavaScripts\DocumentsJavaScriptIncludeReferencesToDependencyXmlCommand.cs" />
     <Compile Include="Commands\JavaScripts\DocumentsJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\JavaScripts\CodeJavaScriptUpdateContentIncludeReferencesPublishCommand.cs" />
+    <Compile Include="Commands\JavaScripts\CodeJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceChangeInEditorInConnectionCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceCreateEntityDescriptionInConnectionCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceGetAttributeInConnectionCommand.cs" />
@@ -1037,7 +1044,6 @@
     <Compile Include="Helpers\ProxyClassGeneration\CodeGenerationSdkMessagePair.cs" />
     <Compile Include="Helpers\ProxyClassGeneration\CodeGenerationSdkMessageRequest.cs" />
     <Compile Include="Helpers\ProxyClassGeneration\CodeGenerationSdkMessageResponse.cs" />
-    <Compile Include="Helpers\PublishManager.cs" />
     <Compile Include="Helpers\QueryExpressionCodeGenerator.cs" />
     <Compile Include="Helpers\QuickConnection.cs" />
     <Compile Include="Helpers\RegistrerPluginHelper.cs" />
@@ -1189,7 +1195,6 @@
     <Compile Include="Model\ConnectionUserData.cs" />
     <Compile Include="Model\ConstantType.cs" />
     <Compile Include="Model\ContentCopareResult.cs" />
-    <Compile Include="Model\ElementForPublish.cs" />
     <Compile Include="Model\EntityKeyMetadataViewItem.cs" />
     <Compile Include="Model\EntityMetadataListViewItem.cs" />
     <Compile Include="Model\EntityMetadataAuditViewItem.cs" />

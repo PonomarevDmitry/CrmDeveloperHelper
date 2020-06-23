@@ -196,6 +196,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Publish File and Include References.
+        /// </summary>
+        internal static string CodeJavaScriptUpdateContentIncludeReferencesPublishCommand {
+            get {
+                return ResourceManager.GetString("CodeJavaScriptUpdateContentIncludeReferencesPublishCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update EntityMetadata File with Select Entity.
         /// </summary>
         internal static string CodeJavaScriptUpdateEntityMetadataFileWithSelectCommand {
@@ -790,6 +799,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Publish Files and Include References.
+        /// </summary>
+        internal static string DocumentsJavaScriptUpdateContentIncludeReferencesPublishCommand {
+            get {
+                return ResourceManager.GetString("DocumentsJavaScriptUpdateContentIncludeReferencesPublishCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Compare Files.
         /// </summary>
         internal static string DocumentsWebResourceCompareCommand {
@@ -943,6 +961,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Publish Files and Include References.
+        /// </summary>
+        internal static string FileJavaScriptUpdateContentIncludeReferencesPublishCommand {
+            get {
+                return ResourceManager.GetString("FileJavaScriptUpdateContentIncludeReferencesPublishCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update EntityMetadata File with Select Entity.
         /// </summary>
         internal static string FileJavaScriptUpdateEntityMetadataFileWithSelectCommand {
@@ -1083,6 +1110,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string FolderJavaScriptIncludeReferencesToLinkedSystemFormCommand {
             get {
                 return ResourceManager.GetString("FolderJavaScriptIncludeReferencesToLinkedSystemFormCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publish Files and Include References (Recursive).
+        /// </summary>
+        internal static string FolderJavaScriptUpdateContentIncludeReferencesPublishCommand {
+            get {
+                return ResourceManager.GetString("FolderJavaScriptUpdateContentIncludeReferencesPublishCommand", resourceCulture);
             }
         }
         

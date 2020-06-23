@@ -1583,32 +1583,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return helper.GetOpenedDocuments(FileOperations.SupportsWebResourceTextType, false);
         }
 
-        internal static IEnumerable<SelectedFile> GetSelectedFiles(DTEHelper helper)
-        {
-            return helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsWebResourceTextType, false);
-        }
-
-        internal static IEnumerable<SelectedFile> GetSelectedFilesRecursive(DTEHelper helper)
-        {
-            return helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsWebResourceTextType, true);
-        }
-
-        internal static IEnumerable<SelectedFile> GetSelectedFilesInListForPublish(DTEHelper helper)
-        {
-            var selectedFiles = helper.GetSelectedFilesFromListForPublish();
-
-            if (selectedFiles.Any())
-            {
-                helper.ShowListForPublish(null);
-            }
-            else
-            {
-                helper.WriteToOutput(null, Properties.OutputStrings.PublishListIsEmpty);
-            }
-
-            return selectedFiles;
-        }
-
         internal static void CorrectCommandNameForConnectionName(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand, string name)
         {
             if (!menuCommand.Enabled && !menuCommand.Visible)

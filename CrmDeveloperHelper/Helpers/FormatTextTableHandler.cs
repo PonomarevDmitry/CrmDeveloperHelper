@@ -27,10 +27,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             this.ShowEmptyColumns = false;
         }
 
-        public FormatTextTableHandler(bool show)
+        public FormatTextTableHandler(bool showEmptyColumns, params string[] headerParts)
             : this()
         {
-            this.ShowEmptyColumns = show;
+            this.ShowEmptyColumns = showEmptyColumns;
+
+            if (headerParts != null && headerParts.Length > 0)
+            {
+                SetHeaderInternal(headerParts);
+            }
+        }
+
+        public FormatTextTableHandler(params string[] headerParts)
+            : this()
+        {
+            if (headerParts != null && headerParts.Length > 0)
+            {
+                SetHeaderInternal(headerParts);
+            }
         }
 
         public FormatTextTableHandler SetHeader(params string[] parts)

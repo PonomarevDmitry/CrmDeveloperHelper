@@ -32,6 +32,180 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
         }
 
+        /// <summary>
+        /// Элемент для публикации в CRM
+        /// </summary>
+        private class ElementForPublish
+        {
+            public SelectedFile SelectedFile { get; private set; }
+
+            public WebResource WebResource { get; private set; }
+
+            public string NewDependencyXml { get; internal set; }
+
+            public string NewDependencies { get; internal set; }
+
+            public int NewDependenciesCount { get; internal set; }
+
+            public ElementForPublish(SelectedFile selectedFile, WebResource webResource)
+            {
+                this.WebResource = webResource ?? throw new ArgumentException("Не задан веб-ресурс.");
+                this.SelectedFile = selectedFile ?? throw new ArgumentException("Не задан файл-источник.");
+            }
+        }
+
+        /// <summary>
+        /// Выполнение обновления содержания и публикация.
+        /// </summary>
+        private async Task UpdateContentAndPublishAsync(IOrganizationServiceExtented service, Dictionary<Guid, ElementForPublish> elements)
+        {
+            if (elements.Count == 0)
+            {
+                return;
+            }
+
+            var listToUpdate = GetEntitesToUpdateContent(service.ConnectionData, elements.Values);
+
+            this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Updating WebResources Content...");
+
+            foreach (var entity in listToUpdate)
+            {
+                await service.UpdateAsync(entity);
+            }
+
+            this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Publishing WebResources...");
+
+            var repositoryPublish = new PublishActionsRepository(service);
+            await repositoryPublish.PublishWebResourcesAsync(elements.Keys);
+
+            WriteToConsolePublishedWebResources(service.ConnectionData, elements.Values.Select(e => e.WebResource));
+        }
+
+        private void WriteToConsolePublishedWebResources(ConnectionData connectionData, IEnumerable<WebResource> elements)
+        {
+            FormatTextTableHandler table = new FormatTextTableHandler();
+            table.SetHeader("WebResourceName", "WebResourceType");
+
+            foreach (var webResource in elements.OrderBy(e => e.Name))
+            {
+                webResource.FormattedValues.TryGetValue(WebResource.Schema.Attributes.webresourcetype, out var webresourcetype);
+                table.AddLine(webResource.Name, webresourcetype);
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, "Published WebResources: {0}", table.Count);
+
+            var lines = table.GetFormatedLines(false);
+            lines.ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, "{0}{1}", _tabSpacer, item));
+        }
+
+        /// <summary>
+        /// Обновление контента веб-ресурсов
+        /// </summary>
+        /// <returns></returns>
+        private List<WebResource> GetEntitesToUpdateContent(ConnectionData connectionData, IEnumerable<ElementForPublish> elements)
+        {
+            var result = new List<WebResource>();
+
+            var list = elements.OrderBy(element => element.SelectedFile.FriendlyFilePath).ToList();
+
+            var tableNotCustomizable = new FormatTextTableHandler("FileName", "WebResourceName", "WebResourceType");
+
+            var tableUpdatedContent = new FormatTextTableHandler("FileName", "WebResourceName", "WebResourceType");
+
+            var tableEqual = new FormatTextTableHandler("FileName", "WebResourceName", "WebResourceType");
+
+            var tableDependencyUpdated = new FormatTextTableHandler("FileName", "New Dependencies Count", "WebResourceName", "WebResourceType", "New Dependencies");
+
+            foreach (var element in list)
+            {
+                var contentFile = Convert.ToBase64String(File.ReadAllBytes(element.SelectedFile.FilePath));
+                var contentWebResource = element.WebResource.Content ?? string.Empty;
+
+                element.WebResource.FormattedValues.TryGetValue(WebResource.Schema.Attributes.webresourcetype, out var webResourceTypeName);
+
+                var isCustomizable = (element.WebResource.IsCustomizable?.Value).GetValueOrDefault(true);
+
+                if (contentFile == contentWebResource)
+                {
+                    tableEqual.AddLine(element.SelectedFile.FileName, element.WebResource.Name, webResourceTypeName);
+                }
+
+                if (isCustomizable)
+                {
+                    WebResource resource = null;
+
+                    if (contentFile != contentWebResource)
+                    {
+                        if (resource == null)
+                        {
+                            resource = new WebResource();
+                            resource.WebResourceId = resource.Id = element.WebResource.Id;
+                        }
+
+                        resource.Content = contentFile;
+
+                        tableUpdatedContent.AddLine(element.SelectedFile.FileName, element.WebResource.Name, webResourceTypeName);
+                    }
+
+                    if (element.NewDependenciesCount > 0)
+                    {
+                        if (resource == null)
+                        {
+                            resource = new WebResource();
+                            resource.WebResourceId = resource.Id = element.WebResource.Id;
+                        }
+
+                        resource.DependencyXml = element.NewDependencyXml;
+
+                        tableDependencyUpdated.AddLine(element.SelectedFile.FileName, element.NewDependenciesCount.ToString(), element.WebResource.Name, webResourceTypeName, element.NewDependencies);
+                    }
+
+                    if (resource != null)
+                    {
+                        result.Add(resource);
+                    }
+                }
+                else
+                {
+                    tableNotCustomizable.AddLine(element.SelectedFile.FileName, element.WebResource.Name, webResourceTypeName);
+                }
+            }
+
+            if (tableNotCustomizable.Count > 0)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, "WebResources are NOT Customizable, can't change WebResource's content: {0}", tableNotCustomizable.Count.ToString());
+
+                var lines = tableNotCustomizable.GetFormatedLines(false);
+
+                lines.ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, "{0}{1}", _tabSpacer, item));
+            }
+
+            if (tableEqual.Count > 0)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, "WebResources equal to file content: {0}", tableEqual.Count.ToString());
+
+                var lines = tableEqual.GetFormatedLines(false);
+
+                lines.ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, "{0}{1}", _tabSpacer, item));
+            }
+
+            if (tableUpdatedContent.Count > 0)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, "Updated WebResources: {0}", tableUpdatedContent.Count.ToString());
+
+                tableUpdatedContent.GetFormatedLines(false).ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, "{0}{1}", _tabSpacer, item));
+            }
+
+            if (tableDependencyUpdated.Count > 0)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, "Updated WebResources DependencyXml: {0}", tableDependencyUpdated.Count.ToString());
+
+                tableDependencyUpdated.GetFormatedLines(false).ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, "{0}{1}", _tabSpacer, item));
+            }
+
+            return result;
+        }
+
         #region Обновление веб-ресурсов и публикация.
 
         /// <summary>
@@ -51,237 +225,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task UpdatingContentAndPublish(IOrganizationServiceExtented service, List<SelectedFile> selectedFiles)
         {
-            // Менеджер для публикации в CRM.
-            PublishManager publishHelper = new PublishManager(this._iWriteToOutput, service);
-
             // Репозиторий для работы с веб-ресурсами
-            WebResourceRepository webResourceRepository = new WebResourceRepository(service);
+            var webResourceRepository = new WebResourceRepository(service);
 
-            bool allForOther = false;
+            var findResult = await FindWebResources(service, webResourceRepository, selectedFiles);
 
-            var groups = selectedFiles.GroupBy(sel => sel.Extension);
-
-            foreach (var gr in groups)
+            if (!findResult.Item1)
             {
-                var names = gr.Select(sel => sel.FriendlyFilePath).ToArray();
-
-                var dict = webResourceRepository.FindMultiple(gr.Key, names);
-
-                foreach (var selectedFile in gr)
-                {
-                    if (File.Exists(selectedFile.FilePath))
-                    {
-                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Try to find web-resource by name: {0}. Searching...", selectedFile.Name);
-
-                        string key = selectedFile.FriendlyFilePath.ToLower();
-
-                        var contentFile = Convert.ToBase64String(File.ReadAllBytes(selectedFile.FilePath));
-
-                        var webresource = WebResourceRepository.FindWebResourceInDictionary(dict, key, gr.Key);
-
-                        if (webresource != null)
-                        {
-                            this._iWriteToOutput.WriteToOutput(service.ConnectionData, "WebResource founded by name. WebResourceId: {0} Name: {1}", webresource.Id, webresource.Name);
-                        }
-
-                        if (webresource == null)
-                        {
-                            if (selectedFile.FileName.StartsWith(service.ConnectionData.Name + "."))
-                            {
-                                string newFileName = selectedFile.FileName.Replace(service.ConnectionData.Name + ".", string.Empty);
-
-                                string newFilePath = Path.Combine(Path.GetDirectoryName(selectedFile.FilePath), newFileName);
-
-                                var newSelectedFile = new SelectedFile(newFilePath, selectedFile.SolutionDirectoryPath);
-
-                                var newDict = webResourceRepository.FindMultiple(newSelectedFile.Extension, new[] { newSelectedFile.FriendlyFilePath });
-
-                                webresource = WebResourceRepository.FindWebResourceInDictionary(newDict, newSelectedFile.FriendlyFilePath.ToLower(), newSelectedFile.Extension);
-
-                                if (webresource != null)
-                                {
-                                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "WebResource founded by name with Connection Prefix. WebResourceId: {0} Name: {1}", webresource.Id, webresource.Name);
-                                }
-                            }
-                        }
-
-                        if (webresource == null)
-                        {
-                            this._iWriteToOutput.WriteToOutput(service.ConnectionData, "WebResource not founded by name. FileName: {0}. Open linking dialog...", selectedFile.Name);
-
-                            Guid? webId = service.ConnectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
-
-                            bool? dialogResult = null;
-                            Guid? selectedWebResourceId = null;
-
-                            var t = new Thread(() =>
-                            {
-                                try
-                                {
-                                    var form = new Views.WindowWebResourceSelectOrCreate(this._iWriteToOutput, service, selectedFile, webId);
-                                    form.ShowCreateButton(allForOther);
-
-                                    dialogResult = form.ShowDialog();
-
-                                    allForOther = form.ForAllOther;
-
-                                    selectedWebResourceId = form.SelectedWebResourceId;
-                                }
-                                catch (Exception ex)
-                                {
-                                    DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
-                                }
-                            });
-                            t.SetApartmentState(ApartmentState.STA);
-                            t.Start();
-
-                            t.Join();
-
-                            if (string.IsNullOrEmpty(service.ConnectionData?.LastSelectedSolutionsUniqueName?.FirstOrDefault()))
-                            {
-                                allForOther = false;
-                            }
-
-                            service.ConnectionData.Save();
-
-                            if (dialogResult.GetValueOrDefault())
-                            {
-                                if (selectedWebResourceId.HasValue)
-                                {
-                                    webresource = await webResourceRepository.GetByIdAsync(selectedWebResourceId.Value);
-                                }
-                                else
-                                {
-                                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "!Warning. WebResource not linked. name: {0}.", selectedFile.Name);
-                                }
-                            }
-                            else
-                            {
-                                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Updating Content and Publishing was cancelled.");
-                                return;
-                            }
-                        }
-
-                        if (webresource != null)
-                        {
-                            // Запоминается файл
-                            service.ConnectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
-
-                            publishHelper.Add(new ElementForPublish(selectedFile, webresource));
-                        }
-                    }
-                    else
-                    {
-                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, "File not founded: {0}", selectedFile.FilePath);
-                    }
-                }
+                return;
             }
 
-            //Сохранение настроек после публикации
-            service.ConnectionData.Save();
+            var elements = findResult.Item2;
 
-            publishHelper.UpdateContentAndPublish();
-        }
-
-        #endregion Обновление веб-ресурсов и публикация.
-
-        #region Публикация веб-ресурсов разных по содержанию, но одинаковых по тексту.
-
-        /// <summary>
-        /// Запуск публикации ресурсов
-        /// </summary>
-        /// <param name="selectedFiles"></param>
-        /// <param name="config"></param>
-        public async Task ExecuteUpdateContentAndPublishEqualByText(ConnectionData connectionData, List<SelectedFile> selectedFiles)
-        {
-            await CheckEncodingConnectFindWebResourceExecuteActionAsync(connectionData
-                , Properties.OperationNames.UpdatingContentWebResourcesEqualByTextAndPublishingFormat1
-                , selectedFiles
-                , OpenFilesType.EqualByText
-                , UpdatingContentAndPublishEqualByText
-            );
-        }
-
-        /// <summary>
-        /// Запуск публикации веб-ресурсов. 
-        /// Определяет ид веб-ресурсов
-        /// 1. в файле привязок
-        /// 2. по имени веб-ресурса
-        /// 3. ручное связывание
-        /// </summary>
-        private void UpdatingContentAndPublishEqualByText(Tuple<IOrganizationServiceExtented, TupleList<SelectedFile, WebResource>> compareResult)
-        {
-            IOrganizationServiceExtented service = compareResult.Item1;
-
-            var filesToPublish = compareResult.Item2.Where(f => f.Item2 != null);
-
-            if (!filesToPublish.Any())
+            if (!elements.Any())
             {
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NothingToPublish);
                 return;
             }
 
-            // Менеджер для публикации в CRM.
-            PublishManager publishHelper = new PublishManager(this._iWriteToOutput, compareResult.Item1);
-
-            foreach (var item in filesToPublish)
-            {
-                publishHelper.Add(new ElementForPublish(item.Item1, item.Item2));
-            }
-
-            publishHelper.UpdateContentAndPublish();
+            await UpdateContentAndPublishAsync(service, elements);
         }
 
-        #endregion Публикация веб-ресурсов разных по содержанию, но одинаковых по тексту.
-
-        #region Публикация всего.
-
-        public async Task ExecutePublishingAll(ConnectionData connectionData)
+        private async Task<Tuple<bool, Dictionary<Guid, ElementForPublish>>> FindWebResources(IOrganizationServiceExtented service, WebResourceRepository webResourceRepository, List<SelectedFile> selectedFiles)
         {
-            await ConnectAndExecuteActionAsync(connectionData
-                , Properties.OperationNames.PublishingAllCustomizationFormat1
-                , (service) => PublishingAllAsync(service)
-            );
-        }
-
-        private async Task PublishingAllAsync(IOrganizationServiceExtented service)
-        {
-            try
-            {
-                var repository = new PublishActionsRepository(service);
-
-                await repository.PublishAllXmlAsync();
-
-                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PublishingAllCompletedFormat1, service.ConnectionData.Name);
-            }
-            catch (Exception ex)
-            {
-                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-
-                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PublishingAllFailedFormat1, service.ConnectionData.Name);
-            }
-        }
-
-        #endregion Публикация всего.
-
-        #region Including References to WebResources DependencyXml
-
-        public async Task ExecuteIncludeReferencesToDependencyXml(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
-        {
-            await CheckEncodingCheckReadOnlyConnectExecuteActionAsync(connectionData
-                , Properties.OperationNames.IncludeReferencesToDependencyXmlAndPublishingFormat1
-                , selectedFiles
-                , true
-                , (service) => IncludingReferencesToDependencyXml(service, commonConfig, selectedFiles)
-            );
-        }
-
-        private async Task IncludingReferencesToDependencyXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
-        {
-            TupleList<SelectedFile, WebResource> list = new TupleList<SelectedFile, WebResource>();
-
-            // Репозиторий для работы с веб-ресурсами
-            WebResourceRepository webResourceRepository = new WebResourceRepository(service);
+            var elements = new Dictionary<Guid, ElementForPublish>();
 
             bool allForOther = false;
 
@@ -305,14 +272,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     string key = selectedFile.FriendlyFilePath.ToLower();
 
-                    var webresource = WebResourceRepository.FindWebResourceInDictionary(dict, key, gr.Key);
+                    var webResource = WebResourceRepository.FindWebResourceInDictionary(dict, key, gr.Key);
 
-                    if (webresource != null)
+                    if (webResource != null)
                     {
-                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, "WebResource founded by name. WebResourceId: {0} Name: {1}", webresource.Id, webresource.Name);
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, "WebResource founded by name. WebResourceId: {0} Name: {1}", webResource.Id, webResource.Name);
                     }
 
-                    if (webresource == null)
+                    if (webResource == null)
                     {
                         if (selectedFile.FileName.StartsWith(service.ConnectionData.Name + "."))
                         {
@@ -324,16 +291,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                             var newDict = webResourceRepository.FindMultiple(newSelectedFile.Extension, new[] { newSelectedFile.FriendlyFilePath });
 
-                            webresource = WebResourceRepository.FindWebResourceInDictionary(newDict, newSelectedFile.FriendlyFilePath.ToLower(), newSelectedFile.Extension);
+                            webResource = WebResourceRepository.FindWebResourceInDictionary(newDict, newSelectedFile.FriendlyFilePath.ToLower(), newSelectedFile.Extension);
 
-                            if (webresource != null)
+                            if (webResource != null)
                             {
-                                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "WebResource founded by name with Connection Prefix. WebResourceId: {0} Name: {1}", webresource.Id, webresource.Name);
+                                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "WebResource founded by name with Connection Prefix. WebResourceId: {0} Name: {1}", webResource.Id, webResource.Name);
                             }
                         }
                     }
 
-                    if (webresource == null)
+                    if (webResource == null)
                     {
                         this._iWriteToOutput.WriteToOutput(service.ConnectionData, "WebResource not founded by name. FileName: {0}. Open linking dialog...", selectedFile.Name);
 
@@ -376,7 +343,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         {
                             if (selectedWebResourceId.HasValue)
                             {
-                                webresource = await webResourceRepository.GetByIdAsync(selectedWebResourceId.Value);
+                                webResource = await webResourceRepository.GetByIdAsync(selectedWebResourceId.Value);
                             }
                             else
                             {
@@ -386,16 +353,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         else
                         {
                             this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Updating Content and Publishing was cancelled.");
-                            return;
+                            return Tuple.Create(false, (Dictionary<Guid, ElementForPublish>)null);
                         }
                     }
 
-                    if (webresource != null)
+                    if (webResource != null)
                     {
                         // Запоминается файл
-                        service.ConnectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
+                        service.ConnectionData.AddMapping(webResource.Id, selectedFile.FriendlyFilePath);
 
-                        list.Add(selectedFile, webresource);
+                        if (!elements.ContainsKey(webResource.Id))
+                        {
+                            elements.Add(webResource.Id, new ElementForPublish(selectedFile, webResource));
+                        }
                     }
                 }
             }
@@ -403,24 +373,319 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             //Сохранение настроек после публикации
             service.ConnectionData.Save();
 
-            if (!list.Any())
+            return Tuple.Create(true, elements);
+        }
+
+        #endregion Обновление веб-ресурсов и публикация.
+
+        #region Публикация веб-ресурсов разных по содержанию, но одинаковых по тексту.
+
+        /// <summary>
+        /// Запуск публикации ресурсов
+        /// </summary>
+        /// <param name="selectedFiles"></param>
+        /// <param name="config"></param>
+        public async Task ExecuteUpdateContentAndPublishEqualByText(ConnectionData connectionData, List<SelectedFile> selectedFiles)
+        {
+            await CheckEncodingConnectFindWebResourceExecuteAwaitedActionAsync(connectionData
+                , Properties.OperationNames.UpdatingContentWebResourcesEqualByTextAndPublishingFormat1
+                , selectedFiles
+                , OpenFilesType.EqualByText
+                , UpdatingContentAndPublishEqualByText
+            );
+        }
+
+        /// <summary>
+        /// Запуск публикации веб-ресурсов. 
+        /// Определяет ид веб-ресурсов
+        /// 1. в файле привязок
+        /// 2. по имени веб-ресурса
+        /// 3. ручное связывание
+        /// </summary>
+        private async Task UpdatingContentAndPublishEqualByText(Tuple<IOrganizationServiceExtented, TupleList<SelectedFile, WebResource>> compareResult)
+        {
+            IOrganizationServiceExtented service = compareResult.Item1;
+
+            var filesToPublish = compareResult.Item2.Where(f => f.Item2 != null);
+
+            if (!filesToPublish.Any())
+            {
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NothingToPublish);
+                return;
+            }
+
+            // Менеджер для публикации в CRM.
+            Dictionary<Guid, ElementForPublish> elements = new Dictionary<Guid, ElementForPublish>();
+
+            foreach (var item in filesToPublish)
+            {
+                if (!elements.ContainsKey(item.Item2.Id))
+                {
+                    elements.Add(item.Item2.Id, new ElementForPublish(item.Item1, item.Item2));
+                }
+            }
+
+            await UpdateContentAndPublishAsync(service, elements);
+        }
+
+        #endregion Публикация веб-ресурсов разных по содержанию, но одинаковых по тексту.
+
+        #region Публикация всего.
+
+        public async Task ExecutePublishingAll(ConnectionData connectionData)
+        {
+            await ConnectAndExecuteActionAsync(connectionData
+                , Properties.OperationNames.PublishingAllCustomizationFormat1
+                , (service) => PublishingAllAsync(service)
+            );
+        }
+
+        private async Task PublishingAllAsync(IOrganizationServiceExtented service)
+        {
+            try
+            {
+                var repository = new PublishActionsRepository(service);
+
+                await repository.PublishAllXmlAsync();
+
+                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PublishingAllCompletedFormat1, service.ConnectionData.Name);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+
+                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PublishingAllFailedFormat1, service.ConnectionData.Name);
+            }
+        }
+
+        #endregion Публикация всего.
+
+        private static Regex _regexReference = new Regex(@"^[\/]{3,}[\s]+<reference[\s]+path=\""(?<path>.+)\""[\s]+\/>[\s]*\r?$", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
+
+        private static HashSet<string> GetFileReferencesFilePaths(string javaScriptCode, string selectedFileFolder, string solutionDirectoryPath)
+        {
+            HashSet<string> result = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+
+            var matches = _regexReference.Matches(javaScriptCode);
+
+            foreach (var match in matches.OfType<Match>())
+            {
+                if (match.Success && match.Groups["path"] != null)
+                {
+                    var path = match.Groups["path"].Value;
+
+                    if (!string.IsNullOrEmpty(path))
+                    {
+                        string referenceFilePath = path;
+
+                        if (path.StartsWith("~"))
+                        {
+                            referenceFilePath = Path.Combine(solutionDirectoryPath, path.Substring(1));
+                        }
+
+                        if (path.StartsWith(".."))
+                        {
+                            referenceFilePath = Path.Combine(selectedFileFolder, path);
+                        }
+                        else if (!File.Exists(referenceFilePath))
+                        {
+                            referenceFilePath = Path.Combine(selectedFileFolder, path);
+                        }
+
+                        FileInfo fileInfo = new FileInfo(referenceFilePath);
+
+                        if (fileInfo.Exists)
+                        {
+                            result.Add(fileInfo.FullName);
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        private static Dictionary<string, WebResource> GetRefernecedWebResources(
+            ConnectionData connectionData
+            , WebResourceRepository webResourceRepository
+            , Dictionary<string, WebResource> knownWebResources
+            , string SolutionDirectoryPath
+            , IEnumerable<string> referenceFilePathList
+        )
+        {
+            var result = new Dictionary<string, WebResource>(StringComparer.InvariantCultureIgnoreCase);
+
+            foreach (var filePath in referenceFilePathList)
+            {
+                string extension = Path.GetExtension(filePath).ToLower();
+
+                if (!WebResourceRepository.IsSupportedExtension(extension))
+                {
+                    continue;
+                }
+
+                if (!knownWebResources.ContainsKey(filePath))
+                {
+                    string fileName = Path.GetFileName(filePath);
+                    string friendlyFilePath = SelectedFile.GetFriendlyPath(filePath, SolutionDirectoryPath);
+
+                    var dict = webResourceRepository.FindMultiple(extension, new[] { friendlyFilePath });
+
+                    var webresource = WebResourceRepository.FindWebResourceInDictionary(dict, friendlyFilePath, extension);
+
+                    if (webresource == null)
+                    {
+                        if (fileName.StartsWith(connectionData.Name + "."))
+                        {
+                            string newFileName = fileName.Replace(connectionData.Name + ".", string.Empty);
+
+                            string newFilePath = Path.Combine(Path.GetDirectoryName(friendlyFilePath), newFileName);
+
+                            var newSelectedFile = new SelectedFile(newFilePath, SolutionDirectoryPath);
+
+                            var newDict = webResourceRepository.FindMultiple(newSelectedFile.Extension, new[] { newSelectedFile.FriendlyFilePath });
+
+                            webresource = WebResourceRepository.FindWebResourceInDictionary(newDict, newSelectedFile.FriendlyFilePath.ToLower(), newSelectedFile.Extension);
+                        }
+                    }
+
+                    if (webresource != null)
+                    {
+                        // Запоминается файл
+                        connectionData.AddMapping(webresource.Id, friendlyFilePath);
+
+                        knownWebResources.Add(filePath, webresource);
+                    }
+                }
+
+                if (knownWebResources.ContainsKey(filePath))
+                {
+                    var knowWebResource = knownWebResources[filePath];
+
+                    result.Add(knowWebResource.Name, knowWebResource);
+                }
+            }
+
+            return result;
+        }
+
+        #region Including References to WebResources DependencyXml
+
+        public async Task ExecuteIncludeReferencesToDependencyXml(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
+        {
+            await CheckEncodingCheckReadOnlyConnectExecuteActionAsync(connectionData
+                , Properties.OperationNames.IncludeReferencesToDependencyXmlAndPublishingFormat1
+                , selectedFiles
+                , true
+                , (service) => IncludingReferencesToDependencyXml(service, commonConfig, selectedFiles)
+            );
+        }
+
+        private async Task IncludingReferencesToDependencyXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
+        {
+            var webResourceRepository = new WebResourceRepository(service);
+
+            var findResult = await FindWebResources(service, webResourceRepository, selectedFiles);
+
+            if (!findResult.Item1)
             {
                 return;
             }
 
-            Dictionary<string, WebResource> knownWebResources = new Dictionary<string, WebResource>(StringComparer.InvariantCultureIgnoreCase);
+            var elements = findResult.Item2;
 
-            foreach (var tuple in list)
+            if (!elements.Any())
             {
-                knownWebResources.Add(tuple.Item1.FilePath, tuple.Item2);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NothingToPublish);
+                return;
             }
 
-            var webResourceToPublish = new TupleList<string, WebResource, string, int, string>();
+            FillNewDependenciesInfo(service, webResourceRepository, elements);
 
-            foreach (var tuple in list)
+            var webResourceToPublish = elements.Values.Where(e => e.NewDependenciesCount > 0).ToList();
+
+            if (!webResourceToPublish.Any())
             {
-                var selectedFile = tuple.Item1;
-                var webResource = tuple.Item2;
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NothingToPublish);
+                return;
+            }
+
+            foreach (var tuple in webResourceToPublish.OrderBy(e => e.SelectedFile.FileName))
+            {
+                var newDependencyXml = tuple.NewDependencyXml;
+                var webResource = tuple.WebResource;
+
+                {
+                    string fieldTitle = WebResource.Schema.Headers.dependencyxml;
+
+                    string dependencyXml = webResource.DependencyXml;
+
+                    if (!string.IsNullOrEmpty(dependencyXml))
+                    {
+                        commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+
+                        string fileNameBackUp = EntityFileNameFormatter.GetWebResourceFileName(service.ConnectionData.Name, webResource.Name, fieldTitle + " BackUp", "xml");
+                        string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
+
+                        try
+                        {
+                            dependencyXml = ContentComparerHelper.FormatXmlByConfiguration(
+                                dependencyXml
+                                , commonConfig
+                                , XmlOptionsControls.WebResourceDependencyXmlOptions
+                                , schemaName: Commands.AbstractDynamicCommandXsdSchemas.SchemaDependencyXml
+                                , webResourceName: webResource.Name
+                            );
+
+                            File.WriteAllText(filePathBackUp, dependencyXml, new UTF8Encoding(false));
+
+                            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, WebResource.Schema.EntitySchemaName, webResource.Name, fieldTitle, filePathBackUp);
+                        }
+                        catch (Exception ex)
+                        {
+                            this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                        }
+                    }
+                    else
+                    {
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, WebResource.Schema.EntitySchemaName, webResource.Name, fieldTitle);
+                        this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                    }
+                }
+
+                var updateWebResource = new WebResource()
+                {
+                    Id = webResource.Id,
+                    WebResourceId = webResource.Id,
+                    DependencyXml = newDependencyXml,
+                };
+
+                await service.UpdateAsync(updateWebResource);
+            }
+
+            this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Updating WebResources Completed.");
+
+            this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Publishing WebResources...");
+
+            var repositoryPublish = new PublishActionsRepository(service);
+            await repositoryPublish.PublishWebResourcesAsync(webResourceToPublish.Select(e => e.WebResource.Id));
+
+            WriteToConsolePublishedWebResources(service.ConnectionData, webResourceToPublish.Select(e => e.WebResource));
+        }
+
+        private static void FillNewDependenciesInfo(IOrganizationServiceExtented service, WebResourceRepository webResourceRepository, Dictionary<Guid, ElementForPublish> elements)
+        {
+            var knownWebResources = new Dictionary<string, WebResource>(StringComparer.InvariantCultureIgnoreCase);
+
+            foreach (var element in elements.Values)
+            {
+                knownWebResources.Add(element.SelectedFile.FilePath, element.WebResource);
+            }
+
+            foreach (var element in elements.Values)
+            {
+                var selectedFile = element.SelectedFile;
+                var webResource = element.WebResource;
 
                 var serializer = new XmlSerializer(typeof(Dependencies));
 
@@ -465,44 +730,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 if (!newDependencies.Any())
                 {
                     continue;
-                }
-
-                {
-                    string fieldTitle = WebResource.Schema.Headers.dependencyxml;
-
-                    string dependencyXml = webResource.DependencyXml;
-
-                    if (!string.IsNullOrEmpty(dependencyXml))
-                    {
-                        commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
-
-                        string fileNameBackUp = EntityFileNameFormatter.GetWebResourceFileName(service.ConnectionData.Name, webResource.Name, fieldTitle + " BackUp", "xml");
-                        string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
-
-                        try
-                        {
-                            dependencyXml = ContentComparerHelper.FormatXmlByConfiguration(
-                                dependencyXml
-                                , commonConfig
-                                , XmlOptionsControls.WebResourceDependencyXmlOptions
-                                , schemaName: Commands.AbstractDynamicCommandXsdSchemas.SchemaDependencyXml
-                                , webResourceName: webResource.Name
-                            );
-
-                            File.WriteAllText(filePathBackUp, dependencyXml, new UTF8Encoding(false));
-
-                            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, WebResource.Schema.EntitySchemaName, webResource.Name, fieldTitle, filePathBackUp);
-                        }
-                        catch (Exception ex)
-                        {
-                            this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-                        }
-                    }
-                    else
-                    {
-                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, WebResource.Schema.EntitySchemaName, webResource.Name, fieldTitle);
-                        this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
-                    }
                 }
 
                 DependenciesDependency dependenciesWebResource = null;
@@ -580,166 +807,93 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     newDependencyXml = doc.ToString(SaveOptions.DisableFormatting);
                 }
 
-                webResourceToPublish.Add(selectedFile.FilePath, webResource, newDependencyXml, newDependencies.Count, string.Join(", ", newDependencies.OrderBy(s => s)));
+                element.NewDependencyXml = newDependencyXml;
+                element.NewDependenciesCount = newDependencies.Count;
+                element.NewDependencies = string.Join(", ", newDependencies.OrderBy(s => s));
+            }
+        }
+
+        #endregion Including References to WebResources DependencyXml
+
+        public async Task ExecuteUpdateContentIncludeReferencesToDependencyXml(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
+        {
+            await CheckEncodingCheckReadOnlyConnectExecuteActionAsync(connectionData
+                , Properties.OperationNames.ExecuteUpdateContentIncludeReferencesToDependencyXmlFormat1
+                , selectedFiles
+                , true
+                , (service) => UpdatingContentIncludingReferencesToDependencyXml(service, commonConfig, selectedFiles)
+            );
+        }
+
+        private async Task UpdatingContentIncludingReferencesToDependencyXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
+        {
+            var webResourceRepository = new WebResourceRepository(service);
+
+            var findResult = await FindWebResources(service, webResourceRepository, selectedFiles);
+
+            if (!findResult.Item1)
+            {
+                return;
             }
 
-            if (!webResourceToPublish.Any())
+            var elements = findResult.Item2;
+
+            if (!elements.Any())
             {
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NothingToPublish);
                 return;
             }
 
+            FillNewDependenciesInfo(service, webResourceRepository, elements);
+
+            if (!elements.Any())
             {
-                FormatTextTableHandler tableUpdated = new FormatTextTableHandler();
-                tableUpdated.SetHeader("FileName", "Dependencies", "WebResourceName", "WebResourceType", "New Dependencies");
-
-                foreach (var tuple in webResourceToPublish.OrderBy(e => e.Item1))
-                {
-                    var filePath = tuple.Item1;
-                    var webResource = tuple.Item2;
-
-                    webResource.FormattedValues.TryGetValue(WebResource.Schema.Attributes.webresourcetype, out var webresourcetype);
-                    tableUpdated.AddLine(filePath, tuple.Item4.ToString(), webResource.Name, webresourcetype, tuple.Item5);
-                }
-
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Updating WebResources DependencyXml and Publishing...");
-
-                tableUpdated.GetFormatedLines(false).ForEach(item => _iWriteToOutput.WriteToOutput(service.ConnectionData, "{0}{1}", _tabSpacer, item));
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NothingToPublish);
+                return;
             }
 
-            foreach (var tuple in webResourceToPublish.OrderBy(e => e.Item1))
+            foreach (var element in elements.Values.Where(e => e.NewDependenciesCount > 0).OrderBy(e => e.SelectedFile.FileName))
             {
-                var newDependencyXml = tuple.Item3;
-                var webResource = tuple.Item2;
+                var webResource = element.WebResource;
 
-                var updateWebResource = new WebResource()
+                string fieldTitle = WebResource.Schema.Headers.dependencyxml;
+
+                string dependencyXml = webResource.DependencyXml;
+
+                if (!string.IsNullOrEmpty(dependencyXml))
                 {
-                    Id = webResource.Id,
-                    WebResourceId = webResource.Id,
-                    DependencyXml = newDependencyXml,
-                };
+                    commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-                await service.UpdateAsync(updateWebResource);
-            }
+                    string fileNameBackUp = EntityFileNameFormatter.GetWebResourceFileName(service.ConnectionData.Name, webResource.Name, fieldTitle + " BackUp", "xml");
+                    string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
 
-            this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Update WebResources Completed.");
-            this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Publishing WebResources...");
-
-            var repository = new PublishActionsRepository(service);
-            await repository.PublishWebResourcesAsync(webResourceToPublish.Select(e => e.Item2.Id));
-
-            this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Published web-resources: {0}", webResourceToPublish.Count);
-        }
-
-        #endregion Including References to WebResources DependencyXml
-
-        private static Dictionary<string, WebResource> GetRefernecedWebResources(
-            ConnectionData connectionData
-            , WebResourceRepository webResourceRepository
-            , Dictionary<string, WebResource> knownWebResources
-            , string SolutionDirectoryPath
-            , IEnumerable<string> referenceFilePathList
-        )
-        {
-            var result = new Dictionary<string, WebResource>(StringComparer.InvariantCultureIgnoreCase);
-
-            foreach (var filePath in referenceFilePathList)
-            {
-                string extension = Path.GetExtension(filePath).ToLower();
-
-                if (!WebResourceRepository.IsSupportedExtension(extension))
-                {
-                    continue;
-                }
-
-                if (!knownWebResources.ContainsKey(filePath))
-                {
-                    string fileName = Path.GetFileName(filePath);
-                    string friendlyFilePath = SelectedFile.GetFriendlyPath(filePath, SolutionDirectoryPath);
-
-                    var dict = webResourceRepository.FindMultiple(extension, new[] { friendlyFilePath });
-
-                    var webresource = WebResourceRepository.FindWebResourceInDictionary(dict, friendlyFilePath, extension);
-
-                    if (webresource == null)
+                    try
                     {
-                        if (fileName.StartsWith(connectionData.Name + "."))
-                        {
-                            string newFileName = fileName.Replace(connectionData.Name + ".", string.Empty);
+                        dependencyXml = ContentComparerHelper.FormatXmlByConfiguration(
+                            dependencyXml
+                            , commonConfig
+                            , XmlOptionsControls.WebResourceDependencyXmlOptions
+                            , schemaName: Commands.AbstractDynamicCommandXsdSchemas.SchemaDependencyXml
+                            , webResourceName: webResource.Name
+                        );
 
-                            string newFilePath = Path.Combine(Path.GetDirectoryName(friendlyFilePath), newFileName);
+                        File.WriteAllText(filePathBackUp, dependencyXml, new UTF8Encoding(false));
 
-                            var newSelectedFile = new SelectedFile(newFilePath, SolutionDirectoryPath);
-
-                            var newDict = webResourceRepository.FindMultiple(newSelectedFile.Extension, new[] { newSelectedFile.FriendlyFilePath });
-
-                            webresource = WebResourceRepository.FindWebResourceInDictionary(newDict, newSelectedFile.FriendlyFilePath.ToLower(), newSelectedFile.Extension);
-                        }
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, WebResource.Schema.EntitySchemaName, webResource.Name, fieldTitle, filePathBackUp);
                     }
-
-                    if (webresource != null)
+                    catch (Exception ex)
                     {
-                        // Запоминается файл
-                        connectionData.AddMapping(webresource.Id, friendlyFilePath);
-
-                        knownWebResources.Add(filePath, webresource);
+                        this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
                     }
                 }
-
-                if (knownWebResources.ContainsKey(filePath))
+                else
                 {
-                    var knowWebResource = knownWebResources[filePath];
-
-                    result.Add(knowWebResource.Name, knowWebResource);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, WebResource.Schema.EntitySchemaName, webResource.Name, fieldTitle);
+                    this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 }
             }
 
-            return result;
-        }
-
-        private static Regex _regexReference = new Regex(@"^[\/]{3,}[\s]+<reference[\s]+path=\""(?<path>.+)\""[\s]+\/>[\s]*\r?$", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
-
-        private static HashSet<string> GetFileReferencesFilePaths(string javaScriptCode, string selectedFileFolder, string solutionDirectoryPath)
-        {
-            HashSet<string> result = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
-
-            var matches = _regexReference.Matches(javaScriptCode);
-
-            foreach (var match in matches.OfType<Match>())
-            {
-                if (match.Success && match.Groups["path"] != null)
-                {
-                    var path = match.Groups["path"].Value;
-
-                    if (!string.IsNullOrEmpty(path))
-                    {
-                        string referenceFilePath = path;
-
-                        if (path.StartsWith("~"))
-                        {
-                            referenceFilePath = Path.Combine(solutionDirectoryPath, path.Substring(1));
-                        }
-
-                        if (path.StartsWith(".."))
-                        {
-                            referenceFilePath = Path.Combine(selectedFileFolder, path);
-                        }
-                        else if (!File.Exists(referenceFilePath))
-                        {
-                            referenceFilePath = Path.Combine(selectedFileFolder, path);
-                        }
-
-                        FileInfo fileInfo = new FileInfo(referenceFilePath);
-
-                        if (fileInfo.Exists)
-                        {
-                            result.Add(fileInfo.FullName);
-                        }
-                    }
-                }
-            }
-
-            return result;
+            await UpdateContentAndPublishAsync(service, elements);
         }
 
         #region Including References to Linked SystemForms Libraries
@@ -756,7 +910,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task IncludingReferencesToLinkedSystemFormsLibraries(IOrganizationServiceExtented service, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
         {
-            Dictionary<string, WebResource> knownWebResources = new Dictionary<string, WebResource>(StringComparer.InvariantCultureIgnoreCase);
+            var knownWebResources = new Dictionary<string, WebResource>(StringComparer.InvariantCultureIgnoreCase);
 
             var systemFormRepository = new SystemFormRepository(service);
 

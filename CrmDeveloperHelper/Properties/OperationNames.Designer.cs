@@ -1123,6 +1123,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Updating Content, Including JavaScript References to WebResources DependencyXml and Publishing.
+        /// </summary>
+        internal static string ExecuteUpdateContentIncludeReferencesToDependencyXmlFormat1 {
+            get {
+                return ResourceManager.GetString("ExecuteUpdateContentIncludeReferencesToDependencyXmlFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Executing Workflow {1} on Entities {2} count {3}.
         /// </summary>
         internal static string ExecutingWorkflowFormat4 {

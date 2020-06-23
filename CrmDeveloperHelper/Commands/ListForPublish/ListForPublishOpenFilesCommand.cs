@@ -89,11 +89,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
 
         protected override void CommandAction(DTEHelper helper)
         {
-            List<SelectedFile> selectedFiles = CommonHandlers.GetSelectedFilesInListForPublish(helper).ToList();
+            var selectedFiles = helper.GetSelectedFilesFromListForPublish().ToList();
 
-            if (selectedFiles.Count > 0)
+            if (selectedFiles.Any())
             {
+                helper.ShowListForPublish(null);
+
                 helper.HandleWebResourceOpenFilesCommand(selectedFiles, _openFilesType, _inTextEditor);
+            }
+            else
+            {
+                helper.WriteToOutput(null, Properties.OutputStrings.PublishListIsEmpty);
             }
         }
 

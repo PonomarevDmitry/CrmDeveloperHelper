@@ -317,6 +317,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             // CodeJavaScriptLinkedEntity.Initialize,
 
+            CodeJavaScriptUpdateContentIncludeReferencesPublishCommand.Initialize,
+            CodeJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommand.Initialize,
+
             #endregion CodeJavaScript
 
             #region DocumentsJavaScript
@@ -331,6 +334,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             DocumentsJavaScriptIncludeReferencesToLinkedSystemFormCommand.Initialize,
             DocumentsJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommand.Initialize,
+
+            DocumentsJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommand.Initialize,
 
             #endregion DocumentsJavaScript
 
@@ -351,6 +356,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FileJavaScriptIncludeReferencesToLinkedSystemFormCommand.Initialize,
             FileJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommand.Initialize,
 
+            FileJavaScriptUpdateContentIncludeReferencesPublishCommand.Initialize,
+            FileJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommand.Initialize,
+
             #endregion FileJavaScript
 
             #region FolderJavaScript
@@ -365,6 +373,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             FolderJavaScriptIncludeReferencesToLinkedSystemFormCommand.Initialize,
             FolderJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommand.Initialize,
+
+            FolderJavaScriptUpdateContentIncludeReferencesPublishCommand.Initialize,
+            FolderJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommand.Initialize,
 
             #endregion FolderJavaScript
 
