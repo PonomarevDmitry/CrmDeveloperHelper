@@ -20,9 +20,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
 
         protected override void CommandAction(DTEHelper helper)
         {
-            var selectedFiles = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsWebResourceType).ToList();
+            var selectedFiles = helper.GetSelectedFilesAll(FileOperations.SupportsWebResourceType, true).ToList();
 
-            helper.RemoveFromListForPublish(selectedFiles);
+            helper.RemoveFromListForPublish(null, selectedFiles);
         }
 
         protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)

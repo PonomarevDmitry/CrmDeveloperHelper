@@ -19,11 +19,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
 
         protected override void CommandAction(DTEHelper helper)
         {
-            helper.ShowListForPublish(null);
+            var connectionConfig = Model.ConnectionConfiguration.Get();
+
+            var connectionData = connectionConfig.CurrentConnectionData;
+
+            helper.ShowListForPublish(connectionData);
 
             if (MessageBox.Show(Properties.MessageBoxStrings.ClearListForPublish, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
             {
-                helper.ClearListForPublish(null);
+                helper.ClearListForPublish(connectionData);
             }
         }
 

@@ -21,42 +21,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 , Properties.OperationNames.OpeningFilesFormat2
                 , selectedFiles
                 , openFilesType
-                , (compareResult) => OpenFiles(compareResult, inTextEditor)
+                , (conn, service, filesToOpen) => OpenFiles(conn, service, filesToOpen, inTextEditor)
                 , openFilesType.ToString()
             );
         }
 
-        private void OpenFiles(Tuple<IOrganizationServiceExtented, TupleList<SelectedFile, WebResource>> compareResult, bool inTextEditor)
+        private void OpenFiles(ConnectionData connectionData, IOrganizationServiceExtented service, TupleList<SelectedFile, WebResource> filesToOpen, bool inTextEditor)
         {
-            IOrganizationServiceExtented service = compareResult.Item1;
-
-            var filesToOpen = compareResult.Item2;
-
-            if (filesToOpen.Any())
+            if (!filesToOpen.Any())
             {
-                var orderEnumrator = filesToOpen.Select(s => s.Item1).OrderBy(s => s.FriendlyFilePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, "No files for open.");
+                this._iWriteToOutput.ActivateOutputWindow(connectionData);
+                return;
+            }
 
-                if (inTextEditor)
+            var orderEnumrator = filesToOpen.Select(s => s.Item1).OrderBy(s => s.FriendlyFilePath);
+
+            if (inTextEditor)
+            {
+                foreach (var item in orderEnumrator)
                 {
-                    foreach (var item in orderEnumrator)
-                    {
-                        this._iWriteToOutput.WriteToOutputFilePathUri(service.ConnectionData, item.FilePath);
-                        this._iWriteToOutput.OpenFileInTextEditor(service.ConnectionData, item.FilePath);
-                    }
-                }
-                else
-                {
-                    foreach (var item in orderEnumrator)
-                    {
-                        this._iWriteToOutput.WriteToOutputFilePathUri(service.ConnectionData, item.FilePath);
-                        this._iWriteToOutput.OpenFileInVisualStudio(service.ConnectionData, item.FilePath);
-                    }
+                    this._iWriteToOutput.WriteToOutputFilePathUri(connectionData, item.FilePath);
+                    this._iWriteToOutput.OpenFileInTextEditor(connectionData, item.FilePath);
                 }
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "No files for open.");
-                this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                foreach (var item in orderEnumrator)
+                {
+                    this._iWriteToOutput.WriteToOutputFilePathUri(connectionData, item.FilePath);
+                    this._iWriteToOutput.OpenFileInVisualStudio(connectionData, item.FilePath);
+                }
             }
         }
     }

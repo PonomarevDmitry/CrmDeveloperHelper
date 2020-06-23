@@ -62,7 +62,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
         {
             List<SelectedFile> selectedFiles = helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsWebResourceTextType, true).ToList();
 
-            if (selectedFiles.Count > 0)
+            if (selectedFiles.Any())
             {
                 helper.HandleAddingIntoPublishListFilesByTypeCommand(selectedFiles, _openFilesType);
             }
@@ -70,7 +70,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 
         protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusConnectionIsNotReadOnly(applicationObject, menuCommand);
             CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceRecursive(applicationObject, menuCommand);
         }
     }

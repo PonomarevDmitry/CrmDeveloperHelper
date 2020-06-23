@@ -35,11 +35,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
             {
                 List<SelectedFile> selectedFiles = helper.GetSelectedFilesFromListForPublish().ToList();
 
-                if (selectedFiles.Count > 0)
+                if (selectedFiles.Any())
                 {
                     helper.ShowListForPublish(connectionConfig.CurrentConnectionData);
 
-                    helper.HandleWebResourceAddingToSolutionCommand(null, solutionUniqueName, false, selectedFiles);
+                    helper.HandleWebResourceAddingToSolutionCommand(connectionConfig.CurrentConnectionData, solutionUniqueName, false, selectedFiles);
                 }
                 else
                 {

@@ -602,14 +602,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         #region Методы для работы со списком на публикацию.
 
-        public IWriteToOutputAndPublishList AddToListForPublish(IEnumerable<SelectedFile> selectedFiles)
+        public IWriteToOutputAndPublishList AddToListForPublish(ConnectionData connectionData, IEnumerable<SelectedFile> selectedFiles)
         {
             if (!selectedFiles.Any())
             {
                 return this;
             }
 
-            WriteToOutput(null, string.Empty);
+            if (connectionData == null)
+            {
+                var connectionConfig = Model.ConnectionConfiguration.Get();
+
+                connectionData = connectionConfig.CurrentConnectionData;
+            }
+
+            WriteToOutput(connectionData, string.Empty);
 
             FormatTextTableHandler tableAlreadyInPublishList = new FormatTextTableHandler();
             tableAlreadyInPublishList.SetHeader("FileName", "FriendlyFilePath");
@@ -636,38 +643,45 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                     else
                     {
-                        WriteToOutput(null, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FriendlyFilePath);
+                        WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FriendlyFilePath);
                     }
                 }
             }
 
-            ActivateOutputWindow(null);
+            ActivateOutputWindow(connectionData);
 
             if (tableAlreadyInPublishList.Count > 0)
             {
-                WriteToOutput(null, Properties.OutputStrings.FilesAlreadyInPublishListFormat1, tableAlreadyInPublishList.Count);
+                WriteToOutput(connectionData, Properties.OutputStrings.FilesAlreadyInPublishListFormat1, tableAlreadyInPublishList.Count);
 
-                tableAlreadyInPublishList.GetFormatedLines(false).ForEach(s => WriteToOutput(null, _tabSpacer + s));
+                tableAlreadyInPublishList.GetFormatedLines(false).ForEach(s => WriteToOutput(connectionData, _tabSpacer + s));
             }
 
             if (tableAddedInPublishList.Count > 0)
             {
-                WriteToOutput(null, Properties.OutputStrings.AddedInPublishListFormat1, tableAddedInPublishList.Count);
+                WriteToOutput(connectionData, Properties.OutputStrings.AddedInPublishListFormat1, tableAddedInPublishList.Count);
 
-                tableAddedInPublishList.GetFormatedLines(false).ForEach(s => WriteToOutput(null, _tabSpacer + s));
+                tableAddedInPublishList.GetFormatedLines(false).ForEach(s => WriteToOutput(connectionData, _tabSpacer + s));
             }
 
             return this;
         }
 
-        public IWriteToOutput RemoveFromListForPublish(List<SelectedFile> selectedFiles)
+        public IWriteToOutput RemoveFromListForPublish(ConnectionData connectionData, List<SelectedFile> selectedFiles)
         {
+            if (connectionData == null)
+            {
+                var connectionConfig = Model.ConnectionConfiguration.Get();
+
+                connectionData = connectionConfig.CurrentConnectionData;
+            }
+
             if (!selectedFiles.Any())
             {
                 return this;
             }
 
-            WriteToOutput(null, string.Empty);
+            WriteToOutput(connectionData, string.Empty);
 
             FormatTextTableHandler tableNotInPublishList = new FormatTextTableHandler();
             tableNotInPublishList.SetHeader("FileName", "FriendlyFilePath");
@@ -689,20 +703,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            ActivateOutputWindow(null);
+            ActivateOutputWindow(connectionData);
 
             if (tableNotInPublishList.Count > 0)
             {
-                WriteToOutput(null, Properties.OutputStrings.FilesNotInPublishListFormat1, tableNotInPublishList.Count);
+                WriteToOutput(connectionData, Properties.OutputStrings.FilesNotInPublishListFormat1, tableNotInPublishList.Count);
 
-                tableNotInPublishList.GetFormatedLines(false).ForEach(s => WriteToOutput(null, _tabSpacer + s));
+                tableNotInPublishList.GetFormatedLines(false).ForEach(s => WriteToOutput(connectionData, _tabSpacer + s));
             }
 
             if (tableRemovedFromPublishList.Count > 0)
             {
-                WriteToOutput(null, Properties.OutputStrings.RemovedFromPublishListFormat1, tableRemovedFromPublishList.Count);
+                WriteToOutput(connectionData, Properties.OutputStrings.RemovedFromPublishListFormat1, tableRemovedFromPublishList.Count);
 
-                tableRemovedFromPublishList.GetFormatedLines(false).ForEach(s => WriteToOutput(null, _tabSpacer + s));
+                tableRemovedFromPublishList.GetFormatedLines(false).ForEach(s => WriteToOutput(connectionData, _tabSpacer + s));
             }
 
             return this;
@@ -710,6 +724,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public IWriteToOutput ClearListForPublish(ConnectionData connectionData)
         {
+            if (connectionData == null)
+            {
+                var connectionConfig = Model.ConnectionConfiguration.Get();
+
+                connectionData = connectionConfig.CurrentConnectionData;
+            }
+
             _ListForPublish.Clear();
 
             ActivateOutputWindow(connectionData);
@@ -723,6 +744,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public IWriteToOutput ShowListForPublish(ConnectionData connectionData)
         {
+            if (connectionData == null)
+            {
+                var connectionConfig = Model.ConnectionConfiguration.Get();
+
+                connectionData = connectionConfig.CurrentConnectionData;
+            }
+
             ActivateOutputWindow(connectionData);
 
             WriteToOutput(connectionData, string.Empty);

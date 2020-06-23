@@ -19,7 +19,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
         {
             var selectedFiles = helper.GetSelectedFilesAll(FileOperations.SupportsWebResourceType, true);
 
-            helper.AddToListForPublish(selectedFiles);
+            helper.AddToListForPublish(null, selectedFiles);
         }
 
         protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)

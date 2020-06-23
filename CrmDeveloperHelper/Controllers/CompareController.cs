@@ -60,19 +60,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             );
         }
 
-        private void AddingIntoPublishListFilesByType(Tuple<IOrganizationServiceExtented, TupleList<SelectedFile, WebResource>> compareResult)
+        private void AddingIntoPublishListFilesByType(ConnectionData connectionData, IOrganizationServiceExtented service, TupleList<SelectedFile, WebResource> listFilesToDifference)
         {
-            IOrganizationServiceExtented service = compareResult.Item1;
-
-            var listFilesToDifference = compareResult.Item2;
-
             if (listFilesToDifference.Any())
             {
-                this._iWriteToOutput.AddToListForPublish(listFilesToDifference.Select(f => f.Item1).OrderBy(f => f.FriendlyFilePath));
+                this._iWriteToOutput.AddToListForPublish(connectionData, listFilesToDifference.Select(f => f.Item1).OrderBy(f => f.FriendlyFilePath));
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "No files for adding to Publish List.");
+                this._iWriteToOutput.WriteToOutput(connectionData, "No files for adding to Publish List.");
             }
         }
 

@@ -384,20 +384,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             );
         }
 
-        private async Task MultiDifferenceFiles(Tuple<IOrganizationServiceExtented, TupleList<SelectedFile, WebResource>> compareResult)
+        private async Task MultiDifferenceFiles(ConnectionData connectionData, IOrganizationServiceExtented service, TupleList<SelectedFile, WebResource> listFilesToDifference)
         {
-            IOrganizationServiceExtented service = compareResult.Item1;
-
-            var listFilesToDifference = compareResult.Item2.Where(f => f.Item2 != null);
-
             if (!listFilesToDifference.Any())
             {
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NoFilesForDifference);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoFilesForDifference);
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
-            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.StartingCompareProgramForCountFilesFormat1, listFilesToDifference.Count());
+            this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.StartingCompareProgramForCountFilesFormat1, listFilesToDifference.Count());
 
             foreach (var item in listFilesToDifference.OrderBy(file => file.Item1.FilePath))
             {
@@ -420,7 +416,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     string fileTitle1 = selectedFile.FileName;
 
                     string file2 = tempFilePath;
-                    string fileTitle2 = service.ConnectionData.Name + "." + selectedFile.FileName + " - " + tempFilePath;
+                    string fileTitle2 = connectionData.Name + "." + selectedFile.FileName + " - " + tempFilePath;
 
                     await this._iWriteToOutput.ProcessStartProgramComparerAsync(file1, file2, fileTitle1, fileTitle2);
                 }

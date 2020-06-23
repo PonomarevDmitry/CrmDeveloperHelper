@@ -3,8 +3,16 @@ using System.Collections.Generic;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
 {
+    /// <summary>
+    /// <see cref="Helpers.DTEHelper"/>
+    /// </summary>
     public interface IWriteToOutputAndPublishList : IWriteToOutput
     {
-        IWriteToOutputAndPublishList AddToListForPublish(IEnumerable<SelectedFile> selectedFiles);
+        /// <summary>
+        /// <see cref="Helpers.DTEHelper.AddToListForPublish(ConnectionData, IEnumerable{SelectedFile})"/>
+        /// </summary>
+        /// <param name="selectedFiles"></param>
+        /// <returns></returns>
+        IWriteToOutputAndPublishList AddToListForPublish(ConnectionData connectionData, IEnumerable<SelectedFile> selectedFiles);
     }
 }

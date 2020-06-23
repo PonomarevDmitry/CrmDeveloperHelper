@@ -387,7 +387,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         /// <param name="config"></param>
         public async Task ExecuteUpdateContentAndPublishEqualByText(ConnectionData connectionData, List<SelectedFile> selectedFiles)
         {
-            await CheckEncodingConnectFindWebResourceExecuteAwaitedActionAsync(connectionData
+            await CheckEncodingConnectFindWebResourceExecuteActionTaskAsync(connectionData
                 , Properties.OperationNames.UpdatingContentWebResourcesEqualByTextAndPublishingFormat1
                 , selectedFiles
                 , OpenFilesType.EqualByText
@@ -402,11 +402,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         /// 2. по имени веб-ресурса
         /// 3. ручное связывание
         /// </summary>
-        private async Task UpdatingContentAndPublishEqualByText(Tuple<IOrganizationServiceExtented, TupleList<SelectedFile, WebResource>> compareResult)
+        private async Task UpdatingContentAndPublishEqualByText(ConnectionData connectionData, IOrganizationServiceExtented service, TupleList<SelectedFile, WebResource> filesToPublish)
         {
-            IOrganizationServiceExtented service = compareResult.Item1;
-
-            var filesToPublish = compareResult.Item2.Where(f => f.Item2 != null);
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
 
             if (!filesToPublish.Any())
             {
