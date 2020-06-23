@@ -479,14 +479,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
 
                 if (!string.IsNullOrEmpty(entityMetadata.PrimaryIdAttribute))
                 {
-                    var attributeMetadata = entityMetadata.Attributes.FirstOrDefault(e => string.Equals(e.LogicalName, entityMetadata.PrimaryIdAttribute, StringComparison.InvariantCultureIgnoreCase));
+                    var attributeMetadataPrimaryId = entityMetadata.Attributes.FirstOrDefault(e => string.Equals(e.LogicalName, entityMetadata.PrimaryIdAttribute, StringComparison.InvariantCultureIgnoreCase));
 
-                    if (attributeMetadata != null
-                        && attributeMetadata.IsPrimaryId.GetValueOrDefault()
-                        && iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateAttribute(attributeMetadata)
+                    if (attributeMetadataPrimaryId != null
+                        && attributeMetadataPrimaryId.IsPrimaryId.GetValueOrDefault()
+                        && iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateAttribute(attributeMetadataPrimaryId)
                     )
                     {
-                        var attributeMember = this.BuildIdProperty(entityMetadata, attributeMetadata, primatyIdAttributeNameRef);
+                        var attributeMember = this.BuildIdProperty(entityMetadata, attributeMetadataPrimaryId, primatyIdAttributeNameRef);
 
                         if (attributeMember != null)
                         {
@@ -495,7 +495,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
                             memberCollection.Add(InsertInPropertyDebuggerNonUserCodeAttributeInGetAndSet(attributeMember));
                         }
 
-                        attributeMember = this.BuildAttributePropertyOnBaseType(entityMetadata, attributeMetadata, primatyIdAttributeNameRef);
+                        attributeMember = this.BuildAttributePropertyOnBaseType(entityMetadata, attributeMetadataPrimaryId, primatyIdAttributeNameRef);
 
                         if (attributeMember != null)
                         {
@@ -508,14 +508,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
 
                 if (!string.IsNullOrEmpty(entityMetadata.PrimaryNameAttribute))
                 {
-                    var attributeMetadata = entityMetadata.Attributes.FirstOrDefault(e => string.Equals(e.LogicalName, entityMetadata.PrimaryNameAttribute, StringComparison.InvariantCultureIgnoreCase));
+                    var attributeMetadataPrimaryName = entityMetadata.Attributes.FirstOrDefault(e => string.Equals(e.LogicalName, entityMetadata.PrimaryNameAttribute, StringComparison.InvariantCultureIgnoreCase));
 
-                    if (attributeMetadata != null
-                        && attributeMetadata.IsPrimaryName.GetValueOrDefault()
-                        && iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateAttribute(attributeMetadata)
+                    if (attributeMetadataPrimaryName != null
+                        && attributeMetadataPrimaryName.IsPrimaryName.GetValueOrDefault()
+                        && iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateAttribute(attributeMetadataPrimaryName)
                     )
                     {
-                        var attributeMember = this.BuildAttributePropertyOnBaseType(entityMetadata, attributeMetadata, primatyNameAttributeNameRef);
+                        var attributeMember = this.BuildAttributePropertyOnBaseType(entityMetadata, attributeMetadataPrimaryName, primatyNameAttributeNameRef);
 
                         if (attributeMember != null)
                         {
@@ -836,20 +836,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
             if (!string.IsNullOrEmpty(entityMetadata.PrimaryNameAttribute))
             {
                 var attributeMetadataPrimaryName = entityMetadata.Attributes.FirstOrDefault(e => string.Equals(e.LogicalName, entityMetadata.PrimaryNameAttribute, StringComparison.InvariantCultureIgnoreCase));
-                string primaryNamePropertyName = iCodeGenerationServiceProvider.NamingService.GetNameForAttributeAsEntityProperty(entityMetadata, attributeMetadataPrimaryName);
 
-                var thisEntityNameProperty = ThisProp(primaryNamePropertyName);
+                if (attributeMetadataPrimaryName != null
+                    && attributeMetadataPrimaryName.IsPrimaryName.GetValueOrDefault()
+                    && iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateAttribute(attributeMetadataPrimaryName)
+                )
+                {
+                    string primaryNamePropertyName = iCodeGenerationServiceProvider.NamingService.GetNameForAttributeAsEntityProperty(entityMetadata, attributeMetadataPrimaryName);
 
-                codeMemberMethod.Statements.Add(
-                If(Equal(StaticMethodInvoke(typeof(string), nameof(string.IsNullOrEmpty), thisEntityNameProperty), False())
-                    , Return(thisEntityNameProperty)
-                    , returnPrimaryIdToString
-                ));
+                    var thisEntityNameProperty = ThisProp(primaryNamePropertyName);
+
+                    codeMemberMethod.Statements.Add(
+                    If(Equal(StaticMethodInvoke(typeof(string), nameof(string.IsNullOrEmpty), thisEntityNameProperty), False())
+                        , Return(thisEntityNameProperty)
+                        , returnPrimaryIdToString
+                    ));
+
+                    return codeMemberMethod;
+                }
             }
-            else
-            {
-                codeMemberMethod.Statements.Add(returnPrimaryIdToString);
-            }
+
+            codeMemberMethod.Statements.Add(returnPrimaryIdToString);
 
             return codeMemberMethod;
         }
