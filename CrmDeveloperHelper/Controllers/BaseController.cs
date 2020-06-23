@@ -619,11 +619,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             else if (openFilesType == OpenFilesType.WithInserts
                     || openFilesType == OpenFilesType.WithDeletes
-                    || openFilesType == OpenFilesType.WithComplex
-                    || openFilesType == OpenFilesType.WithMirror
+                    || openFilesType == OpenFilesType.WithComplexChanges
+                    || openFilesType == OpenFilesType.WithMirrorChanges
                     || openFilesType == OpenFilesType.WithMirrorInserts
                     || openFilesType == OpenFilesType.WithMirrorDeletes
-                    || openFilesType == OpenFilesType.WithMirrorComplex
+                    || openFilesType == OpenFilesType.WithMirrorComplexChanges
                 )
             {
                 var compareResult = await ComparingFilesAndWebResourcesAsync(connectionData, selectedFiles, true);
@@ -640,11 +640,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     {
                         filesToOpen.AddRange(compareResult.Item3.Where(s => s.Item3.IsOnlyDeletes).Select(f => Tuple.Create(f.Item1, f.Item2)));
                     }
-                    else if (openFilesType == OpenFilesType.WithComplex)
+                    else if (openFilesType == OpenFilesType.WithComplexChanges)
                     {
                         filesToOpen.AddRange(compareResult.Item3.Where(s => s.Item3.IsComplexChanges).Select(f => Tuple.Create(f.Item1, f.Item2)));
                     }
-                    else if (openFilesType == OpenFilesType.WithMirror)
+                    else if (openFilesType == OpenFilesType.WithMirrorChanges)
                     {
                         filesToOpen.AddRange(compareResult.Item3.Where(s => s.Item3.IsMirror).Select(f => Tuple.Create(f.Item1, f.Item2)));
                     }
@@ -656,7 +656,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     {
                         filesToOpen.AddRange(compareResult.Item3.Where(s => s.Item3.IsMirrorWithDeletes).Select(f => Tuple.Create(f.Item1, f.Item2)));
                     }
-                    else if (openFilesType == OpenFilesType.WithMirrorComplex)
+                    else if (openFilesType == OpenFilesType.WithMirrorComplexChanges)
                     {
                         filesToOpen.AddRange(compareResult.Item3.Where(s => s.Item3.IsMirrorWithComplex).Select(f => Tuple.Create(f.Item1, f.Item2)));
                     }

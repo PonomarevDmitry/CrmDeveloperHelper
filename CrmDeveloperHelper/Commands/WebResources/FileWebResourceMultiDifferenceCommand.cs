@@ -27,11 +27,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
             , { PackageIds.guidCommandSet.FileWebResourceMultiDifferenceFilesEqualByTextCommandId, OpenFilesType.EqualByText }
             , { PackageIds.guidCommandSet.FileWebResourceMultiDifferenceFilesWithInsertsCommandId, OpenFilesType.WithInserts }
             , { PackageIds.guidCommandSet.FileWebResourceMultiDifferenceFilesWithDeletesCommandId, OpenFilesType.WithDeletes }
-            , { PackageIds.guidCommandSet.FileWebResourceMultiDifferenceFilesWithComplexCommandId, OpenFilesType.WithComplex }
-            , { PackageIds.guidCommandSet.FileWebResourceMultiDifferenceFilesWithMirrorCommandId, OpenFilesType.WithMirror }
+            , { PackageIds.guidCommandSet.FileWebResourceMultiDifferenceFilesWithComplexCommandId, OpenFilesType.WithComplexChanges }
+            , { PackageIds.guidCommandSet.FileWebResourceMultiDifferenceFilesWithMirrorCommandId, OpenFilesType.WithMirrorChanges }
             , { PackageIds.guidCommandSet.FileWebResourceMultiDifferenceFilesWithMirrorInsertsCommandId, OpenFilesType.WithMirrorInserts }
             , { PackageIds.guidCommandSet.FileWebResourceMultiDifferenceFilesWithMirrorDeletesCommandId, OpenFilesType.WithMirrorDeletes }
-            , { PackageIds.guidCommandSet.FileWebResourceMultiDifferenceFilesWithMirrorComplexCommandId, OpenFilesType.WithMirrorComplex }
+            , { PackageIds.guidCommandSet.FileWebResourceMultiDifferenceFilesWithMirrorComplexCommandId, OpenFilesType.WithMirrorComplexChanges }
         };
 
         private static ConcurrentDictionary<OpenFilesType, FileWebResourceMultiDifferenceCommand> _instances = new ConcurrentDictionary<OpenFilesType, FileWebResourceMultiDifferenceCommand>();

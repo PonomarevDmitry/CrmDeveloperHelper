@@ -47,11 +47,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
             , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithDeletesCommandId, OpenFilesType.WithDeletes, false }
             , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithDeletesInTextEditorCommandId, OpenFilesType.WithDeletes, true }
 
-            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithComplexCommandId, OpenFilesType.WithComplex, false }
-            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithComplexInTextEditorCommandId, OpenFilesType.WithComplex, true }
+            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithComplexCommandId, OpenFilesType.WithComplexChanges, false }
+            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithComplexInTextEditorCommandId, OpenFilesType.WithComplexChanges, true }
 
-            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithMirrorCommandId, OpenFilesType.WithMirror, false }
-            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithMirrorInTextEditorCommandId, OpenFilesType.WithMirror, true }
+            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithMirrorCommandId, OpenFilesType.WithMirrorChanges, false }
+            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithMirrorInTextEditorCommandId, OpenFilesType.WithMirrorChanges, true }
 
             , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithMirrorInsertsCommandId, OpenFilesType.WithMirrorInserts, false }
             , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithMirrorInsertsInTextEditorCommandId, OpenFilesType.WithMirrorInserts, true }
@@ -59,8 +59,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
             , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithMirrorDeletesCommandId, OpenFilesType.WithMirrorDeletes, false }
             , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithMirrorDeletesInTextEditorCommandId, OpenFilesType.WithMirrorDeletes, true }
 
-            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithMirrorComplexCommandId, OpenFilesType.WithMirrorComplex, false }
-            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithMirrorComplexInTextEditorCommandId, OpenFilesType.WithMirrorComplex, true }
+            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithMirrorComplexCommandId, OpenFilesType.WithMirrorComplexChanges, false }
+            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithMirrorComplexInTextEditorCommandId, OpenFilesType.WithMirrorComplexChanges, true }
         };
 
         private static ConcurrentDictionary<Tuple<OpenFilesType, bool>, ListForPublishOpenFilesCommand> _instances = new ConcurrentDictionary<Tuple<OpenFilesType, bool>, ListForPublishOpenFilesCommand>();

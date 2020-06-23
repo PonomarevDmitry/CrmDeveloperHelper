@@ -47,11 +47,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
             , { PackageIds.guidCommandSet.FileWebResourceOpenFilesWithDeletesCommandId, OpenFilesType.WithDeletes, false }
             , { PackageIds.guidCommandSet.FileWebResourceOpenFilesWithDeletesInTextEditorCommandId, OpenFilesType.WithDeletes, true }
 
-            , { PackageIds.guidCommandSet.FileWebResourceOpenFilesWithComplexCommandId, OpenFilesType.WithComplex, false }
-            , { PackageIds.guidCommandSet.FileWebResourceOpenFilesWithComplexInTextEditorCommandId, OpenFilesType.WithComplex, true }
+            , { PackageIds.guidCommandSet.FileWebResourceOpenFilesWithComplexCommandId, OpenFilesType.WithComplexChanges, false }
+            , { PackageIds.guidCommandSet.FileWebResourceOpenFilesWithComplexInTextEditorCommandId, OpenFilesType.WithComplexChanges, true }
 
-            , { PackageIds.guidCommandSet.FileWebResourceOpenFilesWithMirrorCommandId, OpenFilesType.WithMirror, false }
-            , { PackageIds.guidCommandSet.FileWebResourceOpenFilesWithMirrorInTextEditorCommandId, OpenFilesType.WithMirror, true }
+            , { PackageIds.guidCommandSet.FileWebResourceOpenFilesWithMirrorCommandId, OpenFilesType.WithMirrorChanges, false }
+            , { PackageIds.guidCommandSet.FileWebResourceOpenFilesWithMirrorInTextEditorCommandId, OpenFilesType.WithMirrorChanges, true }
 
             , { PackageIds.guidCommandSet.FileWebResourceOpenFilesWithMirrorInsertsCommandId, OpenFilesType.WithMirrorInserts, false }
             , { PackageIds.guidCommandSet.FileWebResourceOpenFilesWithMirrorInsertsInTextEditorCommandId, OpenFilesType.WithMirrorInserts, true }
@@ -59,8 +59,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
             , { PackageIds.guidCommandSet.FileWebResourceOpenFilesWithMirrorDeletesCommandId, OpenFilesType.WithMirrorDeletes, false }
             , { PackageIds.guidCommandSet.FileWebResourceOpenFilesWithMirrorDeletesInTextEditorCommandId, OpenFilesType.WithMirrorDeletes, true }
 
-            , { PackageIds.guidCommandSet.FileWebResourceOpenFilesWithMirrorComplexCommandId, OpenFilesType.WithMirrorComplex, false }
-            , { PackageIds.guidCommandSet.FileWebResourceOpenFilesWithMirrorComplexInTextEditorCommandId, OpenFilesType.WithMirrorComplex, true }
+            , { PackageIds.guidCommandSet.FileWebResourceOpenFilesWithMirrorComplexCommandId, OpenFilesType.WithMirrorComplexChanges, false }
+            , { PackageIds.guidCommandSet.FileWebResourceOpenFilesWithMirrorComplexInTextEditorCommandId, OpenFilesType.WithMirrorComplexChanges, true }
         };
 
         private static ConcurrentDictionary<Tuple<OpenFilesType, bool>, FileWebResourceOpenFilesCommand> _instances = new ConcurrentDictionary<Tuple<OpenFilesType, bool>, FileWebResourceOpenFilesCommand>();

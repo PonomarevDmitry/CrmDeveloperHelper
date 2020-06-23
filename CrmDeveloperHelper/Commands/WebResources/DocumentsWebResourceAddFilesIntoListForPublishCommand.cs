@@ -31,11 +31,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
             , { PackageIds.guidCommandSet.DocumentsWebResourceAddFilesIntoListForPublishEqualByTextCommandId, OpenFilesType.EqualByText }
             , { PackageIds.guidCommandSet.DocumentsWebResourceAddFilesIntoListForPublishWithInsertsCommandId, OpenFilesType.WithInserts }
             , { PackageIds.guidCommandSet.DocumentsWebResourceAddFilesIntoListForPublishWithDeletesCommandId, OpenFilesType.WithDeletes }
-            , { PackageIds.guidCommandSet.DocumentsWebResourceAddFilesIntoListForPublishWithComplexCommandId, OpenFilesType.WithComplex }
-            , { PackageIds.guidCommandSet.DocumentsWebResourceAddFilesIntoListForPublishWithMirrorCommandId, OpenFilesType.WithMirror }
+            , { PackageIds.guidCommandSet.DocumentsWebResourceAddFilesIntoListForPublishWithComplexCommandId, OpenFilesType.WithComplexChanges }
+            , { PackageIds.guidCommandSet.DocumentsWebResourceAddFilesIntoListForPublishWithMirrorCommandId, OpenFilesType.WithMirrorChanges }
             , { PackageIds.guidCommandSet.DocumentsWebResourceAddFilesIntoListForPublishWithMirrorInsertsCommandId, OpenFilesType.WithMirrorInserts }
             , { PackageIds.guidCommandSet.DocumentsWebResourceAddFilesIntoListForPublishWithMirrorDeletesCommandId, OpenFilesType.WithMirrorDeletes }
-            , { PackageIds.guidCommandSet.DocumentsWebResourceAddFilesIntoListForPublishWithMirrorComplexCommandId, OpenFilesType.WithMirrorComplex }
+            , { PackageIds.guidCommandSet.DocumentsWebResourceAddFilesIntoListForPublishWithMirrorComplexCommandId, OpenFilesType.WithMirrorComplexChanges }
         };
 
         private static ConcurrentDictionary<OpenFilesType, DocumentsWebResourceAddFilesIntoListForPublishCommand> _instances = new ConcurrentDictionary<OpenFilesType, DocumentsWebResourceAddFilesIntoListForPublishCommand>();
