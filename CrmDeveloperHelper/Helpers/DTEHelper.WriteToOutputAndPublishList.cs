@@ -167,10 +167,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             this.WriteToOutput(connectionData, $"    LogicalName: {entityName}");
 
-            this.WriteToOutput(connectionData, $"    Id:          {id}");
+            this.WriteToOutput(connectionData, $"    Id         : {id}");
             if (connectionData != null)
             {
-                this.WriteToOutput(connectionData, $"    Url:         {connectionData.GetEntityInstanceUrl(entityName, id)}");
+                this.WriteToOutput(connectionData, $"    Url        : {connectionData.GetEntityInstanceUrl(entityName, id)}");
             }
 
             return this;
@@ -618,11 +618,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteToOutput(connectionData, string.Empty);
 
-            FormatTextTableHandler tableAlreadyInPublishList = new FormatTextTableHandler();
-            tableAlreadyInPublishList.SetHeader("FileName", "FriendlyFilePath");
+            var tableAlreadyInPublishList = new FormatTextTableHandler(nameof(SelectedFile.FileName), nameof(SelectedFile.FriendlyFilePath));
 
-            FormatTextTableHandler tableAddedInPublishList = new FormatTextTableHandler();
-            tableAddedInPublishList.SetHeader("FileName", "FriendlyFilePath");
+            var tableAddedInPublishList = new FormatTextTableHandler(nameof(SelectedFile.FileName), nameof(SelectedFile.FriendlyFilePath));
 
             foreach (SelectedFile selectedFile in selectedFiles.OrderBy(f => f.FriendlyFilePath).ThenBy(f => f.FileName))
             {
@@ -683,11 +681,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteToOutput(connectionData, string.Empty);
 
-            FormatTextTableHandler tableNotInPublishList = new FormatTextTableHandler();
-            tableNotInPublishList.SetHeader("FileName", "FriendlyFilePath");
+            var tableNotInPublishList = new FormatTextTableHandler(nameof(SelectedFile.FileName), nameof(SelectedFile.FriendlyFilePath));
 
-            FormatTextTableHandler tableRemovedFromPublishList = new FormatTextTableHandler();
-            tableRemovedFromPublishList.SetHeader("FileName", "FriendlyFilePath");
+            var tableRemovedFromPublishList = new FormatTextTableHandler(nameof(SelectedFile.FileName), nameof(SelectedFile.FriendlyFilePath));
 
             foreach (SelectedFile selectedFile in selectedFiles.OrderBy(f => f.FriendlyFilePath).ThenBy(f => f.FileName))
             {
