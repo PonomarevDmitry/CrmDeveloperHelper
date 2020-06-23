@@ -4,45 +4,45 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 {
-    internal sealed class CodeReportActionOnComponentInConnectionCommand : AbstractDynamicCommandByConnectionByGroupWithCurrent
+    internal sealed class CodeReportActionOnComponentInConnectionGroupCommand : AbstractDynamicCommandByConnectionByGroupWithCurrent
     {
         private readonly ActionOnComponent _actionOnComponent;
 
-        private CodeReportActionOnComponentInConnectionCommand(OleMenuCommandService commandService, int baseIdStart, ActionOnComponent actionOnComponent)
+        private CodeReportActionOnComponentInConnectionGroupCommand(OleMenuCommandService commandService, int baseIdStart, ActionOnComponent actionOnComponent)
             : base(commandService, baseIdStart)
         {
             this._actionOnComponent = actionOnComponent;
         }
 
-        public static CodeReportActionOnComponentInConnectionCommand InstanceOpenInWebInConnection { get; private set; }
+        public static CodeReportActionOnComponentInConnectionGroupCommand InstanceOpenInWebInConnection { get; private set; }
 
-        public static CodeReportActionOnComponentInConnectionCommand InstanceOpenDependentComponentsInWebInConnection { get; private set; }
+        public static CodeReportActionOnComponentInConnectionGroupCommand InstanceOpenDependentComponentsInWebInConnection { get; private set; }
 
-        public static CodeReportActionOnComponentInConnectionCommand InstanceOpenDependentComponentsInExplorerInConnection { get; private set; }
+        public static CodeReportActionOnComponentInConnectionGroupCommand InstanceOpenDependentComponentsInExplorerInConnection { get; private set; }
 
-        public static CodeReportActionOnComponentInConnectionCommand InstanceOpenSolutionsContainingComponentInExplorerInConnection { get; private set; }
+        public static CodeReportActionOnComponentInConnectionGroupCommand InstanceOpenSolutionsContainingComponentInExplorerInConnection { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            InstanceOpenInWebInConnection = new CodeReportActionOnComponentInConnectionCommand(
+            InstanceOpenInWebInConnection = new CodeReportActionOnComponentInConnectionGroupCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.CodeReportOpenInWebInConnectionCommandId
                 , ActionOnComponent.OpenInWeb
             );
 
-            InstanceOpenDependentComponentsInWebInConnection = new CodeReportActionOnComponentInConnectionCommand(
+            InstanceOpenDependentComponentsInWebInConnection = new CodeReportActionOnComponentInConnectionGroupCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.CodeReportOpenDependentInWebInConnectionCommandId
                 , ActionOnComponent.OpenDependentComponentsInWeb
             );
 
-            InstanceOpenDependentComponentsInExplorerInConnection = new CodeReportActionOnComponentInConnectionCommand(
+            InstanceOpenDependentComponentsInExplorerInConnection = new CodeReportActionOnComponentInConnectionGroupCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.CodeReportOpenDependentInExplorerInConnectionCommandId
                 , ActionOnComponent.OpenDependentComponentsInExplorer
             );
 
-            InstanceOpenSolutionsContainingComponentInExplorerInConnection = new CodeReportActionOnComponentInConnectionCommand(
+            InstanceOpenSolutionsContainingComponentInExplorerInConnection = new CodeReportActionOnComponentInConnectionGroupCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.CodeReportOpenSolutionsListWithComponentInExplorerInConnectionCommandId
                 , ActionOnComponent.OpenSolutionsListWithComponentInExplorer

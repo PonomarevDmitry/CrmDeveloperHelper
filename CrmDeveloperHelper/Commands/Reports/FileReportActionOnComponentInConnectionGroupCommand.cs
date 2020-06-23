@@ -4,45 +4,45 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 {
-    internal sealed class FileReportActionOnComponentInConnectionCommand : AbstractDynamicCommandByConnectionByGroupWithCurrent
+    internal sealed class FileReportActionOnComponentInConnectionGroupCommand : AbstractDynamicCommandByConnectionByGroupWithCurrent
     {
         private readonly ActionOnComponent _actionOnComponent;
 
-        private FileReportActionOnComponentInConnectionCommand(OleMenuCommandService commandService, int baseIdStart, ActionOnComponent actionOnComponent)
+        private FileReportActionOnComponentInConnectionGroupCommand(OleMenuCommandService commandService, int baseIdStart, ActionOnComponent actionOnComponent)
             : base(commandService, baseIdStart)
         {
             this._actionOnComponent = actionOnComponent;
         }
 
-        public static FileReportActionOnComponentInConnectionCommand InstanceOpenInWebInConnection { get; private set; }
+        public static FileReportActionOnComponentInConnectionGroupCommand InstanceOpenInWebInConnection { get; private set; }
 
-        public static FileReportActionOnComponentInConnectionCommand InstanceOpenDependentComponentsInWebInConnection { get; private set; }
+        public static FileReportActionOnComponentInConnectionGroupCommand InstanceOpenDependentComponentsInWebInConnection { get; private set; }
 
-        public static FileReportActionOnComponentInConnectionCommand InstanceOpenDependentComponentsInExplorerInConnection { get; private set; }
+        public static FileReportActionOnComponentInConnectionGroupCommand InstanceOpenDependentComponentsInExplorerInConnection { get; private set; }
 
-        public static FileReportActionOnComponentInConnectionCommand InstanceOpenSolutionsContainingComponentInExplorerInConnection { get; private set; }
+        public static FileReportActionOnComponentInConnectionGroupCommand InstanceOpenSolutionsContainingComponentInExplorerInConnection { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            InstanceOpenInWebInConnection = new FileReportActionOnComponentInConnectionCommand(
+            InstanceOpenInWebInConnection = new FileReportActionOnComponentInConnectionGroupCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.FileReportOpenInWebInConnectionCommandId
                 , ActionOnComponent.OpenInWeb
             );
 
-            InstanceOpenDependentComponentsInWebInConnection = new FileReportActionOnComponentInConnectionCommand(
+            InstanceOpenDependentComponentsInWebInConnection = new FileReportActionOnComponentInConnectionGroupCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.FileReportOpenDependentInWebInConnectionCommandId
                 , ActionOnComponent.OpenDependentComponentsInWeb
             );
 
-            InstanceOpenDependentComponentsInExplorerInConnection = new FileReportActionOnComponentInConnectionCommand(
+            InstanceOpenDependentComponentsInExplorerInConnection = new FileReportActionOnComponentInConnectionGroupCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.FileReportOpenDependentInExplorerInConnectionCommandId
                 , ActionOnComponent.OpenDependentComponentsInExplorer
             );
 
-            InstanceOpenSolutionsContainingComponentInExplorerInConnection = new FileReportActionOnComponentInConnectionCommand(
+            InstanceOpenSolutionsContainingComponentInExplorerInConnection = new FileReportActionOnComponentInConnectionGroupCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.FileReportOpenSolutionsListWithComponentInExplorerInConnectionCommandId
                 , ActionOnComponent.OpenSolutionsListWithComponentInExplorer

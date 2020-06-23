@@ -6,18 +6,18 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
-    internal sealed class FolderWebResourceUpdateContentPublishGroupConnectionCommand : AbstractDynamicCommandByConnectionByGroupWithoutCurrent
+    internal sealed class FolderWebResourceUpdateContentPublishInConnectionGroupCommand : AbstractDynamicCommandByConnectionByGroupWithoutCurrent
     {
-        private FolderWebResourceUpdateContentPublishGroupConnectionCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.guidDynamicCommandSet.FolderWebResourceUpdateContentPublishGroupConnectionCommandId)
+        private FolderWebResourceUpdateContentPublishInConnectionGroupCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.guidDynamicCommandSet.FolderWebResourceUpdateContentPublishInConnectionGroupCommandId)
         {
         }
 
-        public static FolderWebResourceUpdateContentPublishGroupConnectionCommand Instance { get; private set; }
+        public static FolderWebResourceUpdateContentPublishInConnectionGroupCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new FolderWebResourceUpdateContentPublishGroupConnectionCommand(commandService);
+            Instance = new FolderWebResourceUpdateContentPublishInConnectionGroupCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)

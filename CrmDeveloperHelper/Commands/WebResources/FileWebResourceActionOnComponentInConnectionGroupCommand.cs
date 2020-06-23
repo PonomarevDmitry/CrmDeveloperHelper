@@ -4,45 +4,45 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
-    internal sealed class FileWebResourceActionOnComponentInConnectionCommand : AbstractDynamicCommandByConnectionByGroupWithCurrent
+    internal sealed class FileWebResourceActionOnComponentInConnectionGroupCommand : AbstractDynamicCommandByConnectionByGroupWithCurrent
     {
         private readonly ActionOnComponent _actionOnComponent;
 
-        private FileWebResourceActionOnComponentInConnectionCommand(OleMenuCommandService commandService, int baseIdStart, ActionOnComponent actionOnComponent)
+        private FileWebResourceActionOnComponentInConnectionGroupCommand(OleMenuCommandService commandService, int baseIdStart, ActionOnComponent actionOnComponent)
             : base(commandService, baseIdStart)
         {
             this._actionOnComponent = actionOnComponent;
         }
 
-        public static FileWebResourceActionOnComponentInConnectionCommand InstanceOpenInWebInConnection { get; private set; }
+        public static FileWebResourceActionOnComponentInConnectionGroupCommand InstanceOpenInWebInConnection { get; private set; }
 
-        public static FileWebResourceActionOnComponentInConnectionCommand InstanceOpenDependentComponentsInWebInConnection { get; private set; }
+        public static FileWebResourceActionOnComponentInConnectionGroupCommand InstanceOpenDependentComponentsInWebInConnection { get; private set; }
 
-        public static FileWebResourceActionOnComponentInConnectionCommand InstanceOpenDependentComponentsInExplorerInConnection { get; private set; }
+        public static FileWebResourceActionOnComponentInConnectionGroupCommand InstanceOpenDependentComponentsInExplorerInConnection { get; private set; }
 
-        public static FileWebResourceActionOnComponentInConnectionCommand InstanceOpenSolutionsContainingComponentInExplorerInConnection { get; private set; }
+        public static FileWebResourceActionOnComponentInConnectionGroupCommand InstanceOpenSolutionsContainingComponentInExplorerInConnection { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            InstanceOpenInWebInConnection = new FileWebResourceActionOnComponentInConnectionCommand(
+            InstanceOpenInWebInConnection = new FileWebResourceActionOnComponentInConnectionGroupCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.FileWebResourceOpenInWebInConnectionCommandId
                 , ActionOnComponent.OpenInWeb
             );
 
-            InstanceOpenDependentComponentsInWebInConnection = new FileWebResourceActionOnComponentInConnectionCommand(
+            InstanceOpenDependentComponentsInWebInConnection = new FileWebResourceActionOnComponentInConnectionGroupCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.FileWebResourceOpenDependentInWebInConnectionCommandId
                 , ActionOnComponent.OpenDependentComponentsInWeb
             );
 
-            InstanceOpenDependentComponentsInExplorerInConnection = new FileWebResourceActionOnComponentInConnectionCommand(
+            InstanceOpenDependentComponentsInExplorerInConnection = new FileWebResourceActionOnComponentInConnectionGroupCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.FileWebResourceOpenDependentInExplorerInConnectionCommandId
                 , ActionOnComponent.OpenDependentComponentsInExplorer
             );
 
-            InstanceOpenSolutionsContainingComponentInExplorerInConnection = new FileWebResourceActionOnComponentInConnectionCommand(
+            InstanceOpenSolutionsContainingComponentInExplorerInConnection = new FileWebResourceActionOnComponentInConnectionGroupCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.FileWebResourceOpenSolutionsListWithComponentInExplorerInConnectionCommandId
                 , ActionOnComponent.OpenSolutionsListWithComponentInExplorer

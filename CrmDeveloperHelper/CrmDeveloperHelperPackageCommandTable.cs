@@ -2496,13 +2496,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeXmlRibbonShowDifferenceInConnectionGroupCommandId = 0x1324;
 
-            public const int CodeXmlRibbonGetCurrentInConnectionCommandId = 0x2FA8;
+            public const int CodeXmlRibbonGetCurrentInConnectionGroupCommandId = 0x2FA8;
 
             public const int CodeXmlRibbonDiffXmlShowDifferenceInConnectionGroupCommandId = 0x1356;
 
             public const int CodeXmlRibbonDiffXmlUpdateInConnectionGroupCommandId = 0x1388;
 
-            public const int CodeXmlRibbonDiffXmlGetCurrentInConnectionCommandId = 0x2FDA;
+            public const int CodeXmlRibbonDiffXmlGetCurrentInConnectionGroupCommandId = 0x2FDA;
 
             public const int CodeXmlSiteMapShowDifferenceInConnectionGroupCommandId = 0x13BA;
 
@@ -2630,9 +2630,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int DocumentsWebResourceAddToSolutionLastCommandId = 0x00F0;
 
-            public const int DocumentsWebResourceUpdateContentPublishEqualByTextCommandId = 0x0DAC;
+            public const int DocumentsWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommandId = 0x0DAC;
 
-            public const int DocumentsWebResourceUpdateContentPublishGroupConnectionCommandId = 0x0E74;
+            public const int DocumentsWebResourceUpdateContentPublishInConnectionGroupCommandId = 0x0E74;
 
             public const int DocumentsWebResourceCompareInConnectionGroupCommandId = 0x1194;
 
@@ -2704,9 +2704,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FileWebResourceShowDifferenceOneByOneCommandId = 0x0834;
 
-            public const int FileWebResourceUpdateContentPublishEqualByTextCommandId = 0x0D16;
+            public const int FileWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommandId = 0x0D16;
 
-            public const int FileWebResourceUpdateContentPublishGroupConnectionCommandId = 0x0EA6;
+            public const int FileWebResourceUpdateContentPublishInConnectionGroupCommandId = 0x0EA6;
 
             public const int FileWebResourceCompareInConnectionGroupCommandId = 0x11F8;
 
@@ -2804,9 +2804,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FolderWebResourceAddToSolutionLastCommandId = 0x0140;
 
-            public const int FolderWebResourceUpdateContentPublishEqualByTextCommandId = 0x0DDE;
+            public const int FolderWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommandId = 0x0DDE;
 
-            public const int FolderWebResourceUpdateContentPublishGroupConnectionCommandId = 0x0ED8;
+            public const int FolderWebResourceUpdateContentPublishInConnectionGroupCommandId = 0x0ED8;
 
             public const int FolderWebResourceCompareInConnectionGroupCommandId = 0x125C;
 
@@ -2866,9 +2866,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int ListForPublishAddToSolutionLastCommandId = 0x0154;
 
-            public const int ListForPublishPerformPublishEqualByTextCommandId = 0x0E10;
+            public const int ListForPublishPerformPublishEqualByTextInConnectionGroupCommandId = 0x0E10;
 
-            public const int ListForPublishPerformPublishGroupConnectionCommandId = 0x0F0A;
+            public const int ListForPublishPerformPublishInConnectionGroupCommandId = 0x0F0A;
 
             public const int ListForPublishCompareInConnectionGroupCommandId = 0x12C0;
 

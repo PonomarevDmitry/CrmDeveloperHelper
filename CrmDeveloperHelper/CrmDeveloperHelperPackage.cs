@@ -182,7 +182,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeWebResourceChangeInEditorInConnectionCommand.Initialize,
             CodeWebResourceGetAttributeInConnectionCommand.Initialize,
             CodeWebResourceExplorerCommand.Initialize,
-            CodeWebResourceActionOnComponentInConnectionCommand.Initialize,
+            CodeWebResourceActionOnComponentInConnectionGroupCommand.Initialize,
             CodeWebResourceLinkClearCommand.Initialize,
             CodeWebResourceLinkCreateCommand.Initialize,
             CodeWebResourceUpdateContentPublishCommand.Initialize,
@@ -204,8 +204,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             DocumentsWebResourceLinkClearCommand.Initialize,
             DocumentsWebResourceLinkCreateCommand.Initialize,
             DocumentsWebResourceShowDependentComponentsCommand.Initialize,
-            DocumentsWebResourceUpdateContentPublishEqualByTextCommand.Initialize,
-            DocumentsWebResourceUpdateContentPublishGroupConnectionCommand.Initialize,
+            DocumentsWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommand.Initialize,
+            DocumentsWebResourceUpdateContentPublishInConnectionGroupCommand.Initialize,
 
             DocumentsWebResourceAddToSolutionLastCommand.Initialize,
             DocumentsWebResourceAddToSolutionInConnectionCommand.Initialize,
@@ -229,7 +229,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FileWebResourceChangeInEditorInConnectionCommand.Initialize,
             FileWebResourceGetAttributeInConnectionCommand.Initialize,
             FileWebResourceExplorerCommand.Initialize,
-            FileWebResourceActionOnComponentInConnectionCommand.Initialize,
+            FileWebResourceActionOnComponentInConnectionGroupCommand.Initialize,
             FileWebResourceLinkClearCommand.Initialize,
             FileWebResourceLinkCreateCommand.Initialize,
             FileWebResourceShowDependentComponentsCommand.Initialize,
@@ -238,8 +238,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FileWebResourceShowDifferenceInConnectionGroupCommand.Initialize,
             FileWebResourceShowDifferenceThreeFileCommand.Initialize,
             FileWebResourceUpdateContentPublishCommand.Initialize,
-            FileWebResourceUpdateContentPublishEqualByTextCommand.Initialize,
-            FileWebResourceUpdateContentPublishGroupConnectionCommand.Initialize,
+            FileWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommand.Initialize,
+            FileWebResourceUpdateContentPublishInConnectionGroupCommand.Initialize,
 
             FileWebResourceAddToSolutionLastCommand.Initialize,
             FileWebResourceAddToSolutionInConnectionCommand.Initialize,
@@ -265,8 +265,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FolderWebResourceLinkCreateCommand.Initialize,
             FolderWebResourceShowDependentComponentsCommand.Initialize,
             FolderWebResourceUpdateContentPublishCommand.Initialize,
-            FolderWebResourceUpdateContentPublishEqualByTextCommand.Initialize,
-            FolderWebResourceUpdateContentPublishGroupConnectionCommand.Initialize,
+            FolderWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommand.Initialize,
+            FolderWebResourceUpdateContentPublishInConnectionGroupCommand.Initialize,
 
             FolderWebResourceAddToSolutionLastCommand.Initialize,
             FolderWebResourceAddToSolutionInConnectionCommand.Initialize,
@@ -441,7 +441,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeXmlRibbonShowDifferenceInConnectionGroupCommand.Initialize,
 
             CodeXmlRibbonGetCurrentCommand.Initialize,
-            CodeXmlRibbonGetCurrentInConnectionCommand.Initialize,
+            CodeXmlRibbonGetCurrentInConnectionGroupCommand.Initialize,
 
             CodeXmlRibbonDiffInsertIntellisenseContextCommand.Initialize,
             CodeXmlRibbonDiffRemoveIntellisenseContextCommand.Initialize,
@@ -453,7 +453,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeXmlRibbonDiffXmlUpdateInConnectionGroupCommand.Initialize,
 
             CodeXmlRibbonDiffXmlGetCurrentCommand.Initialize,
-            CodeXmlRibbonDiffXmlGetCurrentInConnectionCommand.Initialize,
+            CodeXmlRibbonDiffXmlGetCurrentInConnectionGroupCommand.Initialize,
 
             #endregion Ribbon
 
@@ -552,7 +552,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeReportShowDifferenceInConnectionGroupCommand.Initialize,
             CodeReportShowDifferenceThreeFileCommand.Initialize,
             CodeReportExplorerCommand.Initialize,
-            CodeReportActionOnComponentInConnectionCommand.Initialize,
+            CodeReportActionOnComponentInConnectionGroupCommand.Initialize,
 
             CodeReportAddToSolutionLastCommand.Initialize,
             CodeReportAddToSolutionInConnectionCommand.Initialize,
@@ -575,7 +575,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FileReportLinkCreateCommand.Initialize,
             FileReportUpdateCommand.Initialize,
             FileReportCreateCommand.Initialize,
-            FileReportActionOnComponentInConnectionCommand.Initialize,
+            FileReportActionOnComponentInConnectionGroupCommand.Initialize,
 
             FileReportAddToSolutionLastCommand.Initialize,
             FileReportAddToSolutionInConnectionCommand.Initialize,
@@ -794,8 +794,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             ListForPublishCompareInConnectionGroupCommand.Initialize,
             ListForPublishFilesAddCommand.Initialize,
             ListForPublishFilesRemoveCommand.Initialize,
-            ListForPublishPerformPublishEqualByTextCommand.Initialize,
-            ListForPublishPerformPublishGroupConnectionCommand.Initialize,
+            ListForPublishPerformPublishEqualByTextInConnectionGroupCommand.Initialize,
+            ListForPublishPerformPublishInConnectionGroupCommand.Initialize,
             ListForPublishShowListCommand.Initialize,
 
             ListForPublishAddToSolutionLastCommand.Initialize,

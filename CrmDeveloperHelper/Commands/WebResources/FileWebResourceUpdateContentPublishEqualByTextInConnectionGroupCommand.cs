@@ -6,23 +6,23 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
-    internal sealed class FolderWebResourceUpdateContentPublishEqualByTextCommand : AbstractDynamicCommandByConnectionByGroupWithCurrent
+    internal sealed class FileWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommand : AbstractDynamicCommandByConnectionByGroupWithCurrent
     {
-        private FolderWebResourceUpdateContentPublishEqualByTextCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.guidDynamicCommandSet.FolderWebResourceUpdateContentPublishEqualByTextCommandId)
+        private FileWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.guidDynamicCommandSet.FileWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommandId)
         {
         }
 
-        public static FolderWebResourceUpdateContentPublishEqualByTextCommand Instance { get; private set; }
+        public static FileWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new FolderWebResourceUpdateContentPublishEqualByTextCommand(commandService);
+            Instance = new FileWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
-            List<SelectedFile> selectedFiles = helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsWebResourceTextType, true).ToList();
+            List<SelectedFile> selectedFiles = helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsWebResourceTextType, false).ToList();
 
             helper.HandleUpdateContentWebResourcesAndPublishEqualByTextCommand(connectionData, selectedFiles);
         }
@@ -37,7 +37,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
             {
                 menuCommand.Enabled = menuCommand.Visible = true;
 
-                CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextRecursive(applicationObject, menuCommand);
+                CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextAny(applicationObject, menuCommand);
             }
         }
     }

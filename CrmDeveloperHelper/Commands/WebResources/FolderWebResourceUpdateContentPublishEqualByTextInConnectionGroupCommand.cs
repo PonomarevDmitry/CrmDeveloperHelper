@@ -6,27 +6,23 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
-    internal sealed class FileWebResourceUpdateContentPublishEqualByTextCommand : AbstractDynamicCommandByConnectionByGroupWithCurrent
+    internal sealed class FolderWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommand : AbstractDynamicCommandByConnectionByGroupWithCurrent
     {
-        private FileWebResourceUpdateContentPublishEqualByTextCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.FileWebResourceUpdateContentPublishEqualByTextCommandId
-            )
+        private FolderWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.guidDynamicCommandSet.FolderWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommandId)
         {
-
         }
 
-        public static FileWebResourceUpdateContentPublishEqualByTextCommand Instance { get; private set; }
+        public static FolderWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new FileWebResourceUpdateContentPublishEqualByTextCommand(commandService);
+            Instance = new FolderWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
-            List<SelectedFile> selectedFiles = helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsWebResourceTextType, false).ToList();
+            List<SelectedFile> selectedFiles = helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsWebResourceTextType, true).ToList();
 
             helper.HandleUpdateContentWebResourcesAndPublishEqualByTextCommand(connectionData, selectedFiles);
         }
@@ -41,7 +37,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
             {
                 menuCommand.Enabled = menuCommand.Visible = true;
 
-                CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextAny(applicationObject, menuCommand);
+                CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextRecursive(applicationObject, menuCommand);
             }
         }
     }

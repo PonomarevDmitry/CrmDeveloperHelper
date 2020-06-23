@@ -5541,7 +5541,7 @@
           <ButtonText>Get Ribbon Current Xml</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="CodeXmlRibbonGetCurrentInConnectionCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicCommandSet" id="CodeXmlRibbonGetCurrentInConnectionGroupCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -5549,7 +5549,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>CodeXmlRibbonGetCurrentInConnectionCommandId Placeholder</ButtonText>
+          <ButtonText>CodeXmlRibbonGetCurrentInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="CodeXmlRibbonShowDifferenceCommandId" priority="0x06000" type="Button">
@@ -5584,7 +5584,7 @@
           <ButtonText>Get RibbonDiff Current Xml</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="CodeXmlRibbonDiffXmlGetCurrentInConnectionCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicCommandSet" id="CodeXmlRibbonDiffXmlGetCurrentInConnectionGroupCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -5592,7 +5592,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>CodeXmlRibbonDiffXmlGetCurrentInConnectionCommandId Placeholder</ButtonText>
+          <ButtonText>CodeXmlRibbonDiffXmlGetCurrentInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -6517,7 +6517,7 @@
 
       <!-- #region DocumentsWebResource -->
 
-      <Button guid="guidDynamicCommandSet" id="DocumentsWebResourceUpdateContentPublishGroupConnectionCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicCommandSet" id="DocumentsWebResourceUpdateContentPublishInConnectionGroupCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -6525,10 +6525,10 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>DocumentsWebResourceUpdateContentPublishGroupConnectionCommandId Placeholder</ButtonText>
+          <ButtonText>DocumentsWebResourceUpdateContentPublishInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="DocumentsWebResourceUpdateContentPublishEqualByTextCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicCommandSet" id="DocumentsWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -6536,7 +6536,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>DocumentsWebResourceUpdateContentPublishEqualByTextCommandId Placeholder</ButtonText>
+          <ButtonText>DocumentsWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -7299,7 +7299,7 @@
           <ButtonText>Publish Files</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FileWebResourceUpdateContentPublishGroupConnectionCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicCommandSet" id="FileWebResourceUpdateContentPublishInConnectionGroupCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -7307,10 +7307,10 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>FileWebResourceUpdateContentPublishGroupConnectionCommandId Placeholder</ButtonText>
+          <ButtonText>FileWebResourceUpdateContentPublishInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FileWebResourceUpdateContentPublishEqualByTextCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicCommandSet" id="FileWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -7318,7 +7318,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>FileWebResourceUpdateContentPublishEqualByTextCommandId Placeholder</ButtonText>
+          <ButtonText>FileWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -8849,7 +8849,7 @@
           <ButtonText>Publish Files (Recursive)</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FolderWebResourceUpdateContentPublishGroupConnectionCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicCommandSet" id="FolderWebResourceUpdateContentPublishInConnectionGroupCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -8857,10 +8857,10 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>FolderWebResourceUpdateContentPublishGroupConnectionCommandId Placeholder</ButtonText>
+          <ButtonText>FolderWebResourceUpdateContentPublishInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FolderWebResourceUpdateContentPublishEqualByTextCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicCommandSet" id="FolderWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -8868,7 +8868,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>FolderWebResourceUpdateContentPublishEqualByTextCommandId Placeholder</ButtonText>
+          <ButtonText>FolderWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -10572,7 +10572,7 @@
           <ButtonText>Clear List</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="ListForPublishPerformPublishGroupConnectionCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicCommandSet" id="ListForPublishPerformPublishInConnectionGroupCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -10580,10 +10580,10 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>ListForPublishPerformPublishGroupConnectionCommandId Placeholder</ButtonText>
+          <ButtonText>ListForPublishPerformPublishInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="ListForPublishPerformPublishEqualByTextCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicCommandSet" id="ListForPublishPerformPublishEqualByTextInConnectionGroupCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -10591,7 +10591,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>ListForPublishPerformPublishEqualByTextCommandId Placeholder</ButtonText>
+          <ButtonText>ListForPublishPerformPublishEqualByTextInConnectionGroupCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -19340,14 +19340,14 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupPerformPublishList_MenuPublishDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupPerformPublishList_MenuPublishDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishPerformPublishGroupConnectionCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishPerformPublishInConnectionGroupCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupPerformPublishList_MenuPublishDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupPerformPublishList_MenuPublishEqualByTextDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupPerformPublishList_MenuPublishEqualByTextDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishPerformPublishEqualByTextCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishPerformPublishEqualByTextInConnectionGroupCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupPerformPublishList_MenuPublishEqualByTextDyn_Group" />
     </CommandPlacement>
 
@@ -19904,7 +19904,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonGetCurrent_MenuConnectionDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonGetCurrent_MenuConnectionDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlRibbonGetCurrentInConnectionCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlRibbonGetCurrentInConnectionGroupCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonGetCurrent_MenuConnectionDyn_Group" />
     </CommandPlacement>
 
@@ -19918,7 +19918,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonDiffXmlGetCurrent_MenuConnectionDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonDiffXmlGetCurrent_MenuConnectionDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlRibbonDiffXmlGetCurrentInConnectionCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlRibbonDiffXmlGetCurrentInConnectionGroupCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonDiffXmlGetCurrent_MenuConnectionDyn_Group" />
     </CommandPlacement>
 
@@ -20381,14 +20381,14 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupPublish_MenuPublishDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupPublish_MenuPublishDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceUpdateContentPublishGroupConnectionCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceUpdateContentPublishInConnectionGroupCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupPublish_MenuPublishDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupPublish_MenuPublishEqualByTextDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupPublish_MenuPublishEqualByTextDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceUpdateContentPublishEqualByTextCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupPublish_MenuPublishEqualByTextDyn_Group" />
     </CommandPlacement>
 
@@ -20603,14 +20603,14 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupPublish_MenuPublishDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupPublish_MenuPublishDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceUpdateContentPublishGroupConnectionCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceUpdateContentPublishInConnectionGroupCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupPublish_MenuPublishDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupPublish_MenuPublishEqualByTextDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupPublish_MenuPublishEqualByTextDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceUpdateContentPublishEqualByTextCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupPublish_MenuPublishEqualByTextDyn_Group" />
     </CommandPlacement>
 
@@ -21039,14 +21039,14 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupPublish_MenuPublishDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupPublish_MenuPublishDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceUpdateContentPublishGroupConnectionCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceUpdateContentPublishInConnectionGroupCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupPublish_MenuPublishDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupPublish_MenuPublishEqualByTextDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupPublish_MenuPublishEqualByTextDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceUpdateContentPublishEqualByTextCommandId" priority="0x06000">
+    <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupPublish_MenuPublishEqualByTextDyn_Group" />
     </CommandPlacement>
 
@@ -24381,11 +24381,11 @@
 
       <IDSymbol name="CodeXmlRibbonOpenInWebInConnectionCommandId" value="10150" />
       <IDSymbol name="CodeXmlRibbonShowDifferenceInConnectionGroupCommandId" value="4900" />
-      <IDSymbol name="CodeXmlRibbonGetCurrentInConnectionCommandId" value="12200" />
+      <IDSymbol name="CodeXmlRibbonGetCurrentInConnectionGroupCommandId" value="12200" />
 
       <IDSymbol name="CodeXmlRibbonDiffXmlShowDifferenceInConnectionGroupCommandId" value="4950" />
       <IDSymbol name="CodeXmlRibbonDiffXmlUpdateInConnectionGroupCommandId" value="5000" />
-      <IDSymbol name="CodeXmlRibbonDiffXmlGetCurrentInConnectionCommandId" value="12250" />
+      <IDSymbol name="CodeXmlRibbonDiffXmlGetCurrentInConnectionGroupCommandId" value="12250" />
 
       <IDSymbol name="CodeXmlSiteMapShowDifferenceInConnectionGroupCommandId" value="5050" />
       <IDSymbol name="CodeXmlSiteMapUpdateInConnectionGroupCommandId" value="6000" />
@@ -24488,8 +24488,8 @@
 
       <IDSymbol name="DocumentsWebResourceAddToSolutionLastCommandId" value="240" />
 
-      <IDSymbol name="DocumentsWebResourceUpdateContentPublishEqualByTextCommandId" value="3500" />
-      <IDSymbol name="DocumentsWebResourceUpdateContentPublishGroupConnectionCommandId" value="3700" />
+      <IDSymbol name="DocumentsWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommandId" value="3500" />
+      <IDSymbol name="DocumentsWebResourceUpdateContentPublishInConnectionGroupCommandId" value="3700" />
 
       <IDSymbol name="DocumentsWebResourceCompareInConnectionGroupCommandId" value="4500" />
       <IDSymbol name="DocumentsWebResourceCompareWithDetailsInConnectionGroupCommandId" value="4550" />
@@ -24566,8 +24566,8 @@
       <IDSymbol name="FileWebResourceShowDifferenceTwoConnectionsCommandId" value="1950" />
       <IDSymbol name="FileWebResourceShowDifferenceOneByOneCommandId" value="2100" />
 
-      <IDSymbol name="FileWebResourceUpdateContentPublishEqualByTextCommandId" value="3350" />
-      <IDSymbol name="FileWebResourceUpdateContentPublishGroupConnectionCommandId" value="3750" />
+      <IDSymbol name="FileWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommandId" value="3350" />
+      <IDSymbol name="FileWebResourceUpdateContentPublishInConnectionGroupCommandId" value="3750" />
 
       <IDSymbol name="FileWebResourceCompareInConnectionGroupCommandId" value="4600" />
       <IDSymbol name="FileWebResourceCompareWithDetailsInConnectionGroupCommandId" value="4650" />
@@ -24663,9 +24663,9 @@
 
       <IDSymbol name="FolderWebResourceAddToSolutionLastCommandId" value="320" />
 
-      <IDSymbol name="FolderWebResourceUpdateContentPublishEqualByTextCommandId" value="3550" />
+      <IDSymbol name="FolderWebResourceUpdateContentPublishEqualByTextInConnectionGroupCommandId" value="3550" />
 
-      <IDSymbol name="FolderWebResourceUpdateContentPublishGroupConnectionCommandId" value="3800" />
+      <IDSymbol name="FolderWebResourceUpdateContentPublishInConnectionGroupCommandId" value="3800" />
 
       <IDSymbol name="FolderWebResourceCompareInConnectionGroupCommandId" value="4700" />
       <IDSymbol name="FolderWebResourceCompareWithDetailsInConnectionGroupCommandId" value="4750" />
@@ -24736,8 +24736,8 @@
 
       <IDSymbol name="ListForPublishAddToSolutionLastCommandId" value="340" />
 
-      <IDSymbol name="ListForPublishPerformPublishEqualByTextCommandId" value="3600" />
-      <IDSymbol name="ListForPublishPerformPublishGroupConnectionCommandId" value="3850" />
+      <IDSymbol name="ListForPublishPerformPublishEqualByTextInConnectionGroupCommandId" value="3600" />
+      <IDSymbol name="ListForPublishPerformPublishInConnectionGroupCommandId" value="3850" />
 
       <IDSymbol name="ListForPublishCompareInConnectionGroupCommandId" value="4800" />
       <IDSymbol name="ListForPublishCompareWithDetailsInConnectionGroupCommandId" value="4850" />

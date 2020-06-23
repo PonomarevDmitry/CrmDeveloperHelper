@@ -6,18 +6,18 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlRibbonGetCurrentInConnectionCommand : AbstractDynamicCommandByConnectionByGroupWithoutCurrent
+    internal sealed class CodeXmlRibbonGetCurrentInConnectionGroupCommand : AbstractDynamicCommandByConnectionByGroupWithoutCurrent
     {
-        private CodeXmlRibbonGetCurrentInConnectionCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.guidDynamicCommandSet.CodeXmlRibbonGetCurrentInConnectionCommandId)
+        private CodeXmlRibbonGetCurrentInConnectionGroupCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.guidDynamicCommandSet.CodeXmlRibbonGetCurrentInConnectionGroupCommandId)
         {
         }
 
-        public static CodeXmlRibbonGetCurrentInConnectionCommand Instance { get; private set; }
+        public static CodeXmlRibbonGetCurrentInConnectionGroupCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeXmlRibbonGetCurrentInConnectionCommand(commandService);
+            Instance = new CodeXmlRibbonGetCurrentInConnectionGroupCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)

@@ -6,22 +6,18 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
-    internal sealed class DocumentsWebResourceUpdateContentPublishGroupConnectionCommand : AbstractDynamicCommandByConnectionByGroupWithCurrent
+    internal sealed class DocumentsWebResourceUpdateContentPublishInConnectionGroupCommand : AbstractDynamicCommandByConnectionByGroupWithCurrent
     {
-        private DocumentsWebResourceUpdateContentPublishGroupConnectionCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.DocumentsWebResourceUpdateContentPublishGroupConnectionCommandId
-            )
+        private DocumentsWebResourceUpdateContentPublishInConnectionGroupCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.guidDynamicCommandSet.DocumentsWebResourceUpdateContentPublishInConnectionGroupCommandId)
         {
-
         }
 
-        public static DocumentsWebResourceUpdateContentPublishGroupConnectionCommand Instance { get; private set; }
+        public static DocumentsWebResourceUpdateContentPublishInConnectionGroupCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new DocumentsWebResourceUpdateContentPublishGroupConnectionCommand(commandService);
+            Instance = new DocumentsWebResourceUpdateContentPublishInConnectionGroupCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)

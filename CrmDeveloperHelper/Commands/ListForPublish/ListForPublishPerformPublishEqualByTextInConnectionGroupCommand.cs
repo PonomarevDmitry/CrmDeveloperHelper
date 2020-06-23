@@ -6,22 +6,18 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
 {
-    internal sealed class ListForPublishPerformPublishGroupConnectionCommand : AbstractDynamicCommandByConnectionByGroupWithCurrent
+    internal sealed class ListForPublishPerformPublishEqualByTextInConnectionGroupCommand : AbstractDynamicCommandByConnectionByGroupWithCurrent
     {
-        private ListForPublishPerformPublishGroupConnectionCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidDynamicCommandSet.ListForPublishPerformPublishGroupConnectionCommandId
-            )
+        private ListForPublishPerformPublishEqualByTextInConnectionGroupCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.guidDynamicCommandSet.ListForPublishPerformPublishEqualByTextInConnectionGroupCommandId)
         {
-
         }
 
-        public static ListForPublishPerformPublishGroupConnectionCommand Instance { get; private set; }
+        public static ListForPublishPerformPublishEqualByTextInConnectionGroupCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new ListForPublishPerformPublishGroupConnectionCommand(commandService);
+            Instance = new ListForPublishPerformPublishEqualByTextInConnectionGroupCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
@@ -32,7 +28,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
             {
                 helper.ShowListForPublish(connectionData);
 
-                helper.HandleUpdateContentWebResourcesAndPublishCommand(connectionData, selectedFiles);
+                helper.HandleUpdateContentWebResourcesAndPublishEqualByTextCommand(connectionData, selectedFiles);
             }
             else
             {
@@ -51,7 +47,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
             {
                 menuCommand.Enabled = menuCommand.Visible = true;
 
-                CommonHandlers.ActionBeforeQueryStatusListForPublishWebResourceAny(applicationObject, menuCommand);
+                CommonHandlers.ActionBeforeQueryStatusListForPublishWebResourceTextAny(applicationObject, menuCommand);
             }
         }
     }
