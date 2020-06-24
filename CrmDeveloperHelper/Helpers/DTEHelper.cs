@@ -576,7 +576,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             CheckWishToChangeCurrentConnection(connectionData);
 
-            List<SelectedFile> selectedFiles = this.GetSelectedFilesFromListForPublish().ToList();
+            List<SelectedFile> selectedFiles = this.GetSelectedFilesFromListForPublish(FileOperations.SupportsWebResourceTextType).ToList();
 
             if (selectedFiles.Count > 0)
             {

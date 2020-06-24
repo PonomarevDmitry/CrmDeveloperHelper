@@ -1123,15 +1123,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Updating Content, Including JavaScript References to WebResources DependencyXml and Publishing.
-        /// </summary>
-        internal static string ExecuteUpdateContentIncludeReferencesToDependencyXmlFormat1 {
-            get {
-                return ResourceManager.GetString("ExecuteUpdateContentIncludeReferencesToDependencyXmlFormat1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0} - Executing Workflow {1} on Entities {2} count {3}.
         /// </summary>
         internal static string ExecutingWorkflowFormat4 {
@@ -2109,6 +2100,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string TransferingWorkflowsStatesFormat2 {
             get {
                 return ResourceManager.GetString("TransferingWorkflowsStatesFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Updating Content, Including JavaScript References to WebResources DependencyXml and Publishing.
+        /// </summary>
+        internal static string UpdateContentIncludeReferencesToDependencyXmlFormat1 {
+            get {
+                return ResourceManager.GetString("UpdateContentIncludeReferencesToDependencyXmlFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Updating Equal by Text Content, Including JavaScript References to WebResources DependencyXml and Publishing.
+        /// </summary>
+        internal static string UpdateEqualByTextContentIncludeReferencesToDependencyXmlFormat1 {
+            get {
+                return ResourceManager.GetString("UpdateEqualByTextContentIncludeReferencesToDependencyXmlFormat1", resourceCulture);
             }
         }
         

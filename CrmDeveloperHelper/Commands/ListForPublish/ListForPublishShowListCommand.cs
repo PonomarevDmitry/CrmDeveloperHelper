@@ -18,7 +18,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
 
         protected override void CommandAction(DTEHelper helper)
         {
-            helper.ShowListForPublish(null);
+            var connectionConfig = Model.ConnectionConfiguration.Get();
+
+            var connectionData = connectionConfig.CurrentConnectionData;
+
+            helper.ShowListForPublish(connectionData);
         }
 
         protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)

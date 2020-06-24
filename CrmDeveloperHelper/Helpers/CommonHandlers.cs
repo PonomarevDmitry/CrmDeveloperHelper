@@ -1516,6 +1516,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return CheckInPublishListAny(applicationObject, FileOperations.SupportsWebResourceTextType);
         }
 
+        internal static void ActionBeforeQueryStatusListForPublishWebResourceJavaScriptAny(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
+            bool visible = CacheValue(nameof(ActionBeforeQueryStatusListForPublishWebResourceJavaScriptAny), applicationObject, ActionBeforeQueryStatusListForPublishWebResourceJavaScriptAnyInternal);
+
+            if (visible == false)
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
+        }
+
+        private static bool ActionBeforeQueryStatusListForPublishWebResourceJavaScriptAnyInternal(EnvDTE80.DTE2 applicationObject)
+        {
+            return CheckInPublishListAny(applicationObject, FileOperations.SupportsJavaScriptType);
+        }
+
         internal static void ActionBeforeQueryStatusListForPublishWebResourceSingle(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
             if (!menuCommand.Enabled && !menuCommand.Visible)

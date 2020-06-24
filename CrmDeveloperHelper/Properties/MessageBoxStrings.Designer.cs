@@ -506,7 +506,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Seach equal by text among {0} files, Update them and Publish on
+        ///   Looks up a localized string similar to Seach Equal by Text WebResources among {0} files, Update Content and Publish on
         ///{1}?.
         /// </summary>
         internal static string PublishWebResourcesEqualByTextFormat2 {
@@ -516,7 +516,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Continue Create/Update WebResources and Publish {0} files on
+        ///   Looks up a localized string similar to Create/Update WebResources and Publish {0} files on
         ///{1}?.
         /// </summary>
         internal static string PublishWebResourcesFormat2 {
@@ -652,12 +652,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Continue Create/Update WebResources, Include References from JavaScript to WebResources DependencyXml and Publish {0} files on
+        ///   Looks up a localized string similar to Create/Update WebResources, Include References from JavaScript to WebResources DependencyXml and Publish {0} files on
         ///{1}?.
         /// </summary>
         internal static string UpdateContentIncludeReferencesToDependencyXmlAndPublishWebResourcesFormat2 {
             get {
                 return ResourceManager.GetString("UpdateContentIncludeReferencesToDependencyXmlAndPublishWebResourcesFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Seach Equal by Text WebResources, Update Content, Include References from JavaScript to WebResources DependencyXml and Publish {0} files on
+        ///{1}?.
+        /// </summary>
+        internal static string UpdateEqualByTextContentIncludeReferencesToDependencyXmlAndPublishWebResourcesFormat2 {
+            get {
+                return ResourceManager.GetString("UpdateEqualByTextContentIncludeReferencesToDependencyXmlAndPublishWebResourcesFor" +
+                        "mat2", resourceCulture);
             }
         }
         

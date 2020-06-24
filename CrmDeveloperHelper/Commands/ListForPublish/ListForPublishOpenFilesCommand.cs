@@ -89,7 +89,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
 
         protected override void CommandAction(DTEHelper helper)
         {
-            var selectedFiles = helper.GetSelectedFilesFromListForPublish().ToList();
+            var selectedFiles = helper.GetSelectedFilesFromListForPublish(FileOperations.SupportsWebResourceTextType).ToList();
 
             var crmConfig = ConnectionConfiguration.Get();
 

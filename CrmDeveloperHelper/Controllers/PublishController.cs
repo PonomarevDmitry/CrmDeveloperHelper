@@ -820,7 +820,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public async Task ExecuteUpdateContentIncludeReferencesToDependencyXml(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
         {
             await CheckEncodingCheckReadOnlyConnectExecuteActionAsync(connectionData
-                , Properties.OperationNames.ExecuteUpdateContentIncludeReferencesToDependencyXmlFormat1
+                , Properties.OperationNames.UpdateContentIncludeReferencesToDependencyXmlFormat1
                 , selectedFiles
                 , true
                 , (service) => UpdatingContentIncludingReferencesToDependencyXml(service, commonConfig, selectedFiles)
@@ -845,6 +845,95 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NothingToPublish);
                 return;
             }
+
+            FillNewDependenciesInfo(service, webResourceRepository, elements);
+
+            if (!elements.Any())
+            {
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NothingToPublish);
+                return;
+            }
+
+            foreach (var element in elements.Values.Where(e => e.NewDependenciesCount > 0).OrderBy(e => e.SelectedFile.FileName))
+            {
+                var webResource = element.WebResource;
+
+                string fieldTitle = WebResource.Schema.Headers.dependencyxml;
+
+                string dependencyXml = webResource.DependencyXml;
+
+                if (!string.IsNullOrEmpty(dependencyXml))
+                {
+                    commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+
+                    string fileNameBackUp = EntityFileNameFormatter.GetWebResourceFileName(service.ConnectionData.Name, webResource.Name, fieldTitle + " BackUp", "xml");
+                    string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
+
+                    try
+                    {
+                        dependencyXml = ContentComparerHelper.FormatXmlByConfiguration(
+                            dependencyXml
+                            , commonConfig
+                            , XmlOptionsControls.WebResourceDependencyXmlOptions
+                            , schemaName: Commands.AbstractDynamicCommandXsdSchemas.SchemaDependencyXml
+                            , webResourceName: webResource.Name
+                        );
+
+                        File.WriteAllText(filePathBackUp, dependencyXml, new UTF8Encoding(false));
+
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, WebResource.Schema.EntitySchemaName, webResource.Name, fieldTitle, filePathBackUp);
+                    }
+                    catch (Exception ex)
+                    {
+                        this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                    }
+                }
+                else
+                {
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, WebResource.Schema.EntitySchemaName, webResource.Name, fieldTitle);
+                    this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                }
+            }
+
+            await UpdateContentAndPublishAsync(service, elements);
+        }
+
+        public async Task ExecuteUpdateEqualByTextContentIncludeReferencesToDependencyXml(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
+        {
+            await CheckEncodingConnectFindWebResourceExecuteActionTaskAsync(connectionData
+                , Properties.OperationNames.UpdateEqualByTextContentIncludeReferencesToDependencyXmlFormat1
+                , selectedFiles
+                , OpenFilesType.EqualByText
+                , (conn, service, filesToPublish) => UpdateEqualByTextContentIncludeReferencesToDependencyXml(conn, service, commonConfig, filesToPublish)
+            );
+        }
+
+        private async Task UpdateEqualByTextContentIncludeReferencesToDependencyXml(ConnectionData connectionData, IOrganizationServiceExtented service, CommonConfiguration commonConfig, TupleList<SelectedFile, WebResource> filesToPublish)
+        {
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
+            if (!filesToPublish.Any())
+            {
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NothingToPublish);
+                return;
+            }
+
+            // Менеджер для публикации в CRM.
+            Dictionary<Guid, ElementForPublish> elements = new Dictionary<Guid, ElementForPublish>();
+
+            foreach (var item in filesToPublish)
+            {
+                if (!elements.ContainsKey(item.Item2.Id))
+                {
+                    elements.Add(item.Item2.Id, new ElementForPublish(item.Item1, item.Item2));
+                }
+            }
+
+            var webResourceRepository = new WebResourceRepository(service);
 
             FillNewDependenciesInfo(service, webResourceRepository, elements);
 

@@ -268,6 +268,70 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public void HandleUpdateEqualByTextContentIncludeReferencesToDependencyXmlCommand(ConnectionData connectionData, List<SelectedFile> selectedFiles)
+        {
+            if (selectedFiles.Count == 0)
+            {
+                return;
+            }
+
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null && commonConfig != null)
+            {
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                bool canPublish = false;
+
+                if (commonConfig.DoNotPromtPublishMessage)
+                {
+                    canPublish = true;
+                }
+                else
+                {
+                    string message = string.Format(Properties.MessageBoxStrings.UpdateEqualByTextContentIncludeReferencesToDependencyXmlAndPublishWebResourcesFormat2, selectedFiles.Count, connectionData.GetDescriptionColumn());
+
+                    var dialog = new WindowConfirmPublish(message);
+
+                    if (dialog.ShowDialog().GetValueOrDefault())
+                    {
+                        commonConfig.DoNotPromtPublishMessage = dialog.DoNotPromtPublishMessage;
+
+                        commonConfig.Save();
+
+                        canPublish = true;
+                    }
+                }
+
+                if (canPublish)
+                {
+                    ActivateOutputWindow(connectionData);
+                    WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                    CheckWishToChangeCurrentConnection(connectionData);
+
+                    try
+                    {
+                        Controller.StartUpdateEqualByTextContentContentIncludeReferencesToDependencyXml(connectionData, commonConfig, selectedFiles);
+                    }
+                    catch (Exception ex)
+                    {
+                        WriteErrorToOutput(connectionData, ex);
+                    }
+                }
+            }
+        }
+
         public void HandleIncludeReferencesToLinkedSystemFormsLibrariesCommand(ConnectionData connectionData, List<SelectedFile> selectedFiles)
         {
             if (selectedFiles.Count == 0)

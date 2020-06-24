@@ -443,8 +443,11 @@
   <data name="IncludeReferencesToDependencyXmlAndPublishingFormat1" xml:space="preserve">
     <value>{0} - Including JavaScript References to WebResources DependencyXml and Publishing</value>
   </data>
-  <data name="ExecuteUpdateContentIncludeReferencesToDependencyXmlFormat1" xml:space="preserve">
+  <data name="UpdateContentIncludeReferencesToDependencyXmlFormat1" xml:space="preserve">
     <value>{0} - Updating Content, Including JavaScript References to WebResources DependencyXml and Publishing</value>
+  </data>
+  <data name="UpdateEqualByTextContentIncludeReferencesToDependencyXmlFormat1" xml:space="preserve">
+    <value>{0} - Updating Equal by Text Content, Including JavaScript References to WebResources DependencyXml and Publishing</value>
   </data>
   <data name="IncludeReferencesToLinkedSystemFormsLibrariesFormat1" xml:space="preserve">
     <value>{0} - Including JavaScript References to Linked SystemForms Libraries and Publishing</value>

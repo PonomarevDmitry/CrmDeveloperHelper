@@ -582,6 +582,17 @@
   </data>
 
 
+  <data name="FileJavaScriptUpdateContentIncludeReferencesPublishCommand" xml:space="preserve">
+    <value>Publish Files and Include References</value>
+  </data>
+  <data name="DocumentsJavaScriptUpdateContentIncludeReferencesPublishCommand" xml:space="preserve">
+    <value>Publish Files and Include References</value>
+  </data>
+  <data name="FolderJavaScriptUpdateContentIncludeReferencesPublishCommand" xml:space="preserve">
+    <value>Publish Files and Include References (Recursive)</value>
+  </data>
+
+
   <data name="CodeJavaScriptIncludeReferencesToLinkedSystemFormCommand" xml:space="preserve">
     <value>Include References to Linked SystemForm Libraries</value>
   </data>

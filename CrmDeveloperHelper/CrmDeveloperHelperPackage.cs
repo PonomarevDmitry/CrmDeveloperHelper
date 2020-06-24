@@ -337,6 +337,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             DocumentsJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommand.Initialize,
 
+            DocumentsJavaScriptUpdateEqualByTextContentIncludeReferencesPublishInConnectionGroupCommand.Initialize,
+
             #endregion DocumentsJavaScript
 
             #region FileJavaScript
@@ -349,7 +351,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             FileJavaScriptUpdateGlobalOptionSetAllFileCommand.Initialize,
 
-            FileJavaScriptFileGenerationOptionsCommand.Initialize,
+            FileJavaScriptFileGenerationOptionsJavaScriptAnyCommand.Initialize,
+            FileJavaScriptFileGenerationOptionsJavaScriptSingleCommand.Initialize,
+
             FileJavaScriptIncludeReferencesToDependencyXmlCommand.Initialize,
             FileJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommand.Initialize,
 
@@ -358,6 +362,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             FileJavaScriptUpdateContentIncludeReferencesPublishCommand.Initialize,
             FileJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommand.Initialize,
+
+            FileJavaScriptUpdateEqualByTextContentIncludeReferencesPublishInConnectionGroupCommand.Initialize,
 
             #endregion FileJavaScript
 
@@ -376,6 +382,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             FolderJavaScriptUpdateContentIncludeReferencesPublishCommand.Initialize,
             FolderJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommand.Initialize,
+
+            FolderJavaScriptUpdateEqualByTextContentIncludeReferencesPublishInConnectionGroupCommand.Initialize,
 
             #endregion FolderJavaScript
 
@@ -805,8 +813,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             ListForPublishCompareInConnectionGroupCommand.Initialize,
             ListForPublishFilesAddCommand.Initialize,
             ListForPublishFilesRemoveCommand.Initialize,
+
             ListForPublishPerformPublishEqualByTextInConnectionGroupCommand.Initialize,
             ListForPublishPerformPublishInConnectionGroupCommand.Initialize,
+
+            ListForPublishPerformUpdateContentIncludeReferencesPublishInConnectionGroupCommand.Initialize,
+            ListForPublishPerformUpdateEqualByTextContentIncludeReferencesPublishInConnectionGroupCommand.Initialize,
+
+            ListForPublishPerformIncludeReferencesToDependencyXmlInConnectionGroupCommand.Initialize,
+
             ListForPublishShowListCommand.Initialize,
 
             ListForPublishAddToSolutionLastCommand.Initialize,

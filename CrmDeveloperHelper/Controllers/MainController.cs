@@ -569,6 +569,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartUpdateContentIncludeReferencesToDependencyXml(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
             => ExecuteWithConnectionInThread(connectionData, this._publishController.ExecuteUpdateContentIncludeReferencesToDependencyXml, commonConfig, selectedFiles);
 
+        public void StartUpdateEqualByTextContentContentIncludeReferencesToDependencyXml(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
+            => ExecuteWithConnectionInThread(connectionData, this._publishController.ExecuteUpdateEqualByTextContentIncludeReferencesToDependencyXml, commonConfig, selectedFiles);
+
         public void StartIncludeReferencesToLinkedSystemFormsLibraries(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
             => ExecuteWithConnectionInThread(connectionData, this._publishController.ExecuteIncludeReferencesToLinkedSystemFormsLibraries, commonConfig, selectedFiles);
 

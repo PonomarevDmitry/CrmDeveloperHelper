@@ -584,9 +584,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             string solutionDirectoryPath = GetSolutionDirectory();
 
-            foreach (var item in _ListForPublish.Select(path => new SelectedFile(path, solutionDirectoryPath)))
+            foreach (var path in _ListForPublish)
             {
-                yield return item;
+                yield return new SelectedFile(path, solutionDirectoryPath);
+            }
+        }
+
+        public IEnumerable<SelectedFile> GetSelectedFilesFromListForPublish(Func<string, bool> checkerFunction)
+        {
+            string solutionDirectoryPath = GetSolutionDirectory();
+
+            foreach (var path in _ListForPublish)
+            {
+                if (checkerFunction(path))
+                {
+                    yield return new SelectedFile(path, solutionDirectoryPath);
+                }
             }
         }
 

@@ -214,11 +214,11 @@
     <value>UserName is empty.</value>
   </data>
   <data name="PublishWebResourcesEqualByTextFormat2" xml:space="preserve">
-    <value>Seach equal by text among {0} files, Update them and Publish on
+    <value>Seach Equal by Text WebResources among {0} files, Update Content and Publish on
 {1}?</value>
   </data>
   <data name="PublishWebResourcesFormat2" xml:space="preserve">
-    <value>Continue Create/Update WebResources and Publish {0} files on
+    <value>Create/Update WebResources and Publish {0} files on
 {1}?</value>
   </data>
   <data name="IncludeReferencesToDependencyXmlAndPublishWebResourcesFormat2" xml:space="preserve">
@@ -226,7 +226,11 @@
 {1}?</value>
   </data>
   <data name="UpdateContentIncludeReferencesToDependencyXmlAndPublishWebResourcesFormat2" xml:space="preserve">
-    <value>Continue Create/Update WebResources, Include References from JavaScript to WebResources DependencyXml and Publish {0} files on
+    <value>Create/Update WebResources, Include References from JavaScript to WebResources DependencyXml and Publish {0} files on
+{1}?</value>
+  </data>
+  <data name="UpdateEqualByTextContentIncludeReferencesToDependencyXmlAndPublishWebResourcesFormat2" xml:space="preserve">
+    <value>Seach Equal by Text WebResources, Update Content, Include References from JavaScript to WebResources DependencyXml and Publish {0} files on
 {1}?</value>
   </data>
   <data name="IncludeReferencesToLinkedSystemFormsLibrariesAndPublishFormat2" xml:space="preserve">
