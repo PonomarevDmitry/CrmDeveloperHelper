@@ -18,7 +18,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 {
     public sealed partial class XmlCompletionSource
     {
-        private static HashSet<string> _controlsWithImagesXmlElements = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase)
+        public static HashSet<string> ControlsWithImagesXmlElements = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase)
         {
             "Button"
             , "CheckBox"
@@ -153,7 +153,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     }
                 }
 
-                if (_controlsWithImagesXmlElements.Contains(currentNodeName)
+                if (ControlsWithImagesXmlElements.Contains(currentNodeName)
                     && ImagesXmlAttributes.Contains(currentAttributeName)
                 )
                 {

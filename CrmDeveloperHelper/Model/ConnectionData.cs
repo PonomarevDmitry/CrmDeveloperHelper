@@ -1085,14 +1085,45 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         {
             Guid? result = null;
 
-            Guid objectId = Guid.Empty;
-
-            if (GetGuidByPath(friendlyPath, out objectId))
+            if (TryGetGuidByPath(friendlyPath, out Guid objectId))
             {
                 result = objectId;
             }
 
             return result;
+        }
+
+        private bool TryGetGuidByPath(string friendlyPath, out Guid webResourceId)
+        {
+            bool result = false;
+            webResourceId = Guid.Empty;
+
+            var mapping = this.Mappings.FirstOrDefault(x => x.SourceFilePath.Equals(friendlyPath, StringComparison.InvariantCultureIgnoreCase));
+
+            if (mapping != null)
+            {
+                webResourceId = mapping.CRMObjectId;
+
+                result = true;
+            }
+
+            return result;
+        }
+
+        public bool TryGetFriendlyPathByGuid(Guid idWebResource, out string friendlyPath)
+        {
+            friendlyPath = string.Empty;
+
+            var mapping = this.Mappings.FirstOrDefault(x => x.CRMObjectId == idWebResource);
+
+            if (mapping != null)
+            {
+                friendlyPath = mapping.SourceFilePath;
+
+                return true;
+            }
+
+            return false;
         }
 
         public void AddAssemblyMapping(string assemblyName, string localAssemblyPath)
@@ -1233,24 +1264,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             {
                 _knownRequests[requestName] = isRequestExists;
             }
-        }
-
-        private bool GetGuidByPath(string friendlyPath, out Guid webResourceId)
-        {
-            bool result = false;
-
-            webResourceId = Guid.Empty;
-
-            var mapping = this.Mappings.FirstOrDefault(x => x.SourceFilePath.Equals(friendlyPath, StringComparison.InvariantCultureIgnoreCase));
-
-            if (mapping != null)
-            {
-                webResourceId = mapping.CRMObjectId;
-
-                result = true;
-            }
-
-            return result;
         }
 
         public override string ToString()

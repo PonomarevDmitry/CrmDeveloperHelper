@@ -30,6 +30,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
         private const string SourceNameMonikerWebResourcesText = "CrmXmlWebResourcesText.{E438F5CE-FBBD-4754-A2F7-F1AEB6752499}";
         private const string SourceNameMonikerWebResourcesIcon = "CrmXmlWebResourcesIcon.{AA2AABF2-E32A-40AA-B6EF-A072D45CD8FC}";
 
+        private const string SourceNameMonikerSingleWebResourceAttribute = "CrmSingleWebResourceAttribute.{F7B34709-863C-417F-89B5-469930BA0B50}";
+
+        private const string SourceNameMonikerFormXmlLibraries = "CrmFormXmlLibraries.{668C8F71-53B3-4D28-944B-B5DE3379E560}";
+
         private const string SourceNameMonikerNewGuid = "CrmXmlNewGuid.{A6CE3966-8EC6-4938-B123-80D7F7F83453}";
 
         private const string SourceNameMonikerAllAttributes = "CrmXmlAllAttributes.{417B4B2F-EC8A-4EBC-A6CD-A45013171817}";
@@ -445,6 +449,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             completionSets.Add(new CrmCompletionSet(SourceNameMonikerWebResourcesText, nameCompletionSet, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
         }
 
+        private void FillWebResourcesNames(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, IEnumerable<WebResourceIntellisenseData> webResources, string nameCompletionSet)
+        {
+            if (webResources == null || !webResources.Any())
+            {
+                return;
+            }
+
+            List<CrmCompletion> list = new List<CrmCompletion>();
+
+            foreach (var resource in webResources.OrderBy(s => s.Name))
+            {
+                StringBuilder str = new StringBuilder(resource.Name);
+
+                List<string> compareValues = new List<string>() { resource.Name };
+
+                if (!string.IsNullOrEmpty(resource.DisplayName))
+                {
+                    compareValues.Add(resource.DisplayName);
+
+                    str.AppendFormat(" - {0}", resource.DisplayName);
+                }
+
+                list.Add(CreateCompletion(str.ToString(), resource.Name, resource.Description, _defaultGlyph, compareValues));
+            }
+
+            completionSets.Add(new CrmCompletionSet(SourceNameMonikerWebResourcesText, nameCompletionSet, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
+        }
+
         private void FillWebResourcesIcons(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, IEnumerable<WebResourceIntellisenseData> webResources, string nameCompletionSet)
         {
             if (webResources == null || !webResources.Any())
@@ -709,34 +741,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 glyph = _defaultGlyph;
 
             return new CrmCompletion(displayText, insertionText, description, glyph, null, compareValues);
-        }
-
-        private void FillWebResourcesNames(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, IEnumerable<WebResourceIntellisenseData> webResources, string nameCompletionSet)
-        {
-            if (webResources == null || !webResources.Any())
-            {
-                return;
-            }
-
-            List<CrmCompletion> list = new List<CrmCompletion>();
-
-            foreach (var resource in webResources.OrderBy(s => s.Name))
-            {
-                StringBuilder str = new StringBuilder(resource.Name);
-
-                List<string> compareValues = new List<string>() { resource.Name };
-
-                if (!string.IsNullOrEmpty(resource.DisplayName))
-                {
-                    compareValues.Add(resource.DisplayName);
-
-                    str.AppendFormat(" - {0}", resource.DisplayName);
-                }
-
-                list.Add(CreateCompletion(str.ToString(), resource.Name, resource.Description, _defaultGlyph, compareValues));
-            }
-
-            completionSets.Add(new CrmCompletionSet(SourceNameMonikerWebResourcesText, nameCompletionSet, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
         }
 
         private static readonly string[] _guidFormats = new[] { "B", "D", "N", "P", "X" };

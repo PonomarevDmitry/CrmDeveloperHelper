@@ -1175,6 +1175,7 @@
     <Compile Include="Intellisense\UrlCommandFilter.cs" />
     <Compile Include="Intellisense\UrlCommandFilterProvider.cs" />
     <Compile Include="Intellisense\XmlGoToDefinitionCommandHandler.cs" />
+    <Compile Include="Intellisense\XmlGoToDefinitionCommandHandler.Ribbon.cs" />
     <Compile Include="Intellisense\XmlGoToDefinitionCreationListener.cs" />
     <Compile Include="Interfaces\IEntitySaver.cs" />
     <Compile Include="Interfaces\IOrganizationComparerSource.cs" />

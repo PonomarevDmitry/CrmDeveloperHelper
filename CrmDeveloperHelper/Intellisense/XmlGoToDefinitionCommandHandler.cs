@@ -10,11 +10,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
-using System.Xml.XPath;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 {
-    public class XmlGoToDefinitionCommandHandler : IOleCommandTarget
+    public partial class XmlGoToDefinitionCommandHandler : IOleCommandTarget
     {
         private IOleCommandTarget _nextCommandHandler;
         private ITextView _textView;
@@ -88,8 +87,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 return false;
             }
 
-            if (!string.Equals(doc.Name.ToString(), Commands.AbstractDynamicCommandXsdSchemas.RootRibbonDiffXml, StringComparison.InvariantCultureIgnoreCase)
-                && !string.Equals(doc.Name.ToString(), Commands.AbstractDynamicCommandXsdSchemas.RootRibbonDefinitions, StringComparison.InvariantCultureIgnoreCase)
+            string docRootName = doc.Name.ToString();
+
+            if (!string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.RootRibbonDiffXml, StringComparison.InvariantCultureIgnoreCase)
+                && !string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.RootRibbonDefinitions, StringComparison.InvariantCultureIgnoreCase)
+                && !string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.RootWebResourceDependencies, StringComparison.InvariantCultureIgnoreCase)
+                && !string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.RootForm, StringComparison.InvariantCultureIgnoreCase)
+                && !string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.RootGrid, StringComparison.InvariantCultureIgnoreCase)
+                && !string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.RootSavedQuery, StringComparison.InvariantCultureIgnoreCase)
+                && !string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.RootSiteMap, StringComparison.InvariantCultureIgnoreCase)
             )
             {
                 return false;
@@ -176,437 +182,216 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             string currentNodeName = currentXmlNode.Name.LocalName;
             string currentAttributeName = currentAttr.Span.GetText();
 
-            #region Labels
-
-            if (XmlCompletionSource.LabelXmlAttributes.Contains(currentAttributeName))
-            {
-                bool isTitleElement = string.Equals(currentNodeName, "Title", StringComparison.InvariantCultureIgnoreCase)
-                    && currentXmlNode.Parent != null
-                    && string.Equals(currentXmlNode.Parent.Name.LocalName, "Titles", StringComparison.InvariantCultureIgnoreCase)
-                    && currentXmlNode.Parent.Parent != null
-                    && string.Equals(currentXmlNode.Parent.Parent.Name.LocalName, "LocLabel", StringComparison.InvariantCultureIgnoreCase);
-
-                if (!isTitleElement)
-                {
-                    if (!string.IsNullOrEmpty(currentValue))
-                    {
-                        if (currentValue.StartsWith("$LocLabels:", StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            var labelId = currentValue.Substring(11);
-
-                            var elements = doc.XPathSelectElements("./LocLabels/LocLabel").Where(e => e.Attribute("Id") != null && string.Equals(e.Attribute("Id").Value, labelId, StringComparison.InvariantCultureIgnoreCase)).ToList();
-
-                            if (elements.Count == 1)
-                            {
-                                var xmlElement = elements[0];
-
-                                if (TryMoveToElement(snapshot, xmlElement))
-                                {
-                                    return true;
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        var elements = doc.XPathSelectElements("./LocLabels").ToList();
-
-                        if (elements.Count == 1)
-                        {
-                            var xmlElement = elements[0];
-
-                            if (TryMoveToElement(snapshot, xmlElement))
-                            {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-
-            #endregion Labels
-
-            #region Command Definitions
-
-            if (XmlCompletionSource.CommandXmlAttributes.Contains(currentAttributeName))
-            {
-                if (!string.IsNullOrEmpty(currentValue))
-                {
-                    {
-                        var elements = doc.XPathSelectElements("./CommandDefinitions/CommandDefinition").Where(e => e.Attribute("Id") != null && string.Equals(e.Attribute("Id").Value, currentValue, StringComparison.InvariantCultureIgnoreCase)).ToList();
-
-                        if (elements.Count == 1)
-                        {
-                            var xmlElement = elements[0];
-
-                            if (TryMoveToElement(snapshot, xmlElement))
-                            {
-                                return true;
-                            }
-                        }
-                    }
-
-                    {
-                        var elements = doc.XPathSelectElements("./RibbonDefinition/CommandDefinitions/CommandDefinition").Where(e => e.Attribute("Id") != null && string.Equals(e.Attribute("Id").Value, currentValue, StringComparison.InvariantCultureIgnoreCase)).ToList();
-
-                        if (elements.Count == 1)
-                        {
-                            var xmlElement = elements[0];
-
-                            if (TryMoveToElement(snapshot, xmlElement))
-                            {
-                                return true;
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    {
-                        var elements = doc.XPathSelectElements("./CommandDefinitions").ToList();
-
-                        if (elements.Count == 1)
-                        {
-                            var xmlElement = elements[0];
-
-                            if (TryMoveToElement(snapshot, xmlElement))
-                            {
-                                return true;
-                            }
-                        }
-                    }
-
-                    {
-                        var elements = doc.XPathSelectElements("./RibbonDefinition/CommandDefinitions").ToList();
-
-                        if (elements.Count == 1)
-                        {
-                            var xmlElement = elements[0];
-
-                            if (TryMoveToElement(snapshot, xmlElement))
-                            {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-
-            #endregion Command Definitions
-
-            #region Enable Rules
-
-            if (string.Equals(currentNodeName, "EnableRule", StringComparison.InvariantCultureIgnoreCase)
-                && string.Equals(currentAttributeName, "Id", StringComparison.InvariantCultureIgnoreCase)
-                && currentXmlNode.Parent != null
-                && string.Equals(currentXmlNode.Parent.Name.LocalName, "EnableRules", StringComparison.InvariantCultureIgnoreCase)
-                && currentXmlNode.Parent.Parent != null
-                && string.Equals(currentXmlNode.Parent.Parent.Name.LocalName, "CommandDefinition", StringComparison.InvariantCultureIgnoreCase)
+            if (string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.RootRibbonDiffXml, StringComparison.InvariantCultureIgnoreCase)
+                || string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.RootRibbonDefinitions, StringComparison.InvariantCultureIgnoreCase)
             )
             {
-                if (!string.IsNullOrEmpty(currentValue))
+                if (TryGoToDefinitionInRibbon(snapshot, doc, currentXmlNode, currentNodeName, currentAttributeName, currentValue))
                 {
-                    {
-                        var elements = doc.XPathSelectElements("./RuleDefinitions/EnableRules/EnableRule").Where(e => e.Attribute("Id") != null && string.Equals(e.Attribute("Id").Value, currentValue, StringComparison.InvariantCultureIgnoreCase)).ToList();
-
-                        if (elements.Count == 1)
-                        {
-                            var xmlElement = elements[0];
-
-                            if (TryMoveToElement(snapshot, xmlElement))
-                            {
-                                return true;
-                            }
-                        }
-                    }
-
-                    {
-                        var elements = doc.XPathSelectElements("./RibbonDefinition/RuleDefinitions/EnableRules/EnableRule").Where(e => e.Attribute("Id") != null && string.Equals(e.Attribute("Id").Value, currentValue, StringComparison.InvariantCultureIgnoreCase)).ToList();
-
-                        if (elements.Count == 1)
-                        {
-                            var xmlElement = elements[0];
-
-                            if (TryMoveToElement(snapshot, xmlElement))
-                            {
-                                return true;
-                            }
-                        }
-                    }
+                    return true;
                 }
-                else
+            }
+            else if (string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.RootWebResourceDependencies, StringComparison.InvariantCultureIgnoreCase))
+            {
+                if (string.Equals(currentNodeName, "Library", StringComparison.InvariantCultureIgnoreCase))
                 {
+                    if (string.Equals(currentAttributeName, "name", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        var elements = doc.XPathSelectElements("./RuleDefinitions/EnableRules").ToList();
-
-                        if (elements.Count == 1)
+                        if (TryOpenWebResource(currentValue))
                         {
-                            var xmlElement = elements[0];
-
-                            if (TryMoveToElement(snapshot, xmlElement))
-                            {
-                                return true;
-                            }
-                        }
-                    }
-
-                    {
-                        var elements = doc.XPathSelectElements("./RibbonDefinition/RuleDefinitions/EnableRules").ToList();
-
-                        if (elements.Count == 1)
-                        {
-                            var xmlElement = elements[0];
-
-                            if (TryMoveToElement(snapshot, xmlElement))
-                            {
-                                return true;
-                            }
+                            return true;
                         }
                     }
                 }
             }
-
-            #endregion Enable Rules
-
-            #region Display Rules
-
-            if (string.Equals(currentNodeName, "DisplayRule", StringComparison.InvariantCultureIgnoreCase)
-                && string.Equals(currentAttributeName, "Id", StringComparison.InvariantCultureIgnoreCase)
-                && currentXmlNode.Parent != null
-                && string.Equals(currentXmlNode.Parent.Name.LocalName, "DisplayRules", StringComparison.InvariantCultureIgnoreCase)
-                && currentXmlNode.Parent.Parent != null
-                && string.Equals(currentXmlNode.Parent.Parent.Name.LocalName, "CommandDefinition", StringComparison.InvariantCultureIgnoreCase)
+            else if (string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.RootForm, StringComparison.InvariantCultureIgnoreCase))
+            {
+                if (string.Equals(currentNodeName, "Library", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    if (string.Equals(currentAttributeName, "name", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        if (TryOpenWebResource(currentValue))
+                        {
+                            return true;
+                        }
+                    }
+                }
+                else if (string.Equals(currentNodeName, "Handler", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    if (string.Equals(currentAttributeName, "libraryName", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        if (TryOpenWebResource(currentValue))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            else if (string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.RootGrid, StringComparison.InvariantCultureIgnoreCase)
+                || string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.RootSavedQuery, StringComparison.InvariantCultureIgnoreCase)
             )
             {
-                if (!string.IsNullOrEmpty(currentValue))
+                if (string.Equals(currentNodeName, "cell", StringComparison.InvariantCultureIgnoreCase))
                 {
+                    if (string.Equals(currentAttributeName, "imageproviderwebresource", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        var elements = doc.XPathSelectElements("./RuleDefinitions/DisplayRules/DisplayRule").Where(e => e.Attribute("Id") != null && string.Equals(e.Attribute("Id").Value, currentValue, StringComparison.InvariantCultureIgnoreCase)).ToList();
-
-                        if (elements.Count == 1)
+                        if (TryOpenWebResourceWithPrefix(currentValue))
                         {
-                            var xmlElement = elements[0];
-
-                            if (TryMoveToElement(snapshot, xmlElement))
-                            {
-                                return true;
-                            }
-                        }
-                    }
-
-                    if (!string.IsNullOrEmpty(currentValue))
-                    {
-                        var elements = doc.XPathSelectElements("./RibbonDefinition/RuleDefinitions/DisplayRules/DisplayRule").Where(e => e.Attribute("Id") != null && string.Equals(e.Attribute("Id").Value, currentValue, StringComparison.InvariantCultureIgnoreCase)).ToList();
-
-                        if (elements.Count == 1)
-                        {
-                            var xmlElement = elements[0];
-
-                            if (TryMoveToElement(snapshot, xmlElement))
-                            {
-                                return true;
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    {
-                        var elements = doc.XPathSelectElements("./RuleDefinitions/DisplayRules").ToList();
-
-                        if (elements.Count == 1)
-                        {
-                            var xmlElement = elements[0];
-
-                            if (TryMoveToElement(snapshot, xmlElement))
-                            {
-                                return true;
-                            }
-                        }
-                    }
-
-                    {
-                        var elements = doc.XPathSelectElements("./RibbonDefinition/RuleDefinitions/DisplayRules").ToList();
-
-                        if (elements.Count == 1)
-                        {
-                            var xmlElement = elements[0];
-
-                            if (TryMoveToElement(snapshot, xmlElement))
-                            {
-                                return true;
-                            }
+                            return true;
                         }
                     }
                 }
             }
-
-            #endregion Display Rules
-
-            #region Templates
-
-            if (string.Equals(currentAttributeName, "Template", StringComparison.InvariantCultureIgnoreCase))
+            else if (string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.RootSiteMap, StringComparison.InvariantCultureIgnoreCase))
             {
-                if (!string.IsNullOrEmpty(currentValue))
+                if (string.Equals(currentAttributeName, "Url", StringComparison.InvariantCultureIgnoreCase))
                 {
+                    if (string.Equals(currentNodeName, "SiteMap", StringComparison.InvariantCultureIgnoreCase)
+                        || string.Equals(currentNodeName, "Area", StringComparison.InvariantCultureIgnoreCase)
+                        || string.Equals(currentNodeName, "Group", StringComparison.InvariantCultureIgnoreCase)
+                        || string.Equals(currentNodeName, "SubArea", StringComparison.InvariantCultureIgnoreCase)
+                    )
                     {
-                        var elements = doc.XPathSelectElements("./Templates/RibbonTemplates/GroupTemplate").Where(e => e.Attribute("Id") != null && string.Equals(e.Attribute("Id").Value, currentValue, StringComparison.InvariantCultureIgnoreCase)).ToList();
-
-                        if (elements.Count == 1)
+                        if (TryOpenWebResourceWithPrefix(currentValue))
                         {
-                            var xmlElement = elements[0];
-
-                            if (TryMoveToElement(snapshot, xmlElement))
-                            {
-                                return true;
-                            }
-                        }
-                    }
-
-                    {
-                        var elements = doc.XPathSelectElements("./RibbonDefinition/Templates/RibbonTemplates/GroupTemplate").Where(e => e.Attribute("Id") != null && string.Equals(e.Attribute("Id").Value, currentValue, StringComparison.InvariantCultureIgnoreCase)).ToList();
-
-                        if (elements.Count == 1)
-                        {
-                            var xmlElement = elements[0];
-
-                            if (TryMoveToElement(snapshot, xmlElement))
-                            {
-                                return true;
-                            }
+                            return true;
                         }
                     }
                 }
-                else
+
+                if (string.Equals(currentAttributeName, "Icon", StringComparison.InvariantCultureIgnoreCase))
                 {
+                    if (string.Equals(currentNodeName, "Area", StringComparison.InvariantCultureIgnoreCase)
+                        || string.Equals(currentNodeName, "Group", StringComparison.InvariantCultureIgnoreCase)
+                        || string.Equals(currentNodeName, "SubArea", StringComparison.InvariantCultureIgnoreCase)
+                    )
                     {
-                        var elements = doc.XPathSelectElements("./Templates/RibbonTemplates").ToList();
-
-                        if (elements.Count == 1)
+                        if (TryOpenWebResourceInWebWithPrefix(currentValue))
                         {
-                            var xmlElement = elements[0];
-
-                            if (TryMoveToElement(snapshot, xmlElement))
-                            {
-                                return true;
-                            }
+                            return true;
                         }
                     }
+                }
 
+                if (string.Equals(currentAttributeName, "OutlookShortcutIcon", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    if (string.Equals(currentNodeName, "SubArea", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        var elements = doc.XPathSelectElements("./RibbonDefinition/Templates/RibbonTemplates").ToList();
-
-                        if (elements.Count == 1)
+                        if (TryOpenWebResourceInWebWithPrefix(currentValue))
                         {
-                            var xmlElement = elements[0];
-
-                            if (TryMoveToElement(snapshot, xmlElement))
-                            {
-                                return true;
-                            }
+                            return true;
                         }
                     }
                 }
             }
-
-            #endregion Templates
-
-            #region Template Aliases
-
-            if (string.Equals(currentAttributeName, "TemplateAlias", StringComparison.InvariantCultureIgnoreCase)
-                && !string.Equals(currentNodeName, "OverflowSection", StringComparison.InvariantCultureIgnoreCase)
-            )
-            {
-                var templateName = currentXmlNode.AncestorsAndSelf().FirstOrDefault(e => e.Attribute("Template") != null)?.Attribute("Template")?.Value;
-
-                if (!string.IsNullOrEmpty(templateName))
-                {
-                    XElement templateXmlNode = null;
-
-                    {
-                        var elements = doc.XPathSelectElements("./Templates/RibbonTemplates/GroupTemplate").Where(e => e.Attribute("Id") != null && string.Equals(e.Attribute("Id").Value, templateName, StringComparison.InvariantCultureIgnoreCase)).ToList();
-
-                        if (elements.Count == 1)
-                        {
-                            templateXmlNode = elements[0];
-                        }
-                    }
-
-                    if (templateXmlNode == null)
-                    {
-                        var elements = doc.XPathSelectElements("./RibbonDefinition/Templates/RibbonTemplates/GroupTemplate").Where(e => e.Attribute("Id") != null && string.Equals(e.Attribute("Id").Value, templateName, StringComparison.InvariantCultureIgnoreCase)).ToList();
-
-                        if (elements.Count == 1)
-                        {
-                            templateXmlNode = elements[0];
-                        }
-                    }
-
-                    if (templateXmlNode != null)
-                    {
-                        if (!string.IsNullOrEmpty(currentValue))
-                        {
-                            var sectionWithAlias = templateXmlNode.XPathSelectElements("./Layout/OverflowSection").FirstOrDefault(e => e.Attribute("TemplateAlias") != null && string.Equals(e.Attribute("TemplateAlias").Value, currentValue, StringComparison.InvariantCultureIgnoreCase));
-
-                            if (sectionWithAlias != null)
-                            {
-                                if (TryMoveToElement(snapshot, sectionWithAlias))
-                                {
-                                    return true;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            if (TryMoveToElement(snapshot, templateXmlNode))
-                            {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-
-            #endregion Template Aliases
 
             return false;
         }
 
-        private bool TryMoveToElement(ITextSnapshot snapshot, XElement xmlElement)
+        private static bool TryOpenWebResourceWithPrefix(string currentValue)
         {
-            var lineNumber = (xmlElement as IXmlLineInfo)?.LineNumber;
+            const string webResourcePrefix = "$webresource:";
 
-            if (lineNumber.HasValue)
+            if (!string.IsNullOrEmpty(currentValue)
+                && currentValue.StartsWith(webResourcePrefix, StringComparison.InvariantCultureIgnoreCase)
+            )
             {
-                var line = snapshot.GetLineFromLineNumber(lineNumber.Value - 1);
+                currentValue = currentValue.Substring(webResourcePrefix.Length);
 
-                if (line != null)
+                return TryOpenWebResource(currentValue);
+            }
+
+            return false;
+        }
+
+        private static bool TryOpenWebResource(string webResourceName)
+        {
+            var connectionConfig = CrmDeveloperHelper.Model.ConnectionConfiguration.Get();
+
+            if (connectionConfig == null || connectionConfig.CurrentConnectionData == null)
+            {
+                return false;
+            }
+
+            var connectionData = connectionConfig.CurrentConnectionData;
+
+            var repositoryWebResource = Repository.WebResourceIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
+
+            var webResourcesList = repositoryWebResource.GetConnectionWebResourceIntellisenseData()?.WebResourcesAll?.Values?.ToList();
+
+            if (webResourcesList == null)
+            {
+                return false;
+            }
+
+            var webResource = webResourcesList.FirstOrDefault(w => string.Equals(w.Name, webResourceName, StringComparison.InvariantCultureIgnoreCase));
+
+            if (webResource == null || !webResource.WebResourceId.HasValue)
+            {
+                return false;
+            }
+
+            if (connectionData.TryGetFriendlyPathByGuid(webResource.WebResourceId.Value, out string friendlyPath))
+            {
+                Helpers.DTEHelper.Singleton.OpenFileInVisualStudioRelativePath(connectionData, friendlyPath, out bool success);
+
+                if (success)
                 {
-                    var point = line.Start;
-
-                    _textView.ViewScroller.EnsureSpanVisible(new SnapshotSpan(point, 0), EnsureSpanVisibleOptions.ShowStart | EnsureSpanVisibleOptions.AlwaysCenter);
-
-                    var lineText = line.GetText();
-
-                    var index = lineText.IndexOf(xmlElement.Name.LocalName);
-
-                    if (index != -1)
-                    {
-                        point += index;
-                    }
-
-                    _textView.Selection.Select(new SnapshotSpan(point, 0), false);
-                    _textView.Selection.IsActive = false;
-
-                    _textView.Caret.MoveTo(point);
-
-                    _textView.Caret.EnsureVisible();
-
                     return true;
                 }
             }
 
+            connectionData.OpenEntityInstanceInWeb(Entities.WebResource.EntityLogicalName, webResource.WebResourceId.Value);
+
+            return true;
+        }
+
+        private static bool TryOpenWebResourceInWebWithPrefix(string currentValue)
+        {
+            const string webResourcePrefix = "$webresource:";
+
+            if (!string.IsNullOrEmpty(currentValue)
+                && currentValue.StartsWith(webResourcePrefix, StringComparison.InvariantCultureIgnoreCase)
+            )
+            {
+                currentValue = currentValue.Substring(webResourcePrefix.Length);
+
+                return TryOpenWebResourceInWeb(currentValue);
+            }
+
             return false;
+        }
+
+        private static bool TryOpenWebResourceInWeb(string webResourceName)
+        {
+            var connectionConfig = CrmDeveloperHelper.Model.ConnectionConfiguration.Get();
+
+            if (connectionConfig == null || connectionConfig.CurrentConnectionData == null)
+            {
+                return false;
+            }
+
+            var connectionData = connectionConfig.CurrentConnectionData;
+
+            var repositoryWebResource = Repository.WebResourceIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
+
+            var webResourcesList = repositoryWebResource.GetConnectionWebResourceIntellisenseData()?.WebResourcesAll?.Values?.ToList();
+
+            if (webResourcesList == null)
+            {
+                return false;
+            }
+
+            var webResource = webResourcesList.FirstOrDefault(w => string.Equals(w.Name, webResourceName, StringComparison.InvariantCultureIgnoreCase));
+
+            if (webResource == null || !webResource.WebResourceId.HasValue)
+            {
+                return false;
+            }
+
+            connectionData.OpenEntityInstanceInWeb(Entities.WebResource.EntityLogicalName, webResource.WebResourceId.Value);
+
+            return true;
         }
 
         private ClassificationSpan GetCurrentXmlAttributeName(ITextSnapshot snapshot, ClassificationSpan containingSpan, IList<ClassificationSpan> spans)

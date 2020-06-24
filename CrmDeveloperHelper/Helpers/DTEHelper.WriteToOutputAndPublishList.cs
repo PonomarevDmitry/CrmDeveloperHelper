@@ -1249,6 +1249,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public IWriteToOutput OpenFileInVisualStudioRelativePath(ConnectionData connectionData, string filePath)
         {
+            return OpenFileInVisualStudioRelativePath(connectionData, filePath, out _);
+        }
+
+        public IWriteToOutput OpenFileInVisualStudioRelativePath(ConnectionData connectionData, string filePath, out bool success)
+        {
+            success = false;
+
             if (ApplicationObject == null || string.IsNullOrEmpty(filePath))
             {
                 return this;
@@ -1277,6 +1284,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             ApplicationObject.ItemOperations.OpenFile(filePath);
             ApplicationObject.MainWindow.Activate();
+
+            success = true;
 
             return this;
         }

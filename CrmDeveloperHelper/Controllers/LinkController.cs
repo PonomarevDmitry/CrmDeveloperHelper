@@ -544,7 +544,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     , commonConfig
                     , (int)ComponentType.WebResource
                     , webresource.Id
-                    , null);
+                    , null
+                );
             }
             else if (actionOnComponent == ActionOnComponent.OpenSolutionsListWithComponentInExplorer)
             {

@@ -128,7 +128,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
             string nameCompletionSet = $"WebResource - {fieldName}";
 
-            completionSets.Add(new CrmCompletionSet(SourceNameMonikerWebResourcesText, nameCompletionSet, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
+            completionSets.Add(new CrmCompletionSet(SourceNameMonikerSingleWebResourceAttribute, nameCompletionSet, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
         }
 
         private void FillEntityAttributesInWebResourceDependencyXml(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, ConnectionIntellisenseDataRepository repositoryEntities, XElement currentXmlNode)

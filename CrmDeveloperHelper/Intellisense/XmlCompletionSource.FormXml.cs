@@ -77,7 +77,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 list.Add(CreateCompletion(libraryName, libraryName, string.Empty, _defaultGlyph, Enumerable.Empty<string>()));
             }
 
-            completionSets.Add(new CrmCompletionSet(SourceNameMonikerWebResourcesText, nameCompletionSet, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
+            completionSets.Add(new CrmCompletionSet(SourceNameMonikerFormXmlLibraries, nameCompletionSet, applicableTo, list, Enumerable.Empty<CrmCompletion>()));
         }
     }
 }
