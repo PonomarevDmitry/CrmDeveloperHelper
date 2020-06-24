@@ -91,15 +91,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
         {
             var selectedFiles = helper.GetSelectedFilesFromListForPublish().ToList();
 
+            var crmConfig = ConnectionConfiguration.Get();
+
+            var connectionData = crmConfig.CurrentConnectionData;
+
             if (selectedFiles.Any())
             {
-                helper.ShowListForPublish(null);
+                helper.ShowListForPublish(connectionData);
 
                 helper.HandleWebResourceOpenFilesCommand(selectedFiles, _openFilesType, _inTextEditor);
             }
             else
             {
-                helper.WriteToOutput(null, Properties.OutputStrings.PublishListIsEmpty);
+                helper.WriteToOutput(connectionData, Properties.OutputStrings.PublishListIsEmpty);
             }
         }
 
