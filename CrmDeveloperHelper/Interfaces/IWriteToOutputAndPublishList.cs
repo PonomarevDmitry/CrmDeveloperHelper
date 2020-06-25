@@ -14,5 +14,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
         /// <param name="selectedFiles"></param>
         /// <returns></returns>
         IWriteToOutputAndPublishList AddToListForPublish(ConnectionData connectionData, IEnumerable<SelectedFile> selectedFiles);
+
+        /// <summary>
+        /// <see cref="Helpers.DTEHelper.RemoveFromListForPublish(ConnectionData, List{SelectedFile})"/>
+        /// </summary>
+        /// <param name="connectionData"></param>
+        /// <param name="selectedFiles"></param>
+        /// <returns></returns>
+        IWriteToOutputAndPublishList RemoveFromListForPublish(ConnectionData connectionData, List<SelectedFile> selectedFiles);
     }
 }

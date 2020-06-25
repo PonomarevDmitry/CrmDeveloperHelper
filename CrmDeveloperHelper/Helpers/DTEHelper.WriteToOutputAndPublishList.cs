@@ -190,7 +190,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return this.WriteToOutput(connectionData, OutputStrings.StartOperationFormat2
                 , message
                 , DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)
-                );
+            );
         }
 
         public string WriteToOutputEndOperation(ConnectionData connectionData, string format, params object[] args)
@@ -205,7 +205,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var result = this.WriteToOutput(connectionData, OutputStrings.EndOperationFormat2
                 , message
                 , DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)
-                );
+            );
 
             this.WriteToOutput(connectionData, string.Empty);
 
@@ -618,31 +618,46 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteToOutput(connectionData, string.Empty);
 
-            var tableAlreadyInPublishList = new FormatTextTableHandler(nameof(SelectedFile.FileName), nameof(SelectedFile.FriendlyFilePath));
+            var tableAlreadyInPublishList = new FormatTextTableHandler(nameof(SelectedFile.FileName), nameof(SelectedFile.FriendlyFilePath), "Open in VisualStudio", "Open File in TextEditor");
+            var tableAddedInPublishList = new FormatTextTableHandler(nameof(SelectedFile.FileName), nameof(SelectedFile.FriendlyFilePath), "Open in VisualStudio", "Open File in TextEditor");
 
-            var tableAddedInPublishList = new FormatTextTableHandler(nameof(SelectedFile.FileName), nameof(SelectedFile.FriendlyFilePath));
+            var commonConfig = CommonConfiguration.Get();
 
-            foreach (SelectedFile selectedFile in selectedFiles.OrderBy(f => f.FriendlyFilePath).ThenBy(f => f.FileName))
+            var existTextEditor = File.Exists(commonConfig.TextEditorProgram);
+
+            foreach (var selectedFile in selectedFiles.OrderBy(f => f.FriendlyFilePath).ThenBy(f => f.FileName))
             {
-                if (!string.IsNullOrEmpty(selectedFile.FilePath))
+                if (string.IsNullOrEmpty(selectedFile.FilePath))
                 {
-                    if (File.Exists(selectedFile.FilePath))
-                    {
-                        if (!_ListForPublish.Contains(selectedFile.FilePath))
-                        {
-                            _ListForPublish.Add(selectedFile.FilePath);
+                    continue;
+                }
 
-                            tableAddedInPublishList.AddLine(selectedFile.FileName, selectedFile.FriendlyFilePath);
-                        }
-                        else
-                        {
-                            tableAlreadyInPublishList.AddLine(selectedFile.FileName, selectedFile.FriendlyFilePath);
-                        }
-                    }
-                    else
-                    {
-                        WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FriendlyFilePath);
-                    }
+                if (!File.Exists(selectedFile.FilePath))
+                {
+                    WriteToOutput(connectionData, OutputStrings.FileNotExistsFormat1, selectedFile.FriendlyFilePath);
+                    continue;
+                }
+
+                var uriFile = new Uri(selectedFile.FilePath, UriKind.Absolute).AbsoluteUri;
+                var uriFileOpenInVisualStudio = uriFile.Replace("file:", $"{UrlCommandFilter.PrefixOpenInVisualStudio}:");
+
+                var lines = new List<string>() { selectedFile.FileName, selectedFile.FriendlyFilePath, uriFileOpenInVisualStudio };
+
+                if (existTextEditor)
+                {
+                    var uriFileOpenInTextEditor = uriFile.Replace("file:", $"{UrlCommandFilter.PrefixOpenInTextEditor}:");
+                    lines.Add(uriFileOpenInTextEditor);
+                }
+
+                if (!_ListForPublish.Contains(selectedFile.FilePath))
+                {
+                    _ListForPublish.Add(selectedFile.FilePath);
+
+                    tableAddedInPublishList.AddLine(lines);
+                }
+                else
+                {
+                    tableAlreadyInPublishList.AddLine(lines);
                 }
             }
 
@@ -650,14 +665,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (tableAlreadyInPublishList.Count > 0)
             {
-                WriteToOutput(connectionData, Properties.OutputStrings.FilesAlreadyInPublishListFormat1, tableAlreadyInPublishList.Count);
+                WriteToOutput(connectionData, OutputStrings.FilesAlreadyInPublishListFormat1, tableAlreadyInPublishList.Count);
 
                 tableAlreadyInPublishList.GetFormatedLines(false).ForEach(s => WriteToOutput(connectionData, _tabSpacer + s));
             }
 
             if (tableAddedInPublishList.Count > 0)
             {
-                WriteToOutput(connectionData, Properties.OutputStrings.AddedInPublishListFormat1, tableAddedInPublishList.Count);
+                WriteToOutput(connectionData, OutputStrings.AddedInPublishListFormat1, tableAddedInPublishList.Count);
 
                 tableAddedInPublishList.GetFormatedLines(false).ForEach(s => WriteToOutput(connectionData, _tabSpacer + s));
             }
@@ -665,7 +680,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return this;
         }
 
-        public IWriteToOutput RemoveFromListForPublish(ConnectionData connectionData, List<SelectedFile> selectedFiles)
+        public IWriteToOutputAndPublishList RemoveFromListForPublish(ConnectionData connectionData, List<SelectedFile> selectedFiles)
         {
             if (connectionData == null)
             {
@@ -681,21 +696,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteToOutput(connectionData, string.Empty);
 
-            var tableNotInPublishList = new FormatTextTableHandler(nameof(SelectedFile.FileName), nameof(SelectedFile.FriendlyFilePath));
+            var tableNotInPublishList = new FormatTextTableHandler(nameof(SelectedFile.FileName), nameof(SelectedFile.FriendlyFilePath), "Open in VisualStudio", "Open File in TextEditor");
 
-            var tableRemovedFromPublishList = new FormatTextTableHandler(nameof(SelectedFile.FileName), nameof(SelectedFile.FriendlyFilePath));
+            var tableRemovedFromPublishList = new FormatTextTableHandler(nameof(SelectedFile.FileName), nameof(SelectedFile.FriendlyFilePath), "Open in VisualStudio", "Open File in TextEditor");
 
-            foreach (SelectedFile selectedFile in selectedFiles.OrderBy(f => f.FriendlyFilePath).ThenBy(f => f.FileName))
+            var commonConfig = CommonConfiguration.Get();
+
+            var existTextEditor = File.Exists(commonConfig.TextEditorProgram);
+
+            foreach (var selectedFile in selectedFiles.OrderBy(f => f.FriendlyFilePath).ThenBy(f => f.FileName))
             {
+                var uriFile = new Uri(selectedFile.FilePath, UriKind.Absolute).AbsoluteUri;
+                var uriFileOpenInVisualStudio = uriFile.Replace("file:", $"{UrlCommandFilter.PrefixOpenInVisualStudio}:");
+
+                var lines = new List<string>() { selectedFile.FileName, selectedFile.FriendlyFilePath, uriFileOpenInVisualStudio };
+
+                if (existTextEditor)
+                {
+                    var uriFileOpenInTextEditor = uriFile.Replace("file:", $"{UrlCommandFilter.PrefixOpenInTextEditor}:");
+                    lines.Add(uriFileOpenInTextEditor);
+                }
+
                 if (_ListForPublish.Contains(selectedFile.FilePath))
                 {
                     _ListForPublish.Remove(selectedFile.FilePath);
 
-                    tableRemovedFromPublishList.AddLine(selectedFile.FileName, selectedFile.FriendlyFilePath);
+                    tableRemovedFromPublishList.AddLine(lines);
                 }
                 else
                 {
-                    tableNotInPublishList.AddLine(selectedFile.FileName, selectedFile.FriendlyFilePath);
+                    tableNotInPublishList.AddLine(lines);
                 }
             }
 
@@ -703,14 +733,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (tableNotInPublishList.Count > 0)
             {
-                WriteToOutput(connectionData, Properties.OutputStrings.FilesNotInPublishListFormat1, tableNotInPublishList.Count);
+                WriteToOutput(connectionData, OutputStrings.FilesNotInPublishListFormat1, tableNotInPublishList.Count);
 
                 tableNotInPublishList.GetFormatedLines(false).ForEach(s => WriteToOutput(connectionData, _tabSpacer + s));
             }
 
             if (tableRemovedFromPublishList.Count > 0)
             {
-                WriteToOutput(connectionData, Properties.OutputStrings.RemovedFromPublishListFormat1, tableRemovedFromPublishList.Count);
+                WriteToOutput(connectionData, OutputStrings.RemovedFromPublishListFormat1, tableRemovedFromPublishList.Count);
 
                 tableRemovedFromPublishList.GetFormatedLines(false).ForEach(s => WriteToOutput(connectionData, _tabSpacer + s));
             }
@@ -751,21 +781,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteToOutput(connectionData, string.Empty);
 
-            if (_ListForPublish.Count > 0)
+            if (!_ListForPublish.Any())
             {
-                WriteToOutput(connectionData, "Publish List: {0}", _ListForPublish.Count.ToString());
+                WriteToOutput(connectionData, OutputStrings.PublishListIsEmpty);
+                return this;
+            }
 
-                string solutionDirectoryPath = GetSolutionDirectory();
+            var commonConfig = CommonConfiguration.Get();
 
-                foreach (var path in _ListForPublish.OrderBy(s => s))
+            var existTextEditor = File.Exists(commonConfig.TextEditorProgram);
+
+            var tableInPublishList = new FormatTextTableHandler(nameof(SelectedFile.FileName), nameof(SelectedFile.FriendlyFilePath), "Open in VisualStudio", "Open File in TextEditor");
+
+            string solutionDirectoryPath = GetSolutionDirectory();
+
+            foreach (var filePath in _ListForPublish.OrderBy(s => s))
+            {
+                var uriFile = new Uri(filePath, UriKind.Absolute).AbsoluteUri;
+                var uriFileOpenInVisualStudio = uriFile.Replace("file:", $"{UrlCommandFilter.PrefixOpenInVisualStudio}:");
+                var uriFileOpenInTextEditor = uriFile.Replace("file:", $"{UrlCommandFilter.PrefixOpenInTextEditor}:");
+
+                var lines = new List<string>() { Path.GetFileName(filePath), SelectedFile.GetFriendlyPath(filePath, solutionDirectoryPath), uriFileOpenInVisualStudio };
+
+                if (existTextEditor)
                 {
-                    WriteToOutput(connectionData, SelectedFile.GetFriendlyPath(path, solutionDirectoryPath));
+                    lines.Add(uriFileOpenInTextEditor);
                 }
+
+                tableInPublishList.AddLine(lines);
             }
-            else
-            {
-                WriteToOutput(connectionData, Properties.OutputStrings.PublishListIsEmpty);
-            }
+
+            WriteToOutput(connectionData, "Publish List: {0}", _ListForPublish.Count.ToString());
+
+            tableInPublishList.GetFormatedLines(false).ForEach(s => WriteToOutput(connectionData, _tabSpacer + s));
 
             return this;
         }
