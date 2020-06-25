@@ -821,6 +821,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             ListForPublishPerformUpdateEqualByTextContentIncludeReferencesPublishInConnectionGroupCommand.Initialize,
 
             ListForPublishPerformIncludeReferencesToDependencyXmlInConnectionGroupCommand.Initialize,
+            ListForPublishPerformIncludeReferencesToLinkedSystemFormInConnectionGroupCommand.Initialize,
 
             ListForPublishShowListCommand.Initialize,
 

@@ -1739,6 +1739,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int listForPublishMenu_GroupIncludeReferences_MenuDyn_Group = 0x14FB;
 
+            public const int listForPublishMenu_GroupIncludeReferencesToLinkedSystemFormLibraries = 0x14FC;
+
+            public const int listForPublishMenu_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuDyn = 0x14FD;
+
+            public const int listForPublishMenu_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuDyn_Group = 0x14FE;
+
             public const int listForPublishMenu_GroupOpenMultiAdd = 0x10A3;
 
             public const int listForPublishMenu_GroupOpenMultiAdd_MenuOpen = 0x10A4;
@@ -2935,6 +2941,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int ListForPublishCompareWithDetailsInConnectionGroupCommandId = 0x12F2;
 
             public const int ListForPublishPerformIncludeReferencesToDependencyXmlInConnectionGroupCommandId = 0x40A6;
+
+            public const int ListForPublishPerformIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId = 0x40D8;
 
             public const int ListForPublishAddToSolutionInConnectionCommandId = 0x1E78;
 

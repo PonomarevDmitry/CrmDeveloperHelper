@@ -785,6 +785,9 @@
       <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupIncludeReferences" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupIncludeReferences_MenuDyn_Group" priority="0x06000" />
 
+      <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupIncludeReferencesToLinkedSystemFormLibraries" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuDyn_Group" priority="0x06000" />
+
       <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuOpen_GroupByText" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuOpen_GroupWithChanges" priority="0x06000" />
@@ -3612,6 +3615,16 @@
         </Strings>
       </Menu>
 
+      <Menu guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuDyn" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Include References to Linked SystemForms Libraries in Connection Group</ButtonText>
+          <MenuText>Include References to Linked SystemForms Libraries in Connection Group</MenuText>
+        </Strings>
+      </Menu>
+
+
+      
       <!-- #endregion listForPublishMenu -->
 
 
@@ -10856,6 +10869,18 @@
         </Strings>
       </Button>
 
+      <Button guid="guidDynamicCommandSet" id="ListForPublishPerformIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>ListForPublishPerformIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+
       <!-- #endregion ListForPublish -->
 
 
@@ -17925,19 +17950,22 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupIncludeReferences" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupAddToSolution" priority="0x06030">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupIncludeReferencesToLinkedSystemFormLibraries" priority="0x06030">
       <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupShowList" priority="0x06040">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupAddToSolution" priority="0x06040">
       <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupAddRemoveFiles" priority="0x06050">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupShowList" priority="0x06050">
       <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupClearList" priority="0x06060">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupAddRemoveFiles" priority="0x06060">
       <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupPerformPublishList" priority="0x06070">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupClearList" priority="0x06070">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupPerformPublishList" priority="0x06080">
       <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu" />
     </CommandPlacement>
 
@@ -18175,9 +18203,18 @@
     <!-- #endregion listForPublishMenu_GroupIncludeReferences -->
 
 
+    <!-- #region listForPublishMenu_GroupIncludeReferencesToLinkedSystemFormLibraries -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuDyn" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupIncludeReferencesToLinkedSystemFormLibraries" />
+    </CommandPlacement>
+
+    <!-- #endregion listForPublishMenu_GroupIncludeReferencesToLinkedSystemFormLibraries -->
+
 
 
     
+
 
     <!-- #region listForPublishMenu_GroupShowList -->
 
@@ -19704,8 +19741,16 @@
     <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishPerformIncludeReferencesToDependencyXmlInConnectionGroupCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupIncludeReferences_MenuDyn_Group" />
     </CommandPlacement>
-    
 
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishPerformIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuDyn_Group" />
+    </CommandPlacement>
+
+    
     <!-- #endregion ListForPublish Dynamic -->
 
 
@@ -24162,6 +24207,10 @@
       <IDSymbol name="listForPublishMenu_GroupIncludeReferences" value="0x14F9" />
       <IDSymbol name="listForPublishMenu_GroupIncludeReferences_MenuDyn" value="0x14FA" />
       <IDSymbol name="listForPublishMenu_GroupIncludeReferences_MenuDyn_Group" value="0x14FB" />
+      
+      <IDSymbol name="listForPublishMenu_GroupIncludeReferencesToLinkedSystemFormLibraries" value="0x14FC" />
+      <IDSymbol name="listForPublishMenu_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuDyn" value="0x14FD" />
+      <IDSymbol name="listForPublishMenu_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuDyn_Group" value="0x14FE" />
 
       <IDSymbol name="listForPublishMenu_GroupOpenMultiAdd" value="0x10A3" />
 
@@ -25183,6 +25232,8 @@
 
       <IDSymbol name="ListForPublishPerformIncludeReferencesToDependencyXmlInConnectionGroupCommandId" value="16550" />
 
+      <IDSymbol name="ListForPublishPerformIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId" value="16600" />
+
       <IDSymbol name="ListForPublishAddToSolutionInConnectionCommandId" value="7800" />
 
       <!-- #endregion ListForPublish -->
@@ -26083,13 +26134,13 @@
 
 
     <!-- Groups and Menus -->
-    <!-- 0x14FC -->
+    <!-- 0x14FF -->
 
     <!-- Commands -->
     <!-- 0x2267 -->
 
     <!-- Dynamic Commands -->
-    <!-- 16600 -->
+    <!-- 16650 -->
 
   </Symbols>
 

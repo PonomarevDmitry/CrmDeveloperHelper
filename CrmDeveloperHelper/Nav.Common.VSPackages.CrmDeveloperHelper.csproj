@@ -209,6 +209,7 @@
     <Compile Include="Commands\ListForPublish\ListForPublishMultiDifferenceCommand.cs" />
     <Compile Include="Commands\ListForPublish\ListForPublishOpenFilesCommand.cs" />
     <Compile Include="Commands\ListForPublish\ListForPublishPerformIncludeReferencesToDependencyXmlInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\ListForPublish\ListForPublishPerformIncludeReferencesToLinkedSystemFormInConnectionGroupCommand.cs" />
     <Compile Include="Commands\ListForPublish\ListForPublishPerformUpdateContentIncludeReferencesPublishInConnectionGroupCommand.cs" />
     <Compile Include="Commands\ListForPublish\ListForPublishPerformUpdateEqualByTextContentIncludeReferencesPublishInConnectionGroupCommand.cs" />
     <Compile Include="Commands\OutputWindows\Checks\OutputCheckUnknownFormControlTypes.cs" />
