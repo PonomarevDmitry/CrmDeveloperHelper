@@ -435,70 +435,75 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             foreach (var selectedFile in selectedFiles)
             {
-                if (File.Exists(selectedFile.FilePath))
+                if (!File.Exists(selectedFile.FilePath))
                 {
-                    var arrayFile = File.ReadAllBytes(selectedFile.FilePath);
+                    listNotExistsOnDisk.Add(selectedFile.FilePath);
+                    continue;
+                }
 
-                    var encodings = ContentComparerHelper.GetFileEncoding(arrayFile);
+                if (!FileOperations.SupportsWebResourceTextType(selectedFile.FilePath))
+                {
+                    continue;
+                }
 
-                    if (encodings.Count > 0)
+                var arrayFile = File.ReadAllBytes(selectedFile.FilePath);
+
+                var encodings = ContentComparerHelper.GetFileEncoding(arrayFile);
+
+                if (encodings.Count > 0)
+                {
+                    if (encodings.Count == 1)
                     {
-                        if (encodings.Count == 1)
+                        if (encodings[0].CodePage == Encoding.UTF8.CodePage)
                         {
-                            if (encodings[0].CodePage == Encoding.UTF8.CodePage)
-                            {
-                                countWithUTF8Encoding++;
-                            }
-                            else
-                            {
-                                listWrongEncoding.Add(string.Format(Properties.OutputStrings.FileHasEncodingFormat2, selectedFile.FriendlyFilePath, encodings[0].EncodingName));
-
-                                filesWithoutUTF8Encoding.Add(selectedFile);
-                            }
+                            countWithUTF8Encoding++;
                         }
                         else
                         {
+                            listWrongEncoding.Add(string.Format(Properties.OutputStrings.FileHasEncodingFormat2, selectedFile.FriendlyFilePath, encodings[0].EncodingName));
+
                             filesWithoutUTF8Encoding.Add(selectedFile);
-
-                            bool hasUTF8 = false;
-
-                            StringBuilder str = new StringBuilder();
-
-                            foreach (var enc in encodings)
-                            {
-                                if (enc.CodePage == Encoding.UTF8.CodePage)
-                                {
-                                    hasUTF8 = true;
-                                }
-
-                                if (str.Length > 0)
-                                {
-                                    str.Append(", ");
-                                    str.Append(enc.EncodingName);
-                                }
-                            }
-
-                            if (hasUTF8)
-                            {
-                                listMultipleEncodingHasUTF8.Add(string.Format(Properties.OutputStrings.FileHasEncodingFormat2, selectedFile.FriendlyFilePath, str.ToString()));
-                            }
-                            else
-                            {
-                                listMultipleEncodingHasNotUTF8.Add(string.Format(Properties.OutputStrings.FileHasEncodingFormat2, selectedFile.FriendlyFilePath, str.ToString()));
-                            }
                         }
                     }
                     else
                     {
-                        listNotHaveBOM.Add(selectedFile.FriendlyFilePath);
-
                         filesWithoutUTF8Encoding.Add(selectedFile);
+
+                        bool hasUTF8 = false;
+
+                        StringBuilder str = new StringBuilder();
+
+                        foreach (var enc in encodings)
+                        {
+                            if (enc.CodePage == Encoding.UTF8.CodePage)
+                            {
+                                hasUTF8 = true;
+                            }
+
+                            if (str.Length > 0)
+                            {
+                                str.Append(", ");
+                                str.Append(enc.EncodingName);
+                            }
+                        }
+
+                        if (hasUTF8)
+                        {
+                            listMultipleEncodingHasUTF8.Add(string.Format(Properties.OutputStrings.FileHasEncodingFormat2, selectedFile.FriendlyFilePath, str.ToString()));
+                        }
+                        else
+                        {
+                            listMultipleEncodingHasNotUTF8.Add(string.Format(Properties.OutputStrings.FileHasEncodingFormat2, selectedFile.FriendlyFilePath, str.ToString()));
+                        }
                     }
                 }
                 else
                 {
-                    listNotExistsOnDisk.Add(selectedFile.FilePath);
+                    listNotHaveBOM.Add(selectedFile.FriendlyFilePath);
+
+                    filesWithoutUTF8Encoding.Add(selectedFile);
                 }
+
             }
 
             if (listNotHaveBOM.Count > 0)
