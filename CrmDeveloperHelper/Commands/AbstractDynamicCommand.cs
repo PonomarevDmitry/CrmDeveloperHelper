@@ -10,6 +10,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
     internal abstract class AbstractDynamicCommand<T> : AbstractCommand
     {
         protected readonly int _baseIdStart;
+        protected readonly int _commandsCount;
 
         protected AbstractDynamicCommand(
             OleMenuCommandService commandService
@@ -18,6 +19,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
         )
         {
             this._baseIdStart = baseIdStart;
+            this._commandsCount = commandsCount;
 
             for (int i = 0; i < commandsCount; i++)
             {
@@ -55,7 +57,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     if (0 <= index && index < elementsList.Count)
                     {
-                        var element = elementsList.ElementAt(index);
+                        var element = elementsList[index];
 
                         menuCommand.Text = GetElementName(element);
 
@@ -95,7 +97,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                 if (0 <= index && index < elementsList.Count)
                 {
-                    var element = elementsList.ElementAt(index);
+                    var element = elementsList[index];
 
                     var helper = DTEHelper.Create(applicationObject);
 
@@ -108,7 +110,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             }
         }
 
-        protected abstract ICollection<T> GetElementSourceCollection();
+        protected abstract IList<T> GetElementSourceCollection();
 
         protected abstract string GetElementName(T element);
 

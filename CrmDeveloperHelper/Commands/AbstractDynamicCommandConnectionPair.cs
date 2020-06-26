@@ -15,7 +15,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             this._formatButtonName = formatButtonName;
         }
 
-        protected override ICollection<Tuple<ConnectionData, ConnectionData>> GetElementSourceCollection()
+        protected override IList<Tuple<ConnectionData, ConnectionData>> GetElementSourceCollection()
         {
             var connectionConfig = ConnectionConfiguration.Get();
 

@@ -373,14 +373,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Сравнение файлов и веб-ресурсов по разным параметрам.
 
-        public async Task ExecuteWebResourceMultiDifferenceFiles(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, OpenFilesType openFilesType)
+        public async Task ExecuteWebResourceMultiDifferenceFiles(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, OpenFilesType openFilesType)
         {
             await CheckEncodingConnectFindWebResourceExecuteActionTaskAsync(connectionData
                 , Properties.OperationNames.MultiDifferenceFormat2
                 , selectedFiles
                 , openFilesType
                 , MultiDifferenceFiles
-                , openFilesType.ToString()
+                , EnumDescriptionTypeConverter.GetEnumNameByDescriptionAttribute(openFilesType)
             );
         }
 

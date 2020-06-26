@@ -617,9 +617,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleWebResourceMultiDifferenceFiles(List<SelectedFile> selectedFiles, OpenFilesType openFilesType)
+        public void HandleWebResourceMultiDifferenceFiles(IEnumerable<SelectedFile> selectedFiles, OpenFilesType openFilesType)
         {
-            if (selectedFiles.Count == 0)
+            if (!selectedFiles.Any())
             {
                 return;
             }

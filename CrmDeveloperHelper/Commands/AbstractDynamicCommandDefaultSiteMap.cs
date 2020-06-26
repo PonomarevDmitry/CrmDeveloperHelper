@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
@@ -30,7 +31,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         }
 
-        protected override ICollection<string> GetElementSourceCollection()
+        protected override IList<string> GetElementSourceCollection()
         {
             return ListDefaultSiteMaps;
         }

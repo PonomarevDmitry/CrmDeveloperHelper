@@ -81,7 +81,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
         {
         }
 
-        protected override ICollection<Tuple<string, string[]>> GetElementSourceCollection()
+        protected override IList<Tuple<string, string[]>> GetElementSourceCollection()
         {
             return ListXsdSchemas;
         }

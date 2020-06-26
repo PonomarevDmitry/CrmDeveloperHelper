@@ -6827,95 +6827,40 @@
           <ButtonText>Clear Link</ButtonText>
         </Strings>
       </Button>
+      
+      <Button guid="guidDynamicCommandSet" id="DocumentsWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>DocumentsWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
 
-      <Button guid="guidCommandSet" id="DocumentsWebResourceMultiDifferenceFilesNotEqualByTextCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicCommandSet" id="DocumentsWebResourceMultiDifferenceFilesWithChangesCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Not Equal by text</ButtonText>
+          <ButtonText>DocumentsWebResourceMultiDifferenceFilesWithChangesCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="DocumentsWebResourceMultiDifferenceFilesNotExistsInCrmWithLinkCommandId" priority="0x06000" type="Button">
+      
+      <Button guid="guidDynamicCommandSet" id="DocumentsWebResourceMultiDifferenceFilesWithMirrorCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Not Exists in Crm without Link</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="DocumentsWebResourceMultiDifferenceFilesEqualByTextCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>Equal by text</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="DocumentsWebResourceMultiDifferenceFilesWithInsertsCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>With Inserts</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="DocumentsWebResourceMultiDifferenceFilesWithDeletesCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>With Deletes</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="DocumentsWebResourceMultiDifferenceFilesWithComplexCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>With Complex Changes</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="DocumentsWebResourceMultiDifferenceFilesWithMirrorCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>Mirror Changes</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="DocumentsWebResourceMultiDifferenceFilesWithMirrorInsertsCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>Mirror with Inserts</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="DocumentsWebResourceMultiDifferenceFilesWithMirrorDeletesCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>Mirror with Deletes</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="DocumentsWebResourceMultiDifferenceFilesWithMirrorComplexCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>Mirror with Complex Changes</ButtonText>
+          <ButtonText>DocumentsWebResourceMultiDifferenceFilesWithMirrorCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -8039,94 +7984,37 @@
       </Button>
 
 
-      <Button guid="guidCommandSet" id="FileWebResourceMultiDifferenceFilesNotEqualByTextCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicCommandSet" id="FileWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Not Equal by text</ButtonText>
+          <ButtonText>FileWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="FileWebResourceMultiDifferenceFilesNotExistsInCrmWithLinkCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicCommandSet" id="FileWebResourceMultiDifferenceFilesWithChangesCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Not Exists in Crm without Link</ButtonText>
+          <ButtonText>FileWebResourceMultiDifferenceFilesWithChangesCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="FileWebResourceMultiDifferenceFilesEqualByTextCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicCommandSet" id="FileWebResourceMultiDifferenceFilesWithMirrorCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Equal by text</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="FileWebResourceMultiDifferenceFilesWithInsertsCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>With Inserts</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="FileWebResourceMultiDifferenceFilesWithDeletesCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>With Deletes</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="FileWebResourceMultiDifferenceFilesWithComplexCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>With Complex Changes</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="FileWebResourceMultiDifferenceFilesWithMirrorCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>Mirror Changes</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="FileWebResourceMultiDifferenceFilesWithMirrorInsertsCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>Mirror with Inserts</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="FileWebResourceMultiDifferenceFilesWithMirrorDeletesCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>Mirror with Deletes</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="FileWebResourceMultiDifferenceFilesWithMirrorComplexCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>Mirror with Complex Changes</ButtonText>
+          <ButtonText>FileWebResourceMultiDifferenceFilesWithMirrorCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -9467,97 +9355,39 @@
       </Button>
 
 
-      <Button guid="guidCommandSet" id="FolderWebResourceMultiDifferenceFilesNotEqualByTextCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicCommandSet" id="FolderWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Not Equal by text</ButtonText>
+          <ButtonText>FolderWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="FolderWebResourceMultiDifferenceFilesNotExistsInCrmWithLinkCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicCommandSet" id="FolderWebResourceMultiDifferenceFilesWithChangesCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Not Exists in Crm without Link</ButtonText>
+          <ButtonText>FolderWebResourceMultiDifferenceFilesWithChangesCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="FolderWebResourceMultiDifferenceFilesEqualByTextCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicCommandSet" id="FolderWebResourceMultiDifferenceFilesWithMirrorCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Equal by text</ButtonText>
+          <ButtonText>FolderWebResourceMultiDifferenceFilesWithMirrorCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="FolderWebResourceMultiDifferenceFilesWithInsertsCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>With Inserts</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="FolderWebResourceMultiDifferenceFilesWithDeletesCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>With Deletes</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="FolderWebResourceMultiDifferenceFilesWithComplexCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>With Complex Changes</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="FolderWebResourceMultiDifferenceFilesWithMirrorCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>Mirror Changes</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="FolderWebResourceMultiDifferenceFilesWithMirrorInsertsCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>Mirror with Inserts</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="FolderWebResourceMultiDifferenceFilesWithMirrorDeletesCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>Mirror with Deletes</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="FolderWebResourceMultiDifferenceFilesWithMirrorComplexCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>Mirror with Complex Changes</ButtonText>
-        </Strings>
-      </Button>
-
 
       <Button guid="guidCommandSet" id="FolderWebResourceAddIntoPublishListFilesAllCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -10654,94 +10484,37 @@
       </Button>
 
 
-      <Button guid="guidCommandSet" id="ListForPublishMultiDifferenceFilesNotEqualByTextCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicCommandSet" id="ListForPublishMultiDifferenceFilesExistsOrHasLinkCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Not Equal by text</ButtonText>
+          <ButtonText>ListForPublishMultiDifferenceFilesExistsOrHasLinkCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="ListForPublishMultiDifferenceFilesNotExistsInCrmWithLinkCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicCommandSet" id="ListForPublishMultiDifferenceFilesWithChangesCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Not Exists in Crm without Link</ButtonText>
+          <ButtonText>ListForPublishMultiDifferenceFilesWithChangesCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="ListForPublishMultiDifferenceFilesEqualByTextCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicCommandSet" id="ListForPublishMultiDifferenceFilesWithMirrorCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Equal by text</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="ListForPublishMultiDifferenceFilesWithInsertsCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>With Inserts</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="ListForPublishMultiDifferenceFilesWithDeletesCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>With Deletes</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="ListForPublishMultiDifferenceFilesWithComplexCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>With Complex Changes</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="ListForPublishMultiDifferenceFilesWithMirrorCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>Mirror Changes</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="ListForPublishMultiDifferenceFilesWithMirrorInsertsCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>Mirror with Inserts</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="ListForPublishMultiDifferenceFilesWithMirrorDeletesCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>Mirror with Deletes</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="ListForPublishMultiDifferenceFilesWithMirrorComplexCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>Mirror with Complex Changes</ButtonText>
+          <ButtonText>ListForPublishMultiDifferenceFilesWithMirrorCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -15419,62 +15192,17 @@
 
     <!-- #region documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" priority="0x060B">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" priority="0x060C">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" priority="0x060D">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference" />
     </CommandPlacement>
 
     <!-- #endregion documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference -->
-
-    <!-- #region documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText -->
-
-    <CommandPlacement guid="guidCommandSet" id="DocumentsWebResourceMultiDifferenceFilesNotEqualByTextCommandId" priority="0x010A">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="DocumentsWebResourceMultiDifferenceFilesNotExistsInCrmWithLinkCommandId" priority="0x010B">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="DocumentsWebResourceMultiDifferenceFilesEqualByTextCommandId" priority="0x010C">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" />
-    </CommandPlacement>
-
-    <!-- #endregion documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText -->
-
-    <!-- #region documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges -->
-
-    <CommandPlacement guid="guidCommandSet" id="DocumentsWebResourceMultiDifferenceFilesWithInsertsCommandId" priority="0x010C">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="DocumentsWebResourceMultiDifferenceFilesWithDeletesCommandId" priority="0x010D">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="DocumentsWebResourceMultiDifferenceFilesWithComplexCommandId" priority="0x010E">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" />
-    </CommandPlacement>
-
-    <!-- #endregion documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges -->
-
-    <!-- #region documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges -->
-
-    <CommandPlacement guid="guidCommandSet" id="DocumentsWebResourceMultiDifferenceFilesWithMirrorCommandId" priority="0x010F">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="DocumentsWebResourceMultiDifferenceFilesWithMirrorInsertsCommandId" priority="0x0110">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="DocumentsWebResourceMultiDifferenceFilesWithMirrorDeletesCommandId" priority="0x0111">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="DocumentsWebResourceMultiDifferenceFilesWithMirrorComplexCommandId" priority="0x0112">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" />
-    </CommandPlacement>
-
-    <!-- #endregion documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges -->
 
 
     <!-- #region documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList -->
@@ -16220,51 +15948,6 @@
     </CommandPlacement>
 
     <!-- #endregion fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference -->
-
-    <!-- #region fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText -->
-
-    <CommandPlacement guid="guidCommandSet" id="FileWebResourceMultiDifferenceFilesNotEqualByTextCommandId" priority="0x010A">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileWebResourceMultiDifferenceFilesNotExistsInCrmWithLinkCommandId" priority="0x010B">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileWebResourceMultiDifferenceFilesEqualByTextCommandId" priority="0x010C">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" />
-    </CommandPlacement>
-
-    <!-- #endregion fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText -->
-
-    <!-- #region fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges -->
-
-    <CommandPlacement guid="guidCommandSet" id="FileWebResourceMultiDifferenceFilesWithInsertsCommandId" priority="0x010C">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileWebResourceMultiDifferenceFilesWithDeletesCommandId" priority="0x010D">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileWebResourceMultiDifferenceFilesWithComplexCommandId" priority="0x010E">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" />
-    </CommandPlacement>
-
-    <!-- #endregion fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges -->
-
-    <!-- #region fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges -->
-
-    <CommandPlacement guid="guidCommandSet" id="FileWebResourceMultiDifferenceFilesWithMirrorCommandId" priority="0x010F">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileWebResourceMultiDifferenceFilesWithMirrorInsertsCommandId" priority="0x0110">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileWebResourceMultiDifferenceFilesWithMirrorDeletesCommandId" priority="0x0111">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileWebResourceMultiDifferenceFilesWithMirrorComplexCommandId" priority="0x0112">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" />
-    </CommandPlacement>
-
-    <!-- #endregion fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges -->
 
 
     <!-- #region fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList -->
@@ -17263,51 +16946,6 @@
 
     <!-- #endregion folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference -->
 
-    <!-- #region folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText -->
-
-    <CommandPlacement guid="guidCommandSet" id="FolderWebResourceMultiDifferenceFilesNotEqualByTextCommandId" priority="0x010B">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FolderWebResourceMultiDifferenceFilesNotExistsInCrmWithLinkCommandId" priority="0x010C">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FolderWebResourceMultiDifferenceFilesEqualByTextCommandId" priority="0x010D">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" />
-    </CommandPlacement>
-
-    <!-- #endregion folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText -->
-
-    <!-- #region folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges -->
-
-    <CommandPlacement guid="guidCommandSet" id="FolderWebResourceMultiDifferenceFilesWithInsertsCommandId" priority="0x010D">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FolderWebResourceMultiDifferenceFilesWithDeletesCommandId" priority="0x010E">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FolderWebResourceMultiDifferenceFilesWithComplexCommandId" priority="0x010F">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" />
-    </CommandPlacement>
-
-    <!-- #endregion folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges -->
-
-    <!-- #region folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges -->
-
-    <CommandPlacement guid="guidCommandSet" id="FolderWebResourceMultiDifferenceFilesWithMirrorCommandId" priority="0x0110">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FolderWebResourceMultiDifferenceFilesWithMirrorInsertsCommandId" priority="0x0111">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FolderWebResourceMultiDifferenceFilesWithMirrorDeletesCommandId" priority="0x0112">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FolderWebResourceMultiDifferenceFilesWithMirrorComplexCommandId" priority="0x0113">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" />
-    </CommandPlacement>
-
-    <!-- #endregion folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges -->
-
 
     <!-- #region folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList -->
 
@@ -18131,48 +17769,6 @@
     </CommandPlacement>
 
     <!-- #endregion listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference -->
-
-    <!-- #region listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference_GroupByText -->
-
-    <CommandPlacement guid="guidCommandSet" id="ListForPublishMultiDifferenceFilesNotEqualByTextCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="ListForPublishMultiDifferenceFilesEqualByTextCommandId" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" />
-    </CommandPlacement>
-
-    <!-- #endregion listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference_GroupByText -->
-
-    <!-- #region listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges -->
-
-    <CommandPlacement guid="guidCommandSet" id="ListForPublishMultiDifferenceFilesWithInsertsCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="ListForPublishMultiDifferenceFilesWithDeletesCommandId" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="ListForPublishMultiDifferenceFilesWithComplexCommandId" priority="0x06020">
-      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" />
-    </CommandPlacement>
-
-    <!-- #endregion listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges -->
-
-    <!-- #region listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges -->
-
-    <CommandPlacement guid="guidCommandSet" id="ListForPublishMultiDifferenceFilesWithMirrorCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="ListForPublishMultiDifferenceFilesWithMirrorInsertsCommandId" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="ListForPublishMultiDifferenceFilesWithMirrorDeletesCommandId" priority="0x06020">
-      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="ListForPublishMultiDifferenceFilesWithMirrorComplexCommandId" priority="0x06030">
-      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" />
-    </CommandPlacement>
-
-    <!-- #endregion listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges -->
 
 
     <!-- #region listForPublishMenu_GroupCompareFile -->
@@ -19750,6 +19346,17 @@
       <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuDyn_Group" />
     </CommandPlacement>
 
+    <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishMultiDifferenceFilesExistsOrHasLinkCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" />
+    </CommandPlacement>
+    
+    <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishMultiDifferenceFilesWithChangesCommandId" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" />
+    </CommandPlacement>
+    
+    <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishMultiDifferenceFilesWithMirrorCommandId" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" />
+    </CommandPlacement>
     
     <!-- #endregion ListForPublish Dynamic -->
 
@@ -20847,6 +20454,18 @@
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupAddToSolution_MenuAddToSolution_GroupConnectionDyn" />
     </CommandPlacement>
 
+    <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceMultiDifferenceFilesWithChangesCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceMultiDifferenceFilesWithMirrorCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" />
+    </CommandPlacement>
+
     <!-- #endregion DocumentsWebResource Dynamic -->
 
     <!-- #region DocumentsJavaScript Dynamic -->
@@ -21172,6 +20791,16 @@
 
     <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceAddToSolutionInConnectionCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupAddToSolution_MenuAddToSolution_GroupConnectionDyn" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceMultiDifferenceFilesWithChangesCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceMultiDifferenceFilesWithMirrorCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" />
     </CommandPlacement>
 
     <!-- #endregion FileWebResource Dynamic -->
@@ -21519,6 +21148,18 @@
 
     <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceAddToSolutionInConnectionCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupAddToSolution_MenuAddToSolution_GroupConnectionDyn" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" />
+    </CommandPlacement>
+    
+    <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceMultiDifferenceFilesWithChangesCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" />
+    </CommandPlacement>
+    
+    <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceMultiDifferenceFilesWithMirrorCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" />
     </CommandPlacement>
 
     <!-- #endregion FolderWebResource Dynamic -->
@@ -24976,6 +24617,10 @@
       <IDSymbol name="DocumentsWebResourceCompareWithDetailsInConnectionGroupCommandId" value="4550" />
 
       <IDSymbol name="DocumentsWebResourceAddToSolutionInConnectionCommandId" value="7550" />
+      
+      <IDSymbol name="DocumentsWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId" value="16650" />
+      <IDSymbol name="DocumentsWebResourceMultiDifferenceFilesWithChangesCommandId" value="16655" />
+      <IDSymbol name="DocumentsWebResourceMultiDifferenceFilesWithMirrorCommandId" value="16660" />
 
       <!-- #endregion DocumentsWebResource -->
 
@@ -25062,6 +24707,9 @@
       <IDSymbol name="FileWebResourceGetAttributeContentJsonInConnectionCommandId" value="11700" />
       <IDSymbol name="FileWebResourceGetAttributeDependencyXmlInConnectionCommandId" value="11750" />
 
+      <IDSymbol name="FileWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId" value="16665" />
+      <IDSymbol name="FileWebResourceMultiDifferenceFilesWithChangesCommandId" value="16670" />
+      <IDSymbol name="FileWebResourceMultiDifferenceFilesWithMirrorCommandId" value="16675" />
 
       <!-- #endregion FileWebResource -->
 
@@ -25157,6 +24805,10 @@
 
       <IDSymbol name="FolderWebResourceAddToSolutionInConnectionCommandId" value="7750" />
 
+      <IDSymbol name="FolderWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId" value="16680" />
+      <IDSymbol name="FolderWebResourceMultiDifferenceFilesWithChangesCommandId" value="16685" />
+      <IDSymbol name="FolderWebResourceMultiDifferenceFilesWithMirrorCommandId" value="16690" />
+
       <!-- #endregion FolderWebResource -->
 
       <!-- #region FolderJavaScript -->
@@ -25235,6 +24887,10 @@
       <IDSymbol name="ListForPublishPerformIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId" value="16600" />
 
       <IDSymbol name="ListForPublishAddToSolutionInConnectionCommandId" value="7800" />
+
+      <IDSymbol name="ListForPublishMultiDifferenceFilesExistsOrHasLinkCommandId" value="16695" />
+      <IDSymbol name="ListForPublishMultiDifferenceFilesWithChangesCommandId" value="16700" />
+      <IDSymbol name="ListForPublishMultiDifferenceFilesWithMirrorCommandId" value="16705" />
 
       <!-- #endregion ListForPublish -->
 
@@ -25452,17 +25108,6 @@
       <IDSymbol name="DocumentsWebResourceLinkCreateCommandId" value="0x20E5" />
       <IDSymbol name="DocumentsWebResourceLinkClearCommandId" value="0x20E6" />
 
-      <IDSymbol name="DocumentsWebResourceMultiDifferenceFilesNotEqualByTextCommandId" value="0x20EA" />
-      <IDSymbol name="DocumentsWebResourceMultiDifferenceFilesNotExistsInCrmWithLinkCommandId" value="0x210C" />
-      <IDSymbol name="DocumentsWebResourceMultiDifferenceFilesEqualByTextCommandId" value="0x20EB" />
-      <IDSymbol name="DocumentsWebResourceMultiDifferenceFilesWithInsertsCommandId" value="0x20EC" />
-      <IDSymbol name="DocumentsWebResourceMultiDifferenceFilesWithDeletesCommandId" value="0x20ED" />
-      <IDSymbol name="DocumentsWebResourceMultiDifferenceFilesWithComplexCommandId" value="0x20EE" />
-      <IDSymbol name="DocumentsWebResourceMultiDifferenceFilesWithMirrorCommandId" value="0x20EF" />
-      <IDSymbol name="DocumentsWebResourceMultiDifferenceFilesWithMirrorInsertsCommandId" value="0x20F0" />
-      <IDSymbol name="DocumentsWebResourceMultiDifferenceFilesWithMirrorDeletesCommandId" value="0x20F1" />
-      <IDSymbol name="DocumentsWebResourceMultiDifferenceFilesWithMirrorComplexCommandId" value="0x20F2" />
-
       <IDSymbol name="DocumentsWebResourceAddFilesIntoListForPublishAllCommandId" value="0x20F3" />
       <IDSymbol name="DocumentsWebResourceAddFilesIntoListForPublishNotEqualByTextCommandId" value="0x20F4" />
       <IDSymbol name="DocumentsWebResourceAddFilesIntoListForPublishNotExistsInCrmWithoutLinkCommandId" value="0x210D" />
@@ -25565,17 +25210,6 @@
       <IDSymbol name="FileWebResourceOpenFilesWithMirrorInsertsInTextEditorCommandId" value="0x2095" />
       <IDSymbol name="FileWebResourceOpenFilesWithMirrorDeletesInTextEditorCommandId" value="0x2096" />
       <IDSymbol name="FileWebResourceOpenFilesWithMirrorComplexInTextEditorCommandId" value="0x2097" />
-
-      <IDSymbol name="FileWebResourceMultiDifferenceFilesNotEqualByTextCommandId" value="0x20B6" />
-      <IDSymbol name="FileWebResourceMultiDifferenceFilesNotExistsInCrmWithLinkCommandId" value="0x210B" />
-      <IDSymbol name="FileWebResourceMultiDifferenceFilesEqualByTextCommandId" value="0x20B7" />
-      <IDSymbol name="FileWebResourceMultiDifferenceFilesWithInsertsCommandId" value="0x20B8" />
-      <IDSymbol name="FileWebResourceMultiDifferenceFilesWithDeletesCommandId" value="0x20B9" />
-      <IDSymbol name="FileWebResourceMultiDifferenceFilesWithComplexCommandId" value="0x20BA" />
-      <IDSymbol name="FileWebResourceMultiDifferenceFilesWithMirrorCommandId" value="0x20BB" />
-      <IDSymbol name="FileWebResourceMultiDifferenceFilesWithMirrorInsertsCommandId" value="0x20BC" />
-      <IDSymbol name="FileWebResourceMultiDifferenceFilesWithMirrorDeletesCommandId" value="0x20BD" />
-      <IDSymbol name="FileWebResourceMultiDifferenceFilesWithMirrorComplexCommandId" value="0x20BE" />
 
       <IDSymbol name="FileWebResourceAddIntoPublishListFilesAllCommandId" value="0x20C8" />
       <IDSymbol name="FileWebResourceAddIntoPublishListFilesNotEqualByTextCommandId" value="0x20C9" />
@@ -25701,17 +25335,6 @@
       <IDSymbol name="FolderWebResourceOpenFilesWithMirrorDeletesInTextEditorCommandId" value="0x20AA" />
       <IDSymbol name="FolderWebResourceOpenFilesWithMirrorComplexInTextEditorCommandId" value="0x20AB" />
 
-      <IDSymbol name="FolderWebResourceMultiDifferenceFilesNotEqualByTextCommandId" value="0x20BF" />
-      <IDSymbol name="FolderWebResourceMultiDifferenceFilesNotExistsInCrmWithLinkCommandId" value="0x2113" />
-      <IDSymbol name="FolderWebResourceMultiDifferenceFilesEqualByTextCommandId" value="0x20C0" />
-      <IDSymbol name="FolderWebResourceMultiDifferenceFilesWithInsertsCommandId" value="0x20C1" />
-      <IDSymbol name="FolderWebResourceMultiDifferenceFilesWithDeletesCommandId" value="0x20C2" />
-      <IDSymbol name="FolderWebResourceMultiDifferenceFilesWithComplexCommandId" value="0x20C3" />
-      <IDSymbol name="FolderWebResourceMultiDifferenceFilesWithMirrorCommandId" value="0x20C4" />
-      <IDSymbol name="FolderWebResourceMultiDifferenceFilesWithMirrorInsertsCommandId" value="0x20C5" />
-      <IDSymbol name="FolderWebResourceMultiDifferenceFilesWithMirrorDeletesCommandId" value="0x20C6" />
-      <IDSymbol name="FolderWebResourceMultiDifferenceFilesWithMirrorComplexCommandId" value="0x20C7" />
-
       <IDSymbol name="FolderWebResourceAddIntoPublishListFilesAllCommandId" value="0x20D2" />
       <IDSymbol name="FolderWebResourceAddIntoPublishListFilesNotEqualByTextCommandId" value="0x20D3" />
       <IDSymbol name="FolderWebResourceAddIntoPublishListFilesNotExistsInCrmWithoutLinkCommandId" value="0x2111" />
@@ -25826,17 +25449,6 @@
       <IDSymbol name="ListForPublishOpenFilesWithMirrorInsertsInTextEditorCommandId" value="0x2081" />
       <IDSymbol name="ListForPublishOpenFilesWithMirrorDeletesInTextEditorCommandId" value="0x2082" />
       <IDSymbol name="ListForPublishOpenFilesWithMirrorComplexInTextEditorCommandId" value="0x2083" />
-
-      <IDSymbol name="ListForPublishMultiDifferenceFilesNotEqualByTextCommandId" value="0x20AC" />
-      <IDSymbol name="ListForPublishMultiDifferenceFilesNotExistsInCrmWithLinkCommandId" value="0x2114" />
-      <IDSymbol name="ListForPublishMultiDifferenceFilesEqualByTextCommandId" value="0x20AD" />
-      <IDSymbol name="ListForPublishMultiDifferenceFilesWithInsertsCommandId" value="0x20AE" />
-      <IDSymbol name="ListForPublishMultiDifferenceFilesWithDeletesCommandId" value="0x20AF" />
-      <IDSymbol name="ListForPublishMultiDifferenceFilesWithComplexCommandId" value="0x20B0" />
-      <IDSymbol name="ListForPublishMultiDifferenceFilesWithMirrorCommandId" value="0x20B1" />
-      <IDSymbol name="ListForPublishMultiDifferenceFilesWithMirrorInsertsCommandId" value="0x20B2" />
-      <IDSymbol name="ListForPublishMultiDifferenceFilesWithMirrorDeletesCommandId" value="0x20B3" />
-      <IDSymbol name="ListForPublishMultiDifferenceFilesWithMirrorComplexCommandId" value="0x20B4" />
 
       <!-- #endregion ListForPublish -->
 
@@ -26140,7 +25752,9 @@
     <!-- 0x2267 -->
 
     <!-- Dynamic Commands -->
-    <!-- 16650 -->
+    <!-- 16750 -->
+    
+    <!-- 16710 -->
 
   </Symbols>
 

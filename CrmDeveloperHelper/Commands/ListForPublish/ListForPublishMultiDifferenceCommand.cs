@@ -1,61 +1,36 @@
-﻿using Microsoft.VisualStudio.Shell;
+﻿using EnvDTE80;
+using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
-using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
 {
-    internal sealed class ListForPublishMultiDifferenceCommand : AbstractSingleCommand
+    internal sealed class ListForPublishMultiDifferenceCommand : AbstractDynamicCommandByOpenFilesType
     {
-        private readonly OpenFilesType _openFilesType;
-
         private ListForPublishMultiDifferenceCommand(
             OleMenuCommandService commandService
-            , int idCommand
-            , OpenFilesType openFilesType
-        ) : base(commandService, idCommand)
+            , int baseIdStart
+            , IList<OpenFilesType> sourceOpenTypes
+        ) : base(commandService, baseIdStart, sourceOpenTypes)
         {
-            this._openFilesType = openFilesType;
         }
 
-        private static TupleList<int, OpenFilesType> _commandsListforPublish = new TupleList<int, OpenFilesType>()
-        {
-              { PackageIds.guidCommandSet.ListForPublishMultiDifferenceFilesNotEqualByTextCommandId, OpenFilesType.NotEqualByText }
-            , { PackageIds.guidCommandSet.ListForPublishMultiDifferenceFilesNotExistsInCrmWithLinkCommandId, OpenFilesType.NotExistsInCrmWithLink }
-            , { PackageIds.guidCommandSet.ListForPublishMultiDifferenceFilesEqualByTextCommandId, OpenFilesType.EqualByText }
-            , { PackageIds.guidCommandSet.ListForPublishMultiDifferenceFilesWithInsertsCommandId, OpenFilesType.WithInserts }
-            , { PackageIds.guidCommandSet.ListForPublishMultiDifferenceFilesWithDeletesCommandId, OpenFilesType.WithDeletes }
-            , { PackageIds.guidCommandSet.ListForPublishMultiDifferenceFilesWithComplexCommandId, OpenFilesType.WithComplexChanges }
-            , { PackageIds.guidCommandSet.ListForPublishMultiDifferenceFilesWithMirrorCommandId, OpenFilesType.WithMirrorChanges }
-            , { PackageIds.guidCommandSet.ListForPublishMultiDifferenceFilesWithMirrorInsertsCommandId, OpenFilesType.WithMirrorInserts }
-            , { PackageIds.guidCommandSet.ListForPublishMultiDifferenceFilesWithMirrorDeletesCommandId, OpenFilesType.WithMirrorDeletes }
-            , { PackageIds.guidCommandSet.ListForPublishMultiDifferenceFilesWithMirrorComplexCommandId, OpenFilesType.WithMirrorComplexChanges }
-        };
+        public static ListForPublishMultiDifferenceCommand InstanceExistsOrHasLink { get; private set; }
 
-        private static ConcurrentDictionary<OpenFilesType, ListForPublishMultiDifferenceCommand> _instances = new ConcurrentDictionary<OpenFilesType, ListForPublishMultiDifferenceCommand>();
+        public static ListForPublishMultiDifferenceCommand InstanceChanges { get; private set; }
 
-        public static ListForPublishMultiDifferenceCommand Instance(OpenFilesType openFilesType)
-        {
-            if (_instances.ContainsKey(openFilesType))
-            {
-                return _instances[openFilesType];
-            }
-
-            return null;
-        }
+        public static ListForPublishMultiDifferenceCommand InstanceMirror { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            foreach (var item in _commandsListforPublish)
-            {
-                var command = new ListForPublishMultiDifferenceCommand(commandService, item.Item1, item.Item2);
-
-                _instances.TryAdd(item.Item2, command);
-            }
+            InstanceExistsOrHasLink = new ListForPublishMultiDifferenceCommand(commandService, PackageIds.guidDynamicCommandSet.ListForPublishMultiDifferenceFilesExistsOrHasLinkCommandId, _typesExistsOrHasLink);
+            InstanceChanges = new ListForPublishMultiDifferenceCommand(commandService, PackageIds.guidDynamicCommandSet.ListForPublishMultiDifferenceFilesWithChangesCommandId, _typesChanges);
+            InstanceMirror = new ListForPublishMultiDifferenceCommand(commandService, PackageIds.guidDynamicCommandSet.ListForPublishMultiDifferenceFilesWithMirrorCommandId, _typesMirror);
         }
 
-        protected override void CommandAction(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper, OpenFilesType openFilesType)
         {
             var selectedFiles = helper.GetSelectedFilesFromListForPublish(FileOperations.SupportsWebResourceTextType).ToList();
 
@@ -67,7 +42,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
             {
                 helper.ShowListForPublish(connectionData);
 
-                helper.HandleWebResourceMultiDifferenceFiles(selectedFiles, _openFilesType);
+                helper.HandleWebResourceMultiDifferenceFiles(selectedFiles, openFilesType);
             }
             else
             {
@@ -75,7 +50,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
             }
         }
 
-        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(DTE2 applicationObject, OpenFilesType element, OleMenuCommand menuCommand)
         {
             CommonHandlers.ActionBeforeQueryStatusListForPublishWebResourceTextAny(applicationObject, menuCommand);
         }

@@ -91,6 +91,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Commands\AbstractCommand.cs" />
+    <Compile Include="Commands\AbstractDynamicCommandByOpenFilesType.cs" />
     <Compile Include="Commands\AbstractDynamicCommandDefaultSiteMap.cs" />
     <Compile Include="Commands\AbstractDynamicCommandOnSolutionLast.cs" />
     <Compile Include="Commands\AbstractDynamicCommandByConnection.cs" />
@@ -308,6 +309,7 @@
     <Compile Include="Commands\JavaScripts\DocumentsJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptUpdateContentIncludeReferencesPublishCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\WebResources\WebResourceMultiDifferenceCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceChangeInEditorInConnectionCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceCreateEntityDescriptionInConnectionCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceGetAttributeInConnectionCommand.cs" />
@@ -346,16 +348,13 @@
     <Compile Include="Commands\WebResources\CodeWebResourceShowDifferenceThreeFileCommand.cs" />
     <Compile Include="Commands\WebResources\CodeWebResourceUpdateContentPublishInConnectionGroupCommand.cs" />
     <Compile Include="Commands\WebResources\DocumentsWebResourceAddFilesIntoListForPublishCommand.cs" />
-    <Compile Include="Commands\WebResources\DocumentsWebResourceMultiDifferenceCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceAddFilesIntoListForPublishCommand.cs" />
     <Compile Include="Commands\JavaScripts\FileJavaScriptIncludeReferencesToDependencyXmlCommand.cs" />
     <Compile Include="Commands\JavaScripts\FileJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommand.cs" />
-    <Compile Include="Commands\WebResources\FileWebResourceMultiDifferenceCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceOpenFilesCommand.cs" />
     <Compile Include="Commands\WebResources\FolderWebResourceAddFilesIntoListForPublishCommand.cs" />
     <Compile Include="Commands\JavaScripts\FolderJavaScriptIncludeReferencesToDependencyXmlCommand.cs" />
     <Compile Include="Commands\JavaScripts\FolderJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommand.cs" />
-    <Compile Include="Commands\WebResources\FolderWebResourceMultiDifferenceCommand.cs" />
     <Compile Include="Commands\WebResources\FolderWebResourceOpenFilesCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlCommonCopyToClipboardWithoutSchemaCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlCommonRemoveCustomAttributesCommand.cs" />
@@ -1189,6 +1188,7 @@
     <Compile Include="Interfaces\IOrganizationComparerSource.cs" />
     <Compile Include="Interfaces\IOrganizationServiceExtented.cs" />
     <Compile Include="Interfaces\ISolutionComponentDescriptionBuilder.cs" />
+    <Compile Include="Interfaces\ISourceSelectedFiles.cs" />
     <Compile Include="Model\ActionOnComponent.cs" />
     <Compile Include="Model\AssemblyMapping.cs" />
     <Compile Include="Model\AttributeMetadataViewItem.cs" />
@@ -1204,6 +1204,7 @@
     <Compile Include="Model\ConnectionUserData.cs" />
     <Compile Include="Model\ConstantType.cs" />
     <Compile Include="Model\ContentCopareResult.cs" />
+    <Compile Include="Model\SourcesSelectedFiles\DocumentsWebResourceSourceSelectedFiles.cs" />
     <Compile Include="Model\EntityKeyMetadataViewItem.cs" />
     <Compile Include="Model\EntityMetadataListViewItem.cs" />
     <Compile Include="Model\EntityMetadataAuditViewItem.cs" />
@@ -1214,6 +1215,8 @@
     <Compile Include="Model\ExportSolutionConfig.cs" />
     <Compile Include="Model\ExportSolutionOverrideInformation.cs" />
     <Compile Include="Model\ExportSolutionProfile.cs" />
+    <Compile Include="Model\SourcesSelectedFiles\FileWebResourceSourceSelectedFiles.cs" />
+    <Compile Include="Model\SourcesSelectedFiles\FolderWebResourceSourceSelectedFiles.cs" />
     <Compile Include="Model\XsdModels\DependencyXml.Proxy.cs" />
     <Compile Include="Model\XsdModels\FetchXml.Proxy.cs" />
     <Compile Include="Model\FetchXmlRequestParameter.cs" />

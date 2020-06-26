@@ -354,7 +354,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         protected async Task CheckEncodingConnectFindWebResourceExecuteActionTaskAsync(
             ConnectionData connectionData
             , string operationNameFormat
-            , List<SelectedFile> selectedFiles
+            , IEnumerable<SelectedFile> selectedFiles
             , OpenFilesType openFilesType
             , Func<ConnectionData, IOrganizationServiceExtented, TupleList<SelectedFile, WebResource>, Task> action
             , params string[] args
@@ -571,7 +571,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        protected async Task<Tuple<IOrganizationServiceExtented, TupleList<SelectedFile, WebResource>>> GetWebResourcesWithType(ConnectionData connectionData, List<SelectedFile> selectedFiles, OpenFilesType openFilesType)
+        protected async Task<Tuple<IOrganizationServiceExtented, TupleList<SelectedFile, WebResource>>> GetWebResourcesWithType(ConnectionData connectionData, IEnumerable<SelectedFile> selectedFiles, OpenFilesType openFilesType)
         {
             IOrganizationServiceExtented service = null;
 
@@ -674,7 +674,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         private async Task<Tuple<IOrganizationServiceExtented
                 , List<SelectedFile>
                 , List<Tuple<SelectedFile, WebResource>>
-                >> FindFilesNotExistsInCrmAsync(ConnectionData connectionData, List<SelectedFile> selectedFiles)
+                >> FindFilesNotExistsInCrmAsync(ConnectionData connectionData, IEnumerable<SelectedFile> selectedFiles)
         {
             var service = await QuickConnection.ConnectAndWriteToOutputAsync(this._iWriteToOutput, connectionData);
 
@@ -809,7 +809,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         protected async Task<Tuple<IOrganizationServiceExtented
                 , List<Tuple<SelectedFile, WebResource>>
                 , List<Tuple<SelectedFile, WebResource, ContentCopareResult>>
-                >> ComparingFilesAndWebResourcesAsync(ConnectionData connectionData, List<SelectedFile> selectedFiles, bool withDetails)
+                >> ComparingFilesAndWebResourcesAsync(ConnectionData connectionData, IEnumerable<SelectedFile> selectedFiles, bool withDetails)
         {
             var service = await QuickConnection.ConnectAndWriteToOutputAsync(this._iWriteToOutput, connectionData);
 
@@ -1302,7 +1302,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (countEqualByContent > 0)
             {
-                if (countEqualByContent == selectedFiles.Count)
+                if (countEqualByContent == selectedFiles.Count())
                 {
                     this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
                     this._iWriteToOutput.WriteToOutput(connectionData, "All files and web-resources EQUALS BY CONTENT: {0}", countEqualByContent);

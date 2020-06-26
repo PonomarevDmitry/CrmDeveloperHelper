@@ -11,7 +11,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
         {
         }
 
-        protected override ICollection<ConnectionData> GetElementSourceCollection()
+        protected override IList<ConnectionData> GetElementSourceCollection()
         {
             var connectionConfig = ConnectionConfiguration.Get();
 

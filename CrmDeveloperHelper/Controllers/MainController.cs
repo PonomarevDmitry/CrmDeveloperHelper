@@ -614,7 +614,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartOpenWebResourceExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
             => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteOpeningWebResourceExplorer, commonConfig, selection);
 
-        public void StartWebResourceMultiDifferenceFiles(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, OpenFilesType openFilesType)
+        public void StartWebResourceMultiDifferenceFiles(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, OpenFilesType openFilesType)
             => ExecuteWithConnectionInThread(connectionData, this._differenceController.ExecuteWebResourceMultiDifferenceFiles, commonConfig, selectedFiles, openFilesType);
 
         public void StartWebResourceCreatingLastLinkMultiple(ConnectionData connectionData, List<SelectedFile> selectedFiles)
