@@ -128,13 +128,14 @@
     <Compile Include="Commands\CSharp\CodeCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectUpdatePluginAssemblyCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectUpdatePluginAssemblyInConnectionCommand.cs" />
-    <Compile Include="Commands\CSharp\CodeCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommand.cs" />
     <Compile Include="Commands\CSharp\CSharpEntityMetadataFileGenerationOptionsCommand.cs" />
     <Compile Include="Commands\CSharp\CSharpGlobalOptionSetsMetadataFileGenerationOptionsCommand.cs" />
     <Compile Include="Commands\CSharp\CSharpUpdateEntityMetadataFileProxyClassCommand.cs" />
     <Compile Include="Commands\CSharp\CSharpUpdateEntityMetadataFileProxyClassOrSchemaCommand.cs" />
+    <Compile Include="Commands\CSharp\CSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommand.cs" />
     <Compile Include="Commands\CSharp\CSharpUpdateEntityMetadataFileSchemaCommand.cs" />
     <Compile Include="Commands\CSharp\CSharpUpdateGlobalOptionSetsFileCommand.cs" />
+    <Compile Include="Commands\CSharp\CSharpUpdateGlobalOptionSetsFileWithSelectCommand.cs" />
     <Compile Include="Commands\CSharp\DocumentsCSharpProjectPluginTypeActionOnComponentInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\DocumentsCSharpProjectPluginTypeCreateDescriptionCommand.cs" />
     <Compile Include="Commands\CSharp\DocumentsCSharpProjectPluginTypeCreateDescriptionInConnectionCommand.cs" />
@@ -174,9 +175,7 @@
     <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedSystemFormGetCurrentTabsAndSectionsInConnectionCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedSystemFormActionOnComponentInConnectionCommand.cs" />
-    <Compile Include="Commands\JavaScripts\CodeJavaScriptUpdateEntityMetadataFileWithSelectCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptUpdateGlobalOptionSetAllFileCommand.cs" />
-    <Compile Include="Commands\JavaScripts\CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand.cs" />
     <Compile Include="Commands\JavaScripts\DocumentsJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommand.cs" />
     <Compile Include="Commands\JavaScripts\FileJavaScriptFileGenerationOptionsJavaScriptSingleCommand.cs" />
     <Compile Include="Commands\JavaScripts\FileJavaScriptUpdateContentIncludeReferencesPublishCommand.cs" />
@@ -188,8 +187,10 @@
     <Compile Include="Commands\JavaScripts\JavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommand.cs" />
     <Compile Include="Commands\JavaScripts\JavaScriptIncludeReferencesToLinkedSystemFormCommand.cs" />
     <Compile Include="Commands\JavaScripts\JavaScriptUpdateEntityMetadataFileCommand.cs" />
+    <Compile Include="Commands\JavaScripts\JavaScriptUpdateEntityMetadataFileWithSelectCommand.cs" />
     <Compile Include="Commands\JavaScripts\JavaScriptUpdateEqualByTextContentIncludeReferencesPublishInConnectionGroupCommand.cs" />
     <Compile Include="Commands\JavaScripts\JavaScriptUpdateGlobalOptionSetSingleFileCommand.cs" />
+    <Compile Include="Commands\JavaScripts\JavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand.cs" />
     <Compile Include="Commands\ListForPublish\ListForPublishMultiDifferenceCommand.cs" />
     <Compile Include="Commands\ListForPublish\ListForPublishOpenFilesCommand.cs" />
     <Compile Include="Commands\ListForPublish\ListForPublishPerformIncludeReferencesToDependencyXmlInConnectionGroupCommand.cs" />
@@ -324,7 +325,6 @@
     <Compile Include="Commands\WebResources\CodeWebResourceExplorerCommand.cs" />
     <Compile Include="Commands\Reports\CodeReportShowDifferenceCommand.cs" />
     <Compile Include="Commands\Reports\CodeReportExplorerCommand.cs" />
-    <Compile Include="Commands\CSharp\CodeCSharpUpdateGlobalOptionSetsFileWithSelectCommand.cs" />
     <Compile Include="Commands\WebResources\CodeWebResourceShowDifferenceInConnectionGroupCommand.cs" />
     <Compile Include="Commands\WebResources\CodeWebResourceShowDifferenceThreeFileCommand.cs" />
     <Compile Include="Commands\WebResources\WebResourceOpenFilesByTypeCommand.cs" />
@@ -479,10 +479,7 @@
     <Compile Include="Commands\CSharp\FileCSharpProjectPluginTypeStepsAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\CSharp\FileCSharpProjectUpdatePluginAssemblyCommand.cs" />
     <Compile Include="Commands\CSharp\FileCSharpProjectUpdatePluginAssemblyInConnectionCommand.cs" />
-    <Compile Include="Commands\CSharp\FileCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommand.cs" />
-    <Compile Include="Commands\JavaScripts\FileJavaScriptUpdateEntityMetadataFileWithSelectCommand.cs" />
     <Compile Include="Commands\JavaScripts\FileJavaScriptUpdateGlobalOptionSetAllFileCommand.cs" />
-    <Compile Include="Commands\JavaScripts\FileJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand.cs" />
     <Compile Include="Commands\Reports\FileReportCreateCommand.cs" />
     <Compile Include="Commands\Reports\FileReportActionOnComponentInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Reports\FileReportUpdateCommand.cs" />
@@ -697,7 +694,6 @@
     <Compile Include="Commands\WebResources\FileWebResourceShowDifferenceCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceShowDifferenceCustomCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceUpdateContentPublishCommand.cs" />
-    <Compile Include="Commands\CSharp\FileCSharpUpdateGlobalOptionSetsFileWithSelectCommand.cs" />
     <Compile Include="Commands\ListForPublish\ListForPublishClearListCommand.cs" />
     <Compile Include="Commands\ListForPublish\ListForPublishFilesAddCommand.cs" />
     <Compile Include="Commands\ListForPublish\ListForPublishCompareCommand.cs" />
@@ -1130,6 +1126,7 @@
     <Compile Include="Model\ExportSolutionOverrideInformation.cs" />
     <Compile Include="Model\ExportSolutionProfile.cs" />
     <Compile Include="Model\SourcesSelectedFiles\FileSourceSelectedFiles.cs" />
+    <Compile Include="Model\SourcesSelectedFiles\FileSourceSelectedFileSingle.cs" />
     <Compile Include="Model\SourcesSelectedFiles\FolderSourceSelectedFiles.cs" />
     <Compile Include="Model\SelectedFileType.cs" />
     <Compile Include="Model\XsdModels\DependencyXml.Proxy.cs" />

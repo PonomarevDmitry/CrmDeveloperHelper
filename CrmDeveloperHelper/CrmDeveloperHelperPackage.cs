@@ -250,12 +250,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             #endregion FolderWebResource
 
             JavaScriptUpdateEntityMetadataFileCommand.Initialize,
+            JavaScriptUpdateEntityMetadataFileWithSelectCommand.Initialize,
 
             JavaScriptUpdateEqualByTextContentIncludeReferencesPublishInConnectionGroupCommand.Initialize,
 
             JavaScriptFileGenerationOptionsCommand.Initialize,
 
             JavaScriptUpdateGlobalOptionSetSingleFileCommand.Initialize,
+            JavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand.Initialize,
 
             JavaScriptIncludeReferencesToDependencyXmlCommand.Initialize,
             JavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommand.Initialize,
@@ -264,10 +266,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             JavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommand.Initialize,
             
             #region CodeJavaScript
-
-            CodeJavaScriptUpdateEntityMetadataFileWithSelectCommand.Initialize,
-
-            CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand.Initialize,
 
             CodeJavaScriptUpdateGlobalOptionSetAllFileCommand.Initialize,
 
@@ -299,10 +297,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             #endregion DocumentsJavaScript
 
             #region FileJavaScript
-
-            FileJavaScriptUpdateEntityMetadataFileWithSelectCommand.Initialize,
-
-            FileJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand.Initialize,
 
             FileJavaScriptUpdateGlobalOptionSetAllFileCommand.Initialize,
 
@@ -458,21 +452,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             #endregion CodeXml
 
             #region DocumentsXml
-
-            
-
             #endregion DocumentsXml
 
             #region FileXml
-
-            
-
             #endregion FileXml
 
             #region FolderXml
-
-            
-
             #endregion FolderXml
 
             
@@ -497,9 +482,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             #endregion CodeReport
 
             #region DocumentsReport
-
-            
-
             #endregion DocumentsReport
 
             #region FileReport
@@ -513,20 +495,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             #endregion FileReport
 
 
-            CSharpUpdateEntityMetadataFileSchemaCommand.Initialize,
             CSharpUpdateEntityMetadataFileProxyClassOrSchemaCommand.Initialize,
+            CSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommand.Initialize,
+
             CSharpUpdateEntityMetadataFileProxyClassCommand.Initialize,
+            CSharpUpdateEntityMetadataFileSchemaCommand.Initialize,
 
             CSharpUpdateGlobalOptionSetsFileCommand.Initialize,
+            CSharpUpdateGlobalOptionSetsFileWithSelectCommand.Initialize,
 
             CSharpEntityMetadataFileGenerationOptionsCommand.Initialize,
 
             CSharpGlobalOptionSetsMetadataFileGenerationOptionsCommand.Initialize,
 
             #region CodeCSharp
-
-            CodeCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommand.Initialize,
-            CodeCSharpUpdateGlobalOptionSetsFileWithSelectCommand.Initialize,
 
             CodeCSharpProjectBuildLoadUpdatePluginAssemblyCommand.Initialize,
             CodeCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommand.Initialize,
@@ -585,11 +567,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             #region FileCSharp
 
-            FileCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommand.Initialize,
-
-            FileCSharpUpdateGlobalOptionSetsFileWithSelectCommand.Initialize,
-
             FileCSharpPluginAssemblyExplorerCommand.Initialize,
+            FileCSharpPluginTypeExplorerCommand.Initialize,
+            FileCSharpPluginTreeCommand.Initialize,
 
             FileCSharpProjectBuildLoadUpdatePluginAssemblyCommand.Initialize,
             FileCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommand.Initialize,
@@ -602,8 +582,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             FileCSharpProjectCompareToCrmAssemblyCommand.Initialize,
             FileCSharpProjectCompareToCrmAssemblyInConnectionCommand.Initialize,
-            FileCSharpPluginTypeExplorerCommand.Initialize,
-            FileCSharpPluginTreeCommand.Initialize,
 
             FileCSharpAddPluginStepCommand.Initialize,
             FileCSharpAddPluginStepInConnectionCommand.Initialize,
