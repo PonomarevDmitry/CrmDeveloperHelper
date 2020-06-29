@@ -84,7 +84,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         ApplicationObject.ActiveWindow.Document.Save();
                     }
 
-                    yield return new SelectedFile(path, solutionDirectoryPath);
+                    yield return new SelectedFile(path, solutionDirectoryPath)
+                    {
+                        Document = ApplicationObject.ActiveWindow.Document,
+                    };
                 }
             }
         }
@@ -218,7 +221,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                                 document.Save();
                             }
 
-                            yield return new SelectedFile(path, solutionDirectoryPath);
+                            yield return new SelectedFile(path, solutionDirectoryPath)
+                            {
+                                Document = document,
+                            };
                         }
                     }
                 }

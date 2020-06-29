@@ -180,9 +180,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             WebResourceUpdateContentPublishInConnectionGroupWithCurrentCommand.Initialize,
             WebResourceUpdateContentPublishInConnectionGroupWithoutCurrentCommand.Initialize,
 
-            WebResourceCheckEncodingCommand.Initialize,
-
             WebResourceUpdateContentPublishEqualByTextInConnectionGroupCommand.Initialize,
+
+            WebResourceAddToSolutionInConnectionCommand.Initialize,
+
+            WebResourceCheckEncodingCommand.Initialize,
+            WebResourceCheckEncodingCompareFilesCommand.Initialize,
+            WebResourceCheckEncodingOpenFilesCommand.Initialize,
+
+            WebResourceLinkCreateCommand.Initialize,
+            WebResourceLinkClearCommand.Initialize,
+
+            WebResourceShowDependentComponentsCommand.Initialize,
+
+            WebResourceAddToSolutionLastCommand.Initialize,
 
             #region CodeWebResource
 
@@ -197,36 +208,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeWebResourceGetAttributeInConnectionCommand.Initialize,
             CodeWebResourceExplorerCommand.Initialize,
             CodeWebResourceActionOnComponentInConnectionGroupCommand.Initialize,
-            CodeWebResourceLinkClearCommand.Initialize,
-            CodeWebResourceLinkCreateCommand.Initialize,
             CodeWebResourceUpdateContentPublishCommand.Initialize,
 
-            CodeWebResourceAddToSolutionLastCommand.Initialize,
-            CodeWebResourceAddToSolutionInConnectionCommand.Initialize,
+            
 
             #endregion CodeWebResource
 
             #region DocumentsWebResource
 
-            DocumentsWebResourceCheckEncodingCompareFilesCommand.Initialize,
-            DocumentsWebResourceCheckEncodingCompareWithDetailsFilesCommand.Initialize,
             DocumentsWebResourceCompareCommand.Initialize,
             DocumentsWebResourceCompareWithDetailsCommand.Initialize,
             DocumentsWebResourceCompareInConnectionGroupCommand.Initialize,
-            DocumentsWebResourceLinkClearCommand.Initialize,
-            DocumentsWebResourceLinkCreateCommand.Initialize,
-            DocumentsWebResourceShowDependentComponentsCommand.Initialize,
-
-            DocumentsWebResourceAddToSolutionLastCommand.Initialize,
-            DocumentsWebResourceAddToSolutionInConnectionCommand.Initialize,
 
             #endregion DocumentsWebResource
 
             #region FileWebResource
 
-            FileWebResourceCheckEncodingCompareFilesCommand.Initialize,
-            FileWebResourceCheckEncodingCompareWithDetailsFilesCommand.Initialize,
-            FileWebResourceCheckEncodingOpenFilesCommand.Initialize,
             FileWebResourceCompareCommand.Initialize,
             FileWebResourceCompareWithDetailsCommand.Initialize,
             FileWebResourceCompareInConnectionGroupCommand.Initialize,
@@ -235,35 +232,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FileWebResourceGetAttributeInConnectionCommand.Initialize,
             FileWebResourceExplorerCommand.Initialize,
             FileWebResourceActionOnComponentInConnectionGroupCommand.Initialize,
-            FileWebResourceLinkClearCommand.Initialize,
-            FileWebResourceLinkCreateCommand.Initialize,
-            FileWebResourceShowDependentComponentsCommand.Initialize,
             FileWebResourceShowDifferenceCommand.Initialize,
             FileWebResourceShowDifferenceCustomCommand.Initialize,
             FileWebResourceShowDifferenceInConnectionGroupCommand.Initialize,
             FileWebResourceShowDifferenceThreeFileCommand.Initialize,
             FileWebResourceUpdateContentPublishCommand.Initialize,
 
-            FileWebResourceAddToSolutionLastCommand.Initialize,
-            FileWebResourceAddToSolutionInConnectionCommand.Initialize,
-
             #endregion FileWebResource
 
             #region FolderWebResource
 
-            FolderWebResourceCheckEncodingCompareFilesCommand.Initialize,
-            FolderWebResourceCheckEncodingCompareWithDetailsFilesCommand.Initialize,
-            FolderWebResourceCheckEncodingOpenFilesCommand.Initialize,
             FolderWebResourceCompareCommand.Initialize,
             FolderWebResourceCompareWithDetailsCommand.Initialize,
             FolderWebResourceCompareInConnectionGroupCommand.Initialize,
-            FolderWebResourceLinkClearCommand.Initialize,
-            FolderWebResourceLinkCreateCommand.Initialize,
-            FolderWebResourceShowDependentComponentsCommand.Initialize,
             FolderWebResourceUpdateContentPublishCommand.Initialize,
-
-            FolderWebResourceAddToSolutionLastCommand.Initialize,
-            FolderWebResourceAddToSolutionInConnectionCommand.Initialize,
 
             #endregion FolderWebResource
 
@@ -276,10 +258,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             JavaScriptUpdateGlobalOptionSetSingleFileCommand.Initialize,
 
             JavaScriptIncludeReferencesToDependencyXmlCommand.Initialize,
-            JavaScriptIncludeReferencesToLinkedSystemFormCommand.Initialize,
-
             JavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommand.Initialize,
 
+            JavaScriptIncludeReferencesToLinkedSystemFormCommand.Initialize,
             JavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommand.Initialize,
             
             #region CodeJavaScript
@@ -306,8 +287,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeJavaScriptLinkedEntityPublishInConnectionCommand.Initialize,
             CodeJavaScriptLinkedEntityActionOnComponentInConnectionCommand.Initialize,
 
-            // CodeJavaScriptLinkedEntity.Initialize,
-
             CodeJavaScriptUpdateContentIncludeReferencesPublishCommand.Initialize,
             CodeJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommand.Initialize,
 
@@ -328,7 +307,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FileJavaScriptUpdateGlobalOptionSetAllFileCommand.Initialize,
 
             FileJavaScriptFileGenerationOptionsJavaScriptSingleCommand.Initialize,
-            
+
             FileJavaScriptUpdateContentIncludeReferencesPublishCommand.Initialize,
             FileJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommand.Initialize,
 
@@ -468,56 +447,44 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeXmlCommonUpdateCommand.Initialize,
             CodeXmlCommonShowDifferenceCommand.Initialize,
 
-            CodeXmlCommonRemoveCustomAttributesCommand.Initialize,
-
-            CodeXmlCommonXsdSchemaOpenFolderCommand.Initialize,
-            CodeXmlCommonXsdSchemaSetCommand.Initialize,
             CodeXmlCommonXsdSchemaSetProperCommand.Initialize,
-            CodeXmlCommonXsdSchemaRemoveCommand.Initialize,
+
+            XmlCommonRemoveCustomAttributesCommand.Initialize,
+
+            XmlCommonXsdSchemaOpenFolderCommand.Initialize,
+            XmlCommonXsdSchemaSetCommand.Initialize,
+            XmlCommonXsdSchemaRemoveCommand.Initialize,
 
             #endregion CodeXml
 
             #region DocumentsXml
 
-            DocumentsXmlXsdSchemaOpenFolderCommand.Initialize,
-
-            DocumentsXmlRemoveCustomAttributesCommand.Initialize,
-
-            DocumentsXmlXsdSchemaSetCommand.Initialize,
-
-            DocumentsXmlXsdSchemaRemoveCommand.Initialize,
+            
 
             #endregion DocumentsXml
 
             #region FileXml
 
-            FileXmlXsdSchemaOpenFolderCommand.Initialize,
-
-            FileXmlXsdRemoveCustomAttributesCommand.Initialize,
-
-            FileXmlXsdSchemaSetCommand.Initialize,
-
-            FileXmlXsdSchemaRemoveCommand.Initialize,
+            
 
             #endregion FileXml
 
             #region FolderXml
 
-            FolderXmlXsdSchemaOpenFolderCommand.Initialize,
-
-            FolderXmlRemoveCustomAttributesCommand.Initialize,
-
-            FolderXmlXsdSchemaSetCommand.Initialize,
-
-            FolderXmlXsdSchemaRemoveCommand.Initialize,
+            
 
             #endregion FolderXml
 
+            
 
+            ReportLinkClearCommand.Initialize,
+
+            ReportAddToSolutionInConnectionCommand.Initialize,
+
+            ReportAddToSolutionLastCommand.Initialize,
 
             #region CodeReport
 
-            CodeReportLinkClearCommand.Initialize,
             CodeReportLinkCreateCommand.Initialize,
             CodeReportUpdateCommand.Initialize,
             CodeReportCreateCommand.Initialize,
@@ -527,31 +494,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeReportExplorerCommand.Initialize,
             CodeReportActionOnComponentInConnectionGroupCommand.Initialize,
 
-            CodeReportAddToSolutionLastCommand.Initialize,
-            CodeReportAddToSolutionInConnectionCommand.Initialize,
-
             #endregion CodeReport
 
             #region DocumentsReport
 
-            DocumentsReportLinkClearCommand.Initialize,
-
-            DocumentsReportAddToSolutionLastCommand.Initialize,
-            DocumentsReportAddToSolutionInConnectionCommand.Initialize,
+            
 
             #endregion DocumentsReport
 
             #region FileReport
 
             FileReportExplorerCommand.Initialize,
-            FileReportLinkClearCommand.Initialize,
             FileReportLinkCreateCommand.Initialize,
             FileReportUpdateCommand.Initialize,
             FileReportCreateCommand.Initialize,
             FileReportActionOnComponentInConnectionGroupCommand.Initialize,
-
-            FileReportAddToSolutionLastCommand.Initialize,
-            FileReportAddToSolutionInConnectionCommand.Initialize,
 
             #endregion FileReport
 
@@ -562,13 +519,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             CSharpUpdateGlobalOptionSetsFileCommand.Initialize,
 
+            CSharpEntityMetadataFileGenerationOptionsCommand.Initialize,
+
+            CSharpGlobalOptionSetsMetadataFileGenerationOptionsCommand.Initialize,
+
             #region CodeCSharp
 
-            CodeCSharpEntityMetadataFileGenerationOptionsCommand.Initialize,
-            CodeCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommand.Initialize,
-
             CodeCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommand.Initialize,
-
             CodeCSharpUpdateGlobalOptionSetsFileWithSelectCommand.Initialize,
 
             CodeCSharpProjectBuildLoadUpdatePluginAssemblyCommand.Initialize,
@@ -612,9 +569,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             #region DocumentsCSharp
 
-            DocumentsCSharpEntityMetadataFileGenerationOptionsCommand.Initialize,
-            DocumentsCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommand.Initialize,
-
             DocumentsCSharpProjectPluginAssemblyAddToSolutionLastCommand.Initialize,
             DocumentsCSharpProjectPluginAssemblyAddToSolutionInConnectionCommand.Initialize,
 
@@ -630,9 +584,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             #endregion DocumentsCSharp
 
             #region FileCSharp
-
-            FileCSharpEntityMetadataFileGenerationOptionsCommand.Initialize,
-            FileCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommand.Initialize,
 
             FileCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommand.Initialize,
 
@@ -676,9 +627,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             #endregion FileCSharp
 
             #region FolderCSharp
-
-            FolderCSharpEntityMetadataFileGenerationOptionsCommand.Initialize,
-            FolderCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommand.Initialize,
 
             FolderCSharpProjectPluginAssemblyAddToSolutionInConnectionCommand.Initialize,
             FolderCSharpProjectPluginAssemblyAddToSolutionLastCommand.Initialize,

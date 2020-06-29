@@ -2758,7 +2758,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int DocumentsJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId = 0x3E80;
 
-            public const int DocumentsXmlXsdSchemaSetCommandId = 0x2260;
+            public const int DocumentsXmlCommonXsdSchemaSetCommandId = 0x2260;
 
             public const int DocumentsReportAddToSolutionLastCommandId = 0x0104;
 
@@ -2876,7 +2876,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FileJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId = 0x3E4E;
 
-            public const int FileXmlXsdSchemaSetCommandId = 0x2279;
+            public const int FileXmlCommonXsdSchemaSetCommandId = 0x2279;
 
             public const int FileReportAddToSolutionLastCommandId = 0x012C;
 
@@ -3000,7 +3000,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FolderJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId = 0x3EB2;
 
-            public const int FolderXmlXsdSchemaSetCommandId = 0x2292;
+            public const int FolderXmlCommonXsdSchemaSetCommandId = 0x2292;
 
             public const int FolderCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommandId = 0x29CC;
 
@@ -3299,11 +3299,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int DocumentsJavaScriptIncludeReferencesToLinkedSystemFormCommandId = 0x2261;
 
-            public const int DocumentsXmlXsdSchemaRemoveCommandId = 0x2197;
+            public const int DocumentsXmlCommonXsdSchemaRemoveCommandId = 0x2197;
 
-            public const int DocumentsXmlXsdSchemaOpenFolderCommandId = 0x219A;
+            public const int DocumentsXmlCommonXsdSchemaOpenFolderCommandId = 0x219A;
 
-            public const int DocumentsXmlRemoveCustomAttributesCommandId = 0x2238;
+            public const int DocumentsXmlCommonRemoveCustomAttributesCommandId = 0x2238;
 
             public const int DocumentsReportLinkClearCommandId = 0x20E7;
 
@@ -3357,11 +3357,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FileJavaScriptIncludeReferencesToLinkedSystemFormCommandId = 0x2260;
 
-            public const int FileXmlXsdSchemaRemoveCommandId = 0x2198;
+            public const int FileXmlCommonXsdSchemaRemoveCommandId = 0x2198;
 
-            public const int FileXmlXsdSchemaOpenFolderCommandId = 0x219B;
+            public const int FileXmlCommonXsdSchemaOpenFolderCommandId = 0x219B;
 
-            public const int FileXmlRemoveCustomAttributesCommandId = 0x2239;
+            public const int FileXmlCommonRemoveCustomAttributesCommandId = 0x2239;
 
             public const int FileReportExplorerCommandId = 0x2055;
 
@@ -3431,11 +3431,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FolderJavaScriptIncludeReferencesToLinkedSystemFormCommandId = 0x2262;
 
-            public const int FolderXmlXsdSchemaRemoveCommandId = 0x2199;
+            public const int FolderXmlCommonXsdSchemaRemoveCommandId = 0x2199;
 
-            public const int FolderXmlXsdSchemaOpenFolderCommandId = 0x219C;
+            public const int FolderXmlCommonXsdSchemaOpenFolderCommandId = 0x219C;
 
-            public const int FolderXmlRemoveCustomAttributesCommandId = 0x223A;
+            public const int FolderXmlCommonRemoveCustomAttributesCommandId = 0x223A;
 
             public const int FolderCSharpEntityMetadataFileGenerationOptionsCommandId = 0x221B;
 
