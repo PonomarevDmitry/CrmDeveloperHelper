@@ -353,6 +353,7 @@
     <Compile Include="Commands\JavaScripts\FolderJavaScriptIncludeReferencesToDependencyXmlCommand.cs" />
     <Compile Include="Commands\JavaScripts\FolderJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommand.cs" />
     <Compile Include="Commands\WebResources\WebResourceOpenFilesByTypeCommand.cs" />
+    <Compile Include="Commands\WebResources\WebResourceRemoveFilesFromListForPublishCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlCommonCopyToClipboardWithoutSchemaCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlCommonRemoveCustomAttributesCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlFetchXmlConvertToQueryExpressionCommand.cs" />

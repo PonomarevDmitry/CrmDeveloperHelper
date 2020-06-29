@@ -361,9 +361,14 @@
       <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupByText" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithChanges" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithMirrorChanges" priority="0x06000" />
+
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupByText" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithChanges" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithMirrorChanges" priority="0x06000" />
+
       <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupEncoding" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupEncoding_MenuCommands_GroupCommands" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupAddToSolution" priority="0x06000" />
@@ -500,9 +505,13 @@
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" priority="0x06000" />
 
-      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupByText" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithChanges" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithMirrorChanges" priority="0x06000" />
+
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupByText" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithChanges" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithMirrorChanges" priority="0x06000" />
 
       <!-- #endregion fileMenuWebResource -->
 
@@ -651,9 +660,13 @@
       <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" priority="0x06000" />
 
-      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupByText" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithChanges" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithMirrorChanges" priority="0x06000" />
+
+      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupByText" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithChanges" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithMirrorChanges" priority="0x06000" />
 
       <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEncoding" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEncoding_MenuCommands_GroupCommands" priority="0x06000" />
@@ -2211,13 +2224,21 @@
           <MenuText>Multi Difference</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList" priority="0x06000" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Add into Publish List</ButtonText>
           <MenuText>Add into Publish List</MenuText>
         </Strings>
       </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Remove from Publish List</ButtonText>
+          <MenuText>Remove from Publish List</MenuText>
+        </Strings>
+      </Menu>
+
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupEncoding_MenuCommands" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
@@ -2495,13 +2516,21 @@
           <MenuText>Multi Difference</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList" priority="0x06000" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Add into Publish List</ButtonText>
           <MenuText>Add into Publish List</MenuText>
         </Strings>
       </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Remove from Publish List</ButtonText>
+          <MenuText>Remove from Publish List</MenuText>
+        </Strings>
+      </Menu>
+          
       <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEncoding_MenuCommands" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
@@ -3118,13 +3147,21 @@
           <MenuText>Multi Difference (Recursive)</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList" priority="0x06000" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Add into Publish List (Recursive)</ButtonText>
           <MenuText>Add into Publish List (Recursive)</MenuText>
         </Strings>
       </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Remove from Publish List (Recursive)</ButtonText>
+          <MenuText>Remove from Publish List (Recursive)</MenuText>
+        </Strings>
+      </Menu>
+        
       <Menu guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEncoding_MenuCommands" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
@@ -6952,6 +6989,40 @@
         </Strings>
       </Button>
 
+      <Button guid="guidDynamicCommandSet" id="DocumentsWebResourceRemoveFilesFromListForPublishOrdinalCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>DocumentsWebResourceRemoveFilesFromListForPublishOrdinalCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="DocumentsWebResourceRemoveFilesFromListForPublishWithChangesCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>DocumentsWebResourceRemoveFilesFromListForPublishWithChangesCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="DocumentsWebResourceRemoveFilesFromListForPublishWithMirrorCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>DocumentsWebResourceRemoveFilesFromListForPublishWithMirrorCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+
       <!-- #endregion DocumentsWebResource Buttons Definitions -->
 
       <!-- #region DocumentsJavaScript Buttons Definitions -->
@@ -7779,7 +7850,7 @@
           <ButtonText>FileWebResourceOpenFilesByTypeWithMirrorCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      
+
       <Button guid="guidDynamicCommandSet" id="FileWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -7882,6 +7953,40 @@
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>FileWebResourceAddFilesIntoListForPublishWithMirrorCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidDynamicCommandSet" id="FileWebResourceRemoveFilesFromListForPublishOrdinalCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>FileWebResourceRemoveFilesFromListForPublishOrdinalCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="FileWebResourceRemoveFilesFromListForPublishWithChangesCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>FileWebResourceRemoveFilesFromListForPublishWithChangesCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="FileWebResourceRemoveFilesFromListForPublishWithMirrorCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>FileWebResourceRemoveFilesFromListForPublishWithMirrorCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -8926,7 +9031,7 @@
           <ButtonText>FolderWebResourceOpenFilesByTypeWithMirrorCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      
+
       <Button guid="guidDynamicCommandSet" id="FolderWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -8960,8 +9065,8 @@
           <ButtonText>FolderWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      
-      
+
+
 
 
       <Button guid="guidDynamicCommandSet" id="FolderWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId" priority="0x06000" type="Button">
@@ -9029,6 +9134,40 @@
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>FolderWebResourceAddFilesIntoListForPublishWithMirrorCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidDynamicCommandSet" id="FolderWebResourceRemoveFilesFromListForPublishOrdinalCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>FolderWebResourceRemoveFilesFromListForPublishOrdinalCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="FolderWebResourceRemoveFilesFromListForPublishWithChangesCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>FolderWebResourceRemoveFilesFromListForPublishWithChangesCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="FolderWebResourceRemoveFilesFromListForPublishWithMirrorCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>FolderWebResourceRemoveFilesFromListForPublishWithMirrorCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -14571,7 +14710,10 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList" priority="0x06020">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList" priority="0x06030">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd" />
     </CommandPlacement>
 
@@ -14606,19 +14748,34 @@
     <!-- #endregion CommandPlacements documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference -->
 
 
-    <!-- #region CommandPlacements documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList -->
+    <!-- #region CommandPlacements documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupByText" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithChanges" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges" priority="0x06020">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithMirrorChanges" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList" />
     </CommandPlacement>
 
-    <!-- #endregion CommandPlacements documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList -->
+    <!-- #endregion CommandPlacements documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList -->
+
+
+    <!-- #region CommandPlacements documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupByText" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithChanges" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithMirrorChanges" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList -->
 
 
     <!-- #region CommandPlacements documentsMenuWebResource_GroupEntityMetadata -->
@@ -15146,7 +15303,10 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList" priority="0x06030">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList" priority="0x06030">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList" priority="0x06040">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd" />
     </CommandPlacement>
 
@@ -15198,19 +15358,34 @@
     <!-- #endregion CommandPlacements fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference -->
 
 
-    <!-- #region CommandPlacements fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList -->
+    <!-- #region CommandPlacements fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupByText" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithChanges" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges" priority="0x06020">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithMirrorChanges" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList" />
     </CommandPlacement>
 
-    <!-- #endregion CommandPlacements fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList -->
+    <!-- #endregion CommandPlacements fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList -->
+
+
+    <!-- #region CommandPlacements fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupByText" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithChanges" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithMirrorChanges" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList -->
 
 
     <!-- #region CommandPlacements fileMenuWebResource_GroupEntityMetadata -->
@@ -15991,10 +16166,13 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList" priority="0x06030">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList" priority="0x06030">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd" />
     </CommandPlacement>
-
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList" priority="0x06040">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd" />
+    </CommandPlacement>
+    
     <!-- #endregion CommandPlacements folderMenuWebResource_GroupOpenMultiAdd -->
 
     <!-- #region CommandPlacements folderMenuWebResource_GroupOpenMultiAdd_MenuOpen -->
@@ -16042,19 +16220,34 @@
     <!-- #endregion CommandPlacements folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference -->
 
 
-    <!-- #region CommandPlacements folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList -->
+    <!-- #region CommandPlacements folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupByText" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithChanges" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges" priority="0x06020">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithMirrorChanges" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList" />
     </CommandPlacement>
 
-    <!-- #endregion CommandPlacements folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList -->
+    <!-- #endregion CommandPlacements folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList -->
+
+
+    <!-- #region CommandPlacements folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupByText" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithChanges" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithMirrorChanges" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList -->
 
 
     <!-- #region CommandPlacements folderMenuWebResource_GroupEntityMetadata -->
@@ -18297,7 +18490,7 @@
     <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishOpenFilesByTypeWithMirrorCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuOpen_GroupWithMirrorChanges" />
     </CommandPlacement>
-    
+
     <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishOpenFilesByTypeInTextEditorOrdinalCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupByText" />
     </CommandPlacement>
@@ -19439,15 +19632,27 @@
     </CommandPlacement>
 
     <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishOrdinalCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText" />
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupByText" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishWithChangesCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithChanges" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishWithMirrorCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithMirrorChanges" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceRemoveFilesFromListForPublishOrdinalCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupByText" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceRemoveFilesFromListForPublishWithChangesCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithChanges" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceRemoveFilesFromListForPublishWithMirrorCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithMirrorChanges" />
     </CommandPlacement>
 
     <!-- #endregion DocumentsWebResource Dynamic -->
@@ -19808,13 +20013,23 @@
     </CommandPlacement>
 
     <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceAddFilesIntoListForPublishOrdinalCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText" />
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupByText" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceAddFilesIntoListForPublishWithChangesCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithChanges" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceAddFilesIntoListForPublishWithMirrorCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithMirrorChanges" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceRemoveFilesFromListForPublishOrdinalCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupByText" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceRemoveFilesFromListForPublishWithChangesCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithChanges" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceRemoveFilesFromListForPublishWithMirrorCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithMirrorChanges" />
     </CommandPlacement>
 
     <!-- #endregion FileWebResource Dynamic -->
@@ -20195,13 +20410,23 @@
     </CommandPlacement>
 
     <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceAddFilesIntoListForPublishOrdinalCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText" />
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupByText" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceAddFilesIntoListForPublishWithChangesCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithChanges" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceAddFilesIntoListForPublishWithMirrorCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithMirrorChanges" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceRemoveFilesFromListForPublishOrdinalCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupByText" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceRemoveFilesFromListForPublishWithChangesCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithChanges" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceRemoveFilesFromListForPublishWithMirrorCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithMirrorChanges" />
     </CommandPlacement>
 
     <!-- #endregion FolderWebResource Dynamic -->
@@ -22142,11 +22367,17 @@
       <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" value="0x1175" />
       <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" value="0x1176" />
 
-      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList" value="0x1177" />
+      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList" value="0x1177" />
 
-      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText" value="0x1178" />
-      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges" value="0x1179" />
-      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges" value="0x117A" />
+      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupByText" value="0x1178" />
+      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithChanges" value="0x1179" />
+      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithMirrorChanges" value="0x117A" />
+
+      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList" value="0x1503" />
+
+      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupByText" value="0x1504" />
+      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithChanges" value="0x1505" />
+      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithMirrorChanges" value="0x1506" />
 
       <IDSymbol name="documentsMenuWebResource_GroupEntityMetadata" value="0x12FA" />
       <IDSymbol name="documentsMenuWebResource_GroupEntityMetadata_MenuSchemaDyn" value="0x12FB" />
@@ -22362,11 +22593,17 @@
       <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" value="0x101F" />
       <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" value="0x1020" />
 
-      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList" value="0x1021" />
+      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList" value="0x1021" />
 
-      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText" value="0x1022" />
-      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges" value="0x1023" />
-      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges" value="0x1024" />
+      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupByText" value="0x1022" />
+      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithChanges" value="0x1023" />
+      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithMirrorChanges" value="0x1024" />
+
+      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList" value="0x1507" />
+
+      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupByText" value="0x1508" />
+      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithChanges" value="0x1509" />
+      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithMirrorChanges" value="0x150A" />
 
       <IDSymbol name="fileMenuWebResource_GroupEntityMetadata" value="0x12FF" />
       <IDSymbol name="fileMenuWebResource_GroupEntityMetadata_MenuConnectionDyn" value="0x1300" />
@@ -22672,11 +22909,17 @@
       <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" value="0x1070" />
       <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" value="0x1071" />
 
-      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList" value="0x1072" />
+      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList" value="0x1072" />
 
-      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText" value="0x1073" />
-      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges" value="0x1074" />
-      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges" value="0x1075" />
+      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupByText" value="0x1073" />
+      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithChanges" value="0x1074" />
+      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithMirrorChanges" value="0x1075" />
+      
+      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList" value="0x150B" />
+      
+      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupByText" value="0x150C" />
+      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithChanges" value="0x150D" />
+      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithMirrorChanges" value="0x150E" />
 
       <IDSymbol name="folderMenuWebResource_GroupEntityMetadata" value="0x1305" />
       <IDSymbol name="folderMenuWebResource_GroupEntityMetadata_MenuEntityDyn" value="0x1306" />
@@ -23715,6 +23958,10 @@
 
       <IDSymbol name="DocumentsWebResourceAddToSolutionInConnectionCommandId" value="7550" />
 
+      <IDSymbol name="DocumentsWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId" value="16755" />
+      <IDSymbol name="DocumentsWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId" value="16761" />
+      <IDSymbol name="DocumentsWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId" value="16765" />
+
       <IDSymbol name="DocumentsWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId" value="16650" />
       <IDSymbol name="DocumentsWebResourceMultiDifferenceFilesWithChangesCommandId" value="16655" />
       <IDSymbol name="DocumentsWebResourceMultiDifferenceFilesWithMirrorCommandId" value="16660" />
@@ -23723,9 +23970,9 @@
       <IDSymbol name="DocumentsWebResourceAddFilesIntoListForPublishWithChangesCommandId" value="16716" />
       <IDSymbol name="DocumentsWebResourceAddFilesIntoListForPublishWithMirrorCommandId" value="16720" />
 
-      <IDSymbol name="DocumentsWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId" value="16755" />
-      <IDSymbol name="DocumentsWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId" value="16761" />
-      <IDSymbol name="DocumentsWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId" value="16765" />
+      <IDSymbol name="DocumentsWebResourceRemoveFilesFromListForPublishOrdinalCommandId" value="16860" />
+      <IDSymbol name="DocumentsWebResourceRemoveFilesFromListForPublishWithChangesCommandId" value="16866" />
+      <IDSymbol name="DocumentsWebResourceRemoveFilesFromListForPublishWithMirrorCommandId" value="16870" />
 
       <!-- #endregion DocumentsWebResource Dynamic Commands Definitions -->
 
@@ -23833,6 +24080,10 @@
       <IDSymbol name="FileWebResourceAddFilesIntoListForPublishOrdinalCommandId" value="16725" />
       <IDSymbol name="FileWebResourceAddFilesIntoListForPublishWithChangesCommandId" value="16731" />
       <IDSymbol name="FileWebResourceAddFilesIntoListForPublishWithMirrorCommandId" value="16735" />
+
+      <IDSymbol name="FileWebResourceRemoveFilesFromListForPublishOrdinalCommandId" value="16875" />
+      <IDSymbol name="FileWebResourceRemoveFilesFromListForPublishWithChangesCommandId" value="16881" />
+      <IDSymbol name="FileWebResourceRemoveFilesFromListForPublishWithMirrorCommandId" value="16885" />
 
       <!-- #endregion FileWebResource Dynamic Commands Definitions -->
 
@@ -23949,6 +24200,10 @@
       <IDSymbol name="FolderWebResourceAddFilesIntoListForPublishOrdinalCommandId" value="16740" />
       <IDSymbol name="FolderWebResourceAddFilesIntoListForPublishWithChangesCommandId" value="16746" />
       <IDSymbol name="FolderWebResourceAddFilesIntoListForPublishWithMirrorCommandId" value="16750" />
+
+      <IDSymbol name="FolderWebResourceRemoveFilesFromListForPublishOrdinalCommandId" value="16890" />
+      <IDSymbol name="FolderWebResourceRemoveFilesFromListForPublishWithChangesCommandId" value="16896" />
+      <IDSymbol name="FolderWebResourceRemoveFilesFromListForPublishWithMirrorCommandId" value="16900" />
 
       <!-- #endregion FolderWebResource Dynamic Commands Definitions -->
 
@@ -24814,7 +25069,7 @@
 
 
     <!-- Groups and Menus -->
-    <!-- 0x1503 -->
+    <!-- 0x150F -->
 
     <!-- Commands -->
     <!-- 0x2267 -->
@@ -24822,7 +25077,7 @@
     <!-- Dynamic Commands -->
     <!-- 16900 -->
 
-    <!-- 16860 -->
+    <!-- 16890 -->
 
   </Symbols>
 

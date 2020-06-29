@@ -601,6 +601,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(null, (conn, commonConfig) => Controller.StartAddingIntoPublishListFilesByType(conn, commonConfig, selectedFiles, openFilesType));
         }
 
+        public void HandleRemovingFromPublishListFilesByTypeCommand(IEnumerable<SelectedFile> selectedFiles, OpenFilesType openFilesType)
+        {
+            if (!selectedFiles.Any())
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(null, (conn, commonConfig) => Controller.StartRemovingFromPublishListFilesByType(conn, commonConfig, selectedFiles, openFilesType));
+        }
+
         #endregion ListForPublish
 
         public void HandleFileClearLink(List<SelectedFile> selectedFiles)

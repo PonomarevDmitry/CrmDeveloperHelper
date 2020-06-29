@@ -8,11 +8,11 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
-    internal class WebResourceAddFilesIntoListForPublishCommand : AbstractDynamicCommandByOpenFilesType
+    internal sealed class WebResourceAddFilesIntoListForPublishCommand : AbstractDynamicCommandByOpenFilesType
     {
         private readonly ISourceSelectedFiles _sourceSelectedFiles;
 
-        protected WebResourceAddFilesIntoListForPublishCommand(
+        private WebResourceAddFilesIntoListForPublishCommand(
             OleMenuCommandService commandService
             , int baseIdStart
             , IList<OpenFilesType> sourceOpenTypes

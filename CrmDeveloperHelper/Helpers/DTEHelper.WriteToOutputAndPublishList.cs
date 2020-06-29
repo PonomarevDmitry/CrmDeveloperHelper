@@ -680,7 +680,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return this;
         }
 
-        public IWriteToOutputAndPublishList RemoveFromListForPublish(ConnectionData connectionData, List<SelectedFile> selectedFiles)
+        public IWriteToOutputAndPublishList RemoveFromListForPublish(ConnectionData connectionData, IEnumerable<SelectedFile> selectedFiles)
         {
             if (connectionData == null)
             {

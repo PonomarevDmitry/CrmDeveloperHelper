@@ -72,6 +72,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
+        public async Task ExecuteRemovingIntoPublishListFilesByType(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, OpenFilesType openFilesType)
+        {
+            await CheckEncodingConnectFindWebResourceExecuteActionAsync(connectionData
+                , Properties.OperationNames.AddingIntoPublishListFilesFormat2
+                , selectedFiles
+                , openFilesType
+                , RemovingIntoPublishListFilesByType
+                , EnumDescriptionTypeConverter.GetEnumNameByDescriptionAttribute(openFilesType)
+            );
+        }
+
+        private void RemovingIntoPublishListFilesByType(ConnectionData connectionData, IOrganizationServiceExtented service, TupleList<SelectedFile, WebResource> listFilesToDifference)
+        {
+            if (listFilesToDifference.Any())
+            {
+                this._iWriteToOutput.RemoveFromListForPublish(connectionData, listFilesToDifference.Select(f => f.Item1).OrderBy(f => f.FriendlyFilePath));
+            }
+            else
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, "No files for removing from Publish List.");
+            }
+        }
+
         #endregion Добавление в список на публикацию идентичных по тексту, но не по содержанию файлов.
 
         public async Task ExecuteComparingFilesWithWrongEncoding(ConnectionData connectionData, List<SelectedFile> selectedFiles, bool withDetails)

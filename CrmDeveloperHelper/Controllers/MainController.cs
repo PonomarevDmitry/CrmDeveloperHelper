@@ -643,6 +643,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartAddingIntoPublishListFilesByType(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, OpenFilesType openFilesType)
             => ExecuteWithConnectionInThread(connectionData, this._compareController.ExecuteAddingIntoPublishListFilesByType, commonConfig, selectedFiles, openFilesType);
 
+        public void StartRemovingFromPublishListFilesByType(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, OpenFilesType openFilesType)
+            => ExecuteWithConnectionInThread(connectionData, this._compareController.ExecuteRemovingIntoPublishListFilesByType, commonConfig, selectedFiles, openFilesType);
+
         #region Report
 
         /// <summary>

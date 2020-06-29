@@ -835,13 +835,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges = 0x1176;
 
-            public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList = 0x1177;
+            public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList = 0x1177;
 
-            public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText = 0x1178;
+            public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupByText = 0x1178;
 
-            public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges = 0x1179;
+            public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithChanges = 0x1179;
 
-            public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges = 0x117A;
+            public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithMirrorChanges = 0x117A;
+
+            public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList = 0x1503;
+
+            public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupByText = 0x1504;
+
+            public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithChanges = 0x1505;
+
+            public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithMirrorChanges = 0x1506;
 
             public const int documentsMenuWebResource_GroupEntityMetadata = 0x12FA;
 
@@ -1089,13 +1097,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges = 0x1020;
 
-            public const int fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList = 0x1021;
+            public const int fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList = 0x1021;
 
-            public const int fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText = 0x1022;
+            public const int fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupByText = 0x1022;
 
-            public const int fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges = 0x1023;
+            public const int fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithChanges = 0x1023;
 
-            public const int fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges = 0x1024;
+            public const int fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithMirrorChanges = 0x1024;
+
+            public const int fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList = 0x1507;
+
+            public const int fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupByText = 0x1508;
+
+            public const int fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithChanges = 0x1509;
+
+            public const int fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithMirrorChanges = 0x150A;
 
             public const int fileMenuWebResource_GroupEntityMetadata = 0x12FF;
 
@@ -1465,13 +1481,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges = 0x1071;
 
-            public const int folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList = 0x1072;
+            public const int folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList = 0x1072;
 
-            public const int folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText = 0x1073;
+            public const int folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupByText = 0x1073;
 
-            public const int folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges = 0x1074;
+            public const int folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithChanges = 0x1074;
 
-            public const int folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges = 0x1075;
+            public const int folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithMirrorChanges = 0x1075;
+
+            public const int folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList = 0x150B;
+
+            public const int folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupByText = 0x150C;
+
+            public const int folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithChanges = 0x150D;
+
+            public const int folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithMirrorChanges = 0x150E;
 
             public const int folderMenuWebResource_GroupEntityMetadata = 0x1305;
 
@@ -2702,6 +2726,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int DocumentsWebResourceAddToSolutionInConnectionCommandId = 0x1D7E;
 
+            public const int DocumentsWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId = 0x4173;
+
+            public const int DocumentsWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId = 0x4179;
+
+            public const int DocumentsWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId = 0x417D;
+
             public const int DocumentsWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId = 0x410A;
 
             public const int DocumentsWebResourceMultiDifferenceFilesWithChangesCommandId = 0x410F;
@@ -2714,11 +2744,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int DocumentsWebResourceAddFilesIntoListForPublishWithMirrorCommandId = 0x4150;
 
-            public const int DocumentsWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId = 0x4173;
+            public const int DocumentsWebResourceRemoveFilesFromListForPublishOrdinalCommandId = 0x41DC;
 
-            public const int DocumentsWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId = 0x4179;
+            public const int DocumentsWebResourceRemoveFilesFromListForPublishWithChangesCommandId = 0x41E2;
 
-            public const int DocumentsWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId = 0x417D;
+            public const int DocumentsWebResourceRemoveFilesFromListForPublishWithMirrorCommandId = 0x41E6;
 
             public const int DocumentsJavaScriptUpdateEntityMetadataFileCommandId = 0x2328;
 
@@ -2829,6 +2859,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int FileWebResourceAddFilesIntoListForPublishWithChangesCommandId = 0x415B;
 
             public const int FileWebResourceAddFilesIntoListForPublishWithMirrorCommandId = 0x415F;
+
+            public const int FileWebResourceRemoveFilesFromListForPublishOrdinalCommandId = 0x41EB;
+
+            public const int FileWebResourceRemoveFilesFromListForPublishWithChangesCommandId = 0x41F1;
+
+            public const int FileWebResourceRemoveFilesFromListForPublishWithMirrorCommandId = 0x41F5;
 
             public const int FileJavaScriptUpdateEntityMetadataFileCommandId = 0x235A;
 
@@ -2949,6 +2985,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int FolderWebResourceAddFilesIntoListForPublishWithChangesCommandId = 0x416A;
 
             public const int FolderWebResourceAddFilesIntoListForPublishWithMirrorCommandId = 0x416E;
+
+            public const int FolderWebResourceRemoveFilesFromListForPublishOrdinalCommandId = 0x41FA;
+
+            public const int FolderWebResourceRemoveFilesFromListForPublishWithChangesCommandId = 0x4200;
+
+            public const int FolderWebResourceRemoveFilesFromListForPublishWithMirrorCommandId = 0x4204;
 
             public const int FolderJavaScriptUpdateEntityMetadataFileCommandId = 0x238C;
 

@@ -171,9 +171,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             WebResourceOpenFilesByTypeCommand.Initialize,
 
+            WebResourceMultiDifferenceCommand.Initialize,
+
             WebResourceAddFilesIntoListForPublishCommand.Initialize,
 
-            WebResourceMultiDifferenceCommand.Initialize,
+            WebResourceRemoveFilesFromListForPublishCommand.Initialize,
 
             #region CodeWebResource
 

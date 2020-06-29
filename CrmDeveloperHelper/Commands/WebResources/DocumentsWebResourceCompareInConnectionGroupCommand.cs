@@ -11,10 +11,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
         private readonly bool _withDetails;
 
         private DocumentsWebResourceCompareInConnectionGroupCommand(OleMenuCommandService commandService, int baseIdStart, bool withDetails)
-            : base(
-                commandService
-                , baseIdStart
-            )
+            : base(commandService, baseIdStart)
         {
             this._withDetails = withDetails;
         }
