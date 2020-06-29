@@ -1598,11 +1598,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return helper.GetSelectedFilesAll(FileOperations.SupportsWebResourceType, true, false).Any();
         }
 
-        internal static IEnumerable<SelectedFile> GetOpenedDocuments(DTEHelper helper)
-        {
-            return helper.GetOpenedDocuments(FileOperations.SupportsWebResourceTextType, false);
-        }
-
         internal static void CorrectCommandNameForConnectionName(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand, string name)
         {
             if (!menuCommand.Enabled && !menuCommand.Visible)

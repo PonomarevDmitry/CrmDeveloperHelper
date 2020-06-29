@@ -49,14 +49,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Добавление в список на публикацию идентичных по тексту, но не по содержанию файлов.
 
-        public async Task ExecuteAddingIntoPublishListFilesByType(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, OpenFilesType openFilesType)
+        public async Task ExecuteAddingIntoPublishListFilesByType(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, OpenFilesType openFilesType)
         {
             await CheckEncodingConnectFindWebResourceExecuteActionAsync(connectionData
                 , Properties.OperationNames.AddingIntoPublishListFilesFormat2
                 , selectedFiles
                 , openFilesType
                 , AddingIntoPublishListFilesByType
-                , openFilesType.ToString()
+                , EnumDescriptionTypeConverter.GetEnumNameByDescriptionAttribute(openFilesType)
             );
         }
 

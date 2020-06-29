@@ -9,14 +9,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model.SourcesSelectedFiles
 {
     public class DocumentsWebResourceSourceSelectedFiles : ISourceSelectedFiles
     {
-        public IEnumerable<SelectedFile> GetSelectedFiles(DTEHelper helper)
+        public IEnumerable<SelectedFile> GetSelectedFiles(DTEHelper helper, WebResourceType webResourceType)
         {
-            return helper.GetOpenedDocuments(FileOperations.SupportsWebResourceTextType).ToList();
+            if (webResourceType == WebResourceType.Ordinal)
+            {
+                return helper.GetOpenedDocuments(FileOperations.SupportsWebResourceType).ToList();
+            }
+            else if (webResourceType == WebResourceType.SupportsText)
+            {
+                return helper.GetOpenedDocuments(FileOperations.SupportsWebResourceTextType).ToList();
+            }
+
+            return Enumerable.Empty<SelectedFile>();
         }
 
-        public void CommandBeforeQueryStatus(DTE2 applicationObject, OleMenuCommand menuCommand)
+        public void CommandBeforeQueryStatus(DTE2 applicationObject, OleMenuCommand menuCommand, WebResourceType webResourceType)
         {
-            CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsWebResourceText(applicationObject, menuCommand);
+            if (webResourceType == WebResourceType.Ordinal)
+            {
+                CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsWebResource(applicationObject, menuCommand);
+            }
+            else if (webResourceType == WebResourceType.SupportsText)
+            {
+                CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsWebResourceText(applicationObject, menuCommand);
+            }
+            else
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
         }
     }
 }

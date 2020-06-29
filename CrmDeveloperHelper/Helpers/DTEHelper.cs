@@ -591,9 +591,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleAddingIntoPublishListFilesByTypeCommand(List<SelectedFile> selectedFiles, OpenFilesType openFilesType)
+        public void HandleAddingIntoPublishListFilesByTypeCommand(IEnumerable<SelectedFile> selectedFiles, OpenFilesType openFilesType)
         {
-            if (selectedFiles.Count == 0)
+            if (!selectedFiles.Any())
             {
                 return;
             }

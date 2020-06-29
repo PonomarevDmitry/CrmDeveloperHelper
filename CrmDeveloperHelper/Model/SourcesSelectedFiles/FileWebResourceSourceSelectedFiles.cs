@@ -9,14 +9,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model.SourcesSelectedFiles
 {
     public class FileWebResourceSourceSelectedFiles : ISourceSelectedFiles
     {
-        public IEnumerable<SelectedFile> GetSelectedFiles(DTEHelper helper)
+        public IEnumerable<SelectedFile> GetSelectedFiles(DTEHelper helper, WebResourceType webResourceType)
         {
-            return helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsWebResourceTextType, false).ToList();
+            if (webResourceType == WebResourceType.Ordinal)
+            {
+                return helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsWebResourceType, false).ToList();
+            }
+            else if (webResourceType == WebResourceType.SupportsText)
+            {
+                return helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsWebResourceTextType, false).ToList();
+            }
+
+            return Enumerable.Empty<SelectedFile>();
         }
 
-        public void CommandBeforeQueryStatus(DTE2 applicationObject, OleMenuCommand menuCommand)
+        public void CommandBeforeQueryStatus(DTE2 applicationObject, OleMenuCommand menuCommand, WebResourceType webResourceType)
         {
-            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextAny(applicationObject, menuCommand);
+            if (webResourceType == WebResourceType.Ordinal)
+            {
+                CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceAny(applicationObject, menuCommand);
+            }
+            else if (webResourceType == WebResourceType.SupportsText)
+            {
+                CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextAny(applicationObject, menuCommand);
+            }
+            else
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
         }
     }
 }

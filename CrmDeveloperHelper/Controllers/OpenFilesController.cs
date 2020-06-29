@@ -22,7 +22,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 , selectedFiles
                 , openFilesType
                 , (conn, service, filesToOpen) => OpenFiles(conn, service, filesToOpen, inTextEditor)
-                , openFilesType.ToString()
+                , Helpers.EnumDescriptionTypeConverter.GetEnumNameByDescriptionAttribute(openFilesType)
             );
         }
 

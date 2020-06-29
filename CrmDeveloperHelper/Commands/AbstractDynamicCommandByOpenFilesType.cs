@@ -1,14 +1,40 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+using System;
 using System.Collections.Generic;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
     internal abstract class AbstractDynamicCommandByOpenFilesType : AbstractDynamicCommand<OpenFilesType>
     {
-        //{ PackageIds.guidCommandSet.DocumentsWebResourceMultiDifferenceFilesNotEqualByTextCommandId, OpenFilesType.NotEqualByText }
-        //, { PackageIds.guidCommandSet.DocumentsWebResourceMultiDifferenceFilesNotExistsInCrmWithLinkCommandId, OpenFilesType.NotExistsInCrmWithLink }
-        //, { PackageIds.guidCommandSet.DocumentsWebResourceMultiDifferenceFilesEqualByTextCommandId, OpenFilesType.EqualByText }
+        protected static Dictionary<OpenFilesType, WebResourceType> _comparersForOpenFilesType = new Dictionary<OpenFilesType, WebResourceType>()
+        {
+            { OpenFilesType.All, WebResourceType.Ordinal }
+
+            , { OpenFilesType.NotExistsInCrmWithLink, WebResourceType.Ordinal }
+            , { OpenFilesType.NotExistsInCrmWithoutLink, WebResourceType.Ordinal }
+
+            , { OpenFilesType.NotEqualByText, WebResourceType.SupportsText }
+            , { OpenFilesType.EqualByText, WebResourceType.SupportsText }
+
+            , { OpenFilesType.WithInserts, WebResourceType.SupportsText }
+            , { OpenFilesType.WithDeletes, WebResourceType.SupportsText }
+            , { OpenFilesType.WithComplexChanges, WebResourceType.SupportsText }
+
+            , { OpenFilesType.WithMirrorChanges, WebResourceType.SupportsText }
+            , { OpenFilesType.WithMirrorInserts, WebResourceType.SupportsText }
+            , { OpenFilesType.WithMirrorDeletes, WebResourceType.SupportsText }
+            , { OpenFilesType.WithMirrorComplexChanges, WebResourceType.SupportsText }
+        };
+
+        protected static List<OpenFilesType> _typesOrdinal = new List<OpenFilesType>()
+        {
+            OpenFilesType.All
+            , OpenFilesType.NotEqualByText
+            , OpenFilesType.EqualByText
+            , OpenFilesType.NotExistsInCrmWithLink
+            , OpenFilesType.NotExistsInCrmWithoutLink
+        };
 
         protected static List<OpenFilesType> _typesExistsOrHasLink = new List<OpenFilesType>()
         {

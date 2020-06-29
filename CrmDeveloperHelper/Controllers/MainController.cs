@@ -640,7 +640,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion WebResource
 
-        public void StartAddingIntoPublishListFilesByType(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, OpenFilesType openFilesType)
+        public void StartAddingIntoPublishListFilesByType(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, OpenFilesType openFilesType)
             => ExecuteWithConnectionInThread(connectionData, this._compareController.ExecuteAddingIntoPublishListFilesByType, commonConfig, selectedFiles, openFilesType);
 
         #region Report

@@ -3624,7 +3624,7 @@
       </Menu>
 
 
-      
+
       <!-- #endregion listForPublishMenu -->
 
 
@@ -6827,7 +6827,7 @@
           <ButtonText>Clear Link</ButtonText>
         </Strings>
       </Button>
-      
+
       <Button guid="guidDynamicCommandSet" id="DocumentsWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -6851,7 +6851,7 @@
           <ButtonText>DocumentsWebResourceMultiDifferenceFilesWithChangesCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      
+
       <Button guid="guidDynamicCommandSet" id="DocumentsWebResourceMultiDifferenceFilesWithMirrorCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -6864,112 +6864,37 @@
         </Strings>
       </Button>
 
-      <Button guid="guidCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishAllCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishOrdinalCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>All</ButtonText>
+          <ButtonText>DocumentsWebResourceAddFilesIntoListForPublishOrdinalCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishNotEqualByTextCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishWithChangesCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Not Equal by text</ButtonText>
+          <ButtonText>DocumentsWebResourceAddFilesIntoListForPublishWithChangesCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishNotExistsInCrmWithoutLinkCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishWithMirrorCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Not Exists in Crm without Link</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishNotExistsInCrmWithLinkCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>Not Exists in Crm with Link</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishEqualByTextCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>Equal by text</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishWithInsertsCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>With Inserts</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishWithDeletesCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>With Deletes</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishWithComplexCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>With Complex Changes</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishWithMirrorCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>Mirror Changes</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishWithMirrorInsertsCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>Mirror with Inserts</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishWithMirrorDeletesCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>Mirror with Deletes</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishWithMirrorComplexCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>Mirror with Complex Changes</ButtonText>
+          <ButtonText>DocumentsWebResourceAddFilesIntoListForPublishWithMirrorCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -8020,112 +7945,37 @@
 
 
 
-      <Button guid="guidCommandSet" id="FileWebResourceAddIntoPublishListFilesAllCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicCommandSet" id="FileWebResourceAddFilesIntoListForPublishOrdinalCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>All</ButtonText>
+          <ButtonText>FileWebResourceAddFilesIntoListForPublishOrdinalCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="FileWebResourceAddIntoPublishListFilesNotEqualByTextCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicCommandSet" id="FileWebResourceAddFilesIntoListForPublishWithChangesCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Not Equal by text</ButtonText>
+          <ButtonText>FileWebResourceAddFilesIntoListForPublishWithChangesCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="FileWebResourceAddIntoPublishListFilesNotExistsInCrmWithoutLinkCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicCommandSet" id="FileWebResourceAddFilesIntoListForPublishWithMirrorCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Not Exists in Crm without Link</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="FileWebResourceAddIntoPublishListFilesNotExistsInCrmWithLinkCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>Not Exists in Crm with Link</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="FileWebResourceAddIntoPublishListFilesEqualByTextCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>Equal by text</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="FileWebResourceAddIntoPublishListFilesWithInsertsCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>With Inserts</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="FileWebResourceAddIntoPublishListFilesWithDeletesCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>With Deletes</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="FileWebResourceAddIntoPublishListFilesWithComplexCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>With Complex Changes</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="FileWebResourceAddIntoPublishListFilesWithMirrorCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>Mirror Changes</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="FileWebResourceAddIntoPublishListFilesWithMirrorInsertsCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>Mirror with Inserts</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="FileWebResourceAddIntoPublishListFilesWithMirrorDeletesCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>Mirror with Deletes</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="FileWebResourceAddIntoPublishListFilesWithMirrorComplexCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>Mirror with Complex Changes</ButtonText>
+          <ButtonText>FileWebResourceAddFilesIntoListForPublishWithMirrorCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -9389,112 +9239,37 @@
         </Strings>
       </Button>
 
-      <Button guid="guidCommandSet" id="FolderWebResourceAddIntoPublishListFilesAllCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicCommandSet" id="FolderWebResourceAddFilesIntoListForPublishOrdinalCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>All</ButtonText>
+          <ButtonText>FolderWebResourceAddFilesIntoListForPublishOrdinalCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="FolderWebResourceAddIntoPublishListFilesNotEqualByTextCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicCommandSet" id="FolderWebResourceAddFilesIntoListForPublishWithChangesCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Not Equal by text</ButtonText>
+          <ButtonText>FolderWebResourceAddFilesIntoListForPublishWithChangesCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="FolderWebResourceAddIntoPublishListFilesNotExistsInCrmWithoutLinkCommandId" priority="0x06000" type="Button">
+      <Button guid="guidDynamicCommandSet" id="FolderWebResourceAddFilesIntoListForPublishWithMirrorCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Not Exists in Crm without Link</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="FolderWebResourceAddIntoPublishListFilesNotExistsInCrmWithLinkCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>Not Exists in Crm with Link</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="FolderWebResourceAddIntoPublishListFilesEqualByTextCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>Equal by text</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="FolderWebResourceAddIntoPublishListFilesWithInsertsCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>With Inserts</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="FolderWebResourceAddIntoPublishListFilesWithDeletesCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>With Deletes</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="FolderWebResourceAddIntoPublishListFilesWithComplexCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>With Complex Changes</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="FolderWebResourceAddIntoPublishListFilesWithMirrorCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>Mirror Changes</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="FolderWebResourceAddIntoPublishListFilesWithMirrorInsertsCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>Mirror with Inserts</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="FolderWebResourceAddIntoPublishListFilesWithMirrorDeletesCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>Mirror with Deletes</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="FolderWebResourceAddIntoPublishListFilesWithMirrorComplexCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>Mirror with Complex Changes</ButtonText>
+          <ButtonText>FolderWebResourceAddFilesIntoListForPublishWithMirrorCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -15219,57 +14994,6 @@
 
     <!-- #endregion documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList -->
 
-    <!-- #region documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText -->
-
-    <CommandPlacement guid="guidCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishAllCommandId" priority="0x010A">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishNotEqualByTextCommandId" priority="0x010B">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishNotExistsInCrmWithoutLinkCommandId" priority="0x010C">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishNotExistsInCrmWithLinkCommandId" priority="0x010D">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishEqualByTextCommandId" priority="0x010E">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText" />
-    </CommandPlacement>
-
-    <!-- #endregion documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText -->
-
-    <!-- #region documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges -->
-
-    <CommandPlacement guid="guidCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishWithInsertsCommandId" priority="0x010D">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishWithDeletesCommandId" priority="0x010E">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishWithComplexCommandId" priority="0x010F">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges" />
-    </CommandPlacement>
-
-    <!-- #endregion documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges -->
-
-    <!-- #region documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges -->
-
-    <CommandPlacement guid="guidCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishWithMirrorCommandId" priority="0x0110">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishWithMirrorInsertsCommandId" priority="0x0111">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishWithMirrorDeletesCommandId" priority="0x0112">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishWithMirrorComplexCommandId" priority="0x0113">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges" />
-    </CommandPlacement>
-
-    <!-- #endregion documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges -->
-
 
     <!-- #region documentsMenuWebResource_GroupEntityMetadata -->
 
@@ -15952,68 +15676,17 @@
 
     <!-- #region fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText" priority="0x0111">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges" priority="0x0112">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges" priority="0x0113">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList" />
     </CommandPlacement>
 
     <!-- #endregion fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList -->
-
-    <!-- #region fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText -->
-
-    <CommandPlacement guid="guidCommandSet" id="FileWebResourceAddIntoPublishListFilesAllCommandId" priority="0x010A">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileWebResourceAddIntoPublishListFilesNotEqualByTextCommandId" priority="0x010B">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileWebResourceAddIntoPublishListFilesNotExistsInCrmWithoutLinkCommandId" priority="0x010C">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileWebResourceAddIntoPublishListFilesNotExistsInCrmWithLinkCommandId" priority="0x010D">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileWebResourceAddIntoPublishListFilesEqualByTextCommandId" priority="0x010E">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText" />
-    </CommandPlacement>
-
-    <!-- #endregion fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText -->
-
-    <!-- #region fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges -->
-
-    <CommandPlacement guid="guidCommandSet" id="FileWebResourceAddIntoPublishListFilesWithInsertsCommandId" priority="0x010D">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileWebResourceAddIntoPublishListFilesWithDeletesCommandId" priority="0x010E">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileWebResourceAddIntoPublishListFilesWithComplexCommandId" priority="0x010F">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges" />
-    </CommandPlacement>
-
-    <!-- #endregion fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges -->
-
-    <!-- #region fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges -->
-
-    <CommandPlacement guid="guidCommandSet" id="FileWebResourceAddIntoPublishListFilesWithMirrorCommandId" priority="0x0110">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileWebResourceAddIntoPublishListFilesWithMirrorInsertsCommandId" priority="0x0111">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileWebResourceAddIntoPublishListFilesWithMirrorDeletesCommandId" priority="0x0112">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileWebResourceAddIntoPublishListFilesWithMirrorComplexCommandId" priority="0x0113">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges" />
-    </CommandPlacement>
-
-    <!-- #endregion fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges -->
 
 
     <!-- #region fileMenuWebResource_GroupEntityMetadata -->
@@ -16961,57 +16634,6 @@
 
     <!-- #endregion folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList -->
 
-    <!-- #region folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText -->
-
-    <CommandPlacement guid="guidCommandSet" id="FolderWebResourceAddIntoPublishListFilesAllCommandId" priority="0x010A">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FolderWebResourceAddIntoPublishListFilesNotEqualByTextCommandId" priority="0x010B">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FolderWebResourceAddIntoPublishListFilesNotExistsInCrmWithoutLinkCommandId" priority="0x010C">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FolderWebResourceAddIntoPublishListFilesNotExistsInCrmWithLinkCommandId" priority="0x010D">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FolderWebResourceAddIntoPublishListFilesEqualByTextCommandId" priority="0x010E">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText" />
-    </CommandPlacement>
-
-    <!-- #endregion folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText -->
-
-    <!-- #region folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges -->
-
-    <CommandPlacement guid="guidCommandSet" id="FolderWebResourceAddIntoPublishListFilesWithInsertsCommandId" priority="0x010D">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FolderWebResourceAddIntoPublishListFilesWithDeletesCommandId" priority="0x010E">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FolderWebResourceAddIntoPublishListFilesWithComplexCommandId" priority="0x010F">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges" />
-    </CommandPlacement>
-
-    <!-- #endregion folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges -->
-
-    <!-- #region folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges -->
-
-    <CommandPlacement guid="guidCommandSet" id="FolderWebResourceAddIntoPublishListFilesWithMirrorCommandId" priority="0x0110">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FolderWebResourceAddIntoPublishListFilesWithMirrorInsertsCommandId" priority="0x0111">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FolderWebResourceAddIntoPublishListFilesWithMirrorDeletesCommandId" priority="0x0112">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FolderWebResourceAddIntoPublishListFilesWithMirrorComplexCommandId" priority="0x0113">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges" />
-    </CommandPlacement>
-
-    <!-- #endregion folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges -->
-
 
     <!-- #region folderMenuWebResource_GroupEntityMetadata -->
 
@@ -17809,7 +17431,7 @@
 
 
 
-    
+
 
 
     <!-- #region listForPublishMenu_GroupShowList -->
@@ -19349,15 +18971,15 @@
     <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishMultiDifferenceFilesExistsOrHasLinkCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" />
     </CommandPlacement>
-    
+
     <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishMultiDifferenceFilesWithChangesCommandId" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" />
     </CommandPlacement>
-    
+
     <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishMultiDifferenceFilesWithMirrorCommandId" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" />
     </CommandPlacement>
-    
+
     <!-- #endregion ListForPublish Dynamic -->
 
 
@@ -20466,6 +20088,18 @@
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" />
     </CommandPlacement>
 
+    <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishOrdinalCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishWithChangesCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishWithMirrorCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges" />
+    </CommandPlacement>
+
     <!-- #endregion DocumentsWebResource Dynamic -->
 
     <!-- #region DocumentsJavaScript Dynamic -->
@@ -20801,6 +20435,26 @@
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceMultiDifferenceFilesWithMirrorCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceAddFilesIntoListForPublishOrdinalCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceAddFilesIntoListForPublishWithChangesCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceAddFilesIntoListForPublishWithMirrorCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceAddFilesIntoListForPublishOrdinalCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceAddFilesIntoListForPublishWithChangesCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceAddFilesIntoListForPublishWithMirrorCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges" />
     </CommandPlacement>
 
     <!-- #endregion FileWebResource Dynamic -->
@@ -21153,11 +20807,11 @@
     <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" />
     </CommandPlacement>
-    
+
     <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceMultiDifferenceFilesWithChangesCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" />
     </CommandPlacement>
-    
+
     <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceMultiDifferenceFilesWithMirrorCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" />
     </CommandPlacement>
@@ -22458,6 +22112,10 @@
 
       <IDSymbol name="groupOutputs" value="0x10205" />
 
+
+
+
+
       <!-- #region codeMenuWebResource -->
 
       <IDSymbol name="codeMenuWebResource" value="0x1000" />
@@ -23038,6 +22696,8 @@
 
 
 
+
+
       <!-- #region documentsMenuWebResource -->
 
       <IDSymbol name="documentsMenuWebResource" value="0x116E" />
@@ -23216,6 +22876,8 @@
       <IDSymbol name="documentsMenuCSharp_GroupGlobalOptionSets_MenuDyn_Group" value="0x1282" />
 
       <!-- #endregion documentsMenuCSharp -->
+
+
 
 
 
@@ -23545,6 +23207,8 @@
 
 
 
+
+
       <!-- #region folderMenuWebResource -->
 
       <IDSymbol name="folderMenuWebResource" value="0x1061" />
@@ -23810,6 +23474,10 @@
 
       <!-- #endregion folderMenuProject -->
 
+
+
+
+
       <!-- #region AddMenuGroups -->
 
       <IDSymbol name="AddGroupFolder" value="0x13A2" />
@@ -23848,7 +23516,7 @@
       <IDSymbol name="listForPublishMenu_GroupIncludeReferences" value="0x14F9" />
       <IDSymbol name="listForPublishMenu_GroupIncludeReferences_MenuDyn" value="0x14FA" />
       <IDSymbol name="listForPublishMenu_GroupIncludeReferences_MenuDyn_Group" value="0x14FB" />
-      
+
       <IDSymbol name="listForPublishMenu_GroupIncludeReferencesToLinkedSystemFormLibraries" value="0x14FC" />
       <IDSymbol name="listForPublishMenu_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuDyn" value="0x14FD" />
       <IDSymbol name="listForPublishMenu_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuDyn_Group" value="0x14FE" />
@@ -23904,12 +23572,16 @@
 
 
 
+
+
       <!-- #region openCrmSiteMenu -->
 
       <IDSymbol name="openCrmSiteMenu" value="0x218A" />
       <IDSymbol name="openCrmSiteMenu_Group" value="0x218B" />
 
       <!-- #endregion openCrmSiteMenu -->
+
+
 
 
 
@@ -24212,6 +23884,8 @@
 
 
 
+
+
       <!-- #region outputMenu -->
 
       <IDSymbol name="outputMenu" value="0x133E" />
@@ -24316,6 +23990,9 @@
       <!-- #endregion outputMenu -->
 
 
+
+
+
     </GuidSymbol>
 
 
@@ -24324,7 +24001,7 @@
 
     <GuidSymbol name="guidDynamicCommandSet" value="{F71CA58C-98FE-4935-A0CB-478A076B9821}">
 
-      <!-- #region Common -->
+      <!-- #region Common Dynamic Commands Definitions -->
 
       <IDSymbol name="CommonSelectCrmConnectionCommandId" value="100" />
 
@@ -24411,11 +24088,14 @@
 
       <IDSymbol name="CommonCheckUnknownFormControlTypesId" value="10750" />
 
-      <!-- #endregion Common -->
+      <!-- #endregion Common Dynamic Commands Definitions -->
 
 
 
-      <!-- #region CodeWebResource -->
+
+      <!-- #region Code Dynamic Commands Definitions -->
+
+      <!-- #region CodeWebResource Dynamic Commands Definitions -->
 
       <IDSymbol name="CodeWebResourceAddToSolutionLastCommandId" value="200" />
 
@@ -24446,9 +24126,9 @@
 
       <IDSymbol name="CodeJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId" value="15900" />
 
-      <!-- #endregion CodeWebResource -->
+      <!-- #endregion CodeWebResource Dynamic Commands Definitions -->
 
-      <!-- #region CodeJavaScript -->
+      <!-- #region CodeJavaScript Dynamic Commands Definitions -->
 
       <IDSymbol name="CodeJavaScriptUpdateEntityMetadataFileCommandId" value="8950" />
       <IDSymbol name="CodeJavaScriptUpdateGlobalOptionSetSingleFileCommandId" value="9400" />
@@ -24488,9 +24168,9 @@
 
       <IDSymbol name="CodeJavaScriptLinkedEntityPublishInConnectionCommandId" value="13550" />
 
-      <!-- #endregion CodeJavaScript -->
+      <!-- #endregion CodeJavaScript Dynamic Commands Definitions -->
 
-      <!-- #region CodeXml -->
+      <!-- #region CodeXml Dynamic Commands Definitions -->
 
       <IDSymbol name="CodeXmlFetchXmlExecuteRequestInConnectionsCommandId" value="4250" />
 
@@ -24531,9 +24211,9 @@
       <IDSymbol name="CodeXmlWebResourceDependencyXmlOpenInWebInConnectionCommandId" value="11900" />
       <IDSymbol name="CodeXmlWebResourceDependencyXmlGetCurrentInConnectionCommandId" value="11950" />
 
-      <!-- #endregion CodeXml -->
+      <!-- #endregion CodeXml Dynamic Commands Definitions -->
 
-      <!-- #region CodeReport -->
+      <!-- #region CodeReport Dynamic Commands Definitions -->
 
       <IDSymbol name="CodeReportAddToSolutionLastCommandId" value="220" />
 
@@ -24558,9 +24238,9 @@
       <IDSymbol name="CodeReportUpdateCommandId" value="9800" />
       <IDSymbol name="CodeReportCreateCommandId" value="9900" />
 
-      <!-- #endregion CodeReport -->
+      <!-- #endregion CodeReport Dynamic Commands Definitions -->
 
-      <!-- #region CodeCSharp -->
+      <!-- #region CodeCSharp Dynamic Commands Definitions -->
 
       <IDSymbol name="CodeCSharpProjectPluginAssemblyAddToSolutionLastCommandId" value="440" />
       <IDSymbol name="CodeCSharpProjectPluginAssemblyStepsAddToSolutionLastCommandId" value="460" />
@@ -24599,11 +24279,17 @@
       <IDSymbol name="CodeCSharpProjectPluginAssemblyOpenDependentComponentsInExplorerInConnectionCommandId" value="14800" />
       <IDSymbol name="CodeCSharpProjectPluginAssemblyOpenSolutionsListWithComponentInExplorerInConnectionCommandId" value="14850" />
 
-      <!-- #endregion CodeCSharp -->
+      <!-- #endregion CodeCSharp Dynamic Commands Definitions -->
+
+      <!-- #endregion Code Dynamic Commands Definitions -->
 
 
 
-      <!-- #region DocumentsWebResource -->
+
+
+      <!-- #region Documents Dynamic Commands Definitions -->
+
+      <!-- #region DocumentsWebResource Dynamic Commands Definitions -->
 
       <IDSymbol name="DocumentsWebResourceAddToSolutionLastCommandId" value="240" />
 
@@ -24617,14 +24303,18 @@
       <IDSymbol name="DocumentsWebResourceCompareWithDetailsInConnectionGroupCommandId" value="4550" />
 
       <IDSymbol name="DocumentsWebResourceAddToSolutionInConnectionCommandId" value="7550" />
-      
+
       <IDSymbol name="DocumentsWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId" value="16650" />
       <IDSymbol name="DocumentsWebResourceMultiDifferenceFilesWithChangesCommandId" value="16655" />
       <IDSymbol name="DocumentsWebResourceMultiDifferenceFilesWithMirrorCommandId" value="16660" />
 
-      <!-- #endregion DocumentsWebResource -->
+      <IDSymbol name="DocumentsWebResourceAddFilesIntoListForPublishOrdinalCommandId" value="16710" />
+      <IDSymbol name="DocumentsWebResourceAddFilesIntoListForPublishWithChangesCommandId" value="16716" />
+      <IDSymbol name="DocumentsWebResourceAddFilesIntoListForPublishWithMirrorCommandId" value="16720" />
 
-      <!-- #region DocumentsJavaScript -->
+      <!-- #endregion DocumentsWebResource Dynamic Commands Definitions -->
+
+      <!-- #region DocumentsJavaScript Dynamic Commands Definitions -->
 
       <IDSymbol name="DocumentsJavaScriptUpdateEntityMetadataFileCommandId" value="9000" />
       <IDSymbol name="DocumentsJavaScriptUpdateGlobalOptionSetSingleFileCommandId" value="9450" />
@@ -24633,23 +24323,23 @@
 
       <IDSymbol name="DocumentsJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId" value="16000" />
 
-      <!-- #endregion DocumentsJavaScript -->
+      <!-- #endregion DocumentsJavaScript Dynamic Commands Definitions -->
 
-      <!-- #region DocumentsXml -->
+      <!-- #region DocumentsXml Dynamic Commands Definitions -->
 
       <IDSymbol name="DocumentsXmlXsdSchemaSetCommandId" value="8800" />
 
-      <!-- #endregion DocumentsXml -->
+      <!-- #endregion DocumentsXml Dynamic Commands Definitions -->
 
-      <!-- #region DocumentsReport -->
+      <!-- #region DocumentsReport Dynamic Commands Definitions -->
 
       <IDSymbol name="DocumentsReportAddToSolutionLastCommandId" value="260" />
 
       <IDSymbol name="DocumentsReportAddToSolutionInConnectionCommandId" value="7600" />
 
-      <!-- #endregion DocumentsReport -->
+      <!-- #endregion DocumentsReport Dynamic Commands Definitions -->
 
-      <!-- #region DocumentsCSharp -->
+      <!-- #region DocumentsCSharp Dynamic Commands Definitions -->
 
       <IDSymbol name="DocumentsCSharpProjectPluginAssemblyAddToSolutionLastCommandId" value="3900" />
       <IDSymbol name="DocumentsCSharpProjectPluginAssemblyStepsAddToSolutionLastCommandId" value="3950" />
@@ -24673,11 +24363,17 @@
       <IDSymbol name="DocumentsCSharpProjectPluginTypeOpenDependentInExplorerInConnectionCommandId" value="14100" />
       <IDSymbol name="DocumentsCSharpProjectPluginTypeOpenSolutionsListWithComponentInExplorerInConnectionCommandId" value="14150" />
 
-      <!-- #endregion DocumentsCSharp -->
+      <!-- #endregion DocumentsCSharp Dynamic Commands Definitions -->
+
+      <!-- #endregion Documents Dynamic Commands Definitions -->
 
 
 
-      <!-- #region FileWebResource -->
+
+
+      <!-- #region File Dynamic Commands Definitions -->
+
+      <!-- #region FileWebResource Dynamic Commands Definitions -->
 
       <IDSymbol name="FileWebResourceAddToSolutionLastCommandId" value="280" />
 
@@ -24711,9 +24407,13 @@
       <IDSymbol name="FileWebResourceMultiDifferenceFilesWithChangesCommandId" value="16670" />
       <IDSymbol name="FileWebResourceMultiDifferenceFilesWithMirrorCommandId" value="16675" />
 
-      <!-- #endregion FileWebResource -->
+      <IDSymbol name="FileWebResourceAddFilesIntoListForPublishOrdinalCommandId" value="16725" />
+      <IDSymbol name="FileWebResourceAddFilesIntoListForPublishWithChangesCommandId" value="16731" />
+      <IDSymbol name="FileWebResourceAddFilesIntoListForPublishWithMirrorCommandId" value="16735" />
 
-      <!-- #region FileJavaScript -->
+      <!-- #endregion FileWebResource Dynamic Commands Definitions -->
+
+      <!-- #region FileJavaScript Dynamic Commands Definitions -->
 
       <IDSymbol name="FileJavaScriptUpdateEntityMetadataFileCommandId" value="9050" />
       <IDSymbol name="FileJavaScriptUpdateGlobalOptionSetSingleFileCommandId" value="9500" />
@@ -24723,15 +24423,15 @@
 
       <IDSymbol name="FileJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId" value="15950" />
 
-      <!-- #endregion FileJavaScript -->
+      <!-- #endregion FileJavaScript Dynamic Commands Definitions -->
 
-      <!-- #region FileXml -->
+      <!-- #region FileXml Dynamic Commands Definitions -->
 
       <IDSymbol name="FileXmlXsdSchemaSetCommandId" value="8825" />
 
-      <!-- #endregion FileXml -->
+      <!-- #endregion FileXml Dynamic Commands Definitions -->
 
-      <!-- #region FileReport -->
+      <!-- #region FileReport Dynamic Commands Definitions -->
 
       <IDSymbol name="FileReportAddToSolutionLastCommandId" value="300" />
 
@@ -24745,9 +24445,9 @@
       <IDSymbol name="FileReportUpdateCommandId" value="9850" />
       <IDSymbol name="FileReportCreateCommandId" value="9950" />
 
-      <!-- #endregion FileReport -->
+      <!-- #endregion FileReport Dynamic Commands Definitions -->
 
-      <!-- #region FileCSharp -->
+      <!-- #region FileCSharp Dynamic Commands Definitions -->
 
       <IDSymbol name="FileCSharpProjectPluginAssemblyAddToSolutionLastCommandId" value="500" />
       <IDSymbol name="FileCSharpProjectPluginAssemblyStepsAddToSolutionLastCommandId" value="520" />
@@ -24786,11 +24486,17 @@
       <IDSymbol name="FileCSharpProjectPluginAssemblyOpenDependentComponentsInExplorerInConnectionCommandId" value="15600" />
       <IDSymbol name="FileCSharpProjectPluginAssemblyOpenSolutionsListWithComponentInExplorerInConnectionCommandId" value="15650" />
 
-      <!-- #endregion FileCSharp -->
+      <!-- #endregion FileCSharp Dynamic Commands Definitions -->
+
+      <!-- #endregion File Dynamic Commands Definitions -->
 
 
 
-      <!-- #region FolderWebResource -->
+
+
+      <!-- #region Folder Dynamic Commands Definitions -->
+
+      <!-- #region FolderWebResource Dynamic Commands Definitions -->
 
       <IDSymbol name="FolderWebResourceAddToSolutionLastCommandId" value="320" />
 
@@ -24809,9 +24515,13 @@
       <IDSymbol name="FolderWebResourceMultiDifferenceFilesWithChangesCommandId" value="16685" />
       <IDSymbol name="FolderWebResourceMultiDifferenceFilesWithMirrorCommandId" value="16690" />
 
-      <!-- #endregion FolderWebResource -->
+      <IDSymbol name="FolderWebResourceAddFilesIntoListForPublishOrdinalCommandId" value="16740" />
+      <IDSymbol name="FolderWebResourceAddFilesIntoListForPublishWithChangesCommandId" value="16746" />
+      <IDSymbol name="FolderWebResourceAddFilesIntoListForPublishWithMirrorCommandId" value="16750" />
 
-      <!-- #region FolderJavaScript -->
+      <!-- #endregion FolderWebResource Dynamic Commands Definitions -->
+
+      <!-- #region FolderJavaScript Dynamic Commands Definitions -->
 
       <IDSymbol name="FolderJavaScriptUpdateEntityMetadataFileCommandId" value="9100" />
       <IDSymbol name="FolderJavaScriptUpdateGlobalOptionSetSingleFileCommandId" value="9550" />
@@ -24820,15 +24530,15 @@
 
       <IDSymbol name="FolderJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId" value="16050" />
 
-      <!-- #endregion FolderJavaScript -->
+      <!-- #endregion FolderJavaScript Dynamic Commands Definitions -->
 
-      <!-- #region FolderXml -->
+      <!-- #region FolderXml Dynamic Commands Definitions -->
 
       <IDSymbol name="FolderXmlXsdSchemaSetCommandId" value="8850" />
 
-      <!-- #endregion FolderXml -->
+      <!-- #endregion FolderXml Dynamic Commands Definitions -->
 
-      <!-- #region FolderCSharp -->
+      <!-- #region FolderCSharp Dynamic Commands Definitions -->
 
       <IDSymbol name="FolderCSharpUpdateEntityMetadataFileProxyClassOrSchemaCommandId" value="10700" />
 
@@ -24855,21 +24565,23 @@
       <IDSymbol name="FolderCSharpProjectPluginTypeOpenDependentInExplorerInConnectionCommandId" value="14400" />
       <IDSymbol name="FolderCSharpProjectPluginTypeOpenSolutionsListWithComponentInExplorerInConnectionCommandId" value="14450" />
 
-      <!-- #endregion FolderCSharp -->
+      <!-- #endregion FolderCSharp Dynamic Commands Definitions -->
 
-      <!-- #region FolderAdd -->
+      <!-- #region FolderAdd Dynamic Commands Definitions -->
 
       <IDSymbol name="FolderAddEntityMetadataFileInConnectionCommandId" value="8900" />
       <IDSymbol name="FolderAddGlobalOptionSetFileInConnectionCommandId" value="9350" />
       <IDSymbol name="FolderAddSdkMessageRequestFileInConnectionCommandId" value="9700" />
       <IDSymbol name="FolderAddSystemFormJavaScriptFileInConnectionCommandId" value="9750" />
 
-      <!-- #endregion FolderAdd -->
+      <!-- #endregion FolderAdd Dynamic Commands Definitions -->
+
+      <!-- #endregion Folder Dynamic Commands Definitions -->
 
 
 
 
-      <!-- #region ListForPublish -->
+      <!-- #region ListForPublish Dynamic Commands Definitions -->
 
       <IDSymbol name="ListForPublishAddToSolutionLastCommandId" value="340" />
 
@@ -24892,11 +24604,13 @@
       <IDSymbol name="ListForPublishMultiDifferenceFilesWithChangesCommandId" value="16700" />
       <IDSymbol name="ListForPublishMultiDifferenceFilesWithMirrorCommandId" value="16705" />
 
-      <!-- #endregion ListForPublish -->
+      <!-- #endregion ListForPublish Dynamic Commands Definitions -->
 
 
 
-      <!-- #region Project -->
+
+
+      <!-- #region Project Dynamic Commands Definitions -->
 
       <IDSymbol name="ProjectPluginAssemblyAddToSolutionLastCommandId" value="360" />
       <IDSymbol name="ProjectPluginAssemblyStepsAddToSolutionLastCommandId" value="380" />
@@ -24920,16 +24634,18 @@
       <IDSymbol name="ProjectPluginAssemblyCreateEntityDescriptionInConnectionCommandId" value="13800" />
       <IDSymbol name="ProjectPluginAssemblyCreateDescriptionInConnectionCommandId" value="13850" />
 
-      <!-- #endregion Project -->
+      <!-- #endregion Project Dynamic Commands Definitions -->
 
 
 
-      <!-- #region OutputExportOpenLastSelectedSolution -->
+
+
+      <!-- #region OutputExportOpenLastSelectedSolution Dynamic Commands Definitions -->
 
       <IDSymbol name="OutputExportOpenLastSelectedSolutionInWebCommandId" value="10200" />
       <IDSymbol name="OutputExportOpenLastSelectedSolutionInExplorerCommandId" value="10250" />
 
-      <!-- #endregion OutputExportOpenLastSelectedSolution -->
+      <!-- #endregion OutputExportOpenLastSelectedSolution Dynamic Commands Definitions -->
 
 
 
@@ -24943,7 +24659,9 @@
 
     <GuidSymbol name="guidCommandSet" value="{15ffcbd5-0856-4bda-b6c8-e6e0b635761d}">
 
-      <!-- #region CodeWebResource -->
+      <!-- #region Code Commands Definitions -->
+
+      <!-- #region CodeWebResource Commands Definitions -->
 
       <IDSymbol name="CodeWebResourceUpdateContentPublishCommandId" value="0x2000" />
 
@@ -24965,9 +24683,9 @@
 
       <IDSymbol name="CodeJavaScriptIncludeReferencesToLinkedSystemFormCommandId" value="0x225F" />
 
-      <!-- #endregion CodeWebResource -->
+      <!-- #endregion CodeWebResource Commands Definitions -->
 
-      <!-- #region CodeJavaScript -->
+      <!-- #region CodeJavaScript Commands Definitions -->
 
       <IDSymbol name="CodeJavaScriptUpdateEntityMetadataFileWithSelectCommandId" value="0x219D" />
       <IDSymbol name="CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommandId" value="0x21A1" />
@@ -24978,9 +24696,9 @@
 
       <IDSymbol name="CodeJavaScriptLinkedEntityExplorerCommandId" value="0x2245" />
 
-      <!-- #endregion CodeJavaScript -->
+      <!-- #endregion CodeJavaScript Commands Definitions -->
 
-      <!-- #region CodeXml -->
+      <!-- #region CodeXml Commands Definitions -->
 
       <IDSymbol name="CodeXmlCommonUpdateCommandId" value="0x2225" />
       <IDSymbol name="CodeXmlCommonShowDifferenceCommandId" value="0x2226" />
@@ -25041,9 +24759,9 @@
       <IDSymbol name="CodeXmlWebResourceDependencyXmlGetCurrentCommandId" value="0x222E" />
 
 
-      <!-- #endregion CodeXml -->
+      <!-- #endregion CodeXml Commands Definitions -->
 
-      <!-- #region CodeReport -->
+      <!-- #region CodeReport Commands Definitions -->
 
       <IDSymbol name="CodeReportLinkCreateCommandId" value="0x2009" />
       <IDSymbol name="CodeReportLinkClearCommandId" value="0x200A" />
@@ -25056,9 +24774,9 @@
 
       <IDSymbol name="CodeReportExplorerCommandId" value="0x200D" />
 
-      <!-- #endregion CodeReport -->
+      <!-- #endregion CodeReport Commands Definitions -->
 
-      <!-- #region CodeCSharp -->
+      <!-- #region CodeCSharp Commands Definitions -->
 
       <IDSymbol name="CodeCSharpProjectUpdatePluginAssemblyCommandId" value="0x2192" />
       <IDSymbol name="CodeCSharpProjectBuildLoadUpdatePluginAssemblyCommandId" value="0x2221" />
@@ -25085,18 +24803,24 @@
       <IDSymbol name="CodeCSharpProjectPluginAssemblyCreateEntityDescriptionCommandId" value="0x224E" />
       <IDSymbol name="CodeCSharpProjectPluginAssemblyCreateDescriptionCommandId" value="0x224F" />
 
-      <!-- #endregion CodeCSharp -->
+      <!-- #endregion CodeCSharp Commands Definitions -->
 
-      <!-- #region CodePublishList -->
+      <!-- #region CodePublishList Commands Definitions -->
 
       <IDSymbol name="CodePublishListAddCommandId" value="0x2070" />
       <IDSymbol name="CodePublishListRemoveCommandId" value="0x2071" />
 
-      <!-- #endregion CodePublishList -->
+      <!-- #endregion CodePublishList Commands Definitions -->
+
+      <!-- #endregion Code Commands Definitions -->
 
 
 
-      <!-- #region DocumentsWebResource -->
+
+
+      <!-- #region Documents Commands Definitions -->
+
+      <!-- #region DocumentsWebResource Commands Definitions -->
 
       <IDSymbol name="DocumentsWebResourceShowDependentComponentsCommandId" value="0x20DE" />
       <IDSymbol name="DocumentsWebResourceCompareCommandId" value="0x20DF" />
@@ -25108,22 +24832,9 @@
       <IDSymbol name="DocumentsWebResourceLinkCreateCommandId" value="0x20E5" />
       <IDSymbol name="DocumentsWebResourceLinkClearCommandId" value="0x20E6" />
 
-      <IDSymbol name="DocumentsWebResourceAddFilesIntoListForPublishAllCommandId" value="0x20F3" />
-      <IDSymbol name="DocumentsWebResourceAddFilesIntoListForPublishNotEqualByTextCommandId" value="0x20F4" />
-      <IDSymbol name="DocumentsWebResourceAddFilesIntoListForPublishNotExistsInCrmWithoutLinkCommandId" value="0x210D" />
-      <IDSymbol name="DocumentsWebResourceAddFilesIntoListForPublishNotExistsInCrmWithLinkCommandId" value="0x210E" />
-      <IDSymbol name="DocumentsWebResourceAddFilesIntoListForPublishEqualByTextCommandId" value="0x20F5" />
-      <IDSymbol name="DocumentsWebResourceAddFilesIntoListForPublishWithInsertsCommandId" value="0x20F6" />
-      <IDSymbol name="DocumentsWebResourceAddFilesIntoListForPublishWithDeletesCommandId" value="0x20F7" />
-      <IDSymbol name="DocumentsWebResourceAddFilesIntoListForPublishWithComplexCommandId" value="0x20F8" />
-      <IDSymbol name="DocumentsWebResourceAddFilesIntoListForPublishWithMirrorCommandId" value="0x20F9" />
-      <IDSymbol name="DocumentsWebResourceAddFilesIntoListForPublishWithMirrorInsertsCommandId" value="0x20FA" />
-      <IDSymbol name="DocumentsWebResourceAddFilesIntoListForPublishWithMirrorDeletesCommandId" value="0x20FB" />
-      <IDSymbol name="DocumentsWebResourceAddFilesIntoListForPublishWithMirrorComplexCommandId" value="0x20FC" />
+      <!-- #endregion DocumentsWebResource Commands Definitions -->
 
-      <!-- #endregion DocumentsWebResource -->
-
-      <!-- #region DocumentsJavaScript -->
+      <!-- #region DocumentsJavaScript Commands Definitions -->
 
       <IDSymbol name="DocumentsJavaScriptFileGenerationOptionsCommandId" value="0x2242" />
 
@@ -25131,9 +24842,9 @@
 
       <IDSymbol name="DocumentsJavaScriptIncludeReferencesToLinkedSystemFormCommandId" value="0x2261" />
 
-      <!-- #endregion DocumentsJavaScript -->
+      <!-- #endregion DocumentsJavaScript Commands Definitions -->
 
-      <!-- #region DocumentsXml -->
+      <!-- #region DocumentsXml Commands Definitions -->
 
       <IDSymbol name="DocumentsXmlXsdSchemaRemoveCommandId" value="0x2197" />
 
@@ -25141,15 +24852,15 @@
 
       <IDSymbol name="DocumentsXmlRemoveCustomAttributesCommandId" value="0x2238" />
 
-      <!-- #endregion DocumentsXml -->
+      <!-- #endregion DocumentsXml Commands Definitions -->
 
-      <!-- #region DocumentsReport -->
+      <!-- #region DocumentsReport Commands Definitions -->
 
       <IDSymbol name="DocumentsReportLinkClearCommandId" value="0x20E7" />
 
-      <!-- #endregion DocumentsReport -->
+      <!-- #endregion DocumentsReport Commands Definitions -->
 
-      <!-- #region DocumentsCSharp -->
+      <!-- #region DocumentsCSharp Commands Definitions -->
 
       <IDSymbol name="DocumentsCSharpEntityMetadataFileGenerationOptionsCommandId" value="0x2217" />
       <IDSymbol name="DocumentsCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommandId" value="0x2218" />
@@ -25158,11 +24869,17 @@
       <IDSymbol name="DocumentsCSharpProjectPluginTypeGetCustomWorkflowActivityInfoCommandId" value="0x2257" />
       <IDSymbol name="DocumentsCSharpProjectPluginTypeCreateDescriptionCommandId" value="0x2258" />
 
-      <!-- #endregion DocumentsCSharp -->
+      <!-- #endregion DocumentsCSharp Commands Definitions -->
+
+      <!-- #endregion Documents Commands Definitions -->
 
 
 
-      <!-- #region FileWebResource -->
+
+
+      <!-- #region File Commands Definitions -->
+
+      <!-- #region FileWebResource Commands Definitions -->
 
       <IDSymbol name="FileWebResourceUpdateContentPublishCommandId" value="0x2043" />
       <IDSymbol name="FileJavaScriptUpdateContentIncludeReferencesPublishCommandId" value="0x2264" />
@@ -25211,22 +24928,9 @@
       <IDSymbol name="FileWebResourceOpenFilesWithMirrorDeletesInTextEditorCommandId" value="0x2096" />
       <IDSymbol name="FileWebResourceOpenFilesWithMirrorComplexInTextEditorCommandId" value="0x2097" />
 
-      <IDSymbol name="FileWebResourceAddIntoPublishListFilesAllCommandId" value="0x20C8" />
-      <IDSymbol name="FileWebResourceAddIntoPublishListFilesNotEqualByTextCommandId" value="0x20C9" />
-      <IDSymbol name="FileWebResourceAddIntoPublishListFilesNotExistsInCrmWithoutLinkCommandId" value="0x210F" />
-      <IDSymbol name="FileWebResourceAddIntoPublishListFilesNotExistsInCrmWithLinkCommandId" value="0x2110" />
-      <IDSymbol name="FileWebResourceAddIntoPublishListFilesEqualByTextCommandId" value="0x20CA" />
-      <IDSymbol name="FileWebResourceAddIntoPublishListFilesWithInsertsCommandId" value="0x20CB" />
-      <IDSymbol name="FileWebResourceAddIntoPublishListFilesWithDeletesCommandId" value="0x20CC" />
-      <IDSymbol name="FileWebResourceAddIntoPublishListFilesWithComplexCommandId" value="0x20CD" />
-      <IDSymbol name="FileWebResourceAddIntoPublishListFilesWithMirrorCommandId" value="0x20CE" />
-      <IDSymbol name="FileWebResourceAddIntoPublishListFilesWithMirrorInsertsCommandId" value="0x20CF" />
-      <IDSymbol name="FileWebResourceAddIntoPublishListFilesWithMirrorDeletesCommandId" value="0x20D0" />
-      <IDSymbol name="FileWebResourceAddIntoPublishListFilesWithMirrorComplexCommandId" value="0x20D1" />
+      <!-- #endregion FileWebResource Commands Definitions -->
 
-      <!-- #endregion FileWebResource -->
-
-      <!-- #region FileJavaScript -->
+      <!-- #region FileJavaScript Commands Definitions -->
 
       <IDSymbol name="FileJavaScriptUpdateEntityMetadataFileWithSelectCommandId" value="0x219E" />
       <IDSymbol name="FileJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommandId" value="0x21A2" />
@@ -25238,9 +24942,9 @@
 
       <IDSymbol name="FileJavaScriptIncludeReferencesToLinkedSystemFormCommandId" value="0x2260" />
 
-      <!-- #endregion FileJavaScript -->
+      <!-- #endregion FileJavaScript Commands Definitions -->
 
-      <!-- #region FileXml -->
+      <!-- #region FileXml Commands Definitions -->
 
       <IDSymbol name="FileXmlXsdSchemaRemoveCommandId" value="0x2198" />
 
@@ -25248,9 +24952,9 @@
 
       <IDSymbol name="FileXmlRemoveCustomAttributesCommandId" value="0x2239" />
 
-      <!-- #endregion FileXml -->
+      <!-- #endregion FileXml Commands Definitions -->
 
-      <!-- #region FileReport -->
+      <!-- #region FileReport Commands Definitions -->
 
       <IDSymbol name="FileReportExplorerCommandId" value="0x2055" />
 
@@ -25258,9 +24962,9 @@
       <IDSymbol name="FileReportLinkCreateCommandId" value="0x2056" />
       <IDSymbol name="FileReportLinkClearCommandId" value="0x2057" />
 
-      <!-- #endregion FileReport -->
+      <!-- #endregion FileReport Commands Definitions -->
 
-      <!-- #region FileCSharp -->
+      <!-- #region FileCSharp Commands Definitions -->
 
       <IDSymbol name="FileCSharpProjectUpdatePluginAssemblyCommandId" value="0x2193" />
       <IDSymbol name="FileCSharpProjectBuildLoadUpdatePluginAssemblyCommandId" value="0x2223" />
@@ -25287,11 +24991,17 @@
       <IDSymbol name="FileCSharpProjectPluginAssemblyCreateEntityDescriptionCommandId" value="0x14CA" />
       <IDSymbol name="FileCSharpProjectPluginAssemblyCreateDescriptionCommandId" value="0x14CB" />
 
-      <!-- #endregion FileCSharp -->
+      <!-- #endregion FileCSharp Commands Definitions -->
+
+      <!-- #endregion File Commands Definitions -->
 
 
 
-      <!-- #region FolderWebResource -->
+
+
+      <!-- #region Folder Commands Definitions -->
+
+      <!-- #region FolderWebResource Commands Definitions -->
 
       <IDSymbol name="FolderWebResourceUpdateContentPublishCommandId" value="0x205D" />
       <IDSymbol name="FolderJavaScriptUpdateContentIncludeReferencesPublishCommandId" value="0x2265" />
@@ -25335,22 +25045,9 @@
       <IDSymbol name="FolderWebResourceOpenFilesWithMirrorDeletesInTextEditorCommandId" value="0x20AA" />
       <IDSymbol name="FolderWebResourceOpenFilesWithMirrorComplexInTextEditorCommandId" value="0x20AB" />
 
-      <IDSymbol name="FolderWebResourceAddIntoPublishListFilesAllCommandId" value="0x20D2" />
-      <IDSymbol name="FolderWebResourceAddIntoPublishListFilesNotEqualByTextCommandId" value="0x20D3" />
-      <IDSymbol name="FolderWebResourceAddIntoPublishListFilesNotExistsInCrmWithoutLinkCommandId" value="0x2111" />
-      <IDSymbol name="FolderWebResourceAddIntoPublishListFilesNotExistsInCrmWithLinkCommandId" value="0x2112" />
-      <IDSymbol name="FolderWebResourceAddIntoPublishListFilesEqualByTextCommandId" value="0x20D4" />
-      <IDSymbol name="FolderWebResourceAddIntoPublishListFilesWithInsertsCommandId" value="0x20D5" />
-      <IDSymbol name="FolderWebResourceAddIntoPublishListFilesWithDeletesCommandId" value="0x20D6" />
-      <IDSymbol name="FolderWebResourceAddIntoPublishListFilesWithComplexCommandId" value="0x20D7" />
-      <IDSymbol name="FolderWebResourceAddIntoPublishListFilesWithMirrorCommandId" value="0x20D8" />
-      <IDSymbol name="FolderWebResourceAddIntoPublishListFilesWithMirrorInsertsCommandId" value="0x20D9" />
-      <IDSymbol name="FolderWebResourceAddIntoPublishListFilesWithMirrorDeletesCommandId" value="0x20DA" />
-      <IDSymbol name="FolderWebResourceAddIntoPublishListFilesWithMirrorComplexCommandId" value="0x20DB" />
+      <!-- #endregion FolderWebResource Commands Definitions -->
 
-      <!-- #endregion FolderWebResource -->
-
-      <!-- #region FolderJavaScript -->
+      <!-- #region FolderJavaScript Commands Definitions -->
 
       <IDSymbol name="FolderJavaScriptFileGenerationOptionsCommandId" value="0x2244" />
 
@@ -25358,9 +25055,9 @@
 
       <IDSymbol name="FolderJavaScriptIncludeReferencesToLinkedSystemFormCommandId" value="0x2262" />
 
-      <!-- #endregion FolderJavaScript -->
+      <!-- #endregion FolderJavaScript Commands Definitions -->
 
-      <!-- #region FolderXml -->
+      <!-- #region FolderXml Commands Definitions -->
 
       <IDSymbol name="FolderXmlXsdSchemaRemoveCommandId" value="0x2199" />
 
@@ -25368,9 +25065,9 @@
 
       <IDSymbol name="FolderXmlRemoveCustomAttributesCommandId" value="0x223A" />
 
-      <!-- #endregion FolderXml -->
+      <!-- #endregion FolderXml Commands Definitions -->
 
-      <!-- #region FolderCSharp -->
+      <!-- #region FolderCSharp Commands Definitions -->
 
       <IDSymbol name="FolderCSharpEntityMetadataFileGenerationOptionsCommandId" value="0x221B" />
       <IDSymbol name="FolderCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommandId" value="0x221C" />
@@ -25379,20 +25076,22 @@
       <IDSymbol name="FolderCSharpProjectPluginTypeGetCustomWorkflowActivityInfoCommandId" value="0x225A" />
       <IDSymbol name="FolderCSharpProjectPluginTypeCreateDescriptionCommandId" value="0x225B" />
 
-      <!-- #endregion FolderCSharp -->
+      <!-- #endregion FolderCSharp Commands Definitions -->
 
-
-
-      <!-- #region FolderAdd -->
+      <!-- #region FolderAdd Commands Definitions -->
 
       <IDSymbol name="FolderAddSolutionFileCommandId" value="0x206E" />
       <IDSymbol name="FolderAddPluginConfigurationFileCommandId" value="0x206F" />
 
-      <!-- #endregion FolderAdd -->
+      <!-- #endregion FolderAdd Commands Definitions -->
+
+      <!-- #endregion Folder Commands Definitions -->
 
 
 
-      <!-- #region Project -->
+
+
+      <!-- #region Project Commands Definitions -->
 
       <IDSymbol name="ProjectUpdatePluginAssemblyCommandId" value="0x2194" />
 
@@ -25408,11 +25107,13 @@
       <IDSymbol name="ProjectPluginAssemblyCreateEntityDescriptionCommandId" value="0x2249" />
       <IDSymbol name="ProjectPluginAssemblyCreateDescriptionCommandId" value="0x224A" />
 
-      <!-- #endregion Project -->
+      <!-- #endregion Project Commands Definitions -->
 
 
 
-      <!-- #region ListForPublish -->
+
+
+      <!-- #region ListForPublish Commands Definitions -->
 
       <IDSymbol name="ListForPublishCompareCommandId" value="0x2015" />
       <IDSymbol name="ListForPublishCompareWithDetailsCommandId" value="0x2016" />
@@ -25450,11 +25151,13 @@
       <IDSymbol name="ListForPublishOpenFilesWithMirrorDeletesInTextEditorCommandId" value="0x2082" />
       <IDSymbol name="ListForPublishOpenFilesWithMirrorComplexInTextEditorCommandId" value="0x2083" />
 
-      <!-- #endregion ListForPublish -->
+      <!-- #endregion ListForPublish Commands Definitions -->
 
 
 
-      <!-- #region Common -->
+
+
+      <!-- #region Common Commands Definitions -->
 
       <IDSymbol name="CommonFindEntityObjectsByPrefixCommandId" value="0x201E" />
       <IDSymbol name="CommonFindEntityObjectsByPrefixInExplorerCommandId" value="0x2201" />
@@ -25561,11 +25264,13 @@
       <IDSymbol name="CommonFileGenerationOptionsCommandId" value="0x2235" />
       <IDSymbol name="CommonFileGenerationConfigurationCommandId" value="0x2236" />
 
-      <!-- #endregion Common -->
+      <!-- #endregion Common Commands Definitions -->
 
 
 
-      <!-- #region Output -->
+
+
+      <!-- #region Output Commands Definitions -->
 
       <IDSymbol name="OutputSelectFileCrmConnectionCommandId" value="0x2209" />
       <IDSymbol name="OutputSelectCrmConnectionCommandId" value="0x21A8" />
@@ -25740,7 +25445,7 @@
 
       <IDSymbol name="OutputSolutionExplorerCommandId" value="0x2200" />
 
-      <!-- #endregion Output -->
+      <!-- #endregion Output Commands Definitions -->
 
     </GuidSymbol>
 
@@ -25752,9 +25457,9 @@
     <!-- 0x2267 -->
 
     <!-- Dynamic Commands -->
-    <!-- 16750 -->
-    
-    <!-- 16710 -->
+    <!-- 16800 -->
+
+    <!-- 16755 -->
 
   </Symbols>
 

@@ -32,27 +32,54 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
 
         protected override void CommandAction(DTEHelper helper, OpenFilesType openFilesType)
         {
-            var selectedFiles = helper.GetSelectedFilesFromListForPublish(FileOperations.SupportsWebResourceTextType).ToList();
+            List<SelectedFile> selectedFiles = null;
 
-            var crmConfig = ConnectionConfiguration.Get();
+            var webResourceType = _comparersForOpenFilesType[openFilesType];
 
-            var connectionData = crmConfig.CurrentConnectionData;
-
-            if (selectedFiles.Any())
+            if (webResourceType == WebResourceType.Ordinal)
             {
-                helper.ShowListForPublish(connectionData);
-
-                helper.HandleWebResourceMultiDifferenceFiles(selectedFiles, openFilesType);
+                selectedFiles = helper.GetSelectedFilesFromListForPublish(FileOperations.SupportsWebResourceType).ToList();
             }
-            else
+            else if (webResourceType == WebResourceType.SupportsText)
             {
-                helper.WriteToOutput(connectionData, Properties.OutputStrings.PublishListIsEmpty);
+                selectedFiles = helper.GetSelectedFilesFromListForPublish(FileOperations.SupportsWebResourceTextType).ToList();
+            }
+
+            if (selectedFiles != null)
+            {
+                var crmConfig = ConnectionConfiguration.Get();
+
+                var connectionData = crmConfig.CurrentConnectionData;
+
+                if (selectedFiles.Any())
+                {
+                    helper.ShowListForPublish(connectionData);
+
+                    helper.HandleWebResourceMultiDifferenceFiles(selectedFiles, openFilesType);
+                }
+                else
+                {
+                    helper.WriteToOutput(connectionData, Properties.OutputStrings.PublishListIsEmpty);
+                }
             }
         }
 
-        protected override void CommandBeforeQueryStatus(DTE2 applicationObject, OpenFilesType element, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(DTE2 applicationObject, OpenFilesType openFilesType, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusListForPublishWebResourceTextAny(applicationObject, menuCommand);
+            var webResourceType = _comparersForOpenFilesType[openFilesType];
+
+            if (webResourceType == WebResourceType.Ordinal)
+            {
+                CommonHandlers.ActionBeforeQueryStatusListForPublishWebResourceAny(applicationObject, menuCommand);
+            }
+            else if (webResourceType == WebResourceType.SupportsText)
+            {
+                CommonHandlers.ActionBeforeQueryStatusListForPublishWebResourceTextAny(applicationObject, menuCommand);
+            }
+            else
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
         }
     }
 }

@@ -63,7 +63,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 
         protected override void CommandAction(DTEHelper helper, OpenFilesType openFilesType)
         {
-            IEnumerable<SelectedFile> selectedFiles = _sourceSelectedFiles.GetSelectedFiles(helper);
+            var webResourceType = _comparersForOpenFilesType[openFilesType];
+
+            IEnumerable<SelectedFile> selectedFiles = _sourceSelectedFiles.GetSelectedFiles(helper, webResourceType);
 
             if (selectedFiles.Any())
             {
@@ -73,7 +75,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 
         protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OpenFilesType openFilesType, OleMenuCommand menuCommand)
         {
-            _sourceSelectedFiles.CommandBeforeQueryStatus(applicationObject, menuCommand);
+            var webResourceType = _comparersForOpenFilesType[openFilesType];
+
+            _sourceSelectedFiles.CommandBeforeQueryStatus(applicationObject, menuCommand, webResourceType);
         }
     }
 }

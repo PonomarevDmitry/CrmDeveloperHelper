@@ -312,7 +312,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         protected async Task CheckEncodingConnectFindWebResourceExecuteActionAsync(
             ConnectionData connectionData
             , string operationNameFormat
-            , List<SelectedFile> selectedFiles
+            , IEnumerable<SelectedFile> selectedFiles
             , OpenFilesType openFilesType
             , Action<ConnectionData, IOrganizationServiceExtented, TupleList<SelectedFile, WebResource>> action
             , params string[] args

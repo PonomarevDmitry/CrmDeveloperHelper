@@ -309,6 +309,7 @@
     <Compile Include="Commands\JavaScripts\DocumentsJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptUpdateContentIncludeReferencesPublishCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\WebResources\WebResourceAddFilesIntoListForPublishCommand.cs" />
     <Compile Include="Commands\WebResources\WebResourceMultiDifferenceCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceChangeInEditorInConnectionCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceCreateEntityDescriptionInConnectionCommand.cs" />
@@ -347,12 +348,9 @@
     <Compile Include="Commands\WebResources\CodeWebResourceShowDifferenceInConnectionGroupCommand.cs" />
     <Compile Include="Commands\WebResources\CodeWebResourceShowDifferenceThreeFileCommand.cs" />
     <Compile Include="Commands\WebResources\CodeWebResourceUpdateContentPublishInConnectionGroupCommand.cs" />
-    <Compile Include="Commands\WebResources\DocumentsWebResourceAddFilesIntoListForPublishCommand.cs" />
-    <Compile Include="Commands\WebResources\FileWebResourceAddFilesIntoListForPublishCommand.cs" />
     <Compile Include="Commands\JavaScripts\FileJavaScriptIncludeReferencesToDependencyXmlCommand.cs" />
     <Compile Include="Commands\JavaScripts\FileJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceOpenFilesCommand.cs" />
-    <Compile Include="Commands\WebResources\FolderWebResourceAddFilesIntoListForPublishCommand.cs" />
     <Compile Include="Commands\JavaScripts\FolderJavaScriptIncludeReferencesToDependencyXmlCommand.cs" />
     <Compile Include="Commands\JavaScripts\FolderJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommand.cs" />
     <Compile Include="Commands\WebResources\FolderWebResourceOpenFilesCommand.cs" />
@@ -1217,6 +1215,7 @@
     <Compile Include="Model\ExportSolutionProfile.cs" />
     <Compile Include="Model\SourcesSelectedFiles\FileWebResourceSourceSelectedFiles.cs" />
     <Compile Include="Model\SourcesSelectedFiles\FolderWebResourceSourceSelectedFiles.cs" />
+    <Compile Include="Model\WebResourceType.cs" />
     <Compile Include="Model\XsdModels\DependencyXml.Proxy.cs" />
     <Compile Include="Model\XsdModels\FetchXml.Proxy.cs" />
     <Compile Include="Model\FetchXmlRequestParameter.cs" />

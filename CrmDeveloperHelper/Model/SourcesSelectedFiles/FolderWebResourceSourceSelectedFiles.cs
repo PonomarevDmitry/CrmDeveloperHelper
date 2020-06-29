@@ -9,14 +9,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model.SourcesSelectedFiles
 {
     public class FolderWebResourceSourceSelectedFiles : ISourceSelectedFiles
     {
-        public IEnumerable<SelectedFile> GetSelectedFiles(DTEHelper helper)
+        public IEnumerable<SelectedFile> GetSelectedFiles(DTEHelper helper, WebResourceType webResourceType)
         {
-            return helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsWebResourceTextType, true).ToList();
+            if (webResourceType == WebResourceType.Ordinal)
+            {
+                return helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsWebResourceType, true).ToList();
+            }
+            else if (webResourceType == WebResourceType.SupportsText)
+            {
+                return helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsWebResourceTextType, true).ToList();
+            }
+
+            return Enumerable.Empty<SelectedFile>();
         }
 
-        public void CommandBeforeQueryStatus(DTE2 applicationObject, OleMenuCommand menuCommand)
+        public void CommandBeforeQueryStatus(DTE2 applicationObject, OleMenuCommand menuCommand, WebResourceType webResourceType)
         {
-            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextRecursive(applicationObject, menuCommand);
+            if (webResourceType == WebResourceType.Ordinal)
+            {
+                CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceRecursive(applicationObject, menuCommand);
+            }
+            else if (webResourceType == WebResourceType.SupportsText)
+            {
+                CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextRecursive(applicationObject, menuCommand);
+            }
+            else
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
         }
     }
 }

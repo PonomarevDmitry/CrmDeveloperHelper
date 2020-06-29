@@ -2700,6 +2700,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int DocumentsWebResourceMultiDifferenceFilesWithMirrorCommandId = 0x4114;
 
+            public const int DocumentsWebResourceAddFilesIntoListForPublishOrdinalCommandId = 0x4146;
+
+            public const int DocumentsWebResourceAddFilesIntoListForPublishWithChangesCommandId = 0x414C;
+
+            public const int DocumentsWebResourceAddFilesIntoListForPublishWithMirrorCommandId = 0x4150;
+
             public const int DocumentsJavaScriptUpdateEntityMetadataFileCommandId = 0x2328;
 
             public const int DocumentsJavaScriptUpdateGlobalOptionSetSingleFileCommandId = 0x24EA;
@@ -2791,6 +2797,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int FileWebResourceMultiDifferenceFilesWithChangesCommandId = 0x411E;
 
             public const int FileWebResourceMultiDifferenceFilesWithMirrorCommandId = 0x4123;
+
+            public const int FileWebResourceAddFilesIntoListForPublishOrdinalCommandId = 0x4155;
+
+            public const int FileWebResourceAddFilesIntoListForPublishWithChangesCommandId = 0x415B;
+
+            public const int FileWebResourceAddFilesIntoListForPublishWithMirrorCommandId = 0x415F;
 
             public const int FileJavaScriptUpdateEntityMetadataFileCommandId = 0x235A;
 
@@ -2893,6 +2905,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int FolderWebResourceMultiDifferenceFilesWithChangesCommandId = 0x412D;
 
             public const int FolderWebResourceMultiDifferenceFilesWithMirrorCommandId = 0x4132;
+
+            public const int FolderWebResourceAddFilesIntoListForPublishOrdinalCommandId = 0x4164;
+
+            public const int FolderWebResourceAddFilesIntoListForPublishWithChangesCommandId = 0x416A;
+
+            public const int FolderWebResourceAddFilesIntoListForPublishWithMirrorCommandId = 0x416E;
 
             public const int FolderJavaScriptUpdateEntityMetadataFileCommandId = 0x238C;
 
@@ -3183,30 +3201,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int DocumentsWebResourceLinkClearCommandId = 0x20E6;
 
-            public const int DocumentsWebResourceAddFilesIntoListForPublishAllCommandId = 0x20F3;
-
-            public const int DocumentsWebResourceAddFilesIntoListForPublishNotEqualByTextCommandId = 0x20F4;
-
-            public const int DocumentsWebResourceAddFilesIntoListForPublishNotExistsInCrmWithoutLinkCommandId = 0x210D;
-
-            public const int DocumentsWebResourceAddFilesIntoListForPublishNotExistsInCrmWithLinkCommandId = 0x210E;
-
-            public const int DocumentsWebResourceAddFilesIntoListForPublishEqualByTextCommandId = 0x20F5;
-
-            public const int DocumentsWebResourceAddFilesIntoListForPublishWithInsertsCommandId = 0x20F6;
-
-            public const int DocumentsWebResourceAddFilesIntoListForPublishWithDeletesCommandId = 0x20F7;
-
-            public const int DocumentsWebResourceAddFilesIntoListForPublishWithComplexCommandId = 0x20F8;
-
-            public const int DocumentsWebResourceAddFilesIntoListForPublishWithMirrorCommandId = 0x20F9;
-
-            public const int DocumentsWebResourceAddFilesIntoListForPublishWithMirrorInsertsCommandId = 0x20FA;
-
-            public const int DocumentsWebResourceAddFilesIntoListForPublishWithMirrorDeletesCommandId = 0x20FB;
-
-            public const int DocumentsWebResourceAddFilesIntoListForPublishWithMirrorComplexCommandId = 0x20FC;
-
             public const int DocumentsJavaScriptFileGenerationOptionsCommandId = 0x2242;
 
             public const int DocumentsJavaScriptIncludeReferencesToDependencyXmlCommandId = 0x225D;
@@ -3306,30 +3300,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int FileWebResourceOpenFilesWithMirrorDeletesInTextEditorCommandId = 0x2096;
 
             public const int FileWebResourceOpenFilesWithMirrorComplexInTextEditorCommandId = 0x2097;
-
-            public const int FileWebResourceAddIntoPublishListFilesAllCommandId = 0x20C8;
-
-            public const int FileWebResourceAddIntoPublishListFilesNotEqualByTextCommandId = 0x20C9;
-
-            public const int FileWebResourceAddIntoPublishListFilesNotExistsInCrmWithoutLinkCommandId = 0x210F;
-
-            public const int FileWebResourceAddIntoPublishListFilesNotExistsInCrmWithLinkCommandId = 0x2110;
-
-            public const int FileWebResourceAddIntoPublishListFilesEqualByTextCommandId = 0x20CA;
-
-            public const int FileWebResourceAddIntoPublishListFilesWithInsertsCommandId = 0x20CB;
-
-            public const int FileWebResourceAddIntoPublishListFilesWithDeletesCommandId = 0x20CC;
-
-            public const int FileWebResourceAddIntoPublishListFilesWithComplexCommandId = 0x20CD;
-
-            public const int FileWebResourceAddIntoPublishListFilesWithMirrorCommandId = 0x20CE;
-
-            public const int FileWebResourceAddIntoPublishListFilesWithMirrorInsertsCommandId = 0x20CF;
-
-            public const int FileWebResourceAddIntoPublishListFilesWithMirrorDeletesCommandId = 0x20D0;
-
-            public const int FileWebResourceAddIntoPublishListFilesWithMirrorComplexCommandId = 0x20D1;
 
             public const int FileJavaScriptUpdateEntityMetadataFileWithSelectCommandId = 0x219E;
 
@@ -3458,30 +3428,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int FolderWebResourceOpenFilesWithMirrorDeletesInTextEditorCommandId = 0x20AA;
 
             public const int FolderWebResourceOpenFilesWithMirrorComplexInTextEditorCommandId = 0x20AB;
-
-            public const int FolderWebResourceAddIntoPublishListFilesAllCommandId = 0x20D2;
-
-            public const int FolderWebResourceAddIntoPublishListFilesNotEqualByTextCommandId = 0x20D3;
-
-            public const int FolderWebResourceAddIntoPublishListFilesNotExistsInCrmWithoutLinkCommandId = 0x2111;
-
-            public const int FolderWebResourceAddIntoPublishListFilesNotExistsInCrmWithLinkCommandId = 0x2112;
-
-            public const int FolderWebResourceAddIntoPublishListFilesEqualByTextCommandId = 0x20D4;
-
-            public const int FolderWebResourceAddIntoPublishListFilesWithInsertsCommandId = 0x20D5;
-
-            public const int FolderWebResourceAddIntoPublishListFilesWithDeletesCommandId = 0x20D6;
-
-            public const int FolderWebResourceAddIntoPublishListFilesWithComplexCommandId = 0x20D7;
-
-            public const int FolderWebResourceAddIntoPublishListFilesWithMirrorCommandId = 0x20D8;
-
-            public const int FolderWebResourceAddIntoPublishListFilesWithMirrorInsertsCommandId = 0x20D9;
-
-            public const int FolderWebResourceAddIntoPublishListFilesWithMirrorDeletesCommandId = 0x20DA;
-
-            public const int FolderWebResourceAddIntoPublishListFilesWithMirrorComplexCommandId = 0x20DB;
 
             public const int FolderJavaScriptFileGenerationOptionsCommandId = 0x2244;
 
