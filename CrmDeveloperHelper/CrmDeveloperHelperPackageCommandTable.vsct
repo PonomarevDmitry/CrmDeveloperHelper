@@ -8038,7 +8038,7 @@
         </Strings>
       </Button>
 
-      <Button guid="guidCommandSet" id="FileJavaScriptFileGenerationOptionsJavaScriptAnyCommandId" priority="0x06000" type="Button">
+      <Button guid="guidCommandSet" id="FileJavaScriptFileGenerationOptionsCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -15396,7 +15396,7 @@
     <CommandPlacement guid="guidCommandSet" id="FileJavaScriptUpdateEntityMetadataFileWithSelectCommandId" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEntityMetadata" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileJavaScriptFileGenerationOptionsJavaScriptAnyCommandId" priority="0x06020">
+    <CommandPlacement guid="guidCommandSet" id="FileJavaScriptFileGenerationOptionsCommandId" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEntityMetadata" />
     </CommandPlacement>
 
@@ -15410,7 +15410,7 @@
     <CommandPlacement guid="guidCommandSet" id="FileJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommandId" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupGlobalOptionSetSingle" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileJavaScriptFileGenerationOptionsJavaScriptAnyCommandId" priority="0x06020">
+    <CommandPlacement guid="guidCommandSet" id="FileJavaScriptFileGenerationOptionsCommandId" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupGlobalOptionSetSingle" />
     </CommandPlacement>
 
@@ -24603,7 +24603,7 @@
       <IDSymbol name="FileJavaScriptUpdateEntityMetadataFileWithSelectCommandId" value="0x219E" />
       <IDSymbol name="FileJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommandId" value="0x21A2" />
 
-      <IDSymbol name="FileJavaScriptFileGenerationOptionsJavaScriptAnyCommandId" value="0x2243" />
+      <IDSymbol name="FileJavaScriptFileGenerationOptionsCommandId" value="0x2243" />
       <IDSymbol name="FileJavaScriptFileGenerationOptionsJavaScriptSingleCommandId" value="0x2266" />
 
       <IDSymbol name="FileJavaScriptIncludeReferencesToDependencyXmlCommandId" value="0x225C" />

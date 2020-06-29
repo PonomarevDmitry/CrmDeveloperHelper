@@ -6,12 +6,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
     internal sealed class FolderCSharpEntityMetadataFileGenerationOptionsCommand : AbstractSingleCommand
     {
         private FolderCSharpEntityMetadataFileGenerationOptionsCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidCommandSet.FolderCSharpEntityMetadataFileGenerationOptionsCommandId
-            )
+            : base(commandService, PackageIds.guidCommandSet.FolderCSharpEntityMetadataFileGenerationOptionsCommandId)
         {
-
         }
 
         public static FolderCSharpEntityMetadataFileGenerationOptionsCommand Instance { get; private set; }

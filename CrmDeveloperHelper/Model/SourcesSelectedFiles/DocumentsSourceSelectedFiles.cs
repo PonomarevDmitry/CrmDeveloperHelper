@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -28,13 +29,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model.SourcesSelectedFiles
 
         public IEnumerable<SelectedFile> GetSelectedFiles(DTEHelper helper, SelectedFileType selectedFileType)
         {
-            if (selectedFileType == SelectedFileType.WebResource)
+            Func<string, bool> checkerFunction = selectedFileType.GetCheckerFunction();
+
+            if (checkerFunction != null)
             {
-                return helper.GetOpenedDocuments(FileOperations.SupportsWebResourceType).ToList();
-            }
-            else if (selectedFileType == SelectedFileType.WebResourceText)
-            {
-                return helper.GetOpenedDocuments(FileOperations.SupportsWebResourceTextType).ToList();
+                return helper.GetOpenedDocuments(checkerFunction).ToList();
             }
 
             return Enumerable.Empty<SelectedFile>();
@@ -42,17 +41,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model.SourcesSelectedFiles
 
         public void CommandBeforeQueryStatus(DTE2 applicationObject, OleMenuCommand menuCommand, SelectedFileType selectedFileType)
         {
-            if (selectedFileType == SelectedFileType.WebResource)
+            switch (selectedFileType)
             {
-                CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsWebResource(applicationObject, menuCommand);
-            }
-            else if (selectedFileType == SelectedFileType.WebResourceText)
-            {
-                CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsWebResourceText(applicationObject, menuCommand);
-            }
-            else
-            {
-                menuCommand.Enabled = menuCommand.Visible = false;
+                case SelectedFileType.WebResource:
+                    CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsWebResource(applicationObject, menuCommand);
+                    break;
+
+                case SelectedFileType.WebResourceText:
+                    CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsWebResourceText(applicationObject, menuCommand);
+                    break;
+
+                case SelectedFileType.WebResourceJavaScript:
+                case SelectedFileType.WebResourceJavaScriptHasLinkedSystemForm:
+                    CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsJavaScript(applicationObject, menuCommand);
+                    break;
+
+                case SelectedFileType.Report:
+                    CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsReport(applicationObject, menuCommand);
+                    break;
+
+                case SelectedFileType.CSharp:
+                    CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsCSharp(applicationObject, menuCommand);
+                    break;
+
+                case SelectedFileType.Xml:
+                    CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsXml(applicationObject, menuCommand);
+                    break;
+
+                default:
+                    menuCommand.Enabled = menuCommand.Visible = false;
+                    break;
             }
         }
     }

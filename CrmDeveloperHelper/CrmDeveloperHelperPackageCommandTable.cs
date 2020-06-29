@@ -3349,7 +3349,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FileJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommandId = 0x21A2;
 
-            public const int FileJavaScriptFileGenerationOptionsJavaScriptAnyCommandId = 0x2243;
+            public const int FileJavaScriptFileGenerationOptionsCommandId = 0x2243;
 
             public const int FileJavaScriptFileGenerationOptionsJavaScriptSingleCommandId = 0x2266;
 
