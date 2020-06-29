@@ -9,6 +9,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model.SourcesSelectedFiles
 {
     public class FileWebResourceSourceSelectedFiles : ISourceSelectedFiles
     {
+        private static FileWebResourceSourceSelectedFiles _source;
+
+        public static FileWebResourceSourceSelectedFiles CreateSource()
+        {
+            if (_source == null)
+            {
+                _source = new FileWebResourceSourceSelectedFiles();
+            }
+
+            return _source;
+        }
+
+        private FileWebResourceSourceSelectedFiles()
+        {
+
+        }
+
         public IEnumerable<SelectedFile> GetSelectedFiles(DTEHelper helper, WebResourceType webResourceType)
         {
             if (webResourceType == WebResourceType.Ordinal)
