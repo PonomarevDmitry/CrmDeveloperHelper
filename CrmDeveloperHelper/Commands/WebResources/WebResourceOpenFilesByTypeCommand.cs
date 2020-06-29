@@ -57,11 +57,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            var sourceDocuments = DocumentsWebResourceSourceSelectedFiles.CreateSource();
+            var sourceDocuments = DocumentsSourceSelectedFiles.CreateSource();
 
-            var sourceFile = FileWebResourceSourceSelectedFiles.CreateSource();
+            var sourceFile = FileSourceSelectedFiles.CreateSource();
 
-            var sourceFolder = FolderWebResourceSourceSelectedFiles.CreateSource();
+            var sourceFolder = FolderSourceSelectedFiles.CreateSource();
 
             InstanceFileOrdinal = new WebResourceOpenFilesByTypeCommand(commandService, PackageIds.guidDynamicCommandSet.FileWebResourceOpenFilesByTypeOrdinalCommandId, sourceFile, _typesOrdinal, false);
             InstanceFileChanges = new WebResourceOpenFilesByTypeCommand(commandService, PackageIds.guidDynamicCommandSet.FileWebResourceOpenFilesByTypeWithChangesCommandId, sourceFile, _typesChanges, false);

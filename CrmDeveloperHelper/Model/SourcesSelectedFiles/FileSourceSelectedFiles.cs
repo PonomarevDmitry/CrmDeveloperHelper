@@ -7,21 +7,21 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model.SourcesSelectedFiles
 {
-    public class DocumentsWebResourceSourceSelectedFiles : ISourceSelectedFiles
+    public class FileSourceSelectedFiles : ISourceSelectedFiles
     {
-        private static DocumentsWebResourceSourceSelectedFiles _source;
+        private static FileSourceSelectedFiles _source;
 
-        public static DocumentsWebResourceSourceSelectedFiles CreateSource()
+        public static FileSourceSelectedFiles CreateSource()
         {
             if (_source == null)
             {
-                _source = new DocumentsWebResourceSourceSelectedFiles();
+                _source = new FileSourceSelectedFiles();
             }
 
             return _source;
         }
 
-        private DocumentsWebResourceSourceSelectedFiles()
+        private FileSourceSelectedFiles()
         {
 
         }
@@ -30,11 +30,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model.SourcesSelectedFiles
         {
             if (selectedFileType == SelectedFileType.WebResource)
             {
-                return helper.GetOpenedDocuments(FileOperations.SupportsWebResourceType).ToList();
+                return helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsWebResourceType, false).ToList();
             }
             else if (selectedFileType == SelectedFileType.WebResourceText)
             {
-                return helper.GetOpenedDocuments(FileOperations.SupportsWebResourceTextType).ToList();
+                return helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsWebResourceTextType, false).ToList();
             }
 
             return Enumerable.Empty<SelectedFile>();
@@ -44,11 +44,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model.SourcesSelectedFiles
         {
             if (selectedFileType == SelectedFileType.WebResource)
             {
-                CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsWebResource(applicationObject, menuCommand);
+                CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceAny(applicationObject, menuCommand);
             }
             else if (selectedFileType == SelectedFileType.WebResourceText)
             {
-                CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsWebResourceText(applicationObject, menuCommand);
+                CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextAny(applicationObject, menuCommand);
             }
             else
             {

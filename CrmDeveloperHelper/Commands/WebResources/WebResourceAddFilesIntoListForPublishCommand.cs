@@ -42,11 +42,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            var sourceDocuments = DocumentsWebResourceSourceSelectedFiles.CreateSource();
+            var sourceDocuments = DocumentsSourceSelectedFiles.CreateSource();
 
-            var sourceFile = FileWebResourceSourceSelectedFiles.CreateSource();
+            var sourceFile = FileSourceSelectedFiles.CreateSource();
 
-            var sourceFolder = FolderWebResourceSourceSelectedFiles.CreateSource();
+            var sourceFolder = FolderSourceSelectedFiles.CreateSource();
 
             InstanceDocumentsOrdinal = new WebResourceAddFilesIntoListForPublishCommand(commandService, PackageIds.guidDynamicCommandSet.DocumentsWebResourceAddFilesIntoListForPublishOrdinalCommandId, _typesOrdinal, sourceDocuments);
             InstanceDocumentsChanges = new WebResourceAddFilesIntoListForPublishCommand(commandService, PackageIds.guidDynamicCommandSet.DocumentsWebResourceAddFilesIntoListForPublishWithChangesCommandId, _typesChanges, sourceDocuments);

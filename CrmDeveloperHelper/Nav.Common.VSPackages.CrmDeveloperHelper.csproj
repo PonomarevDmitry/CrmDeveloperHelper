@@ -1202,7 +1202,7 @@
     <Compile Include="Model\ConnectionUserData.cs" />
     <Compile Include="Model\ConstantType.cs" />
     <Compile Include="Model\ContentCopareResult.cs" />
-    <Compile Include="Model\SourcesSelectedFiles\DocumentsWebResourceSourceSelectedFiles.cs" />
+    <Compile Include="Model\SourcesSelectedFiles\DocumentsSourceSelectedFiles.cs" />
     <Compile Include="Model\EntityKeyMetadataViewItem.cs" />
     <Compile Include="Model\EntityMetadataListViewItem.cs" />
     <Compile Include="Model\EntityMetadataAuditViewItem.cs" />
@@ -1213,8 +1213,8 @@
     <Compile Include="Model\ExportSolutionConfig.cs" />
     <Compile Include="Model\ExportSolutionOverrideInformation.cs" />
     <Compile Include="Model\ExportSolutionProfile.cs" />
-    <Compile Include="Model\SourcesSelectedFiles\FileWebResourceSourceSelectedFiles.cs" />
-    <Compile Include="Model\SourcesSelectedFiles\FolderWebResourceSourceSelectedFiles.cs" />
+    <Compile Include="Model\SourcesSelectedFiles\FileSourceSelectedFiles.cs" />
+    <Compile Include="Model\SourcesSelectedFiles\FolderSourceSelectedFiles.cs" />
     <Compile Include="Model\SelectedFileType.cs" />
     <Compile Include="Model\XsdModels\DependencyXml.Proxy.cs" />
     <Compile Include="Model\XsdModels\FetchXml.Proxy.cs" />

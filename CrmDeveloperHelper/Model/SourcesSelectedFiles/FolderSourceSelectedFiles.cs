@@ -7,21 +7,21 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model.SourcesSelectedFiles
 {
-    public class FileWebResourceSourceSelectedFiles : ISourceSelectedFiles
+    public class FolderSourceSelectedFiles : ISourceSelectedFiles
     {
-        private static FileWebResourceSourceSelectedFiles _source;
+        private static FolderSourceSelectedFiles _source;
 
-        public static FileWebResourceSourceSelectedFiles CreateSource()
+        public static FolderSourceSelectedFiles CreateSource()
         {
             if (_source == null)
             {
-                _source = new FileWebResourceSourceSelectedFiles();
+                _source = new FolderSourceSelectedFiles();
             }
 
             return _source;
         }
 
-        private FileWebResourceSourceSelectedFiles()
+        private FolderSourceSelectedFiles()
         {
 
         }
@@ -30,11 +30,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model.SourcesSelectedFiles
         {
             if (selectedFileType == SelectedFileType.WebResource)
             {
-                return helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsWebResourceType, false).ToList();
+                return helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsWebResourceType, true).ToList();
             }
             else if (selectedFileType == SelectedFileType.WebResourceText)
             {
-                return helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsWebResourceTextType, false).ToList();
+                return helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsWebResourceTextType, true).ToList();
             }
 
             return Enumerable.Empty<SelectedFile>();
@@ -44,11 +44,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model.SourcesSelectedFiles
         {
             if (selectedFileType == SelectedFileType.WebResource)
             {
-                CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceAny(applicationObject, menuCommand);
+                CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceRecursive(applicationObject, menuCommand);
             }
             else if (selectedFileType == SelectedFileType.WebResourceText)
             {
-                CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextAny(applicationObject, menuCommand);
+                CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextRecursive(applicationObject, menuCommand);
             }
             else
             {

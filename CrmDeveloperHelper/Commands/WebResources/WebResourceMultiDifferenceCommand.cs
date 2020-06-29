@@ -42,11 +42,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            var sourceDocuments = DocumentsWebResourceSourceSelectedFiles.CreateSource();
+            var sourceDocuments = DocumentsSourceSelectedFiles.CreateSource();
 
-            var sourceFile = FileWebResourceSourceSelectedFiles.CreateSource();
+            var sourceFile = FileSourceSelectedFiles.CreateSource();
 
-            var sourceFolder = FolderWebResourceSourceSelectedFiles.CreateSource();
+            var sourceFolder = FolderSourceSelectedFiles.CreateSource();
 
             InstanceDocumentsExistsOrHasLink = new WebResourceMultiDifferenceCommand(commandService, PackageIds.guidDynamicCommandSet.DocumentsWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId, _typesExistsOrHasLink, sourceDocuments);
             InstanceDocumentsChanges = new WebResourceMultiDifferenceCommand(commandService, PackageIds.guidDynamicCommandSet.DocumentsWebResourceMultiDifferenceFilesWithChangesCommandId, _typesChanges, sourceDocuments);
