@@ -90,7 +90,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 
         protected override void CommandAction(DTEHelper helper, OpenFilesType openFilesType)
         {
-            var selectedFiles = _sourceSelectedFiles.GetSelectedFiles(helper, WebResourceType.SupportsText).ToList();
+            var selectedFiles = _sourceSelectedFiles.GetSelectedFiles(helper, SelectedFileType.WebResourceText).ToList();
 
             if (selectedFiles.Any())
             {
@@ -105,7 +105,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
                 CommonHandlers.ActionBeforeQueryStatusTextEditorProgramExists(applicationObject, menuCommand);
             }
 
-            _sourceSelectedFiles.CommandBeforeQueryStatus(applicationObject, menuCommand, WebResourceType.SupportsText);
+            _sourceSelectedFiles.CommandBeforeQueryStatus(applicationObject, menuCommand, SelectedFileType.WebResourceText);
         }
     }
 }

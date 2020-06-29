@@ -26,13 +26,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model.SourcesSelectedFiles
 
         }
 
-        public IEnumerable<SelectedFile> GetSelectedFiles(DTEHelper helper, WebResourceType webResourceType)
+        public IEnumerable<SelectedFile> GetSelectedFiles(DTEHelper helper, SelectedFileType selectedFileType)
         {
-            if (webResourceType == WebResourceType.Ordinal)
+            if (selectedFileType == SelectedFileType.WebResource)
             {
                 return helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsWebResourceType, true).ToList();
             }
-            else if (webResourceType == WebResourceType.SupportsText)
+            else if (selectedFileType == SelectedFileType.WebResourceText)
             {
                 return helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsWebResourceTextType, true).ToList();
             }
@@ -40,13 +40,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model.SourcesSelectedFiles
             return Enumerable.Empty<SelectedFile>();
         }
 
-        public void CommandBeforeQueryStatus(DTE2 applicationObject, OleMenuCommand menuCommand, WebResourceType webResourceType)
+        public void CommandBeforeQueryStatus(DTE2 applicationObject, OleMenuCommand menuCommand, SelectedFileType selectedFileType)
         {
-            if (webResourceType == WebResourceType.Ordinal)
+            if (selectedFileType == SelectedFileType.WebResource)
             {
                 CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceRecursive(applicationObject, menuCommand);
             }
-            else if (webResourceType == WebResourceType.SupportsText)
+            else if (selectedFileType == SelectedFileType.WebResourceText)
             {
                 CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextRecursive(applicationObject, menuCommand);
             }

@@ -7,24 +7,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
     internal abstract class AbstractDynamicCommandByOpenFilesType : AbstractDynamicCommand<OpenFilesType>
     {
-        protected static Dictionary<OpenFilesType, WebResourceType> _comparersForOpenFilesType = new Dictionary<OpenFilesType, WebResourceType>()
+        protected static Dictionary<OpenFilesType, SelectedFileType> _selectedFileTypeForOpenFilesType = new Dictionary<OpenFilesType, SelectedFileType>()
         {
-            { OpenFilesType.All, WebResourceType.Ordinal }
+            { OpenFilesType.All, SelectedFileType.WebResource }
 
-            , { OpenFilesType.NotExistsInCrmWithLink, WebResourceType.Ordinal }
-            , { OpenFilesType.NotExistsInCrmWithoutLink, WebResourceType.Ordinal }
+            , { OpenFilesType.NotExistsInCrmWithLink, SelectedFileType.WebResource }
+            , { OpenFilesType.NotExistsInCrmWithoutLink, SelectedFileType.WebResource }
 
-            , { OpenFilesType.NotEqualByText, WebResourceType.SupportsText }
-            , { OpenFilesType.EqualByText, WebResourceType.SupportsText }
+            , { OpenFilesType.NotEqualByText, SelectedFileType.WebResourceText }
+            , { OpenFilesType.EqualByText, SelectedFileType.WebResourceText }
 
-            , { OpenFilesType.WithInserts, WebResourceType.SupportsText }
-            , { OpenFilesType.WithDeletes, WebResourceType.SupportsText }
-            , { OpenFilesType.WithComplexChanges, WebResourceType.SupportsText }
+            , { OpenFilesType.WithInserts, SelectedFileType.WebResourceText }
+            , { OpenFilesType.WithDeletes, SelectedFileType.WebResourceText }
+            , { OpenFilesType.WithComplexChanges, SelectedFileType.WebResourceText }
 
-            , { OpenFilesType.WithMirrorChanges, WebResourceType.SupportsText }
-            , { OpenFilesType.WithMirrorInserts, WebResourceType.SupportsText }
-            , { OpenFilesType.WithMirrorDeletes, WebResourceType.SupportsText }
-            , { OpenFilesType.WithMirrorComplexChanges, WebResourceType.SupportsText }
+            , { OpenFilesType.WithMirrorChanges, SelectedFileType.WebResourceText }
+            , { OpenFilesType.WithMirrorInserts, SelectedFileType.WebResourceText }
+            , { OpenFilesType.WithMirrorDeletes, SelectedFileType.WebResourceText }
+            , { OpenFilesType.WithMirrorComplexChanges, SelectedFileType.WebResourceText }
         };
 
         protected static List<OpenFilesType> _typesOrdinal = new List<OpenFilesType>()

@@ -8,8 +8,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
 {
     public interface ISourceSelectedFiles
     {
-        IEnumerable<SelectedFile> GetSelectedFiles(DTEHelper helper, WebResourceType webResourceType);
+        IEnumerable<SelectedFile> GetSelectedFiles(DTEHelper helper, SelectedFileType selectedFileType);
 
-        void CommandBeforeQueryStatus(DTE2 applicationObject, OleMenuCommand menuCommand, WebResourceType webResourceType);
+        void CommandBeforeQueryStatus(DTE2 applicationObject, OleMenuCommand menuCommand, SelectedFileType selectedFileType);
     }
 }

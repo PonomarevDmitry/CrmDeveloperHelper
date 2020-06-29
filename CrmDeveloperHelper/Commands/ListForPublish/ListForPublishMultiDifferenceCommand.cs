@@ -34,13 +34,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
         {
             List<SelectedFile> selectedFiles = null;
 
-            var webResourceType = _comparersForOpenFilesType[openFilesType];
+            var selectedFileType = _selectedFileTypeForOpenFilesType[openFilesType];
 
-            if (webResourceType == WebResourceType.Ordinal)
+            if (selectedFileType == SelectedFileType.WebResource)
             {
                 selectedFiles = helper.GetSelectedFilesFromListForPublish(FileOperations.SupportsWebResourceType).ToList();
             }
-            else if (webResourceType == WebResourceType.SupportsText)
+            else if (selectedFileType == SelectedFileType.WebResourceText)
             {
                 selectedFiles = helper.GetSelectedFilesFromListForPublish(FileOperations.SupportsWebResourceTextType).ToList();
             }
@@ -66,13 +66,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
 
         protected override void CommandBeforeQueryStatus(DTE2 applicationObject, OpenFilesType openFilesType, OleMenuCommand menuCommand)
         {
-            var webResourceType = _comparersForOpenFilesType[openFilesType];
+            var selectedFileType = _selectedFileTypeForOpenFilesType[openFilesType];
 
-            if (webResourceType == WebResourceType.Ordinal)
+            if (selectedFileType == SelectedFileType.WebResource)
             {
                 CommonHandlers.ActionBeforeQueryStatusListForPublishWebResourceAny(applicationObject, menuCommand);
             }
-            else if (webResourceType == WebResourceType.SupportsText)
+            else if (selectedFileType == SelectedFileType.WebResourceText)
             {
                 CommonHandlers.ActionBeforeQueryStatusListForPublishWebResourceTextAny(applicationObject, menuCommand);
             }

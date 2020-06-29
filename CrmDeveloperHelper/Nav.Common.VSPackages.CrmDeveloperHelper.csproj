@@ -1215,7 +1215,7 @@
     <Compile Include="Model\ExportSolutionProfile.cs" />
     <Compile Include="Model\SourcesSelectedFiles\FileWebResourceSourceSelectedFiles.cs" />
     <Compile Include="Model\SourcesSelectedFiles\FolderWebResourceSourceSelectedFiles.cs" />
-    <Compile Include="Model\WebResourceType.cs" />
+    <Compile Include="Model\SelectedFileType.cs" />
     <Compile Include="Model\XsdModels\DependencyXml.Proxy.cs" />
     <Compile Include="Model\XsdModels\FetchXml.Proxy.cs" />
     <Compile Include="Model\FetchXmlRequestParameter.cs" />

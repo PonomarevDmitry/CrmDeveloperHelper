@@ -63,9 +63,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 
         protected override void CommandAction(DTEHelper helper, OpenFilesType openFilesType)
         {
-            var webResourceType = _comparersForOpenFilesType[openFilesType];
+            var selectedFileType = _selectedFileTypeForOpenFilesType[openFilesType];
 
-            IEnumerable<SelectedFile> selectedFiles = _sourceSelectedFiles.GetSelectedFiles(helper, webResourceType);
+            IEnumerable<SelectedFile> selectedFiles = _sourceSelectedFiles.GetSelectedFiles(helper, selectedFileType);
 
             if (selectedFiles.Any())
             {
@@ -77,9 +77,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
         {
             CommonHandlers.ActionBeforeQueryStatusConnectionIsNotReadOnly(applicationObject, menuCommand);
 
-            var webResourceType = _comparersForOpenFilesType[openFilesType];
+            var selectedFileType = _selectedFileTypeForOpenFilesType[openFilesType];
 
-            _sourceSelectedFiles.CommandBeforeQueryStatus(applicationObject, menuCommand, webResourceType);
+            _sourceSelectedFiles.CommandBeforeQueryStatus(applicationObject, menuCommand, selectedFileType);
         }
     }
 }
