@@ -819,6 +819,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int documentsMenuWebResource_GroupOpenMultiAdd = 0x1172;
 
+            public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor = 0x14FF;
+
+            public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupByText = 0x1500;
+
+            public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithChanges = 0x1501;
+
+            public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithMirrorChanges = 0x1502;
+
             public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference = 0x1173;
 
             public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText = 0x1174;
@@ -2706,6 +2714,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int DocumentsWebResourceAddFilesIntoListForPublishWithMirrorCommandId = 0x4150;
 
+            public const int DocumentsWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId = 0x4173;
+
+            public const int DocumentsWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId = 0x4179;
+
+            public const int DocumentsWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId = 0x417D;
+
             public const int DocumentsJavaScriptUpdateEntityMetadataFileCommandId = 0x2328;
 
             public const int DocumentsJavaScriptUpdateGlobalOptionSetSingleFileCommandId = 0x24EA;
@@ -2791,6 +2805,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int FileWebResourceGetAttributeContentJsonInConnectionCommandId = 0x2DB4;
 
             public const int FileWebResourceGetAttributeDependencyXmlInConnectionCommandId = 0x2DE6;
+
+            public const int FileWebResourceOpenFilesByTypeOrdinalCommandId = 0x4182;
+
+            public const int FileWebResourceOpenFilesByTypeWithChangesCommandId = 0x4188;
+
+            public const int FileWebResourceOpenFilesByTypeWithMirrorCommandId = 0x418C;
+
+            public const int FileWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId = 0x4191;
+
+            public const int FileWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId = 0x4197;
+
+            public const int FileWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId = 0x419B;
 
             public const int FileWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId = 0x4119;
 
@@ -2900,6 +2926,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FolderWebResourceAddToSolutionInConnectionCommandId = 0x1E46;
 
+            public const int FolderWebResourceOpenFilesByTypeOrdinalCommandId = 0x41A0;
+
+            public const int FolderWebResourceOpenFilesByTypeWithChangesCommandId = 0x41A6;
+
+            public const int FolderWebResourceOpenFilesByTypeWithMirrorCommandId = 0x41AA;
+
+            public const int FolderWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId = 0x41AF;
+
+            public const int FolderWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId = 0x41B5;
+
+            public const int FolderWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId = 0x41B9;
+
             public const int FolderWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId = 0x4128;
 
             public const int FolderWebResourceMultiDifferenceFilesWithChangesCommandId = 0x412D;
@@ -2981,6 +3019,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int ListForPublishPerformIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId = 0x40D8;
 
             public const int ListForPublishAddToSolutionInConnectionCommandId = 0x1E78;
+
+            public const int ListForPublishOpenFilesByTypeOrdinalCommandId = 0x41BE;
+
+            public const int ListForPublishOpenFilesByTypeWithChangesCommandId = 0x41C4;
+
+            public const int ListForPublishOpenFilesByTypeWithMirrorCommandId = 0x41C8;
+
+            public const int ListForPublishOpenFilesByTypeInTextEditorOrdinalCommandId = 0x41CD;
+
+            public const int ListForPublishOpenFilesByTypeInTextEditorWithChangesCommandId = 0x41D3;
+
+            public const int ListForPublishOpenFilesByTypeInTextEditorWithMirrorCommandId = 0x41D7;
 
             public const int ListForPublishMultiDifferenceFilesExistsOrHasLinkCommandId = 0x4137;
 
@@ -3253,54 +3303,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FileWebResourceLinkClearCommandId = 0x2054;
 
-            public const int FileWebResourceOpenFilesAllCommandId = 0x2084;
-
-            public const int FileWebResourceOpenFilesNotEqualByTextCommandId = 0x2085;
-
-            public const int FileWebResourceOpenFilesNotExistsInCrmWithoutLinkCommandId = 0x2103;
-
-            public const int FileWebResourceOpenFilesNotExistsInCrmWithLinkCommandId = 0x2105;
-
-            public const int FileWebResourceOpenFilesEqualByTextCommandId = 0x2086;
-
-            public const int FileWebResourceOpenFilesWithInsertsCommandId = 0x2087;
-
-            public const int FileWebResourceOpenFilesWithDeletesCommandId = 0x2088;
-
-            public const int FileWebResourceOpenFilesWithComplexCommandId = 0x2089;
-
-            public const int FileWebResourceOpenFilesWithMirrorCommandId = 0x208A;
-
-            public const int FileWebResourceOpenFilesWithMirrorInsertsCommandId = 0x208B;
-
-            public const int FileWebResourceOpenFilesWithMirrorDeletesCommandId = 0x208C;
-
-            public const int FileWebResourceOpenFilesWithMirrorComplexCommandId = 0x208D;
-
-            public const int FileWebResourceOpenFilesAllInTextEditorCommandId = 0x208E;
-
-            public const int FileWebResourceOpenFilesNotEqualByTextInTextEditorCommandId = 0x208F;
-
-            public const int FileWebResourceOpenFilesNotExistsInCrmWithoutLinkInTextEditorCommandId = 0x2104;
-
-            public const int FileWebResourceOpenFilesNotExistsInCrmWithLinkInTextEditorCommandId = 0x2106;
-
-            public const int FileWebResourceOpenFilesEqualByTextInTextEditorCommandId = 0x2090;
-
-            public const int FileWebResourceOpenFilesWithInsertsInTextEditorCommandId = 0x2091;
-
-            public const int FileWebResourceOpenFilesWithDeletesInTextEditorCommandId = 0x2092;
-
-            public const int FileWebResourceOpenFilesWithComplexInTextEditorCommandId = 0x2093;
-
-            public const int FileWebResourceOpenFilesWithMirrorInTextEditorCommandId = 0x2094;
-
-            public const int FileWebResourceOpenFilesWithMirrorInsertsInTextEditorCommandId = 0x2095;
-
-            public const int FileWebResourceOpenFilesWithMirrorDeletesInTextEditorCommandId = 0x2096;
-
-            public const int FileWebResourceOpenFilesWithMirrorComplexInTextEditorCommandId = 0x2097;
-
             public const int FileJavaScriptUpdateEntityMetadataFileWithSelectCommandId = 0x219E;
 
             public const int FileJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommandId = 0x21A2;
@@ -3381,54 +3383,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FolderWebResourceLinkClearCommandId = 0x206B;
 
-            public const int FolderWebResourceOpenFilesAllCommandId = 0x2098;
-
-            public const int FolderWebResourceOpenFilesNotEqualByTextCommandId = 0x2099;
-
-            public const int FolderWebResourceOpenFilesNotExistsInCrmWithoutLinkCommandId = 0x2107;
-
-            public const int FolderWebResourceOpenFilesNotExistsInCrmWithLinkCommandId = 0x2109;
-
-            public const int FolderWebResourceOpenFilesEqualByTextCommandId = 0x209A;
-
-            public const int FolderWebResourceOpenFilesWithInsertsCommandId = 0x209B;
-
-            public const int FolderWebResourceOpenFilesWithDeletesCommandId = 0x209C;
-
-            public const int FolderWebResourceOpenFilesWithComplexCommandId = 0x209D;
-
-            public const int FolderWebResourceOpenFilesWithMirrorCommandId = 0x2097E;
-
-            public const int FolderWebResourceOpenFilesWithMirrorInsertsCommandId = 0x209F;
-
-            public const int FolderWebResourceOpenFilesWithMirrorDeletesCommandId = 0x20A0;
-
-            public const int FolderWebResourceOpenFilesWithMirrorComplexCommandId = 0x20A1;
-
-            public const int FolderWebResourceOpenFilesAllInTextEditorCommandId = 0x20A2;
-
-            public const int FolderWebResourceOpenFilesNotEqualByTextInTextEditorCommandId = 0x20A3;
-
-            public const int FolderWebResourceOpenFilesNotExistsInCrmWithoutLinkInTextEditorCommandId = 0x2108;
-
-            public const int FolderWebResourceOpenFilesNotExistsInCrmWithLinkInTextEditorCommandId = 0x210A;
-
-            public const int FolderWebResourceOpenFilesEqualByTextInTextEditorCommandId = 0x20A4;
-
-            public const int FolderWebResourceOpenFilesWithInsertsInTextEditorCommandId = 0x20A5;
-
-            public const int FolderWebResourceOpenFilesWithDeletesInTextEditorCommandId = 0x20A6;
-
-            public const int FolderWebResourceOpenFilesWithComplexInTextEditorCommandId = 0x20A7;
-
-            public const int FolderWebResourceOpenFilesWithMirrorInTextEditorCommandId = 0x20A8;
-
-            public const int FolderWebResourceOpenFilesWithMirrorInsertsInTextEditorCommandId = 0x20A9;
-
-            public const int FolderWebResourceOpenFilesWithMirrorDeletesInTextEditorCommandId = 0x20AA;
-
-            public const int FolderWebResourceOpenFilesWithMirrorComplexInTextEditorCommandId = 0x20AB;
-
             public const int FolderJavaScriptFileGenerationOptionsCommandId = 0x2244;
 
             public const int FolderJavaScriptIncludeReferencesToDependencyXmlCommandId = 0x225E;
@@ -3484,54 +3438,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int ListForPublishFilesRemoveCommandId = 0x201B;
 
             public const int ListForPublishClearListCommandId = 0x201C;
-
-            public const int ListForPublishOpenFilesAllCommandId = 0x2013;
-
-            public const int ListForPublishOpenFilesNotEqualByTextCommandId = 0x2072;
-
-            public const int ListForPublishOpenFilesNotExistsInCrmWithoutLinkCommandId = 0x20FF;
-
-            public const int ListForPublishOpenFilesNotExistsInCrmWithLinkCommandId = 0x2101;
-
-            public const int ListForPublishOpenFilesEqualByTextCommandId = 0x2073;
-
-            public const int ListForPublishOpenFilesWithInsertsCommandId = 0x2074;
-
-            public const int ListForPublishOpenFilesWithDeletesCommandId = 0x2075;
-
-            public const int ListForPublishOpenFilesWithComplexCommandId = 0x2076;
-
-            public const int ListForPublishOpenFilesWithMirrorCommandId = 0x2077;
-
-            public const int ListForPublishOpenFilesWithMirrorInsertsCommandId = 0x2078;
-
-            public const int ListForPublishOpenFilesWithMirrorDeletesCommandId = 0x2079;
-
-            public const int ListForPublishOpenFilesWithMirrorComplexCommandId = 0x207A;
-
-            public const int ListForPublishOpenFilesAllInTextEditorCommandId = 0x2014;
-
-            public const int ListForPublishOpenFilesNotEqualByTextInTextEditorCommandId = 0x207B;
-
-            public const int ListForPublishOpenFilesNotExistsInCrmWithoutLinkInTextEditorCommandId = 0x2100;
-
-            public const int ListForPublishOpenFilesNotExistsInCrmWithLinkInTextEditorCommandId = 0x2102;
-
-            public const int ListForPublishOpenFilesEqualByTextInTextEditorCommandId = 0x207C;
-
-            public const int ListForPublishOpenFilesWithInsertsInTextEditorCommandId = 0x207D;
-
-            public const int ListForPublishOpenFilesWithDeletesInTextEditorCommandId = 0x207E;
-
-            public const int ListForPublishOpenFilesWithComplexInTextEditorCommandId = 0x207F;
-
-            public const int ListForPublishOpenFilesWithMirrorInTextEditorCommandId = 0x2080;
-
-            public const int ListForPublishOpenFilesWithMirrorInsertsInTextEditorCommandId = 0x2081;
-
-            public const int ListForPublishOpenFilesWithMirrorDeletesInTextEditorCommandId = 0x2082;
-
-            public const int ListForPublishOpenFilesWithMirrorComplexInTextEditorCommandId = 0x2083;
 
             public const int CommonFindEntityObjectsByPrefixCommandId = 0x201E;
 

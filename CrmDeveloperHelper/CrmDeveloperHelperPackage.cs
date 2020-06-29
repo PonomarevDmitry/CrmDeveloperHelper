@@ -169,6 +169,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodePublishListAddCommand.Initialize,
             CodePublishListRemoveCommand.Initialize,
 
+            WebResourceOpenFilesByTypeCommand.Initialize,
+
             WebResourceAddFilesIntoListForPublishCommand.Initialize,
 
             WebResourceMultiDifferenceCommand.Initialize,
@@ -244,8 +246,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FileWebResourceAddToSolutionLastCommand.Initialize,
             FileWebResourceAddToSolutionInConnectionCommand.Initialize,
 
-            FileWebResourceOpenFilesCommand.Initialize,
-
             #endregion FileWebResource
 
             #region FolderWebResource
@@ -266,8 +266,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             FolderWebResourceAddToSolutionLastCommand.Initialize,
             FolderWebResourceAddToSolutionInConnectionCommand.Initialize,
-
-            FolderWebResourceOpenFilesCommand.Initialize,
 
             #endregion FolderWebResource
 

@@ -8,86 +8,44 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
 {
-    internal sealed class ListForPublishOpenFilesCommand : AbstractSingleCommand
+    internal sealed class ListForPublishOpenFilesCommand : AbstractDynamicCommandByOpenFilesType
     {
         private readonly bool _inTextEditor;
-        private readonly OpenFilesType _openFilesType;
 
         private ListForPublishOpenFilesCommand(
             OleMenuCommandService commandService
-            , int idCommand
-            , OpenFilesType openFilesType
+            , int baseIdStart
+            , IList<OpenFilesType> sourceOpenTypes
             , bool inTextEditor
-        ) : base(commandService, idCommand)
+        ) : base(commandService, baseIdStart, sourceOpenTypes)
         {
-            this._openFilesType = openFilesType;
             this._inTextEditor = inTextEditor;
         }
 
-        private static TupleList<int, OpenFilesType, bool> _commandsListforPublish = new TupleList<int, OpenFilesType, bool>()
-        {
-            { PackageIds.guidCommandSet.ListForPublishOpenFilesAllCommandId, OpenFilesType.All, false }
-            , { PackageIds.guidCommandSet.ListForPublishOpenFilesAllInTextEditorCommandId, OpenFilesType.All, true }
+        public static ListForPublishOpenFilesCommand InstanceFileOrdinal { get; private set; }
 
-            , { PackageIds.guidCommandSet.ListForPublishOpenFilesNotEqualByTextCommandId, OpenFilesType.NotEqualByText, false }
-            , { PackageIds.guidCommandSet.ListForPublishOpenFilesNotEqualByTextInTextEditorCommandId, OpenFilesType.NotEqualByText, true }
+        public static ListForPublishOpenFilesCommand InstanceFileChanges { get; private set; }
 
-            , { PackageIds.guidCommandSet.ListForPublishOpenFilesEqualByTextCommandId, OpenFilesType.EqualByText, false }
-            , { PackageIds.guidCommandSet.ListForPublishOpenFilesEqualByTextInTextEditorCommandId, OpenFilesType.EqualByText, true }
+        public static ListForPublishOpenFilesCommand InstanceFileMirror { get; private set; }
 
-            , { PackageIds.guidCommandSet.ListForPublishOpenFilesNotExistsInCrmWithoutLinkCommandId, OpenFilesType.NotExistsInCrmWithoutLink, false }
-            , { PackageIds.guidCommandSet.ListForPublishOpenFilesNotExistsInCrmWithoutLinkInTextEditorCommandId, OpenFilesType.NotExistsInCrmWithoutLink, true }
+        public static ListForPublishOpenFilesCommand InstanceInTextEditorFileOrdinal { get; private set; }
 
-            , { PackageIds.guidCommandSet.ListForPublishOpenFilesNotExistsInCrmWithLinkCommandId, OpenFilesType.NotExistsInCrmWithLink, false }
-            , { PackageIds.guidCommandSet.ListForPublishOpenFilesNotExistsInCrmWithLinkInTextEditorCommandId, OpenFilesType.NotExistsInCrmWithLink, true }
+        public static ListForPublishOpenFilesCommand InstanceInTextEditorFileChanges { get; private set; }
 
-            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithInsertsCommandId, OpenFilesType.WithInserts, false }
-            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithInsertsInTextEditorCommandId, OpenFilesType.WithInserts, true }
-
-            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithDeletesCommandId, OpenFilesType.WithDeletes, false }
-            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithDeletesInTextEditorCommandId, OpenFilesType.WithDeletes, true }
-
-            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithComplexCommandId, OpenFilesType.WithComplexChanges, false }
-            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithComplexInTextEditorCommandId, OpenFilesType.WithComplexChanges, true }
-
-            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithMirrorCommandId, OpenFilesType.WithMirrorChanges, false }
-            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithMirrorInTextEditorCommandId, OpenFilesType.WithMirrorChanges, true }
-
-            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithMirrorInsertsCommandId, OpenFilesType.WithMirrorInserts, false }
-            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithMirrorInsertsInTextEditorCommandId, OpenFilesType.WithMirrorInserts, true }
-
-            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithMirrorDeletesCommandId, OpenFilesType.WithMirrorDeletes, false }
-            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithMirrorDeletesInTextEditorCommandId, OpenFilesType.WithMirrorDeletes, true }
-
-            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithMirrorComplexCommandId, OpenFilesType.WithMirrorComplexChanges, false }
-            , { PackageIds.guidCommandSet.ListForPublishOpenFilesWithMirrorComplexInTextEditorCommandId, OpenFilesType.WithMirrorComplexChanges, true }
-        };
-
-        private static ConcurrentDictionary<Tuple<OpenFilesType, bool>, ListForPublishOpenFilesCommand> _instances = new ConcurrentDictionary<Tuple<OpenFilesType, bool>, ListForPublishOpenFilesCommand>();
-
-        public static ListForPublishOpenFilesCommand Instance(OpenFilesType openFilesType, bool inTextEditor)
-        {
-            var key = Tuple.Create(openFilesType, inTextEditor);
-
-            if (_instances.ContainsKey(key))
-            {
-                return _instances[key];
-            }
-
-            return null;
-        }
+        public static ListForPublishOpenFilesCommand InstanceInTextEditorFileMirror { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            foreach (var item in _commandsListforPublish)
-            {
-                var command = new ListForPublishOpenFilesCommand(commandService, item.Item1, item.Item2, item.Item3);
+            InstanceFileOrdinal = new ListForPublishOpenFilesCommand(commandService, PackageIds.guidDynamicCommandSet.ListForPublishOpenFilesByTypeOrdinalCommandId, _typesOrdinal, false);
+            InstanceFileChanges = new ListForPublishOpenFilesCommand(commandService, PackageIds.guidDynamicCommandSet.ListForPublishOpenFilesByTypeWithChangesCommandId, _typesChanges, false);
+            InstanceFileMirror = new ListForPublishOpenFilesCommand(commandService, PackageIds.guidDynamicCommandSet.ListForPublishOpenFilesByTypeWithMirrorCommandId, _typesMirror, false);
 
-                _instances.TryAdd(Tuple.Create(item.Item2, item.Item3), command);
-            }
+            InstanceInTextEditorFileOrdinal = new ListForPublishOpenFilesCommand(commandService, PackageIds.guidDynamicCommandSet.ListForPublishOpenFilesByTypeInTextEditorOrdinalCommandId, _typesOrdinal, true);
+            InstanceInTextEditorFileChanges = new ListForPublishOpenFilesCommand(commandService, PackageIds.guidDynamicCommandSet.ListForPublishOpenFilesByTypeInTextEditorWithChangesCommandId, _typesChanges, true);
+            InstanceInTextEditorFileMirror = new ListForPublishOpenFilesCommand(commandService, PackageIds.guidDynamicCommandSet.ListForPublishOpenFilesByTypeInTextEditorWithMirrorCommandId, _typesMirror, true);
         }
 
-        protected override void CommandAction(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper, OpenFilesType openFilesType)
         {
             var selectedFiles = helper.GetSelectedFilesFromListForPublish(FileOperations.SupportsWebResourceTextType).ToList();
 
@@ -99,7 +57,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
             {
                 helper.ShowListForPublish(connectionData);
 
-                helper.HandleWebResourceOpenFilesCommand(selectedFiles, _openFilesType, _inTextEditor);
+                helper.HandleWebResourceOpenFilesCommand(selectedFiles, openFilesType, _inTextEditor);
             }
             else
             {
@@ -107,14 +65,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
             }
         }
 
-        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OpenFilesType openFilesType, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusListForPublishWebResourceTextAny(applicationObject, menuCommand);
-
             if (_inTextEditor)
             {
                 CommonHandlers.ActionBeforeQueryStatusTextEditorProgramExists(applicationObject, menuCommand);
             }
+
+            CommonHandlers.ActionBeforeQueryStatusListForPublishWebResourceTextAny(applicationObject, menuCommand);
         }
     }
 }

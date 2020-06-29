@@ -350,10 +350,9 @@
     <Compile Include="Commands\WebResources\CodeWebResourceUpdateContentPublishInConnectionGroupCommand.cs" />
     <Compile Include="Commands\JavaScripts\FileJavaScriptIncludeReferencesToDependencyXmlCommand.cs" />
     <Compile Include="Commands\JavaScripts\FileJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommand.cs" />
-    <Compile Include="Commands\WebResources\FileWebResourceOpenFilesCommand.cs" />
     <Compile Include="Commands\JavaScripts\FolderJavaScriptIncludeReferencesToDependencyXmlCommand.cs" />
     <Compile Include="Commands\JavaScripts\FolderJavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommand.cs" />
-    <Compile Include="Commands\WebResources\FolderWebResourceOpenFilesCommand.cs" />
+    <Compile Include="Commands\WebResources\WebResourceOpenFilesByTypeCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlCommonCopyToClipboardWithoutSchemaCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlCommonRemoveCustomAttributesCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlFetchXmlConvertToQueryExpressionCommand.cs" />
