@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
-    internal sealed class WebResourceUpdateContentPublishInConnectionGroupWithCurrentCommand : AbstractDynamicCommandByConnectionByGroupWithoutCurrent
+    internal sealed class WebResourceUpdateContentPublishInConnectionGroupWithCurrentCommand : AbstractDynamicCommandByConnectionByGroupWithCurrent
     {
         private readonly ISourceSelectedFiles _sourceSelectedFiles;
 
