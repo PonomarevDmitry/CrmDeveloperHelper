@@ -8048,7 +8048,7 @@
           <ButtonText>JavaScript File Generation Options</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="FileJavaScriptFileGenerationOptionsJavaScriptSingleCommandId" priority="0x06000" type="Button">
+      <Button guid="guidCommandSet" id="FileJavaScriptFileGenerationOptionsSingleCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -15421,7 +15421,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupGlobalOptionSetAll_MenuConnectionDyn" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupGlobalOptionSetAll" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileJavaScriptFileGenerationOptionsJavaScriptSingleCommandId" priority="0x06010">
+    <CommandPlacement guid="guidCommandSet" id="FileJavaScriptFileGenerationOptionsSingleCommandId" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupGlobalOptionSetAll" />
     </CommandPlacement>
 
@@ -24604,7 +24604,7 @@
       <IDSymbol name="FileJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommandId" value="0x21A2" />
 
       <IDSymbol name="FileJavaScriptFileGenerationOptionsCommandId" value="0x2243" />
-      <IDSymbol name="FileJavaScriptFileGenerationOptionsJavaScriptSingleCommandId" value="0x2266" />
+      <IDSymbol name="FileJavaScriptFileGenerationOptionsSingleCommandId" value="0x2266" />
 
       <IDSymbol name="FileJavaScriptIncludeReferencesToDependencyXmlCommandId" value="0x225C" />
 

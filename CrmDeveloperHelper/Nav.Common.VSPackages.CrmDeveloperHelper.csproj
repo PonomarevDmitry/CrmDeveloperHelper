@@ -175,20 +175,17 @@
     <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedSystemFormGetCurrentTabsAndSectionsInConnectionCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptLinkedSystemFormActionOnComponentInConnectionCommand.cs" />
-    <Compile Include="Commands\JavaScripts\CodeJavaScriptUpdateGlobalOptionSetAllFileCommand.cs" />
-    <Compile Include="Commands\JavaScripts\DocumentsJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommand.cs" />
-    <Compile Include="Commands\JavaScripts\FileJavaScriptFileGenerationOptionsJavaScriptSingleCommand.cs" />
-    <Compile Include="Commands\JavaScripts\FileJavaScriptUpdateContentIncludeReferencesPublishCommand.cs" />
-    <Compile Include="Commands\JavaScripts\FileJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommand.cs" />
-    <Compile Include="Commands\JavaScripts\FolderJavaScriptUpdateContentIncludeReferencesPublishCommand.cs" />
-    <Compile Include="Commands\JavaScripts\FolderJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommand.cs" />
     <Compile Include="Commands\JavaScripts\JavaScriptFileGenerationOptionsCommand.cs" />
     <Compile Include="Commands\JavaScripts\JavaScriptIncludeReferencesToDependencyXmlCommand.cs" />
     <Compile Include="Commands\JavaScripts\JavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommand.cs" />
     <Compile Include="Commands\JavaScripts\JavaScriptIncludeReferencesToLinkedSystemFormCommand.cs" />
+    <Compile Include="Commands\JavaScripts\JavaScriptUpdateContentIncludeReferencesPublishCommand.cs" />
+    <Compile Include="Commands\JavaScripts\JavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupWithCurrentCommand.cs" />
+    <Compile Include="Commands\JavaScripts\JavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupWithoutCurrentCommand.cs" />
     <Compile Include="Commands\JavaScripts\JavaScriptUpdateEntityMetadataFileCommand.cs" />
     <Compile Include="Commands\JavaScripts\JavaScriptUpdateEntityMetadataFileWithSelectCommand.cs" />
     <Compile Include="Commands\JavaScripts\JavaScriptUpdateEqualByTextContentIncludeReferencesPublishInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\JavaScripts\JavaScriptUpdateGlobalOptionSetAllFileCommand.cs" />
     <Compile Include="Commands\JavaScripts\JavaScriptUpdateGlobalOptionSetSingleFileCommand.cs" />
     <Compile Include="Commands\JavaScripts\JavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand.cs" />
     <Compile Include="Commands\ListForPublish\ListForPublishMultiDifferenceCommand.cs" />
@@ -286,8 +283,6 @@
     <Compile Include="Commands\Reports\CodeReportCreateCommand.cs" />
     <Compile Include="Commands\Reports\CodeReportShowDifferenceInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Reports\CodeReportShowDifferenceThreeFileCommand.cs" />
-    <Compile Include="Commands\JavaScripts\CodeJavaScriptUpdateContentIncludeReferencesPublishCommand.cs" />
-    <Compile Include="Commands\JavaScripts\CodeJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Reports\ReportAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\Reports\ReportAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\Reports\ReportLinkClearCommand.cs" />
@@ -330,6 +325,7 @@
     <Compile Include="Commands\WebResources\WebResourceOpenFilesByTypeCommand.cs" />
     <Compile Include="Commands\WebResources\WebResourceRemoveFilesFromListForPublishCommand.cs" />
     <Compile Include="Commands\WebResources\WebResourceShowDependentComponentsCommand.cs" />
+    <Compile Include="Commands\WebResources\WebResourceUpdateContentPublishCommand.cs" />
     <Compile Include="Commands\WebResources\WebResourceUpdateContentPublishEqualByTextInConnectionGroupCommand.cs" />
     <Compile Include="Commands\WebResources\WebResourceUpdateContentPublishInConnectionGroupWithCurrentCommand.cs" />
     <Compile Include="Commands\WebResources\WebResourceUpdateContentPublishInConnectionGroupWithoutCurrentCommand.cs" />
@@ -476,7 +472,6 @@
     <Compile Include="Commands\CSharp\FileCSharpProjectPluginTypeStepsAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\CSharp\FileCSharpProjectUpdatePluginAssemblyCommand.cs" />
     <Compile Include="Commands\CSharp\FileCSharpProjectUpdatePluginAssemblyInConnectionCommand.cs" />
-    <Compile Include="Commands\JavaScripts\FileJavaScriptUpdateGlobalOptionSetAllFileCommand.cs" />
     <Compile Include="Commands\Reports\FileReportCreateCommand.cs" />
     <Compile Include="Commands\Reports\FileReportActionOnComponentInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Reports\FileReportUpdateCommand.cs" />
@@ -495,7 +490,6 @@
     <Compile Include="Commands\CSharp\FolderCSharpProjectPluginTypeStepsAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\Folders\FolderAddPluginConfigurationFileCommand.cs" />
     <Compile Include="Commands\Folders\FolderAddSolutionFileCommand.cs" />
-    <Compile Include="Commands\WebResources\FolderWebResourceUpdateContentPublishCommand.cs" />
     <Compile Include="Commands\AbstractSingleCommand.cs" />
     <Compile Include="Commands\ListForPublish\ListForPublishAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\ListForPublish\ListForPublishAddToSolutionLastCommand.cs" />
@@ -669,7 +663,6 @@
     <Compile Include="Helpers\BoolToOppositeBoolConverter.cs" />
     <Compile Include="Helpers\ClipboardHelper.cs" />
     <Compile Include="Helpers\CommonHandlers.cs" />
-    <Compile Include="Commands\WebResources\CodeWebResourceUpdateContentPublishCommand.cs" />
     <Compile Include="Commands\Commons\CommonOrganizationComparerCommand.cs" />
     <Compile Include="Commands\Explorers\CommonPluginAssemblyExplorerCommand.cs" />
     <Compile Include="Commands\PluginConfigurations\CommonPluginConfigurationPluginAssemblyCommand.cs" />
@@ -683,7 +676,6 @@
     <Compile Include="Commands\Reports\FileReportLinkCreateCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceShowDifferenceCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceShowDifferenceCustomCommand.cs" />
-    <Compile Include="Commands\WebResources\FileWebResourceUpdateContentPublishCommand.cs" />
     <Compile Include="Commands\ListForPublish\ListForPublishClearListCommand.cs" />
     <Compile Include="Commands\ListForPublish\ListForPublishFilesAddCommand.cs" />
     <Compile Include="Commands\ListForPublish\ListForPublishCompareCommand.cs" />

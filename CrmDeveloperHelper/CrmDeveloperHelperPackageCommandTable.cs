@@ -3351,7 +3351,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FileJavaScriptFileGenerationOptionsCommandId = 0x2243;
 
-            public const int FileJavaScriptFileGenerationOptionsJavaScriptSingleCommandId = 0x2266;
+            public const int FileJavaScriptFileGenerationOptionsSingleCommandId = 0x2266;
 
             public const int FileJavaScriptIncludeReferencesToDependencyXmlCommandId = 0x225C;
 

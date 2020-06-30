@@ -22,6 +22,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.JavaScripts
 
         public static JavaScriptFileGenerationOptionsCommand InstanceFile { get; private set; }
 
+        public static JavaScriptFileGenerationOptionsCommand InstanceFileSingle { get; private set; }
+
         public static JavaScriptFileGenerationOptionsCommand InstanceFolder { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
@@ -32,6 +34,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.JavaScripts
 
             var sourceFile = FileSourceSelectedFiles.CreateSource();
 
+            var sourceFileSingle = FileSourceSelectedFileSingle.CreateSource();
+
             var sourceFolder = FolderSourceSelectedFiles.CreateSource();
 
             InstanceCode = new JavaScriptFileGenerationOptionsCommand(commandService, PackageIds.guidCommandSet.CodeJavaScriptFileGenerationOptionsCommandId, sourceCode);
@@ -39,6 +43,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.JavaScripts
             InstanceDocuments = new JavaScriptFileGenerationOptionsCommand(commandService, PackageIds.guidCommandSet.DocumentsJavaScriptFileGenerationOptionsCommandId, sourceDocuments);
 
             InstanceFile = new JavaScriptFileGenerationOptionsCommand(commandService, PackageIds.guidCommandSet.FileJavaScriptFileGenerationOptionsCommandId, sourceFile);
+
+            InstanceFileSingle = new JavaScriptFileGenerationOptionsCommand(commandService, PackageIds.guidCommandSet.FileJavaScriptFileGenerationOptionsSingleCommandId, sourceFileSingle);
 
             InstanceFolder = new JavaScriptFileGenerationOptionsCommand(commandService, PackageIds.guidCommandSet.FolderJavaScriptFileGenerationOptionsCommandId, sourceFolder);
         }
