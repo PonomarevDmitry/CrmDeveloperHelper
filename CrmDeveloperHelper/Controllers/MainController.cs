@@ -593,11 +593,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         /// Старт различия
         /// </summary>
         /// <param name="selectedFile"></param>
-        /// <param name="isCustom"></param>
+        /// <param name="withSelect"></param>
         /// <param name="crmConfig"></param>
         /// <param name="commonConfig"></param>
-        public void StartWebResourceDifference(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, bool isCustom)
-            => ExecuteWithConnectionInThread(connectionData, this._differenceController.ExecuteDifferenceWebResources, commonConfig, selectedFile, isCustom);
+        public void StartWebResourceDifference(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, bool withSelect)
+            => ExecuteWithConnectionInThread(connectionData, this._differenceController.ExecuteDifferenceWebResources, commonConfig, selectedFile, withSelect);
 
         public void StartWebResourceCreateEntityDescription(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
             => ExecuteWithConnectionInThread(connectionData, this._differenceController.ExecuteCreatingWebResourceEntityDescription, commonConfig, selectedFile);
@@ -652,11 +652,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         /// Старт различия отчетов
         /// </summary>
         /// <param name="selectedFile"></param>
-        /// <param name="isCustom"></param>
+        /// <param name="withSelect"></param>
         /// <param name="crmConfig"></param>
         /// <param name="commonConfig"></param>
-        public void StartReportDifference(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, string fieldName, string fieldTitle, bool isCustom)
-            => ExecuteWithConnectionInThread(connectionData, this._differenceController.ExecuteDifferenceReport, commonConfig, selectedFile, fieldName, fieldTitle, isCustom);
+        public void StartReportDifference(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, string fieldName, string fieldTitle, bool withSelect)
+            => ExecuteWithConnectionInThread(connectionData, this._differenceController.ExecuteDifferenceReport, commonConfig, selectedFile, fieldName, fieldTitle, withSelect);
 
         public void StartReportThreeFileDifference(ConnectionData connectionData1, ConnectionData connectionData2, CommonConfiguration commonConfig, SelectedFile selectedFile, string fieldName, string fieldTitle, ShowDifferenceThreeFileType differenceType)
             => ExecuteInThread(this._differenceController.ExecuteThreeFileDifferenceReport, connectionData1, connectionData2, commonConfig, selectedFile, fieldName, fieldTitle, differenceType);

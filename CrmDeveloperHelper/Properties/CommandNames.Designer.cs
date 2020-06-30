@@ -279,9 +279,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Show Difference with Select.
         /// </summary>
-        internal static string CodeWebResourceShowDifferenceCustomCommand {
+        internal static string CodeWebResourceShowDifferenceWithSelectCommand {
             get {
-                return ResourceManager.GetString("CodeWebResourceShowDifferenceCustomCommand", resourceCulture);
+                return ResourceManager.GetString("CodeWebResourceShowDifferenceWithSelectCommand", resourceCulture);
             }
         }
         
@@ -1035,9 +1035,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Show Difference with Select.
         /// </summary>
-        internal static string FileWebResourceShowDifferenceCustromCommand {
+        internal static string FileWebResourceShowDifferenceWithSelectCommand {
             get {
-                return ResourceManager.GetString("FileWebResourceShowDifferenceCustromCommand", resourceCulture);
+                return ResourceManager.GetString("FileWebResourceShowDifferenceWithSelectCommand", resourceCulture);
             }
         }
         

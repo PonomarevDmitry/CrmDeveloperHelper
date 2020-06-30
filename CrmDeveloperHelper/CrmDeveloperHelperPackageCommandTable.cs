@@ -3121,7 +3121,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeWebResourceShowDifferenceCommandId = 0x2001;
 
-            public const int CodeWebResourceShowDifferenceCustomCommandId = 0x2002;
+            public const int CodeWebResourceShowDifferenceWithSelectCommandId = 0x2002;
 
             public const int CodeWebResourceCompareWithDetailsCommandId = 0x2004;
 
@@ -3323,7 +3323,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FileWebResourceShowDifferenceCommandId = 0x2045;
 
-            public const int FileWebResourceShowDifferenceCustomCommandId = 0x2046;
+            public const int FileWebResourceShowDifferenceWithSelectCommandId = 0x2046;
 
             public const int FileWebResourceShowDependentComponentsCommandId = 0x2047;
 

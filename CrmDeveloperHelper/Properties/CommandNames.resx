@@ -168,7 +168,7 @@
   <data name="CodeWebResourceShowDifferenceCommand" xml:space="preserve">
     <value>Show Difference</value>
   </data>
-  <data name="CodeWebResourceShowDifferenceCustomCommand" xml:space="preserve">
+  <data name="CodeWebResourceShowDifferenceWithSelectCommand" xml:space="preserve">
     <value>Show Difference with Select</value>
   </data>
   <data name="CodeWebResourceUpdateContentPublishCommand" xml:space="preserve">
@@ -400,7 +400,7 @@
   <data name="FileWebResourceShowDifferenceCommand" xml:space="preserve">
     <value>Show Difference</value>
   </data>
-  <data name="FileWebResourceShowDifferenceCustromCommand" xml:space="preserve">
+  <data name="FileWebResourceShowDifferenceWithSelectCommand" xml:space="preserve">
     <value>Show Difference with Select</value>
   </data>
   <data name="FileWebResourceUpdateContentPublishCommand" xml:space="preserve">

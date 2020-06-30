@@ -24,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Различия файла и веб-ресурса.
 
-        public async Task ExecuteDifferenceWebResources(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, bool isCustom)
+        public async Task ExecuteDifferenceWebResources(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, bool withSelect)
         {
             string operation = string.Format(Properties.OperationNames.DifferenceWebResourceFormat1, connectionData?.Name);
 
@@ -34,7 +34,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 CheckingFilesEncodingAndWriteEmptyLines(connectionData, new[] { selectedFile }, out _);
 
-                await DifferenceWebResources(selectedFile, isCustom, connectionData, commonConfig);
+                await DifferenceWebResources(connectionData, commonConfig, selectedFile, withSelect);
             }
             catch (Exception ex)
             {
@@ -46,7 +46,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task DifferenceWebResources(SelectedFile selectedFile, bool isCustom, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task DifferenceWebResources(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, bool withSelect)
         {
             if (!File.Exists(selectedFile.FilePath))
             {
@@ -67,7 +67,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             WebResource webResource = null;
             Guid? lastLinkedWebResourceId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
 
-            if (!isCustom)
+            if (!withSelect)
             {
                 webResource = await webResourceRepository.FindByNameAsync(selectedFile.FriendlyFilePath, selectedFile.Extension);
 
@@ -427,7 +427,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Различия отчета и файла.
 
-        public async Task ExecuteDifferenceReport(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, string fieldName, string fieldTitle, bool isCustom)
+        public async Task ExecuteDifferenceReport(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, string fieldName, string fieldTitle, bool withSelect)
         {
             string operation = string.Format(Properties.OperationNames.DifferenceReportFormat1, connectionData?.Name);
 
@@ -435,7 +435,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await DifferenceReport(selectedFile, fieldName, fieldTitle, isCustom, connectionData, commonConfig);
+                await DifferenceReport(connectionData, commonConfig, selectedFile, fieldName, fieldTitle, withSelect);
             }
             catch (Exception ex)
             {
@@ -447,7 +447,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task DifferenceReport(SelectedFile selectedFile, string fieldName, string fieldTitle, bool isCustom, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task DifferenceReport(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, string fieldName, string fieldTitle, bool withSelect)
         {
             if (!File.Exists(selectedFile.FilePath))
             {
@@ -473,7 +473,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             Report reportEntity = null;
 
-            if (isCustom)
+            if (withSelect)
             {
                 Guid? reportId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
 

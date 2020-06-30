@@ -406,68 +406,63 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartAddingWebResourcesToSolution(conn, commonConfig, solutionUniqueName, selectedFiles, withSelect));
         }
 
-        public void HandleWebResourceDifferenceCommand(ConnectionData connectionData, bool isCustom)
+        public void HandleWebResourceDifferenceCommand(ConnectionData connectionData, SelectedFile selectedFile, bool withSelect)
         {
-            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsWebResourceTextType, false).Take(2).ToList();
-
-            if (selectedFiles.Count != 1)
+            if (selectedFile == null)
             {
                 return;
             }
 
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWebResourceDifference(conn, commonConfig, selectedFiles[0], isCustom));
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWebResourceDifference(conn, commonConfig, selectedFile, withSelect));
         }
 
-        public void HandleWebResourceCreateEntityDescriptionCommand(ConnectionData connectionData)
+        public void HandleWebResourceCreateEntityDescriptionCommand(ConnectionData connectionData, SelectedFile selectedFile)
         {
-            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsWebResourceTextType, false).Take(2).ToList();
-
-            if (selectedFiles.Count != 1)
+            if (selectedFile == null)
             {
                 return;
             }
 
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWebResourceCreateEntityDescription(conn, commonConfig, selectedFiles[0]));
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWebResourceCreateEntityDescription(conn, commonConfig, selectedFile));
         }
 
-        public void HandleWebResourceChangeInEntityEditorCommand(ConnectionData connectionData)
+        public void HandleWebResourceChangeInEntityEditorCommand(ConnectionData connectionData, SelectedFile selectedFile)
         {
-            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsWebResourceTextType, false).Take(2).ToList();
-
-            if (selectedFiles.Count != 1)
+            if (selectedFile == null)
             {
                 return;
             }
 
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWebResourceChangeInEntityEditor(conn, commonConfig, selectedFiles[0]));
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWebResourceChangeInEntityEditor(conn, commonConfig, selectedFile));
         }
 
-        public void HandleWebResourceGetAttributeCommand(ConnectionData connectionData, string fieldName, string fieldTitle)
+        public void HandleWebResourceGetAttributeCommand(ConnectionData connectionData, SelectedFile selectedFile, string fieldName, string fieldTitle)
         {
-            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsWebResourceTextType, false).Take(2).ToList();
-
-            if (selectedFiles.Count != 1)
+            if (selectedFile == null)
             {
                 return;
             }
 
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWebResourceGetAttribute(conn, commonConfig, selectedFiles[0], fieldName, fieldTitle));
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartWebResourceGetAttribute(conn, commonConfig, selectedFile, fieldName, fieldTitle));
         }
 
-        public void HandleWebResourceThreeFileDifferenceCommand(ConnectionData connectionData1, ConnectionData connectionData2, ShowDifferenceThreeFileType differenceType)
+        public void HandleWebResourceThreeFileDifferenceCommand(ConnectionData connectionData1, ConnectionData connectionData2, SelectedFile selectedFile, ShowDifferenceThreeFileType differenceType)
         {
+            if (selectedFile == null)
+            {
+                return;
+            }
+
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsWebResourceTextType, false).Take(2).ToList();
-
-            if (connectionData1 != null && connectionData2 != null && connectionData1 != connectionData2 && commonConfig != null && selectedFiles.Count == 1)
+            if (connectionData1 != null && connectionData2 != null && connectionData1 != connectionData2 && commonConfig != null)
             {
                 ActivateOutputWindow(null);
                 WriteToOutputEmptyLines(null, commonConfig);
 
                 try
                 {
-                    Controller.StartWebResourceThreeFileDifference(connectionData1, connectionData2, commonConfig, selectedFiles[0], differenceType);
+                    Controller.StartWebResourceThreeFileDifference(connectionData1, connectionData2, commonConfig, selectedFile, differenceType);
                 }
                 catch (Exception ex)
                 {
@@ -476,7 +471,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleOpenWebResource(ConnectionData connectionData, ActionOnComponent actionOnComponent)
+        public void HandleOpenWebResource(ConnectionData connectionData, SelectedFile selectedFile, ActionOnComponent actionOnComponent)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
@@ -490,12 +485,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 connectionData = crmConfig.CurrentConnectionData;
             }
 
-            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsWebResourceType, false).Take(2).ToList();
-
-            if (connectionData != null && commonConfig != null && selectedFiles.Count == 1)
+            if (connectionData != null && commonConfig != null)
             {
-                SelectedFile selectedFile = selectedFiles[0];
-
                 ActivateOutputWindow(connectionData);
                 WriteToOutputEmptyLines(connectionData, commonConfig);
 
@@ -646,18 +637,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             string selection = GetSelectedText();
 
             HandleOpenWebResourceExplorerCommand(connectionData, selection);
-        }
-
-        public void HandleOpenWebResourceExplorerCommand()
-        {
-            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsWebResourceType, false).Take(2).ToList();
-
-            if (selectedFiles.Count == 1)
-            {
-                SelectedFile selectedFile = selectedFiles[0];
-
-                HandleOpenWebResourceExplorerCommand(null, selectedFile.FileName);
-            }
         }
 
         public void HandleOpenWebResourceExplorerCommand(string selection)

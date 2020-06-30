@@ -199,35 +199,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             WebResourceCompareCommand.Initialize,
             WebResourceCompareInConnectionGroupCommand.Initialize,
 
-            #region CodeWebResource
+            WebResourceShowDifferenceCommand.Initialize,
+            WebResourceShowDifferenceInConnectionGroupCommand.Initialize,
 
-            CodeWebResourceShowDifferenceCommand.Initialize,
-            CodeWebResourceShowDifferenceCustomCommand.Initialize,
-            CodeWebResourceShowDifferenceInConnectionGroupCommand.Initialize,
-            CodeWebResourceShowDifferenceThreeFileCommand.Initialize,
+            WebResourceShowDifferenceThreeFileCommand.Initialize,
 
-            CodeWebResourceCreateEntityDescriptionInConnectionCommand.Initialize,
-            CodeWebResourceChangeInEditorInConnectionCommand.Initialize,
-            CodeWebResourceGetAttributeInConnectionCommand.Initialize,
-            CodeWebResourceExplorerCommand.Initialize,
-            CodeWebResourceActionOnComponentInConnectionGroupCommand.Initialize,
+            WebResourceExplorerCommand.Initialize,
+            WebResourceChangeInEditorInConnectionCommand.Initialize,
+            WebResourceCreateEntityDescriptionInConnectionCommand.Initialize,
+            WebResourceGetAttributeInConnectionCommand.Initialize,
+            WebResourceActionOnComponentInConnectionCommand.Initialize,
 
-            #endregion CodeWebResource
 
-            #region FileWebResource
 
-            FileWebResourceShowDifferenceCommand.Initialize,
-            FileWebResourceShowDifferenceCustomCommand.Initialize,
-            FileWebResourceShowDifferenceInConnectionGroupCommand.Initialize,
-            FileWebResourceShowDifferenceThreeFileCommand.Initialize,
 
-            FileWebResourceCreateEntityDescriptionInConnectionCommand.Initialize,
-            FileWebResourceChangeInEditorInConnectionCommand.Initialize,
-            FileWebResourceGetAttributeInConnectionCommand.Initialize,
-            FileWebResourceExplorerCommand.Initialize,
-            FileWebResourceActionOnComponentInConnectionGroupCommand.Initialize,
-
-            #endregion FileWebResource
 
             JavaScriptUpdateEntityMetadataFileCommand.Initialize,
             JavaScriptUpdateEntityMetadataFileWithSelectCommand.Initialize,
@@ -446,6 +431,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             #region CodeCSharp
 
+            CodeCSharpPluginTypeExplorerCommand.Initialize,
+            CodeCSharpPluginAssemblyExplorerCommand.Initialize,
+            CodeCSharpPluginTreeCommand.Initialize,
+
             CodeCSharpProjectBuildLoadUpdatePluginAssemblyCommand.Initialize,
             CodeCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommand.Initialize,
 
@@ -458,56 +447,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeCSharpProjectCompareToCrmAssemblyCommand.Initialize,
             CodeCSharpProjectCompareToCrmAssemblyInConnectionCommand.Initialize,
 
-            CodeCSharpPluginTypeExplorerCommand.Initialize,
-            CodeCSharpPluginAssemblyExplorerCommand.Initialize,
-            CodeCSharpPluginTreeCommand.Initialize,
-
             CodeCSharpAddPluginStepCommand.Initialize,
             CodeCSharpAddPluginStepInConnectionCommand.Initialize,
 
+            CodeCSharpProjectPluginAssemblyActionOnComponentInConnectionCommand.Initialize,
             CodeCSharpProjectPluginAssemblyCreateDescriptionCommand.Initialize,
             CodeCSharpProjectPluginAssemblyCreateDescriptionInConnectionCommand.Initialize,
 
-            CodeCSharpProjectPluginAssemblyActionOnComponentInConnectionCommand.Initialize,
-
-            CodeCSharpProjectPluginAssemblyAddToSolutionLastCommand.Initialize,
-            CodeCSharpProjectPluginAssemblyAddToSolutionInConnectionCommand.Initialize,
-
-            CodeCSharpProjectPluginAssemblyStepsAddToSolutionLastCommand.Initialize,
-            CodeCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommand.Initialize,
-
-            CodeCSharpProjectPluginTypeStepsAddToSolutionLastCommand.Initialize,
-            CodeCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand.Initialize,
-
-            CodeCSharpProjectPluginTypeActionOnComponentInConnectionCommand.Initialize,
-
-            CodeCSharpProjectPluginTypeCreateDescriptionCommand.Initialize,
-            CodeCSharpProjectPluginTypeCreateDescriptionInConnectionCommand.Initialize,
-
             #endregion CodeCSharp
-
-            #region DocumentsCSharp
-
-            DocumentsCSharpProjectPluginAssemblyAddToSolutionLastCommand.Initialize,
-            DocumentsCSharpProjectPluginAssemblyAddToSolutionInConnectionCommand.Initialize,
-
-            DocumentsCSharpProjectPluginAssemblyStepsAddToSolutionLastCommand.Initialize,
-            DocumentsCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommand.Initialize,
-
-            DocumentsCSharpProjectPluginTypeStepsAddToSolutionLastCommand.Initialize,
-            DocumentsCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand.Initialize,
-
-            DocumentsCSharpProjectPluginTypeActionOnComponentInConnectionCommand.Initialize,
-
-            DocumentsCSharpProjectPluginTypeCreateDescriptionCommand.Initialize,
-            DocumentsCSharpProjectPluginTypeCreateDescriptionInConnectionCommand.Initialize,
-
-            #endregion DocumentsCSharp
 
             #region FileCSharp
 
-            FileCSharpPluginAssemblyExplorerCommand.Initialize,
             FileCSharpPluginTypeExplorerCommand.Initialize,
+            FileCSharpPluginAssemblyExplorerCommand.Initialize,
             FileCSharpPluginTreeCommand.Initialize,
 
             FileCSharpProjectBuildLoadUpdatePluginAssemblyCommand.Initialize,
@@ -529,6 +481,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FileCSharpProjectPluginAssemblyCreateDescriptionCommand.Initialize,
             FileCSharpProjectPluginAssemblyCreateDescriptionInConnectionCommand.Initialize,
 
+            #endregion FileCSharp
+
+            #region FolderCSharp
+
+            CodeCSharpProjectPluginAssemblyAddToSolutionLastCommand.Initialize,
+            CodeCSharpProjectPluginAssemblyAddToSolutionInConnectionCommand.Initialize,
+
+            CodeCSharpProjectPluginAssemblyStepsAddToSolutionLastCommand.Initialize,
+            CodeCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommand.Initialize,
+
+            CodeCSharpProjectPluginTypeStepsAddToSolutionLastCommand.Initialize,
+            CodeCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand.Initialize,
+
+            CodeCSharpProjectPluginTypeActionOnComponentInConnectionCommand.Initialize,
+
+            CodeCSharpProjectPluginTypeCreateDescriptionCommand.Initialize,
+            CodeCSharpProjectPluginTypeCreateDescriptionInConnectionCommand.Initialize,
+
+
+
+            DocumentsCSharpProjectPluginAssemblyAddToSolutionLastCommand.Initialize,
+            DocumentsCSharpProjectPluginAssemblyAddToSolutionInConnectionCommand.Initialize,
+
+            DocumentsCSharpProjectPluginAssemblyStepsAddToSolutionLastCommand.Initialize,
+            DocumentsCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommand.Initialize,
+
+            DocumentsCSharpProjectPluginTypeStepsAddToSolutionLastCommand.Initialize,
+            DocumentsCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand.Initialize,
+
+            DocumentsCSharpProjectPluginTypeActionOnComponentInConnectionCommand.Initialize,
+
+            DocumentsCSharpProjectPluginTypeCreateDescriptionCommand.Initialize,
+            DocumentsCSharpProjectPluginTypeCreateDescriptionInConnectionCommand.Initialize,
+
+
+
             FileCSharpProjectPluginAssemblyAddToSolutionLastCommand.Initialize,
             FileCSharpProjectPluginAssemblyAddToSolutionInConnectionCommand.Initialize,
 
@@ -543,9 +531,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FileCSharpProjectPluginTypeCreateDescriptionCommand.Initialize,
             FileCSharpProjectPluginTypeCreateDescriptionInConnectionCommand.Initialize,
 
-            #endregion FileCSharp
 
-            #region FolderCSharp
 
             FolderCSharpProjectPluginAssemblyAddToSolutionLastCommand.Initialize,
             FolderCSharpProjectPluginAssemblyAddToSolutionInConnectionCommand.Initialize,

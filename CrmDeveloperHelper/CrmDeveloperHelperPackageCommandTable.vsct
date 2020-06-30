@@ -4473,7 +4473,7 @@
           <ButtonText>Show Difference</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="CodeWebResourceShowDifferenceCustomCommandId" priority="0x06000" type="Button">
+      <Button guid="guidCommandSet" id="CodeWebResourceShowDifferenceWithSelectCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -7524,7 +7524,7 @@
           <ButtonText>Show Difference</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="FileWebResourceShowDifferenceCustomCommandId" priority="0x06000" type="Button">
+      <Button guid="guidCommandSet" id="FileWebResourceShowDifferenceWithSelectCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -13103,7 +13103,7 @@
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidCommandSet" id="CodeWebResourceShowDifferenceCustomCommandId" priority="0x06010">
+    <CommandPlacement guid="guidCommandSet" id="CodeWebResourceShowDifferenceWithSelectCommandId" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference_MenuConnectionGroupDyn" priority="0x06020">
@@ -15201,7 +15201,7 @@
     <CommandPlacement guid="guidCommandSet" id="FileWebResourceShowDifferenceCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileWebResourceShowDifferenceCustomCommandId" priority="0x06010">
+    <CommandPlacement guid="guidCommandSet" id="FileWebResourceShowDifferenceWithSelectCommandId" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference_MenuConnectionDyn" priority="0x06020">
@@ -24362,7 +24362,7 @@
       <IDSymbol name="CodeJavaScriptUpdateContentIncludeReferencesPublishCommandId" value="0x2263" />
 
       <IDSymbol name="CodeWebResourceShowDifferenceCommandId" value="0x2001" />
-      <IDSymbol name="CodeWebResourceShowDifferenceCustomCommandId" value="0x2002" />
+      <IDSymbol name="CodeWebResourceShowDifferenceWithSelectCommandId" value="0x2002" />
 
       <IDSymbol name="CodeWebResourceCompareWithDetailsCommandId" value="0x2004" />
 
@@ -24579,7 +24579,7 @@
       <IDSymbol name="FileJavaScriptUpdateContentIncludeReferencesPublishCommandId" value="0x2264" />
 
       <IDSymbol name="FileWebResourceShowDifferenceCommandId" value="0x2045" />
-      <IDSymbol name="FileWebResourceShowDifferenceCustomCommandId" value="0x2046" />
+      <IDSymbol name="FileWebResourceShowDifferenceWithSelectCommandId" value="0x2046" />
 
       <IDSymbol name="FileWebResourceShowDependentComponentsCommandId" value="0x2047" />
 

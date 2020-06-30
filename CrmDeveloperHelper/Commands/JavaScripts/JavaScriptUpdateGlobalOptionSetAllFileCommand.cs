@@ -12,8 +12,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.JavaScripts
     {
         private readonly ISourceSelectedFiles _sourceSelectedFiles;
 
-        private JavaScriptUpdateGlobalOptionSetAllFileCommand(OleMenuCommandService commandService, int idCommand, ISourceSelectedFiles sourceSelectedFiles)
-            : base(commandService, idCommand)
+        private JavaScriptUpdateGlobalOptionSetAllFileCommand(OleMenuCommandService commandService, int baseIdStart, ISourceSelectedFiles sourceSelectedFiles)
+            : base(commandService, baseIdStart)
         {
             this._sourceSelectedFiles = sourceSelectedFiles;
         }
