@@ -43,6 +43,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
         {
             if (connectionData.IsReadOnly)
             {
+                helper.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionIsReadOnlyFormat1, connectionData.Name);
                 return;
             }
 

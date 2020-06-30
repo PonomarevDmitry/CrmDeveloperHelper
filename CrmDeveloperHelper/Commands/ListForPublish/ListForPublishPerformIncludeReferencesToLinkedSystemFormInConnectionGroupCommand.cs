@@ -39,16 +39,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
 
         protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, ConnectionData connectionData, OleMenuCommand menuCommand)
         {
-            if (connectionData.IsReadOnly)
-            {
-                menuCommand.Enabled = menuCommand.Visible = false;
-            }
-            else
-            {
-                menuCommand.Enabled = menuCommand.Visible = true;
+            CommonHandlers.ActionBeforeQueryStatusConnectionIsNotReadOnly(applicationObject, menuCommand);
 
-                CommonHandlers.ActionBeforeQueryStatusListForPublishWebResourceJavaScriptAny(applicationObject, menuCommand);
-            }
+            CommonHandlers.ActionBeforeQueryStatusListForPublishWebResourceJavaScriptAny(applicationObject, menuCommand);
         }
     }
 }

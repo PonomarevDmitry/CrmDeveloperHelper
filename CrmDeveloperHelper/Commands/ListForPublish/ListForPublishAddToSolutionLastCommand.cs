@@ -31,21 +31,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
         {
             var connectionConfig = ConnectionConfiguration.Get();
 
-            if (connectionConfig.CurrentConnectionData != null)
+            var connectionData = connectionConfig.CurrentConnectionData;
+
+            List<SelectedFile> selectedFiles = helper.GetSelectedFilesFromListForPublish().ToList();
+
+            if (selectedFiles.Any())
             {
-                List<SelectedFile> selectedFiles = helper.GetSelectedFilesFromListForPublish().ToList();
+                helper.ShowListForPublish(connectionData);
 
-                if (selectedFiles.Any())
-                {
-                    helper.ShowListForPublish(connectionConfig.CurrentConnectionData);
-
-                    helper.HandleWebResourceAddingToSolutionCommand(connectionConfig.CurrentConnectionData, solutionUniqueName, false, selectedFiles);
-                }
-                else
-                {
-                    helper.WriteToOutput(connectionConfig.CurrentConnectionData, Properties.OutputStrings.PublishListIsEmpty);
-                    helper.ActivateOutputWindow(connectionConfig.CurrentConnectionData);
-                }
+                helper.HandleWebResourceAddingToSolutionCommand(connectionData, solutionUniqueName, false, selectedFiles);
+            }
+            else
+            {
+                helper.WriteToOutput(connectionData, Properties.OutputStrings.PublishListIsEmpty);
+                helper.ActivateOutputWindow(connectionData);
             }
         }
 

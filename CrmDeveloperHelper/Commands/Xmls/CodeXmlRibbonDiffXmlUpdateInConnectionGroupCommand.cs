@@ -26,6 +26,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
+            if (connectionData.IsReadOnly)
+            {
+                helper.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionIsReadOnlyFormat1, connectionData.Name);
+                return;
+            }
+
             List<SelectedFile> selectedFiles = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsXmlType).Take(2).ToList();
 
             if (selectedFiles.Count == 1)
@@ -36,34 +42,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 
         protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, ConnectionData connectionData, OleMenuCommand menuCommand)
         {
-            if (connectionData.IsReadOnly)
-            {
-                menuCommand.Enabled = menuCommand.Visible = false;
-            }
-            else
-            {
-                menuCommand.Enabled = menuCommand.Visible = true;
+            CommonHandlers.ActionBeforeQueryStatusConnectionIsNotReadOnly(applicationObject, menuCommand);
 
-                CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(applicationObject
-                    , menuCommand
-                    , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName
-                    , out var attribute
-                    , AbstractDynamicCommandXsdSchemas.RootRibbonDiffXml
-                );
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(applicationObject
+                , menuCommand
+                , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName
+                , out var attribute
+                , AbstractDynamicCommandXsdSchemas.RootRibbonDiffXml
+            );
 
-                if (attribute != null)
+            if (attribute != null)
+            {
+                string entityName = attribute.Value;
+
+                if (string.IsNullOrEmpty(entityName))
                 {
-                    string entityName = attribute.Value;
-
-                    if (string.IsNullOrEmpty(entityName))
-                    {
-                        entityName = "ApplicationRibbon";
-                    }
-
-                    string nameCommand = string.Format(Properties.CommandNames.CommandNameWithConnectionFormat2, entityName, connectionData.Name);
-
-                    menuCommand.Text = nameCommand;
+                    entityName = "ApplicationRibbon";
                 }
+
+                string nameCommand = string.Format(Properties.CommandNames.CommandNameWithConnectionFormat2, entityName, connectionData.Name);
+
+                menuCommand.Text = nameCommand;
             }
         }
     }
