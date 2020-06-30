@@ -297,6 +297,7 @@
     <Compile Include="Commands\WebResources\WebResourceAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\WebResources\WebResourceCheckEncodingCommand.cs" />
     <Compile Include="Commands\WebResources\WebResourceCheckEncodingCompareFilesCommand.cs" />
+    <Compile Include="Commands\WebResources\WebResourceCompareCommand.cs" />
     <Compile Include="Commands\WebResources\WebResourceCompareInConnectionGroupCommand.cs" />
     <Compile Include="Commands\WebResources\WebResourceLinkClearCommand.cs" />
     <Compile Include="Commands\WebResources\WebResourceLinkCreateCommand.cs" />
@@ -312,7 +313,6 @@
     <Compile Include="Commands\CSharp\CodeCSharpProjectPluginAssemblyStepsAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectPluginTypeStepsAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\WebResources\CodeWebResourceCreateEntityDescriptionInConnectionCommand.cs" />
-    <Compile Include="Commands\WebResources\CodeWebResourceCompareWithDetailsInConnectionGroupCommand.cs" />
     <Compile Include="Commands\WebResources\CodeWebResourceChangeInEditorInConnectionCommand.cs" />
     <Compile Include="Commands\WebResources\CodeWebResourceActionOnComponentInConnectionGroupCommand.cs" />
     <Compile Include="Commands\ListForPublish\CodePublishListAddCommand.cs" />
@@ -448,9 +448,6 @@
     <Compile Include="Commands\CSharp\DocumentsCSharpProjectPluginAssemblyAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\CSharp\DocumentsCSharpProjectPluginAssemblyStepsAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\CSharp\DocumentsCSharpProjectPluginTypeStepsAddToSolutionLastCommand.cs" />
-    <Compile Include="Commands\WebResources\DocumentsWebResourceCompareCommand.cs" />
-    <Compile Include="Commands\WebResources\DocumentsWebResourceCompareInConnectionGroupCommand.cs" />
-    <Compile Include="Commands\WebResources\DocumentsWebResourceCompareWithDetailsCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlWebResourceDependencyXmlExplorerCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlWebResourceDependencyXmlGetCurrentCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlWebResourceDependencyXmlGetCurrentInConnectionCommand.cs" />
@@ -483,7 +480,6 @@
     <Compile Include="Commands\Reports\FileReportCreateCommand.cs" />
     <Compile Include="Commands\Reports\FileReportActionOnComponentInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Reports\FileReportUpdateCommand.cs" />
-    <Compile Include="Commands\WebResources\FileWebResourceCompareInConnectionGroupCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceActionOnComponentInConnectionGroupCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceShowDifferenceInConnectionGroupCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceShowDifferenceThreeFileCommand.cs" />
@@ -499,9 +495,6 @@
     <Compile Include="Commands\CSharp\FolderCSharpProjectPluginTypeStepsAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\Folders\FolderAddPluginConfigurationFileCommand.cs" />
     <Compile Include="Commands\Folders\FolderAddSolutionFileCommand.cs" />
-    <Compile Include="Commands\WebResources\FolderWebResourceCompareCommand.cs" />
-    <Compile Include="Commands\WebResources\FolderWebResourceCompareInConnectionGroupCommand.cs" />
-    <Compile Include="Commands\WebResources\FolderWebResourceCompareWithDetailsCommand.cs" />
     <Compile Include="Commands\WebResources\FolderWebResourceUpdateContentPublishCommand.cs" />
     <Compile Include="Commands\AbstractSingleCommand.cs" />
     <Compile Include="Commands\ListForPublish\ListForPublishAddToSolutionInConnectionCommand.cs" />
@@ -676,7 +669,6 @@
     <Compile Include="Helpers\BoolToOppositeBoolConverter.cs" />
     <Compile Include="Helpers\ClipboardHelper.cs" />
     <Compile Include="Helpers\CommonHandlers.cs" />
-    <Compile Include="Commands\WebResources\CodeWebResourceCompareWithDetailsCommand.cs" />
     <Compile Include="Commands\WebResources\CodeWebResourceUpdateContentPublishCommand.cs" />
     <Compile Include="Commands\Commons\CommonOrganizationComparerCommand.cs" />
     <Compile Include="Commands\Explorers\CommonPluginAssemblyExplorerCommand.cs" />
@@ -686,8 +678,6 @@
     <Compile Include="Commands\PluginConfigurations\CommonPluginConfigurationPluginTreeCommand.cs" />
     <Compile Include="Commands\Explorers\CommonPluginTreeCommand.cs" />
     <Compile Include="Commands\Explorers\CommonPluginTypeExplorerCommand.cs" />
-    <Compile Include="Commands\WebResources\FileWebResourceCompareCommand.cs" />
-    <Compile Include="Commands\WebResources\FileWebResourceCompareWithDetailsCommand.cs" />
     <Compile Include="Commands\Reports\FileReportExplorerCommand.cs" />
     <Compile Include="Commands\WebResources\FileWebResourceExplorerCommand.cs" />
     <Compile Include="Commands\Reports\FileReportLinkCreateCommand.cs" />

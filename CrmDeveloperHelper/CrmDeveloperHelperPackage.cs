@@ -195,10 +195,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             WebResourceAddToSolutionLastCommand.Initialize,
 
+            WebResourceCompareCommand.Initialize,
+            WebResourceCompareInConnectionGroupCommand.Initialize,
+
             #region CodeWebResource
 
-            CodeWebResourceCompareWithDetailsCommand.Initialize,
-            CodeWebResourceCompareWithDetailsInConnectionGroupCommand.Initialize,
             CodeWebResourceShowDifferenceCommand.Initialize,
             CodeWebResourceShowDifferenceCustomCommand.Initialize,
             CodeWebResourceShowDifferenceInConnectionGroupCommand.Initialize,
@@ -210,23 +211,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeWebResourceActionOnComponentInConnectionGroupCommand.Initialize,
             CodeWebResourceUpdateContentPublishCommand.Initialize,
 
-            
-
             #endregion CodeWebResource
-
-            #region DocumentsWebResource
-
-            DocumentsWebResourceCompareCommand.Initialize,
-            DocumentsWebResourceCompareWithDetailsCommand.Initialize,
-            DocumentsWebResourceCompareInConnectionGroupCommand.Initialize,
-
-            #endregion DocumentsWebResource
 
             #region FileWebResource
 
-            FileWebResourceCompareCommand.Initialize,
-            FileWebResourceCompareWithDetailsCommand.Initialize,
-            FileWebResourceCompareInConnectionGroupCommand.Initialize,
             FileWebResourceCreateEntityDescriptionInConnectionCommand.Initialize,
             FileWebResourceChangeInEditorInConnectionCommand.Initialize,
             FileWebResourceGetAttributeInConnectionCommand.Initialize,
@@ -242,9 +230,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             #region FolderWebResource
 
-            FolderWebResourceCompareCommand.Initialize,
-            FolderWebResourceCompareWithDetailsCommand.Initialize,
-            FolderWebResourceCompareInConnectionGroupCommand.Initialize,
             FolderWebResourceUpdateContentPublishCommand.Initialize,
 
             #endregion FolderWebResource
@@ -451,15 +436,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             #endregion CodeXml
 
-            #region DocumentsXml
-            #endregion DocumentsXml
-
-            #region FileXml
-            #endregion FileXml
-
-            #region FolderXml
-            #endregion FolderXml
-
             
 
             ReportLinkClearCommand.Initialize,
@@ -480,9 +456,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeReportActionOnComponentInConnectionGroupCommand.Initialize,
 
             #endregion CodeReport
-
-            #region DocumentsReport
-            #endregion DocumentsReport
 
             #region FileReport
 
