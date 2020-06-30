@@ -205,6 +205,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeWebResourceShowDifferenceCustomCommand.Initialize,
             CodeWebResourceShowDifferenceInConnectionGroupCommand.Initialize,
             CodeWebResourceShowDifferenceThreeFileCommand.Initialize,
+
             CodeWebResourceCreateEntityDescriptionInConnectionCommand.Initialize,
             CodeWebResourceChangeInEditorInConnectionCommand.Initialize,
             CodeWebResourceGetAttributeInConnectionCommand.Initialize,
@@ -215,15 +216,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             #region FileWebResource
 
+            FileWebResourceShowDifferenceCommand.Initialize,
+            FileWebResourceShowDifferenceCustomCommand.Initialize,
+            FileWebResourceShowDifferenceInConnectionGroupCommand.Initialize,
+            FileWebResourceShowDifferenceThreeFileCommand.Initialize,
+
             FileWebResourceCreateEntityDescriptionInConnectionCommand.Initialize,
             FileWebResourceChangeInEditorInConnectionCommand.Initialize,
             FileWebResourceGetAttributeInConnectionCommand.Initialize,
             FileWebResourceExplorerCommand.Initialize,
             FileWebResourceActionOnComponentInConnectionGroupCommand.Initialize,
-            FileWebResourceShowDifferenceCommand.Initialize,
-            FileWebResourceShowDifferenceCustomCommand.Initialize,
-            FileWebResourceShowDifferenceInConnectionGroupCommand.Initialize,
-            FileWebResourceShowDifferenceThreeFileCommand.Initialize,
 
             #endregion FileWebResource
 
@@ -411,31 +413,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             ReportLinkClearCommand.Initialize,
 
             ReportAddToSolutionInConnectionCommand.Initialize,
-
             ReportAddToSolutionLastCommand.Initialize,
+
+            ReportCreateCommand.Initialize,
+            ReportUpdateCommand.Initialize,
+            ReportLinkCreateCommand.Initialize,
+            ReportActionOnComponentInConnectionCommand.Initialize,
+
+            ReportExplorerCommand.Initialize,
 
             #region CodeReport
 
-            CodeReportLinkCreateCommand.Initialize,
-            CodeReportUpdateCommand.Initialize,
-            CodeReportCreateCommand.Initialize,
             CodeReportShowDifferenceCommand.Initialize,
             CodeReportShowDifferenceInConnectionGroupCommand.Initialize,
             CodeReportShowDifferenceThreeFileCommand.Initialize,
-            CodeReportExplorerCommand.Initialize,
-            CodeReportActionOnComponentInConnectionGroupCommand.Initialize,
 
             #endregion CodeReport
-
-            #region FileReport
-
-            FileReportExplorerCommand.Initialize,
-            FileReportLinkCreateCommand.Initialize,
-            FileReportUpdateCommand.Initialize,
-            FileReportCreateCommand.Initialize,
-            FileReportActionOnComponentInConnectionGroupCommand.Initialize,
-
-            #endregion FileReport
 
 
             CSharpUpdateEntityMetadataFileProxyClassOrSchemaCommand.Initialize,

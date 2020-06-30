@@ -46,7 +46,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
                 return;
             }
 
-            var selectedFiles = _sourceSelectedFiles.GetSelectedFiles(helper, SelectedFileType.WebResourceJavaScript).ToList();
+            var selectedFiles = _sourceSelectedFiles.GetSelectedFiles(helper, SelectedFileType.WebResourceText).ToList();
 
             helper.HandleUpdateContentWebResourcesAndPublishEqualByTextCommand(connectionData, selectedFiles);
         }
@@ -55,7 +55,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
         {
             CommonHandlers.ActionBeforeQueryStatusConnectionIsNotReadOnly(applicationObject, menuCommand);
 
-            _sourceSelectedFiles.CommandBeforeQueryStatus(applicationObject, menuCommand, SelectedFileType.WebResourceJavaScript);
+            _sourceSelectedFiles.CommandBeforeQueryStatus(applicationObject, menuCommand, SelectedFileType.WebResourceText);
         }
     }
 }

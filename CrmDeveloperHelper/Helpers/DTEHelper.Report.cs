@@ -51,32 +51,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleReportUpdateCommand(ConnectionData connectionData)
+        public void HandleReportUpdateCommand(ConnectionData connectionData, SelectedFile selectedFile)
         {
-            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsReportType, false).Take(2).ToList();
-
-            if (selectedFiles.Count != 1)
+            if (selectedFile == null)
             {
                 return;
             }
 
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartReportUpdate(conn, commonConfig, selectedFiles[0]));
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartReportUpdate(conn, commonConfig, selectedFile));
         }
 
         public void HandleOpenReportExplorerCommand()
         {
-            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsReportType, false).Take(2).ToList();
+            HandleOpenReportExplorerCommand(string.Empty);
+        }
 
-            if (selectedFiles.Count != 1)
+        public void HandleOpenReportExplorerCommand(string filter)
+        {
+            GetConnectionConfigAndExecute(null, (conn, commonConfig) => Controller.StartOpenReportExplorer(conn, commonConfig, filter));
+        }
+
+        public void HandleOpenReportCommand(ConnectionData connectionData, SelectedFile selectedFile, ActionOnComponent actionOnComponent)
+        {
+            if (selectedFile == null)
             {
                 return;
             }
 
-            GetConnectionConfigAndExecute(null, (conn, commonConfig) => Controller.StartOpenReportExplorer(conn, commonConfig, selectedFiles[0].FileName));
-        }
-
-        public void HandleOpenReportCommand(ConnectionData connectionData, ActionOnComponent actionOnComponent)
-        {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
             if (connectionData == null)
@@ -89,13 +90,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 connectionData = crmConfig.CurrentConnectionData;
             }
 
-            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsReportType, false).Take(2).ToList();
-
-            if (connectionData != null && commonConfig != null && selectedFiles.Count == 1)
+            if (connectionData != null && commonConfig != null)
             {
                 CheckWishToChangeCurrentConnection(connectionData);
-
-                SelectedFile selectedFile = selectedFiles[0];
 
                 var objectId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
 
@@ -127,14 +124,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleReportCreateLaskLinkCommand(List<SelectedFile> selectedFiles)
+        public void HandleReportCreateLaskLinkCommand(SelectedFile selectedFile)
         {
-            if (selectedFiles.Count != 1)
+            if (selectedFile == null)
             {
                 return;
             }
 
-            GetConnectionConfigAndExecute(null, (conn, commonConfig) => Controller.StartReportCreatingLastLink(conn, selectedFiles[0]));
+            GetConnectionConfigAndExecute(null, (conn, commonConfig) => Controller.StartReportCreatingLastLink(conn, selectedFile));
         }
 
         public void HandleExportReport()
