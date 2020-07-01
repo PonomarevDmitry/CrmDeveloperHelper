@@ -666,6 +666,7 @@
     <Compile Include="Entities\DuplicateRule.Schema.cs" />
     <Compile Include="Entities\DuplicateRuleCondition.Proxy.cs" />
     <Compile Include="Entities\DuplicateRuleCondition.Schema.cs" />
+    <Compile Include="Helpers\CommonHandlers.ListForPublish.cs" />
     <Compile Include="Helpers\ContentComparerHelper.Xml.cs" />
     <Compile Include="Helpers\DTEHelper.Checks.cs" />
     <Compile Include="Helpers\DTEHelper.CSharp.cs" />
