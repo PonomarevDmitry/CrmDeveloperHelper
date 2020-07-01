@@ -880,11 +880,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartAddingWebResourcesToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
             => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteAddingWebResourcesToSolution, commonConfig, solutionUniqueName, selectedFiles, withSelect);
 
-        public void StartPluginAssemblyAddingToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)
-            => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteAddingPluginAssemblyToSolution, commonConfig, solutionUniqueName, projectNames, withSelect);
+        public void StartPluginAssemblyAddingToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<string> projectNames, string solutionUniqueName, bool withSelect)
+            => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteAddingPluginAssemblyToSolution, commonConfig, projectNames, solutionUniqueName, withSelect);
 
-        public void StartPluginAssemblyAddingProcessingStepsToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)
-            => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteAddingPluginAssemblyProcessingStepsToSolution, commonConfig, solutionUniqueName, projectNames, withSelect);
+        public void StartPluginAssemblyAddingProcessingStepsToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<string> projectNames, string solutionUniqueName, bool withSelect)
+            => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteAddingPluginAssemblyProcessingStepsToSolution, commonConfig, projectNames, solutionUniqueName, withSelect);
 
         public void StartPluginTypeAddingProcessingStepsToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<string> pluginTypeNames, string solutionUniqueName, bool withSelect)
             => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteAddingPluginTypeProcessingStepsToSolution, commonConfig, pluginTypeNames, solutionUniqueName, withSelect);
@@ -913,8 +913,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartShowingPluginTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string pluginTypeFilter, string messageFilter)
             => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteShowingPluginTree, commonConfig, entityFilter, pluginTypeFilter, messageFilter);
 
-        public void StartShowingSdkMessageExplorer(ConnectionData connectionData, CommonConfiguration commonConfig,  string messageFilter)
-            => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteShowingSdkMessageExplorer, commonConfig,  messageFilter);
+        public void StartShowingSdkMessageExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string messageFilter)
+            => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteShowingSdkMessageExplorer, commonConfig, messageFilter);
 
         public void StartShowingSdkMessageFilterExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string messageFilter)
             => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteShowingSdkMessageFilterExplorer, commonConfig, messageFilter);

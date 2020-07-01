@@ -114,11 +114,9 @@
     <Compile Include="Commands\Connections\CommonCrmConnectionEditCommand.cs" />
     <Compile Include="Commands\Connections\CommonCrmConnectionSelectFileCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectPluginAssemblyActionOnComponentInConnectionCommand.cs" />
-    <Compile Include="Commands\CSharp\CodeCSharpProjectPluginAssemblyAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectPluginAssemblyCreateDescriptionCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectPluginAssemblyCreateDescriptionInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectCompareToCrmAssemblyInConnectionCommand.cs" />
-    <Compile Include="Commands\CSharp\CodeCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectUpdatePluginAssemblyCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectUpdatePluginAssemblyInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\CSharpAddPluginStepCommand.cs" />
@@ -127,6 +125,10 @@
     <Compile Include="Commands\CSharp\CSharpGlobalOptionSetsMetadataFileGenerationOptionsCommand.cs" />
     <Compile Include="Commands\CSharp\CSharpPluginTreeCommand.cs" />
     <Compile Include="Commands\CSharp\CSharpPluginTypeExplorerCommand.cs" />
+    <Compile Include="Commands\CSharp\CSharpProjectPluginAssemblyAddToSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\CSharp\CSharpProjectPluginAssemblyAddToSolutionLastCommand.cs" />
+    <Compile Include="Commands\CSharp\CSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\CSharp\CSharpProjectPluginAssemblyStepsAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\CSharp\CSharpProjectPluginTypeActionOnComponentCommand.cs" />
     <Compile Include="Commands\CSharp\CSharpProjectPluginTypeActionOnComponentInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\CSharpProjectPluginTypeActionOnComponentInConnectionWithoutCurrentCommand.cs" />
@@ -301,8 +303,6 @@
     <Compile Include="Commands\WebResources\WebResourceMultiDifferenceCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpPluginAssemblyExplorerCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectCompareToCrmAssemblyCommand.cs" />
-    <Compile Include="Commands\CSharp\CodeCSharpProjectPluginAssemblyAddToSolutionLastCommand.cs" />
-    <Compile Include="Commands\CSharp\CodeCSharpProjectPluginAssemblyStepsAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\ListForPublish\CodePublishListAddCommand.cs" />
     <Compile Include="Commands\ListForPublish\CodePublishListRemoveCommand.cs" />
     <Compile Include="Commands\Reports\CodeReportShowDifferenceCommand.cs" />
@@ -428,8 +428,6 @@
     <Compile Include="Commands\Explorers\CommonTeamsExplorerCommand.cs" />
     <Compile Include="Commands\Commons\CommonTraceExportFileCommand.cs" />
     <Compile Include="Commands\Explorers\CommonTraceReaderCommand.cs" />
-    <Compile Include="Commands\CSharp\DocumentsCSharpProjectPluginAssemblyAddToSolutionLastCommand.cs" />
-    <Compile Include="Commands\CSharp\DocumentsCSharpProjectPluginAssemblyStepsAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlWebResourceDependencyXmlExplorerCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlWebResourceDependencyXmlGetCurrentCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlWebResourceDependencyXmlGetCurrentInConnectionCommand.cs" />
@@ -449,18 +447,12 @@
     <Compile Include="Commands\CSharp\FileCSharpPluginAssemblyExplorerCommand.cs" />
     <Compile Include="Commands\CSharp\FileCSharpProjectCompareToCrmAssemblyCommand.cs" />
     <Compile Include="Commands\CSharp\FileCSharpProjectCompareToCrmAssemblyInConnectionCommand.cs" />
-    <Compile Include="Commands\CSharp\FileCSharpProjectPluginAssemblyAddToSolutionLastCommand.cs" />
-    <Compile Include="Commands\CSharp\FileCSharpProjectPluginAssemblyStepsAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\CSharp\FileCSharpProjectUpdatePluginAssemblyCommand.cs" />
     <Compile Include="Commands\CSharp\FileCSharpProjectUpdatePluginAssemblyInConnectionCommand.cs" />
     <Compile Include="Commands\Folders\FolderAddEntityMetadataFileInConnectionCommand.cs" />
     <Compile Include="Commands\Folders\FolderAddGlobalOptionSetFileInConnectionCommand.cs" />
     <Compile Include="Commands\Folders\FolderAddSdkMessageRequestFileInConnectionCommand.cs" />
     <Compile Include="Commands\Folders\FolderAddSystemFormJavaScriptFileInConnectionCommand.cs" />
-    <Compile Include="Commands\CSharp\FolderCSharpProjectPluginAssemblyAddToSolutionInConnectionCommand.cs" />
-    <Compile Include="Commands\CSharp\FolderCSharpProjectPluginAssemblyAddToSolutionLastCommand.cs" />
-    <Compile Include="Commands\CSharp\FolderCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommand.cs" />
-    <Compile Include="Commands\CSharp\FolderCSharpProjectPluginAssemblyStepsAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\Folders\FolderAddPluginConfigurationFileCommand.cs" />
     <Compile Include="Commands\Folders\FolderAddSolutionFileCommand.cs" />
     <Compile Include="Commands\AbstractSingleCommand.cs" />
@@ -471,10 +463,7 @@
     <Compile Include="Commands\ListForPublish\ListForPublishPerformPublishInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Projects\ProjectCompareToCrmAssemblyInConnectionCommand.cs" />
     <Compile Include="Commands\Projects\ProjectCompareToCrmAssemblyCommand.cs" />
-    <Compile Include="Commands\Projects\ProjectPluginAssemblyAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\Projects\ProjectPluginAssemblyExplorerCommand.cs" />
-    <Compile Include="Commands\Projects\ProjectPluginAssemblyStepsAddToSolutionInConnectionCommand.cs" />
-    <Compile Include="Commands\Projects\ProjectPluginAssemblyStepsAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\Projects\ProjectPluginTreeCommand.cs" />
     <Compile Include="Commands\Projects\ProjectPluginTypeExplorerCommand.cs" />
     <Compile Include="Commands\Projects\ProjectRegisterPluginAssemblyInConnectionCommand.cs" />
@@ -495,8 +484,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CrmDeveloperHelperPackageCommandTable.vsct</DependentUpon>
     </Compile>
-    <Compile Include="Commands\CSharp\DocumentsCSharpProjectPluginAssemblyAddToSolutionInConnectionCommand.cs" />
-    <Compile Include="Commands\CSharp\DocumentsCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Entities\AppConfig.Proxy.cs" />
     <Compile Include="Entities\AppConfig.Schema.cs" />
     <Compile Include="Entities\AppConfigInstance.Proxy.cs" />
@@ -617,8 +604,6 @@
     <Compile Include="Entities\WebWizard.Additional.cs" />
     <Compile Include="Entities\WebWizard.Proxy.cs" />
     <Compile Include="Entities\WebWizard.Schema.cs" />
-    <Compile Include="Commands\CSharp\FileCSharpProjectPluginAssemblyAddToSolutionInConnectionCommand.cs" />
-    <Compile Include="Commands\CSharp\FileCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Entities\Workflow.Additional.cs" />
     <Compile Include="Entities\GlobalOptionSets\componentstate.Schema.cs" />
     <Compile Include="Entities\GlobalOptionSets\componenttype.Schema.cs" />
@@ -1046,6 +1031,7 @@
     <Compile Include="Interfaces\ISolutionComponentDescriptionBuilder.cs" />
     <Compile Include="Interfaces\ISourceSelectedFiles.cs" />
     <Compile Include="Commands\JavaScripts\JavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommand.cs" />
+    <Compile Include="Interfaces\ISourceSelectedProjects.cs" />
     <Compile Include="Model\ActionOnComponent.cs" />
     <Compile Include="Model\AssemblyMapping.cs" />
     <Compile Include="Model\AttributeMetadataViewItem.cs" />
@@ -1062,6 +1048,7 @@
     <Compile Include="Model\ConstantType.cs" />
     <Compile Include="Model\ContentCopareResult.cs" />
     <Compile Include="Model\Sources\CodeSourceSelectedFiles.cs" />
+    <Compile Include="Model\Sources\CodeSourceSelectedProjects.cs" />
     <Compile Include="Model\Sources\DocumentsSourceSelectedFiles.cs" />
     <Compile Include="Model\EntityKeyMetadataViewItem.cs" />
     <Compile Include="Model\EntityMetadataListViewItem.cs" />
@@ -1073,10 +1060,15 @@
     <Compile Include="Model\ExportSolutionConfig.cs" />
     <Compile Include="Model\ExportSolutionOverrideInformation.cs" />
     <Compile Include="Model\ExportSolutionProfile.cs" />
+    <Compile Include="Model\Sources\DocumentsSourceSelectedProjects.cs" />
     <Compile Include="Model\Sources\FileSourceSelectedFiles.cs" />
     <Compile Include="Model\Sources\FileSourceSelectedFileSingle.cs" />
+    <Compile Include="Model\Sources\FileSourceSelectedProjects.cs" />
+    <Compile Include="Model\Sources\FileSourceSelectedProjectSingle.cs" />
     <Compile Include="Model\Sources\FolderSourceSelectedFiles.cs" />
     <Compile Include="Model\SelectedFileType.cs" />
+    <Compile Include="Model\Sources\FolderSourceSelectedProjects.cs" />
+    <Compile Include="Model\Sources\ProjectSourceSelectedProjects.cs" />
     <Compile Include="Model\XsdModels\DependencyXml.Proxy.cs" />
     <Compile Include="Model\XsdModels\FetchXml.Proxy.cs" />
     <Compile Include="Model\FetchXmlRequestParameter.cs" />
@@ -1163,7 +1155,6 @@
     <Compile Include="Model\WorkflowSetEntityPropertyStep.cs" />
     <Compile Include="Model\WorkflowSetEntityPropertyStepType.cs" />
     <Compile Include="Model\XmlOptionsControls.cs" />
-    <Compile Include="Commands\Projects\ProjectPluginAssemblyAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\CodeGenerationStrings.Designer.cs">
       <AutoGen>True</AutoGen>

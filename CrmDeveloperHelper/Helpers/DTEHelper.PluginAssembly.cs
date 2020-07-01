@@ -7,24 +7,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
     public partial class DTEHelper
     {
-        public void HandlePluginAssemblyAddingToSolutionByProjectCommand(ConnectionData connectionData, string solutionUniqueName, bool withSelect, params string[] projectNames)
+        public void HandlePluginAssemblyAddingToSolutionByProjectCommand(ConnectionData connectionData, IEnumerable<string> projectNames, string solutionUniqueName, bool withSelect)
         {
             if (projectNames == null || !projectNames.Any())
             {
                 return;
             }
 
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartPluginAssemblyAddingToSolution(conn, commonConfig, solutionUniqueName, projectNames, withSelect));
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartPluginAssemblyAddingToSolution(conn, commonConfig, projectNames, solutionUniqueName, withSelect));
         }
 
-        public void HandlePluginAssemblyAddingProcessingStepsByProjectCommand(ConnectionData connectionData, string solutionUniqueName, bool withSelect, params string[] projectNames)
+        public void HandlePluginAssemblyAddingProcessingStepsByProjectCommand(ConnectionData connectionData, IEnumerable<string> projectNames, string solutionUniqueName, bool withSelect)
         {
             if (projectNames == null || !projectNames.Any())
             {
                 return;
             }
 
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartPluginAssemblyAddingProcessingStepsToSolution(conn, commonConfig, solutionUniqueName, projectNames, withSelect));
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartPluginAssemblyAddingProcessingStepsToSolution(conn, commonConfig, projectNames, solutionUniqueName, withSelect));
         }
 
         public void HandlePluginAssemblyComparingWithLocalAssemblyCommand(ConnectionData connectionData, Project project)

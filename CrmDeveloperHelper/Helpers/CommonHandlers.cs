@@ -349,6 +349,50 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return false;
         }
 
+        private static bool CheckInSolutionExplorerSingle(EnvDTE80.DTE2 applicationObject, Func<EnvDTE.ProjectItem, bool> checker)
+        {
+            if (applicationObject.ActiveWindow != null
+                && applicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeSolutionExplorer
+                && applicationObject.SelectedItems != null
+            )
+            {
+                try
+                {
+                    var items = applicationObject.SelectedItems.Cast<EnvDTE.SelectedItem>();
+
+                    var count = items.Where(selectedItem =>
+                    {
+                        try
+                        {
+                            if (selectedItem.ProjectItem != null)
+                            {
+                                return checker(selectedItem.ProjectItem);
+                            }
+
+                            return false;
+                        }
+                        catch (Exception ex)
+                        {
+                            DTEHelper.WriteExceptionToOutput(null, ex);
+
+                            return false;
+                        }
+                    }).Take(2).Count();
+
+                    if (count == 1)
+                    {
+                        return true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(null, ex);
+                }
+            }
+
+            return false;
+        }
+
         private static bool CheckInSolutionExplorerAny(EnvDTE80.DTE2 applicationObject, Func<string, bool> checker)
         {
             if (applicationObject.ActiveWindow != null
@@ -807,6 +851,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return projectItem != null && projectItem.ContainingProject != null;
         }
 
+        internal static void ActionBeforeQueryStatusSolutionExplorerItemContainsProjectSingle(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
+            bool visible = CacheValue(nameof(ActionBeforeQueryStatusSolutionExplorerItemContainsProjectSingle), applicationObject, ActionBeforeQueryStatusSolutionExplorerItemContainsProjectSingleInternal);
+
+            if (visible == false)
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
+        }
+
+        private static bool ActionBeforeQueryStatusSolutionExplorerItemContainsProjectSingleInternal(EnvDTE80.DTE2 applicationObject)
+        {
+            return CheckInSolutionExplorerSingle(applicationObject, SelectedItemCSharpWithProject);
+        }
+
         internal static void ActionBeforeQueryStatusSolutionExplorerItemContainsProjectAny(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
             if (!menuCommand.Enabled && !menuCommand.Visible)
@@ -942,6 +1006,65 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private static bool ActionBeforeQueryStatusOpenedDocumentsCSharpInternal(EnvDTE80.DTE2 applicationObject)
         {
             return CheckOpenedDocumentsExtension(applicationObject, FileOperations.SupportsCSharpType);
+        }
+
+        internal static void ActionBeforeQueryStatusOpenedDocumentsContainingProject(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        {
+            if (!menuCommand.Enabled && !menuCommand.Visible)
+            {
+                return;
+            }
+
+            bool visible = CacheValue(nameof(ActionBeforeQueryStatusOpenedDocumentsContainingProject), applicationObject, ActionBeforeQueryStatusOpenedDocumentsContainingProjectInternal);
+
+            if (visible == false)
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
+        }
+
+        private static bool ActionBeforeQueryStatusOpenedDocumentsContainingProjectInternal(EnvDTE80.DTE2 applicationObject)
+        {
+            if (applicationObject.ActiveWindow != null
+                && applicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeDocument
+                && applicationObject.ActiveWindow.Document != null
+            )
+            {
+                foreach (var document in applicationObject.Documents.OfType<EnvDTE.Document>())
+                {
+                    if (document == applicationObject.ActiveWindow.Document
+                        || document.ActiveWindow == null
+                        || document.ActiveWindow.Type != EnvDTE.vsWindowType.vsWindowTypeDocument
+                        || document.ActiveWindow.Visible == false
+                        || document.ProjectItem == null
+                        || document.ProjectItem.ContainingProject == null
+                    )
+                    {
+                        continue;
+                    }
+
+                    if (applicationObject.ItemOperations.IsFileOpen(document.FullName, EnvDTE.Constants.vsViewKindTextView)
+                        || applicationObject.ItemOperations.IsFileOpen(document.FullName, EnvDTE.Constants.vsViewKindCode)
+                    )
+                    {
+                        try
+                        {
+                            string file = document.FullName;
+
+                            if (FileOperations.SupportsCSharpType(file))
+                            {
+                                return true;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            DTEHelper.WriteExceptionToOutput(null, ex);
+                        }
+                    }
+                }
+            }
+
+            return false;
         }
 
         internal static void ActionBeforeQueryStatusOpenedDocumentsJavaScript(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)

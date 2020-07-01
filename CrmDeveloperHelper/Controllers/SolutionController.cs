@@ -845,7 +845,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Добавление сборки в решение по имени.
 
-        public async Task ExecuteAddingPluginAssemblyToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)
+        public async Task ExecuteAddingPluginAssemblyToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<string> projectNames, string solutionUniqueName, bool withSelect)
         {
             string operation = string.Format(Properties.OperationNames.AddingPluginAssemblyToSolutionFormat2, connectionData?.Name, solutionUniqueName);
 
@@ -853,7 +853,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await AddingPluginAssemblyToSolution(connectionData, commonConfig, solutionUniqueName, projectNames, withSelect);
+                await AddingPluginAssemblyToSolution(connectionData, commonConfig, projectNames, solutionUniqueName, withSelect);
             }
             catch (Exception ex)
             {
@@ -865,7 +865,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task AddingPluginAssemblyToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)
+        private async Task AddingPluginAssemblyToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<string> projectNames, string solutionUniqueName, bool withSelect)
         {
             if (projectNames == null || !projectNames.Any())
             {
@@ -979,7 +979,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Добавление шагов плагинов сборки в решение по имени.
 
-        public async Task ExecuteAddingPluginAssemblyProcessingStepsToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)
+        public async Task ExecuteAddingPluginAssemblyProcessingStepsToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<string> projectNames, string solutionUniqueName, bool withSelect)
         {
             string operation = string.Format(Properties.OperationNames.AddingPluginAssemblyProcessingStepsToSolutionFormat2, connectionData?.Name, solutionUniqueName);
 
@@ -987,7 +987,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await AddingPluginAssemblyProcessingStepsToSolution(connectionData, commonConfig, solutionUniqueName, projectNames, withSelect);
+                await AddingPluginAssemblyProcessingStepsToSolution(connectionData, commonConfig, projectNames, solutionUniqueName, withSelect);
             }
             catch (Exception ex)
             {
@@ -999,7 +999,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task AddingPluginAssemblyProcessingStepsToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)
+        private async Task AddingPluginAssemblyProcessingStepsToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<string> projectNames, string solutionUniqueName, bool withSelect)
         {
             if (projectNames == null || !projectNames.Any())
             {
