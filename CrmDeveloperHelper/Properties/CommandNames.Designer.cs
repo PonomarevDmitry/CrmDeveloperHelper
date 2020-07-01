@@ -97,6 +97,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create PluginAssembly Description.
+        /// </summary>
+        internal static string CodeCSharpProjectPluginAssemblyCreateDescriptionCommand {
+            get {
+                return ResourceManager.GetString("CodeCSharpProjectPluginAssemblyCreateDescriptionCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create PluginAssembly EntityDescription.
+        /// </summary>
+        internal static string CodeCSharpProjectPluginAssemblyCreateEntityDescriptionCommand {
+            get {
+                return ResourceManager.GetString("CodeCSharpProjectPluginAssemblyCreateEntityDescriptionCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create PluginType Description.
         /// </summary>
         internal static string CodeCSharpProjectPluginTypeCreateDescriptionCommand {
@@ -754,6 +772,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Build Projects and Update PluginAssemblies.
+        /// </summary>
+        internal static string DocumentsCSharpProjectBuildLoadUpdatePluginAssemblyCommand {
+            get {
+                return ResourceManager.GetString("DocumentsCSharpProjectBuildLoadUpdatePluginAssemblyCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Build Projects, Update PluginAssemblies and Register New Plugins.
+        /// </summary>
+        internal static string DocumentsCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand {
+            get {
+                return ResourceManager.GetString("DocumentsCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Compare with Crm PluginAssemblies.
+        /// </summary>
+        internal static string DocumentsCSharpProjectCompareToCrmAssemblyCommand {
+            get {
+                return ResourceManager.GetString("DocumentsCSharpProjectCompareToCrmAssemblyCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create PluginAssemblies Description.
+        /// </summary>
+        internal static string DocumentsCSharpProjectPluginAssemblyCreateDescriptionCommand {
+            get {
+                return ResourceManager.GetString("DocumentsCSharpProjectPluginAssemblyCreateDescriptionCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create PluginAssemblies EntityDescription.
+        /// </summary>
+        internal static string DocumentsCSharpProjectPluginAssemblyCreateEntityDescriptionCommand {
+            get {
+                return ResourceManager.GetString("DocumentsCSharpProjectPluginAssemblyCreateEntityDescriptionCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create PluginTypes Description.
         /// </summary>
         internal static string DocumentsCSharpProjectPluginTypeCreateDescriptionCommand {
@@ -777,6 +840,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string DocumentsCSharpProjectPluginTypeGetCustomWorkflowActivityInfoCommand {
             get {
                 return ResourceManager.GetString("DocumentsCSharpProjectPluginTypeGetCustomWorkflowActivityInfoCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update PluginAssemblies in Window.
+        /// </summary>
+        internal static string DocumentsCSharpProjectUpdatePluginAssemblyCommand {
+            get {
+                return ResourceManager.GetString("DocumentsCSharpProjectUpdatePluginAssemblyCommand", resourceCulture);
             }
         }
         
@@ -853,7 +925,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Build Project and Update PluginAssembly.
+        ///   Looks up a localized string similar to Build Projects and Update PluginAssemblies.
         /// </summary>
         internal static string FileCSharpProjectBuildLoadUpdatePluginAssemblyCommand {
             get {
@@ -862,7 +934,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Build Project, Update PluginAssembly and Register New Plugins.
+        ///   Looks up a localized string similar to Build Projects, Update PluginAssemblies and Register New Plugins.
         /// </summary>
         internal static string FileCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand {
             get {
@@ -871,11 +943,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Compare with Crm PluginAssembly.
+        ///   Looks up a localized string similar to Compare with Crm PluginAssemblies.
         /// </summary>
         internal static string FileCSharpProjectCompareToCrmAssemblyCommand {
             get {
                 return ResourceManager.GetString("FileCSharpProjectCompareToCrmAssemblyCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create PluginAssemblies Description.
+        /// </summary>
+        internal static string FileCSharpProjectPluginAssemblyCreateDescriptionCommand {
+            get {
+                return ResourceManager.GetString("FileCSharpProjectPluginAssemblyCreateDescriptionCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create PluginAssemblies EntityDescription.
+        /// </summary>
+        internal static string FileCSharpProjectPluginAssemblyCreateEntityDescriptionCommand {
+            get {
+                return ResourceManager.GetString("FileCSharpProjectPluginAssemblyCreateEntityDescriptionCommand", resourceCulture);
             }
         }
         
@@ -907,7 +997,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Update PluginAssembly in Window.
+        ///   Looks up a localized string similar to Update PluginAssemblies in Window.
         /// </summary>
         internal static string FileCSharpProjectUpdatePluginAssemblyCommand {
             get {
@@ -1069,6 +1159,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Build Projects and Update PluginAssemblies (Recursive).
+        /// </summary>
+        internal static string FolderCSharpProjectBuildLoadUpdatePluginAssemblyCommand {
+            get {
+                return ResourceManager.GetString("FolderCSharpProjectBuildLoadUpdatePluginAssemblyCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Build Projects, Update PluginAssemblies and Register New Plugins (Recursive).
+        /// </summary>
+        internal static string FolderCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand {
+            get {
+                return ResourceManager.GetString("FolderCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Compare with Crm PluginAssemblies (Recursive).
+        /// </summary>
+        internal static string FolderCSharpProjectCompareToCrmAssemblyCommand {
+            get {
+                return ResourceManager.GetString("FolderCSharpProjectCompareToCrmAssemblyCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create PluginAssemblies Description (Recursive).
+        /// </summary>
+        internal static string FolderCSharpProjectPluginAssemblyCreateDescriptionCommand {
+            get {
+                return ResourceManager.GetString("FolderCSharpProjectPluginAssemblyCreateDescriptionCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create PluginAssemblies EntityDescription (Recursive).
+        /// </summary>
+        internal static string FolderCSharpProjectPluginAssemblyCreateEntityDescriptionCommand {
+            get {
+                return ResourceManager.GetString("FolderCSharpProjectPluginAssemblyCreateEntityDescriptionCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create PluginTypes Description (Recursive).
         /// </summary>
         internal static string FolderCSharpProjectPluginTypeCreateDescriptionCommand {
@@ -1092,6 +1227,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string FolderCSharpProjectPluginTypeGetCustomWorkflowActivityInfoCommand {
             get {
                 return ResourceManager.GetString("FolderCSharpProjectPluginTypeGetCustomWorkflowActivityInfoCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update PluginAssemblies in Window (Recursive).
+        /// </summary>
+        internal static string FolderCSharpProjectUpdatePluginAssemblyCommand {
+            get {
+                return ResourceManager.GetString("FolderCSharpProjectUpdatePluginAssemblyCommand", resourceCulture);
             }
         }
         
@@ -1276,7 +1420,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Compare with Crm PluginAssembly.
+        ///   Looks up a localized string similar to Compare with Crm PluginAssemblies.
         /// </summary>
         internal static string ProjectCompareToCrmAssemblyCommand {
             get {
@@ -1285,7 +1429,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create PluginAssembly Description.
+        ///   Looks up a localized string similar to Create PluginAssemblies Description.
         /// </summary>
         internal static string ProjectPluginAssemblyCreateDescriptionCommand {
             get {
@@ -1294,7 +1438,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create PluginAssembly EntityDescription.
+        ///   Looks up a localized string similar to Create PluginAssemblies EntityDescription.
         /// </summary>
         internal static string ProjectPluginAssemblyCreateEntityDescriptionCommand {
             get {

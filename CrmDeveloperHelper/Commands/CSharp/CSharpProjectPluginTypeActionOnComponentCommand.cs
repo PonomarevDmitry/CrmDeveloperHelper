@@ -55,11 +55,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 
 
 
-        public static CSharpProjectPluginTypeActionOnComponentCommand InstanceEntityDescription { get; private set; }
+        public static CSharpProjectPluginTypeActionOnComponentCommand InstanceFolderEntityDescription { get; private set; }
 
-        public static CSharpProjectPluginTypeActionOnComponentCommand InstanceGetCustomWorkflowActivityInfo { get; private set; }
+        public static CSharpProjectPluginTypeActionOnComponentCommand InstanceFolderGetCustomWorkflowActivityInfo { get; private set; }
 
-        public static CSharpProjectPluginTypeActionOnComponentCommand InstanceDescription { get; private set; }
+        public static CSharpProjectPluginTypeActionOnComponentCommand InstanceFolderDescription { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
@@ -155,7 +155,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 
 
 
-            InstanceEntityDescription = new CSharpProjectPluginTypeActionOnComponentCommand(
+            InstanceFolderEntityDescription = new CSharpProjectPluginTypeActionOnComponentCommand(
                 commandService
                 , PackageIds.guidCommandSet.FolderCSharpProjectPluginTypeCreateEntityDescriptionCommandId
                 , sourceFolder
@@ -163,7 +163,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
                 , ActionOnComponent.EntityDescription
             );
 
-            InstanceGetCustomWorkflowActivityInfo = new CSharpProjectPluginTypeActionOnComponentCommand(
+            InstanceFolderGetCustomWorkflowActivityInfo = new CSharpProjectPluginTypeActionOnComponentCommand(
                 commandService
                 , PackageIds.guidCommandSet.FolderCSharpProjectPluginTypeGetCustomWorkflowActivityInfoCommandId
                 , sourceFolder
@@ -173,7 +173,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
                 , PluginType.Schema.Headers.customworkflowactivityinfo
             );
 
-            InstanceDescription = new CSharpProjectPluginTypeActionOnComponentCommand(
+            InstanceFolderDescription = new CSharpProjectPluginTypeActionOnComponentCommand(
                 commandService
                 , PackageIds.guidCommandSet.FolderCSharpProjectPluginTypeCreateDescriptionCommandId
                 , sourceFolder

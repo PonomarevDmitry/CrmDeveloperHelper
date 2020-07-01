@@ -451,52 +451,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CSharpProjectPluginAssemblyStepsAddToSolutionLastCommand.Initialize,
             CSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommand.Initialize,
 
-            #region CodeCSharp
 
-            CodeCSharpPluginAssemblyExplorerCommand.Initialize,
+            CSharpProjectBuildLoadUpdatePluginAssemblyCommand.Initialize,
+            CSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommand.Initialize,
 
-            CodeCSharpProjectBuildLoadUpdatePluginAssemblyCommand.Initialize,
-            CodeCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommand.Initialize,
+            CSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand.Initialize,
+            CSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommand.Initialize,
 
-            CodeCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand.Initialize,
-            CodeCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommand.Initialize,
+            CSharpProjectUpdatePluginAssemblyCommand.Initialize,
+            CSharpProjectUpdatePluginAssemblyInConnectionCommand.Initialize,
 
-            CodeCSharpProjectUpdatePluginAssemblyCommand.Initialize,
-            CodeCSharpProjectUpdatePluginAssemblyInConnectionCommand.Initialize,
+            CSharpProjectCompareToCrmAssemblyCommand.Initialize,
+            CSharpProjectCompareToCrmAssemblyInConnectionCommand.Initialize,
 
-            CodeCSharpProjectCompareToCrmAssemblyCommand.Initialize,
-            CodeCSharpProjectCompareToCrmAssemblyInConnectionCommand.Initialize,
+            CSharpProjectPluginAssemblyActionOnComponentCommand.Initialize,
+            CSharpProjectPluginAssemblyActionOnComponentInConnectionWithoutCurrentCommand.Initialize,
+            CSharpProjectPluginAssemblyActionOnComponentInConnectionCommand.Initialize,
 
-            CodeCSharpProjectPluginAssemblyActionOnComponentInConnectionCommand.Initialize,
+            CSharpPluginAssemblyExplorerCommand.Initialize,
 
-            CodeCSharpProjectPluginAssemblyCreateDescriptionCommand.Initialize,
-            CodeCSharpProjectPluginAssemblyCreateDescriptionInConnectionCommand.Initialize,
+            #region Project
 
-            #endregion CodeCSharp
+            ProjectRegisterPluginAssemblyInConnectionCommand.Initialize,
 
-            #region FileCSharp
+            ProjectPluginTypeExplorerCommand.Initialize,
+            ProjectPluginTreeCommand.Initialize,
 
-            FileCSharpPluginAssemblyExplorerCommand.Initialize,
-
-            FileCSharpProjectBuildLoadUpdatePluginAssemblyCommand.Initialize,
-            FileCSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommand.Initialize,
-
-            FileCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand.Initialize,
-            FileCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommand.Initialize,
-
-            FileCSharpProjectUpdatePluginAssemblyCommand.Initialize,
-            FileCSharpProjectUpdatePluginAssemblyInConnectionCommand.Initialize,
-
-            FileCSharpProjectCompareToCrmAssemblyCommand.Initialize,
-            FileCSharpProjectCompareToCrmAssemblyInConnectionCommand.Initialize,
-
-            FileCSharpProjectPluginAssemblyActionOnComponentInConnectionCommand.Initialize,
-            FileCSharpProjectPluginAssemblyCreateDescriptionCommand.Initialize,
-            FileCSharpProjectPluginAssemblyCreateDescriptionInConnectionCommand.Initialize,
-
-            #endregion FileCSharp
-
-
+            #endregion Project
 
             #region FolderAdd
 
@@ -508,34 +489,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FolderAddSystemFormJavaScriptFileInConnectionCommand.Initialize,
 
             #endregion FolderAdd
-
-            #region Project
-
-            ProjectBuildLoadUpdatePluginAssemblyCommand.Initialize,
-            ProjectBuildLoadUpdatePluginAssemblyInConnectionCommand.Initialize,
-
-            ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand.Initialize,
-            ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommand.Initialize,
-
-            ProjectUpdatePluginAssemblyCommand.Initialize,
-            ProjectUpdatePluginAssemblyInConnectionCommand.Initialize,
-
-            ProjectRegisterPluginAssemblyInConnectionCommand.Initialize,
-
-            ProjectCompareToCrmAssemblyCommand.Initialize,
-            ProjectCompareToCrmAssemblyInConnectionCommand.Initialize,
-
-            ProjectPluginAssemblyExplorerCommand.Initialize,
-
-            ProjectPluginTypeExplorerCommand.Initialize,
-            ProjectPluginTreeCommand.Initialize,
-
-            ProjectPluginAssemblyActionOnComponentInConnectionCommand.Initialize,
-
-            ProjectPluginAssemblyCreateDescriptionCommand.Initialize,
-            ProjectPluginAssemblyCreateDescriptionInConnectionCommand.Initialize,
-
-            #endregion Project
 
             #region ListForPublish
 

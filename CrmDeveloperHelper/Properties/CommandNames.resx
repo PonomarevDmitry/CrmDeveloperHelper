@@ -120,19 +120,69 @@
   <data name="CodeCSharpAddPluginStepCommand" xml:space="preserve">
     <value>Add Plugin Step</value>
   </data>
+  
   <data name="CodeCSharpProjectCompareToCrmAssemblyCommand" xml:space="preserve">
     <value>Compare with Crm PluginAssembly</value>
   </data>
+  <data name="DocumentsCSharpProjectCompareToCrmAssemblyCommand" xml:space="preserve">
+    <value>Compare with Crm PluginAssemblies</value>
+  </data>
+  <data name="FileCSharpProjectCompareToCrmAssemblyCommand" xml:space="preserve">
+    <value>Compare with Crm PluginAssemblies</value>
+  </data>
+  <data name="FolderCSharpProjectCompareToCrmAssemblyCommand" xml:space="preserve">
+    <value>Compare with Crm PluginAssemblies (Recursive)</value>
+  </data>
+  <data name="ProjectCompareToCrmAssemblyCommand" xml:space="preserve">
+    <value>Compare with Crm PluginAssemblies</value>
+  </data>
+  
   <data name="CodeCSharpProjectUpdatePluginAssemblyCommand" xml:space="preserve">
     <value>Update PluginAssembly in Window</value>
+  </data>
+  <data name="FileCSharpProjectUpdatePluginAssemblyCommand" xml:space="preserve">
+    <value>Update PluginAssemblies in Window</value>
+  </data>
+  <data name="DocumentsCSharpProjectUpdatePluginAssemblyCommand" xml:space="preserve">
+    <value>Update PluginAssemblies in Window</value>
+  </data>
+  <data name="FolderCSharpProjectUpdatePluginAssemblyCommand" xml:space="preserve">
+    <value>Update PluginAssemblies in Window (Recursive)</value>
+  </data>
+  <data name="ProjectUpdatePluginAssemblyCommand" xml:space="preserve">
+    <value>Update PluginAssemblies in Window</value>
   </data>
 
   <data name="CodeCSharpProjectBuildLoadUpdatePluginAssemblyCommand" xml:space="preserve">
     <value>Build Project and Update PluginAssembly</value>
   </data>
+  <data name="DocumentsCSharpProjectBuildLoadUpdatePluginAssemblyCommand" xml:space="preserve">
+    <value>Build Projects and Update PluginAssemblies</value>
+  </data>
+  <data name="FileCSharpProjectBuildLoadUpdatePluginAssemblyCommand" xml:space="preserve">
+    <value>Build Projects and Update PluginAssemblies</value>
+  </data>
+  <data name="FolderCSharpProjectBuildLoadUpdatePluginAssemblyCommand" xml:space="preserve">
+    <value>Build Projects and Update PluginAssemblies (Recursive)</value>
+  </data>
+  <data name="ProjectBuildLoadUpdatePluginAssemblyCommand" xml:space="preserve">
+    <value>Build Projects and Update PluginAssemblies</value>
+  </data>
 
   <data name="CodeCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand" xml:space="preserve">
     <value>Build Project, Update PluginAssembly and Register New Plugins</value>
+  </data>
+  <data name="DocumentsCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand" xml:space="preserve">
+    <value>Build Projects, Update PluginAssemblies and Register New Plugins</value>
+  </data>
+  <data name="FileCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand" xml:space="preserve">
+    <value>Build Projects, Update PluginAssemblies and Register New Plugins</value>
+  </data>
+  <data name="FolderCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand" xml:space="preserve">
+    <value>Build Projects, Update PluginAssemblies and Register New Plugins (Recursive)</value>
+  </data>
+  <data name="ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand" xml:space="preserve">
+    <value>Build Projects, Update PluginAssemblies and Register New Plugins</value>
   </data>
 
   <data name="CodeCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommand" xml:space="preserve">
@@ -354,21 +404,6 @@
   <data name="FileCSharpAddPluginStepCommand" xml:space="preserve">
     <value>Add Plugin Step</value>
   </data>
-  <data name="FileCSharpProjectCompareToCrmAssemblyCommand" xml:space="preserve">
-    <value>Compare with Crm PluginAssembly</value>
-  </data>
-
-  <data name="FileCSharpProjectUpdatePluginAssemblyCommand" xml:space="preserve">
-    <value>Update PluginAssembly in Window</value>
-  </data>
-
-  <data name="FileCSharpProjectBuildLoadUpdatePluginAssemblyCommand" xml:space="preserve">
-    <value>Build Project and Update PluginAssembly</value>
-  </data>
-
-  <data name="FileCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand" xml:space="preserve">
-    <value>Build Project, Update PluginAssembly and Register New Plugins</value>
-  </data>
 
   <data name="FileCSharpUpdateEntityMetadataFileProxyClassOrSchemaWithSelectCommand" xml:space="preserve">
     <value>Update EntityMetadata Proxy Class or Schema File with Select Entity</value>
@@ -433,28 +468,40 @@
   <data name="ListForPublishShowListCommand" xml:space="preserve">
     <value>Show List</value>
   </data>
-  <data name="ProjectCompareToCrmAssemblyCommand" xml:space="preserve">
-    <value>Compare with Crm PluginAssembly</value>
-  </data>
 
-  <data name="ProjectUpdatePluginAssemblyCommand" xml:space="preserve">
-    <value>Update PluginAssemblies in Window</value>
-  </data>
 
-  <data name="ProjectBuildLoadUpdatePluginAssemblyCommand" xml:space="preserve">
-    <value>Build Projects and Update PluginAssemblies</value>
-  </data>
 
-  <data name="ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand" xml:space="preserve">
-    <value>Build Projects, Update PluginAssemblies and Register New Plugins</value>
-  </data>
-
-  <data name="ProjectPluginAssemblyCreateEntityDescriptionCommand" xml:space="preserve">
+  <data name="CodeCSharpProjectPluginAssemblyCreateEntityDescriptionCommand" xml:space="preserve">
     <value>Create PluginAssembly EntityDescription</value>
   </data>
+  <data name="DocumentsCSharpProjectPluginAssemblyCreateEntityDescriptionCommand" xml:space="preserve">
+    <value>Create PluginAssemblies EntityDescription</value>
+  </data>
+  <data name="FileCSharpProjectPluginAssemblyCreateEntityDescriptionCommand" xml:space="preserve">
+    <value>Create PluginAssemblies EntityDescription</value>
+  </data>
+  <data name="FolderCSharpProjectPluginAssemblyCreateEntityDescriptionCommand" xml:space="preserve">
+    <value>Create PluginAssemblies EntityDescription (Recursive)</value>
+  </data>
+  <data name="ProjectPluginAssemblyCreateEntityDescriptionCommand" xml:space="preserve">
+    <value>Create PluginAssemblies EntityDescription</value>
+  </data>
 
-  <data name="ProjectPluginAssemblyCreateDescriptionCommand" xml:space="preserve">
+
+  <data name="CodeCSharpProjectPluginAssemblyCreateDescriptionCommand" xml:space="preserve">
     <value>Create PluginAssembly Description</value>
+  </data>
+  <data name="DocumentsCSharpProjectPluginAssemblyCreateDescriptionCommand" xml:space="preserve">
+    <value>Create PluginAssemblies Description</value>
+  </data>
+  <data name="FileCSharpProjectPluginAssemblyCreateDescriptionCommand" xml:space="preserve">
+    <value>Create PluginAssemblies Description</value>
+  </data>
+  <data name="FolderCSharpProjectPluginAssemblyCreateDescriptionCommand" xml:space="preserve">
+    <value>Create PluginAssemblies Description (Recursive)</value>
+  </data>
+  <data name="ProjectPluginAssemblyCreateDescriptionCommand" xml:space="preserve">
+    <value>Create PluginAssemblies Description</value>
   </data>
 
   <data name="ShowDifferenceOneByOneCommandFormat2" xml:space="preserve">
@@ -605,6 +652,6 @@
   <data name="FolderJavaScriptIncludeReferencesToLinkedSystemFormCommand" xml:space="preserve">
     <value>Include References to Linked SystemForms Libraries (Recursive)</value>
   </data>
-  
+
 
 </root>

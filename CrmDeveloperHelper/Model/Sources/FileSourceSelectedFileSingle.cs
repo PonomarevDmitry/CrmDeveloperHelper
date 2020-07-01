@@ -33,7 +33,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model.Sources
 
             if (checkerFunction != null)
             {
-                helper.GetSelectedFilesInSolutionExplorer(checkerFunction, false).ToList();
+                var result = helper.GetSelectedFilesInSolutionExplorer(checkerFunction, false).ToList();
+
+                if (result.Count == 1)
+                {
+                    return result;
+                }
             }
 
             return Enumerable.Empty<SelectedFile>();

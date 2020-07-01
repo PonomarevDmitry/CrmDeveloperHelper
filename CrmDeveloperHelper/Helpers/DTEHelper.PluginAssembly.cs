@@ -39,11 +39,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartPluginAssemblyComparingWithLocalAssembly(conn, commonConfig, project.Name, defaultOutputFilePath));
         }
 
-        public void HandlePluginAssemblyBuildProjectUpdateCommand(ConnectionData connectionData, bool registerPlugins, params Project[] projectList)
-        {
-            HandlePluginAssemblyBuildProjectUpdateCommand(connectionData, registerPlugins, projectList.ToList());
-        }
-
         public void HandlePluginAssemblyBuildProjectUpdateCommand(ConnectionData connectionData, bool registerPlugins, IEnumerable<Project> projectList)
         {
             if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
