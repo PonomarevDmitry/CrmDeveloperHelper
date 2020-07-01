@@ -6,23 +6,23 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model.SourcesSelectedFiles
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model.Sources
 {
-    public class FileSourceSelectedFiles : ISourceSelectedFiles
+    public class FileSourceSelectedFileSingle : ISourceSelectedFiles
     {
-        private static FileSourceSelectedFiles _source;
+        private static FileSourceSelectedFileSingle _source;
 
-        public static FileSourceSelectedFiles CreateSource()
+        public static FileSourceSelectedFileSingle CreateSource()
         {
             if (_source == null)
             {
-                _source = new FileSourceSelectedFiles();
+                _source = new FileSourceSelectedFileSingle();
             }
 
             return _source;
         }
 
-        private FileSourceSelectedFiles()
+        private FileSourceSelectedFileSingle()
         {
 
         }
@@ -44,28 +44,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model.SourcesSelectedFiles
             switch (selectedFileType)
             {
                 case SelectedFileType.WebResource:
-                    CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceAny(applicationObject, menuCommand);
+                    CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceSingle(applicationObject, menuCommand);
                     break;
 
                 case SelectedFileType.WebResourceText:
-                    CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextAny(applicationObject, menuCommand);
+                    CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextSingle(applicationObject, menuCommand);
                     break;
 
                 case SelectedFileType.WebResourceJavaScript:
                 case SelectedFileType.WebResourceJavaScriptHasLinkedSystemForm:
-                    CommonHandlers.ActionBeforeQueryStatusSolutionExplorerJavaScriptAny(applicationObject, menuCommand);
+                    CommonHandlers.ActionBeforeQueryStatusSolutionExplorerJavaScriptSingle(applicationObject, menuCommand);
                     break;
 
                 case SelectedFileType.Report:
-                    CommonHandlers.ActionBeforeQueryStatusSolutionExplorerReportAny(applicationObject, menuCommand);
+                    CommonHandlers.ActionBeforeQueryStatusSolutionExplorerReportSingle(applicationObject, menuCommand);
                     break;
 
                 case SelectedFileType.CSharp:
-                    CommonHandlers.ActionBeforeQueryStatusSolutionExplorerCSharpAny(applicationObject, menuCommand);
-                    break;
-
-                case SelectedFileType.Xml:
-                    CommonHandlers.ActionBeforeQueryStatusSolutionExplorerXmlAny(applicationObject, menuCommand);
+                    CommonHandlers.ActionBeforeQueryStatusSolutionExplorerCSharpSingle(applicationObject, menuCommand);
                     break;
 
                 default:

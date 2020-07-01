@@ -6,23 +6,23 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model.SourcesSelectedFiles
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model.Sources
 {
-    public class FileSourceSelectedFileSingle : ISourceSelectedFiles
+    public class FolderSourceSelectedFiles : ISourceSelectedFiles
     {
-        private static FileSourceSelectedFileSingle _source;
+        private static FolderSourceSelectedFiles _source;
 
-        public static FileSourceSelectedFileSingle CreateSource()
+        public static FolderSourceSelectedFiles CreateSource()
         {
             if (_source == null)
             {
-                _source = new FileSourceSelectedFileSingle();
+                _source = new FolderSourceSelectedFiles();
             }
 
             return _source;
         }
 
-        private FileSourceSelectedFileSingle()
+        private FolderSourceSelectedFiles()
         {
 
         }
@@ -33,7 +33,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model.SourcesSelectedFiles
 
             if (checkerFunction != null)
             {
-                helper.GetSelectedFilesInSolutionExplorer(checkerFunction, false).ToList();
+                helper.GetSelectedFilesInSolutionExplorer(checkerFunction, true).ToList();
             }
 
             return Enumerable.Empty<SelectedFile>();
@@ -44,24 +44,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model.SourcesSelectedFiles
             switch (selectedFileType)
             {
                 case SelectedFileType.WebResource:
-                    CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceSingle(applicationObject, menuCommand);
+                    CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceRecursive(applicationObject, menuCommand);
                     break;
 
                 case SelectedFileType.WebResourceText:
-                    CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextSingle(applicationObject, menuCommand);
+                    CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextRecursive(applicationObject, menuCommand);
                     break;
 
                 case SelectedFileType.WebResourceJavaScript:
                 case SelectedFileType.WebResourceJavaScriptHasLinkedSystemForm:
-                    CommonHandlers.ActionBeforeQueryStatusSolutionExplorerJavaScriptSingle(applicationObject, menuCommand);
+                    CommonHandlers.ActionBeforeQueryStatusSolutionExplorerJavaScriptRecursive(applicationObject, menuCommand);
                     break;
 
                 case SelectedFileType.Report:
-                    CommonHandlers.ActionBeforeQueryStatusSolutionExplorerReportSingle(applicationObject, menuCommand);
+                    CommonHandlers.ActionBeforeQueryStatusSolutionExplorerReportRecursive(applicationObject, menuCommand);
                     break;
 
                 case SelectedFileType.CSharp:
-                    CommonHandlers.ActionBeforeQueryStatusSolutionExplorerCSharpSingle(applicationObject, menuCommand);
+                    CommonHandlers.ActionBeforeQueryStatusSolutionExplorerCSharpRecursive(applicationObject, menuCommand);
+                    break;
+
+                case SelectedFileType.Xml:
+                    CommonHandlers.ActionBeforeQueryStatusSolutionExplorerXmlRecursive(applicationObject, menuCommand);
                     break;
 
                 default:

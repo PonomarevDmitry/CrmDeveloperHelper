@@ -2,7 +2,7 @@
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model.SourcesSelectedFiles;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model.Sources;
 using System.Collections.Generic;
 using System.Linq;
 

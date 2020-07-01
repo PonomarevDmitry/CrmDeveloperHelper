@@ -27,7 +27,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartPluginAssemblyAddingProcessingStepsToSolution(conn, commonConfig, solutionUniqueName, projectNames, withSelect));
         }
 
-        public void HandlePluginAssemblyComparingWithLocalAssemblyCommand(ConnectionData connectionData, EnvDTE.Project project)
+        public void HandlePluginAssemblyComparingWithLocalAssemblyCommand(ConnectionData connectionData, Project project)
         {
             if (project == null || string.IsNullOrEmpty(project.Name))
             {
@@ -39,7 +39,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartPluginAssemblyComparingWithLocalAssembly(conn, commonConfig, project.Name, defaultOutputFilePath));
         }
 
-        public void HandlePluginAssemblyBuildProjectUpdateCommand(ConnectionData connectionData, bool registerPlugins, params EnvDTE.Project[] projectList)
+        public void HandlePluginAssemblyBuildProjectUpdateCommand(ConnectionData connectionData, bool registerPlugins, params Project[] projectList)
         {
             HandlePluginAssemblyBuildProjectUpdateCommand(connectionData, registerPlugins, projectList.ToList());
         }
@@ -64,7 +64,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartActionOnPluginAssembly(conn, commonConfig, projectList, actionOnComponent));
         }
 
-        public void HandlePluginAssemblyRegisterCommand(ConnectionData connectionData, List<EnvDTE.Project> projectList)
+        public void HandlePluginAssemblyRegisterCommand(ConnectionData connectionData, List<Project> projectList)
         {
             if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
             {
@@ -96,12 +96,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartOpenPluginAssemblyExplorer(conn, commonConfig, selection));
         }
 
-        public void HandlePluginAssemblyUpdatingInWindowCommand(ConnectionData connectionData, params EnvDTE.Project[] projectList)
+        public void HandlePluginAssemblyUpdatingInWindowCommand(ConnectionData connectionData, params Project[] projectList)
         {
             HandlePluginAssemblyUpdatingInWindowCommand(connectionData, projectList.ToList());
         }
 
-        public void HandlePluginAssemblyUpdatingInWindowCommand(ConnectionData connectionData, List<EnvDTE.Project> projectList)
+        public void HandlePluginAssemblyUpdatingInWindowCommand(ConnectionData connectionData, List<Project> projectList)
         {
             if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
             {

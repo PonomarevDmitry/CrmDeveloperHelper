@@ -6,23 +6,23 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model.SourcesSelectedFiles
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model.Sources
 {
-    public class CodeSourceSelectedFiles : ISourceSelectedFiles
+    public class DocumentsSourceSelectedFiles : ISourceSelectedFiles
     {
-        private static CodeSourceSelectedFiles _source;
+        private static DocumentsSourceSelectedFiles _source;
 
-        public static CodeSourceSelectedFiles CreateSource()
+        public static DocumentsSourceSelectedFiles CreateSource()
         {
             if (_source == null)
             {
-                _source = new CodeSourceSelectedFiles();
+                _source = new DocumentsSourceSelectedFiles();
             }
 
             return _source;
         }
 
-        private CodeSourceSelectedFiles()
+        private DocumentsSourceSelectedFiles()
         {
 
         }
@@ -33,7 +33,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model.SourcesSelectedFiles
 
             if (checkerFunction != null)
             {
-                return helper.GetOpenedFileInCodeWindow(checkerFunction, true).ToList();
+                return helper.GetOpenedDocuments(checkerFunction).ToList();
             }
 
             return Enumerable.Empty<SelectedFile>();
@@ -44,31 +44,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model.SourcesSelectedFiles
             switch (selectedFileType)
             {
                 case SelectedFileType.WebResource:
-                    CommonHandlers.ActionBeforeQueryStatusActiveDocumentWebResource(applicationObject, menuCommand);
+                    CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsWebResource(applicationObject, menuCommand);
                     break;
 
                 case SelectedFileType.WebResourceText:
-                    CommonHandlers.ActionBeforeQueryStatusActiveDocumentWebResourceText(applicationObject, menuCommand);
+                    CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsWebResourceText(applicationObject, menuCommand);
                     break;
 
                 case SelectedFileType.WebResourceJavaScript:
-                    CommonHandlers.ActionBeforeQueryStatusActiveDocumentJavaScript(applicationObject, menuCommand);
-                    break;
-
                 case SelectedFileType.WebResourceJavaScriptHasLinkedSystemForm:
-                    CommonHandlers.ActionBeforeQueryStatusActiveDocumentJavaScriptHasLinkedSystemForm(applicationObject, menuCommand);
+                    CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsJavaScript(applicationObject, menuCommand);
                     break;
 
                 case SelectedFileType.Report:
-                    CommonHandlers.ActionBeforeQueryStatusActiveDocumentReport(applicationObject, menuCommand);
+                    CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsReport(applicationObject, menuCommand);
                     break;
 
                 case SelectedFileType.CSharp:
-                    CommonHandlers.ActionBeforeQueryStatusActiveDocumentCSharp(applicationObject, menuCommand);
+                    CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsCSharp(applicationObject, menuCommand);
                     break;
 
                 case SelectedFileType.Xml:
-                    CommonHandlers.ActionBeforeQueryStatusActiveDocumentXml(applicationObject, menuCommand);
+                    CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsXml(applicationObject, menuCommand);
                     break;
 
                 default:
