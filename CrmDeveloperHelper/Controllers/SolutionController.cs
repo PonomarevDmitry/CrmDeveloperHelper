@@ -1152,7 +1152,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Добавление в решение шагов плагинов типа плагина по имени.
 
-        public async Task ExecuteAddingPluginTypeProcessingStepsToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> pluginTypeNames, bool withSelect)
+        public async Task ExecuteAddingPluginTypeProcessingStepsToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<string> pluginTypeNames, string solutionUniqueName, bool withSelect)
         {
             string operation = string.Format(Properties.OperationNames.AddingPluginTypeProcessingStepsToSolutionFormat2, connectionData?.Name, solutionUniqueName);
 
@@ -1160,7 +1160,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await AddingPluginTypeProcessingStepsToSolution(connectionData, commonConfig, solutionUniqueName, pluginTypeNames, withSelect);
+                await AddingPluginTypeProcessingStepsToSolution(connectionData, commonConfig, pluginTypeNames, solutionUniqueName, withSelect);
             }
             catch (Exception ex)
             {
@@ -1172,7 +1172,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task AddingPluginTypeProcessingStepsToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> pluginTypeNames, bool withSelect)
+        private async Task AddingPluginTypeProcessingStepsToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<string> pluginTypeNames, string solutionUniqueName, bool withSelect)
         {
             if (pluginTypeNames == null || !pluginTypeNames.Any())
             {

@@ -886,8 +886,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartPluginAssemblyAddingProcessingStepsToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)
             => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteAddingPluginAssemblyProcessingStepsToSolution, commonConfig, solutionUniqueName, projectNames, withSelect);
 
-        public void StartPluginTypeAddingProcessingStepsToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> pluginTypeNames, bool withSelect)
-            => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteAddingPluginTypeProcessingStepsToSolution, commonConfig, solutionUniqueName, pluginTypeNames, withSelect);
+        public void StartPluginTypeAddingProcessingStepsToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<string> pluginTypeNames, string solutionUniqueName, bool withSelect)
+            => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteAddingPluginTypeProcessingStepsToSolution, commonConfig, pluginTypeNames, solutionUniqueName, withSelect);
 
         public void StartPluginAssemblyComparingWithLocalAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, string projectName, string defaultOutputFilePath)
             => ExecuteWithConnectionInThread(connectionData, this._pluginController.ExecuteComparingAssemblyAndCrmSolution, commonConfig, projectName, defaultOutputFilePath);

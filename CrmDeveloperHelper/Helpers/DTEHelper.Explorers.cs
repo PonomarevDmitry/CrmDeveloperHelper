@@ -19,32 +19,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartShowingPluginTree(conn, commonConfig, entityFilter, pluginTypeFilter, messageFilter));
         }
 
-        public void HandleOpenPluginTree(ConnectionData connectionData, EnvDTE.Document document)
+        public void HandleOpenPluginTree(ConnectionData connectionData, SelectedFile selectedFile)
         {
-            if (document == null || string.IsNullOrEmpty(document.FullName))
-            {
-                return;
-            }
-
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => HandleOpenPluginTreeInternal(conn, commonConfig, document.FullName));
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => HandleOpenPluginTreeInternal(conn, commonConfig, selectedFile));
         }
 
-        public void HandleOpenPluginTree(ConnectionData connectionData, EnvDTE.ProjectItem projectItem)
+        private void HandleOpenPluginTreeInternal(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
-            if (projectItem == null)
+            string pluginType = string.Empty;
+
+            if (selectedFile != null)
             {
-                return;
+                pluginType = CSharpCodeHelper.GetClassInFileBySyntaxTree(selectedFile.FilePath);
+
+                this.WriteToOutput(connectionData, Properties.OutputStrings.GettingClassTypeFullNameFromFileFormat2, selectedFile.FilePath, pluginType);
+                this.ActivateOutputWindow(connectionData);
             }
-
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => HandleOpenPluginTreeInternal(conn, commonConfig, projectItem.FileNames[1]));
-        }
-
-        private void HandleOpenPluginTreeInternal(ConnectionData connectionData, CommonConfiguration commonConfig, string filePath)
-        {
-            string pluginType = CSharpCodeHelper.GetClassInFileBySyntaxTree(filePath);
-
-            this.WriteToOutput(connectionData, Properties.OutputStrings.GettingClassTypeFullNameFromFileFormat2, filePath, pluginType);
-            this.ActivateOutputWindow(connectionData);
 
             Controller.StartShowingPluginTree(connectionData, commonConfig, string.Empty, pluginType, string.Empty);
         }
