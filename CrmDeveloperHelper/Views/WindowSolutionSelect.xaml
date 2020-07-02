@@ -4,26 +4,52 @@
         xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
         Title="Select Solution" Height="538.662" Width="717" WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
-        <ContextMenu x:Key="listContextMenu">
-            <MenuItem Header="Select Solution" VerticalAlignment="Center" Click="btnSelectSolution_Click"/>
-            <Separator/>
-            <MenuItem Header="Open Components in Explorer" VerticalAlignment="Center" Click="btnOpenComponentsInExplorer_Click"/>
-            <Separator/>
-            <MenuItem Header="Open in Web" VerticalAlignment="Center" Click="btnOpenSolutionInWeb_Click"/>
-            <Separator/>
-            <MenuItem Header="Open Solution List in Web" VerticalAlignment="Center" Click="mIOpenSolutionListInWeb_Click" />
-            <Separator/>
-            <MenuItem Header="Open Customization in Web" VerticalAlignment="Center" Click="mIOpenCustomizationInWeb_Click" />
-            <Separator/>
-            <MenuItem Header="Clear Unmanaged Solution" Click="ClearUnmanagedSolution_Click"/>
-            <Separator/>
-            <MenuItem Header="Create New Solution" VerticalAlignment="Center" Click="mICreateNewSolution_Click" />
-        </ContextMenu>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="StyleWindows.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <ContextMenu x:Key="listContextMenu">
+                <MenuItem Header="Select Solution" VerticalAlignment="Center" Click="btnSelectSolution_Click"/>
+                <Separator/>
+                <MenuItem Header="Open Components in Explorer" VerticalAlignment="Center" Click="btnOpenComponentsInExplorer_Click"/>
+                <Separator/>
+                <MenuItem Header="Open in Web" VerticalAlignment="Center" Click="btnOpenSolutionInWeb_Click"/>
+                <Separator/>
+                <MenuItem Header="Open Solution List in Web" VerticalAlignment="Center" Click="mIOpenSolutionListInWeb_Click" />
+                <Separator/>
+                <MenuItem Header="Open Customization in Web" VerticalAlignment="Center" Click="mIOpenCustomizationInWeb_Click" />
+                <Separator/>
+                <MenuItem Header="Clear Unmanaged Solution" Click="ClearUnmanagedSolution_Click"/>
+                <Separator/>
+                <MenuItem Header="Create New Solution" VerticalAlignment="Center" Click="mICreateNewSolution_Click" />
+            </ContextMenu>
+
+        </ResourceDictionary>
     </src:WindowBase.Resources>
     <Grid>
-        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cmBFilter" Height="26" Margin="51,10,10,0" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Text="{Binding Path=SelectSolutionFilter, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ItemsSource="{Binding Path=LastSelectedSolutionsUniqueName}" VerticalAlignment="Top" KeyDown="cmBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
-        <DataGrid x:Name="lstVwSolutions" AutoGenerateColumns="False" Margin="10,41,10,89" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+
+            <RowDefinition Height="100*" />
+
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="100*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Content="Filter" Grid.Column="0" />
+            <ComboBox x:Name="cmBFilter" Grid.Column="1" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Text="{Binding Path=SelectSolutionFilter, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ItemsSource="{Binding Path=LastSelectedSolutionsUniqueName}" KeyDown="cmBFilterEnitity_KeyDown" />
+        </Grid>
+
+        <DataGrid x:Name="lstVwSolutions" Grid.Row="1" Margin="5" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -52,9 +78,20 @@
 
             </DataGrid.Columns>
         </DataGrid>
-        <Label x:Name="lblLastLink" Content="Last Selected Solution" HorizontalAlignment="Left" Margin="10,0,0,62" VerticalAlignment="Bottom" IsEnabled="False" Visibility="Visible" Padding="0" Height="22" VerticalContentAlignment="Center" />
-        <TextBox x:Name="txtBLastLink" Margin="131,0,10,62" VerticalAlignment="Bottom" IsReadOnlyCaretVisible="True" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" IsEnabled="False" Visibility="Visible" Padding="2" VerticalContentAlignment="Center" />
-        <ToolBar Margin="0,0,0,24" VerticalAlignment="Bottom" Height="33">
+
+        <Grid x:Name="gridLastSelectedSolution" Grid.Row="2" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="100*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="btnSelectLastSolution1" Grid.Column="0" Content="Select Last Solution" IsEnabled="False" Visibility="Visible" Click="btnSelectLastSolution_Click"/>
+            <ComboBox x:Name="cmBLastSelectedSolution" Grid.Column="1" IsTabStop="True" ItemsSource="{Binding Path=LastSelectedSolutionsUniqueName}" SelectionChanged="cmBLastSelectedSolution_SelectionChanged" />
+            <Button x:Name="btnSelectLastSolution2" Grid.Column="2" Content="Select Last Solution" IsEnabled="False" Visibility="Visible" Click="btnSelectLastSolution_Click"/>
+        </Grid>
+
+        <ToolBar Grid.Row="3">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
                     <Setter Property="Orientation" Value="Vertical"/>
@@ -69,21 +106,25 @@
                 </DockPanel.Resources>
                 <ToolBarPanel x:Name="toolStrip" Orientation="Horizontal" >
                     <Button x:Name="btnSelectSolution" Content="Select Solution" Click="btnSelectSolution_Click" />
-                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0"/>
+
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0"/>
                     <Button x:Name="btnOpenSolutionInWeb" Content="Open in Web" Click="btnOpenSolutionInWeb_Click" />
-                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0"/>
+
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0"/>
                     <Button Content="Create New Solution" Click="mICreateNewSolution_Click" />
-                    <Separator x:Name="sepForAllOther" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" Visibility="Collapsed" IsEnabled="False" />
+
+                    <Separator x:Name="sepForAllOther" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" Visibility="Collapsed" IsEnabled="False" />
                     <CheckBox x:Name="chBForAllOther" Content="For All Other New WebResources" IsChecked="True" VerticalContentAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed" IsEnabled="False" />
-                    <Separator x:Name="sepLastLink" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="20,0,20,0" IsEnabled="False" Visibility="Collapsed"/>
-                    <Button x:Name="btnSelectLastSolution" Content="Select Last Solution" IsEnabled="False" Visibility="Collapsed" Click="btnSelectLastSolution_Click"/>
+
                 </ToolBarPanel>
+
                 <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>
         </ToolBar>
-        <StatusBar Height="24" VerticalAlignment="Bottom">
+
+        <StatusBar Grid.Row="4" VerticalAlignment="Bottom">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName" VerticalAlignment="Center"/>
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
             <StatusBarItem x:Name="stBIStatus" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
         </StatusBar>
     </Grid>

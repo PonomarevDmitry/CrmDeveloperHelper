@@ -568,68 +568,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     var config = CreateFileCSharpConfiguration.CreateForSchemaGlobalOptionSet(fileGenerationOptions);
 
-                    using (var memoryStream1 = new MemoryStream())
+                    var stringBuilder1 = new StringBuilder();
+
+                    using (var stringWriter1 = new StringWriter(stringBuilder1))
                     {
-                        using (var streamWriter1 = new StreamWriter(memoryStream1, new UTF8Encoding(false)))
+                        var descriptor1 = new SolutionComponentDescriptor(service1);
+
+                        var handler1 = new CreateGlobalOptionSetsFileCSharpHandler(stringWriter1, service1, _iWriteToOutput, descriptor1, config);
+
+                        var task1 = handler1.CreateFileAsync(optionSets1);
+
+                        if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
                         {
-                            var descriptor1 = new SolutionComponentDescriptor(service1);
+                            var stringBuilder2 = new StringBuilder();
 
-                            var handler1 = new CreateGlobalOptionSetsFileCSharpHandler(streamWriter1, service1, _iWriteToOutput, descriptor1, config);
-
-                            var task1 = handler1.CreateFileAsync(optionSets1);
-
-                            if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
+                            using (var stringWriter2 = new StringWriter(stringBuilder2))
                             {
-                                using (var memoryStream2 = new MemoryStream())
-                                {
-                                    using (var streamWriter2 = new StreamWriter(memoryStream2, new UTF8Encoding(false)))
-                                    {
-                                        var descriptor2 = new SolutionComponentDescriptor(service2);
+                                var descriptor2 = new SolutionComponentDescriptor(service2);
 
-                                        var handler2 = new CreateGlobalOptionSetsFileCSharpHandler(streamWriter2, service2, _iWriteToOutput, descriptor2, config);
+                                var handler2 = new CreateGlobalOptionSetsFileCSharpHandler(stringWriter2, service2, _iWriteToOutput, descriptor2, config);
 
-                                        var task2 = handler2.CreateFileAsync(optionSets2);
-
-                                        await task2;
-
-                                        try
-                                        {
-                                            await streamWriter2.FlushAsync();
-                                            await memoryStream2.FlushAsync();
-
-                                            memoryStream2.Seek(0, SeekOrigin.Begin);
-
-                                            var fileBody = memoryStream2.ToArray();
-
-                                            File.WriteAllBytes(filePath2, fileBody);
-                                        }
-                                        catch (Exception ex)
-                                        {
-                                            DTEHelper.WriteExceptionToOutput(service2.ConnectionData, ex);
-                                        }
-                                    }
-                                }
+                                await handler2.CreateFileAsync(optionSets2);
                             }
 
-                            await task1;
-
-                            try
-                            {
-                                await streamWriter1.FlushAsync();
-                                await memoryStream1.FlushAsync();
-
-                                memoryStream1.Seek(0, SeekOrigin.Begin);
-
-                                var fileBody = memoryStream1.ToArray();
-
-                                File.WriteAllBytes(filePath1, fileBody);
-                            }
-                            catch (Exception ex)
-                            {
-                                DTEHelper.WriteExceptionToOutput(service1.ConnectionData, ex);
-                            }
+                            File.WriteAllText(filePath2, stringBuilder2.ToString(), new UTF8Encoding(false));
                         }
+
+                        await task1;
                     }
+
+                    File.WriteAllText(filePath1, stringBuilder1.ToString(), new UTF8Encoding(false));
 
                     this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service1.ConnectionData.Name, optionSetsName, filePath1);
 
@@ -736,68 +704,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     var withDependentComponents = fileGenerationOptions.GenerateSchemaGlobalOptionSetsWithDependentComponents;
 
-                    using (var memoryStream1 = new MemoryStream())
+                    var stringBuilder1 = new StringBuilder();
+
+                    using (var stringWriter1 = new StringWriter(stringBuilder1))
                     {
-                        using (var streamWriter1 = new StreamWriter(memoryStream1, new UTF8Encoding(false)))
+                        var descriptor1 = new SolutionComponentDescriptor(service1);
+
+                        var handler1 = new CreateGlobalOptionSetsFileJavaScriptHandler(stringWriter1, service1, descriptor1, _iWriteToOutput, tabSpacer, withDependentComponents, namespaceJavascript);
+
+                        var task1 = handler1.CreateFileAsync(optionSets1);
+
+                        if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
                         {
-                            SolutionComponentDescriptor descriptor1 = new SolutionComponentDescriptor(service1);
+                            var stringBuilder2 = new StringBuilder();
 
-                            var handler1 = new CreateGlobalOptionSetsFileJavaScriptHandler(streamWriter1, service1, descriptor1, _iWriteToOutput, tabSpacer, withDependentComponents, namespaceJavascript);
-
-                            var task1 = handler1.CreateFileAsync(optionSets1);
-
-                            if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
+                            using (var stringWriter2 = new StringWriter(stringBuilder2))
                             {
-                                using (var memoryStream2 = new MemoryStream())
-                                {
-                                    using (var streamWriter2 = new StreamWriter(memoryStream2, new UTF8Encoding(false)))
-                                    {
-                                        SolutionComponentDescriptor descriptor2 = new SolutionComponentDescriptor(service2);
+                                var descriptor2 = new SolutionComponentDescriptor(service2);
 
-                                        var handler2 = new CreateGlobalOptionSetsFileJavaScriptHandler(streamWriter2, service2, descriptor2, _iWriteToOutput, tabSpacer, withDependentComponents, namespaceJavascript);
+                                var handler2 = new CreateGlobalOptionSetsFileJavaScriptHandler(stringWriter2, service2, descriptor2, _iWriteToOutput, tabSpacer, withDependentComponents, namespaceJavascript);
 
-                                        var task2 = handler2.CreateFileAsync(optionSets2);
-
-                                        await task2;
-
-                                        try
-                                        {
-                                            await streamWriter2.FlushAsync();
-                                            await memoryStream2.FlushAsync();
-
-                                            memoryStream2.Seek(0, SeekOrigin.Begin);
-
-                                            var fileBody = memoryStream2.ToArray();
-
-                                            File.WriteAllBytes(filePath2, fileBody);
-                                        }
-                                        catch (Exception ex)
-                                        {
-                                            DTEHelper.WriteExceptionToOutput(service2.ConnectionData, ex);
-                                        }
-                                    }
-                                }
+                                await handler2.CreateFileAsync(optionSets2);
                             }
 
-                            await task1;
-
-                            try
-                            {
-                                await streamWriter1.FlushAsync();
-                                await memoryStream1.FlushAsync();
-
-                                memoryStream1.Seek(0, SeekOrigin.Begin);
-
-                                var fileBody = memoryStream1.ToArray();
-
-                                File.WriteAllBytes(filePath1, fileBody);
-                            }
-                            catch (Exception ex)
-                            {
-                                DTEHelper.WriteExceptionToOutput(service1.ConnectionData, ex);
-                            }
+                            File.WriteAllText(filePath2, stringBuilder2.ToString(), new UTF8Encoding(false));
                         }
+
+                        await task1;
                     }
+
+                    File.WriteAllText(filePath1, stringBuilder1.ToString(), new UTF8Encoding(false));
 
                     this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service1.ConnectionData.Name, optionSetsName, filePath1);
 
@@ -908,33 +844,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var config = CreateFileCSharpConfiguration.CreateForSchemaGlobalOptionSet(fileGenerationOptions);
 
-                using (var memoryStream = new MemoryStream())
+                var stringBuilder = new StringBuilder();
+
+                using (var stringWriter = new StringWriter(stringBuilder))
                 {
-                    using (var streamWriter = new StreamWriter(memoryStream, new UTF8Encoding(false)))
-                    {
-                        var descriptor = new SolutionComponentDescriptor(service);
+                    var descriptor = new SolutionComponentDescriptor(service);
 
-                        var handler = new CreateGlobalOptionSetsFileCSharpHandler(streamWriter, service, _iWriteToOutput, descriptor, config);
+                    var handler = new CreateGlobalOptionSetsFileCSharpHandler(stringWriter, service, _iWriteToOutput, descriptor, config);
 
-                        await handler.CreateFileAsync(optionSets);
-
-                        try
-                        {
-                            await streamWriter.FlushAsync();
-                            await memoryStream.FlushAsync();
-
-                            memoryStream.Seek(0, SeekOrigin.Begin);
-
-                            var fileBody = memoryStream.ToArray();
-
-                            File.WriteAllBytes(filePath, fileBody);
-                        }
-                        catch (Exception ex)
-                        {
-                            DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
-                        }
-                    }
+                    await handler.CreateFileAsync(optionSets);
                 }
+
+                File.WriteAllText(filePath, stringBuilder.ToString(), new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service.ConnectionData.Name, optionSetsName, filePath);
 
@@ -1034,33 +955,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = CreateFileNameJavaScript(optionSets, service.ConnectionData);
 
-                using (var memoryStream = new MemoryStream())
+                var stringBuilder = new StringBuilder();
+
+                using (var stringWriter = new StringWriter(stringBuilder))
                 {
-                    using (var streamWriter = new StreamWriter(memoryStream, new UTF8Encoding(false)))
-                    {
-                        SolutionComponentDescriptor descriptor = new SolutionComponentDescriptor(service);
+                    var descriptor = new SolutionComponentDescriptor(service);
 
-                        var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(streamWriter, service, descriptor, _iWriteToOutput, tabSpacer, withDependentComponents, namespaceJavaScript);
+                    var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(stringWriter, service, descriptor, _iWriteToOutput, tabSpacer, withDependentComponents, namespaceJavaScript);
 
-                        await handler.CreateFileAsync(optionSets);
-
-                        try
-                        {
-                            await streamWriter.FlushAsync();
-                            await memoryStream.FlushAsync();
-
-                            memoryStream.Seek(0, SeekOrigin.Begin);
-
-                            var fileBody = memoryStream.ToArray();
-
-                            File.WriteAllBytes(filePath, fileBody);
-                        }
-                        catch (Exception ex)
-                        {
-                            DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
-                        }
-                    }
+                    await handler.CreateFileAsync(optionSets);
                 }
+
+                File.WriteAllText(filePath, stringBuilder.ToString(), new UTF8Encoding(false));
 
                 var message = string.Empty;
 

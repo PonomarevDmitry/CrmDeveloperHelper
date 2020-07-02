@@ -790,17 +790,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 dependenciesWebResource.Library = librariesWebResource.ToArray();
 
-                var newDependencyXmlBuilder = new StringBuilder();
+                var newDependencyXmlStringBuilder = new StringBuilder();
 
                 XmlSerializerNamespaces namespaces = new XmlSerializerNamespaces();
                 namespaces.Add(string.Empty, string.Empty);
 
-                using (var writer = new StringWriter(newDependencyXmlBuilder))
+                using (var writer = new StringWriter(newDependencyXmlStringBuilder))
                 {
                     serializer.Serialize(writer, webResourceDependencies, namespaces);
                 }
 
-                string newDependencyXml = newDependencyXmlBuilder.ToString();
+                string newDependencyXml = newDependencyXmlStringBuilder.ToString();
 
                 if (ContentComparerHelper.TryParseXml(newDependencyXml, out XElement doc))
                 {

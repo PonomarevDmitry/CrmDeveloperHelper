@@ -20,13 +20,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
     public partial class WindowSolutionSelect : WindowBase
     {
         private readonly IWriteToOutput _iWriteToOutput;
+        private readonly IOrganizationServiceExtented _service;
 
-        /// <summary>
-        /// Сервис CRM
-        /// </summary>
-        private IOrganizationServiceExtented _service;
-
-        private Solution _lastSolution;
         private readonly ObservableCollection<EntityViewItem> _itemsSource;
 
         private object _syncObject = new object();
@@ -56,24 +51,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.lstVwSolutions.ItemsSource = _itemsSource;
 
             cmBFilter.DataContext = this._service.ConnectionData;
+            cmBLastSelectedSolution.DataContext = this._service.ConnectionData;
 
             FocusOnComboBoxTextBox(cmBFilter);
 
-            var task = ShowExistingSolutions(this._service.ConnectionData.LastSelectedSolutionsUniqueName.FirstOrDefault());
+            var task = ShowExistingSolutions();
+        }
+
+        protected override void OnActivated(EventArgs e)
+        {
+            base.OnActivated(e);
+
+            if (cmBLastSelectedSolution.SelectedIndex == -1 && cmBLastSelectedSolution.Items.Count > 0)
+            {
+                cmBLastSelectedSolution.SelectedIndex = 0;
+            }
         }
 
         protected override void OnClosed(EventArgs e)
         {
             BindingOperations.ClearAllBindings(cmBFilter);
+            BindingOperations.ClearAllBindings(cmBLastSelectedSolution);
 
             cmBFilter.Items.DetachFromSourceCollection();
             cmBFilter.DataContext = null;
             cmBFilter.ItemsSource = null;
 
+            cmBLastSelectedSolution.Items.DetachFromSourceCollection();
+            cmBLastSelectedSolution.DataContext = null;
+            cmBLastSelectedSolution.ItemsSource = null;
+
             base.OnClosed(e);
         }
 
-        private async Task ShowExistingSolutions(string lastSolutionUniqueName = null)
+        private async Task ShowExistingSolutions()
         {
             if (!this.IsControlsEnabled)
             {
@@ -89,35 +100,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             try
             {
                 SolutionRepository repository = new SolutionRepository(this._service);
-
-                if (!string.IsNullOrEmpty(lastSolutionUniqueName) && this._lastSolution == null)
-                {
-                    this._lastSolution = await repository.GetSolutionByUniqueNameAsync(lastSolutionUniqueName);
-
-                    if (this._lastSolution != null)
-                    {
-                        if (this._lastSolution.IsManaged.GetValueOrDefault() || !this._lastSolution.IsVisible.GetValueOrDefault())
-                        {
-                            this._lastSolution = null;
-                        }
-                    }
-
-                    var name = this._lastSolution?.UniqueName;
-
-                    var isEnabled = this._lastSolution != null;
-
-                    var visibility = isEnabled ? Visibility.Visible : Visibility.Collapsed;
-
-                    this.Dispatcher.Invoke(() =>
-                    {
-                        txtBLastLink.Text = name;
-
-                        btnSelectLastSolution.IsEnabled = lblLastLink.IsEnabled = txtBLastLink.IsEnabled = sepLastLink.IsEnabled = isEnabled;
-                        btnSelectLastSolution.Visibility = lblLastLink.Visibility = txtBLastLink.Visibility = sepLastLink.Visibility = visibility;
-
-                        toolStrip.UpdateLayout();
-                    });
-                }
 
                 string textName = string.Empty;
 
@@ -205,7 +187,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(this.tSProgressBar, this.btnSelectSolution, this.btnSelectLastSolution);
+            ToggleControl(this.tSProgressBar, this.btnSelectSolution, this.gridLastSelectedSolution);
 
             UpdateButtonsEnable();
         }
@@ -314,18 +296,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await ShowExistingSolutions();
         }
 
-        private void btnSelectLastSolution_Click(object sender, RoutedEventArgs e)
+        private async void btnSelectLastSolution_Click(object sender, RoutedEventArgs e)
         {
-            if (this._lastSolution != null)
+            string lastSolutionUniqueName = cmBLastSelectedSolution.SelectedItem?.ToString();
+
+            if (string.IsNullOrEmpty(lastSolutionUniqueName))
             {
-                this.SelectedSolution = this._lastSolution;
-
-                this._service.ConnectionData.AddLastSelectedSolution(this._lastSolution.UniqueName);
-
-                _iWriteToOutput.WriteToOutputSolutionUri(_service.ConnectionData, _lastSolution.UniqueName, _lastSolution.Id);
-
-                this.DialogResult = true;
+                return;
             }
+
+            SolutionRepository repository = new SolutionRepository(this._service);
+
+            var lastSolution = await repository.GetSolutionByUniqueNameAsync(lastSolutionUniqueName);
+
+            if (lastSolution == null)
+            {
+                return;
+            }
+
+            if (lastSolution.IsManaged.GetValueOrDefault() || !lastSolution.IsVisible.GetValueOrDefault())
+            {
+                return;
+            }
+
+            this.SelectedSolution = lastSolution;
+
+            this._service.ConnectionData.AddLastSelectedSolution(lastSolution.UniqueName);
+
+            _iWriteToOutput.WriteToOutputSolutionUri(_service.ConnectionData, lastSolution.UniqueName, lastSolution.Id);
+
+            this.DialogResult = true;
         }
 
         private void btnOpenSolutionInWeb_Click(object sender, RoutedEventArgs e)
@@ -447,6 +447,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(true, Properties.OutputStrings.ClearingSolutionFailedFormat2, _service.ConnectionData.Name, solution.UniqueName);
             }
+        }
+
+        private void cmBLastSelectedSolution_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedSolution = cmBLastSelectedSolution.SelectedItem?.ToString();
+
+            btnSelectLastSolution1.IsEnabled = btnSelectLastSolution2.IsEnabled = !string.IsNullOrEmpty(selectedSolution);
         }
     }
 }

@@ -1316,33 +1316,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         filePath = FileOperations.CheckFilePathUnique(filePath);
                     }
 
-                    using (var memoryStream = new MemoryStream())
+                    var stringBuilder = new StringBuilder();
+
+                    using (var stringWriter = new StringWriter(stringBuilder))
                     {
-                        using (var streamWriter = new StreamWriter(memoryStream, new UTF8Encoding(false)))
-                        {
-                            var handlerCreate = new CreateFormTabsJavaScriptHandler(streamWriter, config, javaScriptObjectType, service);
+                        var handlerCreate = new CreateFormTabsJavaScriptHandler(stringWriter, config, javaScriptObjectType, service);
 
-                            systemForm.FormattedValues.TryGetValue(SystemForm.Schema.Attributes.type, out string typeName);
+                        systemForm.FormattedValues.TryGetValue(SystemForm.Schema.Attributes.type, out string typeName);
 
-                            await handlerCreate.WriteContentAsync(entityName, objectName, constructorName, tabs, systemForm.Id, systemForm.Name, systemForm.Type?.Value, typeName);
-
-                            try
-                            {
-                                await streamWriter.FlushAsync();
-                                await memoryStream.FlushAsync();
-
-                                memoryStream.Seek(0, SeekOrigin.Begin);
-
-                                var fileBody = memoryStream.ToArray();
-
-                                File.WriteAllBytes(filePath, fileBody);
-                            }
-                            catch (Exception ex)
-                            {
-                                DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
-                            }
-                        }
+                        await handlerCreate.WriteContentAsync(entityName, objectName, constructorName, tabs, systemForm.Id, systemForm.Name, systemForm.Type?.Value, typeName);
                     }
+
+                    File.WriteAllText(filePath, stringBuilder.ToString(), new UTF8Encoding(false));
 
                     AddFileToVSProject(_selectedItem, filePath);
 
@@ -1832,16 +1817,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     var tabs = handler.GetFormTabs(doc);
 
-                    var text = new StringBuilder();
+                    var stringBuilder = new StringBuilder();
 
-                    using (var writer = new StringWriter(text))
+                    using (var writer = new StringWriter(stringBuilder))
                     {
                         var handlerCreate = new CreateFormTabsJavaScriptHandler(writer, config, javaScriptObjectType, service);
 
                         handlerCreate.WriteContentOnlyForm(tabs);
                     }
 
-                    ClipboardHelper.SetText(text.ToString().Trim(' ', '\r', '\n'));
+                    ClipboardHelper.SetText(stringBuilder.ToString().Trim(' ', '\r', '\n'));
 
                     //this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, name, "Entity Metadata", filePath);
                 }
@@ -1895,9 +1880,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     var config = new CreateFileJavaScriptConfiguration(fileGenerationOptions);
 
-                    var text = new StringBuilder();
+                    var stringBuilder = new StringBuilder();
 
-                    using (var writer = new StringWriter(text))
+                    using (var writer = new StringWriter(stringBuilder))
                     {
                         var handlerCreate = new CreateFormTabsJavaScriptHandler(writer, config, javaScriptObjectType, service);
 
@@ -1906,7 +1891,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         handlerCreate.WriteFormProperties(systemForm.ObjectTypeCode, systemForm.Id, systemForm.Name, systemForm.Type?.Value, typeName);
                     }
 
-                    ClipboardHelper.SetText(text.ToString().Trim(' ', '\r', '\n'));
+                    ClipboardHelper.SetText(stringBuilder.ToString().Trim(' ', '\r', '\n'));
 
                     //this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, name, "Entity Metadata", filePath);
                 }

@@ -796,16 +796,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 var tabs = handler.GetFormTabs(doc);
 
-                var text = new StringBuilder();
+                var stringBuilder = new StringBuilder();
 
-                using (var writer = new StringWriter(text))
+                using (var writer = new StringWriter(stringBuilder))
                 {
                     var handlerCreate = new CreateFormTabsJavaScriptHandler(writer, config, jsObjectType, service);
 
                     handlerCreate.WriteContentOnlyForm(tabs);
                 }
 
-                ClipboardHelper.SetText(text.ToString().Trim(' ', '\r', '\n'));
+                ClipboardHelper.SetText(stringBuilder.ToString().Trim(' ', '\r', '\n'));
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CopyingEntityJavaScriptContentOnFormCompletedFormat2, systemForm.ObjectTypeCode, systemForm.Name);
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);

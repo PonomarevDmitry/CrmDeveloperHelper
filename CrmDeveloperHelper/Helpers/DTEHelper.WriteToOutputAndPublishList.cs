@@ -1175,7 +1175,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (!File.Exists(filePath))
             {
-                var fetchXmlString = new StringBuilder();
+                var fetchXmlStringBuilder = new StringBuilder();
 
                 try
                 {
@@ -1244,7 +1244,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     XmlSerializerNamespaces namespaces = new XmlSerializerNamespaces();
                     namespaces.Add(string.Empty, string.Empty);
 
-                    using (var writer = new StringWriter(fetchXmlString))
+                    using (var writer = new StringWriter(fetchXmlStringBuilder))
                     {
                         serializer.Serialize(writer, fetchXml, namespaces);
                     }
@@ -1254,7 +1254,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
 
-                string xmlContent = fetchXmlString.ToString();
+                string xmlContent = fetchXmlStringBuilder.ToString();
 
                 if (ContentComparerHelper.TryParseXml(xmlContent, out XElement doc))
                 {

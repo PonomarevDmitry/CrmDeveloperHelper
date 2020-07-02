@@ -111,28 +111,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             ICodeGenerationServiceProvider codeGenerationServiceProvider = new CodeGenerationServiceProvider(typeMappingService, codeGenerationService, codeWriterFilterService, metadataProviderService, namingService);
 
-            using (var memoryStream = new MemoryStream())
+            var stringBuilder = new StringBuilder();
+
+            using (var stringWriter = new StringWriter(stringBuilder))
             {
-                using (var streamWriter = new StreamWriter(memoryStream, new UTF8Encoding(false)))
-                {
-                    var handler = new CreateFileWithEntityMetadataCSharpHandler(streamWriter, config, service, _iWriteToOutput, codeGenerationServiceProvider);
+                var handler = new CreateFileWithEntityMetadataCSharpHandler(stringWriter, config, service, _iWriteToOutput, codeGenerationServiceProvider);
 
-                    await handler.CreateFileAsync(entityMetadata);
-                }
-
-                try
-                {
-                    await memoryStream.FlushAsync();
-
-                    var fileBody = memoryStream.ToArray();
-
-                    File.WriteAllBytes(filePath, fileBody);
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
-                }
+                await handler.CreateFileAsync(entityMetadata);
             }
+
+            File.WriteAllText(filePath, stringBuilder.ToString(), new UTF8Encoding(false));
 
             this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, entityMetadata.LogicalName, filePath);
 
@@ -200,28 +188,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operation);
 
-            using (var memoryStream = new MemoryStream())
+            var stringBuilder = new StringBuilder();
+
+            using (var stringWriter = new StringWriter(stringBuilder))
             {
-                using (var streamWriter = new StreamWriter(memoryStream, new UTF8Encoding(false)))
-                {
-                    var handler = new CreateFileWithEntityMetadataJavaScriptHandler(streamWriter, config, service, _iWriteToOutput);
+                var handler = new CreateFileWithEntityMetadataJavaScriptHandler(stringWriter, config, service, _iWriteToOutput);
 
-                    await handler.CreateFileAsync(entityMetadata);
-                }
-
-                try
-                {
-                    await memoryStream.FlushAsync();
-
-                    var fileBody = memoryStream.ToArray();
-
-                    File.WriteAllBytes(filePath, fileBody);
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
-                }
+                await handler.CreateFileAsync(entityMetadata);
             }
+
+            File.WriteAllText(filePath, stringBuilder.ToString(), new UTF8Encoding(false));
 
             this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, entityMetadata.LogicalName, filePath);
 
@@ -473,28 +449,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var config = CreateFileCSharpConfiguration.CreateForSchemaGlobalOptionSet(fileGenerationOptions);
 
-            using (var memoryStream = new MemoryStream())
+            var stringBuilder = new StringBuilder();
+
+            using (var stringWriter = new StringWriter(stringBuilder))
             {
-                using (var streamWriter = new StreamWriter(memoryStream, new UTF8Encoding(false)))
-                {
-                    var handler = new CreateGlobalOptionSetsFileCSharpHandler(streamWriter, service, _iWriteToOutput, descriptor, config);
+                var handler = new CreateGlobalOptionSetsFileCSharpHandler(stringWriter, service, _iWriteToOutput, descriptor, config);
 
-                    await handler.CreateFileAsync(new[] { optionSetMetadata });
-                }
-
-                try
-                {
-                    await memoryStream.FlushAsync();
-
-                    var fileBody = memoryStream.ToArray();
-
-                    File.WriteAllBytes(filePath, fileBody);
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
-                }
+                await handler.CreateFileAsync(new[] { optionSetMetadata });
             }
+
+            File.WriteAllText(filePath, stringBuilder.ToString(), new UTF8Encoding(false));
 
             this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service.ConnectionData.Name, optionSetMetadata.Name, filePath);
 
@@ -519,36 +483,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
 
-            using (var memoryStream = new MemoryStream())
+            var stringBuilder = new StringBuilder();
+
+            using (var stringWriter = new StringWriter(stringBuilder))
             {
-                using (var streamWriter = new StreamWriter(memoryStream, new UTF8Encoding(false)))
-                {
-                    var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(
-                        streamWriter
-                        , service
-                        , descriptor
-                        , _iWriteToOutput
-                        , fileGenerationOptions.GetTabSpacer()
-                        , fileGenerationOptions.GenerateSchemaGlobalOptionSetsWithDependentComponents
-                        , fileGenerationOptions.NamespaceGlobalOptionSetsJavaScript
-                    );
+                var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(
+                    stringWriter
+                    , service
+                    , descriptor
+                    , _iWriteToOutput
+                    , fileGenerationOptions.GetTabSpacer()
+                    , fileGenerationOptions.GenerateSchemaGlobalOptionSetsWithDependentComponents
+                    , fileGenerationOptions.NamespaceGlobalOptionSetsJavaScript
+                );
 
-                    await handler.CreateFileAsync(new[] { metadata });
-                }
-
-                try
-                {
-                    await memoryStream.FlushAsync();
-
-                    var fileBody = memoryStream.ToArray();
-
-                    File.WriteAllBytes(filePath, fileBody);
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
-                }
+                await handler.CreateFileAsync(new[] { metadata });
             }
+
+            File.WriteAllText(filePath, stringBuilder.ToString(), new UTF8Encoding(false));
 
             this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service.ConnectionData.Name, metadata.Name, filePath);
 
@@ -756,36 +708,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             SolutionComponentDescriptor descriptor = new SolutionComponentDescriptor(service);
 
-            using (var memoryStream = new MemoryStream())
+            var stringBuilder = new StringBuilder();
+
+            using (var stringWriter = new StringWriter(stringBuilder))
             {
-                using (var streamWriter = new StreamWriter(memoryStream, new UTF8Encoding(false)))
-                {
-                    var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(
-                        streamWriter
-                        , service
-                        , descriptor
-                        , _iWriteToOutput
-                        , fileGenerationOptions.GetTabSpacer()
-                        , fileGenerationOptions.GenerateSchemaGlobalOptionSetsWithDependentComponents
-                        , fileGenerationOptions.NamespaceGlobalOptionSetsJavaScript
-                    );
+                var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(
+                    stringWriter
+                    , service
+                    , descriptor
+                    , _iWriteToOutput
+                    , fileGenerationOptions.GetTabSpacer()
+                    , fileGenerationOptions.GenerateSchemaGlobalOptionSetsWithDependentComponents
+                    , fileGenerationOptions.NamespaceGlobalOptionSetsJavaScript
+                );
 
-                    await handler.CreateFileAsync(optionSets.OrderBy(o => o.Name));
-                }
-
-                try
-                {
-                    await memoryStream.FlushAsync();
-
-                    var fileBody = memoryStream.ToArray();
-
-                    File.WriteAllBytes(selectedFile.FilePath, fileBody);
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
-                }
+                await handler.CreateFileAsync(optionSets.OrderBy(o => o.Name));
             }
+
+            File.WriteAllText(selectedFile.FilePath, stringBuilder.ToString(), new UTF8Encoding(false));
 
             this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service.ConnectionData.Name, optionSetsName, selectedFile.FilePath);
 

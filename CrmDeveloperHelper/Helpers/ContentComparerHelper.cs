@@ -393,7 +393,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public static string ConvertFetchXmlToQueryExpression(string fetchXml)
         {
-            var codeCSharp = new StringBuilder();
+            var codeCSharpStringBuilder = new StringBuilder();
 
             try
             {
@@ -406,7 +406,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     fetchXmlProxy = serializer.Deserialize(reader) as Model.XsdModels.FetchType;
                 }
 
-                using (var writer = new StringWriter(codeCSharp))
+                using (var writer = new StringWriter(codeCSharpStringBuilder))
                 {
                     var codeGenerator = new QueryExpressionCodeGenerator(writer);
 
@@ -418,7 +418,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 DTEHelper.WriteExceptionToOutput(null, ex);
             }
 
-            return codeCSharp.ToString();
+            return codeCSharpStringBuilder.ToString();
         }
 
         private static string HandleExportXsdSchemaIntoSchamasFolder(string[] fileNamesColl)

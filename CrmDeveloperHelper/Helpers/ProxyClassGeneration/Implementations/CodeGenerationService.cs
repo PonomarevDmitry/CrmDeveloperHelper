@@ -123,32 +123,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
 
             options.IndentString = _config.TabSpacer;
 
-            using (var memoryStream = new MemoryStream())
+            var stringBuilder = new StringBuilder();
+
+            using (var stringWriter = new StringWriter(stringBuilder))
             {
-                using (var streamWriter = new StreamWriter(memoryStream, new UTF8Encoding(false)))
+                using (var provider = CodeDomProvider.CreateProvider(CSharpLanguage))
                 {
-                    using (var provider = CodeDomProvider.CreateProvider(CSharpLanguage))
-                    {
-                        provider.GenerateCodeFromCompileUnit(codeCompileUnit, streamWriter, options);
-                    }
-
-                    try
-                    {
-                        streamWriter.Flush();
-                        memoryStream.Flush();
-
-                        memoryStream.Seek(0, SeekOrigin.Begin);
-
-                        var fileBody = memoryStream.ToArray();
-
-                        File.WriteAllBytes(outputFilePath, fileBody);
-                    }
-                    catch (Exception ex)
-                    {
-                        DTEHelper.WriteExceptionToOutput(null, ex);
-                    }
+                    provider.GenerateCodeFromCompileUnit(codeCompileUnit, stringWriter, options);
                 }
             }
+
+            File.WriteAllText(outputFilePath, stringBuilder.ToString(), new UTF8Encoding(false));
         }
 
         public Task WriteEntityFileAsync(
@@ -178,32 +163,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
 
             options.IndentString = _config.TabSpacer;
 
-            using (var memoryStream = new MemoryStream())
+            var stringBuilder = new StringBuilder();
+
+            using (var stringWriter = new StringWriter(stringBuilder))
             {
-                using (var streamWriter = new StreamWriter(memoryStream, new UTF8Encoding(false)))
+                using (var provider = CodeDomProvider.CreateProvider(CSharpLanguage))
                 {
-                    using (var provider = CodeDomProvider.CreateProvider(CSharpLanguage))
-                    {
-                        provider.GenerateCodeFromCompileUnit(codeCompileUnit, streamWriter, options);
-                    }
-
-                    try
-                    {
-                        streamWriter.Flush();
-                        memoryStream.Flush();
-
-                        memoryStream.Seek(0, SeekOrigin.Begin);
-
-                        var fileBody = memoryStream.ToArray();
-
-                        File.WriteAllBytes(outputFilePath, fileBody);
-                    }
-                    catch (Exception ex)
-                    {
-                        DTEHelper.WriteExceptionToOutput(null, ex);
-                    }
+                    provider.GenerateCodeFromCompileUnit(codeCompileUnit, stringWriter, options);
                 }
             }
+
+            File.WriteAllText(outputFilePath, stringBuilder.ToString(), new UTF8Encoding(false));
         }
 
         public Task WriteSdkMessageAsync(
@@ -233,32 +203,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
 
             options.IndentString = _config.TabSpacer;
 
-            using (var memoryStream = new MemoryStream())
+            var stringBuilder = new StringBuilder();
+
+            using (var stringWriter = new StringWriter(stringBuilder))
             {
-                using (var streamWriter = new StreamWriter(memoryStream, new UTF8Encoding(false)))
+                using (var provider = CodeDomProvider.CreateProvider(CSharpLanguage))
                 {
-                    using (var provider = CodeDomProvider.CreateProvider(CSharpLanguage))
-                    {
-                        provider.GenerateCodeFromCompileUnit(codeCompileUnit, streamWriter, options);
-                    }
-
-                    try
-                    {
-                        streamWriter.Flush();
-                        memoryStream.Flush();
-
-                        memoryStream.Seek(0, SeekOrigin.Begin);
-
-                        var fileBody = memoryStream.ToArray();
-
-                        File.WriteAllBytes(outputFilePath, fileBody);
-                    }
-                    catch (Exception ex)
-                    {
-                        DTEHelper.WriteExceptionToOutput(null, ex);
-                    }
+                    provider.GenerateCodeFromCompileUnit(codeCompileUnit, stringWriter, options);
                 }
             }
+
+            File.WriteAllText(outputFilePath, stringBuilder.ToString(), new UTF8Encoding(false));
         }
 
         public Task WriteSdkMessagePairAsync(
@@ -288,32 +243,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration.
 
             options.IndentString = _config.TabSpacer;
 
-            using (var memoryStream = new MemoryStream())
+            var stringBuilder = new StringBuilder();
+
+            using (var stringWriter = new StringWriter(stringBuilder))
             {
-                using (var streamWriter = new StreamWriter(memoryStream, new UTF8Encoding(false)))
+                using (var provider = CodeDomProvider.CreateProvider(CSharpLanguage))
                 {
-                    using (var provider = CodeDomProvider.CreateProvider(CSharpLanguage))
-                    {
-                        provider.GenerateCodeFromCompileUnit(codeCompileUnit, streamWriter, options);
-                    }
-
-                    try
-                    {
-                        streamWriter.Flush();
-                        memoryStream.Flush();
-
-                        memoryStream.Seek(0, SeekOrigin.Begin);
-
-                        var fileBody = memoryStream.ToArray();
-
-                        File.WriteAllBytes(outputFilePath, fileBody);
-                    }
-                    catch (Exception ex)
-                    {
-                        DTEHelper.WriteExceptionToOutput(null, ex);
-                    }
+                    provider.GenerateCodeFromCompileUnit(codeCompileUnit, stringWriter, options);
                 }
             }
+
+            File.WriteAllText(outputFilePath, stringBuilder.ToString(), new UTF8Encoding(false));
         }
 
         public CodeGenerationType GetTypeForOptionSet(EntityMetadata entityMetadata, OptionSetMetadata optionSetMetadata)

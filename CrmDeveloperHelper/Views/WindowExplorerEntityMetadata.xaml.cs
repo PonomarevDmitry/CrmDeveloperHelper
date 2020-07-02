@@ -585,31 +585,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ICodeGenerationServiceProvider codeGenerationServiceProvider = new CodeGenerationServiceProvider(typeMappingService, codeGenerationService, codeWriterFilterService, metadataProviderService, namingService);
 
-                using (var memoryStream = new MemoryStream())
+                var stringBuilder = new StringBuilder();
+
+                using (var stringWriter = new StringWriter(stringBuilder))
                 {
-                    using (var streamWriter = new StreamWriter(memoryStream, new UTF8Encoding(false)))
-                    {
-                        var handler = new CreateFileWithEntityMetadataCSharpHandler(streamWriter, config, service, _iWriteToOutput, codeGenerationServiceProvider);
+                    var handler = new CreateFileWithEntityMetadataCSharpHandler(stringWriter, config, service, _iWriteToOutput, codeGenerationServiceProvider);
 
-                        await handler.CreateFileAsync(entityMetadata.LogicalName);
-
-                        try
-                        {
-                            await streamWriter.FlushAsync();
-                            await memoryStream.FlushAsync();
-
-                            memoryStream.Seek(0, SeekOrigin.Begin);
-
-                            var fileBody = memoryStream.ToArray();
-
-                            File.WriteAllBytes(filePath, fileBody);
-                        }
-                        catch (Exception ex)
-                        {
-                            DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
-                        }
-                    }
+                    await handler.CreateFileAsync(entityMetadata.LogicalName);
                 }
+
+                File.WriteAllText(filePath, stringBuilder.ToString(), new UTF8Encoding(false));
 
                 AddFileToVSProject(_selectedItem, filePath);
 
@@ -740,31 +725,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                using (var memoryStream = new MemoryStream())
+                var stringBuilder = new StringBuilder();
+
+                using (var stringWriter = new StringWriter(stringBuilder))
                 {
-                    using (var streamWriter = new StreamWriter(memoryStream, new UTF8Encoding(false)))
-                    {
-                        var handler = new CreateFileWithEntityMetadataJavaScriptHandler(streamWriter, config, service, _iWriteToOutput);
+                    var handler = new CreateFileWithEntityMetadataJavaScriptHandler(stringWriter, config, service, _iWriteToOutput);
 
-                        await handler.CreateFileAsync(entityMetadata.LogicalName);
-
-                        try
-                        {
-                            await streamWriter.FlushAsync();
-                            await memoryStream.FlushAsync();
-
-                            memoryStream.Seek(0, SeekOrigin.Begin);
-
-                            var fileBody = memoryStream.ToArray();
-
-                            File.WriteAllBytes(filePath, fileBody);
-                        }
-                        catch (Exception ex)
-                        {
-                            DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
-                        }
-                    }
+                    await handler.CreateFileAsync(entityMetadata.LogicalName);
                 }
+
+                File.WriteAllText(filePath, stringBuilder.ToString(), new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, entityMetadata.LogicalName, filePath);
 
@@ -1765,31 +1735,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     filePath = FileOperations.CheckFilePathUnique(filePath);
                 }
 
-                using (var memoryStream = new MemoryStream())
+                var stringBuilder = new StringBuilder();
+
+                using (var stringWriter = new StringWriter(stringBuilder))
                 {
-                    using (var streamWriter = new StreamWriter(memoryStream, new UTF8Encoding(false)))
-                    {
-                        var handler = new CreateFormTabsJavaScriptHandler(streamWriter, config, javaScriptObjectType, service);
+                    var handler = new CreateFormTabsJavaScriptHandler(stringWriter, config, javaScriptObjectType, service);
 
-                        await handler.WriteContentAsync(entityMetadata.EntityMetadata, objectName, constructorName, Enumerable.Empty<FormTab>(), null, null, null, null);
-
-                        try
-                        {
-                            await streamWriter.FlushAsync();
-                            await memoryStream.FlushAsync();
-
-                            memoryStream.Seek(0, SeekOrigin.Begin);
-
-                            var fileBody = memoryStream.ToArray();
-
-                            File.WriteAllBytes(filePath, fileBody);
-                        }
-                        catch (Exception ex)
-                        {
-                            DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
-                        }
-                    }
+                    await handler.WriteContentAsync(entityMetadata.EntityMetadata, objectName, constructorName, Enumerable.Empty<FormTab>(), null, null, null, null);
                 }
+
+                File.WriteAllText(filePath, stringBuilder.ToString(), new UTF8Encoding(false));
 
                 AddFileToVSProject(_selectedItem, filePath);
 

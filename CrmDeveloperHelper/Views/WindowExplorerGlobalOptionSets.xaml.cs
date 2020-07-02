@@ -506,33 +506,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var config = CreateFileCSharpConfiguration.CreateForSchemaGlobalOptionSet(fileGenerationOptions);
 
-                using (var memoryStream = new MemoryStream())
+                var stringBuilder = new StringBuilder();
+
+                using (var stringWriter = new StringWriter(stringBuilder))
                 {
-                    using (var streamWriter = new StreamWriter(memoryStream, new UTF8Encoding(false)))
-                    {
-                        var descriptor = new SolutionComponentDescriptor(service);
+                    var descriptor = new SolutionComponentDescriptor(service);
 
-                        var handler = new CreateGlobalOptionSetsFileCSharpHandler(streamWriter, service, _iWriteToOutput, descriptor, config);
+                    var handler = new CreateGlobalOptionSetsFileCSharpHandler(stringWriter, service, _iWriteToOutput, descriptor, config);
 
-                        await handler.CreateFileAsync(optionSets);
-
-                        try
-                        {
-                            await streamWriter.FlushAsync();
-                            await memoryStream.FlushAsync();
-
-                            memoryStream.Seek(0, SeekOrigin.Begin);
-
-                            var fileBody = memoryStream.ToArray();
-
-                            File.WriteAllBytes(filePath, fileBody);
-                        }
-                        catch (Exception ex)
-                        {
-                            DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
-                        }
-                    }
+                    await handler.CreateFileAsync(optionSets);
                 }
+
+                File.WriteAllText(filePath, stringBuilder.ToString(), new UTF8Encoding(false));
 
                 AddFileToVSProject(_selectedItem, filePath);
 
@@ -601,41 +586,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var fileGenerationOptions = FileGenerationConfiguration.GetFileGenerationOptions();
 
-                using (var memoryStream = new MemoryStream())
+                var stringBuilder = new StringBuilder();
+
+                using (var stringWriter = new StringWriter(stringBuilder))
                 {
-                    using (var streamWriter = new StreamWriter(memoryStream, new UTF8Encoding(false)))
-                    {
-                        SolutionComponentDescriptor descriptor = new SolutionComponentDescriptor(service);
+                    SolutionComponentDescriptor descriptor = new SolutionComponentDescriptor(service);
 
-                        var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(
-                            streamWriter
-                            , service
-                            , descriptor
-                            , _iWriteToOutput
-                            , fileGenerationOptions.GetTabSpacer()
-                            , fileGenerationOptions.GenerateSchemaGlobalOptionSetsWithDependentComponents
-                            , fileGenerationOptions.NamespaceGlobalOptionSetsJavaScript
-                        );
+                    var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(
+                        stringWriter
+                        , service
+                        , descriptor
+                        , _iWriteToOutput
+                        , fileGenerationOptions.GetTabSpacer()
+                        , fileGenerationOptions.GenerateSchemaGlobalOptionSetsWithDependentComponents
+                        , fileGenerationOptions.NamespaceGlobalOptionSetsJavaScript
+                    );
 
-                        await handler.CreateFileAsync(optionSets);
-
-                        try
-                        {
-                            await streamWriter.FlushAsync();
-                            await memoryStream.FlushAsync();
-
-                            memoryStream.Seek(0, SeekOrigin.Begin);
-
-                            var fileBody = memoryStream.ToArray();
-
-                            File.WriteAllBytes(filePath, fileBody);
-                        }
-                        catch (Exception ex)
-                        {
-                            DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
-                        }
-                    }
+                    await handler.CreateFileAsync(optionSets);
                 }
+
+                File.WriteAllText(filePath, stringBuilder.ToString(), new UTF8Encoding(false));
 
                 AddFileToVSProject(_selectedItem, filePath);
 
