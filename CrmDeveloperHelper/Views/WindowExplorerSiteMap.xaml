@@ -18,16 +18,16 @@
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
                 <MenuItem Header="Open SiteMap in Web" Click="mIOpenInWeb_Click" FontWeight="Bold"/>
-                
+
+                <Separator/>
+                <MenuItem Header="SiteMap Xml" Click="mIExportSiteMapXml_Click"/>
+
                 <Separator/>
                 <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
                 
                 <Separator/>
                 <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" />
                 <MenuItem Header="Add to Crm Solution" Click="AddToCrmSolution_Click" />
-                
-                <Separator/>
-                <MenuItem Header="SiteMap Xml" Click="mIExportSiteMapXml_Click"/>
                 
                 <Separator/>
                 <MenuItem Header="Change SiteMap in Editor" Click="mIChangeEntityInEditor_Click"/>
@@ -164,12 +164,12 @@
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBExportSiteMap" Header="Export SiteMap Information">
                             <MenuItem Header="Open SiteMap in Web" Click="mIOpenInWeb_Click"/>
-                            
-                            <Separator/>
-                            <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
-                            
+
                             <Separator/>
                             <MenuItem Header="SiteMap Xml" Click="mIExportSiteMapXml_Click"/>
+
+                            <Separator/>
+                            <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
                             
                             <Separator/>
                             <MenuItem Header="Change SiteMap Attribute">
