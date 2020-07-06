@@ -286,8 +286,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 if (string.Equals(currentAttributeName, IntellisenseContext.IntellisenseContextNamespacePrefix + ":" + IntellisenseContext.NameIntellisenseContextAttributeEntityName, StringComparison.InvariantCultureIgnoreCase)
                     &&
                     (
-                        string.Equals(currentNodeName, Commands.AbstractDynamicCommandXsdSchemas.RootRibbonDiffXml, StringComparison.InvariantCultureIgnoreCase)
-                        || string.Equals(currentNodeName, Commands.AbstractDynamicCommandXsdSchemas.RootRibbonDefinitions, StringComparison.InvariantCultureIgnoreCase)
+                        string.Equals(currentNodeName, Commands.AbstractDynamicCommandXsdSchemas.RibbonDiffXmlRoot, StringComparison.InvariantCultureIgnoreCase)
+                        || string.Equals(currentNodeName, Commands.AbstractDynamicCommandXsdSchemas.RibbonXmlRoot, StringComparison.InvariantCultureIgnoreCase)
                     )
                 )
                 {

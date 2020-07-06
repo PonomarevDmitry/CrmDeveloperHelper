@@ -38,7 +38,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                 , menuCommand
                 , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeFormId
                 , out var attribute
-                , AbstractDynamicCommandXsdSchemas.RootForm
+                , AbstractDynamicCommandXsdSchemas.FormXmlRoot
             );
 
             CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CodeXmlSystemFormGetCurrentCommand);

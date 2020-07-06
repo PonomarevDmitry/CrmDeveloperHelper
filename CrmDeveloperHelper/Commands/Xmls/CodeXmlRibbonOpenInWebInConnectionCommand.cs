@@ -37,8 +37,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                 , menuCommand
                 , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName
                 , out var attribute
-                , AbstractDynamicCommandXsdSchemas.RootRibbonDiffXml
-                , AbstractDynamicCommandXsdSchemas.RootRibbonDefinitions
+                , AbstractDynamicCommandXsdSchemas.RibbonDiffXmlRoot
+                , AbstractDynamicCommandXsdSchemas.RibbonXmlRoot
             );
 
             if (attribute == null || string.IsNullOrEmpty(attribute.Value))

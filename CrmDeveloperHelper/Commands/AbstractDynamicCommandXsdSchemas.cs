@@ -9,71 +9,76 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
     internal abstract class AbstractDynamicCommandXsdSchemas : AbstractDynamicCommand<Tuple<string, string[]>>
     {
-        public const string RootSiteMap = "SiteMap";
+        public const string SiteMapXmlRoot = "SiteMap";
+        public const string SiteMapXmlSchema = "SiteMapXml";
 
-        public const string RootFetch = "fetch";
-        public const string RootGrid = "grid";
-        public const string RootColumnSet = "columnset";
+        public const string FetchSchema = "Fetch.xsd";
 
-        public const string RootSavedQuery = "savedquery";
+        public const string FetchRoot = "fetch";
+        public const string GridRoot = "grid";
+        public const string ColumnSetRoot = "columnset";
+        public const string SavedQueryRoot = "savedquery";
 
-        public static readonly XName RootActivity = XNamespace.Get("http://schemas.microsoft.com/netfx/2009/xaml/activities") + "Activity";
+        public static readonly XName WorkflowActivityRoot = XNamespace.Get("http://schemas.microsoft.com/netfx/2009/xaml/activities") + "Activity";
 
-        public const string RootWebResourceDependencies = "Dependencies";
+        public const string PluginTypeCustomWorkflowActivityInfoSchema = "PluginType CustomWorkflowActivityInfo";
+        public const string PluginTypeCustomWorkflowActivityInfoRoot = "SandboxCustomActivityInfo";
 
-        public const string RootForm = "form";
-        public const string RootRibbonDiffXml = "RibbonDiffXml";
-        public const string RootRibbonDefinitions = "RibbonDefinitions";
+        public const string WebResourceDependencyXmlSchema = "WebResource.DependencyXml.xsd";
+        public const string WebResourceDependencyXmlRoot = "Dependencies";
 
-        public const string SchemaFormXml = "FormXml";
-        public const string SchemaFormXmlManaged = "FormXmlManaged";
+        public const string FormXmlRoot = "form";
+        public const string FormXmlSchema = "FormXml";
+        public const string FormXmlManagedSchema = "FormXmlManaged";
 
-        public const string SchemaModulesContext = "ModulesContext";
+        public const string RibbonSchema = "RibbonXml";
 
-        public const string SchemaManifest = "ManifestSchema.xsd";
+        public const string RibbonDiffXmlRoot = "RibbonDiffXml";
+        public const string RibbonXmlRoot = "RibbonDefinitions";
 
-        public const string SchemaDependencyXml = "DependencyXml.xsd";
+        public const string ModulesContextSchema = "ModulesContext";
 
-        public const string SchemaRibbonXml = "RibbonXml";
-        public const string SchemaFetch = "Fetch.xsd";
-        public const string SchemaSiteMapXml = "SiteMapXml";
-        public const string SchemaVisualizationDataDescription = "VisualizationDataDescription.xsd";
+        public const string ManifestSchema = "ManifestSchema.xsd";
+
+        public const string VisualizationDataDescriptionSchema = "VisualizationDataDescription.xsd";
 
         private static TupleList<string, string[]> ListXsdSchemas { get; } = new TupleList<string, string[]>()
         {
-            {  "CustomizationsSolution", new string[] { "CustomizationsSolution.xsd", "isv.config.xsd", "SiteMapType.xsd", "FormXml.xsd", "RibbonCore.xsd", "RibbonTypes.xsd", "RibbonWSS.xsd", "Fetch.xsd" } }
+            {  FetchSchema, new string[] { "Fetch.xsd" } }
+
+            , {  VisualizationDataDescriptionSchema, new string[] { "VisualizationDataDescription.xsd" } }
+
+            , {  FormXmlSchema, new string[] { "FormXml.xsd", "RibbonCore.xsd", "RibbonTypes.xsd", "RibbonWSS.xsd" } }
+            , {  FormXmlManagedSchema, new string[] { "FormXmlManaged.xsd", "RibbonCore.xsd", "RibbonTypes.xsd", "RibbonWSS.xsd" } }
+
+            , {  PluginTypeCustomWorkflowActivityInfoSchema, new string[] { "PluginType.CustomWorkflowActivityInfo.xsd" } }
+
+            , {  WebResourceDependencyXmlSchema, new string[] { "WebResource.DependencyXml.xsd" } }
+
+            , {  ManifestSchema, new string[] { "ManifestSchema.xsd" } }
+
+            , {  ModulesContextSchema, new string[] { "ModulesContext.xsd", "Fetch.xsd" } }
+
+            , {  RibbonSchema, new string[] { "RibbonCore.xsd", "RibbonTypes.xsd", "RibbonWSS.xsd" } }
+
+            , {  SiteMapXmlSchema, new string[] { "SiteMap.xsd", "SiteMapType.xsd" } }
+
+            , {  "CustomizationsSolution", new string[] { "CustomizationsSolution.xsd", "isv.config.xsd", "SiteMapType.xsd", "FormXml.xsd", "RibbonCore.xsd", "RibbonTypes.xsd", "RibbonWSS.xsd", "Fetch.xsd" } }
             , {  "CustomizationsSolutionManaged", new string[] { "CustomizationsSolution_FormManaged.xsd", "isv.config.xsd", "SiteMapTypeManaged.xsd", "FormXmlManaged.xsd", "RibbonCore.xsd", "RibbonTypes.xsd", "RibbonWSS.xsd", "Fetch.xsd" } }
-
-            , {  SchemaDependencyXml, new string[] { "DependencyXml.xsd" } }
-
-            , {  SchemaFetch, new string[] { "Fetch.xsd" } }
-
-            , {  SchemaFormXml, new string[] { "FormXml.xsd", "RibbonCore.xsd", "RibbonTypes.xsd", "RibbonWSS.xsd" } }
-            , {  SchemaFormXmlManaged, new string[] { "FormXmlManaged.xsd", "RibbonCore.xsd", "RibbonTypes.xsd", "RibbonWSS.xsd" } }
 
             , {  "ImportMapSchema.xsd", new string[] { "ImportMapSchema.xsd" } }
 
-            , {  "isv.config.xsd", new string[] { "isv.config.xsd" } }
-
-            , {  SchemaManifest, new string[] { "ManifestSchema.xsd" } }
-
-            , {  SchemaModulesContext, new string[] { "ModulesContext.xsd", "Fetch.xsd" } }
+            , {  "ISV.config.xsd", new string[] { "isv.config.xsd" } }
 
             , {  "ParameterXml.xsd", new string[] { "ParameterXml.xsd" } }
 
             , {  "ProcessDefinition.xsd", new string[] { "ProcessDefinition.xsd" } }
 
-            , {  "reports.config.xsd", new string[] { "reports.config.xsd" } }
-
-            , {  SchemaRibbonXml, new string[] { "RibbonCore.xsd", "RibbonTypes.xsd", "RibbonWSS.xsd" } }
+            , {  "Reports.config.xsd", new string[] { "reports.config.xsd" } }
 
             , {  "SimilarityRuleCondition.xsd", new string[] { "SimilarityRuleCondition.xsd" } }
 
-            , {  SchemaSiteMapXml, new string[] { "SiteMap.xsd", "SiteMapType.xsd" } }
-
             , {  "TaskBasedFlowXml.xsd", new string[] { "TaskBasedFlowXml.xsd" } }
-
-            , {  SchemaVisualizationDataDescription, new string[] { "VisualizationDataDescription.xsd" } }
         };
 
         protected AbstractDynamicCommandXsdSchemas(OleMenuCommandService commandService, int baseIdStart)
@@ -112,30 +117,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
         {
             string schemas = string.Empty;
 
-            if (string.Equals(docRootName, RootSiteMap, StringComparison.InvariantCultureIgnoreCase))
+            if (string.Equals(docRootName, SiteMapXmlRoot, StringComparison.InvariantCultureIgnoreCase))
             {
-                schemas = SchemaSiteMapXml;
+                schemas = SiteMapXmlSchema;
             }
-            else if (string.Equals(docRootName, RootRibbonDiffXml, StringComparison.InvariantCultureIgnoreCase)
-                || string.Equals(docRootName, RootRibbonDefinitions, StringComparison.InvariantCultureIgnoreCase)
+            else if (string.Equals(docRootName, RibbonDiffXmlRoot, StringComparison.InvariantCultureIgnoreCase)
+                || string.Equals(docRootName, RibbonXmlRoot, StringComparison.InvariantCultureIgnoreCase)
             )
             {
-                schemas = SchemaRibbonXml;
+                schemas = RibbonSchema;
             }
-            else if (string.Equals(docRootName, RootFetch, StringComparison.InvariantCultureIgnoreCase)
-                || string.Equals(docRootName, RootGrid, StringComparison.InvariantCultureIgnoreCase)
-                || string.Equals(docRootName, RootColumnSet, StringComparison.InvariantCultureIgnoreCase)
+            else if (string.Equals(docRootName, FetchRoot, StringComparison.InvariantCultureIgnoreCase)
+                || string.Equals(docRootName, GridRoot, StringComparison.InvariantCultureIgnoreCase)
+                || string.Equals(docRootName, ColumnSetRoot, StringComparison.InvariantCultureIgnoreCase)
             )
             {
-                schemas = SchemaFetch;
+                schemas = FetchSchema;
             }
-            else if (string.Equals(docRootName, RootForm, StringComparison.InvariantCultureIgnoreCase))
+            else if (string.Equals(docRootName, FormXmlRoot, StringComparison.InvariantCultureIgnoreCase))
             {
-                schemas = SchemaFormXml;
+                schemas = FormXmlSchema;
             }
-            else if (string.Equals(docRootName, RootWebResourceDependencies, StringComparison.InvariantCultureIgnoreCase))
+            else if (string.Equals(docRootName, WebResourceDependencyXmlRoot, StringComparison.InvariantCultureIgnoreCase))
             {
-                schemas = SchemaDependencyXml;
+                schemas = WebResourceDependencyXmlSchema;
+            }
+            else if (string.Equals(docRootName, PluginTypeCustomWorkflowActivityInfoRoot, StringComparison.InvariantCultureIgnoreCase))
+            {
+                schemas = PluginTypeCustomWorkflowActivityInfoSchema;
             }
 
             return schemas;

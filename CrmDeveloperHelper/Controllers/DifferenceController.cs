@@ -1162,7 +1162,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     xmlContent
                     , commonConfig
                     , XmlOptionsControls.WebResourceDependencyXmlOptions
-                    , schemaName: AbstractDynamicCommandXsdSchemas.SchemaDependencyXml
+                    , schemaName: AbstractDynamicCommandXsdSchemas.WebResourceDependencyXmlSchema
                     , webResourceName: webResource.Name
                 );
             }

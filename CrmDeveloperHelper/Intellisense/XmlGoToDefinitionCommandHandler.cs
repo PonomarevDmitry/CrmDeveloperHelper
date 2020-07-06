@@ -89,13 +89,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
             string docRootName = doc.Name.ToString();
 
-            if (!string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.RootRibbonDiffXml, StringComparison.InvariantCultureIgnoreCase)
-                && !string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.RootRibbonDefinitions, StringComparison.InvariantCultureIgnoreCase)
-                && !string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.RootWebResourceDependencies, StringComparison.InvariantCultureIgnoreCase)
-                && !string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.RootForm, StringComparison.InvariantCultureIgnoreCase)
-                && !string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.RootGrid, StringComparison.InvariantCultureIgnoreCase)
-                && !string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.RootSavedQuery, StringComparison.InvariantCultureIgnoreCase)
-                && !string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.RootSiteMap, StringComparison.InvariantCultureIgnoreCase)
+            if (!string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.RibbonDiffXmlRoot, StringComparison.InvariantCultureIgnoreCase)
+                && !string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.RibbonXmlRoot, StringComparison.InvariantCultureIgnoreCase)
+                && !string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.WebResourceDependencyXmlRoot, StringComparison.InvariantCultureIgnoreCase)
+                && !string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.FormXmlRoot, StringComparison.InvariantCultureIgnoreCase)
+                && !string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.GridRoot, StringComparison.InvariantCultureIgnoreCase)
+                && !string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.SavedQueryRoot, StringComparison.InvariantCultureIgnoreCase)
+                && !string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.SiteMapXmlRoot, StringComparison.InvariantCultureIgnoreCase)
             )
             {
                 return false;
@@ -182,8 +182,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             string currentNodeName = currentXmlNode.Name.LocalName;
             string currentAttributeName = currentAttr.Span.GetText();
 
-            if (string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.RootRibbonDiffXml, StringComparison.InvariantCultureIgnoreCase)
-                || string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.RootRibbonDefinitions, StringComparison.InvariantCultureIgnoreCase)
+            if (string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.RibbonDiffXmlRoot, StringComparison.InvariantCultureIgnoreCase)
+                || string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.RibbonXmlRoot, StringComparison.InvariantCultureIgnoreCase)
             )
             {
                 if (TryGoToDefinitionInRibbon(snapshot, doc, currentXmlNode, currentNodeName, currentAttributeName, currentValue))
@@ -191,7 +191,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     return true;
                 }
             }
-            else if (string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.RootWebResourceDependencies, StringComparison.InvariantCultureIgnoreCase))
+            else if (string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.WebResourceDependencyXmlRoot, StringComparison.InvariantCultureIgnoreCase))
             {
                 if (string.Equals(currentNodeName, "Library", StringComparison.InvariantCultureIgnoreCase))
                 {
@@ -204,7 +204,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     }
                 }
             }
-            else if (string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.RootForm, StringComparison.InvariantCultureIgnoreCase))
+            else if (string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.FormXmlRoot, StringComparison.InvariantCultureIgnoreCase))
             {
                 if (string.Equals(currentNodeName, "Library", StringComparison.InvariantCultureIgnoreCase))
                 {
@@ -227,8 +227,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     }
                 }
             }
-            else if (string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.RootGrid, StringComparison.InvariantCultureIgnoreCase)
-                || string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.RootSavedQuery, StringComparison.InvariantCultureIgnoreCase)
+            else if (string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.GridRoot, StringComparison.InvariantCultureIgnoreCase)
+                || string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.SavedQueryRoot, StringComparison.InvariantCultureIgnoreCase)
             )
             {
                 if (string.Equals(currentNodeName, "cell", StringComparison.InvariantCultureIgnoreCase))
@@ -242,7 +242,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     }
                 }
             }
-            else if (string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.RootSiteMap, StringComparison.InvariantCultureIgnoreCase))
+            else if (string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.SiteMapXmlRoot, StringComparison.InvariantCultureIgnoreCase))
             {
                 if (string.Equals(currentAttributeName, "Url", StringComparison.InvariantCultureIgnoreCase))
                 {

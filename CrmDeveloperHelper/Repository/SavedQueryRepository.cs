@@ -249,15 +249,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         public static string GetFieldNameByXmlRoot(string rootNodeName)
         {
-            if (string.Equals(rootNodeName, AbstractDynamicCommandXsdSchemas.RootFetch, StringComparison.InvariantCultureIgnoreCase))
+            if (string.Equals(rootNodeName, AbstractDynamicCommandXsdSchemas.FetchRoot, StringComparison.InvariantCultureIgnoreCase))
             {
                 return SavedQuery.Schema.Attributes.fetchxml;
             }
-            else if (string.Equals(rootNodeName, AbstractDynamicCommandXsdSchemas.RootGrid, StringComparison.InvariantCultureIgnoreCase))
+            else if (string.Equals(rootNodeName, AbstractDynamicCommandXsdSchemas.GridRoot, StringComparison.InvariantCultureIgnoreCase))
             {
                 return SavedQuery.Schema.Attributes.layoutxml;
             }
-            else if (string.Equals(rootNodeName, AbstractDynamicCommandXsdSchemas.RootColumnSet, StringComparison.InvariantCultureIgnoreCase))
+            else if (string.Equals(rootNodeName, AbstractDynamicCommandXsdSchemas.ColumnSetRoot, StringComparison.InvariantCultureIgnoreCase))
             {
                 return SavedQuery.Schema.Attributes.columnsetxml;
             }
@@ -267,15 +267,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         public static string GetFieldTitleByXmlRoot(string rootNodeName)
         {
-            if (string.Equals(rootNodeName, AbstractDynamicCommandXsdSchemas.RootFetch, StringComparison.InvariantCultureIgnoreCase))
+            if (string.Equals(rootNodeName, AbstractDynamicCommandXsdSchemas.FetchRoot, StringComparison.InvariantCultureIgnoreCase))
             {
                 return SavedQuery.Schema.Headers.fetchxml;
             }
-            else if (string.Equals(rootNodeName, AbstractDynamicCommandXsdSchemas.RootGrid, StringComparison.InvariantCultureIgnoreCase))
+            else if (string.Equals(rootNodeName, AbstractDynamicCommandXsdSchemas.GridRoot, StringComparison.InvariantCultureIgnoreCase))
             {
                 return SavedQuery.Schema.Headers.layoutxml;
             }
-            else if (string.Equals(rootNodeName, AbstractDynamicCommandXsdSchemas.RootColumnSet, StringComparison.InvariantCultureIgnoreCase))
+            else if (string.Equals(rootNodeName, AbstractDynamicCommandXsdSchemas.ColumnSetRoot, StringComparison.InvariantCultureIgnoreCase))
             {
                 return SavedQuery.Schema.Headers.columnsetxml;
             }
@@ -295,7 +295,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             XmlSchemaSet schemas = new XmlSchemaSet();
 
             {
-                var schemasResources = AbstractDynamicCommandXsdSchemas.GetXsdSchemas(AbstractDynamicCommandXsdSchemas.SchemaFetch);
+                var schemasResources = AbstractDynamicCommandXsdSchemas.GetXsdSchemas(AbstractDynamicCommandXsdSchemas.FetchSchema);
 
                 if (schemasResources != null)
                 {

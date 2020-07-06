@@ -580,7 +580,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             formXml
                             , _commonConfig
                             , XmlOptionsControls.FormXmlOptions
-                            , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFormXml
+                            , schemaName: AbstractDynamicCommandXsdSchemas.FormXmlSchema
                             , formId: idSystemForm
                             , entityName: entityName
                         );

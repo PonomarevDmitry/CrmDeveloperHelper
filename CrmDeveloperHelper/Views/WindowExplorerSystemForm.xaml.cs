@@ -601,7 +601,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         xmlContent
                         , _commonConfig
                         , XmlOptionsControls.FormXmlOptions
-                        , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFormXml
+                        , schemaName: AbstractDynamicCommandXsdSchemas.FormXmlSchema
                         , formId: idSystemForm
                         , entityName: entityName
                     );
@@ -665,7 +665,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             backUpXmlContent
                             , _commonConfig
                             , XmlOptionsControls.FormXmlOptions
-                            , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFormXml
+                            , schemaName: AbstractDynamicCommandXsdSchemas.FormXmlSchema
                             , formId: idSystemForm
                             , entityName: entityName
                         );

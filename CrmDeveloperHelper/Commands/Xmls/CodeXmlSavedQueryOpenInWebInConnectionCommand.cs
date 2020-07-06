@@ -39,9 +39,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                 , menuCommand
                 , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSavedQueryId
                 , out var attribute
-                , AbstractDynamicCommandXsdSchemas.RootFetch
-                , AbstractDynamicCommandXsdSchemas.RootGrid
-                , AbstractDynamicCommandXsdSchemas.RootColumnSet
+                , AbstractDynamicCommandXsdSchemas.FetchRoot
+                , AbstractDynamicCommandXsdSchemas.GridRoot
+                , AbstractDynamicCommandXsdSchemas.ColumnSetRoot
             );
 
             if (attribute == null || !Guid.TryParse(attribute.Value, out _))

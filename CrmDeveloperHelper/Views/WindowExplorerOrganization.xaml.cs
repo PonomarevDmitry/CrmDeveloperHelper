@@ -330,7 +330,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         || string.Equals(fieldTitle, Organization.Schema.Attributes.referencesitemapxml, StringComparison.InvariantCultureIgnoreCase)
                         )
                     {
-                        schemaName = AbstractDynamicCommandXsdSchemas.SchemaSiteMapXml;
+                        schemaName = AbstractDynamicCommandXsdSchemas.SiteMapXmlSchema;
                         xmlOptions = XmlOptionsControls.SiteMapXmlOptions;
                     }
 

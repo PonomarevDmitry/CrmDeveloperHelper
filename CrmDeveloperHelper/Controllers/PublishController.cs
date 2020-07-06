@@ -635,7 +635,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                                 dependencyXml
                                 , commonConfig
                                 , XmlOptionsControls.WebResourceDependencyXmlOptions
-                                , schemaName: Commands.AbstractDynamicCommandXsdSchemas.SchemaDependencyXml
+                                , schemaName: Commands.AbstractDynamicCommandXsdSchemas.WebResourceDependencyXmlSchema
                                 , webResourceName: webResource.Name
                             );
 
@@ -875,7 +875,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             dependencyXml
                             , commonConfig
                             , XmlOptionsControls.WebResourceDependencyXmlOptions
-                            , schemaName: Commands.AbstractDynamicCommandXsdSchemas.SchemaDependencyXml
+                            , schemaName: Commands.AbstractDynamicCommandXsdSchemas.WebResourceDependencyXmlSchema
                             , webResourceName: webResource.Name
                         );
 
@@ -964,7 +964,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             dependencyXml
                             , commonConfig
                             , XmlOptionsControls.WebResourceDependencyXmlOptions
-                            , schemaName: Commands.AbstractDynamicCommandXsdSchemas.SchemaDependencyXml
+                            , schemaName: Commands.AbstractDynamicCommandXsdSchemas.WebResourceDependencyXmlSchema
                             , webResourceName: webResource.Name
                         );
 
@@ -1092,7 +1092,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                                     formXml
                                     , commonConfig
                                     , XmlOptionsControls.FormXmlOptions
-                                    , schemaName: Commands.AbstractDynamicCommandXsdSchemas.SchemaFormXml
+                                    , schemaName: Commands.AbstractDynamicCommandXsdSchemas.FormXmlSchema
                                     , formId: systemForm.Id
                                     , entityName: systemForm.ObjectTypeCode
                                 );

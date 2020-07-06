@@ -124,7 +124,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             result
                             , commonConfig
                             , XmlOptionsControls.SavedQueryXmlOptions
-                            , schemaName: Commands.AbstractDynamicCommandXsdSchemas.SchemaFetch
+                            , schemaName: Commands.AbstractDynamicCommandXsdSchemas.FetchSchema
                         );
                     }
                 }

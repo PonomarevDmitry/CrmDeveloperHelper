@@ -714,7 +714,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             XmlSchemaSet schemas = new XmlSchemaSet();
 
             {
-                var schemasResources = AbstractDynamicCommandXsdSchemas.GetXsdSchemas(AbstractDynamicCommandXsdSchemas.SchemaDependencyXml);
+                var schemasResources = AbstractDynamicCommandXsdSchemas.GetXsdSchemas(AbstractDynamicCommandXsdSchemas.WebResourceDependencyXmlSchema);
 
                 if (schemasResources != null)
                 {
@@ -740,7 +740,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (errors.Count > 0)
             {
-                iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.TextIsNotValidForFieldFormat1, AbstractDynamicCommandXsdSchemas.SchemaDependencyXml);
+                iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.TextIsNotValidForFieldFormat1, AbstractDynamicCommandXsdSchemas.WebResourceDependencyXmlSchema);
 
                 foreach (var item in errors)
                 {

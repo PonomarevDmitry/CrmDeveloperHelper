@@ -39,7 +39,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
             CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRoot(applicationObject
                 , menuCommand
                 , out var doc
-                , AbstractDynamicCommandXsdSchemas.RootSiteMap
+                , AbstractDynamicCommandXsdSchemas.SiteMapXmlRoot
             );
 
             if (doc != null)

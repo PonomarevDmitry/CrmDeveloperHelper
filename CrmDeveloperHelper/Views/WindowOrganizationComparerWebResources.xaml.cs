@@ -879,7 +879,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                                     xml1
                                     , _commonConfig
                                     , XmlOptionsControls.WebResourceDependencyXmlOptions
-                                    , schemaName: AbstractDynamicCommandXsdSchemas.SchemaDependencyXml
+                                    , schemaName: AbstractDynamicCommandXsdSchemas.WebResourceDependencyXmlSchema
                                     , webResourceName: webResource1.Name
                                 );
                             }
@@ -897,7 +897,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                                     xml2
                                     , _commonConfig
                                     , XmlOptionsControls.WebResourceDependencyXmlOptions
-                                    , schemaName: AbstractDynamicCommandXsdSchemas.SchemaDependencyXml
+                                    , schemaName: AbstractDynamicCommandXsdSchemas.WebResourceDependencyXmlSchema
                                     , webResourceName: webResource2.Name
                                 );
                             }
@@ -1185,7 +1185,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             xmlContent
                             , _commonConfig
                             , XmlOptionsControls.WebResourceDependencyXmlOptions
-                            , schemaName: AbstractDynamicCommandXsdSchemas.SchemaDependencyXml
+                            , schemaName: AbstractDynamicCommandXsdSchemas.WebResourceDependencyXmlSchema
                             , webResourceName: webResource.Name
                         );
                     }

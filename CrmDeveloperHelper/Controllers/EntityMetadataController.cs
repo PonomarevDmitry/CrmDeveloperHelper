@@ -961,7 +961,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 ribbonDiffXml
                 , commonConfig
                 , XmlOptionsControls.RibbonXmlOptions
-                , schemaName: AbstractDynamicCommandXsdSchemas.SchemaRibbonXml
+                , schemaName: AbstractDynamicCommandXsdSchemas.RibbonSchema
                 , entityName: entityName ?? string.Empty
             );
 
@@ -1460,7 +1460,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 ribbonDiffXml
                 , commonConfig
                 , XmlOptionsControls.RibbonXmlOptions
-                , schemaName: AbstractDynamicCommandXsdSchemas.SchemaRibbonXml
+                , schemaName: AbstractDynamicCommandXsdSchemas.RibbonSchema
                 , entityName: entityName ?? string.Empty
             );
 

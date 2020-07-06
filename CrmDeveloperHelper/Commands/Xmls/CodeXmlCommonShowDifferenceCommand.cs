@@ -35,34 +35,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                         {
                             string docRootName = doc.Root.Name.ToString();
 
-                            if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootSiteMap, StringComparison.InvariantCultureIgnoreCase))
+                            if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.SiteMapXmlRoot, StringComparison.InvariantCultureIgnoreCase))
                             {
                                 helper.HandleSiteMapDifferenceCommand(null, doc, document.FullName);
                             }
-                            else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootRibbonDiffXml, StringComparison.InvariantCultureIgnoreCase))
+                            else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RibbonDiffXmlRoot, StringComparison.InvariantCultureIgnoreCase))
                             {
                                 helper.HandleRibbonDiffXmlDifferenceCommand(null, doc, document.FullName);
                             }
-                            else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootRibbonDefinitions, StringComparison.InvariantCultureIgnoreCase))
+                            else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RibbonXmlRoot, StringComparison.InvariantCultureIgnoreCase))
                             {
                                 helper.HandleRibbonDifferenceCommand(null, doc, document.FullName);
                             }
-                            else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootFetch, StringComparison.InvariantCultureIgnoreCase)
-                                || string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootGrid, StringComparison.InvariantCultureIgnoreCase)
-                                || string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootColumnSet, StringComparison.InvariantCultureIgnoreCase)
+                            else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.FetchRoot, StringComparison.InvariantCultureIgnoreCase)
+                                || string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.GridRoot, StringComparison.InvariantCultureIgnoreCase)
+                                || string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.ColumnSetRoot, StringComparison.InvariantCultureIgnoreCase)
                             )
                             {
                                 helper.HandleSavedQueryDifferenceCommand(null, doc, document.FullName);
                             }
-                            else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootForm, StringComparison.InvariantCultureIgnoreCase))
+                            else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.FormXmlRoot, StringComparison.InvariantCultureIgnoreCase))
                             {
                                 helper.HandleSystemFormDifferenceCommand(null, doc, document.FullName);
                             }
-                            else if (doc.Root.Name == AbstractDynamicCommandXsdSchemas.RootActivity)
+                            else if (doc.Root.Name == AbstractDynamicCommandXsdSchemas.WorkflowActivityRoot)
                             {
                                 helper.HandleWorkflowDifferenceCommand(null, doc, document.FullName);
                             }
-                            else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootWebResourceDependencies, StringComparison.InvariantCultureIgnoreCase))
+                            else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.WebResourceDependencyXmlRoot, StringComparison.InvariantCultureIgnoreCase))
                             {
                                 helper.HandleWebResourceDependencyXmlDifferenceCommand(null, doc, document.FullName);
                             }
@@ -84,7 +84,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 
             string docRootName = doc.Name.ToString();
 
-            if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootSiteMap, StringComparison.InvariantCultureIgnoreCase))
+            if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.SiteMapXmlRoot, StringComparison.InvariantCultureIgnoreCase))
             {
                 string nameCommand = Properties.CommandNames.CodeXmlSiteMapShowDifferenceCommand;
 
@@ -97,7 +97,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 
                 CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, nameCommand);
             }
-            else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootRibbonDiffXml, StringComparison.InvariantCultureIgnoreCase))
+            else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RibbonDiffXmlRoot, StringComparison.InvariantCultureIgnoreCase))
             {
                 var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName);
 
@@ -115,7 +115,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                     CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, nameCommand);
                 }
             }
-            else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootRibbonDefinitions, StringComparison.InvariantCultureIgnoreCase))
+            else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RibbonXmlRoot, StringComparison.InvariantCultureIgnoreCase))
             {
                 var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName);
 
@@ -133,9 +133,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                     CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, nameCommand);
                 }
             }
-            else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootFetch, StringComparison.InvariantCultureIgnoreCase)
-                || string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootGrid, StringComparison.InvariantCultureIgnoreCase)
-                || string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootColumnSet, StringComparison.InvariantCultureIgnoreCase)
+            else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.FetchRoot, StringComparison.InvariantCultureIgnoreCase)
+                || string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.GridRoot, StringComparison.InvariantCultureIgnoreCase)
+                || string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.ColumnSetRoot, StringComparison.InvariantCultureIgnoreCase)
             )
             {
                 var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSavedQueryId);
@@ -147,7 +147,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                     menuCommand.Enabled = menuCommand.Visible = false;
                 }
             }
-            else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootForm, StringComparison.InvariantCultureIgnoreCase))
+            else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.FormXmlRoot, StringComparison.InvariantCultureIgnoreCase))
             {
                 var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeFormId);
 
@@ -158,7 +158,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                     menuCommand.Enabled = menuCommand.Visible = false;
                 }
             }
-            else if (doc.Name == AbstractDynamicCommandXsdSchemas.RootActivity)
+            else if (doc.Name == AbstractDynamicCommandXsdSchemas.WorkflowActivityRoot)
             {
                 var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWorkflowId);
 
@@ -169,7 +169,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                     menuCommand.Enabled = menuCommand.Visible = false;
                 }
             }
-            else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.RootWebResourceDependencies, StringComparison.InvariantCultureIgnoreCase))
+            else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.WebResourceDependencyXmlRoot, StringComparison.InvariantCultureIgnoreCase))
             {
                 var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWebResourceName);
 

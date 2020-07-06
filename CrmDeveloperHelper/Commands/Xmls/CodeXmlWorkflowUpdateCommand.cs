@@ -35,7 +35,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
             CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(applicationObject, menuCommand
                 , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWorkflowId
                 , out var attribute
-                , AbstractDynamicCommandXsdSchemas.RootActivity
+                , AbstractDynamicCommandXsdSchemas.WorkflowActivityRoot
             );
 
             CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CodeXmlWorkflowUpdateCommand);

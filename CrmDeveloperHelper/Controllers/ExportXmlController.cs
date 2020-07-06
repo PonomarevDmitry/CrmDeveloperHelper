@@ -367,7 +367,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     siteMapXml
                     , commonConfig
                     , XmlOptionsControls.SiteMapXmlOptions
-                    , schemaName: AbstractDynamicCommandXsdSchemas.SchemaSiteMapXml
+                    , schemaName: AbstractDynamicCommandXsdSchemas.SiteMapXmlSchema
                     , siteMapUniqueName: siteMap.SiteMapNameUnique ?? string.Empty
                 );
 
@@ -406,7 +406,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             siteMapXml
                             , commonConfig
                             , XmlOptionsControls.SiteMapXmlOptions
-                            , schemaName: AbstractDynamicCommandXsdSchemas.SchemaSiteMapXml
+                            , schemaName: AbstractDynamicCommandXsdSchemas.SiteMapXmlSchema
                             , siteMapUniqueName: siteMap.SiteMapNameUnique ?? string.Empty
                         );
 
@@ -501,7 +501,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 siteMapXml
                 , commonConfig
                 , XmlOptionsControls.SiteMapXmlOptions
-                , schemaName: AbstractDynamicCommandXsdSchemas.SchemaSiteMapXml
+                , schemaName: AbstractDynamicCommandXsdSchemas.SiteMapXmlSchema
                 , siteMapUniqueName: siteMap.SiteMapNameUnique ?? string.Empty
             );
 
@@ -907,7 +907,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     formXml
                     , commonConfig
                     , XmlOptionsControls.FormXmlOptions
-                    , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFormXml
+                    , schemaName: AbstractDynamicCommandXsdSchemas.FormXmlSchema
                     , entityName: systemForm.ObjectTypeCode
                     , formId: systemForm.Id
                 );
@@ -947,7 +947,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             formXml
                             , commonConfig
                             , XmlOptionsControls.FormXmlOptions
-                            , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFormXml
+                            , schemaName: AbstractDynamicCommandXsdSchemas.FormXmlSchema
                             , formId: systemForm.Id
                             , entityName: systemForm.ObjectTypeCode
                         );
@@ -1048,7 +1048,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 formXml
                 , commonConfig
                 , XmlOptionsControls.FormXmlOptions
-                , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFormXml
+                , schemaName: AbstractDynamicCommandXsdSchemas.FormXmlSchema
                 , formId: systemForm.Id
                 , entityName: systemForm.ObjectTypeCode
             );
@@ -1401,7 +1401,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     xmlContent
                     , commonConfig
                     , XmlOptionsControls.SavedQueryXmlOptions
-                    , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFetch
+                    , schemaName: AbstractDynamicCommandXsdSchemas.FetchSchema
                     , savedQueryId: savedQuery.Id
                     , entityName: savedQuery.ReturnedTypeCode
                 );
@@ -1459,7 +1459,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             xmlContent
                             , commonConfig
                             , XmlOptionsControls.SavedQueryXmlOptions
-                            , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFetch
+                            , schemaName: AbstractDynamicCommandXsdSchemas.FetchSchema
                             , savedQueryId: savedQuery.Id
                             , entityName: savedQuery.ReturnedTypeCode
                         );
@@ -2220,7 +2220,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     dependencyXml
                     , commonConfig
                     , XmlOptionsControls.WebResourceDependencyXmlOptions
-                    , schemaName: AbstractDynamicCommandXsdSchemas.SchemaDependencyXml
+                    , schemaName: AbstractDynamicCommandXsdSchemas.WebResourceDependencyXmlSchema
                     , webResourceName: webResource.Name
                 );
 
@@ -2259,7 +2259,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             dependencyXml
                             , commonConfig
                             , XmlOptionsControls.WebResourceDependencyXmlOptions
-                            , schemaName: AbstractDynamicCommandXsdSchemas.SchemaDependencyXml
+                            , schemaName: AbstractDynamicCommandXsdSchemas.WebResourceDependencyXmlSchema
                             , webResourceName: webResource.Name
                         );
 
@@ -2354,7 +2354,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 dependencyXml
                 , commonConfig
                 , XmlOptionsControls.WebResourceDependencyXmlOptions
-                , schemaName: AbstractDynamicCommandXsdSchemas.SchemaDependencyXml
+                , schemaName: AbstractDynamicCommandXsdSchemas.WebResourceDependencyXmlSchema
                 , webResourceName: webResource.Name
             );
 

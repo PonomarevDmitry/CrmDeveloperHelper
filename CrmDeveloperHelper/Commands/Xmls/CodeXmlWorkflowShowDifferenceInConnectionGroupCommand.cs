@@ -41,7 +41,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                 , menuCommand
                 , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWorkflowId
                 , out var attribute
-                , AbstractDynamicCommandXsdSchemas.RootActivity
+                , AbstractDynamicCommandXsdSchemas.WorkflowActivityRoot
             );
 
             if (attribute == null

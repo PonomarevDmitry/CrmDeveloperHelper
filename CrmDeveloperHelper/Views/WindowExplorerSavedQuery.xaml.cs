@@ -450,7 +450,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             xmlContent
                             , _commonConfig
                             , XmlOptionsControls.SavedQueryXmlOptions
-                            , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFetch
+                            , schemaName: AbstractDynamicCommandXsdSchemas.FetchSchema
                             , savedQueryId: savedQueryId
                             , entityName: entityName
                         );

@@ -37,7 +37,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                 , menuCommand
                 , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeWebResourceName
                 , out var attribute
-                , AbstractDynamicCommandXsdSchemas.RootWebResourceDependencies
+                , AbstractDynamicCommandXsdSchemas.WebResourceDependencyXmlRoot
             );
 
             CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CodeXmlWebResourceDependencyXmlUpdateCommand);

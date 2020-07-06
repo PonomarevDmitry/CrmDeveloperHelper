@@ -487,7 +487,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         siteMapXml
                         , _commonConfig
                         , XmlOptionsControls.SiteMapXmlOptions
-                        , schemaName: AbstractDynamicCommandXsdSchemas.SchemaSiteMapXml
+                        , schemaName: AbstractDynamicCommandXsdSchemas.SiteMapXmlSchema
                         , siteMapUniqueName: nameUnique ?? string.Empty
                     );
 

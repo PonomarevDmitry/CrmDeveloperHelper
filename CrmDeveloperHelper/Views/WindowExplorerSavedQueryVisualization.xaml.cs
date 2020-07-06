@@ -422,7 +422,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     xmlContent = ContentComparerHelper.FormatXmlByConfiguration(
                         xmlContent
                         , _commonConfig, XmlOptionsControls.SavedQueryVisualizationXmlOptions
-                        , schemaName: AbstractDynamicCommandXsdSchemas.SchemaVisualizationDataDescription
+                        , schemaName: AbstractDynamicCommandXsdSchemas.VisualizationDataDescriptionSchema
                     );
 
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));

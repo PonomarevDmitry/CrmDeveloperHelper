@@ -592,7 +592,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             XmlSchemaSet schemas = new XmlSchemaSet();
 
             {
-                var schemasResources = AbstractDynamicCommandXsdSchemas.GetXsdSchemas(AbstractDynamicCommandXsdSchemas.SchemaRibbonXml);
+                var schemasResources = AbstractDynamicCommandXsdSchemas.GetXsdSchemas(AbstractDynamicCommandXsdSchemas.RibbonSchema);
 
                 if (schemasResources != null)
                 {
@@ -618,7 +618,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (errors.Count > 0)
             {
-                iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.TextIsNotValidForFieldFormat1, AbstractDynamicCommandXsdSchemas.SchemaRibbonXml);
+                iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.TextIsNotValidForFieldFormat1, AbstractDynamicCommandXsdSchemas.RibbonSchema);
 
                 foreach (var item in errors)
                 {
@@ -756,7 +756,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     ribbonDiffXml
                     , commonConfig
                     , XmlOptionsControls.RibbonXmlOptions
-                    , schemaName: AbstractDynamicCommandXsdSchemas.SchemaRibbonXml
+                    , schemaName: AbstractDynamicCommandXsdSchemas.RibbonSchema
                     , entityName: entityMetadata?.LogicalName ?? string.Empty
                 );
 

@@ -1622,9 +1622,12 @@
     <Resource Include="Resources\Schemas\CustomizationsSolution_FormManaged.xsd">
       <SubType>Designer</SubType>
     </Resource>
-    <Resource Include="Resources\Schemas\DependencyXml.xsd">
+    <Resource Include="Resources\Schemas\WebResource.DependencyXml.xsd">
       <SubType>Designer</SubType>
     </Resource>
+    <None Include="Resources\Schemas\PluginType.CustomWorkflowActivityInfo.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Resources\Schemas\Examples\PublishXmlExample.xml" />
     <None Include="packages.config" />
     <Resource Include="Resources\Schemas\CustomizationsSolution.xsd">

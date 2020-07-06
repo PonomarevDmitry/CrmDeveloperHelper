@@ -428,7 +428,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             xmlContent
                             , _commonConfig
                             , XmlOptionsControls.CustomControlXmlOptions
-                            , schemaName: AbstractDynamicCommandXsdSchemas.SchemaManifest
+                            , schemaName: AbstractDynamicCommandXsdSchemas.ManifestSchema
                             , customControlId: idCustomControl
                         );
                     }
@@ -492,7 +492,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             backUpXmlContent
                             , _commonConfig
                             , XmlOptionsControls.CustomControlXmlOptions
-                            , schemaName: AbstractDynamicCommandXsdSchemas.SchemaManifest
+                            , schemaName: AbstractDynamicCommandXsdSchemas.ManifestSchema
                             , customControlId: idCustomControl
                         );
                     }

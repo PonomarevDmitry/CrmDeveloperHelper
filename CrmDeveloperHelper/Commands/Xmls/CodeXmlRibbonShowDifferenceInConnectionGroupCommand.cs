@@ -40,7 +40,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                 , menuCommand
                 , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName
                 , out var attribute
-                , AbstractDynamicCommandXsdSchemas.RootRibbonDefinitions
+                , AbstractDynamicCommandXsdSchemas.RibbonXmlRoot
             );
 
             if (attribute != null)
