@@ -52,5 +52,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         RibbonXmlOptions = RibbonFilters | SetIntellisenseContext | SetXmlSchemas | XmlAttributeOnNewLine | SortRibbonCommandsAndRulesById | SortXmlAttributes,
 
         SolutionComponentXmlOptions = SolutionComponentWithManagedInfo | SolutionComponentWithSolutionInfo | SolutionComponentWithUrl,
+
+        PluginTypeCustomWorkflowActivityInfoXmlOptions = SetXmlSchemas | XmlAttributeOnNewLine | SortXmlAttributes,
     }
 }

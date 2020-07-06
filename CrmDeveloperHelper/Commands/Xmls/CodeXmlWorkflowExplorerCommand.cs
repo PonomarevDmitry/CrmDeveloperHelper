@@ -10,7 +10,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
     internal sealed class CodeXmlWorkflowExplorerCommand : AbstractSingleCommand
     {
         private CodeXmlWorkflowExplorerCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.guidCommandSet.CodeXmlWorkflowExplorerCommandId) { }
+            : base(commandService, PackageIds.guidCommandSet.CodeXmlWorkflowExplorerCommandId)
+        {
+        }
 
         public static CodeXmlWorkflowExplorerCommand Instance { get; private set; }
 

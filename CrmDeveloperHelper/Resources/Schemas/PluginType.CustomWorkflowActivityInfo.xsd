@@ -3,85 +3,85 @@
   <xs:element name="SandboxCustomActivityInfo">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="CustomActivityInfo"/>
-        <xs:element ref="Inputs"/>
-        <xs:element ref="Outputs"/>
-        <xs:element ref="AssemblyQualifiedName"/>
-        <xs:element ref="ValidationError"/>
+        <xs:element ref="CustomActivityInfo" />
+        <xs:element ref="Inputs" />
+        <xs:element ref="Outputs" />
+        <xs:element ref="AssemblyQualifiedName" />
+        <xs:element ref="ValidationError" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="CustomActivityInfo">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="Name"/>
-        <xs:element ref="PluginTypeId"/>
-        <xs:element ref="GroupName"/>
-        <xs:element ref="IsNet4"/>
-        <xs:element ref="TypeName"/>
-        <xs:element ref="AssemblyName"/>
-        <xs:element ref="PublicKeyToken"/>
-        <xs:element ref="Culture"/>
-        <xs:element ref="AssemblyVersion"/>
+        <xs:element ref="Name" />
+        <xs:element ref="PluginTypeId" />
+        <xs:element ref="GroupName" />
+        <xs:element ref="IsNet4" />
+        <xs:element ref="TypeName" />
+        <xs:element ref="AssemblyName" />
+        <xs:element ref="PublicKeyToken" />
+        <xs:element ref="Culture" />
+        <xs:element ref="AssemblyVersion" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="PluginTypeId" type="xs:string"/>
-  <xs:element name="GroupName" type="xs:string"/>
-  <xs:element name="IsNet4" type="xs:boolean"/>
-  <xs:element name="AssemblyName" type="xs:NCName"/>
-  <xs:element name="PublicKeyToken" type="xs:NMTOKEN"/>
-  <xs:element name="Culture" type="xs:NCName"/>
-  <xs:element name="AssemblyVersion" type="xs:NMTOKEN"/>
+  <xs:element name="PluginTypeId" type="xs:string" />
+  <xs:element name="GroupName" type="xs:string" />
+  <xs:element name="IsNet4" type="xs:boolean" />
+  <xs:element name="AssemblyName" type="xs:NCName" />
+  <xs:element name="PublicKeyToken" type="xs:NMTOKEN" />
+  <xs:element name="Culture" type="xs:NCName" />
+  <xs:element name="AssemblyVersion" type="xs:NMTOKEN" />
   <xs:element name="Inputs">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" maxOccurs="unbounded" ref="CustomActivityParameterInfo"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="CustomActivityParameterInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="Outputs">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" maxOccurs="unbounded" ref="CustomActivityParameterInfo"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="CustomActivityParameterInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="AssemblyQualifiedName" type="xs:string"/>
+  <xs:element name="AssemblyQualifiedName" type="xs:string" />
   <xs:element name="ValidationError">
-    <xs:complexType/>
+    <xs:complexType />
   </xs:element>
-  <xs:element name="Name" type="xs:string"/>
-  <xs:element name="TypeName" type="xs:string"/>
+  <xs:element name="Name" type="xs:string" />
+  <xs:element name="TypeName" type="xs:string" />
   <xs:element name="CustomActivityParameterInfo">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="Name"/>
-        <xs:element ref="TypeName"/>
-        <xs:element ref="IsInOutArgument"/>
-        <xs:element ref="WorkflowAttributeType"/>
-        <xs:element ref="Required"/>
-        <xs:element minOccurs="0" ref="AttributeName"/>
-        <xs:element ref="DependencyPropertyName"/>
-        <xs:element ref="EntityNames"/>
-        <xs:element minOccurs="0" ref="DefaultValue"/>
-        <xs:element ref="IdentifierDefinition"/>
+        <xs:element ref="Name" />
+        <xs:element ref="TypeName" />
+        <xs:element ref="IsInOutArgument" />
+        <xs:element ref="WorkflowAttributeType" />
+        <xs:element ref="Required" />
+        <xs:element minOccurs="0" ref="AttributeName" />
+        <xs:element ref="DependencyPropertyName" />
+        <xs:element ref="EntityNames" />
+        <xs:element minOccurs="0" ref="DefaultValue" />
+        <xs:element ref="IdentifierDefinition" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="IsInOutArgument" type="xs:boolean"/>
-  <xs:element name="WorkflowAttributeType" type="xs:NCName"/>
-  <xs:element name="Required" type="xs:boolean"/>
-  <xs:element name="AttributeName" type="xs:NCName"/>
-  <xs:element name="DependencyPropertyName" type="xs:NCName"/>
+  <xs:element name="IsInOutArgument" type="xs:boolean" />
+  <xs:element name="WorkflowAttributeType" type="xs:NCName" />
+  <xs:element name="Required" type="xs:boolean" />
+  <xs:element name="AttributeName" type="xs:NCName" />
+  <xs:element name="DependencyPropertyName" type="xs:NCName" />
   <xs:element name="EntityNames">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" ref="string"/>
+        <xs:element minOccurs="0" ref="string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="string" type="xs:NCName"/>
+  <xs:element name="string" type="xs:NCName" />
   <xs:element name="DefaultValue" type="xs:NCName" />
-  <xs:element name="IdentifierDefinition" type="xs:NCName" />
+  <xs:element name="IdentifierDefinition" type="xs:string" />
 </xs:schema>

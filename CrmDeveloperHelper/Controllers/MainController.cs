@@ -489,6 +489,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Workflow
 
+        #region PluginTypeCustomWorkflowActivityInfo
+
+        public void StartPluginTypeCustomWorkflowActivityInfoDifference(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+            => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteDifferencePluginTypeCustomWorkflowActivityInfo, commonConfig, selectedFile);
+
+        public void StartPluginTypeCustomWorkflowActivityInfoDifference(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
+            => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteDifferencePluginTypeCustomWorkflowActivityInfo, commonConfig, doc, filePath);
+
+        public void StartPluginTypeCustomWorkflowActivityInfoGetCurrent(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+            => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteGetPluginTypeCurrentCustomWorkflowActivityInfo, commonConfig, selectedFile);
+
+        #endregion PluginTypeCustomWorkflowActivityInfo
+
         #region RibbonDiff
 
         public void StartRibbonDiffXmlDifference(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)

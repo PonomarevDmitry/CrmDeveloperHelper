@@ -414,6 +414,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                         return true;
                     }
                 }
+                else if (string.Equals(currentAttributeName, "FunctionName", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    var libraryAttribute = currentXmlNode.Attribute("Library");
+
+                    if (libraryAttribute != null && !string.IsNullOrEmpty(libraryAttribute.Value))
+                    {
+                        if (TryOpenWebResourceWithPrefix(libraryAttribute.Value))
+                        {
+                            return true;
+                        }
+                    }
+                }
             }
 
             if (string.Equals(currentNodeName, "JavaScriptFunction", StringComparison.InvariantCultureIgnoreCase))
@@ -423,6 +435,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     if (TryOpenWebResourceWithPrefix(currentValue))
                     {
                         return true;
+                    }
+                }
+                else if (string.Equals(currentAttributeName, "FunctionName", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    var libraryAttribute = currentXmlNode.Attribute("Library");
+
+                    if (libraryAttribute != null && !string.IsNullOrEmpty(libraryAttribute.Value))
+                    {
+                        if (TryOpenWebResourceWithPrefix(libraryAttribute.Value))
+                        {
+                            return true;
+                        }
                     }
                 }
             }

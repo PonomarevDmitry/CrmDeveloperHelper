@@ -206,23 +206,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             }
             else if (string.Equals(docRootName, Commands.AbstractDynamicCommandXsdSchemas.FormXmlRoot, StringComparison.InvariantCultureIgnoreCase))
             {
-                if (string.Equals(currentNodeName, "Library", StringComparison.InvariantCultureIgnoreCase))
+                if ((string.Equals(currentNodeName, "Library", StringComparison.InvariantCultureIgnoreCase) && string.Equals(currentAttributeName, "name", StringComparison.InvariantCultureIgnoreCase))
+                    || (string.Equals(currentNodeName, "Handler", StringComparison.InvariantCultureIgnoreCase) && string.Equals(currentAttributeName, "libraryName", StringComparison.InvariantCultureIgnoreCase))
+                )
                 {
-                    if (string.Equals(currentAttributeName, "name", StringComparison.InvariantCultureIgnoreCase))
+                    if (TryOpenWebResource(currentValue))
                     {
-                        if (TryOpenWebResource(currentValue))
-                        {
-                            return true;
-                        }
+                        return true;
                     }
                 }
-                else if (string.Equals(currentNodeName, "Handler", StringComparison.InvariantCultureIgnoreCase))
+
+                if (string.Equals(currentNodeName, "Handler", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    if (string.Equals(currentAttributeName, "libraryName", StringComparison.InvariantCultureIgnoreCase))
+                    if (string.Equals(currentAttributeName, "functionName", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        if (TryOpenWebResource(currentValue))
+                        var libraryAttribute = currentXmlNode.Attribute("libraryName");
+
+                        if (libraryAttribute != null && !string.IsNullOrEmpty(libraryAttribute.Value))
                         {
-                            return true;
+                            if (TryOpenWebResource(libraryAttribute.Value))
+                            {
+                                return true;
+                            }
                         }
                     }
                 }

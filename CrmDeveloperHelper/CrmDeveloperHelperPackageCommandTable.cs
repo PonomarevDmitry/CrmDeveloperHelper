@@ -521,6 +521,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuXml_GroupWebResourceDependencyXmlUpdate_MenuConnectionDyn_Group = 0x13D7;
 
+            public const int codeMenuXml_GroupPluginTypeCustomWorkflowActivityInfoCurrent = 0x1549;
+
+            public const int codeMenuXml_GroupPluginTypeCustomWorkflowActivityInfoCurrent_MenuGetCurrentDyn = 0x154A;
+
+            public const int codeMenuXml_GroupPluginTypeCustomWorkflowActivityInfoCurrent_MenuGetCurrentDyn_Group = 0x154B;
+
+            public const int codeMenuXml_GroupPluginTypeCustomWorkflowActivityInfoShowDifference = 0x154C;
+
+            public const int codeMenuXml_GroupPluginTypeCustomWorkflowActivityInfoShowDifference_MenuConnectionDyn = 0x154D;
+
+            public const int codeMenuXml_GroupPluginTypeCustomWorkflowActivityInfoShowDifference_MenuConnectionDyn_Group = 0x154E;
+
             public const int codeMenuReport = 0x100B;
 
             public const int codeMenuReport_GroupUpdate = 0x10FE;
@@ -2734,6 +2746,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeXmlWebResourceDependencyXmlGetCurrentInConnectionCommandId = 0x2EAE;
 
+            public const int CodeXmlPluginTypeCustomWorkflowActivityInfoShowDifferenceInConnectionCommandId = 0x45BA;
+
+            public const int CodeXmlPluginTypeCustomWorkflowActivityInfoGetCurrentInConnectionCommandId = 0x45EC;
+
             public const int CodeReportAddToSolutionLastCommandId = 0x00DC;
 
             public const int CodeReportShowDifferenceOriginalBodyTextInConnectionGroupCommandId = 0x0258;
@@ -3368,6 +3384,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int CodeXmlWebResourceDependencyXmlUpdateCommandId = 0x2229;
 
             public const int CodeXmlWebResourceDependencyXmlGetCurrentCommandId = 0x222E;
+
+            public const int CodeXmlPluginTypeCustomWorkflowActivityInfoExplorerCommandId = 0x226F;
+
+            public const int CodeXmlPluginTypeCustomWorkflowActivityInfoShowDifferenceCommandId = 0x2270;
+
+            public const int CodeXmlPluginTypeCustomWorkflowActivityInfoGetCurrentCommandId = 0x2271;
 
             public const int CodeReportLinkCreateCommandId = 0x2009;
 

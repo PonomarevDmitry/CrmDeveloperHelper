@@ -4237,6 +4237,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}: PluginType not founded in CRM: {1}.
+        /// </summary>
+        internal static string PluginTypeNotFoundedInConnectionFormat2 {
+            get {
+                return ResourceManager.GetString("PluginTypeNotFoundedInConnectionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Plugin Types exists ONLY in CRM: {0}..
         /// </summary>
         internal static string PluginTypesExistsOnlyInCRMFormat1 {
@@ -5925,6 +5934,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string XmlAttributeNotValidGuidFormat3 {
             get {
                 return ResourceManager.GetString("XmlAttributeNotValidGuidFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Xml Node {0} is empty or not founded in file: {1}.
+        /// </summary>
+        internal static string XmlNodeIsEmptyOrNotFoundedFormat2 {
+            get {
+                return ResourceManager.GetString("XmlNodeIsEmptyOrNotFoundedFormat2", resourceCulture);
             }
         }
         

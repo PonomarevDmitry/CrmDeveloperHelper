@@ -866,5 +866,17 @@
   <data name="ChangingLinkedSystemFormInEntityEditorFormat1" xml:space="preserve">
     <value>{0} - Changing Linked SystemForm in Entity Editor</value>
   </data>
+
+
+  <data name="UpdatingPluginTypeCustomWorkflowActivityInfoFormat1" xml:space="preserve">
+    <value>{0} - Updating PluginType CustomWorkflowActivityInfo</value>
+  </data>
+  <data name="DifferencePluginTypeCustomWorkflowActivityInfoFormat1" xml:space="preserve">
+    <value>{0} - Difference PluginType CustomWorkflowActivityInfo</value>
+  </data>
+  <data name="GettingPluginTypeCurrentCustomWorkflowActivityInfoFormat1" xml:space="preserve">
+    <value>{0} - Getting PluginType Current CustomWorkflowActivityInfo</value>
+  </data>
+  
   
 </root>

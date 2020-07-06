@@ -154,6 +154,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             await continueAction(service, commonConfig, doc, filePath, getResult.Item2);
         }
 
+        protected async Task CheckAttributeValidateGetEntityExecuteAction<T>(
+            ConnectionData connectionData
+            , CommonConfiguration commonConfig
+            , XDocument doc
+            , string filePath
+            , Func<XDocument, string> primaryIdGetter
+            , Func<ConnectionData, string, string, bool> validatorAttribute
+            , Func<ConnectionData, XDocument, Task<bool>> validatorDocument
+            , Func<IOrganizationServiceExtented, CommonConfiguration, string, Task<Tuple<bool, T>>> entityGetter
+            , Func<IOrganizationServiceExtented, CommonConfiguration, XDocument, string, T, Task> continueAction
+        )
+        {
+            var primaryAttribute = primaryIdGetter(doc);
+
+            if (!validatorAttribute(connectionData, filePath, primaryAttribute))
+            {
+                return;
+            }
+
+            if (validatorDocument != null && !await validatorDocument(connectionData, doc))
+            {
+                return;
+            }
+
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var getResult = await entityGetter(service, commonConfig, primaryAttribute);
+
+            if (!getResult.Item1)
+            {
+                return;
+            }
+
+            await continueAction(service, commonConfig, doc, filePath, getResult.Item2);
+        }
+
         protected async Task ConnectAndExecuteActionAsync(
             ConnectionData connectionData
             , string operationNameFormat

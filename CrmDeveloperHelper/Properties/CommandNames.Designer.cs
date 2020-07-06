@@ -340,6 +340,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open PluginType Explorer.
+        /// </summary>
+        internal static string CodeXmlPluginTypeCustomWorkflowActivityInfoExplorerCommand {
+            get {
+                return ResourceManager.GetString("CodeXmlPluginTypeCustomWorkflowActivityInfoExplorerCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get PluginType Current CustomWorkflowActivityInfo.
+        /// </summary>
+        internal static string CodeXmlPluginTypeCustomWorkflowActivityInfoGetCurrentCommand {
+            get {
+                return ResourceManager.GetString("CodeXmlPluginTypeCustomWorkflowActivityInfoGetCurrentCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Difference PluginType CustomWorkflowActivityInfo.
+        /// </summary>
+        internal static string CodeXmlPluginTypeCustomWorkflowActivityInfoShowDifferenceCommand {
+            get {
+                return ResourceManager.GetString("CodeXmlPluginTypeCustomWorkflowActivityInfoShowDifferenceCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open ApplicationRibbon Explorer.
         /// </summary>
         internal static string CodeXmlRibbonApplicationExplorerCommand {

@@ -654,4 +654,15 @@
   </data>
 
 
+  <data name="CodeXmlPluginTypeCustomWorkflowActivityInfoExplorerCommand" xml:space="preserve">
+    <value>Open PluginType Explorer</value>
+  </data>
+  <data name="CodeXmlPluginTypeCustomWorkflowActivityInfoShowDifferenceCommand" xml:space="preserve">
+    <value>Show Difference PluginType CustomWorkflowActivityInfo</value>
+  </data>
+  <data name="CodeXmlPluginTypeCustomWorkflowActivityInfoGetCurrentCommand" xml:space="preserve">
+    <value>Get PluginType Current CustomWorkflowActivityInfo</value>
+  </data>
+
+
 </root>

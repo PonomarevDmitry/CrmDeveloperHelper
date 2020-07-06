@@ -1030,10 +1030,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             string fileName = EntityFileNameFormatter.GetPluginTypeFileName(service.ConnectionData.Name, pluginType.TypeName, fieldTitle, "xml");
                             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-                            if (ContentComparerHelper.TryParseXml(xmlContent, out var doc))
-                            {
-                                xmlContent = doc.ToString();
-                            }
+                            xmlContent = ContentComparerHelper.FormatXmlByConfiguration(
+                                xmlContent
+                                , commonConfig
+                                , XmlOptionsControls.PluginTypeCustomWorkflowActivityInfoXmlOptions
+                                , schemaName: Commands.AbstractDynamicCommandXsdSchemas.PluginTypeCustomWorkflowActivityInfoSchema
+                            );
 
                             File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
 

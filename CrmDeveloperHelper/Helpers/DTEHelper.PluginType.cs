@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
@@ -143,6 +144,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             this.ActivateOutputWindow(connectionData);
 
             this.Controller.StartAddPluginStep(connectionData, commonConfig, pluginType);
+        }
+
+        public void HandlePluginTypeCustomWorkflowActivityInfoGetCurrentCommand(ConnectionData connectionData, SelectedFile selectedFile)
+        {
+            if (selectedFile == null)
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartPluginTypeCustomWorkflowActivityInfoGetCurrent(conn, commonConfig, selectedFile));
+        }
+
+        public void HandlePluginTypeCustomWorkflowActivityInfoShowDifferenceCommand(ConnectionData connectionData, SelectedFile selectedFile)
+        {
+            if (selectedFile == null)
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartPluginTypeCustomWorkflowActivityInfoDifference(conn, commonConfig, selectedFile));
+        }
+
+        public void HandlePluginTypeCustomWorkflowActivityInfoShowDifferenceCommand(ConnectionData connectionData, XDocument doc, string filePath)
+        {
+            if (doc == null)
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartPluginTypeCustomWorkflowActivityInfoDifference(conn, commonConfig, doc, filePath));
         }
     }
 }

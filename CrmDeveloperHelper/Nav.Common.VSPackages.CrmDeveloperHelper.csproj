@@ -305,6 +305,11 @@
     <Compile Include="Commands\Xmls\CodeXmlCommonCopyToClipboardWithoutSchemaCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlFetchXmlConvertToQueryExpressionCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlFetchXmlPasteFromClipboardCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlPluginTypeCustomWorkflowActivityInfoExplorerCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlPluginTypeCustomWorkflowActivityInfoGetCurrentCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlPluginTypeCustomWorkflowActivityInfoGetCurrentInConnectionCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlPluginTypeCustomWorkflowActivityInfoShowDifferenceCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlPluginTypeCustomWorkflowActivityInfoShowDifferenceInConnectionCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlRibbonDiffXmlGetCurrentCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlRibbonDiffXmlGetCurrentInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlRibbonGetCurrentCommand.cs" />
@@ -1625,9 +1630,9 @@
     <Resource Include="Resources\Schemas\WebResource.DependencyXml.xsd">
       <SubType>Designer</SubType>
     </Resource>
-    <None Include="Resources\Schemas\PluginType.CustomWorkflowActivityInfo.xsd">
+    <Resource Include="Resources\Schemas\PluginType.CustomWorkflowActivityInfo.xsd">
       <SubType>Designer</SubType>
-    </None>
+    </Resource>
     <None Include="Resources\Schemas\Examples\PublishXmlExample.xml" />
     <None Include="packages.config" />
     <Resource Include="Resources\Schemas\CustomizationsSolution.xsd">

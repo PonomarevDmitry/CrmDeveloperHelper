@@ -25,30 +25,30 @@
 
                 <Separator/>
                 <MenuItem Header="Add Plugin Step" Click="mIAddPluginStep_Click" />
-                
+
                 <Separator/>
                 <MenuItem x:Uid="mIOpenPluginTree" Header="Open Plugin Tree" />
                 <MenuItem x:Uid="mIOpenPluginAssemblyExplorer" Header="Open Plugin Assembly Explorer" />
-                
+
                 <Separator/>
                 <MenuItem x:Uid="contMnAddPluginTypeStepsToSolutionLast" Header="Add Steps for PluginType to Last Crm Solution"  />
                 <MenuItem Header="Add Steps for PluginType to Crm Solution" Click="mIAddPluginTypeStepsToSolution_Click" />
-                
+
                 <Separator/>
                 <MenuItem x:Uid="contMnAddPluginAssemblyToSolutionLast" Header="Add PluginAssembly to Last Crm Solution"  />
                 <MenuItem Header="Add PluginAssembly to Crm Solution" Click="AddAssemblyToCrmSolution_Click" />
-                
+
                 <Separator/>
                 <MenuItem x:Uid="contMnAddPluginAssemblyStepsToSolutionLast" Header="Add Steps for PluginAssembly to Last Crm Solution"  />
                 <MenuItem Header="Add Steps for PluginAssembly to Crm Solution" Click="mIAddAssemblyStepsToSolution_Click" />
-                
+
                 <Separator/>
                 <MenuItem Header="Plugin Type Description" Click="mICreatePluginTypeDescription_Click" FontWeight="Bold"/>
                 <MenuItem Header="CustomWorkflowActivityInfo" Click="mIExportCustomWorkflowActivityInfo_Click"/>
-                
+
                 <Separator/>
                 <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
-                
+
                 <Separator/>
                 <MenuItem Header="Dependent Components">
                     <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />
@@ -61,7 +61,7 @@
 
                 <Separator/>
                 <MenuItem x:Uid="miCompareOrganizations" Header="Compare Information with other Organization" />
-                
+
                 <Separator/>
                 <MenuItem Header="Export all Plugin Type Information" Click="btnExportAll_Click"/>
             </ContextMenu>
@@ -73,25 +73,26 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            
+
             <RowDefinition Height="100*" />
-            
+
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <ToolBar x:Name="toolBarHeader" Grid.Row="0">
+            
+            <Button Content="Options" Click="miOptions_Click"/>
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
             <Menu Background="{x:Null}">
+                <MenuItem x:Name="miExplorers" Header="Get Other Entity Information" />
+            </Menu>
 
-                <Menu Background="{x:Null}">
-                    <MenuItem x:Name="miExplorers" Header="Get Other Entity Information" />
-                </Menu>
-
-                <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
-                <Menu Background="{x:Null}">
-                    <MenuItem x:Name="miCompareOrganizations" Header="Compare Information with other Organization" />
-                </Menu>
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+            <Menu Background="{x:Null}">
+                <MenuItem x:Name="miCompareOrganizations" Header="Compare Information with other Organization" />
             </Menu>
         </ToolBar>
 
@@ -185,7 +186,7 @@
                 </DockPanel.Resources>
                 <ToolBarPanel Orientation="Horizontal" >
                     <Button x:Name="btnExportAll" Content="Export all Plugin Type Info" Click="btnExportAll_Click" />
-                    
+
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBExportPluginType" Header="Export Plugin Type Information" >
@@ -197,10 +198,10 @@
 
                             <Separator/>
                             <MenuItem x:Name="mICreatePluginTypeDescription" Header="Plugin Type Description" Click="mICreatePluginTypeDescription_Click"/>
-                            
+
                             <Separator/>
                             <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
-                            
+
                             <Separator/>
                             <MenuItem Header="Dependent Components">
                                 <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />

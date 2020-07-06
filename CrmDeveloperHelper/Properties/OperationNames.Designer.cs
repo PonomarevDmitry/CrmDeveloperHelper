@@ -1033,6 +1033,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Difference PluginType CustomWorkflowActivityInfo.
+        /// </summary>
+        internal static string DifferencePluginTypeCustomWorkflowActivityInfoFormat1 {
+            get {
+                return ResourceManager.GetString("DifferencePluginTypeCustomWorkflowActivityInfoFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Difference Report.
         /// </summary>
         internal static string DifferenceReportFormat1 {
@@ -1425,6 +1434,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string GettingEntityXmlFormat2 {
             get {
                 return ResourceManager.GetString("GettingEntityXmlFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Getting PluginType Current CustomWorkflowActivityInfo.
+        /// </summary>
+        internal static string GettingPluginTypeCurrentCustomWorkflowActivityInfoFormat1 {
+            get {
+                return ResourceManager.GetString("GettingPluginTypeCurrentCustomWorkflowActivityInfoFormat1", resourceCulture);
             }
         }
         
@@ -2172,6 +2190,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string UpdatingPluginAssemblyInWindowFormat1 {
             get {
                 return ResourceManager.GetString("UpdatingPluginAssemblyInWindowFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Updating PluginType CustomWorkflowActivityInfo.
+        /// </summary>
+        internal static string UpdatingPluginTypeCustomWorkflowActivityInfoFormat1 {
+            get {
+                return ResourceManager.GetString("UpdatingPluginTypeCustomWorkflowActivityInfoFormat1", resourceCulture);
             }
         }
         

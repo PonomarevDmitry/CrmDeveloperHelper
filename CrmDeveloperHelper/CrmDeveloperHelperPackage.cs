@@ -385,6 +385,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             #endregion WebResource DependencyXml
 
+            #region PluginType CustomWorkflowActivityInfoExplorer
+
+            CodeXmlPluginTypeCustomWorkflowActivityInfoExplorerCommand.Initialize,
+
+            CodeXmlPluginTypeCustomWorkflowActivityInfoGetCurrentCommand.Initialize,
+            CodeXmlPluginTypeCustomWorkflowActivityInfoGetCurrentInConnectionCommand.Initialize,
+
+            CodeXmlPluginTypeCustomWorkflowActivityInfoShowDifferenceCommand.Initialize,
+            CodeXmlPluginTypeCustomWorkflowActivityInfoShowDifferenceInConnectionCommand.Initialize,
+
+            #endregion PluginType CustomWorkflowActivityInfoExplorer
+
             CodeXmlCommonConvertToJavaScriptCodeCommand.Initialize,
             CodeXmlCommonCopyToClipboardWithoutSchemaCommand.Initialize,
 

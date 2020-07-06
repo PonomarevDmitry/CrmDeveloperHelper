@@ -1,6 +1,8 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using System;
+using System.Linq;
+using System.Xml.XPath;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
@@ -65,6 +67,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                             else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.WebResourceDependencyXmlRoot, StringComparison.InvariantCultureIgnoreCase))
                             {
                                 helper.HandleWebResourceDependencyXmlDifferenceCommand(null, doc, document.FullName);
+                            }
+                            else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.PluginTypeCustomWorkflowActivityInfoRoot, StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                helper.HandlePluginTypeCustomWorkflowActivityInfoShowDifferenceCommand(null, doc, document.FullName);
                             }
                         }
                     }
@@ -176,6 +182,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                 CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CodeXmlWebResourceDependencyXmlShowDifferenceCommand);
 
                 if (attribute == null || string.IsNullOrEmpty(attribute.Value))
+                {
+                    menuCommand.Enabled = menuCommand.Visible = false;
+                }
+            }
+            else if (string.Equals(docRootName, AbstractDynamicCommandXsdSchemas.PluginTypeCustomWorkflowActivityInfoRoot, StringComparison.InvariantCultureIgnoreCase))
+            {
+                var attribute = doc.XPathSelectElements("./CustomActivityInfo/TypeName").Where(e => !string.IsNullOrEmpty(e.Value)).Select(e => e.Value).FirstOrDefault();
+
+                CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CodeXmlPluginTypeCustomWorkflowActivityInfoShowDifferenceCommand);
+
+                if (string.IsNullOrEmpty(attribute))
                 {
                     menuCommand.Enabled = menuCommand.Visible = false;
                 }

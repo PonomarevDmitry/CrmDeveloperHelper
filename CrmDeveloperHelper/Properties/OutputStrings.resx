@@ -366,6 +366,9 @@
   <data name="XmlAttributeIsEmptyFormat2" xml:space="preserve">
     <value>Xml Attribute {0} is empty in file: {1}</value>
   </data>
+  <data name="XmlNodeIsEmptyOrNotFoundedFormat2" xml:space="preserve">
+    <value>Xml Node {0} is empty or not founded in file: {1}</value>
+  </data>
   <data name="SavedQueryNotFoundedFormat2" xml:space="preserve">
     <value>{0}. SavedQuery with id '{1}' not founded.</value>
   </data>
@@ -2204,6 +2207,10 @@
   </data>
   <data name="LoadingSdkMessageProcessingStepImages" xml:space="preserve">
     <value>Loading SdkMessageProcessingStep Images...</value>
+  </data>
+
+  <data name="PluginTypeNotFoundedInConnectionFormat2" xml:space="preserve">
+    <value>{0}: PluginType not founded in CRM: {1}</value>
   </data>
   
   <!--
