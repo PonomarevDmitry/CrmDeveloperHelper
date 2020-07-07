@@ -17,7 +17,11 @@
             </ResourceDictionary.MergedDictionaries>
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
+                <MenuItem Header="Plugin Type Description" Click="mICreatePluginTypeDescription_Click" FontWeight="Bold"/>
+
+                <Separator/>
                 <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
+                <MenuItem Header="CustomWorkflowActivityInfo" Click="mIExportCustomWorkflowActivityInfo_Click"/>
 
                 <Separator />
                 <MenuItem Header="Change PluginType in Editor" Click="mIChangeEntityInEditor_Click"/>
@@ -41,10 +45,6 @@
                 <Separator/>
                 <MenuItem x:Uid="contMnAddPluginAssemblyStepsToSolutionLast" Header="Add Steps for PluginAssembly to Last Crm Solution"  />
                 <MenuItem Header="Add Steps for PluginAssembly to Crm Solution" Click="mIAddAssemblyStepsToSolution_Click" />
-
-                <Separator/>
-                <MenuItem Header="Plugin Type Description" Click="mICreatePluginTypeDescription_Click" FontWeight="Bold"/>
-                <MenuItem Header="CustomWorkflowActivityInfo" Click="mIExportCustomWorkflowActivityInfo_Click"/>
 
                 <Separator/>
                 <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
@@ -82,7 +82,7 @@
         </Grid.RowDefinitions>
 
         <ToolBar x:Name="toolBarHeader" Grid.Row="0">
-            
+
             <Button Content="Options" Click="miOptions_Click"/>
 
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />

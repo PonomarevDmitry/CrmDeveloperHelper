@@ -17,7 +17,11 @@
             </ResourceDictionary.MergedDictionaries>
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
+                <MenuItem Header="Plugin Assembly Description" Click="mICreatePluginAssemblyDescription_Click" FontWeight="Bold"/>
+
+                <Separator/>
                 <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
+                <MenuItem Header="Export Assembly Binary Content" Click="mIExportPluginAssemblyBinaryContent_Click"/>
 
                 <Separator/>
                 <MenuItem x:Uid="mIOpenPluginTree" Header="Open Plugin Tree" />
@@ -40,10 +44,6 @@
 
                 <Separator/>
                 <MenuItem Header="Compare with Local Assembly" Click="mICompareWithLocalAssembly_Click" />
-
-                <Separator/>
-                <MenuItem Header="Plugin Assembly Description" Click="mICreatePluginAssemblyDescription_Click" FontWeight="Bold"/>
-                <MenuItem Header="Export Assembly Binary Content" Click="mIExportPluginAssemblyBinaryContent_Click"/>
 
                 <Separator/>
                 <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
