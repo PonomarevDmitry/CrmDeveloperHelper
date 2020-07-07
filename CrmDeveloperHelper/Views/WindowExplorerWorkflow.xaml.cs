@@ -282,7 +282,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
 
                 {
-                    if (cmBMode.SelectedItem is Workflow.Schema.OptionSets.statuscode comboBoxItem)
+                    if (cmBStatusCode.SelectedItem is Workflow.Schema.OptionSets.statuscode comboBoxItem)
                     {
                         statuscode = comboBoxItem;
                     }
