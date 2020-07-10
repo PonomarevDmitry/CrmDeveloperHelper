@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
-    public sealed class PluginsAndWorkflowLoader
+    internal sealed class PluginsAndWorkflowLoader
     {
         private static readonly string[] AssemblyProbeSubdirectories = new string[4]
         {
@@ -24,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         }
 
-        public AssemblyReaderResult LoadAssembly(string assemblyPath)
+        internal AssemblyReaderResult LoadAssembly(string assemblyPath)
         {
             this._assemblyDirectory = Path.GetDirectoryName(assemblyPath);
 

@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
     [DataContract]
-    public sealed class AssemblyReaderResult
+    internal sealed class AssemblyReaderResult
     {
         [DataMember]
         public string Name { get; set; }

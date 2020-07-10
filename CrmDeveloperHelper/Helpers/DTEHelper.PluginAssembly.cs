@@ -27,16 +27,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartPluginAssemblyAddingProcessingStepsToSolution(conn, commonConfig, projectNames, solutionUniqueName, withSelect));
         }
 
-        public void HandlePluginAssemblyComparingWithLocalAssemblyCommand(ConnectionData connectionData, Project project)
+        public void HandlePluginAssemblyComparingWithLocalAssemblyCommand(ConnectionData connectionData, IEnumerable<Project> projectList)
         {
-            if (project == null || string.IsNullOrEmpty(project.Name))
+            if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
             {
                 return;
             }
 
-            var defaultOutputFilePath = PropertiesHelper.GetOutputFilePath(project);
-
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartPluginAssemblyComparingWithLocalAssembly(conn, commonConfig, project.Name, defaultOutputFilePath));
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartPluginAssemblyComparingWithLocalAssembly(conn, commonConfig, projectList));
         }
 
         public void HandlePluginAssemblyBuildProjectUpdateCommand(ConnectionData connectionData, bool registerPlugins, IEnumerable<Project> projectList)

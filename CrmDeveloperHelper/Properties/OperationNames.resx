@@ -204,6 +204,9 @@
   <data name="ComparingCrmPluginAssemblyAndLocalAssemblyFormat1" xml:space="preserve">
     <value>{0} - Comparing Crm PluginAssembly and Local Assembly</value>
   </data>
+  <data name="BuildingProjectAndComparingCrmPluginAssemblyFormat2" xml:space="preserve">
+    <value>{0} - Project {1} - Building Project and Comparing with Crm PluginAssembly</value>
+  </data>
   <data name="ComparingFilesAndWebResourcesFormat1" xml:space="preserve">
     <value>{0} - Comparing Files and WebResources</value>
   </data>

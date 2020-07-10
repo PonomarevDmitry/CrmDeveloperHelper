@@ -259,6 +259,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Project {1} - Building Project and Comparing with Crm PluginAssembly.
+        /// </summary>
+        internal static string BuildingProjectAndComparingCrmPluginAssemblyFormat2 {
+            get {
+                return ResourceManager.GetString("BuildingProjectAndComparingCrmPluginAssemblyFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Building Project List and Updating PluginAssemblies.
         /// </summary>
         internal static string BuildingProjectAndUpdatingPluginAssemblyFormat1 {

@@ -3941,7 +3941,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var controller = new PluginController(_iWriteToOutput);
 
-            string filePath = await controller.CreateFileWithAssemblyComparing(_commonConfig.FolderForExport, service, nodeItem.PluginAssemblyId.Value, nodeItem.Name, null);
+            string filePath = await controller.SelecteFileCreateFileWithAssemblyComparing(_commonConfig.FolderForExport, service, nodeItem.PluginAssemblyId.Value, nodeItem.Name, null);
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 

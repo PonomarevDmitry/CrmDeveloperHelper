@@ -29,7 +29,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Сравнение сборки плагинов и локальной сборки.
 
-        public async Task ExecuteComparingAssemblyAndCrmSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string projectName, string defaultOutputFilePath)
+        public async Task ExecuteComparingAssemblyAndCrmSolution(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<EnvDTE.Project> projectList)
         {
             string operation = string.Format(Properties.OperationNames.ComparingCrmPluginAssemblyAndLocalAssemblyFormat1, connectionData?.Name);
 
@@ -37,7 +37,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await ComparingAssemblyAndCrmSolution(connectionData, commonConfig, projectName, defaultOutputFilePath);
+                await ComparingAssemblyAndCrmSolution(connectionData, commonConfig, projectList);
             }
             catch (Exception ex)
             {
@@ -49,11 +49,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task ComparingAssemblyAndCrmSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string projectName, string defaultOutputFilePath)
+        private async Task ComparingAssemblyAndCrmSolution(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<EnvDTE.Project> projectList)
         {
-            if (string.IsNullOrEmpty(projectName))
+            if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.AssemblyNameIsEmpty);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoProjectNames);
                 return;
             }
 
@@ -65,40 +65,87 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             var repositoryAssembly = new PluginAssemblyRepository(service);
-
-            var assembly = await repositoryAssembly.FindAssemblyAsync(projectName);
-
-            if (assembly == null)
-            {
-                assembly = await repositoryAssembly.FindAssemblyByLikeNameAsync(projectName);
-            }
-
-            if (assembly == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.PluginAssemblyNotFoundedByNameFormat1, projectName);
-
-                WindowHelper.OpenPluginAssemblyExplorer(
-                    this._iWriteToOutput
-                    , service
-                    , commonConfig
-                    , projectName
-                    );
-
-                return;
-            }
+            var repositoryType = new PluginTypeRepository(service);
 
             commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-            string filePath = await CreateFileWithAssemblyComparing(commonConfig.FolderForExport, service, assembly.Id, assembly.Name, defaultOutputFilePath);
+            foreach (var project in projectList)
+            {
+                string operation = string.Format(
+                    Properties.OperationNames.BuildingProjectAndComparingCrmPluginAssemblyFormat2
+                    , connectionData?.Name
+                    , project.Name
+                );
 
-            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+                this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+                try
+                {
+                    var pluginAssembly = await repositoryAssembly.FindAssemblyAsync(project.Name);
+
+                    if (pluginAssembly == null)
+                    {
+                        pluginAssembly = await repositoryAssembly.FindAssemblyByLikeNameAsync(project.Name);
+                    }
+
+                    if (pluginAssembly == null)
+                    {
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.PluginAssemblyNotFoundedByNameFormat1, project.Name);
+
+                        WindowHelper.OpenPluginAssemblyExplorer(
+                            this._iWriteToOutput
+                            , service
+                            , commonConfig
+                            , project.Name
+                        );
+
+                        continue;
+                    }
+
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.BuildingProjectFormat1, project.Name);
+
+                    var buildResult = await _iWriteToOutput.BuildProjectAsync(project);
+
+                    if (buildResult != 0)
+                    {
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.BuildingProjectFailedFormat1, project.Name);
+                        continue;
+                    }
+
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.BuildingProjectCompletedFormat1, project.Name);
+
+                    string defaultOutputFilePath = PropertiesHelper.GetOutputFilePath(project);
+
+                    if (!File.Exists(defaultOutputFilePath))
+                    {
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, defaultOutputFilePath);
+                        continue;
+                    }
+
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.LoadingAssemblyFromPathFormat1, defaultOutputFilePath);
+
+                    var taskGetPluginTypes = repositoryType.GetPluginTypesAsync(pluginAssembly.Id);
+
+                    string filePath = await CreateFileWithAssemblyComparing(commonConfig.FolderForExport, service, pluginAssembly.Name, taskGetPluginTypes, defaultOutputFilePath);
+
+                    this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+                }
+                catch (Exception ex)
+                {
+                    this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+                }
+                finally
+                {
+                    this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+                }
+            }
         }
 
-        public async Task<string> CreateFileWithAssemblyComparing(string folder, IOrganizationServiceExtented service, Guid idPluginAssembly, string assemblyName, string defaultOutputFilePath)
+        public async Task<string> SelecteFileCreateFileWithAssemblyComparing(string folder, IOrganizationServiceExtented service, Guid idPluginAssembly, string assemblyName, string defaultOutputFilePath)
         {
             var repositoryType = new PluginTypeRepository(service);
 
-            var task = repositoryType.GetPluginTypesAsync(idPluginAssembly);
+            var taskGetPluginTypes = repositoryType.GetPluginTypesAsync(idPluginAssembly);
 
             string assemblyPath = service.ConnectionData.GetLastAssemblyPath(assemblyName);
             List<string> lastPaths = service.ConnectionData.GetAssemblyPaths(assemblyName).ToList();
@@ -161,10 +208,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return string.Empty;
             }
 
-            string filePath = string.Empty;
+            return await CreateFileWithAssemblyComparing(folder, service, assemblyName, taskGetPluginTypes, assemblyPath);
+        }
 
+        public async Task<string> CreateFileWithAssemblyComparing(string folder, IOrganizationServiceExtented service, string assemblyName, Task<List<PluginType>> taskGetPluginTypes, string assemblyPath)
+        {
             service.ConnectionData.AddAssemblyMapping(assemblyName, assemblyPath);
             service.ConnectionData.Save();
+
+            var pluginTypes = await taskGetPluginTypes;
 
             AssemblyReaderResult assemblyCheck = null;
 
@@ -177,8 +229,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 return string.Empty;
             }
-
-            var pluginTypes = await task;
 
             var crmPlugins = new HashSet<string>(pluginTypes.Where(e => !e.IsWorkflowActivity.GetValueOrDefault()).Select(e => e.TypeName), StringComparer.InvariantCultureIgnoreCase);
             var crmWorkflows = new HashSet<string>(pluginTypes.Where(e => e.IsWorkflowActivity.GetValueOrDefault()).Select(e => e.TypeName), StringComparer.InvariantCultureIgnoreCase);
@@ -201,10 +251,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
 
 
-            FillInformation(content, "Plugins ONLY in Crm Assembly {0}", pluginsOnlyInCrm);
-            FillInformation(content, "Workflows ONLY in Crm Assembly {0}", workflowOnlyInCrm);
-            FillInformation(content, "Plugins ONLY in Local Assembly {0}", pluginsOnlyInLocalAssembly);
-            FillInformation(content, "Workflows ONLY in Local Assembly {0}", workflowOnlyInLocalAssembly);
+            FillInformation(content, "PluginTypes ONLY in Crm Assembly {0}", pluginsOnlyInCrm);
+            FillInformation(content, "WorkflowCodeActivities ONLY in Crm Assembly {0}", workflowOnlyInCrm);
+            FillInformation(content, "PluginTypes ONLY in Local Assembly {0}", pluginsOnlyInLocalAssembly);
+            FillInformation(content, "WorkflowCodeActivities ONLY in Local Assembly {0}", workflowOnlyInLocalAssembly);
 
             if (!pluginsOnlyInCrm.Any()
                 && !workflowOnlyInCrm.Any()
@@ -217,13 +267,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 content.AppendLine("No difference in Assemblies.");
             }
 
-            FillInformation(content, "Plugins in Crm Assembly {0}", crmPlugins);
-            FillInformation(content, "Workflows in Crm Assembly {0}", crmWorkflows);
-            FillInformation(content, "Plugins in Local Assembly {0}", assemblyPlugins);
-            FillInformation(content, "Workflows in Local Assembly {0}", assemblyWorkflows);
+            FillInformation(content, "PluginTypes in Crm Assembly {0}", crmPlugins);
+            FillInformation(content, "WorkflowCodeActivities in Crm Assembly {0}", crmWorkflows);
+            FillInformation(content, "PluginTypes in Local Assembly {0}", assemblyPlugins);
+            FillInformation(content, "WorkflowCodeActivities in Local Assembly {0}", assemblyWorkflows);
 
             string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(service.ConnectionData.Name, assemblyName, "Comparing", "txt");
-            filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+            string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
@@ -494,14 +544,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             , bool registerPlugins
         )
         {
-            var assembly = await repositoryAssembly.FindAssemblyAsync(project.Name);
+            var pluginAssembly = await repositoryAssembly.FindAssemblyAsync(project.Name);
 
-            if (assembly == null)
+            if (pluginAssembly == null)
             {
-                assembly = await repositoryAssembly.FindAssemblyByLikeNameAsync(project.Name);
+                pluginAssembly = await repositoryAssembly.FindAssemblyByLikeNameAsync(project.Name);
             }
 
-            if (assembly == null)
+            if (pluginAssembly == null)
             {
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PluginAssemblyNotFoundedByNameFormat1, project.Name);
 
@@ -555,7 +605,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             var crmPlugins = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
             var crmWorkflows = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
-            var pluginTypes = await repositoryType.GetPluginTypesAsync(assembly.Id);
+            var pluginTypes = await repositoryType.GetPluginTypesAsync(pluginAssembly.Id);
 
             foreach (var item in pluginTypes.Where(e => !e.IsWorkflowActivity.GetValueOrDefault()).Select(e => e.TypeName))
             {
@@ -595,7 +645,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     }
                 }
 
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CannotUpdatePluginAssemblyFormat1, assembly.Name);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CannotUpdatePluginAssemblyFormat1, pluginAssembly.Name);
 
                 return;
             }
@@ -607,11 +657,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.UpdatingPluginAssemblyFormat1, service.ConnectionData.Name);
 
-            assembly.Content = Convert.ToBase64String(assemblyLoad.Content);
+            pluginAssembly.Content = Convert.ToBase64String(assemblyLoad.Content);
 
             try
             {
-                await service.UpdateAsync(assembly);
+                await service.UpdateAsync(pluginAssembly);
 
                 if (registerPlugins)
                 {
@@ -622,7 +672,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     {
                         int totalCount = pluginsOnlyInLocalAssembly.Count() + workflowOnlyInLocalAssembly.Count();
 
-                        var assemblyRef = assembly.ToEntityReference();
+                        var assemblyRef = pluginAssembly.ToEntityReference();
 
                         this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.RegisteringNewPluginTypesFormat2, service.ConnectionData.Name, totalCount);
 

@@ -56,7 +56,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
         {
             var selectedProjects = _sourceSelectedProjects.GetSelectedProjects(helper).ToList();
 
-            //helper.HandlePluginAssemblyComparingWithLocalAssemblyCommand(connectionData, selectedProjects.FirstOrDefault());
+            helper.HandlePluginAssemblyComparingWithLocalAssemblyCommand(connectionData, selectedProjects);
         }
 
         protected override void CommandBeforeQueryStatus(DTE2 applicationObject, ConnectionData connectionData, OleMenuCommand menuCommand)

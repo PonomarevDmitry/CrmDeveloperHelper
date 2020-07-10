@@ -50,7 +50,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         #region Public Methods
 
-        public AssemblyReaderResult ReadAssembly(string assemblyPath)
+        internal AssemblyReaderResult ReadAssembly(string assemblyPath)
         {
             try
             {
