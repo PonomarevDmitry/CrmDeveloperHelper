@@ -8,8 +8,12 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 {
@@ -47,7 +51,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
             catch (Exception ex)
             {
-                Helpers.DTEHelper.WriteExceptionToLog(ex);
+                var serializer = new DataContractSerializer(entity.GetType());
+
+                var settings = new XmlWriterSettings
+                {
+                    Indent = true,
+                    Encoding = Encoding.UTF8,
+                };
+
+                var serializeString = new StringBuilder();
+
+                using (var stringWriter = new StringWriter(serializeString))
+                {
+                    using (var xmlWriter = XmlWriter.Create(stringWriter, settings))
+                    {
+                        serializer.WriteObject(xmlWriter, entity);
+                        xmlWriter.Flush();
+                    }
+                }
+
+                Helpers.DTEHelper.WriteExceptionToLog(ex, $"OrganizationServiceExtentedProxy.Create{Environment.NewLine}{serializeString.ToString()}");
                 throw;
             }
         }
@@ -62,7 +85,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
             catch (Exception ex)
             {
-                Helpers.DTEHelper.WriteExceptionToLog(ex);
+                var serializer = new DataContractSerializer(typeof(ColumnSet));
+
+                var settings = new XmlWriterSettings
+                {
+                    Indent = true,
+                    Encoding = Encoding.UTF8,
+                };
+
+                var serializeString = new StringBuilder();
+
+                using (var stringWriter = new StringWriter(serializeString))
+                {
+                    using (var xmlWriter = XmlWriter.Create(stringWriter, settings))
+                    {
+                        serializer.WriteObject(xmlWriter, columnSet);
+                        xmlWriter.Flush();
+                    }
+                }
+
+                Helpers.DTEHelper.WriteExceptionToLog(ex, $"OrganizationServiceExtentedProxy.Retrieve({entityName}, {id}{Environment.NewLine}{serializeString.ToString()}");
                 throw;
             }
         }
@@ -112,7 +154,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
             catch (Exception ex)
             {
-                Helpers.DTEHelper.WriteExceptionToLog(ex);
+                var serializer = new DataContractSerializer(typeof(ColumnSet));
+
+                var settings = new XmlWriterSettings
+                {
+                    Indent = true,
+                    Encoding = Encoding.UTF8,
+                };
+
+                var serializeString = new StringBuilder();
+
+                using (var stringWriter = new StringWriter(serializeString))
+                {
+                    using (var xmlWriter = XmlWriter.Create(stringWriter, settings))
+                    {
+                        serializer.WriteObject(xmlWriter, columnSet);
+                        xmlWriter.Flush();
+                    }
+                }
+
+                Helpers.DTEHelper.WriteExceptionToLog(ex, $"OrganizationServiceExtentedProxy.RetrieveByQuery({entityName}, {id}{Environment.NewLine}{serializeString.ToString()}");
                 throw;
             }
 
@@ -134,7 +195,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
             catch (Exception ex)
             {
-                Helpers.DTEHelper.WriteExceptionToLog(ex);
+                var serializer = new DataContractSerializer(entity.GetType());
+
+                var settings = new XmlWriterSettings
+                {
+                    Indent = true,
+                    Encoding = Encoding.UTF8,
+                };
+
+                var serializeString = new StringBuilder();
+
+                using (var stringWriter = new StringWriter(serializeString))
+                {
+                    using (var xmlWriter = XmlWriter.Create(stringWriter, settings))
+                    {
+                        serializer.WriteObject(xmlWriter, entity);
+                        xmlWriter.Flush();
+                    }
+                }
+
+                Helpers.DTEHelper.WriteExceptionToLog(ex, $"OrganizationServiceExtentedProxy.Update{Environment.NewLine}{serializeString.ToString()}");
                 throw;
             }
         }
@@ -152,7 +232,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
             catch (Exception ex)
             {
-                Helpers.DTEHelper.WriteExceptionToLog(ex);
+                Helpers.DTEHelper.WriteExceptionToLog(ex, $"OrganizationServiceExtentedProxy.Delete({entityName}, {id})");
                 throw;
             }
         }
@@ -235,7 +315,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
             catch (Exception ex)
             {
-                Helpers.DTEHelper.WriteExceptionToLog(ex);
+                var serializer = new DataContractSerializer(request.GetType());
+
+                var settings = new XmlWriterSettings
+                {
+                    Indent = true,
+                    Encoding = Encoding.UTF8,
+                };
+
+                var serializeString = new StringBuilder();
+
+                using (var stringWriter = new StringWriter(serializeString))
+                {
+                    using (var xmlWriter = XmlWriter.Create(stringWriter, settings))
+                    {
+                        serializer.WriteObject(xmlWriter, request);
+                        xmlWriter.Flush();
+                    }
+                }
+
+                Helpers.DTEHelper.WriteExceptionToLog(ex, $"OrganizationServiceExtentedProxy.Execute{Environment.NewLine}{serializeString.ToString()}");
                 throw;
             }
         }
@@ -275,7 +374,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
             catch (Exception ex)
             {
-                Helpers.DTEHelper.WriteExceptionToLog(ex);
+                var serializer = new DataContractSerializer(request.GetType());
+
+                var settings = new XmlWriterSettings
+                {
+                    Indent = true,
+                    Encoding = Encoding.UTF8,
+                };
+
+                var serializeString = new StringBuilder();
+
+                using (var stringWriter = new StringWriter(serializeString))
+                {
+                    using (var xmlWriter = XmlWriter.Create(stringWriter, settings))
+                    {
+                        serializer.WriteObject(xmlWriter, request);
+                        xmlWriter.Flush();
+                    }
+                }
+
+                Helpers.DTEHelper.WriteExceptionToLog(ex, $"OrganizationServiceExtentedProxy.ExecuteWithSyncMetadataHandling{Environment.NewLine}{serializeString.ToString()}");
                 throw;
             }
         }
@@ -327,7 +445,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
             catch (Exception ex)
             {
-                Helpers.DTEHelper.WriteExceptionToLog(ex);
+                var serializer = new DataContractSerializer(queryBase.GetType());
+
+                var settings = new XmlWriterSettings
+                {
+                    Indent = true,
+                    Encoding = Encoding.UTF8,
+                };
+
+                var serializeString = new StringBuilder();
+
+                using (var stringWriter = new StringWriter(serializeString))
+                {
+                    using (var xmlWriter = XmlWriter.Create(stringWriter, settings))
+                    {
+                        serializer.WriteObject(xmlWriter, queryBase);
+                        xmlWriter.Flush();
+                    }
+                }
+
+                Helpers.DTEHelper.WriteExceptionToLog(ex, $"OrganizationServiceExtentedProxy.RetrieveMultiple{Environment.NewLine}{serializeString.ToString()}");
                 throw;
             }
         }
@@ -365,7 +502,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             {
                 if (!string.IsNullOrEmpty(link.LinkToEntityName)
                     && !string.IsNullOrEmpty(link.LinkToAttributeName)
-                    )
+                )
                 {
                     link.Columns = FilterColumns(link.LinkToEntityName, link.Columns);
 
@@ -598,6 +735,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
             catch (Exception ex)
             {
+                var serializer = new DataContractSerializer(query.GetType());
+
+                var settings = new XmlWriterSettings
+                {
+                    Indent = true,
+                    Encoding = Encoding.UTF8,
+                };
+
+                var serializeString = new StringBuilder();
+
+                using (var stringWriter = new StringWriter(serializeString))
+                {
+                    using (var xmlWriter = XmlWriter.Create(stringWriter, settings))
+                    {
+                        serializer.WriteObject(xmlWriter, query);
+                        xmlWriter.Flush();
+                    }
+                }
+
+                Helpers.DTEHelper.WriteExceptionToLog(ex, $"OrganizationServiceExtentedProxy.RetrieveMultipleAll{Environment.NewLine}{serializeString.ToString()}");
                 Helpers.DTEHelper.WriteExceptionToOutput(ConnectionData, ex);
             }
 

@@ -205,8 +205,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             foreach (var item in interfaces)
             {
-                if (string.Equals(item.FullName, "Microsoft.Xrm.Sdk.IPlugin")
-                    || string.Equals(item.FullName, "Microsoft.Xrm.Sdk.IPluginExecutionContext")
+                if (string.Equals(item.FullName, typeof(Microsoft.Xrm.Sdk.IPlugin).FullName)
+                    || string.Equals(item.FullName, typeof(Microsoft.Xrm.Sdk.IPluginExecutionContext).FullName)
                 )
                 {
                     return true;
@@ -220,7 +220,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             if (assemblyType.BaseType != null)
             {
-                if (string.Equals(assemblyType.BaseType.FullName, "System.Activities.CodeActivity"))
+                if (string.Equals(assemblyType.BaseType.FullName, typeof(System.Activities.CodeActivity).FullName))
                 {
                     return true;
                 }

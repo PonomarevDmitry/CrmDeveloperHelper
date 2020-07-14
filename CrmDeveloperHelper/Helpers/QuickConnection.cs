@@ -32,6 +32,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private static IServiceManagement<IDiscoveryService> GetDiscoveryServiceConfiguration(ConnectionData connectionData, Uri uri)
         {
+            SetServicePointProperties(uri);
+
             if (_cacheDiscoveryServiceManagement.ContainsKey(uri))
             {
                 return _cacheDiscoveryServiceManagement[uri];
@@ -61,8 +63,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return null;
         }
 
+        private static void SetServicePointProperties(Uri uri)
+        {
+            var servicePoint = ServicePointManager.FindServicePoint(uri);
+
+            var idleTimeMilliSeconds = 2 * 60 * 60 * 1000;
+
+            servicePoint.MaxIdleTime = idleTimeMilliSeconds;
+            servicePoint.ConnectionLimit = 50;
+
+            servicePoint.SetTcpKeepAlive(true, idleTimeMilliSeconds, 10_000);
+        }
+
         private static IServiceManagement<IOrganizationService> GetOrganizationServiceConfiguration(ConnectionData connectionData, Uri uri)
         {
+            SetServicePointProperties(uri);
+
             if (_cacheOrganizationServiceManagement.ContainsKey(uri))
             {
                 return _cacheOrganizationServiceManagement[uri];
@@ -109,6 +125,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             try
             {
+                IgnoreCertificateValidation();
+
                 var request = WebRequest.Create(uri) as HttpWebRequest;
                 request.Timeout = 5000;
 
