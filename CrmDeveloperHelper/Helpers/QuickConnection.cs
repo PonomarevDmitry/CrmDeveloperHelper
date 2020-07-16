@@ -175,15 +175,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             try
             {
-                var service = ConnectInternal(
-                    connectionData
-                    , withDiscoveryRequest
-                    , out OrganizationDetail organizationDetail
-                );
+                OrganizationServiceProxy serviceProxy = null;
+                OrganizationDetail organizationDetail = null;
 
-                if (service != null)
+                if (!connectionData.TryGetServiceFromPool(out serviceProxy))
                 {
-                    var result = new OrganizationServiceExtentedProxy(service, connectionData);
+                    var connectionResult = await ConnectInternal(connectionData, withDiscoveryRequest);
+
+                    serviceProxy = connectionResult.Item1;
+                    organizationDetail = connectionResult.Item2;
+                }
+
+                if (serviceProxy != null)
+                {
+                    var result = new OrganizationServiceExtentedProxy(serviceProxy, connectionData);
 
                     await LoadOrganizationDataAsync(result, organizationDetail);
 
@@ -215,29 +220,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             try
             {
-                var service = ConnectInternal(
-                    connectionData
-                    , true
-                    , out OrganizationDetail organizationDetail
-                );
+                var connectionResult = await ConnectInternal(connectionData, true);
 
-                if (service != null)
+                OrganizationServiceProxy serviceProxy = connectionResult.Item1;
+                OrganizationDetail organizationDetail = connectionResult.Item2;
+
+                if (serviceProxy != null)
                 {
+                    using (var serviceProxyExt = new OrganizationServiceExtentedProxy(serviceProxy, connectionData))
                     {
-                        WhoAmIResponse whoresponse = (WhoAmIResponse)service.Execute(new WhoAmIRequest());
+                        var whoAmIResponse = await serviceProxyExt.ExecuteAsync<WhoAmIResponse>(new WhoAmIRequest());
 
                         iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WhoAmIRequestExecutedSuccessfully);
 
-                        iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.QuickConnectionOrganizationIdFormat1, whoresponse.OrganizationId);
-                        iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.QuickConnectionBusinessUnitIdFormat1, whoresponse.BusinessUnitId);
-                        iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.QuickConnectionUserIdFormat1, whoresponse.UserId);
+                        iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.QuickConnectionOrganizationIdFormat1, whoAmIResponse.OrganizationId);
+                        iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.QuickConnectionBusinessUnitIdFormat1, whoAmIResponse.BusinessUnitId);
+                        iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.QuickConnectionUserIdFormat1, whoAmIResponse.UserId);
+
+                        await LoadOrganizationDataAsync(serviceProxyExt, organizationDetail, whoAmIResponse);
+
+                        iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, serviceProxyExt.CurrentServiceEndpoint);
                     }
-
-                    var result = new OrganizationServiceExtentedProxy(service, connectionData);
-
-                    await LoadOrganizationDataAsync(result, organizationDetail);
-
-                    iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, result.CurrentServiceEndpoint);
 
                     iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.SuccessfullyConnectedFormat1, connectionData.Name);
 
@@ -260,7 +263,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        private static async Task LoadOrganizationDataAsync(OrganizationServiceExtentedProxy service, OrganizationDetail organizationDetail)
+        private static async Task LoadOrganizationDataAsync(OrganizationServiceExtentedProxy service, OrganizationDetail organizationDetail, WhoAmIResponse whoAmIResponse = null)
         {
             try
             {
@@ -285,7 +288,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         if (string.IsNullOrEmpty(service.ConnectionData.OrganizationUrl)
                             && !string.IsNullOrEmpty(organizationUrlEndpoint)
-                            )
+                        )
                         {
                             service.ConnectionData.OrganizationUrl = organizationUrlEndpoint;
                         }
@@ -297,7 +300,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         if (string.IsNullOrEmpty(service.ConnectionData.PublicUrl)
                             && !string.IsNullOrEmpty(publicUrl)
-                            )
+                        )
                         {
                             service.ConnectionData.PublicUrl = publicUrl;
                         }
@@ -306,9 +309,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (!idOrganization.HasValue)
                 {
-                    WhoAmIResponse whoresponse = await service.ExecuteAsync<WhoAmIResponse>(new WhoAmIRequest());
+                    if (whoAmIResponse == null)
+                    {
+                        whoAmIResponse = await service.ExecuteAsync<WhoAmIResponse>(new WhoAmIRequest());
+                    }
 
-                    idOrganization = whoresponse.OrganizationId;
+                    idOrganization = whoAmIResponse.OrganizationId;
                 }
 
                 service.ConnectionData.DefaultLanguage = string.Empty;
@@ -375,7 +381,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (string.IsNullOrEmpty(service.ConnectionData.PublicUrl)
                     && !string.IsNullOrEmpty(service.ConnectionData.OrganizationUrl)
-                    )
+                )
                 {
                     var orgUrl = service.ConnectionData.OrganizationUrl.TrimEnd('/');
 
@@ -395,20 +401,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        private static OrganizationServiceProxy ConnectInternal(
+        private static async Task<Tuple<OrganizationServiceProxy, OrganizationDetail>> ConnectInternal(
             ConnectionData connectionData
             , bool withDiscoveryRequest
-            , out OrganizationDetail organizationDetail
         )
         {
-            organizationDetail = null;
+            OrganizationServiceProxy serviceProxy = null;
+            OrganizationDetail organizationDetail = null;
 
             Uri orgUri = null;
 
             if ((withDiscoveryRequest || string.IsNullOrEmpty(connectionData.OrganizationUrl))
                 && !string.IsNullOrEmpty(connectionData.DiscoveryUrl)
                 && Uri.TryCreate(connectionData.DiscoveryUrl, UriKind.Absolute, out var discoveryUri)
-                )
+            )
             {
                 var disco = CreateDiscoveryService(connectionData, discoveryUri, connectionData.User?.Username, connectionData.User?.Password);
 
@@ -416,9 +422,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     using (disco)
                     {
-                        var repository = new DiscoveryServiceRepository(disco);
+                        var repositoryDiscoveryService = new DiscoveryServiceRepository(disco);
 
-                        var orgs = repository.DiscoverOrganizations();
+                        var orgs = await repositoryDiscoveryService.DiscoverOrganizationsAsync();
 
                         if (orgs.Count == 1)
                         {
@@ -426,12 +432,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         }
                         else if (orgs.Count > 0)
                         {
-                            organizationDetail = orgs
-                                .FirstOrDefault(a => string.Equals(a.UniqueName, connectionData.UniqueOrgName, StringComparison.InvariantCultureIgnoreCase));
+                            organizationDetail = orgs.FirstOrDefault(a => string.Equals(a.UniqueName, connectionData.UniqueOrgName, StringComparison.InvariantCultureIgnoreCase));
 
                             if (organizationDetail == null)
                             {
-
+                                organizationDetail = orgs.FirstOrDefault();
                             }
                         }
 
@@ -458,29 +463,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     var credentials = GetCredentials(serviceManagement, connectionData.User?.Username, connectionData.User?.Password);
 
-                    OrganizationServiceProxy service = null;
-
                     if (serviceManagement.AuthenticationType != AuthenticationProviderType.ActiveDirectory
-                           && serviceManagement.AuthenticationType != AuthenticationProviderType.None
+                        && serviceManagement.AuthenticationType != AuthenticationProviderType.None
                     )
                     {
                         AuthenticationCredentials tokenCredentials = serviceManagement.Authenticate(credentials);
 
-                        service = new OrganizationServiceProxy(serviceManagement, tokenCredentials.SecurityTokenResponse);
+                        serviceProxy = new OrganizationServiceProxy(serviceManagement, tokenCredentials.SecurityTokenResponse);
                     }
                     else
                     {
-                        service = new OrganizationServiceProxy(serviceManagement, credentials.ClientCredentials);
+                        serviceProxy = new OrganizationServiceProxy(serviceManagement, credentials.ClientCredentials);
                     }
 
-                    service.EnableProxyTypes();
-                    service.Timeout = TimeSpan.FromMinutes(30);
-
-                    return service;
+                    serviceProxy.EnableProxyTypes();
+                    serviceProxy.Timeout = TimeSpan.FromMinutes(30);
                 }
             }
 
-            return null;
+            return Tuple.Create(serviceProxy, organizationDetail);
         }
 
         private static DiscoveryServiceProxy CreateDiscoveryService(ConnectionData connectionData, Uri discoveryUrl, string username, string password)

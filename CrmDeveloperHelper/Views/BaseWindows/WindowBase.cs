@@ -355,9 +355,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         protected override void OnClosed(EventArgs e)
         {
-            SaveConfiguration();
-
             base.OnClosed(e);
+
+            SaveConfiguration();
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

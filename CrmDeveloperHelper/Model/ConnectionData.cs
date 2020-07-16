@@ -1,3 +1,4 @@
+using Microsoft.Xrm.Sdk.Client;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model;
 using System;
@@ -46,6 +47,48 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         public ConnectionConfiguration ConnectionConfiguration { get; set; }
 
         private bool _IsCurrentConnection;
+
+        private ConcurrentDictionary<OrganizationServiceProxy, byte> _servicesInUse;
+        private ConcurrentStack<WeakReferenceByTimeOut<OrganizationServiceProxy>> _servicesFree;
+
+        private static readonly TimeSpan _serviceChacheTime = TimeSpan.FromMinutes(20);
+
+        public bool TryGetServiceFromPool(out OrganizationServiceProxy service)
+        {
+            while (!_servicesFree.IsEmpty)
+            {
+                if (_servicesFree.TryPop(out var weakRef))
+                {
+                    if (weakRef.TryGetTarget(out service))
+                    {
+                        StoreServiceInUse(service);
+
+                        return true;
+                    }
+
+                    weakRef.Dispose();
+                }
+            }
+
+            service = null;
+            return false;
+        }
+
+        public void StoreServiceInUse(OrganizationServiceProxy service)
+        {
+            if (_servicesInUse.ContainsKey(service))
+            {
+                return;
+            }
+
+            _servicesInUse.TryAdd(service, 0);
+        }
+
+        public void ReturnServiceToFree(OrganizationServiceProxy service)
+        {
+            _servicesInUse.TryRemove(service, out _);
+            _servicesFree.Push(new WeakReferenceByTimeOut<OrganizationServiceProxy>(service, _serviceChacheTime));
+        }
 
         public bool IsCurrentConnection
         {
@@ -801,6 +844,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.TraceReaderLastFolders = new ObservableCollection<string>();
             this.TraceReaderSelectedFolders = new ObservableCollection<string>();
 
+            this._servicesFree = new ConcurrentStack<WeakReferenceByTimeOut<OrganizationServiceProxy>>();
+            this._servicesInUse = new ConcurrentDictionary<OrganizationServiceProxy, byte>();
+
             this.ServiceContextName = "XrmServiceContext";
         }
 
@@ -874,6 +920,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             if (this.TraceReaderSelectedFolders == null)
             {
                 this.TraceReaderSelectedFolders = new ObservableCollection<string>();
+            }
+
+            if (this._servicesFree == null)
+            {
+                this._servicesFree = new ConcurrentStack<WeakReferenceByTimeOut<OrganizationServiceProxy>>();
+            }
+
+            if (_servicesInUse == null)
+            {
+                this._servicesInUse = new ConcurrentDictionary<OrganizationServiceProxy, byte>();
             }
         }
 

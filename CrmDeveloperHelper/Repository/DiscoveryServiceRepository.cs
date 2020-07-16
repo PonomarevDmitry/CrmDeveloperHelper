@@ -1,8 +1,4 @@
 ﻿using Microsoft.Xrm.Sdk.Discovery;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
@@ -21,10 +17,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return Task.Run(() => DiscoverOrganizations());
         }
 
-        public OrganizationDetailCollection DiscoverOrganizations()
+        private OrganizationDetailCollection DiscoverOrganizations()
         {
-            RetrieveOrganizationsRequest request = new RetrieveOrganizationsRequest();
-            RetrieveOrganizationsResponse response = (RetrieveOrganizationsResponse)_service.Execute(request);
+            var request = new RetrieveOrganizationsRequest();
+            var response = (RetrieveOrganizationsResponse)_service.Execute(request);
 
             return response.Details;
         }

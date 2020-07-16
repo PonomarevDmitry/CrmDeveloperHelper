@@ -26,6 +26,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     var form = windowGetter();
 
                     form.ShowDialog();
+
+                    form.Close();
                 }
                 catch (Exception ex)
                 {

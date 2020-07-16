@@ -17,9 +17,9 @@ using System.Xml;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 {
-    internal class OrganizationServiceExtentedProxy : IOrganizationServiceExtented
+    internal class OrganizationServiceExtentedProxy : IOrganizationServiceExtented, IDisposable
     {
-        private IOrganizationService _service;
+        private OrganizationServiceProxy _serviceProxy;
 
         public string CurrentServiceEndpoint { get; private set; }
 
@@ -27,13 +27,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public ConnectionDataUrlGenerator UrlGenerator { get; private set; }
 
-        public OrganizationServiceExtentedProxy(OrganizationServiceProxy service, ConnectionData connectionData)
+        public OrganizationServiceExtentedProxy(OrganizationServiceProxy serviceProxy, ConnectionData connectionData)
         {
-            this._service = service ?? throw new ArgumentNullException(nameof(service));
+            this._serviceProxy = serviceProxy ?? throw new ArgumentNullException(nameof(serviceProxy));
             this.ConnectionData = connectionData ?? throw new ArgumentNullException(nameof(connectionData));
             this.UrlGenerator = new ConnectionDataUrlGenerator(this);
 
-            this.CurrentServiceEndpoint = service.ServiceManagement?.CurrentServiceEndpoint?.Address?.Uri?.ToString();
+            this.CurrentServiceEndpoint = serviceProxy.ServiceManagement?.CurrentServiceEndpoint?.Address?.Uri?.ToString();
+
+            this.ConnectionData.StoreServiceInUse(serviceProxy);
         }
 
         public Task<Guid> CreateAsync(Entity entity)
@@ -47,7 +49,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             {
                 FilterAttributes(entity);
 
-                return _service.Create(entity);
+                return _serviceProxy.Create(entity);
             }
             catch (Exception ex)
             {
@@ -81,7 +83,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             {
                 columnSet = FilterColumns(entityName, columnSet);
 
-                return _service.Retrieve(entityName, id, columnSet);
+                return _serviceProxy.Retrieve(entityName, id, columnSet);
             }
             catch (Exception ex)
             {
@@ -191,7 +193,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             {
                 FilterAttributes(entity);
 
-                _service.Update(entity);
+                _serviceProxy.Update(entity);
             }
             catch (Exception ex)
             {
@@ -228,7 +230,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         {
             try
             {
-                _service.Delete(entityName, id);
+                _serviceProxy.Delete(entityName, id);
             }
             catch (Exception ex)
             {
@@ -284,7 +286,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         {
             try
             {
-                var response = _service.Execute(request);
+                var response = _serviceProxy.Execute(request);
 
                 if (response is RetrieveEntityResponse retrieveEntityResponse && retrieveEntityResponse.EntityMetadata != null)
                 {
@@ -343,7 +345,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         {
             try
             {
-                var response = _service.Execute(request);
+                var response = _serviceProxy.Execute(request);
 
                 if (response is RetrieveEntityResponse retrieveEntityResponse && retrieveEntityResponse.EntityMetadata != null)
                 {
@@ -402,7 +404,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         {
             try
             {
-                _service.Associate(entityName, entityId, relationship, relatedEntities);
+                _serviceProxy.Associate(entityName, entityId, relationship, relatedEntities);
             }
             catch (Exception ex)
             {
@@ -415,7 +417,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         {
             try
             {
-                _service.Disassociate(entityName, entityId, relationship, relatedEntities);
+                _serviceProxy.Disassociate(entityName, entityId, relationship, relatedEntities);
             }
             catch (Exception ex)
             {
@@ -441,7 +443,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                     FilterOrders(query.EntityName, query.Orders);
                 }
 
-                return _service.RetrieveMultiple(queryBase);
+                return _serviceProxy.RetrieveMultiple(queryBase);
             }
             catch (Exception ex)
             {
@@ -720,7 +722,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             {
                 while (true)
                 {
-                    var coll = _service.RetrieveMultiple(query);
+                    var coll = _serviceProxy.RetrieveMultiple(query);
 
                     result.AddRange(coll.Entities.Select(e => e.ToEntity<T>()));
 
@@ -765,5 +767,43 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         {
             return Task.Run(() => RetrieveMultipleAll<T>(query));
         }
+
+        #region IDisposable Support
+
+        private bool disposedValue = false;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposedValue)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                // TODO: dispose managed state (managed objects).
+            }
+
+            this.ConnectionData.ReturnServiceToFree(this._serviceProxy);
+
+            // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
+            // TODO: set large fields to null.
+
+            disposedValue = true;
+        }
+
+        ~OrganizationServiceExtentedProxy()
+        {
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+
+            GC.SuppressFinalize(this);
+        }
+
+        #endregion IDisposable Support
     }
 }

@@ -38,6 +38,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             BindingOperations.EnableCollectionSynchronization(connectionData.ConnectionConfiguration.Connections, sysObjectConnections);
         }
 
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+
+            this._connectionCache.Clear();
+        }
+
         protected async Task<IOrganizationServiceExtented> GetOrganizationService(ConnectionData connectionData)
         {
             if (connectionData == null)

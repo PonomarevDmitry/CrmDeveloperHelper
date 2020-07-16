@@ -1052,6 +1052,7 @@
     <Compile Include="Model\Sources\FolderSourceSelectedProjects.cs" />
     <Compile Include="Model\Sources\ProjectSourceSelectedProjects.cs" />
     <Compile Include="Model\Sources\ProjectSourceSelectedProjectSingle.cs" />
+    <Compile Include="Model\WeakReferenceByTimeout.cs" />
     <Compile Include="Model\XsdModels\DependencyXml.Proxy.cs" />
     <Compile Include="Model\XsdModels\FetchXml.Proxy.cs" />
     <Compile Include="Model\FetchXmlRequestParameter.cs" />

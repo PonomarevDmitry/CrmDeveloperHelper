@@ -30,6 +30,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
         }
 
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+
+            this._descriptorCache.Clear();
+        }
+
         protected async Task<SolutionComponentDescriptor> GetSolutionComponentDescriptor(ConnectionData connectionData)
         {
             var service = await GetOrganizationService(connectionData);
