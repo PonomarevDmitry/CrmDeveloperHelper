@@ -31,7 +31,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public bool TryGetTarget(out T target)
         {
-            if (!this._cancellationTokenSource.IsCancellationRequested)
+            if (this._cancellationTokenSource != null && !this._cancellationTokenSource.IsCancellationRequested)
             {
                 this._cancellationTokenSource.Cancel();
             }
@@ -81,7 +81,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 return;
             }
 
-            if (!this._cancellationTokenSource.IsCancellationRequested)
+            if (this._cancellationTokenSource != null && !this._cancellationTokenSource.IsCancellationRequested)
             {
                 this._cancellationTokenSource.Cancel();
             }
