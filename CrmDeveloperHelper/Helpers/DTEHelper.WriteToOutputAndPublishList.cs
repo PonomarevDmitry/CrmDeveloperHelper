@@ -1601,7 +1601,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return this;
         }
 
-        public async System.Threading.Tasks.Task ProcessStartProgramComparerAsync(string filePath1, string filePath2, string fileTitle1, string fileTitle2)
+        public async System.Threading.Tasks.Task ProcessStartProgramComparerAsync(ConnectionData connectionData1, string filePath1, string filePath2, string fileTitle1, string fileTitle2, ConnectionData connectionData2 = null)
         {
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
@@ -1609,26 +1609,45 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (File.Exists(filePath1) && File.Exists(filePath2))
             {
-                this.WriteToOutput(null, string.Empty);
-                this.WriteToOutput(null, string.Empty);
-                this.WriteToOutput(null, string.Empty);
+                this.WriteToOutput(connectionData1, string.Empty);
+                this.WriteToOutput(connectionData1, string.Empty);
+                this.WriteToOutput(connectionData1, string.Empty);
 
-                this.WriteToOutput(null, "Starting Difference Programm for files:");
-                this.WriteToOutput(null, filePath1);
-                this.WriteToOutputFilePathUri(null, filePath1);
-                this.WriteToOutput(null, string.Empty);
-                this.WriteToOutput(null, string.Empty);
-                this.WriteToOutput(null, filePath2);
-                this.WriteToOutputFilePathUri(null, filePath2);
+                this.WriteToOutput(connectionData1, "Starting Difference Programm for files:");
+
+                this.WriteToOutput(connectionData1, filePath1);
+                this.WriteToOutputFilePathUri(connectionData1, filePath1);
+
+                this.WriteToOutput(connectionData1, string.Empty);
+                this.WriteToOutput(connectionData1, string.Empty);
+                this.WriteToOutput(connectionData1, filePath2);
+                this.WriteToOutputFilePathUri(connectionData1, filePath2);
+
+                if (connectionData2 != null)
+                {
+                    this.WriteToOutput(connectionData2, string.Empty);
+                    this.WriteToOutput(connectionData2, string.Empty);
+                    this.WriteToOutput(connectionData2, string.Empty);
+
+                    this.WriteToOutput(connectionData2, "Starting Difference Programm for files:");
+
+                    this.WriteToOutput(connectionData2, filePath1);
+                    this.WriteToOutputFilePathUri(connectionData2, filePath1);
+
+                    this.WriteToOutput(connectionData2, string.Empty);
+                    this.WriteToOutput(connectionData2, string.Empty);
+                    this.WriteToOutput(connectionData2, filePath2);
+                    this.WriteToOutputFilePathUri(connectionData2, filePath2);
+                }
 
                 if (commonConfig.DifferenceProgramExists())
                 {
-                    ProcessStartInfo info = new ProcessStartInfo
+                    var info = new ProcessStartInfo
                     {
                         FileName = string.Format("\"{0}\"", commonConfig.CompareProgram)
                     };
 
-                    StringBuilder arguments = new StringBuilder(commonConfig.CompareArgumentsFormat);
+                    var arguments = new StringBuilder(commonConfig.CompareArgumentsFormat);
 
                     arguments = arguments.Replace("%f1", filePath1);
                     arguments = arguments.Replace("%f2", filePath2);
@@ -1643,7 +1662,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     try
                     {
-                        System.Diagnostics.Process process = System.Diagnostics.Process.Start(info);
+                        var process = System.Diagnostics.Process.Start(info);
 
                         if (process != null)
                         {
@@ -1659,7 +1678,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                     catch (Exception ex)
                     {
-                        this.WriteErrorToOutput(null, ex);
+                        this.WriteErrorToOutput(connectionData1, ex);
+
+                        if (connectionData2 != null)
+                        {
+                            this.WriteErrorToOutput(connectionData2, ex);
+                        }
                     }
                 }
                 else
@@ -1680,12 +1704,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             }
                             else
                             {
-                                this.WriteToOutput(null, "Cannot get OleMenuCommandService.");
+                                this.WriteToOutput(connectionData1, "Cannot get OleMenuCommandService.");
+
+                                if (connectionData2 != null)
+                                {
+                                    this.WriteToOutput(connectionData2, "Cannot get OleMenuCommandService.");
+                                }
                             }
                         }
                         catch (Exception ex)
                         {
-                            this.WriteErrorToOutput(null, ex);
+                            this.WriteErrorToOutput(connectionData1, ex);
+
+                            if (connectionData2 != null)
+                            {
+                                this.WriteErrorToOutput(connectionData2, ex);
+                            }
                         }
                     }
 
@@ -1695,15 +1729,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                     else
                     {
-                        this.WriteToOutput(null, "Cannot execute Visual Studio Diff Program.");
+                        this.WriteToOutput(connectionData1, "Cannot execute Visual Studio Diff Program.");
+
+                        if (connectionData2 != null)
+                        {
+                            this.WriteToOutput(connectionData2, "Cannot execute Visual Studio Diff Program.");
+                        }
                     }
                 }
             }
             else
             {
-                this.OpenFile(null, filePath1);
+                this.OpenFile(connectionData1, filePath1);
 
-                this.OpenFile(null, filePath2);
+                this.OpenFile(connectionData1 ?? connectionData2, filePath2);
             }
         }
 
@@ -1727,21 +1766,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 this.WriteToOutput(null, fileLocalPath);
                 this.WriteToOutputFilePathUri(null, fileLocalPath);
+
                 this.WriteToOutput(null, string.Empty);
                 this.WriteToOutput(null, string.Empty);
                 this.WriteToOutput(null, filePath1);
                 this.WriteToOutputFilePathUri(null, filePath1);
+
                 this.WriteToOutput(null, string.Empty);
                 this.WriteToOutput(null, string.Empty);
                 this.WriteToOutput(null, filePath2);
                 this.WriteToOutputFilePathUri(null, filePath2);
 
-                ProcessStartInfo info = new ProcessStartInfo
+                var info = new ProcessStartInfo
                 {
                     FileName = string.Format("\"{0}\"", commonConfig.CompareProgram)
                 };
 
-                StringBuilder arguments = new StringBuilder(commonConfig.CompareArgumentsThreeWayFormat);
+                var arguments = new StringBuilder(commonConfig.CompareArgumentsThreeWayFormat);
 
                 arguments = arguments.Replace("%fl", fileLocalPath);
                 arguments = arguments.Replace("%f1", filePath1);
@@ -1758,7 +1799,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    System.Diagnostics.Process process = System.Diagnostics.Process.Start(info);
+                    var process = System.Diagnostics.Process.Start(info);
 
                     if (process != null)
                     {

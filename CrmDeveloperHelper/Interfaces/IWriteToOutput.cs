@@ -186,13 +186,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
         IWriteToOutput OpenFolder(ConnectionData connectionData, string folderPath);
 
         /// <summary>
-        /// <see cref="Helpers.DTEHelper.ProcessStartProgramComparerAsync(string, string, string, string)"/>
+        /// <see cref="Helpers.DTEHelper.ProcessStartProgramComparerAsync(ConnectionData, string, string, string, string, ConnectionData)"/>
         /// </summary>
-        /// <param name="file1"></param>
-        /// <param name="file2"></param>
+        /// <param name="filePath1"></param>
+        /// <param name="filePath2"></param>
         /// <param name="fileTitle1"></param>
         /// <param name="fileTitle2"></param>
-        Task ProcessStartProgramComparerAsync(string file1, string file2, string fileTitle1, string fileTitle2);
+        Task ProcessStartProgramComparerAsync(ConnectionData connectionData1, string filePath1, string filePath2, string fileTitle1, string fileTitle2, ConnectionData connectionData2 = null);
 
         /// <summary>
         /// <see cref="Helpers.DTEHelper.ProcessStartProgramComparerThreeWayFile(string, string, string, string, string, string)"/>

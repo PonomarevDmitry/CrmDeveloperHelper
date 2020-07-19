@@ -381,10 +381,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
 
-            string filePath1 = filePath;
-            string fileTitle1 = Path.GetFileName(filePath);
+            string fileLocalPath = filePath;
+            string fileLocalTitle = Path.GetFileName(filePath);
 
-            await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, fileTitle1, fileTitle2);
+            await this._iWriteToOutput.ProcessStartProgramComparerAsync(service.ConnectionData, fileLocalPath, filePath2, fileLocalTitle, fileTitle2);
         }
 
         private async Task UpdateSiteMapXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, SiteMap siteMap)
@@ -922,10 +922,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
 
-            string filePath1 = filePath;
-            string fileTitle1 = Path.GetFileName(filePath);
+            string fileLocalPath = filePath;
+            string fileLocalTitle = Path.GetFileName(filePath);
 
-            await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, fileTitle1, fileTitle2);
+            await this._iWriteToOutput.ProcessStartProgramComparerAsync(service.ConnectionData, fileLocalPath, filePath2, fileLocalTitle, fileTitle2);
         }
 
         private async Task UpdateSystemFormXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, SystemForm systemForm)
@@ -1416,10 +1416,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
 
-            string filePath1 = filePath;
-            string fileTitle1 = Path.GetFileName(filePath);
+            string fileLocalPath = filePath;
+            string fileLocalTitle = Path.GetFileName(filePath);
 
-            await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, fileTitle1, fileTitle2);
+            await this._iWriteToOutput.ProcessStartProgramComparerAsync(service.ConnectionData, fileLocalPath, filePath2, fileLocalTitle, fileTitle2);
         }
 
         private async Task UpdateSavedQueryXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, SavedQuery savedQuery)
@@ -1837,10 +1837,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
 
-            string filePath1 = filePath;
-            string fileTitle1 = Path.GetFileName(filePath);
+            string fileLocalPath = filePath;
+            string fileLocalTitle = Path.GetFileName(filePath);
 
-            await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, fileTitle1, fileTitle2);
+            await this._iWriteToOutput.ProcessStartProgramComparerAsync(service.ConnectionData, fileLocalPath, filePath2, fileLocalTitle, fileTitle2);
         }
 
         private async Task UpdateWorkflowXaml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, Workflow workflow)
@@ -2234,10 +2234,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
 
-            string filePath1 = filePath;
-            string fileTitle1 = Path.GetFileName(filePath);
+            string fileLocalPath = filePath;
+            string fileLocalTitle = Path.GetFileName(filePath);
 
-            await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, fileTitle1, fileTitle2);
+            await this._iWriteToOutput.ProcessStartProgramComparerAsync(service.ConnectionData, fileLocalPath, filePath2, fileLocalTitle, fileTitle2);
         }
 
         private async Task UpdateWebResourceDependencyXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, WebResource webResource)
@@ -2545,10 +2545,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
 
-            string filePath1 = filePath;
-            string fileTitle1 = Path.GetFileName(filePath);
+            string fileLocalPath = filePath;
+            string fileLocalTitle = Path.GetFileName(filePath);
 
-            await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, fileTitle1, fileTitle2);
+            await this._iWriteToOutput.ProcessStartProgramComparerAsync(service.ConnectionData, fileLocalPath, filePath2, fileLocalTitle, fileTitle2);
         }
 
         private Task GetCurrentPluginTypeCustomWorkflowActivityInfoAsync(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, PluginType pluginType)

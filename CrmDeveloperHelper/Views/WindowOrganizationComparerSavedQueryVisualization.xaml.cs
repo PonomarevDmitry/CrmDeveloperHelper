@@ -683,7 +683,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         if (File.Exists(filePath1) && File.Exists(filePath2))
                         {
-                            await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                            await this._iWriteToOutput.ProcessStartProgramComparerAsync(service1.ConnectionData, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2), service2.ConnectionData);
                         }
                         else
                         {
@@ -841,7 +841,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         if (File.Exists(filePath1) && File.Exists(filePath2))
                         {
-                            await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                            await this._iWriteToOutput.ProcessStartProgramComparerAsync(service1.ConnectionData, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2), service2.ConnectionData);
                         }
                         else
                         {

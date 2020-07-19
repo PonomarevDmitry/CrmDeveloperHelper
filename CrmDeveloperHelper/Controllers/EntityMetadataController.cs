@@ -820,8 +820,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 entityName = entityMetadata.LogicalName;
             }
 
-            string filePath1 = filePath;
-            string fileTitle1 = Path.GetFileName(filePath);
+            string fileLocalPath = filePath;
+            string fileLocalTitle = Path.GetFileName(filePath);
 
             string filePath2 = string.Empty;
             string fileTitle2 = string.Empty;
@@ -867,7 +867,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedAppliationRibbonForConnectionFormat2, service.ConnectionData.Name, filePath2);
             }
 
-            await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, fileTitle1, fileTitle2);
+            await this._iWriteToOutput.ProcessStartProgramComparerAsync(service.ConnectionData, fileLocalPath, filePath2, fileLocalTitle, fileTitle2);
         }
 
         #endregion Ribbon Showing Difference
@@ -949,8 +949,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             }
 
-            string filePath1 = filePath;
-            string fileTitle1 = Path.GetFileName(filePath);
+            string fileLocalPath = filePath;
+            string fileLocalTitle = Path.GetFileName(filePath);
 
             string filePath2 = string.Empty;
             string fileTitle2 = string.Empty;
@@ -984,7 +984,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedAppliationRibbonDiffXmlForConnectionFormat2, service.ConnectionData.Name, filePath2);
             }
 
-            await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, fileTitle1, fileTitle2);
+            await this._iWriteToOutput.ProcessStartProgramComparerAsync(service.ConnectionData, fileLocalPath, filePath2, fileLocalTitle, fileTitle2);
         }
 
         #endregion RibbonDiffXml Showing Difference

@@ -1201,7 +1201,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ShowingDifferenceForCorrectedFieldFormat1, fieldName);
 
-            WorkflowRepository repository = new WorkflowRepository(service);
+            var repository = new WorkflowRepository(service);
 
             Workflow workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(fieldName));
 
@@ -1219,7 +1219,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (File.Exists(filePath1) && File.Exists(filePath2))
             {
-                await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                await this._iWriteToOutput.ProcessStartProgramComparerAsync(service.ConnectionData, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
             }
             else
             {

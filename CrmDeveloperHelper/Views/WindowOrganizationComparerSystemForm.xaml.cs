@@ -710,13 +710,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         if (File.Exists(filePath1) && File.Exists(filePath2))
                         {
-                            await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                            await this._iWriteToOutput.ProcessStartProgramComparerAsync(service1.ConnectionData, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2), service2.ConnectionData);
                         }
                         else
                         {
-                            this._iWriteToOutput.PerformAction(null, filePath1);
+                            this._iWriteToOutput.PerformAction(service1.ConnectionData, filePath1);
 
-                            this._iWriteToOutput.PerformAction(null, filePath2);
+                            this._iWriteToOutput.PerformAction(service2.ConnectionData, filePath2);
                         }
                     }
                 }
@@ -787,7 +787,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (File.Exists(filePath1) && File.Exists(filePath2))
                     {
-                        await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                        await this._iWriteToOutput.ProcessStartProgramComparerAsync(service1.ConnectionData, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2), service2.ConnectionData);
                     }
                     else
                     {
@@ -886,7 +886,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         if (File.Exists(filePath1) && File.Exists(filePath2))
                         {
-                            await this._iWriteToOutput.ProcessStartProgramComparerAsync(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                            await this._iWriteToOutput.ProcessStartProgramComparerAsync(service1.ConnectionData, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2), service2.ConnectionData);
                         }
                         else
                         {
@@ -975,18 +975,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                                 if (contentWebResource1 != contentWebResource2)
                                 {
-                                    string localFilePath1 = await CreateWebResourceAsync(_commonConfig.FolderForExport, service1.ConnectionData, resName, webresource1);
-                                    string localFilePath2 = await CreateWebResourceAsync(_commonConfig.FolderForExport, service2.ConnectionData, resName, webresource2);
+                                    string filePath1 = await CreateWebResourceAsync(_commonConfig.FolderForExport, service1.ConnectionData, resName, webresource1);
+                                    string filePath2 = await CreateWebResourceAsync(_commonConfig.FolderForExport, service2.ConnectionData, resName, webresource2);
 
-                                    if (File.Exists(localFilePath1) && File.Exists(localFilePath2))
+                                    if (File.Exists(filePath1) && File.Exists(filePath2))
                                     {
-                                        await this._iWriteToOutput.ProcessStartProgramComparerAsync(localFilePath1, localFilePath2, Path.GetFileName(localFilePath1), Path.GetFileName(localFilePath2));
+                                        await this._iWriteToOutput.ProcessStartProgramComparerAsync(service1.ConnectionData, filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2), service2.ConnectionData);
                                     }
                                     else
                                     {
-                                        this._iWriteToOutput.PerformAction(service1.ConnectionData, localFilePath1);
+                                        this._iWriteToOutput.PerformAction(service1.ConnectionData, filePath1);
 
-                                        this._iWriteToOutput.PerformAction(service2.ConnectionData, localFilePath2);
+                                        this._iWriteToOutput.PerformAction(service2.ConnectionData, filePath2);
                                     }
                                 }
                             }
