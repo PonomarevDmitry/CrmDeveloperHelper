@@ -451,6 +451,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 await repository.PublishAllXmlAsync();
 
                 _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PublishingAllCompletedFormat1, service.ConnectionData.Name);
+
+                service.TryDispose();
             }
             catch (Exception ex)
             {

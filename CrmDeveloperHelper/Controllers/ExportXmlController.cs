@@ -387,6 +387,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string fileLocalTitle = Path.GetFileName(filePath);
 
             await this._iWriteToOutput.ProcessStartProgramComparerAsync(service.ConnectionData, fileLocalPath, filePath2, fileLocalTitle, fileTitle2);
+
+            service.TryDispose();
         }
 
         private async Task UpdateSiteMapXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, SiteMap siteMap)
@@ -444,6 +446,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             var repositoryPublish = new PublishActionsRepository(service);
 
             await repositoryPublish.PublishSiteMapsAsync(new[] { siteMap.Id });
+
+            service.TryDispose();
         }
 
         private async Task<bool> ValidateDocumentSiteMapXml(ConnectionData connectionData, XDocument doc)
@@ -481,7 +485,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private Task OpenInWebSiteMapXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, SiteMap siteMap)
         {
-            return Task.Run(() => service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.SiteMap, siteMap.Id));
+            return Task.Run(() =>
+            {
+                service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.SiteMap, siteMap.Id);
+                service.TryDispose();
+            });
         }
 
         private Task GetCurrentSiteMapXmlAsync(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, SiteMap siteMap)
@@ -525,6 +533,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, currentFilePath);
+
+            service.TryDispose();
         }
 
         #endregion SiteMap
@@ -722,10 +732,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (actionOnComponent == ActionOnComponent.OpenInWeb)
             {
                 service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.SystemForm, formId);
+                service.TryDispose();
             }
             else if (actionOnComponent == ActionOnComponent.OpenDependentComponentsInWeb)
             {
                 service.ConnectionData.OpenSolutionComponentDependentComponentsInWeb(ComponentType.SystemForm, formId);
+                service.TryDispose();
             }
             else if (actionOnComponent == ActionOnComponent.OpenDependentComponentsInExplorer)
             {
@@ -812,6 +824,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CopyingEntityJavaScriptContentOnFormCompletedFormat2, systemForm.ObjectTypeCode, systemForm.Name);
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+
+                service.TryDispose();
             }
             catch (Exception ex)
             {
@@ -928,6 +942,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string fileLocalTitle = Path.GetFileName(filePath);
 
             await this._iWriteToOutput.ProcessStartProgramComparerAsync(service.ConnectionData, fileLocalPath, filePath2, fileLocalTitle, fileTitle2);
+
+            service.TryDispose();
         }
 
         private async Task UpdateSystemFormXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, SystemForm systemForm)
@@ -991,6 +1007,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, systemForm.ObjectTypeCode);
                 await repositoryPublish.PublishEntitiesAsync(new[] { systemForm.ObjectTypeCode });
             }
+
+            service.TryDispose();
         }
 
         private async Task<bool> ValidateDocumentSystemFormXml(ConnectionData connectionData, XDocument doc)
@@ -1028,7 +1046,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private Task OpenInWebSystemFormXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, SystemForm systemForm)
         {
-            return Task.Run(() => service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.SystemForm, systemForm.Id));
+            return Task.Run(() =>
+            {
+                service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.SystemForm, systemForm.Id);
+                service.TryDispose();
+            });
         }
 
         private Task GetCurrentSystemFormXmlAsync(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, SystemForm systemForm)
@@ -1073,6 +1095,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, currentFilePath);
+
+            service.TryDispose();
         }
 
         private void GetCurrentSystemFormJson(IOrganizationServiceExtented service, CommonConfiguration commonConfig, SystemForm systemForm)
@@ -1105,6 +1129,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, currentFilePath);
+
+            service.TryDispose();
         }
 
         private async Task GetCurrentEntityDescription(IOrganizationServiceExtented service, CommonConfiguration commonConfig, SystemForm systemForm)
@@ -1130,6 +1156,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+            service.TryDispose();
         }
 
         private async Task GetCurrentFormDescription(IOrganizationServiceExtented service, CommonConfiguration commonConfig, SystemForm systemForm)
@@ -1164,6 +1192,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, systemForm.Name, "FormDescription", filePath);
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+                service.TryDispose();
             }
             catch (Exception ex)
             {
@@ -1422,6 +1452,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string fileLocalTitle = Path.GetFileName(filePath);
 
             await this._iWriteToOutput.ProcessStartProgramComparerAsync(service.ConnectionData, fileLocalPath, filePath2, fileLocalTitle, fileTitle2);
+
+            service.TryDispose();
         }
 
         private async Task UpdateSavedQueryXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, SavedQuery savedQuery)
@@ -1513,6 +1545,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 await repositoryPublish.PublishEntitiesAsync(new[] { savedQuery.ReturnedTypeCode });
             }
+
+            service.TryDispose();
         }
 
         private async Task<bool> ValidateDocumentSavedQueryXml(ConnectionData connectionData, XDocument doc)
@@ -1553,7 +1587,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private Task OpenInWebSavedQueryXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, SavedQuery savedQuery)
         {
-            return Task.Run(() => service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.SavedQuery, savedQuery.Id));
+            return Task.Run(() =>
+            {
+                service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.SavedQuery, savedQuery.Id);
+                service.TryDispose();
+            });
         }
 
         private Task GetCurrentSavedQueryXmlAsync(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, SavedQuery savedQuery)
@@ -1585,13 +1623,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 File.WriteAllText(currentFilePath, xmlContent, new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, SavedQuery.Schema.EntityLogicalName, savedQuery.Name, fieldTitle, currentFilePath);
+
+                this._iWriteToOutput.PerformAction(service.ConnectionData, currentFilePath);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-            }
 
-            this._iWriteToOutput.PerformAction(service.ConnectionData, currentFilePath);
+                service.TryDispose();
+            }
         }
 
         #endregion SavedQuery
@@ -1843,6 +1883,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string fileLocalTitle = Path.GetFileName(filePath);
 
             await this._iWriteToOutput.ProcessStartProgramComparerAsync(service.ConnectionData, fileLocalPath, filePath2, fileLocalTitle, fileTitle2);
+
+            service.TryDispose();
         }
 
         private async Task UpdateWorkflowXaml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, Workflow workflow)
@@ -1919,6 +1961,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     Status = new OptionSetValue((int)Workflow.Schema.OptionSets.statuscode.Activated_1_Activated_2),
                 });
             }
+
+            service.TryDispose();
         }
 
         private async Task<bool> ValidateDocumentWorkflowXaml(ConnectionData connectionData, XDocument doc)
@@ -1956,7 +2000,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private Task OpenInWebWorkflowXaml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, Workflow workflow)
         {
-            return Task.Run(() => service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.Workflow, workflow.Id));
+            return Task.Run(() =>
+            {
+                service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.Workflow, workflow.Id);
+                service.TryDispose();
+            });
         }
 
         private Task GetCurrentWorkflowXamlAsync(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, Workflow workflow)
@@ -1994,13 +2042,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 File.WriteAllText(currentFilePath, workflowXaml, new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, Workflow.Schema.EntityLogicalName, workflow.Name, Workflow.Schema.Headers.xaml, currentFilePath);
+
+                this._iWriteToOutput.PerformAction(service.ConnectionData, currentFilePath);
+
+                service.TryDispose();
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
-
-            this._iWriteToOutput.PerformAction(service.ConnectionData, currentFilePath);
         }
 
 
@@ -2240,6 +2290,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string fileLocalTitle = Path.GetFileName(filePath);
 
             await this._iWriteToOutput.ProcessStartProgramComparerAsync(service.ConnectionData, fileLocalPath, filePath2, fileLocalTitle, fileTitle2);
+
+            service.TryDispose();
         }
 
         private async Task UpdateWebResourceDependencyXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, WebResource webResource)
@@ -2297,6 +2349,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PublishingWebResourceFormat2, service.ConnectionData.Name, webResource.Name);
 
             await repositoryPublish.PublishWebResourcesAsync(new[] { webResource.Id });
+
+            service.TryDispose();
         }
 
         private async Task<bool> ValidateDocumentWebResourceDependencyXml(ConnectionData connectionData, XDocument doc)
@@ -2334,7 +2388,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private Task OpenInWebWebResourceDependencyXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, WebResource webResource)
         {
-            return Task.Run(() => service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.WebResource, webResource.Id));
+            return Task.Run(() =>
+            {
+                service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.WebResource, webResource.Id);
+
+                service.TryDispose();
+            });
         }
 
         private Task GetCurrentWebResourceDependencyXmlAsync(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, WebResource webResource)
@@ -2371,13 +2430,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 File.WriteAllText(currentFilePath, dependencyXml, new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, WebResource.Schema.EntityLogicalName, webResource.Name, WebResource.Schema.Headers.dependencyxml, currentFilePath);
+
+                this._iWriteToOutput.PerformAction(service.ConnectionData, currentFilePath);
+
+                service.TryDispose();
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
-
-            this._iWriteToOutput.PerformAction(service.ConnectionData, currentFilePath);
         }
 
         #endregion WebResource DependencyXml
@@ -2551,6 +2612,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string fileLocalTitle = Path.GetFileName(filePath);
 
             await this._iWriteToOutput.ProcessStartProgramComparerAsync(service.ConnectionData, fileLocalPath, filePath2, fileLocalTitle, fileTitle2);
+
+            service.TryDispose();
         }
 
         private Task GetCurrentPluginTypeCustomWorkflowActivityInfoAsync(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, PluginType pluginType)
@@ -2586,13 +2649,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 File.WriteAllText(currentFilePath, customWorkflowActivityInfo, new UTF8Encoding(false));
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, PluginType.Schema.EntitySchemaName, pluginType.TypeName, PluginType.Schema.Headers.customworkflowactivityinfo, currentFilePath);
+
+                this._iWriteToOutput.PerformAction(service.ConnectionData, currentFilePath);
+
+                service.TryDispose();
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
-
-            this._iWriteToOutput.PerformAction(service.ConnectionData, currentFilePath);
         }
 
         #endregion PluginType CustomWorkflowActivityInfo

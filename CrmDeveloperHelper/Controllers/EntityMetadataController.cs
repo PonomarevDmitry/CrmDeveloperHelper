@@ -127,6 +127,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.WriteToOutputFilePathUri(service.ConnectionData, filePath);
 
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operation);
+
+            service.TryDispose();
         }
 
         private async Task GenerateEntityProxyClassFileAsync(
@@ -168,6 +170,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.WriteToOutputFilePathUri(service.ConnectionData, filePath);
 
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operation);
+
+            service.TryDispose();
         }
 
         private async Task GenerateEntityJavaScriptFileAsync(
@@ -204,6 +208,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.WriteToOutputFilePathUri(service.ConnectionData, filePath);
 
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operation);
+
+            service.TryDispose();
         }
 
         #endregion Generating EntityMetadata Files
@@ -467,6 +473,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.WriteToOutputFilePathUri(service.ConnectionData, filePath);
 
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operation);
+
+            service.TryDispose();
         }
 
         private async Task GenerateGlobalOptionSetJavaScriptFile(
@@ -509,6 +517,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.WriteToOutputFilePathUri(service.ConnectionData, filePath);
 
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operation);
+
+            service.TryDispose();
         }
 
         #endregion Generating Global OptionSet Files
@@ -874,6 +884,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             await this._iWriteToOutput.ProcessStartProgramComparerAsync(service.ConnectionData, fileLocalPath, filePath2, fileLocalTitle, fileTitle2);
+
+            service.TryDispose();
         }
 
         #endregion Ribbon Showing Difference
@@ -991,6 +1003,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             await this._iWriteToOutput.ProcessStartProgramComparerAsync(service.ConnectionData, fileLocalPath, filePath2, fileLocalTitle, fileTitle2);
+
+            service.TryDispose();
         }
 
         #endregion RibbonDiffXml Showing Difference
@@ -1106,6 +1120,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             await repositoryRibbonCustomization.PerformUpdateRibbonDiffXml(_iWriteToOutput, commonConfig, doc, entityMetadata, ribbonCustomization);
+
+            service.TryDispose();
         }
 
         #endregion RibbonDiffXml Updating
@@ -1224,6 +1240,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 case ActionOnComponent.OpenInWeb:
                     service.ConnectionData.OpenEntityMetadataInWeb(entityMetadata.MetadataId.Value);
+                    service.TryDispose();
                     break;
 
                 case ActionOnComponent.OpenInExplorer:
@@ -1232,6 +1249,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 case ActionOnComponent.OpenDependentComponentsInWeb:
                     service.ConnectionData.OpenSolutionComponentDependentComponentsInWeb(ComponentType.Entity, entityMetadata.MetadataId.Value);
+                    service.TryDispose();
                     break;
 
                 case ActionOnComponent.OpenDependentComponentsInExplorer:
@@ -1259,6 +1277,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 case ActionOnComponent.OpenListInWeb:
                     service.ConnectionData.OpenEntityInstanceListInWeb(entityName);
+                    service.TryDispose();
                     break;
 
                 case ActionOnComponent.None:
@@ -1375,6 +1394,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, currentFilePath);
+
+            service.TryDispose();
         }
 
         #endregion Ribbon Showing Difference
@@ -1490,6 +1511,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, currentFilePath);
+
+            service.TryDispose();
         }
 
         #endregion RibbonDiffXml Showing Difference
@@ -1677,6 +1700,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             var publishRepository = new PublishActionsRepository(service);
 
             await publishRepository.PublishEntitiesAsync(new[] { entityName });
+
+            service.TryDispose();
         }
     }
 }
