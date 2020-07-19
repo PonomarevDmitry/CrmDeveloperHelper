@@ -16,12 +16,8 @@ using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowAttributeSelect : WindowBase
+    public partial class WindowAttributeSelect : WindowWithSingleConnection
     {
-        private readonly IWriteToOutput _iWriteToOutput;
-
-        private readonly IOrganizationServiceExtented _service;
-
         private readonly Guid _entityMetadataId;
 
         private readonly List<AttributeSelectItem> _source = new List<AttributeSelectItem>();
@@ -31,11 +27,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         public AttributeMetadata SelectedAttributeMetadata { get; private set; }
 
         public WindowAttributeSelect(
-            IWriteToOutput outputWindow
+            IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , Guid entityMetadataId
             , IEnumerable<AttributeMetadata> attributeList
-        )
+        ) : base(iWriteToOutput, service)
         {
             this.IncreaseInit();
 
@@ -43,8 +39,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
-            this._iWriteToOutput = outputWindow;
-            this._service = service;
             this._entityMetadataId = entityMetadataId;
 
             this.tSSLblConnectionName.Content = this._service.ConnectionData.Name;
@@ -103,7 +97,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        protected void ToggleControls(bool enabled, string statusFormat, params object[] args)
+        protected override void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this.ChangeInitByEnabled(enabled);
 

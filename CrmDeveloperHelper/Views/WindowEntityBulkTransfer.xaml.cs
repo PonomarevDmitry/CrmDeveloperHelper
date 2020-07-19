@@ -17,13 +17,13 @@ using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowEntityBulkTransfer : WindowWithOutputAndCommonConfig
+    public partial class WindowEntityBulkTransfer : WindowWithSingleConnection
     {
         protected readonly ReadOnlyCollection<Entity> _entityCollection;
 
-        protected readonly IOrganizationServiceExtented _service;
-
         private EntityMetadata _entityMetadata;
+
+        private readonly CommonConfiguration _commonConfig;
 
         private Dictionary<string, EntityMetadata> _cacheEntityMetadata = new Dictionary<string, EntityMetadata>(StringComparer.InvariantCultureIgnoreCase);
 
@@ -43,7 +43,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IOrganizationServiceExtented service
             , EntityMetadata entityMetadata
             , IEnumerable<Entity> entityCollection
-        ) : base(iWriteToOutput, commonConfig)
+        ) : base(iWriteToOutput, service)
         {
             IncreaseInit();
 
@@ -55,8 +55,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _cacheEntityMetadata.Add(entityMetadata.LogicalName, entityMetadata);
 
-            this._service = service;
             this._entityMetadata = entityMetadata;
+            this._commonConfig = commonConfig;
 
             this._entityCollection = new ReadOnlyCollection<Entity>(entityCollection.Where(i => i.Id != Guid.Empty).Distinct().ToList());
 
@@ -289,7 +289,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        protected void ToggleControls(bool enabled, string statusFormat, params object[] args)
+        protected override void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this.ChangeInitByEnabled(enabled);
 

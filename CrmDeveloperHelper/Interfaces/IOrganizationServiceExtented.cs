@@ -10,7 +10,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
     /// <summary>
     /// Default Implementation <see cref="Model.OrganizationServiceExtentedProxy"/>
     /// </summary>
-    public interface IOrganizationServiceExtented : IOrganizationService
+    public interface IOrganizationServiceExtented : IOrganizationService, IDisposable
     {
         /// <summary>
         /// Default Implementation <see cref="Model.OrganizationServiceExtentedProxy.CurrentServiceEndpoint"/>
@@ -86,5 +86,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
         /// Default Implementation <see cref="Model.OrganizationServiceExtentedProxy.RetrieveMultipleAllAsync"/>
         /// </summary>
         Task<List<T>> RetrieveMultipleAllAsync<T>(QueryExpression query) where T : Entity;
+
+        /// <summary>
+        /// <see cref="Model.OrganizationServiceExtentedProxy.TryingDispose"/>
+        /// </summary>
+        event EventHandler<TryDisposeOrganizationServiceExtentedEventArgs> TryingDispose;
+
+        /// <summary>
+        /// <see cref="Model.OrganizationServiceExtentedProxy.TryDispose"/>
+        /// </summary>
+        void TryDispose();
     }
 }

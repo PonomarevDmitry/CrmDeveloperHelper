@@ -38,6 +38,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.ConnectionData.StoreServiceInUse(serviceProxy);
         }
 
+        public event EventHandler<TryDisposeOrganizationServiceExtentedEventArgs> TryingDispose;
+
+        public void TryDispose()
+        {
+            var eventArgs = new TryDisposeOrganizationServiceExtentedEventArgs();
+
+            TryingDispose?.Invoke(this, eventArgs);
+
+            if (eventArgs.IsDisposingCanceled)
+            {
+                return;
+            }
+
+            this.Dispose();
+        }
+
         public Task<Guid> CreateAsync(Entity entity)
         {
             return Task.Run(() => Create(entity));
@@ -782,6 +798,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             if (disposing)
             {
                 // TODO: dispose managed state (managed objects).
+
+                this._serviceProxy = null;
+                this.TryingDispose = null;
             }
 
             this.ConnectionData.ReturnServiceToFree(this._serviceProxy);

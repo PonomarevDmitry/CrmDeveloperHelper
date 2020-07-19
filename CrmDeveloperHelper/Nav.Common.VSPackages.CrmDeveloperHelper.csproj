@@ -1052,6 +1052,7 @@
     <Compile Include="Model\Sources\FolderSourceSelectedProjects.cs" />
     <Compile Include="Model\Sources\ProjectSourceSelectedProjects.cs" />
     <Compile Include="Model\Sources\ProjectSourceSelectedProjectSingle.cs" />
+    <Compile Include="Model\TryDisposeOrganizationServiceExtentedEventArgs.cs" />
     <Compile Include="Model\WeakReferenceByTimeout.cs" />
     <Compile Include="Model\XsdModels\DependencyXml.Proxy.cs" />
     <Compile Include="Model\XsdModels\FetchXml.Proxy.cs" />
@@ -1320,7 +1321,9 @@
     <Compile Include="Views\BaseWindows\ExplorersHelper.cs" />
     <Compile Include="Views\BaseWindows\WindowWithConnectionList.cs" />
     <Compile Include="Views\BaseWindows\WindowWithMessageFilters.cs" />
+    <Compile Include="Views\BaseWindows\WindowWithOutput.cs" />
     <Compile Include="Views\BaseWindows\WindowWithOutputAndCommonConfig.cs" />
+    <Compile Include="Views\BaseWindows\WindowWithSingleConnection.cs" />
     <Compile Include="Views\BaseWindows\WindowWithSolutionComponentDescriptor.cs" />
     <Compile Include="Views\WindowAttributeMultiSelect.xaml.cs">
       <DependentUpon>WindowAttributeMultiSelect.xaml</DependentUpon>

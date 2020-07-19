@@ -17,11 +17,8 @@ using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowSolutionSelect : WindowBase
+    public partial class WindowSolutionSelect : WindowWithSingleConnection
     {
-        private readonly IWriteToOutput _iWriteToOutput;
-        private readonly IOrganizationServiceExtented _service;
-
         private readonly ObservableCollection<EntityViewItem> _itemsSource;
 
         private object _syncObject = new object();
@@ -31,16 +28,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         public bool ForAllOther => chBForAllOther.IsChecked.GetValueOrDefault();
 
         public WindowSolutionSelect(
-            IWriteToOutput outputWindow
+            IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
-        )
+        ) : base(iWriteToOutput, service)
         {
             InitializeComponent();
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
-
-            this._service = service ?? throw new ArgumentNullException(nameof(service));
-            this._iWriteToOutput = outputWindow;
 
             this.tSSLblConnectionName.Content = this._service.ConnectionData.Name;
 
@@ -181,7 +175,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
+        protected override void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this.ChangeInitByEnabled(enabled);
 

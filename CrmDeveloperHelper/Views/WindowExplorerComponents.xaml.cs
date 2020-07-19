@@ -22,9 +22,10 @@ using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowExplorerComponents : WindowWithOutputAndCommonConfig
+    public partial class WindowExplorerComponents : WindowWithSingleConnection
     {
-        private readonly IOrganizationServiceExtented _service;
+        private readonly CommonConfiguration _commonConfig;
+
         private readonly SolutionComponentDescriptor _descriptor;
 
         private readonly SolutionComponentConverter _converter;
@@ -48,7 +49,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string solutionUniqueName
             , string header
             , string selection
-        ) : base(iWriteToOutput, commonConfig)
+        ) : base(iWriteToOutput, service)
         {
             this.IncreaseInit();
 
@@ -56,7 +57,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
-            this._service = service ?? throw new ArgumentNullException(nameof(service));
+            this._commonConfig = commonConfig;
             this._descriptor = descriptor;
             this._solutionComponents = solutionComponents;
 
@@ -326,7 +327,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
+        protected override void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this.ChangeInitByEnabled(enabled);
 

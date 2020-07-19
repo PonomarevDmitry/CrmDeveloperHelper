@@ -4,15 +4,13 @@ using System;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public abstract class WindowWithOutputAndCommonConfig : WindowBase
+    public abstract class WindowWithOutputAndCommonConfig : WindowWithOutput
     {
-        protected readonly IWriteToOutput _iWriteToOutput;
-
         protected readonly CommonConfiguration _commonConfig;
 
         protected WindowWithOutputAndCommonConfig(IWriteToOutput iWriteToOutput, CommonConfiguration commonConfig)
+            : base(iWriteToOutput)
         {
-            this._iWriteToOutput = iWriteToOutput ?? throw new ArgumentNullException(nameof(iWriteToOutput));
             this._commonConfig = commonConfig ?? throw new ArgumentNullException(nameof(commonConfig));
         }
 

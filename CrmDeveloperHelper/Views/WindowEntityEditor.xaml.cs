@@ -18,13 +18,13 @@ using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowEntityEditor : WindowWithOutputAndCommonConfig
+    public partial class WindowEntityEditor : WindowWithSingleConnection
     {
+        private readonly CommonConfiguration _commonConfig;
+
         protected readonly string _entityName;
 
         protected readonly Guid _entityId;
-
-        protected readonly IOrganizationServiceExtented _service;
 
         protected readonly HashSet<string> _ignoredAttributes = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
@@ -44,7 +44,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IOrganizationServiceExtented service
             , string entityName
             , Guid entityId
-        ) : base(iWriteToOutput, commonConfig)
+        ) : base(iWriteToOutput, service)
         {
             IncreaseInit();
 
@@ -54,7 +54,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.Name = string.Format("WindowEntityEditor_{0}", entityName);
 
-            this._service = service;
+            this._commonConfig = commonConfig;
             this._entityName = entityName;
             this._entityId = entityId;
 
@@ -319,7 +319,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        protected void ToggleControls(bool enabled, string statusFormat, params object[] args)
+        protected override void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this.ChangeInitByEnabled(enabled);
 

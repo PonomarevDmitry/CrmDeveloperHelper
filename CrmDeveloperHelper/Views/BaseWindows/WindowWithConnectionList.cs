@@ -26,6 +26,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             _connectionCache[service.ConnectionData.ConnectionId] = service;
 
+            ForbidDisposing(service);
+
             BindingOperations.EnableCollectionSynchronization(service.ConnectionData.ConnectionConfiguration.Connections, sysObjectConnections);
         }
 
@@ -42,7 +44,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             base.OnClosed(e);
 
+            var storeServices = this._connectionCache.Values.ToList();
+
             this._connectionCache.Clear();
+
+            foreach (var service in storeServices)
+            {
+                AllowDisposingAndTryDisposeService(service);
+            }
         }
 
         protected async Task<IOrganizationServiceExtented> GetOrganizationService(ConnectionData connectionData)
@@ -62,6 +71,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             try
             {
                 var service = await QuickConnection.ConnectAndWriteToOutputAsync(_iWriteToOutput, connectionData);
+
+                ForbidDisposing(service);
 
                 if (service != null)
                 {

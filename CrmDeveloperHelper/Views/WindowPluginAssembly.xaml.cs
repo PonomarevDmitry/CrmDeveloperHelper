@@ -16,11 +16,8 @@ using System.Windows.Media.Imaging;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowPluginAssembly : WindowBase
+    public partial class WindowPluginAssembly : WindowWithSingleConnection
     {
-        private readonly IWriteToOutput _iWriteToOutput;
-        private readonly IOrganizationServiceExtented _service;
-
         private readonly string _defaultOutputFilePath;
         private readonly EnvDTE.Project _project;
 
@@ -41,14 +38,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , PluginAssembly pluginAssembly
             , string defaultOutputFilePath
             , EnvDTE.Project project
-        )
+        ) : base(iWriteToOutput, service)
         {
             this.IncreaseInit();
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
-            this._iWriteToOutput = iWriteToOutput;
-            this._service = service;
             this._defaultOutputFilePath = defaultOutputFilePath;
             this._project = project;
             this.PluginAssembly = pluginAssembly;
@@ -343,7 +338,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             txtBFileNameOnServer.IsReadOnly = !isDisk;
         }
 
-        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
+        protected override void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this.ChangeInitByEnabled(enabled);
 

@@ -1663,6 +1663,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ToggleControls(connectionData, true, string.Empty);
             }
 
+            ForbidDisposing(service);
+
             Solution solution = null;
 
             var t = new Thread(() =>
@@ -1704,6 +1706,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _solutionImageList.Insert(0, solutionImage);
 
             FillSolutionImages(solutionImage);
+
+            AllowDisposingAndTryDisposeService(service);
         }
 
         private async Task LoadSolutionImage(string filePath)
@@ -1790,6 +1794,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ToggleControls(connectionData, true, string.Empty);
             }
 
+            ForbidDisposing(service);
+
             SolutionImage solutionImage = null;
 
             try
@@ -1823,6 +1829,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _solutionImageList.Insert(0, solutionImage);
 
             FillSolutionImages(solutionImage);
+
+            AllowDisposingAndTryDisposeService(service);
         }
 
         private void tSBClearSolutionImage_Click(object sender, RoutedEventArgs e)

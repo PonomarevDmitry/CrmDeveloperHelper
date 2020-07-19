@@ -141,6 +141,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             settings.DictDouble[paramColumnParametersWidth] = columnParameters.Width.Value;
             settings.DictDouble[paramColumnFetchTextWidth] = columnFetchText.Width.Value;
             settings.Save();
+
+            var storeServices = this._connectionCache.Values.ToList();
+
+            this._connectionCache.Clear();
+
+            foreach (var service in storeServices)
+            {
+                AllowDisposingAndTryDisposeService(service);
+            }
         }
 
         public void SetSource(string filePath, ConnectionData connectionData, IWriteToOutput iWriteToOutput)
@@ -518,6 +527,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 {
                     _connectionCache[connectionData.ConnectionId] = service;
                 }
+
+                ForbidDisposing(service);
 
                 return service;
             }
@@ -2865,6 +2876,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             WindowBase.ActivateControls(items, hasSolutionComponentEntity, "contMnAddToSolution", "contMnAddToSolutionLast");
             WindowBase.FillLastSolutionItems(this.ConnectionData, items, hasSolutionComponentEntity, AddToCrmSolutionAllEntitiesLast_Click, "contMnAddToSolutionLast");
+        }
+
+        protected void ForbidDisposing(IOrganizationServiceExtented service)
+        {
+            service.TryingDispose -= this.service_TringDispose;
+            service.TryingDispose -= this.service_TringDispose;
+            service.TryingDispose += this.service_TringDispose;
+        }
+
+        protected void AllowDisposingAndTryDisposeService(IOrganizationServiceExtented service)
+        {
+            service.TryingDispose -= this.service_TringDispose;
+            service.TryingDispose -= this.service_TringDispose;
+
+            service.TryDispose();
+        }
+
+        private void service_TringDispose(object sender, TryDisposeOrganizationServiceExtentedEventArgs e)
+        {
+            e.PreventDispose();
         }
     }
 }

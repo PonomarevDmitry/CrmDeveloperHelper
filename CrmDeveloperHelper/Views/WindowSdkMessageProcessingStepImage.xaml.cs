@@ -13,11 +13,8 @@ using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowSdkMessageProcessingStepImage : WindowBase
+    public partial class WindowSdkMessageProcessingStepImage : WindowWithSingleConnection
     {
-        private readonly IWriteToOutput _iWriteToOutput;
-        private readonly IOrganizationServiceExtented _service;
-
         private EntityMetadata _entityMetadata;
 
         private readonly string _entityName;
@@ -31,16 +28,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , SdkMessageProcessingStepImage image
             , string entityName
             , string messageName
-        )
+        ) : base(iWriteToOutput, service)
         {
             this.IncreaseInit();
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
-            this._iWriteToOutput = iWriteToOutput;
             this._entityName = entityName;
             this._messageName = messageName;
-            this._service = service;
             this.Image = image;
 
             InitializeComponent();
@@ -232,7 +227,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
+        protected override void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this.ChangeInitByEnabled(enabled);
 

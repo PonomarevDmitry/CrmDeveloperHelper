@@ -55,14 +55,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.ToolWindowPanes
             var task = this._control.Execute();
         }
 
+        protected override void OnClose()
+        {
+            base.OnClose();
+
+            _control.DetachFromSourceCollection();
+        }
+
         protected override void Dispose(bool disposing)
         {
+            base.Dispose(disposing);
+
             if (disposing)
             {
                 _control.DetachFromSourceCollection();
             }
-
-            base.Dispose(disposing);
         }
     }
 }

@@ -23,26 +23,19 @@ using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowSelectEntityReference : WindowBase
+    public partial class WindowSelectEntityReference : WindowWithSingleConnection
     {
-        protected readonly IWriteToOutput _iWriteToOutput;
-
-        private readonly IOrganizationServiceExtented _service;
-
         private readonly Dictionary<string, EntityMetadata> _entityMetadataCache = new Dictionary<string, EntityMetadata>(StringComparer.InvariantCultureIgnoreCase);
 
         public EntityReference SelectedEntityReference { get; private set; }
 
         public WindowSelectEntityReference(
-            IWriteToOutput outputWindow
+            IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , IEnumerable<string> entityNames
-        )
+        ) : base(iWriteToOutput, service)
         {
             InitializeComponent();
-
-            this._iWriteToOutput = outputWindow;
-            this._service = service;
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
@@ -293,7 +286,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        protected void ToggleControls(bool enabled, string statusFormat, params object[] args)
+        protected override void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this.ChangeInitByEnabled(enabled);
 

@@ -15,11 +15,11 @@ using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowStatusSelect : WindowWithOutputAndCommonConfig
+    public partial class WindowStatusSelect : WindowWithSingleConnection
     {
         protected readonly string _entityName;
 
-        protected readonly IOrganizationServiceExtented _service;
+        private readonly CommonConfiguration _commonConfig;
 
         private EntityMetadata _entityMetadata;
 
@@ -34,7 +34,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , IOrganizationServiceExtented service
             , string entityName
-        ) : base(iWriteToOutput, commonConfig)
+        ) : base(iWriteToOutput, service)
         {
             IncreaseInit();
 
@@ -45,8 +45,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Name = string.Format("WindowStatusSelect_{0}", entityName);
             lstVwStatusCodes.Name = string.Format("lstVwStatusCodes{0}", entityName);
 
-            this._service = service;
             this._entityName = entityName;
+            this._commonConfig = commonConfig;
 
             this.tSSLblConnectionName.Content = this._service.ConnectionData.Name;
 
@@ -215,7 +215,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        protected void ToggleControls(bool enabled, string statusFormat, params object[] args)
+        protected override void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this.ChangeInitByEnabled(enabled);
 

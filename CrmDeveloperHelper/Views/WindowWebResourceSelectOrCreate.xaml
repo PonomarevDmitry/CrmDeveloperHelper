@@ -1,11 +1,11 @@
-﻿<src:WindowBase x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowWebResourceSelectOrCreate"
+﻿<src:WindowWithSingleConnection x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowWebResourceSelectOrCreate"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
         xmlns:mine="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         Title="Select WebResource" Height="531.662" Width="705" WindowStartupLocation="Manual">
-    <src:WindowBase.Resources>
+    <src:WindowWithSingleConnection.Resources>
         <ResourceDictionary>
 
             <ResourceDictionary.MergedDictionaries>
@@ -82,7 +82,7 @@
             </ContextMenu>
 
         </ResourceDictionary>
-    </src:WindowBase.Resources>
+    </src:WindowWithSingleConnection.Resources>
     <Grid>
 
         <Grid.RowDefinitions>
@@ -275,4 +275,4 @@
             <StatusBarItem x:Name="stBIStatus" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
         </StatusBar>
     </Grid>
-</src:WindowBase>
+</src:WindowWithSingleConnection>

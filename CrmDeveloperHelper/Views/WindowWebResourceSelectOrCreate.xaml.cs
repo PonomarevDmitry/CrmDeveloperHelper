@@ -22,12 +22,8 @@ using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowWebResourceSelectOrCreate : WindowBase
+    public partial class WindowWebResourceSelectOrCreate : WindowWithSingleConnection
     {
-        private readonly IWriteToOutput _iWriteToOutput;
-
-        private readonly IOrganizationServiceExtented _service;
-
         private readonly CommonConfiguration _commonConfig;
 
         private string _fileExtension;
@@ -58,7 +54,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IOrganizationServiceExtented service
             , SelectedFile selectedFile
             , Guid? lastLinkedWebResource
-        )
+        ) : base(iWriteToOutput, service)
         {
             this.IncreaseInit();
 
@@ -69,8 +65,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             btnSelectLastLink.IsEnabled = gridLastLink.IsEnabled = sepLastLink.IsEnabled = false;
             btnSelectLastLink.Visibility = gridLastLink.Visibility = sepLastLink.Visibility = Visibility.Collapsed;
 
-            this._iWriteToOutput = iWriteToOutput;
-            this._service = service ?? throw new ArgumentNullException(nameof(service));
             this._file = selectedFile;
             this._fileExtension = selectedFile.Extension;
             this._commonConfig = CommonConfiguration.Get();
@@ -375,7 +369,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
+        protected override void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this.ChangeInitByEnabled(enabled);
 

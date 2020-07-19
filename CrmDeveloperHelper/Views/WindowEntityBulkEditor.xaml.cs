@@ -16,15 +16,15 @@ using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowEntityBulkEditor : WindowWithOutputAndCommonConfig
+    public partial class WindowEntityBulkEditor : WindowWithSingleConnection
     {
+        private readonly CommonConfiguration _commonConfig;
+
         protected readonly string _entityName;
 
         protected readonly HashSet<string> _ignoredAttributes = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
         protected readonly IReadOnlyCollection<Guid> _entityIds;
-
-        protected readonly IOrganizationServiceExtented _service;
 
         private EntityMetadata _entityMetadata;
 
@@ -40,7 +40,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IOrganizationServiceExtented service
             , string entityName
             , IEnumerable<Guid> entityIds
-        ) : base(iWriteToOutput, commonConfig)
+        ) : base(iWriteToOutput, service)
         {
             IncreaseInit();
 
@@ -50,7 +50,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.Name = string.Format("WindowEntityBulkEditor_{0}", entityName);
 
-            this._service = service;
+            this._commonConfig = commonConfig;
+
             this._entityName = entityName;
 
             this._entityIds = new ReadOnlyCollection<Guid>(entityIds.Where(i => i != Guid.Empty).Distinct().ToList());
@@ -232,7 +233,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        protected void ToggleControls(bool enabled, string statusFormat, params object[] args)
+        protected override void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this.ChangeInitByEnabled(enabled);
 

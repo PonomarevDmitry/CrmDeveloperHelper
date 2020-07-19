@@ -17,11 +17,8 @@ using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowSdkMessageProcessingStep : WindowBase
+    public partial class WindowSdkMessageProcessingStep : WindowWithSingleConnection
     {
-        private readonly IWriteToOutput _iWriteToOutput;
-        private readonly IOrganizationServiceExtented _service;
-
         private const string _impersonatingUserNone = "<Calling User>";
 
         public SdkMessageProcessingStep Step { get; private set; }
@@ -37,14 +34,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IOrganizationServiceExtented service
             , List<SdkMessageFilter> filters
             , SdkMessageProcessingStep step
-        )
+        ) : base(iWriteToOutput, service)
         {
             this.IncreaseInit();
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
-            this._iWriteToOutput = iWriteToOutput;
-            this._service = service;
             this._filters = filters;
 
             this.Step = step;
@@ -804,7 +799,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             txtBRunInUserContext.Text = _impersonatingUserNone;
         }
 
-        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
+        protected override void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this.ChangeInitByEnabled(enabled);
 

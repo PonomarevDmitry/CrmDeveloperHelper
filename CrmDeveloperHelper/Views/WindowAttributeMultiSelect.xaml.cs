@@ -16,24 +16,20 @@ using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowAttributeMultiSelect : WindowBase
+    public partial class WindowAttributeMultiSelect : WindowWithSingleConnection
     {
-        private readonly IWriteToOutput _iWriteToOutput;
-
         private readonly EntityMetadata _entityMetadata;
-
-        private readonly IOrganizationServiceExtented _service;
 
         private readonly List<AttributeSelectItem> _source = new List<AttributeSelectItem>();
 
         private readonly ObservableCollection<AttributeSelectItem> _sourceDataGrid = new ObservableCollection<AttributeSelectItem>();
 
         public WindowAttributeMultiSelect(
-            IWriteToOutput outputWindow
+            IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , EntityMetadata entityMetadata
             , string selectedAttributes
-        )
+        ) : base(iWriteToOutput, service)
         {
             this.IncreaseInit();
 
@@ -43,8 +39,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
-            this._iWriteToOutput = outputWindow;
-            this._service = service;
             this._entityMetadata = entityMetadata;
 
             this.tSSLblConnectionName.Content = this._service.ConnectionData.Name;
@@ -171,7 +165,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        protected void ToggleControls(bool enabled, string statusFormat, params object[] args)
+        protected override void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this.ChangeInitByEnabled(enabled);
 
@@ -209,7 +203,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     list = list
                     .Where(ent =>
                         ent.LogicalName.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
-                        || 
+                        ||
                         (
                             ent.AttributeMetadata.DisplayName != null
                             && ent.AttributeMetadata.DisplayName.LocalizedLabels != null
