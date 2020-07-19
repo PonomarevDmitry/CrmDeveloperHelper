@@ -390,6 +390,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     , null
                 );
             }
+
+            service.TryDispose();
         }
 
         #endregion Открытие отчетов.
@@ -558,6 +560,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     , null
                 );
             }
+
+            service.TryDispose();
         }
 
         #endregion Открытие веб-ресурсов.
@@ -622,6 +626,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 WindowHelper.OpenSolutionComponentsExplorer(this._iWriteToOutput, service, null, commonConfig, solution.UniqueName, null);
             }
+
+            service.TryDispose();
         }
     }
 }

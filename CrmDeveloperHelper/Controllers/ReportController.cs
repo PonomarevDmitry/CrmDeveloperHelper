@@ -159,6 +159,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 //Сохранение настроек после публикации
                 connectionData.Save();
             }
+
+            service.TryDispose();
         }
 
         #endregion Различия отчета и файла.

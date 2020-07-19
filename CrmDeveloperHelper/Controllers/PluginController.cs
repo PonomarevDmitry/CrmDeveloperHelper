@@ -139,6 +139,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
                 }
             }
+
+            service.TryDispose();
         }
 
         public async Task<string> SelecteFileCreateFileWithAssemblyComparing(string folder, IOrganizationServiceExtented service, Guid idPluginAssembly, string assemblyName, string defaultOutputFilePath)
@@ -464,6 +466,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     );
                 }
             }
+
+            service.TryDispose();
         }
 
         #endregion Обновление сборки плагинов.
@@ -532,6 +536,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
                 }
             }
+
+            service.TryDispose();
         }
 
         private async Task BuildProjectUpdatePluginAssembly(
@@ -777,6 +783,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     , project
                 );
             }
+
+            service.TryDispose();
         }
 
         #endregion Регистрация сборки плагинов.
@@ -906,6 +914,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
                 }
             }
+
+            service.TryDispose();
         }
 
         #endregion Action on PluginAssembly
@@ -1105,6 +1115,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     }
                 }
             }
+
+            service.TryDispose();
         }
 
         #endregion Action on PluginType

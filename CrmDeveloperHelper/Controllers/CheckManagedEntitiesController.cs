@@ -193,6 +193,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+            service.TryDispose();
         }
 
         private bool CheckGlobalOptionSets(StringBuilder content, IOrganizationServiceExtented service)

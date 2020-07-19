@@ -97,6 +97,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CreatedFileWithEntitiesOwnershipFormat1, filePath);
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+            service.TryDispose();
         }
 
         #endregion Проверка уровня собственности сущностей.
@@ -310,6 +312,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CreatedFileWithWebResourcesDependentComponentsFormat1, filePath);
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+            service.TryDispose();
         }
 
         #endregion Отображение зависимых компонентов веб-ресурсов.
@@ -422,6 +426,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CreatedFileWithCheckingGlobalOptionSetDuplicatesOnEntityFormat1, filePath);
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+            service.TryDispose();
         }
 
         #endregion Проверка глобальных OptionSet на дубликаты на сущности.
@@ -553,6 +559,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(connectionData, "No New ComponentTypes in CRM were founded.");
                 this._iWriteToOutput.ActivateOutputWindow(connectionData);
             }
+
+            service.TryDispose();
         }
 
         #endregion Поиск неизвестных типов компонентов.
@@ -644,6 +652,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
+
+            service.TryDispose();
         }
 
         #endregion Описание всех dependencynode.
@@ -707,6 +717,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.WriteToOutput(connectionData, "Created file with Workflows Used Entities: {0}", filePath);
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+            service.TryDispose();
         }
 
         #endregion Поиск используемых в БП сущностей
@@ -770,6 +782,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.WriteToOutput(connectionData, "Created file with Workflows Used Not Existing Entities: {0}", filePath);
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+            service.TryDispose();
         }
 
         #endregion Поиск несуществующих используемых в БП сущностей
@@ -896,6 +910,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(connectionData, "No Unknown Form Control Types in CRM were founded.");
                 this._iWriteToOutput.ActivateOutputWindow(connectionData);
             }
+
+            service.TryDispose();
         }
     }
 }

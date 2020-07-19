@@ -240,6 +240,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.WriteToOutput(connectionData, "Created file with Checking Plugin Images Duplicates: {0}", filePath);
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+            service.TryDispose();
         }
 
         #endregion Проверка образов шагов плагинов на дубликаты.
@@ -391,6 +393,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.WriteToOutput(connectionData, "Created file with Checking Plugin Steps Duplicates: {0}", filePath);
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+            service.TryDispose();
         }
 
         #endregion Проверка шагов плагинов на дубликаты.
@@ -595,6 +599,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.WriteToOutput(connectionData, "Created file with Checking Plugin Steps Required Components: {0}", filePath);
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+            service.TryDispose();
         }
 
         private SortedSet<string> GetSetEntites(Entity entity)
@@ -864,6 +870,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.WriteToOutput(connectionData, "Created file with Checking Plugin Images Required Components: {0}", filePath);
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+            service.TryDispose();
         }
 
         private SortedSet<string> GetSetImageAttributes(SdkMessageProcessingStepImage image)

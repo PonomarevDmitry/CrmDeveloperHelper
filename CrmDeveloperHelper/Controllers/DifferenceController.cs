@@ -99,6 +99,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             }
 
+            service.TryDispose();
+
             if (webResource == null)
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, "WebResource not founded in CRM: {0}", selectedFile.FileName);
@@ -626,6 +628,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             }
 
+            service.TryDispose();
+
             if (reportEntity == null)
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ReportNotFoundedInConnectionFormat2, connectionData.Name, selectedFile.FileName);
@@ -932,6 +936,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             }
 
+            service.TryDispose();
+
             if (webResource == null)
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, "WebResource not founded in CRM: {0}", selectedFile.FileName);
@@ -943,19 +949,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-            string fileName = EntityFileNameFormatter.GetWebResourceFileName(service.ConnectionData.Name, webResource.Name, EntityFileNameFormatter.Headers.EntityDescription, "txt");
+            string fileName = EntityFileNameFormatter.GetWebResourceFileName(connectionData.Name, webResource.Name, EntityFileNameFormatter.Headers.EntityDescription, "txt");
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-            await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, webResource, service.ConnectionData);
+            await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, webResource, connectionData);
 
-            this._iWriteToOutput.WriteToOutput(service.ConnectionData
+            this._iWriteToOutput.WriteToOutput(connectionData
                 , Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
-                , service.ConnectionData.Name
+                , connectionData.Name
                 , webResource.LogicalName
                 , filePath
             );
 
-            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+            this._iWriteToOutput.PerformAction(connectionData, filePath);
         }
 
         public async Task ExecuteChangingWebResourceInEntityEditor(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
@@ -1032,6 +1038,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (webResource == null)
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, "WebResource not founded in CRM: {0}", selectedFile.FileName);
+                service.TryDispose();
                 return;
             }
 
@@ -1156,6 +1163,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             }
 
+            service.TryDispose();
+
             if (webResource == null)
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, "WebResource not founded in CRM: {0}", selectedFile.FileName);
@@ -1207,7 +1216,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
             }
 
-            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+            this._iWriteToOutput.PerformAction(connectionData, filePath);
         }
     }
 }

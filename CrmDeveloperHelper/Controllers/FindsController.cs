@@ -196,6 +196,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+            service.TryDispose();
         }
 
         #endregion Find components with prefix
@@ -590,6 +592,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.WriteToOutput(connectionData, "Created file with CRM Objects names for prefix '{0}' and show dependent components: {1}", prefix, filePath);
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+            service.TryDispose();
         }
 
         #endregion Find components with prefix and show dependent components
@@ -802,6 +806,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.WriteToOutput(connectionData, "Created file with CRM Objects marked to delete by '{0}' and show dependent components: {1}", deleteMark, filePath);
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+            service.TryDispose();
         }
 
         #endregion Finding Marked to Delelete and Show Dependent.
@@ -1053,6 +1059,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+            service.TryDispose();
         }
 
         #endregion Finding components with name
@@ -1286,6 +1294,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+            service.TryDispose();
         }
 
         #endregion Finding components with name contains string
@@ -1458,6 +1468,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             }
 
+            service.TryDispose();
+
             if (!finded)
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoObjectsInCRMWereFounded);
@@ -1476,7 +1488,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
 
-            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+            this._iWriteToOutput.PerformAction(connectionData, filePath);
         }
 
         #endregion Поиск элементов по идентификатору.
@@ -1559,6 +1571,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             }
 
+            service.TryDispose();
+
             if (!finded)
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoObjectsInCRMWereFounded);
@@ -1576,7 +1590,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
 
-            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+            this._iWriteToOutput.PerformAction(connectionData, filePath);
         }
 
         #endregion Поиск элементов по любому Guid.
@@ -1612,7 +1626,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            EntityMetadataRepository repository = new EntityMetadataRepository(service);
+            var repository = new EntityMetadataRepository(service);
 
             var entityMetadataList = await repository.GetEntitiesPropertiesAsync(entityName, entityTypeCode, "LogicalName", "PrimaryIdAttribute", "IsIntersect", "Attributes");
 
@@ -1635,6 +1649,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             }
 
+            service.TryDispose();
+
             if (!listEntities.Any())
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoObjectsInCRMWereFounded);
@@ -1646,7 +1662,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             foreach (var item in listEntities)
             {
-                WindowHelper.OpenEntityEditor(_iWriteToOutput, service, commonConfig, item.LogicalName, item.Id);
+                var tempService = await QuickConnection.ConnectAsync(connectionData);
+
+                if (tempService == null)
+                {
+                    WindowHelper.OpenEntityEditor(_iWriteToOutput, tempService, commonConfig, item.LogicalName, item.Id);
+                    return;
+                }
             }
         }
 

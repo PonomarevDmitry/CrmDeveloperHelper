@@ -68,6 +68,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string filePath = await CreateFormsEventsFile(service, commonConfig.FolderForExport, commonConfig.FormsEventsFileName, connectionData.Name, commonConfig.FormsEventsOnlyWithFormLibraries);
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+            service.TryDispose();
         }
 
         private async Task<string> CreateFormsEventsFile(IOrganizationServiceExtented service, string fileFolder, string fileNameFormat, string connectionDataName, bool onlyWithFormLibraries)

@@ -352,6 +352,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             await solutionRep.AddSolutionComponentsAsync(solution.UniqueName, componentsToAdd);
+
+            service.TryDispose();
         }
 
         #endregion Добавление веб-ресурса в решение.
@@ -495,6 +497,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             await solutionRep.AddSolutionComponentsAsync(solution.UniqueName, componentsToAdd);
+
+            service.TryDispose();
         }
 
         #endregion Добавление отчета в решение.
@@ -973,6 +977,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             OpenWindowForUnknownProjects(commonConfig, service, unknownProjectNames);
+
+            service.TryDispose();
         }
 
         #endregion Добавление сборки в решение по имени.
@@ -1126,6 +1132,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             await solutionRep.AddSolutionComponentsAsync(solution.UniqueName, componentsToAdd);
 
             OpenWindowForUnknownProjects(commonConfig, service, unknownProjectNames);
+
+            service.TryDispose();
         }
 
         private void OpenWindowForUnknownProjects(CommonConfiguration commonConfig, IOrganizationServiceExtented service, List<string> unknownProjectNames)
@@ -1295,6 +1303,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             await solutionRep.AddSolutionComponentsAsync(solution.UniqueName, componentsToAdd);
 
             OpenWindowForUnknownPluginTypes(commonConfig, service, unknownPluginTypes);
+
+            service.TryDispose();
         }
 
         #endregion Добавление в решение шагов плагинов типа плагина по имени.
@@ -1384,6 +1394,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             await solutionRep.AddSolutionComponentsAsync(solution.UniqueName, componentsToAdd);
+
+            service.TryDispose();
         }
 
         public async Task ExecuteAddingEntityToSolution(
@@ -1500,6 +1512,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             await solutionRep.AddSolutionComponentsAsync(solution.UniqueName, componentsToAdd);
+
+            service.TryDispose();
         }
     }
 }

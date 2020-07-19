@@ -152,6 +152,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             await continueAction(service, commonConfig, doc, filePath, getResult.Item2);
+
+            service.TryDispose();
         }
 
         protected async Task CheckAttributeValidateGetEntityExecuteAction<T>(
@@ -193,6 +195,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             await continueAction(service, commonConfig, doc, filePath, getResult.Item2);
+
+            service.TryDispose();
         }
 
         protected async Task ConnectAndExecuteActionAsync(
@@ -216,6 +220,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
 
                 action(service);
+
+                service.TryDispose();
             }
             catch (Exception ex)
             {
@@ -248,6 +254,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
 
                 await action(service);
+
+                service.TryDispose();
             }
             catch (Exception ex)
             {
@@ -339,6 +347,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
 
                 await action(service);
+
+                service.TryDispose();
             }
             catch (Exception ex)
             {

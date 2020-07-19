@@ -316,6 +316,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             }
 
+            service.TryDispose();
+
             if (unhandledFiles.Any())
             {
                 var tabSpacer = "    ";
@@ -584,6 +586,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             }
 
+            service.TryDispose();
+
             if (unhandledFiles.Any())
             {
                 var tabSpacer = "    ";
@@ -732,6 +736,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.WriteToOutputFilePathUri(connectionData, selectedFile.FilePath);
 
             this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+
+            service.TryDispose();
         }
 
         #endregion Обновление файла с глобальными OptionSet-ами JavaScript All.
@@ -1535,6 +1541,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 service.ConnectionData.OpenEntityMetadataInWeb(entityMetadata.MetadataId.Value);
             }
+
+            service.TryDispose();
         }
 
         public async Task ExecuteOpeningEntityListInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode)
@@ -1584,6 +1592,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 service.ConnectionData.OpenEntityInstanceListInWeb(entityMetadata.LogicalName);
             }
+
+            service.TryDispose();
         }
 
         public async Task ExecuteOpeningEntityFetchXmlFile(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode)
@@ -1622,6 +1632,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 , nameof(EntityMetadata.PrimaryIdAttribute)
                 , nameof(EntityMetadata.PrimaryNameAttribute)
             );
+
+            service.TryDispose();
 
             if (!entityMetadataList.Any())
             {

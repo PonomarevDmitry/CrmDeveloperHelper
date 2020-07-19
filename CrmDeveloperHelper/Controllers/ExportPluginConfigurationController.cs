@@ -54,6 +54,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             var filePath = await CreatePluginDescription(connectionData, service, commonConfig);
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+            service.TryDispose();
         }
 
         private async Task<string> CreatePluginDescription(Model.ConnectionData connectionData, IOrganizationServiceExtented service, Model.CommonConfiguration commonConfig)
@@ -257,6 +259,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+            service.TryDispose();
         }
     }
 }
