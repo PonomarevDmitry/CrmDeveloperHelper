@@ -795,6 +795,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 return;
             }
 
+            this.ConnectionData.ReturnServiceToFree(this._serviceProxy);
+
             if (disposing)
             {
                 // TODO: dispose managed state (managed objects).
@@ -802,8 +804,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 this._serviceProxy = null;
                 this.TryingDispose = null;
             }
-
-            this.ConnectionData.ReturnServiceToFree(this._serviceProxy);
 
             // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
             // TODO: set large fields to null.
