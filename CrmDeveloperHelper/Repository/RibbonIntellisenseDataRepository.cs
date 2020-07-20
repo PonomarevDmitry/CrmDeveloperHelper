@@ -14,27 +14,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
     {
         private const int _loadPeriodInSeconds = 45;
 
-        private readonly object _syncObjectService = new object();
-
-        private ConcurrentDictionary<string, object> _syncObjectTaskGettingRibbonInformationCache = new ConcurrentDictionary<string, object>(StringComparer.InvariantCultureIgnoreCase);
-
-        private IOrganizationServiceExtented _service;
+        private readonly ConcurrentDictionary<string, object> _syncObjectTaskGettingRibbonInformationCache = new ConcurrentDictionary<string, object>(StringComparer.InvariantCultureIgnoreCase);
 
         private readonly ConnectionData _connectionData;
 
-        private CancellationTokenSource _cancellationTokenSource;
+        private readonly CancellationTokenSource _cancellationTokenSource;
 
-        private ConcurrentDictionary<string, DateTime> _nextLoadDateTime = new ConcurrentDictionary<string, DateTime>();
+        private readonly ConcurrentDictionary<string, DateTime> _nextLoadDateTime = new ConcurrentDictionary<string, DateTime>();
 
-        private ConcurrentDictionary<string, Task> _taskGettingRibbonInformationCache = new ConcurrentDictionary<string, Task>(StringComparer.InvariantCultureIgnoreCase);
+        private readonly ConcurrentDictionary<string, Task> _taskGettingRibbonInformationCache = new ConcurrentDictionary<string, Task>(StringComparer.InvariantCultureIgnoreCase);
 
-        private static ConcurrentDictionary<Guid, RibbonIntellisenseDataRepository> _staticCacheRepositories = new ConcurrentDictionary<Guid, RibbonIntellisenseDataRepository>();
+        private static readonly ConcurrentDictionary<Guid, RibbonIntellisenseDataRepository> _staticCacheRepositories = new ConcurrentDictionary<Guid, RibbonIntellisenseDataRepository>();
 
         private RibbonIntellisenseDataRepository(ConnectionData connectionData)
         {
             this._connectionData = connectionData ?? throw new ArgumentNullException(nameof(connectionData));
 
-            _cancellationTokenSource = new CancellationTokenSource();
+            this._cancellationTokenSource = new CancellationTokenSource();
         }
 
         private object GetEntitySyncObject(string entityName)
@@ -56,31 +52,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 return null;
             }
 
-            if (_service != null)
-            {
-                return _service;
-            }
-
-            IOrganizationServiceExtented localService = null;
+            IOrganizationServiceExtented service = null;
 
             try
             {
-                localService = await QuickConnection.ConnectAsync(this._connectionData);
+                service = await QuickConnection.ConnectAsync(this._connectionData);
             }
             catch (Exception ex)
             {
                 DTEHelper.WriteExceptionToLog(ex);
+
+                service = null;
             }
 
-            lock (_syncObjectService)
-            {
-                if (localService != null && _service == null)
-                {
-                    _service = localService;
-                }
-
-                return localService;
-            }
+            return service;
         }
 
         public RibbonIntellisenseData GetRibbonIntellisenseData(string entityName)
@@ -154,15 +139,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private async Task StartGettingRibbon(string entityName)
         {
+            var service = await GetServiceAsync();
+
+            if (service == null)
+            {
+                return;
+            }
+
             try
             {
-                var service = await GetServiceAsync();
-
-                if (service == null)
-                {
-                    return;
-                }
-
                 var repository = new RibbonCustomizationRepository(service);
 
                 XDocument docRibbon = await repository.GetEntityRibbonAsync(entityName);
@@ -171,7 +156,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
             catch (Exception ex)
             {
-                DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
+                DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
             }
             finally
             {
@@ -228,36 +213,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         #region IDisposable Support
 
-        private bool disposedValue = false; // To detect redundant calls
+        private bool disposedValue = false;
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (disposedValue)
             {
-                if (disposing)
-                {
-                    if (!_cancellationTokenSource.IsCancellationRequested)
-                    {
-                        _cancellationTokenSource.Cancel();
-                    }
+                return;
+            }
 
-                    _cancellationTokenSource.Dispose();
+            disposedValue = true;
+
+            if (disposing)
+            {
+                if (!_cancellationTokenSource.IsCancellationRequested)
+                {
+                    _cancellationTokenSource.Cancel();
                 }
 
-                disposedValue = true;
+                _cancellationTokenSource.Dispose();
             }
         }
 
         ~RibbonIntellisenseDataRepository()
         {
-            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
             Dispose(false);
         }
 
-        // This code added to correctly implement the disposable pattern.
         public void Dispose()
         {
             Dispose(true);
+
             GC.SuppressFinalize(this);
         }
 

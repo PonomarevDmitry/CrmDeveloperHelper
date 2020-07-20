@@ -17,31 +17,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
     {
         private const int _loadPeriodInSeconds = 45;
 
-        private readonly object _syncObjectService = new object();
-
         private readonly object _syncObjectTaskGettingWebResources = new object();
 
         private readonly ConnectionData _connectionData;
+
+        private readonly CancellationTokenSource _cancellationTokenSource;
+
+        private readonly ConcurrentDictionary<string, WebResourceIntellisenseData> _webResourcesIcon = new ConcurrentDictionary<string, WebResourceIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
+
+        private static readonly ConcurrentDictionary<Guid, WebResourceIntellisenseDataRepository> _staticCacheRepositories = new ConcurrentDictionary<Guid, WebResourceIntellisenseDataRepository>();
 
         private Task _taskGettingWebResources;
 
         private DateTime? _nextLoadFromCrmDate;
 
-        private IOrganizationServiceExtented _service;
-
-        private CancellationTokenSource _cancellationTokenSource;
-
-        private readonly ConcurrentDictionary<string, WebResourceIntellisenseData> _webResourcesIcon = new ConcurrentDictionary<string, WebResourceIntellisenseData>(StringComparer.InvariantCultureIgnoreCase);
-
-        private static ConcurrentDictionary<Guid, WebResourceIntellisenseDataRepository> _staticCacheRepositories = new ConcurrentDictionary<Guid, WebResourceIntellisenseDataRepository>();
-
         private WebResourceIntellisenseDataRepository(ConnectionData connectionData)
         {
             this._connectionData = connectionData ?? throw new ArgumentNullException(nameof(connectionData));
 
-            _cancellationTokenSource = new CancellationTokenSource();
+            this._cancellationTokenSource = new CancellationTokenSource();
 
-            Task.Run(() => StartGettingWebResources(), _cancellationTokenSource.Token);
+            var task = Task.Run(() => StartGettingWebResources(), _cancellationTokenSource.Token);
         }
 
         private async Task<IOrganizationServiceExtented> GetServiceAsync()
@@ -51,31 +47,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 return null;
             }
 
-            if (_service != null)
-            {
-                return _service;
-            }
-
-            IOrganizationServiceExtented localService = null;
+            IOrganizationServiceExtented service = null;
 
             try
             {
-                localService = await QuickConnection.ConnectAsync(this._connectionData);
+                service = await QuickConnection.ConnectAsync(this._connectionData);
             }
             catch (Exception ex)
             {
                 DTEHelper.WriteExceptionToLog(ex);
+
+                service = null;
             }
 
-            lock (_syncObjectService)
-            {
-                if (localService != null && _service == null)
-                {
-                    _service = localService;
-                }
-
-                return localService;
-            }
+            return service;
         }
 
         public ConnectionWebResourceIntellisenseData GetConnectionWebResourceIntellisenseData()
@@ -270,23 +255,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         #region IDisposable Support
 
-        private bool disposedValue = false; // To detect redundant calls
+        private bool disposedValue = false;
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (disposedValue)
             {
-                if (disposing)
-                {
-                    if (!_cancellationTokenSource.IsCancellationRequested)
-                    {
-                        _cancellationTokenSource.Cancel();
-                    }
+                return;
+            }
 
-                    _cancellationTokenSource.Dispose();
+            disposedValue = true;
+
+            if (disposing)
+            {
+                if (!_cancellationTokenSource.IsCancellationRequested)
+                {
+                    _cancellationTokenSource.Cancel();
                 }
 
-                disposedValue = true;
+                _cancellationTokenSource.Dispose();
             }
         }
 
@@ -295,10 +282,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             Dispose(false);
         }
 
-        // This code added to correctly implement the disposable pattern.
         public void Dispose()
         {
             Dispose(true);
+
             GC.SuppressFinalize(this);
         }
 

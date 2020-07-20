@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xrm.Sdk.Messages;
+using Microsoft.Xrm.Sdk.Metadata;
 using Microsoft.Xrm.Sdk.Metadata.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model;
@@ -15,27 +16,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 {
     public class ConnectionIntellisenseDataRepository : IDisposable
     {
-        private readonly object syncObjectService = new object();
         private readonly object syncObjectTaskListEntityHeader = new object();
 
-        private IOrganizationServiceExtented _service;
+        private readonly ConnectionData _connectionData;
 
-        private ConnectionData _connectionData;
+        private readonly CancellationTokenSource _cancellationTokenSource;
+
+        private readonly ConcurrentDictionary<string, Task> _cacheTaskGettingEntity = new ConcurrentDictionary<string, Task>();
+
+        private readonly ConcurrentDictionary<int, Task> _cacheTaskGettingEntityObjectTypeCode = new ConcurrentDictionary<int, Task>();
 
         private Task _taskListEntityHeader;
         private bool _taskListEntityHeaderCompleted = false;
-
-        private CancellationTokenSource _cancellationTokenSource;
-
-        private ConcurrentDictionary<string, Task> _cacheTaskGettingEntity = new ConcurrentDictionary<string, Task>();
-
-        private ConcurrentDictionary<int, Task> _cacheTaskGettingEntityObjectTypeCode = new ConcurrentDictionary<int, Task>();
 
         private ConnectionIntellisenseDataRepository(ConnectionData connectionData)
         {
             this._connectionData = connectionData ?? throw new ArgumentNullException(nameof(connectionData));
 
-            _cancellationTokenSource = new CancellationTokenSource();
+            this._cancellationTokenSource = new CancellationTokenSource();
 
             var task = Task.Run(() => StartGettingListEntityHeader(), _cancellationTokenSource.Token);
         }
@@ -57,31 +55,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 return null;
             }
 
-            if (_service != null)
-            {
-                return _service;
-            }
-
-            IOrganizationServiceExtented localService = null;
+            IOrganizationServiceExtented service = null;
 
             try
             {
-                localService = await QuickConnection.ConnectAsync(this._connectionData);
+                service = await QuickConnection.ConnectAsync(this._connectionData);
             }
             catch (Exception ex)
             {
                 DTEHelper.WriteExceptionToLog(ex);
+
+                service = null;
             }
 
-            lock (syncObjectService)
-            {
-                if (localService != null && _service == null)
-                {
-                    _service = localService;
-                }
-
-                return localService;
-            }
+            return service;
         }
 
         public ConnectionIntellisenseData GetEntitiesIntellisenseData()
@@ -182,24 +169,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 return;
             }
 
-            EntityQueryExpression entityQueryExpression = new EntityQueryExpression()
+            var entityQueryExpression = new EntityQueryExpression()
             {
                 Properties = new MetadataPropertiesExpression(_entityMetadataShortFieldsToQuery),
             };
 
             if (hashEntities.Any())
             {
-                entityQueryExpression.Criteria.Conditions.Add(new MetadataConditionExpression("LogicalName", MetadataConditionOperator.NotIn, hashEntities.ToArray()));
+                entityQueryExpression.Criteria.Conditions.Add(new MetadataConditionExpression(nameof(EntityMetadata.LogicalName), MetadataConditionOperator.NotIn, hashEntities.ToArray()));
             }
 
-            RetrieveMetadataChangesRequest request = new RetrieveMetadataChangesRequest()
+            var request = new RetrieveMetadataChangesRequest()
             {
                 Query = entityQueryExpression,
             };
 
             try
             {
-                RetrieveMetadataChangesResponse response = (RetrieveMetadataChangesResponse)service.Execute(request);
+                var response = await service.ExecuteAsync<RetrieveMetadataChangesResponse>(request);
 
                 lock (syncObjectTaskListEntityHeader)
                 {
@@ -209,8 +196,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             catch (Exception ex)
             {
                 DTEHelper.WriteExceptionToLog(ex);
-
-                _service = null;
             }
 
             var task1 = Task.Run(GetEntitiesFullInfoAsync, _cancellationTokenSource.Token);
@@ -270,9 +255,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             EntityQueryExpression entityQueryExpression = GetEntityQueryExpression();
 
-            entityQueryExpression.Criteria.Conditions.Add(new MetadataConditionExpression("LogicalName", MetadataConditionOperator.In, pack));
+            entityQueryExpression.Criteria.Conditions.Add(new MetadataConditionExpression(nameof(EntityMetadata.LogicalName), MetadataConditionOperator.In, pack));
 
-            RetrieveMetadataChangesRequest request = new RetrieveMetadataChangesRequest()
+            var request = new RetrieveMetadataChangesRequest()
             {
                 Query = entityQueryExpression,
             };
@@ -286,13 +271,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     return;
                 }
 
-                RetrieveMetadataChangesResponse response = (RetrieveMetadataChangesResponse)service.Execute(request);
+                var response = await service.ExecuteAsync<RetrieveMetadataChangesResponse>(request);
             }
             catch (Exception ex)
             {
                 DTEHelper.WriteExceptionToLog(ex);
-
-                _service = null;
             }
         }
 
@@ -507,22 +490,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             EntityQueryExpression entityQueryExpression = GetEntityQueryExpression();
 
-            entityQueryExpression.Criteria.Conditions.Add(new MetadataConditionExpression("LogicalName", MetadataConditionOperator.Equals, entityName));
+            entityQueryExpression.Criteria.Conditions.Add(new MetadataConditionExpression(nameof(EntityMetadata.LogicalName), MetadataConditionOperator.Equals, entityName));
 
-            RetrieveMetadataChangesRequest request = new RetrieveMetadataChangesRequest()
+            var request = new RetrieveMetadataChangesRequest()
             {
                 Query = entityQueryExpression,
             };
 
             try
             {
-                var response = (RetrieveMetadataChangesResponse)service.Execute(request);
+                var response = await service.ExecuteAsync<RetrieveMetadataChangesResponse>(request);
             }
             catch (Exception ex)
             {
                 DTEHelper.WriteExceptionToLog(ex);
-
-                _service = null;
             }
 
             if (_cacheTaskGettingEntity.ContainsKey(entityName))
@@ -547,7 +528,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             EntityQueryExpression entityQueryExpression = GetEntityQueryExpression();
 
-            entityQueryExpression.Criteria.Conditions.Add(new MetadataConditionExpression("ObjectTypeCode", MetadataConditionOperator.Equals, objectTypeCode));
+            entityQueryExpression.Criteria.Conditions.Add(new MetadataConditionExpression(nameof(EntityMetadata.ObjectTypeCode), MetadataConditionOperator.Equals, objectTypeCode));
 
             RetrieveMetadataChangesRequest request = new RetrieveMetadataChangesRequest()
             {
@@ -561,8 +542,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             catch (Exception ex)
             {
                 DTEHelper.WriteExceptionToLog(ex);
-
-                _service = null;
             }
 
             if (_cacheTaskGettingEntityObjectTypeCode.ContainsKey(objectTypeCode))
@@ -619,68 +598,69 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private static readonly string[] _entityMetadataShortFieldsToQuery = new string[]
         {
-            "LogicalName"
-            , "SchemaName"
+            nameof(EntityMetadata.LogicalName)
+            , nameof(EntityMetadata.SchemaName)
 
-            , "DisplayName"
-            , "Description"
-            , "DisplayCollectionName"
+            , nameof(EntityMetadata.DisplayName)
+            , nameof(EntityMetadata.Description)
+            , nameof(EntityMetadata.DisplayCollectionName)
 
-            , "ObjectTypeCode"
-            , "IsIntersect"
-            , "PrimaryIdAttribute"
-            , "PrimaryNameAttribute"
+            , nameof(EntityMetadata.ObjectTypeCode)
+            , nameof(EntityMetadata.IsIntersect)
+            , nameof(EntityMetadata.PrimaryIdAttribute)
+            , nameof(EntityMetadata.PrimaryNameAttribute)
         };
 
         private static readonly string[] _entityMetadataFullFieldsToQuery = new string[]
         {
-            "LogicalName"
-            , "SchemaName"
+            nameof(EntityMetadata.LogicalName)
+            , nameof(EntityMetadata.SchemaName)
 
-            , "DisplayName"
-            , "Description"
-            , "DisplayCollectionName"
+            , nameof(EntityMetadata.DisplayName)
+            , nameof(EntityMetadata.Description)
+            , nameof(EntityMetadata.DisplayCollectionName)
 
-            , "ObjectTypeCode"
-            , "IsIntersect"
-            , "PrimaryIdAttribute"
-            , "PrimaryNameAttribute"
+            , nameof(EntityMetadata.ObjectTypeCode)
+            , nameof(EntityMetadata.IsIntersect)
+            , nameof(EntityMetadata.PrimaryIdAttribute)
+            , nameof(EntityMetadata.PrimaryNameAttribute)
 
-            , "Attributes"
-            , "OneToManyRelationships"
-            , "ManyToOneRelationships"
-            , "ManyToManyRelationships"
+            , nameof(EntityMetadata.Attributes)
+            , nameof(EntityMetadata.OneToManyRelationships)
+            , nameof(EntityMetadata.ManyToOneRelationships)
+            , nameof(EntityMetadata.ManyToManyRelationships)
         };
 
         private static readonly string[] _attributeFieldsToQuery = new string[]
         {
-            "AttributeOf"
-            , "AttributeType"
-            , "LogicalName"
-            , "SchemaName"
-            , "EntityLogicalName"
-            , "DisplayName"
-            , "Description"
-            , "OptionSet"
-            , "Targets"
-            , "IsPrimaryId"
-            , "IsPrimaryName"
+            nameof(AttributeMetadata.LogicalName)
+            , nameof(AttributeMetadata.AttributeOf)
+            , nameof(AttributeMetadata.AttributeType)
+            , nameof(AttributeMetadata.SchemaName)
+            , nameof(AttributeMetadata.EntityLogicalName)
+            , nameof(AttributeMetadata.DisplayName)
+            , nameof(AttributeMetadata.Description)
+            , nameof(AttributeMetadata.IsPrimaryId)
+            , nameof(AttributeMetadata.IsPrimaryName)
+
+            , nameof(EnumAttributeMetadata.OptionSet)
+            , nameof(LookupAttributeMetadata.Targets)
         };
 
         private static readonly string[] _relationshipFieldsToQuery = new string[]
         {
-            "SchemaName"
+            nameof(RelationshipMetadataBase.SchemaName)
 
-            , "ReferencedEntity"
-            , "ReferencedAttribute"
-            , "ReferencingEntity"
-            , "ReferencingAttribute"
+            , nameof(OneToManyRelationshipMetadata.ReferencedEntity)
+            , nameof(OneToManyRelationshipMetadata.ReferencedAttribute)
+            , nameof(OneToManyRelationshipMetadata.ReferencingEntity)
+            , nameof(OneToManyRelationshipMetadata.ReferencingAttribute)
 
-            , "IntersectEntityName"
-            , "Entity1LogicalName"
-            , "Entity2LogicalName"
-            , "Entity1IntersectAttribute"
-            , "Entity2IntersectAttribute"
+            , nameof(ManyToManyRelationshipMetadata.IntersectEntityName)
+            , nameof(ManyToManyRelationshipMetadata.Entity1LogicalName)
+            , nameof(ManyToManyRelationshipMetadata.Entity2LogicalName)
+            , nameof(ManyToManyRelationshipMetadata.Entity1IntersectAttribute)
+            , nameof(ManyToManyRelationshipMetadata.Entity2IntersectAttribute)
         };
 
         static ConnectionIntellisenseDataRepository()
@@ -747,7 +727,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         public static EntityQueryExpression GetEntityQueryExpression()
         {
-            EntityQueryExpression result = new EntityQueryExpression()
+            var result = new EntityQueryExpression()
             {
                 Properties = new MetadataPropertiesExpression(_entityMetadataFullFieldsToQuery),
 
@@ -767,46 +747,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         #region IDisposable Support
 
-        private bool disposedValue = false; // To detect redundant calls
+        private bool disposedValue = false;
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (disposedValue)
             {
-                if (disposing)
+                return;
+            }
+
+            disposedValue = true;
+
+            if (disposing)
+            {
+                if (!_cancellationTokenSource.IsCancellationRequested)
                 {
-                    // TODO: dispose managed state (managed objects).
-
-                    if (!_cancellationTokenSource.IsCancellationRequested)
-                    {
-                        _cancellationTokenSource.Cancel();
-                    }
-
-                    _cancellationTokenSource.Dispose();
+                    _cancellationTokenSource.Cancel();
                 }
 
-                // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-                // TODO: set large fields to null.
-
-                disposedValue = true;
+                _cancellationTokenSource.Dispose();
             }
         }
 
-        // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
         ~ConnectionIntellisenseDataRepository()
         {
-            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
             Dispose(false);
         }
 
-        // This code added to correctly implement the disposable pattern.
         public void Dispose()
         {
-            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
             Dispose(true);
-            // TODO: uncomment the following line if the finalizer is overridden above.
+
             GC.SuppressFinalize(this);
         }
-        #endregion
+
+        #endregion IDisposable Support
     }
 }
