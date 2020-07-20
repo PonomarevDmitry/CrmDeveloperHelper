@@ -159,42 +159,43 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            StringBuilder content = new StringBuilder();
-
-            content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
-            content.AppendLine(connectionData.GetConnectionDescription());
-            content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
-
-            var hasInfo = false;
-
-            hasInfo |= CheckEntitiesMetadata(content, service);
-
-            hasInfo |= CheckGlobalOptionSets(content, service);
-
-            hasInfo |= await CheckManagedEntities(content, service);
-
-            if (!hasInfo)
+            using (service)
             {
-                content.AppendLine();
-                content.AppendFormat(Properties.OutputStrings.NoObjectsInCRMWereFounded).AppendLine();
+                var content = new StringBuilder();
+
+                content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
+                content.AppendLine(connectionData.GetConnectionDescription());
+                content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
+
+                var hasInfo = false;
+
+                hasInfo |= CheckEntitiesMetadata(content, service);
+
+                hasInfo |= CheckGlobalOptionSets(content, service);
+
+                hasInfo |= await CheckManagedEntities(content, service);
+
+                if (!hasInfo)
+                {
+                    content.AppendLine();
+                    content.AppendFormat(Properties.OutputStrings.NoObjectsInCRMWereFounded).AppendLine();
+                }
+
+                commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+
+                string fileName = string.Format("{0}.Checking Managed Entities at {1}.txt"
+                    , connectionData.Name
+                    , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
+                );
+
+                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
+
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
-
-            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
-
-            string fileName = string.Format("{0}.Checking Managed Entities at {1}.txt"
-                , connectionData.Name
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
-            );
-
-            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
-
-            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
-
-            service.TryDispose();
         }
 
         private bool CheckGlobalOptionSets(StringBuilder content, IOrganizationServiceExtented service)
@@ -444,7 +445,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             return wrongEntities.Any();
         }
 
-        private void CompareAttributes(List<string> result, IEnumerable<AttributeMetadata> attributes)
+        private static void CompareAttributes(List<string> result, IEnumerable<AttributeMetadata> attributes)
         {
             var wrongEntityAttributes = new Dictionary<AttributeMetadata, List<string>>();
 
@@ -548,7 +549,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private void CompareOneToMany(List<string> result, IEnumerable<OneToManyRelationshipMetadata> relations, string className, string relationTypeName)
+        private static void CompareOneToMany(List<string> result, IEnumerable<OneToManyRelationshipMetadata> relations, string className, string relationTypeName)
         {
             var wrongEntityRelationshipsManyToOne = new Dictionary<OneToManyRelationshipMetadata, List<string>>();
 
@@ -636,7 +637,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private void CompareManyToMany(List<string> result, IEnumerable<ManyToManyRelationshipMetadata> relations)
+        private static void CompareManyToMany(List<string> result, IEnumerable<ManyToManyRelationshipMetadata> relations)
         {
             var wrongEntityRelationshipsManyToMany = new Dictionary<ManyToManyRelationshipMetadata, List<string>>();
 
@@ -728,7 +729,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private void CompareKeys(List<string> result, IEnumerable<EntityKeyMetadata> keys)
+        private static void CompareKeys(List<string> result, IEnumerable<EntityKeyMetadata> keys)
         {
             var wrongEntityKeys = new Dictionary<EntityKeyMetadata, List<string>>();
 
@@ -840,7 +841,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             return result;
         }
 
-        private List<string> GetUnmanagedProperties(EntityMetadata currentEntity)
+        private static List<string> GetUnmanagedProperties(EntityMetadata currentEntity)
         {
             List<string> result = new List<string>();
 
@@ -866,7 +867,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             return result;
         }
 
-        private List<string> GetUnmanagedProperties(EntityKeyMetadata currentKey)
+        private static List<string> GetUnmanagedProperties(EntityKeyMetadata currentKey)
         {
             List<string> result = new List<string>();
 
@@ -875,7 +876,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             return result;
         }
 
-        private List<string> GetUnmanagedProperties(ManyToManyRelationshipMetadata currentRelationship)
+        private static List<string> GetUnmanagedProperties(ManyToManyRelationshipMetadata currentRelationship)
         {
             List<string> result = new List<string>();
 
@@ -894,7 +895,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             return result;
         }
 
-        private List<string> GetUnmanagedProperties(OneToManyRelationshipMetadata currentRelationship)
+        private static List<string> GetUnmanagedProperties(OneToManyRelationshipMetadata currentRelationship)
         {
             List<string> result = new List<string>();
 
@@ -906,7 +907,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             return result;
         }
 
-        private List<string> GetUnmanagedProperties(AttributeMetadata currentAttribute)
+        private static List<string> GetUnmanagedProperties(AttributeMetadata currentAttribute)
         {
             List<string> result = new List<string>();
 
@@ -984,7 +985,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             ));
         }
 
-        private List<string> GetUnmanagedProperties(BooleanOptionSetMetadata optionSet)
+        private static List<string> GetUnmanagedProperties(BooleanOptionSetMetadata optionSet)
         {
             List<string> result = new List<string>();
 
@@ -1007,7 +1008,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             return result;
         }
 
-        private List<string> GetUnmanagedProperties(OptionSetMetadata optionSet)
+        private static List<string> GetUnmanagedProperties(OptionSetMetadata optionSet)
         {
             List<string> result = new List<string>();
 
@@ -1077,9 +1078,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             return result;
         }
 
-        private List<string> GetUnmanagedProperties(OptionMetadata option)
+        private static List<string> GetUnmanagedProperties(OptionMetadata option)
         {
-            List<string> result = new List<string>();
+            var result = new List<string>();
 
             result.AddRange(CompareLabels(option.Label, "Label"));
             if (result.Count > 0) { result.Add(string.Empty); }
@@ -1160,32 +1161,76 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         (
             new Dictionary<string, string[]>(StringComparer.InvariantCultureIgnoreCase)
             {
-                { "activitymimeattachment", new string[] { "objecttypecode", "objectid", "mimetype", "activitysubject", "filename", "subject", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
-                , { "advancedsimilarityrule", new string[] { "entity", "name", "advancedsimilarityruleid", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+                { ActivityMimeAttachment.EntityLogicalName, new string[] { ActivityMimeAttachment.Schema.Attributes.objecttypecode, ActivityMimeAttachment.Schema.Attributes.objectid, ActivityMimeAttachment.Schema.Attributes.mimetype, ActivityMimeAttachment.Schema.Attributes.activitysubject, ActivityMimeAttachment.Schema.Attributes.filename, ActivityMimeAttachment.Schema.Attributes.subject, ActivityMimeAttachment.Schema.Attributes.ismanaged
+                    , "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
 
-                , { "appmodule", new string[] { "uniquename", "name", "url", "appmoduleversion", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
-                , { "appmoduleroles", new string[] { "appmoduleid", "roleid", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+                , { AdvancedSimilarityRule.EntityLogicalName, new string[] { AdvancedSimilarityRule.Schema.Attributes.entity, AdvancedSimilarityRule.Schema.Attributes.name, AdvancedSimilarityRule.Schema.Attributes.advancedsimilarityruleid, AdvancedSimilarityRule.Schema.Attributes.ismanaged
+                    , "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
 
-                , { "channelaccessprofile", new string[] { "name", "channelaccessprofileid", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
-                , { "channelaccessprofileentityaccesslevel", new string[] { "channelaccessprofileid", "channelaccessprofileentityaccesslevelid", "entityaccessleveldepthmask", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
-                , { "channelaccessprofilerule", new string[] { "name", "workflowid", "channelaccessprofileruleid", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
-                , { "channelaccessprofileruleitem", new string[] { "associatedchannelaccessprofile", "channelaccessprofileruleid", "name", "sequencenumber", "channelaccessprofileruleitemid", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
 
-                , { "channelproperty", new string[] { "applicationsource", "datatype", "name", "regardingobjectid", "statecode", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
-                , { "channelpropertygroup", new string[] { "regardingtypecode", "name", "statecode", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
 
-                , { "customcontrolresource", new string[] { "customcontrol.name", "name", "webresource.name", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+                , { AppModule.EntityLogicalName, new string[] { AppModule.Schema.Attributes.uniquename, AppModule.Schema.Attributes.name, AppModule.Schema.Attributes.url, AppModule.Schema.Attributes.appmoduleversion, AppModule.Schema.Attributes.ismanaged
+                    , "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
 
-                , { "knowledgesearchmodel", new string[] { "entity", "sourceentity", "name", "statecode", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
-                , { "mobileofflineprofileitemassociation", new string[] { "mobileofflineprofileitemid", "name", "relationshipname", "selectedrelationshipsschema", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
-                , { "organizationui", new string[] { "objecttypecode", "fieldxml", "formid", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
-                , { "processtrigger", new string[] { "primaryentitytypecode", "controltype", "controlname", "formid", "event", "processtriggerid", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+                , { AppModuleRoles.EntityLogicalName, new string[] { AppModuleRoles.Schema.Attributes.appmoduleid, AppModuleRoles.Schema.Attributes.roleid, AppModuleRoles.Schema.Attributes.ismanaged
+                    , "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
 
-                , { "recommendationmodel", new string[] { "name", "productcatalogname", "statecode", "recommendationmodelid", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
-                , { "recommendationmodelmapping", new string[] { "entity", "accountfield", "mappingtype", "productfield", "entitydisplayname", "recommendationmodelmappingid", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
 
-                , { "textanalyticsentitymapping", new string[] { "advancedsimilarityruleid", "similarityruleid", "entity", "field", "relationshipname", "textanalyticsentitymappingid", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
-                , { "topicmodelconfiguration", new string[] { "sourceentity", "name", "topicmodelconfigurationid", "ismanaged", "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+
+                , { ChannelAccessProfile.EntityLogicalName, new string[] { ChannelAccessProfile.Schema.Attributes.name, ChannelAccessProfile.Schema.Attributes.channelaccessprofileid, ChannelAccessProfile.Schema.Attributes.ismanaged
+                    , "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+
+                , { ChannelAccessProfileEntityAccessLevel.EntityLogicalName, new string[] { ChannelAccessProfileEntityAccessLevel.Schema.Attributes.channelaccessprofileid, ChannelAccessProfileEntityAccessLevel.Schema.Attributes.channelaccessprofileentityaccesslevelid, ChannelAccessProfileEntityAccessLevel.Schema.Attributes.entityaccessleveldepthmask, ChannelAccessProfileEntityAccessLevel.Schema.Attributes.ismanaged
+                    , "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+
+                , { ChannelAccessProfileRule.EntityLogicalName, new string[] { ChannelAccessProfileRule.Schema.Attributes.name, ChannelAccessProfileRule.Schema.Attributes.workflowid, ChannelAccessProfileRule.Schema.Attributes.channelaccessprofileruleid, ChannelAccessProfileRule.Schema.Attributes.ismanaged
+                    , "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+
+                , { ChannelAccessProfileRuleItem.EntityLogicalName, new string[] { ChannelAccessProfileRuleItem.Schema.Attributes.associatedchannelaccessprofile, ChannelAccessProfileRuleItem.Schema.Attributes.channelaccessprofileruleid, ChannelAccessProfileRuleItem.Schema.Attributes.name, ChannelAccessProfileRuleItem.Schema.Attributes.sequencenumber, ChannelAccessProfileRuleItem.Schema.Attributes.channelaccessprofileruleitemid, ChannelAccessProfileRuleItem.Schema.Attributes.ismanaged
+                    , "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+
+
+
+                , { ChannelProperty.EntityLogicalName, new string[] { ChannelProperty.Schema.Attributes.applicationsource, ChannelProperty.Schema.Attributes.datatype, ChannelProperty.Schema.Attributes.name, ChannelProperty.Schema.Attributes.regardingobjectid, ChannelProperty.Schema.Attributes.statecode, ChannelProperty.Schema.Attributes.ismanaged
+                    , "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+
+                , { ChannelPropertyGroup.EntityLogicalName, new string[] { ChannelPropertyGroup.Schema.Attributes.regardingtypecode, ChannelPropertyGroup.Schema.Attributes.name, ChannelPropertyGroup.Schema.Attributes.statecode, ChannelPropertyGroup.Schema.Attributes.ismanaged
+                    , "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+
+
+
+                , { CustomControlResource.EntityLogicalName, new string[] { "customcontrol.name", CustomControlResource.Schema.Attributes.name, "webresource.name", CustomControlResource.Schema.Attributes.ismanaged
+                    , "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+
+
+
+                , { KnowledgeSearchModel.EntityLogicalName, new string[] { KnowledgeSearchModel.Schema.Attributes.entity, KnowledgeSearchModel.Schema.Attributes.sourceentity, KnowledgeSearchModel.Schema.Attributes.name, KnowledgeSearchModel.Schema.Attributes.statecode, KnowledgeSearchModel.Schema.Attributes.ismanaged
+                    , "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+
+                , { MobileOfflineProfileItemAssociation.EntityLogicalName, new string[] { MobileOfflineProfileItemAssociation.Schema.Attributes.mobileofflineprofileitemid, MobileOfflineProfileItemAssociation.Schema.Attributes.name, MobileOfflineProfileItemAssociation.Schema.Attributes.relationshipname, MobileOfflineProfileItemAssociation.Schema.Attributes.selectedrelationshipsschema, MobileOfflineProfileItemAssociation.Schema.Attributes.ismanaged
+                    , "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+
+                , { OrganizationUI.EntityLogicalName, new string[] { OrganizationUI.Schema.Attributes.objecttypecode, OrganizationUI.Schema.Attributes.fieldxml, OrganizationUI.Schema.Attributes.formid, OrganizationUI.Schema.Attributes.ismanaged
+                    , "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+
+                , { ProcessTrigger.EntityLogicalName, new string[] { ProcessTrigger.Schema.Attributes.primaryentitytypecode, ProcessTrigger.Schema.Attributes.controltype, ProcessTrigger.Schema.Attributes.controlname, ProcessTrigger.Schema.Attributes.formid, ProcessTrigger.Schema.Attributes.@event, ProcessTrigger.Schema.Attributes.processtriggerid, ProcessTrigger.Schema.Attributes.ismanaged
+                    , "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+
+
+
+                , { "recommendationmodel", new string[] { "name", "productcatalogname", "statecode", "recommendationmodelid", "ismanaged"
+                    , "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+
+                , { "recommendationmodelmapping", new string[] { "entity", "accountfield", "mappingtype", "productfield", "entitydisplayname", "recommendationmodelmappingid", "ismanaged"
+                    , "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+
+
+
+                , { TextAnalyticsEntityMapping.EntityLogicalName, new string[] { TextAnalyticsEntityMapping.Schema.Attributes.advancedsimilarityruleid, TextAnalyticsEntityMapping.Schema.Attributes.similarityruleid, TextAnalyticsEntityMapping.Schema.Attributes.entity, TextAnalyticsEntityMapping.Schema.Attributes.field, TextAnalyticsEntityMapping.Schema.Attributes.relationshipname, TextAnalyticsEntityMapping.Schema.Attributes.textanalyticsentitymappingid, TextAnalyticsEntityMapping.Schema.Attributes.ismanaged
+                    , "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
+
+                , { TopicModelConfiguration.EntityLogicalName, new string[] { TopicModelConfiguration.Schema.Attributes.sourceentity, TopicModelConfiguration.Schema.Attributes.name, TopicModelConfiguration.Schema.Attributes.topicmodelconfigurationid, TopicModelConfiguration.Schema.Attributes.ismanaged
+                    , "solution.uniquename", "solution.ismanaged", "suppsolution.uniquename", "suppsolution.ismanaged" } }
             }
             , StringComparer.InvariantCultureIgnoreCase
         );
@@ -1342,7 +1387,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private static QueryExpression GetQuery(string entityName)
         {
-            if (string.Equals(entityName, "customcontrolresource", StringComparison.InvariantCultureIgnoreCase))
+            if (string.Equals(entityName, CustomControlResource.EntityLogicalName, StringComparison.InvariantCultureIgnoreCase))
             {
                 var query = new QueryExpression()
                 {
@@ -1356,7 +1401,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     {
                         Conditions =
                         {
-                            new ConditionExpression("ismanaged", ConditionOperator.Equal, true),
+                            new ConditionExpression(CustomControlResource.Schema.Attributes.ismanaged, ConditionOperator.Equal, true),
                         },
                     },
 
@@ -1365,20 +1410,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         new LinkEntity()
                         {
                             LinkFromEntityName = entityName,
-                            LinkFromAttributeName = "solutionid",
+                            LinkFromAttributeName = CustomControlResource.Schema.Attributes.solutionid,
 
-                            LinkToEntityName = "solution",
-                            LinkToAttributeName = "solutionid",
+                            LinkToEntityName = Solution.EntityLogicalName,
+                            LinkToAttributeName = Solution.EntityPrimaryIdAttribute,
 
-                            EntityAlias = "solution",
+                            EntityAlias = Solution.EntityLogicalName,
 
-                            Columns = new ColumnSet("uniquename"),
+                            Columns = new ColumnSet(Solution.Schema.Attributes.uniquename),
 
                             LinkCriteria =
                             {
                                 Conditions =
                                 {
-                                    new ConditionExpression("ismanaged", ConditionOperator.Equal, false),
+                                    new ConditionExpression(Solution.Schema.Attributes.ismanaged, ConditionOperator.Equal, false),
                                 },
                             },
                         },
@@ -1388,14 +1433,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             JoinOperator = JoinOperator.LeftOuter,
 
                             LinkFromEntityName = entityName,
-                            LinkFromAttributeName = "customcontrolid",
+                            LinkFromAttributeName = CustomControlResource.Schema.Attributes.customcontrolid,
 
-                            LinkToEntityName = "we",
-                            LinkToAttributeName = "customcontrolid",
+                            LinkToEntityName = CustomControl.Schema.EntityLogicalName,
+                            LinkToAttributeName = CustomControl.Schema.EntityPrimaryIdAttribute,
 
-                            EntityAlias = "customcontrol",
+                            EntityAlias = CustomControl.Schema.EntityLogicalName,
 
-                            Columns = new ColumnSet("name"),
+                            Columns = new ColumnSet(CustomControl.Schema.Attributes.name),
                         },
 
                         new LinkEntity()
@@ -1442,18 +1487,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             LinkFromEntityName = entityName,
                             LinkFromAttributeName = "solutionid",
 
-                            LinkToEntityName = "solution",
-                            LinkToAttributeName = "solutionid",
+                            LinkToEntityName = Solution.EntityLogicalName,
+                            LinkToAttributeName = Solution.EntityPrimaryIdAttribute,
 
-                            EntityAlias = "solution",
+                            EntityAlias = Solution.EntityLogicalName,
 
-                            Columns = new ColumnSet("uniquename"),
+                            Columns = new ColumnSet(Solution.Schema.Attributes.uniquename),
 
                             LinkCriteria =
                             {
                                 Conditions =
                                 {
-                                    new ConditionExpression("ismanaged", ConditionOperator.Equal, false),
+                                    new ConditionExpression(Solution.Schema.Attributes.ismanaged, ConditionOperator.Equal, false),
                                 },
                             },
                         },
@@ -1465,12 +1510,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             LinkFromEntityName = entityName,
                             LinkFromAttributeName = "supportingsolutionid",
 
-                            LinkToEntityName = "solution",
-                            LinkToAttributeName = "solutionid",
+                            LinkToEntityName = Solution.EntityLogicalName,
+                            LinkToAttributeName = Solution.EntityPrimaryIdAttribute,
 
                             EntityAlias = "suppsolution",
 
-                            Columns = new ColumnSet("uniquename", "ismanaged"),
+                            Columns = new ColumnSet(Solution.Schema.Attributes.uniquename, Solution.Schema.Attributes.ismanaged),
                         },
                     },
                 };

@@ -127,8 +127,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.WriteToOutputFilePathUri(service.ConnectionData, filePath);
 
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operation);
-
-            service.TryDispose();
         }
 
         private async Task GenerateEntityProxyClassFileAsync(
@@ -170,8 +168,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.WriteToOutputFilePathUri(service.ConnectionData, filePath);
 
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operation);
-
-            service.TryDispose();
         }
 
         private async Task GenerateEntityJavaScriptFileAsync(
@@ -208,8 +204,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.WriteToOutputFilePathUri(service.ConnectionData, filePath);
 
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operation);
-
-            service.TryDispose();
         }
 
         #endregion Generating EntityMetadata Files
@@ -247,88 +241,90 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            var descriptor = new SolutionComponentDescriptor(service);
-
-            IMetadataProviderService metadataProviderService = new MetadataProviderService(new EntityMetadataRepository(service));
-
             var unhandledFiles = new TupleList<string, string>();
-            var findedEntityMetadata = new TupleList<string, EntityMetadata>();
 
-            foreach (var selFile in selectedFiles)
+            using (service)
             {
-                var filePath = selFile.FilePath;
+                var descriptor = new SolutionComponentDescriptor(service);
 
-                if (!File.Exists(filePath))
+                IMetadataProviderService metadataProviderService = new MetadataProviderService(new EntityMetadataRepository(service));
+
+                var findedEntityMetadata = new TupleList<string, EntityMetadata>();
+
+                foreach (var selFile in selectedFiles)
                 {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, filePath);
-                    continue;
-                }
+                    var filePath = selFile.FilePath;
 
-                var selection = Path.GetFileNameWithoutExtension(filePath);
-                selection = selection.Split('.').FirstOrDefault();
-
-                bool tempSelectEntity = selectEntity;
-
-                if (!tempSelectEntity)
-                {
-                    var entityMetadata = descriptor.MetadataSource.GetEntityMetadata(selection.ToLower());
-
-                    if (entityMetadata != null)
+                    if (!File.Exists(filePath))
                     {
-                        metadataProviderService.StoreEntityMetadata(entityMetadata);
-
-                        findedEntityMetadata.Add(filePath, entityMetadata);
-
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, filePath);
                         continue;
                     }
-                    else
+
+                    var selection = Path.GetFileNameWithoutExtension(filePath);
+                    selection = selection.Split('.').FirstOrDefault();
+
+                    bool tempSelectEntity = selectEntity;
+
+                    if (!tempSelectEntity)
                     {
-                        tempSelectEntity = true;
+                        var entityMetadata = descriptor.MetadataSource.GetEntityMetadata(selection.ToLower());
+
+                        if (entityMetadata != null)
+                        {
+                            metadataProviderService.StoreEntityMetadata(entityMetadata);
+
+                            findedEntityMetadata.Add(filePath, entityMetadata);
+
+                            continue;
+                        }
+                        else
+                        {
+                            tempSelectEntity = true;
+                        }
+                    }
+
+                    if (tempSelectEntity)
+                    {
+                        unhandledFiles.Add(selection, filePath);
                     }
                 }
 
-                if (tempSelectEntity)
+                if (findedEntityMetadata.Any())
                 {
-                    unhandledFiles.Add(selection, filePath);
-                }
-            }
+                    HashSet<string> linkedEntities = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
-            if (findedEntityMetadata.Any())
-            {
-                HashSet<string> linkedEntities = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
-
-                foreach (var item in findedEntityMetadata)
-                {
-                    var temp = CodeGenerationService.GetLinkedEntities(item.Item2);
-
-                    foreach (var entityName in temp)
+                    foreach (var item in findedEntityMetadata)
                     {
-                        linkedEntities.Add(entityName);
+                        var temp = CodeGenerationService.GetLinkedEntities(item.Item2);
+
+                        foreach (var entityName in temp)
+                        {
+                            linkedEntities.Add(entityName);
+                        }
+                    }
+
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.GettingEntitiesMetadataFormat1, linkedEntities.Count);
+
+                    metadataProviderService.RetrieveEntities(linkedEntities);
+
+                    int totalCount = findedEntityMetadata.Count;
+                    int number = 0;
+
+                    foreach (var item in findedEntityMetadata)
+                    {
+                        number++;
+
+                        await handler(service, metadataProviderService, commonConfig, item.Item2, item.Item1, number, totalCount);
                     }
                 }
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.GettingEntitiesMetadataFormat1, linkedEntities.Count);
-
-                metadataProviderService.RetrieveEntities(linkedEntities);
-
-                int totalCount = findedEntityMetadata.Count;
-                int number = 0;
-
-                foreach (var item in findedEntityMetadata)
-                {
-                    number++;
-
-                    await handler(service, metadataProviderService, commonConfig, item.Item2, item.Item1, number, totalCount);
-                }
             }
-
-            service.TryDispose();
 
             if (unhandledFiles.Any())
             {
                 var tabSpacer = "    ";
 
-                FormatTextTableHandler tableUnhandledFiles = new FormatTextTableHandler();
+                var tableUnhandledFiles = new FormatTextTableHandler();
                 tableUnhandledFiles.SetHeader("Entity Name", "FilePath");
 
                 foreach (var item in unhandledFiles)
@@ -473,8 +469,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.WriteToOutputFilePathUri(service.ConnectionData, filePath);
 
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operation);
-
-            service.TryDispose();
         }
 
         private async Task GenerateGlobalOptionSetJavaScriptFile(
@@ -549,54 +543,56 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            var descriptor = new SolutionComponentDescriptor(service);
-
-            var totalCount = selectedFiles.Count();
-
-            int number = 0;
-
             var unhandledFiles = new TupleList<string, string>();
 
-            foreach (var selFile in selectedFiles)
+            using (service)
             {
-                number++;
+                var descriptor = new SolutionComponentDescriptor(service);
 
-                var filePath = selFile.FilePath;
+                var totalCount = selectedFiles.Count();
 
-                if (!File.Exists(filePath))
+                int number = 0;
+
+                foreach (var selFile in selectedFiles)
                 {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, filePath);
-                    continue;
-                }
+                    number++;
 
-                var selection = Path.GetFileNameWithoutExtension(filePath);
-                selection = selection.Split('.').FirstOrDefault();
+                    var filePath = selFile.FilePath;
 
-                bool tempWithSelect = withSelect;
-
-                if (!tempWithSelect)
-                {
-                    var optionSetMetadata = descriptor.MetadataSource.GetOptionSetMetadata(selection.ToLower());
-
-                    if (optionSetMetadata != null)
+                    if (!File.Exists(filePath))
                     {
-                        await handler(service, descriptor, commonConfig, optionSetMetadata, filePath, number, totalCount);
-
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, filePath);
                         continue;
                     }
-                    else
+
+                    var selection = Path.GetFileNameWithoutExtension(filePath);
+                    selection = selection.Split('.').FirstOrDefault();
+
+                    bool tempWithSelect = withSelect;
+
+                    if (!tempWithSelect)
                     {
-                        tempWithSelect = true;
+                        var optionSetMetadata = descriptor.MetadataSource.GetOptionSetMetadata(selection.ToLower());
+
+                        if (optionSetMetadata != null)
+                        {
+                            await handler(service, descriptor, commonConfig, optionSetMetadata, filePath, number, totalCount);
+
+                            continue;
+                        }
+                        else
+                        {
+                            tempWithSelect = true;
+                        }
+                    }
+
+                    if (tempWithSelect)
+                    {
+                        unhandledFiles.Add(selection, filePath);
                     }
                 }
 
-                if (tempWithSelect)
-                {
-                    unhandledFiles.Add(selection, filePath);
-                }
             }
-
-            service.TryDispose();
 
             if (unhandledFiles.Any())
             {
@@ -614,7 +610,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 _iWriteToOutput.WriteToOutput(connectionData, "NOT FINDED Global OptionSets: {0}", tableUnhandledFiles.Count);
 
                 tableUnhandledFiles.GetFormatedLines(true).ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, tabSpacer + item));
-
 
                 var tempService = await QuickConnection.ConnectAsync(connectionData);
 
@@ -710,44 +705,45 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            OptionSetRepository repository = new OptionSetRepository(service);
-
-            var optionSets = await repository.GetOptionSetsAsync();
-
-            string optionSetsName = string.Join(",", optionSets.Select(o => o.Name).OrderBy(s => s));
-
-            string operation = string.Format(Properties.OperationNames.CreatingFileWithGlobalOptionSetsFormat2, connectionData?.Name, optionSetsName);
-
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
-
-            SolutionComponentDescriptor descriptor = new SolutionComponentDescriptor(service);
-
-            var stringBuilder = new StringBuilder();
-
-            using (var stringWriter = new StringWriter(stringBuilder))
+            using (service)
             {
-                var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(
-                    stringWriter
-                    , service
-                    , descriptor
-                    , _iWriteToOutput
-                    , fileGenerationOptions.GetTabSpacer()
-                    , fileGenerationOptions.GenerateSchemaGlobalOptionSetsWithDependentComponents
-                    , fileGenerationOptions.NamespaceGlobalOptionSetsJavaScript
-                );
+                var repository = new OptionSetRepository(service);
 
-                await handler.CreateFileAsync(optionSets.OrderBy(o => o.Name));
+                var optionSets = await repository.GetOptionSetsAsync();
+
+                string optionSetsName = string.Join(",", optionSets.Select(o => o.Name).OrderBy(s => s));
+
+                string operation = string.Format(Properties.OperationNames.CreatingFileWithGlobalOptionSetsFormat2, connectionData?.Name, optionSetsName);
+
+                this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+                SolutionComponentDescriptor descriptor = new SolutionComponentDescriptor(service);
+
+                var stringBuilder = new StringBuilder();
+
+                using (var stringWriter = new StringWriter(stringBuilder))
+                {
+                    var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(
+                        stringWriter
+                        , service
+                        , descriptor
+                        , _iWriteToOutput
+                        , fileGenerationOptions.GetTabSpacer()
+                        , fileGenerationOptions.GenerateSchemaGlobalOptionSetsWithDependentComponents
+                        , fileGenerationOptions.NamespaceGlobalOptionSetsJavaScript
+                    );
+
+                    await handler.CreateFileAsync(optionSets.OrderBy(o => o.Name));
+                }
+
+                File.WriteAllText(selectedFile.FilePath, stringBuilder.ToString(), new UTF8Encoding(false));
+
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service.ConnectionData.Name, optionSetsName, selectedFile.FilePath);
+
+                this._iWriteToOutput.WriteToOutputFilePathUri(connectionData, selectedFile.FilePath);
+
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
-
-            File.WriteAllText(selectedFile.FilePath, stringBuilder.ToString(), new UTF8Encoding(false));
-
-            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service.ConnectionData.Name, optionSetsName, selectedFile.FilePath);
-
-            this._iWriteToOutput.WriteToOutputFilePathUri(connectionData, selectedFile.FilePath);
-
-            this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
-
-            service.TryDispose();
         }
 
         #endregion Обновление файла с глобальными OptionSet-ами JavaScript All.

@@ -56,49 +56,50 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            StringBuilder content = new StringBuilder();
-
-            content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
-            content.AppendLine(connectionData.GetConnectionDescription());
-            content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
-
-            EntityMetadataRepository repositoryEntity = new EntityMetadataRepository(service);
-
-            var allEntities = await repositoryEntity.GetEntitiesDisplayNameAsync();
-
-            var groups = allEntities.GroupBy(ent => ent.OwnershipType).OrderBy(gr => gr.Key);
-
-            foreach (var gr in groups)
+            using (service)
             {
-                content.AppendLine();
+                StringBuilder content = new StringBuilder();
 
-                int count = gr.Count();
+                content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
+                content.AppendLine(connectionData.GetConnectionDescription());
+                content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
 
-                string name = "Null";
+                var repositoryEntity = new EntityMetadataRepository(service);
 
-                if (gr.Key.HasValue)
+                var allEntities = await repositoryEntity.GetEntitiesDisplayNameAsync();
+
+                var groups = allEntities.GroupBy(ent => ent.OwnershipType).OrderBy(gr => gr.Key);
+
+                foreach (var gr in groups)
                 {
-                    name = gr.Key.Value.ToString();
+                    content.AppendLine();
+
+                    int count = gr.Count();
+
+                    string name = "Null";
+
+                    if (gr.Key.HasValue)
+                    {
+                        name = gr.Key.Value.ToString();
+                    }
+
+                    content.AppendFormat(Properties.OutputStrings.EntitiesWithOwnershipFormat2, name, count).AppendLine();
+
+                    gr.OrderBy(ent => ent.LogicalName).ToList().ForEach(ent => content.AppendLine(_tabSpacer + ent.LogicalName));
                 }
 
-                content.AppendFormat(Properties.OutputStrings.EntitiesWithOwnershipFormat2, name, count).AppendLine();
+                commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-                gr.OrderBy(ent => ent.LogicalName).ToList().ForEach(ent => content.AppendLine(_tabSpacer + ent.LogicalName));
+                string fileName = string.Format("{0}.Entities with Ownership at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+
+                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CreatedFileWithEntitiesOwnershipFormat1, filePath);
+
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
-
-            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
-
-            string fileName = string.Format("{0}.Entities with Ownership at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
-
-            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CreatedFileWithEntitiesOwnershipFormat1, filePath);
-
-            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
-
-            service.TryDispose();
         }
 
         #endregion Проверка уровня собственности сущностей.
@@ -183,137 +184,138 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            StringBuilder content = new StringBuilder();
-
-            content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
-            content.AppendLine(connectionData.GetConnectionDescription());
-            content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
-
-            var descriptor = new SolutionComponentDescriptor(service);
-            descriptor.WithUrls = true;
-            descriptor.WithManagedInfo = true;
-            descriptor.WithSolutionsInfo = true;
-
-            var descriptorHandler = new DependencyDescriptionHandler(descriptor);
-
-            var dependencyRepository = new DependencyRepository(service);
-
-            bool isconnectionDataDirty = false;
-
-            List<string> listNotExistsOnDisk = new List<string>();
-            List<string> listNotFoundedInCRMNoLink = new List<string>();
-            List<string> listLastLinkEqualByContent = new List<string>();
-
-            List<SolutionComponent> webResourceNames = new List<SolutionComponent>();
-
-            Dictionary<SolutionComponent, string> webResourceDescriptions = new Dictionary<SolutionComponent, string>();
-
-            WebResourceRepository repositoryWebResource = new WebResourceRepository(service);
-
-            FormatTextTableHandler tableWithoutDependenComponents = new FormatTextTableHandler();
-            tableWithoutDependenComponents.SetHeader("FilePath", "Web Resource Name", "Web Resource Type");
-
-            var groups = selectedFiles.GroupBy(sel => sel.Extension);
-
-            foreach (var gr in groups)
+            using (service)
             {
-                var names = gr.Select(sel => sel.FriendlyFilePath).ToArray();
+                var content = new StringBuilder();
 
-                var dict = repositoryWebResource.FindMultiple(gr.Key, names);
+                content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
+                content.AppendLine(connectionData.GetConnectionDescription());
+                content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
 
-                foreach (var selectedFile in gr)
+                var descriptor = new SolutionComponentDescriptor(service);
+                descriptor.WithUrls = true;
+                descriptor.WithManagedInfo = true;
+                descriptor.WithSolutionsInfo = true;
+
+                var descriptorHandler = new DependencyDescriptionHandler(descriptor);
+
+                var dependencyRepository = new DependencyRepository(service);
+
+                bool isconnectionDataDirty = false;
+
+                var listNotExistsOnDisk = new List<string>();
+                var listNotFoundedInCRMNoLink = new List<string>();
+                var listLastLinkEqualByContent = new List<string>();
+
+                var webResourceNames = new List<SolutionComponent>();
+
+                var webResourceDescriptions = new Dictionary<SolutionComponent, string>();
+
+                var repositoryWebResource = new WebResourceRepository(service);
+
+                var tableWithoutDependenComponents = new FormatTextTableHandler();
+                tableWithoutDependenComponents.SetHeader("FilePath", "Web Resource Name", "Web Resource Type");
+
+                var groups = selectedFiles.GroupBy(sel => sel.Extension);
+
+                foreach (var gr in groups)
                 {
-                    if (File.Exists(selectedFile.FilePath))
+                    var names = gr.Select(sel => sel.FriendlyFilePath).ToArray();
+
+                    var dict = repositoryWebResource.FindMultiple(gr.Key, names);
+
+                    foreach (var selectedFile in gr)
                     {
-                        string name = selectedFile.FriendlyFilePath.ToLower();
-
-                        var webresource = WebResourceRepository.FindWebResourceInDictionary(dict, name, gr.Key);
-
-                        if (webresource == null)
+                        if (File.Exists(selectedFile.FilePath))
                         {
-                            Guid? webId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
+                            string name = selectedFile.FriendlyFilePath.ToLower();
 
-                            if (webId.HasValue)
+                            var webresource = WebResourceRepository.FindWebResourceInDictionary(dict, name, gr.Key);
+
+                            if (webresource == null)
                             {
-                                webresource = await repositoryWebResource.GetByIdAsync(webId.Value);
+                                Guid? webId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
 
-                                if (webresource != null)
+                                if (webId.HasValue)
                                 {
-                                    listLastLinkEqualByContent.Add(selectedFile.FriendlyFilePath);
+                                    webresource = await repositoryWebResource.GetByIdAsync(webId.Value);
+
+                                    if (webresource != null)
+                                    {
+                                        listLastLinkEqualByContent.Add(selectedFile.FriendlyFilePath);
+                                    }
                                 }
                             }
-                        }
 
-                        if (webresource != null)
-                        {
-                            // Запоминается файл
-                            isconnectionDataDirty = true;
-                            connectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
-
-                            var coll = await dependencyRepository.GetDependentComponentsAsync((int)ComponentType.WebResource, webresource.Id);
-
-                            var desc = await descriptorHandler.GetDescriptionDependentAsync(coll);
-
-                            if (!string.IsNullOrEmpty(desc))
+                            if (webresource != null)
                             {
-                                var component = new SolutionComponent()
+                                // Запоминается файл
+                                isconnectionDataDirty = true;
+                                connectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
+
+                                var coll = await dependencyRepository.GetDependentComponentsAsync((int)ComponentType.WebResource, webresource.Id);
+
+                                var desc = await descriptorHandler.GetDescriptionDependentAsync(coll);
+
+                                if (!string.IsNullOrEmpty(desc))
                                 {
-                                    ComponentType = new OptionSetValue((int)ComponentType.WebResource),
-                                    ObjectId = webresource.Id,
-                                };
+                                    var component = new SolutionComponent()
+                                    {
+                                        ComponentType = new OptionSetValue((int)ComponentType.WebResource),
+                                        ObjectId = webresource.Id,
+                                    };
 
-                                webResourceNames.Add(component);
+                                    webResourceNames.Add(component);
 
-                                webResourceDescriptions.Add(component, desc);
+                                    webResourceDescriptions.Add(component, desc);
+                                }
+                                else
+                                {
+                                    tableWithoutDependenComponents.AddLine(selectedFile.FriendlyFilePath, webresource.Name, "'" + webresource.FormattedValues[WebResource.Schema.Attributes.webresourcetype] + "'");
+                                }
                             }
                             else
                             {
-                                tableWithoutDependenComponents.AddLine(selectedFile.FriendlyFilePath, webresource.Name, "'" + webresource.FormattedValues[WebResource.Schema.Attributes.webresourcetype] + "'");
+                                connectionData.RemoveMapping(selectedFile.FriendlyFilePath);
+
+                                listNotFoundedInCRMNoLink.Add(selectedFile.FriendlyFilePath);
                             }
                         }
                         else
                         {
-                            connectionData.RemoveMapping(selectedFile.FriendlyFilePath);
-
-                            listNotFoundedInCRMNoLink.Add(selectedFile.FriendlyFilePath);
+                            listNotExistsOnDisk.Add(selectedFile.FilePath);
                         }
                     }
-                    else
-                    {
-                        listNotExistsOnDisk.Add(selectedFile.FilePath);
-                    }
                 }
+
+                if (isconnectionDataDirty)
+                {
+                    //Сохранение настроек после публикации
+                    connectionData.Save();
+                }
+
+                FindsController.WriteToContentList(listNotFoundedInCRMNoLink, content, "File NOT FOUNDED in CRM: {0}");
+
+                FindsController.WriteToContentList(listLastLinkEqualByContent, content, "Files NOT FOUNDED in CRM, but has Last Link: {0}");
+
+                FindsController.WriteToContentList(listNotExistsOnDisk, content, Properties.OutputStrings.FileNotExistsFormat1);
+
+                FindsController.WriteToContentList(tableWithoutDependenComponents.GetFormatedLines(true), content, "Files without dependent components: {0}");
+
+                FindsController.WriteToContentDictionary(descriptor, content, webResourceNames, webResourceDescriptions, "WebResource dependent components: {0}");
+
+                commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+
+                string fileName = string.Format("{0}.WebResourceDependent at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+
+                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CreatedFileWithWebResourcesDependentComponentsFormat1, filePath);
+
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
-
-            if (isconnectionDataDirty)
-            {
-                //Сохранение настроек после публикации
-                connectionData.Save();
-            }
-
-            FindsController.WriteToContentList(listNotFoundedInCRMNoLink, content, "File NOT FOUNDED in CRM: {0}");
-
-            FindsController.WriteToContentList(listLastLinkEqualByContent, content, "Files NOT FOUNDED in CRM, but has Last Link: {0}");
-
-            FindsController.WriteToContentList(listNotExistsOnDisk, content, Properties.OutputStrings.FileNotExistsFormat1);
-
-            FindsController.WriteToContentList(tableWithoutDependenComponents.GetFormatedLines(true), content, "Files without dependent components: {0}");
-
-            FindsController.WriteToContentDictionary(descriptor, content, webResourceNames, webResourceDescriptions, "WebResource dependent components: {0}");
-
-            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
-
-            string fileName = string.Format("{0}.WebResourceDependent at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
-
-            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CreatedFileWithWebResourcesDependentComponentsFormat1, filePath);
-
-            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
-
-            service.TryDispose();
         }
 
         #endregion Отображение зависимых компонентов веб-ресурсов.
@@ -349,85 +351,86 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            StringBuilder content = new StringBuilder();
-
-            content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
-            content.AppendLine(connectionData.GetConnectionDescription());
-            content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
-
-            var entityMetadataSource = new SolutionComponentMetadataSource(service);
-
-            var descriptor = new SolutionComponentDescriptor(service);
-            descriptor.WithUrls = true;
-            descriptor.WithManagedInfo = true;
-            descriptor.WithSolutionsInfo = true;
-
-            var dependencyRepository = new DependencyRepository(service);
-            var descriptorHandler = new DependencyDescriptionHandler(descriptor);
-
-            RetrieveAllOptionSetsRequest request = new RetrieveAllOptionSetsRequest();
-
-            RetrieveAllOptionSetsResponse response = (RetrieveAllOptionSetsResponse)service.Execute(request);
-
-            bool hasInfo = false;
-
-            foreach (var optionSet in response.OptionSetMetadata.OfType<OptionSetMetadata>().OrderBy(e => e.Name))
+            using (service)
             {
-                var coll = await dependencyRepository.GetDependentComponentsAsync((int)ComponentType.OptionSet, optionSet.MetadataId.Value);
+                var content = new StringBuilder();
 
-                if (coll.Any())
+                content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
+                content.AppendLine(connectionData.GetConnectionDescription());
+                content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
+
+                var entityMetadataSource = new SolutionComponentMetadataSource(service);
+
+                var descriptor = new SolutionComponentDescriptor(service);
+                descriptor.WithUrls = true;
+                descriptor.WithManagedInfo = true;
+                descriptor.WithSolutionsInfo = true;
+
+                var dependencyRepository = new DependencyRepository(service);
+                var descriptorHandler = new DependencyDescriptionHandler(descriptor);
+
+                var request = new RetrieveAllOptionSetsRequest();
+
+                var response = await service.ExecuteAsync<RetrieveAllOptionSetsResponse>(request);
+
+                bool hasInfo = false;
+
+                foreach (var optionSet in response.OptionSetMetadata.OfType<OptionSetMetadata>().OrderBy(e => e.Name))
                 {
-                    var filter = coll
-                        .Where(c => c.DependentComponentType.Value == (int)ComponentType.Attribute)
-                        .Select(c => new { Dependency = c, Attribute = entityMetadataSource.GetAttributeMetadata(c.DependentComponentObjectId.Value) })
-                        .Where(c => c.Attribute != null)
-                        .GroupBy(c => c.Attribute.EntityLogicalName)
-                        .Where(gr => gr.Count() > 1)
-                        .SelectMany(gr => gr.Select(c => c.Dependency))
-                        .ToList()
-                        ;
+                    var coll = await dependencyRepository.GetDependentComponentsAsync((int)ComponentType.OptionSet, optionSet.MetadataId.Value);
 
-                    if (filter.Any())
+                    if (coll.Any())
                     {
-                        var desc = await descriptorHandler.GetDescriptionDependentAsync(filter);
+                        var filter = coll
+                            .Where(c => c.DependentComponentType.Value == (int)ComponentType.Attribute)
+                            .Select(c => new { Dependency = c, Attribute = entityMetadataSource.GetAttributeMetadata(c.DependentComponentObjectId.Value) })
+                            .Where(c => c.Attribute != null)
+                            .GroupBy(c => c.Attribute.EntityLogicalName)
+                            .Where(gr => gr.Count() > 1)
+                            .SelectMany(gr => gr.Select(c => c.Dependency))
+                            .ToList()
+                            ;
 
-                        if (!string.IsNullOrEmpty(desc))
+                        if (filter.Any())
                         {
-                            if (content.Length > 0)
+                            var desc = await descriptorHandler.GetDescriptionDependentAsync(filter);
+
+                            if (!string.IsNullOrEmpty(desc))
                             {
-                                content
-                                    .AppendLine(new string('-', 150))
-                                    .AppendLine();
+                                if (content.Length > 0)
+                                {
+                                    content
+                                        .AppendLine(new string('-', 150))
+                                        .AppendLine();
+                                }
+
+                                hasInfo = true;
+
+                                content.AppendFormat("Global OptionSet Name {0}       IsCustomOptionSet {1}      IsManaged {2}", optionSet.Name, optionSet.IsCustomOptionSet, optionSet.IsManaged).AppendLine();
+
+                                content.AppendLine(desc);
                             }
-
-                            hasInfo = true;
-
-                            content.AppendFormat("Global OptionSet Name {0}       IsCustomOptionSet {1}      IsManaged {2}", optionSet.Name, optionSet.IsCustomOptionSet, optionSet.IsManaged).AppendLine();
-
-                            content.AppendLine(desc);
                         }
                     }
                 }
+
+                if (!hasInfo)
+                {
+                    content.AppendLine("No duplicates were found.");
+                }
+
+                commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+
+                string fileName = string.Format("{0}.Checking Global OptionSet Duplicates on Entity at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+
+                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CreatedFileWithCheckingGlobalOptionSetDuplicatesOnEntityFormat1, filePath);
+
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
-
-            if (!hasInfo)
-            {
-                content.AppendLine("No duplicates were found.");
-            }
-
-            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
-
-            string fileName = string.Format("{0}.Checking Global OptionSet Duplicates on Entity at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
-
-            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CreatedFileWithCheckingGlobalOptionSetDuplicatesOnEntityFormat1, filePath);
-
-            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
-
-            service.TryDispose();
         }
 
         #endregion Проверка глобальных OptionSet на дубликаты на сущности.
@@ -463,104 +466,105 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            StringBuilder content = new StringBuilder();
-
-            content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
-            content.AppendLine(connectionData.GetConnectionDescription());
-            content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
-
-            var hash = new HashSet<Tuple<int, Guid>>();
-
+            using (service)
             {
-                var repository = new SolutionComponentRepository(service);
+                var content = new StringBuilder();
 
-                var components = await repository.GetDistinctSolutionComponentsAsync();
+                content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
+                content.AppendLine(connectionData.GetConnectionDescription());
+                content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
 
-                foreach (var item in components.Where(en => en.ComponentType != null && en.ObjectId.HasValue))
+                var hash = new HashSet<Tuple<int, Guid>>();
+
                 {
-                    if (!item.IsDefinedComponentType())
+                    var repository = new SolutionComponentRepository(service);
+
+                    var components = await repository.GetDistinctSolutionComponentsAsync();
+
+                    foreach (var item in components.Where(en => en.ComponentType != null && en.ObjectId.HasValue))
                     {
-                        hash.Add(Tuple.Create(item.ComponentType.Value, item.ObjectId.Value));
-                    }
-                }
-            }
-
-            {
-                var repository = new DependencyNodeRepository(service);
-
-                var components = await repository.GetDistinctListUnknownComponentTypeAsync();
-
-                foreach (var item in components.Where(en => en.ComponentType != null && en.ObjectId.HasValue))
-                {
-                    if (!item.IsDefinedComponentType())
-                    {
-                        hash.Add(Tuple.Create(item.ComponentType.Value, item.ObjectId.Value));
-                    }
-                }
-            }
-
-            {
-                var repository = new InvalidDependencyRepository(service);
-
-                var components = await repository.GetDistinctListAsync();
-
-                foreach (var item in components.Where(en => en.MissingComponentType != null && en.MissingComponentId.HasValue))
-                {
-                    if (!item.IsDefinedMissingComponentType())
-                    {
-                        hash.Add(Tuple.Create(item.MissingComponentType.Value, item.MissingComponentId.Value));
+                        if (!item.IsDefinedComponentType())
+                        {
+                            hash.Add(Tuple.Create(item.ComponentType.Value, item.ObjectId.Value));
+                        }
                     }
                 }
 
-                foreach (var item in components.Where(en => en.ExistingComponentType != null && en.ExistingComponentId.HasValue))
                 {
-                    if (!item.IsDefinedExistingComponentType())
+                    var repository = new DependencyNodeRepository(service);
+
+                    var components = await repository.GetDistinctListUnknownComponentTypeAsync();
+
+                    foreach (var item in components.Where(en => en.ComponentType != null && en.ObjectId.HasValue))
                     {
-                        hash.Add(Tuple.Create(item.ExistingComponentType.Value, item.ExistingComponentId.Value));
+                        if (!item.IsDefinedComponentType())
+                        {
+                            hash.Add(Tuple.Create(item.ComponentType.Value, item.ObjectId.Value));
+                        }
                     }
                 }
-            }
 
-            if (hash.Any())
-            {
-                var groups = hash.GroupBy(e => e.Item1);
-
-                content.AppendLine().AppendLine();
-
-                content.AppendFormat("ComponentTypes not founded in Enum: {0}", groups.Count());
-
-                foreach (var gr in groups.OrderBy(e => e.Key))
                 {
+                    var repository = new InvalidDependencyRepository(service);
+
+                    var components = await repository.GetDistinctListAsync();
+
+                    foreach (var item in components.Where(en => en.MissingComponentType != null && en.MissingComponentId.HasValue))
+                    {
+                        if (!item.IsDefinedMissingComponentType())
+                        {
+                            hash.Add(Tuple.Create(item.MissingComponentType.Value, item.MissingComponentId.Value));
+                        }
+                    }
+
+                    foreach (var item in components.Where(en => en.ExistingComponentType != null && en.ExistingComponentId.HasValue))
+                    {
+                        if (!item.IsDefinedExistingComponentType())
+                        {
+                            hash.Add(Tuple.Create(item.ExistingComponentType.Value, item.ExistingComponentId.Value));
+                        }
+                    }
+                }
+
+                if (hash.Any())
+                {
+                    var groups = hash.GroupBy(e => e.Item1);
+
                     content.AppendLine().AppendLine();
 
-                    foreach (var item in gr.OrderBy(e => e.Item2))
+                    content.AppendFormat("ComponentTypes not founded in Enum: {0}", groups.Count());
+
+                    foreach (var gr in groups.OrderBy(e => e.Key))
                     {
-                        content.AppendFormat(_tabSpacer + item.Item1.ToString() + _tabSpacer + item.Item2.ToString()).AppendLine();
+                        content.AppendLine().AppendLine();
+
+                        foreach (var item in gr.OrderBy(e => e.Item2))
+                        {
+                            content.AppendFormat(_tabSpacer + item.Item1.ToString() + _tabSpacer + item.Item2.ToString()).AppendLine();
+                        }
                     }
+
+                    string fileName = string.Format("{0}.Checking ComponentType Enum at {1}.txt"
+                        , connectionData.Name
+                        , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
+                    );
+
+                    commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+
+                    string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                    File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+                    this._iWriteToOutput.WriteToOutput(connectionData, "New ComponentTypes were exported to {0}", filePath);
+
+                    this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
                 }
-
-                string fileName = string.Format("{0}.Checking ComponentType Enum at {1}.txt"
-                    , connectionData.Name
-                    , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
-                );
-
-                commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
-
-                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
-
-                this._iWriteToOutput.WriteToOutput(connectionData, "New ComponentTypes were exported to {0}", filePath);
-
-                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+                else
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, "No New ComponentTypes in CRM were founded.");
+                    this._iWriteToOutput.ActivateOutputWindow(connectionData);
+                }
             }
-            else
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, "No New ComponentTypes in CRM were founded.");
-                this._iWriteToOutput.ActivateOutputWindow(connectionData);
-            }
-
-            service.TryDispose();
         }
 
         #endregion Поиск неизвестных типов компонентов.
@@ -596,64 +600,65 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            StringBuilder content = new StringBuilder();
-
-            content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
-            content.AppendLine(connectionData.GetConnectionDescription());
-            content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
-
-            var hash = new HashSet<Tuple<int, Guid>>();
-
+            using (service)
             {
-                var repository = new DependencyNodeRepository(service);
+                var content = new StringBuilder();
 
-                var components = await repository.GetDistinctListAsync();
+                content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
+                content.AppendLine(connectionData.GetConnectionDescription());
+                content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
 
-                foreach (var item in components.Where(en => en.ComponentType != null && en.ObjectId.HasValue))
+                var hash = new HashSet<Tuple<int, Guid>>();
+
                 {
-                    hash.Add(Tuple.Create(item.ComponentType.Value, item.ObjectId.Value));
+                    var repository = new DependencyNodeRepository(service);
+
+                    var components = await repository.GetDistinctListAsync();
+
+                    foreach (var item in components.Where(en => en.ComponentType != null && en.ObjectId.HasValue))
+                    {
+                        hash.Add(Tuple.Create(item.ComponentType.Value, item.ObjectId.Value));
+                    }
+                }
+
+                if (hash.Any())
+                {
+                    content.AppendLine().AppendLine();
+
+                    var solutionComponents = hash.Select(e => new SolutionComponent
+                    {
+                        ComponentType = new OptionSetValue(e.Item1),
+                        ObjectId = e.Item2,
+                    }).ToList();
+
+                    var descriptor = new SolutionComponentDescriptor(service);
+                    descriptor.WithUrls = true;
+                    descriptor.WithManagedInfo = true;
+                    descriptor.WithSolutionsInfo = true;
+
+                    descriptor.MetadataSource.DownloadEntityMetadata();
+
+                    var desc = await descriptor.GetSolutionComponentsDescriptionAsync(solutionComponents);
+
+                    content.AppendLine(desc);
+
+                    commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+
+                    string fileName = string.Format(
+                        "{0}.Dependency Nodes Description at {1}.txt"
+                        , connectionData.Name
+                        , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
+                    );
+
+                    string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                    File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+                    this._iWriteToOutput.WriteToOutput(connectionData, "Dependency Nodes Description were exported to {0}", filePath);
+
+                    this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
                 }
             }
-
-            if (hash.Any())
-            {
-                content.AppendLine().AppendLine();
-
-                var solutionComponents = hash.Select(e => new SolutionComponent
-                {
-                    ComponentType = new OptionSetValue(e.Item1),
-                    ObjectId = e.Item2,
-                }).ToList();
-
-                var descriptor = new SolutionComponentDescriptor(service);
-                descriptor.WithUrls = true;
-                descriptor.WithManagedInfo = true;
-                descriptor.WithSolutionsInfo = true;
-
-                descriptor.MetadataSource.DownloadEntityMetadata();
-
-                var desc = await descriptor.GetSolutionComponentsDescriptionAsync(solutionComponents);
-
-                content.AppendLine(desc);
-
-                commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
-
-                string fileName = string.Format(
-                    "{0}.Dependency Nodes Description at {1}.txt"
-                    , connectionData.Name
-                    , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
-                );
-
-                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
-
-                this._iWriteToOutput.WriteToOutput(connectionData, "Dependency Nodes Description were exported to {0}", filePath);
-
-                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
-            }
-
-            service.TryDispose();
         }
 
         #endregion Описание всех dependencynode.
@@ -689,36 +694,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            StringBuilder content = new StringBuilder();
+            using (service)
+            {
+                var content = new StringBuilder();
 
-            content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
-            content.AppendLine(connectionData.GetConnectionDescription());
-            content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
+                content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
+                content.AppendLine(connectionData.GetConnectionDescription());
+                content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
 
-            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+                commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-            string fileName = string.Format("{0}.Workflows Used Entities at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+                string fileName = string.Format("{0}.Workflows Used Entities at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
 
-            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-            var descriptor = new SolutionComponentDescriptor(service);
-            descriptor.WithUrls = true;
-            descriptor.WithManagedInfo = true;
-            descriptor.WithSolutionsInfo = true;
+                var descriptor = new SolutionComponentDescriptor(service);
+                descriptor.WithUrls = true;
+                descriptor.WithManagedInfo = true;
+                descriptor.WithSolutionsInfo = true;
 
-            var workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, descriptor);
+                var workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, descriptor);
 
-            var stringBuider = new StringBuilder();
+                var stringBuider = new StringBuilder();
 
-            await workflowDescriptor.GetDescriptionWithUsedEntitiesInAllWorkflowsAsync(stringBuider);
+                await workflowDescriptor.GetDescriptionWithUsedEntitiesInAllWorkflowsAsync(stringBuider);
 
-            File.WriteAllText(filePath, stringBuider.ToString(), new UTF8Encoding(false));
+                File.WriteAllText(filePath, stringBuider.ToString(), new UTF8Encoding(false));
 
-            this._iWriteToOutput.WriteToOutput(connectionData, "Created file with Workflows Used Entities: {0}", filePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, "Created file with Workflows Used Entities: {0}", filePath);
 
-            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
-
-            service.TryDispose();
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+            }
         }
 
         #endregion Поиск используемых в БП сущностей
@@ -754,36 +760,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            StringBuilder content = new StringBuilder();
+            using (service)
+            {
+                var content = new StringBuilder();
 
-            content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
-            content.AppendLine(connectionData.GetConnectionDescription());
-            content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
+                content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
+                content.AppendLine(connectionData.GetConnectionDescription());
+                content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
 
-            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+                commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-            string fileName = string.Format("{0}.Workflows Used Not Existing Entities at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+                string fileName = string.Format("{0}.Workflows Used Not Existing Entities at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
 
-            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-            var descriptor = new SolutionComponentDescriptor(service);
-            descriptor.WithUrls = true;
-            descriptor.WithManagedInfo = true;
-            descriptor.WithSolutionsInfo = true;
+                var descriptor = new SolutionComponentDescriptor(service);
+                descriptor.WithUrls = true;
+                descriptor.WithManagedInfo = true;
+                descriptor.WithSolutionsInfo = true;
 
-            var workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, descriptor);
+                var workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, descriptor);
 
-            var stringBuider = new StringBuilder();
+                var stringBuider = new StringBuilder();
 
-            await workflowDescriptor.GetDescriptionWithUsedNotExistsEntitiesInAllWorkflowsAsync(stringBuider);
+                await workflowDescriptor.GetDescriptionWithUsedNotExistsEntitiesInAllWorkflowsAsync(stringBuider);
 
-            File.WriteAllText(filePath, stringBuider.ToString(), new UTF8Encoding(false));
+                File.WriteAllText(filePath, stringBuider.ToString(), new UTF8Encoding(false));
 
-            this._iWriteToOutput.WriteToOutput(connectionData, "Created file with Workflows Used Not Existing Entities: {0}", filePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, "Created file with Workflows Used Not Existing Entities: {0}", filePath);
 
-            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
-
-            service.TryDispose();
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+            }
         }
 
         #endregion Поиск несуществующих используемых в БП сущностей
@@ -817,101 +824,102 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            StringBuilder content = new StringBuilder();
-
-            content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
-            content.AppendLine(connectionData.GetConnectionDescription());
-            content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
-
-            Dictionary<string, FormatTextTableHandler> dictUnknownControls = new Dictionary<string, FormatTextTableHandler>(StringComparer.InvariantCultureIgnoreCase);
-
-            var descriptor = new SolutionComponentDescriptor(service);
-            var handler = new FormDescriptionHandler(descriptor, new DependencyRepository(service));
-
-            var repositorySystemForm = new SystemFormRepository(service);
-
-            var formList = await repositorySystemForm.GetListAsync(null, null, new ColumnSet(true));
-
-            foreach (var systemForm in formList
-                .OrderBy(f => f.ObjectTypeCode)
-                .ThenBy(f => f.Type?.Value)
-                .ThenBy(f => f.Name)
-            )
+            using (service)
             {
-                string formXml = systemForm.FormXml;
+                var content = new StringBuilder();
 
-                if (!string.IsNullOrEmpty(formXml))
+                content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
+                content.AppendLine(connectionData.GetConnectionDescription());
+                content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
+
+                var dictUnknownControls = new Dictionary<string, FormatTextTableHandler>(StringComparer.InvariantCultureIgnoreCase);
+
+                var descriptor = new SolutionComponentDescriptor(service);
+                var handler = new FormDescriptionHandler(descriptor, new DependencyRepository(service));
+
+                var repositorySystemForm = new SystemFormRepository(service);
+
+                var formList = await repositorySystemForm.GetListAsync(null, null, new ColumnSet(true));
+
+                foreach (var systemForm in formList
+                    .OrderBy(f => f.ObjectTypeCode)
+                    .ThenBy(f => f.Type?.Value)
+                    .ThenBy(f => f.Name)
+                )
                 {
-                    XElement doc = XElement.Parse(formXml);
+                    string formXml = systemForm.FormXml;
 
-                    var tabs = handler.GetFormTabs(doc);
-
-                    var unknownControls = tabs.SelectMany(t => t.Sections).SelectMany(s => s.Controls).Where(c => c.GetControlType() == FormControl.FormControlType.UnknownControl);
-
-                    foreach (var control in unknownControls)
+                    if (!string.IsNullOrEmpty(formXml))
                     {
-                        if (!dictUnknownControls.ContainsKey(control.ClassId))
+                        XElement doc = XElement.Parse(formXml);
+
+                        var tabs = handler.GetFormTabs(doc);
+
+                        var unknownControls = tabs.SelectMany(t => t.Sections).SelectMany(s => s.Controls).Where(c => c.GetControlType() == FormControl.FormControlType.UnknownControl);
+
+                        foreach (var control in unknownControls)
                         {
-                            FormatTextTableHandler tableUnknownControls = new FormatTextTableHandler();
-                            tableUnknownControls.SetHeader("Entity", "FormType", "Form", "State", "Attribute", "Form Url");
+                            if (!dictUnknownControls.ContainsKey(control.ClassId))
+                            {
+                                var tableUnknownControls = new FormatTextTableHandler();
+                                tableUnknownControls.SetHeader("Entity", "FormType", "Form", "State", "Attribute", "Form Url");
 
-                            dictUnknownControls[control.ClassId] = tableUnknownControls;
+                                dictUnknownControls[control.ClassId] = tableUnknownControls;
+                            }
+
+                            dictUnknownControls[control.ClassId].AddLine(
+                                systemForm.ObjectTypeCode
+                                , systemForm.FormattedValues[SystemForm.Schema.Attributes.type]
+                                , systemForm.Name
+                                , systemForm.FormattedValues[SystemForm.Schema.Attributes.formactivationstate]
+                                , control.Attribute
+                                , service.UrlGenerator.GetSolutionComponentUrl(ComponentType.SystemForm, systemForm.Id)
+                            );
                         }
-
-                        dictUnknownControls[control.ClassId].AddLine(
-                            systemForm.ObjectTypeCode
-                            , systemForm.FormattedValues[SystemForm.Schema.Attributes.type]
-                            , systemForm.Name
-                            , systemForm.FormattedValues[SystemForm.Schema.Attributes.formactivationstate]
-                            , control.Attribute
-                            , service.UrlGenerator.GetSolutionComponentUrl(ComponentType.SystemForm, systemForm.Id)
-                        );
                     }
                 }
-            }
 
-            if (dictUnknownControls.Count > 0)
-            {
-                content.AppendLine().AppendLine();
-
-                content.AppendFormat("Unknown Form Control Types: {0}", dictUnknownControls.Count);
-
-                foreach (var classId in dictUnknownControls.Keys.OrderBy(s => s))
+                if (dictUnknownControls.Count > 0)
                 {
                     content.AppendLine().AppendLine();
 
-                    content.AppendLine(classId);
+                    content.AppendFormat("Unknown Form Control Types: {0}", dictUnknownControls.Count);
 
-                    var tableUnknownControls = dictUnknownControls[classId];
-
-                    foreach (var str in tableUnknownControls.GetFormatedLines(false))
+                    foreach (var classId in dictUnknownControls.Keys.OrderBy(s => s))
                     {
-                        content.AppendLine(_tabSpacer + str);
+                        content.AppendLine().AppendLine();
+
+                        content.AppendLine(classId);
+
+                        var tableUnknownControls = dictUnknownControls[classId];
+
+                        foreach (var str in tableUnknownControls.GetFormatedLines(false))
+                        {
+                            content.AppendLine(_tabSpacer + str);
+                        }
                     }
+
+                    commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+
+                    string fileName = string.Format("{0}.Checking Unknown Form Control Types at {1}.txt"
+                        , connectionData.Name
+                        , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
+                    );
+
+                    string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                    File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+                    this._iWriteToOutput.WriteToOutput(connectionData, "Unknown Form Control Types were exported to {0}", filePath);
+
+                    this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
                 }
-
-                commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
-
-                string fileName = string.Format("{0}.Checking Unknown Form Control Types at {1}.txt"
-                    , connectionData.Name
-                    , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
-                );
-
-                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
-
-                this._iWriteToOutput.WriteToOutput(connectionData, "Unknown Form Control Types were exported to {0}", filePath);
-
-                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+                else
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, "No Unknown Form Control Types in CRM were founded.");
+                    this._iWriteToOutput.ActivateOutputWindow(connectionData);
+                }
             }
-            else
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, "No Unknown Form Control Types in CRM were founded.");
-                this._iWriteToOutput.ActivateOutputWindow(connectionData);
-            }
-
-            service.TryDispose();
         }
     }
 }

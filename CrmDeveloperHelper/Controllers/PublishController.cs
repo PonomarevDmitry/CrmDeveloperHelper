@@ -79,8 +79,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             await repositoryPublish.PublishWebResourcesAsync(elements.Keys);
 
             WriteToConsolePublishedWebResources(service.ConnectionData, elements.Values.Select(e => e.WebResource));
-
-            service.TryDispose();
         }
 
         private void WriteToConsolePublishedWebResources(ConnectionData connectionData, IEnumerable<WebResource> elements)
@@ -227,25 +225,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task UpdatingContentAndPublish(IOrganizationServiceExtented service, List<SelectedFile> selectedFiles)
         {
-            // Репозиторий для работы с веб-ресурсами
-            var webResourceRepository = new WebResourceRepository(service);
-
-            var findResult = await FindWebResources(service, webResourceRepository, selectedFiles);
-
-            if (!findResult.Item1)
+            using (service)
             {
-                return;
+                // Репозиторий для работы с веб-ресурсами
+                var webResourceRepository = new WebResourceRepository(service);
+
+                var findResult = await FindWebResources(service, webResourceRepository, selectedFiles);
+
+                if (!findResult.Item1)
+                {
+                    return;
+                }
+
+                var elements = findResult.Item2;
+
+                if (!elements.Any())
+                {
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NothingToPublish);
+                    return;
+                }
+
+                await UpdateContentAndPublishAsync(service, elements);
             }
-
-            var elements = findResult.Item2;
-
-            if (!elements.Any())
-            {
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NothingToPublish);
-                return;
-            }
-
-            await UpdateContentAndPublishAsync(service, elements);
         }
 
         private async Task<Tuple<bool, Dictionary<Guid, ElementForPublish>>> FindWebResources(IOrganizationServiceExtented service, WebResourceRepository webResourceRepository, List<SelectedFile> selectedFiles)
@@ -412,24 +413,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            if (!filesToPublish.Any())
+            using (service)
             {
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NothingToPublish);
-                return;
-            }
-
-            // Менеджер для публикации в CRM.
-            Dictionary<Guid, ElementForPublish> elements = new Dictionary<Guid, ElementForPublish>();
-
-            foreach (var item in filesToPublish)
-            {
-                if (!elements.ContainsKey(item.Item2.Id))
+                if (!filesToPublish.Any())
                 {
-                    elements.Add(item.Item2.Id, new ElementForPublish(item.Item1, item.Item2));
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NothingToPublish);
+                    return;
                 }
-            }
 
-            await UpdateContentAndPublishAsync(service, elements);
+                // Менеджер для публикации в CRM.
+                Dictionary<Guid, ElementForPublish> elements = new Dictionary<Guid, ElementForPublish>();
+
+                foreach (var item in filesToPublish)
+                {
+                    if (!elements.ContainsKey(item.Item2.Id))
+                    {
+                        elements.Add(item.Item2.Id, new ElementForPublish(item.Item1, item.Item2));
+                    }
+                }
+
+                await UpdateContentAndPublishAsync(service, elements);
+            }
         }
 
         #endregion Публикация веб-ресурсов разных по содержанию, но одинаковых по тексту.
@@ -446,21 +450,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task PublishingAllAsync(IOrganizationServiceExtented service)
         {
-            try
+            using (service)
             {
-                var repository = new PublishActionsRepository(service);
+                try
+                {
+                    var repository = new PublishActionsRepository(service);
 
-                await repository.PublishAllXmlAsync();
+                    await repository.PublishAllXmlAsync();
 
-                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PublishingAllCompletedFormat1, service.ConnectionData.Name);
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PublishingAllCompletedFormat1, service.ConnectionData.Name);
+                }
+                catch (Exception ex)
+                {
+                    _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                service.TryDispose();
-            }
-            catch (Exception ex)
-            {
-                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-
-                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PublishingAllFailedFormat1, service.ConnectionData.Name);
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PublishingAllFailedFormat1, service.ConnectionData.Name);
+                }
             }
         }
 
@@ -589,99 +594,100 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task IncludingReferencesToDependencyXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
         {
-            var webResourceRepository = new WebResourceRepository(service);
-
-            var findResult = await FindWebResources(service, webResourceRepository, selectedFiles);
-
-            if (!findResult.Item1)
+            using (service)
             {
-                return;
-            }
+                var webResourceRepository = new WebResourceRepository(service);
 
-            var elements = findResult.Item2;
+                var findResult = await FindWebResources(service, webResourceRepository, selectedFiles);
 
-            if (!elements.Any())
-            {
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NothingToPublish);
-                return;
-            }
-
-            FillNewDependenciesInfo(service, webResourceRepository, elements);
-
-            var webResourceToPublish = elements.Values.Where(e => e.NewDependenciesCount > 0).ToList();
-
-            if (!webResourceToPublish.Any())
-            {
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NothingToPublish);
-                return;
-            }
-
-            foreach (var tuple in webResourceToPublish.OrderBy(e => e.SelectedFile.FileName))
-            {
-                var newDependencyXml = tuple.NewDependencyXml;
-                var webResource = tuple.WebResource;
-
+                if (!findResult.Item1)
                 {
-                    string fieldTitle = WebResource.Schema.Headers.dependencyxml;
-
-                    string dependencyXml = webResource.DependencyXml;
-
-                    if (!string.IsNullOrEmpty(dependencyXml))
-                    {
-                        commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
-
-                        string fileNameBackUp = EntityFileNameFormatter.GetWebResourceFileName(service.ConnectionData.Name, webResource.Name, fieldTitle + " BackUp", "xml");
-                        string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
-
-                        try
-                        {
-                            dependencyXml = ContentComparerHelper.FormatXmlByConfiguration(
-                                dependencyXml
-                                , commonConfig
-                                , XmlOptionsControls.WebResourceDependencyXmlOptions
-                                , schemaName: Commands.AbstractDynamicCommandXsdSchemas.WebResourceDependencyXmlSchema
-                                , webResourceName: webResource.Name
-                            );
-
-                            File.WriteAllText(filePathBackUp, dependencyXml, new UTF8Encoding(false));
-
-                            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, WebResource.Schema.EntitySchemaName, webResource.Name, fieldTitle, filePathBackUp);
-                        }
-                        catch (Exception ex)
-                        {
-                            this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-                        }
-                    }
-                    else
-                    {
-                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, WebResource.Schema.EntitySchemaName, webResource.Name, fieldTitle);
-                        this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
-                    }
+                    return;
                 }
 
-                var updateWebResource = new WebResource()
+                var elements = findResult.Item2;
+
+                if (!elements.Any())
                 {
-                    Id = webResource.Id,
-                    WebResourceId = webResource.Id,
-                    DependencyXml = newDependencyXml,
-                };
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NothingToPublish);
+                    return;
+                }
 
-                await service.UpdateAsync(updateWebResource);
+                FillNewDependenciesInfo(service.ConnectionData, webResourceRepository, elements);
+
+                var webResourceToPublish = elements.Values.Where(e => e.NewDependenciesCount > 0).ToList();
+
+                if (!webResourceToPublish.Any())
+                {
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NothingToPublish);
+                    return;
+                }
+
+                foreach (var tuple in webResourceToPublish.OrderBy(e => e.SelectedFile.FileName))
+                {
+                    var newDependencyXml = tuple.NewDependencyXml;
+                    var webResource = tuple.WebResource;
+
+                    {
+                        string fieldTitle = WebResource.Schema.Headers.dependencyxml;
+
+                        string dependencyXml = webResource.DependencyXml;
+
+                        if (!string.IsNullOrEmpty(dependencyXml))
+                        {
+                            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+
+                            string fileNameBackUp = EntityFileNameFormatter.GetWebResourceFileName(service.ConnectionData.Name, webResource.Name, fieldTitle + " BackUp", "xml");
+                            string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
+
+                            try
+                            {
+                                dependencyXml = ContentComparerHelper.FormatXmlByConfiguration(
+                                    dependencyXml
+                                    , commonConfig
+                                    , XmlOptionsControls.WebResourceDependencyXmlOptions
+                                    , schemaName: Commands.AbstractDynamicCommandXsdSchemas.WebResourceDependencyXmlSchema
+                                    , webResourceName: webResource.Name
+                                );
+
+                                File.WriteAllText(filePathBackUp, dependencyXml, new UTF8Encoding(false));
+
+                                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, WebResource.Schema.EntitySchemaName, webResource.Name, fieldTitle, filePathBackUp);
+                            }
+                            catch (Exception ex)
+                            {
+                                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                            }
+                        }
+                        else
+                        {
+                            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, WebResource.Schema.EntitySchemaName, webResource.Name, fieldTitle);
+                            this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                        }
+                    }
+
+                    var updateWebResource = new WebResource()
+                    {
+                        Id = webResource.Id,
+                        WebResourceId = webResource.Id,
+                        DependencyXml = newDependencyXml,
+                    };
+
+                    await service.UpdateAsync(updateWebResource);
+                }
+
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Updating WebResources Completed.");
+
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Publishing WebResources...");
+
+                var repositoryPublish = new PublishActionsRepository(service);
+                await repositoryPublish.PublishWebResourcesAsync(webResourceToPublish.Select(e => e.WebResource.Id));
+
+                WriteToConsolePublishedWebResources(service.ConnectionData, webResourceToPublish.Select(e => e.WebResource));
             }
-
-            this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Updating WebResources Completed.");
-
-            this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Publishing WebResources...");
-
-            var repositoryPublish = new PublishActionsRepository(service);
-            await repositoryPublish.PublishWebResourcesAsync(webResourceToPublish.Select(e => e.WebResource.Id));
-
-            WriteToConsolePublishedWebResources(service.ConnectionData, webResourceToPublish.Select(e => e.WebResource));
-
-            service.TryDispose();
         }
 
-        private static void FillNewDependenciesInfo(IOrganizationServiceExtented service, WebResourceRepository webResourceRepository, Dictionary<Guid, ElementForPublish> elements)
+        private static void FillNewDependenciesInfo(ConnectionData connectionData, WebResourceRepository webResourceRepository, Dictionary<Guid, ElementForPublish> elements)
         {
             var knownWebResources = new Dictionary<string, WebResource>(StringComparer.InvariantCultureIgnoreCase);
 
@@ -721,7 +727,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 var referenceFilePathList = GetFileReferencesFilePaths(javaScriptCode, selectedFileFolder, selectedFile.SolutionDirectoryPath);
 
-                var referenceWebResourceDictionary = GetRefernecedWebResources(service.ConnectionData, webResourceRepository, knownWebResources, selectedFile.SolutionDirectoryPath, referenceFilePathList);
+                var referenceWebResourceDictionary = GetRefernecedWebResources(connectionData, webResourceRepository, knownWebResources, selectedFile.SolutionDirectoryPath, referenceFilePathList);
 
                 IEnumerable<string> currentWebResourceDependenciesStrings = Enumerable.Empty<string>();
 
@@ -840,73 +846,70 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task UpdatingContentIncludingReferencesToDependencyXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
         {
-            var webResourceRepository = new WebResourceRepository(service);
-
-            var findResult = await FindWebResources(service, webResourceRepository, selectedFiles);
-
-            if (!findResult.Item1)
+            using (service)
             {
-                return;
-            }
+                var webResourceRepository = new WebResourceRepository(service);
 
-            var elements = findResult.Item2;
+                var findResult = await FindWebResources(service, webResourceRepository, selectedFiles);
 
-            if (!elements.Any())
-            {
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NothingToPublish);
-                return;
-            }
-
-            FillNewDependenciesInfo(service, webResourceRepository, elements);
-
-            if (!elements.Values.Any(e => e.NewDependenciesCount > 0))
-            {
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NothingToPublish);
-                return;
-            }
-
-            foreach (var element in elements.Values.Where(e => e.NewDependenciesCount > 0).OrderBy(e => e.SelectedFile.FileName))
-            {
-                var webResource = element.WebResource;
-
-                string fieldTitle = WebResource.Schema.Headers.dependencyxml;
-
-                string dependencyXml = webResource.DependencyXml;
-
-                if (!string.IsNullOrEmpty(dependencyXml))
+                if (!findResult.Item1)
                 {
-                    commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+                    return;
+                }
 
-                    string fileNameBackUp = EntityFileNameFormatter.GetWebResourceFileName(service.ConnectionData.Name, webResource.Name, fieldTitle + " BackUp", "xml");
-                    string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
+                var elements = findResult.Item2;
 
-                    try
+                if (!elements.Any())
+                {
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NothingToPublish);
+                    return;
+                }
+
+                FillNewDependenciesInfo(service.ConnectionData, webResourceRepository, elements);
+
+                foreach (var element in elements.Values.Where(e => e.NewDependenciesCount > 0).OrderBy(e => e.SelectedFile.FileName))
+                {
+                    var webResource = element.WebResource;
+
+                    string fieldTitle = WebResource.Schema.Headers.dependencyxml;
+
+                    string dependencyXml = webResource.DependencyXml;
+
+                    if (!string.IsNullOrEmpty(dependencyXml))
                     {
-                        dependencyXml = ContentComparerHelper.FormatXmlByConfiguration(
-                            dependencyXml
-                            , commonConfig
-                            , XmlOptionsControls.WebResourceDependencyXmlOptions
-                            , schemaName: Commands.AbstractDynamicCommandXsdSchemas.WebResourceDependencyXmlSchema
-                            , webResourceName: webResource.Name
-                        );
+                        commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-                        File.WriteAllText(filePathBackUp, dependencyXml, new UTF8Encoding(false));
+                        string fileNameBackUp = EntityFileNameFormatter.GetWebResourceFileName(service.ConnectionData.Name, webResource.Name, fieldTitle + " BackUp", "xml");
+                        string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
 
-                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, WebResource.Schema.EntitySchemaName, webResource.Name, fieldTitle, filePathBackUp);
+                        try
+                        {
+                            dependencyXml = ContentComparerHelper.FormatXmlByConfiguration(
+                                dependencyXml
+                                , commonConfig
+                                , XmlOptionsControls.WebResourceDependencyXmlOptions
+                                , schemaName: Commands.AbstractDynamicCommandXsdSchemas.WebResourceDependencyXmlSchema
+                                , webResourceName: webResource.Name
+                            );
+
+                            File.WriteAllText(filePathBackUp, dependencyXml, new UTF8Encoding(false));
+
+                            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, WebResource.Schema.EntitySchemaName, webResource.Name, fieldTitle, filePathBackUp);
+                        }
+                        catch (Exception ex)
+                        {
+                            this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                        }
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, WebResource.Schema.EntitySchemaName, webResource.Name, fieldTitle);
+                        this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                     }
                 }
-                else
-                {
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, WebResource.Schema.EntitySchemaName, webResource.Name, fieldTitle);
-                    this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
-                }
-            }
 
-            await UpdateContentAndPublishAsync(service, elements);
+                await UpdateContentAndPublishAsync(service, elements);
+            }
         }
 
         public async Task ExecuteUpdateEqualByTextContentIncludeReferencesToDependencyXml(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
@@ -927,76 +930,78 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            if (!filesToPublish.Any())
+            using (service)
             {
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NothingToPublish);
-                return;
-            }
-
-            // Менеджер для публикации в CRM.
-            Dictionary<Guid, ElementForPublish> elements = new Dictionary<Guid, ElementForPublish>();
-
-            foreach (var item in filesToPublish)
-            {
-                if (!elements.ContainsKey(item.Item2.Id))
+                if (!filesToPublish.Any())
                 {
-                    elements.Add(item.Item2.Id, new ElementForPublish(item.Item1, item.Item2));
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NothingToPublish);
+                    return;
                 }
-            }
 
-            var webResourceRepository = new WebResourceRepository(service);
+                // Менеджер для публикации в CRM.
+                Dictionary<Guid, ElementForPublish> elements = new Dictionary<Guid, ElementForPublish>();
 
-            FillNewDependenciesInfo(service, webResourceRepository, elements);
-
-            if (!elements.Any())
-            {
-                service.TryDispose();
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NothingToPublish);
-                return;
-            }
-
-            foreach (var element in elements.Values.Where(e => e.NewDependenciesCount > 0).OrderBy(e => e.SelectedFile.FileName))
-            {
-                var webResource = element.WebResource;
-
-                string fieldTitle = WebResource.Schema.Headers.dependencyxml;
-
-                string dependencyXml = webResource.DependencyXml;
-
-                if (!string.IsNullOrEmpty(dependencyXml))
+                foreach (var item in filesToPublish)
                 {
-                    commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
-
-                    string fileNameBackUp = EntityFileNameFormatter.GetWebResourceFileName(service.ConnectionData.Name, webResource.Name, fieldTitle + " BackUp", "xml");
-                    string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
-
-                    try
+                    if (!elements.ContainsKey(item.Item2.Id))
                     {
-                        dependencyXml = ContentComparerHelper.FormatXmlByConfiguration(
-                            dependencyXml
-                            , commonConfig
-                            , XmlOptionsControls.WebResourceDependencyXmlOptions
-                            , schemaName: Commands.AbstractDynamicCommandXsdSchemas.WebResourceDependencyXmlSchema
-                            , webResourceName: webResource.Name
-                        );
-
-                        File.WriteAllText(filePathBackUp, dependencyXml, new UTF8Encoding(false));
-
-                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, WebResource.Schema.EntitySchemaName, webResource.Name, fieldTitle, filePathBackUp);
-                    }
-                    catch (Exception ex)
-                    {
-                        this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                        elements.Add(item.Item2.Id, new ElementForPublish(item.Item1, item.Item2));
                     }
                 }
-                else
-                {
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, WebResource.Schema.EntitySchemaName, webResource.Name, fieldTitle);
-                    this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
-                }
-            }
 
-            await UpdateContentAndPublishAsync(service, elements);
+                var webResourceRepository = new WebResourceRepository(service);
+
+                FillNewDependenciesInfo(service.ConnectionData, webResourceRepository, elements);
+
+                if (!elements.Any())
+                {
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NothingToPublish);
+                    return;
+                }
+
+                foreach (var element in elements.Values.Where(e => e.NewDependenciesCount > 0).OrderBy(e => e.SelectedFile.FileName))
+                {
+                    var webResource = element.WebResource;
+
+                    string fieldTitle = WebResource.Schema.Headers.dependencyxml;
+
+                    string dependencyXml = webResource.DependencyXml;
+
+                    if (!string.IsNullOrEmpty(dependencyXml))
+                    {
+                        commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+
+                        string fileNameBackUp = EntityFileNameFormatter.GetWebResourceFileName(service.ConnectionData.Name, webResource.Name, fieldTitle + " BackUp", "xml");
+                        string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
+
+                        try
+                        {
+                            dependencyXml = ContentComparerHelper.FormatXmlByConfiguration(
+                                dependencyXml
+                                , commonConfig
+                                , XmlOptionsControls.WebResourceDependencyXmlOptions
+                                , schemaName: Commands.AbstractDynamicCommandXsdSchemas.WebResourceDependencyXmlSchema
+                                , webResourceName: webResource.Name
+                            );
+
+                            File.WriteAllText(filePathBackUp, dependencyXml, new UTF8Encoding(false));
+
+                            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, WebResource.Schema.EntitySchemaName, webResource.Name, fieldTitle, filePathBackUp);
+                        }
+                        catch (Exception ex)
+                        {
+                            this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                        }
+                    }
+                    else
+                    {
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, WebResource.Schema.EntitySchemaName, webResource.Name, fieldTitle);
+                        this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                    }
+                }
+
+                await UpdateContentAndPublishAsync(service, elements);
+            }
         }
 
         #region Including References to Linked SystemForms Libraries
@@ -1013,146 +1018,166 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task IncludingReferencesToLinkedSystemFormsLibraries(IOrganizationServiceExtented service, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
         {
-            var knownWebResources = new Dictionary<string, WebResource>(StringComparer.InvariantCultureIgnoreCase);
-
-            var systemFormRepository = new SystemFormRepository(service);
-
-            // Репозиторий для работы с веб-ресурсами
-            var webResourceRepository = new WebResourceRepository(service);
-
-            var changedSystemForms = new TupleList<SelectedFile, SystemForm, string, int, string>();
-
-            foreach (var selectedFile in selectedFiles)
+            using (service)
             {
-                if (!File.Exists(selectedFile.FilePath))
+                var knownWebResources = new Dictionary<string, WebResource>(StringComparer.InvariantCultureIgnoreCase);
+
+                var systemFormRepository = new SystemFormRepository(service);
+
+                // Репозиторий для работы с веб-ресурсами
+                var webResourceRepository = new WebResourceRepository(service);
+
+                var changedSystemForms = new TupleList<SelectedFile, SystemForm, string, int, string>();
+
+                foreach (var selectedFile in selectedFiles)
                 {
-                    continue;
-                }
-
-                string javaScriptCode = File.ReadAllText(selectedFile.FilePath);
-
-                if (!CommonHandlers.GetLinkedSystemForm(javaScriptCode, out string entityName, out Guid formId, out int formType))
-                {
-                    continue;
-                }
-
-                var systemForm = await systemFormRepository.GetByIdAsync(formId, new ColumnSet(true));
-
-                if (systemForm == null)
-                {
-                    continue;
-                }
-
-                if (string.IsNullOrEmpty(systemForm.FormXml))
-                {
-                    continue;
-                }
-
-                if (!ContentComparerHelper.TryParseXml(systemForm.FormXml, out var docFormXml))
-                {
-                    continue;
-                }
-
-                string selectedFileFolder = Path.GetDirectoryName(selectedFile.FilePath);
-
-                var referenceFilePathList = GetFileReferencesFilePaths(javaScriptCode, selectedFileFolder, selectedFile.SolutionDirectoryPath);
-
-                var referenceWebResourceDictionary = GetRefernecedWebResources(service.ConnectionData, webResourceRepository, knownWebResources, selectedFile.SolutionDirectoryPath, referenceFilePathList);
-
-                var formLibraries = docFormXml.Element("formLibraries");
-
-                if (formLibraries != null)
-                {
-                    HashSet<string> currentWebResourceDependenciesStrings = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
-
-                    var allLibraries = formLibraries.Descendants("Library");
-
-                    foreach (var nodeLibrary in allLibraries)
-                    {
-                        var name = (string)nodeLibrary.Attribute("name");
-
-                        if (!string.IsNullOrEmpty(name))
-                        {
-                            currentWebResourceDependenciesStrings.Add(name);
-                        }
-                    }
-
-                    var fileDependencies = new HashSet<string>(referenceWebResourceDictionary.Values.Where(e => e.WebResourceTypeEnum == WebResource.Schema.OptionSets.webresourcetype.Script_JScript_3).Select(e => e.Name), StringComparer.InvariantCultureIgnoreCase);
-
-                    var newDependencies = fileDependencies.Except(currentWebResourceDependenciesStrings, StringComparer.InvariantCultureIgnoreCase).ToList();
-
-                    if (!newDependencies.Any())
+                    if (!File.Exists(selectedFile.FilePath))
                     {
                         continue;
                     }
 
+                    string javaScriptCode = File.ReadAllText(selectedFile.FilePath);
+
+                    if (!CommonHandlers.GetLinkedSystemForm(javaScriptCode, out string entityName, out Guid formId, out int formType))
                     {
-                        string fieldTitle = SystemForm.Schema.Headers.formxml;
-
-                        string formXml = systemForm.FormXml;
-
-                        if (!string.IsNullOrEmpty(formXml))
-                        {
-                            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
-
-                            string fileNameBackUp = EntityFileNameFormatter.GetSystemFormFileName(service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name, fieldTitle + " BackUp", "xml");
-                            string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
-
-                            try
-                            {
-                                formXml = ContentComparerHelper.FormatXmlByConfiguration(
-                                    formXml
-                                    , commonConfig
-                                    , XmlOptionsControls.FormXmlOptions
-                                    , schemaName: Commands.AbstractDynamicCommandXsdSchemas.FormXmlSchema
-                                    , formId: systemForm.Id
-                                    , entityName: systemForm.ObjectTypeCode
-                                );
-
-                                File.WriteAllText(filePathBackUp, formXml, new UTF8Encoding(false));
-
-                                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, SystemForm.Schema.EntitySchemaName, systemForm.Name, fieldTitle, filePathBackUp);
-                            }
-                            catch (Exception ex)
-                            {
-                                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-                            }
-                        }
-                        else
-                        {
-                            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, SystemForm.Schema.EntitySchemaName, systemForm.Name, fieldTitle);
-                            this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
-                        }
+                        continue;
                     }
 
-                    foreach (var webResourceName in newDependencies)
+                    var systemForm = await systemFormRepository.GetByIdAsync(formId, new ColumnSet(true));
+
+                    if (systemForm == null)
                     {
-                        formLibraries.Add(
-                            new XElement("Library"
-                                , new XAttribute("name", webResourceName)
-                                , new XAttribute("libraryUniqueId", Guid.NewGuid().ToString("B").ToLower())
-                            )
-                        );
+                        continue;
                     }
 
-                    ContentComparerHelper.ClearRoot(docFormXml);
+                    if (string.IsNullOrEmpty(systemForm.FormXml))
+                    {
+                        continue;
+                    }
 
-                    var newFormXml = docFormXml.ToString(SaveOptions.DisableFormatting);
+                    if (!ContentComparerHelper.TryParseXml(systemForm.FormXml, out var docFormXml))
+                    {
+                        continue;
+                    }
 
-                    changedSystemForms.Add(selectedFile, systemForm, newFormXml, newDependencies.Count, string.Join(", ", newDependencies.OrderBy(s => s)));
+                    string selectedFileFolder = Path.GetDirectoryName(selectedFile.FilePath);
+
+                    var referenceFilePathList = GetFileReferencesFilePaths(javaScriptCode, selectedFileFolder, selectedFile.SolutionDirectoryPath);
+
+                    var referenceWebResourceDictionary = GetRefernecedWebResources(service.ConnectionData, webResourceRepository, knownWebResources, selectedFile.SolutionDirectoryPath, referenceFilePathList);
+
+                    var formLibraries = docFormXml.Element("formLibraries");
+
+                    if (formLibraries != null)
+                    {
+                        HashSet<string> currentWebResourceDependenciesStrings = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+
+                        var allLibraries = formLibraries.Descendants("Library");
+
+                        foreach (var nodeLibrary in allLibraries)
+                        {
+                            var name = (string)nodeLibrary.Attribute("name");
+
+                            if (!string.IsNullOrEmpty(name))
+                            {
+                                currentWebResourceDependenciesStrings.Add(name);
+                            }
+                        }
+
+                        var fileDependencies = new HashSet<string>(referenceWebResourceDictionary.Values.Where(e => e.WebResourceTypeEnum == WebResource.Schema.OptionSets.webresourcetype.Script_JScript_3).Select(e => e.Name), StringComparer.InvariantCultureIgnoreCase);
+
+                        var newDependencies = fileDependencies.Except(currentWebResourceDependenciesStrings, StringComparer.InvariantCultureIgnoreCase).ToList();
+
+                        if (!newDependencies.Any())
+                        {
+                            continue;
+                        }
+
+                        {
+                            string fieldTitle = SystemForm.Schema.Headers.formxml;
+
+                            string formXml = systemForm.FormXml;
+
+                            if (!string.IsNullOrEmpty(formXml))
+                            {
+                                commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+
+                                string fileNameBackUp = EntityFileNameFormatter.GetSystemFormFileName(service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name, fieldTitle + " BackUp", "xml");
+                                string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
+
+                                try
+                                {
+                                    formXml = ContentComparerHelper.FormatXmlByConfiguration(
+                                        formXml
+                                        , commonConfig
+                                        , XmlOptionsControls.FormXmlOptions
+                                        , schemaName: Commands.AbstractDynamicCommandXsdSchemas.FormXmlSchema
+                                        , formId: systemForm.Id
+                                        , entityName: systemForm.ObjectTypeCode
+                                    );
+
+                                    File.WriteAllText(filePathBackUp, formXml, new UTF8Encoding(false));
+
+                                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, SystemForm.Schema.EntitySchemaName, systemForm.Name, fieldTitle, filePathBackUp);
+                                }
+                                catch (Exception ex)
+                                {
+                                    this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                                }
+                            }
+                            else
+                            {
+                                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, SystemForm.Schema.EntitySchemaName, systemForm.Name, fieldTitle);
+                                this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                            }
+                        }
+
+                        foreach (var webResourceName in newDependencies)
+                        {
+                            formLibraries.Add(
+                                new XElement("Library"
+                                    , new XAttribute("name", webResourceName)
+                                    , new XAttribute("libraryUniqueId", Guid.NewGuid().ToString("B").ToLower())
+                                )
+                            );
+                        }
+
+                        ContentComparerHelper.ClearRoot(docFormXml);
+
+                        var newFormXml = docFormXml.ToString(SaveOptions.DisableFormatting);
+
+                        changedSystemForms.Add(selectedFile, systemForm, newFormXml, newDependencies.Count, string.Join(", ", newDependencies.OrderBy(s => s)));
+                    }
                 }
-            }
 
-            if (!changedSystemForms.Any())
-            {
-                service.TryDispose();
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NothingToPublish);
-                return;
-            }
+                if (!changedSystemForms.Any())
+                {
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NothingToPublish);
+                    return;
+                }
 
-            {
-                FormatTextTableHandler tableUpdated = new FormatTextTableHandler();
-                tableUpdated.SetHeader("FileName", "Dependencies", "Form Entity", "FormType", "FormName", "New Dependencies");
+                {
+                    FormatTextTableHandler tableUpdated = new FormatTextTableHandler();
+                    tableUpdated.SetHeader("FileName", "Dependencies", "Form Entity", "FormType", "FormName", "New Dependencies");
+
+                    foreach (var tuple in changedSystemForms
+                        .OrderBy(e => e.Item2.ObjectTypeCode)
+                        .ThenBy(e => (int?)e.Item2.TypeEnum)
+                        .ThenBy(e => e.Item2.Name)
+                    )
+                    {
+                        var filePath = tuple.Item1.FilePath;
+                        var systemForm = tuple.Item2;
+
+                        systemForm.FormattedValues.TryGetValue(SystemForm.Schema.Attributes.type, out var formTypeName);
+
+                        tableUpdated.AddLine(filePath, tuple.Item4.ToString(), systemForm.ObjectTypeCode, formTypeName, systemForm.Name, tuple.Item5);
+                    }
+
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Updating SystemForm FormXml and Publishing...");
+
+                    tableUpdated.GetFormatedLines(false).ForEach(item => _iWriteToOutput.WriteToOutput(service.ConnectionData, "{0}{1}", _tabSpacer, item));
+                }
 
                 foreach (var tuple in changedSystemForms
                     .OrderBy(e => e.Item2.ObjectTypeCode)
@@ -1160,59 +1185,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     .ThenBy(e => e.Item2.Name)
                 )
                 {
-                    var filePath = tuple.Item1.FilePath;
                     var systemForm = tuple.Item2;
+                    var newFormXml = tuple.Item3;
 
-                    systemForm.FormattedValues.TryGetValue(SystemForm.Schema.Attributes.type, out var formTypeName);
+                    var updateSystemForm = new SystemForm()
+                    {
+                        Id = systemForm.Id,
+                        FormId = systemForm.Id,
 
-                    tableUpdated.AddLine(filePath, tuple.Item4.ToString(), systemForm.ObjectTypeCode, formTypeName, systemForm.Name, tuple.Item5);
+                        FormXml = newFormXml,
+                    };
+
+                    await service.UpdateAsync(updateSystemForm);
                 }
 
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Updating SystemForm FormXml and Publishing...");
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Update SystemForms FormXml Completed.");
 
-                tableUpdated.GetFormatedLines(false).ForEach(item => _iWriteToOutput.WriteToOutput(service.ConnectionData, "{0}{1}", _tabSpacer, item));
-            }
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Publishing SystemForms...");
 
-            foreach (var tuple in changedSystemForms
-                .OrderBy(e => e.Item2.ObjectTypeCode)
-                .ThenBy(e => (int?)e.Item2.TypeEnum)
-                .ThenBy(e => e.Item2.Name)
-            )
-            {
-                var systemForm = tuple.Item2;
-                var newFormXml = tuple.Item3;
+                var repositoryPublish = new PublishActionsRepository(service);
+                await repositoryPublish.PublishDashboardsAsync(changedSystemForms.Select(e => e.Item2.Id));
 
-                var updateSystemForm = new SystemForm()
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Published SystemForms: {0}", changedSystemForms.Count);
+
+                var formsEntityNames = new HashSet<string>(changedSystemForms.Where(e => e.Item2.ObjectTypeCode.IsValidEntityName()).Select(e => e.Item2.ObjectTypeCode), StringComparer.InvariantCultureIgnoreCase);
+
+                if (formsEntityNames.Any())
                 {
-                    Id = systemForm.Id,
-                    FormId = systemForm.Id,
+                    var entityNamesOrdered = string.Join(",", formsEntityNames.OrderBy(s => s));
 
-                    FormXml = newFormXml,
-                };
-
-                await service.UpdateAsync(updateSystemForm);
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
+                    await repositoryPublish.PublishEntitiesAsync(formsEntityNames);
+                }
             }
-
-            this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Update SystemForms FormXml Completed.");
-
-            this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Publishing SystemForms...");
-
-            var repositoryPublish = new PublishActionsRepository(service);
-            await repositoryPublish.PublishDashboardsAsync(changedSystemForms.Select(e => e.Item2.Id));
-
-            this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Published SystemForms: {0}", changedSystemForms.Count);
-
-            var formsEntityNames = new HashSet<string>(changedSystemForms.Where(e => e.Item2.ObjectTypeCode.IsValidEntityName()).Select(e => e.Item2.ObjectTypeCode), StringComparer.InvariantCultureIgnoreCase);
-
-            if (formsEntityNames.Any())
-            {
-                var entityNamesOrdered = string.Join(",", formsEntityNames.OrderBy(s => s));
-
-                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
-                await repositoryPublish.PublishEntitiesAsync(formsEntityNames);
-            }
-
-            service.TryDispose();
         }
 
         #endregion Including References to Linked SystemForms Libraries

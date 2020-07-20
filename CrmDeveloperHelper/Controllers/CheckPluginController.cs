@@ -1,9 +1,10 @@
 ﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Metadata;
+using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Xrm.Sdk.Query;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 {
@@ -134,114 +134,115 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            StringBuilder content = new StringBuilder();
-
-            content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
-            content.AppendLine(connectionData.GetConnectionDescription());
-            content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
-
-            var repositoryStep = new SdkMessageProcessingStepRepository(service);
-            var repositoryStepImage = new SdkMessageProcessingStepImageRepository(service);
-
-            var stepEnum = await repositoryStep.FindSdkMessageProcessingStepWithEntityNameAsync(null, null, null, null, null);
-
-            var imagesList = await repositoryStepImage.GetAllSdkMessageProcessingStepImageAsync(null, new ColumnSet(true));
-
-            var imagesDictionary = imagesList.GroupBy(e => e.SdkMessageProcessingStepId.Id).ToDictionary(g => g.Key, g => g.ToList());
-
-            var querySteps = stepEnum
-                            .OrderBy(ent => ent.EventHandler?.Name ?? "Unknown")
-                            .ThenBy(ent => ent.PrimaryObjectTypeCodeName)
-                            .ThenBy(ent => ent.SdkMessageId?.Name ?? "Unknown", MessageComparer.Comparer)
-                            .ThenBy(ent => ent.Stage.Value)
-                            .ThenBy(ent => ent.Mode.Value)
-                            .ThenBy(ent => ent.Rank)
-                            .ThenBy(ent => ent.Name)
-                            ;
-
-            int stepNumber = 1;
-
-            bool hasInfo = false;
-
-            foreach (var step in querySteps)
+            using (service)
             {
-                var queryImage = Enumerable.Empty<SdkMessageProcessingStepImage>();
+                var content = new StringBuilder();
 
-                if (imagesDictionary.TryGetValue(step.Id, out var listImages))
+                content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
+                content.AppendLine(connectionData.GetConnectionDescription());
+                content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
+
+                var repositoryStep = new SdkMessageProcessingStepRepository(service);
+                var repositoryStepImage = new SdkMessageProcessingStepImageRepository(service);
+
+                var stepEnum = await repositoryStep.FindSdkMessageProcessingStepWithEntityNameAsync(null, null, null, null, null);
+
+                var imagesList = await repositoryStepImage.GetAllSdkMessageProcessingStepImageAsync(null, new ColumnSet(true));
+
+                var imagesDictionary = imagesList.GroupBy(e => e.SdkMessageProcessingStepId.Id).ToDictionary(g => g.Key, g => g.ToList());
+
+                var querySteps = stepEnum
+                                .OrderBy(ent => ent.EventHandler?.Name ?? "Unknown")
+                                .ThenBy(ent => ent.PrimaryObjectTypeCodeName)
+                                .ThenBy(ent => ent.SdkMessageId?.Name ?? "Unknown", MessageComparer.Comparer)
+                                .ThenBy(ent => ent.Stage.Value)
+                                .ThenBy(ent => ent.Mode.Value)
+                                .ThenBy(ent => ent.Rank)
+                                .ThenBy(ent => ent.Name)
+                                ;
+
+                int stepNumber = 1;
+
+                bool hasInfo = false;
+
+                foreach (var step in querySteps)
                 {
-                    queryImage = from image in listImages
-                                 orderby image.ImageType.Value, image.CreatedOn, image.Name
-                                 select image;
-                }
+                    var queryImage = Enumerable.Empty<SdkMessageProcessingStepImage>();
 
-                var preImages = queryImage.Where(im => im.ImageType.Value == 0 || im.ImageType.Value == 2);
-                var postImages = queryImage.Where(im => im.ImageType.Value == 1 || im.ImageType.Value == 2);
-
-                var preImagesByEntityAlias = preImages.GroupBy(im => im.EntityAlias).Where(gr => gr.Count() > 1);
-                var preImagesByName = preImages.GroupBy(im => im.EntityAlias).Where(gr => gr.Count() > 1);
-
-                var postImagesByEntityAlias = postImages.GroupBy(im => im.EntityAlias).Where(gr => gr.Count() > 1);
-                var postImagesByName = postImages.GroupBy(im => im.EntityAlias).Where(gr => gr.Count() > 1);
-
-                var hasDuplicatesPreImagesByEntityAlias = preImagesByEntityAlias.Count() > 0;
-                var hasDuplicatesPreImagesByName = preImagesByName.Count() > 0;
-
-                var hasDuplicatesPostImagesByEntityAlias = postImagesByEntityAlias.Count() > 0;
-                var hasDuplicatesPostImagesByName = postImagesByName.Count() > 0;
-
-                if (hasDuplicatesPreImagesByEntityAlias
-                    || hasDuplicatesPreImagesByName
-                    || hasDuplicatesPostImagesByEntityAlias
-                    || hasDuplicatesPostImagesByName
-                    )
-                {
-                    if (content.Length > 0)
+                    if (imagesDictionary.TryGetValue(step.Id, out var listImages))
                     {
-                        content.AppendLine().AppendLine();
+                        queryImage = from image in listImages
+                                     orderby image.ImageType.Value, image.CreatedOn, image.Name
+                                     select image;
                     }
 
-                    hasInfo = true;
+                    var preImages = queryImage.Where(im => im.ImageType.Value == 0 || im.ImageType.Value == 2);
+                    var postImages = queryImage.Where(im => im.ImageType.Value == 1 || im.ImageType.Value == 2);
 
-                    content.AppendFormat("{0}. {1}", stepNumber, step.EventHandler?.Name ?? "Unknown").AppendLine();
+                    var preImagesByEntityAlias = preImages.GroupBy(im => im.EntityAlias).Where(gr => gr.Count() > 1);
+                    var preImagesByName = preImages.GroupBy(im => im.EntityAlias).Where(gr => gr.Count() > 1);
 
-                    content.AppendFormat("Entity '{0}',   Message '{1}',   Stage '{2}',   Rank {3},   Statuscode {4}"
-                        , step.PrimaryObjectTypeCodeName
-                        , step.SdkMessageId?.Name ?? "Unknown"
-                        , SdkMessageProcessingStepRepository.GetStageName(step.Stage.Value, step.Mode.Value)
-                        , step.Rank.ToString()
-                        , step.FormattedValues[SdkMessageProcessingStep.Schema.Attributes.statuscode]
-                        ).AppendLine();
+                    var postImagesByEntityAlias = postImages.GroupBy(im => im.EntityAlias).Where(gr => gr.Count() > 1);
+                    var postImagesByName = postImages.GroupBy(im => im.EntityAlias).Where(gr => gr.Count() > 1);
 
-                    DescribeImages(content, stepNumber, hasDuplicatesPreImagesByEntityAlias, preImagesByEntityAlias, "Pre images duplicates by EntityAlias:");
+                    var hasDuplicatesPreImagesByEntityAlias = preImagesByEntityAlias.Count() > 0;
+                    var hasDuplicatesPreImagesByName = preImagesByName.Count() > 0;
 
-                    DescribeImages(content, stepNumber, hasDuplicatesPreImagesByName, preImagesByName, "Pre images duplicates by Name:");
+                    var hasDuplicatesPostImagesByEntityAlias = postImagesByEntityAlias.Count() > 0;
+                    var hasDuplicatesPostImagesByName = postImagesByName.Count() > 0;
 
-                    DescribeImages(content, stepNumber, hasDuplicatesPostImagesByEntityAlias, postImagesByEntityAlias, "Post images duplicates by EntityAlias:");
+                    if (hasDuplicatesPreImagesByEntityAlias
+                        || hasDuplicatesPreImagesByName
+                        || hasDuplicatesPostImagesByEntityAlias
+                        || hasDuplicatesPostImagesByName
+                        )
+                    {
+                        if (content.Length > 0)
+                        {
+                            content.AppendLine().AppendLine();
+                        }
 
-                    DescribeImages(content, stepNumber, hasDuplicatesPostImagesByName, postImagesByName, "Post images duplicates by Name:");
+                        hasInfo = true;
 
-                    stepNumber++;
+                        content.AppendFormat("{0}. {1}", stepNumber, step.EventHandler?.Name ?? "Unknown").AppendLine();
+
+                        content.AppendFormat("Entity '{0}',   Message '{1}',   Stage '{2}',   Rank {3},   Statuscode {4}"
+                            , step.PrimaryObjectTypeCodeName
+                            , step.SdkMessageId?.Name ?? "Unknown"
+                            , SdkMessageProcessingStepRepository.GetStageName(step.Stage.Value, step.Mode.Value)
+                            , step.Rank.ToString()
+                            , step.FormattedValues[SdkMessageProcessingStep.Schema.Attributes.statuscode]
+                            ).AppendLine();
+
+                        DescribeImages(content, stepNumber, hasDuplicatesPreImagesByEntityAlias, preImagesByEntityAlias, "Pre images duplicates by EntityAlias:");
+
+                        DescribeImages(content, stepNumber, hasDuplicatesPreImagesByName, preImagesByName, "Pre images duplicates by Name:");
+
+                        DescribeImages(content, stepNumber, hasDuplicatesPostImagesByEntityAlias, postImagesByEntityAlias, "Post images duplicates by EntityAlias:");
+
+                        DescribeImages(content, stepNumber, hasDuplicatesPostImagesByName, postImagesByName, "Post images duplicates by Name:");
+
+                        stepNumber++;
+                    }
                 }
+
+                if (!hasInfo)
+                {
+                    content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, "No duplicates were found."));
+                }
+
+                commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+
+                string fileName = string.Format("{0}.Checking Plugin Images Duplicates at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+
+                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+                this._iWriteToOutput.WriteToOutput(connectionData, "Created file with Checking Plugin Images Duplicates: {0}", filePath);
+
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
-
-            if (!hasInfo)
-            {
-                content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, "No duplicates were found."));
-            }
-
-            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
-
-            string fileName = string.Format("{0}.Checking Plugin Images Duplicates at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
-
-            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
-
-            this._iWriteToOutput.WriteToOutput(connectionData, "Created file with Checking Plugin Images Duplicates: {0}", filePath);
-
-            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
-
-            service.TryDispose();
         }
 
         #endregion Проверка образов шагов плагинов на дубликаты.
@@ -277,124 +278,125 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            StringBuilder content = new StringBuilder();
-
-            content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
-            content.AppendLine(connectionData.GetConnectionDescription());
-            content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
-
-            var repositoryStep = new SdkMessageProcessingStepRepository(service);
-            var repositoryStepImage = new SdkMessageProcessingStepImageRepository(service);
-
-            var stepEnum = await repositoryStep.FindSdkMessageProcessingStepWithEntityNameAsync(null, null, null, null, null);
-
-            var imagesList = await repositoryStepImage.GetAllSdkMessageProcessingStepImageAsync(null, new ColumnSet(true));
-
-            var imagesDictionary = imagesList.GroupBy(e => e.SdkMessageProcessingStepId.Id).ToDictionary(g => g.Key, g => g.ToList());
-
-            var querySteps = stepEnum
-                            .OrderBy(ent => ent.EventHandler?.Name ?? "Unknown")
-                            .ThenBy(ent => ent.PrimaryObjectTypeCodeName)
-                            .ThenBy(ent => ent.SdkMessageId?.Name ?? "Unknown", MessageComparer.Comparer)
-                            .ThenBy(ent => ent.Stage.Value)
-                            .ThenBy(ent => ent.Mode.Value)
-                            .ThenBy(ent => ent.Rank)
-                            .ThenBy(ent => ent.Name)
-                            ;
-
-            var pluginTypesWithConflicts = querySteps.GroupBy(step => new
+            using (service)
             {
-                EventHandlerId = step.EventHandler.Id,
-                Stage = step.Stage.Value,
+                var content = new StringBuilder();
 
-                EntityName = step.PrimaryObjectTypeCodeName,
-                Message = step.SdkMessageId?.Name ?? "Unknown",
+                content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
+                content.AppendLine(connectionData.GetConnectionDescription());
+                content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
 
-                EventHandlerName = step.EventHandler?.Name ?? "Unknown",
-                step.Configuration,
-            }).Where(gr => gr.Count() > 1);
+                var repositoryStep = new SdkMessageProcessingStepRepository(service);
+                var repositoryStepImage = new SdkMessageProcessingStepImageRepository(service);
 
-            int pluginTypeNumber = 1;
+                var stepEnum = await repositoryStep.FindSdkMessageProcessingStepWithEntityNameAsync(null, null, null, null, null);
 
-            bool hasInfo = false;
+                var imagesList = await repositoryStepImage.GetAllSdkMessageProcessingStepImageAsync(null, new ColumnSet(true));
 
-            foreach (var gr in pluginTypesWithConflicts)
-            {
-                hasInfo = true;
+                var imagesDictionary = imagesList.GroupBy(e => e.SdkMessageProcessingStepId.Id).ToDictionary(g => g.Key, g => g.ToList());
 
-                if (content.Length > 0)
+                var querySteps = stepEnum
+                                .OrderBy(ent => ent.EventHandler?.Name ?? "Unknown")
+                                .ThenBy(ent => ent.PrimaryObjectTypeCodeName)
+                                .ThenBy(ent => ent.SdkMessageId?.Name ?? "Unknown", MessageComparer.Comparer)
+                                .ThenBy(ent => ent.Stage.Value)
+                                .ThenBy(ent => ent.Mode.Value)
+                                .ThenBy(ent => ent.Rank)
+                                .ThenBy(ent => ent.Name)
+                                ;
+
+                var pluginTypesWithConflicts = querySteps.GroupBy(step => new
                 {
-                    content.AppendLine().AppendLine();
-                }
+                    EventHandlerId = step.EventHandler.Id,
+                    Stage = step.Stage.Value,
 
-                content.AppendFormat("{0}. {1}", pluginTypeNumber, gr.Key.EventHandlerName).AppendLine();
+                    EntityName = step.PrimaryObjectTypeCodeName,
+                    Message = step.SdkMessageId?.Name ?? "Unknown",
 
-                content.AppendFormat("Entity '{0}',   Message '{1}',   Stage '{2}'"
-                    , gr.Key.EntityName
-                    , gr.Key.Message
-                    , SdkMessageProcessingStepRepository.GetStageName(gr.Key.Stage, null)
-                    ).AppendLine();
+                    EventHandlerName = step.EventHandler?.Name ?? "Unknown",
+                    step.Configuration,
+                }).Where(gr => gr.Count() > 1);
 
-                if (!string.IsNullOrEmpty(gr.Key.Configuration))
+                int pluginTypeNumber = 1;
+
+                bool hasInfo = false;
+
+                foreach (var gr in pluginTypesWithConflicts)
                 {
-                    content.AppendFormat("Configuration: {0}", gr.Key.Configuration).AppendLine();
-                }
+                    hasInfo = true;
 
-                foreach (var step in gr)
-                {
-                    content.AppendFormat("Stage '{0}',   Rank {1},   Statuscode {2}"
-                        , SdkMessageProcessingStepRepository.GetStageName(step.Stage.Value, step.Mode.Value)
-                        , step.Rank.ToString()
-                        , step.FormattedValues[SdkMessageProcessingStep.Schema.Attributes.statuscode]
-                    ).AppendLine();
-
-                    var queryImage = Enumerable.Empty<SdkMessageProcessingStepImage>();
-
-                    if (imagesDictionary.TryGetValue(step.Id, out var listImages))
+                    if (content.Length > 0)
                     {
-                        queryImage = from image in listImages
-                                     orderby image.ImageType.Value, image.CreatedOn, image.Name
-                                     select image;
+                        content.AppendLine().AppendLine();
                     }
 
-                    int numberImage = 1;
+                    content.AppendFormat("{0}. {1}", pluginTypeNumber, gr.Key.EventHandlerName).AppendLine();
 
-                    foreach (var image in queryImage)
+                    content.AppendFormat("Entity '{0}',   Message '{1}',   Stage '{2}'"
+                        , gr.Key.EntityName
+                        , gr.Key.Message
+                        , SdkMessageProcessingStepRepository.GetStageName(gr.Key.Stage, null)
+                        ).AppendLine();
+
+                    if (!string.IsNullOrEmpty(gr.Key.Configuration))
                     {
-                        string imageDescription = GetImageDescription(numberImage.ToString(), image);
+                        content.AppendFormat("Configuration: {0}", gr.Key.Configuration).AppendLine();
+                    }
 
-                        var coll = imageDescription.Split(new string[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+                    foreach (var step in gr)
+                    {
+                        content.AppendFormat("Stage '{0}',   Rank {1},   Statuscode {2}"
+                            , SdkMessageProcessingStepRepository.GetStageName(step.Stage.Value, step.Mode.Value)
+                            , step.Rank.ToString()
+                            , step.FormattedValues[SdkMessageProcessingStep.Schema.Attributes.statuscode]
+                        ).AppendLine();
 
-                        foreach (var item in coll)
+                        var queryImage = Enumerable.Empty<SdkMessageProcessingStepImage>();
+
+                        if (imagesDictionary.TryGetValue(step.Id, out var listImages))
                         {
-                            content.AppendLine(tabSpacer + tabSpacer + item);
+                            queryImage = from image in listImages
+                                         orderby image.ImageType.Value, image.CreatedOn, image.Name
+                                         select image;
                         }
 
-                        numberImage++;
+                        int numberImage = 1;
+
+                        foreach (var image in queryImage)
+                        {
+                            string imageDescription = GetImageDescription(numberImage.ToString(), image);
+
+                            var coll = imageDescription.Split(new string[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+
+                            foreach (var item in coll)
+                            {
+                                content.AppendLine(tabSpacer + tabSpacer + item);
+                            }
+
+                            numberImage++;
+                        }
                     }
+
+                    pluginTypeNumber++;
                 }
 
-                pluginTypeNumber++;
+                if (!hasInfo)
+                {
+                    content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, "No duplicates were found."));
+                }
+
+                commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+
+                string fileName = string.Format("{0}.Checking Plugin Steps Duplicates at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+
+                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+                this._iWriteToOutput.WriteToOutput(connectionData, "Created file with Checking Plugin Steps Duplicates: {0}", filePath);
+
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
-
-            if (!hasInfo)
-            {
-                content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, "No duplicates were found."));
-            }
-
-            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
-
-            string fileName = string.Format("{0}.Checking Plugin Steps Duplicates at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
-
-            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
-
-            this._iWriteToOutput.WriteToOutput(connectionData, "Created file with Checking Plugin Steps Duplicates: {0}", filePath);
-
-            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
-
-            service.TryDispose();
         }
 
         #endregion Проверка шагов плагинов на дубликаты.
@@ -430,182 +432,183 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            StringBuilder content = new StringBuilder();
-
-            content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
-            content.AppendLine(connectionData.GetConnectionDescription());
-            content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
-
-            var repositoryStep = new SdkMessageProcessingStepRepository(service);
-
-            var stepEnum = await repositoryStep.FindSdkMessageProcessingStepWithEntityNameAsync(null, null, null, null, null);
-
-            var querySteps = stepEnum
-                            .OrderBy(ent => ent.EventHandler.Name)
-                            .ThenBy(ent => ent.PrimaryObjectTypeCodeName)
-                            .ThenBy(ent => ent.SdkMessageId.Name, MessageComparer.Comparer)
-                            .ThenBy(ent => ent.Stage.Value)
-                            .ThenBy(ent => ent.Mode.Value)
-                            .ThenBy(ent => ent.Rank)
-                            .ThenBy(ent => ent.Name)
-                            ;
-
-            EntityMetadataRepository repositoryMetadata = new EntityMetadataRepository(service);
-
-            DependencyRepository dependencyRepository = new DependencyRepository(service);
-
-            var listMetaData = await repositoryMetadata.GetEntitiesWithAttributesAsync();
-
-            var dictEntity = new Dictionary<Guid, EntityMetadata>();
-            var dictAttribute = new Dictionary<Guid, AttributeMetadata>();
-
-            bool hasInfo = false;
-
-            foreach (var metaEntity in listMetaData)
+            using (service)
             {
-                dictEntity.Add(metaEntity.MetadataId.Value, metaEntity);
+                var content = new StringBuilder();
 
-                foreach (var metaAttribute in metaEntity.Attributes)
+                content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
+                content.AppendLine(connectionData.GetConnectionDescription());
+                content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
+
+                var repositoryStep = new SdkMessageProcessingStepRepository(service);
+
+                var stepEnum = await repositoryStep.FindSdkMessageProcessingStepWithEntityNameAsync(null, null, null, null, null);
+
+                var querySteps = stepEnum
+                                .OrderBy(ent => ent.EventHandler.Name)
+                                .ThenBy(ent => ent.PrimaryObjectTypeCodeName)
+                                .ThenBy(ent => ent.SdkMessageId.Name, MessageComparer.Comparer)
+                                .ThenBy(ent => ent.Stage.Value)
+                                .ThenBy(ent => ent.Mode.Value)
+                                .ThenBy(ent => ent.Rank)
+                                .ThenBy(ent => ent.Name)
+                                ;
+
+                var repositoryMetadata = new EntityMetadataRepository(service);
+
+                var dependencyRepository = new DependencyRepository(service);
+
+                var listMetaData = await repositoryMetadata.GetEntitiesWithAttributesAsync();
+
+                var dictEntity = new Dictionary<Guid, EntityMetadata>();
+                var dictAttribute = new Dictionary<Guid, AttributeMetadata>();
+
+                bool hasInfo = false;
+
+                foreach (var metaEntity in listMetaData)
                 {
-                    dictAttribute.Add(metaAttribute.MetadataId.Value, metaAttribute);
-                }
-            }
+                    dictEntity.Add(metaEntity.MetadataId.Value, metaEntity);
 
-            foreach (var step in querySteps)
-            {
-                var listRequired = await dependencyRepository.GetRequiredComponentsAsync((int)ComponentType.SdkMessageProcessingStep, step.Id);
-
-                var stepEntities = GetSetEntites(step);
-                var stepAttributes = GetSetStepAttributes(step);
-
-                var componentsEntities = GetSetComponentsEntites(listRequired, dictEntity);
-                var componentsAttributes = GetSetComponentsAttributes(listRequired, dictAttribute);
-
-                bool entitiesIsSame = stepEntities.SequenceEqual(componentsEntities);
-                bool attributesIsSame = stepAttributes.SequenceEqual(componentsAttributes);
-
-                if (!entitiesIsSame || !attributesIsSame)
-                {
-                    if (content.Length > 0)
+                    foreach (var metaAttribute in metaEntity.Attributes)
                     {
-                        content.AppendLine().AppendLine().AppendLine();
-                    }
-
-                    content.AppendFormat("{0}   Primary {1}   Secondary {2}   Message {3}   Stage {4}   Rank {5}   Status {6}   FilteringAttributes {7}",
-                        step.EventHandler?.Name ?? "Unknown"
-                        , step.PrimaryObjectTypeCodeName
-                        , step.SecondaryObjectTypeCodeName
-                        , step.SdkMessageId?.Name ?? "Unknown"
-                        , SdkMessageProcessingStepRepository.GetStageName(step.Stage.Value, step.Mode.Value)
-                        , step.Rank.ToString()
-                        , step.FormattedValues[SdkMessageProcessingStep.Schema.Attributes.statuscode]
-                        , step.FilteringAttributesStringsSorted
-                    ).AppendLine();
-
-                    if (!entitiesIsSame)
-                    {
-                        hasInfo = true;
-
-                        content.AppendLine("Conflict in entites.");
-
-                        content.Append("Entities in plugin step description");
-
-                        if (stepEntities.Count > 0)
-                        {
-                            content.AppendLine(":");
-
-                            foreach (var item in stepEntities)
-                            {
-                                content.AppendFormat("    {0}", item).AppendLine();
-                            }
-                        }
-                        else
-                        {
-                            content.AppendLine(" are empty.");
-                        }
-
-
-                        content.Append("Entities in required components");
-
-                        if (componentsEntities.Count > 0)
-                        {
-                            content.AppendLine(":");
-
-                            foreach (var item in componentsEntities)
-                            {
-                                content.AppendFormat("    {0}", item).AppendLine();
-                            }
-                        }
-                        else
-                        {
-                            content.AppendLine(" are empty.");
-                        }
-                    }
-
-                    if (!attributesIsSame)
-                    {
-                        hasInfo = true;
-
-                        content.AppendLine("Conflict in attributes.");
-
-                        content.Append("Attributes in plugin step description");
-
-                        if (componentsEntities.Count > 0)
-                        {
-                            content.AppendLine(":");
-
-                            foreach (var item in stepAttributes)
-                            {
-                                content.AppendFormat("    {0}", item).AppendLine();
-                            }
-                        }
-                        else
-                        {
-                            content.AppendLine(" are empty.");
-                        }
-
-                        content.Append("Attributes in required components");
-
-                        if (componentsAttributes.Count > 0)
-                        {
-                            content.AppendLine(":");
-
-                            foreach (var item in componentsAttributes)
-                            {
-                                content.AppendFormat("    {0}", item).AppendLine();
-                            }
-                        }
-                        else
-                        {
-                            content.AppendLine(" are empty.");
-                        }
+                        dictAttribute.Add(metaAttribute.MetadataId.Value, metaAttribute);
                     }
                 }
+
+                foreach (var step in querySteps)
+                {
+                    var listRequired = await dependencyRepository.GetRequiredComponentsAsync((int)ComponentType.SdkMessageProcessingStep, step.Id);
+
+                    var stepEntities = GetSetEntites(step);
+                    var stepAttributes = GetSetStepAttributes(step);
+
+                    var componentsEntities = GetSetComponentsEntites(listRequired, dictEntity);
+                    var componentsAttributes = GetSetComponentsAttributes(listRequired, dictAttribute);
+
+                    bool entitiesIsSame = stepEntities.SequenceEqual(componentsEntities);
+                    bool attributesIsSame = stepAttributes.SequenceEqual(componentsAttributes);
+
+                    if (!entitiesIsSame || !attributesIsSame)
+                    {
+                        if (content.Length > 0)
+                        {
+                            content.AppendLine().AppendLine().AppendLine();
+                        }
+
+                        content.AppendFormat("{0}   Primary {1}   Secondary {2}   Message {3}   Stage {4}   Rank {5}   Status {6}   FilteringAttributes {7}",
+                            step.EventHandler?.Name ?? "Unknown"
+                            , step.PrimaryObjectTypeCodeName
+                            , step.SecondaryObjectTypeCodeName
+                            , step.SdkMessageId?.Name ?? "Unknown"
+                            , SdkMessageProcessingStepRepository.GetStageName(step.Stage.Value, step.Mode.Value)
+                            , step.Rank.ToString()
+                            , step.FormattedValues[SdkMessageProcessingStep.Schema.Attributes.statuscode]
+                            , step.FilteringAttributesStringsSorted
+                        ).AppendLine();
+
+                        if (!entitiesIsSame)
+                        {
+                            hasInfo = true;
+
+                            content.AppendLine("Conflict in entites.");
+
+                            content.Append("Entities in plugin step description");
+
+                            if (stepEntities.Count > 0)
+                            {
+                                content.AppendLine(":");
+
+                                foreach (var item in stepEntities)
+                                {
+                                    content.AppendFormat("    {0}", item).AppendLine();
+                                }
+                            }
+                            else
+                            {
+                                content.AppendLine(" are empty.");
+                            }
+
+
+                            content.Append("Entities in required components");
+
+                            if (componentsEntities.Count > 0)
+                            {
+                                content.AppendLine(":");
+
+                                foreach (var item in componentsEntities)
+                                {
+                                    content.AppendFormat("    {0}", item).AppendLine();
+                                }
+                            }
+                            else
+                            {
+                                content.AppendLine(" are empty.");
+                            }
+                        }
+
+                        if (!attributesIsSame)
+                        {
+                            hasInfo = true;
+
+                            content.AppendLine("Conflict in attributes.");
+
+                            content.Append("Attributes in plugin step description");
+
+                            if (componentsEntities.Count > 0)
+                            {
+                                content.AppendLine(":");
+
+                                foreach (var item in stepAttributes)
+                                {
+                                    content.AppendFormat("    {0}", item).AppendLine();
+                                }
+                            }
+                            else
+                            {
+                                content.AppendLine(" are empty.");
+                            }
+
+                            content.Append("Attributes in required components");
+
+                            if (componentsAttributes.Count > 0)
+                            {
+                                content.AppendLine(":");
+
+                                foreach (var item in componentsAttributes)
+                                {
+                                    content.AppendFormat("    {0}", item).AppendLine();
+                                }
+                            }
+                            else
+                            {
+                                content.AppendLine(" are empty.");
+                            }
+                        }
+                    }
+                }
+
+                if (!hasInfo)
+                {
+                    content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, "No conflicts were found."));
+                }
+
+                commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+
+                string fileName = string.Format("{0}.Checking Plugin Steps Required Components at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+
+                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+                this._iWriteToOutput.WriteToOutput(connectionData, "Created file with Checking Plugin Steps Required Components: {0}", filePath);
+
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
-
-            if (!hasInfo)
-            {
-                content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, "No conflicts were found."));
-            }
-
-            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
-
-            string fileName = string.Format("{0}.Checking Plugin Steps Required Components at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
-
-            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
-
-            this._iWriteToOutput.WriteToOutput(connectionData, "Created file with Checking Plugin Steps Required Components: {0}", filePath);
-
-            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
-
-            service.TryDispose();
         }
 
-        private SortedSet<string> GetSetEntites(Entity entity)
+        private static SortedSet<string> GetSetEntites(Entity entity)
         {
-            SortedSet<string> result = new SortedSet<string>();
+            var result = new SortedSet<string>();
 
             if (entity.Contains(SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterPrimaryObjectTypeCode))
             {
@@ -630,9 +633,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             return result;
         }
 
-        private SortedSet<string> GetSetStepAttributes(SdkMessageProcessingStep step)
+        private static SortedSet<string> GetSetStepAttributes(SdkMessageProcessingStep step)
         {
-            SortedSet<string> result = new SortedSet<string>();
+            var result = new SortedSet<string>();
 
             if (!string.IsNullOrEmpty(step.FilteringAttributes))
             {
@@ -686,197 +689,198 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            StringBuilder content = new StringBuilder();
-
-            content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
-            content.AppendLine(connectionData.GetConnectionDescription());
-            content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
-
-            var repositoryImage = new SdkMessageProcessingStepImageRepository(service);
-
-            var listImages = await repositoryImage.GetAllImagesAsync();
-
-            var queryImages = listImages
-                            .OrderBy(image => image.Contains("sdkmessageprocessingstep.eventhandler") ? (image.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.eventhandler").Value as EntityReference).Name : "Null")
-                            .ThenBy(image => image.PrimaryObjectTypeCodeName)
-                            .ThenBy(image => image.SecondaryObjectTypeCodeName)
-                            .ThenBy(image => image.Contains("sdkmessageprocessingstep.sdkmessageid") ? (image.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.sdkmessageid").Value as EntityReference).Name : "Null", MessageComparer.Comparer)
-                            .ThenBy(image => image.Contains("sdkmessageprocessingstep.stage") ? (image.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.stage").Value as OptionSetValue).Value : 0)
-                            .ThenBy(image => image.Contains("sdkmessageprocessingstep.mode") ? (image.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.mode").Value as OptionSetValue).Value : 0)
-                            .ThenBy(image => image.Contains("sdkmessageprocessingstep.rank") ? (int)image.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.rank").Value : 0)
-                            .ThenBy(image => image.FormattedValues.ContainsKey("sdkmessageprocessingstep.statuscode") ? image.FormattedValues["sdkmessageprocessingstep.statuscode"] : "")
-                            .ThenBy(image => image.FormattedValues.ContainsKey(SdkMessageProcessingStepImage.Schema.Attributes.imagetype) ? image.FormattedValues[SdkMessageProcessingStepImage.Schema.Attributes.imagetype] : "")
-                            .ThenBy(image => image.Name)
-                            .ThenBy(image => image.EntityAlias)
-                            .ThenBy(image => image.Attributes1StringsSorted)
-                            ;
-
-            EntityMetadataRepository repositoryMetadata = new EntityMetadataRepository(service);
-            var dependencyRepository = new DependencyRepository(service);
-
-            var listMetaData = await repositoryMetadata.GetEntitiesWithAttributesAsync();
-
-            var dictEntity = new Dictionary<Guid, EntityMetadata>();
-            var dictAttribute = new Dictionary<Guid, AttributeMetadata>();
-
-            foreach (var metaEntity in listMetaData)
+            using (service)
             {
-                dictEntity.Add(metaEntity.MetadataId.Value, metaEntity);
+                var content = new StringBuilder();
 
-                foreach (var metaAttribute in metaEntity.Attributes)
+                content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
+                content.AppendLine(connectionData.GetConnectionDescription());
+                content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
+
+                var repositoryImage = new SdkMessageProcessingStepImageRepository(service);
+
+                var listImages = await repositoryImage.GetAllImagesAsync();
+
+                var queryImages = listImages
+                                .OrderBy(image => image.Contains("sdkmessageprocessingstep.eventhandler") ? (image.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.eventhandler").Value as EntityReference).Name : "Null")
+                                .ThenBy(image => image.PrimaryObjectTypeCodeName)
+                                .ThenBy(image => image.SecondaryObjectTypeCodeName)
+                                .ThenBy(image => image.Contains("sdkmessageprocessingstep.sdkmessageid") ? (image.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.sdkmessageid").Value as EntityReference).Name : "Null", MessageComparer.Comparer)
+                                .ThenBy(image => image.Contains("sdkmessageprocessingstep.stage") ? (image.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.stage").Value as OptionSetValue).Value : 0)
+                                .ThenBy(image => image.Contains("sdkmessageprocessingstep.mode") ? (image.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.mode").Value as OptionSetValue).Value : 0)
+                                .ThenBy(image => image.Contains("sdkmessageprocessingstep.rank") ? (int)image.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.rank").Value : 0)
+                                .ThenBy(image => image.FormattedValues.ContainsKey("sdkmessageprocessingstep.statuscode") ? image.FormattedValues["sdkmessageprocessingstep.statuscode"] : "")
+                                .ThenBy(image => image.FormattedValues.ContainsKey(SdkMessageProcessingStepImage.Schema.Attributes.imagetype) ? image.FormattedValues[SdkMessageProcessingStepImage.Schema.Attributes.imagetype] : "")
+                                .ThenBy(image => image.Name)
+                                .ThenBy(image => image.EntityAlias)
+                                .ThenBy(image => image.Attributes1StringsSorted)
+                                ;
+
+                EntityMetadataRepository repositoryMetadata = new EntityMetadataRepository(service);
+                var dependencyRepository = new DependencyRepository(service);
+
+                var listMetaData = await repositoryMetadata.GetEntitiesWithAttributesAsync();
+
+                var dictEntity = new Dictionary<Guid, EntityMetadata>();
+                var dictAttribute = new Dictionary<Guid, AttributeMetadata>();
+
+                foreach (var metaEntity in listMetaData)
                 {
-                    dictAttribute.Add(metaAttribute.MetadataId.Value, metaAttribute);
-                }
-            }
+                    dictEntity.Add(metaEntity.MetadataId.Value, metaEntity);
 
-            bool hasInfo = false;
-
-            foreach (var image in queryImages)
-            {
-                var listRequired = await dependencyRepository.GetRequiredComponentsAsync((int)ComponentType.SdkMessageProcessingStepImage, image.Id);
-
-                var stepEntities = GetSetEntites(image);
-                var stepAttributes = GetSetImageAttributes(image);
-
-                var componentsEntities = GetSetComponentsEntites(listRequired, dictEntity);
-                var componentsAttributes = GetSetComponentsAttributes(listRequired, dictAttribute);
-
-                bool entitiesIsSame = stepEntities.SequenceEqual(componentsEntities);
-                bool attributesIsSame = stepAttributes.SequenceEqual(componentsAttributes);
-
-                string pluginType = image.Contains("sdkmessageprocessingstep.eventhandler") ? (image.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.eventhandler").Value as EntityReference).Name : "Null";
-
-                string sdkMessage = image.Contains("sdkmessageprocessingstep.sdkmessageid") ? (image.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.sdkmessageid").Value as EntityReference).Name : "Null";
-                int stage = image.Contains("sdkmessageprocessingstep.stage") ? (image.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.stage").Value as OptionSetValue).Value : 0;
-                int mode = image.Contains("sdkmessageprocessingstep.mode") ? (image.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.mode").Value as OptionSetValue).Value : 0;
-                int rank = image.Contains("sdkmessageprocessingstep.rank") ? (int)image.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.rank").Value : 0;
-                string status = image.FormattedValues.ContainsKey("sdkmessageprocessingstep.statuscode") ? image.FormattedValues["sdkmessageprocessingstep.statuscode"] : "";
-
-                if (!entitiesIsSame || !attributesIsSame)
-                {
-                    hasInfo = true;
-
-                    if (content.Length > 0)
+                    foreach (var metaAttribute in metaEntity.Attributes)
                     {
-                        content.AppendLine().AppendLine().AppendLine();
-                    }
-
-                    //handler.SetHeader("PluginType", "Primary Entity", "Secondary Entity", "Message", "Stage", "Rank", "Status", "ImageType", "Name", "EntityAlias", "Attributes");
-
-                    content.AppendFormat("{0}   Primary {1}   Secondary {2}   Message {3}   Stage {4}   Rank {5}   Status {6}   ImageType {7}   Name {8}   EntityAlias {9}   Attributes {10}"
-                        , pluginType
-                        , image.PrimaryObjectTypeCodeName
-                        , image.SecondaryObjectTypeCodeName
-                        , sdkMessage
-                        , SdkMessageProcessingStepRepository.GetStageName(stage, mode)
-                        , rank.ToString()
-                        , status
-                        , image.FormattedValues[SdkMessageProcessingStepImage.Schema.Attributes.imagetype]
-                        , image.Name
-                        , image.EntityAlias
-                        , image.Attributes1StringsSorted
-                    ).AppendLine();
-
-                    if (!entitiesIsSame)
-                    {
-                        content.AppendLine("Conflict in entites.");
-
-                        content.Append("Entities in plugin step description");
-
-                        if (stepEntities.Count > 0)
-                        {
-                            content.AppendLine(":");
-
-                            foreach (var item in stepEntities)
-                            {
-                                content.AppendFormat("    {0}", item).AppendLine();
-                            }
-                        }
-                        else
-                        {
-                            content.AppendLine(" are empty.");
-                        }
-
-
-                        content.Append("Entities in required components");
-
-                        if (componentsEntities.Count > 0)
-                        {
-                            content.AppendLine(":");
-
-                            foreach (var item in componentsEntities)
-                            {
-                                content.AppendFormat("    {0}", item).AppendLine();
-                            }
-                        }
-                        else
-                        {
-                            content.AppendLine(" are empty.");
-                        }
-                    }
-
-                    if (!attributesIsSame)
-                    {
-                        content.AppendLine("Conflict in attributes.");
-
-                        content.Append("Attributes in plugin step description");
-
-                        if (componentsEntities.Count > 0)
-                        {
-                            content.AppendLine(":");
-
-                            foreach (var item in stepAttributes)
-                            {
-                                content.AppendFormat("    {0}", item).AppendLine();
-                            }
-                        }
-                        else
-                        {
-                            content.AppendLine(" are empty.");
-                        }
-
-                        content.Append("Attributes in required components");
-
-                        if (componentsAttributes.Count > 0)
-                        {
-                            content.AppendLine(":");
-
-                            foreach (var item in componentsAttributes)
-                            {
-                                content.AppendFormat("    {0}", item).AppendLine();
-                            }
-                        }
-                        else
-                        {
-                            content.AppendLine(" are empty.");
-                        }
+                        dictAttribute.Add(metaAttribute.MetadataId.Value, metaAttribute);
                     }
                 }
+
+                bool hasInfo = false;
+
+                foreach (var image in queryImages)
+                {
+                    var listRequired = await dependencyRepository.GetRequiredComponentsAsync((int)ComponentType.SdkMessageProcessingStepImage, image.Id);
+
+                    var stepEntities = GetSetEntites(image);
+                    var stepAttributes = GetSetImageAttributes(image);
+
+                    var componentsEntities = GetSetComponentsEntites(listRequired, dictEntity);
+                    var componentsAttributes = GetSetComponentsAttributes(listRequired, dictAttribute);
+
+                    bool entitiesIsSame = stepEntities.SequenceEqual(componentsEntities);
+                    bool attributesIsSame = stepAttributes.SequenceEqual(componentsAttributes);
+
+                    string pluginType = image.Contains("sdkmessageprocessingstep.eventhandler") ? (image.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.eventhandler").Value as EntityReference).Name : "Null";
+
+                    string sdkMessage = image.Contains("sdkmessageprocessingstep.sdkmessageid") ? (image.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.sdkmessageid").Value as EntityReference).Name : "Null";
+                    int stage = image.Contains("sdkmessageprocessingstep.stage") ? (image.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.stage").Value as OptionSetValue).Value : 0;
+                    int mode = image.Contains("sdkmessageprocessingstep.mode") ? (image.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.mode").Value as OptionSetValue).Value : 0;
+                    int rank = image.Contains("sdkmessageprocessingstep.rank") ? (int)image.GetAttributeValue<AliasedValue>("sdkmessageprocessingstep.rank").Value : 0;
+                    string status = image.FormattedValues.ContainsKey("sdkmessageprocessingstep.statuscode") ? image.FormattedValues["sdkmessageprocessingstep.statuscode"] : "";
+
+                    if (!entitiesIsSame || !attributesIsSame)
+                    {
+                        hasInfo = true;
+
+                        if (content.Length > 0)
+                        {
+                            content.AppendLine().AppendLine().AppendLine();
+                        }
+
+                        //handler.SetHeader("PluginType", "Primary Entity", "Secondary Entity", "Message", "Stage", "Rank", "Status", "ImageType", "Name", "EntityAlias", "Attributes");
+
+                        content.AppendFormat("{0}   Primary {1}   Secondary {2}   Message {3}   Stage {4}   Rank {5}   Status {6}   ImageType {7}   Name {8}   EntityAlias {9}   Attributes {10}"
+                            , pluginType
+                            , image.PrimaryObjectTypeCodeName
+                            , image.SecondaryObjectTypeCodeName
+                            , sdkMessage
+                            , SdkMessageProcessingStepRepository.GetStageName(stage, mode)
+                            , rank.ToString()
+                            , status
+                            , image.FormattedValues[SdkMessageProcessingStepImage.Schema.Attributes.imagetype]
+                            , image.Name
+                            , image.EntityAlias
+                            , image.Attributes1StringsSorted
+                        ).AppendLine();
+
+                        if (!entitiesIsSame)
+                        {
+                            content.AppendLine("Conflict in entites.");
+
+                            content.Append("Entities in plugin step description");
+
+                            if (stepEntities.Count > 0)
+                            {
+                                content.AppendLine(":");
+
+                                foreach (var item in stepEntities)
+                                {
+                                    content.AppendFormat("    {0}", item).AppendLine();
+                                }
+                            }
+                            else
+                            {
+                                content.AppendLine(" are empty.");
+                            }
+
+
+                            content.Append("Entities in required components");
+
+                            if (componentsEntities.Count > 0)
+                            {
+                                content.AppendLine(":");
+
+                                foreach (var item in componentsEntities)
+                                {
+                                    content.AppendFormat("    {0}", item).AppendLine();
+                                }
+                            }
+                            else
+                            {
+                                content.AppendLine(" are empty.");
+                            }
+                        }
+
+                        if (!attributesIsSame)
+                        {
+                            content.AppendLine("Conflict in attributes.");
+
+                            content.Append("Attributes in plugin step description");
+
+                            if (componentsEntities.Count > 0)
+                            {
+                                content.AppendLine(":");
+
+                                foreach (var item in stepAttributes)
+                                {
+                                    content.AppendFormat("    {0}", item).AppendLine();
+                                }
+                            }
+                            else
+                            {
+                                content.AppendLine(" are empty.");
+                            }
+
+                            content.Append("Attributes in required components");
+
+                            if (componentsAttributes.Count > 0)
+                            {
+                                content.AppendLine(":");
+
+                                foreach (var item in componentsAttributes)
+                                {
+                                    content.AppendFormat("    {0}", item).AppendLine();
+                                }
+                            }
+                            else
+                            {
+                                content.AppendLine(" are empty.");
+                            }
+                        }
+                    }
+                }
+
+                if (!hasInfo)
+                {
+                    content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, "No conflicts were found."));
+                }
+
+                commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+
+                string fileName = string.Format("{0}.Checking Plugin Images Required Components at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+
+                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+                this._iWriteToOutput.WriteToOutput(connectionData, "Created file with Checking Plugin Images Required Components: {0}", filePath);
+
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
-
-            if (!hasInfo)
-            {
-                content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, "No conflicts were found."));
-            }
-
-            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
-
-            string fileName = string.Format("{0}.Checking Plugin Images Required Components at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
-
-            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
-
-            this._iWriteToOutput.WriteToOutput(connectionData, "Created file with Checking Plugin Images Required Components: {0}", filePath);
-
-            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
-
-            service.TryDispose();
         }
 
-        private SortedSet<string> GetSetImageAttributes(SdkMessageProcessingStepImage image)
+        private static SortedSet<string> GetSetImageAttributes(SdkMessageProcessingStepImage image)
         {
-            SortedSet<string> result = new SortedSet<string>();
+            var result = new SortedSet<string>();
 
             if (!string.IsNullOrEmpty(image.Attributes1))
             {
@@ -899,9 +903,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Проверка образов шагов плагинов на необходимые компоненты.
 
-        private SortedSet<string> GetSetComponentsAttributes(List<Dependency> coll, Dictionary<Guid, AttributeMetadata> dictAttribute)
+        private static SortedSet<string> GetSetComponentsAttributes(List<Dependency> coll, Dictionary<Guid, AttributeMetadata> dictAttribute)
         {
-            SortedSet<string> result = new SortedSet<string>();
+            var result = new SortedSet<string>();
 
             var list = coll.Where(ent => ent.RequiredComponentType.Value == (int)ComponentType.Attribute);
 
@@ -920,9 +924,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             return result;
         }
 
-        private SortedSet<string> GetSetComponentsEntites(List<Dependency> coll, Dictionary<Guid, EntityMetadata> dictEntity)
+        private static SortedSet<string> GetSetComponentsEntites(List<Dependency> coll, Dictionary<Guid, EntityMetadata> dictEntity)
         {
-            SortedSet<string> result = new SortedSet<string>();
+            var result = new SortedSet<string>();
 
             var list = coll.Where(ent => ent.RequiredComponentType.Value == (int)ComponentType.Entity);
 
