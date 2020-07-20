@@ -15,15 +15,8 @@ using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowReportSelect : WindowBase
+    public partial class WindowReportSelect : WindowWithSingleConnection
     {
-        private readonly IWriteToOutput _iWriteToOutput;
-
-        /// <summary>
-        /// Сервис CRM
-        /// </summary>
-        private IOrganizationServiceExtented _service;
-
         private string _fileExtension;
 
         /// <summary>
@@ -45,15 +38,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IOrganizationServiceExtented service
             , SelectedFile selectedFile
             , Guid? lastLinkedReport
-        )
+        ) : base(iWriteToOutput, service)
         {
             InitializeComponent();
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
-            this._iWriteToOutput = iWriteToOutput;
             this._lastLinkedReport = lastLinkedReport;
-            this._service = service ?? throw new ArgumentNullException(nameof(service));
             this._file = selectedFile;
             this._fileExtension = selectedFile.Extension;
 
@@ -212,7 +203,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
+        protected override void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
             this.ChangeInitByEnabled(enabled);
 

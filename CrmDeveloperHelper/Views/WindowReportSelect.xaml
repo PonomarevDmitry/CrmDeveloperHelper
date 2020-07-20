@@ -1,9 +1,9 @@
-﻿<src:WindowBase x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowReportSelect"
+﻿<src:WindowWithSingleConnection x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowReportSelect"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
         Title="Select Report" Height="510.662" Width="942" WindowStartupLocation="Manual">
-    <src:WindowBase.Resources>
+    <src:WindowWithSingleConnection.Resources>
         <ContextMenu x:Key="listContextMenu">
             <MenuItem Header="Select Report" VerticalAlignment="Center" Click="btnSelectReport_Click"/>
             <Separator/>
@@ -11,7 +11,7 @@
             <Separator/>
             <MenuItem Header="Create New Report" VerticalAlignment="Center" Click="mICreateNewReport_Click" />
         </ContextMenu>
-    </src:WindowBase.Resources>
+    </src:WindowWithSingleConnection.Resources>
     <Grid>
         <TextBox x:Name="txtBCurrentFile" Height="49" Margin="10,10,10,0" VerticalAlignment="Top" IsReadOnlyCaretVisible="True" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
         
@@ -82,4 +82,4 @@
             <StatusBarItem x:Name="stBIStatus" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
         </StatusBar>
     </Grid>
-</src:WindowBase>
+</src:WindowWithSingleConnection>

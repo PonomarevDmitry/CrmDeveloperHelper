@@ -15,17 +15,16 @@ using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
-    public class CreateFileWithEntityMetadataCSharpHandler : CreateFileHandler
+    public sealed class CreateFileWithEntityMetadataCSharpHandler : CreateFileHandler
     {
         private EntityMetadata _entityMetadata;
 
         private readonly DependencyDescriptionHandler _descriptorHandler;
         private readonly DependencyRepository _dependencyRepository;
         private readonly SolutionComponentDescriptor _solutionComponentDescriptor;
+        private readonly IOrganizationServiceExtented _service;
 
         private string _fieldHeader;
-
-        public IOrganizationServiceExtented _service;
 
         private readonly CreateFileCSharpConfiguration _config;
 

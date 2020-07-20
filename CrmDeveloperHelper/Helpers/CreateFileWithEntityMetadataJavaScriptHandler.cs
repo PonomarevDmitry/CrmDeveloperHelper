@@ -11,20 +11,18 @@ using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
-    public class CreateFileWithEntityMetadataJavaScriptHandler : CreateFileHandler
+    public sealed class CreateFileWithEntityMetadataJavaScriptHandler : CreateFileHandler
     {
         private EntityMetadata _entityMetadata;
 
         private readonly DependencyDescriptionHandler _descriptorHandler;
         private readonly DependencyRepository _dependencyRepository;
         private readonly SolutionComponentDescriptor _solutionComponentDescriptor;
-
-        private IOrganizationServiceExtented _service;
-        private CreateFileJavaScriptConfiguration _config;
+        private readonly IOrganizationServiceExtented _service;
+        private readonly IWriteToOutput iWriteToOutput;
+        private readonly CreateFileJavaScriptConfiguration _config;
 
         private List<StringMap> _listStringMap;
-
-        private readonly IWriteToOutput iWriteToOutput;
 
         public CreateFileWithEntityMetadataJavaScriptHandler(
             TextWriter writer

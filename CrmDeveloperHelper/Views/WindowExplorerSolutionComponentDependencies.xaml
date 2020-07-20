@@ -1,4 +1,4 @@
-﻿<src:WindowBase x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowExplorerSolutionComponentDependencies"
+﻿<src:WindowWithSingleConnection x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowExplorerSolutionComponentDependencies"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
@@ -6,7 +6,7 @@
         xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
         xmlns:entities="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Entities"
         Title="Solution Component Dependencies" Height="538.662" Width="662" WindowStartupLocation="Manual">
-    <src:WindowBase.Resources>
+    <src:WindowWithSingleConnection.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="StyleWindows.xaml"/>
@@ -61,7 +61,7 @@
             </ContextMenu>
 
         </ResourceDictionary>
-    </src:WindowBase.Resources>
+    </src:WindowWithSingleConnection.Resources>
     <Grid>
 
         <Grid.RowDefinitions>
@@ -232,4 +232,4 @@
             <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>
     </Grid>
-</src:WindowBase>
+</src:WindowWithSingleConnection>
