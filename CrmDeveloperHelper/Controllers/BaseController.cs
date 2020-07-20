@@ -1358,19 +1358,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             return Tuple.Create(service, dictFilesEqualByTextNotContent, dictFilesNotEqualByText);
         }
 
-        protected void OpenWindowForUnknownPluginTypes(CommonConfiguration commonConfig, IOrganizationServiceExtented service, List<string> unknownPluginTypes)
+        protected async void OpenWindowForUnknownPluginTypes(ConnectionData connectionData, CommonConfiguration commonConfig, List<string> unknownPluginTypes)
         {
             if (!unknownPluginTypes.Any())
             {
                 return;
             }
 
-            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PluginTypesNotFoundedByNameFormat1, unknownPluginTypes.Count);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.PluginTypesNotFoundedByNameFormat1, unknownPluginTypes.Count);
 
             foreach (var pluginTypeName in unknownPluginTypes)
             {
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "{0}{1}", _tabSpacer, pluginTypeName);
+                this._iWriteToOutput.WriteToOutput(connectionData, "{0}{1}", _tabSpacer, pluginTypeName);
             }
+
+            var service = await QuickConnection.ConnectAsync(connectionData);
 
             WindowHelper.OpenPluginTypeExplorer(
                 this._iWriteToOutput

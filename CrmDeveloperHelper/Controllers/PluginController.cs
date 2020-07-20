@@ -915,7 +915,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             }
 
-            service.TryDispose();
+            if (actionOnComponent == ActionOnComponent.OpenDependentComponentsInWeb
+                || actionOnComponent == ActionOnComponent.EntityDescription
+                || actionOnComponent == ActionOnComponent.Description
+                || actionOnComponent == ActionOnComponent.SingleXmlField
+            )
+            {
+                service.TryDispose();
+            }
         }
 
         #endregion Action on PluginAssembly
@@ -964,9 +971,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var repository = new PluginTypeRepository(service);
 
-            Dictionary<Guid, PluginType> knownPluginTypes = new Dictionary<Guid, PluginType>();
+            var knownPluginTypes = new Dictionary<Guid, PluginType>();
 
-            List<string> unknownPluginTypes = new List<string>();
+            var unknownPluginTypes = new List<string>();
 
             foreach (var pluginTypeName in pluginTypeNames)
             {
@@ -987,14 +994,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (!knownPluginTypes.Any() && !unknownPluginTypes.Any())
             {
+                service.TryDispose();
+
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoPluginTypesFounded);
                 return;
             }
 
-            OpenWindowForUnknownPluginTypes(commonConfig, service, unknownPluginTypes);
+            OpenWindowForUnknownPluginTypes(connectionData, commonConfig, unknownPluginTypes);
 
             if (!knownPluginTypes.Any())
             {
+                service.TryDispose();
                 return;
             }
 
@@ -1116,7 +1126,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             }
 
-            service.TryDispose();
+            if (actionOnComponent == ActionOnComponent.OpenDependentComponentsInWeb
+                || actionOnComponent == ActionOnComponent.EntityDescription
+                || actionOnComponent == ActionOnComponent.Description
+                || actionOnComponent == ActionOnComponent.SingleXmlField
+            )
+            {
+                service.TryDispose();
+            }
         }
 
         #endregion Action on PluginType

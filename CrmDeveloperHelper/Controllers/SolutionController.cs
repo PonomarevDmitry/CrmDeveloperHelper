@@ -1252,7 +1252,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoProcessingStepsToAddToSolution);
 
-                    OpenWindowForUnknownPluginTypes(commonConfig, service, unknownPluginTypes);
+                    OpenWindowForUnknownPluginTypes(connectionData, commonConfig, unknownPluginTypes);
 
                     return;
                 }
@@ -1286,7 +1286,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoProcessingStepsToAddToSolutionAllComponentsInSolutionFormant1, solution.UniqueName);
 
-                    OpenWindowForUnknownPluginTypes(commonConfig, service, unknownPluginTypes);
+                    OpenWindowForUnknownPluginTypes(connectionData, commonConfig, unknownPluginTypes);
 
                     return;
                 }
@@ -1312,7 +1312,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 await solutionRep.AddSolutionComponentsAsync(solution.UniqueName, componentsToAdd);
 
-                OpenWindowForUnknownPluginTypes(commonConfig, service, unknownPluginTypes);
+                OpenWindowForUnknownPluginTypes(connectionData, commonConfig, unknownPluginTypes);
             }
         }
 

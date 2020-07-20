@@ -356,6 +356,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (reportEntity == null)
             {
+                service.TryDispose();
+
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ReportNotFoundedByNameFormat1, selectedFile.FileName);
                 return;
             }
@@ -363,10 +365,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (actionOnComponent == ActionOnComponent.OpenInWeb)
             {
                 service.UrlGenerator.OpenSolutionComponentInWeb(Entities.ComponentType.Report, reportEntity.Id);
+                service.TryDispose();
             }
             else if (actionOnComponent == ActionOnComponent.OpenDependentComponentsInWeb)
             {
                 connectionData.OpenSolutionComponentDependentComponentsInWeb(Entities.ComponentType.Report, reportEntity.Id);
+                service.TryDispose();
             }
             else if (actionOnComponent == ActionOnComponent.OpenDependentComponentsInExplorer)
             {
@@ -390,8 +394,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     , null
                 );
             }
-
-            service.TryDispose();
         }
 
         #endregion Открытие отчетов.
@@ -441,7 +443,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             // Репозиторий для работы с веб-ресурсами
-            WebResourceRepository webResourceRepository = new WebResourceRepository(service);
+            var webResourceRepository = new WebResourceRepository(service);
 
             WebResource webresource = await webResourceRepository.FindByNameAsync(selectedFile.FriendlyFilePath, selectedFile.Extension);
 
@@ -525,6 +527,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (webresource == null)
             {
+                service.TryDispose();
+
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WebResourceNotFoundedByNameFormat1, selectedFile.FileName);
                 return;
             }
@@ -532,10 +536,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (actionOnComponent == ActionOnComponent.OpenInWeb)
             {
                 service.UrlGenerator.OpenSolutionComponentInWeb(Entities.ComponentType.WebResource, webresource.Id);
+                service.TryDispose();
             }
             else if (actionOnComponent == ActionOnComponent.OpenDependentComponentsInWeb)
             {
                 connectionData.OpenSolutionComponentDependentComponentsInWeb(Entities.ComponentType.WebResource, webresource.Id);
+                service.TryDispose();
             }
             else if (actionOnComponent == ActionOnComponent.OpenDependentComponentsInExplorer)
             {
@@ -560,8 +566,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     , null
                 );
             }
-
-            service.TryDispose();
         }
 
         #endregion Открытие веб-ресурсов.
@@ -621,13 +625,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (actionOnComponent == ActionOnComponent.OpenInWeb)
             {
                 connectionData.OpenSolutionInWeb(solution.Id);
+                service.TryDispose();
             }
             else if (actionOnComponent == ActionOnComponent.OpenInExplorer)
             {
                 WindowHelper.OpenSolutionComponentsExplorer(this._iWriteToOutput, service, null, commonConfig, solution.UniqueName, null);
             }
-
-            service.TryDispose();
         }
     }
 }
