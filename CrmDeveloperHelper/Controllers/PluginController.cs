@@ -274,7 +274,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             FillInformation(content, "PluginTypes in Local Assembly {0}", assemblyPlugins);
             FillInformation(content, "WorkflowCodeActivities in Local Assembly {0}", assemblyWorkflows);
 
-            string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(service.ConnectionData.Name, assemblyName, "Comparing", "txt");
+            string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(service.ConnectionData.Name, assemblyName, "Comparing", FileExtension.txt);
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
@@ -889,7 +889,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 else if (actionOnComponent == ActionOnComponent.EntityDescription)
                 {
-                    string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(service.ConnectionData.Name, assembly.Name, EntityFileNameFormatter.Headers.EntityDescription, "txt");
+                    string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(service.ConnectionData.Name, assembly.Name, EntityFileNameFormatter.Headers.EntityDescription, FileExtension.txt);
                     string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
                     await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, assembly, service.ConnectionData);
@@ -904,7 +904,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 else if (actionOnComponent == ActionOnComponent.Description)
                 {
-                    string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(service.ConnectionData.Name, assembly.Name, "Description", "txt");
+                    string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(service.ConnectionData.Name, assembly.Name, "Description", FileExtension.txt);
                     string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
                     await handler.CreateFileWithDescriptionAsync(filePath, assembly.Id, assembly.Name, DateTime.Now);
@@ -1047,7 +1047,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 else if (actionOnComponent == ActionOnComponent.EntityDescription)
                 {
-                    string fileName = EntityFileNameFormatter.GetPluginTypeFileName(service.ConnectionData.Name, pluginType.TypeName, EntityFileNameFormatter.Headers.EntityDescription, "txt");
+                    string fileName = EntityFileNameFormatter.GetPluginTypeFileName(service.ConnectionData.Name, pluginType.TypeName, EntityFileNameFormatter.Headers.EntityDescription, FileExtension.txt);
                     string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
                     await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, pluginType, service.ConnectionData);
@@ -1097,7 +1097,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     {
                         try
                         {
-                            string fileName = EntityFileNameFormatter.GetPluginTypeFileName(service.ConnectionData.Name, pluginType.TypeName, fieldTitle, "xml");
+                            string fileName = EntityFileNameFormatter.GetPluginTypeFileName(service.ConnectionData.Name, pluginType.TypeName, fieldTitle, FileExtension.xml);
                             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
                             xmlContent = ContentComparerHelper.FormatXmlByConfiguration(

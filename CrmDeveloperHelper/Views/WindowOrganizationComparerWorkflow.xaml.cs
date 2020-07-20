@@ -578,12 +578,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             action(linked, showAllways);
         }
 
-        private Task<string> CreateFileAsync(ConnectionData connectionData, string entityName, string category, string name, string fieldTitle, string extension, string xmlContent)
+        private Task<string> CreateFileAsync(ConnectionData connectionData, string entityName, string category, string name, string fieldTitle, FileExtension extension, string xmlContent)
         {
             return Task.Run(() => CreateFile(connectionData, entityName, category, name, fieldTitle, extension, xmlContent));
         }
 
-        private string CreateFile(ConnectionData connectionData, string entityName, string category, string name, string fieldTitle, string extension, string xmlContent)
+        private string CreateFile(ConnectionData connectionData, string entityName, string category, string name, string fieldTitle, FileExtension extension, string xmlContent)
         {
             string fileName = EntityFileNameFormatter.GetWorkflowFileName(connectionData.Name, entityName, category, name, fieldTitle, extension);
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -592,14 +592,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    if (string.Equals(extension, "xml", StringComparison.InvariantCultureIgnoreCase))
+                    if (extension == FileExtension.xml)
                     {
                         if (ContentComparerHelper.TryParseXml(xmlContent, out var doc))
                         {
                             xmlContent = doc.ToString();
                         }
                     }
-                    else if (string.Equals(extension, "xml", StringComparison.InvariantCultureIgnoreCase))
+                    else if (extension == FileExtension.json)
                     {
                         xmlContent = ContentComparerHelper.FormatJson(xmlContent);
                     }
@@ -622,12 +622,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return filePath;
         }
 
-        private Task<string> CreateDescriptionFileAsync(ConnectionData connectionData, string entityName, string category, string name, string fieldTitle, string extension, string description)
+        private Task<string> CreateDescriptionFileAsync(ConnectionData connectionData, string entityName, string category, string name, string fieldTitle, FileExtension extension, string description)
         {
             return Task.Run(() => CreateDescriptionFile(connectionData, entityName, category, name, fieldTitle, extension, description));
         }
 
-        private string CreateDescriptionFile(ConnectionData connectionData, string entityName, string category, string name, string fieldTitle, string extension, string description)
+        private string CreateDescriptionFile(ConnectionData connectionData, string entityName, string category, string name, string fieldTitle, FileExtension extension, string description)
         {
             string fileName = EntityFileNameFormatter.GetWorkflowFileName(connectionData.Name, entityName, category, name, fieldTitle, extension);
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -809,11 +809,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         string category1 = workflow1.FormattedValues[Workflow.Schema.Attributes.category];
                         string category2 = workflow2.FormattedValues[Workflow.Schema.Attributes.category];
 
-                        string extension = "json";
+                        FileExtension extension = FileExtension.json;
 
                         if (ContentComparerHelper.TryParseXml(xml1, out var _))
                         {
-                            extension = "xml";
+                            extension = FileExtension.xml;
 
                             xml1 = ContentComparerHelper.FormatXmlByConfiguration(
                                 xml1
@@ -829,7 +829,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         if (ContentComparerHelper.TryParseXml(xml2, out var _))
                         {
-                            extension = "xml";
+                            extension = FileExtension.xml;
 
                             xml2 = ContentComparerHelper.FormatXmlByConfiguration(
                                 xml2
@@ -921,8 +921,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     string category1 = workflow1.FormattedValues[Workflow.Schema.Attributes.category];
                     string category2 = workflow2.FormattedValues[Workflow.Schema.Attributes.category];
 
-                    string filePath1 = await CreateFileAsync(service1.ConnectionData, entityName1, category1, name1, Workflow.Schema.Headers.CorrectedXaml, "xml", xml1);
-                    string filePath2 = await CreateFileAsync(service2.ConnectionData, entityName2, category2, name2, Workflow.Schema.Headers.CorrectedXaml, "xml", xml2);
+                    string filePath1 = await CreateFileAsync(service1.ConnectionData, entityName1, category1, name1, Workflow.Schema.Headers.CorrectedXaml, FileExtension.xml, xml1);
+                    string filePath2 = await CreateFileAsync(service2.ConnectionData, entityName2, category2, name2, Workflow.Schema.Headers.CorrectedXaml, FileExtension.xml, xml2);
 
                     if (!File.Exists(filePath1))
                     {
@@ -1131,11 +1131,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string xmlContent = workflow.GetAttributeValue<string>(fieldName);
 
-                string extension = "json";
+                FileExtension extension = FileExtension.json;
 
                 if (ContentComparerHelper.TryParseXml(xmlContent, out var _))
                 {
-                    extension = "xml";
+                    extension = FileExtension.xml;
 
                     xmlContent = ContentComparerHelper.FormatXmlByConfiguration(
                         xmlContent
@@ -1190,7 +1190,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 string name = workflow.Name;
                 workflow.FormattedValues.TryGetValue(Workflow.Schema.Attributes.category, out var category);
 
-                string filePath = await CreateFileAsync(service.ConnectionData, entityName, category, name, Workflow.Schema.Headers.CorrectedXaml, "xml", xmlContent);
+                string filePath = await CreateFileAsync(service.ConnectionData, entityName, category, name, Workflow.Schema.Headers.CorrectedXaml, FileExtension.xml, xmlContent);
 
                 if (!File.Exists(filePath))
                 {
@@ -1250,8 +1250,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     string category1 = workflow1.FormattedValues[Workflow.Schema.Attributes.category];
                     string category2 = workflow2.FormattedValues[Workflow.Schema.Attributes.category];
 
-                    string filePath1 = await CreateDescriptionFileAsync(service1.ConnectionData, entityName1, category1, name1, "Description", "txt", desc1);
-                    string filePath2 = await CreateDescriptionFileAsync(service2.ConnectionData, entityName2, category2, name2, "Description", "txt", desc2);
+                    string filePath1 = await CreateDescriptionFileAsync(service1.ConnectionData, entityName1, category1, name1, "Description", FileExtension.txt, desc1);
+                    string filePath2 = await CreateDescriptionFileAsync(service2.ConnectionData, entityName2, category2, name2, "Description", FileExtension.txt, desc2);
 
                     if (File.Exists(filePath1) && File.Exists(filePath2))
                     {
@@ -1304,7 +1304,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(workflow, service.ConnectionData);
 
-                string filePath = await CreateDescriptionFileAsync(service.ConnectionData, entityName, category, name, "Description", "txt", description);
+                string filePath = await CreateDescriptionFileAsync(service.ConnectionData, entityName, category, name, "Description", FileExtension.txt, description);
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }

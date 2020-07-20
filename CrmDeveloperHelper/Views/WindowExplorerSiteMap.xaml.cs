@@ -375,7 +375,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return null;
             }
 
-            string fileName = EntityFileNameFormatter.GetSiteMapFileName(connectionData.Name, name, id, fieldTitle, "xml");
+            string fileName = EntityFileNameFormatter.GetSiteMapFileName(connectionData.Name, name, id, fieldTitle, FileExtension.xml);
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
             if (!string.IsNullOrEmpty(siteMapXml))
@@ -595,7 +595,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                string fileName = EntityFileNameFormatter.GetSiteMapFileName(service.ConnectionData.Name, name, idSiteMap, EntityFileNameFormatter.Headers.EntityDescription, "txt");
+                string fileName = EntityFileNameFormatter.GetSiteMapFileName(service.ConnectionData.Name, name, idSiteMap, EntityFileNameFormatter.Headers.EntityDescription, FileExtension.txt);
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
                 var repository = new SiteMapRepository(service);

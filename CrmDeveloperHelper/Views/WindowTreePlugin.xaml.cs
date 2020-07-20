@@ -2494,7 +2494,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (string.IsNullOrEmpty(fileName))
                 {
-                    fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(service.ConnectionData.Name, pluginAssembly.Name, "Description", "txt");
+                    fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(service.ConnectionData.Name, pluginAssembly.Name, "Description", FileExtension.txt);
                 }
 
                 {
@@ -2747,7 +2747,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , workflow.FormattedValues[Workflow.Schema.Attributes.category]
                         , workflow.Name
                         , "Description"
-                        , "txt"
+                        , FileExtension.txt
                         );
                 }
 

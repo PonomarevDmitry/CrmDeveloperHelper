@@ -1337,7 +1337,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (menuItem.DataContext == null
                 || !(menuItem.DataContext is Entity entity)
-                )
+            )
             {
                 return;
             }
@@ -1346,7 +1346,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var entityFull = service.RetrieveByQuery<Entity>(entity.LogicalName, entity.Id, new ColumnSet(true));
 
-            string fileName = EntityFileNameFormatter.GetEntityName(service.ConnectionData.Name, entityFull, EntityFileNameFormatter.Headers.EntityDescription, "txt");
+            string fileName = EntityFileNameFormatter.GetEntityName(service.ConnectionData.Name, entityFull, EntityFileNameFormatter.Headers.EntityDescription, FileExtension.txt);
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
             await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, entityFull, service.ConnectionData);
@@ -2010,7 +2010,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             Model.Backup.Role roleBackup = CreateRoleBackupByPrivileges(role, rolePrivileges, privileges);
 
-            string fileName = EntityFileNameFormatter.GetRoleFileName(service.ConnectionData.Name, role.Name, EntityFileNameFormatter.Headers.Backup, "xml");
+            string fileName = EntityFileNameFormatter.GetRoleFileName(service.ConnectionData.Name, role.Name, EntityFileNameFormatter.Headers.Backup, FileExtension.xml);
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
             await roleBackup.SaveAsync(filePath);
@@ -2257,7 +2257,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 Model.Backup.Role roleBackup = CreateRoleBackupByPrivileges(role, rolePrivileges, privileges);
 
-                string fileName = EntityFileNameFormatter.GetRoleFileName(service.ConnectionData.Name, role.Name, EntityFileNameFormatter.Headers.Backup, "xml");
+                string fileName = EntityFileNameFormatter.GetRoleFileName(service.ConnectionData.Name, role.Name, EntityFileNameFormatter.Headers.Backup, FileExtension.xml);
                 string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
                 await roleBackup.SaveAsync(filePath);
@@ -2484,7 +2484,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 Model.Backup.Role roleBackup = CreateRoleBackupByPrivileges(targetRole, newRolePrivileges, sourcePrivileges);
 
-                string fileName = EntityFileNameFormatter.GetRoleFileName(service.ConnectionData.Name, targetRole.Name, Role.Schema.Headers.AddedNewPrivileges, "xml");
+                string fileName = EntityFileNameFormatter.GetRoleFileName(service.ConnectionData.Name, targetRole.Name, Role.Schema.Headers.AddedNewPrivileges, FileExtension.xml);
                 string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
                 await roleBackup.SaveAsync(filePath);
@@ -2542,7 +2542,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 Model.Backup.Role roleBackup = CreateRoleBackupByPrivileges(targetRole, newRolePrivileges, sourcePrivileges);
 
-                string fileName = EntityFileNameFormatter.GetRoleFileName(service.ConnectionData.Name, targetRole.Name, Role.Schema.Headers.ChangedPrivileges, "xml");
+                string fileName = EntityFileNameFormatter.GetRoleFileName(service.ConnectionData.Name, targetRole.Name, Role.Schema.Headers.ChangedPrivileges, FileExtension.xml);
                 string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
                 await roleBackup.SaveAsync(filePath);
@@ -2600,7 +2600,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await repositoryRolePrivileges.ReplaceRolePrivilegesAsync(targetRole.Id, rolePrivileges);
 
-                string fileName = EntityFileNameFormatter.GetRoleFileName(service.ConnectionData.Name, targetRole.Name, Role.Schema.Headers.AllNewPrivileges, "xml");
+                string fileName = EntityFileNameFormatter.GetRoleFileName(service.ConnectionData.Name, targetRole.Name, Role.Schema.Headers.AllNewPrivileges, FileExtension.xml);
                 string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
                 await roleBackup.SaveAsync(filePath);

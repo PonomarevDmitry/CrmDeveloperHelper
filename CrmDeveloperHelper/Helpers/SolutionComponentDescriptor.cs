@@ -313,7 +313,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return SolutionComponent.GetRootComponentBehaviorName(solutionComponent.RootComponentBehavior?.Value);
         }
 
-        public string GetFileName(string connectionName, int type, Guid objectId, string fieldTitle, string extension)
+        public string GetFileName(string connectionName, int type, Guid objectId, string fieldTitle, FileExtension extension)
         {
             var descriptionBuilder = GetDescriptionBuilder(type);
 

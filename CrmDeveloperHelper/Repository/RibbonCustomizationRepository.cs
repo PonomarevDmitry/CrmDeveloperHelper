@@ -686,7 +686,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 if (entityMetadata != null)
                 {
-
                     iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.AddingInSolutionEntityFormat3, _service.ConnectionData.Name, solutionUniqueName, entityMetadata.LogicalName);
 
                     {
@@ -720,14 +719,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.ExportingSolutionAndExtractingApplicationRibbonDiffXmlFormat1, solutionUniqueName);
                 }
 
-
+                string header = (entityMetadata != null) ? entityMetadata.LogicalName : "ApplicationRibbon";
 
                 var repository = new ExportSolutionHelper(_service);
 
                 var solutionBodyBinary = await repository.ExportSolutionAndGetBodyBinaryAsync(solutionUniqueName);
 
                 {
-                    string fileName = EntityFileNameFormatter.GetSolutionFileName(_service.ConnectionData.Name, solution.UniqueName, "Solution Backup", "zip");
+                    string fileName = EntityFileNameFormatter.GetSolutionFileName(_service.ConnectionData.Name, solution.UniqueName, $"{header} Solution Backup", FileExtension.zip);
 
                     string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -737,9 +736,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                     iWriteToOutput.WriteToOutputFilePathUri(_service.ConnectionData, filePath);
                 }
-
-
-
 
                 string ribbonDiffXml = string.Empty;
 
@@ -765,13 +761,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                     if (entityMetadata != null)
                     {
-                        string fileName = EntityFileNameFormatter.GetEntityRibbonDiffXmlFileName(_service.ConnectionData.Name, entityMetadata.LogicalName, "BackUp", "xml");
+                        string fileName = EntityFileNameFormatter.GetEntityRibbonDiffXmlFileName(_service.ConnectionData.Name, entityMetadata.LogicalName, "BackUp", FileExtension.xml);
                         filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
                         iWriteToOutput.WriteToOutput(_service.ConnectionData, "{0} RibbonDiffXml BackUp exported to {1}", entityMetadata.LogicalName, filePath);
                     }
                     else if (ribbonCustomization != null)
                     {
-                        string fileName = EntityFileNameFormatter.GetApplicationRibbonDiffXmlFileName(_service.ConnectionData.Name, "BackUp", "xml");
+                        string fileName = EntityFileNameFormatter.GetApplicationRibbonDiffXmlFileName(_service.ConnectionData.Name, "BackUp", FileExtension.xml);
                         filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
                         iWriteToOutput.WriteToOutput(_service.ConnectionData, "Application RibbonDiffXml BackUp exported to {0}", filePath);
                     }
@@ -791,7 +787,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
 
                 {
-                    string fileName = EntityFileNameFormatter.GetSolutionFileName(_service.ConnectionData.Name, solution.UniqueName, "Changed Solution Backup", "zip");
+                    string fileName = EntityFileNameFormatter.GetSolutionFileName(_service.ConnectionData.Name, solution.UniqueName, $"{header} Changed Solution Backup", FileExtension.zip);
 
                     string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -827,9 +823,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
             finally
             {
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-                DeleteSolution(iWriteToOutput, solution);
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                var task = DeleteSolution(iWriteToOutput, solution);
             }
         }
 
@@ -881,20 +875,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             try
             {
+                var repositorySolutionComponent = new SolutionComponentRepository(_service);
+
                 if (entityMetadata != null)
                 {
                     iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.AddingInSolutionEntityFormat3, _service.ConnectionData.Name, solutionUniqueName, entityMetadata.LogicalName);
 
+                    await repositorySolutionComponent.AddSolutionComponentsAsync(solutionUniqueName, new[] { new SolutionComponent()
                     {
-                        var repositorySolutionComponent = new SolutionComponentRepository(_service);
-
-                        await repositorySolutionComponent.AddSolutionComponentsAsync(solutionUniqueName, new[] { new SolutionComponent()
-                            {
-                                ComponentType = new OptionSetValue((int)ComponentType.Entity),
-                                ObjectId = entityMetadata.MetadataId.Value,
-                                RootComponentBehaviorEnum =  SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0,
-                            }});
-                    }
+                        ComponentType = new OptionSetValue((int)ComponentType.Entity),
+                        ObjectId = entityMetadata.MetadataId.Value,
+                        RootComponentBehaviorEnum =  SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0,
+                    }});
 
                     iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.ExportingSolutionAndExtractingRibbonDiffXmlForEntityFormat2, solutionUniqueName, entityMetadata.LogicalName);
                 }
@@ -902,23 +894,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.AddingInSolutionApplicationRibbonFormat2, _service.ConnectionData.Name, solutionUniqueName);
 
+                    await repositorySolutionComponent.AddSolutionComponentsAsync(solutionUniqueName, new[] { new SolutionComponent()
                     {
-                        var repositorySolutionComponent = new SolutionComponentRepository(_service);
-
-                        await repositorySolutionComponent.AddSolutionComponentsAsync(solutionUniqueName, new[] { new SolutionComponent()
-                        {
-                            ComponentType = new OptionSetValue((int)ComponentType.RibbonCustomization),
-                            ObjectId = ribbonCustomization.Id,
-                            RootComponentBehaviorEnum =  SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0,
-                        }});
-                    }
+                        ComponentType = new OptionSetValue((int)ComponentType.RibbonCustomization),
+                        ObjectId = ribbonCustomization.Id,
+                        RootComponentBehaviorEnum =  SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0,
+                    }});
 
                     iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.ExportingSolutionAndExtractingApplicationRibbonDiffXmlFormat1, solutionUniqueName);
                 }
 
-                var repository = new ExportSolutionHelper(_service);
+                var repositoryExportSolution = new ExportSolutionHelper(_service);
 
-                var solutionBodyBinary = await repository.ExportSolutionAndGetBodyBinaryAsync(solutionUniqueName);
+                var solutionBodyBinary = await repositoryExportSolution.ExportSolutionAndGetBodyBinaryAsync(solutionUniqueName);
 
                 string ribbonDiffXml = null;
 
@@ -935,9 +923,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
             finally
             {
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-                DeleteSolution(iWriteToOutput, solution);
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                var task = DeleteSolution(iWriteToOutput, solution);
             }
         }
 

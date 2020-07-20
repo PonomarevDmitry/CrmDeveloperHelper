@@ -785,7 +785,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await action(folder, idWebResource, name);
         }
 
-        private async Task ExecuteActionEntity(Guid idWebResource, string name, string fieldName, string fieldTitle, string extension, Func<string, Guid, string, string, string, string, Task> action)
+        private async Task ExecuteActionEntity(Guid idWebResource, string name, string fieldName, string fieldTitle, FileExtension extension, Func<string, Guid, string, string, string, FileExtension, Task> action)
         {
             if (!this.IsControlsEnabled)
             {
@@ -917,7 +917,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            await ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.dependencyxml, WebResource.Schema.Headers.dependencyxml, "xml", PerformExportXmlToFile);
+            await ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.dependencyxml, WebResource.Schema.Headers.dependencyxml, FileExtension.xml, PerformExportXmlToFile);
         }
 
         private async void mIExportWebResourceContentJson_Click(object sender, RoutedEventArgs e)
@@ -929,10 +929,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            await ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.contentjson, WebResource.Schema.Headers.contentjson, "json", PerformExportXmlToFile);
+            await ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.contentjson, WebResource.Schema.Headers.contentjson, FileExtension.json, PerformExportXmlToFile);
         }
 
-        private async Task PerformExportXmlToFile(string folder, Guid idWebResource, string name, string fieldName, string fieldTitle, string extension)
+        private async Task PerformExportXmlToFile(string folder, Guid idWebResource, string name, string fieldName, string fieldTitle, FileExtension extension)
         {
             if (!this.IsControlsEnabled)
             {
@@ -983,7 +983,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async Task PerformUpdateEntityField(string folder, Guid idWebResource, string name, string fieldName, string fieldTitle, string extension)
+        private async Task PerformUpdateEntityField(string folder, Guid idWebResource, string name, string fieldName, string fieldTitle, FileExtension extension)
         {
             if (!this.IsControlsEnabled)
             {
@@ -996,7 +996,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 _commonConfig.Save();
 
-                WebResourceRepository webResourceRepository = new WebResourceRepository(_service);
+                var webResourceRepository = new WebResourceRepository(_service);
 
                 var webresource = await webResourceRepository.GetByIdAsync(idWebResource, new ColumnSet(true));
 
@@ -1100,7 +1100,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async Task PerformUpdateEntityFieldFromFile(string folder, Guid idWebResource, string name, string fieldName, string fieldTitle, string extension)
+        private async Task PerformUpdateEntityFieldFromFile(string folder, Guid idWebResource, string name, string fieldName, string fieldTitle, FileExtension extension)
         {
             if (!this.IsControlsEnabled)
             {
@@ -1191,12 +1191,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private Task<string> CreateFileAsync(string folder, string name, string fieldTitle, string xmlContent, string extension)
+        private Task<string> CreateFileAsync(string folder, string name, string fieldTitle, string xmlContent, FileExtension extension)
         {
             return Task.Run(() => CreateFile(folder, name, fieldTitle, xmlContent, extension));
         }
 
-        private string CreateFile(string folder, string name, string fieldTitle, string xmlContent, string extension)
+        private string CreateFile(string folder, string name, string fieldTitle, string xmlContent, FileExtension extension)
         {
             name = Path.GetFileName(name);
 
@@ -1234,7 +1234,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            await ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.dependencyxml, WebResource.Schema.Headers.dependencyxml, "xml", PerformUpdateEntityField);
+            await ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.dependencyxml, WebResource.Schema.Headers.dependencyxml, FileExtension.xml, PerformUpdateEntityField);
         }
 
         private async void mIUpdateWebResourceContent_Click(object sender, RoutedEventArgs e)
@@ -1246,7 +1246,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            await ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.content, WebResource.Schema.Headers.content, "js", PerformUpdateEntityField);
+            await ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.content, WebResource.Schema.Headers.content, FileExtension.js, PerformUpdateEntityField);
         }
 
         private async void mIUpdateWebResourceContentFromFile_Click(object sender, RoutedEventArgs e)
@@ -1258,7 +1258,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            await ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.content, WebResource.Schema.Headers.content, "js", PerformUpdateEntityFieldFromFile);
+            await ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.content, WebResource.Schema.Headers.content, FileExtension.js, PerformUpdateEntityFieldFromFile);
         }
 
         private async void mIUpdateWebResourceContentJson_Click(object sender, RoutedEventArgs e)
@@ -1270,7 +1270,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            await ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.contentjson, WebResource.Schema.Headers.contentjson, "json", PerformUpdateEntityField);
+            await ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.contentjson, WebResource.Schema.Headers.contentjson, FileExtension.json, PerformUpdateEntityField);
         }
 
         private async void btnPublishWebResource_Click(object sender, RoutedEventArgs e)
@@ -1376,7 +1376,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var webresource = await webResourceRepository.GetByIdAsync(idWebResource, new ColumnSet(true));
 
-                string fileName = EntityFileNameFormatter.GetWebResourceFileName(_service.ConnectionData.Name, name, EntityFileNameFormatter.Headers.EntityDescription, "txt");
+                string fileName = EntityFileNameFormatter.GetWebResourceFileName(_service.ConnectionData.Name, name, EntityFileNameFormatter.Headers.EntityDescription, FileExtension.txt);
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
                 await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, webresource, _service.ConnectionData);
@@ -1459,9 +1459,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             await PerformExportWebResourceContent(folder, idWebResource, name);
 
-            await PerformExportXmlToFile(folder, idWebResource, name, WebResource.Schema.Attributes.dependencyxml, WebResource.Schema.Headers.dependencyxml, "xml");
+            await PerformExportXmlToFile(folder, idWebResource, name, WebResource.Schema.Attributes.dependencyxml, WebResource.Schema.Headers.dependencyxml, FileExtension.xml);
 
-            await PerformExportXmlToFile(folder, idWebResource, name, WebResource.Schema.Attributes.contentjson, WebResource.Schema.Headers.contentjson, "json");
+            await PerformExportXmlToFile(folder, idWebResource, name, WebResource.Schema.Attributes.contentjson, WebResource.Schema.Headers.contentjson, FileExtension.json);
         }
 
         #endregion Context Menu

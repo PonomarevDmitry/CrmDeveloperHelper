@@ -471,7 +471,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
         }
 
-        public virtual string GetFileName(string connectionName, Guid objectId, string fieldTitle, string extension)
+        public virtual string GetFileName(string connectionName, Guid objectId, string fieldTitle, FileExtension extension)
         {
             var entity = GetEntity<Entity>(objectId);
 
@@ -480,7 +480,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 return EntityFileNameFormatter.GetEntityName(connectionName, entity, fieldTitle, extension);
             }
 
-            return string.Format("{0}.ComponentType {1} - {2} - {3}.{4}", connectionName, this.ComponentTypeValue, objectId, fieldTitle, extension);
+            return string.Format("{0}.ComponentType {1} - {2} - {3}.{4}", connectionName, this.ComponentTypeValue, objectId, fieldTitle, extension.ToStr());
         }
 
         public virtual TupleList<string, string> GetComponentColumns()

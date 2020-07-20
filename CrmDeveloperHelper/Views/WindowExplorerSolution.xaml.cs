@@ -1416,7 +1416,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     service.ConnectionData.Name
                     , solution.UniqueName
                     , "SolutionImage"
-                    , "xml"
+                    , FileExtension.xml
                 );
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
@@ -1483,6 +1483,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     service.ConnectionData.Name
                     , solution.UniqueName
                     , "Components"
+                    , FileExtension.txt
                 );
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
@@ -1584,7 +1585,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     service.ConnectionData.Name
                     , solution.UniqueName
                     , showString
-                    );
+                    , FileExtension.txt
+                );
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -1635,7 +1637,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     service.ConnectionData.Name
                     , solution.UniqueName
                     , showString
-                    );
+                    , FileExtension.txt
+                );
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -1935,6 +1938,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             service.ConnectionData.Name
                             , solutionTarget.UniqueName
                             , $"Components Backup before Adding from {solutionSource.UniqueName}"
+                            , FileExtension.txt
                         );
 
                         string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
@@ -1950,7 +1954,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             service.ConnectionData.Name
                             , solutionTarget.UniqueName
                             , $"SolutionImage Components Backup before Adding from {solutionSource.UniqueName}"
-                            , "xml"
+                            , FileExtension.xml
                         );
 
                         string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -2065,7 +2069,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             service.ConnectionData.Name
                             , solutionTarget.UniqueName
                             , $"Components Backup before Adding from {sourceName}"
-                            , "txt"
+                            , FileExtension.txt
                         );
 
                         string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
@@ -2081,7 +2085,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             service.ConnectionData.Name
                             , solutionTarget.UniqueName
                             , $"SolutionImage Components Backup before Adding from {sourceName}"
-                            , "xml"
+                            , FileExtension.xml
                         );
 
                         string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -2100,7 +2104,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             , sourceName
                             , solutionTarget.UniqueName
                             , $"Unique Components for Adding from {sourceName}"
-                            );
+                        );
 
                         string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -2123,7 +2127,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             service.ConnectionData.Name
                             , solutionTarget.UniqueName
                             , $"SolutionImage Unique Components for Adding from {sourceName}"
-                            , "xml"
+                            , FileExtension.xml
                         );
 
                         string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -2185,6 +2189,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             service.ConnectionData.Name
                             , solutionTarget.UniqueName
                             , $"Components Backup before removing {solutionSource.UniqueName}"
+                            , FileExtension.txt
                         );
 
                         string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
@@ -2200,7 +2205,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             service.ConnectionData.Name
                             , solutionTarget.UniqueName
                             , $"SolutionImage Components Backup before removing {solutionSource.UniqueName}"
-                            , "xml"
+                            , FileExtension.xml
                         );
 
                         string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -2315,7 +2320,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             service.ConnectionData.Name
                             , solutionTarget.UniqueName
                             , $"Components Backup before removing {sourceName}"
-                            , "txt"
+                            , FileExtension.txt
                         );
 
                         string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
@@ -2331,7 +2336,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             service.ConnectionData.Name
                             , solutionTarget.UniqueName
                             , $"SolutionImage Components Backup before removing {sourceName}"
-                            , "xml"
+                            , FileExtension.xml
                         );
 
                         string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -2479,7 +2484,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         service.ConnectionData.Name
                         , solution.UniqueName
                         , "Components Backup"
-                        , "txt"
+                        , FileExtension.txt
                     );
 
                     string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
@@ -2496,7 +2501,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         service.ConnectionData.Name
                         , solution.UniqueName
                         , "SolutionImage Backup before Clearing"
-                        , "xml"
+                        , FileExtension.xml
                     );
 
                     string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -2597,7 +2602,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                SolutionRepository repository = new SolutionRepository(service);
+                var repository = new SolutionRepository(service);
 
                 var solutionFull = await repository.GetSolutionByIdAsync(solution.Id);
 
@@ -2605,6 +2610,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     service.ConnectionData.Name
                     , solution.UniqueName
                     , EntityFileNameFormatter.Headers.EntityDescription
+                    , FileExtension.txt
                 );
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
@@ -2646,7 +2652,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     service.ConnectionData.Name
                     , solution.UniqueName
                     , "UsedEntitiesInWorkflows"
-                    );
+                    , FileExtension.txt
+                );
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -2686,7 +2693,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     service.ConnectionData.Name
                     , solution.UniqueName
                     , "UsedNotExistsEntitiesInWorkflows"
-                    );
+                    , FileExtension.txt
+                );
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -2939,7 +2947,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     service.ConnectionData.Name
                     , Path.GetFileNameWithoutExtension(selectedPath)
                     , "SolutionImage"
-                    , "xml"
+                    , FileExtension.xml
                 );
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));

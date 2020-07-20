@@ -467,7 +467,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return result;
         }
 
-        public string GetFileName(string connectionName, Guid objectId, string fieldTitle, string extension)
+        public string GetFileName(string connectionName, Guid objectId, string fieldTitle, FileExtension extension)
         {
             RelationshipMetadataBase metaData = _source.GetRelationshipMetadata(objectId);
 
@@ -483,18 +483,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         , relationship.ReferencingAttribute
                         , relationship.SchemaName
                         , fieldTitle
-                        , extension
-                        );
+                        , extension.ToStr()
+                    );
                 }
                 else if (metaData is ManyToManyRelationshipMetadata)
                 {
                     var relationship = metaData as ManyToManyRelationshipMetadata;
 
-                    return string.Format("{0}.{1} - {2}.{3} - {4}.{5}", connectionName, relationship.Entity1LogicalName, relationship.Entity2LogicalName, relationship.SchemaName, fieldTitle, extension);
+                    return string.Format("{0}.{1} - {2}.{3} - {4}.{5}", connectionName, relationship.Entity1LogicalName, relationship.Entity2LogicalName, relationship.SchemaName, fieldTitle, extension.ToStr());
                 }
             }
 
-            return string.Format("{0}.ComponentType {1} - {2} - {3}.{4}", connectionName, this.ComponentTypeValue, objectId, fieldTitle, extension);
+            return string.Format("{0}.ComponentType {1} - {2} - {3}.{4}", connectionName, this.ComponentTypeValue, objectId, fieldTitle, extension.ToStr());
         }
 
         public TupleList<string, string> GetComponentColumns()

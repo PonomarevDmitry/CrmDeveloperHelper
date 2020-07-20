@@ -327,12 +327,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await action(folder, idCustomControl, name);
         }
 
-        private Task<string> CreateFileAsync(string folder, Guid idCustomControl, string name, string fieldTitle, string extension, string xmlContent)
+        private Task<string> CreateFileAsync(string folder, Guid idCustomControl, string name, string fieldTitle, FileExtension extension, string xmlContent)
         {
             return Task.Run(() => CreateFile(folder, idCustomControl, name, fieldTitle, extension, xmlContent));
         }
 
-        private string CreateFile(string folder, Guid idCustomControl, string name, string fieldTitle, string extension, string xmlContent)
+        private string CreateFile(string folder, Guid idCustomControl, string name, string fieldTitle, FileExtension extension, string xmlContent)
         {
             ConnectionData connectionData = GetSelectedConnection();
 
@@ -382,12 +382,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             await PerformExportEntityDescriptionAsync(folder, idCustomControl, name);
 
-            await PerformExportXmlToFileAsync(folder, idCustomControl, name, CustomControl.Schema.Attributes.manifest, CustomControl.Schema.Headers.manifest, "xml");
+            await PerformExportXmlToFileAsync(folder, idCustomControl, name, CustomControl.Schema.Attributes.manifest, CustomControl.Schema.Headers.manifest, FileExtension.xml);
 
-            await PerformExportXmlToFileAsync(folder, idCustomControl, name, CustomControl.Schema.Attributes.clientjson, CustomControl.Schema.Headers.clientjson, "json");
+            await PerformExportXmlToFileAsync(folder, idCustomControl, name, CustomControl.Schema.Attributes.clientjson, CustomControl.Schema.Headers.clientjson, FileExtension.json);
         }
 
-        private async Task ExecuteActionEntityAsync(Guid idCustomControl, string name, string fieldName, string fieldTitle, string extension, Func<string, Guid, string, string, string, string, Task> action)
+        private async Task ExecuteActionEntityAsync(Guid idCustomControl, string name, string fieldName, string fieldTitle, FileExtension extension, Func<string, Guid, string, string, string, FileExtension, Task> action)
         {
             if (!this.IsControlsEnabled)
             {
@@ -401,7 +401,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await action(folder, idCustomControl, name, fieldName, fieldTitle, extension);
         }
 
-        private async Task PerformExportXmlToFileAsync(string folder, Guid idCustomControl, string name, string fieldName, string fieldTitle, string extension)
+        private async Task PerformExportXmlToFileAsync(string folder, Guid idCustomControl, string name, string fieldName, string fieldTitle, FileExtension extension)
         {
             if (!this.IsControlsEnabled)
             {
@@ -452,7 +452,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async Task PerformUpdateEntityField(string folder, Guid idCustomControl, string name, string fieldName, string fieldTitle, string extension)
+        private async Task PerformUpdateEntityField(string folder, Guid idCustomControl, string name, string fieldName, string fieldTitle, FileExtension extension)
         {
             if (!this.IsControlsEnabled)
             {
@@ -599,7 +599,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                string fileName = EntityFileNameFormatter.GetCustomControlFileName(service.ConnectionData.Name, name, EntityFileNameFormatter.Headers.EntityDescription, "txt");
+                string fileName = EntityFileNameFormatter.GetCustomControlFileName(service.ConnectionData.Name, name, EntityFileNameFormatter.Headers.EntityDescription, FileExtension.txt);
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
                 var repository = new CustomControlRepository(service);
@@ -672,7 +672,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            await ExecuteActionEntityAsync(entity.Id, entity.Name, CustomControl.Schema.Attributes.manifest, CustomControl.Schema.Headers.manifest, "xml", PerformExportXmlToFileAsync);
+            await ExecuteActionEntityAsync(entity.Id, entity.Name, CustomControl.Schema.Attributes.manifest, CustomControl.Schema.Headers.manifest, FileExtension.xml, PerformExportXmlToFileAsync);
         }
 
         private async void mIExportCustomControlClientJson_Click(object sender, RoutedEventArgs e)
@@ -684,7 +684,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            await ExecuteActionEntityAsync(entity.Id, entity.Name, CustomControl.Schema.Attributes.clientjson, CustomControl.Schema.Headers.clientjson, "json", PerformExportXmlToFileAsync);
+            await ExecuteActionEntityAsync(entity.Id, entity.Name, CustomControl.Schema.Attributes.clientjson, CustomControl.Schema.Headers.clientjson, FileExtension.json, PerformExportXmlToFileAsync);
         }
 
         protected override async Task OnRefreshList(ExecutedRoutedEventArgs e)
@@ -879,7 +879,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            await ExecuteActionEntityAsync(entity.Id, entity.Name, CustomControl.Schema.Attributes.manifest, CustomControl.Schema.Headers.manifest, "xml", PerformUpdateEntityField);
+            await ExecuteActionEntityAsync(entity.Id, entity.Name, CustomControl.Schema.Attributes.manifest, CustomControl.Schema.Headers.manifest, FileExtension.xml, PerformUpdateEntityField);
         }
 
         private async void mIUpdateCustomControlClientJson_Click(object sender, RoutedEventArgs e)
@@ -891,7 +891,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            await ExecuteActionEntityAsync(entity.Id, entity.Name, CustomControl.Schema.Attributes.clientjson, CustomControl.Schema.Headers.clientjson, "json", PerformUpdateEntityField);
+            await ExecuteActionEntityAsync(entity.Id, entity.Name, CustomControl.Schema.Attributes.clientjson, CustomControl.Schema.Headers.clientjson, FileExtension.json, PerformUpdateEntityField);
         }
 
         private void miOptions_Click(object sender, RoutedEventArgs e)
@@ -924,7 +924,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var entity = item.CustomControl;
 
-            await ExecuteActionEntityAsync(entity.Id, entity.Name, CustomControl.Schema.Attributes.manifest, CustomControl.Schema.Headers.manifest, "xml", PerformExportXmlToFileAsync);
+            await ExecuteActionEntityAsync(entity.Id, entity.Name, CustomControl.Schema.Attributes.manifest, CustomControl.Schema.Headers.manifest, FileExtension.xml, PerformExportXmlToFileAsync);
         }
 
         private async void hyperlinkClientJson_Click(object sender, RoutedEventArgs e)
@@ -938,7 +938,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var entity = item.CustomControl;
 
-            await ExecuteActionEntityAsync(entity.Id, entity.Name, CustomControl.Schema.Attributes.clientjson, CustomControl.Schema.Headers.clientjson, "json", PerformExportXmlToFileAsync);
+            await ExecuteActionEntityAsync(entity.Id, entity.Name, CustomControl.Schema.Attributes.clientjson, CustomControl.Schema.Headers.clientjson, FileExtension.json, PerformExportXmlToFileAsync);
         }
 
         private void lstVwCustomControls_CanExecute(object sender, CanExecuteRoutedEventArgs e)

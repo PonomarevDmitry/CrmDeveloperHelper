@@ -460,7 +460,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingPluginAssebmltyDescriptionFormat1, name);
 
-            string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(service.ConnectionData.Name, name, "Description", "txt");
+            string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(service.ConnectionData.Name, name, "Description", FileExtension.txt);
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
             PluginAssemblyDescriptionHandler handler = new PluginAssemblyDescriptionHandler(service, service.ConnectionData.GetConnectionInfo());
@@ -484,7 +484,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var assembly = await repository.GetAssemblyByIdRetrieveRequestAsync(idPluginAssembly);
 
-            string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(service.ConnectionData.Name, name, EntityFileNameFormatter.Headers.EntityDescription, "txt");
+            string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(service.ConnectionData.Name, name, EntityFileNameFormatter.Headers.EntityDescription, FileExtension.txt);
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
             await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, assembly, service.ConnectionData);
@@ -547,7 +547,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var assembly = await repository.GetAssemblyByIdRetrieveRequestAsync(idAssembly, new ColumnSet(PluginAssembly.Schema.Attributes.content));
 
-            string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(service.ConnectionData.Name, name, "Content", "dll");
+            string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(service.ConnectionData.Name, name, "Content", FileExtension.dll);
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
             var array = Convert.FromBase64String(assembly.Content);

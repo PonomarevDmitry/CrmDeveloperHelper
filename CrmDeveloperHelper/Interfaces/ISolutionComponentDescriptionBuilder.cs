@@ -1,12 +1,10 @@
 ﻿using Microsoft.Xrm.Sdk;
-using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
@@ -47,7 +45,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
 
         IEnumerable<SolutionComponent> GetLinkedComponents(SolutionComponent solutionComponent);
 
-        string GetFileName(string connectionName, Guid objectId, string fieldTitle, string extension);
+        string GetFileName(string connectionName, Guid objectId, string fieldTitle, FileExtension extension);
 
         TupleList<string, string> GetComponentColumns();
     }

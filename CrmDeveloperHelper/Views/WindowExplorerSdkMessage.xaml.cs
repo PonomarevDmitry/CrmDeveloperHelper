@@ -648,10 +648,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            await ExecuteActionEntity(entity.Id, entity.Name, SdkMessage.Schema.Attributes.throttlesettings, nameof(SdkMessage.ThrottleSettings), "xml", PerformExportXmlToFile);
+            await ExecuteActionEntity(entity.Id, entity.Name, SdkMessage.Schema.Attributes.throttlesettings, nameof(SdkMessage.ThrottleSettings), FileExtension.xml, PerformExportXmlToFile);
         }
 
-        private async Task ExecuteActionEntity(Guid idMessage, string name, string fieldName, string fieldTitle, string extension, Func<string, Guid, string, string, string, string, Task> action)
+        private async Task ExecuteActionEntity(Guid idMessage, string name, string fieldName, string fieldTitle, FileExtension extension, Func<string, Guid, string, string, string, FileExtension, Task> action)
         {
             if (!this.IsControlsEnabled)
             {
@@ -665,7 +665,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await action(folder, idMessage, name, fieldName, fieldTitle, extension);
         }
 
-        private async Task PerformExportXmlToFile(string folder, Guid idMessage, string name, string fieldName, string fieldTitle, string extension)
+        private async Task PerformExportXmlToFile(string folder, Guid idMessage, string name, string fieldName, string fieldTitle, FileExtension extension)
         {
             if (!this.IsControlsEnabled)
             {
@@ -698,12 +698,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private Task<string> CreateFileAsync(string folder, Guid idMessage, string name, string fieldTitle, string extension, string xmlContent)
+        private Task<string> CreateFileAsync(string folder, Guid idMessage, string name, string fieldTitle, FileExtension extension, string xmlContent)
         {
             return Task.Run(() => CreateFile(folder, idMessage, name, fieldTitle, extension, xmlContent));
         }
 
-        private string CreateFile(string folder, Guid idMessage, string name, string fieldTitle, string extension, string xmlContent)
+        private string CreateFile(string folder, Guid idMessage, string name, string fieldTitle, FileExtension extension, string xmlContent)
         {
             ConnectionData connectionData = GetSelectedConnection();
 

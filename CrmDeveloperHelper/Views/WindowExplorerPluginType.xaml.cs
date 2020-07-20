@@ -485,7 +485,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return null;
             }
 
-            string fileName = EntityFileNameFormatter.GetPluginTypeFileName(connectionData.Name, typeName, fieldTitle, "xml");
+            string fileName = EntityFileNameFormatter.GetPluginTypeFileName(connectionData.Name, typeName, fieldTitle, FileExtension.xml);
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
             if (!string.IsNullOrEmpty(xmlContent))

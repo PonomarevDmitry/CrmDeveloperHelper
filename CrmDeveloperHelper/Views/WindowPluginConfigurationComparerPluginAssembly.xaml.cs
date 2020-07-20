@@ -362,7 +362,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private string CreateDescriptionFile(string folder, string filePathConfiguration, string name, string description)
         {
-            string fileName = EntityFileNameFormatter.GetPluginConfigurationFileName(Path.GetFileNameWithoutExtension(filePathConfiguration), name, "txt");
+            string fileName = EntityFileNameFormatter.GetPluginConfigurationFileName(Path.GetFileNameWithoutExtension(filePathConfiguration), name, FileExtension.txt);
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
             if (!string.IsNullOrEmpty(description))

@@ -511,7 +511,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private string CreateFile(ConnectionData connectionData, string entityName, string name, string fieldTitle, string xmlContent)
         {
-            string fileName = EntityFileNameFormatter.GetSavedQueryVisualizationFileName(connectionData.Name, entityName, name, fieldTitle, "xml");
+            string fileName = EntityFileNameFormatter.GetSavedQueryVisualizationFileName(connectionData.Name, entityName, name, fieldTitle, FileExtension.xml);
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
             if (!string.IsNullOrEmpty(xmlContent))
@@ -550,7 +550,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private string CreateDescriptionFile(ConnectionData connectionData, string entityName, string name, string fieldTitle, string description)
         {
-            string fileName = EntityFileNameFormatter.GetSavedQueryVisualizationFileName(connectionData.Name, entityName, name, fieldTitle, "txt");
+            string fileName = EntityFileNameFormatter.GetSavedQueryVisualizationFileName(connectionData.Name, entityName, name, fieldTitle, FileExtension.txt);
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
             if (!string.IsNullOrEmpty(description))

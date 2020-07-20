@@ -476,7 +476,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private string CreateFile(ConnectionData connectionData, string name, string nameUnique, Guid id, string fieldTitle, string siteMapXml)
         {
-            string fileName = EntityFileNameFormatter.GetSiteMapFileName(connectionData.Name, name, id, fieldTitle, "xml");
+            string fileName = EntityFileNameFormatter.GetSiteMapFileName(connectionData.Name, name, id, fieldTitle, FileExtension.xml);
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
             if (!string.IsNullOrEmpty(siteMapXml))
@@ -516,7 +516,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private string CreateDescriptionFile(ConnectionData connectionData, string name, Guid id, string fieldTitle, string description)
         {
-            string fileName = EntityFileNameFormatter.GetSiteMapFileName(connectionData.Name, name, id, fieldTitle, "txt");
+            string fileName = EntityFileNameFormatter.GetSiteMapFileName(connectionData.Name, name, id, fieldTitle, FileExtension.txt);
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
             if (!string.IsNullOrEmpty(description))

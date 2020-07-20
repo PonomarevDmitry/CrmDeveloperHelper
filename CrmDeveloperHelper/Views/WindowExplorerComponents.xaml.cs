@@ -448,7 +448,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             ToggleControls(false, Properties.OutputStrings.CreatingEntityDescription);
 
-            string fileName = _descriptor.GetFileName(_service.ConnectionData.Name, solutionComponentViewItem.SolutionComponent.ComponentType.Value, solutionComponentViewItem.SolutionComponent.ObjectId.Value, EntityFileNameFormatter.Headers.EntityDescription, "txt");
+            string fileName = _descriptor.GetFileName(_service.ConnectionData.Name, solutionComponentViewItem.SolutionComponent.ComponentType.Value, solutionComponentViewItem.SolutionComponent.ObjectId.Value, EntityFileNameFormatter.Headers.EntityDescription, FileExtension.txt);
 
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -1352,7 +1352,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _service.ConnectionData.Name
                     , _solution.UniqueName
                     , $"{_header}_SolutionImage"
-                    , "xml"
+                    , FileExtension.xml
                 );
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
@@ -1425,6 +1425,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _service.ConnectionData.Name
                     , _solution.UniqueName
                     , _header
+                    , FileExtension.txt
                 );
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));

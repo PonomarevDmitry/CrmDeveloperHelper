@@ -549,12 +549,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             action(linked, showAllways);
         }
 
-        private Task<string> CreateFileAsync(ConnectionData connectionData, Guid savedQueryId, string entityName, string name, string fieldTitle, string extension, string xmlContent)
+        private Task<string> CreateFileAsync(ConnectionData connectionData, Guid savedQueryId, string entityName, string name, string fieldTitle, FileExtension extension, string xmlContent)
         {
             return Task.Run(() => CreateFile(connectionData, savedQueryId, entityName, name, fieldTitle, extension, xmlContent));
         }
 
-        private string CreateFile(ConnectionData connectionData, Guid savedQueryId, string entityName, string name, string fieldTitle, string extension, string xmlContent)
+        private string CreateFile(ConnectionData connectionData, Guid savedQueryId, string entityName, string name, string fieldTitle, FileExtension extension, string xmlContent)
         {
             string fileName = EntityFileNameFormatter.GetSavedQueryFileName(connectionData.Name, entityName, name, fieldTitle, extension);
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -563,7 +563,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    if (string.Equals(extension, "xml", StringComparison.InvariantCultureIgnoreCase))
+                    if (extension == FileExtension.xml)
                     {
                         xmlContent = ContentComparerHelper.FormatXmlByConfiguration(
                             xmlContent
@@ -574,7 +574,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             , entityName: entityName
                         );
                     }
-                    else if (string.Equals(extension, "json", StringComparison.InvariantCultureIgnoreCase))
+                    else if (extension == FileExtension.json)
                     {
                         xmlContent = ContentComparerHelper.FormatJson(xmlContent);
                     }
@@ -604,7 +604,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private string CreateDescriptionFile(ConnectionData connectionData, string entityName, string name, string fieldTitle, string description)
         {
-            string fileName = EntityFileNameFormatter.GetSavedQueryFileName(connectionData.Name, entityName, name, fieldTitle, "txt");
+            string fileName = EntityFileNameFormatter.GetSavedQueryFileName(connectionData.Name, entityName, name, fieldTitle, FileExtension.txt);
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
             if (!string.IsNullOrEmpty(description))
@@ -646,15 +646,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             await PerformShowingDifferenceEntityDescriptionAsync(linked, showAllways);
 
-            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, SavedQuery.Schema.Attributes.fetchxml, SavedQuery.Schema.Headers.fetchxml, "xml");
+            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, SavedQuery.Schema.Attributes.fetchxml, SavedQuery.Schema.Headers.fetchxml, FileExtension.xml);
 
-            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, SavedQuery.Schema.Attributes.layoutxml, SavedQuery.Schema.Headers.layoutxml, "xml", ContentComparerHelper.RemoveLayoutObjectCode);
+            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, SavedQuery.Schema.Attributes.layoutxml, SavedQuery.Schema.Headers.layoutxml, FileExtension.xml, ContentComparerHelper.RemoveLayoutObjectCode);
 
-            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, SavedQuery.Schema.Attributes.columnsetxml, SavedQuery.Schema.Headers.columnsetxml, "xml");
+            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, SavedQuery.Schema.Attributes.columnsetxml, SavedQuery.Schema.Headers.columnsetxml, FileExtension.xml);
 
-            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, SavedQuery.Schema.Attributes.layoutjson, SavedQuery.Schema.Headers.layoutjson, "json");
+            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, SavedQuery.Schema.Attributes.layoutjson, SavedQuery.Schema.Headers.layoutjson, FileExtension.json);
 
-            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, SavedQuery.Schema.Attributes.offlinesqlquery, SavedQuery.Schema.Headers.offlinesqlquery, "sql");
+            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, SavedQuery.Schema.Attributes.offlinesqlquery, SavedQuery.Schema.Headers.offlinesqlquery, FileExtension.sql);
         }
 
         private void mIShowDifferenceFetchXml_Click(object sender, RoutedEventArgs e)
@@ -666,7 +666,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionLinked(link.Link, true, SavedQuery.Schema.Attributes.fetchxml, SavedQuery.Schema.Headers.fetchxml, "xml", PerformShowingDifferenceSingleXmlAsync);
+            ExecuteActionLinked(link.Link, true, SavedQuery.Schema.Attributes.fetchxml, SavedQuery.Schema.Headers.fetchxml, FileExtension.xml, PerformShowingDifferenceSingleXmlAsync);
         }
 
         private void mIShowDifferenceLayoutXml_Click(object sender, RoutedEventArgs e)
@@ -678,7 +678,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionLinked(link.Link, true, SavedQuery.Schema.Attributes.layoutxml, SavedQuery.Schema.Headers.layoutxml, "xml", PerformShowingDifferenceSingleXmlAsync, ContentComparerHelper.RemoveLayoutObjectCode);
+            ExecuteActionLinked(link.Link, true, SavedQuery.Schema.Attributes.layoutxml, SavedQuery.Schema.Headers.layoutxml, FileExtension.xml, PerformShowingDifferenceSingleXmlAsync, ContentComparerHelper.RemoveLayoutObjectCode);
         }
 
         private void mIShowDifferenceColumnSetXml_Click(object sender, RoutedEventArgs e)
@@ -690,7 +690,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionLinked(link.Link, true, SavedQuery.Schema.Attributes.columnsetxml, SavedQuery.Schema.Headers.columnsetxml, "xml", PerformShowingDifferenceSingleXmlAsync);
+            ExecuteActionLinked(link.Link, true, SavedQuery.Schema.Attributes.columnsetxml, SavedQuery.Schema.Headers.columnsetxml, FileExtension.xml, PerformShowingDifferenceSingleXmlAsync);
         }
 
         private void mIShowDifferenceLayoutJson_Click(object sender, RoutedEventArgs e)
@@ -702,7 +702,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionLinked(link.Link, true, SavedQuery.Schema.Attributes.layoutjson, SavedQuery.Schema.Headers.layoutjson, "json", PerformShowingDifferenceSingleXmlAsync);
+            ExecuteActionLinked(link.Link, true, SavedQuery.Schema.Attributes.layoutjson, SavedQuery.Schema.Headers.layoutjson, FileExtension.json, PerformShowingDifferenceSingleXmlAsync);
         }
 
         private void mIShowDifferenceOfflineSqlQuery_Click(object sender, RoutedEventArgs e)
@@ -714,10 +714,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionLinked(link.Link, true, SavedQuery.Schema.Attributes.offlinesqlquery, SavedQuery.Schema.Headers.offlinesqlquery, "sql", PerformShowingDifferenceSingleXmlAsync);
+            ExecuteActionLinked(link.Link, true, SavedQuery.Schema.Attributes.offlinesqlquery, SavedQuery.Schema.Headers.offlinesqlquery, FileExtension.sql, PerformShowingDifferenceSingleXmlAsync);
         }
 
-        private void ExecuteActionLinked(LinkedEntities<SavedQuery> linked, bool showAllways, string fieldName, string fieldTitle, string extension, Func<LinkedEntities<SavedQuery>, bool, string, string, string, Action<XElement>, Task> action, Action<XElement> actionXml = null)
+        private void ExecuteActionLinked(
+            LinkedEntities<SavedQuery> linked
+            , bool showAllways
+            , string fieldName
+            , string fieldTitle
+            , FileExtension extension
+            , Func<LinkedEntities<SavedQuery>, bool, string, string, FileExtension, Action<XElement>, Task> action, Action<XElement> actionXml = null
+        )
         {
             if (!this.IsControlsEnabled)
             {
@@ -734,7 +741,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             action(linked, showAllways, fieldName, fieldTitle, extension, actionXml);
         }
 
-        private async Task PerformShowingDifferenceSingleXmlAsync(LinkedEntities<SavedQuery> linked, bool showAllways, string fieldName, string fieldTitle, string extension, Action<XElement> action = null)
+        private async Task PerformShowingDifferenceSingleXmlAsync(LinkedEntities<SavedQuery> linked, bool showAllways, string fieldName, string fieldTitle, FileExtension extension, Action<XElement> action = null)
         {
             if (!this.IsControlsEnabled)
             {
@@ -808,7 +815,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, SavedQuery.Schema.Attributes.fetchxml, SavedQuery.Schema.Headers.fetchxml, "xml", PerformExportXmlToFileAsync);
+            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, SavedQuery.Schema.Attributes.fetchxml, SavedQuery.Schema.Headers.fetchxml, FileExtension.xml, PerformExportXmlToFileAsync);
         }
 
         private void mIExportSavedQuery2FetchXml_Click(object sender, RoutedEventArgs e)
@@ -820,7 +827,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(link.Link.Entity2.Id, GetService2, SavedQuery.Schema.Attributes.fetchxml, SavedQuery.Schema.Headers.fetchxml, "xml", PerformExportXmlToFileAsync);
+            ExecuteActionEntity(link.Link.Entity2.Id, GetService2, SavedQuery.Schema.Attributes.fetchxml, SavedQuery.Schema.Headers.fetchxml, FileExtension.xml, PerformExportXmlToFileAsync);
         }
 
         private void mIExportSavedQuery1LayoutXml_Click(object sender, RoutedEventArgs e)
@@ -832,7 +839,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, SavedQuery.Schema.Attributes.layoutxml, SavedQuery.Schema.Headers.layoutxml, "xml", PerformExportXmlToFileAsync);
+            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, SavedQuery.Schema.Attributes.layoutxml, SavedQuery.Schema.Headers.layoutxml, FileExtension.xml, PerformExportXmlToFileAsync);
         }
 
         private void mIExportSavedQuery2LayoutXml_Click(object sender, RoutedEventArgs e)
@@ -844,7 +851,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(link.Link.Entity2.Id, GetService2, SavedQuery.Schema.Attributes.layoutxml, SavedQuery.Schema.Headers.layoutxml, "xml", PerformExportXmlToFileAsync);
+            ExecuteActionEntity(link.Link.Entity2.Id, GetService2, SavedQuery.Schema.Attributes.layoutxml, SavedQuery.Schema.Headers.layoutxml, FileExtension.xml, PerformExportXmlToFileAsync);
         }
 
         private void mIExportSavedQuery1ColumnSetXml_Click(object sender, RoutedEventArgs e)
@@ -856,7 +863,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, SavedQuery.Schema.Attributes.columnsetxml, SavedQuery.Schema.Headers.columnsetxml, "xml", PerformExportXmlToFileAsync);
+            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, SavedQuery.Schema.Attributes.columnsetxml, SavedQuery.Schema.Headers.columnsetxml, FileExtension.xml, PerformExportXmlToFileAsync);
         }
 
         private void mIExportSavedQuery2ColumnSetXml_Click(object sender, RoutedEventArgs e)
@@ -868,7 +875,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(link.Link.Entity2.Id, GetService2, SavedQuery.Schema.Attributes.columnsetxml, SavedQuery.Schema.Headers.columnsetxml, "xml", PerformExportXmlToFileAsync);
+            ExecuteActionEntity(link.Link.Entity2.Id, GetService2, SavedQuery.Schema.Attributes.columnsetxml, SavedQuery.Schema.Headers.columnsetxml, FileExtension.xml, PerformExportXmlToFileAsync);
         }
 
         private void mIExportSavedQuery1LayoutJson_Click(object sender, RoutedEventArgs e)
@@ -880,7 +887,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, SavedQuery.Schema.Attributes.layoutjson, SavedQuery.Schema.Headers.layoutjson, "json", PerformExportXmlToFileAsync);
+            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, SavedQuery.Schema.Attributes.layoutjson, SavedQuery.Schema.Headers.layoutjson, FileExtension.json, PerformExportXmlToFileAsync);
         }
 
         private void mIExportSavedQuery2LayoutJson_Click(object sender, RoutedEventArgs e)
@@ -892,7 +899,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(link.Link.Entity2.Id, GetService2, SavedQuery.Schema.Attributes.layoutjson, SavedQuery.Schema.Headers.layoutjson, "json", PerformExportXmlToFileAsync);
+            ExecuteActionEntity(link.Link.Entity2.Id, GetService2, SavedQuery.Schema.Attributes.layoutjson, SavedQuery.Schema.Headers.layoutjson, FileExtension.json, PerformExportXmlToFileAsync);
         }
 
         private void mIExportSavedQuery1OfflineSqlQuery_Click(object sender, RoutedEventArgs e)
@@ -904,7 +911,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, SavedQuery.Schema.Attributes.offlinesqlquery, SavedQuery.Schema.Headers.offlinesqlquery, "sql", PerformExportXmlToFileAsync);
+            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, SavedQuery.Schema.Attributes.offlinesqlquery, SavedQuery.Schema.Headers.offlinesqlquery, FileExtension.sql, PerformExportXmlToFileAsync);
         }
 
         private void mIExportSavedQuery2OfflineSqlQuery_Click(object sender, RoutedEventArgs e)
@@ -916,10 +923,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(link.Link.Entity2.Id, GetService2, SavedQuery.Schema.Attributes.offlinesqlquery, SavedQuery.Schema.Headers.offlinesqlquery, "sql", PerformExportXmlToFileAsync);
+            ExecuteActionEntity(link.Link.Entity2.Id, GetService2, SavedQuery.Schema.Attributes.offlinesqlquery, SavedQuery.Schema.Headers.offlinesqlquery, FileExtension.sql, PerformExportXmlToFileAsync);
         }
 
-        private void ExecuteActionEntity(Guid idsavedquery, Func<Task<IOrganizationServiceExtented>> getService, string fieldName, string fieldTitle, string extension, Func<Guid, Func<Task<IOrganizationServiceExtented>>, string, string, string, Task> action)
+        private void ExecuteActionEntity(
+            Guid idsavedquery
+            , Func<Task<IOrganizationServiceExtented>> getService
+            , string fieldName
+            , string fieldTitle
+            , FileExtension extension
+            , Func<Guid, Func<Task<IOrganizationServiceExtented>>, string, string, FileExtension, Task> action
+        )
         {
             if (!this.IsControlsEnabled)
             {
@@ -931,7 +945,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             action(idsavedquery, getService, fieldName, fieldTitle, extension);
         }
 
-        private async Task PerformExportXmlToFileAsync(Guid idSavedQuery, Func<Task<IOrganizationServiceExtented>> getService, string fieldName, string fieldTitle, string extension)
+        private async Task PerformExportXmlToFileAsync(Guid idSavedQuery, Func<Task<IOrganizationServiceExtented>> getService, string fieldName, string fieldTitle, FileExtension extension)
         {
             if (!this.IsControlsEnabled)
             {

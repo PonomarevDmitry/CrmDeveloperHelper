@@ -506,7 +506,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private string CreateDescriptionFile(ConnectionData connectionData, string name, string fieldTitle, string description)
         {
-            string fileName = EntityFileNameFormatter.GetWebResourceFileName(connectionData.Name, name, fieldTitle, "txt");
+            string fileName = EntityFileNameFormatter.GetWebResourceFileName(connectionData.Name, name, fieldTitle, FileExtension.txt);
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
             if (!string.IsNullOrEmpty(description))
@@ -555,8 +555,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , bool showAllways
             , string fieldName
             , string fieldTitle
-            , string extension
-            , Func<LinkedEntities<WebResource>, bool, string, string, string, Task> action
+            , FileExtension extension
+            , Func<LinkedEntities<WebResource>, bool, string, string, FileExtension, Task> action
         )
         {
             if (!this.IsControlsEnabled)
@@ -829,7 +829,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionLinked(link.Link, true, WebResource.Schema.Attributes.contentjson, WebResource.Schema.Headers.contentjson, "json", PerformShowingDifferenceSingleXmlAsync);
+            ExecuteActionLinked(link.Link, true, WebResource.Schema.Attributes.contentjson, WebResource.Schema.Headers.contentjson, FileExtension.json, PerformShowingDifferenceSingleXmlAsync);
         }
 
         private void mIShowDifferenceDependencyXml_Click(object sender, RoutedEventArgs e)
@@ -841,10 +841,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionLinked(link.Link, true, WebResource.Schema.Attributes.dependencyxml, WebResource.Schema.Headers.dependencyxml, "xml", PerformShowingDifferenceSingleXmlAsync);
+            ExecuteActionLinked(link.Link, true, WebResource.Schema.Attributes.dependencyxml, WebResource.Schema.Headers.dependencyxml, FileExtension.xml, PerformShowingDifferenceSingleXmlAsync);
         }
 
-        private async Task PerformShowingDifferenceSingleXmlAsync(LinkedEntities<WebResource> linked, bool showAllways, string fieldName, string fieldTitle, string extension)
+        private async Task PerformShowingDifferenceSingleXmlAsync(LinkedEntities<WebResource> linked, bool showAllways, string fieldName, string fieldTitle, FileExtension extension)
         {
             if (!this.IsControlsEnabled)
             {
@@ -945,12 +945,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private Task<string> CreateFileAsync(ConnectionData connectionData, string name, string fieldTitle, string xmlContent, string extension)
+        private Task<string> CreateFileAsync(ConnectionData connectionData, string name, string fieldTitle, string xmlContent, FileExtension extension)
         {
             return Task.Run(() => CreateFile(connectionData, name, fieldTitle, xmlContent, extension));
         }
 
-        private string CreateFile(ConnectionData connectionData, string name, string fieldTitle, string xmlContent, string extension)
+        private string CreateFile(ConnectionData connectionData, string name, string fieldTitle, string xmlContent, FileExtension extension)
         {
             name = Path.GetFileName(name);
 
@@ -1098,7 +1098,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void ExecuteActionEntity(Guid idWebResource, Func<Task<IOrganizationServiceExtented>> getService, string fieldName, string fieldTitle, string extension, Func<Guid, Func<Task<IOrganizationServiceExtented>>, string, string, string, Task> action)
+        private void ExecuteActionEntity(Guid idWebResource, Func<Task<IOrganizationServiceExtented>> getService, string fieldName, string fieldTitle, FileExtension extension, Func<Guid, Func<Task<IOrganizationServiceExtented>>, string, string, FileExtension, Task> action)
         {
             if (!this.IsControlsEnabled)
             {
@@ -1119,7 +1119,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, WebResource.Schema.Attributes.contentjson, WebResource.Schema.Headers.contentjson, "json", PerformExportXmlToFileAsync);
+            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, WebResource.Schema.Attributes.contentjson, WebResource.Schema.Headers.contentjson, FileExtension.json, PerformExportXmlToFileAsync);
         }
 
         private void mIExportWebResource2ContentJson_Click(object sender, RoutedEventArgs e)
@@ -1131,7 +1131,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(link.Link.Entity2.Id, GetService2, WebResource.Schema.Attributes.contentjson, WebResource.Schema.Headers.contentjson, "json", PerformExportXmlToFileAsync);
+            ExecuteActionEntity(link.Link.Entity2.Id, GetService2, WebResource.Schema.Attributes.contentjson, WebResource.Schema.Headers.contentjson, FileExtension.json, PerformExportXmlToFileAsync);
         }
 
         private void mIExportWebResource1DependencyXml_Click(object sender, RoutedEventArgs e)
@@ -1143,7 +1143,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, WebResource.Schema.Attributes.dependencyxml, WebResource.Schema.Headers.dependencyxml, "xml", PerformExportXmlToFileAsync);
+            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, WebResource.Schema.Attributes.dependencyxml, WebResource.Schema.Headers.dependencyxml, FileExtension.xml, PerformExportXmlToFileAsync);
         }
 
         private void mIExportWebResource2DependencyXml_Click(object sender, RoutedEventArgs e)
@@ -1155,10 +1155,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(link.Link.Entity2.Id, GetService2, WebResource.Schema.Attributes.dependencyxml, WebResource.Schema.Headers.dependencyxml, "xml", PerformExportXmlToFileAsync);
+            ExecuteActionEntity(link.Link.Entity2.Id, GetService2, WebResource.Schema.Attributes.dependencyxml, WebResource.Schema.Headers.dependencyxml, FileExtension.xml, PerformExportXmlToFileAsync);
         }
 
-        private async Task PerformExportXmlToFileAsync(Guid idWebResource, Func<Task<IOrganizationServiceExtented>> getService, string fieldName, string fieldTitle, string extension)
+        private async Task PerformExportXmlToFileAsync(Guid idWebResource, Func<Task<IOrganizationServiceExtented>> getService, string fieldName, string fieldTitle, FileExtension extension)
         {
             if (!this.IsControlsEnabled)
             {

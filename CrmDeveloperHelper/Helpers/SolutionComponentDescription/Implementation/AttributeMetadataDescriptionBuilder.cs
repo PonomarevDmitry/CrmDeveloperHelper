@@ -343,16 +343,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return result;
         }
 
-        public string GetFileName(string connectionName, Guid objectId, string fieldTitle, string extension)
+        public string GetFileName(string connectionName, Guid objectId, string fieldTitle, FileExtension extension)
         {
             AttributeMetadata metaData = _source.GetAttributeMetadata(objectId);
 
             if (metaData != null)
             {
-                return string.Format("{0}.Attribute {1}.{2} - {3}.{4}", connectionName, metaData.EntityLogicalName, metaData.LogicalName, fieldTitle, extension);
+                return string.Format("{0}.Attribute {1}.{2} - {3}.{4}", connectionName, metaData.EntityLogicalName, metaData.LogicalName, fieldTitle, extension.ToStr());
             }
 
-            return string.Format("{0}.ComponentType {1} - {2} - {3}.{4}", connectionName, this.ComponentTypeValue, objectId, fieldTitle, extension);
+            return string.Format("{0}.ComponentType {1} - {2} - {3}.{4}", connectionName, this.ComponentTypeValue, objectId, fieldTitle, extension.ToStr());
         }
 
         public TupleList<string, string> GetComponentColumns()

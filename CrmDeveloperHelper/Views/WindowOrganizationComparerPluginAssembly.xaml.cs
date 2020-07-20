@@ -661,7 +661,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var assembly = await repository.GetAssemblyByIdRetrieveRequestAsync(pluginAssemblyId, new ColumnSet(PluginAssembly.Schema.Attributes.content));
 
-                string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(service.ConnectionData.Name, assembly.Name, "Content", "dll");
+                string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(service.ConnectionData.Name, assembly.Name, "Content", FileExtension.dll);
                 string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
                 var array = Convert.FromBase64String(assembly.Content);
@@ -716,7 +716,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private string CreateDescriptionFile(ConnectionData connectionData, string name, string fieldTitle, string description)
         {
-            string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(connectionData.Name, name, fieldTitle, "txt");
+            string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(connectionData.Name, name, fieldTitle, FileExtension.txt);
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
             if (!string.IsNullOrEmpty(description))

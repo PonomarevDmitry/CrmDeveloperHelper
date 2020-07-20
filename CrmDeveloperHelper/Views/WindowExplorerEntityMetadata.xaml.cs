@@ -1353,7 +1353,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var bodyEntityRibbon = await repository.ExportEntityRibbonByteArrayAsync(entityMetadata.LogicalName, _commonConfig.GetRibbonLocationFilters());
 
-                string fileName = EntityFileNameFormatter.GetEntityRibbonFileName(service.ConnectionData.Name, entityMetadata.LogicalName, "zip");
+                string fileName = EntityFileNameFormatter.GetEntityRibbonFileName(service.ConnectionData.Name, entityMetadata.LogicalName, FileExtension.zip);
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
                 File.WriteAllBytes(filePath, bodyEntityRibbon);

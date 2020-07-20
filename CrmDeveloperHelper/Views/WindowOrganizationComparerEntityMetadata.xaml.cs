@@ -1523,7 +1523,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var ribbonBody = await repository.ExportEntityRibbonByteArrayAsync(entityName, _commonConfig.GetRibbonLocationFilters());
 
-                string fileName = EntityFileNameFormatter.GetEntityRibbonFileName(service.ConnectionData.Name, entityName, "zip");
+                string fileName = EntityFileNameFormatter.GetEntityRibbonFileName(service.ConnectionData.Name, entityName, FileExtension.zip);
                 string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
                 File.WriteAllBytes(filePath, ribbonBody);

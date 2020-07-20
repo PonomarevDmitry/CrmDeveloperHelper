@@ -508,7 +508,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false, Properties.OutputStrings.CreatingEntityDescription);
 
-            string fileName = GetDescriptor().GetFileName(_service.ConnectionData.Name, solutionComponentViewItem.SolutionComponent.ComponentType.Value, solutionComponentViewItem.SolutionComponent.ObjectId.Value, EntityFileNameFormatter.Headers.EntityDescription, "txt");
+            string fileName = GetDescriptor().GetFileName(_service.ConnectionData.Name, solutionComponentViewItem.SolutionComponent.ComponentType.Value, solutionComponentViewItem.SolutionComponent.ObjectId.Value, EntityFileNameFormatter.Headers.EntityDescription, FileExtension.txt);
 
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -1364,7 +1364,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var description = await _descriptor.GetSolutionComponentsDescriptionAsync(list);
 
-            var fileName = GetDescriptor().GetFileName(this._service.ConnectionData.Name, _componentType, _objectId, componentsName, "txt");
+            var fileName = GetDescriptor().GetFileName(this._service.ConnectionData.Name, _componentType, _objectId, componentsName, FileExtension.txt);
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
             File.WriteAllText(filePath, description, new UTF8Encoding(false));

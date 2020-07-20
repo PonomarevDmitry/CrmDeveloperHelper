@@ -954,7 +954,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-            string fileName = EntityFileNameFormatter.GetWebResourceFileName(connectionData.Name, webResource.Name, EntityFileNameFormatter.Headers.EntityDescription, "txt");
+            string fileName = EntityFileNameFormatter.GetWebResourceFileName(connectionData.Name, webResource.Name, EntityFileNameFormatter.Headers.EntityDescription, FileExtension.txt);
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
             await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, webResource, connectionData);
@@ -1193,8 +1193,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            string extension = "xml";
-
             if (string.Equals(fieldName, WebResource.Schema.Attributes.dependencyxml, StringComparison.InvariantCultureIgnoreCase))
             {
                 xmlContent = ContentComparerHelper.FormatXmlByConfiguration(
@@ -1212,7 +1210,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-            string fileName = EntityFileNameFormatter.GetWebResourceFileName(connectionData.Name, webResource.Name, fieldTitle, extension);
+            string fileName = EntityFileNameFormatter.GetWebResourceFileName(connectionData.Name, webResource.Name, fieldTitle, FileExtension.xml);
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
             try

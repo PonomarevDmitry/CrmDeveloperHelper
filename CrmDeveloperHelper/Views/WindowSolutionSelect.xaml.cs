@@ -405,6 +405,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         _service.ConnectionData.Name
                         , solution.UniqueName
                         , "Components Backup"
+                        , FileExtension.txt
                     );
 
                     string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -420,7 +421,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         _service.ConnectionData.Name
                         , solution.UniqueName
                         , "SolutionImage Backup before Clearing"
-                        , "xml"
+                        , FileExtension.xml
                     );
 
                     string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));

@@ -543,12 +543,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await action(folder, idWorkflow, entityName, name, category);
         }
 
-        private Task<string> CreateFileAsync(string folder, string entityName, string category, string name, string fieldTitle, string xmlContent, string extension)
+        private Task<string> CreateFileAsync(string folder, string entityName, string category, string name, string fieldTitle, string xmlContent, FileExtension extension)
         {
             return Task.Run(() => CreateFile(folder, entityName, category, name, fieldTitle, xmlContent, extension));
         }
 
-        private string CreateFile(string folder, string entityName, string category, string name, string fieldTitle, string xmlContent, string extension)
+        private string CreateFile(string folder, string entityName, string category, string name, string fieldTitle, string xmlContent, FileExtension extension)
         {
             ConnectionData connectionData = GetSelectedConnection();
 
@@ -586,7 +586,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
-            string fileName = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, entityName, category, name, fieldTitle, "xml");
+            string fileName = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, entityName, category, name, fieldTitle, FileExtension.xml);
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
             if (!string.IsNullOrEmpty(xmlContent))
@@ -667,17 +667,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                WorkflowRepository repository = new WorkflowRepository(service);
+                var repository = new WorkflowRepository(service);
 
                 Workflow workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(fieldName));
 
                 string xmlContent = workflow.GetAttributeValue<string>(fieldName);
 
-                string extension = "json";
+                FileExtension extension = FileExtension.json;
 
                 if (ContentComparerHelper.TryParseXml(xmlContent, out var _))
                 {
-                    extension = "xml";
+                    extension = FileExtension.xml;
 
                     xmlContent = ContentComparerHelper.FormatXmlByConfiguration(
                         xmlContent
@@ -718,18 +718,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                WorkflowRepository repository = new WorkflowRepository(service);
+                var repository = new WorkflowRepository(service);
 
                 Workflow workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(true));
 
                 string xmlContent = workflow.GetAttributeValue<string>(fieldName);
 
-                string extension = "json";
+                FileExtension extension = FileExtension.json;
 
                 {
                     if (ContentComparerHelper.TryParseXml(xmlContent, out var _))
                     {
-                        extension = "xml";
+                        extension = FileExtension.xml;
 
                         xmlContent = ContentComparerHelper.FormatXmlByConfiguration(
                             xmlContent
@@ -878,7 +878,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (!string.IsNullOrEmpty(xmlContent) && ContentComparerHelper.TryParseXml(xmlContent, out var doc))
                 {
-                    string fileName = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, entityName, category, name, fieldTitle, "txt");
+                    string fileName = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, entityName, category, name, fieldTitle, FileExtension.txt);
                     string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
                     var workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, new SolutionComponentDescriptor(service));
@@ -930,7 +930,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (!string.IsNullOrEmpty(xmlContent) && ContentComparerHelper.TryParseXml(xmlContent, out var doc))
                 {
-                    string fileName = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, entityName, category, name, fieldTitle, "txt");
+                    string fileName = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, entityName, category, name, fieldTitle, FileExtension.txt);
                     string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
                     WorkflowUsedEntitiesDescriptor workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, new SolutionComponentDescriptor(service));
@@ -982,7 +982,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (!string.IsNullOrEmpty(xmlContent) && ContentComparerHelper.TryParseXml(xmlContent, out var doc))
                 {
-                    string fileName = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, entityName, category, name, fieldTitle, "txt");
+                    string fileName = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, entityName, category, name, fieldTitle, FileExtension.txt);
                     string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
                     WorkflowUsedEntitiesDescriptor workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, new SolutionComponentDescriptor(service));
@@ -1214,7 +1214,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , workflowId: idWorkflow
             );
 
-            string filePath1 = await CreateFileAsync(folder, entityName, category, name, fieldTitle1, xmlContent, "xml");
+            string filePath1 = await CreateFileAsync(folder, entityName, category, name, fieldTitle1, xmlContent, FileExtension.xml);
             string filePath2 = await CreateCorrectedFileAsync(folder, entityName, category, name, fieldTitle2, xmlContent);
 
             if (File.Exists(filePath1) && File.Exists(filePath2))
@@ -1239,7 +1239,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                string fileName = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, entityName, category, name, EntityFileNameFormatter.Headers.EntityDescription, "txt");
+                string fileName = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, entityName, category, name, EntityFileNameFormatter.Headers.EntityDescription, FileExtension.txt);
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
                 WorkflowRepository repository = new WorkflowRepository(service);

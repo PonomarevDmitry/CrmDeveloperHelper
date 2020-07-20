@@ -346,7 +346,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private string CreateFile(ConnectionData connectionData, string folder, string solutionName, DateTime? createdOn, string fieldTitle, string xmlContent)
         {
-            string fileName = EntityFileNameFormatter.GetImportJobFileName(connectionData.Name, solutionName, createdOn, fieldTitle, "xml");
+            string fileName = EntityFileNameFormatter.GetImportJobFileName(connectionData.Name, solutionName, createdOn, fieldTitle, FileExtension.xml);
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
             string name = string.Format("{0} at {1:yyyy.MM.dd HH-mm-ss}", solutionName, createdOn);
@@ -480,7 +480,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             string fieldTitle = "FormattedResults";
 
-            string fileName = EntityFileNameFormatter.GetImportJobFileName(service.ConnectionData.Name, solutionName, createdOn, fieldTitle, "xml");
+            string fileName = EntityFileNameFormatter.GetImportJobFileName(service.ConnectionData.Name, solutionName, createdOn, fieldTitle, FileExtension.xml);
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ExportingXmlFieldToFileFormat1, fieldTitle);
@@ -560,7 +560,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                string fileName = EntityFileNameFormatter.GetImportJobFileName(service.ConnectionData.Name, solutionName, createdOn, EntityFileNameFormatter.Headers.EntityDescription, "txt");
+                string fileName = EntityFileNameFormatter.GetImportJobFileName(service.ConnectionData.Name, solutionName, createdOn, EntityFileNameFormatter.Headers.EntityDescription, FileExtension.txt);
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
                 var repository = new ImportJobRepository(service);

@@ -321,7 +321,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return null;
         }
 
-        public string GetFileName(string connectionName, Guid objectId, string fieldTitle, string extension)
+        public string GetFileName(string connectionName, Guid objectId, string fieldTitle, FileExtension extension)
         {
             if (this._source.AllOptionSetMetadata.Any())
             {
@@ -329,11 +329,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 {
                     var optionSet = this._source.AllOptionSetMetadata[objectId];
 
-                    return string.Format("{0}.OptionSet {1} - {2} - {3}.{4}", connectionName, optionSet.Name, objectId, fieldTitle, extension);
+                    return string.Format("{0}.OptionSet {1} - {2} - {3}.{4}", connectionName, optionSet.Name, objectId, fieldTitle, extension.ToStr());
                 }
             }
 
-            return string.Format("{0}.ComponentType {1} - {2} - {3}.{4}", connectionName, this.ComponentTypeValue, objectId, fieldTitle, extension);
+            return string.Format("{0}.ComponentType {1} - {2} - {3}.{4}", connectionName, this.ComponentTypeValue, objectId, fieldTitle, extension.ToStr());
         }
 
         public TupleList<string, string> GetComponentColumns()

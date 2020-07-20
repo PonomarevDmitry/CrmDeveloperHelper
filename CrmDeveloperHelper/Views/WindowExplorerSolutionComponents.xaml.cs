@@ -540,7 +540,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             ToggleControls(false, Properties.OutputStrings.CreatingEntityDescription);
 
-            string fileName = _descriptor.GetFileName(_service.ConnectionData.Name, solutionComponentViewItem.SolutionComponent.ComponentType.Value, solutionComponentViewItem.SolutionComponent.ObjectId.Value, EntityFileNameFormatter.Headers.EntityDescription, "txt");
+            string fileName = _descriptor.GetFileName(_service.ConnectionData.Name, solutionComponentViewItem.SolutionComponent.ComponentType.Value, solutionComponentViewItem.SolutionComponent.ObjectId.Value, EntityFileNameFormatter.Headers.EntityDescription, FileExtension.txt);
 
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -1195,6 +1195,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         _service.ConnectionData.Name
                         , _solution.UniqueName
                         , "SolutionImage Components Backup before removing"
+                        , FileExtension.txt
                     );
 
                     string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -1210,7 +1211,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         _service.ConnectionData.Name
                         , _solution.UniqueName
                         , "SolutionImage Components Backup before removing"
-                        , "xml"
+                        , FileExtension.xml
                     );
 
                     string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -1225,7 +1226,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         _service.ConnectionData.Name
                         , _solution.UniqueName
                         , "SolutionImage Removing Components"
-                        , "xml"
+                        , FileExtension.xml
                     );
 
                     string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -1279,6 +1280,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         _service.ConnectionData.Name
                         , _solution.UniqueName
                         , "Components Backup"
+                        , FileExtension.txt
                     );
 
                     string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -1294,7 +1296,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         _service.ConnectionData.Name
                         , _solution.UniqueName
                         , "SolutionImage Backup before Clearing"
-                        , "xml"
+                        , FileExtension.xml
                     );
 
                     string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -1397,6 +1399,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _service.ConnectionData.Name
                     , solution.UniqueName
                     , EntityFileNameFormatter.Headers.EntityDescription
+                    , FileExtension.txt
                 );
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
@@ -1434,7 +1437,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _service.ConnectionData.Name
                     , solution.UniqueName
                     , "UsedEntitiesInWorkflows"
-                    );
+                    , FileExtension.txt
+                );
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -1470,7 +1474,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _service.ConnectionData.Name
                     , solution.UniqueName
                     , "UsedNotExistsEntitiesInWorkflows"
-                    );
+                    , FileExtension.txt
+                );
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -1562,7 +1567,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _service.ConnectionData.Name
                     , solution.UniqueName
                     , "SolutionImage"
-                    , "xml"
+                    , FileExtension.xml
                 );
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
@@ -1772,12 +1777,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ToggleControls(false, Properties.OutputStrings.CreatingTextFileWithComponentsFormat1, solution.UniqueName);
 
-                SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, _service, _descriptor);
+                var solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, _service, _descriptor);
 
                 string fileName = EntityFileNameFormatter.GetSolutionFileName(
                     _service.ConnectionData.Name
                     , solution.UniqueName
                     , "Components"
+                    , FileExtension.txt
                 );
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
@@ -1825,7 +1831,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _service.ConnectionData.Name
                     , solution.UniqueName
                     , showString
-                    );
+                    , FileExtension.txt
+                );
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -1872,7 +1879,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _service.ConnectionData.Name
                     , solution.UniqueName
                     , showString
-                    );
+                    , FileExtension.txt
+                );
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 

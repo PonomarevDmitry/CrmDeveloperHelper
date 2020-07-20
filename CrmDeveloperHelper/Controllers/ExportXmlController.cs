@@ -354,7 +354,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string fieldTitle = SiteMap.Schema.Headers.sitemapxml;
 
-            string fileTitle2 = EntityFileNameFormatter.GetSiteMapFileName(service.ConnectionData.Name, siteMap.SiteMapNameUnique, siteMap.Id, fieldTitle, "xml");
+            string fileTitle2 = EntityFileNameFormatter.GetSiteMapFileName(service.ConnectionData.Name, siteMap.SiteMapNameUnique, siteMap.Id, fieldTitle, FileExtension.xml);
             string filePath2 = FileOperations.GetNewTempFilePath(Path.GetFileNameWithoutExtension(fileTitle2), Path.GetExtension(fileTitle2));
 
             if (string.IsNullOrEmpty(siteMapXml))
@@ -402,7 +402,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-                    string fileNameBackUp = EntityFileNameFormatter.GetSiteMapFileName(service.ConnectionData.Name, siteMap.SiteMapNameUnique, siteMap.Id, fieldTitle + " BackUp", "xml");
+                    string fileNameBackUp = EntityFileNameFormatter.GetSiteMapFileName(service.ConnectionData.Name, siteMap.SiteMapNameUnique, siteMap.Id, fieldTitle + " BackUp", FileExtension.xml);
                     string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
 
                     try
@@ -518,7 +518,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-            string currentFileName = EntityFileNameFormatter.GetSiteMapFileName(service.ConnectionData.Name, siteMap.SiteMapNameUnique, siteMap.Id, SiteMap.Schema.Headers.sitemapxml, "xml");
+            string currentFileName = EntityFileNameFormatter.GetSiteMapFileName(service.ConnectionData.Name, siteMap.SiteMapNameUnique, siteMap.Id, SiteMap.Schema.Headers.sitemapxml, FileExtension.xml);
             string currentFilePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(currentFileName));
 
             try
@@ -908,7 +908,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string fieldTitle = SystemForm.Schema.Headers.formxml;
 
-            string fileTitle2 = EntityFileNameFormatter.GetSystemFormFileName(service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name, fieldTitle, "xml");
+            string fileTitle2 = EntityFileNameFormatter.GetSystemFormFileName(service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name, fieldTitle, FileExtension.xml);
             string filePath2 = FileOperations.GetNewTempFilePath(Path.GetFileNameWithoutExtension(fileTitle2), Path.GetExtension(fileTitle2));
 
             if (string.IsNullOrEmpty(formXml))
@@ -957,7 +957,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-                    string fileNameBackUp = EntityFileNameFormatter.GetSystemFormFileName(service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name, fieldTitle + " BackUp", "xml");
+                    string fileNameBackUp = EntityFileNameFormatter.GetSystemFormFileName(service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name, fieldTitle + " BackUp", FileExtension.xml);
                     string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
 
                     try
@@ -1080,7 +1080,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-            string currentFileName = EntityFileNameFormatter.GetSystemFormFileName(service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name, SystemForm.Schema.Headers.formxml, "xml");
+            string currentFileName = EntityFileNameFormatter.GetSystemFormFileName(service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name, SystemForm.Schema.Headers.formxml, FileExtension.xml);
             string currentFilePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(currentFileName));
 
             try
@@ -1114,7 +1114,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-            string currentFileName = EntityFileNameFormatter.GetSystemFormFileName(service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name, SystemForm.Schema.Headers.formjson, "json");
+            string currentFileName = EntityFileNameFormatter.GetSystemFormFileName(service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name, SystemForm.Schema.Headers.formjson, FileExtension.json);
             string currentFilePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(currentFileName));
 
             try
@@ -1137,7 +1137,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-            string fileName = EntityFileNameFormatter.GetSystemFormFileName(service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name, EntityFileNameFormatter.Headers.EntityDescription, "txt");
+            string fileName = EntityFileNameFormatter.GetSystemFormFileName(service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name, EntityFileNameFormatter.Headers.EntityDescription, FileExtension.txt);
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
             try
@@ -1178,7 +1178,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var handler = new FormDescriptionHandler(descriptor, new DependencyRepository(service));
 
-            string fileName = EntityFileNameFormatter.GetSystemFormFileName(service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name, "FormDescription", "txt");
+            string fileName = EntityFileNameFormatter.GetSystemFormFileName(service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name, "FormDescription", FileExtension.txt);
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
             try
@@ -1418,7 +1418,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string xmlContent = savedQuery.GetAttributeValue<string>(fieldName);
 
-            string fileTitle2 = EntityFileNameFormatter.GetSavedQueryFileName(service.ConnectionData.Name, savedQuery.ReturnedTypeCode, savedQuery.Name, fieldTitle, "xml");
+            string fileTitle2 = EntityFileNameFormatter.GetSavedQueryFileName(service.ConnectionData.Name, savedQuery.ReturnedTypeCode, savedQuery.Name, fieldTitle, FileExtension.xml);
             string filePath2 = FileOperations.GetNewTempFilePath(Path.GetFileNameWithoutExtension(fileTitle2), Path.GetExtension(fileTitle2));
 
             if (string.IsNullOrEmpty(xmlContent))
@@ -1485,7 +1485,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-                    string fileNameBackUp = EntityFileNameFormatter.GetSavedQueryFileName(service.ConnectionData.Name, savedQuery.ReturnedTypeCode, savedQuery.Name, fieldTitle + " BackUp", "xml");
+                    string fileNameBackUp = EntityFileNameFormatter.GetSavedQueryFileName(service.ConnectionData.Name, savedQuery.ReturnedTypeCode, savedQuery.Name, fieldTitle + " BackUp", FileExtension.xml);
                     string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
 
                     try
@@ -1615,7 +1615,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-            string currentFileName = EntityFileNameFormatter.GetSavedQueryFileName(service.ConnectionData.Name, savedQuery.ReturnedTypeCode, savedQuery.Name, fieldTitle, "xml");
+            string currentFileName = EntityFileNameFormatter.GetSavedQueryFileName(service.ConnectionData.Name, savedQuery.ReturnedTypeCode, savedQuery.Name, fieldTitle, FileExtension.xml);
             string currentFilePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(currentFileName));
 
             try
@@ -1851,7 +1851,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string fieldTitle = Workflow.Schema.Headers.xaml;
 
-            string fileTitle2 = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, workflow.PrimaryEntity, workflow.FormattedValues[Workflow.Schema.Attributes.category], workflow.Name, fieldTitle, "xml");
+            string fileTitle2 = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, workflow.PrimaryEntity, workflow.FormattedValues[Workflow.Schema.Attributes.category], workflow.Name, fieldTitle, FileExtension.xml);
             string filePath2 = FileOperations.GetNewTempFilePath(Path.GetFileNameWithoutExtension(fileTitle2), Path.GetExtension(fileTitle2));
 
             if (string.IsNullOrEmpty(workflowXaml))
@@ -1898,7 +1898,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-                    string fileNameBackUp = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, workflow.PrimaryEntity, workflow.FormattedValues[Workflow.Schema.Attributes.category], workflow.Name, fieldTitle + " BackUp", "xml");
+                    string fileNameBackUp = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, workflow.PrimaryEntity, workflow.FormattedValues[Workflow.Schema.Attributes.category], workflow.Name, fieldTitle + " BackUp", FileExtension.xml);
                     string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
 
                     try
@@ -2034,7 +2034,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string fieldTitle = Workflow.Schema.Headers.xaml;
 
-            string currentFileName = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, workflow.PrimaryEntity, workflow.FormattedValues[Workflow.Schema.Attributes.category], workflow.Name, fieldTitle, "xml");
+            string currentFileName = EntityFileNameFormatter.GetWorkflowFileName(service.ConnectionData.Name, workflow.PrimaryEntity, workflow.FormattedValues[Workflow.Schema.Attributes.category], workflow.Name, fieldTitle, FileExtension.xml);
             string currentFilePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(currentFileName));
 
             try
@@ -2257,7 +2257,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string fieldTitle = WebResource.Schema.Headers.dependencyxml;
 
-            string fileTitle2 = EntityFileNameFormatter.GetWebResourceFileName(service.ConnectionData.Name, webResource.Name, fieldTitle, "xml");
+            string fileTitle2 = EntityFileNameFormatter.GetWebResourceFileName(service.ConnectionData.Name, webResource.Name, fieldTitle, FileExtension.xml);
             string filePath2 = FileOperations.GetNewTempFilePath(Path.GetFileNameWithoutExtension(fileTitle2), Path.GetExtension(fileTitle2));
 
             if (string.IsNullOrEmpty(dependencyXml))
@@ -2305,7 +2305,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-                    string fileNameBackUp = EntityFileNameFormatter.GetWebResourceFileName(service.ConnectionData.Name, webResource.Name, fieldTitle + " BackUp", "xml");
+                    string fileNameBackUp = EntityFileNameFormatter.GetWebResourceFileName(service.ConnectionData.Name, webResource.Name, fieldTitle + " BackUp", FileExtension.xml);
                     string filePathBackUp = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileNameBackUp));
 
                     try
@@ -2422,7 +2422,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-            string currentFileName = EntityFileNameFormatter.GetWebResourceFileName(service.ConnectionData.Name, webResource.Name, WebResource.Schema.Headers.dependencyxml, "xml");
+            string currentFileName = EntityFileNameFormatter.GetWebResourceFileName(service.ConnectionData.Name, webResource.Name, WebResource.Schema.Headers.dependencyxml, FileExtension.xml);
             string currentFilePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(currentFileName));
 
             try
@@ -2580,7 +2580,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string fieldTitle = PluginType.Schema.Headers.customworkflowactivityinfo;
 
-            string fileTitle2 = EntityFileNameFormatter.GetPluginTypeFileName(service.ConnectionData.Name, pluginType.TypeName, fieldTitle, "xml");
+            string fileTitle2 = EntityFileNameFormatter.GetPluginTypeFileName(service.ConnectionData.Name, pluginType.TypeName, fieldTitle, FileExtension.xml);
             string filePath2 = FileOperations.GetNewTempFilePath(Path.GetFileNameWithoutExtension(fileTitle2), Path.GetExtension(fileTitle2));
 
             if (string.IsNullOrEmpty(customWorkflowActivityInfo))
@@ -2641,7 +2641,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
-            string currentFileName = EntityFileNameFormatter.GetPluginTypeFileName(service.ConnectionData.Name, pluginType.TypeName, PluginType.Schema.Headers.customworkflowactivityinfo, "xml");
+            string currentFileName = EntityFileNameFormatter.GetPluginTypeFileName(service.ConnectionData.Name, pluginType.TypeName, PluginType.Schema.Headers.customworkflowactivityinfo, FileExtension.xml);
             string currentFilePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(currentFileName));
 
             try
