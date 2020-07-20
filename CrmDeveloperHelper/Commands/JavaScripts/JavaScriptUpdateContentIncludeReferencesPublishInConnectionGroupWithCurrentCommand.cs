@@ -24,12 +24,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.JavaScripts
         {
             var sourceDocuments = DocumentsSourceSelectedFiles.CreateSource();
 
-            InstanceDocuments = new JavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupWithCurrentCommand(commandService, PackageIds.guidDynamicCommandSet.DocumentsJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommandId, sourceDocuments);
+            InstanceDocuments = new JavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupWithCurrentCommand(
+                commandService
+                , PackageIds.guidDynamicCommandSet.DocumentsJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommandId
+                , sourceDocuments
+            );
         }
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
-            var selectedFiles = _sourceSelectedFiles.GetSelectedFiles(helper, SelectedFileType.WebResourceJavaScript).ToList();
+            var selectedFiles = _sourceSelectedFiles.GetSelectedFiles(helper, SelectedFileType.WebResource).ToList();
 
             helper.HandleUpdateContentIncludeReferencesToDependencyXmlCommand(connectionData, selectedFiles);
         }

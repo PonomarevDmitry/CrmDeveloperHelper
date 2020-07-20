@@ -32,16 +32,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.JavaScripts
 
             var sourceFolder = FolderSourceSelectedFiles.CreateSource();
 
-            InstanceCode = new JavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupWithoutCurrentCommand(commandService, PackageIds.guidDynamicCommandSet.CodeJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommandId, sourceCode);
+            InstanceCode = new JavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupWithoutCurrentCommand(
+                commandService
+                , PackageIds.guidDynamicCommandSet.CodeJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommandId
+                , sourceCode
+            );
 
-            InstanceFile = new JavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupWithoutCurrentCommand(commandService, PackageIds.guidDynamicCommandSet.FileJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommandId, sourceFile);
+            InstanceFile = new JavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupWithoutCurrentCommand(
+                commandService
+                , PackageIds.guidDynamicCommandSet.FileJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommandId
+                , sourceFile
+            );
 
-            InstanceFolder = new JavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupWithoutCurrentCommand(commandService, PackageIds.guidDynamicCommandSet.FolderJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommandId, sourceFolder);
+            InstanceFolder = new JavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupWithoutCurrentCommand(
+                commandService
+                , PackageIds.guidDynamicCommandSet.FolderJavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupCommandId
+                , sourceFolder
+            );
         }
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
-            var selectedFiles = _sourceSelectedFiles.GetSelectedFiles(helper, SelectedFileType.WebResourceJavaScript).ToList();
+            var selectedFiles = _sourceSelectedFiles.GetSelectedFiles(helper, SelectedFileType.WebResource).ToList();
 
             helper.HandleUpdateContentIncludeReferencesToDependencyXmlCommand(connectionData, selectedFiles);
         }

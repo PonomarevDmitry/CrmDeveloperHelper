@@ -57,7 +57,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.JavaScripts
 
         protected override void CommandAction(DTEHelper helper)
         {
-            var selectedFiles = _sourceSelectedFiles.GetSelectedFiles(helper, SelectedFileType.WebResourceJavaScript).ToList();
+            var selectedFiles = _sourceSelectedFiles.GetSelectedFiles(helper, SelectedFileType.WebResource).ToList();
 
             helper.HandleUpdateContentIncludeReferencesToDependencyXmlCommand(null, selectedFiles);
         }

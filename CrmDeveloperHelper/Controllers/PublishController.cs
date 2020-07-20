@@ -79,6 +79,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             await repositoryPublish.PublishWebResourcesAsync(elements.Keys);
 
             WriteToConsolePublishedWebResources(service.ConnectionData, elements.Values.Select(e => e.WebResource));
+
+            service.TryDispose();
         }
 
         private void WriteToConsolePublishedWebResources(ConnectionData connectionData, IEnumerable<WebResource> elements)
@@ -675,6 +677,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             await repositoryPublish.PublishWebResourcesAsync(webResourceToPublish.Select(e => e.WebResource.Id));
 
             WriteToConsolePublishedWebResources(service.ConnectionData, webResourceToPublish.Select(e => e.WebResource));
+
+            service.TryDispose();
         }
 
         private static void FillNewDependenciesInfo(IOrganizationServiceExtented service, WebResourceRepository webResourceRepository, Dictionary<Guid, ElementForPublish> elements)
@@ -690,6 +694,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 var selectedFile = element.SelectedFile;
                 var webResource = element.WebResource;
+
+                if (!FileOperations.SupportsJavaScriptType(selectedFile.FilePath))
+                {
+                    continue;
+                }
 
                 var serializer = new XmlSerializer(typeof(Dependencies));
 
@@ -850,7 +859,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             FillNewDependenciesInfo(service, webResourceRepository, elements);
 
-            if (!elements.Any())
+            if (!elements.Values.Any(e => e.NewDependenciesCount > 0))
             {
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NothingToPublish);
                 return;
@@ -941,6 +950,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (!elements.Any())
             {
+                service.TryDispose();
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NothingToPublish);
                 return;
             }
@@ -1135,6 +1145,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (!changedSystemForms.Any())
             {
+                service.TryDispose();
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NothingToPublish);
                 return;
             }
@@ -1191,7 +1202,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Published SystemForms: {0}", changedSystemForms.Count);
 
-            HashSet<string> formsEntityNames = new HashSet<string>(changedSystemForms.Where(e => e.Item2.ObjectTypeCode.IsValidEntityName()).Select(e => e.Item2.ObjectTypeCode), StringComparer.InvariantCultureIgnoreCase);
+            var formsEntityNames = new HashSet<string>(changedSystemForms.Where(e => e.Item2.ObjectTypeCode.IsValidEntityName()).Select(e => e.Item2.ObjectTypeCode), StringComparer.InvariantCultureIgnoreCase);
 
             if (formsEntityNames.Any())
             {
@@ -1200,6 +1211,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
                 await repositoryPublish.PublishEntitiesAsync(formsEntityNames);
             }
+
+            service.TryDispose();
         }
 
         #endregion Including References to Linked SystemForms Libraries

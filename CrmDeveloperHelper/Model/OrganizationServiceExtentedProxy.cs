@@ -42,6 +42,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public void TryDispose()
         {
+            if (disposedValue)
+            {
+                return;
+            }
+
             var eventArgs = new TryDisposeOrganizationServiceExtentedEventArgs();
 
             TryingDispose?.Invoke(this, eventArgs);
@@ -56,11 +61,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public Task<Guid> CreateAsync(Entity entity)
         {
+            ThrowExceptionIfDisposed();
+
             return Task.Run(() => Create(entity));
         }
 
         public Guid Create(Entity entity)
         {
+            ThrowExceptionIfDisposed();
+
             try
             {
                 FilterAttributes(entity);
@@ -95,6 +104,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public Entity Retrieve(string entityName, Guid id, ColumnSet columnSet)
         {
+            ThrowExceptionIfDisposed();
+
             try
             {
                 columnSet = FilterColumns(entityName, columnSet);
@@ -129,21 +140,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public T Retrieve<T>(string entityName, Guid id, ColumnSet columnSet) where T : Entity
         {
+            ThrowExceptionIfDisposed();
+
             return this.Retrieve(entityName, id, columnSet).ToEntity<T>();
         }
 
         public Task<T> RetrieveAsync<T>(string entityName, Guid id, ColumnSet columnSet) where T : Entity
         {
+            ThrowExceptionIfDisposed();
+
             return Task.Run(() => Retrieve<T>(entityName, id, columnSet));
         }
 
         public Task<T> RetrieveByQueryAsync<T>(string entityName, Guid id, ColumnSet columnSet) where T : Entity
         {
+            ThrowExceptionIfDisposed();
+
             return Task.Run(() => RetrieveByQuery<T>(entityName, id, columnSet));
         }
 
         public T RetrieveByQuery<T>(string entityName, Guid id, ColumnSet columnSet) where T : Entity
         {
+            ThrowExceptionIfDisposed();
+
             try
             {
                 var entityData = GetEntityIntellisenseData(entityName);
@@ -200,11 +219,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public Task UpdateAsync(Entity entity)
         {
+            ThrowExceptionIfDisposed();
+
             return Task.Run(() => Update(entity));
         }
 
         public void Update(Entity entity)
         {
+            ThrowExceptionIfDisposed();
+
             try
             {
                 FilterAttributes(entity);
@@ -239,11 +262,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public Task DeleteAsync(string entityName, Guid id)
         {
+            ThrowExceptionIfDisposed();
+
             return Task.Run(() => Delete(entityName, id));
         }
 
         public void Delete(string entityName, Guid id)
         {
+            ThrowExceptionIfDisposed();
+
             try
             {
                 _serviceProxy.Delete(entityName, id);
@@ -257,6 +284,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public async Task<Guid> UpsertAsync(Entity entity)
         {
+            ThrowExceptionIfDisposed();
+
             Guid entityId = entity.Id;
 
             var entityData = GetEntityIntellisenseData(entity.LogicalName);
@@ -295,11 +324,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public Task<T> ExecuteAsync<T>(OrganizationRequest request) where T : OrganizationResponse
         {
+            ThrowExceptionIfDisposed();
+
             return Task.Run(() => (T)Execute(request));
         }
 
         public OrganizationResponse Execute(OrganizationRequest request)
         {
+            ThrowExceptionIfDisposed();
+
             try
             {
                 var response = _serviceProxy.Execute(request);
@@ -359,6 +392,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         private OrganizationResponse ExecuteWithSyncMetadataHandling(OrganizationRequest request)
         {
+            ThrowExceptionIfDisposed();
+
             try
             {
                 var response = _serviceProxy.Execute(request);
@@ -418,6 +453,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public void Associate(string entityName, Guid entityId, Relationship relationship, EntityReferenceCollection relatedEntities)
         {
+            ThrowExceptionIfDisposed();
+
             try
             {
                 _serviceProxy.Associate(entityName, entityId, relationship, relatedEntities);
@@ -431,6 +468,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public void Disassociate(string entityName, Guid entityId, Relationship relationship, EntityReferenceCollection relatedEntities)
         {
+            ThrowExceptionIfDisposed();
+
             try
             {
                 _serviceProxy.Disassociate(entityName, entityId, relationship, relatedEntities);
@@ -444,6 +483,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public EntityCollection RetrieveMultiple(QueryBase queryBase)
         {
+            ThrowExceptionIfDisposed();
+
             try
             {
                 if (queryBase is QueryExpression query)
@@ -486,6 +527,106 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 throw;
             }
         }
+
+        public bool IsRequestExists(string requestName)
+        {
+            ThrowExceptionIfDisposed();
+
+            var result = this.ConnectionData.IsRequestExists(requestName);
+
+            if (result.HasValue)
+            {
+                return result.Value;
+            }
+
+            var repository = new SdkMessageRequestRepository(this);
+
+            var request = repository.FindByRequestName(requestName, new ColumnSet(false));
+
+            bool isRequestExists = request != null;
+
+            this.ConnectionData.SetRequestExistance(requestName, isRequestExists);
+
+            return isRequestExists;
+        }
+
+        public List<T> RetrieveMultipleAll<T>(QueryExpression query) where T : Entity
+        {
+            ThrowExceptionIfDisposed();
+
+            {
+                Dictionary<string, string> aliases = GetAliases(query);
+
+                query.ColumnSet = FilterColumns(query.EntityName, query.ColumnSet);
+
+                FilterFilterExpression(query.EntityName, query.Criteria, aliases);
+
+                FilterLinkEntities(query.LinkEntities, aliases);
+
+                FilterOrders(query.EntityName, query.Orders);
+            }
+
+            query.PageInfo = new PagingInfo()
+            {
+                PageNumber = 1,
+                Count = 5000,
+            };
+
+            var result = new List<T>();
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _serviceProxy.RetrieveMultiple(query);
+
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<T>()));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                var serializer = new DataContractSerializer(query.GetType());
+
+                var settings = new XmlWriterSettings
+                {
+                    Indent = true,
+                    Encoding = Encoding.UTF8,
+                };
+
+                var serializeString = new StringBuilder();
+
+                using (var stringWriter = new StringWriter(serializeString))
+                {
+                    using (var xmlWriter = XmlWriter.Create(stringWriter, settings))
+                    {
+                        serializer.WriteObject(xmlWriter, query);
+                        xmlWriter.Flush();
+                    }
+                }
+
+                Helpers.DTEHelper.WriteExceptionToLog(ex, $"OrganizationServiceExtentedProxy.RetrieveMultipleAll{Environment.NewLine}{serializeString.ToString()}");
+                Helpers.DTEHelper.WriteExceptionToOutput(ConnectionData, ex);
+            }
+
+            return result;
+        }
+
+        public Task<List<T>> RetrieveMultipleAllAsync<T>(QueryExpression query) where T : Entity
+        {
+            ThrowExceptionIfDisposed();
+
+            return Task.Run(() => RetrieveMultipleAll<T>(query));
+        }
+
+        #region Private Members
 
         private Dictionary<string, string> GetAliases(QueryExpression query)
         {
@@ -692,97 +833,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        public bool IsRequestExists(string requestName)
+        private void ThrowExceptionIfDisposed()
         {
-            var result = this.ConnectionData.IsRequestExists(requestName);
-
-            if (result.HasValue)
+            if (!disposedValue)
             {
-                return result.Value;
+                return;
             }
 
-            var repository = new SdkMessageRequestRepository(this);
-
-            var request = repository.FindByRequestName(requestName, new ColumnSet(false));
-
-            bool isRequestExists = request != null;
-
-            this.ConnectionData.SetRequestExistance(requestName, isRequestExists);
-
-            return isRequestExists;
+            throw new ObjectDisposedException(nameof(OrganizationServiceExtentedProxy));
         }
 
-        public List<T> RetrieveMultipleAll<T>(QueryExpression query) where T : Entity
-        {
-            {
-                Dictionary<string, string> aliases = GetAliases(query);
-
-                query.ColumnSet = FilterColumns(query.EntityName, query.ColumnSet);
-
-                FilterFilterExpression(query.EntityName, query.Criteria, aliases);
-
-                FilterLinkEntities(query.LinkEntities, aliases);
-
-                FilterOrders(query.EntityName, query.Orders);
-            }
-
-            query.PageInfo = new PagingInfo()
-            {
-                PageNumber = 1,
-                Count = 5000,
-            };
-
-            var result = new List<T>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _serviceProxy.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<T>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                var serializer = new DataContractSerializer(query.GetType());
-
-                var settings = new XmlWriterSettings
-                {
-                    Indent = true,
-                    Encoding = Encoding.UTF8,
-                };
-
-                var serializeString = new StringBuilder();
-
-                using (var stringWriter = new StringWriter(serializeString))
-                {
-                    using (var xmlWriter = XmlWriter.Create(stringWriter, settings))
-                    {
-                        serializer.WriteObject(xmlWriter, query);
-                        xmlWriter.Flush();
-                    }
-                }
-
-                Helpers.DTEHelper.WriteExceptionToLog(ex, $"OrganizationServiceExtentedProxy.RetrieveMultipleAll{Environment.NewLine}{serializeString.ToString()}");
-                Helpers.DTEHelper.WriteExceptionToOutput(ConnectionData, ex);
-            }
-
-            return result;
-        }
-
-        public Task<List<T>> RetrieveMultipleAllAsync<T>(QueryExpression query) where T : Entity
-        {
-            return Task.Run(() => RetrieveMultipleAll<T>(query));
-        }
+        #endregion Private Members
 
         #region IDisposable Support
 
