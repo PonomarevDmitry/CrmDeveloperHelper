@@ -44,7 +44,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private System.ComponentModel.Design.CommandID ToolsDiffCommand = new System.ComponentModel.Design.CommandID(Tools_DiffFilesCommandGuid, Tools_DiffFilesCommandId);
 
-        private static readonly ConcurrentDictionary<string, Logger> _loggersOutputCache = new ConcurrentDictionary<string, Logger>(StringComparer.InvariantCultureIgnoreCase);
+        private static readonly ConcurrentDictionary<Guid, Logger> _loggersOutputCache = new ConcurrentDictionary<Guid, Logger>();
 
         private readonly ConcurrentDictionary<string, bool> _firstLineInOutput = new ConcurrentDictionary<string, bool>(StringComparer.InvariantCultureIgnoreCase);
 
@@ -95,7 +95,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 message = string.Format(format, args);
             }
 
-            var loggerOutput = GetOutputLogger(connectionData);
+            var loggerOutput = GetOutputLogger(connectionData?.ConnectionId);
             loggerOutput.Info(message);
 
             var task = WriteToOutputInternal(connectionData, message);
@@ -496,7 +496,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-                var loggerOutput = GetOutputLogger(connectionData);
+                var loggerOutput = GetOutputLogger(connectionData?.ConnectionId);
 
                 loggerOutput.Info(string.Empty);
                 loggerOutput.Info(string.Empty);
@@ -820,33 +820,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         #endregion Методы для работы со списком на публикацию.
 
-        private Logger GetOutputLogger(ConnectionData connectionData)
+        private Logger GetOutputLogger(Guid? connectionDataId)
         {
-            string loggerName = _loggerOutputName;
-            string suffix = string.Empty;
+            string folderPath = string.Empty;
 
-            if (connectionData != null)
+            if (connectionDataId.HasValue)
             {
-                string connectionName = !string.IsNullOrEmpty(connectionData.Name) ? connectionData.Name : connectionData.ConnectionId.ToString();
-
-                loggerName += connectionName;
-
-                suffix = $".{connectionName}";
+                folderPath = FileOperations.GetConnectionOutputFolderPath(connectionDataId.Value);
+            }
+            else
+            {
+                folderPath = FileOperations.GetOutputFolderPath();
             }
 
-            if (_loggersOutputCache.ContainsKey(loggerName))
+            Guid computedConnectionId = connectionDataId ?? _outputWindowPaneId;
+
+            if (_loggersOutputCache.ContainsKey(computedConnectionId))
             {
-                return _loggersOutputCache[loggerName];
+                return _loggersOutputCache[computedConnectionId];
             }
 
-            FileTarget targetGenFile = new FileTarget()
+            string loggerName = _loggerOutputName + computedConnectionId.ToString();
+
+            var targetGenFile = new FileTarget()
             {
                 Name = loggerName + "Target",
                 LineEnding = LineEndingMode.CRLF,
                 Encoding = Encoding.UTF8,
                 WriteBom = true,
                 CreateDirs = true,
-                FileName = Path.Combine(FileOperations.GetOutputFilePath(), "Output" + suffix + @" ${date:format=yyyy-MM-dd}.log"),
+                FileName = Path.Combine(folderPath, "Output ${date:format=yyyy-MM-dd}.log"),
                 Layout = "${message}"
             };
 
@@ -857,7 +860,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var loggerOutput = LogManager.GetLogger(loggerName);
 
-            _loggersOutputCache.TryAdd(loggerName, loggerOutput);
+            _loggersOutputCache.TryAdd(computedConnectionId, loggerOutput);
 
             return loggerOutput;
         }

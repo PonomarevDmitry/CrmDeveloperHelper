@@ -245,11 +245,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return true;
         }
 
-        private void btnClearCacheTranslations_Click(object sender, RoutedEventArgs e)
-        {
-            TranslationRepository.ClearCache();
-        }
-
         private void btnOpenConfigFolder_Click(object sender, RoutedEventArgs e)
         {
             if (!string.IsNullOrEmpty(this._config.Path))

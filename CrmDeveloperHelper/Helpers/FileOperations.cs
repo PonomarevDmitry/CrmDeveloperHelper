@@ -9,9 +9,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
     public static class FileOperations
     {
+        private const string _fileNameWindowConfigFormat1 = "{0}.xml";
+
+        private const string _fileNameConnectionDataFormat1 = "ConnectionData.{0}.xml";
+
+        private const string _fileNameConnectionConfig = "ConnectionConfiguration.xml";
+        private const string _fileNameCommonConfig = "CommonConfiguration.xml";
+        private const string _fileNameFileGenerationConfiguration = "FileGenerationConfiguration.xml";
+
+#if DEBUG
+        private const string _folderConfiguratonSubdirectoryName = "CrmDeveloperHelperDEBUG";
+#else
+        private const string _folderConfiguratonSubdirectoryName = "CrmDeveloperHelper";
+#endif
+
         public static string RemoveWrongSymbols(string name)
         {
-            StringBuilder result = new StringBuilder(name);
+            var result = new StringBuilder(name);
 
             foreach (var c in Path.GetInvalidPathChars())
             {
@@ -101,7 +115,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         #region Проверка расширений файлов.
 
-        private static readonly HashSet<string> _SupportedExtensionsWebResource = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase)
+        private static readonly HashSet<string> _supportedExtensionsWebResource = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase)
         {
             ".html", ".htm", ".js", ".css", ".resx"
             , ".gif", ".jpg", ".png", ".ico", ".svg"
@@ -109,16 +123,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             , ".xap"
         };
 
-        private static HashSet<string> _SupportedExtensionsWebResourceText = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase)
+        private static HashSet<string> _supportedExtensionsWebResourceText = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase)
         {
             ".htm", ".html", ".css", ".js", ".xml", ".xsl, .xslt", ".svg", ".resx"
         };
 
-        private static HashSet<string> _SupportedReportType = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase) { ".rdl", ".rdlc" };
+        private static HashSet<string> _supportedReportType = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase) { ".rdl", ".rdlc" };
 
-        private const string _SupportedCSharpFile = ".cs";
-        private const string _SupportedJavaScriptFile = ".js";
-        private const string _SupportedXmlFile = ".xml";
+        private const string _supportedCSharpFile = ".cs";
+        private const string _supportedJavaScriptFile = ".js";
+        private const string _supportedXmlFile = ".xml";
 
         /// <summary>
         /// Имеет ли файл правильное расширение.
@@ -133,7 +147,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 string ext = Path.GetExtension(path);
 
-                result = _SupportedExtensionsWebResource.Contains(ext);
+                result = _supportedExtensionsWebResource.Contains(ext);
             }
 
             return result;
@@ -147,7 +161,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 string ext = Path.GetExtension(path);
 
-                result = _SupportedExtensionsWebResourceText.Contains(ext);
+                result = _supportedExtensionsWebResourceText.Contains(ext);
             }
 
             return result;
@@ -161,7 +175,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 string ext = Path.GetExtension(path);
 
-                result = _SupportedReportType.Contains(ext);
+                result = _supportedReportType.Contains(ext);
             }
 
             return result;
@@ -173,7 +187,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (!string.IsNullOrEmpty(path))
             {
-                result = path.EndsWith(_SupportedCSharpFile, StringComparison.InvariantCultureIgnoreCase);
+                result = path.EndsWith(_supportedCSharpFile, StringComparison.InvariantCultureIgnoreCase);
             }
 
             return result;
@@ -185,7 +199,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (!string.IsNullOrEmpty(path))
             {
-                result = path.EndsWith(_SupportedJavaScriptFile, StringComparison.InvariantCultureIgnoreCase);
+                result = path.EndsWith(_supportedJavaScriptFile, StringComparison.InvariantCultureIgnoreCase);
             }
 
             return result;
@@ -197,7 +211,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (!string.IsNullOrEmpty(path))
             {
-                result = path.EndsWith(_SupportedXmlFile, StringComparison.InvariantCultureIgnoreCase);
+                result = path.EndsWith(_supportedXmlFile, StringComparison.InvariantCultureIgnoreCase);
             }
 
             return result;
@@ -205,61 +219,81 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         #endregion Проверка расширений файлов.
 
+        #region Common Configs
+
+        public static string GetConfigurationFolder()
+        {
+            string directory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), _folderConfiguratonSubdirectoryName);
+
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            return directory;
+        }
+
+        private static string GetConfigurationFilePath(string fileName)
+        {
+            return Path.Combine(GetConfigurationFolder(), fileName);
+        }
+
+        public static string GetCommonConfigFilePath()
+        {
+            return GetConfigurationFilePath(_fileNameCommonConfig);
+        }
+
         public static string GetConnectionConfigurationFilePath()
         {
-            return GetConfigurationFilePath(_programConnectionConfigFileName);
+            return GetConfigurationFilePath(_fileNameConnectionConfig);
         }
 
         public static string GetFileGenerationConfigurationFilePath()
         {
-            return GetConfigurationFilePath(_programFileGenerationConfigurationFileName);
+            return GetConfigurationFilePath(_fileNameFileGenerationConfiguration);
         }
 
-        public static string GetConnectionDataFilePath(Guid connectionId)
+        private const string _folderLogsSubdirectoryName = "Logs";
+
+        public static string GetLogsFilePath()
         {
-            string directory = Path.Combine(GetConfigurationFolder(), _folderConnectionDataSubdirectoryName);
+            string directory = Path.Combine(GetConfigurationFolder(), _folderLogsSubdirectoryName);
 
             if (!Directory.Exists(directory))
             {
                 Directory.CreateDirectory(directory);
             }
 
-            string fileName = string.Format(_programConnectionDataFileNameFormat1, connectionId.ToString());
-
-            string filePath = Path.Combine(directory, fileName);
-
-            return filePath;
+            return directory;
         }
 
-        public static Translation GetTranslationLocalCache(string fileName)
+        public static string GetOutputFolderPath()
         {
-            string directory = Path.Combine(GetConfigurationFolder(), _folderTranslationCacheSubdirectoryName);
+            string directory = Path.Combine(GetConfigurationFolder(), _folderOutputSubdirectoryName);
 
             if (!Directory.Exists(directory))
             {
                 Directory.CreateDirectory(directory);
             }
 
-            string pathConfig = Path.Combine(directory, fileName);
-
-            Translation result = Translation.Get(pathConfig);
-
-            return result;
+            return directory;
         }
 
-        public static void SaveTranslationLocalCache(string fileName, Translation translation)
+        private const string _folderForExportSubdirectoryName = "FolderForExport";
+
+        public static string GetDefaultFolderForExportFilePath()
         {
-            string directory = Path.Combine(GetConfigurationFolder(), _folderTranslationCacheSubdirectoryName);
+            string directory = Path.Combine(GetConfigurationFolder(), _folderForExportSubdirectoryName);
 
             if (!Directory.Exists(directory))
             {
                 Directory.CreateDirectory(directory);
             }
 
-            string pathConfig = Path.Combine(directory, fileName);
-
-            Translation.Save(pathConfig, translation);
+            return directory;
         }
+
+        private const string _folderXsdSchemasSubdirectoryName = "XsdSchemas";
 
         public static string GetSchemaXsdFolder()
         {
@@ -273,9 +307,74 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return directory;
         }
 
-        private static string GetIntellisenseDataFolder()
+        public static WindowSettings GetWindowConfiguration(string windowName)
         {
-            string directory = Path.Combine(GetConfigurationFolder(), _folderIntellisenseCacheSubdirectoryName);
+            string fileName = string.Format(_fileNameWindowConfigFormat1, windowName);
+
+            string pathConfig = GetConfigurationFilePath(fileName);
+
+            var result = WindowSettings.Get(pathConfig);
+
+            return result;
+        }
+
+        public static UserControlSettings GetUserControlSettings(string controlName)
+        {
+            string fileName = string.Format(_fileNameWindowConfigFormat1, controlName);
+
+            string pathConfig = GetConfigurationFilePath(fileName);
+
+            var result = UserControlSettings.Get(pathConfig);
+
+            return result;
+        }
+
+        #endregion Common Configs
+
+        #region ConnectionData
+
+        private const string _folderNameConnectionDataCollection = "ConnectionDataCollection";
+
+        public static string GetConnectionDataFilePath(Guid connectionId)
+        {
+            string directory = Path.Combine(GetConfigurationFolder(), _folderNameConnectionDataCollection);
+
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            string fileName = string.Format(_fileNameConnectionDataFormat1, connectionId.ToString());
+
+            string filePath = Path.Combine(directory, fileName);
+
+            return filePath;
+        }
+
+        private const string _folderNameConnectionsInfo = "ConnectionsInfo";
+        private const string _folderNameConnectionDataFormat1 = "Connection.{0}";
+
+        public static string GetConnectionInformationFolderPath(Guid connectionId)
+        {
+            string configurationFolder = GetConfigurationFolder();
+
+            var folderName = string.Format(_folderNameConnectionDataFormat1, connectionId.ToString());
+
+            var result = Path.Combine(configurationFolder, _folderNameConnectionsInfo, folderName);
+
+            if (!Directory.Exists(result))
+            {
+                Directory.CreateDirectory(result);
+            }
+
+            return result;
+        }
+
+        private const string _folderOutputSubdirectoryName = "Output";
+
+        public static string GetConnectionOutputFolderPath(Guid connectionId)
+        {
+            string directory = Path.Combine(GetConnectionInformationFolderPath(connectionId), _folderOutputSubdirectoryName);
 
             if (!Directory.Exists(directory))
             {
@@ -284,14 +383,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             return directory;
         }
+
+        private const string _folderIntellisenseDataSubdirectoryName = "IntellisenseData";
 
         public static string GetConnectionIntellisenseDataFolderPath(Guid connectionId)
         {
-            string directory = GetIntellisenseDataFolder();
+            string directory = GetConnectionInformationFolderPath(connectionId);
 
-            var folderName = string.Format("IntellisenseData.{0}", connectionId.ToString());
-
-            var result = Path.Combine(directory, folderName);
+            var result = Path.Combine(directory, _folderIntellisenseDataSubdirectoryName);
 
             if (!Directory.Exists(result))
             {
@@ -301,39 +400,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return result;
         }
 
-        private static string GetFetchXmlFolder()
-        {
-            string directory = Path.Combine(GetConfigurationFolder(), _folderFetchXmlSubdirectoryName);
-
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-
-            return directory;
-        }
-
-        public static string GetConnectionFetchXmlFolderPath(Guid connectionId)
-        {
-            string directory = GetFetchXmlFolder();
-
-            var folderName = string.Format("FetchXml.{0}", connectionId.ToString());
-
-            var result = Path.Combine(directory, folderName);
-
-            if (!Directory.Exists(result))
-            {
-                Directory.CreateDirectory(result);
-            }
-
-            return result;
-        }
+        private const string _folderIntellisenseDataEntitiesSubdirectoryName = "Entities";
 
         public static string GetConnectionIntellisenseDataFolderPathEntities(Guid connectionId)
         {
             string directory = GetConnectionIntellisenseDataFolderPath(connectionId);
 
-            var result = Path.Combine(directory, _folderIntellisenseCacheEntitiesSubdirectoryName);
+            var result = Path.Combine(directory, _folderIntellisenseDataEntitiesSubdirectoryName);
 
             if (!Directory.Exists(result))
             {
@@ -342,12 +415,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             return result;
         }
+
+        private const string _folderIntellisenseDataRibbonsSubdirectoryName = "Ribbons";
 
         public static string GetConnectionIntellisenseDataFolderPathRibbons(Guid connectionId)
         {
             string directory = GetConnectionIntellisenseDataFolderPath(connectionId);
 
-            var result = Path.Combine(directory, _folderIntellisenseCacheRibbonsSubdirectoryName);
+            var result = Path.Combine(directory, _folderIntellisenseDataRibbonsSubdirectoryName);
 
             if (!Directory.Exists(result))
             {
@@ -357,22 +432,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return result;
         }
 
-        public static void ClearTranslationLocalCache()
-        {
-            System.Threading.Thread clearTempFiles = new System.Threading.Thread(ClearTranslationLocalCacheThread);
+        private const string _folderFetchXmlSubdirectoryName = "FetchXml";
 
-            clearTempFiles.Start();
+        public static string GetConnectionFetchXmlFolderPath(Guid connectionId)
+        {
+            string directory = GetConnectionInformationFolderPath(connectionId);
+
+            var result = Path.Combine(directory, _folderFetchXmlSubdirectoryName);
+
+            if (!Directory.Exists(result))
+            {
+                Directory.CreateDirectory(result);
+            }
+
+            return result;
         }
 
-        private static void ClearTranslationLocalCacheThread()
-        {
-            string directory = Path.Combine(GetConfigurationFolder(), _folderTranslationCacheSubdirectoryName);
+        private const string _folderTranslationCacheSubdirectoryName = "TranslationCache";
 
+        public static string GetTranslationLocalCacheFolder(Guid connectionId)
+        {
+            string directory = GetConnectionInformationFolderPath(connectionId);
+
+            var result = Path.Combine(directory, _folderTranslationCacheSubdirectoryName);
+
+            if (!Directory.Exists(result))
+            {
+                Directory.CreateDirectory(result);
+            }
+
+            return result;
+        }
+
+        #endregion ConnectionData
+
+        private static void ClearTranslationLocalCacheThread(string directory)
+        {
             if (Directory.Exists(directory))
             {
                 try
                 {
-                    DirectoryInfo dir = new DirectoryInfo(directory);
+                    var dir = new DirectoryInfo(directory);
 
                     var files = dir.GetFiles();
 
@@ -391,119 +491,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                 }
             }
-        }
-
-        public static WindowSettings GetWindowConfiguration(string windowName)
-        {
-            string fileName = string.Format(_formatWindowConfigFileName, windowName);
-
-            string pathConfig = GetConfigurationFilePath(fileName);
-
-            WindowSettings result = WindowSettings.Get(pathConfig);
-
-            return result;
-        }
-
-        public static UserControlSettings GetUserControlSettings(string controlName)
-        {
-            string fileName = string.Format(_formatWindowConfigFileName, controlName);
-
-            string pathConfig = GetConfigurationFilePath(fileName);
-
-            UserControlSettings result = UserControlSettings.Get(pathConfig);
-
-            return result;
-        }
-
-        private const string _formatWindowConfigFileName = "{0}.xml";
-
-        private const string _folderConnectionDataSubdirectoryName = "ConnectionDataCollection";
-        private const string _programConnectionDataFileNameFormat1 = "ConnectionData.{0}.xml";
-
-        private const string _programConnectionConfigFileName = "ConnectionConfiguration.xml";
-        private const string _programCommonConfigFileName = "CommonConfiguration.xml";
-        private const string _programFileGenerationConfigurationFileName = "FileGenerationConfiguration.xml";
-
-#if DEBUG
-        private const string _folderConfiguratonSubdirectoryName = "CrmDeveloperHelperDEBUG";
-#else
-        private const string _folderConfiguratonSubdirectoryName = "CrmDeveloperHelper";
-#endif
-
-        private const string _folderTranslationCacheSubdirectoryName = "TranslationCache";
-
-        private const string _folderXsdSchemasSubdirectoryName = "XsdSchemas";
-
-        private const string _folderIntellisenseCacheSubdirectoryName = "IntellisenseCache";
-
-        private const string _folderFetchXmlSubdirectoryName = "FetchXml";
-
-        private const string _folderIntellisenseCacheEntitiesSubdirectoryName = "Entities";
-
-        private const string _folderIntellisenseCacheRibbonsSubdirectoryName = "Ribbons";
-
-        private const string _folderOutputSubdirectoryName = "Output";
-
-        private const string _folderLogsSubdirectoryName = "Logs";
-
-        private const string _folderForExportSubdirectoryName = "FolderForExport";
-
-        private static string GetConfigurationFilePath(string fileName)
-        {
-            return Path.Combine(GetConfigurationFolder(), fileName);
-        }
-
-        public static string GetConfigurationFolder()
-        {
-            string directory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), _folderConfiguratonSubdirectoryName);
-
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-
-            return directory;
-        }
-
-        public static string GetCommonConfigFilePath()
-        {
-            return GetConfigurationFilePath(_programCommonConfigFileName);
-        }
-
-        public static string GetOutputFilePath()
-        {
-            string directory = Path.Combine(GetConfigurationFolder(), _folderOutputSubdirectoryName);
-
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-
-            return directory;
-        }
-
-        public static string GetLogsFilePath()
-        {
-            string directory = Path.Combine(GetConfigurationFolder(), _folderLogsSubdirectoryName);
-
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-
-            return directory;
-        }
-
-        public static string GetDefaultFolderForExportFilePath()
-        {
-            string directory = Path.Combine(GetConfigurationFolder(), _folderForExportSubdirectoryName);
-
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-
-            return directory;
         }
 
         public static void CreateBackUpFile(string filePath, Exception ex)
@@ -553,7 +540,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public static string GetMutexName(string filePath)
         {
-            StringBuilder result = new StringBuilder("Nav.Common.VSPackages.CrmDeveloperHelper." + filePath.ToLower());
+            var result = new StringBuilder("Nav.Common.VSPackages.CrmDeveloperHelper." + filePath.ToLower());
 
             result.Replace(@"\", "_");
             result.Replace(":", "_");

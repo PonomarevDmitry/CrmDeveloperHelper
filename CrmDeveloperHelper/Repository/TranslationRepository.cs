@@ -7,6 +7,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 {
     public class TranslationRepository
     {
+        private const string _fileNameDefaultTranslation = "DefaultTranslation.xml";
+
+        private const string _fileNameFieldTranslation = "FieldTranslation.xml";
+
         /// <summary>
         /// Сервис CRM
         /// </summary>
@@ -39,41 +44,54 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return Task.Run(() => GetDefaultTranslationFromCache(connectionId, service));
         }
 
-        private static Translation GetDefaultTranslationFromCache(Guid connectionId, IOrganizationServiceExtented service)
+        private static async Task<Translation> GetDefaultTranslationFromCache(Guid connectionId, IOrganizationServiceExtented service)
         {
-            if (_cacheDefault.ContainsKey(connectionId))
+            var repository = new TranslationRepository(service);
+
+            return await GetTranslationFromCacheOrCreate(connectionId, _cacheDefault, _fileNameDefaultTranslation, repository.GetTranslationsAsync);
+        }
+
+        private static async Task<Translation> GetTranslationFromCacheOrCreate(
+            Guid connectionId
+            , ConcurrentDictionary<Guid, Translation> cacheTranslation
+            , string fileNameTranslation
+            , Func<Task<Translation>> translationGetter
+        )
+        {
+            if (cacheTranslation.ContainsKey(connectionId))
             {
-                return _cacheDefault[connectionId];
+                return cacheTranslation[connectionId];
             }
 
-            var fileName = string.Format("DefaultTranslation.{0}.xml", connectionId.ToString());
+            string folderPath = FileOperations.GetTranslationLocalCacheFolder(connectionId);
 
-            var trans = FileOperations.GetTranslationLocalCache(fileName);
+            string filePath = Path.Combine(folderPath, fileNameTranslation);
 
-            if (trans != null)
+            Translation translation = Translation.Get(filePath);
+
+            if (translation != null)
             {
-                if (!_cacheDefault.ContainsKey(connectionId))
+                if (!cacheTranslation.ContainsKey(connectionId))
                 {
-                    _cacheDefault.TryAdd(connectionId, trans);
+                    cacheTranslation.TryAdd(connectionId, translation);
                 }
 
-                return trans;
+                return translation;
             }
 
-            var rep = new TranslationRepository(service);
-            var result = rep.GetTranslations();
+            translation = await translationGetter();
 
-            if (result != null)
+            if (translation != null)
             {
-                FileOperations.SaveTranslationLocalCache(fileName, result);
+                Translation.Save(filePath, translation);
 
-                if (!_cacheDefault.ContainsKey(connectionId))
+                if (!cacheTranslation.ContainsKey(connectionId))
                 {
-                    _cacheDefault.TryAdd(connectionId, result);
+                    cacheTranslation.TryAdd(connectionId, translation);
                 }
             }
 
-            return result;
+            return translation;
         }
 
         public static Task<Translation> GetFieldTranslationFromCacheAsync(Guid connectionId, IOrganizationServiceExtented service)
@@ -81,58 +99,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return Task.Run(() => GetFieldTranslationFromCache(connectionId, service));
         }
 
-        private static async Task<Translation> GetFieldTranslationFromCache(Guid connectionId, IOrganizationServiceExtented service)
+        private static Task<Translation> GetFieldTranslationFromCache(Guid connectionId, IOrganizationServiceExtented service)
         {
-            if (_cacheField.ContainsKey(connectionId))
-            {
-                return _cacheField[connectionId];
-            }
+            var sdkMessageRequestRepository = new SdkMessageRequestRepository(service);
+            var translationRepository = new TranslationRepository(service);
 
-            var fileName = string.Format("FieldTranslation.{0}.xml", connectionId.ToString());
+            return GetTranslationFromCacheOrCreate(connectionId, _cacheField, _fileNameFieldTranslation, () => GetFieldTranslation(sdkMessageRequestRepository, translationRepository));
+        }
 
-            var trans = FileOperations.GetTranslationLocalCache(fileName);
-
-            if (trans != null)
-            {
-                if (!_cacheField.ContainsKey(connectionId))
-                {
-                    _cacheField.TryAdd(connectionId, trans);
-                }
-
-                return trans;
-            }
-
-            var repository = new SdkMessageRequestRepository(service);
-
-            var request = await repository.FindByRequestNameAsync(SdkMessageRequest.Instances.ExportFieldTranslationRequest, new ColumnSet(false));
+        private static async Task<Translation> GetFieldTranslation(SdkMessageRequestRepository sdkMessageRequestRepository, TranslationRepository translationRepository)
+        {
+            var request = await sdkMessageRequestRepository.FindByRequestNameAsync(SdkMessageRequest.Instances.ExportFieldTranslationRequest, new ColumnSet(false));
 
             if (request == null)
             {
                 return null;
             }
 
-            var rep = new TranslationRepository(service);
-            var result = rep.GetFieldTranslations();
-
-            if (result != null)
-            {
-                if (!_cacheField.ContainsKey(connectionId))
-                {
-                    _cacheField.TryAdd(connectionId, result);
-                }
-
-                FileOperations.SaveTranslationLocalCache(fileName, result);
-            }
+            var result = await translationRepository.GetFieldTranslationsAsync();
 
             return result;
         }
 
-        public static void ClearCache()
+        private Task<Translation> GetTranslationsAsync()
         {
-            _cacheField.Clear();
-            _cacheDefault.Clear();
-
-            FileOperations.ClearTranslationLocalCache();
+            return Task.Run(() => GetTranslations());
         }
 
         private Translation GetTranslations()
@@ -167,6 +158,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
 
             return result;
+        }
+
+        private Task<Translation> GetFieldTranslationsAsync()
+        {
+            return Task.Run(() => GetFieldTranslations());
         }
 
         private Translation GetFieldTranslations()
