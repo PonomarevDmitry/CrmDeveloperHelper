@@ -4,22 +4,18 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows
 {
-    internal sealed class OutputTestCrmConnectionCommand : AbstractOutputWindowCommand
+    internal sealed class OutputCrmConnectionTestCommand : AbstractOutputWindowCommand
     {
-        private OutputTestCrmConnectionCommand(OleMenuCommandService commandService)
-            : base(
-                commandService
-                , PackageIds.guidCommandSet.OutputTestCrmConnectionCommandId
-            )
+        private OutputCrmConnectionTestCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.guidCommandSet.OutputCrmConnectionTestCommandId)
         {
-
         }
 
-        public static OutputTestCrmConnectionCommand Instance { get; private set; }
+        public static OutputCrmConnectionTestCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new OutputTestCrmConnectionCommand(commandService);
+            Instance = new OutputCrmConnectionTestCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)

@@ -4,18 +4,18 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Connections
 {
-    internal sealed class CommonPublishAllInCrmConnectionCommand : AbstractDynamicCommandByConnectionAll
+    internal sealed class CommonCrmConnectionPublishAllCommand : AbstractDynamicCommandByConnectionAll
     {
-        private CommonPublishAllInCrmConnectionCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.guidDynamicCommandSet.CommonPublishAllInCrmConnectionCommandId)
+        private CommonCrmConnectionPublishAllCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.guidDynamicCommandSet.CommonCrmConnectionPublishAllCommandId)
         {
         }
 
-        public static CommonPublishAllInCrmConnectionCommand Instance { get; private set; }
+        public static CommonCrmConnectionPublishAllCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CommonPublishAllInCrmConnectionCommand(commandService);
+            Instance = new CommonCrmConnectionPublishAllCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)

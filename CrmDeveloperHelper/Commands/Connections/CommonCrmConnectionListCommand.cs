@@ -1,19 +1,20 @@
 using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Connections
 {
-    internal sealed class CommonCrmConnectionCommand : AbstractSingleCommand
+    internal sealed class CommonCrmConnectionListCommand : AbstractSingleCommand
     {
-        private CommonCrmConnectionCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.guidCommandSet.CommonCrmConnectionCommandId) { }
+        private CommonCrmConnectionListCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.guidCommandSet.CommonCrmConnectionListCommandId)
+        {
+        }
 
-        public static CommonCrmConnectionCommand Instance { get; private set; }
+        public static CommonCrmConnectionListCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CommonCrmConnectionCommand(commandService);
+            Instance = new CommonCrmConnectionListCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper)

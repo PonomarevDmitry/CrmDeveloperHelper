@@ -106,7 +106,7 @@
     <Compile Include="Commands\AbstractOutputWindowDynamicCommand.cs" />
     <Compile Include="Commands\Checks\CommonCheckUnknownFormControlTypes.cs" />
     <Compile Include="Commands\Commons\CommonFetchXmlOpenEntityFileInConnectionCommand.cs" />
-    <Compile Include="Commands\Commons\CommonFetchXmlOpenFolderInConnectionCommand.cs" />
+    <Compile Include="Commands\Connections\CommonCrmConnectionOpenFetchXmlFolderCommand.cs" />
     <Compile Include="Commands\Commons\CommonFileGenerationConfigurationCommand.cs" />
     <Compile Include="Commands\Commons\CommonFileGenerationOptionsCommand.cs" />
     <Compile Include="Commands\Commons\CommonOpenCrmWebSiteEntityListCommand.cs" />
@@ -198,8 +198,10 @@
     <Compile Include="Commands\OutputWindows\Checks\OutputCheckWorkflowsUsedNotExistsEntitiesCommand.cs" />
     <Compile Include="Commands\OutputWindows\Explorers\OutputSdkMessageExplorerCommand.cs" />
     <Compile Include="Commands\OutputWindows\Explorers\OutputSdkMessageFilterExplorerCommand.cs" />
+    <Compile Include="Commands\OutputWindows\OutputCommonConfigCommand.cs" />
+    <Compile Include="Commands\OutputWindows\OutputCrmConnectionListCommand.cs" />
     <Compile Include="Commands\OutputWindows\OutputFetchXmlOpenEntityFileCommand.cs" />
-    <Compile Include="Commands\OutputWindows\OutputFetchXmlOpenFolderCommand.cs" />
+    <Compile Include="Commands\OutputWindows\OutputCrmConnectionOpenFetchXmlFolderCommand.cs" />
     <Compile Include="Commands\OutputWindows\OutputOpenConfigFolderCommand.cs" />
     <Compile Include="Commands\OutputWindows\OutputOpenCrmWebSiteEntityListCommand.cs" />
     <Compile Include="Commands\OutputWindows\OutputOpenCrmWebSiteEntityMetadataCommand.cs" />
@@ -244,7 +246,7 @@
     <Compile Include="Commands\OutputWindows\FindEdit\OutputFindEntityObjectsContainsStringInExplorerCommand.cs" />
     <Compile Include="Commands\OutputWindows\FindEdit\OutputFindEntityObjectsMarkedToDeleteAndShowDependentComponentsCommand.cs" />
     <Compile Include="Commands\OutputWindows\FindEdit\OutputFindEntityObjectsMarkedToDeleteInExplorerCommand.cs" />
-    <Compile Include="Commands\OutputWindows\OutputEditCrmConnectionCommand.cs" />
+    <Compile Include="Commands\OutputWindows\OutputCrmConnectionEditCommand.cs" />
     <Compile Include="Commands\OutputWindows\OutputExportFormEventsCommand.cs" />
     <Compile Include="Commands\OutputWindows\OutputExportOpenLastSelectedSolutionCommand.cs" />
     <Compile Include="Commands\OutputWindows\OutputOpenCrmWebSiteCommand.cs" />
@@ -253,10 +255,10 @@
     <Compile Include="Commands\OutputWindows\OutputOpenSolutionDifferenceImageCommand.cs" />
     <Compile Include="Commands\OutputWindows\OutputOpenSolutionImageCommand.cs" />
     <Compile Include="Commands\OutputWindows\OutputOrganizationComparerCommand.cs" />
-    <Compile Include="Commands\OutputWindows\OutputPublishAllInCrmConnectionCommand.cs" />
-    <Compile Include="Commands\OutputWindows\OutputSelectCrmConnectionCommand.cs" />
-    <Compile Include="Commands\OutputWindows\OutputSelectFileCrmConnectionCommand.cs" />
-    <Compile Include="Commands\OutputWindows\OutputTestCrmConnectionCommand.cs" />
+    <Compile Include="Commands\OutputWindows\OutputCrmConnectionPublishAllCommand.cs" />
+    <Compile Include="Commands\OutputWindows\OutputCrmConnectionSelectCommand.cs" />
+    <Compile Include="Commands\OutputWindows\OutputCrmConnectionSelectFileCommand.cs" />
+    <Compile Include="Commands\OutputWindows\OutputCrmConnectionTestCommand.cs" />
     <Compile Include="Commands\OutputWindows\OutputTraceExportFileCommand.cs" />
     <Compile Include="Commands\OutputWindows\PluginConfigurations\OutputPluginConfigurationComparerPluginAssemblyCommand.cs" />
     <Compile Include="Commands\OutputWindows\PluginConfigurations\OutputPluginConfigurationCreateCommand.cs" />
@@ -393,7 +395,7 @@
     <Compile Include="Commands\Commons\CommonOpenSolutionImageCommand.cs" />
     <Compile Include="Commands\Commons\CommonXsdSchemaOpenFolderCommand.cs" />
     <Compile Include="Commands\PluginConfigurations\CommonPluginConfigurationCreateCommand.cs" />
-    <Compile Include="Commands\Connections\CommonCrmConnectionCommand.cs" />
+    <Compile Include="Commands\Connections\CommonCrmConnectionListCommand.cs" />
     <Compile Include="Commands\Explorers\CommonEntityMetadataExplorerCommand.cs" />
     <Compile Include="Commands\Commons\CommonExportFormEventsCommand.cs" />
     <Compile Include="Commands\Explorers\CommonGlobalOptionSetsExplorerCommand.cs" />
@@ -409,11 +411,11 @@
     <Compile Include="Commands\Explorers\CommonWorkflowExplorerCommand.cs" />
     <Compile Include="Commands\FindEdit\CommonFindEntityObjectsByNameCommand.cs" />
     <Compile Include="Commands\FindEdit\CommonFindEntityObjectsContainsStringCommand.cs" />
-    <Compile Include="Commands\Connections\CommonPublishAllInCrmConnectionCommand.cs" />
+    <Compile Include="Commands\Connections\CommonCrmConnectionPublishAllCommand.cs" />
     <Compile Include="Commands\Explorers\CommonSdkMessageRequestTreeCommand.cs" />
     <Compile Include="Commands\Explorers\CommonSdkMessageFilterTreeCommand.cs" />
     <Compile Include="Commands\Explorers\CommonSecurityRolesExplorerCommand.cs" />
-    <Compile Include="Commands\Connections\CommonSelectCrmConnectionCommand.cs" />
+    <Compile Include="Commands\Connections\CommonCrmConnectionSelectCommand.cs" />
     <Compile Include="Commands\Explorers\CommonSolutionExplorerInConnectionCommand.cs" />
     <Compile Include="Commands\Explorers\CommonSystemUsersExplorerCommand.cs" />
     <Compile Include="Commands\Explorers\CommonTeamsExplorerCommand.cs" />

@@ -535,14 +535,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             CommonCurrentConnectionCommand.Initialize,
 
-            CommonPublishAllInCrmConnectionCommand.Initialize,
+            CommonCrmConnectionPublishAllCommand.Initialize,
 
-            CommonCrmConnectionCommand.Initialize,
+            CommonCrmConnectionListCommand.Initialize,
             CommonCrmConnectionTestCommand.Initialize,
             CommonCrmConnectionEditCommand.Initialize,
             CommonCrmConnectionSelectFileCommand.Initialize,
 
-            CommonSelectCrmConnectionCommand.Initialize,
+            CommonCrmConnectionSelectCommand.Initialize,
 
             #endregion CrmConnection
 
@@ -698,7 +698,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonOpenCrmWebSiteEntityListCommand.Initialize,
 
             CommonFetchXmlOpenEntityFileInConnectionCommand.Initialize,
-            CommonFetchXmlOpenFolderInConnectionCommand.Initialize,
+            CommonCrmConnectionOpenFetchXmlFolderCommand.Initialize,
 
             CommonExportDefaultSiteMapsCommand.Initialize,
             CommonXsdSchemaExportCommand.Initialize,
@@ -707,10 +707,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             #region Output Windows
 
-            OutputSelectCrmConnectionCommand.Initialize,
-            OutputTestCrmConnectionCommand.Initialize,
-            OutputEditCrmConnectionCommand.Initialize,
-            OutputSelectFileCrmConnectionCommand.Initialize,
+            OutputCrmConnectionListCommand.Initialize,
+            OutputCommonConfigCommand.Initialize,
+
+            OutputCrmConnectionSelectCommand.Initialize,
+            OutputCrmConnectionTestCommand.Initialize,
+            OutputCrmConnectionEditCommand.Initialize,
+            OutputCrmConnectionSelectFileCommand.Initialize,
 
             OutputOpenCrmWebSiteCommand.Initialize,
             OutputOpenCrmWebSiteEntityMetadataCommand.Initialize,
@@ -809,10 +812,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             OutputWebResourceExplorerCommand.Initialize,
             OutputWorkflowExplorerCommand.Initialize,
 
-            OutputPublishAllInCrmConnectionCommand.Initialize,
+            OutputCrmConnectionPublishAllCommand.Initialize,
             OutputOpenConfigFolderCommand.Initialize,
             OutputFetchXmlOpenEntityFileCommand.Initialize,
-            OutputFetchXmlOpenFolderCommand.Initialize,
+            OutputCrmConnectionOpenFetchXmlFolderCommand.Initialize,
 
 
             //Output.Initialize,

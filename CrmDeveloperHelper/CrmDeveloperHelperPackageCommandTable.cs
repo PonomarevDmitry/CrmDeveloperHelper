@@ -2153,10 +2153,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int commonMenu_GroupFetchXml = 0x149A;
 
-            public const int commonMenu_GroupFetchXml_MenuFetchXmlFolderDyn = 0x149B;
-
-            public const int commonMenu_GroupFetchXml_MenuFetchXmlFolderDyn_Group = 0x149C;
-
             public const int commonMenu_GroupFetchXml_MenuFetchXmlFileDyn = 0x149E;
 
             public const int commonMenu_GroupFetchXml_MenuFetchXmlFileDyn_Group = 0x149F;
@@ -2323,21 +2319,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntity_MenuListDyn_Group = 0x1450;
 
-            public const int commonMenu_GroupConfiguration_MenuSelectFileConnectionDyn = 0x137F;
+            public const int commonMenu_GroupConfiguration_MenuConnectionAction = 0x1551;
 
-            public const int commonMenu_GroupConfiguration_MenuSelectFileConnectionDyn_Group = 0x1380;
+            public const int commonMenu_GroupConfiguration_MenuConnectionAction_Group = 0x1552;
 
-            public const int commonMenu_GroupConfiguration_MenuSelectConnectionDyn = 0x1101;
+            public const int commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionEditDyn = 0x1381;
 
-            public const int commonMenu_GroupConfiguration_MenuSelectConnectionDyn_Group = 0x1103;
+            public const int commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionEditDyn_Group = 0x1382;
 
-            public const int commonMenu_GroupConfiguration_MenuTestConnectionDyn = 0x1228;
+            public const int commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionSelectFileDyn = 0x137F;
 
-            public const int commonMenu_GroupConfiguration_MenuTestConnectionDyn_Group = 0x1229;
+            public const int commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionSelectFileDyn_Group = 0x1380;
 
-            public const int commonMenu_GroupConfiguration_MenuEditConnectionDyn = 0x1381;
+            public const int commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionOpenFetchXmlFolderDyn = 0x149B;
 
-            public const int commonMenu_GroupConfiguration_MenuEditConnectionDyn_Group = 0x1382;
+            public const int commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionOpenFetchXmlFolderDyn_Group = 0x149C;
+
+            public const int commonMenu_GroupConfiguration_MenuConnectionSelectDyn = 0x1101;
+
+            public const int commonMenu_GroupConfiguration_MenuConnectionSelectDyn_Group = 0x1103;
+
+            public const int commonMenu_GroupConfiguration_MenuConnectionTestDyn = 0x1228;
+
+            public const int commonMenu_GroupConfiguration_MenuConnectionTestDyn_Group = 0x1229;
 
             public const int outputMenu = 0x133E;
 
@@ -2474,21 +2478,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int outputMenu_GroupConfiguration_MenuOpenWebSite_Group2_Menu2_Group2 = 0x1378;
 
             public const int outputMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntityMetadata = 0x142C;
+
+            public const int outputMenu_GroupConfiguration_MenuConnectionAction = 0x154F;
+
+            public const int outputMenu_GroupConfiguration_MenuConnectionAction_Group = 0x1550;
         }
 
         internal static partial class guidDynamicCommandSet
         {
-            public const int CommonSelectCrmConnectionCommandId = 0x0064;
+            public const int CommonCrmConnectionSelectCommandId = 0x0064;
 
             public const int CommonExportOpenLastSelectedSolutionInWebCommandId = 0x0190;
 
             public const int CommonExportOpenLastSelectedSolutionInExplorerCommandId = 0x01A4;
 
-            public const int CommonPublishAllInCrmConnectionCommandId = 0x0898;
+            public const int CommonCrmConnectionPublishAllCommandId = 0x0898;
 
             public const int CommonFetchXmlOpenEntityFileInConnectionCommandId = 0x3A34;
 
-            public const int CommonFetchXmlOpenFolderInConnectionCommandId = 0x3A66;
+            public const int CommonCrmConnectionOpenFetchXmlFolderCommandId = 0x3A66;
 
             public const int CommonOpenCrmWebSiteCommandId = 0x06A4;
 
@@ -2562,10 +2570,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CommonXsdSchemaExportCommandId = 0x10E5;
 
-            public const int CommonCrmConnectionTestCommandId = 0x1130;
-
-            public const int CommonCrmConnectionEditCommandId = 0x286E;
-
             public const int CommonSolutionExplorerInConnectionCommandId = 0x186A;
 
             public const int CommonCheckEntitiesOwnerShipsCommandId = 0x189C;
@@ -2590,7 +2594,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CommonImportJobExplorerInConnectionCommandId = 0x21FC;
 
+            public const int CommonCrmConnectionEditCommandId = 0x286E;
+
             public const int CommonCrmConnectionSelectFileCommandId = 0x283C;
+
+            public const int CommonCrmConnectionTestCommandId = 0x1130;
 
             public const int CommonCheckUnknownFormControlTypesId = 0x29FE;
 
@@ -3783,7 +3791,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CommonOpenConfigFolderCommandId = 0x2188;
 
-            public const int CommonCrmConnectionCommandId = 0x2041;
+            public const int CommonCrmConnectionListCommandId = 0x2041;
 
             public const int CommonConfigCommandId = 0x2042;
 
@@ -3793,13 +3801,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CommonFileGenerationConfigurationCommandId = 0x2236;
 
-            public const int OutputSelectFileCrmConnectionCommandId = 0x2209;
+            public const int OutputCrmConnectionListCommandId = 0x2272;
 
-            public const int OutputSelectCrmConnectionCommandId = 0x21A8;
+            public const int OutputCommonConfigCommandId = 0x2273;
 
-            public const int OutputTestCrmConnectionCommandId = 0x21A9;
+            public const int OutputCrmConnectionSelectFileCommandId = 0x2209;
 
-            public const int OutputEditCrmConnectionCommandId = 0x220A;
+            public const int OutputCrmConnectionSelectCommandId = 0x21A8;
+
+            public const int OutputCrmConnectionTestCommandId = 0x21A9;
+
+            public const int OutputCrmConnectionEditCommandId = 0x220A;
 
             public const int OutputTraceExportFileCommandId = 0x21AA;
 
@@ -3881,9 +3893,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int OutputExportFormEventsCommandId = 0x21CB;
 
-            public const int OutputPublishAllInCrmConnectionCommandId = 0x21CC;
+            public const int OutputCrmConnectionPublishAllCommandId = 0x21CC;
 
-            public const int OutputFetchXmlOpenFolderCommandId = 0x2252;
+            public const int OutputCrmConnectionOpenFetchXmlFolderCommandId = 0x2252;
 
             public const int OutputFetchXmlOpenEntityFileCommandId = 0x2250;
 
