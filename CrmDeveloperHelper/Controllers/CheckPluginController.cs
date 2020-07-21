@@ -134,7 +134,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            using (service)
+            using (service.Lock())
             {
                 var content = new StringBuilder();
 
@@ -278,7 +278,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            using (service)
+            using (service.Lock())
             {
                 var content = new StringBuilder();
 
@@ -432,7 +432,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            using (service)
+            using (service.Lock())
             {
                 var content = new StringBuilder();
 
@@ -689,7 +689,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            using (service)
+            using (service.Lock())
             {
                 var content = new StringBuilder();
 

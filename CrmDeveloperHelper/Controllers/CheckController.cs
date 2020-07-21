@@ -56,9 +56,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            using (service)
+            using (service.Lock())
             {
-                StringBuilder content = new StringBuilder();
+                var content = new StringBuilder();
 
                 content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
                 content.AppendLine(connectionData.GetConnectionDescription());
@@ -184,7 +184,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            using (service)
+            using (service.Lock())
             {
                 var content = new StringBuilder();
 
@@ -351,7 +351,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            using (service)
+            using (service.Lock())
             {
                 var content = new StringBuilder();
 
@@ -466,7 +466,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            using (service)
+            using (service.Lock())
             {
                 var content = new StringBuilder();
 
@@ -600,7 +600,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            using (service)
+            using (service.Lock())
             {
                 var content = new StringBuilder();
 
@@ -694,7 +694,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            using (service)
+            using (service.Lock())
             {
                 var content = new StringBuilder();
 
@@ -760,7 +760,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            using (service)
+            using (service.Lock())
             {
                 var content = new StringBuilder();
 
@@ -824,7 +824,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            using (service)
+            using (service.Lock())
             {
                 var content = new StringBuilder();
 

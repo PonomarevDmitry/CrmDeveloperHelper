@@ -1010,6 +1010,7 @@
     <Compile Include="Intellisense\XmlGoToDefinitionCommandHandler.Ribbon.cs" />
     <Compile Include="Intellisense\XmlGoToDefinitionCreationListener.cs" />
     <Compile Include="Interfaces\IEntitySaver.cs" />
+    <Compile Include="Interfaces\InterfaceExtensions.cs" />
     <Compile Include="Interfaces\IOrganizationComparerSource.cs" />
     <Compile Include="Interfaces\IOrganizationServiceExtented.cs" />
     <Compile Include="Interfaces\ISolutionComponentDescriptionBuilder.cs" />
@@ -1031,6 +1032,7 @@
     <Compile Include="Model\ConnectionUserData.cs" />
     <Compile Include="Model\ConstantType.cs" />
     <Compile Include="Model\ContentCopareResult.cs" />
+    <Compile Include="Model\OrganizationServiceExtentedLocker.cs" />
     <Compile Include="Model\Sources\CodeSourceSelectedFiles.cs" />
     <Compile Include="Model\Sources\CodeSourceSelectedProjects.cs" />
     <Compile Include="Model\Sources\DocumentsSourceSelectedFiles.cs" />

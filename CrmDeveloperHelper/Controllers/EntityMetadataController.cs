@@ -243,7 +243,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var unhandledFiles = new TupleList<string, string>();
 
-            using (service)
+            using (service.Lock())
             {
                 var descriptor = new SolutionComponentDescriptor(service);
 
@@ -545,7 +545,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var unhandledFiles = new TupleList<string, string>();
 
-            using (service)
+            using (service.Lock())
             {
                 var descriptor = new SolutionComponentDescriptor(service);
 
@@ -705,7 +705,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            using (service)
+            using (service.Lock())
             {
                 var repository = new OptionSetRepository(service);
 

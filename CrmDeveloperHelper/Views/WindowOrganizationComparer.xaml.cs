@@ -1663,51 +1663,50 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ToggleControls(connectionData, true, string.Empty);
             }
 
-            ForbidDisposing(service);
-
-            Solution solution = null;
-
-            var t = new Thread(() =>
+            using (service.Lock())
             {
-                try
+                Solution solution = null;
+
+                var t = new Thread(() =>
                 {
-                    var formSelectSolution = new WindowSolutionSelect(_iWriteToOutput, service);
+                    try
+                    {
+                        var formSelectSolution = new WindowSolutionSelect(_iWriteToOutput, service);
 
-                    formSelectSolution.ShowDialog().GetValueOrDefault();
+                        formSelectSolution.ShowDialog().GetValueOrDefault();
 
-                    solution = formSelectSolution.SelectedSolution;
-                }
-                catch (Exception ex)
+                        solution = formSelectSolution.SelectedSolution;
+                    }
+                    catch (Exception ex)
+                    {
+                        DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
+                    }
+                });
+                t.SetApartmentState(ApartmentState.STA);
+                t.Start();
+
+                t.Join();
+
+                if (solution == null)
                 {
-                    DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
+                    return;
                 }
-            });
-            t.SetApartmentState(ApartmentState.STA);
-            t.Start();
 
-            t.Join();
+                var descriptor = new SolutionComponentDescriptor(service);
 
-            if (solution == null)
-            {
-                return;
+                SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
+
+                var solutionImage = await solutionDescriptor.CreateSolutionImageAsync(solution.Id, solution.UniqueName);
+
+                if (solutionImage == null)
+                {
+                    return;
+                }
+
+                _solutionImageList.Insert(0, solutionImage);
+
+                FillSolutionImages(solutionImage);
             }
-
-            var descriptor = new SolutionComponentDescriptor(service);
-
-            SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
-
-            var solutionImage = await solutionDescriptor.CreateSolutionImageAsync(solution.Id, solution.UniqueName);
-
-            if (solutionImage == null)
-            {
-                return;
-            }
-
-            _solutionImageList.Insert(0, solutionImage);
-
-            FillSolutionImages(solutionImage);
-
-            AllowDisposingAndTryDisposeService(service);
         }
 
         private async Task LoadSolutionImage(string filePath)
@@ -1794,43 +1793,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ToggleControls(connectionData, true, string.Empty);
             }
 
-            ForbidDisposing(service);
-
-            SolutionImage solutionImage = null;
-
-            try
+            using (service.Lock())
             {
-                ToggleControls(service.ConnectionData, false, _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatingSolutionImageFromZipFile));
+                SolutionImage solutionImage = null;
 
-                var descriptor = new SolutionComponentDescriptor(service);
+                try
+                {
+                    ToggleControls(service.ConnectionData, false, _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatingSolutionImageFromZipFile));
 
-                var components = await descriptor.LoadSolutionComponentsFromZipFileAsync(filePath);
+                    var descriptor = new SolutionComponentDescriptor(service);
 
-                SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
+                    var components = await descriptor.LoadSolutionComponentsFromZipFileAsync(filePath);
 
-                solutionImage = await solutionDescriptor.CreateSolutionImageWithComponentsAsync(Path.GetFileNameWithoutExtension(filePath), components);
+                    SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
 
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingSolutionImageFromZipFileCompleted);
+                    solutionImage = await solutionDescriptor.CreateSolutionImageWithComponentsAsync(Path.GetFileNameWithoutExtension(filePath), components);
+
+                    ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingSolutionImageFromZipFileCompleted);
+                }
+                catch (Exception ex)
+                {
+                    solutionImage = null;
+
+                    this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+
+                    ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingSolutionImageFromZipFileFailed);
+                }
+
+                if (solutionImage == null)
+                {
+                    return;
+                }
+
+                _solutionImageList.Insert(0, solutionImage);
+
+                FillSolutionImages(solutionImage);
             }
-            catch (Exception ex)
-            {
-                solutionImage = null;
-
-                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingSolutionImageFromZipFileFailed);
-            }
-
-            if (solutionImage == null)
-            {
-                return;
-            }
-
-            _solutionImageList.Insert(0, solutionImage);
-
-            FillSolutionImages(solutionImage);
-
-            AllowDisposingAndTryDisposeService(service);
         }
 
         private void tSBClearSolutionImage_Click(object sender, RoutedEventArgs e)

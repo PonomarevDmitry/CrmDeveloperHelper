@@ -225,7 +225,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task UpdatingContentAndPublish(IOrganizationServiceExtented service, List<SelectedFile> selectedFiles)
         {
-            using (service)
+            using (service.Lock())
             {
                 // Репозиторий для работы с веб-ресурсами
                 var webResourceRepository = new WebResourceRepository(service);
@@ -413,7 +413,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            using (service)
+            using (service.Lock())
             {
                 if (!filesToPublish.Any())
                 {
@@ -450,7 +450,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task PublishingAllAsync(IOrganizationServiceExtented service)
         {
-            using (service)
+            using (service.Lock())
             {
                 try
                 {
@@ -594,7 +594,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task IncludingReferencesToDependencyXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
         {
-            using (service)
+            using (service.Lock())
             {
                 var webResourceRepository = new WebResourceRepository(service);
 
@@ -846,7 +846,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task UpdatingContentIncludingReferencesToDependencyXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
         {
-            using (service)
+            using (service.Lock())
             {
                 var webResourceRepository = new WebResourceRepository(service);
 
@@ -930,7 +930,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            using (service)
+            using (service.Lock())
             {
                 if (!filesToPublish.Any())
                 {
@@ -1018,7 +1018,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private async Task IncludingReferencesToLinkedSystemFormsLibraries(IOrganizationServiceExtented service, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
         {
-            using (service)
+            using (service.Lock())
             {
                 var knownWebResources = new Dictionary<string, WebResource>(StringComparer.InvariantCultureIgnoreCase);
 

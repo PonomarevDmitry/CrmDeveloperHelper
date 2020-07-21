@@ -39,6 +39,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
         private readonly Dictionary<Guid, object> _syncCacheObjects = new Dictionary<Guid, object>();
 
         private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
+        private readonly OrganizationServiceExtentedLocker _serviceLocker;
 
         public event EventHandler<EventArgs> ConnectionChanged;
 
@@ -82,6 +83,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
 
             tabControl.Loaded += TabControl_Loaded;
+
+            this._serviceLocker = new OrganizationServiceExtentedLocker();
         }
 
         protected bool IsControlsEnabled => this._init == 0;
@@ -142,14 +145,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             settings.DictDouble[paramColumnFetchTextWidth] = columnFetchText.Width.Value;
             settings.Save();
 
-            var storeServices = this._connectionCache.Values.ToList();
-
             this._connectionCache.Clear();
 
-            foreach (var service in storeServices)
-            {
-                AllowDisposingAndTryDisposeService(service);
-            }
+            this._serviceLocker.Dispose();
         }
 
         public void SetSource(string filePath, ConnectionData connectionData, IWriteToOutput iWriteToOutput)
@@ -526,9 +524,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 if (service != null)
                 {
                     _connectionCache[connectionData.ConnectionId] = service;
-                }
 
-                ForbidDisposing(service);
+                    this._serviceLocker.Lock(service);
+                }
 
                 return service;
             }
@@ -2876,26 +2874,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             WindowBase.ActivateControls(items, hasSolutionComponentEntity, "contMnAddToSolution", "contMnAddToSolutionLast");
             WindowBase.FillLastSolutionItems(this.ConnectionData, items, hasSolutionComponentEntity, AddToCrmSolutionAllEntitiesLast_Click, "contMnAddToSolutionLast");
-        }
-
-        protected void ForbidDisposing(IOrganizationServiceExtented service)
-        {
-            service.TryingDispose -= this.service_TringDispose;
-            service.TryingDispose -= this.service_TringDispose;
-            service.TryingDispose += this.service_TringDispose;
-        }
-
-        protected void AllowDisposingAndTryDisposeService(IOrganizationServiceExtented service)
-        {
-            service.TryingDispose -= this.service_TringDispose;
-            service.TryingDispose -= this.service_TringDispose;
-
-            service.TryDispose();
-        }
-
-        private void service_TringDispose(object sender, TryDisposeOrganizationServiceExtentedEventArgs e)
-        {
-            e.PreventDispose();
         }
     }
 }

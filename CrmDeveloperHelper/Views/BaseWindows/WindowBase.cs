@@ -831,25 +831,5 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _selectedItem.Project.Save();
             }
         }
-
-        protected void ForbidDisposing(IOrganizationServiceExtented service)
-        {
-            service.TryingDispose -= this.service_TringDispose;
-            service.TryingDispose -= this.service_TringDispose;
-            service.TryingDispose += this.service_TringDispose;
-        }
-
-        protected void AllowDisposingAndTryDisposeService(IOrganizationServiceExtented service)
-        {
-            service.TryingDispose -= this.service_TringDispose;
-            service.TryingDispose -= this.service_TringDispose;
-
-            service.TryDispose();
-        }
-
-        private void service_TringDispose(object sender, TryDisposeOrganizationServiceExtentedEventArgs e)
-        {
-            e.PreventDispose();
-        }
     }
 }

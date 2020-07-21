@@ -10,7 +10,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
     /// <summary>
     /// Default Implementation <see cref="Model.OrganizationServiceExtentedProxy"/>
     /// </summary>
-    public interface IOrganizationServiceExtented : IOrganizationService, IDisposable
+    public interface IOrganizationServiceExtented : IOrganizationService
     {
         /// <summary>
         /// Default Implementation <see cref="Model.OrganizationServiceExtentedProxy.CurrentServiceEndpoint"/>

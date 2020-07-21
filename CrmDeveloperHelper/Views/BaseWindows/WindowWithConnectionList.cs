@@ -17,6 +17,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly object sysObjectConnections = new object();
 
         private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
+        private readonly OrganizationServiceExtentedLocker _serviceLocker;
 
         protected WindowWithConnectionList(
             IWriteToOutput iWriteToOutput
@@ -26,7 +27,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             _connectionCache[service.ConnectionData.ConnectionId] = service;
 
-            ForbidDisposing(service);
+            this._serviceLocker = new OrganizationServiceExtentedLocker(service);
 
             BindingOperations.EnableCollectionSynchronization(service.ConnectionData.ConnectionConfiguration.Connections, sysObjectConnections);
         }
@@ -37,6 +38,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , ConnectionData connectionData
         ) : base(iWriteToOutput, commonConfig)
         {
+            this._serviceLocker = new OrganizationServiceExtentedLocker();
+
             BindingOperations.EnableCollectionSynchronization(connectionData.ConnectionConfiguration.Connections, sysObjectConnections);
         }
 
@@ -44,14 +47,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             base.OnClosed(e);
 
-            var storeServices = this._connectionCache.Values.ToList();
-
             this._connectionCache.Clear();
 
-            foreach (var service in storeServices)
-            {
-                AllowDisposingAndTryDisposeService(service);
-            }
+            this._serviceLocker.Dispose();
         }
 
         protected async Task<IOrganizationServiceExtented> GetOrganizationService(ConnectionData connectionData)
@@ -72,11 +70,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var service = await QuickConnection.ConnectAndWriteToOutputAsync(_iWriteToOutput, connectionData);
 
-                ForbidDisposing(service);
-
                 if (service != null)
                 {
                     _connectionCache[connectionData.ConnectionId] = service;
+                    this._serviceLocker.Lock(service);
                 }
 
                 return service;

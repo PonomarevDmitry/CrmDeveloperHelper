@@ -229,7 +229,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            using (service)
+            using (service.Lock())
             {
                 // Репозиторий для работы с веб-ресурсами
                 var webResourceRepository = new WebResourceRepository(service);
@@ -390,7 +390,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            using (service)
+            using (service.Lock())
             {
                 // Репозиторий для работы с веб-ресурсами
                 var reportRepository = new ReportRepository(service);
@@ -886,7 +886,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            using (service)
+            using (service.Lock())
             {
                 var repository = new PluginAssemblyRepository(service);
 
@@ -1023,7 +1023,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            using (service)
+            using (service.Lock())
             {
                 var repository = new PluginAssemblyRepository(service);
                 var stepRepository = new SdkMessageProcessingStepRepository(service);
@@ -1203,7 +1203,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            using (service)
+            using (service.Lock())
             {
                 var repository = new PluginTypeRepository(service);
 
@@ -1347,7 +1347,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            using (service)
+            using (service.Lock())
             {
                 var solution = await FindOrSelectSolution(_iWriteToOutput, service, solutionUniqueName, withSelect);
 
@@ -1465,7 +1465,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            using (service)
+            using (service.Lock())
             {
                 var solution = await FindOrSelectSolution(_iWriteToOutput, service, solutionUniqueName, withSelect);
 

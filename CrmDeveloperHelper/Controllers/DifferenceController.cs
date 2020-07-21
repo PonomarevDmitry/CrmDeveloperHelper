@@ -64,7 +64,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             WebResource webResource = null;
             Guid? lastLinkedWebResourceId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
 
-            using (service)
+            using (service.Lock())
             {
                 // Репозиторий для работы с веб-ресурсами
                 var webResourceRepository = new WebResourceRepository(service);
@@ -493,7 +493,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             Report reportEntity = null;
 
-            using (service)
+            using (service.Lock())
             {
                 // Репозиторий для работы с веб-ресурсами
                 var reportRepository = new ReportRepository(service);
@@ -907,7 +907,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             WebResource webResource = null;
 
-            using (service)
+            using (service.Lock())
             {
                 // Репозиторий для работы с веб-ресурсами
                 var webResourceRepository = new WebResourceRepository(service);
@@ -1139,7 +1139,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             WebResource webResource = null;
 
-            using (service)
+            using (service.Lock())
             {
                 // Репозиторий для работы с веб-ресурсами
                 var webResourceRepository = new WebResourceRepository(service);

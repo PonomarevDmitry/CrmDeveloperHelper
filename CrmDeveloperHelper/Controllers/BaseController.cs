@@ -1358,7 +1358,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             return Tuple.Create(service, dictFilesEqualByTextNotContent, dictFilesNotEqualByText);
         }
 
-        protected async void OpenWindowForUnknownPluginTypes(ConnectionData connectionData, CommonConfiguration commonConfig, List<string> unknownPluginTypes)
+        protected async Task OpenWindowForUnknownPluginTypes(ConnectionData connectionData, CommonConfiguration commonConfig, List<string> unknownPluginTypes)
         {
             if (!unknownPluginTypes.Any())
             {
@@ -1381,5 +1381,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 , unknownPluginTypes.FirstOrDefault()
             );
         }
+
+        
     }
 }
