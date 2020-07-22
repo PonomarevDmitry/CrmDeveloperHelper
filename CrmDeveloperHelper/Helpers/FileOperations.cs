@@ -9,8 +9,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
     public static class FileOperations
     {
-        private const string _fileNameWindowConfigFormat1 = "{0}.xml";
-
         private const string _fileNameConnectionDataFormat1 = "ConnectionData.{0}.xml";
 
         private const string _fileNameConnectionConfig = "ConnectionConfiguration.xml";
@@ -307,24 +305,44 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return directory;
         }
 
+        private const string _fileNameWindowConfigFormat1 = "{0}.xml";
+
+        private const string _folderWindowSettingsSubdirectoryName = "WindowSettings";
+
         public static WindowSettings GetWindowConfiguration(string windowName)
         {
+            string directory = Path.Combine(GetConfigurationFolder(), _folderWindowSettingsSubdirectoryName);
+
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
             string fileName = string.Format(_fileNameWindowConfigFormat1, windowName);
 
-            string pathConfig = GetConfigurationFilePath(fileName);
+            string filePath = Path.Combine(directory, fileName);
 
-            var result = WindowSettings.Get(pathConfig);
+            var result = WindowSettings.Get(filePath);
 
             return result;
         }
 
+        private const string _folderUserControlSettingsSubdirectoryName = "UserControlSettings";
+
         public static UserControlSettings GetUserControlSettings(string controlName)
         {
+            string directory = Path.Combine(GetConfigurationFolder(), _folderUserControlSettingsSubdirectoryName);
+
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
             string fileName = string.Format(_fileNameWindowConfigFormat1, controlName);
 
-            string pathConfig = GetConfigurationFilePath(fileName);
+            string filePath = Path.Combine(directory, fileName);
 
-            var result = UserControlSettings.Get(pathConfig);
+            var result = UserControlSettings.Get(filePath);
 
             return result;
         }
@@ -404,9 +422,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public static string GetConnectionIntellisenseDataFolderPathEntities(Guid connectionId)
         {
-            string directory = GetConnectionIntellisenseDataFolderPath(connectionId);
-
-            var result = Path.Combine(directory, _folderIntellisenseDataEntitiesSubdirectoryName);
+            var result = Path.Combine(GetConnectionIntellisenseDataFolderPath(connectionId), _folderIntellisenseDataEntitiesSubdirectoryName);
 
             if (!Directory.Exists(result))
             {
