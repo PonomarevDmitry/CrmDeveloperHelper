@@ -24,6 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
     {
         private static ConcurrentDictionary<Uri, IServiceManagement<IDiscoveryService>> _cacheDiscoveryServiceManagement = new ConcurrentDictionary<Uri, IServiceManagement<IDiscoveryService>>();
         private static ConcurrentDictionary<Uri, IServiceManagement<IOrganizationService>> _cacheOrganizationServiceManagement = new ConcurrentDictionary<Uri, IServiceManagement<IOrganizationService>>();
+        private static ConcurrentDictionary<Guid, string> _cacheOrganizationServiceManagementEndpoint = new ConcurrentDictionary<Guid, string>();
 
         static QuickConnection()
         {
@@ -81,7 +82,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (_cacheOrganizationServiceManagement.ContainsKey(uri))
             {
-                return _cacheOrganizationServiceManagement[uri];
+                var serviceManagement = _cacheOrganizationServiceManagement[uri];
+
+                FillServiceManagementEndpoint(connectionData.ConnectionId, serviceManagement);
+
+                return serviceManagement;
             }
 
             if (!UrlIsAvailable(uri))
@@ -91,18 +96,45 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             try
             {
-                var management = ServiceConfigurationFactory.CreateManagement<IOrganizationService>(uri);
+                var serviceManagement = ServiceConfigurationFactory.CreateManagement<IOrganizationService>(uri);
 
                 if (!_cacheOrganizationServiceManagement.ContainsKey(uri))
                 {
-                    _cacheOrganizationServiceManagement.TryAdd(uri, management);
+                    _cacheOrganizationServiceManagement.TryAdd(uri, serviceManagement);
                 }
 
-                return management;
+                FillServiceManagementEndpoint(connectionData.ConnectionId, serviceManagement);
+
+                return serviceManagement;
             }
             catch (Exception ex)
             {
                 DTEHelper.WriteExceptionToOutput(connectionData, ex);
+            }
+
+            return null;
+        }
+
+        private static void FillServiceManagementEndpoint(Guid connectionId, IServiceManagement<IOrganizationService> serviceManagement)
+        {
+            if (_cacheOrganizationServiceManagementEndpoint.ContainsKey(connectionId))
+            {
+                return;
+            }
+
+            string currentServiceEndpoint = serviceManagement?.CurrentServiceEndpoint?.Address?.Uri?.ToString();
+
+            if (!string.IsNullOrEmpty(currentServiceEndpoint) && !_cacheOrganizationServiceManagementEndpoint.ContainsKey(connectionId))
+            {
+                _cacheOrganizationServiceManagementEndpoint.TryAdd(connectionId, currentServiceEndpoint);
+            }
+        }
+
+        private static string GetServiceManagementEndpoint(Guid connectionId)
+        {
+            if (_cacheOrganizationServiceManagementEndpoint.ContainsKey(connectionId))
+            {
+                return _cacheOrganizationServiceManagementEndpoint[connectionId];
             }
 
             return null;
@@ -186,9 +218,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     organizationDetail = connectionResult.Item2;
                 }
 
+                string currentServiceEndpoint = GetServiceManagementEndpoint(connectionData.ConnectionId);
+
                 if (serviceProxy != null)
                 {
-                    var result = new OrganizationServiceExtentedProxy(serviceProxy, connectionData);
+                    var result = new OrganizationServiceExtentedProxy(serviceProxy, connectionData, currentServiceEndpoint);
 
                     await LoadOrganizationDataAsync(result, organizationDetail);
 
@@ -224,10 +258,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 OrganizationServiceProxy serviceProxy = connectionResult.Item1;
                 OrganizationDetail organizationDetail = connectionResult.Item2;
+                string currentServiceEndpoint = GetServiceManagementEndpoint(connectionData.ConnectionId);
 
                 if (serviceProxy != null)
                 {
-                    using (var serviceProxyExt = new OrganizationServiceExtentedProxy(serviceProxy, connectionData))
+                    using (var serviceProxyExt = new OrganizationServiceExtentedProxy(serviceProxy, connectionData, currentServiceEndpoint))
                     {
                         var whoAmIResponse = await serviceProxyExt.ExecuteAsync<WhoAmIResponse>(new WhoAmIRequest());
 
@@ -401,10 +436,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        private static async Task<Tuple<OrganizationServiceProxy, OrganizationDetail>> ConnectInternal(
-            ConnectionData connectionData
-            , bool withDiscoveryRequest
-        )
+        private static async Task<Tuple<OrganizationServiceProxy, OrganizationDetail>> ConnectInternal(ConnectionData connectionData, bool withDiscoveryRequest)
         {
             OrganizationServiceProxy serviceProxy = null;
             OrganizationDetail organizationDetail = null;
@@ -525,19 +557,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             service.Timeout = TimeSpan.FromMinutes(30);
 
             return service;
-        }
-
-        /// <summary>
-        /// получение всех организаций
-        /// </summary>
-        /// <param name="service"></param>
-        /// <returns></returns>
-        private static OrganizationDetailCollection DiscoverOrganizations(IDiscoveryService service)
-        {
-            RetrieveOrganizationsRequest request = new RetrieveOrganizationsRequest();
-            RetrieveOrganizationsResponse response = (RetrieveOrganizationsResponse)service.Execute(request);
-
-            return response.Details;
         }
 
         private static AuthenticationCredentials GetCredentials<T>(IServiceManagement<T> serviceManagement, string username, string password)

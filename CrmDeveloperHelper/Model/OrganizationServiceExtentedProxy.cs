@@ -27,13 +27,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public ConnectionDataUrlGenerator UrlGenerator { get; private set; }
 
-        public OrganizationServiceExtentedProxy(OrganizationServiceProxy serviceProxy, ConnectionData connectionData)
+        public OrganizationServiceExtentedProxy(OrganizationServiceProxy serviceProxy, ConnectionData connectionData, string currentServiceEndpoint)
         {
             this._serviceProxy = serviceProxy ?? throw new ArgumentNullException(nameof(serviceProxy));
             this.ConnectionData = connectionData ?? throw new ArgumentNullException(nameof(connectionData));
             this.UrlGenerator = new ConnectionDataUrlGenerator(this);
 
-            this.CurrentServiceEndpoint = serviceProxy.ServiceManagement?.CurrentServiceEndpoint?.Address?.Uri?.ToString();
+            this.CurrentServiceEndpoint = currentServiceEndpoint;
 
             this.ConnectionData.StoreServiceInUse(serviceProxy);
         }
