@@ -320,11 +320,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string fileName = string.Format(_fileNameWindowConfigFormat1, windowName);
 
+            string oldFilePath = Path.Combine(GetConfigurationFolder(), fileName);
             string filePath = Path.Combine(directory, fileName);
+
+            MoveOldFile(oldFilePath, filePath);
 
             var result = WindowSettings.Get(filePath);
 
             return result;
+        }
+
+        private static void MoveOldFile(string oldFilePath, string newFilePath)
+        {
+            if (File.Exists(oldFilePath))
+            {
+                File.Move(oldFilePath, newFilePath);
+            }
         }
 
         private const string _folderUserControlSettingsSubdirectoryName = "UserControlSettings";
@@ -340,7 +351,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string fileName = string.Format(_fileNameWindowConfigFormat1, controlName);
 
+            string oldFilePath = Path.Combine(GetConfigurationFolder(), fileName);
             string filePath = Path.Combine(directory, fileName);
+
+            MoveOldFile(oldFilePath, filePath);
 
             var result = UserControlSettings.Get(filePath);
 
