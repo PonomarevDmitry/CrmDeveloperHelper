@@ -698,6 +698,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonOpenCrmWebSiteEntityListCommand.Initialize,
 
             CommonFetchXmlOpenEntityFileInConnectionCommand.Initialize,
+
+            CommonCrmConnectionOpenInfoFolderCommand.Initialize,
             CommonCrmConnectionOpenFetchXmlFolderCommand.Initialize,
 
             CommonExportDefaultSiteMapsCommand.Initialize,
@@ -815,6 +817,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             OutputCrmConnectionPublishAllCommand.Initialize,
             OutputOpenConfigFolderCommand.Initialize,
             OutputFetchXmlOpenEntityFileCommand.Initialize,
+
+            OutputCrmConnectionOpenInfoFolderCommand.Initialize,
             OutputCrmConnectionOpenFetchXmlFolderCommand.Initialize,
 
 

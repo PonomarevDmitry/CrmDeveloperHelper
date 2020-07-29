@@ -519,6 +519,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public void HandleConnectionOpenInfoFolder(ConnectionData connectionData)
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null)
+            {
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                string directoryPath = FileOperations.GetConnectionInformationFolderPath(connectionData.ConnectionId);
+
+                this.OpenFolder(connectionData, directoryPath);
+            }
+        }
+
         public void HandleConnectionPublishAll(ConnectionData connectionData)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();

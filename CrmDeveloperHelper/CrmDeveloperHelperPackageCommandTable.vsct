@@ -1053,6 +1053,7 @@
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSiteEntity_MenuListDyn_Group" priority="0x06000" />
 
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionOpenInfoFolderDyn_Group" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionOpenFetchXmlFolderDyn_Group" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionEditDyn_Group" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionSelectFileDyn_Group" priority="0x06000" />
@@ -4491,6 +4492,13 @@
         <Strings>
           <ButtonText>Select Connection File in Folder</ButtonText>
           <MenuText>Select Connection File in Folder</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionOpenInfoFolderDyn" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Open Connection Information Folder</ButtonText>
+          <MenuText>Open Connection Information Folder</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionOpenFetchXmlFolderDyn" priority="0x06000" type="Menu">
@@ -12044,6 +12052,31 @@
           <ButtonText>CommonCrmConnectionEditCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidDynamicCommandSet" id="CommonCrmConnectionOpenInfoFolderCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>CommonCrmConnectionOpenInfoFolderCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="CommonCrmConnectionOpenFetchXmlFolderCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>CommonCrmConnectionOpenFetchXmlFolderCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+
+
+
       <Button guid="guidDynamicCommandSet" id="CommonCrmConnectionTestCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -12113,17 +12146,6 @@
           <ButtonText>File Generation Configuration</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="CommonCrmConnectionOpenFetchXmlFolderCommandId" priority="0x06000" type="Button">
-        <CommandFlag>DynamicItemStart</CommandFlag>
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <CommandFlag>TextChanges</CommandFlag>
-        <Strings>
-          <ButtonText>CommonCrmConnectionOpenFetchXmlFolderCommandId Placeholder</ButtonText>
-        </Strings>
-      </Button>
       <Button guid="guidDynamicCommandSet" id="CommonFetchXmlOpenEntityFileInConnectionCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -12161,6 +12183,28 @@
           <ButtonText>Select Connection File in Folder</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidCommandSet" id="OutputCrmConnectionOpenInfoFolderCommandId" priority="0x06000" type="Button">
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Open Connection Information Folder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommandSet" id="OutputCrmConnectionOpenFetchXmlFolderCommandId" priority="0x06000" type="Button">
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Open Connection FetchXml Folder</ButtonText>
+        </Strings>
+      </Button>
+
+
       <Button guid="guidCommandSet" id="OutputCrmConnectionSelectCommandId" priority="0x06000" type="Button">
         <CommandFlag>TextChanges</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -12247,16 +12291,7 @@
       </Button>
 
 
-      <Button guid="guidCommandSet" id="OutputCrmConnectionOpenFetchXmlFolderCommandId" priority="0x06000" type="Button">
-        <CommandFlag>TextChanges</CommandFlag>
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <CommandFlag>DontCache</CommandFlag>
-        <Strings>
-          <ButtonText>Open Connection FetchXml Folder</ButtonText>
-        </Strings>
-      </Button>
+
       <Button guid="guidCommandSet" id="OutputFetchXmlOpenEntityFileCommandId" priority="0x06000" type="Button">
         <CommandFlag>TextChanges</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -18920,7 +18955,10 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionSelectFileDyn" priority="0x6010">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionOpenFetchXmlFolderDyn" priority="0x6020">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionOpenInfoFolderDyn" priority="0x6020">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionOpenFetchXmlFolderDyn" priority="0x6030">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group" />
     </CommandPlacement>
 
@@ -19220,6 +19258,13 @@
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="CommonCrmConnectionSelectFileCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionSelectFileDyn_Group" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionOpenInfoFolderDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionOpenInfoFolderDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CommonCrmConnectionOpenInfoFolderCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionOpenInfoFolderDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionOpenFetchXmlFolderDyn_Group" priority="0x06000">
@@ -22574,7 +22619,10 @@
     <CommandPlacement guid="guidCommandSet" id="OutputCrmConnectionSelectFileCommandId" priority="0x6010">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupConfiguration_MenuConnectionAction_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="OutputCrmConnectionOpenFetchXmlFolderCommandId" priority="0x6020">
+    <CommandPlacement guid="guidCommandSet" id="OutputCrmConnectionOpenInfoFolderCommandId" priority="0x6020">
+      <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupConfiguration_MenuConnectionAction_Group" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="OutputCrmConnectionOpenFetchXmlFolderCommandId" priority="0x6030">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupConfiguration_MenuConnectionAction_Group" />
     </CommandPlacement>
 
@@ -24755,6 +24803,10 @@
       <IDSymbol name="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionOpenFetchXmlFolderDyn" value="0x149B" />
       <IDSymbol name="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionOpenFetchXmlFolderDyn_Group" value="0x149C" />
 
+      <IDSymbol name="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionOpenInfoFolderDyn" value="0x1553" />
+      <IDSymbol name="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionOpenInfoFolderDyn_Group" value="0x1554" />
+
+
 
 
       <IDSymbol name="commonMenu_GroupConfiguration_MenuConnectionSelectDyn" value="0x1101" />
@@ -24889,15 +24941,10 @@
 
       <!-- #region Common Commands Dynamic Definitions -->
 
-      <IDSymbol name="CommonCrmConnectionSelectCommandId" value="100" />
-
       <IDSymbol name="CommonExportOpenLastSelectedSolutionInWebCommandId" value="400" />
       <IDSymbol name="CommonExportOpenLastSelectedSolutionInExplorerCommandId" value="420" />
 
-      <IDSymbol name="CommonCrmConnectionPublishAllCommandId" value="2200" />
-
       <IDSymbol name="CommonFetchXmlOpenEntityFileInConnectionCommandId" value="14900" />
-      <IDSymbol name="CommonCrmConnectionOpenFetchXmlFolderCommandId" value="14950" />
 
 
 
@@ -24967,9 +25014,16 @@
 
       <IDSymbol name="CommonImportJobExplorerInConnectionCommandId" value="8700" />
 
+      <IDSymbol name="CommonCrmConnectionSelectCommandId" value="100" />
+      <IDSymbol name="CommonCrmConnectionPublishAllCommandId" value="2200" />
+
       <IDSymbol name="CommonCrmConnectionEditCommandId" value="10350" />
       <IDSymbol name="CommonCrmConnectionSelectFileCommandId" value="10300" />
       <IDSymbol name="CommonCrmConnectionTestCommandId" value="4400" />
+
+      <IDSymbol name="CommonCrmConnectionOpenFetchXmlFolderCommandId" value="14950" />
+
+      <IDSymbol name="CommonCrmConnectionOpenInfoFolderCommandId" value="17950" />
 
       <IDSymbol name="CommonCheckUnknownFormControlTypesId" value="10750" />
 
@@ -26178,6 +26232,8 @@
       <IDSymbol name="OutputCrmConnectionSelectCommandId" value="0x21A8" />
       <IDSymbol name="OutputCrmConnectionTestCommandId" value="0x21A9" />
       <IDSymbol name="OutputCrmConnectionEditCommandId" value="0x220A" />
+      <IDSymbol name="OutputCrmConnectionOpenInfoFolderCommandId" value="0x2274" />
+      <IDSymbol name="OutputCrmConnectionOpenFetchXmlFolderCommandId" value="0x2252" />
 
       <IDSymbol name="OutputTraceExportFileCommandId" value="0x21AA" />
       <IDSymbol name="OutputOrganizationComparerCommandId" value="0x21AB" />
@@ -26235,7 +26291,7 @@
 
       <IDSymbol name="OutputCrmConnectionPublishAllCommandId" value="0x21CC" />
 
-      <IDSymbol name="OutputCrmConnectionOpenFetchXmlFolderCommandId" value="0x2252" />
+
       <IDSymbol name="OutputFetchXmlOpenEntityFileCommandId" value="0x2250" />
 
       <IDSymbol name="OutputOpenConfigFolderCommandId" value="0x2251" />
@@ -26355,13 +26411,13 @@
 
 
     <!-- Groups and Menus -->
-    <!-- 0x1553 -->
+    <!-- 0x1555 -->
 
     <!-- Commands -->
-    <!-- 0x2273 -->
+    <!-- 0x2275 -->
 
     <!-- Commands Dynamic -->
-    <!-- 17950 -->
+    <!-- 18000 -->
 
     <!-- 16905 - 16950 -->
 

@@ -112,7 +112,9 @@
     <Compile Include="Commands\Commons\CommonOpenCrmWebSiteEntityListCommand.cs" />
     <Compile Include="Commands\Commons\CommonOpenCrmWebSiteEntityMetadataCommand.cs" />
     <Compile Include="Commands\Connections\CommonCrmConnectionEditCommand.cs" />
+    <Compile Include="Commands\Connections\CommonCrmConnectionOpenInfoFolderCommand.cs" />
     <Compile Include="Commands\Connections\CommonCrmConnectionSelectFileCommand.cs" />
+    <Compile Include="Commands\OutputWindows\OutputCrmConnectionOpenInfoFolderCommand.cs" />
     <Compile Include="Commands\CSharp\CSharpAddPluginStepCommand.cs" />
     <Compile Include="Commands\CSharp\CSharpAddPluginStepInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\CSharpEntityMetadataFileGenerationOptionsCommand.cs" />

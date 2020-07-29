@@ -2335,6 +2335,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionOpenFetchXmlFolderDyn_Group = 0x149C;
 
+            public const int commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionOpenInfoFolderDyn = 0x1553;
+
+            public const int commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionOpenInfoFolderDyn_Group = 0x1554;
+
             public const int commonMenu_GroupConfiguration_MenuConnectionSelectDyn = 0x1101;
 
             public const int commonMenu_GroupConfiguration_MenuConnectionSelectDyn_Group = 0x1103;
@@ -2486,17 +2490,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
         internal static partial class guidDynamicCommandSet
         {
-            public const int CommonCrmConnectionSelectCommandId = 0x0064;
-
             public const int CommonExportOpenLastSelectedSolutionInWebCommandId = 0x0190;
 
             public const int CommonExportOpenLastSelectedSolutionInExplorerCommandId = 0x01A4;
 
-            public const int CommonCrmConnectionPublishAllCommandId = 0x0898;
-
             public const int CommonFetchXmlOpenEntityFileInConnectionCommandId = 0x3A34;
-
-            public const int CommonCrmConnectionOpenFetchXmlFolderCommandId = 0x3A66;
 
             public const int CommonOpenCrmWebSiteCommandId = 0x06A4;
 
@@ -2594,11 +2592,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CommonImportJobExplorerInConnectionCommandId = 0x21FC;
 
+            public const int CommonCrmConnectionSelectCommandId = 0x0064;
+
+            public const int CommonCrmConnectionPublishAllCommandId = 0x0898;
+
             public const int CommonCrmConnectionEditCommandId = 0x286E;
 
             public const int CommonCrmConnectionSelectFileCommandId = 0x283C;
 
             public const int CommonCrmConnectionTestCommandId = 0x1130;
+
+            public const int CommonCrmConnectionOpenFetchXmlFolderCommandId = 0x3A66;
+
+            public const int CommonCrmConnectionOpenInfoFolderCommandId = 0x461E;
 
             public const int CommonCheckUnknownFormControlTypesId = 0x29FE;
 
@@ -3813,6 +3819,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int OutputCrmConnectionEditCommandId = 0x220A;
 
+            public const int OutputCrmConnectionOpenInfoFolderCommandId = 0x2274;
+
+            public const int OutputCrmConnectionOpenFetchXmlFolderCommandId = 0x2252;
+
             public const int OutputTraceExportFileCommandId = 0x21AA;
 
             public const int OutputOrganizationComparerCommandId = 0x21AB;
@@ -3894,8 +3904,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int OutputExportFormEventsCommandId = 0x21CB;
 
             public const int OutputCrmConnectionPublishAllCommandId = 0x21CC;
-
-            public const int OutputCrmConnectionOpenFetchXmlFolderCommandId = 0x2252;
 
             public const int OutputFetchXmlOpenEntityFileCommandId = 0x2250;
 
