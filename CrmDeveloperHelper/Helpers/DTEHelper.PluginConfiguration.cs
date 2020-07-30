@@ -32,26 +32,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 CheckWishToChangeCurrentConnection(connectionData);
 
-                var form = new WindowPluginConfiguration(commonConfig, connectionData, true);
-
-                if (form.ShowDialog().GetValueOrDefault())
+                var worker = new System.Threading.Thread(() =>
                 {
-                    connectionData = form.GetConnectionData();
-
-                    ActivateOutputWindow(connectionData);
-                    WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                    CheckWishToChangeCurrentConnection(connectionData);
-
                     try
                     {
-                        Controller.StartExportPluginConfiguration(connectionData, commonConfig);
+                        var form = new WindowPluginConfiguration(commonConfig, connectionData, true);
+
+                        if (form.ShowDialog().GetValueOrDefault())
+                        {
+                            connectionData = form.GetConnectionData();
+
+                            ActivateOutputWindow(connectionData);
+                            WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                            CheckWishToChangeCurrentConnection(connectionData);
+
+                            try
+                            {
+                                Controller.StartExportPluginConfiguration(connectionData, commonConfig);
+                            }
+                            catch (Exception ex)
+                            {
+                                WriteErrorToOutput(connectionData, ex);
+                            }
+                        }
                     }
                     catch (Exception ex)
                     {
-                        WriteErrorToOutput(connectionData, ex);
+                        DTEHelper.WriteExceptionToOutput(connectionData, ex);
                     }
-                }
+                });
+
+                worker.SetApartmentState(System.Threading.ApartmentState.STA);
+
+                worker.Start();
             }
         }
 
@@ -203,26 +217,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData != null && selectedItem != null)
             {
-                var form = new WindowPluginConfiguration(commonConfig, connectionData, true);
-
-                if (form.ShowDialog().GetValueOrDefault())
+                var worker = new System.Threading.Thread(() =>
                 {
-                    connectionData = form.GetConnectionData();
-
-                    ActivateOutputWindow(connectionData);
-                    WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                    CheckWishToChangeCurrentConnection(connectionData);
-
                     try
                     {
-                        Controller.StartExportPluginConfigurationIntoFolder(connectionData, commonConfig, selectedItem);
+                        var form = new WindowPluginConfiguration(commonConfig, connectionData, true);
+
+                        if (form.ShowDialog().GetValueOrDefault())
+                        {
+                            connectionData = form.GetConnectionData();
+
+                            ActivateOutputWindow(connectionData);
+                            WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                            CheckWishToChangeCurrentConnection(connectionData);
+
+                            try
+                            {
+                                Controller.StartExportPluginConfigurationIntoFolder(connectionData, commonConfig, selectedItem);
+                            }
+                            catch (Exception ex)
+                            {
+                                WriteErrorToOutput(connectionData, ex);
+                            }
+                        }
                     }
                     catch (Exception ex)
                     {
-                        WriteErrorToOutput(connectionData, ex);
+                        DTEHelper.WriteExceptionToOutput(connectionData, ex);
                     }
-                }
+                });
+
+                worker.SetApartmentState(System.Threading.ApartmentState.STA);
+
+                worker.Start();
             }
         }
     }

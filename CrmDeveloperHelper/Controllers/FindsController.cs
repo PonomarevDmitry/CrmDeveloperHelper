@@ -60,116 +60,121 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            StringBuilder content = new StringBuilder();
+            var content = new StringBuilder();
 
             content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
             content.AppendLine(connectionData.GetConnectionDescription());
             content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
 
-            List<SolutionComponent> wrongEntityNames = new List<SolutionComponent>();
-            List<SolutionComponent> wrongEntityAttributes = new List<SolutionComponent>();
-            List<SolutionComponent> wrongEntityRelationshipsManyToOne = new List<SolutionComponent>();
-            List<SolutionComponent> wrongEntityRelationshipsManyToMany = new List<SolutionComponent>();
+            var wrongEntityNames = new List<SolutionComponent>();
+            var wrongEntityAttributes = new List<SolutionComponent>();
+            var wrongEntityRelationshipsManyToOne = new List<SolutionComponent>();
+            var wrongEntityRelationshipsManyToMany = new List<SolutionComponent>();
 
-            List<SolutionComponent> wrongWebResourceNames = new List<SolutionComponent>();
+            var wrongWebResourceNames = new List<SolutionComponent>();
 
+            using (service.Lock())
             {
-                EntityMetadataRepository repositoryEntity = new EntityMetadataRepository(service);
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.GettingEntitiesMetadata);
-
-                var allEntities = await repositoryEntity.GetEntitiesWithAttributesAndRelationshipsAsync();
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CheckingEntitiesMetadata);
-
-                foreach (EntityMetadata currentEntity in allEntities)
                 {
-                    if (currentEntity.LogicalName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        wrongEntityNames.Add(new SolutionComponent()
-                        {
-                            ComponentType = new OptionSetValue((int)ComponentType.Entity),
-                            ObjectId = currentEntity.MetadataId,
-                        });
-                    }
+                    var repositoryEntity = new EntityMetadataRepository(service);
 
-                    foreach (var currentAttribute in currentEntity.Attributes)
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.GettingEntitiesMetadata);
+
+                    var allEntities = await repositoryEntity.GetEntitiesWithAttributesAndRelationshipsAsync();
+
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CheckingEntitiesMetadata);
+
+                    foreach (EntityMetadata currentEntity in allEntities)
                     {
-                        if (string.IsNullOrEmpty(currentAttribute.AttributeOf))
+                        if (currentEntity.LogicalName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
                         {
-                            if (currentAttribute.LogicalName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
+                            wrongEntityNames.Add(new SolutionComponent()
                             {
-                                wrongEntityAttributes.Add(new SolutionComponent()
+                                ComponentType = new OptionSetValue((int)ComponentType.Entity),
+                                ObjectId = currentEntity.MetadataId,
+                            });
+                        }
+
+                        foreach (var currentAttribute in currentEntity.Attributes)
+                        {
+                            if (string.IsNullOrEmpty(currentAttribute.AttributeOf))
+                            {
+                                if (currentAttribute.LogicalName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
                                 {
-                                    ComponentType = new OptionSetValue((int)ComponentType.Attribute),
-                                    ObjectId = currentAttribute.MetadataId,
+                                    wrongEntityAttributes.Add(new SolutionComponent()
+                                    {
+                                        ComponentType = new OptionSetValue((int)ComponentType.Attribute),
+                                        ObjectId = currentAttribute.MetadataId,
+                                    });
+                                }
+                            }
+                        }
+
+                        foreach (var currentRelationship in currentEntity.ManyToOneRelationships)
+                        {
+                            if (currentRelationship.SchemaName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                wrongEntityRelationshipsManyToOne.Add(new SolutionComponent()
+                                {
+                                    ComponentType = new OptionSetValue((int)ComponentType.EntityRelationship),
+                                    ObjectId = currentRelationship.MetadataId,
+                                });
+                            }
+                        }
+
+                        foreach (var currentRelationship in currentEntity.ManyToManyRelationships)
+                        {
+                            if (currentRelationship.SchemaName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                wrongEntityRelationshipsManyToMany.Add(new SolutionComponent()
+                                {
+                                    ComponentType = new OptionSetValue((int)ComponentType.EntityRelationship),
+                                    ObjectId = currentRelationship.MetadataId,
                                 });
                             }
                         }
                     }
+                }
 
-                    foreach (var currentRelationship in currentEntity.ManyToOneRelationships)
-                    {
-                        if (currentRelationship.SchemaName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            wrongEntityRelationshipsManyToOne.Add(new SolutionComponent()
-                            {
-                                ComponentType = new OptionSetValue((int)ComponentType.EntityRelationship),
-                                ObjectId = currentRelationship.MetadataId,
-                            });
-                        }
-                    }
+                {
+                    var repositoryWebResource = new WebResourceRepository(service);
 
-                    foreach (var currentRelationship in currentEntity.ManyToManyRelationships)
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.GettingWebResources);
+
+                    var coll = await repositoryWebResource.GetListAllAsync(string.Empty, new ColumnSet(WebResource.Schema.Attributes.name, WebResource.Schema.Attributes.displayname, WebResource.Schema.Attributes.webresourcetype));
+
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CheckingWebResources);
+
+                    foreach (var webResource in coll)
                     {
-                        if (currentRelationship.SchemaName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
+                        if (webResource.Name.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
                         {
                             wrongEntityRelationshipsManyToMany.Add(new SolutionComponent()
                             {
-                                ComponentType = new OptionSetValue((int)ComponentType.EntityRelationship),
-                                ObjectId = currentRelationship.MetadataId,
+                                ComponentType = new OptionSetValue((int)ComponentType.WebResource),
+                                ObjectId = webResource.Id,
                             });
                         }
                     }
                 }
-            }
 
-            {
-                WebResourceRepository repositoryWebResource = new WebResourceRepository(service);
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.GettingWebResources);
-
-                var coll = await repositoryWebResource.GetListAllAsync(string.Empty, new ColumnSet(WebResource.Schema.Attributes.name, WebResource.Schema.Attributes.displayname, WebResource.Schema.Attributes.webresourcetype));
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CheckingWebResources);
-
-                foreach (var webResource in coll)
+                var descriptor = new SolutionComponentDescriptor(service)
                 {
-                    if (webResource.Name.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        wrongEntityRelationshipsManyToMany.Add(new SolutionComponent()
-                        {
-                            ComponentType = new OptionSetValue((int)ComponentType.WebResource),
-                            ObjectId = webResource.Id,
-                        });
-                    }
-                }
+                    WithUrls = true,
+                    WithManagedInfo = true,
+                    WithSolutionsInfo = true,
+                };
+
+                await WriteToContentList(descriptor, wrongEntityNames, content, Properties.OutputStrings.EntityNamesWithPrefixFormat2, prefix);
+
+                await WriteToContentList(descriptor, wrongEntityAttributes, content, Properties.OutputStrings.EntityAttributesNamesWithPrefixFormat2, prefix);
+
+                await WriteToContentList(descriptor, wrongEntityRelationshipsManyToOne, content, Properties.OutputStrings.ManyToOneRelationshipsNamesWithPrefixFormat2, prefix);
+
+                await WriteToContentList(descriptor, wrongEntityRelationshipsManyToMany, content, Properties.OutputStrings.ManyToManyRelationshipsNamesWithPrefixFormat2, prefix);
+
+                await WriteToContentList(descriptor, wrongWebResourceNames, content, Properties.OutputStrings.WebResourcesWithPrefixFormat2, prefix);
             }
-
-            var descriptor = new SolutionComponentDescriptor(service);
-            descriptor.WithUrls = true;
-            descriptor.WithManagedInfo = true;
-            descriptor.WithSolutionsInfo = true;
-
-            await WriteToContentList(descriptor, wrongEntityNames, content, Properties.OutputStrings.EntityNamesWithPrefixFormat2, prefix);
-
-            await WriteToContentList(descriptor, wrongEntityAttributes, content, Properties.OutputStrings.EntityAttributesNamesWithPrefixFormat2, prefix);
-
-            await WriteToContentList(descriptor, wrongEntityRelationshipsManyToOne, content, Properties.OutputStrings.ManyToOneRelationshipsNamesWithPrefixFormat2, prefix);
-
-            await WriteToContentList(descriptor, wrongEntityRelationshipsManyToMany, content, Properties.OutputStrings.ManyToManyRelationshipsNamesWithPrefixFormat2, prefix);
-
-            await WriteToContentList(descriptor, wrongWebResourceNames, content, Properties.OutputStrings.WebResourcesWithPrefixFormat2, prefix);
 
             int totalErrors =
                 wrongEntityNames.Count
@@ -195,9 +200,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
 
-            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
-
-            service.TryDispose();
+            this._iWriteToOutput.PerformAction(connectionData, filePath);
         }
 
         #endregion Find components with prefix
@@ -236,10 +239,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            List<SolutionComponent> wrongElements = new List<SolutionComponent>();
+            var wrongElements = new List<SolutionComponent>();
 
             {
-                EntityMetadataRepository repositoryEntity = new EntityMetadataRepository(service);
+                var repositoryEntity = new EntityMetadataRepository(service);
 
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.GettingEntitiesMetadata);
 
@@ -300,7 +303,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             {
-                WebResourceRepository repositoryWebResource = new WebResourceRepository(service);
+                var repositoryWebResource = new WebResourceRepository(service);
 
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.GettingWebResources);
 
@@ -323,6 +326,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (wrongElements.Count == 0)
             {
+                service.TryDispose();
                 _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoObjectsInCRMFoundedWithPrefixFormat1, prefix);
                 return;
             }
@@ -368,205 +372,210 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            StringBuilder content = new StringBuilder();
+            var content = new StringBuilder();
 
             content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
             content.AppendLine(connectionData.GetConnectionDescription());
             content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
 
-            List<SolutionComponent> wrongEntityNames = new List<SolutionComponent>();
-            List<SolutionComponent> wrongEntityAttributes = new List<SolutionComponent>();
-            List<SolutionComponent> wrongEntityRelationshipsManyToOne = new List<SolutionComponent>();
-            List<SolutionComponent> wrongEntityRelationshipsManyToMany = new List<SolutionComponent>();
+            var wrongEntityNames = new List<SolutionComponent>();
+            var wrongEntityAttributes = new List<SolutionComponent>();
+            var wrongEntityRelationshipsManyToOne = new List<SolutionComponent>();
+            var wrongEntityRelationshipsManyToMany = new List<SolutionComponent>();
 
-            List<SolutionComponent> wrongWebResourceNames = new List<SolutionComponent>();
+            var wrongWebResourceNames = new List<SolutionComponent>();
 
-            Dictionary<SolutionComponent, string> dictEntityNames = new Dictionary<SolutionComponent, string>();
-            Dictionary<SolutionComponent, string> dictEntityAttributes = new Dictionary<SolutionComponent, string>();
-            Dictionary<SolutionComponent, string> dictEntityRelationshipsManyToOne = new Dictionary<SolutionComponent, string>();
-            Dictionary<SolutionComponent, string> dictEntityRelationshipsManyToMany = new Dictionary<SolutionComponent, string>();
+            var dictEntityNames = new Dictionary<SolutionComponent, string>();
+            var dictEntityAttributes = new Dictionary<SolutionComponent, string>();
+            var dictEntityRelationshipsManyToOne = new Dictionary<SolutionComponent, string>();
+            var dictEntityRelationshipsManyToMany = new Dictionary<SolutionComponent, string>();
 
-            Dictionary<SolutionComponent, string> dictWebResourceNames = new Dictionary<SolutionComponent, string>();
+            var dictWebResourceNames = new Dictionary<SolutionComponent, string>();
 
-            var descriptor = new SolutionComponentDescriptor(service);
-            descriptor.WithUrls = true;
-            descriptor.WithManagedInfo = true;
-            descriptor.WithSolutionsInfo = true;
-
-            DependencyRepository dependencyRepository = new DependencyRepository(service);
-
-            DependencyDescriptionHandler descriptorHandler = new DependencyDescriptionHandler(descriptor);
-
+            using (service.Lock())
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.GettingEntitiesMetadata);
-
-                EntityMetadataRepository repositoryEntity = new EntityMetadataRepository(service);
-
-                var allEntities = await repositoryEntity.GetEntitiesWithAttributesAndRelationshipsAsync();
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CheckingEntitiesMetadata);
-
-                foreach (EntityMetadata currentEntity in allEntities)
+                var descriptor = new SolutionComponentDescriptor(service)
                 {
-                    foreach (var currentAttribute in currentEntity.Attributes.OrderBy(a => a.LogicalName))
+                    WithUrls = true,
+                    WithManagedInfo = true,
+                    WithSolutionsInfo = true,
+                };
+
+                var dependencyRepository = new DependencyRepository(service);
+
+                var descriptorHandler = new DependencyDescriptionHandler(descriptor);
+
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.GettingEntitiesMetadata);
+
+                    var repositoryEntity = new EntityMetadataRepository(service);
+
+                    var allEntities = await repositoryEntity.GetEntitiesWithAttributesAndRelationshipsAsync();
+
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CheckingEntitiesMetadata);
+
+                    foreach (EntityMetadata currentEntity in allEntities)
                     {
-                        if (currentAttribute.AttributeOf == null)
+                        foreach (var currentAttribute in currentEntity.Attributes.OrderBy(a => a.LogicalName))
                         {
-                            if (currentAttribute.LogicalName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
+                            if (currentAttribute.AttributeOf == null)
+                            {
+                                if (currentAttribute.LogicalName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
+                                {
+                                    var component = new SolutionComponent()
+                                    {
+                                        ComponentType = new OptionSetValue((int)ComponentType.Attribute),
+                                        ObjectId = currentAttribute.MetadataId.Value,
+                                    };
+
+                                    wrongEntityAttributes.Add(component);
+
+                                    var coll = await dependencyRepository.GetDependentComponentsAsync((int)ComponentType.Attribute, currentAttribute.MetadataId.Value);
+
+                                    var desc = await descriptorHandler.GetDescriptionDependentAsync(coll);
+
+                                    if (!string.IsNullOrEmpty(desc))
+                                    {
+                                        dictEntityAttributes.Add(component, desc);
+                                    }
+                                }
+                            }
+                        }
+
+                        foreach (var currentRelationship in currentEntity
+                            .ManyToOneRelationships
+                            .OrderBy(a => a.ReferencingEntity)
+                            .ThenBy(a => a.ReferencingAttribute)
+                            .ThenBy(a => a.SchemaName)
+                        )
+                        {
+                            if (currentRelationship.SchemaName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
                             {
                                 var component = new SolutionComponent()
                                 {
-                                    ComponentType = new OptionSetValue((int)ComponentType.Attribute),
-                                    ObjectId = currentAttribute.MetadataId.Value,
+                                    ComponentType = new OptionSetValue((int)ComponentType.EntityRelationship),
+                                    ObjectId = currentRelationship.MetadataId.Value,
                                 };
 
-                                wrongEntityAttributes.Add(component);
+                                wrongEntityRelationshipsManyToOne.Add(component);
 
-                                var coll = await dependencyRepository.GetDependentComponentsAsync((int)ComponentType.Attribute, currentAttribute.MetadataId.Value);
+                                var coll = await dependencyRepository.GetDependentComponentsAsync((int)ComponentType.EntityRelationship, currentRelationship.MetadataId.Value);
 
                                 var desc = await descriptorHandler.GetDescriptionDependentAsync(coll);
 
                                 if (!string.IsNullOrEmpty(desc))
                                 {
-                                    dictEntityAttributes.Add(component, desc);
+                                    dictEntityRelationshipsManyToOne.Add(component, desc);
                                 }
                             }
                         }
-                    }
 
-                    foreach (var currentRelationship in currentEntity
-                        .ManyToOneRelationships
-                        .OrderBy(a => a.ReferencingEntity)
-                        .ThenBy(a => a.ReferencingAttribute)
-                        .ThenBy(a => a.SchemaName)
-                    )
-                    {
-                        if (currentRelationship.SchemaName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
+                        foreach (var currentRelationship in currentEntity
+                            .ManyToManyRelationships
+                            .OrderBy(a => a.Entity1LogicalName)
+                            .ThenBy(a => a.Entity2LogicalName)
+                            .ThenBy(a => a.Entity1IntersectAttribute)
+                            .ThenBy(a => a.Entity2IntersectAttribute)
+                            .ThenBy(a => a.SchemaName)
+                        )
+                        {
+                            if (currentRelationship.SchemaName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                var component = new SolutionComponent()
+                                {
+                                    ComponentType = new OptionSetValue((int)ComponentType.EntityRelationship),
+                                    ObjectId = currentRelationship.MetadataId.Value,
+                                };
+
+                                wrongEntityRelationshipsManyToMany.Add(component);
+
+                                var coll = await dependencyRepository.GetDependentComponentsAsync((int)ComponentType.EntityRelationship, currentRelationship.MetadataId.Value);
+
+                                var desc = await descriptorHandler.GetDescriptionDependentAsync(coll);
+
+                                if (!string.IsNullOrEmpty(desc))
+                                {
+                                    dictEntityRelationshipsManyToMany.Add(component, desc);
+                                }
+                            }
+                        }
+
+                        var wrongEntity = currentEntity.LogicalName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase);
+                        if (wrongEntity)
                         {
                             var component = new SolutionComponent()
                             {
-                                ComponentType = new OptionSetValue((int)ComponentType.EntityRelationship),
-                                ObjectId = currentRelationship.MetadataId.Value,
+                                ComponentType = new OptionSetValue((int)ComponentType.Entity),
+                                ObjectId = currentEntity.MetadataId.Value,
                             };
 
-                            wrongEntityRelationshipsManyToOne.Add(component);
+                            wrongEntityNames.Add(component);
 
-                            var coll = await dependencyRepository.GetDependentComponentsAsync((int)ComponentType.EntityRelationship, currentRelationship.MetadataId.Value);
+                            var coll = await dependencyRepository.GetDependentComponentsAsync((int)ComponentType.Entity, currentEntity.MetadataId.Value);
 
                             var desc = await descriptorHandler.GetDescriptionDependentAsync(coll);
 
                             if (!string.IsNullOrEmpty(desc))
                             {
-                                dictEntityRelationshipsManyToOne.Add(component, desc);
+                                dictEntityNames.Add(component, desc);
                             }
-                        }
-                    }
-
-                    foreach (var currentRelationship in currentEntity
-                        .ManyToManyRelationships
-                        .OrderBy(a => a.Entity1LogicalName)
-                        .ThenBy(a => a.Entity2LogicalName)
-                        .ThenBy(a => a.Entity1IntersectAttribute)
-                        .ThenBy(a => a.Entity2IntersectAttribute)
-                        .ThenBy(a => a.SchemaName)
-                    )
-                    {
-                        if (currentRelationship.SchemaName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            var component = new SolutionComponent()
-                            {
-                                ComponentType = new OptionSetValue((int)ComponentType.EntityRelationship),
-                                ObjectId = currentRelationship.MetadataId.Value,
-                            };
-
-                            wrongEntityRelationshipsManyToMany.Add(component);
-
-                            var coll = await dependencyRepository.GetDependentComponentsAsync((int)ComponentType.EntityRelationship, currentRelationship.MetadataId.Value);
-
-                            var desc = await descriptorHandler.GetDescriptionDependentAsync(coll);
-
-                            if (!string.IsNullOrEmpty(desc))
-                            {
-                                dictEntityRelationshipsManyToMany.Add(component, desc);
-                            }
-                        }
-                    }
-
-                    var wrongEntity = currentEntity.LogicalName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase);
-                    if (wrongEntity)
-                    {
-                        var component = new SolutionComponent()
-                        {
-                            ComponentType = new OptionSetValue((int)ComponentType.Entity),
-                            ObjectId = currentEntity.MetadataId.Value,
-                        };
-
-                        wrongEntityNames.Add(component);
-
-                        var coll = await dependencyRepository.GetDependentComponentsAsync((int)ComponentType.Entity, currentEntity.MetadataId.Value);
-
-                        var desc = await descriptorHandler.GetDescriptionDependentAsync(coll);
-
-                        if (!string.IsNullOrEmpty(desc))
-                        {
-                            dictEntityNames.Add(component, desc);
                         }
                     }
                 }
-            }
 
-            {
-                WebResourceRepository repositoryWebResource = new WebResourceRepository(service);
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.GettingWebResources);
-
-                var webResources = await repositoryWebResource.GetListAllAsync(null, new ColumnSet(WebResource.Schema.Attributes.name, WebResource.Schema.Attributes.displayname, WebResource.Schema.Attributes.webresourcetype));
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CheckingWebResources);
-
-                foreach (var webResource in webResources)
                 {
-                    if (webResource.Name.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
+                    var repositoryWebResource = new WebResourceRepository(service);
+
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.GettingWebResources);
+
+                    var webResources = await repositoryWebResource.GetListAllAsync(null, new ColumnSet(WebResource.Schema.Attributes.name, WebResource.Schema.Attributes.displayname, WebResource.Schema.Attributes.webresourcetype));
+
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CheckingWebResources);
+
+                    foreach (var webResource in webResources)
                     {
-                        var component = new SolutionComponent()
+                        if (webResource.Name.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
                         {
-                            ComponentType = new OptionSetValue((int)ComponentType.WebResource),
-                            ObjectId = webResource.Id,
-                        };
+                            var component = new SolutionComponent()
+                            {
+                                ComponentType = new OptionSetValue((int)ComponentType.WebResource),
+                                ObjectId = webResource.Id,
+                            };
 
-                        wrongWebResourceNames.Add(component);
+                            wrongWebResourceNames.Add(component);
 
-                        var coll = await dependencyRepository.GetDependentComponentsAsync((int)ComponentType.WebResource, webResource.Id);
+                            var coll = await dependencyRepository.GetDependentComponentsAsync((int)ComponentType.WebResource, webResource.Id);
 
-                        var desc = await descriptorHandler.GetDescriptionDependentAsync(coll);
+                            var desc = await descriptorHandler.GetDescriptionDependentAsync(coll);
 
-                        if (!string.IsNullOrEmpty(desc))
-                        {
-                            dictWebResourceNames.Add(component, desc);
+                            if (!string.IsNullOrEmpty(desc))
+                            {
+                                dictWebResourceNames.Add(component, desc);
+                            }
                         }
                     }
                 }
+
+                await WriteToContentList(descriptor, wrongEntityNames, content, Properties.OutputStrings.EntityNamesWithPrefixFormat2, prefix);
+
+                await WriteToContentList(descriptor, wrongEntityAttributes, content, Properties.OutputStrings.EntityAttributesNamesWithPrefixFormat2, prefix);
+
+                await WriteToContentList(descriptor, wrongEntityRelationshipsManyToOne, content, Properties.OutputStrings.ManyToOneRelationshipsNamesWithPrefixFormat2, prefix);
+
+                await WriteToContentList(descriptor, wrongEntityRelationshipsManyToMany, content, Properties.OutputStrings.ManyToManyRelationshipsNamesWithPrefixFormat2, prefix);
+
+                await WriteToContentList(descriptor, wrongWebResourceNames, content, Properties.OutputStrings.WebResourcesWithPrefixFormat2, prefix);
+
+                WriteToContentDictionary(descriptor, content, wrongEntityNames, dictEntityNames, Properties.OutputStrings.EntityNamesWithPrefixFormat2, prefix);
+
+                WriteToContentDictionary(descriptor, content, wrongEntityAttributes, dictEntityAttributes, Properties.OutputStrings.EntityAttributesNamesWithPrefixFormat2, prefix);
+
+                WriteToContentDictionary(descriptor, content, wrongEntityRelationshipsManyToOne, dictEntityRelationshipsManyToOne, Properties.OutputStrings.ManyToOneRelationshipsNamesWithPrefixFormat2, prefix);
+
+                WriteToContentDictionary(descriptor, content, wrongEntityRelationshipsManyToMany, dictEntityRelationshipsManyToMany, Properties.OutputStrings.ManyToManyRelationshipsNamesWithPrefixFormat2, prefix);
+
+                WriteToContentDictionary(descriptor, content, wrongWebResourceNames, dictWebResourceNames, Properties.OutputStrings.WebResourcesWithPrefixFormat2, prefix);
             }
-
-            await WriteToContentList(descriptor, wrongEntityNames, content, Properties.OutputStrings.EntityNamesWithPrefixFormat2, prefix);
-
-            await WriteToContentList(descriptor, wrongEntityAttributes, content, Properties.OutputStrings.EntityAttributesNamesWithPrefixFormat2, prefix);
-
-            await WriteToContentList(descriptor, wrongEntityRelationshipsManyToOne, content, Properties.OutputStrings.ManyToOneRelationshipsNamesWithPrefixFormat2, prefix);
-
-            await WriteToContentList(descriptor, wrongEntityRelationshipsManyToMany, content, Properties.OutputStrings.ManyToManyRelationshipsNamesWithPrefixFormat2, prefix);
-
-            await WriteToContentList(descriptor, wrongWebResourceNames, content, Properties.OutputStrings.WebResourcesWithPrefixFormat2, prefix);
-
-            WriteToContentDictionary(descriptor, content, wrongEntityNames, dictEntityNames, Properties.OutputStrings.EntityNamesWithPrefixFormat2, prefix);
-
-            WriteToContentDictionary(descriptor, content, wrongEntityAttributes, dictEntityAttributes, Properties.OutputStrings.EntityAttributesNamesWithPrefixFormat2, prefix);
-
-            WriteToContentDictionary(descriptor, content, wrongEntityRelationshipsManyToOne, dictEntityRelationshipsManyToOne, Properties.OutputStrings.ManyToOneRelationshipsNamesWithPrefixFormat2, prefix);
-
-            WriteToContentDictionary(descriptor, content, wrongEntityRelationshipsManyToMany, dictEntityRelationshipsManyToMany, Properties.OutputStrings.ManyToManyRelationshipsNamesWithPrefixFormat2, prefix);
-
-            WriteToContentDictionary(descriptor, content, wrongWebResourceNames, dictWebResourceNames, Properties.OutputStrings.WebResourcesWithPrefixFormat2, prefix);
 
             int totalErrors = dictEntityNames.Count
                 + dictEntityAttributes.Count
@@ -591,14 +600,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(connectionData, "Created file with CRM Objects names for prefix '{0}' and show dependent components: {1}", prefix, filePath);
 
-            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
-
-            service.TryDispose();
+            this._iWriteToOutput.PerformAction(connectionData, filePath);
         }
 
         #endregion Find components with prefix and show dependent components
 
-        private bool IsMakedToDelete(string prefix, string logicalName, Label label)
+        private static bool IsMakedToDelete(string prefix, string logicalName, Label label)
         {
             if (logicalName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
             {
@@ -650,139 +657,144 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            StringBuilder content = new StringBuilder();
+            var content = new StringBuilder();
 
             content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
             content.AppendLine(connectionData.GetConnectionDescription());
             content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
 
-            List<SolutionComponent> wrongEntityNames = new List<SolutionComponent>();
-            List<SolutionComponent> wrongEntityAttributes = new List<SolutionComponent>();
+            var wrongEntityNames = new List<SolutionComponent>();
+            var wrongEntityAttributes = new List<SolutionComponent>();
 
-            List<SolutionComponent> wrongWebResourceNames = new List<SolutionComponent>();
+            var wrongWebResourceNames = new List<SolutionComponent>();
 
-            Dictionary<SolutionComponent, string> dictEntityNames = new Dictionary<SolutionComponent, string>();
-            Dictionary<SolutionComponent, string> dictEntityAttributes = new Dictionary<SolutionComponent, string>();
+            var dictEntityNames = new Dictionary<SolutionComponent, string>();
+            var dictEntityAttributes = new Dictionary<SolutionComponent, string>();
 
-            Dictionary<SolutionComponent, string> dictWebResourceNames = new Dictionary<SolutionComponent, string>();
+            var dictWebResourceNames = new Dictionary<SolutionComponent, string>();
 
-            var descriptor = new SolutionComponentDescriptor(service);
-            descriptor.WithUrls = true;
-            descriptor.WithManagedInfo = true;
-            descriptor.WithSolutionsInfo = true;
-
-            var descriptorHandler = new DependencyDescriptionHandler(descriptor);
-
-            var dependencyRepository = new DependencyRepository(service);
-
+            using (service.Lock())
             {
-                EntityMetadataRepository repositoryEntity = new EntityMetadataRepository(service);
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.GettingEntitiesMetadata);
-
-                var allEntities = await repositoryEntity.GetEntitiesWithAttributesAndRelationshipsAsync();
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CheckingEntitiesMetadata);
-
-                foreach (EntityMetadata currentEntity in allEntities.OrderBy(e => e.LogicalName))
+                var descriptor = new SolutionComponentDescriptor(service)
                 {
-                    foreach (var currentAttribute in currentEntity.Attributes.OrderBy(a => a.LogicalName))
+                    WithUrls = true,
+                    WithManagedInfo = true,
+                    WithSolutionsInfo = true,
+                };
+
+                var descriptorHandler = new DependencyDescriptionHandler(descriptor);
+
+                var dependencyRepository = new DependencyRepository(service);
+
+                {
+                    var repositoryEntity = new EntityMetadataRepository(service);
+
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.GettingEntitiesMetadata);
+
+                    var allEntities = await repositoryEntity.GetEntitiesWithAttributesAndRelationshipsAsync();
+
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CheckingEntitiesMetadata);
+
+                    foreach (EntityMetadata currentEntity in allEntities.OrderBy(e => e.LogicalName))
                     {
-                        if (currentAttribute.AttributeOf == null)
+                        foreach (var currentAttribute in currentEntity.Attributes.OrderBy(a => a.LogicalName))
                         {
-                            bool marked = IsMakedToDelete(deleteMark, currentAttribute.LogicalName, currentAttribute.DisplayName);
-
-                            if (marked)
+                            if (currentAttribute.AttributeOf == null)
                             {
-                                var component = new SolutionComponent()
+                                bool marked = IsMakedToDelete(deleteMark, currentAttribute.LogicalName, currentAttribute.DisplayName);
+
+                                if (marked)
                                 {
-                                    ComponentType = new OptionSetValue((int)ComponentType.Attribute),
-                                    ObjectId = currentAttribute.MetadataId.Value,
-                                };
+                                    var component = new SolutionComponent()
+                                    {
+                                        ComponentType = new OptionSetValue((int)ComponentType.Attribute),
+                                        ObjectId = currentAttribute.MetadataId.Value,
+                                    };
 
-                                wrongEntityAttributes.Add(component);
+                                    wrongEntityAttributes.Add(component);
 
-                                var coll = await dependencyRepository.GetDependentComponentsAsync((int)ComponentType.Attribute, currentAttribute.MetadataId.Value);
+                                    var coll = await dependencyRepository.GetDependentComponentsAsync((int)ComponentType.Attribute, currentAttribute.MetadataId.Value);
 
-                                var desc = await descriptorHandler.GetDescriptionDependentAsync(coll);
+                                    var desc = await descriptorHandler.GetDescriptionDependentAsync(coll);
 
-                                if (!string.IsNullOrEmpty(desc))
-                                {
-                                    dictEntityAttributes.Add(component, desc);
+                                    if (!string.IsNullOrEmpty(desc))
+                                    {
+                                        dictEntityAttributes.Add(component, desc);
+                                    }
                                 }
                             }
                         }
-                    }
 
-                    var wrongEntity = IsMakedToDelete(deleteMark, currentEntity.LogicalName, currentEntity.DisplayName);
-                    if (wrongEntity)
-                    {
-                        var component = new SolutionComponent()
+                        var wrongEntity = IsMakedToDelete(deleteMark, currentEntity.LogicalName, currentEntity.DisplayName);
+                        if (wrongEntity)
                         {
-                            ComponentType = new OptionSetValue((int)ComponentType.Entity),
-                            ObjectId = currentEntity.MetadataId.Value,
-                        };
+                            var component = new SolutionComponent()
+                            {
+                                ComponentType = new OptionSetValue((int)ComponentType.Entity),
+                                ObjectId = currentEntity.MetadataId.Value,
+                            };
 
-                        wrongEntityNames.Add(component);
+                            wrongEntityNames.Add(component);
 
-                        var coll = await dependencyRepository.GetDependentComponentsAsync((int)ComponentType.Entity, currentEntity.MetadataId.Value);
+                            var coll = await dependencyRepository.GetDependentComponentsAsync((int)ComponentType.Entity, currentEntity.MetadataId.Value);
 
-                        var desc = await descriptorHandler.GetDescriptionDependentAsync(coll);
+                            var desc = await descriptorHandler.GetDescriptionDependentAsync(coll);
 
-                        if (!string.IsNullOrEmpty(desc))
-                        {
-                            dictEntityNames.Add(component, desc);
+                            if (!string.IsNullOrEmpty(desc))
+                            {
+                                dictEntityNames.Add(component, desc);
+                            }
                         }
                     }
                 }
-            }
 
-            {
-                WebResourceRepository repositoryWebResource = new WebResourceRepository(service);
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.GettingWebResources);
-
-                var collWebResources = await repositoryWebResource.GetListAllAsync(string.Empty, new ColumnSet(WebResource.Schema.Attributes.name, WebResource.Schema.Attributes.displayname, WebResource.Schema.Attributes.webresourcetype));
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CheckingWebResources);
-
-                foreach (var webResource in collWebResources)
                 {
-                    if (!string.IsNullOrEmpty(webResource.DisplayName)
-                        && webResource.DisplayName.StartsWith(deleteMark, StringComparison.InvariantCultureIgnoreCase)
-                    )
+                    var repositoryWebResource = new WebResourceRepository(service);
+
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.GettingWebResources);
+
+                    var collWebResources = await repositoryWebResource.GetListAllAsync(string.Empty, new ColumnSet(WebResource.Schema.Attributes.name, WebResource.Schema.Attributes.displayname, WebResource.Schema.Attributes.webresourcetype));
+
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CheckingWebResources);
+
+                    foreach (var webResource in collWebResources)
                     {
-                        var component = new SolutionComponent()
+                        if (!string.IsNullOrEmpty(webResource.DisplayName)
+                            && webResource.DisplayName.StartsWith(deleteMark, StringComparison.InvariantCultureIgnoreCase)
+                        )
                         {
-                            ComponentType = new OptionSetValue((int)ComponentType.WebResource),
-                            ObjectId = webResource.Id,
-                        };
+                            var component = new SolutionComponent()
+                            {
+                                ComponentType = new OptionSetValue((int)ComponentType.WebResource),
+                                ObjectId = webResource.Id,
+                            };
 
-                        wrongWebResourceNames.Add(component);
+                            wrongWebResourceNames.Add(component);
 
-                        var coll = await dependencyRepository.GetDependentComponentsAsync((int)ComponentType.WebResource, webResource.Id);
+                            var coll = await dependencyRepository.GetDependentComponentsAsync((int)ComponentType.WebResource, webResource.Id);
 
-                        var desc = await descriptorHandler.GetDescriptionDependentAsync(coll);
+                            var desc = await descriptorHandler.GetDescriptionDependentAsync(coll);
 
-                        if (!string.IsNullOrEmpty(desc))
-                        {
-                            dictWebResourceNames.Add(component, desc);
+                            if (!string.IsNullOrEmpty(desc))
+                            {
+                                dictWebResourceNames.Add(component, desc);
+                            }
                         }
                     }
                 }
+
+                await WriteToContentList(descriptor, wrongEntityNames, content, Properties.OutputStrings.EntityNamesMarkedToDeleteFormat2, deleteMark);
+
+                await WriteToContentList(descriptor, wrongEntityAttributes, content, Properties.OutputStrings.EntityAttributesNamesMarkedToDeleteFormat2, deleteMark);
+
+                await WriteToContentList(descriptor, wrongWebResourceNames, content, Properties.OutputStrings.WebResourcesMarkedToDeleteFormat2, deleteMark);
+
+                WriteToContentDictionary(descriptor, content, wrongEntityNames, dictEntityNames, Properties.OutputStrings.EntityNamesMarkedToDeleteFormat2, deleteMark);
+
+                WriteToContentDictionary(descriptor, content, wrongEntityAttributes, dictEntityAttributes, Properties.OutputStrings.EntityAttributesNamesMarkedToDeleteFormat2, deleteMark);
+
+                WriteToContentDictionary(descriptor, content, wrongWebResourceNames, dictWebResourceNames, Properties.OutputStrings.WebResourcesMarkedToDeleteFormat2, deleteMark);
             }
-
-            await WriteToContentList(descriptor, wrongEntityNames, content, Properties.OutputStrings.EntityNamesMarkedToDeleteFormat2, deleteMark);
-
-            await WriteToContentList(descriptor, wrongEntityAttributes, content, Properties.OutputStrings.EntityAttributesNamesMarkedToDeleteFormat2, deleteMark);
-
-            await WriteToContentList(descriptor, wrongWebResourceNames, content, Properties.OutputStrings.WebResourcesMarkedToDeleteFormat2, deleteMark);
-
-            WriteToContentDictionary(descriptor, content, wrongEntityNames, dictEntityNames, Properties.OutputStrings.EntityNamesMarkedToDeleteFormat2, deleteMark);
-
-            WriteToContentDictionary(descriptor, content, wrongEntityAttributes, dictEntityAttributes, Properties.OutputStrings.EntityAttributesNamesMarkedToDeleteFormat2, deleteMark);
-
-            WriteToContentDictionary(descriptor, content, wrongWebResourceNames, dictWebResourceNames, Properties.OutputStrings.WebResourcesMarkedToDeleteFormat2, deleteMark);
 
             int totalErrors = dictEntityAttributes.Count
                 + dictEntityNames.Count
@@ -805,9 +817,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(connectionData, "Created file with CRM Objects marked to delete by '{0}' and show dependent components: {1}", deleteMark, filePath);
 
-            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
-
-            service.TryDispose();
+            this._iWriteToOutput.PerformAction(connectionData, filePath);
         }
 
         #endregion Finding Marked to Delelete and Show Dependent.
@@ -843,10 +853,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            List<SolutionComponent> wrongElements = new List<SolutionComponent>();
+            var wrongElements = new List<SolutionComponent>();
 
             {
-                EntityMetadataRepository repositoryEntity = new EntityMetadataRepository(service);
+                var repositoryEntity = new EntityMetadataRepository(service);
 
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.GettingEntitiesMetadata);
 
@@ -890,7 +900,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             {
-                WebResourceRepository repositoryWebResource = new WebResourceRepository(service);
+                var repositoryWebResource = new WebResourceRepository(service);
 
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.GettingWebResources);
 
@@ -917,6 +927,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (wrongElements.Count == 0)
             {
+                service.TryDispose();
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoObjectsInCRMFoundedMarkedToDeleteFormat1, deleteMark);
                 return;
             }
@@ -959,18 +970,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            StringBuilder content = new StringBuilder();
+            var content = new StringBuilder();
 
             content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
             content.AppendLine(connectionData.GetConnectionDescription());
             content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
 
-            List<SolutionComponent> listEntityAttributes = new List<SolutionComponent>();
-            List<SolutionComponent> listEntityRelationshipsManyToOne = new List<SolutionComponent>();
-            List<SolutionComponent> listEntityRelationshipsManyToMany = new List<SolutionComponent>();
+            var listEntityAttributes = new List<SolutionComponent>();
+            var listEntityRelationshipsManyToOne = new List<SolutionComponent>();
+            var listEntityRelationshipsManyToMany = new List<SolutionComponent>();
 
+            using (service.Lock())
             {
-                EntityMetadataRepository repositoryEntity = new EntityMetadataRepository(service);
+                var repositoryEntity = new EntityMetadataRepository(service);
 
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.GettingEntitiesMetadata);
 
@@ -1019,18 +1031,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         }
                     }
                 }
+
+                var descriptor = new SolutionComponentDescriptor(service)
+                {
+                    WithUrls = true,
+                    WithManagedInfo = true,
+                    WithSolutionsInfo = true,
+                };
+
+                await WriteToContentList(descriptor, listEntityAttributes, content, "Entity Attributes names with name '" + name + "': {0}");
+
+                await WriteToContentList(descriptor, listEntityRelationshipsManyToOne, content, "Many to One Relationships names with name '" + name + "': {0}");
+
+                await WriteToContentList(descriptor, listEntityRelationshipsManyToMany, content, "Many to Many Relationships names with name '" + name + "': {0}");
             }
-
-            var descriptor = new SolutionComponentDescriptor(service);
-            descriptor.WithUrls = true;
-            descriptor.WithManagedInfo = true;
-            descriptor.WithSolutionsInfo = true;
-
-            await WriteToContentList(descriptor, listEntityAttributes, content, "Entity Attributes names with name '" + name + "': {0}");
-
-            await WriteToContentList(descriptor, listEntityRelationshipsManyToOne, content, "Many to One Relationships names with name '" + name + "': {0}");
-
-            await WriteToContentList(descriptor, listEntityRelationshipsManyToMany, content, "Many to Many Relationships names with name '" + name + "': {0}");
 
             int totalErrors =
                 listEntityAttributes.Count
@@ -1058,9 +1072,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
 
-            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
-
-            service.TryDispose();
+            this._iWriteToOutput.PerformAction(connectionData, filePath);
         }
 
         #endregion Finding components with name
@@ -1096,10 +1108,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            List<SolutionComponent> listComponents = new List<SolutionComponent>();
+            var listComponents = new List<SolutionComponent>();
 
             {
-                EntityMetadataRepository repositoryEntity = new EntityMetadataRepository(service);
+                var repositoryEntity = new EntityMetadataRepository(service);
 
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.GettingEntitiesMetadata);
 
@@ -1152,6 +1164,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (listComponents.Count == 0)
             {
+                service.TryDispose();
                 _iWriteToOutput.WriteToOutput(connectionData, "No Entity Objects in CRM founded with name '{0}'.", name);
                 return;
             }
@@ -1194,18 +1207,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            StringBuilder content = new StringBuilder();
+            var content = new StringBuilder();
 
             content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
             content.AppendLine(connectionData.GetConnectionDescription());
             content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
 
-            List<SolutionComponent> listEntityAttributes = new List<SolutionComponent>();
-            List<SolutionComponent> listEntityRelationshipsManyToOne = new List<SolutionComponent>();
-            List<SolutionComponent> listEntityRelationshipsManyToMany = new List<SolutionComponent>();
+            var listEntityAttributes = new List<SolutionComponent>();
+            var listEntityRelationshipsManyToOne = new List<SolutionComponent>();
+            var listEntityRelationshipsManyToMany = new List<SolutionComponent>();
 
+            using (service.Lock())
             {
-                EntityMetadataRepository repositoryEntity = new EntityMetadataRepository(service);
+                var repositoryEntity = new EntityMetadataRepository(service);
 
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.GettingEntitiesMetadata);
 
@@ -1254,18 +1268,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         }
                     }
                 }
+
+                var descriptor = new SolutionComponentDescriptor(service)
+                {
+                    WithUrls = true,
+                    WithManagedInfo = true,
+                    WithSolutionsInfo = true,
+                };
+
+                await WriteToContentList(descriptor, listEntityAttributes, content, "Entity Attributes names contains '" + name + "': {0}");
+
+                await WriteToContentList(descriptor, listEntityRelationshipsManyToOne, content, "Many to One Relationships names contains '" + name + "': {0}");
+
+                await WriteToContentList(descriptor, listEntityRelationshipsManyToMany, content, "Many to Many Relationships names contains '" + name + "': {0}");
             }
-
-            var descriptor = new SolutionComponentDescriptor(service);
-            descriptor.WithUrls = true;
-            descriptor.WithManagedInfo = true;
-            descriptor.WithSolutionsInfo = true;
-
-            await WriteToContentList(descriptor, listEntityAttributes, content, "Entity Attributes names contains '" + name + "': {0}");
-
-            await WriteToContentList(descriptor, listEntityRelationshipsManyToOne, content, "Many to One Relationships names contains '" + name + "': {0}");
-
-            await WriteToContentList(descriptor, listEntityRelationshipsManyToMany, content, "Many to Many Relationships names contains '" + name + "': {0}");
 
             int totalErrors =
                 listEntityAttributes.Count
@@ -1293,9 +1309,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
 
-            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
-
-            service.TryDispose();
+            this._iWriteToOutput.PerformAction(connectionData, filePath);
         }
 
         #endregion Finding components with name contains string
@@ -1331,10 +1345,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            List<SolutionComponent> listComponents = new List<SolutionComponent>();
+            var listComponents = new List<SolutionComponent>();
 
             {
-                EntityMetadataRepository repositoryEntity = new EntityMetadataRepository(service);
+                var repositoryEntity = new EntityMetadataRepository(service);
 
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.GettingEntitiesMetadata);
 
@@ -1387,6 +1401,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (listComponents.Count == 0)
             {
+                service.TryDispose();
                 _iWriteToOutput.WriteToOutput(connectionData, "No Objects in CRM founded that contains '{0}'.", name);
 
                 return;
@@ -1430,45 +1445,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            StringBuilder content = new StringBuilder();
+            var content = new StringBuilder();
 
             content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
             content.AppendLine(connectionData.GetConnectionDescription());
             content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
 
-            EntityMetadataRepository repository = new EntityMetadataRepository(service);
-
-            var entityMetadataList = await repository.GetEntitiesPropertiesAsync(entityName, entityTypeCode, "LogicalName", "PrimaryIdAttribute", "IsIntersect", "Attributes");
-
             bool finded = false;
 
-            foreach (var item in entityMetadataList.OrderBy(e => e.LogicalName))
+            using (service.Lock())
             {
-                var primaryAttr = item.Attributes.FirstOrDefault(a => string.Equals(a.LogicalName, item.PrimaryIdAttribute, StringComparison.InvariantCultureIgnoreCase));
+                var repository = new EntityMetadataRepository(service);
 
-                if (primaryAttr != null && primaryAttr.AttributeType == AttributeTypeCode.Uniqueidentifier)
+                var entityMetadataList = await repository.FindEntitiesPropertiesOrAllAsync(entityName, entityTypeCode
+                    , nameof(EntityMetadata.LogicalName)
+                    , nameof(EntityMetadata.PrimaryIdAttribute)
+                    , nameof(EntityMetadata.IsIntersect)
+                    , nameof(EntityMetadata.Attributes)
+                );
+
+                foreach (var item in entityMetadataList.OrderBy(e => e.LogicalName))
                 {
-                    var generalRepository = new GenericRepository(service, item);
+                    var primaryAttr = item.Attributes.FirstOrDefault(a => string.Equals(a.LogicalName, item.PrimaryIdAttribute, StringComparison.InvariantCultureIgnoreCase));
 
-                    Entity entity = await generalRepository.GetEntityByIdAsync(entityId, new ColumnSet(true));
-
-                    if (entity != null)
+                    if (primaryAttr != null && primaryAttr.AttributeType == AttributeTypeCode.Uniqueidentifier)
                     {
-                        finded = true;
+                        var generalRepository = new GenericRepository(service, item);
 
-                        content
-                            .AppendLine()
-                            .AppendLine()
-                            .AppendLine(new string('-', 150))
-                            .AppendLine()
-                            .AppendLine()
-                            .AppendLine(await EntityDescriptionHandler.GetEntityDescriptionAsync(entity, connectionData))
-                            ;
+                        Entity entity = await generalRepository.GetEntityByIdAsync(entityId, new ColumnSet(true));
+
+                        if (entity != null)
+                        {
+                            finded = true;
+
+                            content
+                                .AppendLine()
+                                .AppendLine()
+                                .AppendLine(new string('-', 150))
+                                .AppendLine()
+                                .AppendLine()
+                                .AppendLine(await EntityDescriptionHandler.GetEntityDescriptionAsync(entity, connectionData))
+                                ;
+                        }
                     }
                 }
             }
-
-            service.TryDispose();
 
             if (!finded)
             {
@@ -1524,54 +1545,55 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            StringBuilder content = new StringBuilder();
+            var content = new StringBuilder();
 
             content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
             content.AppendLine(connectionData.GetConnectionDescription());
             content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
 
-            EntityMetadataRepository repository = new EntityMetadataRepository(service);
-
-            var entityMetadataList = await repository.GetEntitiesPropertiesAsync(entityName, entityTypeCode
-                , nameof(EntityMetadata.LogicalName)
-                , nameof(EntityMetadata.PrimaryIdAttribute)
-                , nameof(EntityMetadata.IsIntersect)
-                , nameof(EntityMetadata.Attributes)
-            );
-
             bool finded = false;
 
-            foreach (var item in entityMetadataList.OrderBy(e => e.LogicalName))
+            using (service.Lock())
             {
-                foreach (var field in item.Attributes
-                    .Where(a => a.AttributeType == AttributeTypeCode.Uniqueidentifier && a.IsValidForRead.GetValueOrDefault(true))
-                    .OrderBy(a => a.LogicalName)
-                )
+                var repository = new EntityMetadataRepository(service);
+
+                var entityMetadataList = await repository.FindEntitiesPropertiesOrAllAsync(entityName, entityTypeCode
+                    , nameof(EntityMetadata.LogicalName)
+                    , nameof(EntityMetadata.PrimaryIdAttribute)
+                    , nameof(EntityMetadata.IsIntersect)
+                    , nameof(EntityMetadata.Attributes)
+                );
+
+                foreach (var item in entityMetadataList.OrderBy(e => e.LogicalName))
                 {
-                    var generalRepository = new GenericRepository(service, item);
-
-                    var entityList = await generalRepository.GetEntitiesByFieldAsync(field.LogicalName, entityId, new ColumnSet(true));
-
-                    if (entityList != null)
+                    foreach (var field in item.Attributes
+                        .Where(a => a.AttributeType == AttributeTypeCode.Uniqueidentifier && a.IsValidForRead.GetValueOrDefault(true))
+                        .OrderBy(a => a.LogicalName)
+                    )
                     {
-                        foreach (var entity in entityList)
-                        {
-                            finded = true;
+                        var generalRepository = new GenericRepository(service, item);
 
-                            content
-                                .AppendLine()
-                                .AppendLine()
-                                .AppendLine(new string('-', 150))
-                                .AppendLine()
-                                .AppendLine()
-                                .AppendLine(await EntityDescriptionHandler.GetEntityDescriptionAsync(entity, connectionData))
-                            ;
+                        var entityList = await generalRepository.GetEntitiesByFieldAsync(field.LogicalName, entityId, new ColumnSet(true));
+
+                        if (entityList != null)
+                        {
+                            foreach (var entity in entityList)
+                            {
+                                finded = true;
+
+                                content
+                                    .AppendLine()
+                                    .AppendLine()
+                                    .AppendLine(new string('-', 150))
+                                    .AppendLine()
+                                    .AppendLine()
+                                    .AppendLine(await EntityDescriptionHandler.GetEntityDescriptionAsync(entity, connectionData))
+                                ;
+                            }
                         }
                     }
                 }
             }
-
-            service.TryDispose();
 
             if (!finded)
             {
@@ -1626,30 +1648,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            var repository = new EntityMetadataRepository(service);
+            var listEntities = new List<EntityReference>();
 
-            var entityMetadataList = await repository.GetEntitiesPropertiesAsync(entityName, entityTypeCode, "LogicalName", "PrimaryIdAttribute", "IsIntersect", "Attributes");
-
-            List<EntityReference> listEntities = new List<EntityReference>();
-
-            foreach (var item in entityMetadataList.OrderBy(e => e.LogicalName))
+            using (service.Lock())
             {
-                var primaryAttr = item.Attributes.FirstOrDefault(a => string.Equals(a.LogicalName, item.PrimaryIdAttribute, StringComparison.InvariantCultureIgnoreCase));
+                var repository = new EntityMetadataRepository(service);
 
-                if (primaryAttr != null && primaryAttr.AttributeType == AttributeTypeCode.Uniqueidentifier)
+                var entityMetadataList = await repository.FindEntitiesPropertiesOrAllAsync(entityName, entityTypeCode
+                    , nameof(EntityMetadata.LogicalName)
+                    , nameof(EntityMetadata.PrimaryIdAttribute)
+                    , nameof(EntityMetadata.IsIntersect)
+                    , nameof(EntityMetadata.Attributes)
+                );
+
+                foreach (var item in entityMetadataList.OrderBy(e => e.LogicalName))
                 {
-                    var generalRepository = new GenericRepository(service, item);
+                    var primaryAttr = item.Attributes.FirstOrDefault(a => string.Equals(a.LogicalName, item.PrimaryIdAttribute, StringComparison.InvariantCultureIgnoreCase));
 
-                    Entity entity = await generalRepository.GetEntityByIdAsync(entityId, new ColumnSet(false));
-
-                    if (entity != null)
+                    if (primaryAttr != null && primaryAttr.AttributeType == AttributeTypeCode.Uniqueidentifier)
                     {
-                        listEntities.Add(entity.ToEntityReference());
+                        var generalRepository = new GenericRepository(service, item);
+
+                        Entity entity = await generalRepository.GetEntityByIdAsync(entityId, new ColumnSet(false));
+
+                        if (entity != null)
+                        {
+                            listEntities.Add(entity.ToEntityReference());
+                        }
                     }
                 }
             }
-
-            service.TryDispose();
 
             if (!listEntities.Any())
             {
@@ -1690,7 +1718,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (content.Length > 0) { content.AppendLine(); }
 
-            List<object> temp = new List<object>(args)
+            var temp = new List<object>(args)
             {
                 dict.Count
             };
@@ -1734,7 +1762,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (content.Length > 0) { content.AppendLine(); }
 
-            List<object> temp = new List<object>(args)
+            var temp = new List<object>(args)
             {
                 list.Count
             };
@@ -1752,7 +1780,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 if (content.Length > 0) { content.AppendLine(); }
 
-                List<object> temp = new List<object>(args)
+                var temp = new List<object>(args)
                 {
                     list.Count
                 };

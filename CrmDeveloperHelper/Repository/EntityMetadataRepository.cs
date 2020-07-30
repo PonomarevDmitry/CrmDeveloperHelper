@@ -573,23 +573,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
         }
 
-        public Task<List<EntityMetadata>> GetEntitiesPropertiesAsync(string entityName, int? entityTypeCode, params string[] properties)
+        public Task<List<EntityMetadata>> FindEntitiesPropertiesOrAllAsync(string entityName, int? entityTypeCode, params string[] properties)
         {
-            return Task<List<EntityMetadata>>.Run(() => GetEntitiesProperties(entityName, entityTypeCode, properties));
+            return Task<List<EntityMetadata>>.Run(() => FindEntitiesPropertiesOrAll(entityName, entityTypeCode, properties));
         }
 
-        private List<EntityMetadata> GetEntitiesProperties(string entityName, int? entityTypeCode, params string[] properties)
+        private List<EntityMetadata> FindEntitiesPropertiesOrAll(string entityName, int? entityTypeCode, params string[] properties)
         {
-            MetadataPropertiesExpression entityProperties = new MetadataPropertiesExpression(properties)
+            var entityProperties = new MetadataPropertiesExpression(properties)
             {
                 AllProperties = false
             };
 
-            EntityQueryExpression entityQueryExpression = new EntityQueryExpression()
+            var entityQueryExpression = new EntityQueryExpression()
             {
                 Properties = entityProperties,
+            };
 
-                AttributeQuery = new AttributeQueryExpression()
+            if (properties != null && properties.Contains(nameof(EntityMetadata.Attributes), StringComparer.InvariantCultureIgnoreCase))
+            {
+                entityQueryExpression.AttributeQuery = new AttributeQueryExpression()
                 {
                     Properties = new MetadataPropertiesExpression
                     (
@@ -597,8 +600,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         , nameof(AttributeMetadata.AttributeType)
                         , nameof(AttributeMetadata.IsValidForRead)
                     ),
-                },
-            };
+                };
+            }
 
             if (!string.IsNullOrEmpty(entityName) || entityTypeCode.HasValue)
             {
@@ -617,12 +620,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 entityQueryExpression.Criteria = criteria;
             }
 
-            RetrieveMetadataChangesRequest request = new RetrieveMetadataChangesRequest()
+            var request = new RetrieveMetadataChangesRequest()
             {
                 Query = entityQueryExpression,
             };
 
-            RetrieveMetadataChangesResponse response = (RetrieveMetadataChangesResponse)_service.Execute(request);
+            var response = (RetrieveMetadataChangesResponse)_service.Execute(request);
 
             if (response.EntityMetadata.Any())
             {
@@ -630,10 +633,67 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
             else if (!string.IsNullOrEmpty(entityName) || entityTypeCode.HasValue)
             {
-                return GetEntitiesProperties(null, null, properties);
+                return FindEntitiesPropertiesOrAll(null, null, properties);
             }
 
             return new List<EntityMetadata>();
+        }
+
+        public Task<List<EntityMetadata>> FindEntitiesPropertiesOrEmptyAsync(string entityName, int? entityTypeCode, params string[] properties)
+        {
+            return Task<List<EntityMetadata>>.Run(() => FindEntitiesPropertiesOrEmpty(entityName, entityTypeCode, properties));
+        }
+
+        private List<EntityMetadata> FindEntitiesPropertiesOrEmpty(string entityName, int? entityTypeCode, params string[] properties)
+        {
+            var entityProperties = new MetadataPropertiesExpression(properties)
+            {
+                AllProperties = false
+            };
+
+            var entityQueryExpression = new EntityQueryExpression()
+            {
+                Properties = entityProperties,
+            };
+
+            if (properties != null && properties.Contains(nameof(EntityMetadata.Attributes), StringComparer.InvariantCultureIgnoreCase))
+            {
+                entityQueryExpression.AttributeQuery = new AttributeQueryExpression()
+                {
+                    Properties = new MetadataPropertiesExpression
+                    (
+                        nameof(AttributeMetadata.LogicalName)
+                        , nameof(AttributeMetadata.AttributeType)
+                        , nameof(AttributeMetadata.IsValidForRead)
+                    ),
+                };
+            }
+
+            if (!string.IsNullOrEmpty(entityName) || entityTypeCode.HasValue)
+            {
+                var criteria = new MetadataFilterExpression(LogicalOperator.Or);
+
+                if (!string.IsNullOrEmpty(entityName))
+                {
+                    criteria.Conditions.Add(new MetadataConditionExpression(nameof(EntityMetadata.LogicalName), MetadataConditionOperator.Equals, entityName));
+                }
+
+                if (entityTypeCode.HasValue)
+                {
+                    criteria.Conditions.Add(new MetadataConditionExpression(nameof(EntityMetadata.ObjectTypeCode), MetadataConditionOperator.Equals, entityTypeCode.Value));
+                }
+
+                entityQueryExpression.Criteria = criteria;
+            }
+
+            var request = new RetrieveMetadataChangesRequest()
+            {
+                Query = entityQueryExpression,
+            };
+
+            var response = (RetrieveMetadataChangesResponse)_service.Execute(request);
+
+            return response.EntityMetadata.OrderBy(ent => ent.LogicalName).ToList();
         }
 
         public Task ExportEntityXmlAsync(string entityName, string filePath)

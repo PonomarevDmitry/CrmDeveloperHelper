@@ -1544,7 +1544,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var repository = new EntityMetadataRepository(service);
 
-            var entityMetadataList = await repository.GetEntitiesPropertiesAsync(entityName, entityTypeCode
+            var entityMetadataList = await repository.FindEntitiesPropertiesOrEmptyAsync(entityName, entityTypeCode
                 , nameof(EntityMetadata.LogicalName)
             );
 
@@ -1595,7 +1595,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var repository = new EntityMetadataRepository(service);
 
-            var entityMetadataList = await repository.GetEntitiesPropertiesAsync(entityName, entityTypeCode
+            var entityMetadataList = await repository.FindEntitiesPropertiesOrEmptyAsync(entityName, entityTypeCode
                 , nameof(EntityMetadata.LogicalName)
             );
 
@@ -1646,7 +1646,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var repository = new EntityMetadataRepository(service);
 
-            var entityMetadataList = await repository.GetEntitiesPropertiesAsync(entityName, entityTypeCode
+            var entityMetadataList = await repository.FindEntitiesPropertiesOrEmptyAsync(entityName, entityTypeCode
                 , nameof(EntityMetadata.LogicalName)
                 , nameof(EntityMetadata.PrimaryIdAttribute)
                 , nameof(EntityMetadata.PrimaryNameAttribute)
@@ -1668,34 +1668,50 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        public async Task ExecutePublishEntity(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName)
+        public async Task ExecutePublishEntity(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode)
         {
+            var correctedName = new StringBuilder(entityName);
+
+            if (entityTypeCode.HasValue)
+            {
+                if (correctedName.Length > 0)
+                {
+                    correctedName.Append(" - ");
+                }
+
+                correctedName.Append(entityTypeCode.Value.ToString());
+            }
+
             await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.PublishingEntitiesFormat2
-                , (service) => PublishEntityAsync(service, commonConfig, entityName)
-                , entityName
+                , (service) => PublishEntityAsync(service, commonConfig, entityName, entityTypeCode)
+                , correctedName.ToString()
             );
         }
 
-        private async Task PublishEntityAsync(IOrganizationServiceExtented service, CommonConfiguration commonConfig, string entityName)
+        private async Task PublishEntityAsync(IOrganizationServiceExtented service, CommonConfiguration commonConfig, string entityName, int? entityTypeCode)
         {
             var repository = new EntityMetadataRepository(service);
 
-            EntityMetadata entityMetadata = await repository.GetEntityMetadataAsync(entityName);
+            var entityMetadataList = await repository.FindEntitiesPropertiesOrEmptyAsync(entityName, entityTypeCode
+                , nameof(EntityMetadata.LogicalName)
+            );
 
-            if (entityMetadata == null)
+            if (!entityMetadataList.Any())
             {
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityNotExistsInConnectionFormat2, entityName, service.ConnectionData.Name);
+                string entityNameCorrected = (!string.IsNullOrEmpty(entityName)) ? entityName : entityTypeCode.ToString();
+
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityNotExistsInConnectionFormat2, entityNameCorrected, service.ConnectionData.Name);
                 _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
-                WindowHelper.OpenEntityMetadataExplorer(_iWriteToOutput, service, commonConfig, entityName);
+                WindowHelper.OpenEntityMetadataExplorer(_iWriteToOutput, service, commonConfig, entityNameCorrected);
 
                 return;
             }
 
             var publishRepository = new PublishActionsRepository(service);
 
-            await publishRepository.PublishEntitiesAsync(new[] { entityName });
+            await publishRepository.PublishEntitiesAsync(entityMetadataList.Select(e => e.LogicalName));
 
             service.TryDispose();
         }

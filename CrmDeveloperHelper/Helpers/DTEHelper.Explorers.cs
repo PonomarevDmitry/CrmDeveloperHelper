@@ -447,7 +447,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     try
                     {
-                        Controller.StartPublishEntityMetadata(connectionData, commonConfig, entityName);
+                        Controller.StartPublishEntityMetadata(connectionData, commonConfig, entityName, null);
                     }
                     catch (Exception ex)
                     {

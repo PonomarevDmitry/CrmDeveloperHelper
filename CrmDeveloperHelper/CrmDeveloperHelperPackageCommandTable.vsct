@@ -996,8 +996,9 @@
 
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupOrganizationComparer" priority="0x06000" />
 
-      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupPublishAll" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupPublishAll_MenuConnectionDyn_Group" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupPublish" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupPublish_MenuPublishAllDyn_Group" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupPublish_MenuPublishEntityDyn_Group" priority="0x06000" />
 
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupFileGenerationOptions" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupFileGenerationOptions_Menu_GroupCurrent" priority="0x06000" />
@@ -4197,11 +4198,19 @@
         </Strings>
       </Menu>
 
-      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupPublishAll_MenuConnectionDyn" priority="0x06000" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupPublish_MenuPublishAllDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Publish All in Connection</ButtonText>
           <MenuText>Publish All in Connection</MenuText>
+        </Strings>
+      </Menu>
+
+      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupPublish_MenuPublishEntityDyn" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Publish Entity in Connection</ButtonText>
+          <MenuText>Publish Entity in Connection</MenuText>
         </Strings>
       </Menu>
 
@@ -12034,6 +12043,18 @@
         </Strings>
       </Button>
 
+      <Button guid="guidDynamicCommandSet" id="CommonCrmConnectionSelectAndPublishEntityCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>CommonCrmConnectionSelectAndPublishEntityCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+
       <Button guid="guidDynamicCommandSet" id="CommonCrmConnectionSelectFileCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -12283,6 +12304,18 @@
       </Button>
 
 
+
+
+      <Button guid="guidCommandSet" id="OutputCrmConnectionSelectAndPublishEntityCommandId" priority="0x06000" type="Button">
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Publish Entity In Connection</ButtonText>
+        </Strings>
+      </Button>
       <Button guid="guidCommandSet" id="OutputCrmConnectionPublishAllCommandId" priority="0x06000" type="Button">
         <CommandFlag>TextChanges</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -18041,7 +18074,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupOrganizationComparer" priority="0x06080">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupPublishAll" priority="0x06090">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupPublish" priority="0x06090">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupFileGenerationOptions" priority="0x060A0">
@@ -18683,13 +18716,16 @@
 
     <!-- #endregion CommandPlacements commonMenu_GroupOrganizationComparer -->
 
-    <!-- #region CommandPlacements commonMenu_GroupPublishAll -->
+    <!-- #region CommandPlacements commonMenu_GroupPublish -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupPublishAll_MenuConnectionDyn" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupPublishAll" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupPublish_MenuPublishAllDyn" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupPublish" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupPublish_MenuPublishEntityDyn" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupPublish" />
     </CommandPlacement>
 
-    <!-- #endregion CommandPlacements commonMenu_GroupPublishAll -->
+    <!-- #endregion CommandPlacements commonMenu_GroupPublish -->
 
     <!-- #region CommandPlacements commonMenu_GroupFileGenerationOptions -->
 
@@ -19002,12 +19038,24 @@
 
 
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupPublishAll_MenuConnectionDyn_Group" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupPublishAll_MenuConnectionDyn" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupPublish_MenuPublishAllDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupPublish_MenuPublishAllDyn" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="CommonCrmConnectionPublishAllCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupPublishAll_MenuConnectionDyn_Group" />
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupPublish_MenuPublishAllDyn_Group" />
     </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupPublish_MenuPublishEntityDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupPublish_MenuPublishEntityDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CommonCrmConnectionSelectAndPublishEntityCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupPublish_MenuPublishEntityDyn_Group" />
+    </CommandPlacement>
+
+
+
+
+
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupFetchXml_MenuFetchXmlFileDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFetchXml_MenuFetchXmlFileDyn" />
@@ -22572,6 +22620,10 @@
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupPublishAll" />
     </CommandPlacement>
 
+    <CommandPlacement guid="guidCommandSet" id="OutputCrmConnectionSelectAndPublishEntityCommandId" priority="0x6010">
+      <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupPublishAll" />
+    </CommandPlacement>
+
     <!-- #endregion CommandPlacements outputMenu_GroupPublishAll -->
 
 
@@ -24656,9 +24708,13 @@
 
       <IDSymbol name="commonMenu_GroupOrganizationComparer" value="0x10F0" />
 
-      <IDSymbol name="commonMenu_GroupPublishAll" value="0x1196" />
-      <IDSymbol name="commonMenu_GroupPublishAll_MenuConnectionDyn" value="0x1197" />
-      <IDSymbol name="commonMenu_GroupPublishAll_MenuConnectionDyn_Group" value="0x1198" />
+      <IDSymbol name="commonMenu_GroupPublish" value="0x1196" />
+
+      <IDSymbol name="commonMenu_GroupPublish_MenuPublishAllDyn" value="0x1197" />
+      <IDSymbol name="commonMenu_GroupPublish_MenuPublishAllDyn_Group" value="0x1198" />
+
+      <IDSymbol name="commonMenu_GroupPublish_MenuPublishEntityDyn" value="0x1555" />
+      <IDSymbol name="commonMenu_GroupPublish_MenuPublishEntityDyn_Group" value="0x1556" />
 
       <IDSymbol name="commonMenu_GroupFileGenerationOptions" value="0x13EE" />
       <IDSymbol name="commonMenu_GroupFileGenerationOptions_Menu" value="0x13EF" />
@@ -25029,7 +25085,9 @@
       <IDSymbol name="CommonImportJobExplorerInConnectionCommandId" value="8700" />
 
       <IDSymbol name="CommonCrmConnectionSelectCommandId" value="100" />
+
       <IDSymbol name="CommonCrmConnectionPublishAllCommandId" value="2200" />
+      <IDSymbol name="CommonCrmConnectionSelectAndPublishEntityCommandId" value="18000" />
 
       <IDSymbol name="CommonCrmConnectionEditCommandId" value="10350" />
       <IDSymbol name="CommonCrmConnectionSelectFileCommandId" value="10300" />
@@ -26303,6 +26361,7 @@
 
 
 
+      <IDSymbol name="OutputCrmConnectionSelectAndPublishEntityCommandId" value="0x2275" />
       <IDSymbol name="OutputCrmConnectionPublishAllCommandId" value="0x21CC" />
 
 
@@ -26425,13 +26484,13 @@
 
 
     <!-- Groups and Menus -->
-    <!-- 0x1555 -->
+    <!-- 0x1557 -->
 
     <!-- Commands -->
-    <!-- 0x2275 -->
+    <!-- 0x2276 -->
 
     <!-- Commands Dynamic -->
-    <!-- 18000 -->
+    <!-- 18050 -->
 
     <!-- 16905 - 16950 -->
 

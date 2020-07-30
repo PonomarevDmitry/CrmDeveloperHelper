@@ -113,6 +113,7 @@
     <Compile Include="Commands\Commons\CommonOpenCrmWebSiteEntityMetadataCommand.cs" />
     <Compile Include="Commands\Connections\CommonCrmConnectionEditCommand.cs" />
     <Compile Include="Commands\Connections\CommonCrmConnectionOpenInfoFolderCommand.cs" />
+    <Compile Include="Commands\Connections\CommonCrmConnectionSelectAndPublishEntityCommand.cs" />
     <Compile Include="Commands\Connections\CommonCrmConnectionSelectFileCommand.cs" />
     <Compile Include="Commands\OutputWindows\OutputCrmConnectionOpenInfoFolderCommand.cs" />
     <Compile Include="Commands\CSharp\CSharpAddPluginStepCommand.cs" />
@@ -202,6 +203,7 @@
     <Compile Include="Commands\OutputWindows\Explorers\OutputSdkMessageFilterExplorerCommand.cs" />
     <Compile Include="Commands\OutputWindows\OutputCommonConfigCommand.cs" />
     <Compile Include="Commands\OutputWindows\OutputCrmConnectionListCommand.cs" />
+    <Compile Include="Commands\OutputWindows\OutputCrmConnectionSelectAndPublishEntityCommand.cs" />
     <Compile Include="Commands\OutputWindows\OutputFetchXmlOpenEntityFileCommand.cs" />
     <Compile Include="Commands\OutputWindows\OutputCrmConnectionOpenFetchXmlFolderCommand.cs" />
     <Compile Include="Commands\OutputWindows\OutputOpenConfigFolderCommand.cs" />

@@ -24,31 +24,45 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 CheckWishToChangeCurrentConnection(connectionData);
 
-                var dialog = new WindowSelectFolderAndText(commonConfig, connectionData, windowTitle, labelTitle);
-
-                if (dialog.ShowDialog().GetValueOrDefault())
+                var worker = new System.Threading.Thread(() =>
                 {
-                    connectionData = dialog.GetConnectionData();
-
-                    if (connectionData != null)
+                    try
                     {
-                        ActivateOutputWindow(connectionData);
-                        WriteToOutputEmptyLines(connectionData, commonConfig);
+                        var dialog = new WindowSelectFolderAndText(commonConfig, connectionData, windowTitle, labelTitle);
 
-                        CheckWishToChangeCurrentConnection(connectionData);
-
-                        string text = dialog.GetText();
-
-                        try
+                        if (dialog.ShowDialog().GetValueOrDefault())
                         {
-                            action(connectionData, commonConfig, text);
-                        }
-                        catch (Exception ex)
-                        {
-                            WriteErrorToOutput(connectionData, ex);
+                            connectionData = dialog.GetConnectionData();
+
+                            if (connectionData != null)
+                            {
+                                ActivateOutputWindow(connectionData);
+                                WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                                CheckWishToChangeCurrentConnection(connectionData);
+
+                                string text = dialog.GetText();
+
+                                try
+                                {
+                                    action(connectionData, commonConfig, text);
+                                }
+                                catch (Exception ex)
+                                {
+                                    WriteErrorToOutput(connectionData, ex);
+                                }
+                            }
                         }
                     }
-                }
+                    catch (Exception ex)
+                    {
+                        DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                    }
+                });
+
+                worker.SetApartmentState(System.Threading.ApartmentState.STA);
+
+                worker.Start();
             }
         }
 
@@ -192,32 +206,46 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 CheckWishToChangeCurrentConnection(connectionData);
 
-                string windowTitle = string.Format(windowTitleFormat1, connectionData.Name);
-
-                var dialog = new WindowSelectEntityIdToFind(commonConfig, connectionData, windowTitle);
-
-                if (dialog.ShowDialog().GetValueOrDefault())
+                var worker = new System.Threading.Thread(() =>
                 {
-                    string entityName = dialog.EntityTypeName;
-                    int? entityTypeCode = dialog.EntityTypeCode;
-                    Guid entityId = dialog.EntityId;
-
-                    connectionData = dialog.GetConnectionData();
-
-                    ActivateOutputWindow(connectionData);
-                    WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                    CheckWishToChangeCurrentConnection(connectionData);
-
                     try
                     {
-                        action(connectionData, commonConfig, entityName, entityTypeCode, entityId);
+                        string windowTitle = string.Format(windowTitleFormat1, connectionData.Name);
+
+                        var dialog = new WindowSelectEntityIdToFind(commonConfig, connectionData, windowTitle);
+
+                        if (dialog.ShowDialog().GetValueOrDefault())
+                        {
+                            string entityName = dialog.EntityTypeName;
+                            int? entityTypeCode = dialog.EntityTypeCode;
+                            Guid entityId = dialog.EntityId;
+
+                            connectionData = dialog.GetConnectionData();
+
+                            ActivateOutputWindow(connectionData);
+                            WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                            CheckWishToChangeCurrentConnection(connectionData);
+
+                            try
+                            {
+                                action(connectionData, commonConfig, entityName, entityTypeCode, entityId);
+                            }
+                            catch (Exception ex)
+                            {
+                                WriteErrorToOutput(connectionData, ex);
+                            }
+                        }
                     }
                     catch (Exception ex)
                     {
-                        WriteErrorToOutput(connectionData, ex);
+                        DTEHelper.WriteExceptionToOutput(connectionData, ex);
                     }
-                }
+                });
+
+                worker.SetApartmentState(System.Threading.ApartmentState.STA);
+
+                worker.Start();
             }
         }
 

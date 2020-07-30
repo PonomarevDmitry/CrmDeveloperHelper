@@ -577,34 +577,48 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 CheckWishToChangeCurrentConnection(connectionData);
 
-                var form = new WindowSelectFolderForExport(connectionData, commonConfig.FolderForExport, commonConfig.DefaultFileAction);
-
-                if (form.ShowDialog().GetValueOrDefault())
+                var worker = new System.Threading.Thread(() =>
                 {
-                    commonConfig.FolderForExport = form.SelectedFolder;
-                    commonConfig.DefaultFileAction = form.GetFileAction();
-
-                    connectionData = form.GetConnectionData();
-
-                    if (connectionData != null)
+                    try
                     {
-                        commonConfig.Save();
+                        var form = new WindowSelectFolderForExport(connectionData, commonConfig.FolderForExport, commonConfig.DefaultFileAction);
 
-                        ActivateOutputWindow(connectionData);
-                        WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                        CheckWishToChangeCurrentConnection(connectionData);
-
-                        try
+                        if (form.ShowDialog().GetValueOrDefault())
                         {
-                            Controller.ShowingWebResourcesDependentComponents(connectionData, commonConfig, selectedFiles);
-                        }
-                        catch (Exception ex)
-                        {
-                            WriteErrorToOutput(connectionData, ex);
+                            commonConfig.FolderForExport = form.SelectedFolder;
+                            commonConfig.DefaultFileAction = form.GetFileAction();
+
+                            connectionData = form.GetConnectionData();
+
+                            if (connectionData != null)
+                            {
+                                commonConfig.Save();
+
+                                ActivateOutputWindow(connectionData);
+                                WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                                CheckWishToChangeCurrentConnection(connectionData);
+
+                                try
+                                {
+                                    Controller.ShowingWebResourcesDependentComponents(connectionData, commonConfig, selectedFiles);
+                                }
+                                catch (Exception ex)
+                                {
+                                    WriteErrorToOutput(connectionData, ex);
+                                }
+                            }
                         }
                     }
-                }
+                    catch (Exception ex)
+                    {
+                        DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                    }
+                });
+
+                worker.SetApartmentState(System.Threading.ApartmentState.STA);
+
+                worker.Start();
             }
         }
 

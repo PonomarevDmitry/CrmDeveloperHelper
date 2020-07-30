@@ -2139,11 +2139,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int commonMenu_GroupOrganizationComparer = 0x10F0;
 
-            public const int commonMenu_GroupPublishAll = 0x1196;
+            public const int commonMenu_GroupPublish = 0x1196;
 
-            public const int commonMenu_GroupPublishAll_MenuConnectionDyn = 0x1197;
+            public const int commonMenu_GroupPublish_MenuPublishAllDyn = 0x1197;
 
-            public const int commonMenu_GroupPublishAll_MenuConnectionDyn_Group = 0x1198;
+            public const int commonMenu_GroupPublish_MenuPublishAllDyn_Group = 0x1198;
+
+            public const int commonMenu_GroupPublish_MenuPublishEntityDyn = 0x1555;
+
+            public const int commonMenu_GroupPublish_MenuPublishEntityDyn_Group = 0x1556;
 
             public const int commonMenu_GroupFileGenerationOptions = 0x13EE;
 
@@ -2595,6 +2599,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int CommonCrmConnectionSelectCommandId = 0x0064;
 
             public const int CommonCrmConnectionPublishAllCommandId = 0x0898;
+
+            public const int CommonCrmConnectionSelectAndPublishEntityCommandId = 0x4650;
 
             public const int CommonCrmConnectionEditCommandId = 0x286E;
 
@@ -3902,6 +3908,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int OutputOpenCrmWebSiteEntityListCommandId = 0x2248;
 
             public const int OutputExportFormEventsCommandId = 0x21CB;
+
+            public const int OutputCrmConnectionSelectAndPublishEntityCommandId = 0x2275;
 
             public const int OutputCrmConnectionPublishAllCommandId = 0x21CC;
 

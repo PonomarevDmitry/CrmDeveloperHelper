@@ -552,8 +552,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartEntityMetadataOpenInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, ActionOnComponent actionOnComponent)
             => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteEntityMetadataOpenInWeb, commonConfig, entityName, actionOnComponent);
 
-        public void StartPublishEntityMetadata(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName)
-            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecutePublishEntity, commonConfig, entityName);
+        public void StartPublishEntityMetadata(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode)
+            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecutePublishEntity, commonConfig, entityName, entityTypeCode);
 
         public void StartAddingEntityToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, bool withSelect, string entityName, SolutionComponent.Schema.OptionSets.rootcomponentbehavior rootComponentBehavior)
             => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteAddingEntityToSolution, commonConfig, solutionUniqueName, withSelect, entityName, rootComponentBehavior);

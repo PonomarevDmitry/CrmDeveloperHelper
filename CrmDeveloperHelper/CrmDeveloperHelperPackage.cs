@@ -535,6 +535,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             CommonCurrentConnectionCommand.Initialize,
 
+            CommonCrmConnectionSelectAndPublishEntityCommand.Initialize,
             CommonCrmConnectionPublishAllCommand.Initialize,
 
             CommonCrmConnectionListCommand.Initialize,
@@ -814,7 +815,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             OutputWebResourceExplorerCommand.Initialize,
             OutputWorkflowExplorerCommand.Initialize,
 
+            OutputCrmConnectionSelectAndPublishEntityCommand.Initialize,
             OutputCrmConnectionPublishAllCommand.Initialize,
+
             OutputOpenConfigFolderCommand.Initialize,
             OutputFetchXmlOpenEntityFileCommand.Initialize,
 

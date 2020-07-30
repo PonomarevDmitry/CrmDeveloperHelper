@@ -1575,8 +1575,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            var helper = DTEHelper.Create(applicationObject);
-            var connectionData = helper.GetCurrentConnection();
+            var connectionData = DTEHelper.GetCurrentConnection();
 
             CorrectCommandNameForConnectionName(menuCommand, name, connectionData);
         }
