@@ -8,13 +8,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [Description("None")]
         None = 0,
 
-        [Description("Opening in Web")]
+        [Description("Opening in Browser")]
         OpenInWeb = 1,
 
         [Description("Opening in Explorer")]
         OpenInExplorer = 2,
 
-        [Description("Opening Dependent Components in Web")]
+        [Description("Opening Dependent Components in Browser")]
         OpenDependentComponentsInWeb = 3,
 
         [Description("Opening Dependent Components in Explorer")]
@@ -23,7 +23,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [Description("Opening Solutions List with Component in Explorer")]
         OpenSolutionsListWithComponentInExplorer = 5,
 
-        [Description("Opening List in Web")]
+        [Description("Opening List in Browser")]
         OpenListInWeb = 6,
 
         [Description("Getting Single Field")]

@@ -32,7 +32,7 @@
                 <Separator x:Uid="menuContextDifference"/>
 
                 <MenuItem Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Create from {0}">
-                    <MenuItem Header="Open OptionSet in Web" VerticalAlignment="Center" Click="mIConnection1OpenSolutionComponentInWeb_Click" />
+                    <MenuItem Header="Open OptionSet in Browser" VerticalAlignment="Center" Click="mIConnection1OpenSolutionComponentInWeb_Click" />
                     <Separator/>
 
                     <MenuItem Header="Create C# File Single OptionSets" Click="btnConnection1CSharpSingle_Click" />
@@ -46,7 +46,7 @@
 
                 <Separator x:Uid="menuContextConnection2"/>
                 <MenuItem x:Uid="menuContextConnection2" Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Create from {0}">
-                    <MenuItem Header="Open OptionSet in Web" VerticalAlignment="Center" Click="mIConnection2OpenSolutionComponentInWeb_Click" />
+                    <MenuItem Header="Open OptionSet in Browser" VerticalAlignment="Center" Click="mIConnection2OpenSolutionComponentInWeb_Click" />
                     <Separator/>
 
                     <MenuItem Header="Create C# File Single OptionSets" Click="btnConnection2CSharpSingle_Click" />
@@ -174,7 +174,7 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection1" Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Export from {0}">
-                            <MenuItem Header="Open OptionSet in Web" VerticalAlignment="Center" Click="mIConnection1OpenSolutionComponentInWeb_Click" />
+                            <MenuItem Header="Open OptionSet in Browser" VerticalAlignment="Center" Click="mIConnection1OpenSolutionComponentInWeb_Click" />
 
                             <Separator/>
                             <MenuItem Header="Create C# File Single OptionSets" Click="btnConnection1CSharpSingle_Click"  />
@@ -193,7 +193,7 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection2" Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Export from {0}">
-                            <MenuItem Header="Open OptionSet in Web" VerticalAlignment="Center" Click="mIConnection2OpenSolutionComponentInWeb_Click" />
+                            <MenuItem Header="Open OptionSet in Browser" VerticalAlignment="Center" Click="mIConnection2OpenSolutionComponentInWeb_Click" />
 
                             <Separator/>
                             <MenuItem Header="Create C# File Single OptionSets" Click="btnConnection2CSharpSingle_Click" />

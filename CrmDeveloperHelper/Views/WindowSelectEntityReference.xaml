@@ -18,16 +18,16 @@
                 <!--
                 <MenuItem Header="Select Entity" VerticalAlignment="Center" Click="btnSelectEntity_Click"/>
                 <Separator/>
-                <MenuItem Header="Open Entity in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceInWeb_Click" />
+                <MenuItem Header="Open Entity in Browser" VerticalAlignment="Center" Click="mIOpenEntityInstanceInWeb_Click" />
                 <Separator/>
-                <MenuItem Header="Open Entity List in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceListInWeb_Click" />
+                <MenuItem Header="Open Entity List in Browser" VerticalAlignment="Center" Click="mIOpenEntityInstanceListInWeb_Click" />
                 <Separator/>
                 <MenuItem Header="Clipboard">
                     <MenuItem Header="Copy Entity Id to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceIdToClipboard_Click" />
                     <MenuItem Header="Copy Entity Url to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceUrlToClipboard_Click" />
                 </MenuItem>
                 <Separator/>
-                <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceCustomizationInWeb_Click" />
+                <MenuItem Header="Open Entity Customization in Browser" VerticalAlignment="Center" Click="mIOpenEntityInstanceCustomizationInWeb_Click" />
                 -->
 
             </ContextMenu>
@@ -83,9 +83,9 @@
             <Button x:Name="btnActions" Grid.Row="3" Grid.Column="4" Content="Actions" Click="btnActions_Click" IsTabStop="False">
                 <Button.ContextMenu>
                     <ContextMenu >
-                        <MenuItem x:Name="btnOpenViewListInWeb" Header="Open Entity List in Web" Click="btnOpenViewListInWeb_Click" />
+                        <MenuItem x:Name="btnOpenViewListInWeb" Header="Open Entity List in Browser" Click="btnOpenViewListInWeb_Click" />
                         <Separator />
-                        <MenuItem x:Name="btnOpenViewInWeb" Header="Open View in Web" Click="btnOpenViewInWeb_Click" />
+                        <MenuItem x:Name="btnOpenViewInWeb" Header="Open View in Browser" Click="btnOpenViewInWeb_Click" />
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>

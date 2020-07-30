@@ -33,7 +33,7 @@
                 <Separator x:Uid="menuContextDifference"/>
 
                 <MenuItem Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Create from {0}">
-                    <MenuItem Header="Open SystemForm in Web" Click="mIConnection1OpenSolutionComponentInWeb_Click" />
+                    <MenuItem Header="Open SystemForm in Browser" Click="mIConnection1OpenSolutionComponentInWeb_Click" />
                     <Separator/>
 
                     <MenuItem Header="Create Entity Description" Click="mIExportSystemForm1EntityDescription_Click"/>
@@ -43,13 +43,13 @@
                     <MenuItem Header="Download Form WebResouces" Click="mIExportSystemForm1DownloadWebResouces_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Open Entity Customization in Web" Click="miConnection1OpenEntityMetadataInWeb_Click" />
+                    <MenuItem Header="Open Entity Customization in Browser" Click="miConnection1OpenEntityMetadataInWeb_Click" />
 
                     <Separator/>
                     <MenuItem Header="Open Entity FetchXml File" Click="miConnection1OpenEntityFetchXmlFile_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Open Entity List in Web" Click="miConnection1OpenEntityInstanceListInWeb_Click" />
+                    <MenuItem Header="Open Entity List in Browser" Click="miConnection1OpenEntityInstanceListInWeb_Click" />
                 </MenuItem>
 
                 <Separator/>
@@ -57,7 +57,7 @@
 
                 <Separator x:Uid="menuContextConnection2"/>
                 <MenuItem x:Uid="menuContextConnection2" Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Create from {0}">
-                    <MenuItem Header="Open SystemForm in Web" Click="mIConnection2OpenSolutionComponentInWeb_Click" />
+                    <MenuItem Header="Open SystemForm in Browser" Click="mIConnection2OpenSolutionComponentInWeb_Click" />
                     <Separator/>
 
                     <MenuItem Header="Create Entity Description" Click="mIExportSystemForm2EntityDescription_Click"/>
@@ -67,13 +67,13 @@
                     <MenuItem Header="Download Form WebResouces" Click="mIExportSystemForm2DownloadWebResouces_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Open Entity Customization in Web" Click="miConnection2OpenEntityMetadataInWeb_Click" />
+                    <MenuItem Header="Open Entity Customization in Browser" Click="miConnection2OpenEntityMetadataInWeb_Click" />
 
                     <Separator/>
                     <MenuItem Header="Open Entity FetchXml File" Click="miConnection2OpenEntityFetchXmlFile_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Open Entity List in Web" Click="miConnection2OpenEntityInstanceListInWeb_Click" />
+                    <MenuItem Header="Open Entity List in Browser" Click="miConnection2OpenEntityInstanceListInWeb_Click" />
                 </MenuItem>
 
                 <Separator x:Uid="menuContextConnection2"/>

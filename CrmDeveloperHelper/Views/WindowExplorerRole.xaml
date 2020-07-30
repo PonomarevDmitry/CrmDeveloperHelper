@@ -27,10 +27,10 @@
             <BooleanToVisibilityConverter x:Key="boolToVisibility"/>
 
             <ContextMenu x:Key="listContextMenuSystemUser">
-                <MenuItem Header="Open User in Web" Click="mIOpenEntityInstanceInWeb_Click" FontWeight="Bold" />
+                <MenuItem Header="Open User in Browser" Click="mIOpenEntityInstanceInWeb_Click" FontWeight="Bold" />
 
                 <Separator/>
-                <MenuItem Header="Open User List in Web" Click="mIOpenEntityInstanceListInWeb_Click" />
+                <MenuItem Header="Open User List in Browser" Click="mIOpenEntityInstanceListInWeb_Click" />
 
                 <Separator/>
                 <MenuItem Header="Open User Explorer" Click="mIOpenEntityExplorer_Click" />
@@ -49,10 +49,10 @@
             </ContextMenu>
 
             <ContextMenu x:Key="listContextMenuRole" Opened="ContextMenuRole_Opened">
-                <MenuItem Header="Open Role in Web" Click="mIOpenEntityInstanceInWeb_Click" FontWeight="Bold" />
+                <MenuItem Header="Open Role in Browser" Click="mIOpenEntityInstanceInWeb_Click" FontWeight="Bold" />
 
                 <Separator/>
-                <MenuItem Header="Open Role List in Web" Click="mIOpenEntityInstanceListInWeb_Click" />
+                <MenuItem Header="Open Role List in Browser" Click="mIOpenEntityInstanceListInWeb_Click" />
 
                 <Separator/>
                 <MenuItem Header="Create Role Entity Description" Click="mICreateEntityDescription_Click" />
@@ -111,17 +111,17 @@
 
                 <Separator/>
                 <MenuItem Header="Dependent Components">
-                    <MenuItem Header="Open Dependent Components in Web" Click="mIRoleOpenDependentComponentsInWeb_Click" />
+                    <MenuItem Header="Open Dependent Components in Browser" Click="mIRoleOpenDependentComponentsInWeb_Click" />
                     <Separator/>
                     <MenuItem Header="Open Dependent Components in Explorer" Click="mIRoleOpenDependentComponentsInExplorer_Click" />
                 </MenuItem>
             </ContextMenu>
 
             <ContextMenu x:Key="listContextMenuTeam">
-                <MenuItem Header="Open Team in Web" Click="mIOpenEntityInstanceInWeb_Click" FontWeight="Bold" />
+                <MenuItem Header="Open Team in Browser" Click="mIOpenEntityInstanceInWeb_Click" FontWeight="Bold" />
 
                 <Separator/>
-                <MenuItem Header="Open Team List in Web" Click="mIOpenEntityInstanceListInWeb_Click" />
+                <MenuItem Header="Open Team List in Browser" Click="mIOpenEntityInstanceListInWeb_Click" />
 
                 <Separator/>
                 <MenuItem Header="Open Team Explorer" Click="mIOpenEntityExplorer_Click" />
@@ -140,13 +140,13 @@
             </ContextMenu>
 
             <ContextMenu x:Key="listContextMenuEntityPrivileges" Opened="ContextMenuEntityPrivileges_Opened">
-                <MenuItem Header="Open Entity Customization in Web" Click="mIOpenEntityInWeb_Click" FontWeight="Bold" />
+                <MenuItem Header="Open Entity Customization in Browser" Click="mIOpenEntityInWeb_Click" FontWeight="Bold" />
 
                 <Separator/>
                 <MenuItem Header="Open Entity FetchXml File" Click="mIOpenEntityFetchXmlFile_Click" />
 
                 <Separator/>
-                <MenuItem Header="Open Entity List in Web" Click="mIOpenEntityListInWeb_Click" />
+                <MenuItem Header="Open Entity List in Browser" Click="mIOpenEntityListInWeb_Click" />
 
                 <Separator/>
                 <MenuItem x:Uid="miEntityPrivilegesExplorer" Header="Entity Privileges Explorer" />
@@ -175,7 +175,7 @@
 
                 <Separator/>
                 <MenuItem Header="Dependent Components">
-                    <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />
+                    <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
                     <Separator/>
                     <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
                 </MenuItem>
@@ -201,7 +201,7 @@
 
                 <Separator/>
                 <MenuItem Header="Dependent Components">
-                    <MenuItem Header="Open Dependent Components in Web" Click="mIOtherPrivilegeOpenDependentComponentsInWeb_Click" />
+                    <MenuItem Header="Open Dependent Components in Browser" Click="mIOtherPrivilegeOpenDependentComponentsInWeb_Click" />
                     <Separator/>
                     <MenuItem Header="Open Dependent Components in Explorer" Click="mIOtherPrivilegeOpenDependentComponentsInExplorer_Click" />
                 </MenuItem>

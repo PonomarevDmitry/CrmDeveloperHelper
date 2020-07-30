@@ -18,10 +18,10 @@
             </ResourceDictionary.MergedDictionaries>
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-                <MenuItem Header="Open SavedQuery in Web" Click="mIOpenInWeb_Click" FontWeight="Bold"/>
+                <MenuItem Header="Open SavedQuery in Browser" Click="mIOpenInWeb_Click" FontWeight="Bold"/>
 
                 <Separator/>
-                <MenuItem Header="Open SavedQuery List in Web" Click="mIOpenSavedQueryInWeb_Click" />
+                <MenuItem Header="Open SavedQuery List in Browser" Click="mIOpenSavedQueryInWeb_Click" />
 
                 <Separator/>
                 <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
@@ -36,8 +36,8 @@
                 <MenuItem Header="Add to Crm Solution" Click="AddToCrmSolution_Click" />
 
                 <Separator x:Uid="contMnEntity" />
-                <MenuItem x:Uid="contMnEntity" Header="Open Entity Customization in Web" Click="mIOpenEntityInWeb_Click" />
-                <MenuItem x:Uid="contMnEntity" Header="Open Entity List in Web" Click="mIOpenEntityListInWeb_Click" />
+                <MenuItem x:Uid="contMnEntity" Header="Open Entity Customization in Browser" Click="mIOpenEntityInWeb_Click" />
+                <MenuItem x:Uid="contMnEntity" Header="Open Entity List in Browser" Click="mIOpenEntityListInWeb_Click" />
 
                 <Separator x:Uid="contMnEntity" />
                 <MenuItem x:Uid="contMnEntity" Header="Open Entity FetchXml File" Click="mIOpenEntityFetchXmlFile_Click" />
@@ -92,7 +92,7 @@
 
                 <Separator/>
                 <MenuItem Header="Dependent Components">
-                    <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />
+                    <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
                     <Separator/>
                     <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
                 </MenuItem>
@@ -324,7 +324,7 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBExportSavedQuery" Header="Export Saved Query Information" SubmenuOpened="tSDDBExportSavedQuery_SubmenuOpened">
-                            <MenuItem Header="Open SavedQuery in Web" Click="mIOpenInWeb_Click"/>
+                            <MenuItem Header="Open SavedQuery in Browser" Click="mIOpenInWeb_Click"/>
                             <Separator/>
                             <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
 
@@ -364,7 +364,7 @@
 
                             <Separator/>
                             <MenuItem Header="Dependent Components">
-                                <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />
+                                <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
                                 <Separator/>
                                 <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
                             </MenuItem>

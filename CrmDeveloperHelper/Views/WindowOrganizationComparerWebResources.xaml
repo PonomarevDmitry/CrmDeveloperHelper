@@ -33,7 +33,7 @@
                 <Separator x:Uid="menuContextDifference"/>
 
                 <MenuItem Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Create from {0}">
-                    <MenuItem Header="Open WebResource in Web" Click="mIConnection1OpenSolutionComponentInWeb_Click" />
+                    <MenuItem Header="Open WebResource in Browser" Click="mIConnection1OpenSolutionComponentInWeb_Click" />
                     <Separator/>
 
                     <MenuItem Header="Create Entity Description" Click="mIExportWebResource1EntityDescription_Click"/>
@@ -46,7 +46,7 @@
 
                 <Separator x:Uid="menuContextConnection2"/>
                 <MenuItem x:Uid="menuContextConnection2" Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Create from {0}">
-                    <MenuItem Header="Open WebResource in Web" Click="mIConnection2OpenSolutionComponentInWeb_Click" />
+                    <MenuItem Header="Open WebResource in Browser" Click="mIConnection2OpenSolutionComponentInWeb_Click" />
 
                     <Separator/>
                     <MenuItem Header="Create Entity Description" Click="mIExportWebResource2EntityDescription_Click"/>

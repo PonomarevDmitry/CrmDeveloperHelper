@@ -1164,7 +1164,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Ribbon Open Explorer
 
-        #region Open Entity in Web
+        #region Open Entity in Browser
 
         public async Task ExecuteEntityRibbonOpenInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
@@ -1282,7 +1282,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        #endregion Open Entity in Web
+        #endregion Open Entity in Browser
 
         #region Ribbon Get Current
 

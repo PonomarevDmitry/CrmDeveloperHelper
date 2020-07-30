@@ -17,10 +17,10 @@
             </ResourceDictionary.MergedDictionaries>
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-                <MenuItem Header="Open Report in Web" Click="mIOpenInWeb_Click" FontWeight="Bold" />
+                <MenuItem Header="Open Report in Browser" Click="mIOpenInWeb_Click" FontWeight="Bold" />
 
                 <Separator/>
-                <MenuItem Header="Open Report List in Web" Click="mIOpenEntityListInWeb_Click" />
+                <MenuItem Header="Open Report List in Browser" Click="mIOpenEntityListInWeb_Click" />
 
                 <Separator/>
                 <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
@@ -58,7 +58,7 @@
 
                 <Separator/>
                 <MenuItem Header="Dependent Components">
-                    <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />
+                    <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
                     <Separator/>
                     <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
                 </MenuItem>
@@ -303,7 +303,7 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBExportReport" Header="Export Report Information" SubmenuOpened="tSDDBExportReport_SubmenuOpened">
-                            <MenuItem Header="Open Report in Web" Click="mIOpenInWeb_Click" />
+                            <MenuItem Header="Open Report in Browser" Click="mIOpenInWeb_Click" />
 
                             <Separator/>
                             <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
@@ -330,7 +330,7 @@
 
                             <Separator/>
                             <MenuItem Header="Dependent Components">
-                                <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />
+                                <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
                                 <Separator/>
                                 <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
                             </MenuItem>

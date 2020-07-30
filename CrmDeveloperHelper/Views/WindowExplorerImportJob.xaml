@@ -17,7 +17,7 @@
             </ResourceDictionary.MergedDictionaries>
 
             <ContextMenu x:Key="listContextMenu">
-                <MenuItem Header="Open in Web" Click="mIOpenInWeb_Click" />
+                <MenuItem Header="Open in Browser" Click="mIOpenInWeb_Click" />
 
                 <Separator/>
                 <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
@@ -175,7 +175,7 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBExportImportJob" Header="Export ImportJob Information">
-                            <MenuItem Header="Open in Web" Click="mIOpenInWeb_Click"/>
+                            <MenuItem Header="Open in Browser" Click="mIOpenInWeb_Click"/>
 
                             <Separator/>
                             <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>

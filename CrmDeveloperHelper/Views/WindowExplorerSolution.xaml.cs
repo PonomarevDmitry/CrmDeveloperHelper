@@ -719,7 +719,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             MenuItem mIOpenSolutionInWeb = new MenuItem()
             {
-                Header = string.Format("Open in Web Solution {0}", solution.UniqueNameEscapeUnderscore),
+                Header = string.Format("Open in Browser Solution {0}", solution.UniqueNameEscapeUnderscore),
                 Tag = solution,
             };
             mIOpenSolutionInWeb.Click += mIOpenSolutionInWeb_Click;

@@ -7,7 +7,7 @@
         <ContextMenu x:Key="listContextMenu">
             <MenuItem Header="Select Report" VerticalAlignment="Center" Click="btnSelectReport_Click"/>
             <Separator/>
-            <MenuItem Header="Open in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click"/>
+            <MenuItem Header="Open in Browser" VerticalAlignment="Center" Click="mIOpenInWeb_Click"/>
             <Separator/>
             <MenuItem Header="Create New Report" VerticalAlignment="Center" Click="mICreateNewReport_Click" />
         </ContextMenu>

@@ -37,10 +37,10 @@
                 <Separator x:Uid="menuContextDifference"/>
 
                 <MenuItem Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Create from {0}">
-                    <MenuItem Header="Open Report in Web" VerticalAlignment="Center" Click="mIConnection1OpenSolutionComponentInWeb_Click" />
+                    <MenuItem Header="Open Report in Browser" VerticalAlignment="Center" Click="mIConnection1OpenSolutionComponentInWeb_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Open Report List in Web" VerticalAlignment="Center" Click="mIConnection1OpenReportListInWeb_Click" />
+                    <MenuItem Header="Open Report List in Browser" VerticalAlignment="Center" Click="mIConnection1OpenReportListInWeb_Click" />
 
                     <Separator/>
                     <MenuItem Header="Create Entity Description" Click="mIExportReport1EntityDescription_Click" />
@@ -62,10 +62,10 @@
 
                 <Separator x:Uid="menuContextConnection2"/>
                 <MenuItem x:Uid="menuContextConnection2" Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Create from {0}">
-                    <MenuItem Header="Open Report in Web" VerticalAlignment="Center" Click="mIConnection2OpenSolutionComponentInWeb_Click" />
+                    <MenuItem Header="Open Report in Browser" VerticalAlignment="Center" Click="mIConnection2OpenSolutionComponentInWeb_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Open Report List in Web" VerticalAlignment="Center" Click="mIConnection2OpenReportListInWeb_Click" />
+                    <MenuItem Header="Open Report List in Browser" VerticalAlignment="Center" Click="mIConnection2OpenReportListInWeb_Click" />
 
                     <Separator/>
                     <MenuItem Header="Create Entity Description" Click="mIExportReport2EntityDescription_Click" />
@@ -215,10 +215,10 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu VerticalAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection1" Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Export from {0}">
-                            <MenuItem Header="Open Report in Web" VerticalAlignment="Center" Click="mIConnection1OpenSolutionComponentInWeb_Click" />
+                            <MenuItem Header="Open Report in Browser" VerticalAlignment="Center" Click="mIConnection1OpenSolutionComponentInWeb_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Open Report List in Web" VerticalAlignment="Center" Click="mIConnection1OpenReportListInWeb_Click" />
+                            <MenuItem Header="Open Report List in Browser" VerticalAlignment="Center" Click="mIConnection1OpenReportListInWeb_Click" />
 
                             <Separator/>
                             <MenuItem Header="Create Entity Description" Click="mIExportReport1EntityDescription_Click" />
@@ -239,10 +239,10 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu VerticalAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection2" Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Export from {0}">
-                            <MenuItem Header="Open Report in Web" VerticalAlignment="Center" Click="mIConnection2OpenSolutionComponentInWeb_Click" />
+                            <MenuItem Header="Open Report in Browser" VerticalAlignment="Center" Click="mIConnection2OpenSolutionComponentInWeb_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Open Report List in Web" VerticalAlignment="Center" Click="mIConnection2OpenReportListInWeb_Click" />
+                            <MenuItem Header="Open Report List in Browser" VerticalAlignment="Center" Click="mIConnection2OpenReportListInWeb_Click" />
 
                             <Separator/>
                             <MenuItem Header="Create Entity Description" Click="mIExportReport2EntityDescription_Click" />

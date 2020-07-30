@@ -12,16 +12,16 @@
 
             <ContextMenu x:Key="listContextMenuEntity" Opened="ContextMenu_Opened">
 
-                <MenuItem Header="Open in Web" Click="mIOpenInstanceInWeb_Click" FontWeight="Bold" />
+                <MenuItem Header="Open in Browser" Click="mIOpenInstanceInWeb_Click" FontWeight="Bold" />
 
                 <Separator/>
-                <MenuItem Header="Open Entity Customization in Web" Click="mIOpenEntityInWeb_Click" />
+                <MenuItem Header="Open Entity Customization in Browser" Click="mIOpenEntityInWeb_Click" />
 
                 <Separator/>
                 <MenuItem Header="Open Entity FetchXml File" Click="mIOpenEntityFetchXmlFile_Click" />
 
                 <Separator/>
-                <MenuItem Header="Open Entity List in Web" Click="mIOpenEntityListInWeb_Click"/>
+                <MenuItem Header="Open Entity List in Browser" Click="mIOpenEntityListInWeb_Click"/>
 
                 <Separator/>
                 <MenuItem Header="Open Entity Explorer" Click="mIOpenEntityExplorer_Click"/>
@@ -64,16 +64,16 @@
 
             <ContextMenu x:Key="listContextMenuEntityReference" Opened="ContextMenu_Opened">
 
-                <MenuItem Header="Open EntityReference in Web" Click="mIOpenEntityReferenceInWeb_Click" FontWeight="Bold" />
+                <MenuItem Header="Open EntityReference in Browser" Click="mIOpenEntityReferenceInWeb_Click" FontWeight="Bold" />
 
                 <Separator/>
-                <MenuItem Header="Open EntityReference Customization in Web" Click="mIOpenEntityReferenceCustomizationInWeb_Click" />
+                <MenuItem Header="Open EntityReference Customization in Browser" Click="mIOpenEntityReferenceCustomizationInWeb_Click" />
 
                 <Separator/>
                 <MenuItem Header="Open EntityReference FetchXml File" Click="mIOpenEntityReferenceFetchXmlFile_Click" />
 
                 <Separator/>
-                <MenuItem Header="Open EntityReference List in Web" Click="mIOpenEntityReferenceListInWeb_Click"/>
+                <MenuItem Header="Open EntityReference List in Browser" Click="mIOpenEntityReferenceListInWeb_Click"/>
 
                 <Separator/>
                 <MenuItem Header="Open EntityReference Explorer" Click="mIOpenEntityReferenceExplorer_Click"/>
@@ -97,13 +97,13 @@
                 <MenuItem Header="Change EntityReference in Editor" Click="mIChangeEntityReferenceInEditor_Click"/>
 
                 <Separator/>
-                <MenuItem Header="Open in Web" Click="mIOpenInstanceInWeb_Click" />
+                <MenuItem Header="Open in Browser" Click="mIOpenInstanceInWeb_Click" />
 
                 <Separator/>
-                <MenuItem Header="Open Entity Customization in Web" Click="mIOpenEntityInWeb_Click" />
+                <MenuItem Header="Open Entity Customization in Browser" Click="mIOpenEntityInWeb_Click" />
 
                 <Separator/>
-                <MenuItem Header="Open Entity List in Web" Click="mIOpenEntityListInWeb_Click"/>
+                <MenuItem Header="Open Entity List in Browser" Click="mIOpenEntityListInWeb_Click"/>
 
                 <Separator/>
                 <MenuItem Header="Open Entity Explorer" Click="mIOpenEntityExplorer_Click"/>

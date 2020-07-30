@@ -17,10 +17,10 @@
         <BooleanToVisibilityConverter x:Key="boolToVisibility"/>
 
         <ContextMenu x:Key="listContextMenuSystemUser">
-            <MenuItem Header="Open User in Web" Click="mIOpenEntityInstanceInWeb_Click" FontWeight="Bold" />
+            <MenuItem Header="Open User in Browser" Click="mIOpenEntityInstanceInWeb_Click" FontWeight="Bold" />
             
             <Separator/>
-            <MenuItem Header="Open User List in Web" Click="mIOpenEntityInstanceListInWeb_Click" />
+            <MenuItem Header="Open User List in Browser" Click="mIOpenEntityInstanceListInWeb_Click" />
             
             <Separator/>
             <MenuItem Header="Create User Entity Description" Click="mICreateEntityDescription_Click" />
@@ -38,16 +38,16 @@
 
             <Separator/>
             <MenuItem Header="Clipboard">
-                <MenuItem Header="Copy User Id to Clipboard" Click="mICopyEntityInstanceIdToClipboard_Click" />
-                <MenuItem Header="Copy User Url to Clipboard" Click="mICopyEntityInstanceUrlToClipboard_Click" />
+                <MenuItem Header="Copy to Clipboard User Id" Click="mICopyEntityInstanceIdToClipboard_Click" />
+                <MenuItem Header="Copy to Clipboard User Url" Click="mICopyEntityInstanceUrlToClipboard_Click" />
             </MenuItem>
         </ContextMenu>
 
         <ContextMenu x:Key="listContextMenuRole" Opened="ContextMenuRole_Opened">
-            <MenuItem Header="Open Role in Web" Click="mIOpenEntityInstanceInWeb_Click" FontWeight="Bold" />
+            <MenuItem Header="Open Role in Browser" Click="mIOpenEntityInstanceInWeb_Click" FontWeight="Bold" />
             
             <Separator/>
-            <MenuItem Header="Open Role List in Web" Click="mIOpenEntityInstanceListInWeb_Click" />
+            <MenuItem Header="Open Role List in Browser" Click="mIOpenEntityInstanceListInWeb_Click" />
             
             <Separator/>
             <MenuItem Header="Open Role Explorer" Click="mIOpenEntityExplorer_Click" />
@@ -57,8 +57,8 @@
             
             <Separator/>
             <MenuItem Header="Clipboard">
-                <MenuItem Header="Copy Role Id to Clipboard" Click="mICopyEntityInstanceIdToClipboard_Click" />
-                <MenuItem Header="Copy Role Url to Clipboard" Click="mICopyEntityInstanceUrlToClipboard_Click" />
+                <MenuItem Header="Copy to Clipboard Role Id" Click="mICopyEntityInstanceIdToClipboard_Click" />
+                <MenuItem Header="Copy to Clipboard Role Url" Click="mICopyEntityInstanceUrlToClipboard_Click" />
             </MenuItem>
             
             <Separator/>
@@ -70,10 +70,10 @@
         </ContextMenu>
 
         <ContextMenu x:Key="listContextMenuRoleByTeam" Opened="ContextMenuRoleByTeam_Opened">
-            <MenuItem Header="Open Role in Web" Click="mIOpenEntityInstanceInWeb_Click" FontWeight="Bold" />
+            <MenuItem Header="Open Role in Browser" Click="mIOpenEntityInstanceInWeb_Click" FontWeight="Bold" />
             
             <Separator/>
-            <MenuItem Header="Open Role List in Web" Click="mIOpenEntityInstanceListInWeb_Click" />
+            <MenuItem Header="Open Role List in Browser" Click="mIOpenEntityInstanceListInWeb_Click" />
             
             <Separator/>
             <MenuItem Header="Open Role Explorer" Click="mIOpenEntityExplorer_Click" />
@@ -83,20 +83,20 @@
             
             <Separator/>
             <MenuItem Header="Clipboard">
-                <MenuItem Header="Copy Role Id to Clipboard" Click="mICopyEntityInstanceIdToClipboard_Click" />
-                <MenuItem Header="Copy Role Url to Clipboard" Click="mICopyEntityInstanceUrlToClipboard_Click" />
+                <MenuItem Header="Copy to Clipboard Role Id" Click="mICopyEntityInstanceIdToClipboard_Click" />
+                <MenuItem Header="Copy to Clipboard Role Url" Click="mICopyEntityInstanceUrlToClipboard_Click" />
             </MenuItem>
             
             <Separator/>
             <MenuItem Header="Team">
-                <MenuItem Header="Open Team in Web" Click="mIOpenRoleTeamInWeb_Click" />
+                <MenuItem Header="Open Team in Browser" Click="mIOpenRoleTeamInWeb_Click" />
                 <Separator/>
                 <MenuItem Header="Open Team Explorer" Click="mIOpenRoleTeamExplorer_Click" />
                 <Separator/>
                 <MenuItem Header="Create Team Entity Description" Click="mICreateRoleTeamEntityDescription_Click" />
                 <Separator/>
-                <MenuItem Header="Copy Team Id to Clipboard" Click="mICopyRoleTeamIdToClipboard_Click" />
-                <MenuItem Header="Copy Team Url to Clipboard" Click="mICopyRoleTeamUrlToClipboard_Click" />
+                <MenuItem Header="Copy to Clipboard Team Id" Click="mICopyRoleTeamIdToClipboard_Click" />
+                <MenuItem Header="Copy to Clipboard Team Url" Click="mICopyRoleTeamUrlToClipboard_Click" />
             </MenuItem>
             
             <Separator/>
@@ -105,10 +105,10 @@
         </ContextMenu>
 
         <ContextMenu x:Key="listContextMenuTeam">
-            <MenuItem Header="Open Team in Web" Click="mIOpenEntityInstanceInWeb_Click" FontWeight="Bold" />
+            <MenuItem Header="Open Team in Browser" Click="mIOpenEntityInstanceInWeb_Click" FontWeight="Bold" />
             
             <Separator/>
-            <MenuItem Header="Open Team List in Web" Click="mIOpenEntityInstanceListInWeb_Click" />
+            <MenuItem Header="Open Team List in Browser" Click="mIOpenEntityInstanceListInWeb_Click" />
             
             <Separator/>
             <MenuItem Header="Open Team Explorer" Click="mIOpenEntityExplorer_Click" />
@@ -118,8 +118,8 @@
             
             <Separator/>
             <MenuItem Header="Clipboard">
-                <MenuItem Header="Copy Team Id to Clipboard" Click="mICopyEntityInstanceIdToClipboard_Click" />
-                <MenuItem Header="Copy Team Url to Clipboard" Click="mICopyEntityInstanceUrlToClipboard_Click" />
+                <MenuItem Header="Copy Team to Clipboard Id" Click="mICopyEntityInstanceIdToClipboard_Click" />
+                <MenuItem Header="Copy Team to Clipboard Url" Click="mICopyEntityInstanceUrlToClipboard_Click" />
             </MenuItem>
             
             <Separator/>
@@ -127,13 +127,13 @@
         </ContextMenu>
 
         <ContextMenu x:Key="listContextMenuEntityPrivileges" Opened="ContextMenuEntityPrivileges_Opened">
-            <MenuItem Header="Open Entity Customization in Web" Click="mIOpenEntityInWeb_Click" FontWeight="Bold" />
+            <MenuItem Header="Open Entity Customization in Browser" Click="mIOpenEntityInWeb_Click" FontWeight="Bold" />
 
             <Separator/>
             <MenuItem Header="Open Entity FetchXml File" Click="mIOpenEntityFetchXmlFile_Click" />
 
             <Separator/>
-            <MenuItem Header="Open Entity List in Web" Click="mIOpenEntityListInWeb_Click" />
+            <MenuItem Header="Open Entity List in Browser" Click="mIOpenEntityListInWeb_Click" />
 
             <Separator/>
             <MenuItem x:Uid="miEntityPrivilegesExplorer" Header="Entity Privileges Explorer" />
@@ -162,7 +162,7 @@
             
             <Separator/>
             <MenuItem Header="Dependent Components">
-                <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />
+                <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
                 <Separator/>
                 <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
             </MenuItem>
@@ -188,7 +188,7 @@
 
             <Separator/>
             <MenuItem Header="Dependent Components">
-                <MenuItem Header="Open Dependent Components in Web" Click="mIOtherPrivilegeOpenDependentComponentsInWeb_Click" />
+                <MenuItem Header="Open Dependent Components in Browser" Click="mIOtherPrivilegeOpenDependentComponentsInWeb_Click" />
                 <Separator/>
                 <MenuItem Header="Open Dependent Components in Explorer" Click="mIOtherPrivilegeOpenDependentComponentsInExplorer_Click" />
             </MenuItem>

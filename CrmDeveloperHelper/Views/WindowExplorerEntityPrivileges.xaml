@@ -23,13 +23,13 @@
         <BooleanToVisibilityConverter x:Key="boolToVisibility"/>
 
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-            <MenuItem Header="Open Entity Customization in Web" Click="mIOpenEntityInWeb_Click" FontWeight="Bold" />
+            <MenuItem Header="Open Entity Customization in Browser" Click="mIOpenEntityInWeb_Click" FontWeight="Bold" />
 
             <Separator/>
             <MenuItem Header="Open Entity FetchXml File" Click="mIOpenEntityFetchXmlFile_Click" />
 
             <Separator/>
-            <MenuItem Header="Open Entity List in Web" Click="mIOpenEntityListInWeb_Click" />
+            <MenuItem Header="Open Entity List in Browser" Click="mIOpenEntityListInWeb_Click" />
 
             <Separator/>
             <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution">
@@ -53,7 +53,7 @@
             <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
             <Separator/>
             <MenuItem Header="Dependent Components">
-                <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />
+                <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
                 <Separator/>
                 <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
             </MenuItem>
@@ -67,10 +67,10 @@
         </ContextMenu>
 
         <ContextMenu x:Key="listContextMenuSecurityRole" Opened="ContextMenuSecurityRole_Opened">
-            <MenuItem Header="Open Role in Web" Click="mIOpenSecurityRoleInWeb_Click" FontWeight="Bold" />
+            <MenuItem Header="Open Role in Browser" Click="mIOpenSecurityRoleInWeb_Click" FontWeight="Bold" />
 
             <Separator/>
-            <MenuItem Header="Open Role List in Web" Click="mIOpenSecurityRoleListInWeb_Click" />
+            <MenuItem Header="Open Role List in Browser" Click="mIOpenSecurityRoleListInWeb_Click" />
 
             <Separator/>
             <MenuItem Header="Open Role Explorer" Click="mIOpenSecurityRoleExplorer_Click" />
@@ -93,7 +93,7 @@
 
             <Separator/>
             <MenuItem Header="Dependent Components">
-                <MenuItem Header="Open Dependent Components in Web" Click="mISecurityRoleOpenDependentComponentsInWeb_Click" />
+                <MenuItem Header="Open Dependent Components in Browser" Click="mISecurityRoleOpenDependentComponentsInWeb_Click" />
                 <Separator/>
                 <MenuItem Header="Open Dependent Components in Explorer" Click="mISecurityRoleOpenDependentComponentsInExplorer_Click" />
             </MenuItem>

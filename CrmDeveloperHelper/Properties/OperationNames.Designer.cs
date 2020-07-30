@@ -1600,7 +1600,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Opening Entity in Web.
+        ///   Looks up a localized string similar to {0} - Opening Entity in Browser.
         /// </summary>
         internal static string OpeningEntityInWebFormat1 {
             get {
@@ -1618,7 +1618,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Opening Entity List in Web.
+        ///   Looks up a localized string similar to {0} - Opening Entity List in Browser.
         /// </summary>
         internal static string OpeningEntityListInWebFormat1 {
             get {

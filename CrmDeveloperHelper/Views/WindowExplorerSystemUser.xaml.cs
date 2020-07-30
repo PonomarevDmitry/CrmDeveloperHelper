@@ -1241,42 +1241,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void mICopyEntityInstanceIdToClipboard_Click(object sender, RoutedEventArgs e)
         {
-            if (!(e.OriginalSource is MenuItem menuItem))
-            {
-                return;
-            }
-
-            if (menuItem.DataContext == null
-                || !(menuItem.DataContext is Entity entity)
-                )
-            {
-                return;
-            }
-
-            ClipboardHelper.SetText(entity.Id.ToString());
+            GetEntityViewItemAndCopyToClipboard<Entity>(e, ent => ent.Id.ToString());
         }
 
         private void mICopyEntityInstanceUrlToClipboard_Click(object sender, RoutedEventArgs e)
         {
-            if (!(e.OriginalSource is MenuItem menuItem))
-            {
-                return;
-            }
-
-            if (menuItem.DataContext == null
-                || !(menuItem.DataContext is Entity entity)
-                )
-            {
-                return;
-            }
-
             ConnectionData connectionData = GetSelectedConnection();
 
             if (connectionData != null)
             {
-                var url = connectionData.GetEntityInstanceUrl(entity.LogicalName, entity.Id);
-
-                ClipboardHelper.SetText(url);
+                GetEntityViewItemAndCopyToClipboard<Entity>(e, ent => connectionData.GetEntityInstanceUrl(ent.LogicalName, ent.Id));
             }
         }
 
@@ -1977,7 +1951,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             string name1 = string.Format("User {0}", user1.FullName);
             string name2 = string.Format("Role {0}", role2.Name);
 
-            StringBuilder content = new StringBuilder();
+            var content = new StringBuilder();
 
             var privilegeComparer = PrivilegeNameComparer.Comparer;
 

@@ -14,11 +14,11 @@
                 <Separator/>
                 <MenuItem Header="Open Components in Explorer" VerticalAlignment="Center" Click="btnOpenComponentsInExplorer_Click"/>
                 <Separator/>
-                <MenuItem Header="Open in Web" VerticalAlignment="Center" Click="btnOpenSolutionInWeb_Click"/>
+                <MenuItem Header="Open in Browser" VerticalAlignment="Center" Click="btnOpenSolutionInWeb_Click"/>
                 <Separator/>
-                <MenuItem Header="Open Solution List in Web" VerticalAlignment="Center" Click="mIOpenSolutionListInWeb_Click" />
+                <MenuItem Header="Open Solution List in Browser" VerticalAlignment="Center" Click="mIOpenSolutionListInWeb_Click" />
                 <Separator/>
-                <MenuItem Header="Open Customization in Web" VerticalAlignment="Center" Click="mIOpenCustomizationInWeb_Click" />
+                <MenuItem Header="Open Customization in Browser" VerticalAlignment="Center" Click="mIOpenCustomizationInWeb_Click" />
                 <Separator/>
                 <MenuItem Header="Clear Unmanaged Solution" Click="ClearUnmanagedSolution_Click"/>
                 <Separator/>
@@ -108,7 +108,7 @@
                     <Button x:Name="btnSelectSolution" Content="Select Solution" Click="btnSelectSolution_Click" />
 
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0"/>
-                    <Button x:Name="btnOpenSolutionInWeb" Content="Open in Web" Click="btnOpenSolutionInWeb_Click" />
+                    <Button x:Name="btnOpenSolutionInWeb" Content="Open in Browser" Click="btnOpenSolutionInWeb_Click" />
 
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0"/>
                     <Button Content="Create New Solution" Click="mICreateNewSolution_Click" />

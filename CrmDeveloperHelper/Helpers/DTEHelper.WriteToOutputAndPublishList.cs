@@ -998,10 +998,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             this.WriteToOutput(connectionData, "Selected Solution              : {0}", solutionUniqueName);
 
             this.WriteToOutput(connectionData, string.Empty);
-            this.WriteToOutput(connectionData, "Open Solution List in Web      : {0}", connectionData.GetOpenCrmWebSiteUrl(OpenCrmWebSiteType.Solutions));
+            this.WriteToOutput(connectionData, "Open Solution List in Browser  : {0}", connectionData.GetOpenCrmWebSiteUrl(OpenCrmWebSiteType.Solutions));
 
             this.WriteToOutput(connectionData, string.Empty);
-            this.WriteToOutput(connectionData, "Open Solution in Web           : {0}", solutionUrl);
+            this.WriteToOutput(connectionData, "Open Solution in Browser       : {0}", solutionUrl);
 
             this.WriteToOutput(connectionData, string.Empty);
             this.WriteToOutput(connectionData, "Open Solutions Explorer        : {0}", urlOpenSolutionList);

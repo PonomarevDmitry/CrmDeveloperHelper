@@ -44,7 +44,7 @@
                 <MenuItem Header="Collapse Nodes" Click="mICollapseNodes_Click" />
 
                 <Separator x:Uid="contMnOpenInWeb" />
-                <MenuItem x:Uid="contMnOpenInWeb" Header="Open in Web" Click="mIOpenInWeb_Click"/>
+                <MenuItem x:Uid="contMnOpenInWeb" Header="Open in Browser" Click="mIOpenInWeb_Click"/>
 
                 <Separator x:Uid="contMnCreateDescription" />
                 <MenuItem x:Uid="contMnCreateDescription" Header="Create Description" Click="mICreateDescription_Click"/>
@@ -72,8 +72,8 @@
 
                 <Separator x:Uid="contMnEntity" />
                 <MenuItem x:Uid="contMnEntity" Header="Entity">
-                    <MenuItem Header="Open Entity Customization in Web" Click="mIOpenEntityInWeb_Click" />
-                    <MenuItem Header="Open Entity List in Web" Click="mIOpenEntityListInWeb_Click" />
+                    <MenuItem Header="Open Entity Customization in Browser" Click="mIOpenEntityInWeb_Click" />
+                    <MenuItem Header="Open Entity List in Browser" Click="mIOpenEntityListInWeb_Click" />
 
                     <Separator/>
                     <MenuItem Header="Open Entity FetchXml File" Click="mIOpenEntityFetchXmlFile_Click" />
@@ -105,7 +105,7 @@
 
                     <Separator/>
                     <MenuItem Header="Dependent Components">
-                        <MenuItem Header="Open Dependent Components in Web" Click="miOpenEntityDependentComponentsInWeb_Click" />
+                        <MenuItem Header="Open Dependent Components in Browser" Click="miOpenEntityDependentComponentsInWeb_Click" />
                         <Separator/>
                         <MenuItem Header="Open Dependent Components in Explorer" Click="miOpenEntityDependentComponentsInExplorer_Click" />
                     </MenuItem>
@@ -143,7 +143,7 @@
 
                 <Separator x:Uid="contMnDependentComponents" />
                 <MenuItem x:Uid="contMnDependentComponents" Header="Dependent Components">
-                    <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />
+                    <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
                     <Separator/>
                     <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
                 </MenuItem>

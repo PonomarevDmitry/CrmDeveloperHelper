@@ -831,5 +831,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _selectedItem.Project.Save();
             }
         }
+
+        protected static void GetEntityViewItemAndCopyToClipboard<T>(RoutedEventArgs e, Func<T, string> valueGetter)
+        {
+            if (!(e.OriginalSource is MenuItem menuItem))
+            {
+                return;
+            }
+
+            if (menuItem.DataContext == null
+                || !(menuItem.DataContext is T entity)
+                )
+            {
+                return;
+            }
+
+            string value = valueGetter(entity);
+
+            ClipboardHelper.SetText(value);
+        }
     }
 }

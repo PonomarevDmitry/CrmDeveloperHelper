@@ -37,8 +37,8 @@
                 <Separator x:Uid="menuContextDifference"/>
 
                 <MenuItem Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Create from {0}">
-                    <MenuItem Header="Open Workflow in Web" Click="mIConnection1OpenSolutionComponentInWeb_Click" />
-                    <MenuItem Header="Open Workflow List in Web" Click="mIConnection1OpenWorkflowListInWeb_Click" />
+                    <MenuItem Header="Open Workflow in Browser" Click="mIConnection1OpenSolutionComponentInWeb_Click" />
+                    <MenuItem Header="Open Workflow List in Browser" Click="mIConnection1OpenWorkflowListInWeb_Click" />
 
                     <Separator/>
                     <MenuItem Header="Create Entity Description" Click="mIExportWorkflow1EntityDescription_Click"/>
@@ -52,13 +52,13 @@
                     <MenuItem Header="Corrected Xaml" Click="mIExportWorkflow1CorrectedXaml_Click"/>
 
                     <Separator/>
-                    <MenuItem Header="Open Entity Customization in Web" Click="miConnection1OpenEntityMetadataInWeb_Click" />
+                    <MenuItem Header="Open Entity Customization in Browser" Click="miConnection1OpenEntityMetadataInWeb_Click" />
 
                     <Separator/>
                     <MenuItem Header="Open Entity FetchXml File" Click="miConnection1OpenEntityFetchXmlFile_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Open Entity List in Web" Click="miConnection1OpenEntityInstanceListInWeb_Click" />
+                    <MenuItem Header="Open Entity List in Browser" Click="miConnection1OpenEntityInstanceListInWeb_Click" />
                 </MenuItem>
 
                 <Separator/>
@@ -66,8 +66,8 @@
 
                 <Separator x:Uid="menuContextConnection2"/>
                 <MenuItem x:Uid="menuContextConnection2" Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Create from {0}">
-                    <MenuItem Header="Open Workflow in Web" Click="mIConnection2OpenSolutionComponentInWeb_Click" />
-                    <MenuItem Header="Open Workflow List in Web" Click="mIConnection2OpenWorkflowListInWeb_Click" />
+                    <MenuItem Header="Open Workflow in Browser" Click="mIConnection2OpenSolutionComponentInWeb_Click" />
+                    <MenuItem Header="Open Workflow List in Browser" Click="mIConnection2OpenWorkflowListInWeb_Click" />
 
                     <Separator/>
                     <MenuItem Header="Create Entity Description" Click="mIExportWorkflow2EntityDescription_Click"/>
@@ -81,13 +81,13 @@
                     <MenuItem Header="Corrected Xaml" Click="mIExportWorkflow2CorrectedXaml_Click"/>
 
                     <Separator/>
-                    <MenuItem Header="Open Entity Customization in Web" Click="miConnection2OpenEntityMetadataInWeb_Click" />
+                    <MenuItem Header="Open Entity Customization in Browser" Click="miConnection2OpenEntityMetadataInWeb_Click" />
 
                     <Separator/>
                     <MenuItem Header="Open Entity FetchXml File" Click="miConnection2OpenEntityFetchXmlFile_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Open Entity List in Web" Click="miConnection2OpenEntityInstanceListInWeb_Click" />
+                    <MenuItem Header="Open Entity List in Browser" Click="miConnection2OpenEntityInstanceListInWeb_Click" />
                 </MenuItem>
 
                 <Separator x:Uid="menuContextConnection2"/>
@@ -268,8 +268,8 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection1" Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Export from {0}">
-                            <MenuItem Header="Open Workflow in Web" Click="mIConnection1OpenSolutionComponentInWeb_Click" />
-                            <MenuItem Header="Open Workflow List in Web" Click="mIConnection1OpenWorkflowListInWeb_Click" />
+                            <MenuItem Header="Open Workflow in Browser" Click="mIConnection1OpenSolutionComponentInWeb_Click" />
+                            <MenuItem Header="Open Workflow List in Browser" Click="mIConnection1OpenWorkflowListInWeb_Click" />
 
                             <Separator/>
                             <MenuItem Header="Create Entity Description" Click="mIExportWorkflow1EntityDescription_Click"/>
@@ -285,21 +285,21 @@
                             <MenuItem Header="Corrected Xaml" Click="mIExportWorkflow1CorrectedXaml_Click"/>
 
                             <Separator/>
-                            <MenuItem Header="Open Entity Customization in Web" Click="miConnection1OpenEntityMetadataInWeb_Click" />
+                            <MenuItem Header="Open Entity Customization in Browser" Click="miConnection1OpenEntityMetadataInWeb_Click" />
 
                             <Separator/>
                             <MenuItem Header="Open Entity FetchXml File" Click="miConnection1OpenEntityFetchXmlFile_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Open Entity List in Web" Click="miConnection1OpenEntityInstanceListInWeb_Click" />
+                            <MenuItem Header="Open Entity List in Browser" Click="miConnection1OpenEntityInstanceListInWeb_Click" />
                         </MenuItem>
                     </Menu>
 
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection2" Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Export from {0}">
-                            <MenuItem Header="Open Workflow in Web" Click="mIConnection2OpenSolutionComponentInWeb_Click" />
-                            <MenuItem Header="Open Workflow List in Web" Click="mIConnection2OpenWorkflowListInWeb_Click" />
+                            <MenuItem Header="Open Workflow in Browser" Click="mIConnection2OpenSolutionComponentInWeb_Click" />
+                            <MenuItem Header="Open Workflow List in Browser" Click="mIConnection2OpenWorkflowListInWeb_Click" />
 
                             <Separator/>
                             <MenuItem Header="Create Entity Description" Click="mIExportWorkflow2EntityDescription_Click"/>
@@ -315,13 +315,13 @@
                             <MenuItem Header="Corrected Xaml" Click="mIExportWorkflow2CorrectedXaml_Click"/>
 
                             <Separator/>
-                            <MenuItem Header="Open Entity Customization in Web" Click="miConnection2OpenEntityMetadataInWeb_Click" />
+                            <MenuItem Header="Open Entity Customization in Browser" Click="miConnection2OpenEntityMetadataInWeb_Click" />
 
                             <Separator/>
                             <MenuItem Header="Open Entity FetchXml File" Click="miConnection2OpenEntityFetchXmlFile_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Open Entity List in Web" Click="miConnection2OpenEntityInstanceListInWeb_Click" />
+                            <MenuItem Header="Open Entity List in Browser" Click="miConnection2OpenEntityInstanceListInWeb_Click" />
                         </MenuItem>
                     </Menu>
                 </ToolBarPanel>

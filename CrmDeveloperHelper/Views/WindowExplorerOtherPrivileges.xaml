@@ -27,10 +27,10 @@
             <BooleanToVisibilityConverter x:Key="boolToVisibility"/>
 
             <ContextMenu x:Key="listContextMenuSecurityRole" Opened="ContextMenuSecurityRole_Opened">
-                <MenuItem Header="Open Role in Web" VerticalAlignment="Center" Click="mIOpenSecurityRoleInWeb_Click" FontWeight="Bold" />
+                <MenuItem Header="Open Role in Browser" VerticalAlignment="Center" Click="mIOpenSecurityRoleInWeb_Click" FontWeight="Bold" />
 
                 <Separator/>
-                <MenuItem Header="Open Role List in Web" VerticalAlignment="Center" Click="mIOpenSecurityRoleListInWeb_Click" />
+                <MenuItem Header="Open Role List in Browser" VerticalAlignment="Center" Click="mIOpenSecurityRoleListInWeb_Click" />
 
                 <Separator/>
                 <MenuItem Header="Open Role Explorer" VerticalAlignment="Center" Click="mIOpenSecurityRoleExplorer_Click" />
@@ -53,7 +53,7 @@
 
                 <Separator/>
                 <MenuItem Header="Dependent Components">
-                    <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mISecurityRoleOpenDependentComponentsInWeb_Click" />
+                    <MenuItem Header="Open Dependent Components in Browser" VerticalAlignment="Center" Click="mISecurityRoleOpenDependentComponentsInWeb_Click" />
                     <Separator/>
                     <MenuItem Header="Open Dependent Components in Explorer" VerticalAlignment="Center" Click="mISecurityRoleOpenDependentComponentsInExplorer_Click" />
                 </MenuItem>
@@ -69,7 +69,7 @@
 
                 <Separator/>
                 <MenuItem Header="Dependent Components">
-                    <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOtherPrivilegeOpenDependentComponentsInWeb_Click" />
+                    <MenuItem Header="Open Dependent Components in Browser" VerticalAlignment="Center" Click="mIOtherPrivilegeOpenDependentComponentsInWeb_Click" />
                     <Separator/>
                     <MenuItem Header="Open Dependent Components in Explorer" VerticalAlignment="Center" Click="mIOtherPrivilegeOpenDependentComponentsInExplorer_Click" />
                 </MenuItem>

@@ -18,7 +18,7 @@
             </ResourceDictionary.MergedDictionaries>
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-                <MenuItem Header="Open in Web" Click="mIOpenInWeb_Click" FontWeight="Bold" />
+                <MenuItem Header="Open in Browser" Click="mIOpenInWeb_Click" FontWeight="Bold" />
 
                 <Separator/>
                 <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
@@ -42,14 +42,14 @@
 
                 <Separator/>
                 <MenuItem Header="Dependent Components">
-                    <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />
+                    <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
 
                     <Separator/>
                     <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
                 </MenuItem>
 
                 <Separator/>
-                <MenuItem Header="Open Solution in Web" Click="OpenSolutionInWeb_Click" />
+                <MenuItem Header="Open Solution in Browser" Click="OpenSolutionInWeb_Click" />
 
                 <Separator/>
                 <MenuItem Header="Open SolutionImage Window" Click="mIOpenSolutionImage_Click" />
@@ -89,7 +89,7 @@
 
             <Separator/>
             <Menu Background="{x:Null}">
-                <MenuItem Header="Open in Web">
+                <MenuItem Header="Open in Browser">
                     <MenuItem Header="Current Solution" Click="OpenSolutionInWeb_Click" />
 
                     <Separator/>
@@ -198,7 +198,7 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="mISolutionInformation" Header="Solution Information">
-                            <MenuItem Header="Open Current Solution in Web" Click="OpenSolutionInWeb_Click" />
+                            <MenuItem Header="Open Current Solution in Browser" Click="OpenSolutionInWeb_Click" />
 
                             <Separator/>
                             <MenuItem Header="Create Current Solution Entity Description" Click="mICreateSolutionEntityDescription_Click" />
@@ -242,7 +242,7 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBExportSolutionComponent" Header="Export Solution Component Information">
-                            <MenuItem Header="Open in Web" Click="mIOpenInWeb_Click" />
+                            <MenuItem Header="Open in Browser" Click="mIOpenInWeb_Click" />
 
                             <Separator/>
                             <MenuItem x:Name="mICreateEntityDescription" Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
@@ -252,7 +252,7 @@
 
                             <Separator/>
                             <MenuItem Header="Dependent Components">
-                                <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />
+                                <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
 
                                 <Separator/>
                                 <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />

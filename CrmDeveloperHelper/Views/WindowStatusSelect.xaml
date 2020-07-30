@@ -14,10 +14,10 @@
 
             <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                 <MenuItem x:Name="mIEntityInformation" Header="Entity Information">
-                    <MenuItem Header="Open Entity List in Web" Click="mIOpenEntityInstanceListInWeb_Click" />
+                    <MenuItem Header="Open Entity List in Browser" Click="mIOpenEntityInstanceListInWeb_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Open Entity Customization in Web" Click="mIOpenEntityInstanceCustomizationInWeb_Click" />
+                    <MenuItem Header="Open Entity Customization in Browser" Click="mIOpenEntityInstanceCustomizationInWeb_Click" />
 
                     <Separator/>
                     <MenuItem Header="Open Entity FetchXml File" Click="mIOpenEntityFetchXmlFile_Click" />

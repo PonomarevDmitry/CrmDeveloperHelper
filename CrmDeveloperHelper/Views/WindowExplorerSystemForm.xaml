@@ -17,13 +17,29 @@
             </ResourceDictionary.MergedDictionaries>
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-                <MenuItem Header="Open SystemForm in Web" Click="mIOpenInWeb_Click" FontWeight="Bold"/>
+                <MenuItem Header="Open SystemForm in Browser" Click="mIOpenInWeb_Click" FontWeight="Bold"/>
 
                 <Separator/>
                 <MenuItem Header="Form Description" Click="mIExportSystemFormDescription_Click" />
 
                 <Separator/>
                 <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
+
+                <Separator/>
+                <MenuItem Header="Clipboard">
+                    <MenuItem Header="Copy to Clipboard Form Id" Click="mISystemFormCopyFormId_Click" />
+                    <MenuItem Header="Copy to Clipboard Entity Logical Name" Click="mISystemFormCopyFormEntityName_Click" />
+                    <MenuItem Header="Copy to Clipboard Form Type Code" Click="mISystemFormCopyFormTypeCode_Click" />
+                    <MenuItem Header="Copy to Clipboard Form Type Name" Click="mISystemFormCopyFormTypeName_Click" />
+                    <MenuItem Header="Copy to Clipboard Form Name" Click="mISystemFormCopyFormName_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard Form Properties" Click="mISystemFormCopyFormProperties_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard Constructor Attributes based on Form" Click="mISystemFormCopyConstructor_Click" />
+                    <MenuItem Header="Copy to Clipboard JsonObject Attributes based on Form" Click="mISystemFormCopyJsonObject_Click" />
+                </MenuItem>
 
                 <Separator />
                 <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SystemForm in Editor" Click="mIChangeEntityInEditor_Click"/>
@@ -48,8 +64,8 @@
                 <MenuItem Header="Publish SystemForm" Click="mIPublishSystemForm_Click" />
 
                 <Separator x:Uid="contMnEntity"/>
-                <MenuItem x:Uid="contMnEntity" Header="Open Entity Customization in Web" Click="mIOpenEntityInWeb_Click" />
-                <MenuItem x:Uid="contMnEntity" Header="Open Entity List in Web" Click="mIOpenEntityListInWeb_Click" />
+                <MenuItem x:Uid="contMnEntity" Header="Open Entity Customization in Browser" Click="mIOpenEntityInWeb_Click" />
+                <MenuItem x:Uid="contMnEntity" Header="Open Entity List in Browser" Click="mIOpenEntityListInWeb_Click" />
 
                 <Separator x:Uid="contMnEntity" />
                 <MenuItem x:Uid="contMnEntity" Header="Open Entity FetchXml File" Click="mIOpenEntityFetchXmlFile_Click" />
@@ -73,13 +89,6 @@
                     <MenuItem Header="Include As ShellOnly" Click="AddToCrmSolutionIncludeAsShellOnly_Click" />
                 </MenuItem>
 
-                <Separator/>
-                <MenuItem Header="Copy to Clipboard Form Properties" Click="mISystemFormCopyFormProperties_Click" />
-
-                <Separator/>
-                <MenuItem Header="Copy to Clipboard Constructor Attributes based on Form" Click="mISystemFormCopyConstructor_Click" />
-                <MenuItem Header="Copy to Clipboard JsonObject Attributes based on Form" Click="mISystemFormCopyJsonObject_Click" />
-
                 <Separator x:Uid="contMnEntity"/>
                 <MenuItem x:Uid="contMnEntity" Header="Create Entity JavaScript File">
                     <MenuItem x:Uid="contMnEntity" Header="JsonObject based on Form" Click="mIExportSystemFormEntityJavaScriptFileJsonObject_Click" />
@@ -95,7 +104,7 @@
 
                 <Separator/>
                 <MenuItem Header="Dependent Components">
-                    <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />
+                    <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
                     <Separator/>
                     <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
                 </MenuItem>
@@ -369,7 +378,7 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBExportSystemForm" Header="Export Form Information" SubmenuOpened="tSDDBExportSystemForm_SubmenuOpened">
-                            <MenuItem Header="Open SystemForm in Web" Click="mIOpenInWeb_Click"/>
+                            <MenuItem Header="Open SystemForm in Browser" Click="mIOpenInWeb_Click"/>
                             <Separator/>
                             <MenuItem Header="Form Description" Click="mIExportSystemFormDescription_Click" />
 
@@ -412,7 +421,7 @@
 
                             <Separator/>
                             <MenuItem Header="Dependent Components">
-                                <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />
+                                <MenuItem Header="Open Dependent Components in Browser" Click="mIOpenDependentComponentsInWeb_Click" />
                                 <Separator/>
                                 <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
                             </MenuItem>

@@ -712,7 +712,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 MenuItem mILinkedComponentOpenInWeb = new MenuItem()
                 {
-                    Header = "Open in Web",
+                    Header = "Open in Browser",
                     Tag = solutionComponent,
                 };
                 mILinkedComponentOpenInWeb.Click += MILinkedComponentOpenInWeb_Click;
@@ -724,7 +724,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 MenuItem mILinkedComponentOpenEntityListInWeb = new MenuItem()
                 {
-                    Header = "Open Entity List in Web",
+                    Header = "Open Entity List in Browser",
                     Tag = solutionComponent,
                 };
                 mILinkedComponentOpenEntityListInWeb.Click += mILinkedComponentOpenEntityListInWeb_Click;
@@ -889,7 +889,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 MenuItem mILinkedComponentOpenDependentComponentsInWeb = new MenuItem()
                 {
-                    Header = "Open Dependent Components in Web",
+                    Header = "Open Dependent Components in Browser",
                     Tag = solutionComponent,
                 };
                 mILinkedComponentOpenDependentComponentsInWeb.Click += MILinkedComponentOpenDependentComponentsInWeb_Click;

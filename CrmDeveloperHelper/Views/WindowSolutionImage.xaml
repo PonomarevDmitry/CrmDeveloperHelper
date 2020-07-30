@@ -13,7 +13,7 @@
     >
     <src:WindowWithSolutionComponentDescriptor.Resources>
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-            <MenuItem Header="Open Component in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click" />
+            <MenuItem Header="Open Component in Browser" VerticalAlignment="Center" Click="mIOpenInWeb_Click" />
             <Separator/>
             <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" VerticalAlignment="Center" />
             <MenuItem Header="Add to Crm Solution" VerticalAlignment="Center" Click="AddToSolution_Click" />
@@ -21,7 +21,7 @@
             <MenuItem Header="Open Solutions List with Component in Explorer" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
             <Separator/>
             <MenuItem Header="Dependent Components">
-                <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
+                <MenuItem Header="Open Dependent Components in Browser" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
                 <Separator/>
                 <MenuItem Header="Open Dependent Components in Explorer" VerticalAlignment="Center" Click="mIOpenDependentComponentsInExplorer_Click" />
             </MenuItem>

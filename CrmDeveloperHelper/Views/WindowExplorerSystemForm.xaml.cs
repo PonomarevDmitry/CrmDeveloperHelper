@@ -1766,6 +1766,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             SetCurrentConnection(_iWriteToOutput, GetSelectedConnection());
         }
 
+        #region Copy to Clipboard
+
         private async void mISystemFormCopyJsonObject_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
@@ -1908,6 +1910,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CopyingEntityJavaScriptContentOnFormCompletedFormat2, entityName, name);
         }
+
+        private void mISystemFormCopyFormId_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.SystemForm.Id.ToString());
+        }
+
+        private void mISystemFormCopyFormEntityName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.ObjectTypeCode);
+        }
+
+        private void mISystemFormCopyFormTypeCode_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.SystemForm.Type?.Value.ToString());
+        }
+
+        private void mISystemFormCopyFormTypeName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.FormType);
+        }
+
+        private void mISystemFormCopyFormName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.Name);
+        }
+
+        #endregion Copy to Clipboard
 
         private async void hyperlinkFormDescription_Click(object sender, RoutedEventArgs e)
         {

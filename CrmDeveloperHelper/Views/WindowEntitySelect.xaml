@@ -8,10 +8,10 @@
             <MenuItem Header="Select Entity" Click="btnSelectEntity_Click"/>
             
             <Separator/>
-            <MenuItem Header="Open Entity in Web" Click="mIOpenEntityInstanceInWeb_Click" />
+            <MenuItem Header="Open Entity in Browser" Click="mIOpenEntityInstanceInWeb_Click" />
             
             <Separator/>
-            <MenuItem Header="Open Entity List in Web" Click="mIOpenEntityInstanceListInWeb_Click" />
+            <MenuItem Header="Open Entity List in Browser" Click="mIOpenEntityInstanceListInWeb_Click" />
             
             <Separator/>
             <MenuItem Header="Clipboard">
@@ -20,7 +20,7 @@
             </MenuItem>
             
             <Separator/>
-            <MenuItem Header="Open Entity Customization in Web" Click="mIOpenEntityInstanceCustomizationInWeb_Click" />
+            <MenuItem Header="Open Entity Customization in Browser" Click="mIOpenEntityInstanceCustomizationInWeb_Click" />
 
             <Separator/>
             <MenuItem Header="Open Entity FetchXml File" Click="mIOpenEntityFetchXmlFile_Click" />

@@ -35,7 +35,7 @@
                 <Separator x:Uid="menuContextDifference"/>
 
                 <MenuItem Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Create from {0}">
-                    <MenuItem Header="Open SavedQuery in Web" Click="mIConnection1OpenSolutionComponentInWeb_Click" />
+                    <MenuItem Header="Open SavedQuery in Browser" Click="mIConnection1OpenSolutionComponentInWeb_Click" />
 
                     <Separator/>
                     <MenuItem Header="Create Entity Description" Click="mIExportSavedQuery1EntityDescription_Click"/>
@@ -46,13 +46,13 @@
                     <MenuItem Header="Offline Sql Query" Click="mIExportSavedQuery1OfflineSqlQuery_Click"/>
 
                     <Separator/>
-                    <MenuItem Header="Open Entity Customization in Web" Click="miConnection1OpenEntityMetadataInWeb_Click" />
+                    <MenuItem Header="Open Entity Customization in Browser" Click="miConnection1OpenEntityMetadataInWeb_Click" />
 
                     <Separator/>
                     <MenuItem Header="Open Entity FetchXml File" Click="miConnection1OpenEntityFetchXmlFile_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Open Entity List in Web" Click="miConnection1OpenEntityInstanceListInWeb_Click" />
+                    <MenuItem Header="Open Entity List in Browser" Click="miConnection1OpenEntityInstanceListInWeb_Click" />
                 </MenuItem>
 
                 <Separator/>
@@ -60,7 +60,7 @@
 
                 <Separator x:Uid="menuContextConnection2"/>
                 <MenuItem x:Uid="menuContextConnection2" Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Create from {0}">
-                    <MenuItem Header="Open SavedQuery in Web" Click="mIConnection2OpenSolutionComponentInWeb_Click" />
+                    <MenuItem Header="Open SavedQuery in Browser" Click="mIConnection2OpenSolutionComponentInWeb_Click" />
 
                     <Separator/>
                     <MenuItem Header="Create Entity Description" Click="mIExportSavedQuery2EntityDescription_Click"/>
@@ -71,13 +71,13 @@
                     <MenuItem Header="Offline Sql Query" Click="mIExportSavedQuery2OfflineSqlQuery_Click"/>
 
                     <Separator/>
-                    <MenuItem Header="Open Entity Customization in Web" Click="miConnection2OpenEntityMetadataInWeb_Click" />
+                    <MenuItem Header="Open Entity Customization in Browser" Click="miConnection2OpenEntityMetadataInWeb_Click" />
 
                     <Separator/>
                     <MenuItem Header="Open Entity FetchXml File" Click="miConnection2OpenEntityFetchXmlFile_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Open Entity List in Web" Click="miConnection2OpenEntityInstanceListInWeb_Click" />
+                    <MenuItem Header="Open Entity List in Browser" Click="miConnection2OpenEntityInstanceListInWeb_Click" />
                 </MenuItem>
 
                 <Separator x:Uid="menuContextConnection2"/>

@@ -110,13 +110,13 @@
                                     <MenuItem Header="Create New Solution" Click="miCreateNewSolution_Click" />
 
                                     <Separator/>
-                                    <MenuItem Header="Open Solution List in Web" Click="mIOpenSolutionListInWeb_Click" />
+                                    <MenuItem Header="Open Solution List in Browser" Click="mIOpenSolutionListInWeb_Click" />
 
                                     <Separator/>
-                                    <MenuItem Header="Open Customization in Web" Click="mIOpenCustomizationInWeb_Click" />
+                                    <MenuItem Header="Open Customization in Browser" Click="mIOpenCustomizationInWeb_Click" />
 
                                     <Separator/>
-                                    <MenuItem Header="Open Default Solution in Web" Click="mIOpenDefaultSolutionInWeb_Click" />
+                                    <MenuItem Header="Open Default Solution in Browser" Click="mIOpenDefaultSolutionInWeb_Click" />
 
                                     <Separator/>
                                     <MenuItem Header="Open SolutionImage Window" Click="mIOpenSolutionImage_Click" />
