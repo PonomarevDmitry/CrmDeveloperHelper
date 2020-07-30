@@ -23,6 +23,24 @@
                 <Separator/>
                 <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
 
+                <Separator/>
+                <MenuItem Header="Clipboard">
+
+                    <MenuItem Header="Copy to Clipboard Name" Click="mIClipboardCopyName_Click" />
+                    <MenuItem Header="Copy to Clipboard DisplayName" Click="mIClipboardCopyDisplayName_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard Object Id" Click="mIClipboardCopyObjectId_Click" />
+                    
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard ComponentType Code" Click="mIClipboardCopyComponentTypeCode_Click" />
+                    <MenuItem Header="Copy to Clipboard ComponentType Name" Click="mIClipboardCopyComponentTypeName_Click" />
+                    
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard Entity Id" Click="mIClipboardCopyEntityId_Click" />
+
+                </MenuItem>
+
                 <Separator x:Uid="contMnExplorer"/>
                 <MenuItem x:Uid="contMnExplorer" Header="Component Explorer" Click="mIOpenExplorer_Click"/>
 

@@ -1375,5 +1375,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(true, Properties.OutputStrings.CreatingTextFileWithComponentsCompletedFormat1, componentsName);
         }
+
+        #region Clipboard
+
+        private void mIClipboardCopyName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<SolutionComponentViewItem>(e, ent => ent.Name);
+        }
+
+        private void mIClipboardCopyDisplayName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<SolutionComponentViewItem>(e, ent => ent.DisplayName);
+        }
+
+        private void mIClipboardCopyObjectId_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<SolutionComponentViewItem>(e, ent => ent.SolutionComponent.ObjectId.ToString());
+        }
+
+        private void mIClipboardCopyComponentTypeCode_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<SolutionComponentViewItem>(e, ent => ent.SolutionComponent.ComponentType?.Value.ToString());
+        }
+
+        private void mIClipboardCopyComponentTypeName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<SolutionComponentViewItem>(e, ent => ent.ComponentType);
+        }
+
+        private void mIClipboardCopyEntityId_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<SolutionComponentViewItem>(e, ent => ent.SolutionComponent.Id.ToString());
+        }
+
+        #endregion Clipboard
     }
 }
