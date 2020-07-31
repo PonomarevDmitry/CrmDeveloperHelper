@@ -951,5 +951,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             mIDeleteCustomControl_Click(sender, e);
         }
+
+        #region Clipboard
+
+        private void mIClipboardCopyName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.Name);
+        }
+
+        private void mIClipboardCopyCompatibleDataTypes_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.CompatibleDataTypes);
+        }
+
+        private void mIClipboardCopyCustomControlId_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.CustomControl.Id.ToString());
+        }
+
+        #endregion Clipboard
     }
 }

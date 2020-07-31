@@ -13,7 +13,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 try
                 {
-                    Clipboard.SetText(text);
+                    Clipboard.SetText(text ?? string.Empty);
                 }
                 catch (Exception ex)
                 {

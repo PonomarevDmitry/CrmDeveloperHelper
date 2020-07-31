@@ -186,7 +186,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private List<Solution> GetSolutionsAll(string name, int? componentType, Guid? objectId)
         {
-            QueryExpression query = new QueryExpression()
+            var query = new QueryExpression()
             {
                 NoLock = true,
 
@@ -195,14 +195,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 EntityName = Solution.EntityLogicalName,
 
                 ColumnSet = new ColumnSet(true),
-
-                //Criteria =
-                //{
-                //    Conditions =
-                //    {
-                //        new ConditionExpression("isvisible", ConditionOperator.Equal, true)
-                //    }
-                //},
 
                 LinkEntities =
                 {
@@ -230,14 +222,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (!string.IsNullOrEmpty(name))
             {
-                query.Criteria.Filters.Add(new FilterExpression(LogicalOperator.Or)
+                if (Guid.TryParse(name, out Guid id))
                 {
-                    Conditions =
+                    query.Criteria.Conditions.Add(new ConditionExpression(Solution.Schema.Attributes.solutionid, ConditionOperator.Equal, id));
+                }
+                else
+                {
+                    query.Criteria.Filters.Add(new FilterExpression(LogicalOperator.Or)
                     {
-                        new ConditionExpression(Solution.Schema.Attributes.uniquename, ConditionOperator.Like, "%" + name + "%"),
-                        new ConditionExpression(Solution.Schema.Attributes.friendlyname, ConditionOperator.Like, "%" + name + "%"),
-                    },
-                });
+                        Conditions =
+                        {
+                            new ConditionExpression(Solution.Schema.Attributes.uniquename, ConditionOperator.Like, "%" + name + "%"),
+                            new ConditionExpression(Solution.Schema.Attributes.friendlyname, ConditionOperator.Like, "%" + name + "%"),
+                        },
+                    });
+                }
             }
 
             if (objectId.HasValue && componentType.HasValue)

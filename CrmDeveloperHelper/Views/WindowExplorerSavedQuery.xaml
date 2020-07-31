@@ -27,6 +27,23 @@
                 <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
 
                 <Separator/>
+                <MenuItem Header="Clipboard">
+
+                    <MenuItem Header="Copy to Clipboard Entity Name" Click="mIClipboardCopyEntityName_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard Name" Click="mIClipboardCopyName_Click" />
+                    
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard QueryType Code" Click="mIClipboardCopyQueryTypeCode_Click" />
+                    <MenuItem Header="Copy to Clipboard QueryType Name" Click="mIClipboardCopyQueryTypeName_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard SavedQuery Id" Click="mIClipboardCopySavedQueryId_Click" />
+
+                </MenuItem>
+
+                <Separator/>
                 <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SavedQuery in Editor" Click="mIChangeEntityInEditor_Click"/>
                 <MenuItem x:Uid="contMnChangeState" Header="ChangeState" Click="mIChangeStateSavedQuery_Click" />
                 <MenuItem Header="Delete SavedQuery" Click="mIDeleteSavedQuery_Click" />
@@ -324,7 +341,9 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBExportSavedQuery" Header="Export Saved Query Information" SubmenuOpened="tSDDBExportSavedQuery_SubmenuOpened">
+                            
                             <MenuItem Header="Open SavedQuery in Browser" Click="mIOpenInWeb_Click"/>
+                            
                             <Separator/>
                             <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
 

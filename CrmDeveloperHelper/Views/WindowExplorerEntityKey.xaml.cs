@@ -1067,5 +1067,48 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             await PublishEntityAsync(GetSelectedConnection(), new[] { entity.LogicalName });
         }
+
+        #region Clipboard EntityKey
+
+        private void mIClipboardEntityKeyCopyName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityKeyMetadataViewItem>(e, ent => ent.LogicalName);
+        }
+
+        private void mIClipboardEntityKeyCopyDisplayName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityKeyMetadataViewItem>(e, ent => ent.DisplayName);
+        }
+
+        private void mIClipboardEntityKeyCopyKeyAttributes_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityKeyMetadataViewItem>(e, ent => ent.KeyAttributesString);
+        }
+
+        private void mIClipboardEntityKeyCopyEntityKeyId_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityKeyMetadataViewItem>(e, ent => ent.EntityKeyMetadata.MetadataId.ToString());
+        }
+
+        #endregion Clipboard EntityKey
+
+        #region Clipboard Entity
+
+        private void mIClipboardEntityCopyName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityMetadataListViewItem>(e, ent => ent.LogicalName);
+        }
+
+        private void mIClipboardEntityCopyDisplayName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityMetadataListViewItem>(e, ent => ent.DisplayName);
+        }
+
+        private void mIClipboardEntityCopyEntityId_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityMetadataListViewItem>(e, ent => ent.EntityMetadata.MetadataId.ToString());
+        }
+
+        #endregion Clipboard Entity
     }
 }

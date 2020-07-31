@@ -21,6 +21,24 @@
                 <MenuItem Header="Create Entity Description" FontWeight="Bold" Click="mICreateEntityDescription_Click"/>
 
                 <Separator/>
+                <MenuItem Header="Clipboard">
+
+                    <MenuItem Header="Copy to Clipboard Message Name" Click="mIClipboardCopyMessageName_Click" />
+                    <MenuItem Header="Copy to Clipboard Message Category Name" Click="mIClipboardCopyMessageCategoryName_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard Message Id" Click="mIClipboardCopyMessageId_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard Primary Entity Name" Click="mIClipboardCopyPrimaryEntityName_Click" />
+                    <MenuItem Header="Copy to Clipboard Secondary Entity Name" Click="mIClipboardCopySecondaryEntityName_Click" />
+                    
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard MessageFilter Id" Click="mIClipboardCopyMessageFilterId_Click" />
+
+                </MenuItem>
+
+                <Separator/>
                 <MenuItem x:Uid="mIOpenMessageExplorer" Header="Open Message Explorer" />
 
                 <Separator/>

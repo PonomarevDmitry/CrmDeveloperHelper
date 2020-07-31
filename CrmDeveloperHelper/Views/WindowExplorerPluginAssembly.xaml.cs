@@ -843,5 +843,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             mIDeletePluginAssembly_Click(sender, e);
         }
+
+        #region Clipboard
+
+        private void mIClipboardCopyName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.Name);
+        }
+
+        private void mIClipboardCopyVersion_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.Version);
+        }
+
+        private void mIClipboardCopyCulture_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.Culture);
+        }
+
+        private void mIClipboardCopyPublicKeyToken_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.PublicKeyToken);
+        }
+
+        private void mIClipboardCopyPluginAssemblyId_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.PluginAssembly.Id.ToString());
+        }
+
+        #endregion Clipboard
     }
 }

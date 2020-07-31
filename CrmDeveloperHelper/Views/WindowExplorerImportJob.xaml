@@ -23,6 +23,19 @@
                 <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
 
                 <Separator/>
+                <MenuItem Header="Clipboard">
+
+                    <MenuItem Header="Copy to Clipboard SolutionName" Click="mIClipboardCopySolutionName_Click" />
+
+                    <MenuItem Header="Copy to Clipboard ImportContext" Click="mIClipboardCopyImportContext_Click" />
+                    <MenuItem Header="Copy to Clipboard OperationContext" Click="mIClipboardCopyOperationContext_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard Import Job Id" Click="mIClipboardCopyImportJobId_Click" />
+
+                </MenuItem>
+
+                <Separator/>
                 <MenuItem Header="Data" Click="mIExportImportJobData_Click"/>
 
                 <Separator/>

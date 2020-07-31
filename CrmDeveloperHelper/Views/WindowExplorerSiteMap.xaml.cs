@@ -904,5 +904,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             SetCurrentConnection(_iWriteToOutput, GetSelectedConnection());
         }
+
+        #region Clipboard
+
+        private void mIClipboardCopyName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.SiteMapName);
+        }
+
+        private void mIClipboardCopyNameUnique_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.SiteMapNameUnique);
+        }
+
+        private void mIClipboardCopySiteMapId_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.SiteMap.Id.ToString());
+        }
+
+        #endregion Clipboard
     }
 }

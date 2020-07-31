@@ -1,8 +1,6 @@
 using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDescription;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
@@ -1160,5 +1158,63 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             await PublishEntityAsync(GetSelectedConnection(), new[] { entity.LogicalName });
         }
+
+        #region Clipboard EntityRelationship
+
+        private void mIClipboardEntityRelationshipCopyReferencedEntity_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<OneToManyRelationshipMetadataViewItem>(e, ent => ent.ReferencedEntity);
+        }
+
+        private void mIClipboardEntityRelationshipCopyReferencedAttribute_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<OneToManyRelationshipMetadataViewItem>(e, ent => ent.ReferencedAttribute);
+        }
+
+        private void mIClipboardEntityRelationshipCopyReferencingEntity_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<OneToManyRelationshipMetadataViewItem>(e, ent => ent.ReferencingEntity);
+        }
+
+        private void mIClipboardEntityRelationshipCopyReferencingAttribute_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<OneToManyRelationshipMetadataViewItem>(e, ent => ent.ReferencingAttribute);
+        }
+
+        private void mIClipboardEntityRelationshipCopySchemaName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<OneToManyRelationshipMetadataViewItem>(e, ent => ent.SchemaName);
+        }
+
+        private void mIClipboardEntityRelationshipCopySecurityTypes_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<OneToManyRelationshipMetadataViewItem>(e, ent => ent.SecurityTypes.ToString());
+        }
+
+        private void mIClipboardEntityRelationshipCopyEntityRelationshipId_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<OneToManyRelationshipMetadataViewItem>(e, ent => ent.OneToManyRelationshipMetadata.MetadataId.ToString());
+        }
+
+        #endregion Clipboard EntityRelationship
+
+        #region Clipboard Entity
+
+        private void mIClipboardEntityCopyName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityMetadataListViewItem>(e, ent => ent.LogicalName);
+        }
+
+        private void mIClipboardEntityCopyDisplayName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityMetadataListViewItem>(e, ent => ent.DisplayName);
+        }
+
+        private void mIClipboardEntityCopyEntityId_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityMetadataListViewItem>(e, ent => ent.EntityMetadata.MetadataId.ToString());
+        }
+
+        #endregion Clipboard Entity
     }
 }

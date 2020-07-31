@@ -1607,5 +1607,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             mIDeleteSavedQuery_Click(sender, e);
         }
+
+        #region Clipboard
+
+        private void mIClipboardCopyEntityName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.ReturnedTypeCode);
+        }
+
+        private void mIClipboardCopyName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.Name);
+        }
+
+        private void mIClipboardCopyQueryTypeCode_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.SavedQuery.QueryType.ToString());
+        }
+
+        private void mIClipboardCopyQueryTypeName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.QueryType);
+        }
+
+        private void mIClipboardCopySavedQueryId_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.SavedQuery.Id.ToString());
+        }
+
+        #endregion Clipboard
     }
 }

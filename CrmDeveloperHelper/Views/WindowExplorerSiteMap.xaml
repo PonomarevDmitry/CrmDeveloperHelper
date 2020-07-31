@@ -24,7 +24,18 @@
 
                 <Separator/>
                 <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
-                
+
+                <Separator/>
+                <MenuItem Header="Clipboard">
+
+                    <MenuItem Header="Copy to Clipboard Name" Click="mIClipboardCopyName_Click" />
+                    <MenuItem Header="Copy to Clipboard Name Unique" Click="mIClipboardCopyNameUnique_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard SiteMap Id" Click="mIClipboardCopySiteMapId_Click" />
+
+                </MenuItem>
+
                 <Separator/>
                 <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" />
                 <MenuItem Header="Add to Crm Solution" Click="AddToCrmSolution_Click" />

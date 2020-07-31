@@ -463,7 +463,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (service != null)
                 {
-                    TeamRepository repository = new TeamRepository(service);
+                    var repository = new TeamRepository(service);
 
                     list = await repository.GetListAsync(filterTeam
                         , isDefault
@@ -644,7 +644,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (!_cacheEntityMetadata.ContainsKey(service.ConnectionData.ConnectionId))
             {
-                EntityMetadataRepository repository = new EntityMetadataRepository(service);
+                var repository = new EntityMetadataRepository(service);
 
                 var temp = await repository.GetEntitiesDisplayNameWithPrivilegesAsync();
 
@@ -2194,5 +2194,48 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         }
 
         #endregion Other Privilege
+
+        #region Clipboard Other Privilege
+
+        private void mIClipboardPrivilegeCopyName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<OtherPrivilegeViewItem>(e, ent => ent.Name);
+        }
+
+        private void mIClipboardPrivilegeCopyType_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<OtherPrivilegeViewItem>(e, ent => ent.PrivilegeType);
+        }
+
+        private void mIClipboardPrivilegeCopyLinkedEntity_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<OtherPrivilegeViewItem>(e, ent => ent.EntityLogicalName);
+        }
+
+        private void mIClipboardPrivilegeCopyPrivilegeId_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<OtherPrivilegeViewItem>(e, ent => ent.Privilege.Id.ToString());
+        }
+
+        #endregion Clipboard Other Privilege
+
+        #region Clipboard Entity
+
+        private void mIClipboardEntityCopyName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityPrivilegeViewItem>(e, ent => ent.LogicalName);
+        }
+
+        private void mIClipboardEntityCopyDisplayName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityPrivilegeViewItem>(e, ent => ent.DisplayName);
+        }
+
+        private void mIClipboardEntityCopyEntityId_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityPrivilegeViewItem>(e, ent => ent.EntityMetadata.MetadataId.ToString());
+        }
+
+        #endregion Clipboard Entity
     }
 }

@@ -229,7 +229,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (service != null)
                 {
-                    SolutionRepository repository = new SolutionRepository(service);
+                    var repository = new SolutionRepository(service);
 
                     list = await repository.GetSolutionsAllAsync(textName, _componentType, _objectId);
                 }
@@ -686,7 +686,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (listFromFiltered.Count() > 1)
                 {
-                    MenuItem menuItem = new MenuItem()
+                    var menuItem = new MenuItem()
                     {
                         Header = string.Format("Remove Components owned by All Selected Solutions from {0}", solutionTo.UniqueNameEscapeUnderscore),
                         Tag = Tuple.Create(listFromFiltered.ToArray(), solutionTo),
@@ -698,7 +698,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 foreach (var solutionFrom in listFromFiltered)
                 {
-                    MenuItem menuItem = new MenuItem()
+                    var menuItem = new MenuItem()
                     {
                         Header = string.Format("Remove Components owned by {0} from {1}", solutionFrom.UniqueNameEscapeUnderscore, solutionTo.UniqueNameEscapeUnderscore),
                         Tag = Tuple.Create(solutionFrom, solutionTo),
@@ -717,90 +717,120 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void FillSolutionButtons(Solution solution, ItemCollection itemCollection)
         {
-            MenuItem mIOpenSolutionInWeb = new MenuItem()
             {
-                Header = string.Format("Open in Browser Solution {0}", solution.UniqueNameEscapeUnderscore),
-                Tag = solution,
-            };
-            mIOpenSolutionInWeb.Click += mIOpenSolutionInWeb_Click;
+                var mIOpenComponentsInExplorer = new MenuItem()
+                {
+                    Header = string.Format("Open Solution Components in Explorer for {0}", solution.UniqueNameEscapeUnderscore),
+                    Tag = solution,
+                    FontWeight = FontWeights.Bold,
+                };
+                mIOpenComponentsInExplorer.Click += mIOpenComponentsInExplorer_Click;
 
-            MenuItem mICreateEntityDescription = new MenuItem()
+                var mIOpenSolutionInWeb = new MenuItem()
+                {
+                    Header = string.Format("Open in Browser Solution {0}", solution.UniqueNameEscapeUnderscore),
+                    Tag = solution,
+                };
+                mIOpenSolutionInWeb.Click += mIOpenSolutionInWeb_Click;
+
+                var mICreateEntityDescription = new MenuItem()
+                {
+                    Header = "Create Entity Description",
+                    Tag = solution,
+                };
+                mICreateEntityDescription.Click += mICreateEntityDescription_Click;
+
+                itemCollection.Add(mIOpenComponentsInExplorer);
+                itemCollection.Add(new Separator());
+                itemCollection.Add(mIOpenSolutionInWeb);
+                itemCollection.Add(new Separator());
+                itemCollection.Add(mICreateEntityDescription);
+            }
+
             {
-                Header = "Create Entity Description",
-                Tag = solution,
-            };
-            mICreateEntityDescription.Click += mICreateEntityDescription_Click;
+                
 
-            MenuItem mIOpenComponentsInExplorer = new MenuItem()
-            {
-                Header = string.Format("Open Solution Components in Explorer for {0}", solution.UniqueNameEscapeUnderscore),
-                Tag = solution,
-                FontWeight = FontWeights.Bold,
-            };
-            mIOpenComponentsInExplorer.Click += mIOpenComponentsInExplorer_Click;
+                var mICopyUniqueName = new MenuItem()
+                {
+                    Header = "Copy to Clipboard Unique Name",
+                    Tag = solution,
+                };
+                mICopyUniqueName.Click += mICopyUniqueName_Click;
 
-            MenuItem mIUsedEntitiesInWorkflows = new MenuItem()
-            {
-                Header = string.Format("Used Entities in Workflows in {0}", solution.UniqueNameEscapeUnderscore),
-                Tag = solution,
-            };
-            mIUsedEntitiesInWorkflows.Click += mIUsedEntitiesInWorkflows_Click;
+                var mICopyFriendlyName = new MenuItem()
+                {
+                    Header = "Copy to Clipboard Friendly Name",
+                    Tag = solution,
+                };
+                mICopyFriendlyName.Click += mICopyFriendlyName_Click;
 
-            MenuItem mIUsedNotExistsEntitiesInWorkflows = new MenuItem()
-            {
-                Header = string.Format("Used Not Exists Entities in Workflows in {0}", solution.UniqueNameEscapeUnderscore),
-                Tag = solution,
-            };
-            mIUsedNotExistsEntitiesInWorkflows.Click += mIUsedNotExistsEntitiesInWorkflows_Click;
+                var mICopyVersion = new MenuItem()
+                {
+                    Header = "Copy to Clipboard Version",
+                    Tag = solution,
+                };
+                mICopyVersion.Click += mICopyVersion_Click;
 
-            MenuItem mICreateSolutionImage = new MenuItem()
-            {
-                Header = string.Format("Create Solution Image for {0}", solution.UniqueNameEscapeUnderscore),
-                Tag = solution,
-            };
-            mICreateSolutionImage.Click += mICreateSolutionImage_Click;
+                var mICopyPublisherName = new MenuItem()
+                {
+                    Header = "Copy to Clipboard Publisher Name",
+                    Tag = solution,
+                };
+                mICopyPublisherName.Click += mICopyPublisherName_Click;
 
-            MenuItem mICreateSolutionImageAndOpenOrganizationComparer = new MenuItem()
-            {
-                Header = string.Format("Create Solution Image for {0} and Open Organization Comparer Window", solution.UniqueNameEscapeUnderscore),
-                Tag = solution,
-            };
-            mICreateSolutionImageAndOpenOrganizationComparer.Click += mICreateSolutionImageAndOpenOrganizationComparer_Click;
+                var mICopyPrefix = new MenuItem()
+                {
+                    Header = "Copy to Clipboard Prefix",
+                    Tag = solution,
+                };
+                mICopyPrefix.Click += mICopyPrefix_Click;
 
-            MenuItem mIComponents = new MenuItem()
-            {
-                Header = string.Format("Components in {0}", solution.UniqueNameEscapeUnderscore),
-                Tag = solution,
-            };
-            mIComponents.Click += mIComponents_Click;
+                var mIClipboard = new MenuItem()
+                {
+                    Header = "Clipboard",
 
+                    Items =
+                    {
+                        mICopyUniqueName,
+                        mICopyFriendlyName,
 
+                        new Separator(),
+                        mICopyVersion,
+                        mICopyPublisherName,
+                        mICopyPrefix,
+                    }
+                };
 
+                if (!string.IsNullOrEmpty(solution.Description))
+                {
+                    var mICopyDescription = new MenuItem()
+                    {
+                        Header = "Copy to Clipboard Description",
+                        Tag = solution,
+                    };
+                    mICopyDescription.Click += mICopyDescription_Click;
 
-            MenuItem mIMissingComponents = new MenuItem()
-            {
-                Header = string.Format("Missing Components for {0}", solution.UniqueNameEscapeUnderscore),
-                Tag = solution,
-            };
-            mIMissingComponents.Click += mIMissingComponents_Click;
+                    mIClipboard.Items.Add(new Separator());
+                    mIClipboard.Items.Add(mICopyDescription);
+                }
 
-            MenuItem mIUninstallComponents = new MenuItem()
-            {
-                Header = string.Format("Uninstall Components for {0}", solution.UniqueNameEscapeUnderscore),
-                Tag = solution,
-            };
-            mIUninstallComponents.Click += mIUninstallComponents_Click;
+                var mICopySolutionId = new MenuItem()
+                {
+                    Header = "Copy to Clipboard Solution Id",
+                    Tag = solution,
+                };
+                mICopySolutionId.Click += mICopySolutionId_Click;
 
+                mIClipboard.Items.Add(new Separator());
+                mIClipboard.Items.Add(mICopySolutionId);
 
-
-
-            itemCollection.Add(mIOpenComponentsInExplorer);
-            itemCollection.Add(new Separator());
-            itemCollection.Add(mIOpenSolutionInWeb);
+                itemCollection.Add(new Separator());
+                itemCollection.Add(mIClipboard);
+            }
 
             if (!string.IsNullOrEmpty(solution.Description))
             {
-                MenuItem mIOpenSolutionDescription = new MenuItem()
+                var mIOpenSolutionDescription = new MenuItem()
                 {
                     Header = string.Format("Open Solution Description for {0}", solution.UniqueNameEscapeUnderscore),
                     Tag = solution,
@@ -813,7 +843,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (solution.IsManaged.GetValueOrDefault() == false)
             {
-                MenuItem mISelectSolutionAsLast = new MenuItem()
+                var mISelectSolutionAsLast = new MenuItem()
                 {
                     Header = string.Format("Select Solution {0} as Last Selected", solution.UniqueNameEscapeUnderscore),
                     Tag = solution,
@@ -824,16 +854,46 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 itemCollection.Add(mISelectSolutionAsLast);
             }
 
-            itemCollection.Add(new Separator());
-            itemCollection.Add(mIUsedEntitiesInWorkflows);
-            itemCollection.Add(mIUsedNotExistsEntitiesInWorkflows);
-            itemCollection.Add(new Separator());
-            itemCollection.Add(mICreateSolutionImage);
-            itemCollection.Add(mICreateSolutionImageAndOpenOrganizationComparer);
+            {
+                var mIUsedEntitiesInWorkflows = new MenuItem()
+                {
+                    Header = string.Format("Used Entities in Workflows in {0}", solution.UniqueNameEscapeUnderscore),
+                    Tag = solution,
+                };
+                mIUsedEntitiesInWorkflows.Click += mIUsedEntitiesInWorkflows_Click;
+
+                var mIUsedNotExistsEntitiesInWorkflows = new MenuItem()
+                {
+                    Header = string.Format("Used Not Exists Entities in Workflows in {0}", solution.UniqueNameEscapeUnderscore),
+                    Tag = solution,
+                };
+                mIUsedNotExistsEntitiesInWorkflows.Click += mIUsedNotExistsEntitiesInWorkflows_Click;
+
+                var mICreateSolutionImage = new MenuItem()
+                {
+                    Header = string.Format("Create Solution Image for {0}", solution.UniqueNameEscapeUnderscore),
+                    Tag = solution,
+                };
+                mICreateSolutionImage.Click += mICreateSolutionImage_Click;
+
+                var mICreateSolutionImageAndOpenOrganizationComparer = new MenuItem()
+                {
+                    Header = string.Format("Create Solution Image for {0} and Open Organization Comparer Window", solution.UniqueNameEscapeUnderscore),
+                    Tag = solution,
+                };
+                mICreateSolutionImageAndOpenOrganizationComparer.Click += mICreateSolutionImageAndOpenOrganizationComparer_Click;
+
+                itemCollection.Add(new Separator());
+                itemCollection.Add(mIUsedEntitiesInWorkflows);
+                itemCollection.Add(mIUsedNotExistsEntitiesInWorkflows);
+                itemCollection.Add(new Separator());
+                itemCollection.Add(mICreateSolutionImage);
+                itemCollection.Add(mICreateSolutionImageAndOpenOrganizationComparer);
+            }
 
             if (solution.IsManaged.GetValueOrDefault() == false)
             {
-                MenuItem mIExportSolution = new MenuItem()
+                var mIExportSolution = new MenuItem()
                 {
                     Header = string.Format("Export Solution {0}", solution.UniqueNameEscapeUnderscore),
                     Tag = solution,
@@ -851,7 +911,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (otherConnections.Any())
                     {
-                        MenuItem mICheckImportPossibility = new MenuItem()
+                        var mICheckImportPossibility = new MenuItem()
                         {
                             Header = string.Format("Check Possibility to Import {0} into", solution.UniqueNameEscapeUnderscore),
                             Tag = solution,
@@ -859,7 +919,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         foreach (var connection in otherConnections)
                         {
-                            MenuItem menuItem = new MenuItem()
+                            var menuItem = new MenuItem()
                             {
                                 Header = connection.Name,
                                 Tag = connection,
@@ -874,7 +934,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             mICheckImportPossibility.Items.Add(menuItem);
                         }
 
-                        MenuItem mICheckImportPossibilityAndExportSolution = new MenuItem()
+                        var mICheckImportPossibilityAndExportSolution = new MenuItem()
                         {
                             Header = string.Format("Check Possibility to Import {0} into Connection and Export Solution", solution.UniqueNameEscapeUnderscore),
                             Tag = solution,
@@ -882,7 +942,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         foreach (var connection in otherConnections)
                         {
-                            MenuItem menuItem = new MenuItem()
+                            var menuItem = new MenuItem()
                             {
                                 Header = connection.Name,
                                 Tag = connection,
@@ -906,12 +966,110 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            itemCollection.Add(new Separator());
-            itemCollection.Add(mIComponents);
-            itemCollection.Add(new Separator());
-            itemCollection.Add(mIMissingComponents);
-            itemCollection.Add(mIUninstallComponents);
+            {
+
+                var mIComponents = new MenuItem()
+                {
+                    Header = string.Format("Components in {0}", solution.UniqueNameEscapeUnderscore),
+                    Tag = solution,
+                };
+                mIComponents.Click += mIComponents_Click;
+
+                var mIMissingComponents = new MenuItem()
+                {
+                    Header = string.Format("Missing Components for {0}", solution.UniqueNameEscapeUnderscore),
+                    Tag = solution,
+                };
+                mIMissingComponents.Click += mIMissingComponents_Click;
+
+                var mIUninstallComponents = new MenuItem()
+                {
+                    Header = string.Format("Uninstall Components for {0}", solution.UniqueNameEscapeUnderscore),
+                    Tag = solution,
+                };
+                mIUninstallComponents.Click += mIUninstallComponents_Click;
+
+                itemCollection.Add(new Separator());
+                itemCollection.Add(mIComponents);
+                itemCollection.Add(new Separator());
+                itemCollection.Add(mIMissingComponents);
+                itemCollection.Add(mIUninstallComponents);
+            }
         }
+
+        #region Clipboard
+
+        private void mICopyUniqueName_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+                && menuItem.Tag is Solution solution
+            )
+            {
+                ClipboardHelper.SetText(solution.UniqueName);
+            }
+        }
+
+        private void mICopyFriendlyName_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+                && menuItem.Tag is Solution solution
+            )
+            {
+                ClipboardHelper.SetText(solution.FriendlyName);
+            }
+        }
+
+        private void mICopyVersion_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+                && menuItem.Tag is Solution solution
+            )
+            {
+                ClipboardHelper.SetText(solution.Version);
+            }
+        }
+
+        private void mICopyPublisherName_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+                && menuItem.Tag is Solution solution
+            )
+            {
+                ClipboardHelper.SetText(solution.PublisherId?.Name);
+            }
+        }
+
+        private void mICopyPrefix_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+                && menuItem.Tag is Solution solution
+            )
+            {
+                ClipboardHelper.SetText(solution.PublisherCustomizationPrefix);
+            }
+        }
+
+        private void mICopyDescription_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+                && menuItem.Tag is Solution solution
+            )
+            {
+                ClipboardHelper.SetText(solution.Description);
+            }
+        }
+
+        private void mICopySolutionId_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+                && menuItem.Tag is Solution solution
+            )
+            {
+                ClipboardHelper.SetText(solution.Id.ToString());
+            }
+        }
+
+        #endregion Clipboard
 
         private async void mICheckImportPossibility_Click(object sender, RoutedEventArgs e)
         {

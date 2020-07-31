@@ -1221,5 +1221,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             mIDeleteChart_Click(sender, e);
         }
+
+        #region Clipboard
+
+        private void mIClipboardCopyEntityName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.PrimaryEntityTypeCode);
+        }
+
+        private void mIClipboardCopyName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.Name);
+        }
+
+        private void mIClipboardCopySavedQueryVisualizationId_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.SavedQueryVisualization.Id.ToString());
+        }
+
+        #endregion Clipboard
     }
 }

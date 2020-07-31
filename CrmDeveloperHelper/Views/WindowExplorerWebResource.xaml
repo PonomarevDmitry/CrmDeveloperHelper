@@ -36,13 +36,34 @@
                 <MenuItem Header="Collapse Nodes" Click="mICollapseNodes_Click" />
 
                 <Separator/>
-                <MenuItem Header="Open WebResource in Browser" Click="mIOpenInWeb_Click" />
-
-                <Separator/>
                 <MenuItem Header="Content" Click="mIOpenContent_Click" FontWeight="Bold" />
 
                 <Separator/>
+                <MenuItem Header="Open WebResource in Browser" Click="mIOpenInWeb_Click" />
+
+                <Separator/>
                 <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
+
+                <Separator/>
+                <MenuItem Header="Clipboard">
+
+                    <MenuItem Header="Copy to Clipboard Node Name" Click="mIClipboardCopyNodeName_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard WebResource Name" Click="mIClipboardCopyName_Click" />
+                    <MenuItem Header="Copy to Clipboard WebResource DisplayName" Click="mIClipboardCopyDisplayName_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard WebResourceType Code" Click="mIClipboardCopyWebResourceTypeCode_Click" />
+                    <MenuItem Header="Copy to Clipboard WebResourceType Name" Click="mIClipboardCopyWebResourceTypeName_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard Description" Click="mIClipboardCopyDescription_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard WebResource Id" Click="mIClipboardCopyWebResourceId_Click" />
+
+                </MenuItem>
 
                 <Separator/>
                 <MenuItem Header="Change WebResource in Editor" Click="mIChangeEntityInEditor_Click"/>

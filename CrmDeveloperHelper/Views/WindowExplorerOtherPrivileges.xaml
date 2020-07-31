@@ -61,6 +61,20 @@
 
             <ContextMenu x:Key="listContextMenuOtherPrivileges" Opened="ContextMenuOtherPrivilege_Opened">
 
+                <MenuItem Header="Clipboard">
+
+                    <MenuItem Header="Copy to Clipboard Privilege Name" Click="mIClipboardPrivilegeCopyName_Click" />
+                    <MenuItem Header="Copy to Clipboard Privilege Type" Click="mIClipboardPrivilegeCopyType_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard Privilege Linked Entity" Click="mIClipboardPrivilegeCopyLinkedEntity_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard Privilege Id" Click="mIClipboardPrivilegeCopyPrivilegeId_Click" />
+
+                </MenuItem>
+
+                <Separator/>
                 <MenuItem x:Uid="contMnAddOtherPrivilegeToSolutionLast" Header="Add to Last Crm Solution" VerticalAlignment="Center" />
                 <MenuItem Header="Add to Crm Solution" VerticalAlignment="Center" Click="AddOtherPrivilegeToCrmSolution_Click" />
 

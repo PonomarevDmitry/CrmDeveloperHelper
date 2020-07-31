@@ -957,5 +957,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             SetCurrentConnection(_iWriteToOutput, GetSelectedConnection());
         }
+
+        #region Clipboard
+
+        private void mIClipboardCopyName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.Name);
+        }
+
+        private void mIClipboardCopyOrganizationId_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.Organization.Id.ToString());
+        }
+
+        #endregion Clipboard
     }
 }

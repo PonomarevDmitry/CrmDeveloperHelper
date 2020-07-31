@@ -832,16 +832,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        protected static void GetEntityViewItemAndCopyToClipboard<T>(RoutedEventArgs e, Func<T, string> valueGetter)
+        protected static void GetEntityViewItemAndCopyToClipboard<T>(RoutedEventArgs e, Func<T, string> valueGetter) where T : class
         {
-            if (!(e.OriginalSource is MenuItem menuItem))
-            {
-                return;
-            }
+            T entity = GetItemFromRoutedDataContext<T>(e);
 
-            if (menuItem.DataContext == null
-                || !(menuItem.DataContext is T entity)
-                )
+            if (entity == null)
             {
                 return;
             }

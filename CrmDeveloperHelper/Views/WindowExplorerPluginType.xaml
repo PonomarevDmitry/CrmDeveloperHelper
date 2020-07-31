@@ -23,6 +23,28 @@
                 <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
                 <MenuItem Header="CustomWorkflowActivityInfo" Click="mIExportCustomWorkflowActivityInfo_Click"/>
 
+                <Separator/>
+                <MenuItem Header="Clipboard">
+
+                    <MenuItem Header="Copy to Clipboard Name" Click="mIClipboardCopyName_Click" />
+                    <MenuItem Header="Copy to Clipboard Type Name" Click="mIClipboardCopyTypeName_Click" />
+                    <MenuItem Header="Copy to Clipboard Friendly Name" Click="mIClipboardCopyFriendlyName_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard WorkflowActivityGroupName" Click="mIClipboardCopyWorkflowActivityGroupName_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard Assembly Name" Click="mIClipboardCopyAssemblyName_Click" />
+                    <MenuItem Header="Copy to Clipboard Assembly Id" Click="mIClipboardCopyAssemblyId_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard Description" Click="mIClipboardCopyDescription_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard PluginType Id" Click="mIClipboardCopPluginTypeId_Click" />
+
+                </MenuItem>
+
                 <Separator />
                 <MenuItem Header="Change PluginType in Editor" Click="mIChangeEntityInEditor_Click"/>
                 <MenuItem Header="Delete PluginType" VerticalAlignment="Center" Click="mIDeletePluginType_Click" />
@@ -135,7 +157,6 @@
                 <DataGridTextColumn Header="Assembly Name" Width="500" Binding="{Binding AssemblyName}" />
 
                 <DataGridTextColumn Header="TypeName" Width="500" Binding="{Binding TypeName}" />
-
 
                 <DataGridTextColumn Header="IsManaged" Width="100" Binding="{Binding IsManaged}" />
 

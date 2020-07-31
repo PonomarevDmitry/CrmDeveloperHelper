@@ -970,5 +970,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             await ExecuteAction(entity.Id, entity.TypeName, PerformAddingPluginStep);
         }
+
+        #region Clipboard
+
+        private void mIClipboardCopyName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.Name);
+        }
+
+        private void mIClipboardCopyTypeName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.TypeName);
+        }
+
+        private void mIClipboardCopyFriendlyName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.FriendlyName);
+        }
+
+        private void mIClipboardCopyWorkflowActivityGroupName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.WorkflowActivityGroupName);
+        }
+
+        private void mIClipboardCopyAssemblyName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.AssemblyName);
+        }
+
+        private void mIClipboardCopyAssemblyId_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.PluginType.PluginAssemblyId?.Id.ToString());
+        }
+
+        private void mIClipboardCopyDescription_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.Description);
+        }
+
+        private void mIClipboardCopPluginTypeId_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.PluginType.Id.ToString());
+        }
+
+        #endregion Clipboard
     }
 }

@@ -5,7 +5,7 @@
     xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
     xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
     x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowExplorerCustomControl"
-    Title="Custom Control Explorer"
+    Title="CustomControl Explorer"
     Height="540"
     Width="717"
     WindowStartupLocation="Manual"
@@ -21,6 +21,17 @@
 
                 <Separator/>
                 <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
+
+                <Separator/>
+                <MenuItem Header="Clipboard">
+
+                    <MenuItem Header="Copy to Clipboard Name" Click="mIClipboardCopyName_Click" />
+                    <MenuItem Header="Copy to Clipboard CompatibleDataTypes" Click="mIClipboardCopyCompatibleDataTypes_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard CustomControl Id" Click="mIClipboardCopyCustomControlId_Click" />
+
+                </MenuItem>
 
                 <Separator />
                 <MenuItem Header="Change CustomControl in Editor" Click="mIChangeEntityInEditor_Click"/>

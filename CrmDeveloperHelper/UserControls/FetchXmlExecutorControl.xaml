@@ -32,6 +32,8 @@
                 <Separator/>
                 <MenuItem Header="Clipboard">
                     <MenuItem Header="Copy Entity Id" Click="mICopyEntityId_Click"/>
+
+                    <Separator/>
                     <MenuItem Header="Copy Entity Name" Click="mICopyEntityName_Click"/>
                     <MenuItem Header="Copy Entity Url" Click="mICopyEntityUrl_Click"/>
                 </MenuItem>
@@ -82,7 +84,11 @@
                 <MenuItem Header="Clipboard EntityReference">
                     <MenuItem Header="Copy EntityReference Id" Click="mICopyEntityReferenceId_Click"/>
                     <MenuItem Header="Copy EntityReference Name" Click="mICopyEntityReferenceName_Click"/>
+
+                    <Separator/>
                     <MenuItem Header="Copy EntityReference EntityName" Click="mICopyEntityReferenceEntityName_Click"/>
+
+                    <Separator/>
                     <MenuItem Header="Copy EntityReference Url" Click="mICopyEntityReferenceUrl_Click"/>
                 </MenuItem>
 
@@ -115,6 +121,8 @@
                 <MenuItem Header="Clipboard">
                     <MenuItem Header="Copy Entity Id" Click="mICopyEntityId_Click"/>
                     <MenuItem Header="Copy Entity Name" Click="mICopyEntityName_Click"/>
+
+                    <Separator/>
                     <MenuItem Header="Copy Entity Url" Click="mICopyEntityUrl_Click"/>
                 </MenuItem>
 

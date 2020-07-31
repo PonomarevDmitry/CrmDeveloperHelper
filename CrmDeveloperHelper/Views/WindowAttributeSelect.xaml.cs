@@ -359,5 +359,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
         }
+
+        #region Clipboard
+
+        private void mIClipboardCopyName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<AttributeSelectItem>(e, ent => ent.LogicalName);
+        }
+
+        private void mIClipboardCopyDisplayName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<AttributeSelectItem>(e, ent => ent.DisplayName);
+        }
+
+        private void mIClipboardCopyAttributeType_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<AttributeSelectItem>(e, ent => ent.AttributeTypeName);
+        }
+
+        private void mIClipboardCopyAttributeId_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<AttributeSelectItem>(e, ent => ent.AttributeMetadata.MetadataId.ToString());
+        }
+
+        #endregion Clipboard
     }
 }

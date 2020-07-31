@@ -1079,5 +1079,68 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             await PublishEntityAsync(GetSelectedConnection(), new[] { entity.LogicalName });
         }
+
+        #region Clipboard EntityRelationship
+
+        private void mIClipboardEntityRelationshipCopyEntity1LogicalName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<ManyToManyRelationshipMetadataViewItem>(e, ent => ent.Entity1LogicalName);
+        }
+
+        private void mIClipboardEntityRelationshipCopyEntity1IntersectAttribute_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<ManyToManyRelationshipMetadataViewItem>(e, ent => ent.Entity1IntersectAttribute);
+        }
+
+        private void mIClipboardEntityRelationshipCopyEntity2LogicalName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<ManyToManyRelationshipMetadataViewItem>(e, ent => ent.Entity2LogicalName);
+        }
+
+        private void mIClipboardEntityRelationshipCopyEntity2IntersectAttribute_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<ManyToManyRelationshipMetadataViewItem>(e, ent => ent.Entity2IntersectAttribute);
+        }
+
+        private void mIClipboardEntityRelationshipCopySchemaName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<ManyToManyRelationshipMetadataViewItem>(e, ent => ent.SchemaName);
+        }
+
+        private void mIClipboardEntityRelationshipCopyIntersectEntityName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<ManyToManyRelationshipMetadataViewItem>(e, ent => ent.IntersectEntityName);
+        }
+
+        private void mIClipboardEntityRelationshipCopySecurityTypes_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<ManyToManyRelationshipMetadataViewItem>(e, ent => ent.SecurityTypes.ToString());
+        }
+
+        private void mIClipboardEntityRelationshipCopyEntityRelationshipId_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<ManyToManyRelationshipMetadataViewItem>(e, ent => ent.ManyToManyRelationshipMetadata.MetadataId.ToString());
+        }
+
+        #endregion Clipboard EntityRelationship
+
+        #region Clipboard Entity
+
+        private void mIClipboardEntityCopyName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityMetadataListViewItem>(e, ent => ent.LogicalName);
+        }
+
+        private void mIClipboardEntityCopyDisplayName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityMetadataListViewItem>(e, ent => ent.DisplayName);
+        }
+
+        private void mIClipboardEntityCopyEntityId_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityMetadataListViewItem>(e, ent => ent.EntityMetadata.MetadataId.ToString());
+        }
+
+        #endregion Clipboard Entity
     }
 }

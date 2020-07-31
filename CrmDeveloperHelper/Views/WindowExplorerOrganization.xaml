@@ -20,6 +20,16 @@
                 <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click" FontWeight="Bold"/>
 
                 <Separator/>
+                <MenuItem Header="Clipboard">
+
+                    <MenuItem Header="Copy to Clipboard Name" Click="mIClipboardCopyName_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard Organization Id" Click="mIClipboardCopyOrganizationId_Click" />
+
+                </MenuItem>
+
+                <Separator/>
                 <MenuItem Header="Default Email Settings" Click="mIExportOrganizationDefaultEmailSettings_Click"/>
                 <MenuItem Header="External Party Correlation Keys" Click="mIExportOrganizationExternalPartyCorrelationKeys_Click"/>
                 <MenuItem Header="External Party Entity Settings" Click="mIExportOrganizationExternalPartyEntitySettings_Click"/>

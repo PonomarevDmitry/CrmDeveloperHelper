@@ -24,6 +24,21 @@
                 <MenuItem Header="Export Assembly Binary Content" Click="mIExportPluginAssemblyBinaryContent_Click"/>
 
                 <Separator/>
+                <MenuItem Header="Clipboard">
+
+                    <MenuItem Header="Copy to Clipboard Name" Click="mIClipboardCopyName_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard Version" Click="mIClipboardCopyVersion_Click" />
+                    <MenuItem Header="Copy to Clipboard Culture" Click="mIClipboardCopyCulture_Click" />
+                    <MenuItem Header="Copy to Clipboard PublicKeyToken" Click="mIClipboardCopyPublicKeyToken_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard PluginAssembly Id" Click="mIClipboardCopyPluginAssemblyId_Click" />
+
+                </MenuItem>
+
+                <Separator/>
                 <MenuItem x:Uid="mIOpenPluginTree" Header="Open Plugin Tree" />
                 <MenuItem x:Uid="mIOpenPluginTypeExplorer" Header="Open PluginType Explorer" />
 

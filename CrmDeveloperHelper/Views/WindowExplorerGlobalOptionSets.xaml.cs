@@ -971,5 +971,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             await PublishOptionSetAsync(item.OptionSetMetadata.Name);
         }
+
+        #region Clipboard
+
+        private void mIClipboardCopyName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<OptionSetMetadataListViewItem>(e, ent => ent.LogicalName);
+        }
+
+        private void mIClipboardCopyDisplayName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<OptionSetMetadataListViewItem>(e, ent => ent.DisplayName);
+        }
+
+        private void mIClipboardCopyOptionSetId_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<OptionSetMetadataListViewItem>(e, ent => ent.OptionSetMetadata.MetadataId.ToString());
+        }
+
+        #endregion Clipboard
     }
 }

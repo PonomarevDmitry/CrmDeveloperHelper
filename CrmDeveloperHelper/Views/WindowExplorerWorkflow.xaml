@@ -25,6 +25,20 @@
                 <Separator/>
                 <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
 
+                <Separator/>
+                <MenuItem Header="Clipboard">
+                    
+                    <MenuItem Header="Copy to Clipboard Primary Entity Name" Click="mIClipboardCopyPrimaryEntityName_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard Name" Click="mIClipboardCopyName_Click" />
+                    <MenuItem Header="Copy to Clipboard Unique Name" Click="mIClipboardCopyUniqueName_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard Workflow Id" Click="mIClipboardCopyWorkflowId_Click" />
+
+                </MenuItem>
+
                 <Separator />
                 <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Workflow in Editor" Click="mIChangeEntityInEditor_Click"/>
                 <MenuItem x:Uid="contMnChangeState" Header="ChangeState" Click="mIChangeStateWorkflow_Click" />

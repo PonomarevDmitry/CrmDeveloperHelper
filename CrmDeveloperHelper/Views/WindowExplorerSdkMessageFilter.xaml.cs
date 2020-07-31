@@ -195,6 +195,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             , SdkMessageFilter.Schema.Attributes.isvisible
                             , SdkMessageFilter.Schema.Attributes.iscustomprocessingstepallowed
                             , SdkMessageFilter.Schema.Attributes.restrictionlevel
+                            , SdkMessageFilter.Schema.Attributes.sdkmessageid
                         )
                     );
                 }
@@ -646,5 +647,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             mIDeleteMessageFilter_Click(sender, e);
         }
+
+        #region Clipboard
+
+        private void mIClipboardCopyMessageName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.MessageCategoryName);
+        }
+
+        private void mIClipboardCopyMessageCategoryName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.MessageCategoryName);
+        }
+
+        private void mIClipboardCopyMessageId_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.SdkMessageFilter.SdkMessageId?.Id.ToString());
+        }
+
+        private void mIClipboardCopyPrimaryEntityName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.PrimaryObjectTypeCode);
+        }
+
+        private void mIClipboardCopySecondaryEntityName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.SecondaryObjectTypeCode);
+        }
+
+        private void mIClipboardCopyMessageFilterId_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.SdkMessageFilter.Id.ToString());
+        }
+
+        #endregion Clipboard
     }
 }

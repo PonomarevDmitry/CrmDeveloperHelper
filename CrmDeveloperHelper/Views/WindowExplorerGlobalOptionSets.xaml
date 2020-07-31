@@ -19,6 +19,17 @@
                 <MenuItem Header="Open OptionSet Customization in Browser" Click="mIOpenInWeb_Click" FontWeight="Bold" />
 
                 <Separator/>
+                <MenuItem Header="Clipboard">
+
+                    <MenuItem Header="Copy to Clipboard Name" Click="mIClipboardCopyName_Click" />
+                    <MenuItem Header="Copy to Clipboard Display Name" Click="mIClipboardCopyDisplayName_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard OptionSet Id" Click="mIClipboardCopyOptionSetId_Click" />
+
+                </MenuItem>
+
+                <Separator/>
                 <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution"  />
                 <MenuItem Header="Add to Crm Solution" Click="AddToCrmSolution_Click" />
 

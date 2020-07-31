@@ -25,6 +25,24 @@
                 <Separator/>
                 <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
 
+                <Separator/>
+                <MenuItem Header="Clipboard">
+
+                    <MenuItem Header="Copy to Clipboard Name" Click="mIClipboardCopyName_Click" />
+                    <MenuItem Header="Copy to Clipboard File Name" Click="mIClipboardCopyFileName_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard ReportType Code" Click="mIClipboardCopyReportTypeCode_Click" />
+                    <MenuItem Header="Copy to Clipboard ReportType Name" Click="mIClipboardCopyReportTypeName_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard Description" Click="mIClipboardCopyDescription_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard Report Id" Click="mIClipboardCopyReportId_Click" />
+
+                </MenuItem>
+
                 <Separator />
                 <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Report in Editor" Click="mIChangeEntityInEditor_Click"/>
                 <MenuItem Header="Delete Report" VerticalAlignment="Center" Click="mIDeleteReport_Click" />

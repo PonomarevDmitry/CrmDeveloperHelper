@@ -695,5 +695,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             await ExecuteAction(entity.Id, entity.SolutionName, entity.CreatedOn, PerformExportFormattedResults);
         }
+
+        #region Clipboard
+
+        private void mIClipboardCopySolutionName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.SolutionName);
+        }
+
+        private void mIClipboardCopyImportContext_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.ImportContext);
+        }
+
+        private void mIClipboardCopyOperationContext_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.OperationContext);
+        }
+
+        private void mIClipboardCopyImportJobId_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.ImportJob.Id.ToString());
+        }
+
+        #endregion Clipboard
     }
 }

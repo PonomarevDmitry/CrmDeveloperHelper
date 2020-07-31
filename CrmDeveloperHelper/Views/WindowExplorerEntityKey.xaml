@@ -25,6 +25,17 @@
                 <MenuItem Header="Open Entity List in Browser" Click="mIOpenEntityListInWeb_Click" />
 
                 <Separator/>
+                <MenuItem Header="Clipboard">
+
+                    <MenuItem Header="Copy to Clipboard Name" Click="mIClipboardEntityCopyName_Click" />
+                    <MenuItem Header="Copy to Clipboard DisplayName" Click="mIClipboardEntityCopyDisplayName_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard Entity Id" Click="mIClipboardEntityCopyEntityId_Click" />
+
+                </MenuItem>
+
+                <Separator/>
                 <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution">
                     <MenuItem x:Uid="contMnAddToSolutionLastIncludeSubcomponents" Header="Include Subcomponents" />
                     <Separator/>
@@ -63,6 +74,20 @@
 
             <ContextMenu x:Key="listContextMenuEntityKey" Opened="ContextMenuEntityKey_Opened">
                 <MenuItem Header="Open EntityKey Customization in Browser" Click="mIOpenEntityKeyInWeb_Click" FontWeight="Bold" />
+
+                <Separator/>
+                <MenuItem Header="Clipboard">
+
+                    <MenuItem Header="Copy to Clipboard EntityKey Name" Click="mIClipboardEntityKeyCopyName_Click" />
+                    <MenuItem Header="Copy to Clipboard EntityKey DisplayName" Click="mIClipboardEntityKeyCopyDisplayName_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard EntityKey Key Attributes" Click="mIClipboardEntityKeyCopyKeyAttributes_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard EntityKey Id" Click="mIClipboardEntityKeyCopyEntityKeyId_Click" />
+
+                </MenuItem>
 
                 <Separator/>
                 <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" />

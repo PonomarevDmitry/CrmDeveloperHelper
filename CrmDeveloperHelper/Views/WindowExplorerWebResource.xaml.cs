@@ -230,7 +230,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (service != null)
                 {
-                    WebResourceRepository repository = new WebResourceRepository(service);
+                    var repository = new WebResourceRepository(service);
                     list = await repository.GetListAllAsync(
                         textName
                         , webResourceType
@@ -241,6 +241,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             WebResource.Schema.Attributes.name
                             , WebResource.Schema.Attributes.displayname
                             , WebResource.Schema.Attributes.webresourcetype
+                            , WebResource.Schema.Attributes.description
                             , WebResource.Schema.Attributes.ismanaged
                             , WebResource.Schema.Attributes.ishidden
                             , WebResource.Schema.Attributes.iscustomizable
@@ -1420,5 +1421,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             mIDeleteWebResource_Click(sender, e);
         }
+
+        #region Clipboard
+
+        private void mIClipboardCopyNodeName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityTreeViewItem>(e, ent => ent.Name);
+        }
+
+        private void mIClipboardCopyName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityTreeViewItem>(e, ent => ent.WebResource?.Name);
+        }
+
+        private void mIClipboardCopyDisplayName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityTreeViewItem>(e, ent => ent.WebResource?.DisplayName);
+        }
+
+        private void mIClipboardCopyWebResourceTypeCode_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityTreeViewItem>(e, ent => ent.WebResource?.WebResourceType?.Value.ToString());
+        }
+
+        private void mIClipboardCopyWebResourceTypeName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityTreeViewItem>(e, ent =>
+            {
+                string webResourceTypeName = string.Empty;
+                ent.WebResource?.FormattedValues.TryGetValue(WebResource.Schema.Attributes.webresourcetype, out webResourceTypeName);
+                return webResourceTypeName;
+            });
+        }
+
+        private void mIClipboardCopyDescription_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityTreeViewItem>(e, ent => ent.WebResource?.Description);
+        }
+
+        private void mIClipboardCopyWebResourceId_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityTreeViewItem>(e, ent => ent.WebResource?.Id.ToString());
+        }
+
+        #endregion Clipboard
     }
 }

@@ -295,7 +295,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (!string.IsNullOrEmpty(name))
             {
-                query.Criteria.AddCondition(WebResource.Schema.Attributes.name, ConditionOperator.Like, "%" + name + "%");
+                if (Guid.TryParse(name, out Guid id))
+                {
+                    query.Criteria.AddCondition(WebResource.Schema.Attributes.webresourceid, ConditionOperator.Equal, id);
+                }
+                else
+                {
+                    query.Criteria.AddCondition(WebResource.Schema.Attributes.name, ConditionOperator.Like, "%" + name + "%");
+                }
             }
 
             if (webResourceType.HasValue)

@@ -1875,5 +1875,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             mIDeleteWorkflow_Click(sender, e);
         }
+
+        #region Clipboard
+
+        private void mIClipboardCopyPrimaryEntityName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.PrimaryEntity);
+        }
+
+        private void mIClipboardCopyName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.Name);
+        }
+
+        private void mIClipboardCopyUniqueName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.UniqueName);
+        }
+
+        private void mIClipboardCopyWorkflowId_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.Workflow.Id.ToString());
+        }
+
+        #endregion Clipboard
     }
 }

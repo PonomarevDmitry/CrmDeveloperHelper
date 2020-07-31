@@ -23,6 +23,19 @@
                 <Separator/>
                 <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
 
+                <Separator/>
+                <MenuItem Header="Clipboard">
+
+                    <MenuItem Header="Copy to Clipboard Entity Name" Click="mIClipboardCopyEntityName_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard Name" Click="mIClipboardCopyName_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard SavedQueryVisualization Id" Click="mIClipboardCopySavedQueryVisualizationId_Click" />
+
+                </MenuItem>
+
                 <Separator />
                 <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Chart in Editor" Click="mIChangeEntityInEditor_Click"/>
                 <MenuItem Header="Delete Chart" Click="mIDeleteChart_Click" />

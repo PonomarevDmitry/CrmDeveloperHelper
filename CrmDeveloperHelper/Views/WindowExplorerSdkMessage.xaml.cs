@@ -742,5 +742,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             return filePath;
         }
+
+        #region Clipboard
+
+        private void mIClipboardCopyName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.Name);
+        }
+
+        private void mIClipboardCopyCategoryName_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.CategoryName);
+        }
+
+        private void mIClipboardCopyMessageId_Click(object sender, RoutedEventArgs e)
+        {
+            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.SdkMessage.Id.ToString());
+        }
+
+        #endregion Clipboard
     }
 }

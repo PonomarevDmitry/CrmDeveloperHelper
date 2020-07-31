@@ -19,7 +19,18 @@
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
 
                 <MenuItem Header="Create Entity Description" FontWeight="Bold" Click="mICreateEntityDescription_Click"/>
-                
+
+                <Separator/>
+                <MenuItem Header="Clipboard">
+
+                    <MenuItem Header="Copy to Clipboard Name" Click="mIClipboardCopyName_Click" />
+                    <MenuItem Header="Copy to Clipboard CategoryName" Click="mIClipboardCopyCategoryName_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard Message Id" Click="mIClipboardCopyMessageId_Click" />
+
+                </MenuItem>
+
                 <Separator/>
                 <MenuItem x:Uid="mIOpenMessageFilterExplorer" Header="Open Message Filter Explorer" />
 

@@ -10,7 +10,22 @@
             </ResourceDictionary.MergedDictionaries>
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
+                
                 <MenuItem Header="Open Attribute Customization in Browser" Click="mIOpenAttributeInWeb_Click" />
+
+                <Separator/>
+                <MenuItem Header="Clipboard">
+
+                    <MenuItem Header="Copy to Clipboard Name" Click="mIClipboardCopyName_Click" />
+                    <MenuItem Header="Copy to Clipboard DisplayName" Click="mIClipboardCopyDisplayName_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard AttributeType" Click="mIClipboardCopyAttributeType_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Copy to Clipboard Attribute Id" Click="mIClipboardCopyAttributeId_Click" />
+
+                </MenuItem>
 
                 <Separator/>
                 <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" />
@@ -83,7 +98,7 @@
 
             <Label Grid.Column="2">
                 <Hyperlink x:Name="hypLinkDeselectFiltered" NavigateUri="www.microsoftdynamicscrm.com" RequestNavigate="hypLinkDeselectFiltered_RequestNavigate" >
-                    <Run Text="Deselect All Filtered"/>
+                    <Run Text="DeSelect All Filtered"/>
                 </Hyperlink>
             </Label>
 
@@ -95,7 +110,7 @@
 
             <Label Grid.Column="5">
                 <Hyperlink x:Name="hypLinkDeselectAll" NavigateUri="www.microsoftdynamicscrm.com" RequestNavigate="hypLinkDeselectAll_RequestNavigate" >
-                    <Run Text="Deselect All Attributes"/>
+                    <Run Text="DeSelect All Attributes"/>
                 </Hyperlink>
             </Label>
         </Grid>

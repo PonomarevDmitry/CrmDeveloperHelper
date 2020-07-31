@@ -136,6 +136,17 @@
             <MenuItem Header="Open Entity List in Browser" Click="mIOpenEntityListInWeb_Click" />
 
             <Separator/>
+            <MenuItem Header="Clipboard">
+
+                <MenuItem Header="Copy to Clipboard Name" Click="mIClipboardEntityCopyName_Click" />
+                <MenuItem Header="Copy to Clipboard DisplayName" Click="mIClipboardEntityCopyDisplayName_Click" />
+
+                <Separator/>
+                <MenuItem Header="Copy to Clipboard Entity Id" Click="mIClipboardEntityCopyEntityId_Click" />
+
+            </MenuItem>
+
+            <Separator/>
             <MenuItem x:Uid="miEntityPrivilegesExplorer" Header="Entity Privileges Explorer" />
 
             <Separator/>
@@ -178,6 +189,19 @@
         <ContextMenu x:Key="listContextMenuOtherPrivileges" Opened="ContextMenuOtherPrivilege_Opened">
 
             <MenuItem x:Uid="mIOpenOtherPrivilegeExplorer" Header="Open Other Privilege Explorer" />
+
+            <MenuItem Header="Clipboard">
+
+                <MenuItem Header="Copy to Clipboard Privilege Name" Click="mIClipboardPrivilegeCopyName_Click" />
+                <MenuItem Header="Copy to Clipboard Privilege Type" Click="mIClipboardPrivilegeCopyType_Click" />
+
+                <Separator/>
+                <MenuItem Header="Copy to Clipboard Privilege Linked Entity" Click="mIClipboardPrivilegeCopyLinkedEntity_Click" />
+
+                <Separator/>
+                <MenuItem Header="Copy to Clipboard Privilege Id" Click="mIClipboardPrivilegeCopyPrivilegeId_Click" />
+
+            </MenuItem>
 
             <Separator/>
             <MenuItem x:Uid="contMnAddOtherPrivilegeToSolutionLast" Header="Add to Last Crm Solution" />
