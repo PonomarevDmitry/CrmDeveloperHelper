@@ -127,8 +127,8 @@
     <Compile Include="Commands\CSharp\CSharpProjectBuildLoadUpdatePluginAssemblyInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\CSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommand.cs" />
     <Compile Include="Commands\CSharp\CSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommand.cs" />
-    <Compile Include="Commands\CSharp\CSharpProjectCompareToCrmAssemblyCommand.cs" />
-    <Compile Include="Commands\CSharp\CSharpProjectCompareToCrmAssemblyInConnectionCommand.cs" />
+    <Compile Include="Commands\CSharp\CSharpProjectCompareTypesToCrmPluginAssemblyCommand.cs" />
+    <Compile Include="Commands\CSharp\CSharpProjectCompareTypesToCrmPluginAssemblyInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\CSharpProjectPluginAssemblyActionOnComponentCommand.cs" />
     <Compile Include="Commands\CSharp\CSharpProjectPluginAssemblyActionOnComponentInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\CSharpProjectPluginAssemblyActionOnComponentInConnectionWithoutCurrentCommand.cs" />

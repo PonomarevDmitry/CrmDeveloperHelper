@@ -61,6 +61,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 {
                     if (weakRef.TryGetTarget(out service))
                     {
+                        DTEHelper.Singleton?.WriteToOutput(this, $"TryGetServiceFromPool Success {nameof(_servicesInUse)} {_servicesInUse.Count} {nameof(_servicesFree)} {_servicesFree.Count}");
+
                         StoreServiceInUse(service);
 
                         return true;
@@ -69,6 +71,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                     weakRef.Dispose();
                 }
             }
+
+            DTEHelper.Singleton?.WriteToOutput(this, $"TryGetServiceFromPool Creating New {nameof(_servicesInUse)} {_servicesInUse.Count} {nameof(_servicesFree)} {_servicesFree.Count}");
 
             service = null;
             return false;
@@ -82,12 +86,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
 
             _servicesInUse.TryAdd(service, 0);
+
+            DTEHelper.Singleton?.WriteToOutput(this, $"StoreServiceInUse {nameof(_servicesInUse)} {_servicesInUse.Count} {nameof(_servicesFree)} {_servicesFree.Count}");
         }
 
         public void ReturnServiceToFree(OrganizationServiceProxy service)
         {
             _servicesInUse.TryRemove(service, out _);
             _servicesFree.Push(new WeakReferenceByTimeOut<OrganizationServiceProxy>(service, _serviceChacheTime));
+
+            DTEHelper.Singleton?.WriteToOutput(this, $"ReturnServiceToFree {nameof(_servicesInUse)} {_servicesInUse.Count} {nameof(_servicesFree)} {_servicesFree.Count}");
         }
 
         public bool IsCurrentConnection

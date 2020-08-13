@@ -2824,7 +2824,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId = 0x2BF2;
 
-            public const int CodeCSharpProjectCompareToCrmAssemblyInConnectionCommandId = 0x02BC;
+            public const int CodeCSharpProjectCompareTypesToCrmPluginAssemblyInConnectionCommandId = 0x02BC;
 
             public const int CodeCSharpProjectPluginAssemblyAddToSolutionInConnectionCommandId = 0x1F0E;
 
@@ -2914,7 +2914,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int DocumentsCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId = 0x429A;
 
-            public const int DocumentsCSharpProjectCompareToCrmAssemblyInConnectionCommandId = 0x4362;
+            public const int DocumentsCSharpProjectCompareTypesToCrmPluginAssemblyInConnectionCommandId = 0x4362;
 
             public const int DocumentsCSharpProjectPluginAssemblyCreateEntityDescriptionInConnectionCommandId = 0x43C6;
 
@@ -3078,7 +3078,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FileCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsInConnectionCommandId = 0x2C56;
 
-            public const int FileCSharpProjectCompareToCrmAssemblyInConnectionCommandId = 0x02EE;
+            public const int FileCSharpProjectCompareTypesToCrmPluginAssemblyInConnectionCommandId = 0x02EE;
 
             public const int FileCSharpProjectPluginAssemblyAddToSolutionInConnectionCommandId = 0x1FA4;
 
@@ -3170,7 +3170,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FolderCSharpProjectUpdatePluginAssemblyInConnectionCommandId = 0x42CC;
 
-            public const int FolderCSharpProjectCompareToCrmAssemblyInConnectionCommandId = 0x4394;
+            public const int FolderCSharpProjectCompareTypesToCrmPluginAssemblyInConnectionCommandId = 0x4394;
 
             public const int FolderCSharpProjectPluginAssemblyCreateEntityDescriptionInConnectionCommandId = 0x442A;
 
@@ -3264,7 +3264,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int ProjectPluginAssemblyStepsAddToSolutionLastCommandId = 0x017C;
 
-            public const int ProjectCompareToCrmAssemblyInConnectionCommandId = 0x0320;
+            public const int ProjectCompareTypesToCrmPluginAssemblyInConnectionCommandId = 0x0320;
 
             public const int ProjectUpdatePluginAssemblyInConnectionCommandId = 0x1CB6;
 
@@ -3431,7 +3431,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommandId = 0x2222;
 
-            public const int CodeCSharpProjectCompareToCrmAssemblyCommandId = 0x2140;
+            public const int CodeCSharpProjectCompareTypesToCrmPluginAssemblyCommandId = 0x2140;
 
             public const int CodeCSharpPluginTypeExplorerCommandId = 0x2134;
 
@@ -3499,7 +3499,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int DocumentsCSharpProjectUpdatePluginAssemblyCommandId = 0x2267;
 
-            public const int DocumentsCSharpProjectCompareToCrmAssemblyCommandId = 0x226A;
+            public const int DocumentsCSharpProjectCompareTypesToCrmPluginAssemblyCommandId = 0x226A;
 
             public const int DocumentsCSharpProjectPluginAssemblyCreateEntityDescriptionCommandId = 0x1545;
 
@@ -3573,7 +3573,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FileCSharpProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommandId = 0x2224;
 
-            public const int FileCSharpProjectCompareToCrmAssemblyCommandId = 0x2141;
+            public const int FileCSharpProjectCompareTypesToCrmPluginAssemblyCommandId = 0x2141;
 
             public const int FileCSharpPluginTypeExplorerCommandId = 0x2136;
 
@@ -3641,7 +3641,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FolderCSharpProjectUpdatePluginAssemblyCommandId = 0x226B;
 
-            public const int FolderCSharpProjectCompareToCrmAssemblyCommandId = 0x226E;
+            public const int FolderCSharpProjectCompareTypesToCrmPluginAssemblyCommandId = 0x226E;
 
             public const int FolderCSharpProjectPluginAssemblyCreateEntityDescriptionCommandId = 0x1547;
 
@@ -3663,7 +3663,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int ProjectUpdatePluginAssemblyCommandId = 0x2194;
 
-            public const int ProjectCompareToCrmAssemblyCommandId = 0x2126;
+            public const int ProjectCompareTypesToCrmPluginAssemblyCommandId = 0x2126;
 
             public const int ProjectPluginTypeExplorerCommandId = 0x2163;
 

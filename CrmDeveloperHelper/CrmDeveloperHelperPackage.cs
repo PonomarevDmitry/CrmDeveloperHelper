@@ -473,8 +473,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CSharpProjectUpdatePluginAssemblyCommand.Initialize,
             CSharpProjectUpdatePluginAssemblyInConnectionCommand.Initialize,
 
-            CSharpProjectCompareToCrmAssemblyCommand.Initialize,
-            CSharpProjectCompareToCrmAssemblyInConnectionCommand.Initialize,
+            CSharpProjectCompareTypesToCrmPluginAssemblyCommand.Initialize,
+            CSharpProjectCompareTypesToCrmPluginAssemblyInConnectionCommand.Initialize,
 
             CSharpProjectPluginAssemblyActionOnComponentCommand.Initialize,
             CSharpProjectPluginAssemblyActionOnComponentInConnectionWithoutCurrentCommand.Initialize,
