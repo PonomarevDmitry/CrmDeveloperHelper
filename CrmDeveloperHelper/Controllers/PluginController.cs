@@ -27,122 +27,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
         }
 
-        #region Сравнение сборки плагинов и локальной сборки.
-
-        public async Task ExecuteComparingPluginTypesLocalAssemblyAndPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<EnvDTE.Project> projectList)
-        {
-            string operation = string.Format(Properties.OperationNames.ComparingCrmPluginAssemblyAndLocalAssemblyFormat1, connectionData?.Name);
-
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
-
-            try
-            {
-                await ComparingPluginTypesLocalAssemblyAndPluginAssembly(connectionData, commonConfig, projectList);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
-            }
-        }
-
-        private async Task ComparingPluginTypesLocalAssemblyAndPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<EnvDTE.Project> projectList)
-        {
-            if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoProjectNames);
-                return;
-            }
-
-            var service = await ConnectAndWriteToOutputAsync(connectionData);
-
-            if (service == null)
-            {
-                return;
-            }
-
-            var repositoryAssembly = new PluginAssemblyRepository(service);
-            var repositoryType = new PluginTypeRepository(service);
-
-            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
-
-            foreach (var project in projectList)
-            {
-                string operation = string.Format(
-                    Properties.OperationNames.BuildingProjectAndComparingCrmPluginAssemblyFormat2
-                    , connectionData?.Name
-                    , project.Name
-                );
-
-                this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
-
-                try
-                {
-                    var pluginAssembly = await repositoryAssembly.FindAssemblyAsync(project.Name);
-
-                    if (pluginAssembly == null)
-                    {
-                        pluginAssembly = await repositoryAssembly.FindAssemblyByLikeNameAsync(project.Name);
-                    }
-
-                    if (pluginAssembly == null)
-                    {
-                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.PluginAssemblyNotFoundedByNameFormat1, project.Name);
-
-                        WindowHelper.OpenPluginAssemblyExplorer(
-                            this._iWriteToOutput
-                            , service
-                            , commonConfig
-                            , project.Name
-                        );
-
-                        continue;
-                    }
-
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.BuildingProjectFormat1, project.Name);
-
-                    var buildResult = await _iWriteToOutput.BuildProjectAsync(project);
-
-                    if (buildResult != 0)
-                    {
-                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.BuildingProjectFailedFormat1, project.Name);
-                        continue;
-                    }
-
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.BuildingProjectCompletedFormat1, project.Name);
-
-                    string defaultOutputFilePath = PropertiesHelper.GetOutputFilePath(project);
-
-                    if (!File.Exists(defaultOutputFilePath))
-                    {
-                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, defaultOutputFilePath);
-                        continue;
-                    }
-
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.LoadingAssemblyFromPathFormat1, defaultOutputFilePath);
-
-                    var taskGetPluginTypes = repositoryType.GetPluginTypesAsync(pluginAssembly.Id);
-
-                    string filePath = await CreateFileWithAssemblyComparing(commonConfig.FolderForExport, service, pluginAssembly.Name, taskGetPluginTypes, defaultOutputFilePath);
-
-                    this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
-                }
-                catch (Exception ex)
-                {
-                    this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-                }
-                finally
-                {
-                    this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
-                }
-            }
-
-            service.TryDispose();
-        }
-
         public async Task<string> SelecteFileCreateFileWithAssemblyComparing(string folder, IOrganizationServiceExtented service, Guid idPluginAssembly, string assemblyName, string defaultOutputFilePath)
         {
             var repositoryType = new PluginTypeRepository(service);
@@ -301,7 +185,262 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        #endregion Сравнение сборки плагинов и локальной сборки.
+        #region Comparing Local Assembly and PluginAssembly by PluginTypes.
+
+        public async Task ExecuteComparingPluginTypesLocalAssemblyAndPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<EnvDTE.Project> projectList)
+        {
+            string operation = string.Format(Properties.OperationNames.ComparingCrmPluginAssemblyAndLocalAssemblyFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await ComparingPluginTypesLocalAssemblyAndPluginAssembly(connectionData, commonConfig, projectList);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task ComparingPluginTypesLocalAssemblyAndPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<EnvDTE.Project> projectList)
+        {
+            if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoProjectNames);
+                return;
+            }
+
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var repositoryAssembly = new PluginAssemblyRepository(service);
+            var repositoryType = new PluginTypeRepository(service);
+
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+
+            foreach (var project in projectList)
+            {
+                string operation = string.Format(
+                    Properties.OperationNames.BuildingProjectAndComparingCrmPluginAssemblyFormat2
+                    , connectionData?.Name
+                    , project.Name
+                );
+
+                this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+                try
+                {
+                    var pluginAssembly = await repositoryAssembly.FindAssemblyAsync(project.Name);
+
+                    if (pluginAssembly == null)
+                    {
+                        pluginAssembly = await repositoryAssembly.FindAssemblyByLikeNameAsync(project.Name);
+                    }
+
+                    if (pluginAssembly == null)
+                    {
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.PluginAssemblyNotFoundedByNameFormat1, project.Name);
+
+                        WindowHelper.OpenPluginAssemblyExplorer(
+                            this._iWriteToOutput
+                            , service
+                            , commonConfig
+                            , project.Name
+                        );
+
+                        continue;
+                    }
+
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.BuildingProjectFormat1, project.Name);
+
+                    var buildResult = await _iWriteToOutput.BuildProjectAsync(project);
+
+                    if (buildResult != 0)
+                    {
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.BuildingProjectFailedFormat1, project.Name);
+                        continue;
+                    }
+
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.BuildingProjectCompletedFormat1, project.Name);
+
+                    string defaultOutputFilePath = PropertiesHelper.GetOutputFilePath(project);
+
+                    if (!File.Exists(defaultOutputFilePath))
+                    {
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, defaultOutputFilePath);
+                        continue;
+                    }
+
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.LoadingAssemblyFromPathFormat1, defaultOutputFilePath);
+
+                    var taskGetPluginTypes = repositoryType.GetPluginTypesAsync(pluginAssembly.Id);
+
+                    string filePath = await CreateFileWithAssemblyComparing(commonConfig.FolderForExport, service, pluginAssembly.Name, taskGetPluginTypes, defaultOutputFilePath);
+
+                    this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+                }
+                catch (Exception ex)
+                {
+                    this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+                }
+                finally
+                {
+                    this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+                }
+            }
+
+            service.TryDispose();
+        }
+
+        #endregion Comparing Local Assembly and PluginAssembly by PluginTypes.
+
+        #region Comparing Local Assembly and PluginAssembly by byte array.
+
+        public async Task ExecuteComparingByteArrayLocalAssemblyAndPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<EnvDTE.Project> projectList)
+        {
+            string operation = string.Format(Properties.OperationNames.ComparingByteArrayLocalAssemblyAndPluginAssemblyFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await ComparingByteArrayLocalAssemblyAndPluginAssembly(connectionData, commonConfig, projectList);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task ComparingByteArrayLocalAssemblyAndPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<EnvDTE.Project> projectList)
+        {
+            if (projectList == null || !projectList.Any(p => !string.IsNullOrEmpty(p.Name)))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoProjectNames);
+                return;
+            }
+
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var repositoryAssembly = new PluginAssemblyRepository(service);
+
+            commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
+
+            var notEqualByContent = new List<string>();
+
+            foreach (var project in projectList)
+            {
+                string operation = string.Format(
+                    Properties.OperationNames.BuildingProjectAndComparingCrmPluginAssemblyFormat2
+                    , connectionData?.Name
+                    , project.Name
+                );
+
+                this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+                try
+                {
+                    var pluginAssembly = await repositoryAssembly.FindAssemblyAsync(project.Name);
+
+                    if (pluginAssembly == null)
+                    {
+                        pluginAssembly = await repositoryAssembly.FindAssemblyByLikeNameAsync(project.Name);
+                    }
+
+                    if (pluginAssembly == null)
+                    {
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.PluginAssemblyNotFoundedByNameFormat1, project.Name);
+
+                        WindowHelper.OpenPluginAssemblyExplorer(
+                            this._iWriteToOutput
+                            , service
+                            , commonConfig
+                            , project.Name
+                        );
+
+                        continue;
+                    }
+
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.BuildingProjectFormat1, project.Name);
+
+                    var buildResult = await _iWriteToOutput.BuildProjectAsync(project);
+
+                    if (buildResult != 0)
+                    {
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.BuildingProjectFailedFormat1, project.Name);
+                        continue;
+                    }
+
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.BuildingProjectCompletedFormat1, project.Name);
+
+                    string defaultOutputFilePath = PropertiesHelper.GetOutputFilePath(project);
+
+                    if (!File.Exists(defaultOutputFilePath))
+                    {
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, defaultOutputFilePath);
+                        continue;
+                    }
+
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.LoadingAssemblyFromPathFormat1, defaultOutputFilePath);
+
+                    byte[] outputFileByteArray = File.ReadAllBytes(defaultOutputFilePath);
+                    string outputFileBase64String = Convert.ToBase64String(outputFileByteArray);
+
+                    var pluginAssemblyContent = await repositoryAssembly.GetAssemblyByIdRetrieveRequestAsync(pluginAssembly.Id, new ColumnSet(PluginAssembly.Schema.Attributes.content));
+
+                    if (pluginAssemblyContent.Content != outputFileBase64String)
+                    {
+                        notEqualByContent.Add(pluginAssembly.Name);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+                }
+                finally
+                {
+                    this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+                }
+            }
+
+            if (notEqualByContent.Count > 0)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                this._iWriteToOutput.WriteToOutput(connectionData, "PluginAssemblies different from Local Assemblies: {0}", notEqualByContent.Count);
+
+                foreach (var item in notEqualByContent)
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item);
+                }
+            }
+            else
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+                this._iWriteToOutput.WriteToOutput(connectionData, "PluginAssemblies and Local Assemblies are equal by byte array.");
+            }
+
+            service.TryDispose();
+        }
+
+        #endregion Comparing Local Assembly and PluginAssembly by byte array.
 
         #region Добавление шага плагина.
 

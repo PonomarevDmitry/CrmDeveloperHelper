@@ -685,11 +685,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupUpdate_MenuConnectionDyn_Group = 0x1289;
 
-            public const int codeMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompare = 0x111A;
+            public const int codeMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompareTypes = 0x111A;
 
-            public const int codeMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompare_MenuConnectionDyn = 0x1136;
+            public const int codeMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompareTypes_MenuConnectionDyn = 0x1136;
 
-            public const int codeMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompare_MenuConnectionDyn_Group = 0x1137;
+            public const int codeMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompareTypes_MenuConnectionDyn_Group = 0x1137;
 
             public const int codeMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyEntityDescription = 0x148D;
 
@@ -945,11 +945,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int documentsMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupUpdate_MenuConnectionDyn_Group = 0x1519;
 
-            public const int documentsMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompare = 0x151A;
+            public const int documentsMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompareTypes = 0x151A;
 
-            public const int documentsMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompare_MenuConnectionDyn = 0x151B;
+            public const int documentsMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompareTypes_MenuConnectionDyn = 0x151B;
 
-            public const int documentsMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompare_MenuConnectionDyn_Group = 0x151C;
+            public const int documentsMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompareTypes_MenuConnectionDyn_Group = 0x151C;
 
             public const int documentsMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyEntityDescription = 0x151D;
 
@@ -1377,11 +1377,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupUpdate_MenuConnectionDyn_Group = 0x128C;
 
-            public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompare = 0x1126;
+            public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompareTypes = 0x1126;
 
-            public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompare_MenuConnectionDyn = 0x1138;
+            public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompareTypes_MenuConnectionDyn = 0x1138;
 
-            public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompare_MenuConnectionDyn_Group = 0x1139;
+            public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompareTypes_MenuConnectionDyn_Group = 0x1139;
 
             public const int fileMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyEntityDescription = 0x14BD;
 
@@ -1629,11 +1629,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int folderMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupUpdate_MenuConnectionDyn_Group = 0x1534;
 
-            public const int folderMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompare = 0x1535;
+            public const int folderMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompareTypes = 0x1535;
 
-            public const int folderMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompare_MenuConnectionDyn = 0x1536;
+            public const int folderMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompareTypes_MenuConnectionDyn = 0x1536;
 
-            public const int folderMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompare_MenuConnectionDyn_Group = 0x1537;
+            public const int folderMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupCompareTypes_MenuConnectionDyn_Group = 0x1537;
 
             public const int folderMenuCSharp_GroupActionOnPluginAssembly_Menu_GroupPluginAssemblyEntityDescription = 0x1538;
 
@@ -1791,11 +1791,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int folderMenuProject_GroupUpdate_MenuConnectionDyn_Group = 0x128F;
 
-            public const int folderMenuProject_GroupCompare = 0x10FB;
+            public const int folderMenuProject_GroupCompareTypes = 0x10FB;
 
-            public const int folderMenuProject_GroupCompare_MenuConnectionDyn = 0x113A;
+            public const int folderMenuProject_GroupCompareTypes_MenuConnectionDyn = 0x113A;
 
-            public const int folderMenuProject_GroupCompare_MenuConnectionDyn_Group = 0x113B;
+            public const int folderMenuProject_GroupCompareTypes_MenuConnectionDyn_Group = 0x113B;
 
             public const int folderMenuProject_GroupRegister = 0x12E2;
 

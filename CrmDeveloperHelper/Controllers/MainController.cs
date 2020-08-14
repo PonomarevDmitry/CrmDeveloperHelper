@@ -905,6 +905,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartPluginAssemblyComparingPluginTypesWithLocalAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<EnvDTE.Project> projectList)
             => ExecuteWithConnectionInThread(connectionData, this._pluginController.ExecuteComparingPluginTypesLocalAssemblyAndPluginAssembly, commonConfig, projectList);
 
+        public void StartComparingByteArrayLocalAssemblyAndPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<EnvDTE.Project> projectList)
+            => ExecuteWithConnectionInThread(connectionData, this._pluginController.ExecuteComparingByteArrayLocalAssemblyAndPluginAssembly, commonConfig, projectList);
+
         public void StartPluginAssemblyUpdatingInWindow(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<EnvDTE.Project> projectList)
             => ExecuteWithConnectionInThread(connectionData, this._pluginController.ExecuteUpdatingPluginAssembliesInWindow, commonConfig, projectList);
 

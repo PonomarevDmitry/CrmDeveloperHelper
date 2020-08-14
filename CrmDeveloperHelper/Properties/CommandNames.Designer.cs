@@ -88,11 +88,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Compare with Crm PluginAssembly.
+        ///   Looks up a localized string similar to Compare Types with Crm PluginAssembly.
         /// </summary>
-        internal static string CodeCSharpProjectCompareToCrmAssemblyCommand {
+        internal static string CodeCSharpProjectCompareTypesToCrmPluginAssemblyCommand {
             get {
-                return ResourceManager.GetString("CodeCSharpProjectCompareToCrmAssemblyCommand", resourceCulture);
+                return ResourceManager.GetString("CodeCSharpProjectCompareTypesToCrmPluginAssemblyCommand", resourceCulture);
             }
         }
         
@@ -817,11 +817,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Compare with Crm PluginAssemblies.
+        ///   Looks up a localized string similar to Compare Types with Crm PluginAssemblies.
         /// </summary>
-        internal static string DocumentsCSharpProjectCompareToCrmAssemblyCommand {
+        internal static string DocumentsCSharpProjectCompareTypesToCrmPluginAssemblyCommand {
             get {
-                return ResourceManager.GetString("DocumentsCSharpProjectCompareToCrmAssemblyCommand", resourceCulture);
+                return ResourceManager.GetString("DocumentsCSharpProjectCompareTypesToCrmPluginAssemblyCommand", resourceCulture);
             }
         }
         
@@ -970,11 +970,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Compare with Crm PluginAssemblies.
+        ///   Looks up a localized string similar to Compare Types with Crm PluginAssemblies.
         /// </summary>
-        internal static string FileCSharpProjectCompareToCrmAssemblyCommand {
+        internal static string FileCSharpProjectCompareTypesToCrmPluginAssemblyCommand {
             get {
-                return ResourceManager.GetString("FileCSharpProjectCompareToCrmAssemblyCommand", resourceCulture);
+                return ResourceManager.GetString("FileCSharpProjectCompareTypesToCrmPluginAssemblyCommand", resourceCulture);
             }
         }
         
@@ -1204,11 +1204,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Compare with Crm PluginAssemblies (Recursive).
+        ///   Looks up a localized string similar to Compare Types with Crm PluginAssemblies (Recursive).
         /// </summary>
-        internal static string FolderCSharpProjectCompareToCrmAssemblyCommand {
+        internal static string FolderCSharpProjectCompareTypesToCrmPluginAssemblyCommand {
             get {
-                return ResourceManager.GetString("FolderCSharpProjectCompareToCrmAssemblyCommand", resourceCulture);
+                return ResourceManager.GetString("FolderCSharpProjectCompareTypesToCrmPluginAssemblyCommand", resourceCulture);
             }
         }
         
@@ -1447,11 +1447,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Compare with Crm PluginAssemblies.
+        ///   Looks up a localized string similar to Compare Types with Crm PluginAssemblies.
         /// </summary>
-        internal static string ProjectCompareToCrmAssemblyCommand {
+        internal static string ProjectCompareTypesToCrmPluginAssemblyCommand {
             get {
-                return ResourceManager.GetString("ProjectCompareToCrmAssemblyCommand", resourceCulture);
+                return ResourceManager.GetString("ProjectCompareTypesToCrmPluginAssemblyCommand", resourceCulture);
             }
         }
         

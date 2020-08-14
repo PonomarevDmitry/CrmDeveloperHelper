@@ -40,15 +40,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 
             var sourceProject = ProjectSourceSelectedProjects.CreateSource();
 
-            InstanceCode = new CSharpProjectCompareTypesToCrmPluginAssemblyCommand(commandService, PackageIds.guidCommandSet.CodeCSharpProjectCompareTypesToCrmPluginAssemblyCommandId, sourceCode, Properties.CommandNames.CodeCSharpProjectCompareToCrmAssemblyCommand);
+            InstanceCode = new CSharpProjectCompareTypesToCrmPluginAssemblyCommand(commandService, PackageIds.guidCommandSet.CodeCSharpProjectCompareTypesToCrmPluginAssemblyCommandId, sourceCode, Properties.CommandNames.CodeCSharpProjectCompareTypesToCrmPluginAssemblyCommand);
 
-            InstanceDocuments = new CSharpProjectCompareTypesToCrmPluginAssemblyCommand(commandService, PackageIds.guidCommandSet.DocumentsCSharpProjectCompareTypesToCrmPluginAssemblyCommandId, sourceDocuments, Properties.CommandNames.DocumentsCSharpProjectCompareToCrmAssemblyCommand);
+            InstanceDocuments = new CSharpProjectCompareTypesToCrmPluginAssemblyCommand(commandService, PackageIds.guidCommandSet.DocumentsCSharpProjectCompareTypesToCrmPluginAssemblyCommandId, sourceDocuments, Properties.CommandNames.DocumentsCSharpProjectCompareTypesToCrmPluginAssemblyCommand);
 
-            InstanceFile = new CSharpProjectCompareTypesToCrmPluginAssemblyCommand(commandService, PackageIds.guidCommandSet.FileCSharpProjectCompareTypesToCrmPluginAssemblyCommandId, sourceFile, Properties.CommandNames.FileCSharpProjectCompareToCrmAssemblyCommand);
+            InstanceFile = new CSharpProjectCompareTypesToCrmPluginAssemblyCommand(commandService, PackageIds.guidCommandSet.FileCSharpProjectCompareTypesToCrmPluginAssemblyCommandId, sourceFile, Properties.CommandNames.FileCSharpProjectCompareTypesToCrmPluginAssemblyCommand);
 
-            InstanceFolder = new CSharpProjectCompareTypesToCrmPluginAssemblyCommand(commandService, PackageIds.guidCommandSet.FolderCSharpProjectCompareTypesToCrmPluginAssemblyCommandId, sourceFolder, Properties.CommandNames.FolderCSharpProjectCompareToCrmAssemblyCommand);
+            InstanceFolder = new CSharpProjectCompareTypesToCrmPluginAssemblyCommand(commandService, PackageIds.guidCommandSet.FolderCSharpProjectCompareTypesToCrmPluginAssemblyCommandId, sourceFolder, Properties.CommandNames.FolderCSharpProjectCompareTypesToCrmPluginAssemblyCommand);
 
-            InstanceProject = new CSharpProjectCompareTypesToCrmPluginAssemblyCommand(commandService, PackageIds.guidCommandSet.ProjectCompareTypesToCrmPluginAssemblyCommandId, sourceProject, Properties.CommandNames.ProjectCompareToCrmAssemblyCommand);
+            InstanceProject = new CSharpProjectCompareTypesToCrmPluginAssemblyCommand(commandService, PackageIds.guidCommandSet.ProjectCompareTypesToCrmPluginAssemblyCommandId, sourceProject, Properties.CommandNames.ProjectCompareTypesToCrmPluginAssemblyCommand);
         }
 
         protected override void CommandAction(DTEHelper helper)

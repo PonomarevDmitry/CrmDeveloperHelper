@@ -202,7 +202,10 @@
     <value>{0} - Clearing Last Link</value>
   </data>
   <data name="ComparingCrmPluginAssemblyAndLocalAssemblyFormat1" xml:space="preserve">
-    <value>{0} - Comparing Crm PluginAssembly and Local Assembly</value>
+    <value>{0} - Comparing Crm PluginAssembly and Local Assembly by PluginTypes</value>
+  </data>
+  <data name="ComparingByteArrayLocalAssemblyAndPluginAssemblyFormat1" xml:space="preserve">
+    <value>{0} - Comparing Crm PluginAssembly and Local Assembly by Byte Array</value>
   </data>
   <data name="BuildingProjectAndComparingCrmPluginAssemblyFormat2" xml:space="preserve">
     <value>{0} - Project {1} - Building Project and Comparing with Crm PluginAssembly</value>

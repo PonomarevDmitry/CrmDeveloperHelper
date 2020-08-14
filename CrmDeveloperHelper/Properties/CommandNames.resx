@@ -121,20 +121,20 @@
     <value>Add Plugin Step</value>
   </data>
   
-  <data name="CodeCSharpProjectCompareToCrmAssemblyCommand" xml:space="preserve">
-    <value>Compare with Crm PluginAssembly</value>
+  <data name="CodeCSharpProjectCompareTypesToCrmPluginAssemblyCommand" xml:space="preserve">
+    <value>Compare Types with Crm PluginAssembly</value>
   </data>
-  <data name="DocumentsCSharpProjectCompareToCrmAssemblyCommand" xml:space="preserve">
-    <value>Compare with Crm PluginAssemblies</value>
+  <data name="DocumentsCSharpProjectCompareTypesToCrmPluginAssemblyCommand" xml:space="preserve">
+    <value>Compare Types with Crm PluginAssemblies</value>
   </data>
-  <data name="FileCSharpProjectCompareToCrmAssemblyCommand" xml:space="preserve">
-    <value>Compare with Crm PluginAssemblies</value>
+  <data name="FileCSharpProjectCompareTypesToCrmPluginAssemblyCommand" xml:space="preserve">
+    <value>Compare Types with Crm PluginAssemblies</value>
   </data>
-  <data name="FolderCSharpProjectCompareToCrmAssemblyCommand" xml:space="preserve">
-    <value>Compare with Crm PluginAssemblies (Recursive)</value>
+  <data name="FolderCSharpProjectCompareTypesToCrmPluginAssemblyCommand" xml:space="preserve">
+    <value>Compare Types with Crm PluginAssemblies (Recursive)</value>
   </data>
-  <data name="ProjectCompareToCrmAssemblyCommand" xml:space="preserve">
-    <value>Compare with Crm PluginAssemblies</value>
+  <data name="ProjectCompareTypesToCrmPluginAssemblyCommand" xml:space="preserve">
+    <value>Compare Types with Crm PluginAssemblies</value>
   </data>
   
   <data name="CodeCSharpProjectUpdatePluginAssemblyCommand" xml:space="preserve">

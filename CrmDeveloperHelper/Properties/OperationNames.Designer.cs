@@ -790,6 +790,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Comparing Crm PluginAssembly and Local Assembly by Byte Array.
+        /// </summary>
+        internal static string ComparingByteArrayLocalAssemblyAndPluginAssemblyFormat1 {
+            get {
+                return ResourceManager.GetString("ComparingByteArrayLocalAssemblyAndPluginAssemblyFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Comparing Connections {0} and {1}.
         /// </summary>
         internal static string ComparingConnectionsFormat2 {
@@ -799,7 +808,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Comparing Crm PluginAssembly and Local Assembly.
+        ///   Looks up a localized string similar to {0} - Comparing Crm PluginAssembly and Local Assembly by PluginTypes.
         /// </summary>
         internal static string ComparingCrmPluginAssemblyAndLocalAssemblyFormat1 {
             get {
