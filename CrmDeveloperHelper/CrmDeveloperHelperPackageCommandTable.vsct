@@ -353,7 +353,7 @@
 
       <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupPublish" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupPublish_MenuPublishDyn_Group" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupPublish_MenuPublishIncludeReferencesDyn" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupPublish_MenuPublishIncludeReferencesDyn_Group" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupPublish_MenuPublishEqualByTextDyn_Group" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupPublish_MenuPublishEqualByTextIncludeReferencesDyn_Group" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupShowDependentComponents" priority="0x06000" />
@@ -15431,7 +15431,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupPublish_MenuPublishDyn" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupPublish" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupPublish_MenuPublishIncludeReferencesDyn" priority="0x06020">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupPublish_MenuPublishIncludeReferencesDyn" priority="0x06010">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupPublish" />
     </CommandPlacement>
 

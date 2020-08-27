@@ -2,7 +2,7 @@
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using System;
 
-namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.JavaScripts
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources.JavaScripts
 {
     internal sealed class CodeJavaScriptLinkedEntityExplorerCommand : AbstractSingleCommand
     {

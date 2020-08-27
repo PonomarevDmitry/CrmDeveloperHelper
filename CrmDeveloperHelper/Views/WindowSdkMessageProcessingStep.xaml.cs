@@ -534,7 +534,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             else
             {
-                SdkMessageProcessingStepSecureConfig config = new SdkMessageProcessingStepSecureConfig()
+                var config = new SdkMessageProcessingStepSecureConfig()
                 {
                     SecureConfig = secureConfig,
                 };
@@ -731,7 +731,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private static string GetStageName(int stage, int? mode)
         {
-            StringBuilder result = new StringBuilder();
+            var result = new StringBuilder();
 
             switch (stage)
             {

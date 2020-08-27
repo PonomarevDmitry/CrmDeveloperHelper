@@ -3,7 +3,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
-namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.JavaScripts
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources.JavaScripts
 {
     internal sealed class CodeJavaScriptLinkedEntityAddToSolutionInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {

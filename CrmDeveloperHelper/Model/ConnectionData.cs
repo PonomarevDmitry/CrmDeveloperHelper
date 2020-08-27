@@ -72,7 +72,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 }
             }
 
-            DTEHelper.Singleton?.WriteToOutput(this, $"TryGetServiceFromPool Creating New {nameof(_servicesInUse)} {_servicesInUse.Count} {nameof(_servicesFree)} {_servicesFree.Count}");
+            //DTEHelper.Singleton?.WriteToOutput(this, $"TryGetServiceFromPool Creating New {nameof(_servicesInUse)} {_servicesInUse.Count} {nameof(_servicesFree)} {_servicesFree.Count}");
 
             service = null;
             return false;
@@ -87,7 +87,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             _servicesInUse.TryAdd(service, 0);
 
-            DTEHelper.Singleton?.WriteToOutput(this, $"StoreServiceInUse {nameof(_servicesInUse)} {_servicesInUse.Count} {nameof(_servicesFree)} {_servicesFree.Count}");
+            //DTEHelper.Singleton?.WriteToOutput(this, $"StoreServiceInUse {nameof(_servicesInUse)} {_servicesInUse.Count} {nameof(_servicesFree)} {_servicesFree.Count}");
         }
 
         public void ReturnServiceToFree(OrganizationServiceProxy service)
@@ -95,7 +95,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             _servicesInUse.TryRemove(service, out _);
             _servicesFree.Push(new WeakReferenceByTimeOut<OrganizationServiceProxy>(service, _serviceChacheTime));
 
-            DTEHelper.Singleton?.WriteToOutput(this, $"ReturnServiceToFree {nameof(_servicesInUse)} {_servicesInUse.Count} {nameof(_servicesFree)} {_servicesFree.Count}");
+            //DTEHelper.Singleton?.WriteToOutput(this, $"ReturnServiceToFree {nameof(_servicesInUse)} {_servicesInUse.Count} {nameof(_servicesFree)} {_servicesFree.Count}");
         }
 
         public bool IsCurrentConnection

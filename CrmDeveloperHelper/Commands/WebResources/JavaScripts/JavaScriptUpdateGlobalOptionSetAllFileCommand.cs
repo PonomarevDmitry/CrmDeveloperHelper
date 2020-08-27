@@ -6,7 +6,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model.Sources;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.JavaScripts
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources.JavaScripts
 {
     internal sealed class JavaScriptUpdateGlobalOptionSetAllFileCommand : AbstractDynamicCommandByConnectionAll
     {

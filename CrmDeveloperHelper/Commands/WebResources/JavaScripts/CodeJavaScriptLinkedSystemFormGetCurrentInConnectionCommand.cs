@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.JavaScripts
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources.JavaScripts
 {
     internal sealed class CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {

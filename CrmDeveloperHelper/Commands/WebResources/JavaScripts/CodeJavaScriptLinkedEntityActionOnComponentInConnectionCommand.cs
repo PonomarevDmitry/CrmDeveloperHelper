@@ -1,9 +1,8 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
-using System;
 
-namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.JavaScripts
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources.JavaScripts
 {
     internal sealed class CodeJavaScriptLinkedEntityActionOnComponentInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
@@ -32,7 +31,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.JavaScripts
                 , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedEntityOpenInWebInConnectionCommandId
                 , ActionOnComponent.OpenInWeb
             );
-            
+
             InstanceOpenListInWebInConnection = new CodeJavaScriptLinkedEntityActionOnComponentInConnectionCommand(
                 commandService
                 , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedEntityOpenListInWebInConnectionCommandId
