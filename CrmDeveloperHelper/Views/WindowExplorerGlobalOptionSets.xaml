@@ -25,7 +25,7 @@
                     <MenuItem Header="Copy to Clipboard Display Name" Click="mIClipboardCopyDisplayName_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Copy to Clipboard OptionSet Id" Click="mIClipboardCopyOptionSetId_Click" />
+                    <MenuItem Header="Copy to Clipboard OptionSet Metadata Id" Click="mIClipboardCopyOptionSetId_Click" />
 
                 </MenuItem>
 

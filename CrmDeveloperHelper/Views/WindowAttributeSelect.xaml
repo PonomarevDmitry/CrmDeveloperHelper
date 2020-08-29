@@ -23,7 +23,7 @@
                     <MenuItem Header="Copy to Clipboard AttributeType" Click="mIClipboardCopyAttributeType_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Copy to Clipboard Attribute Id" Click="mIClipboardCopyAttributeId_Click" />
+                    <MenuItem Header="Copy to Clipboard Attribute Metadata Id" Click="mIClipboardCopyAttributeId_Click" />
 
                 </MenuItem>
 

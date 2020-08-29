@@ -35,7 +35,7 @@
                     <MenuItem Header="Copy to Clipboard DisplayName" Click="mIClipboardEntityCopyDisplayName_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Copy to Clipboard Entity Id" Click="mIClipboardEntityCopyEntityId_Click" />
+                    <MenuItem Header="Copy to Clipboard Entity Metadata Id" Click="mIClipboardEntityCopyEntityId_Click" />
 
                 </MenuItem>
 
@@ -93,7 +93,7 @@
                     <MenuItem Header="Copy to Clipboard AttributeType" Click="mIClipboardAttributeCopyAttributeType_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Copy to Clipboard Attribute Id" Click="mIClipboardAttributeCopyAttributeId_Click" />
+                    <MenuItem Header="Copy to Clipboard Attribute Metadata Id" Click="mIClipboardAttributeCopyAttributeId_Click" />
 
                 </MenuItem>
 

@@ -28,7 +28,7 @@
                 <MenuItem Header="Copy to Clipboard DisplayName" Click="mIClipboardEntityCopyDisplayName_Click" />
 
                 <Separator/>
-                <MenuItem Header="Copy to Clipboard Entity Id" Click="mIClipboardEntityCopyEntityId_Click" />
+                <MenuItem Header="Copy to Clipboard Entity Metadata Id" Click="mIClipboardEntityCopyEntityId_Click" />
 
             </MenuItem>
 
@@ -90,7 +90,7 @@
                 <MenuItem Header="Copy to Clipboard EntityRelationship SecurityTypes" Click="mIClipboardEntityRelationshipCopySecurityTypes_Click" />
 
                 <Separator/>
-                <MenuItem Header="Copy to Clipboard EntityRelationship Id" Click="mIClipboardEntityRelationshipCopyEntityRelationshipId_Click" />
+                <MenuItem Header="Copy to Clipboard EntityRelationship Metadata Id" Click="mIClipboardEntityRelationshipCopyEntityRelationshipId_Click" />
 
             </MenuItem>
 
