@@ -61,6 +61,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public OrganizationServiceExtentedLocker Lock()
         {
+            ThrowExceptionIfDisposed();
+
             return new OrganizationServiceExtentedLocker(this);
         }
 
