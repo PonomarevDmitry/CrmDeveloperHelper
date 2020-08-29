@@ -403,6 +403,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuXml_GroupRibbonOpenEntity_MenuOpenEntityInWebConnectionDyn_Group = 0x133D;
 
+            public const int codeMenuXml_GroupRibbonAndRibbonDiffXmlGetCurrent = 0x1557;
+
+            public const int codeMenuXml_GroupRibbonAndRibbonDiffXmlGetCurrent_MenuConnectionDyn = 0x1558;
+
+            public const int codeMenuXml_GroupRibbonAndRibbonDiffXmlGetCurrent_MenuConnectionDyn_Group = 0x1559;
+
             public const int codeMenuXml_GroupRibbonGetCurrent = 0x13E8;
 
             public const int codeMenuXml_GroupRibbonGetCurrent_MenuConnectionDyn = 0x13E9;
@@ -2720,6 +2726,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeXmlRibbonGetCurrentInConnectionGroupCommandId = 0x2FA8;
 
+            public const int CodeXmlRibbonAndRibbonDiffXmlGetCurrentInConnectionGroupCommandId = 0x4682;
+
             public const int CodeXmlRibbonDiffXmlShowDifferenceInConnectionGroupCommandId = 0x1356;
 
             public const int CodeXmlRibbonDiffXmlUpdateInConnectionGroupCommandId = 0x1388;
@@ -3360,6 +3368,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int CodeXmlSiteMapUpdateCommandId = 0x2183;
 
             public const int CodeXmlSiteMapGetCurrentCommandId = 0x2231;
+
+            public const int CodeXmlRibbonAndRibbonDiffXmlGetCurrentCommandId = 0x2276;
 
             public const int CodeXmlRibbonExplorerCommandId = 0x21A7;
 

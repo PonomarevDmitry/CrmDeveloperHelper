@@ -37,6 +37,10 @@
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
             <Menu Background="{x:Null}">
                 <MenuItem Header="ApplicationRibbon" SubmenuOpened="miApplicationRibbon_SubmenuOpened">
+                    
+                    <MenuItem Header="Export Application Ribbon and RibbonDiffXml" Click="miExportApplicationRibbonAndRibbonDiffXml_Click"/>
+
+                    <Separator/>
                     <MenuItem Header="Export Application Ribbon" Click="miExportApplicationRibbon_Click"/>
 
                     <Separator/>

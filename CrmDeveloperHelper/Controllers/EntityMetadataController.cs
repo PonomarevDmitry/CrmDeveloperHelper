@@ -1309,25 +1309,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        public async Task ExecuteRibbonGetCurrent(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
-        {
-            string operation = string.Format(Properties.OperationNames.GettingRibbonCurrentXmlFormat1, connectionData?.Name);
+        //public async Task ExecuteRibbonGetCurrent(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
+        //{
+        //    string operation = string.Format(Properties.OperationNames.GettingRibbonCurrentXmlFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+        //    this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
-            try
-            {
-                await CheckAttributeValidateGetEntityNameExecuteAction(connectionData, commonConfig, doc, filePath, null, GetCurrentRibbon);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
-            }
-        }
+        //    try
+        //    {
+        //        await CheckAttributeValidateGetEntityNameExecuteAction(connectionData, commonConfig, doc, filePath, null, GetCurrentRibbon);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+        //    }
+        //    finally
+        //    {
+        //        this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+        //    }
+        //}
 
         private async Task GetCurrentRibbon(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, string entityName)
         {
@@ -1394,9 +1394,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             service.TryDispose();
         }
 
-        #endregion Ribbon Showing Difference
+        #endregion Ribbon Get Current
 
-        #region RibbonDiffXml Showing Difference
+        //ExecuteRibbonAndRibbonDiffXmlGetCurrent
+
+        #region RibbonDiffXml Get Current
 
         public async Task ExecuteRibbonDiffXmlGetCurrent(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
@@ -1421,25 +1423,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        public async Task ExecuteRibbonDiffXmlGetCurrent(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
-        {
-            string operation = string.Format(Properties.OperationNames.GettingRibbonDiffCurrentXmlFormat1, connectionData?.Name);
+        //public async Task ExecuteRibbonDiffXmlGetCurrent(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
+        //{
+        //    string operation = string.Format(Properties.OperationNames.GettingRibbonDiffCurrentXmlFormat1, connectionData?.Name);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+        //    this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
-            try
-            {
-                await CheckAttributeValidateGetEntityNameExecuteAction(connectionData, commonConfig, doc, filePath, null, GetCurrentRibbonDiffXml);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
-            }
-        }
+        //    try
+        //    {
+        //        await CheckAttributeValidateGetEntityNameExecuteAction(connectionData, commonConfig, doc, filePath, null, GetCurrentRibbonDiffXml);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+        //    }
+        //    finally
+        //    {
+        //        this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+        //    }
+        //}
 
         private async Task GetCurrentRibbonDiffXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, string entityName)
         {
@@ -1511,7 +1513,44 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             service.TryDispose();
         }
 
-        #endregion RibbonDiffXml Showing Difference
+        #endregion RibbonDiffXml Get Current
+
+        #region Ribbon and RibbonDiffXml Get Current
+
+        public async Task ExecuteRibbonAndRibbonDiffXmlGetCurrent(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+        {
+            string operation = string.Format(Properties.OperationNames.GettingRibbonDiffCurrentXmlFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                if (ParseXmlDocument(connectionData, selectedFile, out var doc))
+                {
+                    await CheckAttributeValidateGetEntityNameExecuteAction(connectionData, commonConfig, doc, selectedFile.FilePath, null, GetCurrentRibbonAndRibbonDiffXml);
+                }
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task GetCurrentRibbonAndRibbonDiffXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, XDocument doc, string filePath, string entityName)
+        {
+            using (service.Lock())
+            {
+                await GetCurrentRibbon(service, commonConfig, doc, filePath, entityName);
+
+                await GetCurrentRibbonDiffXml(service, commonConfig, doc, filePath, entityName);
+            }
+        }
+
+        #endregion Ribbon and RibbonDiffXml Get Current
 
         public async Task ExecuteOpeningEntityMetadataInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode)
         {

@@ -313,11 +313,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ApplicationRibbon Get Current Ribbon And RibbonDiffXml.
+        /// </summary>
+        internal static string CodeXmlApplicationRibbonGetCurrentRibbonAndRibbonDiffXmlCommand {
+            get {
+                return ResourceManager.GetString("CodeXmlApplicationRibbonGetCurrentRibbonAndRibbonDiffXmlCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Set Xsd Schema {0}.
         /// </summary>
         internal static string CodeXmlCommonXsdSchemaSetProperCommandFormat1 {
             get {
                 return ResourceManager.GetString("CodeXmlCommonXsdSchemaSetProperCommandFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get {0} Current Ribbon and RibbonDiffXml.
+        /// </summary>
+        internal static string CodeXmlEntityGetCurrentRibbonAndRibbonDiffXmlCommandFormat1 {
+            get {
+                return ResourceManager.GetString("CodeXmlEntityGetCurrentRibbonAndRibbonDiffXmlCommandFormat1", resourceCulture);
             }
         }
         

@@ -209,5 +209,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         }
 
         #endregion Ribbon
+
+        public void HandleRibbonAndRibbonDiffXmlGetCurrentCommand(ConnectionData connectionData, SelectedFile selectedFile)
+        {
+            if (selectedFile == null)
+            {
+                return;
+            }
+
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartRibbonAndRibbonDiffXmlGetCurrent(conn, commonConfig, selectedFile));
+        }
     }
 }

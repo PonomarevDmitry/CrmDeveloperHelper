@@ -241,6 +241,9 @@
   <data name="CodeXmlRibbonApplicationGetCurrentCommand" xml:space="preserve">
     <value>Get Application Ribbon Current Xml</value>
   </data>
+  <data name="CodeXmlApplicationRibbonGetCurrentRibbonAndRibbonDiffXmlCommand" xml:space="preserve">
+    <value>ApplicationRibbon Get Current Ribbon And RibbonDiffXml</value>
+  </data>
 
   <data name="CodeXmlRibbonDiffXmlApplicationShowDifferenceCommand" xml:space="preserve">
     <value>Show Difference Application RibbonDiffXml</value>
@@ -257,6 +260,9 @@
   </data>
   <data name="CodeXmlRibbonEntityGetCurrentCommandFormat1" xml:space="preserve">
     <value>Get {0} Ribbon Current Xml</value>
+  </data>
+  <data name="CodeXmlEntityGetCurrentRibbonAndRibbonDiffXmlCommandFormat1" xml:space="preserve">
+    <value>Get {0} Current Ribbon and RibbonDiffXml</value>
   </data>
   <data name="CodeXmlRibbonEntityExplorerCommand" xml:space="preserve">
     <value>Open Entity Explorer</value>

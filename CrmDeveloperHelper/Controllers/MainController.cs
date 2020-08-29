@@ -549,6 +549,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Ribbon
 
+        public void StartRibbonAndRibbonDiffXmlGetCurrent(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteRibbonAndRibbonDiffXmlGetCurrent, commonConfig, selectedFile);
+
         public void StartEntityMetadataOpenInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, ActionOnComponent actionOnComponent)
             => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteEntityMetadataOpenInWeb, commonConfig, entityName, actionOnComponent);
 

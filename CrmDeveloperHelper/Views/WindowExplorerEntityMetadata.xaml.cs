@@ -505,7 +505,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            await ExecuteActionAsync(entity, CreateEntityMetadataFileCSharpSchemaAsync);
+            await ExecuteActionAsync(entity, ExecuteCreateEntityMetadataFileCSharpSchemaAsync);
         }
 
         private async void miCreateCSharpFileProxyClass_Click(object sender, RoutedEventArgs e)
@@ -517,7 +517,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            await ExecuteActionAsync(entity, CreateEntityMetadataFileCSharpProxyClassAsync);
+            await ExecuteActionAsync(entity, ExecuteCreateEntityMetadataFileCSharpProxyClassAsync);
+        }
+
+        private async void miCreateCSharpFileSchemaMetadataAndProxyClass_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            await ExecuteActionAsync(entity, ExecuteCreateEntityMetadataFileCSharpSchemaAndProxyAsync);
         }
 
         private void lstVwEntities_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -552,10 +564,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await action(folder, entityMetadata);
         }
 
-        private async Task CreateEntityMetadataFileCSharpSchemaAsync(string folder, EntityMetadataListViewItem entityMetadata)
+        private async Task ExecuteCreateEntityMetadataFileCSharpSchemaAsync(string folder, EntityMetadataListViewItem entityMetadata)
         {
             var service = await GetService();
 
+            var repositoryEntityMetadata = new EntityMetadataRepository(service);
+            IMetadataProviderService metadataProviderService = new MetadataProviderService(repositoryEntityMetadata);
+
+            await CreateEntityMetadataFileCSharpSchemaAsync(folder, entityMetadata, metadataProviderService, service);
+        }
+
+        private async Task ExecuteCreateEntityMetadataFileCSharpProxyClassAsync(string folder, EntityMetadataListViewItem entityMetadata)
+        {
+            var service = await GetService();
+
+            var repositoryEntityMetadata = new EntityMetadataRepository(service);
+            IMetadataProviderService metadataProviderService = new MetadataProviderService(repositoryEntityMetadata);
+
+            await CreateEntityMetadataFileCSharpProxyClassAsync(folder, entityMetadata, metadataProviderService, service.ConnectionData, repositoryEntityMetadata);
+        }
+
+        private async Task ExecuteCreateEntityMetadataFileCSharpSchemaAndProxyAsync(string folder, EntityMetadataListViewItem entityMetadata)
+        {
+            var service = await GetService();
+
+            var repositoryEntityMetadata = new EntityMetadataRepository(service);
+            IMetadataProviderService metadataProviderService = new MetadataProviderService(repositoryEntityMetadata);
+
+            await CreateEntityMetadataFileCSharpSchemaAsync(folder, entityMetadata, metadataProviderService, service);
+
+            await CreateEntityMetadataFileCSharpProxyClassAsync(folder, entityMetadata, metadataProviderService, service.ConnectionData, repositoryEntityMetadata);
+        }
+
+        #region Creating CSharp Metadata Files
+
+        private async Task CreateEntityMetadataFileCSharpSchemaAsync(string folder, EntityMetadataListViewItem entityMetadata, IMetadataProviderService metadataProviderService, IOrganizationServiceExtented service)
+        {
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.CreatingFileForEntityFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingFileForEntityFormat1, entityMetadata.LogicalName);
@@ -575,13 +619,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     filePath = _filePath;
                 }
 
-                var repository = new EntityMetadataRepository(service);
-
                 ICodeGenerationService codeGenerationService = new CodeGenerationService(config);
                 INamingService namingService = new NamingService(service.ConnectionData.ServiceContextName, config);
                 ITypeMappingService typeMappingService = new TypeMappingService(fileGenerationOptions.NamespaceClassesCSharp);
                 ICodeWriterFilterService codeWriterFilterService = new CodeWriterFilterService(config);
-                IMetadataProviderService metadataProviderService = new MetadataProviderService(repository);
 
                 ICodeGenerationServiceProvider codeGenerationServiceProvider = new CodeGenerationServiceProvider(typeMappingService, codeGenerationService, codeWriterFilterService, metadataProviderService, namingService);
 
@@ -616,13 +657,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.CreatingFileForEntityFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
         }
 
-        private async Task CreateEntityMetadataFileCSharpProxyClassAsync(string folder, EntityMetadataListViewItem entityMetadata)
+        private async Task CreateEntityMetadataFileCSharpProxyClassAsync(string folder, EntityMetadataListViewItem entityMetadata, IMetadataProviderService metadataProviderService, ConnectionData connectionData, EntityMetadataRepository repositoryEntityMetadata)
         {
-            var service = await GetService();
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, Properties.OperationNames.CreatingFileForEntityFormat2, connectionData.Name, entityMetadata.LogicalName);
 
-            this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.CreatingFileForEntityFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
-
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingFileForEntityFormat1, entityMetadata.LogicalName);
+            ToggleControls(connectionData, false, Properties.OutputStrings.CreatingFileForEntityFormat1, entityMetadata.LogicalName);
 
             try
             {
@@ -630,7 +669,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var config = CreateFileCSharpConfiguration.CreateForProxyClass(fileGenerationOptions);
 
-                string fileName = CreateFileWithEntityMetadataCSharpHandler.CreateFileNameForProxy(service.ConnectionData, entityMetadata.EntityMetadata.SchemaName, this._selectedItem != null);
+                string fileName = CreateFileWithEntityMetadataCSharpHandler.CreateFileNameForProxy(connectionData, entityMetadata.EntityMetadata.SchemaName, this._selectedItem != null);
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -639,19 +678,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     filePath = _filePath;
                 }
 
-                var repository = new EntityMetadataRepository(service);
-
                 ICodeGenerationService codeGenerationService = new CodeGenerationService(config);
-                INamingService namingService = new NamingService(service.ConnectionData.ServiceContextName, config);
+                INamingService namingService = new NamingService(connectionData.ServiceContextName, config);
                 ITypeMappingService typeMappingService = new TypeMappingService(fileGenerationOptions.NamespaceClassesCSharp);
                 ICodeWriterFilterService codeWriterFilterService = new CodeWriterFilterService(config);
-                IMetadataProviderService metadataProviderService = new MetadataProviderService(repository);
 
                 ICodeGenerationServiceProvider codeGenerationServiceProvider = new CodeGenerationServiceProvider(typeMappingService, codeGenerationService, codeWriterFilterService, metadataProviderService, namingService);
 
-                var entityMetadataFull = await repository.GetEntityMetadataAsync(entityMetadata.LogicalName);
+                var entityMetadataFull = await repositoryEntityMetadata.GetEntityMetadataAsync(entityMetadata.LogicalName);
 
-                CodeGeneratorOptions options = new CodeGeneratorOptions
+                var options = new CodeGeneratorOptions
                 {
                     BlankLinesBetweenMembers = true,
                     BracingStyle = "C",
@@ -662,23 +698,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 AddFileToVSProject(_selectedItem, filePath);
 
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, entityMetadata.LogicalName, filePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, connectionData.Name, entityMetadata.LogicalName, filePath);
 
-                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+                this._iWriteToOutput.PerformAction(connectionData, filePath);
 
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
+                this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
 
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingFileForEntityCompletedFormat1, entityMetadata.LogicalName);
+                ToggleControls(connectionData, true, Properties.OutputStrings.CreatingFileForEntityCompletedFormat1, entityMetadata.LogicalName);
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingFileForEntityFailedFormat1, entityMetadata.LogicalName);
+                ToggleControls(connectionData, true, Properties.OutputStrings.CreatingFileForEntityFailedFormat1, entityMetadata.LogicalName);
             }
 
-            this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.CreatingFileForEntityFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
+            this._iWriteToOutput.WriteToOutputEndOperation(connectionData, Properties.OperationNames.CreatingFileForEntityFormat2, connectionData.Name, entityMetadata.LogicalName);
         }
+
+        #endregion Creating CSharp Metadata Files
 
         private async void miCreateJavaScriptFile_Click(object sender, RoutedEventArgs e)
         {
@@ -1116,6 +1154,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 FillLastSolutionItems(connectionData, items, true, AddToCrmSolutionLastIncludeAsShellOnly_Click, "contMnAddToSolutionLastIncludeAsShellOnly");
 
                 ActivateControls(items, connectionData.LastSelectedSolutionsUniqueName != null && connectionData.LastSelectedSolutionsUniqueName.Any(), "contMnAddToSolutionLast");
+
+                ActivateControls(items, !_blockNotMetadata, "blockNotMetadata");
             }
         }
 
@@ -1261,32 +1301,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void miExportEntityRibbon_Click(object sender, RoutedEventArgs e)
+        #region Ribbon
+
+        private async Task ExportEntityRibbon(IOrganizationServiceExtented service, string folder, EntityMetadataListViewItem entityMetadata)
         {
-            var entity = GetSelectedEntity();
-
-            if (entity == null)
-            {
-                return;
-            }
-
-            await ExecuteActionAsync(entity, PerformExportEntityRibbon);
-        }
-
-        private async Task PerformExportEntityRibbon(string folder, EntityMetadataListViewItem entityMetadata)
-        {
-            if (!this.IsControlsEnabled)
-            {
-                return;
-            }
-
-            if (_blockNotMetadata)
-            {
-                return;
-            }
-
-            var service = await GetService();
-
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ExportingRibbonForEntityFormat1, entityMetadata.LogicalName);
 
             try
@@ -1317,6 +1335,115 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ExportingRibbonForEntityCompletedFormat1, entityMetadata.LogicalName);
+        }
+
+        private async Task ExportEntityRibbonDiffXml(IOrganizationServiceExtented service, string folder, EntityMetadataListViewItem entityMetadata)
+        {
+            this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.ExportingRibbonDiffXmlForEntityFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
+
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ExportingRibbonDiffXmlForEntityFormat1, entityMetadata.LogicalName);
+
+            var repositoryRibbonCustomization = new RibbonCustomizationRepository(service);
+
+            try
+            {
+                string ribbonDiffXml = await repositoryRibbonCustomization.GetRibbonDiffXmlAsync(_iWriteToOutput, entityMetadata.EntityMetadata, null);
+
+                if (string.IsNullOrEmpty(ribbonDiffXml))
+                {
+                    ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ExportingRibbonDiffXmlForEntityFailedFormat1, entityMetadata.LogicalName);
+                    return;
+                }
+
+                ribbonDiffXml = ContentComparerHelper.FormatXmlByConfiguration(
+                    ribbonDiffXml
+                    , _commonConfig
+                    , XmlOptionsControls.RibbonXmlOptions
+                    , schemaName: AbstractDynamicCommandXsdSchemas.RibbonSchema
+                    , entityName: entityMetadata.LogicalName
+                );
+
+                {
+                    string fileName = EntityFileNameFormatter.GetEntityRibbonDiffXmlFileName(service.ConnectionData.Name, entityMetadata.LogicalName);
+                    string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                    File.WriteAllText(filePath, ribbonDiffXml, new UTF8Encoding(false));
+
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityRibbonDiffXmlForConnectionFormat3, service.ConnectionData.Name, entityMetadata.LogicalName, filePath);
+
+                    this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+                }
+
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ExportingRibbonDiffXmlForEntityCompletedFormat1, entityMetadata.LogicalName);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ExportingRibbonDiffXmlForEntityFailedFormat1, entityMetadata.LogicalName);
+            }
+
+            this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.ExportingRibbonDiffXmlForEntityFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
+        }
+
+        private async void miExportEntityRibbonAndRibbonDiffXml_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            await ExecuteActionAsync(entity, PerformExportEntityRibbonAndRibbonDiffXml);
+        }
+
+        private async Task PerformExportEntityRibbonAndRibbonDiffXml(string folder, EntityMetadataListViewItem entityMetadata)
+        {
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (_blockNotMetadata)
+            {
+                return;
+            }
+
+            var service = await GetService();
+
+            await ExportEntityRibbon(service, folder, entityMetadata);
+
+            await ExportEntityRibbonDiffXml(service, folder, entityMetadata);
+        }
+
+        private async void miExportEntityRibbon_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            await ExecuteActionAsync(entity, PerformExportEntityRibbon);
+        }
+
+        private async Task PerformExportEntityRibbon(string folder, EntityMetadataListViewItem entityMetadata)
+        {
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (_blockNotMetadata)
+            {
+                return;
+            }
+
+            var service = await GetService();
+
+            await ExportEntityRibbon(service, folder, entityMetadata);
         }
 
         private async void miExportEntityRibbonArchive_Click(object sender, RoutedEventArgs e)
@@ -1396,51 +1523,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.ExportingRibbonDiffXmlForEntityFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
-
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ExportingRibbonDiffXmlForEntityFormat1, entityMetadata.LogicalName);
-
-            var repositoryRibbonCustomization = new RibbonCustomizationRepository(service);
-
-            try
-            {
-                string ribbonDiffXml = await repositoryRibbonCustomization.GetRibbonDiffXmlAsync(_iWriteToOutput, entityMetadata.EntityMetadata, null);
-
-                if (string.IsNullOrEmpty(ribbonDiffXml))
-                {
-                    ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ExportingRibbonDiffXmlForEntityFailedFormat1, entityMetadata.LogicalName);
-                    return;
-                }
-
-                ribbonDiffXml = ContentComparerHelper.FormatXmlByConfiguration(
-                    ribbonDiffXml
-                    , _commonConfig
-                    , XmlOptionsControls.RibbonXmlOptions
-                    , schemaName: AbstractDynamicCommandXsdSchemas.RibbonSchema
-                    , entityName: entityMetadata.LogicalName
-                );
-
-                {
-                    string fileName = EntityFileNameFormatter.GetEntityRibbonDiffXmlFileName(service.ConnectionData.Name, entityMetadata.LogicalName);
-                    string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
-
-                    File.WriteAllText(filePath, ribbonDiffXml, new UTF8Encoding(false));
-
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityRibbonDiffXmlForConnectionFormat3, service.ConnectionData.Name, entityMetadata.LogicalName, filePath);
-
-                    this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
-                }
-
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ExportingRibbonDiffXmlForEntityCompletedFormat1, entityMetadata.LogicalName);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ExportingRibbonDiffXmlForEntityFailedFormat1, entityMetadata.LogicalName);
-            }
-
-            this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.ExportingRibbonDiffXmlForEntityFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
+            await ExportEntityRibbonDiffXml(service, folder, entityMetadata);
         }
 
         private async void miUpdateEntityRibbonDiffXml_Click(object sender, RoutedEventArgs e)
@@ -1551,6 +1634,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        #endregion Ribbon
+
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)
         {
             SetCurrentConnection(_iWriteToOutput, GetSelectedConnection());
@@ -1565,7 +1650,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            await ExecuteActionAsync(entity, CreateEntityMetadataFileCSharpSchemaAsync);
+            await ExecuteActionAsync(entity, ExecuteCreateEntityMetadataFileCSharpSchemaAsync);
         }
 
         private async void hyperlinkCSharpProxy_Click(object sender, RoutedEventArgs e)
@@ -1577,7 +1662,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            await ExecuteActionAsync(entity, CreateEntityMetadataFileCSharpProxyClassAsync);
+            await ExecuteActionAsync(entity, ExecuteCreateEntityMetadataFileCSharpProxyClassAsync);
+        }
+
+        private async void hyperlinkCSharpMetadataAndProxy_Click(object sender, RoutedEventArgs e)
+        {
+            EntityMetadataListViewItem entity = GetItemFromRoutedDataContext<EntityMetadataListViewItem>(e);
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            await ExecuteActionAsync(entity, ExecuteCreateEntityMetadataFileCSharpSchemaAndProxyAsync);
         }
 
         private async void hyperlinkJavaScript_Click(object sender, RoutedEventArgs e)
@@ -1797,5 +1894,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         }
 
         #endregion Clipboard Entity
+
+        private void miEntityOperations_SubmenuOpened(object sender, RoutedEventArgs e)
+        {
+            if (!(sender is MenuItem menuItem))
+            {
+                return;
+            }
+
+            var items = menuItem.Items.OfType<Control>();
+
+            ActivateControls(items, !_blockNotMetadata, "blockNotMetadata");
+        }
     }
 }

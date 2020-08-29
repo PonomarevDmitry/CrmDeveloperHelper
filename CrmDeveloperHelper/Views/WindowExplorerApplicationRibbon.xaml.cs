@@ -165,20 +165,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await action();
         }
 
-        private async void miExportApplicationRibbon_Click(object sender, RoutedEventArgs e)
+        #region Export Xml Files
+
+        private async Task ExportApplicationRibbon(IOrganizationServiceExtented service)
         {
-            await ExecuteActionOnApplicationRibbonAsync(PerformExportApplicationRibbon);
-        }
-
-        private async Task PerformExportApplicationRibbon()
-        {
-            if (!this.IsControlsEnabled)
-            {
-                return;
-            }
-
-            var service = await GetService();
-
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.ExportingApplicationRibbonFormat1, service.ConnectionData.Name);
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ExportingApplicationRibbon);
@@ -217,65 +207,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.ExportingApplicationRibbonFormat1, service.ConnectionData.Name);
         }
 
-        private async void miExportApplicationRibbonArchive_Click(object sender, RoutedEventArgs e)
+        private async Task ExportApplicationRibbonDiffXml(IOrganizationServiceExtented service)
         {
-            await ExecuteActionOnApplicationRibbonAsync(PerformExportApplicationRibbonArchive);
-        }
-
-        private async Task PerformExportApplicationRibbonArchive()
-        {
-            if (!this.IsControlsEnabled)
-            {
-                return;
-            }
-
-            var service = await GetService();
-
-            this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.ExportingApplicationRibbonFormat1, service.ConnectionData.Name);
-
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ExportingApplicationRibbon);
-
-            try
-            {
-                var repository = new RibbonCustomizationRepository(service);
-
-                var ribbonBody = await repository.ExportApplicationRibbonByteArrayAsync();
-
-                {
-                    string fileName = EntityFileNameFormatter.GetApplicationRibbonFileName(service.ConnectionData.Name, FileExtension.zip);
-                    string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-                    File.WriteAllBytes(filePath, ribbonBody);
-
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedAppliationRibbonForConnectionFormat2, service.ConnectionData.Name, filePath);
-
-                    this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
-                }
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-            }
-
-            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ExportingApplicationRibbonCompleted);
-
-            this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.ExportingApplicationRibbonFormat1, service.ConnectionData.Name);
-        }
-
-        private async void miExportApplicationRibbonDiffXml_Click(object sender, RoutedEventArgs e)
-        {
-            await ExecuteActionOnApplicationRibbonAsync(PerformExportApplicationRibbonDiffXml);
-        }
-
-        private async Task PerformExportApplicationRibbonDiffXml()
-        {
-            if (!this.IsControlsEnabled)
-            {
-                return;
-            }
-
-            var service = await GetService();
-
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.ExportingApplicationRibbonDiffXmlFormat1, service.ConnectionData.Name);
 
             ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ExportingApplicationRibbonDiffXml);
@@ -341,6 +274,116 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.ExportingApplicationRibbonDiffXmlFormat1, service.ConnectionData.Name);
         }
+
+        #endregion Export Xml Files
+
+        #region Export Ribbon and RibbonDiffXml
+
+        private async void miExportApplicationRibbonAndRibbonDiffXml_Click(object sender, RoutedEventArgs e)
+        {
+            await ExecuteActionOnApplicationRibbonAsync(PerformExportApplicationRibbonAndRibbonDiffXml);
+        }
+
+        private async Task PerformExportApplicationRibbonAndRibbonDiffXml()
+        {
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            var service = await GetService();
+
+            await ExportApplicationRibbon(service);
+
+            await ExportApplicationRibbonDiffXml(service);
+        }
+
+        private async void miExportApplicationRibbon_Click(object sender, RoutedEventArgs e)
+        {
+            await ExecuteActionOnApplicationRibbonAsync(PerformExportApplicationRibbon);
+        }
+
+        private async Task PerformExportApplicationRibbon()
+        {
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            var service = await GetService();
+
+            await ExportApplicationRibbon(service);
+        }
+
+        private async void miExportApplicationRibbonDiffXml_Click(object sender, RoutedEventArgs e)
+        {
+            await ExecuteActionOnApplicationRibbonAsync(PerformExportApplicationRibbonDiffXml);
+        }
+
+        private async Task PerformExportApplicationRibbonDiffXml()
+        {
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            var service = await GetService();
+
+            await ExportApplicationRibbonDiffXml(service);
+        }
+
+        #endregion Export Ribbon and RibbonDiffXml
+
+        #region Export Ribbon Archive
+
+        private async void miExportApplicationRibbonArchive_Click(object sender, RoutedEventArgs e)
+        {
+            await ExecuteActionOnApplicationRibbonAsync(PerformExportApplicationRibbonArchive);
+        }
+
+        private async Task PerformExportApplicationRibbonArchive()
+        {
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            var service = await GetService();
+
+            this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.ExportingApplicationRibbonFormat1, service.ConnectionData.Name);
+
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ExportingApplicationRibbon);
+
+            try
+            {
+                var repository = new RibbonCustomizationRepository(service);
+
+                var ribbonBody = await repository.ExportApplicationRibbonByteArrayAsync();
+
+                {
+                    string fileName = EntityFileNameFormatter.GetApplicationRibbonFileName(service.ConnectionData.Name, FileExtension.zip);
+                    string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                    File.WriteAllBytes(filePath, ribbonBody);
+
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedAppliationRibbonForConnectionFormat2, service.ConnectionData.Name, filePath);
+
+                    this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+                }
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+            }
+
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ExportingApplicationRibbonCompleted);
+
+            this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.ExportingApplicationRibbonFormat1, service.ConnectionData.Name);
+        }
+
+        #endregion Export Ribbon Archive
+
+        #region Update RibbonDiffXml
 
         private async void miUpdateApplicationRibbonDiffXml_Click(object sender, RoutedEventArgs e)
         {
@@ -449,6 +492,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.UpdatingApplicationRibbonDiffXmlFormat1, service.ConnectionData.Name);
         }
 
+        #endregion Update RibbonDiffXml
+
         private async void miPublishApplicationRibbon_Click(object sender, RoutedEventArgs e)
         {
             if (!this.IsControlsEnabled)
@@ -542,7 +587,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     , (int)ComponentType.RibbonCustomization
                     , ribbonCustomization.Id
                     , null
-                    );
+                );
             }
         }
 

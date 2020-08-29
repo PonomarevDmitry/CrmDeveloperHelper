@@ -351,6 +351,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeXmlRibbonDiffXmlGetCurrentCommand.Initialize,
             CodeXmlRibbonDiffXmlGetCurrentInConnectionGroupCommand.Initialize,
 
+            CodeXmlRibbonAndRibbonDiffXmlGetCurrentCommand.Initialize,
+            CodeXmlRibbonAndRibbonDiffXmlGetCurrentInConnectionGroupCommand.Initialize,
+
             #endregion Ribbon
 
             #region Workflow

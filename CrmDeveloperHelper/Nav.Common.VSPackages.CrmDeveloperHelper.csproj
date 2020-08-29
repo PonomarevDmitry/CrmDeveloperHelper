@@ -316,6 +316,8 @@
     <Compile Include="Commands\Xmls\CodeXmlPluginTypeCustomWorkflowActivityInfoGetCurrentInConnectionCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlPluginTypeCustomWorkflowActivityInfoShowDifferenceCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlPluginTypeCustomWorkflowActivityInfoShowDifferenceInConnectionCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlRibbonAndRibbonDiffXmlGetCurrentCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlRibbonAndRibbonDiffXmlGetCurrentInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlRibbonDiffXmlGetCurrentCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlRibbonDiffXmlGetCurrentInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlRibbonGetCurrentCommand.cs" />

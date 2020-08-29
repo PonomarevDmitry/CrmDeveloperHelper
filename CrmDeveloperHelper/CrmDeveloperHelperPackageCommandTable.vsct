@@ -166,6 +166,9 @@
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonOpenEntity" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonOpenEntity_MenuOpenEntityInWebConnectionDyn_Group" priority="0x06000" />
 
+      <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonAndRibbonDiffXmlGetCurrent" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonAndRibbonDiffXmlGetCurrent_MenuConnectionDyn_Group" priority="0x06000" />
+
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonGetCurrent" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonGetCurrent_MenuConnectionDyn_Group" priority="0x06000" />
 
@@ -1639,6 +1642,13 @@
         <Strings>
           <ButtonText>Open Entity in Browser</ButtonText>
           <MenuText>Open Entity in Browser</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonAndRibbonDiffXmlGetCurrent_MenuConnectionDyn" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Get Ribbon and RibbonDiffXml Current Xml in Connection Group</ButtonText>
+          <MenuText>Get Ribbon and RibbonDiffXml Current Xml in Connection Group</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonGetCurrent_MenuConnectionDyn" priority="0x06000" type="Menu">
@@ -5995,6 +6005,30 @@
           <ButtonText>Open Ribbon Explorer</ButtonText>
         </Strings>
       </Button>
+
+      <Button guid="guidCommandSet" id="CodeXmlRibbonAndRibbonDiffXmlGetCurrentCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Get Ribbon and RibbonDiffXml Current Xml</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="CodeXmlRibbonAndRibbonDiffXmlGetCurrentInConnectionGroupCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>CodeXmlRibbonAndRibbonDiffXmlGetCurrentInConnectionGroupCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+
+
       <Button guid="guidCommandSet" id="CodeXmlRibbonGetCurrentCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -14354,74 +14388,78 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonOpenEntity" priority="0x06050">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonGetCurrent" priority="0x06060">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonShowDifference" priority="0x06070">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonAndRibbonDiffXmlGetCurrent" priority="0x06060">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonDiffXmlGetCurrent" priority="0x06080">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonGetCurrent" priority="0x06070">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonDiffXmlShowDifference" priority="0x06090">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonDiffXmlUpdate" priority="0x060A0">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonShowDifference" priority="0x06080">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSystemFormCurrent" priority="0x060B0">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonDiffXmlGetCurrent" priority="0x06090">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSystemFormShowDifference" priority="0x060C0">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonDiffXmlShowDifference" priority="0x060A0">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSystemFormUpdate" priority="0x060D0">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
-    </CommandPlacement>
-
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSavedQueryCurrent" priority="0x060E0">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSavedQueryShowDifference" priority="0x060F0">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSavedQueryUpdate" priority="0x06100">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonDiffXmlUpdate" priority="0x060B0">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWorkflowCurrent" priority="0x06110">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSystemFormCurrent" priority="0x060C0">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWorkflowShowDifference" priority="0x06120">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSystemFormShowDifference" priority="0x060D0">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWorkflowUpdate" priority="0x06130">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
-    </CommandPlacement>
-
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlCurrent" priority="0x06140">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlShowDifference" priority="0x06150">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlUpdate" priority="0x06160">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSystemFormUpdate" priority="0x060E0">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupPluginTypeCustomWorkflowActivityInfoCurrent" priority="0x06170">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSavedQueryCurrent" priority="0x060F0">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupPluginTypeCustomWorkflowActivityInfoShowDifference" priority="0x06180">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSavedQueryShowDifference" priority="0x06100">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSavedQueryUpdate" priority="0x06110">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema" priority="0x06190">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWorkflowCurrent" priority="0x06120">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupIntellisenseContext" priority="0x061A0">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWorkflowShowDifference" priority="0x06130">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWorkflowUpdate" priority="0x06140">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlCurrent" priority="0x06150">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlShowDifference" priority="0x06160">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupWebResourceDependencyXmlUpdate" priority="0x06170">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupPluginTypeCustomWorkflowActivityInfoCurrent" priority="0x06180">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupPluginTypeCustomWorkflowActivityInfoShowDifference" priority="0x06190">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema" priority="0x061A0">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupIntellisenseContext" priority="0x061B0">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml" />
     </CommandPlacement>
 
@@ -14516,6 +14554,16 @@
 
     <!-- #endregion CommandPlacements codeMenuXml_GroupRibbonOpenEntity -->
 
+    <!-- #region CommandPlacements codeMenuXml_GroupRibbonAndRibbonDiffXmlGetCurrent -->
+
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlRibbonAndRibbonDiffXmlGetCurrentCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonAndRibbonDiffXmlGetCurrent" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonAndRibbonDiffXmlGetCurrent_MenuConnectionDyn" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonAndRibbonDiffXmlGetCurrent" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements codeMenuXml_GroupRibbonAndRibbonDiffXmlGetCurrent -->
 
     <!-- #region CommandPlacements codeMenuXml_GroupRibbonGetCurrent -->
 
@@ -20129,6 +20177,13 @@
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonOpenEntity_MenuOpenEntityInWebConnectionDyn_Group" />
     </CommandPlacement>
 
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonAndRibbonDiffXmlGetCurrent_MenuConnectionDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonAndRibbonDiffXmlGetCurrent_MenuConnectionDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlRibbonAndRibbonDiffXmlGetCurrentInConnectionGroupCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonAndRibbonDiffXmlGetCurrent_MenuConnectionDyn_Group" />
+    </CommandPlacement>
+
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonGetCurrent_MenuConnectionDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupRibbonGetCurrent_MenuConnectionDyn" />
     </CommandPlacement>
@@ -23234,27 +23289,26 @@
 
 
       <IDSymbol name="codeMenuXml_GroupRibbonOpenEntity" value="0x13E7" />
-
       <IDSymbol name="codeMenuXml_GroupRibbonOpenEntity_MenuOpenEntityInWebConnectionDyn" value="0x133C" />
       <IDSymbol name="codeMenuXml_GroupRibbonOpenEntity_MenuOpenEntityInWebConnectionDyn_Group" value="0x133D" />
 
-      <IDSymbol name="codeMenuXml_GroupRibbonGetCurrent" value="0x13E8" />
+      <IDSymbol name="codeMenuXml_GroupRibbonAndRibbonDiffXmlGetCurrent" value="0x1557" />
+      <IDSymbol name="codeMenuXml_GroupRibbonAndRibbonDiffXmlGetCurrent_MenuConnectionDyn" value="0x1558" />
+      <IDSymbol name="codeMenuXml_GroupRibbonAndRibbonDiffXmlGetCurrent_MenuConnectionDyn_Group" value="0x1559" />
 
+      <IDSymbol name="codeMenuXml_GroupRibbonGetCurrent" value="0x13E8" />
       <IDSymbol name="codeMenuXml_GroupRibbonGetCurrent_MenuConnectionDyn" value="0x13E9" />
       <IDSymbol name="codeMenuXml_GroupRibbonGetCurrent_MenuConnectionDyn_Group" value="0x13EA" />
 
       <IDSymbol name="codeMenuXml_GroupRibbonShowDifference" value="0x123E" />
-
       <IDSymbol name="codeMenuXml_GroupRibbonShowDifference_MenuConnectionDyn" value="0x123F" />
       <IDSymbol name="codeMenuXml_GroupRibbonShowDifference_MenuConnectionDyn_Group" value="0x1240" />
 
       <IDSymbol name="codeMenuXml_GroupRibbonDiffXmlGetCurrent" value="0x13EB" />
-
       <IDSymbol name="codeMenuXml_GroupRibbonDiffXmlGetCurrent_MenuConnectionDyn" value="0x13EC" />
       <IDSymbol name="codeMenuXml_GroupRibbonDiffXmlGetCurrent_MenuConnectionDyn_Group" value="0x13ED" />
 
       <IDSymbol name="codeMenuXml_GroupRibbonDiffXmlShowDifference" value="0x1241" />
-
       <IDSymbol name="codeMenuXml_GroupRibbonDiffXmlShowDifference_MenuConnectionDyn" value="0x1242" />
       <IDSymbol name="codeMenuXml_GroupRibbonDiffXmlShowDifference_MenuConnectionDyn_Group" value="0x1243" />
 
@@ -25195,6 +25249,9 @@
       <IDSymbol name="CodeXmlRibbonShowDifferenceInConnectionGroupCommandId" value="4900" />
       <IDSymbol name="CodeXmlRibbonGetCurrentInConnectionGroupCommandId" value="12200" />
 
+      <IDSymbol name="CodeXmlRibbonAndRibbonDiffXmlGetCurrentInConnectionGroupCommandId" value="18050" />
+
+
       <IDSymbol name="CodeXmlRibbonDiffXmlShowDifferenceInConnectionGroupCommandId" value="4950" />
       <IDSymbol name="CodeXmlRibbonDiffXmlUpdateInConnectionGroupCommandId" value="5000" />
       <IDSymbol name="CodeXmlRibbonDiffXmlGetCurrentInConnectionGroupCommandId" value="12250" />
@@ -25807,6 +25864,8 @@
       <IDSymbol name="CodeXmlSiteMapShowDifferenceCommandId" value="0x217E" />
       <IDSymbol name="CodeXmlSiteMapUpdateCommandId" value="0x2183" />
       <IDSymbol name="CodeXmlSiteMapGetCurrentCommandId" value="0x2231" />
+
+      <IDSymbol name="CodeXmlRibbonAndRibbonDiffXmlGetCurrentCommandId" value="0x2276" />
 
       <IDSymbol name="CodeXmlRibbonExplorerCommandId" value="0x21A7" />
       <IDSymbol name="CodeXmlRibbonShowDifferenceCommandId" value="0x217B" />
@@ -26486,13 +26545,13 @@
 
 
     <!-- Groups and Menus -->
-    <!-- 0x1557 -->
+    <!-- 0x155A -->
 
     <!-- Commands -->
-    <!-- 0x2276 -->
+    <!-- 0x2277 -->
 
     <!-- Commands Dynamic -->
-    <!-- 18050 -->
+    <!-- 18100 -->
 
     <!-- 16905 - 16950 -->
 
