@@ -96,5 +96,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
         /// <see cref="Model.OrganizationServiceExtentedProxy.TryDispose"/>
         /// </summary>
         void TryDispose();
+
+        /// <summary>
+        /// <see cref="Model.OrganizationServiceExtentedProxy.Lock"/>
+        /// </summary>
+        /// <returns></returns>
+        OrganizationServiceExtentedLocker Lock();
     }
 }

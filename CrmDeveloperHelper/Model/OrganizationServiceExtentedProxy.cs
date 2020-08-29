@@ -59,6 +59,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.Dispose();
         }
 
+        public OrganizationServiceExtentedLocker Lock()
+        {
+            return new OrganizationServiceExtentedLocker(this);
+        }
+
         public Task<Guid> CreateAsync(Entity entity)
         {
             ThrowExceptionIfDisposed();
