@@ -89,6 +89,8 @@
                 </MenuItem>
 
                 <Separator/>
+                <MenuItem Header="Fetch Xml and Layout Xml" Click="mIExportSavedQueryFetchXmlAndLayoutXml_Click"/>
+                <Separator/>
                 <MenuItem Header="Fetch Xml" Click="mIExportSavedQueryFetchXml_Click"/>
                 <MenuItem Header="Layout Xml" Click="mIExportSavedQueryLayoutXml_Click"/>
                 <MenuItem Header="ColumnSet Xml" Click="mIExportSavedQueryColumnSetXml_Click"/>
@@ -206,6 +208,21 @@
                 </Style>
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
+
+                <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <Label Content="F+LX" Margin="0" Padding="0" ToolTip="Fetch Xml and Layout Xml" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label ToolTip="Fetch Xml and Layout Xml" Style="{StaticResource stLabel}">
+                                <Hyperlink Click="hyperlinkFetchXmlAndLayoutXml_Click">
+                                    <Run Text="F+LX"/>
+                                </Hyperlink>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
                 <DataGridTemplateColumn Width="Auto" CanUserSort="False" CanUserResize="False">
                     <DataGridTemplateColumn.Header>

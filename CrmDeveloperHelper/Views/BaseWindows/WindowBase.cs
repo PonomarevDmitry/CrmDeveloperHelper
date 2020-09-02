@@ -5,6 +5,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -34,6 +35,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             binding.Executed += this.Refresh_Executed;
 
             this.CommandBindings.Add(binding);
+        }
+
+        protected void SetInputLangurateEnglish()
+        {
+            InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
         }
 
         private async void Refresh_Executed(object sender, ExecutedRoutedEventArgs e)

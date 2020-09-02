@@ -722,6 +722,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        private async void mIExportSavedQueryFetchXmlAndLayoutXml_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            await ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.layoutxml, SavedQuery.Schema.Headers.layoutxml, FileExtension.xml, PerformExportXmlToFile);
+
+            await ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.fetchxml, SavedQuery.Schema.Headers.fetchxml, FileExtension.xml, PerformExportXmlToFile);
+        }
+
         private async void mIExportSavedQueryFetchXml_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
@@ -1504,6 +1518,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)
         {
             SetCurrentConnection(_iWriteToOutput, GetSelectedConnection());
+        }
+
+        private async void hyperlinkFetchXmlAndLayoutXml_Click(object sender, RoutedEventArgs e)
+        {
+            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+
+            if (item == null)
+            {
+                return;
+            }
+
+            var entity = item.SavedQuery;
+
+            await ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.layoutxml, SavedQuery.Schema.Headers.layoutxml, FileExtension.xml, PerformExportXmlToFile);
+
+            await ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.fetchxml, SavedQuery.Schema.Headers.fetchxml, FileExtension.xml, PerformExportXmlToFile);
         }
 
         private async void hyperlinkFetchXml_Click(object sender, RoutedEventArgs e)
