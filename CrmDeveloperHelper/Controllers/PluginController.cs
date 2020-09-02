@@ -605,8 +605,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     );
                 }
             }
-
-            service.TryDispose();
         }
 
         #endregion Обновление сборки плагинов.
