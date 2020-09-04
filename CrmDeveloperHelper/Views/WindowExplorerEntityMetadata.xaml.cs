@@ -491,6 +491,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ? this.lstVwEntities.SelectedItems.OfType<EntityMetadataListViewItem>().SingleOrDefault() : null;
         }
 
+        private List<EntityMetadataListViewItem> GetSelectedEntitiesList()
+        {
+            return this.lstVwEntities.SelectedItems.OfType<EntityMetadataListViewItem>().ToList();
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -562,6 +567,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             folder = CorrectFolderIfEmptyOrNotExists(_iWriteToOutput, folder);
 
             await action(folder, entityMetadata);
+        }
+
+        private async Task ExecuteActionOnListAsync(IEnumerable<EntityMetadataListViewItem> entityMetadataList, Func<string, IEnumerable<EntityMetadataListViewItem>, Task> action)
+        {
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            string folder = txtBFolder.Text.Trim();
+
+            folder = CorrectFolderIfEmptyOrNotExists(_iWriteToOutput, folder);
+
+            await action(folder, entityMetadataList);
         }
 
         private async Task ExecuteCreateEntityMetadataFileCSharpSchemaAsync(string folder, EntityMetadataListViewItem entityMetadata)
@@ -908,14 +927,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void miPublishEntity_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entitiesList = GetSelectedEntitiesList();
 
-            if (entity == null)
+            if (!entitiesList.Any())
             {
                 return;
             }
 
-            await ExecuteActionAsync(entity, PublishEntityAsync);
+            await ExecuteActionOnListAsync(entitiesList, PublishEntityAsync);
         }
 
         private async Task CreateEntityXmlFileAsync(string folder, EntityMetadataListViewItem entityMetadata)
@@ -963,9 +982,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.GettingEntityXmlFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
         }
 
-        protected Task PublishEntityAsync(string folder, EntityMetadataListViewItem entityMetadata)
+        protected Task PublishEntityAsync(string folder, IEnumerable<EntityMetadataListViewItem> entityMetadataList)
         {
-            return base.PublishEntityAsync(GetSelectedConnection(), new[] { entityMetadata.LogicalName });
+            return base.PublishEntityAsync(GetSelectedConnection(), entityMetadataList.Select(e => e.EntityMetadata.LogicalName));
         }
 
         private void lstVwEntities_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1116,9 +1135,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task AddToSolution(bool withSelect, string solutionUniqueName, SolutionComponent.Schema.OptionSets.rootcomponentbehavior rootComponentBehavior)
         {
-            var entity = GetSelectedEntity();
+            var entitiesList = GetSelectedEntitiesList();
 
-            if (entity == null)
+            if (!entitiesList.Any())
             {
                 return;
             }
@@ -1131,7 +1150,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
-                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.Entity, new[] { entity.EntityMetadata.MetadataId.Value }, rootComponentBehavior, withSelect);
+                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.Entity, entitiesList.Select(e => e.EntityMetadata.MetadataId.Value), rootComponentBehavior, withSelect);
             }
             catch (Exception ex)
             {
@@ -1698,7 +1717,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            await ExecuteActionAsync(entity, PublishEntityAsync);
+            await ExecuteActionOnListAsync(new[] { entity }, PublishEntityAsync);
         }
 
         private async void mICreateFormEntityJavaScriptFileJsonObject_Click(object sender, RoutedEventArgs e)
