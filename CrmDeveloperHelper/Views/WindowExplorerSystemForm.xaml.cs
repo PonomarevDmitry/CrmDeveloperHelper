@@ -439,6 +439,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ? this.lstVwSystemForms.SelectedItems.OfType<EntityViewItem>().Select(e => e.SystemForm).SingleOrDefault() : null;
         }
 
+        private List<SystemForm> GetSelectedEntities()
+        {
+            return this.lstVwSystemForms.SelectedItems.OfType<EntityViewItem>().Select(e => e.SystemForm).ToList();
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -1426,9 +1431,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task AddToSolution(bool withSelect, string solutionUniqueName)
         {
-            var entity = GetSelectedEntity();
+            var entitiesList = GetSelectedEntities()
+                .Select(e => e.Id);
 
-            if (entity == null)
+            if (!entitiesList.Any())
             {
                 return;
             }
@@ -1442,7 +1448,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
-                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.SystemForm, new[] { entity.Id }, null, withSelect);
+                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.SystemForm, entitiesList, null, withSelect);
             }
             catch (Exception ex)
             {
@@ -1500,32 +1506,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task AddEntityToSolution(bool withSelect, string solutionUniqueName, SolutionComponent.Schema.OptionSets.rootcomponentbehavior rootComponentBehavior)
         {
-            var entity = GetSelectedEntity();
+            var entitiesList = GetSelectedEntities();
 
-            if (entity == null
-                || !entity.ObjectTypeCode.IsValidEntityName()
-            )
+            ConnectionData connectionData = GetSelectedConnection();
+
+            if (connectionData == null)
             {
                 return;
             }
 
-            ConnectionData connectionData = GetSelectedConnection();
+            var entityMetadataIdList = entitiesList
+                .Where(e => e.ObjectTypeCode.IsValidEntityName())
+                .Select(e => connectionData.GetEntityMetadataId(e.ObjectTypeCode))
+                .Where(id => id.HasValue)
+                .Select(id => id.Value)
+                .ToList()
+                ;
 
-            if (connectionData != null)
+            if (!entityMetadataIdList.Any())
             {
-                var entityMetadataId = connectionData.GetEntityMetadataId(entity.ObjectTypeCode);
-
-                if (entityMetadataId.HasValue)
-                {
-                    await AddEntityMetadataToSolution(
-                        GetSelectedConnection()
-                        , new[] { entityMetadataId.Value }
-                        , withSelect
-                        , solutionUniqueName
-                        , rootComponentBehavior
-                    );
-                }
+                return;
             }
+
+            await AddEntityMetadataToSolution(
+                GetSelectedConnection()
+                , entityMetadataIdList
+                , withSelect
+                , solutionUniqueName
+                , rootComponentBehavior
+            );
         }
 
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)

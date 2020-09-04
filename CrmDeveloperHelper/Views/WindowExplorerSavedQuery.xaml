@@ -193,7 +193,7 @@
             <ComboBox x:Name="cmBStatusCode" Grid.Row="1" Grid.Column="5" IsEditable="False" SelectionChanged="cmBStatusCode_SelectionChanged" HorizontalContentAlignment="Stretch" />
         </Grid>
 
-        <DataGrid x:Name="lstVwSavedQueries" Grid.Row="2" AutoGenerateColumns="False" Margin="5" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+        <DataGrid x:Name="lstVwSavedQueries" Grid.Row="2" AutoGenerateColumns="False" Margin="5" SelectionMode="Extended" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.CommandBindings>
                 <CommandBinding Command="ApplicationCommands.Delete" CanExecute="lstVwSavedQueries_CanExecute" Executed="lstVwSavedQueries_Delete" />
             </DataGrid.CommandBindings>

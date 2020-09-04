@@ -813,16 +813,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task AddToSolution(bool withSelect, string solutionUniqueName, SolutionComponent.Schema.OptionSets.rootcomponentbehavior rootComponentBehavior)
         {
-            var entityList = GetSelectedEntities();
+            var entitiesList = GetSelectedEntities()
+                .Select(item => item.EntityMetadata.MetadataId.Value);
 
-            if (entityList == null || !entityList.Any())
+            if (!entitiesList.Any())
             {
                 return;
             }
 
             await AddEntityMetadataToSolution(
                 GetSelectedConnection()
-                , entityList.Select(item => item.EntityMetadata.MetadataId.Value)
+                , entitiesList
                 , withSelect
                 , solutionUniqueName
                 , rootComponentBehavior
@@ -847,9 +848,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task AddEntityRelationshipToSolution(bool withSelect, string solutionUniqueName)
         {
-            var entityRelationshipList = GetSelectedEntityRelationships();
+            var entityRelationshipList = GetSelectedEntityRelationships()
+                .Select(item => item.ManyToManyRelationshipMetadata.MetadataId.Value)
+                .ToList();
 
-            if (entityRelationshipList == null || !entityRelationshipList.Any())
+            if (!entityRelationshipList.Any())
             {
                 return;
             }
@@ -862,7 +865,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
-                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.EntityRelationship, entityRelationshipList.Select(item => item.ManyToManyRelationshipMetadata.MetadataId.Value).ToList(), null, withSelect);
+                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.EntityRelationship, entityRelationshipList, null, withSelect);
             }
             catch (Exception ex)
             {

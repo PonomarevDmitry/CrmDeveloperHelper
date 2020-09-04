@@ -1135,7 +1135,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task AddToSolution(bool withSelect, string solutionUniqueName, SolutionComponent.Schema.OptionSets.rootcomponentbehavior rootComponentBehavior)
         {
-            var entitiesList = GetSelectedEntitiesList();
+            var entitiesList = GetSelectedEntitiesList()
+                .Select(e => e.EntityMetadata.MetadataId.Value);
 
             if (!entitiesList.Any())
             {
@@ -1144,18 +1145,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            var service = await GetService();
-
-            try
-            {
-                this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
-
-                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.Entity, entitiesList.Select(e => e.EntityMetadata.MetadataId.Value), rootComponentBehavior, withSelect);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-            }
+            await AddEntityMetadataToSolution(
+                GetSelectedConnection()
+                , entitiesList
+                , withSelect
+                , solutionUniqueName
+                , rootComponentBehavior
+            );
         }
 
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)

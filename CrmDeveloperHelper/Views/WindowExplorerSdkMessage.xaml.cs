@@ -329,6 +329,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ? this.lstVwMessages.SelectedItems.OfType<EntityViewItem>().Select(e => e.SdkMessage).SingleOrDefault() : null;
         }
 
+        private List<SdkMessage> GetSelectedEntitiesList()
+        {
+            return this.lstVwMessages.SelectedItems.OfType<EntityViewItem>().Select(e => e.SdkMessage).ToList();
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -520,9 +525,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task AddToSolution(bool withSelect, string solutionUniqueName)
         {
-            var entity = GetSelectedEntity();
+            var entitiesList = GetSelectedEntitiesList()
+                .Select(e => e.Id);
 
-            if (entity == null)
+            if (!entitiesList.Any())
             {
                 return;
             }
@@ -536,7 +542,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
-                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.SdkMessage, new[] { entity.Id }, null, withSelect);
+                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.SdkMessage, entitiesList, null, withSelect);
             }
             catch (Exception ex)
             {

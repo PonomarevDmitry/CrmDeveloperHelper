@@ -679,6 +679,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ? this.lstVwOptionSets.SelectedItems.OfType<OptionSetMetadataListViewItem>().SingleOrDefault() : null;
         }
 
+        private List<OptionSetMetadataListViewItem> GetSelectedEntitiesList()
+        {
+            return this.lstVwOptionSets.SelectedItems.OfType<OptionSetMetadataListViewItem>().ToList();
+        }
+
         private async void btnCreateCSharpFileForSingleOptionSet_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
@@ -803,9 +808,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task AddToSolution(bool withSelect, string solutionUniqueName)
         {
-            var entity = GetSelectedEntity();
+            var entitiesList = GetSelectedEntitiesList()
+                .Select(e => e.OptionSetMetadata.MetadataId.Value);
 
-            if (entity == null)
+            if (!entitiesList.Any())
             {
                 return;
             }
@@ -818,7 +824,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
-                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.OptionSet, new[] { entity.OptionSetMetadata.MetadataId.Value }, null, withSelect);
+                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.OptionSet, entitiesList, null, withSelect);
             }
             catch (Exception ex)
             {

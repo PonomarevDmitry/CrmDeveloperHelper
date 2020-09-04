@@ -214,9 +214,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task AddAttributeToSolution(bool withSelect, string solutionUniqueName)
         {
-            var attributeList = GetSelectedAttributes();
+            var attributeList = GetSelectedAttributes()
+                .Select(item => item.AttributeMetadata.MetadataId.Value)
+                .ToList();
 
-            if (attributeList == null || !attributeList.Any())
+            if (!attributeList.Any())
             {
                 return;
             }
@@ -227,7 +229,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
 
-                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, _service, null, commonConfig, solutionUniqueName, ComponentType.Attribute, attributeList.Select(item => item.AttributeMetadata.MetadataId.Value).ToList(), null, withSelect);
+                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, _service, null, commonConfig, solutionUniqueName, ComponentType.Attribute, attributeList, null, withSelect);
             }
             catch (Exception ex)
             {

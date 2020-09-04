@@ -4,7 +4,6 @@ using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDescription;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
@@ -12,7 +11,6 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -1098,16 +1096,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task AddEntityToSolution(bool withSelect, string solutionUniqueName, SolutionComponent.Schema.OptionSets.rootcomponentbehavior rootComponentBehavior)
         {
-            var entityList = GetSelectedEntities();
+            var entitiesList = GetSelectedEntities()
+                .Select(item => item.EntityMetadata.MetadataId.Value);
 
-            if (entityList == null || !entityList.Any())
+            if (!entitiesList.Any())
             {
                 return;
             }
 
             await AddEntityMetadataToSolution(
                 GetSelectedConnection()
-                , entityList.Select(item => item.EntityMetadata.MetadataId.Value)
+                , entitiesList
                 , withSelect
                 , solutionUniqueName
                 , rootComponentBehavior
@@ -1493,9 +1492,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task AddRoleToSolution(bool withSelect, string solutionUniqueName)
         {
-            var roleList = GetSelectedRoles();
+            var roleList = GetSelectedRoles()
+                .Select(item => item.Id)
+                .ToList();
 
-            if (roleList == null || !roleList.Any())
+            if (!roleList.Any())
             {
                 return;
             }
@@ -1509,7 +1510,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
-                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.Role, roleList.Select(item => item.Id).ToList(), null, withSelect);
+                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.Role, roleList, null, withSelect);
             }
             catch (Exception ex)
             {
@@ -1547,9 +1548,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task AddRoleByTeamToSolution(bool withSelect, string solutionUniqueName)
         {
-            var roleList = GetSelectedRolesByTeam();
+            var roleList = GetSelectedRolesByTeam()
+                .Select(item => item.Id)
+                .ToList();
 
-            if (roleList == null || !roleList.Any())
+            if (!roleList.Any())
             {
                 return;
             }
@@ -1563,7 +1566,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
-                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.Role, roleList.Select(item => item.Id).ToList(), null, withSelect);
+                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.Role, roleList, null, withSelect);
             }
             catch (Exception ex)
             {
@@ -2288,9 +2291,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task AddOtherPrivilegeToSolution(bool withSelect, string solutionUniqueName)
         {
-            var otherPrivilegesList = GetSelectedOtherPrivileges();
+            var otherPrivilegesList = GetSelectedOtherPrivileges()
+                .Select(item => item.Privilege.Id)
+                .ToList();
 
-            if (otherPrivilegesList == null || !otherPrivilegesList.Any())
+            if (!otherPrivilegesList.Any())
             {
                 return;
             }
@@ -2303,7 +2308,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
-                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.Privilege, otherPrivilegesList.Select(item => item.Privilege.Id).ToList(), null, withSelect);
+                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.Privilege, otherPrivilegesList, null, withSelect);
             }
             catch (Exception ex)
             {

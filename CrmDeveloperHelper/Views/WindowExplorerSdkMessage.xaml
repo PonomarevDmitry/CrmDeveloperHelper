@@ -114,7 +114,7 @@
             <TextBox x:Name="txtBFilter" Grid.Row="1" Grid.Column="1" KeyDown="txtBFilterEnitity_KeyDown" />
         </Grid>
 
-        <DataGrid x:Name="lstVwMessages" AutoGenerateColumns="False" Grid.Row="2" Margin="5" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwMessages_MouseDoubleClick" SelectionChanged="lstVwMessages_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+        <DataGrid x:Name="lstVwMessages" AutoGenerateColumns="False" Grid.Row="2" Margin="5" SelectionMode="Extended" SelectionUnit="FullRow" MouseDoubleClick="lstVwMessages_MouseDoubleClick" SelectionChanged="lstVwMessages_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.CommandBindings>
                 <CommandBinding Command="ApplicationCommands.Delete" CanExecute="lstVwMessages_CanExecute" Executed="lstVwMessages_Delete" />
             </DataGrid.CommandBindings>

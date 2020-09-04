@@ -339,6 +339,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ? this.lstVwPluginTypes.SelectedItems.OfType<EntityViewItem>().Select(e => e.PluginType).SingleOrDefault() : null;
         }
 
+        private List<PluginType> GetSelectedEntitiesList()
+        {
+            return this.lstVwPluginTypes.SelectedItems.OfType<EntityViewItem>().Select(e => e.PluginType).ToList();
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -697,9 +702,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task AddAssemblyToSolution(bool withSelect, string solutionUniqueName)
         {
-            var entity = GetSelectedEntity();
+            var entitiesList = GetSelectedEntitiesList()
+                .Where(e => e.PluginAssemblyId != null)
+                .Select(e => e.PluginAssemblyId.Id)
+                .Distinct()
+                .ToList();
 
-            if (entity == null)
+            if (!entitiesList.Any())
             {
                 return;
             }
@@ -710,7 +719,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
-                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.PluginAssembly, new[] { entity.PluginAssemblyId.Id }, null, withSelect);
+                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.PluginAssembly, entitiesList, null, withSelect);
             }
             catch (Exception ex)
             {
@@ -736,18 +745,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task AddAssemblyStepsToSolution(bool withSelect, string solutionUniqueName)
         {
-            var entity = GetSelectedEntity();
+            var entitiesList = GetSelectedEntitiesList()
+                .Where(e => e.PluginAssemblyId != null)
+                .Select(e => e.PluginAssemblyId.Id)
+                .Distinct()
+                .ToList()
+                ;
 
-            if (entity == null)
+            if (!entitiesList.Any())
             {
                 return;
             }
 
             var service = await GetService();
 
+            var steps = new List<SdkMessageProcessingStep>();
+
             var repository = new SdkMessageProcessingStepRepository(service);
 
-            var steps = await repository.GetAllStepsByPluginAssemblyAsync(entity.PluginAssemblyId.Id);
+            foreach (var id in entitiesList)
+            {
+                steps.AddRange(await repository.GetAllStepsByPluginAssemblyAsync(id));
+            }
 
             if (!steps.Any())
             {
@@ -786,18 +805,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task AddPluginTypeStepsToSolution(bool withSelect, string solutionUniqueName)
         {
-            var entity = GetSelectedEntity();
+            var entitiesList = GetSelectedEntitiesList()
+                            .Select(e => e.Id)
+                            .Distinct()
+                            .ToList()
+                            ;
 
-            if (entity == null)
+            if (!entitiesList.Any())
             {
                 return;
             }
 
             var service = await GetService();
 
+            var steps = new List<SdkMessageProcessingStep>();
+
             var repository = new SdkMessageProcessingStepRepository(service);
 
-            var steps = await repository.GetAllStepsByPluginTypeAsync(entity.Id);
+            foreach (var id in entitiesList)
+            {
+                steps.AddRange(await repository.GetAllStepsByPluginTypeAsync(id));
+            }
 
             if (!steps.Any())
             {

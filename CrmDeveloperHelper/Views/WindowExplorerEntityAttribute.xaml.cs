@@ -830,16 +830,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task AddToSolution(bool withSelect, string solutionUniqueName, SolutionComponent.Schema.OptionSets.rootcomponentbehavior rootComponentBehavior)
         {
-            var entityList = GetSelectedEntities();
+            var entitiesList = GetSelectedEntities()
+                .Select(item => item.EntityMetadata.MetadataId.Value);
 
-            if (entityList == null || !entityList.Any())
+            if (!entitiesList.Any())
             {
                 return;
             }
 
             await AddEntityMetadataToSolution(
                 GetSelectedConnection()
-                , entityList.Select(item => item.EntityMetadata.MetadataId.Value)
+                , entitiesList
                 , withSelect
                 , solutionUniqueName
                 , rootComponentBehavior
@@ -864,9 +865,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task AddAttributeToSolution(bool withSelect, string solutionUniqueName)
         {
-            var attributeList = GetSelectedAttributes();
+            var attributeList = GetSelectedAttributes()
+                .Select(item => item.AttributeMetadata.MetadataId.Value)
+                .ToList();
 
-            if (attributeList == null || !attributeList.Any())
+            if (!attributeList.Any())
             {
                 return;
             }
@@ -879,7 +882,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
-                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.Attribute, attributeList.Select(item => item.AttributeMetadata.MetadataId.Value).ToList(), null, withSelect);
+                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.Attribute, attributeList, null, withSelect);
             }
             catch (Exception ex)
             {

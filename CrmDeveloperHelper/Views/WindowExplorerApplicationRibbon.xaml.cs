@@ -615,20 +615,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var ribbonCustomization = await repository.FindApplicationRibbonCustomizationAsync();
 
-            if (ribbonCustomization != null)
+            if (ribbonCustomization == null)
             {
-                _commonConfig.Save();
+                return;
+            }
 
-                try
-                {
-                    this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+            _commonConfig.Save();
 
-                    await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.RibbonCustomization, new[] { ribbonCustomization.Id }, null, withSelect);
-                }
-                catch (Exception ex)
-                {
-                    this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-                }
+            try
+            {
+                this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+
+                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.RibbonCustomization, new[] { ribbonCustomization.Id }, null, withSelect);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
         }
 

@@ -381,6 +381,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ? this.lstVwSavedQueries.SelectedItems.OfType<EntityViewItem>().Select(e => e.SavedQuery).SingleOrDefault() : null;
         }
 
+        private List<SavedQuery> GetSelectedEntitiesList()
+        {
+            return this.lstVwSavedQueries.SelectedItems.OfType<EntityViewItem>().Select(e => e.SavedQuery).ToList();
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -1168,9 +1173,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task AddToSolution(bool withSelect, string solutionUniqueName)
         {
-            var entity = GetSelectedEntity();
+            var entitiesList = GetSelectedEntitiesList()
+                .Select(e => e.Id)
+                ;
 
-            if (entity == null)
+            if (!entitiesList.Any())
             {
                 return;
             }
@@ -1183,7 +1190,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
-                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.SavedQuery, new[] { entity.Id }, null, withSelect);
+                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.SavedQuery, entitiesList, null, withSelect);
             }
             catch (Exception ex)
             {
@@ -1241,39 +1248,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task AddEntityToSolution(bool withSelect, string solutionUniqueName, SolutionComponent.Schema.OptionSets.rootcomponentbehavior rootComponentBehavior)
         {
-            var entity = GetSelectedEntity();
+            var entitiesList = GetSelectedEntitiesList();
 
-            if (entity == null
-                || !entity.ReturnedTypeCode.IsValidEntityName()
-            )
+            ConnectionData connectionData = GetSelectedConnection();
+
+            if (connectionData == null)
             {
                 return;
             }
 
-            ConnectionData connectionData = GetSelectedConnection();
+            var entityMetadataIdList = entitiesList
+                .Where(e => e.ReturnedTypeCode.IsValidEntityName())
+                .Select(e => connectionData.GetEntityMetadataId(e.ReturnedTypeCode))
+                .Where(id => id.HasValue)
+                .Select(id => id.Value)
+                .ToList()
+                ;
 
-            if (connectionData != null)
+            if (!entityMetadataIdList.Any())
             {
-                var entityMetadataId = connectionData.GetEntityMetadataId(entity.ReturnedTypeCode);
-
-                if (entityMetadataId.HasValue)
-                {
-                    _commonConfig.Save();
-
-                    var service = await GetService();
-
-                    try
-                    {
-                        this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
-
-                        await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.Entity, new[] { entityMetadataId.Value }, rootComponentBehavior, withSelect);
-                    }
-                    catch (Exception ex)
-                    {
-                        this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-                    }
-                }
+                return;
             }
+
+            _commonConfig.Save();
+
+            await AddEntityMetadataToSolution(
+                GetSelectedConnection()
+                , entityMetadataIdList
+                , withSelect
+                , solutionUniqueName
+                , rootComponentBehavior
+            );
         }
 
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)

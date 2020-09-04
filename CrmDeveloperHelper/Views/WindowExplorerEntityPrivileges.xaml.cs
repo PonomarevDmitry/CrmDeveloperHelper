@@ -971,16 +971,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task AddToSolution(bool withSelect, string solutionUniqueName, SolutionComponent.Schema.OptionSets.rootcomponentbehavior rootComponentBehavior)
         {
-            var entityList = GetSelectedEntities();
+            var entitiesList = GetSelectedEntities()
+                .Select(item => item.EntityMetadata.MetadataId.Value);
 
-            if (entityList == null || !entityList.Any())
+            if (!entitiesList.Any())
             {
                 return;
             }
 
             await AddEntityMetadataToSolution(
                 GetSelectedConnection()
-                , entityList.Select(item => item.EntityMetadata.MetadataId.Value)
+                , entitiesList
                 , withSelect
                 , solutionUniqueName
                 , rootComponentBehavior
@@ -1005,9 +1006,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task AddSecurityRoleToSolution(bool withSelect, string solutionUniqueName)
         {
-            var roleList = GetSelectedSecurityRoles();
+            var roleList = GetSelectedSecurityRoles()
+                .Select(item => item.Role.RoleId.Value)
+                .ToList();
 
-            if (roleList == null || !roleList.Any())
+            if (!roleList.Any())
             {
                 return;
             }
@@ -1020,7 +1023,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
-                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.Role, roleList.Select(item => item.Role.RoleId.Value).ToList(), null, withSelect);
+                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.Role, roleList, null, withSelect);
             }
             catch (Exception ex)
             {

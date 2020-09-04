@@ -490,6 +490,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ? this.lstVwWorkflows.SelectedItems.OfType<EntityViewItem>().Select(e => e.Workflow).SingleOrDefault() : null;
         }
 
+        private List<Workflow> GetSelectedEntitiesList()
+        {
+            return this.lstVwWorkflows.SelectedItems.OfType<EntityViewItem>().Select(e => e.Workflow).ToList();
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -1479,9 +1484,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task AddToSolution(bool withSelect, string solutionUniqueName)
         {
-            var entity = GetSelectedEntity();
+            var entitiesList = GetSelectedEntitiesList()
+                .Select(e => e.WorkflowId.Value);
 
-            if (entity == null)
+            if (!entitiesList.Any())
             {
                 return;
             }
@@ -1494,7 +1500,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
-                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.Workflow, new[] { entity.WorkflowId.Value }, null, withSelect);
+                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.Workflow, entitiesList, null, withSelect);
             }
             catch (Exception ex)
             {
@@ -1552,39 +1558,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task AddEntityToSolution(bool withSelect, string solutionUniqueName, SolutionComponent.Schema.OptionSets.rootcomponentbehavior rootComponentBehavior)
         {
-            var entity = GetSelectedEntity();
+            var entitiesList = GetSelectedEntitiesList();
 
-            if (entity == null
-                || !entity.PrimaryEntity.IsValidEntityName()
-            )
+            ConnectionData connectionData = GetSelectedConnection();
+
+            if (connectionData == null)
             {
                 return;
             }
 
-            ConnectionData connectionData = GetSelectedConnection();
+            var entityMetadataIdList = entitiesList
+                .Where(e => e.PrimaryEntity.IsValidEntityName())
+                .Select(e => connectionData.GetEntityMetadataId(e.PrimaryEntity))
+                .Where(id => id.HasValue)
+                .Select(id => id.Value)
+                .ToList();
 
-            if (connectionData != null)
+            if (!entityMetadataIdList.Any())
             {
-                var entityMetadataId = connectionData.GetEntityMetadataId(entity.PrimaryEntity);
-
-                if (entityMetadataId.HasValue)
-                {
-                    _commonConfig.Save();
-
-                    var service = await GetService();
-
-                    try
-                    {
-                        this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
-
-                        await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.Entity, new[] { entityMetadataId.Value }, rootComponentBehavior, withSelect);
-                    }
-                    catch (Exception ex)
-                    {
-                        this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-                    }
-                }
+                return;
             }
+
+            await AddEntityMetadataToSolution(
+                GetSelectedConnection()
+                , entityMetadataIdList
+                , withSelect
+                , solutionUniqueName
+                , rootComponentBehavior
+            );
         }
 
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)

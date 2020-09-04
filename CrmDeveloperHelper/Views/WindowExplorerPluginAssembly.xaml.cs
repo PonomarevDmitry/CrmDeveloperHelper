@@ -328,6 +328,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ? this.lstVwPluginAssemblies.SelectedItems.OfType<EntityViewItem>().Select(e => e.PluginAssembly).SingleOrDefault() : null;
         }
 
+        private List<PluginAssembly> GetSelectedEntitiesList()
+        {
+            return this.lstVwPluginAssemblies.SelectedItems.OfType<EntityViewItem>().Select(e => e.PluginAssembly).ToList();
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -609,9 +614,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task AddToSolution(bool withSelect, string solutionUniqueName)
         {
-            var entity = GetSelectedEntity();
+            var entitiesList = GetSelectedEntitiesList()
+                .Select(e => e.Id);
 
-            if (entity == null)
+            if (!entitiesList.Any())
             {
                 return;
             }
@@ -625,7 +631,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
-                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.PluginAssembly, new[] { entity.Id }, null, withSelect);
+                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.PluginAssembly, entitiesList, null, withSelect);
             }
             catch (Exception ex)
             {
@@ -651,18 +657,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task AddAssemblyStepsToSolution(bool withSelect, string solutionUniqueName)
         {
-            var entity = GetSelectedEntity();
+            var entitiesList = GetSelectedEntitiesList()
+                .Select(e => e.Id);
 
-            if (entity == null)
+            if (!entitiesList.Any())
             {
                 return;
             }
 
             var service = await GetService();
 
+            var steps = new List<SdkMessageProcessingStep>();
+
             var repository = new SdkMessageProcessingStepRepository(service);
 
-            var steps = await repository.GetAllStepsByPluginAssemblyAsync(entity.Id);
+            foreach (var id in entitiesList)
+            {
+                steps.AddRange(await repository.GetAllStepsByPluginAssemblyAsync(id));
+            }
+
+            if (!steps.Any())
+            {
+                return;
+            }
 
             if (!steps.Any())
             {
