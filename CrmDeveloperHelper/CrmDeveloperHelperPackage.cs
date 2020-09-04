@@ -544,6 +544,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonCrmConnectionListCommand.Initialize,
             CommonCrmConnectionTestCommand.Initialize,
             CommonCrmConnectionEditCommand.Initialize,
+
+            CommonCrmConnectionPoolShowStateCommand.Initialize,
+            CommonCrmConnectionPoolClearCommand.Initialize,
+
             CommonCrmConnectionSelectFileCommand.Initialize,
 
             CommonCrmConnectionSelectCommand.Initialize,
@@ -719,6 +723,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             OutputCrmConnectionSelectCommand.Initialize,
             OutputCrmConnectionTestCommand.Initialize,
             OutputCrmConnectionEditCommand.Initialize,
+
+            OutputCrmConnectionPoolShowStateCommand.Initialize,
+            OutputCrmConnectionPoolClearCommand.Initialize,
+
             OutputCrmConnectionSelectFileCommand.Initialize,
 
             OutputOpenCrmWebSiteCommand.Initialize,

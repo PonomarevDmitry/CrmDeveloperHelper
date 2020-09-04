@@ -106,7 +106,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             bool result = true;
             message = string.Empty;
 
-            StringBuilder builder = new StringBuilder();
+            var builder = new StringBuilder();
 
             if (string.IsNullOrEmpty(this.txtBName.Text.Trim()))
             {
@@ -115,6 +115,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (builder.Length > 0) { builder.AppendLine(); }
 
                 builder.Append(Properties.MessageBoxStrings.NameIsEmpty);
+            }
+
+            if (!string.IsNullOrEmpty(txtBConnectionPoolCacheTimeSpan.Text))
+            {
+                if (!TimeSpan.TryParse(txtBConnectionPoolCacheTimeSpan.Text, out _))
+                {
+                    result = false;
+
+                    if (builder.Length > 0) { builder.AppendLine(); }
+
+                    builder.Append(Properties.MessageBoxStrings.CannotParseConnectionPoolCacheTimeSpan);
+                }
             }
 
             message = builder.ToString();
@@ -203,6 +215,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             connectionData.User = cmBUser.SelectedItem as ConnectionUserData;
 
             connectionData.IsReadOnly = chBIsReadOnly.IsChecked.GetValueOrDefault();
+
+            connectionData.IsWriteConnectionPoolActionsToOutput = chBIsWriteConnectionPoolActionsToOutput.IsChecked.GetValueOrDefault();
+
+            if (!string.IsNullOrEmpty(txtBConnectionPoolCacheTimeSpan.Text))
+            {
+                connectionData.ConnectionPoolCacheTimeSpan = TimeSpan.Parse(txtBConnectionPoolCacheTimeSpan.Text);
+            }
         }
 
         private void LoadConnectionData(ConnectionData connectionData)
@@ -214,6 +233,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             txtBUniqueOrganizationName.Text = connectionData.UniqueOrgName;
 
             chBIsReadOnly.IsChecked = connectionData.IsReadOnly;
+            chBIsWriteConnectionPoolActionsToOutput.IsChecked = connectionData.IsWriteConnectionPoolActionsToOutput;
+
+            txtBConnectionPoolCacheTimeSpan.Text = connectionData.ConnectionPoolCacheTimeSpan.ToString();
 
             LoadReadOnlyInformation(connectionData);
         }

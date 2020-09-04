@@ -745,6 +745,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clearing ConnectionPool.                           Services in Use {0,4},   Services in Pool {1,4}..
+        /// </summary>
+        internal static string ClearingConnectionPoolFormat2 {
+            get {
+                return ResourceManager.GetString("ClearingConnectionPoolFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}. Clearing Role Privileges {1} completed..
         /// </summary>
         internal static string ClearingRolePrivilegesCompletedFormat2 {
@@ -1339,6 +1348,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Creating New OrganizationService.                  Services in Use {0,4},   Services in Pool {1,4}..
+        /// </summary>
+        internal static string CreatingNewOrganizationServiceFormat2 {
+            get {
+                return ResourceManager.GetString("CreatingNewOrganizationServiceFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Creating new Solution {0}....
         /// </summary>
         internal static string CreatingNewSolutionFormat1 {
@@ -1587,6 +1605,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string CurrentConnectionFormat1 {
             get {
                 return ResourceManager.GetString("CurrentConnectionFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current ConnectionPool State                       Services in Use {0,4},   Services in Pool {1,4}..
+        /// </summary>
+        internal static string CurrentConnectionPoolStateFormat2 {
+            get {
+                return ResourceManager.GetString("CurrentConnectionPoolStateFormat2", resourceCulture);
             }
         }
         
@@ -2874,6 +2901,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string GettingMessagesCompleted {
             get {
                 return ResourceManager.GetString("GettingMessagesCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Getting OrganizationService from ConnectionPool.   Services in Use {0,4},   Services in Pool {1,4}..
+        /// </summary>
+        internal static string GettingOrganizationServiceFromPoolFormat2 {
+            get {
+                return ResourceManager.GetString("GettingOrganizationServiceFromPoolFormat2", resourceCulture);
             }
         }
         
@@ -4210,6 +4246,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OrganizationService returned to ConnectionPool.    Services in Use {0,4},   Services in Pool {1,4},   CacheTime   {2}..
+        /// </summary>
+        internal static string OrganizationServiceReturnedToPoolFormat3 {
+            get {
+                return ResourceManager.GetString("OrganizationServiceReturnedToPoolFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PluginAssemblies not founded by name {0}..
         /// </summary>
         internal static string PluginAssembliesNotFoundedByNameFormat1 {
@@ -5313,6 +5358,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string StartTestingConnectionFormat1 {
             get {
                 return ResourceManager.GetString("StartTestingConnectionFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Storing OrganizationService in Use.                Services in Use {0,4},   Services in Pool {1,4}..
+        /// </summary>
+        internal static string StoringOrganizationServiceInUseFormat2 {
+            get {
+                return ResourceManager.GetString("StoringOrganizationServiceInUseFormat2", resourceCulture);
             }
         }
         

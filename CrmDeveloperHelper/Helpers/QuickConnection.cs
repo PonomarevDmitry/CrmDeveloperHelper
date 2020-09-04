@@ -210,7 +210,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 OrganizationServiceProxy serviceProxy = null;
                 OrganizationDetail organizationDetail = null;
 
-                if (!connectionData.TryGetServiceFromPool(out serviceProxy))
+                if (!connectionData.TryGetServiceFromConnectionPool(out serviceProxy))
                 {
                     var connectionResult = await ConnectInternal(connectionData, withDiscoveryRequest);
 

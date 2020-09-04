@@ -115,6 +115,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot parse ConnectionPool Cache TimeSpan Value. Use format 00:00:00 hours:minutes:seconds..
+        /// </summary>
+        internal static string CannotParseConnectionPoolCacheTimeSpan {
+            get {
+                return ResourceManager.GetString("CannotParseConnectionPoolCacheTimeSpan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot parse text to valid Guid..
         /// </summary>
         internal static string CannotParseGuid {

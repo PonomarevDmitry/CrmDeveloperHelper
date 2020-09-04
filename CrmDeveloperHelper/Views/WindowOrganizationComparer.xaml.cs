@@ -524,6 +524,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        private void tSBShowConnectionPoolState_Click(object sender, RoutedEventArgs e)
+        {
+            ConnectionData connectionData = GetItemFromRoutedDataContext<ConnectionData>(e);
+
+            if (connectionData == null)
+            {
+                return;
+            }
+
+            connectionData.ShowConnectionPoolState();
+        }
+
+        private void tSBClearConnectionPool_Click(object sender, RoutedEventArgs e)
+        {
+            ConnectionData connectionData = GetItemFromRoutedDataContext<ConnectionData>(e);
+
+            if (connectionData == null)
+            {
+                return;
+            }
+
+            connectionData.ClearConnectionPool();
+        }
+
         private void tSBSelectConnectionFileInFolder_Click(object sender, RoutedEventArgs e)
         {
             ConnectionData connectionData = GetItemFromRoutedDataContext<ConnectionData>(e);

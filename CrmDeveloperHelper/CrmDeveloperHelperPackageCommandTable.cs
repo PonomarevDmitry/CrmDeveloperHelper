@@ -2337,6 +2337,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionEditDyn_Group = 0x1382;
 
+            public const int commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionPoolShowStateDyn = 0x155C;
+
+            public const int commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionPoolShowStateDyn_Group = 0x155D;
+
+            public const int commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionPoolClearDyn = 0x155A;
+
+            public const int commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionPoolClearDyn_Group = 0x155B;
+
             public const int commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionSelectFileDyn = 0x137F;
 
             public const int commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionSelectFileDyn_Group = 0x1380;
@@ -2609,6 +2617,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int CommonCrmConnectionSelectAndPublishEntityCommandId = 0x4650;
 
             public const int CommonCrmConnectionEditCommandId = 0x286E;
+
+            public const int CommonCrmConnectionPoolShowStateCommandId = 0x46B4;
+
+            public const int CommonCrmConnectionPoolClearCommandId = 0x46E6;
 
             public const int CommonCrmConnectionSelectFileCommandId = 0x283C;
 
@@ -3834,6 +3846,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int OutputCrmConnectionTestCommandId = 0x21A9;
 
             public const int OutputCrmConnectionEditCommandId = 0x220A;
+
+            public const int OutputCrmConnectionPoolClearCommandId = 0x2277;
+
+            public const int OutputCrmConnectionShowPoolStateCommandId = 0x2278;
 
             public const int OutputCrmConnectionOpenInfoFolderCommandId = 0x2274;
 

@@ -106,6 +106,7 @@
     <Compile Include="Commands\AbstractOutputWindowDynamicCommand.cs" />
     <Compile Include="Commands\Checks\CommonCheckUnknownFormControlTypes.cs" />
     <Compile Include="Commands\Commons\CommonFetchXmlOpenEntityFileInConnectionCommand.cs" />
+    <Compile Include="Commands\Connections\CommonCrmConnectionPoolClearCommand.cs" />
     <Compile Include="Commands\Connections\CommonCrmConnectionOpenFetchXmlFolderCommand.cs" />
     <Compile Include="Commands\Commons\CommonFileGenerationConfigurationCommand.cs" />
     <Compile Include="Commands\Commons\CommonFileGenerationOptionsCommand.cs" />
@@ -113,8 +114,10 @@
     <Compile Include="Commands\Commons\CommonOpenCrmWebSiteEntityMetadataCommand.cs" />
     <Compile Include="Commands\Connections\CommonCrmConnectionEditCommand.cs" />
     <Compile Include="Commands\Connections\CommonCrmConnectionOpenInfoFolderCommand.cs" />
+    <Compile Include="Commands\Connections\CommonCrmConnectionPoolShowStateCommand.cs" />
     <Compile Include="Commands\Connections\CommonCrmConnectionSelectAndPublishEntityCommand.cs" />
     <Compile Include="Commands\Connections\CommonCrmConnectionSelectFileCommand.cs" />
+    <Compile Include="Commands\OutputWindows\OutputCrmConnectionPoolClearCommand.cs" />
     <Compile Include="Commands\OutputWindows\OutputCrmConnectionOpenInfoFolderCommand.cs" />
     <Compile Include="Commands\CSharp\CSharpAddPluginStepCommand.cs" />
     <Compile Include="Commands\CSharp\CSharpAddPluginStepInConnectionCommand.cs" />
@@ -1039,6 +1042,7 @@
     <Compile Include="Model\ConstantType.cs" />
     <Compile Include="Model\ContentCopareResult.cs" />
     <Compile Include="Model\OrganizationServiceExtentedLocker.cs" />
+    <Compile Include="Commands\OutputWindows\OutputCrmConnectionPoolShowStateCommand.cs" />
     <Compile Include="Model\Sources\CodeSourceSelectedFiles.cs" />
     <Compile Include="Model\Sources\CodeSourceSelectedProjects.cs" />
     <Compile Include="Model\Sources\DocumentsSourceSelectedFiles.cs" />

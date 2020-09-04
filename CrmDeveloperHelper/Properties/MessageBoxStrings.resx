@@ -183,6 +183,9 @@
   <data name="NameIsEmpty" xml:space="preserve">
     <value>Name is empty.</value>
   </data>
+  <data name="CannotParseConnectionPoolCacheTimeSpan" xml:space="preserve">
+    <value>Cannot parse ConnectionPool Cache TimeSpan Value. Use format 00:00:00 hours:minutes:seconds.</value>
+  </data>
   <data name="PrefixIsEmpty" xml:space="preserve">
     <value>Prefix is empty.</value>
   </data>

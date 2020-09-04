@@ -7,9 +7,6 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -261,61 +258,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             UpdateDiscoveryUsers();
         }
 
-        private void UpdateDiscoveryServiceUrls()
-        {
-            var services = new HashSet<string>(this._crmConfig.Connections.Where(c => !string.IsNullOrEmpty(c.DiscoveryUrl)).Select(c => c.DiscoveryUrl), StringComparer.InvariantCultureIgnoreCase);
-
-            foreach (var item in this._crmConfig.ArchiveConnections)
-            {
-                if (!string.IsNullOrEmpty(item.DiscoveryUrl))
-                {
-                    services.Add(item.DiscoveryUrl);
-                }
-            }
-
-            cmBDiscoveryServiceUrl.Dispatcher.Invoke(() =>
-            {
-                var text = cmBDiscoveryServiceUrl.Text;
-
-                cmBDiscoveryServiceUrl.Items.Clear();
-
-                foreach (var item in services.OrderBy(s => s))
-                {
-                    cmBDiscoveryServiceUrl.Items.Add(item);
-                }
-
-                cmBDiscoveryServiceUrl.Text = text;
-            });
-        }
-
-        private void UpdateDiscoveryUsers()
-        {
-            cmBDiscoveryServiceUser.Dispatcher.Invoke(() =>
-            {
-                var selectedUser = cmBDiscoveryServiceUser.SelectedItem as ConnectionUserData;
-
-                cmBDiscoveryServiceUser.Items.Clear();
-
-                cmBDiscoveryServiceUser.Items.Add(string.Empty);
-
-                foreach (var item in this._crmConfig.Users)
-                {
-                    cmBDiscoveryServiceUser.Items.Add(item);
-                }
-
-                if (selectedUser != null
-                    && cmBDiscoveryServiceUser.Items.Contains(selectedUser)
-                )
-                {
-                    cmBDiscoveryServiceUser.SelectedItem = selectedUser;
-                }
-                else
-                {
-                    cmBDiscoveryServiceUser.SelectedIndex = 0;
-                }
-            });
-        }
-
         private void tSBCreate_Click(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
@@ -496,44 +438,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._crmConfig.Save();
         }
 
-        private async void tSBTestConnection_Click(object sender, RoutedEventArgs e)
-        {
-            if (!IsControlsEnabled)
-            {
-                return;
-            }
-
-            if (lstVwConnections.SelectedItems.Count != 1)
-            {
-                return;
-            }
-
-            ConnectionData connectionData = lstVwConnections.SelectedItems[0] as ConnectionData;
-
-            ToggleControls(connectionData, false, Properties.OutputStrings.StartTestingConnectionFormat1, connectionData.Name);
-
-            var task = QuickConnection.TestConnectAsync(connectionData, this._iWriteToOutput, this);
-
-            this.Focus();
-            this.Activate();
-
-            var testResult = await task;
-
-            if (testResult)
-            {
-                UpdateCurrentConnectionInfo();
-
-                connectionData.Save();
-                this._crmConfig.Save();
-
-                ToggleControls(connectionData, true, Properties.OutputStrings.ConnectedSuccessfullyFormat1, connectionData.Name);
-            }
-            else
-            {
-                ToggleControls(connectionData, true, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-            }
-        }
-
         private void tSBUp_Click(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
@@ -599,72 +503,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var directory = FileOperations.GetConfigurationFolder();
 
             this._iWriteToOutput.OpenFolder(null, directory);
-        }
-
-        private void tSBSelectConnection_Click(object sender, RoutedEventArgs e)
-        {
-            if (!IsControlsEnabled)
-            {
-                return;
-            }
-
-            if (lstVwConnections.SelectedItems.Count == 1)
-            {
-                ConnectionData connectionData = lstVwConnections.SelectedItems[0] as ConnectionData;
-
-                this._crmConfig.SetCurrentConnection(connectionData.ConnectionId);
-
-                this._crmConfig.Save();
-
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CurrentConnectionFormat1, connectionData.Name);
-
-                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentConnectionFormat1, connectionData.Name);
-                _iWriteToOutput.ActivateOutputWindow(connectionData, this);
-
-                if (this._currentConnectionChoosing)
-                {
-                    this.DialogResult = true;
-
-                    this.Close();
-                }
-            }
-        }
-
-        private void tSBMoveToArchive_Click(object sender, RoutedEventArgs e)
-        {
-            if (!IsControlsEnabled)
-            {
-                return;
-            }
-
-            if (lstVwConnections.SelectedItems.Count == 1)
-            {
-                ConnectionData connectionData = lstVwConnections.SelectedItems[0] as ConnectionData;
-
-                string message = string.Format(Properties.MessageBoxStrings.MoveConnectionToArchiveFormat1, connectionData.Name);
-
-                if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
-                {
-                    if (connectionData.ConnectionId == _crmConfig.CurrentConnectionData?.ConnectionId)
-                    {
-                        _crmConfig.SetCurrentConnection(null);
-
-                        _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.ConnectionIsNotSelected);
-                        _iWriteToOutput.ActivateOutputWindow(null, this);
-                    }
-
-                    this.Dispatcher.Invoke(() =>
-                    {
-                        connectionData.ConnectionConfiguration = this._crmConfig;
-                        _crmConfig.ArchiveConnections.Add(connectionData);
-                        _crmConfig.Connections.Remove(connectionData);
-                    });
-                }
-
-                UpdateCurrentConnectionInfo();
-
-                this._crmConfig.Save();
-            }
         }
 
         private void lstVwConnections_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -1134,6 +972,63 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._crmConfig.Save();
         }
 
+        #region DiscoveryService
+
+        private void UpdateDiscoveryServiceUrls()
+        {
+            var services = new HashSet<string>(this._crmConfig.Connections.Where(c => !string.IsNullOrEmpty(c.DiscoveryUrl)).Select(c => c.DiscoveryUrl), StringComparer.InvariantCultureIgnoreCase);
+
+            foreach (var item in this._crmConfig.ArchiveConnections)
+            {
+                if (!string.IsNullOrEmpty(item.DiscoveryUrl))
+                {
+                    services.Add(item.DiscoveryUrl);
+                }
+            }
+
+            cmBDiscoveryServiceUrl.Dispatcher.Invoke(() =>
+            {
+                var text = cmBDiscoveryServiceUrl.Text;
+
+                cmBDiscoveryServiceUrl.Items.Clear();
+
+                foreach (var item in services.OrderBy(s => s))
+                {
+                    cmBDiscoveryServiceUrl.Items.Add(item);
+                }
+
+                cmBDiscoveryServiceUrl.Text = text;
+            });
+        }
+
+        private void UpdateDiscoveryUsers()
+        {
+            cmBDiscoveryServiceUser.Dispatcher.Invoke(() =>
+            {
+                var selectedUser = cmBDiscoveryServiceUser.SelectedItem as ConnectionUserData;
+
+                cmBDiscoveryServiceUser.Items.Clear();
+
+                cmBDiscoveryServiceUser.Items.Add(string.Empty);
+
+                foreach (var item in this._crmConfig.Users)
+                {
+                    cmBDiscoveryServiceUser.Items.Add(item);
+                }
+
+                if (selectedUser != null
+                    && cmBDiscoveryServiceUser.Items.Contains(selectedUser)
+                )
+                {
+                    cmBDiscoveryServiceUser.SelectedItem = selectedUser;
+                }
+                else
+                {
+                    cmBDiscoveryServiceUser.SelectedIndex = 0;
+                }
+            });
+        }
+
         private async void CmBDiscoveryServiceUrl_KeyDown(object sender, KeyEventArgs e)
         {
             if (!IsControlsEnabled)
@@ -1213,14 +1108,104 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private Task<IServiceManagement<IDiscoveryService>> CreateManagementAsync(Uri discoveryServiceUri)
+        private static Task<IServiceManagement<IDiscoveryService>> CreateManagementAsync(Uri discoveryServiceUri)
         {
-            return Task.Run(() => CreateManagement(discoveryServiceUri));
+            return Task.Run(() => ServiceConfigurationFactory.CreateManagement<IDiscoveryService>(discoveryServiceUri));
         }
 
-        private IServiceManagement<IDiscoveryService> CreateManagement(Uri discoveryServiceUri)
+        #endregion DiscoveryService
+
+        #region Connection Context Menu
+
+        private async void tSBTestConnection_Click(object sender, RoutedEventArgs e)
         {
-            return ServiceConfigurationFactory.CreateManagement<IDiscoveryService>(discoveryServiceUri);
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (lstVwConnections.SelectedItems.Count != 1)
+            {
+                return;
+            }
+
+            ConnectionData connectionData = lstVwConnections.SelectedItems[0] as ConnectionData;
+
+            ToggleControls(connectionData, false, Properties.OutputStrings.StartTestingConnectionFormat1, connectionData.Name);
+
+            var task = QuickConnection.TestConnectAsync(connectionData, this._iWriteToOutput, this);
+
+            this.Focus();
+            this.Activate();
+
+            var testResult = await task;
+
+            if (testResult)
+            {
+                UpdateCurrentConnectionInfo();
+
+                connectionData.Save();
+                this._crmConfig.Save();
+
+                ToggleControls(connectionData, true, Properties.OutputStrings.ConnectedSuccessfullyFormat1, connectionData.Name);
+            }
+            else
+            {
+                ToggleControls(connectionData, true, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+            }
+        }
+
+        private void tSBSelectConnection_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (lstVwConnections.SelectedItems.Count == 1)
+            {
+                ConnectionData connectionData = lstVwConnections.SelectedItems[0] as ConnectionData;
+
+                this._crmConfig.SetCurrentConnection(connectionData.ConnectionId);
+
+                this._crmConfig.Save();
+
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CurrentConnectionFormat1, connectionData.Name);
+
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentConnectionFormat1, connectionData.Name);
+                _iWriteToOutput.ActivateOutputWindow(connectionData, this);
+
+                if (this._currentConnectionChoosing)
+                {
+                    this.DialogResult = true;
+
+                    this.Close();
+                }
+            }
+        }
+
+        private void tSBShowConnectionPoolState_Click(object sender, RoutedEventArgs e)
+        {
+            ConnectionData connectionData = GetItemFromRoutedDataContext<ConnectionData>(e);
+
+            if (connectionData == null)
+            {
+                return;
+            }
+
+            connectionData.ShowConnectionPoolState();
+        }
+
+        private void tSBClearConnectionPool_Click(object sender, RoutedEventArgs e)
+        {
+            ConnectionData connectionData = GetItemFromRoutedDataContext<ConnectionData>(e);
+
+            if (connectionData == null)
+            {
+                return;
+            }
+
+            connectionData.ClearConnectionPool();
         }
 
         private void tSBSelectConnectionFileInFolder_Click(object sender, RoutedEventArgs e)
@@ -1246,6 +1231,45 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ClipboardHelper.SetText(connectionData.ConnectionId.ToString());
         }
+
+        private void tSBMoveToArchive_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (lstVwConnections.SelectedItems.Count == 1)
+            {
+                ConnectionData connectionData = lstVwConnections.SelectedItems[0] as ConnectionData;
+
+                string message = string.Format(Properties.MessageBoxStrings.MoveConnectionToArchiveFormat1, connectionData.Name);
+
+                if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+                {
+                    if (connectionData.ConnectionId == _crmConfig.CurrentConnectionData?.ConnectionId)
+                    {
+                        _crmConfig.SetCurrentConnection(null);
+
+                        _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.ConnectionIsNotSelected);
+                        _iWriteToOutput.ActivateOutputWindow(null, this);
+                    }
+
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        connectionData.ConnectionConfiguration = this._crmConfig;
+                        _crmConfig.ArchiveConnections.Add(connectionData);
+                        _crmConfig.Connections.Remove(connectionData);
+                    });
+                }
+
+                UpdateCurrentConnectionInfo();
+
+                this._crmConfig.Save();
+            }
+        }
+
+        #endregion Connection Context Menu
 
         private ConnectionData GetSelectedConnection()
         {

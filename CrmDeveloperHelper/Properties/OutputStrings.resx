@@ -2212,20 +2212,32 @@
   <data name="PluginTypeNotFoundedInConnectionFormat2" xml:space="preserve">
     <value>{0}: PluginType not founded in CRM: {1}</value>
   </data>
-  
+
+  <data name="CurrentConnectionPoolStateFormat2" xml:space="preserve">
+    <value>Current ConnectionPool State                       Services in Use {0,4},   Services in Pool {1,4}.</value>
+  </data>
+
+  <data name="ClearingConnectionPoolFormat2" xml:space="preserve">
+    <value>Clearing ConnectionPool.                           Services in Use {0,4},   Services in Pool {1,4}.</value>
+  </data>
+
+  <data name="GettingOrganizationServiceFromPoolFormat2" xml:space="preserve">
+    <value>Getting OrganizationService from ConnectionPool.   Services in Use {0,4},   Services in Pool {1,4}.</value>
+  </data>
+
+  <data name="CreatingNewOrganizationServiceFormat2" xml:space="preserve">
+    <value>Creating New OrganizationService.                  Services in Use {0,4},   Services in Pool {1,4}.</value>
+  </data>
+
+  <data name="StoringOrganizationServiceInUseFormat2" xml:space="preserve">
+    <value>Storing OrganizationService in Use.                Services in Use {0,4},   Services in Pool {1,4}.</value>
+  </data>
+
+  <data name="OrganizationServiceReturnedToPoolFormat3" xml:space="preserve">
+    <value>OrganizationService returned to ConnectionPool.    Services in Use {0,4},   Services in Pool {1,4},   CacheTime   {2}.</value>
+  </data>
+
   <!--
-  <data name="111111" xml:space="preserve">
-    <value>2222222</value>
-  </data>
-  
-  <data name="111111" xml:space="preserve">
-    <value>2222222</value>
-  </data>
-  
-  <data name="111111" xml:space="preserve">
-    <value>2222222</value>
-  </data>
-  
   <data name="111111" xml:space="preserve">
     <value>2222222</value>
   </data>

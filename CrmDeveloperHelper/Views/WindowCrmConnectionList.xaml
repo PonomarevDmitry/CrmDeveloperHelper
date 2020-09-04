@@ -46,6 +46,10 @@
                 </MenuItem>
 
                 <Separator/>
+                <MenuItem Header="Show ConnectionPool State" Click="tSBShowConnectionPoolState_Click" />
+                <MenuItem Header="Clear ConnectionPool" Click="tSBClearConnectionPool_Click" />
+
+                <Separator/>
                 <MenuItem Header="Select Connection File in Folder" Click="tSBSelectConnectionFileInFolder_Click" />
                 <MenuItem Header="Copy Connection Id" Click="tSBCopyConnectionId_Click" />
 
@@ -101,7 +105,7 @@
                 <ColumnDefinition Width="100*" />
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Column="0" Content="Currnet Connection" />
+            <Label Grid.Column="0" Content="Current Connection" />
             <TextBox Grid.Column="1" x:Name="txtBCurrentConnection" IsReadOnly="True" IsReadOnlyCaretVisible="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
         </Grid>
 
@@ -225,6 +229,7 @@
                         </ListView.ItemContainerStyle>
                         <ListView.View>
                             <GridView>
+
                                 <GridViewColumn Width="Auto">
                                     <GridViewColumn.Header>
                                         <Label Content="R" Margin="0" Padding="0" ToolTip="IsReadOnly" />
@@ -237,6 +242,7 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
+
                                 <GridViewColumn Header="Name" Width="200">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
@@ -246,6 +252,7 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
+
                                 <GridViewColumn Header="GroupName" Width="200">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
@@ -255,6 +262,7 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
+
                                 <GridViewColumn Width="Auto">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
@@ -268,6 +276,7 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
+
                                 <GridViewColumn Header="PublicUrl" Width="300">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
@@ -277,6 +286,7 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
+
                                 <GridViewColumn Header="User" Width="180">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
@@ -286,6 +296,30 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
+
+                                <GridViewColumn Width="Auto">
+                                    <GridViewColumn.Header>
+                                        <Label Content="WPO" Margin="0" Padding="0" ToolTip="Write ConnectionPool Actions to Output" />
+                                    </GridViewColumn.Header>
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
+                                                <CheckBox IsChecked="{Binding IsWriteConnectionPoolActionsToOutput}" Margin="6,3" ToolTip="{Binding ToolTip}" IsEnabled="False" />
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+
+                                <GridViewColumn Header="Cache TimeSpan" Width="120">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="-6,-3">
+                                                <TextBlock Text="{Binding ConnectionPoolCacheTimeSpan}" Margin="6,3" ToolTip="{Binding ToolTip}"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+
                                 <GridViewColumn Header="Ver" Width="100">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
@@ -295,6 +329,7 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
+
                                 <GridViewColumn Header="Lang" Width="100">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
@@ -304,6 +339,7 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
+
                                 <GridViewColumn Header="Currency" Width="100">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
@@ -313,6 +349,7 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
+
                             </GridView>
                         </ListView.View>
                     </ListView>

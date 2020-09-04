@@ -863,7 +863,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 return;
             }
 
-            this.ConnectionData.ReturnServiceToFree(this._serviceProxy);
+            this.ConnectionData.ReturnServiceToConnectionPool(this._serviceProxy);
 
             if (disposing)
             {

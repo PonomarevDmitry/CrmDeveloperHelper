@@ -48,12 +48,70 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         private bool _IsCurrentConnection;
 
+        #region Connection Pool
+
         private ConcurrentDictionary<OrganizationServiceProxy, byte> _servicesInUse;
         private ConcurrentStack<WeakReferenceByTimeOut<OrganizationServiceProxy>> _servicesFree;
 
-        private static readonly TimeSpan _serviceChacheTime = TimeSpan.FromMinutes(20);
+        private static readonly TimeSpan _defaultServiceCacheTime = TimeSpan.FromMinutes(20);
 
-        public bool TryGetServiceFromPool(out OrganizationServiceProxy service)
+        private TimeSpan _ConnectionPoolCacheTimeSpan = _defaultServiceCacheTime;
+        [DataMember]
+        public TimeSpan ConnectionPoolCacheTimeSpan
+        {
+            get => _ConnectionPoolCacheTimeSpan;
+            set
+            {
+                if (_ConnectionPoolCacheTimeSpan == value)
+                {
+                    return;
+                }
+
+                if (_ConnectionPoolCacheTimeSpan.Ticks <= 0)
+                {
+                    _ConnectionPoolCacheTimeSpan = _defaultServiceCacheTime;
+                }
+
+                this.OnPropertyChanging(nameof(ConnectionPoolCacheTimeSpan));
+                this._ConnectionPoolCacheTimeSpan = value;
+                this.OnPropertyChanged(nameof(ConnectionPoolCacheTimeSpan));
+            }
+        }
+
+        private bool _IsWriteConnectionPoolActionsToOutput;
+        [DataMember]
+        public bool IsWriteConnectionPoolActionsToOutput
+        {
+            get => _IsWriteConnectionPoolActionsToOutput;
+            set
+            {
+                if (_IsWriteConnectionPoolActionsToOutput == value)
+                {
+                    return;
+                }
+
+                this.OnPropertyChanging(nameof(IsWriteConnectionPoolActionsToOutput));
+                this._IsWriteConnectionPoolActionsToOutput = value;
+                this.OnPropertyChanged(nameof(IsWriteConnectionPoolActionsToOutput));
+            }
+        }
+
+        public void ShowConnectionPoolState()
+        {
+            DTEHelper.Singleton?.WriteToOutput(this, Properties.OutputStrings.CurrentConnectionPoolStateFormat2, _servicesInUse.Count, _servicesFree.Count);
+        }
+
+        public void ClearConnectionPool()
+        {
+            ShowConnectionPoolState();
+
+            this._servicesInUse.Clear();
+            this._servicesFree.Clear();
+
+            DTEHelper.Singleton?.WriteToOutput(this, Properties.OutputStrings.ClearingConnectionPoolFormat2, _servicesInUse.Count, _servicesFree.Count);
+        }
+
+        public bool TryGetServiceFromConnectionPool(out OrganizationServiceProxy service)
         {
             while (!_servicesFree.IsEmpty)
             {
@@ -61,7 +119,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 {
                     if (weakRef.TryGetTarget(out service))
                     {
-                        DTEHelper.Singleton?.WriteToOutput(this, $"TryGetServiceFromPool Success {nameof(_servicesInUse)} {_servicesInUse.Count} {nameof(_servicesFree)} {_servicesFree.Count}");
+                        if (this.IsWriteConnectionPoolActionsToOutput)
+                        {
+                            DTEHelper.Singleton?.WriteToOutput(this, Properties.OutputStrings.GettingOrganizationServiceFromPoolFormat2, _servicesInUse.Count, _servicesFree.Count);
+                        }
 
                         StoreServiceInUse(service);
 
@@ -72,7 +133,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 }
             }
 
-            //DTEHelper.Singleton?.WriteToOutput(this, $"TryGetServiceFromPool Creating New {nameof(_servicesInUse)} {_servicesInUse.Count} {nameof(_servicesFree)} {_servicesFree.Count}");
+            if (this.IsWriteConnectionPoolActionsToOutput)
+            {
+                DTEHelper.Singleton?.WriteToOutput(this, Properties.OutputStrings.CreatingNewOrganizationServiceFormat2, _servicesInUse.Count, _servicesFree.Count);
+            }
 
             service = null;
             return false;
@@ -87,16 +151,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             _servicesInUse.TryAdd(service, 0);
 
-            //DTEHelper.Singleton?.WriteToOutput(this, $"StoreServiceInUse {nameof(_servicesInUse)} {_servicesInUse.Count} {nameof(_servicesFree)} {_servicesFree.Count}");
+            if (this.IsWriteConnectionPoolActionsToOutput)
+            {
+                DTEHelper.Singleton?.WriteToOutput(this, Properties.OutputStrings.StoringOrganizationServiceInUseFormat2, _servicesInUse.Count, _servicesFree.Count);
+            }
         }
 
-        public void ReturnServiceToFree(OrganizationServiceProxy service)
+        public void ReturnServiceToConnectionPool(OrganizationServiceProxy service)
         {
-            _servicesInUse.TryRemove(service, out _);
-            _servicesFree.Push(new WeakReferenceByTimeOut<OrganizationServiceProxy>(service, _serviceChacheTime));
+            if (_servicesInUse.TryRemove(service, out _))
+            {
+                _servicesFree.Push(new WeakReferenceByTimeOut<OrganizationServiceProxy>(service, ConnectionPoolCacheTimeSpan));
 
-            //DTEHelper.Singleton?.WriteToOutput(this, $"ReturnServiceToFree {nameof(_servicesInUse)} {_servicesInUse.Count} {nameof(_servicesFree)} {_servicesFree.Count}");
+                if (this.IsWriteConnectionPoolActionsToOutput)
+                {
+                    DTEHelper.Singleton?.WriteToOutput(this, Properties.OutputStrings.OrganizationServiceReturnedToPoolFormat3, _servicesInUse.Count, _servicesFree.Count, ConnectionPoolCacheTimeSpan);
+                }
+            }
         }
+
+        #endregion Connection Pool
 
         public bool IsCurrentConnection
         {
@@ -955,6 +1029,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 {
                     Name = "Default",
                 });
+            }
+
+            if (this._ConnectionPoolCacheTimeSpan.Ticks <= 0)
+            {
+                this._ConnectionPoolCacheTimeSpan = _defaultServiceCacheTime;
             }
 
             UpdateNameWithCurrentMark();

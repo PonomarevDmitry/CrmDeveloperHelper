@@ -1073,6 +1073,8 @@
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionOpenInfoFolderDyn_Group" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionOpenFetchXmlFolderDyn_Group" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionEditDyn_Group" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionPoolShowStateDyn_Group" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionPoolClearDyn_Group" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionSelectFileDyn_Group" priority="0x06000" />
 
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionSelectDyn_Group" priority="0x06000" />
@@ -4499,8 +4501,8 @@
       <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Connection Action</ButtonText>
-          <MenuText>Connection Action</MenuText>
+          <ButtonText>Connection Actions</ButtonText>
+          <MenuText>Connection Actions</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionEditDyn" priority="0x06000" type="Menu">
@@ -4508,6 +4510,20 @@
         <Strings>
           <ButtonText>Edit Connection</ButtonText>
           <MenuText>Edit Connection</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionPoolShowStateDyn" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Show Connection Pool State</ButtonText>
+          <MenuText>Show Connection Pool State</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionPoolClearDyn" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Clear Connection Pool</ButtonText>
+          <MenuText>Clear Connection Pool</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionSelectFileDyn" priority="0x06000" type="Menu">
@@ -12113,6 +12129,30 @@
           <ButtonText>CommonCrmConnectionEditCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
+      
+      <Button guid="guidDynamicCommandSet" id="CommonCrmConnectionPoolShowStateCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>CommonCrmConnectionPoolShowStateCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="CommonCrmConnectionPoolClearCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>CommonCrmConnectionPoolClearCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+      
       <Button guid="guidDynamicCommandSet" id="CommonCrmConnectionOpenInfoFolderCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -12294,6 +12334,26 @@
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
           <ButtonText>Edit Connection</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommandSet" id="OutputCrmConnectionPoolClearCommandId" priority="0x06000" type="Button">
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Clear Connection Pool</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommandSet" id="OutputCrmConnectionShowPoolStateCommandId" priority="0x06000" type="Button">
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Show Connection Pool State</ButtonText>
         </Strings>
       </Button>
 
@@ -19050,13 +19110,19 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionEditDyn" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionSelectFileDyn" priority="0x6010">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionPoolShowStateDyn" priority="0x6010">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionOpenInfoFolderDyn" priority="0x6020">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionPoolClearDyn" priority="0x6020">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionOpenFetchXmlFolderDyn" priority="0x6030">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionSelectFileDyn" priority="0x6030">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionOpenInfoFolderDyn" priority="0x6040">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionOpenFetchXmlFolderDyn" priority="0x6050">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group" />
     </CommandPlacement>
 
@@ -19361,6 +19427,20 @@
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="CommonCrmConnectionEditCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionEditDyn_Group" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionPoolShowStateDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionPoolShowStateDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CommonCrmConnectionPoolShowStateCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionPoolShowStateDyn_Group" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionPoolClearDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionPoolClearDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CommonCrmConnectionPoolClearCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionPoolClearDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionSelectFileDyn_Group" priority="0x06000">
@@ -22737,13 +22817,19 @@
     <CommandPlacement guid="guidCommandSet" id="OutputCrmConnectionEditCommandId" priority="0x6000">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupConfiguration_MenuConnectionAction_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="OutputCrmConnectionSelectFileCommandId" priority="0x6010">
+    <CommandPlacement guid="guidCommandSet" id="OutputCrmConnectionShowPoolStateCommandId" priority="0x6010">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupConfiguration_MenuConnectionAction_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="OutputCrmConnectionOpenInfoFolderCommandId" priority="0x6020">
+    <CommandPlacement guid="guidCommandSet" id="OutputCrmConnectionPoolClearCommandId" priority="0x6020">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupConfiguration_MenuConnectionAction_Group" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="OutputCrmConnectionOpenFetchXmlFolderCommandId" priority="0x6030">
+    <CommandPlacement guid="guidCommandSet" id="OutputCrmConnectionSelectFileCommandId" priority="0x6030">
+      <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupConfiguration_MenuConnectionAction_Group" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="OutputCrmConnectionOpenInfoFolderCommandId" priority="0x6040">
+      <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupConfiguration_MenuConnectionAction_Group" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="OutputCrmConnectionOpenFetchXmlFolderCommandId" priority="0x6050">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupConfiguration_MenuConnectionAction_Group" />
     </CommandPlacement>
 
@@ -24923,6 +25009,12 @@
       <IDSymbol name="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionEditDyn" value="0x1381" />
       <IDSymbol name="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionEditDyn_Group" value="0x1382" />
 
+      <IDSymbol name="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionPoolShowStateDyn" value="0x155C" />
+      <IDSymbol name="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionPoolShowStateDyn_Group" value="0x155D" />
+
+      <IDSymbol name="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionPoolClearDyn" value="0x155A" />
+      <IDSymbol name="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionPoolClearDyn_Group" value="0x155B" />
+
       <IDSymbol name="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionSelectFileDyn" value="0x137F" />
       <IDSymbol name="commonMenu_GroupConfiguration_MenuConnectionAction_Group_MenuConnectionSelectFileDyn_Group" value="0x1380" />
 
@@ -25146,6 +25238,10 @@
       <IDSymbol name="CommonCrmConnectionSelectAndPublishEntityCommandId" value="18000" />
 
       <IDSymbol name="CommonCrmConnectionEditCommandId" value="10350" />
+      
+      <IDSymbol name="CommonCrmConnectionPoolShowStateCommandId" value="18100" />
+      <IDSymbol name="CommonCrmConnectionPoolClearCommandId" value="18150" />
+      
       <IDSymbol name="CommonCrmConnectionSelectFileCommandId" value="10300" />
       <IDSymbol name="CommonCrmConnectionTestCommandId" value="4400" />
 
@@ -26365,6 +26461,8 @@
       <IDSymbol name="OutputCrmConnectionSelectCommandId" value="0x21A8" />
       <IDSymbol name="OutputCrmConnectionTestCommandId" value="0x21A9" />
       <IDSymbol name="OutputCrmConnectionEditCommandId" value="0x220A" />
+      <IDSymbol name="OutputCrmConnectionPoolClearCommandId" value="0x2277" />
+      <IDSymbol name="OutputCrmConnectionShowPoolStateCommandId" value="0x2278" />
       <IDSymbol name="OutputCrmConnectionOpenInfoFolderCommandId" value="0x2274" />
       <IDSymbol name="OutputCrmConnectionOpenFetchXmlFolderCommandId" value="0x2252" />
 
@@ -26545,13 +26643,13 @@
 
 
     <!-- Groups and Menus -->
-    <!-- 0x155A -->
+    <!-- 0x155E -->
 
     <!-- Commands -->
-    <!-- 0x2277 -->
+    <!-- 0x2279 -->
 
     <!-- Commands Dynamic -->
-    <!-- 18100 -->
+    <!-- 18200 -->
 
     <!-- 16905 - 16950 -->
 
