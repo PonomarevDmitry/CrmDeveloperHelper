@@ -39,9 +39,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this.IncreaseInit();
 
-            InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
-
             InitializeComponent();
+
+            SetInputLanguageEnglish();
 
             var child = new ExportXmlOptionsControl(_commonConfig, XmlOptionsControls.SiteMapXmlOptions);
             child.CloseClicked += Child_CloseClicked;

@@ -42,7 +42,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this.IncreaseInit();
 
-            InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
+            InitializeComponent();
+
+            SetInputLanguageEnglish();
 
             this._defaultOutputFilePath = defaultOutputFilePath;
             this._project = project;
@@ -51,8 +53,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._imagePluginAssembly = this.Resources["ImagePluginAssembly"] as BitmapImage;
             this._imagePluginType = this.Resources["ImagePluginType"] as BitmapImage;
             this._imageWorkflowActivity = this.Resources["ImageWorkflowActivity"] as BitmapImage;
-
-            InitializeComponent();
 
             LoadFromConfig();
 

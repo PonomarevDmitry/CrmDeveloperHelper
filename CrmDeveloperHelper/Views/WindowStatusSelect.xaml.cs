@@ -40,7 +40,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InitializeComponent();
 
-            InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
+            SetInputLanguageEnglish();
 
             this.Name = string.Format("WindowStatusSelect_{0}", entityName);
             lstVwStatusCodes.Name = string.Format("lstVwStatusCodes{0}", entityName);

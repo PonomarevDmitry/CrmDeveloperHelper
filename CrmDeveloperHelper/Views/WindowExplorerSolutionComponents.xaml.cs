@@ -51,7 +51,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InitializeComponent();
 
-            InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
+            SetInputLanguageEnglish();
 
             this._descriptor = descriptor;
             this._commonConfig = commonConfig;

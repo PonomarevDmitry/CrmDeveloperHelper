@@ -38,13 +38,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this.IncreaseInit();
 
-            InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
+            InitializeComponent();
+
+            SetInputLanguageEnglish();
 
             this._filters = filters;
 
             this.Step = step;
-
-            InitializeComponent();
 
             LoadFromConfig();
 

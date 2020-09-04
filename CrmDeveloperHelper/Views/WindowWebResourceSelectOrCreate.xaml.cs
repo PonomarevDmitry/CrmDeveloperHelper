@@ -60,7 +60,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InitializeComponent();
 
-            InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
+            SetInputLanguageEnglish();
 
             btnSelectLastLink.IsEnabled = gridLastLink.IsEnabled = sepLastLink.IsEnabled = false;
             btnSelectLastLink.Visibility = gridLastLink.Visibility = sepLastLink.Visibility = Visibility.Collapsed;

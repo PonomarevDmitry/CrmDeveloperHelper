@@ -37,7 +37,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , SolutionImage solutionImage
         )
         {
-            InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
+            InitializeComponent();
+
+            SetInputLanguageEnglish();
 
             this._iWriteToOutput = iWriteToOutput;
             this._crmConfig = crmConfig;
@@ -45,8 +47,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             BindingOperations.EnableCollectionSynchronization(this._crmConfig.Connections, sysObjectConnections);
             BindingOperations.EnableCollectionSynchronization(this._crmConfig.ArchiveConnections, sysObjectArchiveConnections);
-
-            InitializeComponent();
 
             FillOperationHandlers();
 

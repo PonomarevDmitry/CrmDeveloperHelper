@@ -23,12 +23,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             InitializeComponent();
 
+            SetInputLanguageEnglish();
+
             this.Title = windowTitle;
             this._checker = checker;
             this._message = message;
             lblText.Content = labelTitle;
-
-            InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
             txtBPrefix.Focus();
         }

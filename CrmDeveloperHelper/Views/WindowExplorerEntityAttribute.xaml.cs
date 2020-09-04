@@ -46,9 +46,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             IncreaseInit();
 
-            InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
-
             InitializeComponent();
+
+            SetInputLanguageEnglish();
 
             FillRoleEditorLayoutTabs();
 

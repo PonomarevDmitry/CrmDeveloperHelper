@@ -43,14 +43,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this.IncreaseInit();
 
-            InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
+            InitializeComponent();
+
+            SetInputLanguageEnglish();
 
             if (privileges != null)
             {
                 _cachePrivileges[service.ConnectionData.ConnectionId] = privileges;
             }
-
-            InitializeComponent();
 
             FillRoleEditorLayoutTabs();
 

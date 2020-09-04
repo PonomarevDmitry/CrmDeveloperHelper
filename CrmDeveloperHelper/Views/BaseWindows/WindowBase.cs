@@ -37,9 +37,43 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.CommandBindings.Add(binding);
         }
 
-        protected void SetInputLangurateEnglish()
+        protected void SetInputLanguageEnglish()
         {
-            InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
+            CultureInfo cultureInfo = GetEnglishCultureInfo();
+
+            if (cultureInfo != null)
+            {
+                InputLanguageManager.SetInputLanguage(this, cultureInfo);
+            }
+        }
+
+        private static CultureInfo _englishCultureInfo;
+        private static CultureInfo GetEnglishCultureInfo()
+        {
+            if (_englishCultureInfo != null)
+            {
+                return _englishCultureInfo;
+            }
+
+            if (InputLanguageManager.Current != null)
+            {
+                var availableInputLanguages = InputLanguageManager.Current.AvailableInputLanguages.OfType<CultureInfo>().ToList();
+
+                foreach (var cultureInfo in availableInputLanguages)
+                {
+                    if (cultureInfo.Name.StartsWith("en-", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        if (_englishCultureInfo == null)
+                        {
+                            _englishCultureInfo = cultureInfo;
+                        }
+
+                        return cultureInfo;
+                    }
+                }
+            }
+
+            return null;
         }
 
         private async void Refresh_Executed(object sender, ExecutedRoutedEventArgs e)

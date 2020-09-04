@@ -22,11 +22,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             InitializeComponent();
 
+            SetInputLanguageEnglish();
+
             this.Title = windowTitle;
 
             BindingOperations.EnableCollectionSynchronization(connectionData.ConnectionConfiguration.Connections, sysObjectConnections);
-
-            InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
             LoadEntityNames(cmBEntityTypeNameOrCode, connectionData);
 

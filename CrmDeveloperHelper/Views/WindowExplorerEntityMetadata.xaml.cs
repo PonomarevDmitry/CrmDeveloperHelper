@@ -60,7 +60,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this.IncreaseInit();
 
-            InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
+            InitializeComponent();
+
+            SetInputLanguageEnglish();
 
             this._filePath = filePath;
             this._isJavaScript = isJavaScript;
@@ -72,8 +74,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 _cacheEntityMetadata[service.ConnectionData.ConnectionId] = allEntities;
             }
-
-            InitializeComponent();
 
             var child = new ExportEntityMetadataOptionsControl(_commonConfig);
             child.CloseClicked += optionsExportXmlOptions_CloseClicked;

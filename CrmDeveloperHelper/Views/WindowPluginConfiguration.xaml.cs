@@ -21,10 +21,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             InitializeComponent();
 
+            SetInputLanguageEnglish();
+
             this._commonConfig = commonConfig;
             this._showExportFolder = showExportFolder;
-
-            InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
             BindingOperations.EnableCollectionSynchronization(connectionData.ConnectionConfiguration.Connections, sysObjectConnections);
 

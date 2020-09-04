@@ -33,9 +33,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this.IncreaseInit();
 
-            InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
-
             InitializeComponent();
+
+            SetInputLanguageEnglish();
 
             this.Resources["ConnectionName1"] = connection1.Name;
             this.Resources["ConnectionName2"] = connection2.Name;

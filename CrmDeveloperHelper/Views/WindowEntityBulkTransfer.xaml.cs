@@ -49,7 +49,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InitializeComponent();
 
-            InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
+            SetInputLanguageEnglish();
 
             this.Name = string.Format("WindowEntityBulkTransfer_{0}", entityMetadata.LogicalName);
 

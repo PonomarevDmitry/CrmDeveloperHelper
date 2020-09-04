@@ -107,9 +107,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this.IncreaseInit();
 
-            InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
-
             InitializeComponent();
+
+            SetInputLanguageEnglish();
 
             cmBEntityName.Text = entityFilter;
             txtBPluginTypeFilter.Text = pluginTypeFilter;

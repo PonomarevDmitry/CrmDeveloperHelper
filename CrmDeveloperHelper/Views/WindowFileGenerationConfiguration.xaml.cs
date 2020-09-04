@@ -23,11 +23,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         public WindowFileGenerationConfiguration(FileGenerationConfiguration config)
         {
-            InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
+            InitializeComponent();
+
+            SetInputLanguageEnglish();
 
             this._config = config;
-
-            InitializeComponent();
 
             foreach (var solutionFilePath in _config.FileGenerationOptionsCollection.Keys.OrderBy(s => s))
             {

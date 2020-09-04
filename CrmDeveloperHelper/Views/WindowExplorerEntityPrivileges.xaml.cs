@@ -48,14 +48,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this.IncreaseInit();
 
-            InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
+            InitializeComponent();
+
+            SetInputLanguageEnglish();
 
             if (entityMetadataList != null && entityMetadataList.Any(e => e.Privileges != null && e.Privileges.Any()))
             {
                 _cacheEntityMetadata[service.ConnectionData.ConnectionId] = entityMetadataList;
             }
-
-            InitializeComponent();
 
             _entityMetadataFilter = new EntityMetadataFilter();
             _entityMetadataFilter.CloseClicked += this._entityMetadataFilter_CloseClicked;

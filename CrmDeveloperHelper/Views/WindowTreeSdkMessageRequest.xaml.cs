@@ -79,13 +79,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this.IncreaseInit();
 
-            InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
+            InitializeComponent();
+
+            SetInputLanguageEnglish();
 
             this._filePath = filePath;
             this._isJavaScript = isJavaScript;
             this._selectedItem = selectedItem;
-
-            InitializeComponent();
 
             _optionsControl = new FileGenerationSdkMessageRequestsOptionsControl();
             _optionsControl.CloseClicked += Child_CloseClicked;

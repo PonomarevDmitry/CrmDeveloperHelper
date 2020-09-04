@@ -47,9 +47,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string filePath
         ) : base(iWriteToOutput, commonConfig, connectionData)
         {
-            InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
-
             InitializeComponent();
+
+            SetInputLanguageEnglish();
 
             LoadFromConfig();
 

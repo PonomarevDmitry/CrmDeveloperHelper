@@ -24,11 +24,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         public WindowCommonConfiguration(CommonConfiguration config)
         {
-            InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
+            InitializeComponent();
+
+            SetInputLanguageEnglish();
 
             this._config = config;
-
-            InitializeComponent();
 
             foreach (var extension in _config.FileActionsByExtensions.Keys.OrderBy(s => s))
             {

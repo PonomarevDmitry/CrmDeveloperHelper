@@ -33,9 +33,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InitializeComponent();
 
-            lstVwAttributes.ItemsSource = _sourceDataGrid;
+            SetInputLanguageEnglish();
 
-            InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
+            lstVwAttributes.ItemsSource = _sourceDataGrid;
 
             List<OrganizationComparerOperation> allOperations = Enum.GetValues(typeof(OrganizationComparerOperation)).OfType<OrganizationComparerOperation>().ToList();
 

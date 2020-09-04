@@ -31,12 +31,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             InitializeComponent();
 
+            SetInputLanguageEnglish();
+
             this.Title = windowTitle;
             this._commonConfig = commonConfig;
 
             BindingOperations.EnableCollectionSynchronization(connectionData.ConnectionConfiguration.Connections, sysObjectConnections);
-
-            InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
             LoadConfigs(commonConfig);
 

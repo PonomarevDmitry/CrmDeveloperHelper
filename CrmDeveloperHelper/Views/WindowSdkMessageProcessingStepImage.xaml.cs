@@ -32,13 +32,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this.IncreaseInit();
 
-            InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
+            InitializeComponent();
+
+            SetInputLanguageEnglish();
 
             this._entityName = entityName;
             this._messageName = messageName;
             this.Image = image;
-
-            InitializeComponent();
 
             tSSLblConnectionName.Content = _service.ConnectionData.Name;
 

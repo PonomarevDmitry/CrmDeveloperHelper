@@ -49,13 +49,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this.IncreaseInit();
 
-            InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
+            InitializeComponent();
+
+            SetInputLanguageEnglish();
 
             this._selectedItem = selectedItem;
             this._objectId = objectId;
             this._componentType = componentType;
-
-            InitializeComponent();
 
             this._optionsExportSolutionOptionsControl = new ExportSolutionOptionsControl(cmBCurrentConnection, cmBExportSolutionProfile);
             this._optionsExportSolutionOptionsControl.CloseClicked += Child_CloseClicked;
