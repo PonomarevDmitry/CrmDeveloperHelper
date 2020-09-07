@@ -2061,7 +2061,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int commonMenu_GroupSecurityInformation_Menu = 0x124B;
 
-            public const int commonMenu_GroupSecurityInformation_Menu_Group = 0x124C;
+            public const int commonMenu_GroupSecurityInformation_Menu_GroupEntityPrivileges = 0x155E;
+
+            public const int commonMenu_GroupSecurityInformation_Menu_GroupOtherPrivileges = 0x155F;
+
+            public const int commonMenu_GroupSecurityInformation_Menu_GroupUserTeamRole = 0x124C;
 
             public const int commonMenu_GroupPluginConfiguration = 0x10E3;
 

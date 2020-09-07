@@ -960,7 +960,9 @@
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuPluginInformation_GroupTree" priority="0x06000" />
 
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation_Menu_Group" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation_Menu_GroupEntityPrivileges" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation_Menu_GroupOtherPrivileges" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation_Menu_GroupUserTeamRole" priority="0x06000" />
 
 
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupExplorers" priority="0x06000" />
@@ -12129,7 +12131,7 @@
           <ButtonText>CommonCrmConnectionEditCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      
+
       <Button guid="guidDynamicCommandSet" id="CommonCrmConnectionPoolShowStateCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -12152,7 +12154,7 @@
           <ButtonText>CommonCrmConnectionPoolClearCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
-      
+
       <Button guid="guidDynamicCommandSet" id="CommonCrmConnectionOpenInfoFolderCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -18568,7 +18570,7 @@
 
     <!-- #region CommandPlacements commonMenu_GroupSecurityInformation -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation_Menu" priority="0x0107">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation_Menu" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation" />
     </CommandPlacement>
 
@@ -18576,31 +18578,47 @@
 
     <!-- #region CommandPlacements commonMenu_GroupSecurityInformation_Menu -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation_Menu_Group" priority="0x060B">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation_Menu_GroupEntityPrivileges" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation_Menu" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation_Menu_GroupOtherPrivileges" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation_Menu" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation_Menu_GroupUserTeamRole" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation_Menu" />
     </CommandPlacement>
 
     <!-- #endregion CommandPlacements commonMenu_GroupSecurityInformation_Menu -->
 
-    <!-- #region CommandPlacements commonMenu_GroupSecurityInformation_Menu_Group -->
+    <!-- #region CommandPlacements commonMenu_GroupSecurityInformation_Menu_GroupEntityPrivileges -->
 
     <CommandPlacement guid="guidCommandSet" id="CommonEntityPrivilegesExplorerCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation_Menu_Group" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonOtherPrivilegesExplorerCommandId" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation_Menu_Group" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonSystemUsersExplorerCommandId" priority="0x06020">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation_Menu_Group" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonTeamsExplorerCommandId" priority="0x06030">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation_Menu_Group" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonSecurityRolesExplorerCommandId" priority="0x06040">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation_Menu_Group" />
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation_Menu_GroupEntityPrivileges" />
     </CommandPlacement>
 
-    <!-- #endregion CommandPlacements commonMenu_GroupSecurityInformation_Menu_Group -->
+    <!-- #endregion CommandPlacements commonMenu_GroupSecurityInformation_Menu_GroupEntityPrivileges -->
+
+    <!-- #region CommandPlacements commonMenu_GroupSecurityInformation_Menu_GroupOtherPrivileges -->
+
+    <CommandPlacement guid="guidCommandSet" id="CommonOtherPrivilegesExplorerCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation_Menu_GroupOtherPrivileges" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements commonMenu_GroupSecurityInformation_Menu_GroupOtherPrivileges -->
+
+    <!-- #region CommandPlacements commonMenu_GroupSecurityInformation_Menu_GroupUserTeamRole -->
+
+    <CommandPlacement guid="guidCommandSet" id="CommonSystemUsersExplorerCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation_Menu_GroupUserTeamRole" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CommonTeamsExplorerCommandId" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation_Menu_GroupUserTeamRole" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CommonSecurityRolesExplorerCommandId" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation_Menu_GroupUserTeamRole" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements commonMenu_GroupSecurityInformation_Menu_GroupUserTeamRole -->
 
 
     <!-- #region CommandPlacements commonMenu_GroupExplorers -->
@@ -24788,7 +24806,9 @@
 
       <IDSymbol name="commonMenu_GroupSecurityInformation" value="0x124A" />
       <IDSymbol name="commonMenu_GroupSecurityInformation_Menu" value="0x124B" />
-      <IDSymbol name="commonMenu_GroupSecurityInformation_Menu_Group" value="0x124C" />
+      <IDSymbol name="commonMenu_GroupSecurityInformation_Menu_GroupEntityPrivileges" value="0x155E" />
+      <IDSymbol name="commonMenu_GroupSecurityInformation_Menu_GroupOtherPrivileges" value="0x155F" />
+      <IDSymbol name="commonMenu_GroupSecurityInformation_Menu_GroupUserTeamRole" value="0x124C" />
 
 
       <IDSymbol name="commonMenu_GroupPluginConfiguration" value="0x10E3" />
@@ -25238,10 +25258,10 @@
       <IDSymbol name="CommonCrmConnectionSelectAndPublishEntityCommandId" value="18000" />
 
       <IDSymbol name="CommonCrmConnectionEditCommandId" value="10350" />
-      
+
       <IDSymbol name="CommonCrmConnectionPoolShowStateCommandId" value="18100" />
       <IDSymbol name="CommonCrmConnectionPoolClearCommandId" value="18150" />
-      
+
       <IDSymbol name="CommonCrmConnectionSelectFileCommandId" value="10300" />
       <IDSymbol name="CommonCrmConnectionTestCommandId" value="4400" />
 
@@ -26643,7 +26663,7 @@
 
 
     <!-- Groups and Menus -->
-    <!-- 0x155E -->
+    <!-- 0x1560 -->
 
     <!-- Commands -->
     <!-- 0x2279 -->
