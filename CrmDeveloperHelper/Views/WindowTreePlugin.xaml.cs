@@ -3507,13 +3507,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            if (sender is MenuItem menuItem
-                && menuItem.Tag != null
-                && menuItem.Tag is string solutionUniqueName
-                )
-            {
-                await AddAssemblyStepsToSolution(nodeItem.PluginAssemblyId.Value, false, solutionUniqueName);
-            }
+            await AddAssemblyStepsToSolution(nodeItem.PluginAssemblyId.Value, true, null);
         }
 
         private async void mIAddAssemblyStepsToSolutionLast_Click(object sender, RoutedEventArgs e)
