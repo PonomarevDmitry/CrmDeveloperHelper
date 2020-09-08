@@ -559,6 +559,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ConnectionData connectionData = GetSelectedConnection();
 
                 FillLastSolutionItems(connectionData, items, true, AddToCrmSolutionLast_Click, "contMnAddToSolutionLast");
+
+                FillLastSolutionItems(connectionData, items, true, AddMessageToCrmSolutionLast_Click, "contMnAddMessageToSolutionLast");
             }
         }
 
@@ -687,5 +689,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         }
 
         #endregion Clipboard
+
+        private async void AddMessageToCrmSolution_Click(object sender, RoutedEventArgs e)
+        {
+            await AddMessageToSolution(true, null);
+        }
+
+        private async void AddMessageToCrmSolutionLast_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+                && menuItem.Tag != null
+                && menuItem.Tag is string solutionUniqueName
+                )
+            {
+                await AddMessageToSolution(false, solutionUniqueName);
+            }
+        }
+
+        private async Task AddMessageToSolution(bool withSelect, string solutionUniqueName)
+        {
+            var messagesList = GetSelectedEntitiesList()
+                .Where(e => e.SdkMessageId != null)
+                .Select(e => e.SdkMessageId.Id)
+                .Distinct()
+                .ToList();
+
+            if (!messagesList.Any())
+            {
+                return;
+            }
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+            var descriptor = GetSolutionComponentDescriptor(service);
+
+            try
+            {
+                this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+
+                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.SdkMessage, messagesList, null, withSelect);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+            }
+        }
     }
 }

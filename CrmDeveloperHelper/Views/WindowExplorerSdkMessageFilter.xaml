@@ -51,8 +51,12 @@
                 <MenuItem Header="Delete MessageFilter" Click="mIDeleteMessageFilter_Click" />
 
                 <Separator/>
-                <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" />
-                <MenuItem Header="Add to Crm Solution" Click="AddToCrmSolution_Click" />
+                <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add MessageFilters to Last Crm Solution" />
+                <MenuItem Header="Add MessageFilters to Crm Solution" Click="AddToCrmSolution_Click" />
+
+                <Separator/>
+                <MenuItem x:Uid="contMnAddMessageToSolutionLast" Header="Add Messages to Last Crm Solution" />
+                <MenuItem Header="Add Messages to Crm Solution" Click="AddMessageToCrmSolution_Click" />
 
                 <Separator/>
                 <MenuItem Header="Open Solutions List with Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
