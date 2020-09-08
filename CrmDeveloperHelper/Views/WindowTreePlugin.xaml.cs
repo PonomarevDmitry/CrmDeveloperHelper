@@ -3459,7 +3459,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            await AddPluginTypeStepsToSolution(nodeItem.PluginAssemblyId.Value, true, null);
+            await AddAssemblyToSolution(nodeItem.PluginAssemblyId.Value, true, null);
         }
 
         private async void AddAssemblyToCrmSolutionLast_Click(object sender, RoutedEventArgs e)
