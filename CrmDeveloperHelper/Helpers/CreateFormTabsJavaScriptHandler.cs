@@ -69,7 +69,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             , string formTypeName
         )
         {
-            WriteFormProperties(entityLogicalName, formId, formName, formType, formTypeName);
+            WriteFormJavaScriptTag(entityLogicalName, formId, formName, formType, formTypeName);
 
             WriteNamespace();
 
@@ -533,7 +533,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteElementNameEnd();
         }
 
-        public void WriteFormProperties(string entityName, Guid? formId, string formName, int? formType, string formTypeName)
+        public void WriteFormJavaScriptTag(string entityName, Guid? formId, string formName, int? formType, string formTypeName)
         {
             StringBuilder systemInfo = new StringBuilder();
 

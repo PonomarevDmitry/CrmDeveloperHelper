@@ -1777,7 +1777,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         #region Copy to Clipboard
 
-        private async void mISystemFormCopyJsonObject_Click(object sender, RoutedEventArgs e)
+        private async void mISystemFormCopyFormObjectsEnumsForJsonObject_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1786,10 +1786,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            await ExecuteJavaScriptObjectTypeAsync(entity.Id, entity.ObjectTypeCode, entity.Name, JavaScriptObjectType.JsonObject, PerformCopyBasedOnForm);
+            await ExecuteJavaScriptObjectTypeAsync(entity.Id, entity.ObjectTypeCode, entity.Name, JavaScriptObjectType.JsonObject, PerformCopyFormObjectsEnums);
         }
 
-        private async void mISystemFormCopyConstructor_Click(object sender, RoutedEventArgs e)
+        private async void mISystemFormCopyFormObjectsEnumsForTypeConstructor_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1798,10 +1798,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            await ExecuteJavaScriptObjectTypeAsync(entity.Id, entity.ObjectTypeCode, entity.Name, JavaScriptObjectType.TypeConstructor, PerformCopyBasedOnForm);
+            await ExecuteJavaScriptObjectTypeAsync(entity.Id, entity.ObjectTypeCode, entity.Name, JavaScriptObjectType.TypeConstructor, PerformCopyFormObjectsEnums);
         }
 
-        private async Task PerformCopyBasedOnForm(string folder, Guid idSystemForm, string entityName, string name, JavaScriptObjectType javaScriptObjectType)
+        private async Task PerformCopyFormObjectsEnums(string folder, Guid idSystemForm, string entityName, string name, JavaScriptObjectType javaScriptObjectType)
         {
             var service = await GetService();
 
@@ -1855,7 +1855,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CopyingEntityJavaScriptContentOnFormCompletedFormat2, entityName, name);
         }
 
-        private async void mISystemFormCopyFormProperties_Click(object sender, RoutedEventArgs e)
+        private async void mISystemFormCopyFormJavaScriptTag_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1864,10 +1864,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            await ExecuteJavaScriptObjectTypeAsync(entity.Id, entity.ObjectTypeCode, entity.Name, JavaScriptObjectType.TypeConstructor, PerformCopyFormPropertiesBasedOnForm);
+            await ExecuteJavaScriptObjectTypeAsync(entity.Id, entity.ObjectTypeCode, entity.Name, JavaScriptObjectType.TypeConstructor, PerformCopyFormJavaScriptTagBasedOnForm);
         }
 
-        private async Task PerformCopyFormPropertiesBasedOnForm(string folder, Guid idSystemForm, string entityName, string name, JavaScriptObjectType javaScriptObjectType)
+        private async Task PerformCopyFormJavaScriptTagBasedOnForm(string folder, Guid idSystemForm, string entityName, string name, JavaScriptObjectType javaScriptObjectType)
         {
             var service = await GetService();
 
@@ -1899,12 +1899,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         systemForm.FormattedValues.TryGetValue(SystemForm.Schema.Attributes.type, out string typeName);
 
-                        handlerCreate.WriteFormProperties(systemForm.ObjectTypeCode, systemForm.Id, systemForm.Name, systemForm.Type?.Value, typeName);
+                        handlerCreate.WriteFormJavaScriptTag(systemForm.ObjectTypeCode, systemForm.Id, systemForm.Name, systemForm.Type?.Value, typeName);
                     }
 
                     ClipboardHelper.SetText(stringBuilder.ToString().Trim(' ', '\r', '\n'));
-
-                    //this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, name, "Entity Metadata", filePath);
                 }
                 catch (Exception ex)
                 {

@@ -34,11 +34,11 @@
                     <MenuItem Header="Copy to Clipboard Form Name" Click="mISystemFormCopyFormName_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Copy to Clipboard Form Properties" Click="mISystemFormCopyFormProperties_Click" />
+                    <MenuItem Header="Copy to Clipboard Form JavaScript Tag" Click="mISystemFormCopyFormJavaScriptTag_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Copy to Clipboard Constructor Attributes based on Form" Click="mISystemFormCopyConstructor_Click" />
-                    <MenuItem Header="Copy to Clipboard JsonObject Attributes based on Form" Click="mISystemFormCopyJsonObject_Click" />
+                    <MenuItem Header="Copy to Clipboard Form Objects Enums for TypeConstructor" Click="mISystemFormCopyFormObjectsEnumsForTypeConstructor_Click" />
+                    <MenuItem Header="Copy to Clipboard Form Objects Enums for JsonObject" Click="mISystemFormCopyFormObjectsEnumsForJsonObject_Click" />
                 </MenuItem>
 
                 <Separator />
