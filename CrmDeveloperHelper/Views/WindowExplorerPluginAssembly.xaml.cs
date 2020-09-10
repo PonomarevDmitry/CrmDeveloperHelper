@@ -78,6 +78,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             explorersHelper.FillExplorers(miExplorers);
             compareWindowsHelper.FillCompareWindows(miCompareOrganizations);
 
+            miMessageProcessingStepExplorer.Click += explorersHelper.miMessageProcessingStepExplorer_Click;
             mIOpenPluginTree.Click += explorersHelper.miPluginTree_Click;
             mIOpenPluginTypeExplorer.Click += explorersHelper.miPluginTypes_Click;
 
@@ -88,6 +89,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 explorersHelper.FillExplorers(listContextMenu, nameof(miExplorers));
 
                 compareWindowsHelper.FillCompareWindows(listContextMenu, nameof(miCompareOrganizations));
+
+                AddMenuItemClickHandler(listContextMenu, explorersHelper.miMessageProcessingStepExplorer_Click, nameof(miMessageProcessingStepExplorer));
 
                 AddMenuItemClickHandler(listContextMenu, explorersHelper.miPluginTree_Click, nameof(mIOpenPluginTree));
 

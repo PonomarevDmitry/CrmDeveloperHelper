@@ -3783,6 +3783,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CommonPluginTreeCommandId = 0x2037;
 
+            public const int CommonPluginStepsExplorerCommandId = 0x2279;
+
             public const int CommonSdkMessageExplorerCommandId = 0x223F;
 
             public const int CommonSdkMessageFilterExplorerCommandId = 0x2246;

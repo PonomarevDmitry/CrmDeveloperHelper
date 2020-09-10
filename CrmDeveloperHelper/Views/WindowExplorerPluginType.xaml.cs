@@ -103,6 +103,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 compareWindowsHelper.FillCompareWindows(listContextMenu, nameof(miCompareOrganizations));
 
+                AddMenuItemClickHandler(listContextMenu, explorersHelper.miMessageProcessingStepExplorer_Click, "miMessageProcessingStepExplorer");
+
                 AddMenuItemClickHandler(listContextMenu, explorersHelper.miPluginTree_Click, "mIOpenPluginTree");
 
                 AddMenuItemClickHandler(listContextMenu, explorersHelper.miPluginAssemblies_Click, "mIOpenPluginAssemblyExplorer");

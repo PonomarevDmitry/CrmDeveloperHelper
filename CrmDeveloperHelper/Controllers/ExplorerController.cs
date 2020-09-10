@@ -304,6 +304,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Plugin Tree
 
+        #region Plugin Steps Explorer
+
+        public async Task ExecuteShowingPluginStepsExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string pluginTypeFilter, string messageFilter)
+        {
+            await ConnectAndExecuteActionAsync(connectionData
+                , Properties.OperationNames.ShowingPluginStepsExplorerFormat1
+                , (service) => WindowHelper.OpenSdkMessageProcessingStepExplorer(this._iWriteToOutput, service, commonConfig, entityFilter, pluginTypeFilter, messageFilter)
+            );
+        }
+
+        #endregion Plugin Steps Explorer
+
         #region SdkMessage Explorer
 
         public async Task ExecuteShowingSdkMessageExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string messageFilter)

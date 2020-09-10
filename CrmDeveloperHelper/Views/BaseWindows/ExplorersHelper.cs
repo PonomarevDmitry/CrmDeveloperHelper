@@ -342,6 +342,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             };
             miPluginTree.Click += miPluginTree_Click;
 
+            var miMessageProcessingStepExplorer = new MenuItem()
+            {
+                Header = "Plugin Steps Explorer",
+            };
+            miMessageProcessingStepExplorer.Click += miMessageProcessingStepExplorer_Click;
+
             var miMessageExplorer = new MenuItem()
             {
                 Header = "Message Explorer",
@@ -469,6 +475,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             miExplorers.Items.Add(miPluginAssemblies);
 
             miExplorers.Items.Add(new Separator());
+            miExplorers.Items.Add(miMessageProcessingStepExplorer);
             miExplorers.Items.Add(miMessageExplorer);
             miExplorers.Items.Add(miMessageFilterExplorer);
 
@@ -772,6 +779,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service = await GetService();
 
             WindowHelper.OpenPluginTree(this._iWriteToOutput, service, _commonConfig, entityName, pluginTypeName, messageName);
+        }
+
+        public async void miMessageProcessingStepExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            var entityName = GetEntityName();
+            var pluginTypeName = GetPluginTypeName();
+            var messageName = GetMessageName();
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenSdkMessageProcessingStepExplorer(this._iWriteToOutput, service, _commonConfig, entityName, pluginTypeName, messageName);
         }
 
         public async void miMessageExplorer_Click(object sender, RoutedEventArgs e)

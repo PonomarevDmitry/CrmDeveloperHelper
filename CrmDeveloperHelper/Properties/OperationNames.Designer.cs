@@ -2023,6 +2023,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Showing Plugin Steps Explorer.
+        /// </summary>
+        internal static string ShowingPluginStepsExplorerFormat1 {
+            get {
+                return ResourceManager.GetString("ShowingPluginStepsExplorerFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Showing Plugin Tree.
         /// </summary>
         internal static string ShowingPluginTreeFormat1 {

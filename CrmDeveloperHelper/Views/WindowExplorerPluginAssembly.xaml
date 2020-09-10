@@ -39,6 +39,7 @@
                 </MenuItem>
 
                 <Separator/>
+                <MenuItem x:Uid="miMessageProcessingStepExplorer" Header="Open Plugin Steps Explorer" />
                 <MenuItem x:Uid="mIOpenPluginTree" Header="Open Plugin Tree" />
                 <MenuItem x:Uid="mIOpenPluginTypeExplorer" Header="Open PluginType Explorer" />
 
@@ -224,6 +225,7 @@
                             <MenuItem x:Name="mICompareWithLocalAssembly" Header="Compare with Local Assembly" Click="mICompareWithLocalAssembly_Click" />
 
                             <Separator/>
+                            <MenuItem x:Name="miMessageProcessingStepExplorer" Header="Open Plugin Steps Explorer" />
                             <MenuItem x:Name="mIOpenPluginTree" Header="Open Plugin Tree" />
                             <MenuItem x:Name="mIOpenPluginTypeExplorer" Header="Open PluginType Explorer" />
 

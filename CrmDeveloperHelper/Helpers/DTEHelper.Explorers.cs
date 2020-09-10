@@ -39,6 +39,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             Controller.StartShowingPluginTree(connectionData, commonConfig, string.Empty, pluginType, string.Empty);
         }
 
+
+        public void HandleOpenPluginStepsExplorer(string entityFilter, string pluginTypeFilter, string messageFilter)
+        {
+            HandleOpenPluginStepsExplorer(null, entityFilter, pluginTypeFilter, messageFilter);
+        }
+
+        public void HandleOpenPluginStepsExplorer(ConnectionData connectionData, string entityFilter, string pluginTypeFilter, string messageFilter)
+        {
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartShowingPluginStepsExplorer(conn, commonConfig, entityFilter, pluginTypeFilter, messageFilter));
+        }
+
+        public void HandleOpenPluginStepsExplorer(ConnectionData connectionData, SelectedFile selectedFile)
+        {
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => HandleOpenPluginStepsExplorerInternal(conn, commonConfig, selectedFile));
+        }
+
+        private void HandleOpenPluginStepsExplorerInternal(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+        {
+            string pluginType = string.Empty;
+
+            if (selectedFile != null)
+            {
+                pluginType = CSharpCodeHelper.GetClassInFileBySyntaxTree(selectedFile.FilePath);
+
+                this.WriteToOutput(connectionData, Properties.OutputStrings.GettingClassTypeFullNameFromFileFormat2, selectedFile.FilePath, pluginType);
+                this.ActivateOutputWindow(connectionData);
+            }
+
+            Controller.StartShowingPluginStepsExplorer(connectionData, commonConfig, string.Empty, pluginType, string.Empty);
+        }
+
         public void HandleSdkMessageExplorer()
         {
             HandleSdkMessageExplorer(null);

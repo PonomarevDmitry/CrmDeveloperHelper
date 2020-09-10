@@ -78,6 +78,7 @@
                 <MenuItem x:Uid="contMnAddToSolutionMessageFilter" Header="Add Message Filter to Crm Solution" Click="AddMessageFilterToCrmSolution_Click" />
 
                 <Separator />
+                <MenuItem x:Uid="miMessageProcessingStepExplorer" Header="Open Plugin Steps Explorer" />
                 <MenuItem x:Uid="mIOpenMessageExplorer" Header="Open Message Explorer" />
                 <MenuItem x:Uid="mIOpenMessageFilterExplorer" Header="Open Message Filter Explorer" />
                 <Separator />

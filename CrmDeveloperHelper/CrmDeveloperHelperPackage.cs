@@ -658,6 +658,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonPluginTypeExplorerCommand.Initialize,
 
             CommonPluginTreeCommand.Initialize,
+
+            CommonPluginStepsExplorerCommand.Initialize,
+
             CommonSdkMessageExplorerCommand.Initialize,
             CommonSdkMessageFilterExplorerCommand.Initialize,
             CommonSdkMessageFilterTreeCommand.Initialize,

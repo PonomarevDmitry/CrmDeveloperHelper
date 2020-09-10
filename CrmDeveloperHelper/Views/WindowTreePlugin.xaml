@@ -128,8 +128,10 @@
                 <MenuItem x:Uid="contMnAddPluginAssemblyStepsToSolution" Header="Add All Steps for PluginAssembly to Crm Solution" Click="mIAddAssemblyStepsToSolution_Click" />
 
                 <Separator x:Uid="contMnSdkMessage" />
+                <MenuItem x:Uid="miMessageProcessingStepExplorer" Header="Open Plugin Steps Explorer" />
                 <MenuItem x:Uid="mIOpenMessageExplorer" Header="Open Message Explorer" />
                 <MenuItem x:Uid="mIOpenMessageFilterExplorer" Header="Open Message Filter Explorer" />
+                
                 <Separator x:Uid="contMnSdkMessage" />
                 <MenuItem x:Uid="mIOpenMessageFilterTree" Header="Open Message Filter Tree" />
                 <MenuItem x:Uid="mIOpenMessageRequestTree" Header="Open Message Request Tree" />

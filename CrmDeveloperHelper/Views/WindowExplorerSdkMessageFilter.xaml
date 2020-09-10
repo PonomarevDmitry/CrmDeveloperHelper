@@ -39,6 +39,7 @@
                 </MenuItem>
 
                 <Separator/>
+                <MenuItem x:Uid="miMessageProcessingStepExplorer" Header="Open Plugin Steps Explorer" />
                 <MenuItem x:Uid="mIOpenMessageExplorer" Header="Open Message Explorer" />
 
                 <Separator/>
@@ -231,6 +232,7 @@
                             <MenuItem x:Name="mICreateEntityDescription" Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
 
                             <Separator/>
+                            <MenuItem x:Name="miMessageProcessingStepExplorer" Header="Open Plugin Steps Explorer" />
                             <MenuItem x:Name="mIOpenMessageExplorer" Header="Open Message Explorer" />
 
                             <Separator/>

@@ -422,6 +422,9 @@
   <data name="ShowingPluginTreeFormat1" xml:space="preserve">
     <value>{0} - Showing Plugin Tree</value>
   </data>
+  <data name="ShowingPluginStepsExplorerFormat1" xml:space="preserve">
+    <value>{0} - Showing Plugin Steps Explorer</value>
+  </data>
   <data name="ShowingSdkMessageRequestTreeFormat1" xml:space="preserve">
     <value>{0} - Showing Sdk Message Request Tree</value>
   </data>

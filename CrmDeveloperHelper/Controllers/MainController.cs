@@ -932,6 +932,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartShowingPluginTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string pluginTypeFilter, string messageFilter)
             => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteShowingPluginTree, commonConfig, entityFilter, pluginTypeFilter, messageFilter);
 
+        public void StartShowingPluginStepsExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string pluginTypeFilter, string messageFilter)
+            => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteShowingPluginStepsExplorer, commonConfig, entityFilter, pluginTypeFilter, messageFilter);
+
         public void StartShowingSdkMessageExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string messageFilter)
             => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteShowingSdkMessageExplorer, commonConfig, messageFilter);
 

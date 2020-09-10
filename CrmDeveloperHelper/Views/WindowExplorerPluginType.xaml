@@ -53,6 +53,7 @@
                 <MenuItem Header="Add Plugin Step" Click="mIAddPluginStep_Click" />
 
                 <Separator/>
+                <MenuItem x:Uid="miMessageProcessingStepExplorer" Header="Open Plugin Steps Explorer" />
                 <MenuItem x:Uid="mIOpenPluginTree" Header="Open Plugin Tree" />
                 <MenuItem x:Uid="mIOpenPluginAssemblyExplorer" Header="Open Plugin Assembly Explorer" />
 

@@ -548,6 +548,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             );
         }
 
+        public static void OpenSdkMessageProcessingStepExplorer(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string entityFilter = null
+            , string pluginTypeFilter = null
+            , string messageFilter = null
+        )
+        {
+            ExecuteWithConnectionInSTAThread(service.ConnectionData, () =>
+                new WindowExplorerSdkMessageProcessingStep
+                (
+                    iWriteToOutput
+                    , commonConfig
+                    , service
+                    , entityFilter
+                    , pluginTypeFilter
+                    , messageFilter
+                )
+            );
+        }
+
         public static void OpenSdkMessageExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
