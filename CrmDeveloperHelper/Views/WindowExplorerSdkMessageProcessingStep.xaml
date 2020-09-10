@@ -242,15 +242,15 @@
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
 
-                <DataGridTextColumn Header="Message" Width="305" Binding="{Binding Path=MessageName}" />
+                <DataGridTextColumn Header="Message" Width="200" Binding="{Binding Path=MessageName}" />
 
-                <DataGridTextColumn Header="Primary Entity" Width="165" Binding="{Binding Path=PrimaryObjectTypeCode}" />
+                <DataGridTextColumn Header="Primary Entity" Width="215" Binding="{Binding Path=PrimaryObjectTypeCode}" />
 
-                <DataGridTextColumn Header="Secondary Entity" Width="165" Binding="{Binding Path=SecondaryObjectTypeCode}" />
+                <DataGridTextColumn Header="Secondary Entity" Width="100" Binding="{Binding Path=SecondaryObjectTypeCode}" />
 
-                <DataGridTextColumn Header="Stage" Width="165" Binding="{Binding Path=Stage}" />
+                <DataGridTextColumn Header="Stage" Width="105" Binding="{Binding Path=Stage}" />
 
-                <DataGridTextColumn Header="Mode" Width="165" Binding="{Binding Path=Mode}" />
+                <DataGridTextColumn Header="Mode" Width="85" Binding="{Binding Path=Mode}" />
 
                 <DataGridTextColumn Width="Auto" Binding="{Binding Path=Rank}" CanUserResize="False">
                     <DataGridTextColumn.Header>
@@ -258,7 +258,7 @@
                     </DataGridTextColumn.Header>
                 </DataGridTextColumn>
 
-                <DataGridTextColumn Header="Name" Width="165" Binding="{Binding Path=Name}" />
+                <DataGridTextColumn Header="Name" Width="750" Binding="{Binding Path=Name}" />
 
                 <DataGridCheckBoxColumn Width="Auto" Binding="{Binding HasDescription, Mode=OneTime}" CanUserResize="False">
                     <DataGridCheckBoxColumn.Header>
@@ -266,15 +266,15 @@
                     </DataGridCheckBoxColumn.Header>
                 </DataGridCheckBoxColumn>
 
-                <DataGridTextColumn Header="PluginType" Width="165" Binding="{Binding Path=PluginTypeName}" />
+                <DataGridTextColumn Header="PluginType" Width="460" Binding="{Binding Path=PluginTypeName}" />
 
-                <DataGridTextColumn Header="StateCode" Width="165" Binding="{Binding Path=StateCode}" />
+                <DataGridTextColumn Header="StateCode" Width="65" Binding="{Binding Path=StateCode}" />
 
-                <DataGridTextColumn Header="StatusCode" Width="165" Binding="{Binding Path=StatusCode}" />
+                <DataGridTextColumn Header="StatusCode" Width="70" Binding="{Binding Path=StatusCode}" />
 
                 <DataGridTextColumn Header="PluginAssembly" Width="165" Binding="{Binding Path=PluginAssemblyName}" />
 
-                <DataGridTextColumn Header="Message Category" Width="165" Binding="{Binding Path=MessageCategoryName}" />
+                <DataGridTextColumn Header="Message Category" Width="110" Binding="{Binding Path=MessageCategoryName}" />
 
             </DataGrid.Columns>
         </DataGrid>
