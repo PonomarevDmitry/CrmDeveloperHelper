@@ -248,16 +248,6 @@
 
                 <DataGridTextColumn Header="Secondary Entity" Width="165" Binding="{Binding Path=SecondaryObjectTypeCode}" />
 
-                <DataGridTextColumn Header="Name" Width="165" Binding="{Binding Path=Name}" />
-
-                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding HasDescription, Mode=OneTime}" CanUserResize="False">
-                    <DataGridCheckBoxColumn.Header>
-                        <Label Content="D" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0" Padding="0" ToolTip="Description" />
-                    </DataGridCheckBoxColumn.Header>
-                </DataGridCheckBoxColumn>
-
-                <DataGridTextColumn Header="PluginType" Width="165" Binding="{Binding Path=PluginTypeName}" />
-
                 <DataGridTextColumn Header="Stage" Width="165" Binding="{Binding Path=Stage}" />
 
                 <DataGridTextColumn Header="Mode" Width="165" Binding="{Binding Path=Mode}" />
@@ -267,6 +257,16 @@
                         <Label Content="R" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0" Padding="0" ToolTip="Rank" />
                     </DataGridTextColumn.Header>
                 </DataGridTextColumn>
+
+                <DataGridTextColumn Header="Name" Width="165" Binding="{Binding Path=Name}" />
+
+                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding HasDescription, Mode=OneTime}" CanUserResize="False">
+                    <DataGridCheckBoxColumn.Header>
+                        <Label Content="D" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0" Padding="0" ToolTip="Description" />
+                    </DataGridCheckBoxColumn.Header>
+                </DataGridCheckBoxColumn>
+
+                <DataGridTextColumn Header="PluginType" Width="165" Binding="{Binding Path=PluginTypeName}" />
 
                 <DataGridTextColumn Header="StateCode" Width="165" Binding="{Binding Path=StateCode}" />
 
