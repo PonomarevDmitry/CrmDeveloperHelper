@@ -28,7 +28,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
     public partial class WindowExplorerSavedQuery : WindowWithConnectionList
     {
-        private readonly ObservableCollection<EntityViewItem> _itemsSource;
+        private readonly ObservableCollection<SavedQueryViewItem> _itemsSource;
 
         private readonly Popup _optionsPopup;
 
@@ -77,7 +77,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             cmBEntityName.Text = filterEntity;
 
-            this._itemsSource = new ObservableCollection<EntityViewItem>();
+            this._itemsSource = new ObservableCollection<SavedQueryViewItem>();
 
             this.lstVwSavedQueries.ItemsSource = _itemsSource;
 
@@ -268,7 +268,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return list;
         }
 
-        private class EntityViewItem
+        private class SavedQueryViewItem
         {
             public string ReturnedTypeCode => SavedQuery.ReturnedTypeCode;
 
@@ -280,7 +280,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             public SavedQuery SavedQuery { get; }
 
-            public EntityViewItem(SavedQuery savedQuery)
+            public SavedQueryViewItem(SavedQuery savedQuery)
             {
                 savedQuery.FormattedValues.TryGetValue(SavedQuery.Schema.Attributes.statuscode, out var statuscode);
 
@@ -301,7 +301,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     .ThenBy(ent => ent.Name)
                 )
                 {
-                    var item = new EntityViewItem(entity);
+                    var item = new SavedQueryViewItem(entity);
 
                     this._itemsSource.Add(item);
                 }
@@ -377,13 +377,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private SavedQuery GetSelectedEntity()
         {
-            return this.lstVwSavedQueries.SelectedItems.OfType<EntityViewItem>().Count() == 1
-                ? this.lstVwSavedQueries.SelectedItems.OfType<EntityViewItem>().Select(e => e.SavedQuery).SingleOrDefault() : null;
+            return this.lstVwSavedQueries.SelectedItems.OfType<SavedQueryViewItem>().Count() == 1
+                ? this.lstVwSavedQueries.SelectedItems.OfType<SavedQueryViewItem>().Select(e => e.SavedQuery).SingleOrDefault() : null;
         }
 
         private List<SavedQuery> GetSelectedEntitiesList()
         {
-            return this.lstVwSavedQueries.SelectedItems.OfType<EntityViewItem>().Select(e => e.SavedQuery).ToList();
+            return this.lstVwSavedQueries.SelectedItems.OfType<SavedQueryViewItem>().Select(e => e.SavedQuery).ToList();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -395,7 +395,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+                SavedQueryViewItem item = GetItemFromRoutedDataContext<SavedQueryViewItem>(e);
 
                 if (item != null)
                 {
@@ -885,16 +885,71 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await ExecuteAction(entity.Id, entity.ReturnedTypeCode, entity.Name, PerformEntityEditor);
         }
 
-        private async void mIChangeStateSavedQuery_Click(object sender, RoutedEventArgs e)
+        private async void miActivateSavedQueries_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            await ChangeSavedQueriesState(SavedQuery.Schema.OptionSets.statecode.Active_0, SavedQuery.Schema.OptionSets.statuscode.Active_0_Active_1);
+        }
 
-            if (entity == null)
+        private async void miDeactivateSavedQueries_Click(object sender, RoutedEventArgs e)
+        {
+            await ChangeSavedQueriesState(SavedQuery.Schema.OptionSets.statecode.Inactive_1, SavedQuery.Schema.OptionSets.statuscode.Inactive_1_Inactive_2);
+        }
+
+        private async Task ChangeSavedQueriesState(SavedQuery.Schema.OptionSets.statecode stateCode, SavedQuery.Schema.OptionSets.statuscode statusCode)
+        {
+            var selectedSavedQueries = GetSelectedEntitiesList()
+                .Where(e => e.StatusCodeEnum != statusCode)
+                .ToList();
+
+            if (!selectedSavedQueries.Any())
             {
                 return;
             }
 
-            await ExecuteAction(entity.Id, entity.ReturnedTypeCode, entity.Name, PerformChangeStateSavedQuery);
+            var service = await GetService();
+
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ChangingEntityStateFormat1, SavedQuery.EntityLogicalName);
+
+            var hashEntities = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+
+            foreach (var savedQuery in selectedSavedQueries)
+            {
+                try
+                {
+                    UpdateStatus(service.ConnectionData, Properties.OutputStrings.ChangingEntityStateFormat1, savedQuery.Name);
+
+                    await service.ExecuteAsync<SetStateResponse>(new SetStateRequest()
+                    {
+                        EntityMoniker = savedQuery.ToEntityReference(),
+                        State = new OptionSetValue((int)stateCode),
+                        Status = new OptionSetValue((int)statusCode),
+                    });
+
+
+                    if (savedQuery.ReturnedTypeCode.IsValidEntityName())
+                    {
+                        hashEntities.Add(savedQuery.ReturnedTypeCode);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    UpdateStatus(service.ConnectionData, Properties.OutputStrings.ChangingEntityStateFailedFormat1, savedQuery.Name);
+
+                    _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                    _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                }
+            }
+
+            if (hashEntities.Any())
+            {
+                var repositoryPublish = new PublishActionsRepository(service);
+
+                await repositoryPublish.PublishEntitiesAsync(hashEntities);
+            }
+
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ChangingEntityStateCompletedFormat1, SavedQuery.EntityLogicalName);
+
+            await ShowExistingSavedQueries();
         }
 
         private async void mIDeleteSavedQuery_Click(object sender, RoutedEventArgs e)
@@ -950,45 +1005,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, SavedQuery.EntityLogicalName, idSavedQuery);
-        }
-
-        private async Task PerformChangeStateSavedQuery(string folder, Guid idSavedQuery, string entityName, string name)
-        {
-            var service = await GetService();
-
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ChangingEntityStateFormat1, SavedQuery.EntityLogicalName);
-
-            var repository = new SavedQueryRepository(service);
-
-            var savedQuery = await repository.GetByIdAsync(idSavedQuery, new ColumnSet(true));
-
-            int state = savedQuery.StatusCodeEnum == SavedQuery.Schema.OptionSets.statuscode.Active_0_Active_1 ? (int)SavedQuery.Schema.OptionSets.statecode.Inactive_1 : (int)SavedQuery.Schema.OptionSets.statecode.Active_0;
-            int status = savedQuery.StatusCodeEnum == SavedQuery.Schema.OptionSets.statuscode.Active_0_Active_1 ? (int)SavedQuery.Schema.OptionSets.statuscode.Inactive_1_Inactive_2 : (int)SavedQuery.Schema.OptionSets.statuscode.Active_0_Active_1;
-
-            try
-            {
-                await service.ExecuteAsync<SetStateResponse>(new SetStateRequest()
-                {
-                    EntityMoniker = new EntityReference(SavedQuery.EntityLogicalName, idSavedQuery),
-                    State = new OptionSetValue(state),
-                    Status = new OptionSetValue(status),
-                });
-
-                var repositoryPublish = new PublishActionsRepository(service);
-
-                await repositoryPublish.PublishEntitiesAsync(new[] { entityName });
-
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ChangingEntityStateCompletedFormat1, SavedQuery.EntityLogicalName);
-            }
-            catch (Exception ex)
-            {
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ChangingEntityStateFailedFormat1, SavedQuery.EntityLogicalName);
-
-                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-                _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
-            }
-
-            await ShowExistingSavedQueries();
         }
 
         private async Task PerformDeleteEntity(string folder, Guid idSavedQuery, string entityName, string name)
@@ -1294,7 +1310,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             FillLastSolutionItems(connectionData, items, true, AddToCrmSolutionLast_Click, "contMnAddToSolutionLast");
 
-            EntityViewItem nodeItem = GetItemFromRoutedDataContext<EntityViewItem>(e);
+            SavedQueryViewItem nodeItem = GetItemFromRoutedDataContext<SavedQueryViewItem>(e);
 
             ActivateControls(items, (nodeItem.SavedQuery.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
 
@@ -1309,26 +1325,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ActivateControls(items, hasEntity && connectionData.LastSelectedSolutionsUniqueName != null && connectionData.LastSelectedSolutionsUniqueName.Any(), "contMnAddEntityToSolutionLast");
 
-            SetControlsName(items, GetChangeStateName(nodeItem.SavedQuery), "contMnChangeState");
-        }
+            var selectedSavedQueries = GetSelectedEntitiesList();
 
-        private string GetChangeStateName(SavedQuery savedQuery)
-        {
-            if (savedQuery == null)
-            {
-                return "ChangeState";
-            }
+            var hasEnabledSavedQueries = selectedSavedQueries.Any(s => s.StatusCodeEnum == SavedQuery.Schema.OptionSets.statuscode.Active_0_Active_1);
+            var hasDisabledSavedQueries = selectedSavedQueries.Any(s => s.StatusCodeEnum == SavedQuery.Schema.OptionSets.statuscode.Inactive_1_Inactive_2);
 
-            return savedQuery.StatusCodeEnum == SavedQuery.Schema.OptionSets.statuscode.Active_0_Active_1 ? "Deactivate SavedQuery" : "Activate SavedQuery";
+            ActivateControls(items, hasDisabledSavedQueries, "miActivateSavedQueries");
+            ActivateControls(items, hasEnabledSavedQueries, "miDeactivateSavedQueries");
         }
 
         private void tSDDBExportSavedQuery_SubmenuOpened(object sender, RoutedEventArgs e)
         {
             var savedQuery = GetSelectedEntity();
 
-            ActivateControls(tSDDBExportSavedQuery.Items.OfType<Control>(), (savedQuery?.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
+            var items = tSDDBExportSavedQuery.Items.OfType<Control>();
 
-            SetControlsName(tSDDBExportSavedQuery.Items.OfType<Control>(), GetChangeStateName(savedQuery), "contMnChangeState");
+            ActivateControls(items, (savedQuery?.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
+
+            var selectedSavedQueries = GetSelectedEntitiesList();
+
+            var hasEnabledSavedQueries = selectedSavedQueries.Any(s => s.StatusCodeEnum == SavedQuery.Schema.OptionSets.statuscode.Active_0_Active_1);
+            var hasDisabledSavedQueries = selectedSavedQueries.Any(s => s.StatusCodeEnum == SavedQuery.Schema.OptionSets.statuscode.Inactive_1_Inactive_2);
+
+            ActivateControls(items, hasDisabledSavedQueries, "miActivateSavedQueries");
+            ActivateControls(items, hasEnabledSavedQueries, "miDeactivateSavedQueries");
         }
 
         private async void mIOpenDependentComponentsInExplorer_Click(object sender, RoutedEventArgs e)
@@ -1527,7 +1547,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void hyperlinkFetchXmlAndLayoutXml_Click(object sender, RoutedEventArgs e)
         {
-            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+            SavedQueryViewItem item = GetItemFromRoutedDataContext<SavedQueryViewItem>(e);
 
             if (item == null)
             {
@@ -1543,7 +1563,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void hyperlinkFetchXml_Click(object sender, RoutedEventArgs e)
         {
-            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+            SavedQueryViewItem item = GetItemFromRoutedDataContext<SavedQueryViewItem>(e);
 
             if (item == null)
             {
@@ -1557,7 +1577,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void hyperlinkLayoutXml_Click(object sender, RoutedEventArgs e)
         {
-            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+            SavedQueryViewItem item = GetItemFromRoutedDataContext<SavedQueryViewItem>(e);
 
             if (item == null)
             {
@@ -1571,7 +1591,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void hyperlinkColumnSetXml_Click(object sender, RoutedEventArgs e)
         {
-            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+            SavedQueryViewItem item = GetItemFromRoutedDataContext<SavedQueryViewItem>(e);
 
             if (item == null)
             {
@@ -1585,7 +1605,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void hyperlinkLayoutJson_Click(object sender, RoutedEventArgs e)
         {
-            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+            SavedQueryViewItem item = GetItemFromRoutedDataContext<SavedQueryViewItem>(e);
 
             if (item == null)
             {
@@ -1599,7 +1619,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void hyperlinkOfflineSqlQuery_Click(object sender, RoutedEventArgs e)
         {
-            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+            SavedQueryViewItem item = GetItemFromRoutedDataContext<SavedQueryViewItem>(e);
 
             if (item == null)
             {
@@ -1613,7 +1633,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void hyperlinkPublishEntity_Click(object sender, RoutedEventArgs e)
         {
-            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+            SavedQueryViewItem item = GetItemFromRoutedDataContext<SavedQueryViewItem>(e);
 
             if (item == null)
             {
@@ -1647,27 +1667,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void mIClipboardCopyEntityName_Click(object sender, RoutedEventArgs e)
         {
-            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.ReturnedTypeCode);
+            GetEntityViewItemAndCopyToClipboard<SavedQueryViewItem>(e, ent => ent.ReturnedTypeCode);
         }
 
         private void mIClipboardCopyName_Click(object sender, RoutedEventArgs e)
         {
-            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.Name);
+            GetEntityViewItemAndCopyToClipboard<SavedQueryViewItem>(e, ent => ent.Name);
         }
 
         private void mIClipboardCopyQueryTypeCode_Click(object sender, RoutedEventArgs e)
         {
-            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.SavedQuery.QueryType.ToString());
+            GetEntityViewItemAndCopyToClipboard<SavedQueryViewItem>(e, ent => ent.SavedQuery.QueryType.ToString());
         }
 
         private void mIClipboardCopyQueryTypeName_Click(object sender, RoutedEventArgs e)
         {
-            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.QueryType);
+            GetEntityViewItemAndCopyToClipboard<SavedQueryViewItem>(e, ent => ent.QueryType);
         }
 
         private void mIClipboardCopySavedQueryId_Click(object sender, RoutedEventArgs e)
         {
-            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.SavedQuery.Id.ToString());
+            GetEntityViewItemAndCopyToClipboard<SavedQueryViewItem>(e, ent => ent.SavedQuery.Id.ToString());
         }
 
         #endregion Clipboard

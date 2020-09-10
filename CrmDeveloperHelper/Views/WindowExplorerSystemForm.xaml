@@ -43,7 +43,12 @@
 
                 <Separator />
                 <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SystemForm in Editor" Click="mIChangeEntityInEditor_Click"/>
-                <MenuItem x:Uid="contMnChangeState" Header="ChangeState" Click="mIChangeStateSystemForm_Click" />
+                
+                <Separator />
+                <MenuItem x:Uid="miActivateSystemForms" Header="Activate SystemForms" Click="miActivateSystemForms_Click" />
+                <MenuItem x:Uid="miDeactivateSystemForms" Header="Deactivate SystemForms" Click="miDeactivateSystemForms_Click" />
+
+                <Separator />
                 <MenuItem Header="Delete SystemForm" Click="mIDeleteSystemForm_Click" />
 
                 <Separator/>
@@ -387,7 +392,12 @@
 
                             <Separator/>
                             <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SystemForm in Editor" Click="mIChangeEntityInEditor_Click"/>
-                            <MenuItem x:Uid="contMnChangeState" Header="ChangeState" Click="mIChangeStateSystemForm_Click" />
+
+                            <Separator />
+                            <MenuItem x:Uid="miActivateSystemForms" Header="Activate SystemForms" Click="miActivateSystemForms_Click" />
+                            <MenuItem x:Uid="miDeactivateSystemForms" Header="Deactivate SystemForms" Click="miDeactivateSystemForms_Click" />
+
+                            <Separator />
                             <MenuItem Header="Delete SystemForm" Click="mIDeleteSystemForm_Click" />
 
                             <Separator/>

@@ -45,7 +45,12 @@
 
                 <Separator/>
                 <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SavedQuery in Editor" Click="mIChangeEntityInEditor_Click"/>
-                <MenuItem x:Uid="contMnChangeState" Header="ChangeState" Click="mIChangeStateSavedQuery_Click" />
+
+                <Separator />
+                <MenuItem x:Uid="miActivateSavedQueries" Header="Activate SavedQueries" Click="miActivateSavedQueries_Click" />
+                <MenuItem x:Uid="miDeactivateSavedQueries" Header="Deactivate SavedQueries" Click="miDeactivateSavedQueries_Click" />
+
+                <Separator/>
                 <MenuItem Header="Delete SavedQuery" Click="mIDeleteSavedQuery_Click" />
 
                 <Separator/>
@@ -366,7 +371,12 @@
 
                             <Separator/>
                             <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SavedQuery in Editor" Click="mIChangeEntityInEditor_Click"/>
-                            <MenuItem x:Uid="contMnChangeState" Header="ChangeState" Click="mIChangeStateSavedQuery_Click" />
+
+                            <Separator />
+                            <MenuItem x:Uid="miActivateSavedQueries" Header="Activate SavedQueries" Click="miActivateSavedQueries_Click" />
+                            <MenuItem x:Uid="miDeactivateSavedQueries" Header="Deactivate SavedQueries" Click="miDeactivateSavedQueries_Click" />
+
+                            <Separator />
                             <MenuItem Header="Delete SavedQuery" Click="mIDeleteSavedQuery_Click" />
 
                             <Separator/>

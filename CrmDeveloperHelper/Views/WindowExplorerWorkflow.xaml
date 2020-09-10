@@ -23,7 +23,7 @@
                 <MenuItem Header="Open Workflow List in Browser" Click="mIOpenListInWeb_Click" />
 
                 <Separator/>
-                <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
+                <MenuItem Header="Create Workflow Entity Description" Click="mICreateEntityDescription_Click"/>
 
                 <Separator/>
                 <MenuItem Header="Clipboard">
@@ -41,7 +41,12 @@
 
                 <Separator />
                 <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Workflow in Editor" Click="mIChangeEntityInEditor_Click"/>
-                <MenuItem x:Uid="contMnChangeState" Header="ChangeState" Click="mIChangeStateWorkflow_Click" />
+                
+                <Separator />
+                <MenuItem x:Uid="miActivateWorkflows" Header="Activate Workflows" Click="miActivateWorkflows_Click" />
+                <MenuItem x:Uid="miDeactivateWorkflows" Header="Deactivate Workflows" Click="miDeactivateWorkflows_Click" />
+
+                <Separator />
                 <MenuItem Header="Delete Workflow" Click="mIDeleteWorkflow_Click" />
 
                 <Separator/>
@@ -361,8 +366,10 @@
                             <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
 
                             <Separator />
-                            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Workflow in Editor" Click="mIChangeEntityInEditor_Click"/>
-                            <MenuItem x:Uid="contMnChangeState" Header="ChangeState" Click="mIChangeStateWorkflow_Click" />
+                            <MenuItem x:Uid="miActivateWorkflows" Header="Activate Workflows" Click="miActivateWorkflows_Click" />
+                            <MenuItem x:Uid="miDeactivateWorkflows" Header="Deactivate Workflows" Click="miDeactivateWorkflows_Click" />
+
+                            <Separator />
                             <MenuItem Header="Delete Workflow" Click="mIDeleteWorkflow_Click" />
 
                             <Separator/>

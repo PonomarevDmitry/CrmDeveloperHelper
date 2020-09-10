@@ -28,7 +28,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
     public partial class WindowExplorerWorkflow : WindowWithConnectionList
     {
-        private readonly ObservableCollection<EntityViewItem> _itemsSource;
+        private readonly ObservableCollection<WorkflowViewItem> _itemsSource;
 
         private readonly Popup _optionsPopup;
 
@@ -80,7 +80,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             cmBEntityName.Text = filterEntity;
 
-            this._itemsSource = new ObservableCollection<EntityViewItem>();
+            this._itemsSource = new ObservableCollection<WorkflowViewItem>();
 
             this.lstVwWorkflows.ItemsSource = _itemsSource;
 
@@ -375,7 +375,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return list;
         }
 
-        private class EntityViewItem
+        private class WorkflowViewItem
         {
             public string PrimaryEntity => Workflow.PrimaryEntity;
 
@@ -391,7 +391,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             public Workflow Workflow { get; }
 
-            public EntityViewItem(Workflow workflow)
+            public WorkflowViewItem(Workflow workflow)
             {
                 workflow.FormattedValues.TryGetValue(Workflow.Schema.Attributes.category, out var category);
                 workflow.FormattedValues.TryGetValue(Workflow.Schema.Attributes.mode, out var mode);
@@ -415,7 +415,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     .ThenBy(ent => ent.Name)
                 )
                 {
-                    var item = new EntityViewItem(entity);
+                    var item = new WorkflowViewItem(entity);
 
                     this._itemsSource.Add(item);
                 }
@@ -486,13 +486,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private Workflow GetSelectedEntity()
         {
-            return this.lstVwWorkflows.SelectedItems.OfType<EntityViewItem>().Count() == 1
-                ? this.lstVwWorkflows.SelectedItems.OfType<EntityViewItem>().Select(e => e.Workflow).SingleOrDefault() : null;
+            return this.lstVwWorkflows.SelectedItems.OfType<WorkflowViewItem>().Count() == 1
+                ? this.lstVwWorkflows.SelectedItems.OfType<WorkflowViewItem>().Select(e => e.Workflow).SingleOrDefault() : null;
         }
 
         private List<Workflow> GetSelectedEntitiesList()
         {
-            return this.lstVwWorkflows.SelectedItems.OfType<EntityViewItem>().Select(e => e.Workflow).ToList();
+            return this.lstVwWorkflows.SelectedItems.OfType<WorkflowViewItem>().Select(e => e.Workflow).ToList();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -504,7 +504,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+                WorkflowViewItem item = GetItemFromRoutedDataContext<WorkflowViewItem>(e);
 
                 if (item != null)
                 {
@@ -1150,16 +1150,56 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await ExecuteAction(entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], PerformEntityEditor);
         }
 
-        private async void mIChangeStateWorkflow_Click(object sender, RoutedEventArgs e)
+        private async void miActivateWorkflows_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            await ChangeWorkflowsState(Workflow.Schema.OptionSets.statecode.Activated_1, Workflow.Schema.OptionSets.statuscode.Activated_1_Activated_2);
+        }
 
-            if (entity == null)
+        private async void miDeactivateWorkflows_Click(object sender, RoutedEventArgs e)
+        {
+            await ChangeWorkflowsState(Workflow.Schema.OptionSets.statecode.Draft_0, Workflow.Schema.OptionSets.statuscode.Draft_0_Draft_1);
+        }
+
+        private async Task ChangeWorkflowsState(Workflow.Schema.OptionSets.statecode stateCode, Workflow.Schema.OptionSets.statuscode statusCode)
+        {
+            var selectedWorkflows = GetSelectedEntitiesList()
+                .Where(e => e.StatusCodeEnum != statusCode)
+                .ToList();
+
+            if (!selectedWorkflows.Any())
             {
                 return;
             }
 
-            await ExecuteAction(entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], PerformChangeStateWorkflow);
+            var service = await GetService();
+
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ChangingEntityStateFormat1, Workflow.EntityLogicalName);
+
+            foreach (var workflow in selectedWorkflows)
+            {
+                try
+                {
+                    UpdateStatus(service.ConnectionData, Properties.OutputStrings.ChangingEntityStateFormat1, workflow.Name);
+
+                    await service.ExecuteAsync<SetStateResponse>(new SetStateRequest()
+                    {
+                        EntityMoniker = workflow.ToEntityReference(),
+                        State = new OptionSetValue((int)stateCode),
+                        Status = new OptionSetValue((int)statusCode),
+                    });
+                }
+                catch (Exception ex)
+                {
+                    UpdateStatus(service.ConnectionData, Properties.OutputStrings.ChangingEntityStateFailedFormat1, workflow.Name);
+
+                    _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                    _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                }
+            }
+
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ChangingEntityStateCompletedFormat1, Workflow.EntityLogicalName);
+
+            await ShowExistingWorkflows();
         }
 
         private async void mIDeleteWorkflow_Click(object sender, RoutedEventArgs e)
@@ -1306,41 +1346,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await ShowExistingWorkflows();
             }
-        }
-
-        private async Task PerformChangeStateWorkflow(string folder, Guid idWorkflow, string entityName, string name, string category)
-        {
-            var service = await GetService();
-
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ChangingEntityStateFormat1, Workflow.EntityLogicalName);
-
-            var repository = new WorkflowRepository(service);
-
-            var workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(true));
-
-            int state = workflow.StatusCodeEnum == Workflow.Schema.OptionSets.statuscode.Activated_1_Activated_2 ? (int)Workflow.Schema.OptionSets.statecode.Draft_0 : (int)Workflow.Schema.OptionSets.statecode.Activated_1;
-            int status = workflow.StatusCodeEnum == Workflow.Schema.OptionSets.statuscode.Activated_1_Activated_2 ? (int)Workflow.Schema.OptionSets.statuscode.Draft_0_Draft_1 : (int)Workflow.Schema.OptionSets.statuscode.Activated_1_Activated_2;
-
-            try
-            {
-                await service.ExecuteAsync<Microsoft.Crm.Sdk.Messages.SetStateResponse>(new Microsoft.Crm.Sdk.Messages.SetStateRequest()
-                {
-                    EntityMoniker = new EntityReference(Workflow.EntityLogicalName, idWorkflow),
-                    State = new OptionSetValue(state),
-                    Status = new OptionSetValue(status),
-                });
-
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ChangingEntityStateCompletedFormat1, Workflow.EntityLogicalName);
-            }
-            catch (Exception ex)
-            {
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ChangingEntityStateFailedFormat1, Workflow.EntityLogicalName);
-
-                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-                _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
-            }
-
-            await ShowExistingWorkflows();
         }
 
         protected override async Task OnRefreshList(ExecutedRoutedEventArgs e)
@@ -1601,7 +1606,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             FillLastSolutionItems(connectionData, items, true, AddToCrmSolutionLast_Click, "contMnAddToSolutionLast");
 
-            EntityViewItem nodeItem = GetItemFromRoutedDataContext<EntityViewItem>(e);
+            WorkflowViewItem nodeItem = GetItemFromRoutedDataContext<WorkflowViewItem>(e);
 
             ActivateControls(items, (nodeItem.Workflow.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
 
@@ -1616,26 +1621,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ActivateControls(items, hasEntity && connectionData.LastSelectedSolutionsUniqueName != null && connectionData.LastSelectedSolutionsUniqueName.Any(), "contMnAddEntityToSolutionLast");
 
-            SetControlsName(items, GetChangeStateName(nodeItem.Workflow), "contMnChangeState");
-        }
+            var selectedWorkflows = GetSelectedEntitiesList();
 
-        private string GetChangeStateName(Workflow workflow)
-        {
-            if (workflow == null)
-            {
-                return "ChangeState";
-            }
+            var hasEnabledWorkflows = selectedWorkflows.Any(s => s.StatusCodeEnum == Workflow.Schema.OptionSets.statuscode.Activated_1_Activated_2);
+            var hasDisabledWorkflows = selectedWorkflows.Any(s => s.StatusCodeEnum == Workflow.Schema.OptionSets.statuscode.Draft_0_Draft_1);
 
-            return workflow.StatusCodeEnum == Workflow.Schema.OptionSets.statuscode.Activated_1_Activated_2 ? "Deactivate Workflow" : "Activate Workflow";
+            ActivateControls(items, hasDisabledWorkflows, "miActivateWorkflows");
+            ActivateControls(items, hasEnabledWorkflows, "miDeactivateWorkflows");
         }
 
         private void tSDDBExportWorkflow_SubmenuOpened(object sender, RoutedEventArgs e)
         {
             var workflow = GetSelectedEntity();
 
-            ActivateControls(tSDDBExportWorkflow.Items.OfType<Control>(), (workflow?.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
+            var items = tSDDBExportWorkflow.Items.OfType<Control>();
 
-            SetControlsName(tSDDBExportWorkflow.Items.OfType<Control>(), GetChangeStateName(workflow), "contMnChangeState");
+            ActivateControls(items, (workflow?.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
+
+            var selectedWorkflows = GetSelectedEntitiesList();
+
+            var hasEnabledWorkflows = selectedWorkflows.Any(s => s.StatusCodeEnum == Workflow.Schema.OptionSets.statuscode.Activated_1_Activated_2);
+            var hasDisabledWorkflows = selectedWorkflows.Any(s => s.StatusCodeEnum == Workflow.Schema.OptionSets.statuscode.Draft_0_Draft_1);
+
+            ActivateControls(items, hasDisabledWorkflows, "miActivateWorkflows");
+            ActivateControls(items, hasEnabledWorkflows, "miDeactivateWorkflows");
         }
 
         private async void cmBCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1784,7 +1793,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void hyperlinkXaml_Click(object sender, RoutedEventArgs e)
         {
-            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+            WorkflowViewItem item = GetItemFromRoutedDataContext<WorkflowViewItem>(e);
 
             if (item == null)
             {
@@ -1798,7 +1807,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void hyperlinkInputParameters_Click(object sender, RoutedEventArgs e)
         {
-            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+            WorkflowViewItem item = GetItemFromRoutedDataContext<WorkflowViewItem>(e);
 
             if (item == null)
             {
@@ -1812,7 +1821,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void hyperlinkClientData_Click(object sender, RoutedEventArgs e)
         {
-            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+            WorkflowViewItem item = GetItemFromRoutedDataContext<WorkflowViewItem>(e);
 
             if (item == null)
             {
@@ -1826,7 +1835,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void hyperlinkUIData_Click(object sender, RoutedEventArgs e)
         {
-            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+            WorkflowViewItem item = GetItemFromRoutedDataContext<WorkflowViewItem>(e);
 
             if (item == null)
             {
@@ -1840,7 +1849,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void hyperlinkProcessRoleAssignment_Click(object sender, RoutedEventArgs e)
         {
-            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+            WorkflowViewItem item = GetItemFromRoutedDataContext<WorkflowViewItem>(e);
 
             if (item == null)
             {
@@ -1854,7 +1863,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void hyperlinkCorrectedXaml_Click(object sender, RoutedEventArgs e)
         {
-            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+            WorkflowViewItem item = GetItemFromRoutedDataContext<WorkflowViewItem>(e);
 
             if (item == null)
             {
@@ -1881,22 +1890,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void mIClipboardCopyPrimaryEntityName_Click(object sender, RoutedEventArgs e)
         {
-            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.PrimaryEntity);
+            GetEntityViewItemAndCopyToClipboard<WorkflowViewItem>(e, ent => ent.PrimaryEntity);
         }
 
         private void mIClipboardCopyName_Click(object sender, RoutedEventArgs e)
         {
-            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.Name);
+            GetEntityViewItemAndCopyToClipboard<WorkflowViewItem>(e, ent => ent.Name);
         }
 
         private void mIClipboardCopyUniqueName_Click(object sender, RoutedEventArgs e)
         {
-            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.UniqueName);
+            GetEntityViewItemAndCopyToClipboard<WorkflowViewItem>(e, ent => ent.UniqueName);
         }
 
         private void mIClipboardCopyWorkflowId_Click(object sender, RoutedEventArgs e)
         {
-            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.Workflow.Id.ToString());
+            GetEntityViewItemAndCopyToClipboard<WorkflowViewItem>(e, ent => ent.Workflow.Id.ToString());
         }
 
         #endregion Clipboard

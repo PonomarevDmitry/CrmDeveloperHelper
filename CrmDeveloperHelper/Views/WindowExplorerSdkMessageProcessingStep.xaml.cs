@@ -574,19 +574,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private static string GetChangeStateName(SdkMessageProcessingStepViewItem item)
-        {
-            if (item == null)
-            {
-                return "ChangeState";
-            }
-
-            var action = (item.SdkMessageProcessingStep.StatusCodeEnum == SdkMessageProcessingStep.Schema.OptionSets.statuscode.Enabled_0_Enabled_1)
-                ? "Deactivate" : "Activate";
-
-            return $"{action} Step";
-        }
-
         private async void txtBFilter_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -1585,7 +1572,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
                 catch (Exception ex)
                 {
-                    UpdateStatus(service.ConnectionData, Properties.OutputStrings.ChangingEntityStateFailedFormat1, SdkMessageProcessingStep.EntityLogicalName);
+                    UpdateStatus(service.ConnectionData, Properties.OutputStrings.ChangingEntityStateFailedFormat1, step.Name);
 
                     _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
                     _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);

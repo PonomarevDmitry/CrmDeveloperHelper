@@ -30,7 +30,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
     {
         private readonly EnvDTE.SelectedItem _selectedItem;
 
-        private readonly ObservableCollection<EntityViewItem> _itemsSource;
+        private readonly ObservableCollection<SystemFormViewItem> _itemsSource;
 
         private readonly Popup _popupExportXmlOptions;
         private readonly Popup _popupFileGenerationJavaScriptOptions;
@@ -136,7 +136,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 txtBFolder.DataContext = _commonConfig;
             }
 
-            this._itemsSource = new ObservableCollection<EntityViewItem>();
+            this._itemsSource = new ObservableCollection<SystemFormViewItem>();
 
             this.lstVwSystemForms.ItemsSource = _itemsSource;
 
@@ -325,7 +325,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return list;
         }
 
-        private class EntityViewItem
+        private class SystemFormViewItem
         {
             public string ObjectTypeCode => SystemForm.ObjectTypeCode;
 
@@ -337,7 +337,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             public SystemForm SystemForm { get; }
 
-            public EntityViewItem(SystemForm systemForm)
+            public SystemFormViewItem(SystemForm systemForm)
             {
                 systemForm.FormattedValues.TryGetValue(SystemForm.Schema.Attributes.type, out var formType);
                 systemForm.FormattedValues.TryGetValue(SystemForm.Schema.Attributes.formactivationstate, out var formactivationstate);
@@ -359,7 +359,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     .ThenBy(ent => ent.Name)
                 )
                 {
-                    var item = new EntityViewItem(entity);
+                    var item = new SystemFormViewItem(entity);
 
                     this._itemsSource.Add(item);
                 }
@@ -435,13 +435,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private SystemForm GetSelectedEntity()
         {
-            return this.lstVwSystemForms.SelectedItems.OfType<EntityViewItem>().Count() == 1
-                ? this.lstVwSystemForms.SelectedItems.OfType<EntityViewItem>().Select(e => e.SystemForm).SingleOrDefault() : null;
+            return this.lstVwSystemForms.SelectedItems.OfType<SystemFormViewItem>().Count() == 1
+                ? this.lstVwSystemForms.SelectedItems.OfType<SystemFormViewItem>().Select(e => e.SystemForm).SingleOrDefault() : null;
         }
 
-        private List<SystemForm> GetSelectedEntities()
+        private List<SystemForm> GetSelectedEntitiesList()
         {
-            return this.lstVwSystemForms.SelectedItems.OfType<EntityViewItem>().Select(e => e.SystemForm).ToList();
+            return this.lstVwSystemForms.SelectedItems.OfType<SystemFormViewItem>().Select(e => e.SystemForm).ToList();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -453,7 +453,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+                SystemFormViewItem item = GetItemFromRoutedDataContext<SystemFormViewItem>(e);
 
                 if (item != null)
                 {
@@ -794,16 +794,94 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await ExecuteActionAsync(entity.Id, entity.ObjectTypeCode, entity.Name, PerformEntityEditor);
         }
 
-        private async void mIChangeStateSystemForm_Click(object sender, RoutedEventArgs e)
+        private async void miActivateSystemForms_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            await ChangeSystemFormsState(SystemForm.Schema.OptionSets.formactivationstate.Active_1);
+        }
 
-            if (entity == null)
+        private async void miDeactivateSystemForms_Click(object sender, RoutedEventArgs e)
+        {
+            await ChangeSystemFormsState(SystemForm.Schema.OptionSets.formactivationstate.Inactive_0);
+        }
+
+        private async Task ChangeSystemFormsState(SystemForm.Schema.OptionSets.formactivationstate stateCode)
+        {
+            var selectedSystemForms = GetSelectedEntitiesList()
+                .Where(e => e.FormActivationStateEnum != stateCode)
+                .ToList();
+
+            if (!selectedSystemForms.Any())
             {
                 return;
             }
 
-            await ExecuteActionAsync(entity.Id, entity.ObjectTypeCode, entity.Name, PerformChangeStateSystemForm);
+            var service = await GetService();
+
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ChangingEntityStateFormat1, SystemForm.EntityLogicalName);
+
+            foreach (var systemForm in selectedSystemForms)
+            {
+                try
+                {
+                    UpdateStatus(service.ConnectionData, Properties.OutputStrings.ChangingEntityStateFormat1, systemForm.Name);
+
+                    var updateEntity = new Entity(SystemForm.EntityLogicalName)
+                    {
+                        Id = systemForm.Id,
+                    };
+
+                    updateEntity.Attributes[SystemForm.Schema.Attributes.formactivationstate] = new OptionSetValue((int)stateCode);
+                    await service.UpdateAsync(updateEntity);
+                }
+                catch (Exception ex)
+                {
+                    UpdateStatus(service.ConnectionData, Properties.OutputStrings.ChangingEntityStateFailedFormat1, systemForm.Name);
+
+                    _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                    _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                }
+            }
+
+            var hashEntities = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+
+            foreach (var systemForm in selectedSystemForms)
+            {
+                UpdateStatus(service.ConnectionData, Properties.OutputStrings.PublishingSystemFormFormat3, service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name);
+
+                if (systemForm.ObjectTypeCode.IsValidEntityName())
+                {
+                    hashEntities.Add(systemForm.ObjectTypeCode);
+                }
+            }
+
+            var repositoryPublish = new PublishActionsRepository(service);
+
+            try
+            {
+                await repositoryPublish.PublishDashboardsAsync(selectedSystemForms.Select(f => f.Id));
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+            }
+
+            if (hashEntities.Any())
+            {
+                UpdateStatus(service.ConnectionData, Properties.OutputStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, string.Join(",", hashEntities.OrderBy(s => s)));
+
+                try
+                {
+                    await repositoryPublish.PublishEntitiesAsync(hashEntities);
+                }
+                catch (Exception ex)
+                {
+                    _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                }
+            }
+
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ChangingEntityStateCompletedFormat1, SystemForm.EntityLogicalName);
+
+            await ShowExistingSystemForms();
         }
 
         private async void mIDeleteSystemForm_Click(object sender, RoutedEventArgs e)
@@ -859,60 +937,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, SystemForm.EntityLogicalName, idSystemForm);
-        }
-
-        private async Task PerformChangeStateSystemForm(string folder, Guid idSystemForm, string entityName, string name)
-        {
-            var service = await GetService();
-
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ChangingEntityStateFormat1, SystemForm.EntityLogicalName);
-
-            var repository = new SystemFormRepository(service);
-
-            var systemForm = await repository.GetByIdAsync(idSystemForm, new ColumnSet(true));
-
-            int state = systemForm.FormActivationStateEnum == SystemForm.Schema.OptionSets.formactivationstate.Active_1 ? (int)SystemForm.Schema.OptionSets.formactivationstate.Inactive_0 : (int)SystemForm.Schema.OptionSets.formactivationstate.Active_1;
-
-            try
-            {
-                var updateEntity = new Entity(SystemForm.EntityLogicalName)
-                {
-                    Id = idSystemForm,
-                };
-
-                updateEntity.Attributes[SystemForm.Schema.Attributes.formactivationstate] = new OptionSetValue(state);
-                await service.UpdateAsync(updateEntity);
-
-                var repositoryPublish = new PublishActionsRepository(service);
-
-                UpdateStatus(service.ConnectionData, Properties.OutputStrings.PublishingSystemFormFormat3, service.ConnectionData.Name, entityName, name);
-                await repositoryPublish.PublishDashboardsAsync(new[] { idSystemForm });
-
-                if (entityName.IsValidEntityName())
-                {
-                    UpdateStatus(service.ConnectionData, Properties.OutputStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
-
-                    try
-                    {
-                        await repositoryPublish.PublishEntitiesAsync(new[] { entityName });
-                    }
-                    catch (Exception ex)
-                    {
-                        _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-                    }
-                }
-
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ChangingEntityStateCompletedFormat1, SystemForm.EntityLogicalName);
-            }
-            catch (Exception ex)
-            {
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ChangingEntityStateFailedFormat1, SystemForm.EntityLogicalName);
-
-                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-                _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
-            }
-
-            await ShowExistingSystemForms();
         }
 
         private async Task PerformDeleteEntity(string folder, Guid idSystemForm, string entityName, string name)
@@ -1431,7 +1455,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task AddToSolution(bool withSelect, string solutionUniqueName)
         {
-            var entitiesList = GetSelectedEntities()
+            var entitiesList = GetSelectedEntitiesList()
                 .Select(e => e.Id);
 
             if (!entitiesList.Any())
@@ -1506,7 +1530,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task AddEntityToSolution(bool withSelect, string solutionUniqueName, SolutionComponent.Schema.OptionSets.rootcomponentbehavior rootComponentBehavior)
         {
-            var entitiesList = GetSelectedEntities();
+            var entitiesList = GetSelectedEntitiesList();
 
             ConnectionData connectionData = GetSelectedConnection();
 
@@ -1550,7 +1574,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             FillLastSolutionItems(connectionData, items, true, AddToCrmSolutionLast_Click, "contMnAddToSolutionLast");
 
-            EntityViewItem nodeItem = GetItemFromRoutedDataContext<EntityViewItem>(e);
+            SystemFormViewItem nodeItem = GetItemFromRoutedDataContext<SystemFormViewItem>(e);
 
             ActivateControls(items, (nodeItem.SystemForm.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
 
@@ -1565,26 +1589,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ActivateControls(items, hasEntity && connectionData.LastSelectedSolutionsUniqueName != null && connectionData.LastSelectedSolutionsUniqueName.Any(), "contMnAddEntityToSolutionLast");
 
-            SetControlsName(items, GetChangeStateName(nodeItem.SystemForm), "contMnChangeState");
-        }
+            var selectedSystemForms = GetSelectedEntitiesList();
 
-        private string GetChangeStateName(SystemForm systemForm)
-        {
-            if (systemForm == null)
-            {
-                return "ChangeState";
-            }
+            var hasEnabledSystemForms = selectedSystemForms.Any(s => s.FormActivationStateEnum == SystemForm.Schema.OptionSets.formactivationstate.Active_1);
+            var hasDisabledSystemForms = selectedSystemForms.Any(s => s.FormActivationStateEnum == SystemForm.Schema.OptionSets.formactivationstate.Inactive_0);
 
-            return systemForm.FormActivationStateEnum == SystemForm.Schema.OptionSets.formactivationstate.Active_1 ? "Deactivate SystemForm" : "Activate SystemForm";
+            ActivateControls(items, hasDisabledSystemForms, "miActivateSystemForms");
+            ActivateControls(items, hasEnabledSystemForms, "miDeactivateSystemForms");
         }
 
         private void tSDDBExportSystemForm_SubmenuOpened(object sender, RoutedEventArgs e)
         {
             var systemForm = GetSelectedEntity();
 
-            ActivateControls(tSDDBExportSystemForm.Items.OfType<Control>(), (systemForm?.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
+            var items = tSDDBExportSystemForm.Items.OfType<Control>();
 
-            SetControlsName(tSDDBExportSystemForm.Items.OfType<Control>(), GetChangeStateName(systemForm), "contMnChangeState");
+            ActivateControls(items, (systemForm?.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
+
+            var selectedSystemForms = GetSelectedEntitiesList();
+
+            var hasEnabledSystemForms = selectedSystemForms.Any(s => s.FormActivationStateEnum == SystemForm.Schema.OptionSets.formactivationstate.Active_1);
+            var hasDisabledSystemForms = selectedSystemForms.Any(s => s.FormActivationStateEnum == SystemForm.Schema.OptionSets.formactivationstate.Inactive_0);
+
+            ActivateControls(items, hasDisabledSystemForms, "miActivateSystemForms");
+            ActivateControls(items, hasEnabledSystemForms, "miDeactivateSystemForms");
         }
 
         private async void mIOpenDependentComponentsInExplorer_Click(object sender, RoutedEventArgs e)
@@ -1920,34 +1948,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void mISystemFormCopyFormId_Click(object sender, RoutedEventArgs e)
         {
-            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.SystemForm.Id.ToString());
+            GetEntityViewItemAndCopyToClipboard<SystemFormViewItem>(e, ent => ent.SystemForm.Id.ToString());
         }
 
         private void mISystemFormCopyFormEntityName_Click(object sender, RoutedEventArgs e)
         {
-            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.ObjectTypeCode);
+            GetEntityViewItemAndCopyToClipboard<SystemFormViewItem>(e, ent => ent.ObjectTypeCode);
         }
 
         private void mISystemFormCopyFormTypeCode_Click(object sender, RoutedEventArgs e)
         {
-            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.SystemForm.Type?.Value.ToString());
+            GetEntityViewItemAndCopyToClipboard<SystemFormViewItem>(e, ent => ent.SystemForm.Type?.Value.ToString());
         }
 
         private void mISystemFormCopyFormTypeName_Click(object sender, RoutedEventArgs e)
         {
-            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.FormType);
+            GetEntityViewItemAndCopyToClipboard<SystemFormViewItem>(e, ent => ent.FormType);
         }
 
         private void mISystemFormCopyFormName_Click(object sender, RoutedEventArgs e)
         {
-            GetEntityViewItemAndCopyToClipboard<EntityViewItem>(e, ent => ent.Name);
+            GetEntityViewItemAndCopyToClipboard<SystemFormViewItem>(e, ent => ent.Name);
         }
 
         #endregion Copy to Clipboard
 
         private async void hyperlinkFormDescription_Click(object sender, RoutedEventArgs e)
         {
-            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+            SystemFormViewItem item = GetItemFromRoutedDataContext<SystemFormViewItem>(e);
 
             if (item == null)
             {
@@ -1961,7 +1989,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void hyperlinkFormXml_Click(object sender, RoutedEventArgs e)
         {
-            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+            SystemFormViewItem item = GetItemFromRoutedDataContext<SystemFormViewItem>(e);
 
             if (item == null)
             {
@@ -1975,7 +2003,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void hyperlinkFormJson_Click(object sender, RoutedEventArgs e)
         {
-            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+            SystemFormViewItem item = GetItemFromRoutedDataContext<SystemFormViewItem>(e);
 
             if (item == null)
             {
@@ -1989,7 +2017,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void hyperlinkJavaScriptFileJsonObject_Click(object sender, RoutedEventArgs e)
         {
-            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+            SystemFormViewItem item = GetItemFromRoutedDataContext<SystemFormViewItem>(e);
 
             if (item == null)
             {
@@ -2003,7 +2031,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void hyperlinkJavaScriptFileAnonymousConstructor_Click(object sender, RoutedEventArgs e)
         {
-            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+            SystemFormViewItem item = GetItemFromRoutedDataContext<SystemFormViewItem>(e);
 
             if (item == null)
             {
@@ -2017,7 +2045,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void hyperlinkJavaScriptFileTypeConstructor_Click(object sender, RoutedEventArgs e)
         {
-            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+            SystemFormViewItem item = GetItemFromRoutedDataContext<SystemFormViewItem>(e);
 
             if (item == null)
             {
@@ -2031,7 +2059,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void hyperlinkPublishSystemForm_Click(object sender, RoutedEventArgs e)
         {
-            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+            SystemFormViewItem item = GetItemFromRoutedDataContext<SystemFormViewItem>(e);
 
             if (item == null)
             {
@@ -2045,7 +2073,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void hyperlinkPublishEntity_Click(object sender, RoutedEventArgs e)
         {
-            EntityViewItem item = GetItemFromRoutedDataContext<EntityViewItem>(e);
+            SystemFormViewItem item = GetItemFromRoutedDataContext<SystemFormViewItem>(e);
 
             if (item == null)
             {
