@@ -45,11 +45,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             FillEntityNames(service.ConnectionData);
 
-            if (!string.IsNullOrEmpty(filterMessage))
-            {
-                txtBMessageFilter.Text = filterEntity;
-            }
-
             this._itemsSource = new ObservableCollection<EntityViewItem>();
 
             this.lstVwMessageFilters.ItemsSource = _itemsSource;
