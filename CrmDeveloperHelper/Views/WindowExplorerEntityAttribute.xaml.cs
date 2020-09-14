@@ -1544,7 +1544,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var repository = new SystemFormRepository(service);
 
-            var list = await repository.GetListAsync(entityLogicalName, null, new ColumnSet(SystemForm.Schema.Attributes.formxml));
+            var list = await repository.GetListAsync(entityLogicalName, null, null, new ColumnSet(SystemForm.Schema.Attributes.formxml));
 
             var hashAttributes = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 

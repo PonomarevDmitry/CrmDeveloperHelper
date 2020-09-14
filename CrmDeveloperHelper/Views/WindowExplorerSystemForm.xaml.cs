@@ -59,6 +59,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBFormActivationState.ItemsSource = new EnumBindingSourceExtension(typeof(SystemForm.Schema.OptionSets.formactivationstate?)).ProvideValue(null) as IEnumerable;
             cmBFormActivationState.SelectedItem = SystemForm.Schema.OptionSets.formactivationstate.Active_1;
 
+            cmBFormType.ItemsSource = new EnumBindingSourceExtension(typeof(SystemForm.Schema.OptionSets.type?)).ProvideValue(null) as IEnumerable;
+
             var child = new ExportXmlOptionsControl(_commonConfig, XmlOptionsControls.FormXmlOptions);
             child.CloseClicked += Child_CloseClicked;
             this._popupExportXmlOptions = new Popup
@@ -242,6 +244,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             string entityName = string.Empty;
             SystemForm.Schema.OptionSets.formactivationstate? state = null;
+            SystemForm.Schema.OptionSets.type? formType = null;
 
             this.Dispatcher.Invoke(() =>
             {
@@ -252,9 +255,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     entityName = cmBEntityName.Text.Trim().ToLower();
                 }
 
-                if (cmBFormActivationState.SelectedItem is SystemForm.Schema.OptionSets.formactivationstate comboBoxItem)
                 {
-                    state = comboBoxItem;
+                    if (cmBFormActivationState.SelectedItem is SystemForm.Schema.OptionSets.formactivationstate cmBFormActivationStateValue)
+                    {
+                        state = cmBFormActivationStateValue;
+                    }
+                }
+
+                {
+                    if (cmBFormType.SelectedItem is SystemForm.Schema.OptionSets.type cmBFormTypeValue)
+                    {
+                        formType = cmBFormTypeValue;
+                    }
                 }
             });
 
@@ -272,6 +284,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     var repository = new SystemFormRepository(service);
 
                     list = await repository.GetListAsync(filterEntity
+                        , formType
                         , state
                         , new ColumnSet
                         (

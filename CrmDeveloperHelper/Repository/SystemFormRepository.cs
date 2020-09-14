@@ -34,9 +34,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
-        public Task<List<SystemForm>> GetListAsync(string filterEntity = null, SystemForm.Schema.OptionSets.formactivationstate? state = null, ColumnSet columnSet = null)
+        public Task<List<SystemForm>> GetListAsync(
+            string filterEntity = null
+            , SystemForm.Schema.OptionSets.type? formType = null
+            , SystemForm.Schema.OptionSets.formactivationstate? state = null
+            , ColumnSet columnSet = null
+        )
         {
-            return Task.Run(() => GetList(filterEntity, state, columnSet));
+            return Task.Run(() => GetList(filterEntity, formType, state, columnSet));
         }
 
         /// <summary>
@@ -44,7 +49,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        private List<SystemForm> GetList(string filterEntity, SystemForm.Schema.OptionSets.formactivationstate? state, ColumnSet columnSet)
+        private List<SystemForm> GetList(
+            string filterEntity
+            , SystemForm.Schema.OptionSets.type? formType
+            , SystemForm.Schema.OptionSets.formactivationstate? state
+            , ColumnSet columnSet
+        )
         {
             QueryExpression query = new QueryExpression()
             {
@@ -81,6 +91,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             if (state.HasValue)
             {
                 query.Criteria.Conditions.Add(new ConditionExpression(SystemForm.Schema.Attributes.formactivationstate, ConditionOperator.Equal, (int)state.Value));
+            }
+
+            if (formType.HasValue)
+            {
+                query.Criteria.Conditions.Add(new ConditionExpression(SystemForm.Schema.Attributes.type, ConditionOperator.Equal, (int)formType.Value));
             }
 
             return _service.RetrieveMultipleAll<SystemForm>(query);

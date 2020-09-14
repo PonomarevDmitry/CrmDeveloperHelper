@@ -7,6 +7,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -47,6 +48,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             SetInputLanguageEnglish();
 
             LoadEntityNames(cmBEntityName, connection1, connection2);
+
+            cmBFormActivationState.ItemsSource = new EnumBindingSourceExtension(typeof(SystemForm.Schema.OptionSets.formactivationstate?)).ProvideValue(null) as IEnumerable;
+            cmBFormActivationState.SelectedItem = SystemForm.Schema.OptionSets.formactivationstate.Active_1;
+
+            cmBFormType.ItemsSource = new EnumBindingSourceExtension(typeof(SystemForm.Schema.OptionSets.type?)).ProvideValue(null) as IEnumerable;
 
             var child = new ExportXmlOptionsControl(_commonConfig, XmlOptionsControls.FormXmlOptions);
             child.CloseClicked += Child_CloseClicked;
@@ -247,6 +253,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     string entityName = string.Empty;
                     SystemForm.Schema.OptionSets.formactivationstate? state = null;
+                    SystemForm.Schema.OptionSets.type? formType = null;
 
                     this.Dispatcher.Invoke(() =>
                     {
@@ -257,9 +264,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             entityName = cmBEntityName.Text.Trim().ToLower();
                         }
 
-                        if (cmBFormActivationState.SelectedItem is SystemForm.Schema.OptionSets.formactivationstate comboBoxItem)
                         {
-                            state = comboBoxItem;
+                            if (cmBFormActivationState.SelectedItem is SystemForm.Schema.OptionSets.formactivationstate cmBFormActivationStateValue)
+                            {
+                                state = cmBFormActivationStateValue;
+                            }
+                        }
+
+                        {
+                            if (cmBFormType.SelectedItem is SystemForm.Schema.OptionSets.type cmBFormTypeValue)
+                            {
+                                formType = cmBFormTypeValue;
+                            }
                         }
                     });
 
@@ -287,8 +303,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         var repository1 = new SystemFormRepository(service1);
                         var repository2 = new SystemFormRepository(service2);
 
-                        var task1 = repository1.GetListAsync(filterEntity, state, columnSet);
-                        var task2 = repository2.GetListAsync(filterEntity, state, columnSet);
+                        var task1 = repository1.GetListAsync(filterEntity, formType, state, columnSet);
+                        var task2 = repository2.GetListAsync(filterEntity, formType, state, columnSet);
 
                         var list1 = await task1;
                         var list2 = await task2;
@@ -311,7 +327,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var repository1 = new SystemFormRepository(service1);
 
-                        var list1 = await repository1.GetListAsync(filterEntity, state, columnSet);
+                        var list1 = await repository1.GetListAsync(filterEntity, formType, state, columnSet);
 
                         foreach (var form1 in list1)
                         {
