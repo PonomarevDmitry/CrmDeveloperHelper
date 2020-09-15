@@ -247,7 +247,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             CodeJavaScriptLinkedSystemFormChangeInEditorInConnectionCommand.Initialize,
 
-            CodeJavaScriptLinkedSystemFormGetCurrentTabsAndSectionsInConnectionCommand.Initialize,
+            CodeJavaScriptLinkedSystemFormCopyToClipboardTabsAndSectionsInConnectionCommand.Initialize,
 
             CodeJavaScriptLinkedEntityAddToSolutionLastCommand.Initialize,
             CodeJavaScriptLinkedEntityAddToSolutionInConnectionCommand.Initialize,

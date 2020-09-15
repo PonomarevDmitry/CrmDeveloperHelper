@@ -163,15 +163,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupOpenInWebOrExplorer_MenuOpenInWebConnectionDyn_Group = 0x1409;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupGetCurrentTabsAndSections = 0x1424;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupCopyToClipboardTabsAndSections = 0x1424;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupGetCurrentTabsAndSections_MenuTypeConstructorDyn = 0x1425;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupCopyToClipboardTabsAndSections_MenuTypeConstructorDyn = 0x1425;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupGetCurrentTabsAndSections_MenuTypeConstructorDyn_Group = 0x1426;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupCopyToClipboardTabsAndSections_MenuTypeConstructorDyn_Group = 0x1426;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupGetCurrentTabsAndSections_MenuJsonObjectDyn = 0x1427;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupCopyToClipboardTabsAndSections_MenuJsonObjectDyn = 0x1427;
 
-            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupGetCurrentTabsAndSections_MenuJsonObjectDyn_Group = 0x1428;
+            public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupCopyToClipboardTabsAndSections_MenuJsonObjectDyn_Group = 0x1428;
 
             public const int codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupGetCurrentAttribute = 0x1423;
 
@@ -2702,9 +2702,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeJavaScriptLinkedSystemFormChangeInEditorInConnectionCommandId = 0x319C;
 
-            public const int CodeJavaScriptLinkedSystemFormGetCurrentTabsAndSectionsInConnectionTypeConstructorCommandId = 0x3232;
+            public const int CodeJavaScriptLinkedSystemFormCopyToClipboardTabsAndSectionsInConnectionTypeConstructorCommandId = 0x3232;
 
-            public const int CodeJavaScriptLinkedSystemFormGetCurrentTabsAndSectionsInConnectionJsonObjectCommandId = 0x3264;
+            public const int CodeJavaScriptLinkedSystemFormCopyToClipboardTabsAndSectionsInConnectionJsonObjectCommandId = 0x3264;
 
             public const int CodeJavaScriptLinkedEntityOpenInWebInConnectionCommandId = 0x32C8;
 

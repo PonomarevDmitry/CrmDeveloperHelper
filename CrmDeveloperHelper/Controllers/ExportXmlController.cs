@@ -772,15 +772,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             );
         }
 
-        public async Task ExecuteGettingSystemFormCurrentTabsAndSections(ConnectionData connectionData, CommonConfiguration commonConfig, JavaScriptObjectType jsObjectType, string entityName, Guid formId, int formType)
+        public async Task ExecuteCopingToClipboardSystemFormCurrentTabsAndSections(ConnectionData connectionData, CommonConfiguration commonConfig, JavaScriptObjectType jsObjectType, string entityName, Guid formId, int formType)
         {
             await ConnectAndExecuteActionAsync(connectionData
                 , Properties.OperationNames.ChangingLinkedSystemFormInEntityEditorFormat1
-                , (service) => GettingSystemFormCurrentTabsAndSections(service, commonConfig, jsObjectType, entityName, formId, formType)
+                , (service) => CopingToClipboardSystemFormCurrentTabsAndSections(service, commonConfig, jsObjectType, entityName, formId, formType)
             );
         }
 
-        private async Task GettingSystemFormCurrentTabsAndSections(IOrganizationServiceExtented service, CommonConfiguration commonConfig, JavaScriptObjectType jsObjectType, string entityName, Guid formId, int formType)
+        private async Task CopingToClipboardSystemFormCurrentTabsAndSections(IOrganizationServiceExtented service, CommonConfiguration commonConfig, JavaScriptObjectType jsObjectType, string entityName, Guid formId, int formType)
         {
             var repositorySystemForm = new SystemFormRepository(service);
 

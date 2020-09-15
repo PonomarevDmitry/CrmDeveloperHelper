@@ -169,7 +169,7 @@
     <Compile Include="Commands\WebResources\JavaScripts\CodeJavaScriptLinkedSystemFormAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\WebResources\JavaScripts\CodeJavaScriptLinkedSystemFormChangeInEditorInConnectionCommand.cs" />
     <Compile Include="Commands\WebResources\JavaScripts\CodeJavaScriptLinkedSystemFormExplorerCommand.cs" />
-    <Compile Include="Commands\WebResources\JavaScripts\CodeJavaScriptLinkedSystemFormGetCurrentTabsAndSectionsInConnectionCommand.cs" />
+    <Compile Include="Commands\WebResources\JavaScripts\CodeJavaScriptLinkedSystemFormCopyToClipboardTabsAndSectionsInConnectionCommand.cs" />
     <Compile Include="Commands\WebResources\JavaScripts\CodeJavaScriptLinkedSystemFormGetCurrentInConnectionCommand.cs" />
     <Compile Include="Commands\WebResources\JavaScripts\CodeJavaScriptLinkedSystemFormActionOnComponentInConnectionCommand.cs" />
     <Compile Include="Commands\WebResources\JavaScripts\JavaScriptFileGenerationOptionsCommand.cs" />

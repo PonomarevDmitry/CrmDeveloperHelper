@@ -5,11 +5,11 @@ using System;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources.JavaScripts
 {
-    internal sealed class CodeJavaScriptLinkedSystemFormGetCurrentTabsAndSectionsInConnectionCommand : AbstractDynamicCommandByConnectionAll
+    internal sealed class CodeJavaScriptLinkedSystemFormCopyToClipboardTabsAndSectionsInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
         private readonly JavaScriptObjectType _jsObjectType;
 
-        private CodeJavaScriptLinkedSystemFormGetCurrentTabsAndSectionsInConnectionCommand(
+        private CodeJavaScriptLinkedSystemFormCopyToClipboardTabsAndSectionsInConnectionCommand(
             OleMenuCommandService commandService
             , int baseIdStart
             , JavaScriptObjectType jsObjectType
@@ -18,21 +18,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources.JavaScr
             this._jsObjectType = jsObjectType;
         }
 
-        public static CodeJavaScriptLinkedSystemFormGetCurrentTabsAndSectionsInConnectionCommand InstanceTypeConstructor { get; private set; }
+        public static CodeJavaScriptLinkedSystemFormCopyToClipboardTabsAndSectionsInConnectionCommand InstanceTypeConstructor { get; private set; }
 
-        public static CodeJavaScriptLinkedSystemFormGetCurrentTabsAndSectionsInConnectionCommand InstanceJsonObject { get; private set; }
+        public static CodeJavaScriptLinkedSystemFormCopyToClipboardTabsAndSectionsInConnectionCommand InstanceJsonObject { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            InstanceTypeConstructor = new CodeJavaScriptLinkedSystemFormGetCurrentTabsAndSectionsInConnectionCommand(
+            InstanceTypeConstructor = new CodeJavaScriptLinkedSystemFormCopyToClipboardTabsAndSectionsInConnectionCommand(
                 commandService
-                , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedSystemFormGetCurrentTabsAndSectionsInConnectionTypeConstructorCommandId
+                , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedSystemFormCopyToClipboardTabsAndSectionsInConnectionTypeConstructorCommandId
                 , JavaScriptObjectType.TypeConstructor
             );
 
-            InstanceJsonObject = new CodeJavaScriptLinkedSystemFormGetCurrentTabsAndSectionsInConnectionCommand(
+            InstanceJsonObject = new CodeJavaScriptLinkedSystemFormCopyToClipboardTabsAndSectionsInConnectionCommand(
                 commandService
-               , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedSystemFormGetCurrentTabsAndSectionsInConnectionJsonObjectCommandId
+               , PackageIds.guidDynamicCommandSet.CodeJavaScriptLinkedSystemFormCopyToClipboardTabsAndSectionsInConnectionJsonObjectCommandId
                , JavaScriptObjectType.JsonObject
            );
         }
@@ -41,7 +41,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources.JavaScr
         {
             if (helper.TryGetLinkedSystemForm(out string entityName, out Guid formId, out int formType))
             {
-                helper.HandleSystemFormGetCurrentTabsAndSectionsCommand(connectionData, this._jsObjectType, entityName, formId, formType);
+                helper.HandleSystemFormCopyToClipboardTabsAndSectionsCommand(connectionData, this._jsObjectType, entityName, formId, formType);
             }
         }
 
