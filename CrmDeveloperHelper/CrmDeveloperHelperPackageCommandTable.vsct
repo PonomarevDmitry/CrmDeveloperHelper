@@ -6838,7 +6838,16 @@
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>PluginTree</ButtonText>
+          <ButtonText>Plugin Tree</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommandSet" id="CodeCSharpPluginStepsExplorerCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Plugin Steps Explorer</ButtonText>
         </Strings>
       </Button>
 
@@ -9113,7 +9122,16 @@
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>PluginTree</ButtonText>
+          <ButtonText>Plugin Tree</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommandSet" id="FileCSharpPluginStepsExplorerCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Plugin Steps Explorer</ButtonText>
         </Strings>
       </Button>
 
@@ -10537,7 +10555,16 @@
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>PluginTree</ButtonText>
+          <ButtonText>Plugin Tree</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommandSet" id="ProjectPluginStepsExplorerCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Plugin Steps Explorer</ButtonText>
         </Strings>
       </Button>
 
@@ -12873,13 +12900,16 @@
         </Strings>
       </Button>
 
-      <Button guid="guidCommandSet" id="OutputPluginTreeCommandId" priority="0x06000" type="Button">
+
+      
+
+      <Button guid="guidCommandSet" id="OutputPluginStepsExplorerCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>Plugin Tree</ButtonText>
+          <ButtonText>Plugin Steps Explorer</ButtonText>
         </Strings>
       </Button>
 
@@ -12900,6 +12930,18 @@
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
           <ButtonText>Message Filter Explorer</ButtonText>
+        </Strings>
+      </Button>
+      
+      
+
+      <Button guid="guidCommandSet" id="OutputPluginTreeCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Plugin Tree</ButtonText>
         </Strings>
       </Button>
 
@@ -15379,6 +15421,9 @@
     <CommandPlacement guid="guidCommandSet" id="CodeCSharpPluginTreeCommandId" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginExplorers" />
     </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CodeCSharpPluginStepsExplorerCommandId" priority="0x06030">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginExplorers" />
+    </CommandPlacement>
 
     <!-- #endregion CommandPlacements codeMenuCSharp_GroupPluginExplorers -->
 
@@ -16906,7 +16951,10 @@
     <CommandPlacement guid="guidCommandSet" id="FileCSharpPluginTreeCommandId" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginExplorers" />
     </CommandPlacement>
-
+    <CommandPlacement guid="guidCommandSet" id="FileCSharpPluginStepsExplorerCommandId" priority="0x06030">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginExplorers" />
+    </CommandPlacement>
+    
     <!-- #endregion CommandPlacements fileMenuCSharp_GroupPluginExplorers -->
 
     <!-- #region CommandPlacements fileMenuCSharp_GroupActionOnPluginType -->
@@ -17883,6 +17931,9 @@
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupExplorers" />
     </CommandPlacement>
     <CommandPlacement guid="guidCommandSet" id="ProjectPluginTreeCommandId" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupExplorers" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="ProjectPluginStepsExplorerCommandId" priority="0x06030">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupExplorers" />
     </CommandPlacement>
 
@@ -22526,10 +22577,13 @@
 
     <!-- #region CommandPlacements outputMenu_GroupEntityInformation_MenuPluginInformation_GroupSdkObjectExplorers -->
 
-    <CommandPlacement guid="guidCommandSet" id="OutputSdkMessageExplorerCommandId" priority="0x06000">
+    <CommandPlacement guid="guidCommandSet" id="OutputPluginStepsExplorerCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupEntityInformation_MenuPluginInformation_GroupSdkObjectExplorers" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="OutputSdkMessageFilterExplorerCommandId" priority="0x06010">
+    <CommandPlacement guid="guidCommandSet" id="OutputSdkMessageExplorerCommandId" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupEntityInformation_MenuPluginInformation_GroupSdkObjectExplorers" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="OutputSdkMessageFilterExplorerCommandId" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupEntityInformation_MenuPluginInformation_GroupSdkObjectExplorers" />
     </CommandPlacement>
 
@@ -26061,6 +26115,7 @@
       <IDSymbol name="CodeCSharpPluginTypeExplorerCommandId" value="0x2134" />
       <IDSymbol name="CodeCSharpPluginAssemblyExplorerCommandId" value="0x2135" />
       <IDSymbol name="CodeCSharpPluginTreeCommandId" value="0x2175" />
+      <IDSymbol name="CodeCSharpPluginStepsExplorerCommandId" value="0x227B" />
 
       <IDSymbol name="CodeCSharpEntityMetadataFileGenerationOptionsCommandId" value="0x2215" />
       <IDSymbol name="CodeCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommandId" value="0x2216" />
@@ -26232,6 +26287,7 @@
       <IDSymbol name="FileCSharpPluginTypeExplorerCommandId" value="0x2136" />
       <IDSymbol name="FileCSharpPluginAssemblyExplorerCommandId" value="0x2137" />
       <IDSymbol name="FileCSharpPluginTreeCommandId" value="0x2176" />
+      <IDSymbol name="FileCSharpPluginStepsExplorerCommandId" value="0x227C" />
 
       <IDSymbol name="FileCSharpEntityMetadataFileGenerationOptionsCommandId" value="0x2219" />
       <IDSymbol name="FileCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommandId" value="0x221A" />
@@ -26341,6 +26397,7 @@
       <IDSymbol name="ProjectPluginTypeExplorerCommandId" value="0x2163" />
       <IDSymbol name="ProjectPluginAssemblyExplorerCommandId" value="0x2164" />
       <IDSymbol name="ProjectPluginTreeCommandId" value="0x2177" />
+      <IDSymbol name="ProjectPluginStepsExplorerCommandId" value="0x227D" />
 
       <IDSymbol name="ProjectBuildLoadUpdatePluginAssemblyCommandId" value="0x221F" />
       <IDSymbol name="ProjectBuildLoadUpdatePluginAssemblyRegisterPluginsCommandId" value="0x2220" />
@@ -26641,9 +26698,13 @@
       <IDSymbol name="OutputPluginTypeExplorerCommandId" value="0x21F1" />
       <IDSymbol name="OutputPluginAssemblyExplorerCommandId" value="0x21F2" />
 
+      <IDSymbol name="OutputPluginStepsExplorerCommandId" value="0x227A" />
+
       <IDSymbol name="OutputSdkMessageExplorerCommandId" value="0x2240" />
 
       <IDSymbol name="OutputSdkMessageFilterExplorerCommandId" value="0x2247" />
+      
+      
 
       <IDSymbol name="OutputPluginTreeCommandId" value="0x21F3" />
 
@@ -26681,7 +26742,7 @@
     <!-- 0x1560 -->
 
     <!-- Commands -->
-    <!-- 0x227A -->
+    <!-- 0x227E -->
 
     <!-- Commands Dynamic -->
     <!-- 18200 -->

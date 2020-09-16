@@ -117,7 +117,9 @@
     <Compile Include="Commands\Connections\CommonCrmConnectionPoolShowStateCommand.cs" />
     <Compile Include="Commands\Connections\CommonCrmConnectionSelectAndPublishEntityCommand.cs" />
     <Compile Include="Commands\Connections\CommonCrmConnectionSelectFileCommand.cs" />
+    <Compile Include="Commands\CSharp\CSharpPluginStepsExplorerCommand.cs" />
     <Compile Include="Commands\Explorers\CommonPluginStepsExplorerCommand.cs" />
+    <Compile Include="Commands\OutputWindows\Explorers\OutputPluginStepsExplorerCommand.cs" />
     <Compile Include="Commands\OutputWindows\OutputCrmConnectionPoolClearCommand.cs" />
     <Compile Include="Commands\OutputWindows\OutputCrmConnectionOpenInfoFolderCommand.cs" />
     <Compile Include="Commands\CSharp\CSharpAddPluginStepCommand.cs" />
@@ -160,6 +162,7 @@
     <Compile Include="Commands\FindEdit\CommonFindEntityObjectsByPrefixInExplorerCommand.cs" />
     <Compile Include="Commands\FindEdit\CommonFindEntityObjectsContainsStringInExplorerCommand.cs" />
     <Compile Include="Commands\FindEdit\CommonFindEntityObjectsMarkedToDeleteInExplorerCommand.cs" />
+    <Compile Include="Commands\Projects\ProjectPluginStepsExplorerCommand.cs" />
     <Compile Include="Commands\WebResources\JavaScripts\CodeJavaScriptLinkedEntityAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\WebResources\JavaScripts\CodeJavaScriptLinkedEntityAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\WebResources\JavaScripts\CodeJavaScriptLinkedEntityExplorerCommand.cs" />

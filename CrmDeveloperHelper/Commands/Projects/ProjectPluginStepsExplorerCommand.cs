@@ -4,18 +4,18 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
 {
-    internal sealed class ProjectPluginTreeCommand : AbstractSingleCommand
+    internal sealed class ProjectPluginStepsExplorerCommand : AbstractSingleCommand
     {
-        private ProjectPluginTreeCommand(OleMenuCommandService commandService)
-            : base(commandService, PackageIds.guidCommandSet.ProjectPluginTreeCommandId)
+        private ProjectPluginStepsExplorerCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.guidCommandSet.ProjectPluginStepsExplorerCommandId)
         {
         }
 
-        public static ProjectPluginTreeCommand Instance { get; private set; }
+        public static ProjectPluginStepsExplorerCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new ProjectPluginTreeCommand(commandService);
+            Instance = new ProjectPluginStepsExplorerCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper)
@@ -24,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
 
             if (projects.Any())
             {
-                helper.HandleOpenPluginTree(string.Empty, projects.First().Name, string.Empty);
+                helper.HandleOpenPluginStepsExplorer(string.Empty, projects.First().Name, string.Empty);
             }
         }
 

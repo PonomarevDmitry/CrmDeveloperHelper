@@ -456,8 +456,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CSharpAddPluginStepCommand.Initialize,
             CSharpAddPluginStepInConnectionCommand.Initialize,
 
-            CSharpPluginTypeExplorerCommand.Initialize,
+
+
+            CSharpPluginStepsExplorerCommand.Initialize,
+
             CSharpPluginTreeCommand.Initialize,
+            CSharpPluginTypeExplorerCommand.Initialize,
+            CSharpPluginAssemblyExplorerCommand.Initialize,
 
 
             CSharpProjectPluginAssemblyAddToSolutionLastCommand.Initialize,
@@ -483,14 +488,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CSharpProjectPluginAssemblyActionOnComponentInConnectionWithoutCurrentCommand.Initialize,
             CSharpProjectPluginAssemblyActionOnComponentInConnectionCommand.Initialize,
 
-            CSharpPluginAssemblyExplorerCommand.Initialize,
-
             #region Project
 
             ProjectRegisterPluginAssemblyInConnectionCommand.Initialize,
 
             ProjectPluginTypeExplorerCommand.Initialize,
             ProjectPluginTreeCommand.Initialize,
+            ProjectPluginStepsExplorerCommand.Initialize,
 
             #endregion Project
 
@@ -807,12 +811,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             OutputImportJobExplorerInConnectionCommand.Initialize,
             OutputOrganizationExplorerCommand.Initialize,
             OutputPluginAssemblyExplorerCommand.Initialize,
-            OutputPluginTreeCommand.Initialize,
+
             OutputPluginTypeExplorerCommand.Initialize,
             OutputReportExplorerCommand.Initialize,
 
+            OutputPluginStepsExplorerCommand.Initialize,
             OutputSdkMessageExplorerCommand.Initialize,
             OutputSdkMessageFilterExplorerCommand.Initialize,
+
+            OutputPluginTreeCommand.Initialize,
             OutputSdkMessageFilterTreeCommand.Initialize,
             OutputSdkMessageRequestTreeCommand.Initialize,
 

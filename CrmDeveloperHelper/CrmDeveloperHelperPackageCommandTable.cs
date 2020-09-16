@@ -3465,6 +3465,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int CodeCSharpPluginTreeCommandId = 0x2175;
 
+            public const int CodeCSharpPluginStepsExplorerCommandId = 0x227B;
+
             public const int CodeCSharpEntityMetadataFileGenerationOptionsCommandId = 0x2215;
 
             public const int CodeCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommandId = 0x2216;
@@ -3607,6 +3609,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int FileCSharpPluginTreeCommandId = 0x2176;
 
+            public const int FileCSharpPluginStepsExplorerCommandId = 0x227C;
+
             public const int FileCSharpEntityMetadataFileGenerationOptionsCommandId = 0x2219;
 
             public const int FileCSharpGlobalOptionSetsMetadataFileGenerationOptionsCommandId = 0x221A;
@@ -3696,6 +3700,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int ProjectPluginAssemblyExplorerCommandId = 0x2164;
 
             public const int ProjectPluginTreeCommandId = 0x2177;
+
+            public const int ProjectPluginStepsExplorerCommandId = 0x227D;
 
             public const int ProjectBuildLoadUpdatePluginAssemblyCommandId = 0x221F;
 
@@ -4036,6 +4042,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             public const int OutputPluginTypeExplorerCommandId = 0x21F1;
 
             public const int OutputPluginAssemblyExplorerCommandId = 0x21F2;
+
+            public const int OutputPluginStepsExplorerCommandId = 0x227A;
 
             public const int OutputSdkMessageExplorerCommandId = 0x2240;
 
