@@ -953,7 +953,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     {
                         this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoPluginAssembliesToAddToSolutionAllComponentsInSolutionFormant1, solution.UniqueName);
 
-                        OpenWindowForUnknownProjects(connectionData, commonConfig, unknownProjectNames);
+                        await OpenWindowForUnknownProjects(connectionData, commonConfig, unknownProjectNames);
 
                         return;
                     }
@@ -980,7 +980,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     await solutionRep.AddSolutionComponentsAsync(solution.UniqueName, componentsToAdd);
                 }
 
-                OpenWindowForUnknownProjects(connectionData, commonConfig, unknownProjectNames);
+                await OpenWindowForUnknownProjects(connectionData, commonConfig, unknownProjectNames);
             }
         }
 
@@ -1076,7 +1076,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoProcessingStepsToAddToSolution);
 
-                    OpenWindowForUnknownProjects(connectionData, commonConfig, unknownProjectNames);
+                    await OpenWindowForUnknownProjects(connectionData, commonConfig, unknownProjectNames);
 
                     return;
                 }
@@ -1110,7 +1110,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoProcessingStepsToAddToSolutionAllComponentsInSolutionFormant1, solution.UniqueName);
 
-                    OpenWindowForUnknownProjects(connectionData, commonConfig, unknownProjectNames);
+                    await OpenWindowForUnknownProjects(connectionData, commonConfig, unknownProjectNames);
 
                     return;
                 }
@@ -1136,11 +1136,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 await solutionRep.AddSolutionComponentsAsync(solution.UniqueName, componentsToAdd);
 
-                OpenWindowForUnknownProjects(connectionData, commonConfig, unknownProjectNames);
+                await OpenWindowForUnknownProjects(connectionData, commonConfig, unknownProjectNames);
             }
         }
 
-        private async void OpenWindowForUnknownProjects(ConnectionData connectionData, CommonConfiguration commonConfig, List<string> unknownProjectNames)
+        private async Task OpenWindowForUnknownProjects(ConnectionData connectionData, CommonConfiguration commonConfig, List<string> unknownProjectNames)
         {
             if (!unknownProjectNames.Any())
             {
@@ -1252,7 +1252,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoProcessingStepsToAddToSolution);
 
-                    OpenWindowForUnknownPluginTypes(connectionData, commonConfig, unknownPluginTypes);
+                    await OpenWindowForUnknownPluginTypes(connectionData, commonConfig, unknownPluginTypes);
 
                     return;
                 }
@@ -1286,7 +1286,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoProcessingStepsToAddToSolutionAllComponentsInSolutionFormant1, solution.UniqueName);
 
-                    OpenWindowForUnknownPluginTypes(connectionData, commonConfig, unknownPluginTypes);
+                    await OpenWindowForUnknownPluginTypes(connectionData, commonConfig, unknownPluginTypes);
 
                     return;
                 }
@@ -1312,13 +1312,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 await solutionRep.AddSolutionComponentsAsync(solution.UniqueName, componentsToAdd);
 
-                OpenWindowForUnknownPluginTypes(connectionData, commonConfig, unknownPluginTypes);
+                await OpenWindowForUnknownPluginTypes(connectionData, commonConfig, unknownPluginTypes);
             }
         }
 
         #endregion Добавление в решение шагов плагинов типа плагина по имени.
 
-        public async Task ExecuteAddingLinkedSystemFormToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, bool withSelect, string entityName, Guid formId, int formType)
+        public async Task ExecuteAddingLinkedSystemFormToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, bool withSelect, IEnumerable<Guid> formIdList)
         {
             string operation = string.Format(Properties.OperationNames.AddingLinkedSystemFormToSolutionFormat2, connectionData?.Name, solutionUniqueName);
 
@@ -1326,7 +1326,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await AddingLinkedSystemFormToSolution(connectionData, commonConfig, solutionUniqueName, withSelect, entityName, formId, formType);
+                await AddingLinkedSystemFormToSolution(connectionData, commonConfig, solutionUniqueName, withSelect, formIdList);
             }
             catch (Exception ex)
             {
@@ -1338,7 +1338,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task AddingLinkedSystemFormToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, bool withSelect, string entityName, Guid formId, int formType)
+        private async Task AddingLinkedSystemFormToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, bool withSelect, IEnumerable<Guid> formIdList)
         {
             var service = await ConnectAndWriteToOutputAsync(connectionData);
 
@@ -1360,7 +1360,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 connectionData.AddLastSelectedSolution(solution?.UniqueName);
                 connectionData.Save();
 
-                var dictForAdding = new HashSet<Guid>() { formId };
+                var dictForAdding = new HashSet<Guid>(formIdList);
 
                 var solutionRep = new SolutionComponentRepository(service);
 

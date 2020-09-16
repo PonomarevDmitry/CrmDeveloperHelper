@@ -435,8 +435,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartOpeningLinkedSystemForm(ConnectionData connectionData, CommonConfiguration commonConfig, ActionOnComponent actionOnComponent, string entityName, Guid formId, int formType)
              => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteOpeningLinkedSystemForm, commonConfig, actionOnComponent, entityName, formId, formType);
 
-        public void StartAddingLinkedSystemFormToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, bool withSelect, string entityName, Guid formId, int formType)
-            => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteAddingLinkedSystemFormToSolution, commonConfig, solutionUniqueName, withSelect, entityName, formId, formType);
+        public void StartAddingLinkedSystemFormToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, bool withSelect, IEnumerable<Guid> formIdList)
+            => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteAddingLinkedSystemFormToSolution, commonConfig, solutionUniqueName, withSelect, formIdList);
         public void StartLinkedSystemFormChangeInEntityEditor(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, Guid formId, int formType)
             => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteChangingLinkedSystemFormInEntityEditor, commonConfig, entityName, formId, formType);
 

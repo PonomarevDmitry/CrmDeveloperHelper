@@ -23,7 +23,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources.JavaScr
         {
             if (helper.TryGetLinkedSystemForm(out string entityName, out Guid formId, out int formType))
             {
-                helper.HandleLinkedSystemFormAddingToSolutionCommand(null, solutionUniqueName, false, entityName, formId, formType);
+                helper.HandleLinkedSystemFormAddingToSolutionCommand(null, solutionUniqueName, false, new[] { formId });
             }
         }
 

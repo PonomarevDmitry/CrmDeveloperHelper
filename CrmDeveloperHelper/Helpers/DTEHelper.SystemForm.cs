@@ -1,6 +1,7 @@
 ﻿using EnvDTE;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
+using System.Collections.Generic;
 using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
@@ -72,9 +73,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartSystemFormGetCurrentAttribute(conn, commonConfig, formId, actionOnComponent, fieldName, fieldTitle));
         }
 
-        public void HandleLinkedSystemFormAddingToSolutionCommand(ConnectionData connectionData, string solutionUniqueName, bool withSelect, string entityName, Guid formId, int formType)
+        public void HandleLinkedSystemFormAddingToSolutionCommand(ConnectionData connectionData, string solutionUniqueName, bool withSelect, IEnumerable<Guid> formIdList)
         {
-            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartAddingLinkedSystemFormToSolution(conn, commonConfig, solutionUniqueName, withSelect, entityName, formId, formType));
+            GetConnectionConfigAndExecute(connectionData, (conn, commonConfig) => Controller.StartAddingLinkedSystemFormToSolution(conn, commonConfig, solutionUniqueName, withSelect, formIdList));
         }
 
         public void HandleLinkedSystemFormChangeInEntityEditorCommand(ConnectionData connectionData, string entityName, Guid formId, int formType)
