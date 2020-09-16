@@ -371,20 +371,27 @@
       <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupEntityMetadata_MenuSchemaDyn_Group" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupGlobalOptionSetSingle" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupGlobalOptionSetSingle_MenuSchemaDyn_Group" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupByText" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithChanges" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithMirrorChanges" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupByText" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithChanges" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithMirrorChanges" priority="0x06000" />
 
-      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupByText" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithChanges" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithMirrorChanges" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd" priority="0x06000" />
+
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupByText" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithChanges" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithMirrorChanges" priority="0x06000" />
+
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupByText" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithChanges" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithMirrorChanges" priority="0x06000" />
+
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupByText" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupWithChanges" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupWithMirrorChanges" priority="0x06000" />
+
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupByText" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupWithChanges" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupWithMirrorChanges" priority="0x06000" />
 
       <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupEncoding" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupEncoding_MenuCommands_GroupCommands" priority="0x06000" />
@@ -514,7 +521,36 @@
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupGlobalOptionSetSingle_MenuConnectionDyn_Group" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupGlobalOptionSetAll" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupGlobalOptionSetAll_MenuConnectionDyn_Group" priority="0x06000" />
+
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd" priority="0x06000" />
+
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen" priority="0x06000" />
+
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupByText" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupWithChanges" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupWithMirrorChanges" priority="0x06000" />
+
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupByText" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithChanges" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithMirrorChanges" priority="0x06000" />
+
+
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference" priority="0x06000" />
+
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupByText" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithChanges" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithMirrorChanges" priority="0x06000" />
+
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList" priority="0x06000" />
+
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupByText" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupWithChanges" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupWithMirrorChanges" priority="0x06000" />
+
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupByText" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupWithChanges" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupWithMirrorChanges" priority="0x06000" />
+
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEncoding" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEncoding_MenuCommands_GroupCommands" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupExplorer" priority="0x06000" />
@@ -541,26 +577,6 @@
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupAddToSolution_MenuAddToSolution_GroupLastSolution_MenuLastSolutionDyn_Group" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupAddToSolution_MenuAddToSolution_GroupConnectionDyn" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLastLink" priority="0x06000" />
-
-      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuOpen_GroupByText" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuOpen_GroupWithChanges" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuOpen_GroupWithMirrorChanges" priority="0x06000" />
-
-      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupByText" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithChanges" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithMirrorChanges" priority="0x06000" />
-
-      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" priority="0x06000" />
-
-      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupByText" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithChanges" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithMirrorChanges" priority="0x06000" />
-
-      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupByText" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithChanges" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithMirrorChanges" priority="0x06000" />
 
       <!-- #endregion fileMenuWebResource -->
 
@@ -697,25 +713,33 @@
 
       <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd" priority="0x06000" />
 
-      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuOpen_GroupByText" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuOpen_GroupWithChanges" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuOpen_GroupWithMirrorChanges" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu" priority="0x06000" />
 
-      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupByText" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithChanges" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithMirrorChanges" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen" priority="0x06000" />
 
-      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupByText" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupWithChanges" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupWithMirrorChanges" priority="0x06000" />
 
-      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupByText" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithChanges" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithMirrorChanges" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupByText" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithChanges" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithMirrorChanges" priority="0x06000" />
 
-      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupByText" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithChanges" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithMirrorChanges" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference" priority="0x06000" />
+
+      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupByText" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithChanges" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithMirrorChanges" priority="0x06000" />
+
+      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList" priority="0x06000" />
+
+      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupByText" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupWithChanges" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupWithMirrorChanges" priority="0x06000" />
+
+      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupByText" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupWithChanges" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupWithMirrorChanges" priority="0x06000" />
 
       <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEncoding" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEncoding_MenuCommands_GroupCommands" priority="0x06000" />
@@ -879,17 +903,22 @@
       <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuDyn_Group" priority="0x06000" />
 
       <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuOpen_GroupByText" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuOpen_GroupWithChanges" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuOpen_GroupWithMirrorChanges" priority="0x06000" />
+      
+      <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen" priority="0x06000" />
+      
+      <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupByText" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupWithChanges" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupWithMirrorChanges" priority="0x06000" />
 
-      <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupByText" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithChanges" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithMirrorChanges" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupByText" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithChanges" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithMirrorChanges" priority="0x06000" />
 
-      <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupMultiDifference" priority="0x06000" />
+
+      <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupByText" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithChanges" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithMirrorChanges" priority="0x06000" />
 
       <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupShowList" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupAddRemoveFiles" priority="0x06000" />
@@ -2315,29 +2344,36 @@
       </Menu>
 
 
+      <Menu guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Open - Difference - Publish List</ButtonText>
+          <MenuText>Open - Difference - Publish List</MenuText>
+        </Strings>
+      </Menu>
 
-      <Menu guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor" priority="0x06000" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Open Files in Text Editor</ButtonText>
           <MenuText>Open Files in Text Editor</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference" priority="0x06000" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Multi Difference</ButtonText>
           <MenuText>Multi Difference</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList" priority="0x06000" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Add into Publish List</ButtonText>
           <MenuText>Add into Publish List</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList" priority="0x06000" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Remove from Publish List</ButtonText>
@@ -2682,35 +2718,42 @@
         </Strings>
       </Menu>
 
-      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuOpen" priority="0x06000" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Open - Difference - Publish List</ButtonText>
+          <MenuText>Open - Difference - Publish List</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Open Files</ButtonText>
           <MenuText>Open Files</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor" priority="0x06000" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Open Files in Text Editor</ButtonText>
           <MenuText>Open Files in Text Editor</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference" priority="0x06000" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Multi Difference</ButtonText>
           <MenuText>Multi Difference</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList" priority="0x06000" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Add into Publish List</ButtonText>
           <MenuText>Add into Publish List</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList" priority="0x06000" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Remove from Publish List</ButtonText>
@@ -3309,35 +3352,42 @@
         </Strings>
       </Menu>
 
-      <Menu guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuOpen" priority="0x06000" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Open - Difference - Publish List (Recursive)</ButtonText>
+          <MenuText>Open - Difference - Publish List (Recursive)</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Open Files (Recursive)</ButtonText>
           <MenuText>Open Files (Recursive)</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor" priority="0x06000" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Open Files in Text Editor (Recursive)</ButtonText>
           <MenuText>Open Files in Text Editor (Recursive)</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference" priority="0x06000" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Multi Difference (Recursive)</ButtonText>
           <MenuText>Multi Difference (Recursive)</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList" priority="0x06000" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Add into Publish List (Recursive)</ButtonText>
           <MenuText>Add into Publish List (Recursive)</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList" priority="0x06000" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Remove from Publish List (Recursive)</ButtonText>
@@ -3864,21 +3914,28 @@
         </Strings>
       </Menu>
 
-      <Menu guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuOpen" priority="0x06000" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Open - Difference - Publish List</ButtonText>
+          <MenuText>Open - Difference - Publish List</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Open Files in List</ButtonText>
           <MenuText>Open Files in List</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuOpenInTextEditor" priority="0x06000" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Open Files in List in Text Editor</ButtonText>
           <MenuText>Open Files in List in Text Editor</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference" priority="0x06000" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Multi Difference</ButtonText>
@@ -12901,7 +12958,7 @@
       </Button>
 
 
-      
+
 
       <Button guid="guidCommandSet" id="OutputPluginStepsExplorerCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -12932,8 +12989,8 @@
           <ButtonText>Message Filter Explorer</ButtonText>
         </Strings>
       </Button>
-      
-      
+
+
 
       <Button guid="guidCommandSet" id="OutputPluginTreeCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -15658,80 +15715,114 @@
     <!-- #endregion CommandPlacements documentsMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries -->
 
 
+
+
     <!-- #region CommandPlacements documentsMenuWebResource_GroupOpenMultiAdd -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList" priority="0x06020">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList" priority="0x06030">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd" />
     </CommandPlacement>
 
     <!-- #endregion CommandPlacements documentsMenuWebResource_GroupOpenMultiAdd -->
 
-    <!-- #region CommandPlacements documentsMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor -->
+    <!-- #region CommandPlacements documentsMenuWebResource_GroupOpenMultiAdd_Menu -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupByText" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithChanges" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithMirrorChanges" priority="0x06020">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor" />
-    </CommandPlacement>
-
-    <!-- #endregion CommandPlacements documentsMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor -->
-
-    <!-- #region CommandPlacements documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference -->
-
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" priority="0x06020">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu" />
     </CommandPlacement>
 
-    <!-- #endregion CommandPlacements documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference -->
+    <!-- #endregion CommandPlacements documentsMenuWebResource_GroupOpenMultiAdd_Menu -->
 
+    <!-- #region CommandPlacements documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen -->
 
-    <!-- #region CommandPlacements documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList -->
-
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupByText" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithChanges" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithMirrorChanges" priority="0x06020">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen" />
     </CommandPlacement>
 
-    <!-- #endregion CommandPlacements documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList -->
+    <!-- #endregion CommandPlacements documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen -->
 
+    <!-- #region CommandPlacements documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor -->
 
-    <!-- #region CommandPlacements documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList -->
-
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupByText" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupByText" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithChanges" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithChanges" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithMirrorChanges" priority="0x06020">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithMirrorChanges" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor" />
     </CommandPlacement>
 
-    <!-- #endregion CommandPlacements documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList -->
+    <!-- #endregion CommandPlacements documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor -->
+
+    <!-- #region CommandPlacements documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference -->
+
+    <!-- #region CommandPlacements documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupByText" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithChanges" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithMirrorChanges" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference -->
+
+    <!-- #region CommandPlacements documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList -->
+
+
+    <!-- #region CommandPlacements documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupByText" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupWithChanges" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupWithMirrorChanges" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList -->
+
+
+    <!-- #region CommandPlacements documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupByText" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupWithChanges" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupWithMirrorChanges" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList -->
 
 
     <!-- #region CommandPlacements documentsMenuWebResource_GroupEntityMetadata -->
@@ -16362,100 +16453,129 @@
     <!-- #endregion CommandPlacements fileMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries -->
 
 
+
     <!-- #region CommandPlacements fileMenuWebResource_GroupOpenMultiAdd -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuOpen" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference" priority="0x06020">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList" priority="0x06030">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList" priority="0x06040">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd" />
     </CommandPlacement>
 
     <!-- #endregion CommandPlacements fileMenuWebResource_GroupOpenMultiAdd -->
 
+    <!-- #region CommandPlacements fileMenuWebResource_GroupOpenMultiAdd_Menu -->
 
-    <!-- #region CommandPlacements fileMenuWebResource_GroupOpenMultiAdd_MenuOpen -->
-
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuOpen_GroupByText" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuOpen" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuOpen_GroupWithChanges" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuOpen" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuOpen_GroupWithMirrorChanges" priority="0x06020">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuOpen" />
-    </CommandPlacement>
-
-    <!-- #endregion CommandPlacements fileMenuWebResource_GroupOpenMultiAdd_MenuOpen -->
-
-
-    <!-- #region CommandPlacements fileMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor -->
-
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupByText" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithChanges" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithMirrorChanges" priority="0x06020">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu" />
     </CommandPlacement>
 
-    <!-- #endregion CommandPlacements fileMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor -->
+    <!-- #endregion CommandPlacements fileMenuWebResource_GroupOpenMultiAdd_Menu -->
 
+    <!-- #region CommandPlacements fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen -->
 
-    <!-- #region CommandPlacements fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference -->
-
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" priority="0x06020">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen" />
     </CommandPlacement>
 
-    <!-- #endregion CommandPlacements fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference -->
+    <!-- #endregion CommandPlacements fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen -->
 
+    <!-- #region CommandPlacements fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen -->
 
-    <!-- #region CommandPlacements fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList -->
-
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupByText" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupByText" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithChanges" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupWithChanges" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithMirrorChanges" priority="0x06020">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList" />
-    </CommandPlacement>
-
-    <!-- #endregion CommandPlacements fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList -->
-
-
-    <!-- #region CommandPlacements fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList -->
-
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupByText" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithChanges" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithMirrorChanges" priority="0x06020">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupWithMirrorChanges" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen" />
     </CommandPlacement>
 
-    <!-- #endregion CommandPlacements fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList -->
+    <!-- #endregion CommandPlacements fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen -->
+
+    <!-- #region CommandPlacements fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupByText" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithChanges" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithMirrorChanges" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor -->
+
+    <!-- #region CommandPlacements fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference -->
+
+    <!-- #region CommandPlacements fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupByText" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithChanges" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithMirrorChanges" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference -->
+
+    <!-- #region CommandPlacements fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList -->
+
+    <!-- #region CommandPlacements fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupByText" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupWithChanges" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupWithMirrorChanges" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList -->
+
+    <!-- #region CommandPlacements fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupByText" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupWithChanges" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupWithMirrorChanges" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList -->
+
 
 
     <!-- #region CommandPlacements fileMenuWebResource_GroupEntityMetadata -->
@@ -16954,7 +17074,7 @@
     <CommandPlacement guid="guidCommandSet" id="FileCSharpPluginStepsExplorerCommandId" priority="0x06030">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginExplorers" />
     </CommandPlacement>
-    
+
     <!-- #endregion CommandPlacements fileMenuCSharp_GroupPluginExplorers -->
 
     <!-- #region CommandPlacements fileMenuCSharp_GroupActionOnPluginType -->
@@ -17236,99 +17356,130 @@
 
     <!-- #endregion CommandPlacements folderMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries -->
 
+
+
     <!-- #region CommandPlacements folderMenuWebResource_GroupOpenMultiAdd -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuOpen" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference" priority="0x06020">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList" priority="0x06030">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList" priority="0x06040">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd" />
     </CommandPlacement>
 
     <!-- #endregion CommandPlacements folderMenuWebResource_GroupOpenMultiAdd -->
 
-    <!-- #region CommandPlacements folderMenuWebResource_GroupOpenMultiAdd_MenuOpen -->
+    <!-- #region CommandPlacements folderMenuWebResource_GroupOpenMultiAdd_Menu -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuOpen_GroupByText" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuOpen" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuOpen_GroupWithChanges" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuOpen" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuOpen_GroupWithMirrorChanges" priority="0x06020">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuOpen" />
-    </CommandPlacement>
-
-    <!-- #endregion CommandPlacements folderMenuWebResource_GroupOpenMultiAdd_MenuOpen -->
-
-
-    <!-- #region CommandPlacements folderMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor -->
-
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupByText" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithChanges" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithMirrorChanges" priority="0x06020">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu" />
     </CommandPlacement>
 
-    <!-- #endregion CommandPlacements folderMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor -->
+    <!-- #endregion CommandPlacements folderMenuWebResource_GroupOpenMultiAdd_Menu -->
 
+    <!-- #region CommandPlacements folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen -->
 
-    <!-- #region CommandPlacements folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference -->
-
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" priority="0x06020">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen" />
     </CommandPlacement>
 
-    <!-- #endregion CommandPlacements folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference -->
+    <!-- #endregion CommandPlacements folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen -->
 
+    <!-- #region CommandPlacements folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen -->
 
-    <!-- #region CommandPlacements folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList -->
-
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupByText" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupByText" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithChanges" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupWithChanges" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithMirrorChanges" priority="0x06020">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList" />
-    </CommandPlacement>
-
-    <!-- #endregion CommandPlacements folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList -->
-
-
-    <!-- #region CommandPlacements folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList -->
-
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupByText" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithChanges" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithMirrorChanges" priority="0x06020">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupWithMirrorChanges" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen" />
     </CommandPlacement>
 
-    <!-- #endregion CommandPlacements folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList -->
+    <!-- #endregion CommandPlacements folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen -->
+
+    <!-- #region CommandPlacements folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupByText" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithChanges" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithMirrorChanges" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor -->
+
+    <!-- #region CommandPlacements folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference -->
+
+    <!-- #region CommandPlacements folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupByText" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithChanges" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithMirrorChanges" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference -->
+
+    <!-- #region CommandPlacements folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList -->
+
+    <!-- #region CommandPlacements folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupByText" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupWithChanges" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupWithMirrorChanges" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList -->
+
+    <!-- #region CommandPlacements folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupByText" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupWithChanges" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupWithMirrorChanges" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList -->
+
 
 
     <!-- #region CommandPlacements folderMenuWebResource_GroupEntityMetadata -->
@@ -18047,65 +18198,89 @@
 
     <!-- #endregion CommandPlacements listForPublishMenu -->
 
+
+
     <!-- #region CommandPlacements listForPublishMenu_GroupOpenMultiAdd -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuOpen" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuOpenInTextEditor" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference" priority="0x06020">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd" />
     </CommandPlacement>
 
     <!-- #endregion CommandPlacements listForPublishMenu_GroupOpenMultiAdd -->
 
+    <!-- #region CommandPlacements listForPublishMenu_GroupOpenMultiAdd_Menu -->
 
-    <!-- #region CommandPlacements listForPublishMenu_GroupOpenMultiAdd_MenuOpen -->
-
-    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuOpen_GroupByText" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuOpen" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuOpen_GroupWithChanges" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuOpen" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuOpen_GroupWithMirrorChanges" priority="0x06020">
-      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuOpen" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupMultiDifference" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu" />
     </CommandPlacement>
 
-    <!-- #endregion CommandPlacements listForPublishMenu_GroupOpenMultiAdd_MenuOpen -->
+    <!-- #endregion CommandPlacements listForPublishMenu_GroupOpenMultiAdd_Menu -->
 
+    <!-- #region CommandPlacements listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen -->
 
-    <!-- #region CommandPlacements listForPublishMenu_GroupOpenMultiAdd_MenuOpenInTextEditor -->
-
-    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupByText" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuOpenInTextEditor" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithChanges" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuOpenInTextEditor" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithMirrorChanges" priority="0x06020">
-      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuOpenInTextEditor" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen" />
     </CommandPlacement>
 
-    <!-- #endregion CommandPlacements listForPublishMenu_GroupOpenMultiAdd_MenuOpenInTextEditor -->
+    <!-- #endregion CommandPlacements listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen -->
 
+    <!-- #region CommandPlacements listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen -->
 
-    <!-- #region CommandPlacements listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference -->
-
-    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupByText" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupWithChanges" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" priority="0x06020">
-      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupWithMirrorChanges" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen" />
     </CommandPlacement>
 
-    <!-- #endregion CommandPlacements listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference -->
+    <!-- #endregion CommandPlacements listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen -->
 
+    <!-- #region CommandPlacements listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupByText" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithChanges" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithMirrorChanges" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor -->
+
+    <!-- #region CommandPlacements listForPublishMenu_GroupOpenMultiAdd_Menu_GroupMultiDifference -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupMultiDifference" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements listForPublishMenu_GroupOpenMultiAdd_Menu_GroupMultiDifference -->
+
+    <!-- #region CommandPlacements listForPublishMenu_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupByText" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithChanges" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithMirrorChanges" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements listForPublishMenu_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference -->
+
+    
 
     <!-- #region CommandPlacements listForPublishMenu_GroupCompareFile -->
 
@@ -19761,33 +19936,33 @@
     </CommandPlacement>
 
     <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishOpenFilesByTypeOrdinalCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuOpen_GroupByText" />
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupByText" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishOpenFilesByTypeWithChangesCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuOpen_GroupWithChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupWithChanges" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishOpenFilesByTypeWithMirrorCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuOpen_GroupWithMirrorChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupWithMirrorChanges" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishOpenFilesByTypeInTextEditorOrdinalCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupByText" />
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupByText" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishOpenFilesByTypeInTextEditorWithChangesCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithChanges" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishOpenFilesByTypeInTextEditorWithMirrorCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithMirrorChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithMirrorChanges" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishMultiDifferenceFilesExistsOrHasLinkCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" />
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupByText" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishMultiDifferenceFilesWithChangesCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithChanges" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishMultiDifferenceFilesWithMirrorCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithMirrorChanges" />
     </CommandPlacement>
 
     <!-- #endregion ListForPublish Dynamic -->
@@ -20906,51 +21081,51 @@
     </CommandPlacement>
 
     <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupByText" />
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupByText" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithChanges" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithMirrorChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithMirrorChanges" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" />
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupByText" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceMultiDifferenceFilesWithChangesCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithChanges" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceMultiDifferenceFilesWithMirrorCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithMirrorChanges" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishOrdinalCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupByText" />
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupByText" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishWithChangesCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupWithChanges" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceAddFilesIntoListForPublishWithMirrorCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithMirrorChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupWithMirrorChanges" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceRemoveFilesFromListForPublishOrdinalCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupByText" />
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupByText" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceRemoveFilesFromListForPublishWithChangesCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupWithChanges" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsWebResourceRemoveFilesFromListForPublishWithMirrorCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithMirrorChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupWithMirrorChanges" />
     </CommandPlacement>
 
     <!-- #endregion DocumentsWebResource Dynamic -->
@@ -21346,53 +21521,53 @@
     </CommandPlacement>
 
     <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceOpenFilesByTypeOrdinalCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuOpen_GroupByText" />
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupByText" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceOpenFilesByTypeWithChangesCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuOpen_GroupWithChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupWithChanges" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceOpenFilesByTypeWithMirrorCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuOpen_GroupWithMirrorChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupWithMirrorChanges" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupByText" />
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupByText" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithChanges" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithMirrorChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithMirrorChanges" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" />
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupByText" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceMultiDifferenceFilesWithChangesCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithChanges" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceMultiDifferenceFilesWithMirrorCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithMirrorChanges" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceAddFilesIntoListForPublishOrdinalCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupByText" />
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupByText" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceAddFilesIntoListForPublishWithChangesCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupWithChanges" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceAddFilesIntoListForPublishWithMirrorCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithMirrorChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupWithMirrorChanges" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceRemoveFilesFromListForPublishOrdinalCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupByText" />
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupByText" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceRemoveFilesFromListForPublishWithChangesCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupWithChanges" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceRemoveFilesFromListForPublishWithMirrorCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithMirrorChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupWithMirrorChanges" />
     </CommandPlacement>
 
     <!-- #endregion FileWebResource Dynamic -->
@@ -21743,53 +21918,53 @@
     </CommandPlacement>
 
     <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceOpenFilesByTypeOrdinalCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuOpen_GroupByText" />
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupByText" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceOpenFilesByTypeWithChangesCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuOpen_GroupWithChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupWithChanges" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceOpenFilesByTypeWithMirrorCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuOpen_GroupWithMirrorChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupWithMirrorChanges" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceOpenFilesByTypeInTextEditorOrdinalCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupByText" />
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupByText" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceOpenFilesByTypeInTextEditorWithChangesCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithChanges" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceOpenFilesByTypeInTextEditorWithMirrorCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithMirrorChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithMirrorChanges" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceMultiDifferenceFilesExistsOrHasLinkCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" />
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupByText" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceMultiDifferenceFilesWithChangesCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithChanges" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceMultiDifferenceFilesWithMirrorCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithMirrorChanges" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceAddFilesIntoListForPublishOrdinalCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupByText" />
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupByText" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceAddFilesIntoListForPublishWithChangesCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupWithChanges" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceAddFilesIntoListForPublishWithMirrorCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithMirrorChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupWithMirrorChanges" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceRemoveFilesFromListForPublishOrdinalCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupByText" />
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupByText" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceRemoveFilesFromListForPublishWithChangesCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupWithChanges" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="FolderWebResourceRemoveFilesFromListForPublishWithMirrorCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithMirrorChanges" />
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupWithMirrorChanges" />
     </CommandPlacement>
 
     <!-- #endregion FolderWebResource Dynamic -->
@@ -23836,29 +24011,37 @@
 
       <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd" value="0x1172" />
 
-      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor" value="0x14FF" />
+      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_Menu" value="0x1560" />
 
-      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupByText" value="0x1500" />
-      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithChanges" value="0x1501" />
-      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithMirrorChanges" value="0x1502" />
+      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen" value="0x1561" />
 
-      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference" value="0x1173" />
+      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor" value="0x14FF" />
 
-      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" value="0x1174" />
-      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" value="0x1175" />
-      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" value="0x1176" />
+      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupByText" value="0x1500" />
+      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithChanges" value="0x1501" />
+      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithMirrorChanges" value="0x1502" />
 
-      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList" value="0x1177" />
+      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference" value="0x1562" />
 
-      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupByText" value="0x1178" />
-      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithChanges" value="0x1179" />
-      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithMirrorChanges" value="0x117A" />
+      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference" value="0x1173" />
 
-      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList" value="0x1503" />
+      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupByText" value="0x1174" />
+      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithChanges" value="0x1175" />
+      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithMirrorChanges" value="0x1176" />
 
-      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupByText" value="0x1504" />
-      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithChanges" value="0x1505" />
-      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithMirrorChanges" value="0x1506" />
+      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList" value="0x1563" />
+
+      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList" value="0x1177" />
+
+      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupByText" value="0x1178" />
+      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupWithChanges" value="0x1179" />
+      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupWithMirrorChanges" value="0x117A" />
+
+      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList" value="0x1503" />
+
+      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupByText" value="0x1504" />
+      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupWithChanges" value="0x1505" />
+      <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupWithMirrorChanges" value="0x1506" />
 
       <IDSymbol name="documentsMenuWebResource_GroupEntityMetadata" value="0x12FA" />
       <IDSymbol name="documentsMenuWebResource_GroupEntityMetadata_MenuSchemaDyn" value="0x12FB" />
@@ -24097,35 +24280,47 @@
 
       <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd" value="0x1014" />
 
-      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_MenuOpen" value="0x1015" />
+      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_Menu" value="0x1564" />
 
-      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_MenuOpen_GroupByText" value="0x1016" />
-      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_MenuOpen_GroupWithChanges" value="0x1017" />
-      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_MenuOpen_GroupWithMirrorChanges" value="0x1018" />
+      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen" value="0x1565" />
 
-      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor" value="0x1019" />
+      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen" value="0x1015" />
 
-      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupByText" value="0x101A" />
-      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithChanges" value="0x101B" />
-      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithMirrorChanges" value="0x101C" />
+      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupByText" value="0x1016" />
+      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupWithChanges" value="0x1017" />
+      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupWithMirrorChanges" value="0x1018" />
 
-      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference" value="0x101D" />
+      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor" value="0x1019" />
 
-      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" value="0x101E" />
-      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" value="0x101F" />
-      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" value="0x1020" />
+      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupByText" value="0x101A" />
+      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithChanges" value="0x101B" />
+      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithMirrorChanges" value="0x101C" />
 
-      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList" value="0x1021" />
 
-      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupByText" value="0x1022" />
-      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithChanges" value="0x1023" />
-      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithMirrorChanges" value="0x1024" />
 
-      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList" value="0x1507" />
+      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference" value="0x1566" />
 
-      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupByText" value="0x1508" />
-      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithChanges" value="0x1509" />
-      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithMirrorChanges" value="0x150A" />
+      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference" value="0x101D" />
+
+      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupByText" value="0x101E" />
+      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithChanges" value="0x101F" />
+      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithMirrorChanges" value="0x1020" />
+
+
+
+      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList" value="0x1567" />
+
+      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList" value="0x1021" />
+
+      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupByText" value="0x1022" />
+      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupWithChanges" value="0x1023" />
+      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupWithMirrorChanges" value="0x1024" />
+
+      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList" value="0x1507" />
+
+      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupByText" value="0x1508" />
+      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupWithChanges" value="0x1509" />
+      <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupWithMirrorChanges" value="0x150A" />
 
       <IDSymbol name="fileMenuWebResource_GroupEntityMetadata" value="0x12FF" />
       <IDSymbol name="fileMenuWebResource_GroupEntityMetadata_MenuConnectionDyn" value="0x1300" />
@@ -24416,35 +24611,45 @@
 
       <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd" value="0x1065" />
 
-      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_MenuOpen" value="0x1066" />
+      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_Menu" value="0x1568" />
 
-      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_MenuOpen_GroupByText" value="0x1067" />
-      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_MenuOpen_GroupWithChanges" value="0x1068" />
-      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_MenuOpen_GroupWithMirrorChanges" value="0x1069" />
+      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen" value="0x1569" />
 
-      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor" value="0x106A" />
+      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen" value="0x1066" />
 
-      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupByText" value="0x106B" />
-      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithChanges" value="0x106C" />
-      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithMirrorChanges" value="0x106D" />
+      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupByText" value="0x1067" />
+      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupWithChanges" value="0x1068" />
+      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupWithMirrorChanges" value="0x1069" />
 
-      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference" value="0x106E" />
+      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor" value="0x106A" />
 
-      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" value="0x106F" />
-      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" value="0x1070" />
-      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" value="0x1071" />
+      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupByText" value="0x106B" />
+      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithChanges" value="0x106C" />
+      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithMirrorChanges" value="0x106D" />
 
-      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList" value="0x1072" />
 
-      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupByText" value="0x1073" />
-      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithChanges" value="0x1074" />
-      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithMirrorChanges" value="0x1075" />
+      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference" value="0x156A" />
 
-      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList" value="0x150B" />
+      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference" value="0x106E" />
 
-      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupByText" value="0x150C" />
-      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithChanges" value="0x150D" />
-      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithMirrorChanges" value="0x150E" />
+      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupByText" value="0x106F" />
+      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithChanges" value="0x1070" />
+      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithMirrorChanges" value="0x1071" />
+
+
+      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList" value="0x156B" />
+
+      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList" value="0x1072" />
+
+      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupByText" value="0x1073" />
+      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupWithChanges" value="0x1074" />
+      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupWithMirrorChanges" value="0x1075" />
+
+      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList" value="0x150B" />
+
+      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupByText" value="0x150C" />
+      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupWithChanges" value="0x150D" />
+      <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupWithMirrorChanges" value="0x150E" />
 
       <IDSymbol name="folderMenuWebResource_GroupEntityMetadata" value="0x1305" />
       <IDSymbol name="folderMenuWebResource_GroupEntityMetadata_MenuEntityDyn" value="0x1306" />
@@ -24743,20 +24948,26 @@
 
       <IDSymbol name="listForPublishMenu_GroupOpenMultiAdd" value="0x10A3" />
 
-      <IDSymbol name="listForPublishMenu_GroupOpenMultiAdd_MenuOpen" value="0x10A4" />
-      <IDSymbol name="listForPublishMenu_GroupOpenMultiAdd_MenuOpen_GroupByText" value="0x10A5" />
-      <IDSymbol name="listForPublishMenu_GroupOpenMultiAdd_MenuOpen_GroupWithChanges" value="0x10A6" />
-      <IDSymbol name="listForPublishMenu_GroupOpenMultiAdd_MenuOpen_GroupWithMirrorChanges" value="0x10A7" />
+      <IDSymbol name="listForPublishMenu_GroupOpenMultiAdd_Menu" value="0x156C" />
 
-      <IDSymbol name="listForPublishMenu_GroupOpenMultiAdd_MenuOpenInTextEditor" value="0x10A8" />
-      <IDSymbol name="listForPublishMenu_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupByText" value="0x10A9" />
-      <IDSymbol name="listForPublishMenu_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithChanges" value="0x10AA" />
-      <IDSymbol name="listForPublishMenu_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithMirrorChanges" value="0x10AB" />
+      <IDSymbol name="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen" value="0x156D" />
 
-      <IDSymbol name="listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference" value="0x10AC" />
-      <IDSymbol name="listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" value="0x10AD" />
-      <IDSymbol name="listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" value="0x10AE" />
-      <IDSymbol name="listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges" value="0x10AF" />
+      <IDSymbol name="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen" value="0x10A4" />
+      <IDSymbol name="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupByText" value="0x10A5" />
+      <IDSymbol name="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupWithChanges" value="0x10A6" />
+      <IDSymbol name="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupWithMirrorChanges" value="0x10A7" />
+
+      <IDSymbol name="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor" value="0x10A8" />
+      <IDSymbol name="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupByText" value="0x10A9" />
+      <IDSymbol name="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithChanges" value="0x10AA" />
+      <IDSymbol name="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithMirrorChanges" value="0x10AB" />
+
+      <IDSymbol name="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupMultiDifference" value="0x156E" />
+
+      <IDSymbol name="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference" value="0x10AC" />
+      <IDSymbol name="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupByText" value="0x10AD" />
+      <IDSymbol name="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithChanges" value="0x10AE" />
+      <IDSymbol name="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithMirrorChanges" value="0x10AF" />
 
       <IDSymbol name="listForPublishMenu_GroupShowList" value="0x10B0" />
 
@@ -26703,8 +26914,8 @@
       <IDSymbol name="OutputSdkMessageExplorerCommandId" value="0x2240" />
 
       <IDSymbol name="OutputSdkMessageFilterExplorerCommandId" value="0x2247" />
-      
-      
+
+
 
       <IDSymbol name="OutputPluginTreeCommandId" value="0x21F3" />
 
@@ -26739,7 +26950,7 @@
 
 
     <!-- Groups and Menus -->
-    <!-- 0x1560 -->
+    <!-- 0x156F -->
 
     <!-- Commands -->
     <!-- 0x227E -->

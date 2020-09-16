@@ -837,37 +837,45 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int documentsMenuWebResource_GroupOpenMultiAdd = 0x1172;
 
-            public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor = 0x14FF;
+            public const int documentsMenuWebResource_GroupOpenMultiAdd_Menu = 0x1560;
 
-            public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupByText = 0x1500;
+            public const int documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen = 0x1561;
 
-            public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithChanges = 0x1501;
+            public const int documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor = 0x14FF;
 
-            public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithMirrorChanges = 0x1502;
+            public const int documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupByText = 0x1500;
 
-            public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference = 0x1173;
+            public const int documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithChanges = 0x1501;
 
-            public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText = 0x1174;
+            public const int documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithMirrorChanges = 0x1502;
 
-            public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges = 0x1175;
+            public const int documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference = 0x1562;
 
-            public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges = 0x1176;
+            public const int documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference = 0x1173;
 
-            public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList = 0x1177;
+            public const int documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupByText = 0x1174;
 
-            public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupByText = 0x1178;
+            public const int documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithChanges = 0x1175;
 
-            public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithChanges = 0x1179;
+            public const int documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithMirrorChanges = 0x1176;
 
-            public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithMirrorChanges = 0x117A;
+            public const int documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList = 0x1563;
 
-            public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList = 0x1503;
+            public const int documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList = 0x1177;
 
-            public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupByText = 0x1504;
+            public const int documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupByText = 0x1178;
 
-            public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithChanges = 0x1505;
+            public const int documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupWithChanges = 0x1179;
 
-            public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithMirrorChanges = 0x1506;
+            public const int documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupWithMirrorChanges = 0x117A;
+
+            public const int documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList = 0x1503;
+
+            public const int documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupByText = 0x1504;
+
+            public const int documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupWithChanges = 0x1505;
+
+            public const int documentsMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupWithMirrorChanges = 0x1506;
 
             public const int documentsMenuWebResource_GroupEntityMetadata = 0x12FA;
 
@@ -1145,45 +1153,53 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int fileMenuWebResource_GroupOpenMultiAdd = 0x1014;
 
-            public const int fileMenuWebResource_GroupOpenMultiAdd_MenuOpen = 0x1015;
+            public const int fileMenuWebResource_GroupOpenMultiAdd_Menu = 0x1564;
 
-            public const int fileMenuWebResource_GroupOpenMultiAdd_MenuOpen_GroupByText = 0x1016;
+            public const int fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen = 0x1565;
 
-            public const int fileMenuWebResource_GroupOpenMultiAdd_MenuOpen_GroupWithChanges = 0x1017;
+            public const int fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen = 0x1015;
 
-            public const int fileMenuWebResource_GroupOpenMultiAdd_MenuOpen_GroupWithMirrorChanges = 0x1018;
+            public const int fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupByText = 0x1016;
 
-            public const int fileMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor = 0x1019;
+            public const int fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupWithChanges = 0x1017;
 
-            public const int fileMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupByText = 0x101A;
+            public const int fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupWithMirrorChanges = 0x1018;
 
-            public const int fileMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithChanges = 0x101B;
+            public const int fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor = 0x1019;
 
-            public const int fileMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithMirrorChanges = 0x101C;
+            public const int fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupByText = 0x101A;
 
-            public const int fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference = 0x101D;
+            public const int fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithChanges = 0x101B;
 
-            public const int fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText = 0x101E;
+            public const int fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithMirrorChanges = 0x101C;
 
-            public const int fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges = 0x101F;
+            public const int fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference = 0x1566;
 
-            public const int fileMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges = 0x1020;
+            public const int fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference = 0x101D;
 
-            public const int fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList = 0x1021;
+            public const int fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupByText = 0x101E;
 
-            public const int fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupByText = 0x1022;
+            public const int fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithChanges = 0x101F;
 
-            public const int fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithChanges = 0x1023;
+            public const int fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithMirrorChanges = 0x1020;
 
-            public const int fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithMirrorChanges = 0x1024;
+            public const int fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList = 0x1567;
 
-            public const int fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList = 0x1507;
+            public const int fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList = 0x1021;
 
-            public const int fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupByText = 0x1508;
+            public const int fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupByText = 0x1022;
 
-            public const int fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithChanges = 0x1509;
+            public const int fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupWithChanges = 0x1023;
 
-            public const int fileMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithMirrorChanges = 0x150A;
+            public const int fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupWithMirrorChanges = 0x1024;
+
+            public const int fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList = 0x1507;
+
+            public const int fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupByText = 0x1508;
+
+            public const int fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupWithChanges = 0x1509;
+
+            public const int fileMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupWithMirrorChanges = 0x150A;
 
             public const int fileMenuWebResource_GroupEntityMetadata = 0x12FF;
 
@@ -1529,45 +1545,53 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int folderMenuWebResource_GroupOpenMultiAdd = 0x1065;
 
-            public const int folderMenuWebResource_GroupOpenMultiAdd_MenuOpen = 0x1066;
+            public const int folderMenuWebResource_GroupOpenMultiAdd_Menu = 0x1568;
 
-            public const int folderMenuWebResource_GroupOpenMultiAdd_MenuOpen_GroupByText = 0x1067;
+            public const int folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen = 0x1569;
 
-            public const int folderMenuWebResource_GroupOpenMultiAdd_MenuOpen_GroupWithChanges = 0x1068;
+            public const int folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen = 0x1066;
 
-            public const int folderMenuWebResource_GroupOpenMultiAdd_MenuOpen_GroupWithMirrorChanges = 0x1069;
+            public const int folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupByText = 0x1067;
 
-            public const int folderMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor = 0x106A;
+            public const int folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupWithChanges = 0x1068;
 
-            public const int folderMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupByText = 0x106B;
+            public const int folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupWithMirrorChanges = 0x1069;
 
-            public const int folderMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithChanges = 0x106C;
+            public const int folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor = 0x106A;
 
-            public const int folderMenuWebResource_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithMirrorChanges = 0x106D;
+            public const int folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupByText = 0x106B;
 
-            public const int folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference = 0x106E;
+            public const int folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithChanges = 0x106C;
 
-            public const int folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText = 0x106F;
+            public const int folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithMirrorChanges = 0x106D;
 
-            public const int folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges = 0x1070;
+            public const int folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference = 0x156A;
 
-            public const int folderMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges = 0x1071;
+            public const int folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference = 0x106E;
 
-            public const int folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList = 0x1072;
+            public const int folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupByText = 0x106F;
 
-            public const int folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupByText = 0x1073;
+            public const int folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithChanges = 0x1070;
 
-            public const int folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithChanges = 0x1074;
+            public const int folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithMirrorChanges = 0x1071;
 
-            public const int folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPublishList_GroupWithMirrorChanges = 0x1075;
+            public const int folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList = 0x156B;
 
-            public const int folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList = 0x150B;
+            public const int folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList = 0x1072;
 
-            public const int folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupByText = 0x150C;
+            public const int folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupByText = 0x1073;
 
-            public const int folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithChanges = 0x150D;
+            public const int folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupWithChanges = 0x1074;
 
-            public const int folderMenuWebResource_GroupOpenMultiAdd_MenuRemoveFromPublishList_GroupWithMirrorChanges = 0x150E;
+            public const int folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuAddIntoPublishList_GroupWithMirrorChanges = 0x1075;
+
+            public const int folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList = 0x150B;
+
+            public const int folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupByText = 0x150C;
+
+            public const int folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupWithChanges = 0x150D;
+
+            public const int folderMenuWebResource_GroupOpenMultiAdd_Menu_GroupPublishList_MenuRemoveFromPublishList_GroupWithMirrorChanges = 0x150E;
 
             public const int folderMenuWebResource_GroupEntityMetadata = 0x1305;
 
@@ -1905,29 +1929,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             public const int listForPublishMenu_GroupOpenMultiAdd = 0x10A3;
 
-            public const int listForPublishMenu_GroupOpenMultiAdd_MenuOpen = 0x10A4;
+            public const int listForPublishMenu_GroupOpenMultiAdd_Menu = 0x156C;
 
-            public const int listForPublishMenu_GroupOpenMultiAdd_MenuOpen_GroupByText = 0x10A5;
+            public const int listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen = 0x156D;
 
-            public const int listForPublishMenu_GroupOpenMultiAdd_MenuOpen_GroupWithChanges = 0x10A6;
+            public const int listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen = 0x10A4;
 
-            public const int listForPublishMenu_GroupOpenMultiAdd_MenuOpen_GroupWithMirrorChanges = 0x10A7;
+            public const int listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupByText = 0x10A5;
 
-            public const int listForPublishMenu_GroupOpenMultiAdd_MenuOpenInTextEditor = 0x10A8;
+            public const int listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupWithChanges = 0x10A6;
 
-            public const int listForPublishMenu_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupByText = 0x10A9;
+            public const int listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupWithMirrorChanges = 0x10A7;
 
-            public const int listForPublishMenu_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithChanges = 0x10AA;
+            public const int listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor = 0x10A8;
 
-            public const int listForPublishMenu_GroupOpenMultiAdd_MenuOpenInTextEditor_GroupWithMirrorChanges = 0x10AB;
+            public const int listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupByText = 0x10A9;
 
-            public const int listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference = 0x10AC;
+            public const int listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithChanges = 0x10AA;
 
-            public const int listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference_GroupByText = 0x10AD;
+            public const int listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpenInTextEditor_GroupWithMirrorChanges = 0x10AB;
 
-            public const int listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges = 0x10AE;
+            public const int listForPublishMenu_GroupOpenMultiAdd_Menu_GroupMultiDifference = 0x156E;
 
-            public const int listForPublishMenu_GroupOpenMultiAdd_MenuMultiDifference_GroupWithMirrorChanges = 0x10AF;
+            public const int listForPublishMenu_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference = 0x10AC;
+
+            public const int listForPublishMenu_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupByText = 0x10AD;
+
+            public const int listForPublishMenu_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithChanges = 0x10AE;
+
+            public const int listForPublishMenu_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference_GroupWithMirrorChanges = 0x10AF;
 
             public const int listForPublishMenu_GroupShowList = 0x10B0;
 
