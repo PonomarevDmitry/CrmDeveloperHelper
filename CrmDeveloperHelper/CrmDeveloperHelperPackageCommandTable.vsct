@@ -365,8 +365,14 @@
       <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupCompareFile_MenuConnectionWithDetailsDyn_Group" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupIncludeReferencesToDependencyXml" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupIncludeReferencesToDependencyXml_MenuConnectionDyn_Group" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuConnectionDyn_Group" priority="0x06000" />
+
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupLinkedSystemForm" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupLinkedSystemForm_MenuIncludeReferencesToFormLibrariesDyn_Group" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn_Group" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupConnectionDyn" priority="0x06000" />
+
       <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupEntityMetadata" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupEntityMetadata_MenuSchemaDyn_Group" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupGlobalOptionSetSingle" priority="0x06000" />
@@ -513,8 +519,14 @@
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupWebResourceDependencyXml" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupWebResourceDependencyXml_MenuIncludeReferencesToConnectionDyn_Group" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupWebResourceDependencyXml_MenuGetAttributeDependencyXmlDyn_Group" priority="0x06000"/>
-      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuConnectionDyn_Group" priority="0x06000" />
+
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLinkedSystemForm" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLinkedSystemForm_MenuIncludeReferencesToFormLibrariesDyn_Group" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn_Group" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupConnectionDyn" priority="0x06000" />
+
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEntityMetadata" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEntityMetadata_MenuConnectionDyn_Group" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupGlobalOptionSetSingle" priority="0x06000" />
@@ -701,8 +713,12 @@
       <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupIncludeReferencesToDependencyXml" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupIncludeReferencesToDependencyXml_MenuConnectionDyn_Group" priority="0x06000" />
 
-      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuConnectionDyn_Group" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLinkedSystemForm" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLinkedSystemForm_MenuIncludeReferencesToFormLibrariesDyn_Group" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn_Group" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupConnectionDyn" priority="0x06000" />
 
       <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEntityMetadata" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEntityMetadata_MenuEntityDyn_Group" priority="0x06000" />
@@ -899,13 +915,17 @@
       <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupIncludeReferences" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupIncludeReferences_MenuDyn_Group" priority="0x06000" />
 
-      <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupIncludeReferencesToLinkedSystemFormLibraries" priority="0x06000" />
-      <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuDyn_Group" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupLinkedSystemForm" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupLinkedSystemForm_MenuIncludeReferencesToFormLibrariesDyn_Group" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn_Group" priority="0x06000" />
+      <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupConnectionDyn" priority="0x06000" />
 
       <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd" priority="0x06000" />
-      
+
       <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen" priority="0x06000" />
-      
+
       <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupByText" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupWithChanges" priority="0x06000" />
       <Group guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupWithMirrorChanges" priority="0x06000" />
@@ -2320,11 +2340,32 @@
         </Strings>
       </Menu>
 
-      <Menu guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuConnectionDyn" priority="0x06000" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupLinkedSystemForm_MenuIncludeReferencesToFormLibrariesDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Include References to Linked SystemForms Libraries in Connection Group</ButtonText>
           <MenuText>Include References to Linked SystemForms Libraries in Connection Group</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Linked SystemForms</ButtonText>
+          <MenuText>Linked SystemForms</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Add to Crm Solution</ButtonText>
+          <MenuText>Add to Crm Solution</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Last Selected Crm Solution</ButtonText>
+          <MenuText>Last Selected Crm Solution</MenuText>
         </Strings>
       </Menu>
 
@@ -2799,11 +2840,32 @@
         </Strings>
       </Menu>
 
-      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuConnectionDyn" priority="0x06000" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLinkedSystemForm_MenuIncludeReferencesToFormLibrariesDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Include References to Linked SystemForms Libraries in Connection Group</ButtonText>
           <MenuText>Include References to Linked SystemForms Libraries in Connection Group</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Linked SystemForms</ButtonText>
+          <MenuText>Linked SystemForms</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Add to Crm Solution</ButtonText>
+          <MenuText>Add to Crm Solution</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Last Selected Crm Solution</ButtonText>
+          <MenuText>Last Selected Crm Solution</MenuText>
         </Strings>
       </Menu>
 
@@ -3344,11 +3406,32 @@
         </Strings>
       </Menu>
 
-      <Menu guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuConnectionDyn" priority="0x06000" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLinkedSystemForm_MenuIncludeReferencesToFormLibrariesDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Include References to Linked SystemForms Libraries in Connection Group (Recursive)</ButtonText>
           <MenuText>Include References to Linked SystemForms Libraries in Connection Group (Recursive)</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Linked SystemForms (Recursive)</ButtonText>
+          <MenuText>Linked SystemForms (Recursive)</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Add to Crm Solution (Recursive)</ButtonText>
+          <MenuText>Add to Crm Solution (Recursive)</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Last Selected Crm Solution</ButtonText>
+          <MenuText>Last Selected Crm Solution</MenuText>
         </Strings>
       </Menu>
 
@@ -3981,11 +4064,33 @@
         </Strings>
       </Menu>
 
-      <Menu guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuDyn" priority="0x06000" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupLinkedSystemForm_MenuIncludeReferencesToFormLibrariesDyn" priority="0x06000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <ButtonText>Include References to Linked SystemForms Libraries in Connection Group</ButtonText>
           <MenuText>Include References to Linked SystemForms Libraries in Connection Group</MenuText>
+        </Strings>
+      </Menu>
+
+      <Menu guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupLinkedSystemForm_MenuActionOnForm" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Linked SystemForms</ButtonText>
+          <MenuText>Linked SystemForms</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Add to Crm Solution</ButtonText>
+          <MenuText>Add to Crm Solution</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn" priority="0x06000" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Last Selected Crm Solution</ButtonText>
+          <MenuText>Last Selected Crm Solution</MenuText>
         </Strings>
       </Menu>
 
@@ -7527,6 +7632,36 @@
         </Strings>
       </Button>
 
+      <Button guid="guidDynamicCommandSet" id="DocumentsJavaScriptLinkedSystemFormAddToSolutionLastCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>DocumentsJavaScriptLinkedSystemFormAddToSolutionLastCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="DocumentsJavaScriptLinkedSystemFormAddToSolutionInConnectionCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>DocumentsJavaScriptLinkedSystemFormAddToSolutionInConnectionCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+
+
+
+
+
+
+
+
       <Button guid="guidCommandSet" id="DocumentsJavaScriptFileGenerationOptionsCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -8661,6 +8796,29 @@
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>FileJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidDynamicCommandSet" id="FileJavaScriptLinkedSystemFormAddToSolutionLastCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>FileJavaScriptLinkedSystemFormAddToSolutionLastCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="FileJavaScriptLinkedSystemFormAddToSolutionInConnectionCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>FileJavaScriptLinkedSystemFormAddToSolutionInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -9854,6 +10012,31 @@
         </Strings>
       </Button>
 
+      <Button guid="guidDynamicCommandSet" id="FolderJavaScriptLinkedSystemFormAddToSolutionLastCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>FolderJavaScriptLinkedSystemFormAddToSolutionLastCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="FolderJavaScriptLinkedSystemFormAddToSolutionInConnectionCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>FolderJavaScriptLinkedSystemFormAddToSolutionInConnectionCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+
+
+
       <Button guid="guidCommandSet" id="FolderJavaScriptFileGenerationOptionsCommandId" priority="0x06000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -10992,6 +11175,29 @@
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>ListForPublishPerformIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidDynamicCommandSet" id="ListForPublishJavaScriptLinkedSystemFormAddToSolutionLastCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>ListForPublishJavaScriptLinkedSystemFormAddToSolutionLastCommandId Placeholder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="ListForPublishJavaScriptLinkedSystemFormAddToSolutionInConnectionCommandId" priority="0x06000" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>ListForPublishJavaScriptLinkedSystemFormAddToSolutionInConnectionCommandId Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -15624,7 +15830,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupIncludeReferencesToDependencyXml" priority="0x06030">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries" priority="0x06040">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupLinkedSystemForm" priority="0x06040">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd" priority="0x06050">
@@ -15706,13 +15912,43 @@
     <!-- #region CommandPlacements documentsMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries -->
 
     <CommandPlacement guid="guidCommandSet" id="DocumentsJavaScriptIncludeReferencesToLinkedSystemFormCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries" />
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupLinkedSystemForm" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuConnectionDyn" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupLinkedSystemForm_MenuIncludeReferencesToFormLibrariesDyn" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupLinkedSystemForm" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupLinkedSystemForm" />
     </CommandPlacement>
 
     <!-- #endregion CommandPlacements documentsMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries -->
+
+    <!-- #region CommandPlacements documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm -->
+
+    <!-- #region CommandPlacements documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution -->
+
+    <!-- #region CommandPlacements documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupConnectionDyn" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu -->
 
 
 
@@ -16307,7 +16543,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupWebResourceDependencyXml" priority="0x06050">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries" priority="0x06060">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLinkedSystemForm" priority="0x06060">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd" priority="0x06070">
@@ -16444,13 +16680,43 @@
     <!-- #region CommandPlacements fileMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries -->
 
     <CommandPlacement guid="guidCommandSet" id="FileJavaScriptIncludeReferencesToLinkedSystemFormCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries" />
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLinkedSystemForm" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuConnectionDyn" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLinkedSystemForm_MenuIncludeReferencesToFormLibrariesDyn" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLinkedSystemForm" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm" priority="0x06020">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLinkedSystemForm" />
     </CommandPlacement>
 
     <!-- #endregion CommandPlacements fileMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries -->
+
+    <!-- #region CommandPlacements fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm -->
+
+    <!-- #region CommandPlacements fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution -->
+
+    <!-- #region CommandPlacements fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupConnectionDyn" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu -->
 
 
 
@@ -17267,7 +17533,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupIncludeReferencesToDependencyXml" priority="0x06030">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries" priority="0x06040">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLinkedSystemForm" priority="0x06040">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd" priority="0x06050">
@@ -17348,13 +17614,43 @@
     <!-- #region CommandPlacements folderMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries -->
 
     <CommandPlacement guid="guidCommandSet" id="FolderJavaScriptIncludeReferencesToLinkedSystemFormCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries" />
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLinkedSystemForm" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuConnectionDyn" priority="0x06010">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLinkedSystemForm_MenuIncludeReferencesToFormLibrariesDyn" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLinkedSystemForm" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLinkedSystemForm" />
     </CommandPlacement>
 
     <!-- #endregion CommandPlacements folderMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries -->
+
+    <!-- #region CommandPlacements folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm -->
+
+    <!-- #region CommandPlacements folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution -->
+
+    <!-- #region CommandPlacements folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupConnectionDyn" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu -->
 
 
 
@@ -18177,7 +18473,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupIncludeReferences" priority="0x06020">
       <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupIncludeReferencesToLinkedSystemFormLibraries" priority="0x06030">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupLinkedSystemForm" priority="0x06030">
       <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupAddToSolution" priority="0x06040">
@@ -18280,7 +18576,7 @@
 
     <!-- #endregion CommandPlacements listForPublishMenu_GroupOpenMultiAdd_Menu_GroupMultiDifference_MenuMultiDifference -->
 
-    
+
 
     <!-- #region CommandPlacements listForPublishMenu_GroupCompareFile -->
 
@@ -18312,11 +18608,41 @@
 
     <!-- #region CommandPlacements listForPublishMenu_GroupIncludeReferencesToLinkedSystemFormLibraries -->
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuDyn" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupIncludeReferencesToLinkedSystemFormLibraries" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupLinkedSystemForm_MenuIncludeReferencesToFormLibrariesDyn" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupLinkedSystemForm" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupLinkedSystemForm_MenuActionOnForm" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupLinkedSystemForm" />
     </CommandPlacement>
 
     <!-- #endregion CommandPlacements listForPublishMenu_GroupIncludeReferencesToLinkedSystemFormLibraries -->
+
+    <!-- #region CommandPlacements listForPublishMenu_GroupLinkedSystemForm_MenuActionOnForm -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupLinkedSystemForm_MenuActionOnForm" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements listForPublishMenu_GroupLinkedSystemForm_MenuActionOnForm -->
+
+    <!-- #region CommandPlacements listForPublishMenu_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements listForPublishMenu_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution -->
+
+    <!-- #region CommandPlacements listForPublishMenu_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu -->
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupConnectionDyn" priority="0x06010">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu" />
+    </CommandPlacement>
+
+    <!-- #endregion CommandPlacements listForPublishMenu_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu -->
 
 
 
@@ -19928,12 +20254,29 @@
     </CommandPlacement>
 
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuDyn_Group" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuDyn" />
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupLinkedSystemForm_MenuIncludeReferencesToFormLibrariesDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupLinkedSystemForm_MenuIncludeReferencesToFormLibrariesDyn" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishPerformIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuDyn_Group" />
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupLinkedSystemForm_MenuIncludeReferencesToFormLibrariesDyn_Group" />
     </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishJavaScriptLinkedSystemFormAddToSolutionLastCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn_Group" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishJavaScriptLinkedSystemFormAddToSolutionInConnectionCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupConnectionDyn" />
+    </CommandPlacement>
+
+
 
     <CommandPlacement guid="guidDynamicCommandSet" id="ListForPublishOpenFilesByTypeOrdinalCommandId" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="listForPublishMenu_GroupOpenMultiAdd_Menu_GroupOpen_MenuOpen_GroupByText" />
@@ -21059,12 +21402,32 @@
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupIncludeReferencesToDependencyXml_MenuConnectionDyn_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuConnectionDyn_Group" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuConnectionDyn" />
+
+
+
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupLinkedSystemForm_MenuIncludeReferencesToFormLibrariesDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupLinkedSystemForm_MenuIncludeReferencesToFormLibrariesDyn" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuConnectionDyn_Group" />
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupLinkedSystemForm_MenuIncludeReferencesToFormLibrariesDyn_Group" />
     </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsJavaScriptLinkedSystemFormAddToSolutionLastCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn_Group" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsJavaScriptLinkedSystemFormAddToSolutionInConnectionCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupConnectionDyn" />
+    </CommandPlacement>
+
+
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupAddToSolution_MenuAddToSolution_GroupLastSolution_MenuLastSolutionDyn" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupAddToSolution_MenuAddToSolution_GroupLastSolution" />
@@ -21443,12 +21806,30 @@
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupWebResourceDependencyXml_MenuGetAttributeDependencyXmlDyn_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuConnectionDyn_Group" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuConnectionDyn" />
+
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLinkedSystemForm_MenuIncludeReferencesToFormLibrariesDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLinkedSystemForm_MenuIncludeReferencesToFormLibrariesDyn" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="FileJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuConnectionDyn_Group" />
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLinkedSystemForm_MenuIncludeReferencesToFormLibrariesDyn_Group" />
     </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileJavaScriptLinkedSystemFormAddToSolutionLastCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn_Group" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileJavaScriptLinkedSystemFormAddToSolutionInConnectionCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupConnectionDyn" />
+    </CommandPlacement>
+
+
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu_Group1_MenuCreateEntityDescriptionDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupActionOnComponent_Menu_Group1_MenuCreateEntityDescriptionDyn" />
@@ -21978,12 +22359,30 @@
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupIncludeReferencesToDependencyXml_MenuConnectionDyn_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuConnectionDyn_Group" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuConnectionDyn" />
+
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLinkedSystemForm_MenuIncludeReferencesToFormLibrariesDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLinkedSystemForm_MenuIncludeReferencesToFormLibrariesDyn" />
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="FolderJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId" priority="0x06000">
-      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuConnectionDyn_Group" />
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLinkedSystemForm_MenuIncludeReferencesToFormLibrariesDyn_Group" />
     </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn_Group" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="FolderJavaScriptLinkedSystemFormAddToSolutionLastCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn_Group" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidDynamicCommandSet" id="FolderJavaScriptLinkedSystemFormAddToSolutionInConnectionCommandId" priority="0x06000">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupConnectionDyn" />
+    </CommandPlacement>
+
+
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEntityMetadata_MenuEntityDyn_Group" priority="0x06000">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEntityMetadata_MenuEntityDyn" />
@@ -23434,6 +23833,7 @@
       <IDSymbol name="codeMenuWebResource_GroupLinkedSystemForm_MenuIncludeReferencesToFormLibrariesDyn_Group" value="0x14D9" />
 
       <IDSymbol name="codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm" value="0x1406" />
+
       <IDSymbol name="codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupOpenInWebOrExplorer" value="0x1407" />
 
       <IDSymbol name="codeMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupOpenInWebOrExplorer_MenuOpenInWebConnectionDyn" value="0x1408" />
@@ -24005,9 +24405,24 @@
       <IDSymbol name="documentsMenuWebResource_GroupIncludeReferencesToDependencyXml_MenuConnectionDyn" value="0x14D3" />
       <IDSymbol name="documentsMenuWebResource_GroupIncludeReferencesToDependencyXml_MenuConnectionDyn_Group" value="0x14D4" />
 
-      <IDSymbol name="documentsMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries" value="0x14DD" />
-      <IDSymbol name="documentsMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuConnectionDyn" value="0x14DE" />
-      <IDSymbol name="documentsMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuConnectionDyn_Group" value="0x14DF" />
+      <IDSymbol name="documentsMenuWebResource_GroupLinkedSystemForm" value="0x14DD" />
+
+      <IDSymbol name="documentsMenuWebResource_GroupLinkedSystemForm_MenuIncludeReferencesToFormLibrariesDyn" value="0x14DE" />
+      <IDSymbol name="documentsMenuWebResource_GroupLinkedSystemForm_MenuIncludeReferencesToFormLibrariesDyn_Group" value="0x14DF" />
+
+      <IDSymbol name="documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm" value="0x156F" />
+
+      <IDSymbol name="documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution" value="0x1570" />
+
+      <IDSymbol name="documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu" value="0x1571" />
+
+      <IDSymbol name="documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution" value="0x1572" />
+      <IDSymbol name="documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn" value="0x1573" />
+      <IDSymbol name="documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn_Group" value="0x1574" />
+
+      <IDSymbol name="documentsMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupConnectionDyn" value="0x1575" />
+
+
 
       <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd" value="0x1172" />
 
@@ -24274,9 +24689,22 @@
       <IDSymbol name="fileMenuWebResource_GroupWebResourceDependencyXml_MenuGetAttributeDependencyXmlDyn" value="0x14E5" />
       <IDSymbol name="fileMenuWebResource_GroupWebResourceDependencyXml_MenuGetAttributeDependencyXmlDyn_Group" value="0x14E6" />
 
-      <IDSymbol name="fileMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries" value="0x14DA" />
-      <IDSymbol name="fileMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuConnectionDyn" value="0x14DB" />
-      <IDSymbol name="fileMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuConnectionDyn_Group" value="0x14DC" />
+      <IDSymbol name="fileMenuWebResource_GroupLinkedSystemForm" value="0x14DA" />
+
+      <IDSymbol name="fileMenuWebResource_GroupLinkedSystemForm_MenuIncludeReferencesToFormLibrariesDyn" value="0x14DB" />
+      <IDSymbol name="fileMenuWebResource_GroupLinkedSystemForm_MenuIncludeReferencesToFormLibrariesDyn_Group" value="0x14DC" />
+
+      <IDSymbol name="fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm" value="0x1576" />
+
+      <IDSymbol name="fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution" value="0x1577" />
+
+      <IDSymbol name="fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu" value="0x1578" />
+
+      <IDSymbol name="fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution" value="0x1579" />
+      <IDSymbol name="fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn" value="0x157A" />
+      <IDSymbol name="fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn_Group" value="0x157B" />
+
+      <IDSymbol name="fileMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupConnectionDyn" value="0x157C" />
 
       <IDSymbol name="fileMenuWebResource_GroupOpenMultiAdd" value="0x1014" />
 
@@ -24605,9 +25033,22 @@
       <IDSymbol name="folderMenuWebResource_GroupIncludeReferencesToDependencyXml_MenuConnectionDyn" value="0x14D6" />
       <IDSymbol name="folderMenuWebResource_GroupIncludeReferencesToDependencyXml_MenuConnectionDyn_Group" value="0x14D7" />
 
-      <IDSymbol name="folderMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries" value="0x14E0" />
-      <IDSymbol name="folderMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuConnectionDyn" value="0x14E1" />
-      <IDSymbol name="folderMenuWebResource_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuConnectionDyn_Group" value="0x14E2" />
+      <IDSymbol name="folderMenuWebResource_GroupLinkedSystemForm" value="0x14E0" />
+
+      <IDSymbol name="folderMenuWebResource_GroupLinkedSystemForm_MenuIncludeReferencesToFormLibrariesDyn" value="0x14E1" />
+      <IDSymbol name="folderMenuWebResource_GroupLinkedSystemForm_MenuIncludeReferencesToFormLibrariesDyn_Group" value="0x14E2" />
+
+      <IDSymbol name="folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm" value="0x157D" />
+
+      <IDSymbol name="folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution" value="0x157E" />
+
+      <IDSymbol name="folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu" value="0x157F" />
+
+      <IDSymbol name="folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution" value="0x1580" />
+      <IDSymbol name="folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn" value="0x1581" />
+      <IDSymbol name="folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn_Group" value="0x1582" />
+
+      <IDSymbol name="folderMenuWebResource_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupConnectionDyn" value="0x1583" />
 
       <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd" value="0x1065" />
 
@@ -24942,9 +25383,22 @@
       <IDSymbol name="listForPublishMenu_GroupIncludeReferences_MenuDyn" value="0x14FA" />
       <IDSymbol name="listForPublishMenu_GroupIncludeReferences_MenuDyn_Group" value="0x14FB" />
 
-      <IDSymbol name="listForPublishMenu_GroupIncludeReferencesToLinkedSystemFormLibraries" value="0x14FC" />
-      <IDSymbol name="listForPublishMenu_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuDyn" value="0x14FD" />
-      <IDSymbol name="listForPublishMenu_GroupIncludeReferencesToLinkedSystemFormLibraries_MenuDyn_Group" value="0x14FE" />
+      <IDSymbol name="listForPublishMenu_GroupLinkedSystemForm" value="0x14FC" />
+
+      <IDSymbol name="listForPublishMenu_GroupLinkedSystemForm_MenuIncludeReferencesToFormLibrariesDyn" value="0x14FD" />
+      <IDSymbol name="listForPublishMenu_GroupLinkedSystemForm_MenuIncludeReferencesToFormLibrariesDyn_Group" value="0x14FE" />
+
+      <IDSymbol name="listForPublishMenu_GroupLinkedSystemForm_MenuActionOnForm" value="0x1584" />
+
+      <IDSymbol name="listForPublishMenu_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution" value="0x1585" />
+
+      <IDSymbol name="listForPublishMenu_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu" value="0x1586" />
+
+      <IDSymbol name="listForPublishMenu_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution" value="0x1587" />
+      <IDSymbol name="listForPublishMenu_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn" value="0x1588" />
+      <IDSymbol name="listForPublishMenu_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupLastSolution_MenuLastSolutionDyn_Group" value="0x1589" />
+
+      <IDSymbol name="listForPublishMenu_GroupLinkedSystemForm_MenuActionOnForm_GroupAddToSolution_Menu_GroupConnectionDyn" value="0x158A" />
 
       <IDSymbol name="listForPublishMenu_GroupOpenMultiAdd" value="0x10A3" />
 
@@ -25798,6 +26252,10 @@
 
       <IDSymbol name="DocumentsJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId" value="16000" />
 
+      <IDSymbol name="DocumentsJavaScriptLinkedSystemFormAddToSolutionInConnectionCommandId" value="18200" />
+
+      <IDSymbol name="DocumentsJavaScriptLinkedSystemFormAddToSolutionLastCommandId" value="18250" />
+
       <!-- #endregion DocumentsJavaScript Commands Dynamic Definitions -->
 
       <!-- #region DocumentsXml Commands Dynamic Definitions -->
@@ -25923,6 +26381,9 @@
 
       <IDSymbol name="FileJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId" value="15950" />
 
+      <IDSymbol name="FileJavaScriptLinkedSystemFormAddToSolutionInConnectionCommandId" value="18300" />
+      <IDSymbol name="FileJavaScriptLinkedSystemFormAddToSolutionLastCommandId" value="18350" />
+
       <!-- #endregion FileJavaScript Commands Dynamic Definitions -->
 
       <!-- #region FileXml Commands Dynamic Definitions -->
@@ -26042,6 +26503,9 @@
 
       <IDSymbol name="FolderJavaScriptIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId" value="16050" />
 
+      <IDSymbol name="FolderJavaScriptLinkedSystemFormAddToSolutionInConnectionCommandId" value="18400" />
+      <IDSymbol name="FolderJavaScriptLinkedSystemFormAddToSolutionLastCommandId" value="18450" />
+
       <!-- #endregion FolderJavaScript Commands Dynamic Definitions -->
 
       <!-- #region FolderXml Commands Dynamic Definitions -->
@@ -26122,6 +26586,9 @@
       <IDSymbol name="ListForPublishPerformIncludeReferencesToDependencyXmlInConnectionGroupCommandId" value="16550" />
 
       <IDSymbol name="ListForPublishPerformIncludeReferencesToLinkedSystemFormInConnectionGroupCommandId" value="16600" />
+      
+      <IDSymbol name="ListForPublishJavaScriptLinkedSystemFormAddToSolutionInConnectionCommandId" value="18500" />
+      <IDSymbol name="ListForPublishJavaScriptLinkedSystemFormAddToSolutionLastCommandId" value="18550" />
 
       <IDSymbol name="ListForPublishAddToSolutionInConnectionCommandId" value="7800" />
 
@@ -26950,13 +27417,13 @@
 
 
     <!-- Groups and Menus -->
-    <!-- 0x156F -->
+    <!-- 0x158B -->
 
     <!-- Commands -->
     <!-- 0x227E -->
 
     <!-- Commands Dynamic -->
-    <!-- 18200 -->
+    <!-- 18600 -->
 
     <!-- 16905 - 16950 -->
 

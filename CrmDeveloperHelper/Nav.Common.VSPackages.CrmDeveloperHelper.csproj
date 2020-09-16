@@ -119,6 +119,8 @@
     <Compile Include="Commands\Connections\CommonCrmConnectionSelectFileCommand.cs" />
     <Compile Include="Commands\CSharp\CSharpPluginStepsExplorerCommand.cs" />
     <Compile Include="Commands\Explorers\CommonPluginStepsExplorerCommand.cs" />
+    <Compile Include="Commands\ListForPublish\ListForPublishJavaScriptLinkedSystemFormAddToSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\ListForPublish\ListForPublishJavaScriptLinkedSystemFormAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\OutputWindows\Explorers\OutputPluginStepsExplorerCommand.cs" />
     <Compile Include="Commands\OutputWindows\OutputCrmConnectionPoolClearCommand.cs" />
     <Compile Include="Commands\OutputWindows\OutputCrmConnectionOpenInfoFolderCommand.cs" />
@@ -179,6 +181,8 @@
     <Compile Include="Commands\WebResources\JavaScripts\JavaScriptIncludeReferencesToDependencyXmlCommand.cs" />
     <Compile Include="Commands\WebResources\JavaScripts\JavaScriptIncludeReferencesToDependencyXmlInConnectionGroupCommand.cs" />
     <Compile Include="Commands\WebResources\JavaScripts\JavaScriptIncludeReferencesToLinkedSystemFormCommand.cs" />
+    <Compile Include="Commands\WebResources\JavaScripts\JavaScriptLinkedSystemFormAddToSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\WebResources\JavaScripts\JavaScriptLinkedSystemFormAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\WebResources\JavaScripts\JavaScriptUpdateContentIncludeReferencesPublishCommand.cs" />
     <Compile Include="Commands\WebResources\JavaScripts\JavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupWithCurrentCommand.cs" />
     <Compile Include="Commands\WebResources\JavaScripts\JavaScriptUpdateContentIncludeReferencesPublishInConnectionGroupWithoutCurrentCommand.cs" />

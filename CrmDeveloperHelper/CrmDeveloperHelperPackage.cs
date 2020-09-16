@@ -213,6 +213,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
 
 
+            JavaScriptLinkedSystemFormAddToSolutionInConnectionCommand.Initialize,
+            JavaScriptLinkedSystemFormAddToSolutionLastCommand.Initialize,
 
             JavaScriptUpdateEntityMetadataFileCommand.Initialize,
             JavaScriptUpdateEntityMetadataFileWithSelectCommand.Initialize,
@@ -526,6 +528,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             ListForPublishPerformIncludeReferencesToDependencyXmlInConnectionGroupCommand.Initialize,
             ListForPublishPerformIncludeReferencesToLinkedSystemFormInConnectionGroupCommand.Initialize,
+
+            ListForPublishJavaScriptLinkedSystemFormAddToSolutionInConnectionCommand.Initialize,
+            ListForPublishJavaScriptLinkedSystemFormAddToSolutionLastCommand.Initialize,
 
             ListForPublishShowListCommand.Initialize,
 
