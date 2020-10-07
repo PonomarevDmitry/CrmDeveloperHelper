@@ -157,10 +157,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 textName = textName.ToLower();
 
-                list = list.Where(ent =>
+                if (Guid.TryParse(textName, out Guid tempGuid))
                 {
-                    return ent.Name.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1;
-                });
+                    list = list.Where(ent => ent.Id == tempGuid || ent.OrganizationId == tempGuid);
+                }
+                else
+                {
+                    list = list.Where(ent =>
+                    {
+                        return ent.Name.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1;
+                    });
+                }
             }
 
             return list;
