@@ -194,7 +194,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (!string.IsNullOrEmpty(name))
             {
-                query.Criteria.AddCondition(SdkMessage.Schema.Attributes.name, ConditionOperator.Like, name + "%");
+                if (Guid.TryParse(name, out var id))
+                {
+                    query.Criteria.Filters.Add(new FilterExpression()
+                    {
+                        FilterOperator = LogicalOperator.Or,
+                        Conditions =
+                        {
+                            new ConditionExpression(SdkMessage.Schema.Attributes.sdkmessageid, ConditionOperator.Equal, id),
+                            new ConditionExpression(SdkMessage.Schema.Attributes.sdkmessageidunique, ConditionOperator.Equal, id),
+                        },
+                    });
+                }
+                else
+                {
+                    query.Criteria.AddCondition(SdkMessage.Schema.Attributes.name, ConditionOperator.Like, name + "%");
+                }
             }
 
             return _service.RetrieveMultipleAll<SdkMessage>(query);

@@ -267,7 +267,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 Columns = new ColumnSet(SdkMessage.EntityPrimaryIdAttribute, SdkMessage.Schema.Attributes.name, SdkMessage.Schema.Attributes.categoryname),
             };
 
-            QueryExpression query = new QueryExpression()
+            var query = new QueryExpression()
             {
                 NoLock = true,
 
@@ -283,7 +283,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (!string.IsNullOrEmpty(messageName))
             {
-                linkMessage.LinkCriteria.Conditions.Add(new ConditionExpression(SdkMessage.Schema.Attributes.name, ConditionOperator.Like, messageName + "%"));
+                if (Guid.TryParse(messageName, out var id))
+                {
+                    query.Criteria.Filters.Add(new FilterExpression()
+                    {
+                        FilterOperator = LogicalOperator.Or,
+                        Conditions =
+                        {
+                            new ConditionExpression(SdkMessageFilter.Schema.Attributes.sdkmessagefilterid, ConditionOperator.Equal, id),
+                            new ConditionExpression(SdkMessageFilter.Schema.Attributes.sdkmessagefilteridunique, ConditionOperator.Equal, id),
+                        },
+                    });
+                }
+                else
+                {
+                    linkMessage.LinkCriteria.Conditions.Add(new ConditionExpression(SdkMessage.Schema.Attributes.name, ConditionOperator.Like, messageName + "%"));
+                }
             }
 
             var result = _service.RetrieveMultipleAll<SdkMessageFilter>(query);
