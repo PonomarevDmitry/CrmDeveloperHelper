@@ -49,7 +49,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             , nameof(EntityMetadata.SyncToExternalSearchIndex)
             , nameof(EntityMetadata.IsActivity)
             , nameof(EntityMetadata.AutoCreateAccessTeams)
-            , nameof(EntityMetadata.IsMSTeamsIntegrationEnabled)
+            //, nameof(EntityMetadata.IsMSTeamsIntegrationEnabled)
             , nameof(EntityMetadata.IsDocumentRecommendationsEnabled)
             , nameof(EntityMetadata.IsBPFEntity)
             , nameof(EntityMetadata.IsSLAEnabled)
@@ -67,7 +67,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             , nameof(EntityMetadata.IsBusinessProcessEnabled)
             , nameof(EntityMetadata.IsCustomEntity)
             , nameof(EntityMetadata.IsAIRUpdated)
-            , nameof(EntityMetadata.IsSolutionAware)
+            //, nameof(EntityMetadata.IsSolutionAware)
 
             , nameof(EntityMetadata.IsOfflineInMobileClient)
             , nameof(EntityMetadata.IsReadOnlyInMobileClient)

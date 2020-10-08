@@ -46,7 +46,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             , nameof(SyncToExternalSearchIndex)
             , nameof(IsActivity)
             , nameof(AutoCreateAccessTeams)
-            , nameof(IsMSTeamsIntegrationEnabled)
+            //, nameof(IsMSTeamsIntegrationEnabled)
             , nameof(IsDocumentRecommendationsEnabled)
             , nameof(IsBPFEntity)
             , nameof(IsSLAEnabled)
@@ -60,7 +60,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             , nameof(IsAvailableOffline)
             , nameof(HasFeedback)
             , nameof(IsBusinessProcessEnabled)
-            , nameof(IsSolutionAware)
+            //, nameof(IsSolutionAware)
         };
 
         private EntityMetadata _EntityMetadata;
@@ -111,7 +111,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 this._initialSyncToExternalSearchIndex = EntityMetadata.SyncToExternalSearchIndex.GetValueOrDefault();
                 this._initialIsActivity = EntityMetadata.IsActivity.GetValueOrDefault();
                 this._initialAutoCreateAccessTeams = EntityMetadata.AutoCreateAccessTeams.GetValueOrDefault();
-                this._initialIsMSTeamsIntegrationEnabled = EntityMetadata.IsMSTeamsIntegrationEnabled.GetValueOrDefault();
+                //this._initialIsMSTeamsIntegrationEnabled = EntityMetadata.IsMSTeamsIntegrationEnabled.GetValueOrDefault();
                 this._initialIsDocumentRecommendationsEnabled = EntityMetadata.IsDocumentRecommendationsEnabled.GetValueOrDefault();
                 this._initialIsBPFEntity = EntityMetadata.IsBPFEntity.GetValueOrDefault();
                 this._initialIsSLAEnabled = EntityMetadata.IsSLAEnabled.GetValueOrDefault();
@@ -125,7 +125,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 this._initialIsAvailableOffline = EntityMetadata.IsAvailableOffline.GetValueOrDefault();
                 this._initialHasFeedback = EntityMetadata.HasFeedback.GetValueOrDefault();
                 this._initialIsBusinessProcessEnabled = EntityMetadata.IsBusinessProcessEnabled.GetValueOrDefault();
-                this._initialIsSolutionAware = EntityMetadata.IsSolutionAware.GetValueOrDefault();
+                //this._initialIsSolutionAware = EntityMetadata.IsSolutionAware.GetValueOrDefault();
 
 
                 //this._initialIsValidForGrid = EntityMetadata.IsValidForGrid.GetValueOrDefault();
@@ -232,10 +232,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 return true;
             }
 
-            if (_initialIsMSTeamsIntegrationEnabled != EntityMetadata.IsMSTeamsIntegrationEnabled.GetValueOrDefault())
-            {
-                return true;
-            }
+            //if (_initialIsMSTeamsIntegrationEnabled != EntityMetadata.IsMSTeamsIntegrationEnabled.GetValueOrDefault())
+            //{
+            //    return true;
+            //}
 
             if (_initialIsDocumentRecommendationsEnabled != EntityMetadata.IsDocumentRecommendationsEnabled.GetValueOrDefault())
             {
@@ -302,10 +302,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 return true;
             }
 
-            if (_initialIsSolutionAware != EntityMetadata.IsSolutionAware.GetValueOrDefault())
-            {
-                return true;
-            }
+            //if (_initialIsSolutionAware != EntityMetadata.IsSolutionAware.GetValueOrDefault())
+            //{
+            //    return true;
+            //}
 
             //if (_initialHasNotes != EntityMetadata.HasNotes.GetValueOrDefault())
             //{
@@ -644,23 +644,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private bool? _initialIsMSTeamsIntegrationEnabled;
+        //private bool? _initialIsMSTeamsIntegrationEnabled;
 
-        public bool IsMSTeamsIntegrationEnabled
-        {
-            get => EntityMetadata.IsMSTeamsIntegrationEnabled.GetValueOrDefault();
-            set
-            {
-                if (EntityMetadata.IsMSTeamsIntegrationEnabled == value)
-                {
-                    return;
-                }
+        //public bool IsMSTeamsIntegrationEnabled
+        //{
+        //    get => EntityMetadata.IsMSTeamsIntegrationEnabled.GetValueOrDefault();
+        //    set
+        //    {
+        //        if (EntityMetadata.IsMSTeamsIntegrationEnabled == value)
+        //        {
+        //            return;
+        //        }
 
-                this.OnPropertyChanging(nameof(IsMSTeamsIntegrationEnabled));
-                this.EntityMetadata.IsMSTeamsIntegrationEnabled = value;
-                this.OnPropertyChanged(nameof(IsMSTeamsIntegrationEnabled));
-            }
-        }
+        //        this.OnPropertyChanging(nameof(IsMSTeamsIntegrationEnabled));
+        //        this.EntityMetadata.IsMSTeamsIntegrationEnabled = value;
+        //        this.OnPropertyChanged(nameof(IsMSTeamsIntegrationEnabled));
+        //    }
+        //}
 
         private bool? _initialIsDocumentRecommendationsEnabled;
 
@@ -896,23 +896,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private bool? _initialIsSolutionAware;
+        //private bool? _initialIsSolutionAware;
 
-        public bool IsSolutionAware
-        {
-            get => EntityMetadata.IsSolutionAware.GetValueOrDefault();
-            set
-            {
-                if (EntityMetadata.IsSolutionAware == value)
-                {
-                    return;
-                }
+        //public bool IsSolutionAware
+        //{
+        //    get => EntityMetadata.IsSolutionAware.GetValueOrDefault();
+        //    set
+        //    {
+        //        if (EntityMetadata.IsSolutionAware == value)
+        //        {
+        //            return;
+        //        }
 
-                this.OnPropertyChanging(nameof(IsSolutionAware));
-                this.EntityMetadata.IsSolutionAware = value;
-                this.OnPropertyChanged(nameof(IsSolutionAware));
-            }
-        }
+        //        this.OnPropertyChanging(nameof(IsSolutionAware));
+        //        this.EntityMetadata.IsSolutionAware = value;
+        //        this.OnPropertyChanged(nameof(IsSolutionAware));
+        //    }
+        //}
 
         //private bool? _initialIsSecured;
 

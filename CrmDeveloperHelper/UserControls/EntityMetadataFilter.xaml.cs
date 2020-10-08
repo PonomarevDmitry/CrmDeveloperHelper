@@ -36,7 +36,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             , { nameof(EntityMetadata.SyncToExternalSearchIndex)            , e => e.SyncToExternalSearchIndex.HasValue           && e.SyncToExternalSearchIndex.Value             }
             , { nameof(EntityMetadata.IsActivity)                           , e => e.IsActivity.HasValue                          && e.IsActivity.Value                            }
             , { nameof(EntityMetadata.AutoCreateAccessTeams)                , e => e.AutoCreateAccessTeams.HasValue               && e.AutoCreateAccessTeams.Value                 }
-            , { nameof(EntityMetadata.IsMSTeamsIntegrationEnabled)          , e => e.IsMSTeamsIntegrationEnabled.HasValue         && e.IsMSTeamsIntegrationEnabled.Value           }
+            //, { nameof(EntityMetadata.IsMSTeamsIntegrationEnabled)          , e => e.IsMSTeamsIntegrationEnabled.HasValue         && e.IsMSTeamsIntegrationEnabled.Value           }
             , { nameof(EntityMetadata.IsDocumentRecommendationsEnabled)     , e => e.IsDocumentRecommendationsEnabled.HasValue    && e.IsDocumentRecommendationsEnabled.Value      }
             , { nameof(EntityMetadata.IsBPFEntity)                          , e => e.IsBPFEntity.HasValue                         && e.IsBPFEntity.Value                           }
             , { nameof(EntityMetadata.IsSLAEnabled)                         , e => e.IsSLAEnabled.HasValue                        && e.IsSLAEnabled.Value                          }
@@ -54,7 +54,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             , { nameof(EntityMetadata.IsBusinessProcessEnabled)             , e => e.IsBusinessProcessEnabled.HasValue            && e.IsBusinessProcessEnabled.Value              }
             , { nameof(EntityMetadata.IsCustomEntity)                       , e => e.IsCustomEntity.HasValue                      && e.IsCustomEntity.Value                        }
             , { nameof(EntityMetadata.IsAIRUpdated)                         , e => e.IsAIRUpdated.HasValue                        && e.IsAIRUpdated.Value                          }
-            , { nameof(EntityMetadata.IsSolutionAware)                      , e => e.IsSolutionAware.HasValue                     && e.IsSolutionAware.Value                       }
+            //, { nameof(EntityMetadata.IsSolutionAware)                      , e => e.IsSolutionAware.HasValue                     && e.IsSolutionAware.Value                       }
 
             , { nameof(EntityMetadata.IsOfflineInMobileClient)              , e => e.IsOfflineInMobileClient != null              && e.IsOfflineInMobileClient.Value               }
             , { nameof(EntityMetadata.IsReadOnlyInMobileClient)             , e => e.IsReadOnlyInMobileClient != null             && e.IsReadOnlyInMobileClient.Value              }
