@@ -64,6 +64,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var task = OpenFilesInFoldersAsync();
         }
 
+        private enum FilterResults
+        {
+            OnlyWithLine = 0,
+            SimilarActivityId = 1,
+            SimilarRequestId = 2,
+        }
+
         private void LoadFromConfig()
         {
             cmBFileAction.DataContext = _commonConfig;
@@ -71,6 +78,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBFilter.DataContext = cmBCurrentConnection;
             cmBFolder.DataContext = cmBCurrentConnection;
             lstVwFolders.DataContext = cmBCurrentConnection;
+        }
+
+        private const string paramFilterResults = "FilterResults";
+
+        protected override void LoadConfigurationInternal(WindowSettings winConfig)
+        {
+            base.LoadConfigurationInternal(winConfig);
+
+            LoadFormSettings(winConfig);
+        }
+
+        private void LoadFormSettings(WindowSettings winConfig)
+        {
+            {
+                var filterResultsValue = winConfig.GetValueInt(paramFilterResults);
+
+                if (filterResultsValue.HasValue && 0 <= filterResultsValue && filterResultsValue < cmBFilterResults.Items.Count)
+                {
+                    cmBFilterResults.SelectedIndex = filterResultsValue.Value;
+                }
+            }
+        }
+
+        protected override void SaveConfigurationInternal(WindowSettings winConfig)
+        {
+            base.SaveConfigurationInternal(winConfig);
+
+            winConfig.DictInt[paramFilterResults] = cmBFilterResults.SelectedIndex;
         }
 
         protected override void OnClosed(EventArgs e)
@@ -193,6 +228,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             Guid? requestId = null;
             Guid? activityId = null;
             int? threadNumber = null;
+            FilterResults filterResults = FilterResults.SimilarActivityId;
 
             this.Dispatcher.Invoke(() =>
             {
@@ -224,16 +260,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     threadNumber = tempInt;
                 }
+
+                if (cmBFilterResults.SelectedIndex != -1)
+                {
+                    filterResults = (FilterResults)cmBFilterResults.SelectedIndex;
+                }
             });
 
-            list = await FilterTraceRecordsAsync(list, textName, requestId, activityId, threadNumber);
+            list = await FilterTraceRecordsAsync(list, textName, filterResults, requestId, activityId, threadNumber);
 
             LoadTraceRecords(list, dictUsers);
 
             ToggleControls(connectionData, true, Properties.OutputStrings.FilteringTraceFilesCompletedFormat1, list.Count());
         }
 
-        private Task<IEnumerable<TraceRecord>> FilterTraceRecordsAsync(IEnumerable<TraceRecord> list, string textName, Guid? requestId, Guid? activityId, int? threadNumber)
+        private Task<IEnumerable<TraceRecord>> FilterTraceRecordsAsync(IEnumerable<TraceRecord> list, string textName, FilterResults filterResults, Guid? requestId, Guid? activityId, int? threadNumber)
         {
             if (string.IsNullOrEmpty(textName)
                 && !requestId.HasValue
@@ -244,10 +285,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return Task.FromResult(list);
             }
 
-            return Task.Run(() => FilterTraceRecords(list, textName, requestId, activityId, threadNumber));
+            return Task.Run(() => FilterTraceRecords(list, textName, filterResults, requestId, activityId, threadNumber));
         }
 
-        private IEnumerable<TraceRecord> FilterTraceRecords(IEnumerable<TraceRecord> list, string textName, Guid? requestId, Guid? activityId, int? threadNumber)
+        private IEnumerable<TraceRecord> FilterTraceRecords(IEnumerable<TraceRecord> list, string textName, FilterResults filterResults, Guid? requestId, Guid? activityId, int? threadNumber)
         {
             if (requestId.HasValue)
             {
@@ -266,23 +307,50 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!string.IsNullOrEmpty(textName))
             {
-                var hash = new HashSet<Guid>();
-
-                foreach (var item in list)
+                if (filterResults == FilterResults.OnlyWithLine)
                 {
-                    if (item.Description.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1)
+                    list = list.Where(t => t.Description.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1);
+                }
+                else if (filterResults == FilterResults.SimilarRequestId)
+                {
+                    var hash = new HashSet<Guid>();
+
+                    foreach (var item in list)
                     {
-                        if (item.RequestId.HasValue && item.RequestId != Guid.Empty)
+                        if (item.Description.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1)
                         {
-                            hash.Add(item.RequestId.Value);
+                            if (item.RequestId.HasValue && item.RequestId != Guid.Empty)
+                            {
+                                hash.Add(item.RequestId.Value);
+                            }
                         }
                     }
-                }
 
-                list = list.Where(t =>
-                    (t.RequestId.HasValue && hash.Contains(t.RequestId.Value))
-                    || t.Description.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
-                );
+                    list = list.Where(t =>
+                        (t.RequestId.HasValue && hash.Contains(t.RequestId.Value))
+                        || t.Description.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
+                    );
+                }
+                else if (filterResults == FilterResults.SimilarActivityId)
+                {
+                    var hash = new HashSet<Guid>();
+
+                    foreach (var item in list)
+                    {
+                        if (item.Description.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1)
+                        {
+                            if (item.ActivityId.HasValue && item.ActivityId != Guid.Empty)
+                            {
+                                hash.Add(item.ActivityId.Value);
+                            }
+                        }
+                    }
+
+                    list = list.Where(t =>
+                        (t.ActivityId.HasValue && hash.Contains(t.ActivityId.Value))
+                        || t.Description.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
+                    );
+                }
             }
 
             return list.ToList();

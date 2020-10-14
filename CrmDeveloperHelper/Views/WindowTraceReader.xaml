@@ -92,48 +92,51 @@
 
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-
                         <RowDefinition Height="100*" />
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="100*" />
-                        </Grid.ColumnDefinitions>
-
-                        <Label Grid.Column="0" Content="Filter" />
-
-                        <ComboBox Grid.Column="1" x:Name="cmBFilter" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Text="{Binding Path=SelectedItem.TraceReaderFilter, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ItemsSource="{Binding Path=SelectedItem.TraceReaderLastFilters}" KeyDown="cmBFilterEnitity_KeyDown" />
-                    </Grid>
-
-                    <Grid Grid.Row="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="140" />
 
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="100*" />
-
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="100*" />
+                            <ColumnDefinition Width="50*" />
 
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="100*" />
                         </Grid.ColumnDefinitions>
 
-                        <Label Grid.Column="0" Content="File Date Change From" />
-                        <DatePicker Grid.Column="1" x:Name="dPFileDate" SelectedDateFormat="Long" FirstDayOfWeek="Monday" KeyDown="cmBFilterEnitity_KeyDown"/>
+                        <Label Grid.Row="0" Grid.Column="0" Content="Filter" />
+                        <ComboBox Grid.Row="0" Grid.Column="1" x:Name="cmBFilter" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Text="{Binding Path=SelectedItem.TraceReaderFilter, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ItemsSource="{Binding Path=SelectedItem.TraceReaderLastFilters}" KeyDown="cmBFilterEnitity_KeyDown" />
 
-                        <Label Grid.Column="2" Content="RequestId" />
-                        <TextBox Grid.Column="3" x:Name="txtBRequestId" KeyDown="cmBFilterEnitity_KeyDown" />
+                        <Label Grid.Row="0" Grid.Column="2" Content="Filter Results" />
+                        <ComboBox Grid.Row="0" Grid.Column="3" x:Name="cmBFilterResults" IsTabStop="True" KeyDown="cmBFilterEnitity_KeyDown" SelectedIndex="1" >
+                            <ComboBoxItem Content="Only with line" />
+                            <ComboBoxItem Content="Similar ActivityId" />
+                            <ComboBoxItem Content="Similar RequestId" />
+                        </ComboBox>
 
-                        <Label Grid.Column="4" Content="ActivityId" />
-                        <TextBox Grid.Column="5" x:Name="txtBActivityId" KeyDown="cmBFilterEnitity_KeyDown" />
+                        <Label Grid.Row="0" Grid.Column="4" Content="ActivityId" />
+                        <TextBox Grid.Row="0" Grid.Column="5" x:Name="txtBActivityId" KeyDown="cmBFilterEnitity_KeyDown" />
+                        
+                        
 
-                        <Label Grid.Column="6" Content="Thread" />
-                        <TextBox Grid.Column="7" x:Name="txtBThread" KeyDown="cmBFilterEnitity_KeyDown" />
+                        <Label Grid.Row="1" Grid.Column="0" Content="File Date Change From" />
+                        <DatePicker Grid.Row="1" Grid.Column="1" x:Name="dPFileDate" SelectedDateFormat="Long" FirstDayOfWeek="Monday" KeyDown="cmBFilterEnitity_KeyDown"/>
+
+                        <Label Grid.Row="1" Grid.Column="2" Content="Thread" />
+                        <TextBox Grid.Row="1" Grid.Column="3" x:Name="txtBThread" KeyDown="cmBFilterEnitity_KeyDown" />
+
+                        <Label Grid.Row="1" Grid.Column="4" Content="RequestId" />
+                        <TextBox Grid.Row="1" Grid.Column="5" x:Name="txtBRequestId" KeyDown="cmBFilterEnitity_KeyDown" />
+                        
                     </Grid>
 
                     <GroupBox Grid.Row="2" Header="Trace Records">
