@@ -50,6 +50,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
         private const string SourceNameMonikerRibbonSequences = "CrmXmlRibbonSequences.{0CD106F0-27BD-471B-9057-7873CF4E2E7A}";
 
         private const string xmlClassificationDelimiter = "XML Delimiter";
+        private const string xmlClassificationAttribute = "XML Attribute";
         private const string xmlClassificationAttributeQuotes = "XML Attribute Quotes";
         private const string xmlClassificationAttributeValue = "XML Attribute Value";
 
@@ -92,11 +93,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
             var connectionConfig = ConnectionConfiguration.Get();
 
-            if (connectionConfig?.CurrentConnectionData == null)
+            var connectionData = connectionConfig?.CurrentConnectionData;
+
+            if (connectionData == null)
             {
                 return;
             }
 
+            try
+            {
+                AugmentCompletionSessionInternal(session, completionSets, connectionData);
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.WriteExceptionToOutput(connectionData, ex);
+            }
+        }
+
+        private void AugmentCompletionSessionInternal(ICompletionSession session, IList<CompletionSet> completionSets, ConnectionData connectionData)
+        {
             ITextSnapshot snapshot = _buffer.CurrentSnapshot;
             var triggerPoint = session.GetTriggerPoint(snapshot);
 
@@ -105,16 +120,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 return;
             }
 
-            SnapshotPoint currentPoint = (session.TextView.Caret.Position.BufferPosition) - 1;
-
-            var spans = _classifier.GetClassificationSpans(new SnapshotSpan(snapshot, 0, snapshot.Length));
-
-            var xmlRootSpan = spans.Where((s, i) =>
-                i > 0
-                && s.ClassificationType.IsOfType(xmlClassificationXmlName)
-                && spans[i - 1].ClassificationType.IsOfType(xmlClassificationDelimiter)
-                && spans[i - 1].Span.GetText() == "<"
-            ).FirstOrDefault();
+            ClassificationSpan xmlRootSpan = GetRootSpan(snapshot);
 
             if (xmlRootSpan == null)
             {
@@ -138,12 +144,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 return;
             }
 
-            var firstSpans = spans
+            if (session.TextView.Caret.Position.BufferPosition.Position == 0)
+            {
+                return;
+            }
+
+            var allSpans = _classifier.GetClassificationSpans(new SnapshotSpan(snapshot, 0, snapshot.Length));
+
+            SnapshotPoint currentPoint = (session.TextView.Caret.Position.BufferPosition) - 1;
+
+            var firstSpans = allSpans
                 .Where(s => s.Span.Start <= currentPoint.Position)
                 .OrderByDescending(s => s.Span.Start.Position)
                 .ToList();
 
-            var lastSpans = spans
+            var lastSpans = allSpans
                 .Where(s => s.Span.Start > currentPoint.Position)
                 .OrderBy(s => s.Span.Start.Position)
                 .ToList();
@@ -208,31 +223,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
                 if (currentXmlNode != null)
                 {
-                    var containingAttributeSpans = spans
-                        .Where(s => s.Span.Contains(extent.Start)
-                            && s.Span.Contains(extent)
-                            && s.ClassificationType.IsOfType(xmlClassificationAttributeValue)
-                        )
-                        .OrderByDescending(s => s.Span.Start.Position)
-                        .ToList();
-
-                    var containingAttributeValue = containingAttributeSpans.FirstOrDefault();
-
-                    if (containingAttributeValue == null)
-                    {
-                        containingAttributeValue = spans
-                            .Where(s => s.Span.Contains(extent.Start)
-                                && s.Span.Contains(extent)
-                                && s.ClassificationType.IsOfType(xmlClassificationAttributeQuotes)
-                                && (s.Span.GetText() == "\"\"" || s.Span.GetText() == "''")
-                            )
-                            .OrderByDescending(s => s.Span.Start.Position)
-                            .FirstOrDefault();
-                    }
+                    ClassificationSpan containingAttributeValue = GetContainingAttributeValue(allSpans, extent);
 
                     if (containingAttributeValue != null)
                     {
-                        ClassificationSpan currentAttr = GetCurrentXmlAttributeName(snapshot, containingAttributeValue, spans);
+                        ClassificationSpan currentAttr = GetCurrentXmlAttributeName(allSpans, containingAttributeValue);
 
                         if (currentAttr != null)
                         {
@@ -244,7 +239,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
                             if (string.Equals(doc.Name.LocalName, Commands.AbstractDynamicCommandXsdSchemas.FetchRoot, StringComparison.InvariantCultureIgnoreCase))
                             {
-                                var repository = ConnectionIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
+                                var repository = ConnectionIntellisenseDataRepository.GetRepository(connectionData);
 
                                 HashSet<string> usedEntities = GetUsedEntities(doc);
 
@@ -253,12 +248,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                                     repository.GetEntityDataForNamesAsync(usedEntities);
                                 }
 
-                                FillSessionForFetchXmlCompletionSet(completionSets, doc, connectionConfig.CurrentConnectionData, repository, currentXmlNode, currentNodeName, currentAttributeName, applicableTo);
+                                FillSessionForFetchXmlCompletionSet(completionSets, doc, connectionData, repository, currentXmlNode, currentNodeName, currentAttributeName, applicableTo);
                             }
                             else if (string.Equals(doc.Name.LocalName, Commands.AbstractDynamicCommandXsdSchemas.GridRoot, StringComparison.InvariantCultureIgnoreCase))
                             {
-                                var repositoryEntities = ConnectionIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
-                                var repositoryWebResource = WebResourceIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
+                                var repositoryEntities = ConnectionIntellisenseDataRepository.GetRepository(connectionData);
+                                var repositoryWebResource = WebResourceIntellisenseDataRepository.GetRepository(connectionData);
 
                                 HashSet<int> usedEntityCodes = GetUsedEntityObjectTypeCodes(doc);
 
@@ -267,12 +262,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                                     repositoryEntities.GetEntityDataForObjectTypeCodesAsync(usedEntityCodes);
                                 }
 
-                                FillSessionForGridXmlCompletionSet(completionSets, connectionConfig.CurrentConnectionData, repositoryEntities, repositoryWebResource, currentXmlNode, currentNodeName, currentAttributeName, applicableTo);
+                                FillSessionForGridXmlCompletionSet(completionSets, connectionData, repositoryEntities, repositoryWebResource, currentXmlNode, currentNodeName, currentAttributeName, applicableTo);
                             }
                             else if (string.Equals(doc.Name.LocalName, Commands.AbstractDynamicCommandXsdSchemas.SavedQueryRoot, StringComparison.InvariantCultureIgnoreCase))
                             {
-                                var repositoryEntities = ConnectionIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
-                                var repositoryWebResource = WebResourceIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
+                                var repositoryEntities = ConnectionIntellisenseDataRepository.GetRepository(connectionData);
+                                var repositoryWebResource = WebResourceIntellisenseDataRepository.GetRepository(connectionData);
 
                                 HashSet<string> usedEntities = GetUsedEntities(doc);
 
@@ -288,15 +283,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                                     repositoryEntities.GetEntityDataForObjectTypeCodesAsync(usedEntityCodes);
                                 }
 
-                                FillSessionForFetchXmlCompletionSet(completionSets, doc, connectionConfig.CurrentConnectionData, repositoryEntities, currentXmlNode, currentNodeName, currentAttributeName, applicableTo);
+                                FillSessionForFetchXmlCompletionSet(completionSets, doc, connectionData, repositoryEntities, currentXmlNode, currentNodeName, currentAttributeName, applicableTo);
 
-                                FillSessionForGridXmlCompletionSet(completionSets, connectionConfig.CurrentConnectionData, repositoryEntities, repositoryWebResource, currentXmlNode, currentNodeName, currentAttributeName, applicableTo);
+                                FillSessionForGridXmlCompletionSet(completionSets, connectionData, repositoryEntities, repositoryWebResource, currentXmlNode, currentNodeName, currentAttributeName, applicableTo);
                             }
                             else if (string.Equals(doc.Name.LocalName, Commands.AbstractDynamicCommandXsdSchemas.SiteMapXmlRoot, StringComparison.InvariantCultureIgnoreCase))
                             {
-                                var repositoryEntities = ConnectionIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
-                                var repositorySiteMap = SiteMapIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
-                                var repositoryWebResource = WebResourceIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
+                                var repositoryEntities = ConnectionIntellisenseDataRepository.GetRepository(connectionData);
+                                var repositorySiteMap = SiteMapIntellisenseDataRepository.GetRepository(connectionData);
+                                var repositoryWebResource = WebResourceIntellisenseDataRepository.GetRepository(connectionData);
 
                                 HashSet<string> usedEntities = GetUsedEntities(doc);
 
@@ -305,31 +300,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                                     repositoryEntities.GetEntityDataForNamesAsync(usedEntities);
                                 }
 
-                                FillSessionForSiteMapCompletionSet(completionSets, snapshot, connectionConfig.CurrentConnectionData, repositoryEntities, repositorySiteMap, repositoryWebResource, extent, currentNodeName, currentAttributeName, applicableTo);
+                                FillSessionForSiteMapCompletionSet(completionSets, snapshot, connectionData, repositoryEntities, repositorySiteMap, repositoryWebResource, extent, currentNodeName, currentAttributeName, applicableTo);
                             }
                             else if (string.Equals(doc.Name.LocalName, Commands.AbstractDynamicCommandXsdSchemas.RibbonDiffXmlRoot, StringComparison.InvariantCultureIgnoreCase)
                                 || string.Equals(doc.Name.LocalName, Commands.AbstractDynamicCommandXsdSchemas.RibbonXmlRoot, StringComparison.InvariantCultureIgnoreCase)
                             )
                             {
-                                var repositoryEntities = ConnectionIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
-                                var repositoryWebResource = WebResourceIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
+                                var repositoryEntities = ConnectionIntellisenseDataRepository.GetRepository(connectionData);
+                                var repositoryWebResource = WebResourceIntellisenseDataRepository.GetRepository(connectionData);
 
-                                var repositoryRibbon = RibbonIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
+                                var repositoryRibbon = RibbonIntellisenseDataRepository.GetRepository(connectionData);
 
-                                FillSessionForRibbonDiffXmlCompletionSet(completionSets, doc, connectionConfig.CurrentConnectionData, repositoryEntities, repositoryWebResource, repositoryRibbon, currentXmlNode, currentNodeName, currentAttributeName, applicableTo);
+                                FillSessionForRibbonDiffXmlCompletionSet(completionSets, doc, connectionData, repositoryEntities, repositoryWebResource, repositoryRibbon, currentXmlNode, currentNodeName, currentAttributeName, applicableTo);
                             }
                             else if (string.Equals(doc.Name.LocalName, Commands.AbstractDynamicCommandXsdSchemas.WebResourceDependencyXmlRoot, StringComparison.InvariantCultureIgnoreCase))
                             {
-                                var repositoryEntities = ConnectionIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
-                                var repositoryWebResource = WebResourceIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
+                                var repositoryEntities = ConnectionIntellisenseDataRepository.GetRepository(connectionData);
+                                var repositoryWebResource = WebResourceIntellisenseDataRepository.GetRepository(connectionData);
 
-                                FillSessionForWebResourceDependencyXmlCompletionSet(completionSets, doc, connectionConfig.CurrentConnectionData, repositoryEntities, repositoryWebResource, currentXmlNode, currentNodeName, currentAttributeName, applicableTo);
+                                FillSessionForWebResourceDependencyXmlCompletionSet(completionSets, doc, connectionData, repositoryEntities, repositoryWebResource, currentXmlNode, currentNodeName, currentAttributeName, applicableTo);
                             }
                             else if (string.Equals(doc.Name.LocalName, Commands.AbstractDynamicCommandXsdSchemas.FormXmlRoot, StringComparison.InvariantCultureIgnoreCase))
                             {
-                                var repositoryWebResource = WebResourceIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
+                                var repositoryWebResource = WebResourceIntellisenseDataRepository.GetRepository(connectionData);
 
-                                FillSessionForFormXmlCompletionSet(completionSets, doc, connectionConfig.CurrentConnectionData, repositoryWebResource, currentXmlNode, currentNodeName, currentAttributeName, applicableTo);
+                                FillSessionForFormXmlCompletionSet(completionSets, doc, connectionData, repositoryWebResource, currentXmlNode, currentNodeName, currentAttributeName, applicableTo);
                             }
                         }
                     }
@@ -393,7 +388,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                             || string.Equals(doc.Name.ToString(), Commands.AbstractDynamicCommandXsdSchemas.SavedQueryRoot, StringComparison.InvariantCultureIgnoreCase)
                         )
                         {
-                            var repository = ConnectionIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
+                            var repository = ConnectionIntellisenseDataRepository.GetRepository(connectionData);
 
                             HashSet<string> usedEntities = GetUsedEntities(doc);
 
@@ -417,6 +412,64 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     }
                 }
             }
+        }
+
+        private ClassificationSpan GetContainingAttributeValue(IList<ClassificationSpan> allSpans, SnapshotSpan extent)
+        {
+            var containingAttributeSpans = allSpans
+                .Where(s => s.Span.Contains(extent.Start)
+                    && s.Span.Contains(extent)
+                    && s.ClassificationType.IsOfType(xmlClassificationAttributeValue)
+                )
+                .OrderByDescending(s => s.Span.Start.Position)
+                .ToList();
+
+            var containingAttributeValue = containingAttributeSpans.FirstOrDefault();
+
+            if (containingAttributeValue == null)
+            {
+                containingAttributeValue = allSpans
+                    .Where(s => s.Span.Contains(extent.Start)
+                        && s.Span.Contains(extent)
+                        && s.ClassificationType.IsOfType(xmlClassificationAttributeQuotes)
+                        && (s.Span.GetText() == "\"\"" || s.Span.GetText() == "''")
+                    )
+                    .OrderByDescending(s => s.Span.Start.Position)
+                    .FirstOrDefault();
+            }
+
+            return containingAttributeValue;
+        }
+
+        private ClassificationSpan GetRootSpan(ITextSnapshot snapshot)
+        {
+            const int countByPage = 200;
+
+            int totalPages = (snapshot.Length + countByPage - 1) / countByPage;
+
+            for (int index = 0; index < totalPages; index++)
+            {
+                int fromIndex = Math.Max(0, (index - 1) * countByPage);
+
+                int otherLength = snapshot.Length - fromIndex;
+                int length = Math.Min(2 * countByPage, otherLength);
+
+                var spans = _classifier.GetClassificationSpans(new SnapshotSpan(snapshot, fromIndex, length));
+
+                ClassificationSpan xmlRootSpan = spans.Where((s, i) =>
+                    i > 0
+                    && s.ClassificationType.IsOfType(xmlClassificationXmlName)
+                    && spans[i - 1].ClassificationType.IsOfType(xmlClassificationDelimiter)
+                    && spans[i - 1].Span.GetText() == "<"
+                ).FirstOrDefault();
+
+                if (xmlRootSpan != null)
+                {
+                    return xmlRootSpan;
+                }
+            }
+
+            return null;
         }
 
         private void FillWebResourcesTextWithWebResourcePrefix(IList<CompletionSet> completionSets, ITrackingSpan applicableTo, IEnumerable<WebResourceIntellisenseData> webResources, string nameCompletionSet)
@@ -641,42 +694,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             return result;
         }
 
-        private ClassificationSpan GetCurrentXmlAttributeName(ITextSnapshot snapshot, ClassificationSpan containingSpan, IList<ClassificationSpan> spans)
+        private ClassificationSpan GetCurrentXmlAttributeName(IList<ClassificationSpan> allSpans, ClassificationSpan containingAttributeValue)
         {
-            var currentAttr = spans
-                    .Where(s => s.ClassificationType.IsOfType("XML Attribute") && s.Span.Start <= containingSpan.Span.Start)
-                    .OrderByDescending(s => s.Span.Start.Position)
-                    .FirstOrDefault();
+            var currentAttr = allSpans
+                .Where(s => s.ClassificationType.IsOfType(xmlClassificationAttribute) && s.Span.Start <= containingAttributeValue.Span.Start)
+                .OrderByDescending(s => s.Span.Start.Position)
+                .FirstOrDefault();
 
             if (currentAttr != null)
             {
                 return currentAttr;
             }
-
-            var allSpans = _classifier.GetClassificationSpans(new SnapshotSpan(containingSpan.Span.Snapshot, 0, containingSpan.Span.Snapshot.Length));
 
             currentAttr = allSpans
-                    .Where(s => s.ClassificationType.IsOfType("XML Name"))
-                    .OrderByDescending(s => s.Span.Start.Position)
-                    .FirstOrDefault();
+                .Where(s => s.ClassificationType.IsOfType(xmlClassificationXmlName))
+                .OrderByDescending(s => s.Span.Start.Position)
+                .FirstOrDefault();
 
             if (currentAttr != null)
             {
                 return currentAttr;
             }
-
-            //var containgLine = containingSpan.Span.Start.GetContainingLine();
-
-            //for (int i = containgLine.LineNumber - 1; i >= 0; i--)
-            //{
-            //    var previousLine = snapshot.GetLineFromLineNumber(i);
-
-            //    SnapshotSpan line = previousLine.Extent;
-
-            //    var previousLineSpans = _classifier.GetClassificationSpans(previousLine.Extent);
-
-
-            //}
 
             return null;
         }
@@ -686,9 +724,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             IList<ClassificationSpan> spans = _classifier.GetClassificationSpans(new SnapshotSpan(extent.Snapshot, 0, extent.Snapshot.Length));
 
             var elementSpan = spans
-                     .Where(s => s.ClassificationType.IsOfType("XML Name") && s.Span.Start <= extent.Start)
-                     .OrderByDescending(s => s.Span.Start.Position)
-                     .FirstOrDefault();
+                .Where(s => s.ClassificationType.IsOfType(xmlClassificationXmlName) && s.Span.Start <= extent.Start)
+                .OrderByDescending(s => s.Span.Start.Position)
+                .FirstOrDefault();
 
             if (elementSpan == null)
             {
@@ -702,12 +740,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
             var result = doc.DescendantsAndSelf().FirstOrDefault(e => (e as IXmlLineInfo)?.LineNumber == lineNumber && (e as IXmlLineInfo)?.LinePosition == linePosition);
 
-            var list = doc.DescendantsAndSelf().Select(e => new { Element = e, (e as IXmlLineInfo)?.LineNumber, (e as IXmlLineInfo)?.LinePosition }).ToList();
+            //var list = doc.DescendantsAndSelf().Select(e => new { Element = e, (e as IXmlLineInfo)?.LineNumber, (e as IXmlLineInfo)?.LinePosition }).ToList();
 
-            if (result == null)
-            {
+            //if (result == null)
+            //{
 
-            }
+            //}
 
             return result;
         }
