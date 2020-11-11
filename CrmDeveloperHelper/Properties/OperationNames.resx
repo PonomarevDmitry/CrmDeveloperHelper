@@ -374,6 +374,9 @@
   <data name="GettingWebResourceCurrentDependencyXmlFormat1" xml:space="preserve">
     <value>{0} - Getting WebResource Current DependencyXml</value>
   </data>
+  <data name="GettingWebResourceContentFormat1" xml:space="preserve">
+    <value>{0} - Getting WebResource Current Content</value>
+  </data>
   <data name="GettingSiteMapCurrentXmlFormat1" xml:space="preserve">
     <value>{0} - Getting SiteMap Current Xml</value>
   </data>

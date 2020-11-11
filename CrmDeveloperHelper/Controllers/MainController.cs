@@ -654,6 +654,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartWebResourceDependencyXmlGetCurrent(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
             => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteGetWebResourceCurrentDependencyXml, commonConfig, selectedFile);
 
+        public void StartWebResourcesGetContent(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
+            => ExecuteWithConnectionInThread(connectionData, this._differenceController.ExecuteGettingContent, commonConfig, selectedFiles);
+
         #endregion WebResource
 
         public void StartAddingIntoPublishListFilesByType(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, OpenFilesType openFilesType)

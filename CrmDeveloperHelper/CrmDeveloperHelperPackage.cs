@@ -183,6 +183,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             WebResourceUpdateContentPublishEqualByTextInConnectionGroupCommand.Initialize,
 
+            WebResourceGetCurrentContentCommand.Initialize,
+            WebResourceGetCurrentContentInConnectionGroupCommand.Initialize,
 
             WebResourceCheckEncodingCommand.Initialize,
             WebResourceCheckEncodingCompareFilesCommand.Initialize,

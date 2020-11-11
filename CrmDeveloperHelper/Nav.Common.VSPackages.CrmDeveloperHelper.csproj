@@ -303,6 +303,8 @@
     <Compile Include="Commands\WebResources\WebResourceCreateEntityDescriptionInConnectionCommand.cs" />
     <Compile Include="Commands\WebResources\WebResourceExplorerCommand.cs" />
     <Compile Include="Commands\WebResources\WebResourceGetAttributeInConnectionCommand.cs" />
+    <Compile Include="Commands\WebResources\WebResourceGetCurrentContentCommand.cs" />
+    <Compile Include="Commands\WebResources\WebResourceGetCurrentContentInConnectionGroupCommand.cs" />
     <Compile Include="Commands\WebResources\WebResourceLinkClearCommand.cs" />
     <Compile Include="Commands\WebResources\WebResourceLinkCreateCommand.cs" />
     <Compile Include="Commands\WebResources\WebResourceMultiDifferenceCommand.cs" />

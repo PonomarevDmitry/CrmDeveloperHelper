@@ -19,7 +19,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class CommandNames {
@@ -282,6 +282,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string CodeWebResourceExplorerCommand {
             get {
                 return ResourceManager.GetString("CodeWebResourceExplorerCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get Current Content from CRM.
+        /// </summary>
+        internal static string CodeWebResourceGetCurrentContentCommand {
+            get {
+                return ResourceManager.GetString("CodeWebResourceGetCurrentContentCommand", resourceCulture);
             }
         }
         
@@ -943,6 +952,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Get Current Content from CRM.
+        /// </summary>
+        internal static string DocumentsWebResourceGetCurrentContentCommand {
+            get {
+                return ResourceManager.GetString("DocumentsWebResourceGetCurrentContentCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FetchXmlExecutor.
         /// </summary>
         internal static string FetchXmlExecutorDefaultName {
@@ -1159,6 +1177,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Get Current Content from CRM.
+        /// </summary>
+        internal static string FileWebResourceGetCurrentContentCommand {
+            get {
+                return ResourceManager.GetString("FileWebResourceGetCurrentContentCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show Difference.
         /// </summary>
         internal static string FileWebResourceShowDifferenceCommand {
@@ -1326,6 +1353,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string FolderWebResourceCompareWithDetailsCommand {
             get {
                 return ResourceManager.GetString("FolderWebResourceCompareWithDetailsCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get Current Content from CRM (Recursive).
+        /// </summary>
+        internal static string FolderWebResourceGetCurrentContentCommand {
+            get {
+                return ResourceManager.GetString("FolderWebResourceGetCurrentContentCommand", resourceCulture);
             }
         }
         

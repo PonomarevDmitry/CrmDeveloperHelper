@@ -335,4 +335,8 @@
   <data name="ContinueOperation" xml:space="preserve">
     <value>Continue Operation?</value>
   </data>
+  <data name="GetWebResourcesContentFormat2" xml:space="preserve">
+    <value>Get WebResources Content {0} files on
+{1}?</value>
+  </data>
 </root>

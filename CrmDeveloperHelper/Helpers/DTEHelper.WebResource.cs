@@ -763,6 +763,70 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             GetConnectionConfigAndExecute(null, (conn, commonConfig) => Controller.StartComparingFilesWithWrongEncoding(conn, selectedFiles, withDetails));
         }
 
+        public void HandleWebResourcesGetContentCommand(ConnectionData connectionData, List<SelectedFile> selectedFiles)
+        {
+            if (selectedFiles.Count == 0)
+            {
+                return;
+            }
+
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null && commonConfig != null && selectedFiles.Count > 0)
+            {
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                bool canPublish = false;
+
+                if (commonConfig.DoNotPromtPublishMessage)
+                {
+                    canPublish = true;
+                }
+                else
+                {
+                    string message = string.Format(Properties.MessageBoxStrings.GetWebResourcesContentFormat2, selectedFiles.Count, connectionData.GetDescriptionColumn());
+
+                    var dialog = new WindowConfirmPublish(message);
+
+                    if (dialog.ShowDialog().GetValueOrDefault())
+                    {
+                        commonConfig.DoNotPromtPublishMessage = dialog.DoNotPromtPublishMessage;
+
+                        commonConfig.Save();
+
+                        canPublish = true;
+                    }
+                }
+
+                if (canPublish)
+                {
+                    ActivateOutputWindow(connectionData);
+                    WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                    CheckWishToChangeCurrentConnection(connectionData);
+
+                    try
+                    {
+                        Controller.StartWebResourcesGetContent(connectionData, commonConfig, selectedFiles);
+                    }
+                    catch (Exception ex)
+                    {
+                        WriteErrorToOutput(connectionData, ex);
+                    }
+                }
+            }
+        }
+
         #endregion WebResource
 
         #region WebResourceDependencyXml

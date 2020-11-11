@@ -221,9 +221,6 @@
   <data name="CodeWebResourceShowDifferenceWithSelectCommand" xml:space="preserve">
     <value>Show Difference with Select</value>
   </data>
-  <data name="CodeWebResourceUpdateContentPublishCommand" xml:space="preserve">
-    <value>Publish File</value>
-  </data>
 
   <data name="CodeXmlFetchXmlExecuteRequestCommand" xml:space="preserve">
     <value>Execute Fetch Xml All</value>
@@ -444,9 +441,6 @@
   <data name="FileWebResourceShowDifferenceWithSelectCommand" xml:space="preserve">
     <value>Show Difference with Select</value>
   </data>
-  <data name="FileWebResourceUpdateContentPublishCommand" xml:space="preserve">
-    <value>Publish Files</value>
-  </data>
   <data name="FolderAddPluginConfigurationFileCommand" xml:space="preserve">
     <value>Crm Plugin Configuration</value>
   </data>
@@ -458,9 +452,6 @@
   </data>
   <data name="FolderWebResourceCompareWithDetailsCommand" xml:space="preserve">
     <value>Compare Files with details (Recursive)</value>
-  </data>
-  <data name="FolderWebResourceUpdateContentPublishCommand" xml:space="preserve">
-    <value>Publish Files (Recursive)</value>
   </data>
   <data name="ListForPublishClearListCommand" xml:space="preserve">
     <value>Clear List</value>
@@ -670,5 +661,27 @@
     <value>Get PluginType Current CustomWorkflowActivityInfo</value>
   </data>
 
+  <data name="CodeWebResourceUpdateContentPublishCommand" xml:space="preserve">
+    <value>Publish File</value>
+  </data>
+  <data name="FileWebResourceUpdateContentPublishCommand" xml:space="preserve">
+    <value>Publish Files</value>
+  </data>
+  <data name="FolderWebResourceUpdateContentPublishCommand" xml:space="preserve">
+    <value>Publish Files (Recursive)</value>
+  </data>
+
+  <data name="CodeWebResourceGetCurrentContentCommand" xml:space="preserve">
+    <value>Get Current Content from CRM</value>
+  </data>
+  <data name="DocumentsWebResourceGetCurrentContentCommand" xml:space="preserve">
+    <value>Get Current Content from CRM</value>
+  </data>
+  <data name="FileWebResourceGetCurrentContentCommand" xml:space="preserve">
+    <value>Get Current Content from CRM</value>
+  </data>
+  <data name="FolderWebResourceGetCurrentContentCommand" xml:space="preserve">
+    <value>Get Current Content from CRM (Recursive)</value>
+  </data>
 
 </root>
