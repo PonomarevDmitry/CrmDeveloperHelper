@@ -1318,6 +1318,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Добавление в решение шагов плагинов типа плагина по имени.
 
+        #region Adding Linked SystemForms to Solution
+
         public async Task ExecuteAddingLinkedSystemFormToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, bool withSelect, IEnumerable<Guid> formIdList)
         {
             string operation = string.Format(Properties.OperationNames.AddingLinkedSystemFormToSolutionFormat2, connectionData?.Name, solutionUniqueName);
@@ -1407,6 +1409,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 await solutionRep.AddSolutionComponentsAsync(solution.UniqueName, componentsToAdd);
             }
         }
+
+        #endregion Adding Linked SystemForms to Solution
+
+        #region Adding Entity to Solution
 
         public async Task ExecuteAddingEntityToSolution(
             ConnectionData connectionData
@@ -1526,5 +1532,74 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 await solutionRep.AddSolutionComponentsAsync(solution.UniqueName, componentsToAdd);
             }
         }
+
+        #endregion Adding Entity to Solution
+
+        #region Opening Solution in Browser or Explorer
+
+        public async Task ExecuteOpeningSolutionAsync(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, ActionOnComponent actionOnComponent)
+        {
+            string operation = string.Format(
+                Properties.OperationNames.ActionOnComponentFormat3
+                , connectionData?.Name
+                , Solution.EntitySchemaName
+                , EnumDescriptionTypeConverter.GetEnumNameByDescriptionAttribute(actionOnComponent)
+            );
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await OpeningSolutionAsync(commonConfig, connectionData, solutionUniqueName, actionOnComponent);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task OpeningSolutionAsync(CommonConfiguration commonConfig, ConnectionData connectionData, string solutionUniqueName, ActionOnComponent actionOnComponent)
+        {
+            var service = await ConnectAndWriteToOutputAsync(connectionData);
+
+            if (service == null)
+            {
+                return;
+            }
+
+            var repository = new SolutionRepository(service);
+
+            var solution = await repository.GetSolutionByUniqueNameAsync(solutionUniqueName);
+
+            if (solution == null)
+            {
+                WindowHelper.OpenExplorerSolutionExplorer(
+                    _iWriteToOutput
+                    , service
+                    , commonConfig
+                    , null
+                    , null
+                    , null
+                );
+
+                return;
+            }
+
+            if (actionOnComponent == ActionOnComponent.OpenInWeb)
+            {
+                connectionData.OpenSolutionInWeb(solution.Id);
+                service.TryDispose();
+            }
+            else if (actionOnComponent == ActionOnComponent.OpenInExplorer)
+            {
+                WindowHelper.OpenSolutionComponentsExplorer(this._iWriteToOutput, service, null, commonConfig, solution.UniqueName, null);
+            }
+        }
+
+        #endregion Opening Solution in Browser or Explorer
     }
 }

@@ -1382,6 +1382,86 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             );
         }
 
-        
+        protected void ShowDifferenceOneByOne(
+            CommonConfiguration commonConfig
+            , ConnectionData connectionData1
+            , ConnectionData connectionData2
+            , string fileLocalPath
+            , string fileLocalTitle
+            , string filePath1
+            , string fileTitle1
+            , string filePath2
+            , string fileTitle2
+        )
+        {
+            bool existsFileLocal = File.Exists(fileLocalPath);
+            bool existsFile1 = File.Exists(filePath1);
+            bool existsFile2 = File.Exists(filePath2);
+
+            if (existsFileLocal && existsFile1)
+            {
+                this._iWriteToOutput.ProcessStartProgramComparerAsync(connectionData1, fileLocalPath, filePath1, fileLocalTitle, fileTitle1);
+            }
+
+            if (existsFileLocal && existsFile2)
+            {
+                this._iWriteToOutput.ProcessStartProgramComparerAsync(connectionData2, fileLocalPath, filePath2, fileLocalTitle, fileTitle2);
+            }
+
+            if (existsFile1 && existsFile2)
+            {
+                this._iWriteToOutput.ProcessStartProgramComparerAsync(connectionData1, filePath1, filePath2, fileTitle1, fileTitle2, connectionData2);
+            }
+
+            int total = Convert.ToInt32(existsFileLocal) + Convert.ToInt32(existsFile1) + Convert.ToInt32(existsFile2);
+
+            if (total == 1)
+            {
+                _iWriteToOutput.WriteToOutputFilePathUri(null, fileLocalPath);
+                _iWriteToOutput.OpenFile(null, fileLocalPath);
+
+                _iWriteToOutput.WriteToOutputFilePathUri(connectionData1, filePath1);
+                _iWriteToOutput.OpenFile(connectionData1, filePath1);
+
+                _iWriteToOutput.WriteToOutputFilePathUri(connectionData2, filePath2);
+                _iWriteToOutput.OpenFile(connectionData2, filePath2);
+            }
+        }
+
+        protected void ShowDifferenceThreeWay(
+            CommonConfiguration commonConfig
+            , ConnectionData connectionData1
+            , ConnectionData connectionData2
+            , string fileLocalPath
+            , string fileLocalTitle
+            , string filePath1
+            , string fileTitle1
+            , string filePath2
+            , string fileTitle2
+        )
+        {
+            if (!File.Exists(fileLocalPath))
+            {
+                this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FileNotExistsFormat1, fileLocalPath);
+                return;
+            }
+
+            if (File.Exists(filePath1) && File.Exists(filePath2))
+            {
+                this._iWriteToOutput.ProcessStartProgramComparerThreeWayFile(fileLocalPath, filePath1, filePath2, fileLocalTitle, fileTitle1, fileTitle2);
+            }
+            else
+            {
+                if (File.Exists(filePath1))
+                {
+                    this._iWriteToOutput.ProcessStartProgramComparerAsync(connectionData1, fileLocalPath, filePath1, fileLocalTitle, fileTitle1);
+                }
+
+                if (File.Exists(filePath2))
+                {
+                    this._iWriteToOutput.ProcessStartProgramComparerAsync(connectionData2, fileLocalPath, filePath2, fileLocalTitle, fileTitle2);
+                }
+            }
+        }
     }
 }

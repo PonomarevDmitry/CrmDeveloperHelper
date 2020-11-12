@@ -1,6 +1,7 @@
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Views;
+using System;
 using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
@@ -363,5 +364,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         }
 
         #endregion SdkMessageRequest Tree
+
+        #region Organization Comparer
+
+        public void ExecuteOrganizationComparer(ConnectionConfiguration crmConfig, CommonConfiguration commonConfig)
+        {
+            this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.ShowingOrganizationComparer);
+
+            try
+            {
+                WindowHelper.OpenOrganizationComparerWindow(this._iWriteToOutput, crmConfig, commonConfig);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(null, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.ShowingOrganizationComparer);
+            }
+        }
+
+        #endregion Organization Comparer
     }
 }
