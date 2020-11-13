@@ -104,55 +104,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Проверка уровня собственности сущностей.
 
-        #region Проверка кодировки файлов.
-
-        internal void ExecuteCheckingFilesEncoding(List<SelectedFile> selectedFiles)
-        {
-            this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.CheckingFilesEncoding);
-
-            try
-            {
-                CheckingFilesEncoding(null, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(null, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.CheckingFilesEncoding);
-            }
-        }
-
-        public void ExecuteOpenFilesWithoutUTF8Encoding(IEnumerable<SelectedFile> selectedFiles)
-        {
-            this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.OpeningFilesWithoutUTF8Encoding);
-
-            try
-            {
-                CheckingFilesEncoding(null, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
-
-                if (filesWithoutUTF8Encoding.Count > 0)
-                {
-                    foreach (var item in filesWithoutUTF8Encoding)
-                    {
-                        this._iWriteToOutput.WriteToOutputFilePathUri(null, item.FilePath);
-                        this._iWriteToOutput.OpenFileInVisualStudio(null, item.FilePath);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(null, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.OpeningFilesWithoutUTF8Encoding);
-            }
-        }
-
-        #endregion Проверка кодировки файлов.
-
         #region Проверка глобальных OptionSet на дубликаты на сущности.
 
         public async Task ExecuteCheckingGlobalOptionSetDuplicates(ConnectionData connectionData, CommonConfiguration commonConfig)

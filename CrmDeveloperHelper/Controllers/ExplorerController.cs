@@ -365,6 +365,137 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion SdkMessageRequest Tree
 
+        #region Solution Explorer
+
+        public async Task ExecuteOpeningSolutionExlorerWindow(ConnectionData connectionData, CommonConfiguration commonConfig, EnvDTE.SelectedItem selectedItem)
+        {
+            await ConnectAndExecuteActionAsync(connectionData
+                , Properties.OperationNames.SolutionExplorerFormat1
+                , (service) => WindowHelper.OpenExplorerSolutionExplorer(this._iWriteToOutput, service, commonConfig, null, null, selectedItem)
+            );
+        }
+
+        #endregion Solution Explorer
+
+        #region ImportJob Explorer
+
+        public async Task ExecuteOpeningImportJobExlorerWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            await ConnectAndExecuteActionAsync(connectionData
+                , Properties.OperationNames.ImportJobExplorerFormat1
+                , (service) => WindowHelper.OpenImportJobExplorer(this._iWriteToOutput, service, commonConfig, null)
+            );
+        }
+
+        #endregion ImportJob Explorer
+
+        #region SolutionImage Window
+
+        public void ExecuteOpeningSolutionImageWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            string operation = string.Format(Properties.OperationNames.ShowingSolutionImageWindowFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                OpeningSolutionImageWindow(connectionData, commonConfig);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private void OpeningSolutionImageWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            WindowHelper.OpenSolutionImageWindow(this._iWriteToOutput, connectionData, commonConfig);
+        }
+
+        #endregion SolutionImage Window
+
+        #region SolutionDifferenceImage Window
+
+        public void ExecuteOpeningSolutionDifferenceImageWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, Properties.OperationNames.ShowingSolutionDifferenceImageWindow);
+
+            try
+            {
+                OpeningSolutionDifferenceImageWindow(connectionData, commonConfig);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, Properties.OperationNames.ShowingSolutionDifferenceImageWindow);
+            }
+        }
+
+        private void OpeningSolutionDifferenceImageWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            WindowHelper.OpenSolutionDifferenceImageWindow(this._iWriteToOutput, connectionData, commonConfig);
+        }
+
+        #endregion SolutionDifferenceImage Window
+
+        #region OrganizationDifferenceImage Window
+
+        public void ExecuteOpeningOrganizationDifferenceImageWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, Properties.OperationNames.ShowingOrganizationDifferenceImageWindow);
+
+            try
+            {
+                OpeningOrganizationDifferenceImageWindow(connectionData, commonConfig);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, Properties.OperationNames.ShowingOrganizationDifferenceImageWindow);
+            }
+        }
+
+        private void OpeningOrganizationDifferenceImageWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            WindowHelper.OpenOrganizationDifferenceImageWindow(this._iWriteToOutput, connectionData, commonConfig);
+        }
+
+        #endregion OrganizationDifferenceImage Window
+
         #region Organization Comparer
 
         public void ExecuteOrganizationComparer(ConnectionConfiguration crmConfig, CommonConfiguration commonConfig)

@@ -23,126 +23,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
         }
 
-        #region Solution Explorer.
-
-        public async Task ExecuteOpeningSolutionExlorerWindow(ConnectionData connectionData, CommonConfiguration commonConfig, EnvDTE.SelectedItem selectedItem)
-        {
-            await ConnectAndExecuteActionAsync(connectionData
-                , Properties.OperationNames.SolutionExplorerFormat1
-                , (service) => WindowHelper.OpenExplorerSolutionExplorer(this._iWriteToOutput, service, commonConfig, null, null, selectedItem)
-            );
-        }
-
-        #endregion Solution Explorer.
-
-        #region ImportJob Explorer.
-
-        public async Task ExecuteOpeningImportJobExlorerWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            await ConnectAndExecuteActionAsync(connectionData
-                , Properties.OperationNames.ImportJobExplorerFormat1
-                , (service) => WindowHelper.OpenImportJobExplorer(this._iWriteToOutput, service, commonConfig, null)
-            );
-        }
-
-        #endregion ImportJob Explorer.
-
         #region Окна с образами.
-
-        public void ExecuteOpeningSolutionImageWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            string operation = string.Format(Properties.OperationNames.ShowingSolutionImageWindowFormat1, connectionData?.Name);
-
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
-
-            try
-            {
-                OpeningSolutionImageWindow(connectionData, commonConfig);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
-            }
-        }
-
-        private void OpeningSolutionImageWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-            WindowHelper.OpenSolutionImageWindow(this._iWriteToOutput, connectionData, commonConfig);
-        }
-
-        public void ExecuteOpeningSolutionDifferenceImageWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, Properties.OperationNames.ShowingSolutionDifferenceImageWindow);
-
-            try
-            {
-                OpeningSolutionDifferenceImageWindow(connectionData, commonConfig);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, Properties.OperationNames.ShowingSolutionDifferenceImageWindow);
-            }
-        }
-
-        private void OpeningSolutionDifferenceImageWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-            WindowHelper.OpenSolutionDifferenceImageWindow(this._iWriteToOutput, connectionData, commonConfig);
-        }
-
-        public void ExecuteOpeningOrganizationDifferenceImageWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, Properties.OperationNames.ShowingOrganizationDifferenceImageWindow);
-
-            try
-            {
-                OpeningOrganizationDifferenceImageWindow(connectionData, commonConfig);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, Properties.OperationNames.ShowingOrganizationDifferenceImageWindow);
-            }
-        }
-
-        private void OpeningOrganizationDifferenceImageWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-            WindowHelper.OpenOrganizationDifferenceImageWindow(this._iWriteToOutput, connectionData, commonConfig);
-        }
 
         #endregion Окна с образами.
 
@@ -192,7 +73,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             return solution;
         }
 
-        #region Добавление веб-ресурса в решение.
+        private async Task OpenWindowForUnknownProjects(ConnectionData connectionData, CommonConfiguration commonConfig, List<string> unknownProjectNames)
+        {
+            if (!unknownProjectNames.Any())
+            {
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.PluginAssembliesNotFoundedByNameFormat1, unknownProjectNames.Count);
+
+            foreach (var projectName in unknownProjectNames)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, "{0}{1}", _tabSpacer, projectName);
+            }
+
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            WindowHelper.OpenPluginAssemblyExplorer(
+                this._iWriteToOutput
+                , service
+                , commonConfig
+                , unknownProjectNames.FirstOrDefault()
+            );
+        }
+
+        #region Adding WebResources to Solution
 
         public async Task ExecuteAddingWebResourcesToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
         {
@@ -357,9 +262,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        #endregion Добавление веб-ресурса в решение.
+        #endregion Adding WebResources to Solution
 
-        #region Добавление отчета в решение.
+        #region Adding Reports to Solution
 
         public async Task ExecuteAddingReportsToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
         {
@@ -503,9 +408,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        #endregion Добавление отчета в решение.
+        #endregion Adding Reports to Solution
 
-        #region Добавление компонентов в решение.
+        #region Adding Components to Solution
 
         public static async Task AddSolutionComponentsGroupToSolution(
             IWriteToOutput iWriteToOutput
@@ -763,6 +668,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
+        #endregion Adding Components to Solution
+
+        #region Removing Components from Solution
+
         public static async Task RemoveSolutionComponentsCollectionFromSolution(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
@@ -847,9 +756,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        #endregion Добавление компонентов в решение.
+        #endregion Removing Components from Solution
 
-        #region Добавление сборки в решение по имени.
+        #region Adding PluginAssemblies to Solution
 
         public async Task ExecuteAddingPluginAssemblyToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<string> projectNames, string solutionUniqueName, bool withSelect)
         {
@@ -984,9 +893,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        #endregion Добавление сборки в решение по имени.
+        #endregion Adding PluginAssemblies to Solution
 
-        #region Добавление шагов плагинов сборки в решение по имени.
+        #region Adding PluginAssemblies Processing Steps to Solution
 
         public async Task ExecuteAddingPluginAssemblyProcessingStepsToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<string> projectNames, string solutionUniqueName, bool withSelect)
         {
@@ -1140,33 +1049,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task OpenWindowForUnknownProjects(ConnectionData connectionData, CommonConfiguration commonConfig, List<string> unknownProjectNames)
-        {
-            if (!unknownProjectNames.Any())
-            {
-                return;
-            }
+        #endregion Adding Plugin Steps to Solution
 
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.PluginAssembliesNotFoundedByNameFormat1, unknownProjectNames.Count);
-
-            foreach (var projectName in unknownProjectNames)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, "{0}{1}", _tabSpacer, projectName);
-            }
-
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            WindowHelper.OpenPluginAssemblyExplorer(
-                this._iWriteToOutput
-                , service
-                , commonConfig
-                , unknownProjectNames.FirstOrDefault()
-            );
-        }
-
-        #endregion Добавление шагов плагинов сборки в решение по имени.
-
-        #region Добавление в решение шагов плагинов типа плагина по имени.
+        #region Adding PluginTypes Processing Steps to Solution
 
         public async Task ExecuteAddingPluginTypeProcessingStepsToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<string> pluginTypeNames, string solutionUniqueName, bool withSelect)
         {
@@ -1316,7 +1201,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        #endregion Добавление в решение шагов плагинов типа плагина по имени.
+        #endregion Adding PluginTypes Processing Steps to Solution
 
         #region Adding Linked SystemForms to Solution
 

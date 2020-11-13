@@ -709,7 +709,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 ActivateOutputWindow(connectionData);
                 WriteToOutputEmptyLines(connectionData, commonConfig);
 
-                Controller.StartOpeningFiles(connectionData, commonConfig, selectedFiles, openFilesType, inTextEditor);
+                Controller.StartWebResourceOpeningFiles(connectionData, commonConfig, selectedFiles, openFilesType, inTextEditor);
             }
         }
 
@@ -724,7 +724,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartCheckFileEncoding(selectedFiles);
+                    Controller.StartWebResourceCheckFileEncoding(selectedFiles);
                 }
                 catch (Exception ex)
                 {
@@ -744,7 +744,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartOpenFilesWithouUTF8Encoding(selectedFiles);
+                    Controller.StartWebResourceOpenFilesWithouUTF8Encoding(selectedFiles);
                 }
                 catch (Exception ex)
                 {

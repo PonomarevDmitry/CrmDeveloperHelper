@@ -478,11 +478,16 @@
     <Compile Include="Commands\Xmls\XmlCommonXsdSchemaRemoveCommand.cs" />
     <Compile Include="Commands\Xmls\XmlCommonXsdSchemaSetCommand.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ExportXmlController.PluginTypeCustomWorkflowActivityInfo.cs" />
+    <Compile Include="Controllers\ExportXmlController.SavedQuery.cs" />
+    <Compile Include="Controllers\ExportXmlController.SiteMap.cs" />
+    <Compile Include="Controllers\ExportXmlController.SystemForm.cs" />
+    <Compile Include="Controllers\ExportXmlController.WorkflowXaml.cs" />
     <Compile Include="Controllers\FindsController.cs" />
-    <Compile Include="Controllers\OpenFilesController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\SecurityController.cs" />
     <Compile Include="Controllers\WebResourceController.cs" />
+    <Compile Include="Controllers\ExportXmlController.DependencyXml.cs" />
     <Compile Include="CrmDeveloperHelperPackageCommandTable.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

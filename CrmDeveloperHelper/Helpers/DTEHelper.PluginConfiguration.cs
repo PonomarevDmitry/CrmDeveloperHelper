@@ -89,7 +89,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartShowingPluginConfigurationAssemblyDescription(commonConfig, filePath);
+                    Controller.StartShowingPluginConfigurationAssemblyDescriptionWindow(commonConfig, filePath);
                 }
                 catch (Exception ex)
                 {
@@ -118,7 +118,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartShowingPluginConfigurationTypeDescription(commonConfig, filePath);
+                    Controller.StartShowingPluginConfigurationTypeDescriptionWindow(commonConfig, filePath);
                 }
                 catch (Exception ex)
                 {

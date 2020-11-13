@@ -21,16 +21,13 @@ using System.Xml.Serialization;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 {
-    public class WebResourceController : BaseController<IWriteToOutputAndPublishList>
+    public partial class WebResourceController : BaseController<IWriteToOutputAndPublishList>
     {
         public WebResourceController(IWriteToOutputAndPublishList iWriteToOutput)
             : base(iWriteToOutput)
         {
         }
 
-        /// <summary>
-        /// Элемент для публикации в CRM
-        /// </summary>
         private class ElementForPublish
         {
             public SelectedFile SelectedFile { get; private set; }
@@ -50,9 +47,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        /// <summary>
-        /// Выполнение обновления содержания и публикация.
-        /// </summary>
         private async Task UpdateContentAndPublishAsync(IOrganizationServiceExtented service, Dictionary<Guid, ElementForPublish> elements)
         {
             if (elements.Count == 0)
@@ -94,10 +88,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             lines.ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, "{0}{1}", _tabSpacer, item));
         }
 
-        /// <summary>
-        /// Обновление контента веб-ресурсов
-        /// </summary>
-        /// <returns></returns>
         private List<WebResource> GetEntitesToUpdateContent(ConnectionData connectionData, IEnumerable<ElementForPublish> elements)
         {
             var result = new List<WebResource>();
@@ -2584,5 +2574,98 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         }
 
         #endregion Открытие веб-ресурсов.
+
+        #region Проверка кодировки файлов.
+
+        internal void ExecuteCheckingFilesEncoding(List<SelectedFile> selectedFiles)
+        {
+            this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.CheckingFilesEncoding);
+
+            try
+            {
+                CheckingFilesEncoding(null, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(null, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.CheckingFilesEncoding);
+            }
+        }
+
+        public void ExecuteOpenFilesWithoutUTF8Encoding(IEnumerable<SelectedFile> selectedFiles)
+        {
+            this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.OpeningFilesWithoutUTF8Encoding);
+
+            try
+            {
+                CheckingFilesEncoding(null, selectedFiles, out List<SelectedFile> filesWithoutUTF8Encoding);
+
+                if (filesWithoutUTF8Encoding.Count > 0)
+                {
+                    foreach (var item in filesWithoutUTF8Encoding)
+                    {
+                        this._iWriteToOutput.WriteToOutputFilePathUri(null, item.FilePath);
+                        this._iWriteToOutput.OpenFileInVisualStudio(null, item.FilePath);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(null, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.OpeningFilesWithoutUTF8Encoding);
+            }
+        }
+
+        #endregion Проверка кодировки файлов.
+
+        #region OpenFiles
+
+        public async Task ExecuteOpenFiles(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, OpenFilesType openFilesType, bool inTextEditor)
+        {
+            await CheckEncodingConnectFindWebResourceExecuteActionAsync(connectionData
+                , Properties.OperationNames.OpeningFilesFormat2
+                , selectedFiles
+                , openFilesType
+                , (conn, service, filesToOpen) => OpenFiles(conn, service, filesToOpen, inTextEditor)
+                , Helpers.EnumDescriptionTypeConverter.GetEnumNameByDescriptionAttribute(openFilesType)
+            );
+        }
+
+        private void OpenFiles(ConnectionData connectionData, IOrganizationServiceExtented service, TupleList<SelectedFile, WebResource> filesToOpen, bool inTextEditor)
+        {
+            if (!filesToOpen.Any())
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, "No files for open.");
+                this._iWriteToOutput.ActivateOutputWindow(connectionData);
+                return;
+            }
+
+            var orderEnumrator = filesToOpen.Select(s => s.Item1).OrderBy(s => s.FriendlyFilePath);
+
+            if (inTextEditor)
+            {
+                foreach (var item in orderEnumrator)
+                {
+                    this._iWriteToOutput.WriteToOutputFilePathUri(connectionData, item.FilePath);
+                    this._iWriteToOutput.OpenFileInTextEditor(connectionData, item.FilePath);
+                }
+            }
+            else
+            {
+                foreach (var item in orderEnumrator)
+                {
+                    this._iWriteToOutput.WriteToOutputFilePathUri(connectionData, item.FilePath);
+                    this._iWriteToOutput.OpenFileInVisualStudio(connectionData, item.FilePath);
+                }
+            }
+        }
+
+        #endregion OpenFiles
     }
 }

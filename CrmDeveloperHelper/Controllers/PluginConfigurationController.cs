@@ -80,13 +80,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Форма для описания сборки плагинов по конфигурации.
 
-        public void ExecuteShowingPluginConfigurationAssemblyDescription(CommonConfiguration commonConfig, string filePath)
+        public void ExecuteShowingPluginConfigurationAssemblyDescriptionWindow(CommonConfiguration commonConfig, string filePath)
         {
             this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.PluginConfigurationAssemblyDescription);
 
             try
             {
-                ShowingPluginConfigurationAssemblyDescription(commonConfig, filePath);
+                ShowingPluginConfigurationAssemblyDescriptionWindow(commonConfig, filePath);
             }
             catch (Exception ex)
             {
@@ -98,7 +98,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private void ShowingPluginConfigurationAssemblyDescription(CommonConfiguration commonConfig, string filePath)
+        private void ShowingPluginConfigurationAssemblyDescriptionWindow(CommonConfiguration commonConfig, string filePath)
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
@@ -127,13 +127,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Форма для описания типа плагинов по конфигурации.
 
-        public void ExecuteShowingPluginConfigurationTypeDescription(CommonConfiguration commonConfig, string filePath)
+        public void ExecuteShowingPluginConfigurationTypeDescriptionWindow(CommonConfiguration commonConfig, string filePath)
         {
             this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.PluginConfigurationTypeDescription);
 
             try
             {
-                ShowingPluginConfigurationTypeDescription(commonConfig, filePath);
+                ShowingPluginConfigurationTypeDescriptionWindow(commonConfig, filePath);
             }
             catch (Exception ex)
             {
@@ -145,7 +145,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private void ShowingPluginConfigurationTypeDescription(CommonConfiguration commonConfig, string filePath)
+        private void ShowingPluginConfigurationTypeDescriptionWindow(CommonConfiguration commonConfig, string filePath)
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {

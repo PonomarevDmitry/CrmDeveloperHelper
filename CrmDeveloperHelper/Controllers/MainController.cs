@@ -4,7 +4,6 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
-using System.Security.Cryptography.Xml;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -30,13 +29,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         private readonly CheckPluginController _checkPluginController;
         private readonly PluginController _pluginController;
         private readonly CheckManagedEntitiesController _checkManagedEntitiesController;
-        private readonly OpenFilesController _openFilesController;
         private readonly ReportController _reportController;
         private readonly SecurityController _securityController;
         private readonly WebResourceController _webResourceController;
 
         /// <summary>
-        /// Конструктор контроллера для публикации
+        /// Конструктор контроллера
         /// </summary>
         /// <param name="outputWindow"></param>
         public MainController(IWriteToOutputAndPublishList outputWindow)
@@ -55,7 +53,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._checkPluginController = new CheckPluginController(outputWindow);
             this._pluginController = new PluginController(outputWindow);
             this._checkManagedEntitiesController = new CheckManagedEntitiesController(outputWindow);
-            this._openFilesController = new OpenFilesController(outputWindow);
             this._reportController = new ReportController(outputWindow);
             this._securityController = new SecurityController(outputWindow);
             this._webResourceController = new WebResourceController(outputWindow);
@@ -466,10 +463,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteOpeningWorkflowExplorer, commonConfig, selection);
 
         public void StartOpenSolutionExplorerWindow(ConnectionData connectionData, CommonConfiguration commonConfig, EnvDTE.SelectedItem selectedItem)
-            => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteOpeningSolutionExlorerWindow, commonConfig, selectedItem);
+            => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteOpeningSolutionExlorerWindow, commonConfig, selectedItem);
 
         public void StartOpenImportJobExplorerWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
-            => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteOpeningImportJobExlorerWindow, commonConfig);
+            => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteOpeningImportJobExlorerWindow, commonConfig);
 
         public void StartShowingPluginTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string pluginTypeFilter, string messageFilter)
             => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteShowingPluginTree, commonConfig, entityFilter, pluginTypeFilter, messageFilter);
@@ -501,10 +498,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartTraceReaderOpenWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
             => ExecuteWithConnectionInThread(connectionData, this._explorerController.ExecuteOpeningTraceReader, commonConfig);
 
+        public void StartOpenSolutionImageWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
+            => ExecuteWithConnectionInThreadVoid(connectionData, this._explorerController.ExecuteOpeningSolutionImageWindow, commonConfig);
+
+        public void StartOpenSolutionDifferenceImageWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
+            => ExecuteWithConnectionInThreadVoid(connectionData, this._explorerController.ExecuteOpeningSolutionDifferenceImageWindow, commonConfig);
+
+        public void StartOpenOrganizationDifferenceImageWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
+            => ExecuteWithConnectionInThreadVoid(connectionData, this._explorerController.ExecuteOpeningOrganizationDifferenceImageWindow, commonConfig);
+
         public void StartOrganizationComparer(ConnectionConfiguration crmConfig, CommonConfiguration commonConfig)
             => ExecuteInThreadVoid(this._explorerController.ExecuteOrganizationComparer, crmConfig, commonConfig);
 
         #endregion Explorers
+
+        #region Xml Files
 
         #region SiteMap
 
@@ -554,8 +562,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartOpeningLinkedSystemForm(ConnectionData connectionData, CommonConfiguration commonConfig, ActionOnComponent actionOnComponent, string entityName, Guid formId, int formType)
              => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteOpeningLinkedSystemForm, commonConfig, actionOnComponent, entityName, formId, formType);
 
-        public void StartAddingLinkedSystemFormToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, bool withSelect, IEnumerable<Guid> formIdList)
-            => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteAddingLinkedSystemFormToSolution, commonConfig, solutionUniqueName, withSelect, formIdList);
         public void StartLinkedSystemFormChangeInEntityEditor(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, Guid formId, int formType)
             => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteChangingLinkedSystemFormInEntityEditor, commonConfig, entityName, formId, formType);
 
@@ -621,6 +627,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion PluginTypeCustomWorkflowActivityInfo
 
+        #region WebResource DependencyXml
+
+        public void StartWebResourceDependencyXmlDifference(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+            => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteDifferenceWebResourceDependencyXml, commonConfig, selectedFile);
+
+        public void StartWebResourceDependencyXmlDifference(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
+            => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteDifferenceWebResourceDependencyXml, commonConfig, doc, filePath);
+
+        public void StartWebResourceDependencyXmlUpdate(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+            => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteUpdateWebResourceDependencyXml, commonConfig, selectedFile);
+
+        public void StartWebResourceDependencyXmlUpdate(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
+            => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteUpdateWebResourceDependencyXml, commonConfig, doc, filePath);
+
+        public void StartWebResourceDependencyXmlOpenInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+            => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteOpenInWebWebResourceDependencyXml, commonConfig, selectedFile);
+
+        public void StartWebResourceDependencyXmlGetCurrent(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+            => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteGetWebResourceCurrentDependencyXml, commonConfig, selectedFile);
+
+        #endregion WebResource DependencyXml
+
+        #endregion Xml Files
+
         #region RibbonDiff
 
         public void StartRibbonDiffXmlDifference(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
@@ -677,9 +707,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartPublishEntityMetadata(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode)
             => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecutePublishEntity, commonConfig, entityName, entityTypeCode);
 
-        public void StartAddingEntityToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, bool withSelect, string entityName, SolutionComponent.Schema.OptionSets.rootcomponentbehavior rootComponentBehavior)
-            => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteAddingEntityToSolution, commonConfig, solutionUniqueName, withSelect, entityName, rootComponentBehavior);
-
         #region WebResource
 
         public void StartUpdateContentAndPublish(ConnectionData connectionData, List<SelectedFile> selectedFiles)
@@ -733,40 +760,41 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartClearingLastLink(ConnectionData connectionData, List<SelectedFile> selectedFiles)
             => ExecuteWithConnectionInThreadVoid(connectionData, this._webResourceController.ExecuteClearingWebResourcesLinks, selectedFiles);
 
-        public void StartWebResourceDependencyXmlDifference(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
-            => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteDifferenceWebResourceDependencyXml, commonConfig, selectedFile);
-
-        public void StartWebResourceDependencyXmlDifference(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
-            => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteDifferenceWebResourceDependencyXml, commonConfig, doc, filePath);
-
-        public void StartWebResourceDependencyXmlUpdate(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
-            => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteUpdateWebResourceDependencyXml, commonConfig, selectedFile);
-
-        public void StartWebResourceDependencyXmlUpdate(ConnectionData connectionData, CommonConfiguration commonConfig, XDocument doc, string filePath)
-            => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteUpdateWebResourceDependencyXml, commonConfig, doc, filePath);
-
-        public void StartWebResourceDependencyXmlOpenInWeb(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
-            => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteOpenInWebWebResourceDependencyXml, commonConfig, selectedFile);
-
-        public void StartWebResourceDependencyXmlGetCurrent(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
-            => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteGetWebResourceCurrentDependencyXml, commonConfig, selectedFile);
-
         public void StartWebResourcesGetContent(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
             => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteGettingContent, commonConfig, selectedFiles);
 
         public void StartOpeningWebResource(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, ActionOnComponent actionOnComponent)
             => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteOpeningWebResource, commonConfig, selectedFile, actionOnComponent);
 
-        public void StartAddingWebResourcesToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
-            => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteAddingWebResourcesToSolution, commonConfig, solutionUniqueName, selectedFiles, withSelect);
-
-        #endregion WebResource
-
         public void StartAddingIntoPublishListFilesByType(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, OpenFilesType openFilesType)
             => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteAddingIntoPublishListFilesByType, commonConfig, selectedFiles, openFilesType);
 
         public void StartRemovingFromPublishListFilesByType(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, OpenFilesType openFilesType)
             => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteRemovingIntoPublishListFilesByType, commonConfig, selectedFiles, openFilesType);
+
+        public void StartWebResourceCheckFileEncoding(List<SelectedFile> selectedFiles)
+            => ExecuteInThreadVoid(this._webResourceController.ExecuteCheckingFilesEncoding, selectedFiles);
+
+        public void StartWebResourceOpenFilesWithouUTF8Encoding(List<SelectedFile> selectedFiles)
+            => ExecuteInThreadVoid(this._webResourceController.ExecuteOpenFilesWithoutUTF8Encoding, selectedFiles);
+
+        public void StartWebResourceOpeningFiles(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, OpenFilesType openFilesType, bool isTextEditor)
+            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteOpenFiles, commonConfig, selectedFiles, openFilesType, isTextEditor);
+
+        #endregion WebResource
+
+        #region JavaScript Files
+
+        public void StartJavaScriptEntityMetadataFileUpdatingSchema(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, bool selectEntity, bool openOptions)
+            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteUpdateFileWithEntityMetadataJavaScript, commonConfig, selectedFiles, selectEntity, openOptions);
+
+        public void StartJavaScriptGlobalOptionSetFileUpdatingSingle(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, bool selectEntity, bool openOptions)
+            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteUpdatingFileWithGlobalOptionSetSingleJavaScript, commonConfig, selectedFiles, selectEntity, openOptions);
+
+        public void StartJavaScriptGlobalOptionSetFileUpdatingAll(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, bool openOptions)
+            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteUpdatingFileWithGlobalOptionSetAllJavaScript, commonConfig, selectedFile, openOptions);
+
+        #endregion JavaScript Files
 
         #region Report
 
@@ -792,10 +820,101 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void StartOpeningReport(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, ActionOnComponent actionOnComponent)
             => ExecuteWithConnectionInThread(connectionData, this._reportController.ExecuteOpeningReport, commonConfig, selectedFile, actionOnComponent);
 
+        #endregion Report
+
+        #region Solutions
+
+        public void StartAddingEntityToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, bool withSelect, string entityName, SolutionComponent.Schema.OptionSets.rootcomponentbehavior rootComponentBehavior)
+            => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteAddingEntityToSolution, commonConfig, solutionUniqueName, withSelect, entityName, rootComponentBehavior);
+
+        public void StartAddingWebResourcesToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
+            => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteAddingWebResourcesToSolution, commonConfig, solutionUniqueName, selectedFiles, withSelect);
+
+        public void StartAddingLinkedSystemFormToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, bool withSelect, IEnumerable<Guid> formIdList)
+            => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteAddingLinkedSystemFormToSolution, commonConfig, solutionUniqueName, withSelect, formIdList);
+
         public void StartReportAddingToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
             => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteAddingReportsToSolution, commonConfig, solutionUniqueName, selectedFiles, withSelect);
 
-        #endregion Report
+        public void StartPluginAssemblyAddingToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<string> projectNames, string solutionUniqueName, bool withSelect)
+            => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteAddingPluginAssemblyToSolution, commonConfig, projectNames, solutionUniqueName, withSelect);
+
+        public void StartPluginAssemblyAddingProcessingStepsToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<string> projectNames, string solutionUniqueName, bool withSelect)
+            => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteAddingPluginAssemblyProcessingStepsToSolution, commonConfig, projectNames, solutionUniqueName, withSelect);
+
+        public void StartPluginTypeAddingProcessingStepsToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<string> pluginTypeNames, string solutionUniqueName, bool withSelect)
+            => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteAddingPluginTypeProcessingStepsToSolution, commonConfig, pluginTypeNames, solutionUniqueName, withSelect);
+
+        public void StartSolutionOpening(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, ActionOnComponent actionOnComponent)
+            => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteOpeningSolutionAsync, commonConfig, solutionUniqueName, actionOnComponent);
+
+        #endregion Solutions
+
+        #region VisualStudio Projects, Plugin Assemblies, Types, Steps
+
+        public void StartAddPluginStep(ConnectionData connectionData, CommonConfiguration commonConfig, string pluginTypeName)
+            => ExecuteWithConnectionInThread(connectionData, this._pluginController.ExecuteAddingPluginStepForType, commonConfig, pluginTypeName);
+
+        public void StartPluginAssemblyComparingPluginTypesWithLocalAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<EnvDTE.Project> projectList)
+            => ExecuteWithConnectionInThread(connectionData, this._pluginController.ExecuteComparingPluginTypesLocalAssemblyAndPluginAssembly, commonConfig, projectList);
+
+        public void StartComparingByteArrayLocalAssemblyAndPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<EnvDTE.Project> projectList)
+            => ExecuteWithConnectionInThread(connectionData, this._pluginController.ExecuteComparingByteArrayLocalAssemblyAndPluginAssembly, commonConfig, projectList);
+
+        public void StartPluginAssemblyRegister(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<EnvDTE.Project> projectList)
+            => ExecuteWithConnectionInThread(connectionData, this._pluginController.ExecuteRegisterPluginAssembly, commonConfig, projectList);
+
+        public void StartPluginAssemblyUpdatingInWindow(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<EnvDTE.Project> projectList)
+            => ExecuteWithConnectionInThread(connectionData, this._pluginController.ExecuteUpdatingPluginAssembliesInWindow, commonConfig, projectList);
+
+        public void StartPluginAssemblyBuildProjectUpdate(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<EnvDTE.Project> projectList, bool registerPlugins)
+            => ExecuteWithConnectionInThread(connectionData, this._pluginController.ExecuteBuildingProjectAndUpdatingPluginAssembly, commonConfig, projectList, registerPlugins);
+
+        public void StartActionOnPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<EnvDTE.Project> projectList, ActionOnComponent actionOnComponent)
+            => ExecuteWithConnectionInThread(connectionData, this._pluginController.ExecuteActionOnProjectPluginAssembly, commonConfig, projectList, actionOnComponent);
+
+        public void StartActionOnPluginTypes(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<string> pluginTypeNames, ActionOnComponent actionOnComponent, string fieldName, string fieldTitle)
+            => ExecuteWithConnectionInThread(connectionData, this._pluginController.ExecuteActionOnPluginTypes, commonConfig, pluginTypeNames, actionOnComponent, fieldName, fieldTitle);
+
+        #endregion VisualStudio Projects, Plugin Assemblies, Types, Steps
+
+        #region PluginConfiguration
+
+        public void StartExportPluginConfiguration(ConnectionData connectionData, CommonConfiguration commonConfig)
+            => ExecuteWithConnectionInThread(connectionData, this._exportPluginConfigurationController.ExecuteExportingPluginConfigurationXml, commonConfig);
+
+        public void StartExportPluginConfigurationIntoFolder(ConnectionData connectionData, CommonConfiguration commonConfig, EnvDTE.SelectedItem selectedItem)
+            => ExecuteWithConnectionInThread(connectionData, this._exportPluginConfigurationController.ExecuteExportingPluginConfigurationIntoFolder, commonConfig, selectedItem);
+
+        public void StartShowingPluginConfigurationTree(ConnectionData connectionData, CommonConfiguration commonConfig, string filePath)
+            => ExecuteWithConnectionInThreadVoid(connectionData, this._pluginConfigurationController.ExecuteShowingPluginConfigurationTree, commonConfig, filePath);
+
+        public void StartShowingPluginConfigurationAssemblyDescriptionWindow(CommonConfiguration commonConfig, string filePath)
+            => ExecuteInThreadVoid(this._pluginConfigurationController.ExecuteShowingPluginConfigurationAssemblyDescriptionWindow, commonConfig, filePath);
+
+        public void StartShowingPluginConfigurationTypeDescriptionWindow(CommonConfiguration commonConfig, string filePath)
+            => ExecuteInThreadVoid(this._pluginConfigurationController.ExecuteShowingPluginConfigurationTypeDescriptionWindow, commonConfig, filePath);
+
+        public void StartShowingPluginConfigurationComparer(CommonConfiguration commonConfig, string filePath)
+            => ExecuteInThreadVoid(this._pluginConfigurationController.ExecuteShowingPluginConfigurationComparer, commonConfig, filePath);
+
+        #endregion PluginConfiguration
+
+        #region C# Files
+
+        public void StartCSharpEntityMetadataUpdatingFileWithSchema(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, bool selectEntity, bool openOptions)
+            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteUpdateFileWithEntityMetadataCSharpSchema, commonConfig, selectedFiles, selectEntity, openOptions);
+
+        public void StartCSharpEntityMetadataUpdatingFileWithProxyClassOrSchema(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, bool selectEntity, bool openOptions)
+            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteUpdateFileWithEntityMetadataCSharpProxyClassOrSchema, commonConfig, selectedFiles, selectEntity, openOptions);
+
+        public void StartCSharpEntityMetadataUpdatingFileWithProxyClass(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, bool selectEntity, bool openOptions)
+            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteUpdateFileWithEntityMetadataCSharpProxyClass, commonConfig, selectedFiles, selectEntity, openOptions);
+
+        public void StartCSharpGlobalOptionSetsFileUpdatingSchema(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, bool withSelect, bool openOptions)
+            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteUpdatingFileWithGlobalOptionSetCSharp, commonConfig, selectedFiles, withSelect, openOptions);
+
+        #endregion C# Files
 
         #region Finds
 
@@ -878,106 +997,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         public void ExecuteCheckingWorkflowsNotExistingUsedEntities(ConnectionData connectionData, CommonConfiguration commonConfig)
             => ExecuteWithConnectionInThread(connectionData, this._checkController.ExecuteCheckingWorkflowsNotExistingUsedEntities, commonConfig);
 
+        public void StartCheckManagedEntities(ConnectionData connectionData, CommonConfiguration commonConfig)
+            => ExecuteWithConnectionInThread(connectionData, this._checkManagedEntitiesController.ExecuteCheckingManagedEntities, commonConfig);
+
         #endregion Checks
 
         public void StartExportingFormEvents(ConnectionData connectionData, CommonConfiguration commonConfig)
             => ExecuteWithConnectionInThread(connectionData, this._exportXmlController.ExecuteExportingFormsEvents, commonConfig);
-
-        public void StartExportPluginConfiguration(ConnectionData connectionData, CommonConfiguration commonConfig)
-            => ExecuteWithConnectionInThread(connectionData, this._exportPluginConfigurationController.ExecuteExportingPluginConfigurationXml, commonConfig);
-
-        public void StartAddPluginStep(ConnectionData connectionData, CommonConfiguration commonConfig, string pluginTypeName)
-            => ExecuteWithConnectionInThread(connectionData, this._pluginController.ExecuteAddingPluginStepForType, commonConfig, pluginTypeName);
-
-        public void StartCSharpEntityMetadataUpdatingFileWithSchema(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, bool selectEntity, bool openOptions)
-            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteUpdateFileWithEntityMetadataCSharpSchema, commonConfig, selectedFiles, selectEntity, openOptions);
-
-        public void StartCSharpEntityMetadataUpdatingFileWithProxyClassOrSchema(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, bool selectEntity, bool openOptions)
-            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteUpdateFileWithEntityMetadataCSharpProxyClassOrSchema, commonConfig, selectedFiles, selectEntity, openOptions);
-
-        public void StartCSharpEntityMetadataUpdatingFileWithProxyClass(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, bool selectEntity, bool openOptions)
-            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteUpdateFileWithEntityMetadataCSharpProxyClass, commonConfig, selectedFiles, selectEntity, openOptions);
-
-        public void StartJavaScriptEntityMetadataFileUpdatingSchema(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, bool selectEntity, bool openOptions)
-            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteUpdateFileWithEntityMetadataJavaScript, commonConfig, selectedFiles, selectEntity, openOptions);
-
-        public void StartCSharpGlobalOptionSetsFileUpdatingSchema(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, bool withSelect, bool openOptions)
-            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteUpdatingFileWithGlobalOptionSetCSharp, commonConfig, selectedFiles, withSelect, openOptions);
-
-        public void StartJavaScriptGlobalOptionSetFileUpdatingSingle(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, bool selectEntity, bool openOptions)
-            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteUpdatingFileWithGlobalOptionSetSingleJavaScript, commonConfig, selectedFiles, selectEntity, openOptions);
-
-        public void StartJavaScriptGlobalOptionSetFileUpdatingAll(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, bool openOptions)
-            => ExecuteWithConnectionInThread(connectionData, this._entityMetadataController.ExecuteUpdatingFileWithGlobalOptionSetAllJavaScript, commonConfig, selectedFile, openOptions);
-
-        public void StartOpenSolutionImageWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
-            => ExecuteWithConnectionInThreadVoid(connectionData, this._solutionController.ExecuteOpeningSolutionImageWindow, commonConfig);
-
-        public void StartOpenSolutionDifferenceImageWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
-            => ExecuteWithConnectionInThreadVoid(connectionData, this._solutionController.ExecuteOpeningSolutionDifferenceImageWindow, commonConfig);
-
-        public void StartOpenOrganizationDifferenceImageWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
-            => ExecuteWithConnectionInThreadVoid(connectionData, this._solutionController.ExecuteOpeningOrganizationDifferenceImageWindow, commonConfig);
-
-        public void StartPluginAssemblyAddingToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<string> projectNames, string solutionUniqueName, bool withSelect)
-            => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteAddingPluginAssemblyToSolution, commonConfig, projectNames, solutionUniqueName, withSelect);
-
-        public void StartPluginAssemblyAddingProcessingStepsToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<string> projectNames, string solutionUniqueName, bool withSelect)
-            => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteAddingPluginAssemblyProcessingStepsToSolution, commonConfig, projectNames, solutionUniqueName, withSelect);
-
-        public void StartPluginTypeAddingProcessingStepsToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<string> pluginTypeNames, string solutionUniqueName, bool withSelect)
-            => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteAddingPluginTypeProcessingStepsToSolution, commonConfig, pluginTypeNames, solutionUniqueName, withSelect);
-
-        public void StartPluginAssemblyComparingPluginTypesWithLocalAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<EnvDTE.Project> projectList)
-            => ExecuteWithConnectionInThread(connectionData, this._pluginController.ExecuteComparingPluginTypesLocalAssemblyAndPluginAssembly, commonConfig, projectList);
-
-        public void StartComparingByteArrayLocalAssemblyAndPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<EnvDTE.Project> projectList)
-            => ExecuteWithConnectionInThread(connectionData, this._pluginController.ExecuteComparingByteArrayLocalAssemblyAndPluginAssembly, commonConfig, projectList);
-
-        public void StartPluginAssemblyUpdatingInWindow(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<EnvDTE.Project> projectList)
-            => ExecuteWithConnectionInThread(connectionData, this._pluginController.ExecuteUpdatingPluginAssembliesInWindow, commonConfig, projectList);
-
-        public void StartPluginAssemblyBuildProjectUpdate(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<EnvDTE.Project> projectList, bool registerPlugins)
-            => ExecuteWithConnectionInThread(connectionData, this._pluginController.ExecuteBuildingProjectAndUpdatingPluginAssembly, commonConfig, projectList, registerPlugins);
-
-        public void StartActionOnPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<EnvDTE.Project> projectList, ActionOnComponent actionOnComponent)
-            => ExecuteWithConnectionInThread(connectionData, this._pluginController.ExecuteActionOnProjectPluginAssembly, commonConfig, projectList, actionOnComponent);
-
-        public void StartActionOnPluginTypes(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<string> pluginTypeNames, ActionOnComponent actionOnComponent, string fieldName, string fieldTitle)
-            => ExecuteWithConnectionInThread(connectionData, this._pluginController.ExecuteActionOnPluginTypes, commonConfig, pluginTypeNames, actionOnComponent, fieldName, fieldTitle);
-
-        public void StartPluginAssemblyRegister(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<EnvDTE.Project> projectList)
-            => ExecuteWithConnectionInThread(connectionData, this._pluginController.ExecuteRegisterPluginAssembly, commonConfig, projectList);
-
-        public void StartShowingPluginConfigurationTree(ConnectionData connectionData, CommonConfiguration commonConfig, string filePath)
-            => ExecuteWithConnectionInThreadVoid(connectionData, this._pluginConfigurationController.ExecuteShowingPluginConfigurationTree, commonConfig, filePath);
-
-        public void StartShowingPluginConfigurationAssemblyDescription(CommonConfiguration commonConfig, string filePath)
-            => ExecuteInThreadVoid(this._pluginConfigurationController.ExecuteShowingPluginConfigurationAssemblyDescription, commonConfig, filePath);
-
-        public void StartShowingPluginConfigurationTypeDescription(CommonConfiguration commonConfig, string filePath)
-            => ExecuteInThreadVoid(this._pluginConfigurationController.ExecuteShowingPluginConfigurationTypeDescription, commonConfig, filePath);
-
-        public void StartShowingPluginConfigurationComparer(CommonConfiguration commonConfig, string filePath)
-            => ExecuteInThreadVoid(this._pluginConfigurationController.ExecuteShowingPluginConfigurationComparer, commonConfig, filePath);
-
-        public void StartCheckFileEncoding(List<SelectedFile> selectedFiles)
-            => ExecuteInThreadVoid(this._checkController.ExecuteCheckingFilesEncoding, selectedFiles);
-
-        public void StartOpenFilesWithouUTF8Encoding(List<SelectedFile> selectedFiles)
-            => ExecuteInThreadVoid(this._checkController.ExecuteOpenFilesWithoutUTF8Encoding, selectedFiles);
-
-        public void StartExportPluginConfigurationIntoFolder(ConnectionData connectionData, CommonConfiguration commonConfig, EnvDTE.SelectedItem selectedItem)
-            => ExecuteWithConnectionInThread(connectionData, this._exportPluginConfigurationController.ExecuteExportingPluginConfigurationIntoFolder, commonConfig, selectedItem);
-
-        public void StartCheckManagedEntities(ConnectionData connectionData, CommonConfiguration commonConfig)
-            => ExecuteWithConnectionInThread(connectionData, this._checkManagedEntitiesController.ExecuteCheckingManagedEntities, commonConfig);
-
-        public void StartOpeningFiles(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, OpenFilesType openFilesType, bool isTextEditor)
-            => ExecuteWithConnectionInThread(connectionData, this._openFilesController.ExecuteOpenFiles, commonConfig, selectedFiles, openFilesType, isTextEditor);
-
-        public void StartSolutionOpening(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, ActionOnComponent actionOnComponent)
-            => ExecuteWithConnectionInThread(connectionData, this._solutionController.ExecuteOpeningSolutionAsync, commonConfig, solutionUniqueName, actionOnComponent);
 
         public void StartPublishAll(ConnectionData connectionData)
             => ExecuteWithConnectionInThread(connectionData, this._publishController.ExecutePublishingAll);

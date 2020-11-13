@@ -1207,7 +1207,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     try
                     {
-                        SolutionController contr = new SolutionController(iWriteToOutput);
+                        var contr = new ExplorerController(iWriteToOutput);
 
                         var task = contr.ExecuteOpeningSolutionExlorerWindow(connection, commonConfig, null);
                     }
@@ -1232,7 +1232,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     try
                     {
-                        SolutionController contr = new SolutionController(iWriteToOutput);
+                        var contr = new ExplorerController(iWriteToOutput);
 
                         var task = contr.ExecuteOpeningImportJobExlorerWindow(connection, commonConfig);
                     }
@@ -1437,7 +1437,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     PluginConfigurationController contr = new PluginConfigurationController(iWriteToOutput);
 
-                    contr.ExecuteShowingPluginConfigurationAssemblyDescription(commonConfig, string.Empty);
+                    contr.ExecuteShowingPluginConfigurationAssemblyDescriptionWindow(commonConfig, string.Empty);
                 }
                 catch (Exception ex)
                 {
@@ -1458,7 +1458,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     PluginConfigurationController contr = new PluginConfigurationController(iWriteToOutput);
 
-                    contr.ExecuteShowingPluginConfigurationTypeDescription(commonConfig, string.Empty);
+                    contr.ExecuteShowingPluginConfigurationTypeDescriptionWindow(commonConfig, string.Empty);
                 }
                 catch (Exception ex)
                 {
@@ -1521,7 +1521,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     try
                     {
-                        SolutionController contr = new SolutionController(iWriteToOutput);
+                        var contr = new ExplorerController(iWriteToOutput);
 
                         contr.ExecuteOpeningSolutionImageWindow(connection, commonConfig);
                     }
@@ -1546,7 +1546,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     try
                     {
-                        SolutionController contr = new SolutionController(iWriteToOutput);
+                        var contr = new ExplorerController(iWriteToOutput);
 
                         contr.ExecuteOpeningSolutionDifferenceImageWindow(connection, commonConfig);
                     }
@@ -1596,7 +1596,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     try
                     {
-                        var contr = new SolutionController(iWriteToOutput);
+                        var contr = new ExplorerController(iWriteToOutput);
 
                         contr.ExecuteOpeningOrganizationDifferenceImageWindow(connection, commonConfig);
                     }
