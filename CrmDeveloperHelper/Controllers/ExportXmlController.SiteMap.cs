@@ -185,7 +185,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (siteMap == null)
             {
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.SiteMapNotFoundedFormat2, service.ConnectionData.Name, SiteMap.Schema.EntityLogicalName, siteMapNameUnique);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionSiteMapWasNotFoundFormat2, service.ConnectionData.Name, SiteMap.Schema.EntityLogicalName, siteMapNameUnique);
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
                 WindowHelper.OpenExportSiteMapExplorer(_iWriteToOutput, service, commonConfig, siteMapNameUnique);
@@ -205,7 +205,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (string.IsNullOrEmpty(siteMapXml))
             {
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, SiteMap.Schema.EntityLogicalName, siteMap.SiteMapNameUnique, fieldTitle);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldIsEmptyFormat4, service.ConnectionData.Name, SiteMap.Schema.EntityLogicalName, siteMap.SiteMapNameUnique, fieldTitle);
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 return;
             }
@@ -222,7 +222,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 File.WriteAllText(filePath2, siteMapXml, new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, SiteMap.Schema.EntityLogicalName, siteMap.SiteMapNameUnique, fieldTitle, filePath2);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldExportedToFormat5, service.ConnectionData.Name, SiteMap.Schema.EntityLogicalName, siteMap.SiteMapNameUnique, fieldTitle, filePath2);
             }
             catch (Exception ex)
             {
@@ -263,7 +263,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         File.WriteAllText(filePathBackUp, siteMapXml, new UTF8Encoding(false));
 
-                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, SiteMap.Schema.EntityLogicalName, siteMap.SiteMapNameUnique, fieldTitle, filePathBackUp);
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldExportedToFormat5, service.ConnectionData.Name, SiteMap.Schema.EntityLogicalName, siteMap.SiteMapNameUnique, fieldTitle, filePathBackUp);
                     }
                     catch (Exception ex)
                     {
@@ -272,7 +272,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 else
                 {
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, SiteMap.Schema.EntityLogicalName, siteMap.SiteMapNameUnique, fieldTitle);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldIsEmptyFormat4, service.ConnectionData.Name, SiteMap.Schema.EntityLogicalName, siteMap.SiteMapNameUnique, fieldTitle);
                     this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 }
             }
@@ -287,7 +287,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             await service.UpdateAsync(updateEntity);
 
-            _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PublishingSiteMapFormat3, service.ConnectionData.Name, siteMap.SiteMapName, siteMap.Id.ToString());
+            _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionPublishingSiteMapFormat3, service.ConnectionData.Name, siteMap.SiteMapName, siteMap.Id.ToString());
 
             var repositoryPublish = new PublishActionsRepository(service);
 
@@ -349,7 +349,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (string.IsNullOrEmpty(siteMapXml))
             {
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, SiteMap.Schema.EntityLogicalName, siteMap.SiteMapNameUnique, SiteMap.Schema.Headers.sitemapxml);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldIsEmptyFormat4, service.ConnectionData.Name, SiteMap.Schema.EntityLogicalName, siteMap.SiteMapNameUnique, SiteMap.Schema.Headers.sitemapxml);
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 return;
             }
@@ -371,7 +371,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 File.WriteAllText(currentFilePath, siteMapXml, new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, SiteMap.Schema.EntityLogicalName, siteMap.SiteMapNameUnique, SiteMap.Schema.Headers.sitemapxml, currentFilePath);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldExportedToFormat5, service.ConnectionData.Name, SiteMap.Schema.EntityLogicalName, siteMap.SiteMapNameUnique, SiteMap.Schema.Headers.sitemapxml, currentFilePath);
             }
             catch (Exception ex)
             {

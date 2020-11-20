@@ -1092,7 +1092,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.SavingChangesFormat1, service.ConnectionData.Name);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.InConnectionSavingChangesFormat1, service.ConnectionData.Name);
 
             HashSet<string> listForPublish = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
@@ -1163,7 +1163,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     var entityNamesOrdered = string.Join(",", listForPublish.OrderBy(s => s));
 
-                    UpdateStatus(service.ConnectionData, Properties.OutputStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
+                    UpdateStatus(service.ConnectionData, Properties.OutputStrings.InConnectionPublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
 
                     var repositoryPublish = new PublishActionsRepository(service);
 
@@ -1198,13 +1198,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
 
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.SavingChangesCompletedFormat1, service.ConnectionData.Name);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.InConnectionSavingChangesCompletedFormat1, service.ConnectionData.Name);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.SavingChangesFailedFormat1, service.ConnectionData.Name);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.InConnectionSavingChangesFailedFormat1, service.ConnectionData.Name);
             }
 
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.SavingChangesFormat1, service.ConnectionData.Name);

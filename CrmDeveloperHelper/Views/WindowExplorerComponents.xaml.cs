@@ -1361,7 +1361,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await solutionImage.SaveAsync(filePath);
 
-                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.ExportedSolutionImageForConnectionFormat2, _service.ConnectionData.Name, filePath);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.InConnectionExportedSolutionImageFormat2, _service.ConnectionData.Name, filePath);
 
                 this._iWriteToOutput.PerformAction(_service.ConnectionData, filePath);
 

@@ -251,11 +251,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     File.WriteAllText(filePath2, ribbonXml, new UTF8Encoding(false));
                 }
 
-                this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.ExportedAppliationRibbonForConnectionFormat2, service1.ConnectionData.Name, filePath1);
+                this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.InConnectionExportedAppliationRibbonFormat2, service1.ConnectionData.Name, filePath1);
 
                 if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
                 {
-                    this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.ExportedAppliationRibbonForConnectionFormat2, service2.ConnectionData.Name, filePath2);
+                    this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.InConnectionExportedAppliationRibbonFormat2, service2.ConnectionData.Name, filePath2);
                 }
 
                 if (File.Exists(filePath1) && File.Exists(filePath2))
@@ -371,10 +371,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
 
-                this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.ExportedAppliationRibbonDiffXmlForConnectionFormat2, service1.ConnectionData.Name, filePath1);
+                this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.InConnectionExportedAppliationRibbonDiffXmlFormat2, service1.ConnectionData.Name, filePath1);
                 if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
                 {
-                    this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.ExportedAppliationRibbonDiffXmlForConnectionFormat2, service2.ConnectionData.Name, filePath2);
+                    this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.InConnectionExportedAppliationRibbonDiffXmlFormat2, service2.ConnectionData.Name, filePath2);
                 }
 
                 if (File.Exists(filePath1) && File.Exists(filePath2))
@@ -444,7 +444,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     File.WriteAllText(filePath, ribbonXml, new UTF8Encoding(false));
 
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedAppliationRibbonForConnectionFormat2, service.ConnectionData.Name, filePath);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionExportedAppliationRibbonFormat2, service.ConnectionData.Name, filePath);
 
                     this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
                 }
@@ -496,7 +496,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     File.WriteAllBytes(filePath, ribbonBody);
 
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedAppliationRibbonForConnectionFormat2, service.ConnectionData.Name, filePath);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionExportedAppliationRibbonFormat2, service.ConnectionData.Name, filePath);
 
                     this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
                 }
@@ -581,7 +581,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     File.WriteAllText(filePath, ribbonDiffXml, new UTF8Encoding(false));
 
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedAppliationRibbonDiffXmlForConnectionFormat2, service.ConnectionData.Name, filePath);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionExportedAppliationRibbonDiffXmlFormat2, service.ConnectionData.Name, filePath);
 
                     this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
                 }

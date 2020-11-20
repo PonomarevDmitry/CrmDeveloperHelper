@@ -798,7 +798,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             service.ConnectionData.AddAssemblyMapping(assemblyLoad.Name, assemblyLoad.FilePath);
             service.ConnectionData.Save();
 
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.UpdatingPluginAssemblyFormat1, service.ConnectionData.Name);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.InConnectionUpdatingPluginAssemblyFormat1, service.ConnectionData.Name);
 
             pluginAssembly.Content = Convert.ToBase64String(assemblyLoad.Content);
 
@@ -817,19 +817,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         var assemblyRef = pluginAssembly.ToEntityReference();
 
-                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.RegisteringNewPluginTypesFormat2, service.ConnectionData.Name, totalCount);
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.InConnectionRegisteringNewPluginTypesFormat2, service.ConnectionData.Name, totalCount);
 
                         await RegisterNewPluginTypes(service, pluginsOnlyInLocalAssembly, assemblyRef, false, workflowActivityGroupName);
 
                         await RegisterNewPluginTypes(service, workflowOnlyInLocalAssembly, assemblyRef, true, workflowActivityGroupName);
 
-                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.RegisteringNewPluginTypesCompletedFormat2, service.ConnectionData.Name, totalCount);
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.InConnectionRegisteringNewPluginTypesCompletedFormat2, service.ConnectionData.Name, totalCount);
                     }
                 }
             }
             catch (Exception ex)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.UpdatingPluginAssemblyFailedFormat1, service.ConnectionData.Name);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.InConnectionUpdatingPluginAssemblyFailedFormat1, service.ConnectionData.Name);
 
                 _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
                 _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
@@ -862,7 +862,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 catch (Exception ex)
                 {
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.RegisteringPluginTypeFailedFormat2, service.ConnectionData.Name, pluginType);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionRegisteringPluginTypeFailedFormat2, service.ConnectionData.Name, pluginType);
 
                     _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
                     _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
@@ -1031,7 +1031,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, assembly, service.ConnectionData);
 
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionExportedEntityDescriptionFormat3
                         , service.ConnectionData.Name
                         , assembly.LogicalName
                         , filePath
@@ -1046,7 +1046,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     await handler.CreateFileWithDescriptionAsync(filePath, assembly.Id, assembly.Name, DateTime.Now);
 
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, PluginAssembly.Schema.EntityLogicalName, assembly.Name, "Description", filePath);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldExportedToFormat5, service.ConnectionData.Name, PluginAssembly.Schema.EntityLogicalName, assembly.Name, "Description", filePath);
 
                     this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
                 }
@@ -1189,7 +1189,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, pluginType, service.ConnectionData);
 
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionExportedEntityDescriptionFormat3
                         , service.ConnectionData.Name
                         , pluginType.LogicalName
                         , filePath
@@ -1217,12 +1217,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     if (hasDescription)
                     {
-                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, PluginType.EntitySchemaName, pluginType.TypeName, "Description", filePath);
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldExportedToFormat5, service.ConnectionData.Name, PluginType.EntitySchemaName, pluginType.TypeName, "Description", filePath);
                         this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
                     }
                     else
                     {
-                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, PluginType.EntitySchemaName, pluginType.TypeName, "Description");
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldIsEmptyFormat4, service.ConnectionData.Name, PluginType.EntitySchemaName, pluginType.TypeName, "Description");
                         this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                     }
                 }
@@ -1246,7 +1246,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                             File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
 
-                            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, PluginType.Schema.EntitySchemaName, pluginType.TypeName, fieldTitle, filePath);
+                            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.InConnectionEntityFieldExportedToFormat5, connectionData.Name, PluginType.Schema.EntitySchemaName, pluginType.TypeName, fieldTitle, filePath);
 
                             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
                         }
@@ -1257,7 +1257,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     }
                     else
                     {
-                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionData.Name, PluginType.Schema.EntitySchemaName, pluginType.TypeName, fieldTitle);
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.InConnectionEntityFieldIsEmptyFormat4, connectionData.Name, PluginType.Schema.EntitySchemaName, pluginType.TypeName, fieldTitle);
                         this._iWriteToOutput.ActivateOutputWindow(connectionData);
                     }
                 }

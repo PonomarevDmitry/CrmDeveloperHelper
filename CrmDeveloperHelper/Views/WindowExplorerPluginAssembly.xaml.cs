@@ -475,7 +475,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             await handler.CreateFileWithDescriptionAsync(filePath, idPluginAssembly, name, DateTime.Now);
 
-            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, PluginAssembly.Schema.EntityLogicalName, name, "Description", filePath);
+            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldExportedToFormat5, service.ConnectionData.Name, PluginAssembly.Schema.EntityLogicalName, name, "Description", filePath);
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
@@ -497,7 +497,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, assembly, service.ConnectionData);
 
-            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
+            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionExportedEntityDescriptionFormat3
                 , service.ConnectionData.Name
                 , assembly.LogicalName
                 , filePath);
@@ -524,7 +524,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var service = await GetService();
 
-                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.DeletingEntityFormat2, service.ConnectionData.Name, PluginAssembly.EntityLogicalName);
+                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.InConnectionDeletingEntityFormat2, service.ConnectionData.Name, PluginAssembly.EntityLogicalName);
 
                 try
                 {
@@ -539,7 +539,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 }
 
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.DeletingEntityCompletedFormat2, service.ConnectionData.Name, PluginAssembly.EntityLogicalName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.InConnectionDeletingEntityCompletedFormat2, service.ConnectionData.Name, PluginAssembly.EntityLogicalName);
 
                 await ShowExistingPluginAssemblies();
             }
@@ -562,7 +562,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             File.WriteAllBytes(filePath, array);
 
-            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, PluginAssembly.Schema.EntityLogicalName, name, "Content", filePath);
+            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldExportedToFormat5, service.ConnectionData.Name, PluginAssembly.Schema.EntityLogicalName, name, "Content", filePath);
 
             if (File.Exists(filePath))
             {

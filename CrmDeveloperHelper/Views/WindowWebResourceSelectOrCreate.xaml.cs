@@ -990,7 +990,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.OutputStrings.UpdatingFieldFormat2, _service.ConnectionData.Name, fieldName);
+            ToggleControls(false, Properties.OutputStrings.InConnectionUpdatingFieldFormat2, _service.ConnectionData.Name, fieldName);
 
             try
             {
@@ -1049,7 +1049,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (dialogResult.GetValueOrDefault() == false)
                 {
-                    ToggleControls(true, Properties.OutputStrings.UpdatingFieldFailedFormat2, _service.ConnectionData.Name, fieldName);
+                    ToggleControls(true, Properties.OutputStrings.InConnectionUpdatingFieldFailedFormat2, _service.ConnectionData.Name, fieldName);
                     return;
                 }
 
@@ -1082,7 +1082,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await _service.UpdateAsync(updateEntity);
 
-                UpdateStatus(Properties.OutputStrings.PublishingWebResourceFormat2, _service.ConnectionData.Name, name);
+                UpdateStatus(Properties.OutputStrings.InConnectionPublishingWebResourceFormat2, _service.ConnectionData.Name, name);
 
                 {
                     var repositoryPublish = new PublishActionsRepository(_service);
@@ -1090,13 +1090,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     await repositoryPublish.PublishWebResourcesAsync(new[] { idWebResource });
                 }
 
-                ToggleControls(true, Properties.OutputStrings.UpdatingFieldCompletedFormat2, _service.ConnectionData.Name, fieldName);
+                ToggleControls(true, Properties.OutputStrings.InConnectionUpdatingFieldCompletedFormat2, _service.ConnectionData.Name, fieldName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.OutputStrings.UpdatingFieldFailedFormat2, _service.ConnectionData.Name, fieldName);
+                ToggleControls(true, Properties.OutputStrings.InConnectionUpdatingFieldFailedFormat2, _service.ConnectionData.Name, fieldName);
             }
         }
 
@@ -1107,7 +1107,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(false, Properties.OutputStrings.UpdatingFieldFormat2, _service.ConnectionData.Name, fieldName);
+            ToggleControls(false, Properties.OutputStrings.InConnectionUpdatingFieldFormat2, _service.ConnectionData.Name, fieldName);
 
             try
             {
@@ -1145,7 +1145,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     || !File.Exists(selectedFilePath)
                 )
                 {
-                    ToggleControls(true, Properties.OutputStrings.UpdatingFieldFailedFormat2, _service.ConnectionData.Name, fieldName);
+                    ToggleControls(true, Properties.OutputStrings.InConnectionUpdatingFieldFailedFormat2, _service.ConnectionData.Name, fieldName);
                     return;
                 }
 
@@ -1173,7 +1173,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await _service.UpdateAsync(updateEntity);
 
-                UpdateStatus(Properties.OutputStrings.PublishingWebResourceFormat2, _service.ConnectionData.Name, name);
+                UpdateStatus(Properties.OutputStrings.InConnectionPublishingWebResourceFormat2, _service.ConnectionData.Name, name);
 
                 {
                     var repositoryPublish = new PublishActionsRepository(_service);
@@ -1181,13 +1181,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     await repositoryPublish.PublishWebResourcesAsync(new[] { idWebResource });
                 }
 
-                ToggleControls(true, Properties.OutputStrings.UpdatingFieldCompletedFormat2, _service.ConnectionData.Name, fieldName);
+                ToggleControls(true, Properties.OutputStrings.InConnectionUpdatingFieldCompletedFormat2, _service.ConnectionData.Name, fieldName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.OutputStrings.UpdatingFieldFailedFormat2, _service.ConnectionData.Name, fieldName);
+                ToggleControls(true, Properties.OutputStrings.InConnectionUpdatingFieldFailedFormat2, _service.ConnectionData.Name, fieldName);
             }
         }
 
@@ -1209,7 +1209,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
 
-                    this._iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, _service.ConnectionData.Name, WebResource.Schema.EntityLogicalName, name, fieldTitle, filePath);
+                    this._iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldExportedToFormat5, _service.ConnectionData.Name, WebResource.Schema.EntityLogicalName, name, fieldTitle, filePath);
                 }
                 catch (Exception ex)
                 {
@@ -1218,7 +1218,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, _service.ConnectionData.Name, WebResource.Schema.EntityLogicalName, name, fieldTitle);
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldIsEmptyFormat4, _service.ConnectionData.Name, WebResource.Schema.EntityLogicalName, name, fieldTitle);
                 this._iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
             }
 
@@ -1289,7 +1289,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this._iWriteToOutput.WriteToOutputStartOperation(_service.ConnectionData, Properties.OperationNames.PublishingWebResourceFormat2, _service.ConnectionData.Name, name);
 
-            ToggleControls(false, Properties.OutputStrings.PublishingWebResourceFormat2, _service.ConnectionData.Name, name);
+            ToggleControls(false, Properties.OutputStrings.InConnectionPublishingWebResourceFormat2, _service.ConnectionData.Name, name);
 
             try
             {
@@ -1297,13 +1297,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await repository.PublishWebResourcesAsync(new[] { idWebResource });
 
-                ToggleControls(true, Properties.OutputStrings.PublishingWebResourceCompletedFormat2, _service.ConnectionData.Name, name);
+                ToggleControls(true, Properties.OutputStrings.InConnectionPublishingWebResourceCompletedFormat2, _service.ConnectionData.Name, name);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.OutputStrings.PublishingWebResourceFailedFormat2, _service.ConnectionData.Name, name);
+                ToggleControls(true, Properties.OutputStrings.InConnectionPublishingWebResourceFailedFormat2, _service.ConnectionData.Name, name);
             }
 
             this._iWriteToOutput.WriteToOutputEndOperation(_service.ConnectionData, Properties.OperationNames.PublishingWebResourceFormat2, _service.ConnectionData.Name, name);
@@ -1382,7 +1382,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, webresource, _service.ConnectionData);
 
                 this._iWriteToOutput.WriteToOutput(_service.ConnectionData
-                    , Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
+                    , Properties.OutputStrings.InConnectionExportedEntityDescriptionFormat3
                     , _service.ConnectionData.Name
                     , webresource.LogicalName
                     , filePath
@@ -1420,7 +1420,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
             {
-                ToggleControls(false, Properties.OutputStrings.DeletingEntityFormat2, _service.ConnectionData.Name, WebResource.EntityLogicalName);
+                ToggleControls(false, Properties.OutputStrings.InConnectionDeletingEntityFormat2, _service.ConnectionData.Name, WebResource.EntityLogicalName);
 
                 try
                 {
@@ -1435,7 +1435,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     _iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
                 }
 
-                ToggleControls(true, Properties.OutputStrings.DeletingEntityCompletedFormat2, _service.ConnectionData.Name, WebResource.EntityLogicalName);
+                ToggleControls(true, Properties.OutputStrings.InConnectionDeletingEntityCompletedFormat2, _service.ConnectionData.Name, WebResource.EntityLogicalName);
 
                 await ShowExistingWebResources();
             }

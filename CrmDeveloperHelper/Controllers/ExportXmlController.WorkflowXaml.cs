@@ -186,7 +186,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (workflow == null)
             {
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.WorkflowNotFoundedFormat2, service.ConnectionData.Name, workflowId);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionWorkflowWasNotFoundFormat2, service.ConnectionData.Name, workflowId);
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
                 WindowHelper.OpenWorkflowExplorer(_iWriteToOutput, service, commonConfig, workflowId);
@@ -237,7 +237,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (string.IsNullOrEmpty(workflowXaml))
             {
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, Workflow.Schema.EntityLogicalName, workflow.Name, fieldTitle);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldIsEmptyFormat4, service.ConnectionData.Name, Workflow.Schema.EntityLogicalName, workflow.Name, fieldTitle);
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 return;
             }
@@ -253,7 +253,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 File.WriteAllText(filePath2, workflowXaml, new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, Workflow.Schema.EntityLogicalName, workflow.Name, fieldTitle, filePath2);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldExportedToFormat5, service.ConnectionData.Name, Workflow.Schema.EntityLogicalName, workflow.Name, fieldTitle, filePath2);
             }
             catch (Exception ex)
             {
@@ -293,7 +293,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         File.WriteAllText(filePathBackUp, workflowXaml, new UTF8Encoding(false));
 
-                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, Workflow.Schema.EntityLogicalName, workflow.Name, fieldTitle, filePathBackUp);
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldExportedToFormat5, service.ConnectionData.Name, Workflow.Schema.EntityLogicalName, workflow.Name, fieldTitle, filePathBackUp);
                     }
                     catch (Exception ex)
                     {
@@ -302,14 +302,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 else
                 {
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, Workflow.Schema.EntityLogicalName, workflow.Name, fieldTitle);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldIsEmptyFormat4, service.ConnectionData.Name, Workflow.Schema.EntityLogicalName, workflow.Name, fieldTitle);
                     this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 }
             }
 
             if (workflow.StateCodeEnum == Workflow.Schema.OptionSets.statecode.Activated_1)
             {
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.DeactivatingWorkflowFormat2, service.ConnectionData.Name, workflow.Name);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionDeactivatingWorkflowFormat2, service.ConnectionData.Name, workflow.Name);
 
                 await service.ExecuteAsync<SetStateResponse>(new SetStateRequest()
                 {
@@ -319,7 +319,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 });
             }
 
-            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.UpdatingFieldFormat2, service.ConnectionData.Name, Workflow.Schema.Headers.xaml);
+            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionUpdatingFieldFormat2, service.ConnectionData.Name, Workflow.Schema.Headers.xaml);
 
             var newText = doc.ToString(SaveOptions.DisableFormatting);
 
@@ -333,7 +333,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (workflow.StateCodeEnum == Workflow.Schema.OptionSets.statecode.Activated_1)
             {
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ActivatingWorkflowFormat2, service.ConnectionData.Name, workflow.Name);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionActivatingWorkflowFormat2, service.ConnectionData.Name, workflow.Name);
 
                 await service.ExecuteAsync<SetStateResponse>(new SetStateRequest()
                 {
@@ -399,7 +399,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (string.IsNullOrEmpty(workflowXaml))
             {
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, Workflow.Schema.EntityLogicalName, workflow.Name, Workflow.Schema.Headers.xaml);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldIsEmptyFormat4, service.ConnectionData.Name, Workflow.Schema.EntityLogicalName, workflow.Name, Workflow.Schema.Headers.xaml);
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 return;
             }
@@ -422,7 +422,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 File.WriteAllText(currentFilePath, workflowXaml, new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, Workflow.Schema.EntityLogicalName, workflow.Name, Workflow.Schema.Headers.xaml, currentFilePath);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldExportedToFormat5, service.ConnectionData.Name, Workflow.Schema.EntityLogicalName, workflow.Name, Workflow.Schema.Headers.xaml, currentFilePath);
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, currentFilePath);
 

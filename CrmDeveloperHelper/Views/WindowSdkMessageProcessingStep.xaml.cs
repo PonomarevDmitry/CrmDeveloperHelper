@@ -544,17 +544,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     config.Id = this.Step.SdkMessageProcessingStepSecureConfigId.Id;
                 }
 
-                ToggleControls(false, Properties.OutputStrings.UpdatingSdkMessageProcessingStepSecureConfigFormat1, _service.ConnectionData.Name);
+                ToggleControls(false, Properties.OutputStrings.InConnectionUpdatingSdkMessageProcessingStepSecureConfigFormat1, _service.ConnectionData.Name);
 
                 try
                 {
                     config.Id = await _service.UpsertAsync(config);
 
-                    ToggleControls(true, Properties.OutputStrings.UpdatingSdkMessageProcessingStepSecureConfigCompletedFormat1, _service.ConnectionData.Name);
+                    ToggleControls(true, Properties.OutputStrings.InConnectionUpdatingSdkMessageProcessingStepSecureConfigCompletedFormat1, _service.ConnectionData.Name);
                 }
                 catch (Exception ex)
                 {
-                    ToggleControls(true, Properties.OutputStrings.UpdatingSdkMessageProcessingStepSecureConfigFailedFormat1, _service.ConnectionData.Name);
+                    ToggleControls(true, Properties.OutputStrings.InConnectionUpdatingSdkMessageProcessingStepSecureConfigFailedFormat1, _service.ConnectionData.Name);
 
                     _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
                     _iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
@@ -566,7 +566,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(false, Properties.OutputStrings.UpdatingSdkMessageProcessingStepFormat1, _service.ConnectionData.Name);
+            ToggleControls(false, Properties.OutputStrings.InConnectionUpdatingSdkMessageProcessingStepFormat1, _service.ConnectionData.Name);
 
             try
             {
@@ -574,24 +574,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (configToDelete != null)
                 {
-                    ToggleControls(false, Properties.OutputStrings.DeletingSdkMessageProcessingStepSecureConfigFormat1, _service.ConnectionData.Name);
+                    ToggleControls(false, Properties.OutputStrings.InConnectionDeletingSdkMessageProcessingStepSecureConfigFormat1, _service.ConnectionData.Name);
 
                     try
                     {
                         await _service.DeleteAsync(configToDelete.LogicalName, configToDelete.Id);
 
-                        ToggleControls(true, Properties.OutputStrings.DeletingSdkMessageProcessingStepSecureConfigCompletedFormat1, _service.ConnectionData.Name);
+                        ToggleControls(true, Properties.OutputStrings.InConnectionDeletingSdkMessageProcessingStepSecureConfigCompletedFormat1, _service.ConnectionData.Name);
                     }
                     catch (Exception ex)
                     {
-                        ToggleControls(true, Properties.OutputStrings.DeletingSdkMessageProcessingStepSecureConfigFailedFormat1, _service.ConnectionData.Name);
+                        ToggleControls(true, Properties.OutputStrings.InConnectionDeletingSdkMessageProcessingStepSecureConfigFailedFormat1, _service.ConnectionData.Name);
 
                         _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
                         _iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
                     }
                 }
 
-                ToggleControls(true, Properties.OutputStrings.UpdatingSdkMessageProcessingStepCompletedFormat1, _service.ConnectionData.Name);
+                ToggleControls(true, Properties.OutputStrings.InConnectionUpdatingSdkMessageProcessingStepCompletedFormat1, _service.ConnectionData.Name);
 
                 this.DialogResult = true;
 
@@ -599,7 +599,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                ToggleControls(true, Properties.OutputStrings.UpdatingSdkMessageProcessingStepFailedFormat1, _service.ConnectionData.Name);
+                ToggleControls(true, Properties.OutputStrings.InConnectionUpdatingSdkMessageProcessingStepFailedFormat1, _service.ConnectionData.Name);
 
                 _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
                 _iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);

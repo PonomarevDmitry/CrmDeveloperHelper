@@ -1270,7 +1270,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ToggleControls(connectionData, false, Properties.OutputStrings.RegisteringPluginStepsFormat1, connectionData.Name);
+            ToggleControls(connectionData, false, Properties.OutputStrings.InConnectionRegisteringPluginStepsFormat1, connectionData.Name);
 
             if (connectionData != null && connectionData.IsReadOnly == false)
             {
@@ -1306,7 +1306,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(connectionData, true, Properties.OutputStrings.RegisteringPluginStepsCompletedFormat1, connectionData.Name);
+            ToggleControls(connectionData, true, Properties.OutputStrings.InConnectionRegisteringPluginStepsCompletedFormat1, connectionData.Name);
         }
 
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)

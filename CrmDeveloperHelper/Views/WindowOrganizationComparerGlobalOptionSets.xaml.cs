@@ -599,11 +599,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     File.WriteAllText(filePath1, stringBuilder1.ToString(), new UTF8Encoding(false));
 
-                    this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service1.ConnectionData.Name, optionSetsName, filePath1);
+                    this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.InConnectionCreatedGlobalOptionSetMetadataFileFormat3, service1.ConnectionData.Name, optionSetsName, filePath1);
 
                     if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
                     {
-                        this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service2.ConnectionData.Name, optionSetsName, filePath2);
+                        this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.InConnectionCreatedGlobalOptionSetMetadataFileFormat3, service2.ConnectionData.Name, optionSetsName, filePath2);
                     }
 
                     if (File.Exists(filePath1) && File.Exists(filePath2))
@@ -735,11 +735,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     File.WriteAllText(filePath1, stringBuilder1.ToString(), new UTF8Encoding(false));
 
-                    this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service1.ConnectionData.Name, optionSetsName, filePath1);
+                    this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.InConnectionCreatedGlobalOptionSetMetadataFileFormat3, service1.ConnectionData.Name, optionSetsName, filePath1);
 
                     if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
                     {
-                        this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service2.ConnectionData.Name, optionSetsName, filePath2);
+                        this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.InConnectionCreatedGlobalOptionSetMetadataFileFormat3, service2.ConnectionData.Name, optionSetsName, filePath2);
                     }
 
                     if (File.Exists(filePath1) && File.Exists(filePath2))
@@ -857,7 +857,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 File.WriteAllText(filePath, stringBuilder.ToString(), new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service.ConnectionData.Name, optionSetsName, filePath);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionCreatedGlobalOptionSetMetadataFileFormat3, service.ConnectionData.Name, optionSetsName, filePath);
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
@@ -970,7 +970,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var message = string.Empty;
 
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service.ConnectionData.Name, optionSetsName, filePath);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionCreatedGlobalOptionSetMetadataFileFormat3, service.ConnectionData.Name, optionSetsName, filePath);
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 

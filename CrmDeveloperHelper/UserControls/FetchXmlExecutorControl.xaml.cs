@@ -879,7 +879,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                 await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, entityFull, service.ConnectionData);
 
-                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
+                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionExportedEntityDescriptionFormat3
                     , service.ConnectionData.Name
                     , entityFull.LogicalName
                     , filePath);
@@ -1041,7 +1041,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                 await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, entityFull, service.ConnectionData);
 
-                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
+                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionExportedEntityDescriptionFormat3
                     , service.ConnectionData.Name
                     , entityFull.LogicalName
                     , filePath);
@@ -1340,7 +1340,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
 
             ToggleControls(service.ConnectionData, false
-                , Properties.OutputStrings.ExecutingWorkflowFormat4
+                , Properties.OutputStrings.InConnectionExecutingWorkflowFormat4
                 , service.ConnectionData.Name
                 , workflow.Name
                 , entityName
@@ -1575,7 +1575,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
 
             ToggleControls(service.ConnectionData, true
-                , Properties.OutputStrings.AssigningEntitiesToUserCompletedFormat4
+                , Properties.OutputStrings.InConnectionAssigningEntitiesToUserCompletedFormat4
                 , service.ConnectionData.Name
                 , entityName
                 , listIds.Count
@@ -1734,7 +1734,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
 
             ToggleControls(service.ConnectionData, false
-                , Properties.OutputStrings.AssigningEntitiesToTeamFormat4
+                , Properties.OutputStrings.InConnectionAssigningEntitiesToTeamFormat4
                 , service.ConnectionData.Name
                 , entityName
                 , listIds.Count
@@ -1772,7 +1772,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
 
             ToggleControls(service.ConnectionData, true
-                , Properties.OutputStrings.AssigningEntitiesToTeamCompletedFormat4
+                , Properties.OutputStrings.InConnectionAssigningEntitiesToTeamCompletedFormat4
                 , service.ConnectionData.Name
                 , entityName
                 , listIds.Count
@@ -2102,7 +2102,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
 
             ToggleControls(service.ConnectionData, false
-                , Properties.OutputStrings.SettingEntitiesStateFormat7
+                , Properties.OutputStrings.InConnectionSettingEntitiesStateFormat7
                 , service.ConnectionData.Name
                 , entityName
                 , listIds.Count
@@ -2155,7 +2155,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
 
             ToggleControls(service.ConnectionData, true
-                , Properties.OutputStrings.SettingEntitiesStateCompletedFormat7
+                , Properties.OutputStrings.InConnectionSettingEntitiesStateCompletedFormat7
                 , service.ConnectionData.Name
                 , entityName
                 , listIds.Count
@@ -2449,7 +2449,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
 
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.DeletingEntitiesSetFormat3, service.ConnectionData.Name, entityName, listIds.Count);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.InConnectionDeletingEntitiesSetFormat3, service.ConnectionData.Name, entityName, listIds.Count);
 
             _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
@@ -2474,7 +2474,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 number++;
             }
 
-            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.DeletingEntitiesSetCompletedFormat3, service.ConnectionData.Name, entityName, listIds.Count);
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.InConnectionDeletingEntitiesSetCompletedFormat3, service.ConnectionData.Name, entityName, listIds.Count);
 
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
         }

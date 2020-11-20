@@ -146,7 +146,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
                 else
                 {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ReportNotFoundedInConnectionFormat2, connectionData.Name, selectedFile.FileName);
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.InConnectionReportWasNotFoundFormat2, connectionData.Name, selectedFile.FileName);
                 }
             }
             else
@@ -421,7 +421,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (reportEntity == null)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ReportNotFoundedInConnectionFormat2, connectionData.Name, selectedFile.FileName);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.InConnectionReportWasNotFoundFormat2, connectionData.Name, selectedFile.FileName);
                 return;
             }
 

@@ -221,11 +221,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             var repositoryPublish = new PublishActionsRepository(_service);
 
-            updateStatus(string.Format(Properties.OutputStrings.PublishingSiteMapFormat3, _service.ConnectionData.Name, siteMap.SiteMapName, idEntity.ToString()));
+            updateStatus(string.Format(Properties.OutputStrings.InConnectionPublishingSiteMapFormat3, _service.ConnectionData.Name, siteMap.SiteMapName, idEntity.ToString()));
 
             await repositoryPublish.PublishSiteMapsAsync(new[] { idEntity });
 
-            updateStatus(string.Format(Properties.OutputStrings.PublishingSiteMapCompletedFormat3, _service.ConnectionData.Name, siteMap.SiteMapName, idEntity.ToString()));
+            updateStatus(string.Format(Properties.OutputStrings.InConnectionPublishingSiteMapCompletedFormat3, _service.ConnectionData.Name, siteMap.SiteMapName, idEntity.ToString()));
 
             return idEntity;
         }

@@ -122,7 +122,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             File.WriteAllText(filePath, stringBuilder.ToString(), new UTF8Encoding(false));
 
-            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, entityMetadata.LogicalName, filePath);
+            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionCreatedEntityMetadataFileFormat3, service.ConnectionData.Name, entityMetadata.LogicalName, filePath);
 
             this._iWriteToOutput.WriteToOutputFilePathUri(service.ConnectionData, filePath);
 
@@ -163,7 +163,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             await codeGenerationService.WriteEntityFileAsync(entityMetadata, filePath, fileGenerationOptions.NamespaceClassesCSharp, options);
 
-            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, entityMetadata.LogicalName, filePath);
+            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionCreatedEntityMetadataFileFormat3, service.ConnectionData.Name, entityMetadata.LogicalName, filePath);
 
             this._iWriteToOutput.WriteToOutputFilePathUri(service.ConnectionData, filePath);
 
@@ -199,7 +199,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             File.WriteAllText(filePath, stringBuilder.ToString(), new UTF8Encoding(false));
 
-            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, entityMetadata.LogicalName, filePath);
+            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionCreatedEntityMetadataFileFormat3, service.ConnectionData.Name, entityMetadata.LogicalName, filePath);
 
             this._iWriteToOutput.WriteToOutputFilePathUri(service.ConnectionData, filePath);
 
@@ -464,7 +464,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             File.WriteAllText(filePath, stringBuilder.ToString(), new UTF8Encoding(false));
 
-            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service.ConnectionData.Name, optionSetMetadata.Name, filePath);
+            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionCreatedGlobalOptionSetMetadataFileFormat3, service.ConnectionData.Name, optionSetMetadata.Name, filePath);
 
             this._iWriteToOutput.WriteToOutputFilePathUri(service.ConnectionData, filePath);
 
@@ -506,7 +506,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             File.WriteAllText(filePath, stringBuilder.ToString(), new UTF8Encoding(false));
 
-            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service.ConnectionData.Name, metadata.Name, filePath);
+            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionCreatedGlobalOptionSetMetadataFileFormat3, service.ConnectionData.Name, metadata.Name, filePath);
 
             this._iWriteToOutput.WriteToOutputFilePathUri(service.ConnectionData, filePath);
 
@@ -738,7 +738,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 File.WriteAllText(selectedFile.FilePath, stringBuilder.ToString(), new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service.ConnectionData.Name, optionSetsName, selectedFile.FilePath);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionCreatedGlobalOptionSetMetadataFileFormat3, service.ConnectionData.Name, optionSetsName, selectedFile.FilePath);
 
                 this._iWriteToOutput.WriteToOutputFilePathUri(connectionData, selectedFile.FilePath);
 
@@ -857,7 +857,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 File.WriteAllText(filePath2, ribbonXml, new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityRibbonForConnectionFormat3, service.ConnectionData.Name, entityName, filePath2);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionExportedEntityRibbonFormat3, service.ConnectionData.Name, entityName, filePath2);
             }
             else
             {
@@ -876,7 +876,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 File.WriteAllText(filePath2, ribbonXml, new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedAppliationRibbonForConnectionFormat2, service.ConnectionData.Name, filePath2);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionExportedAppliationRibbonFormat2, service.ConnectionData.Name, filePath2);
             }
 
             await this._iWriteToOutput.ProcessStartProgramComparerAsync(service.ConnectionData, fileLocalPath, filePath2, fileLocalTitle, fileTitle2);
@@ -986,7 +986,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 File.WriteAllText(filePath2, ribbonDiffXml, new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityRibbonDiffXmlForConnectionFormat3, service.ConnectionData.Name, entityMetadata.LogicalName, filePath2);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionExportedEntityRibbonDiffXmlFormat3, service.ConnectionData.Name, entityMetadata.LogicalName, filePath2);
             }
             else if (ribbonCustomization != null)
             {
@@ -995,7 +995,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 File.WriteAllText(filePath2, ribbonDiffXml, new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedAppliationRibbonDiffXmlForConnectionFormat2, service.ConnectionData.Name, filePath2);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionExportedAppliationRibbonDiffXmlFormat2, service.ConnectionData.Name, filePath2);
             }
 
             await this._iWriteToOutput.ProcessStartProgramComparerAsync(service.ConnectionData, fileLocalPath, filePath2, fileLocalTitle, fileTitle2);
@@ -1368,7 +1368,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 File.WriteAllText(currentFilePath, ribbonXml, new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityRibbonForConnectionFormat3, service.ConnectionData.Name, entityName, currentFilePath);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionExportedEntityRibbonFormat3, service.ConnectionData.Name, entityName, currentFilePath);
             }
             else
             {
@@ -1386,7 +1386,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 File.WriteAllText(currentFilePath, ribbonXml, new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedAppliationRibbonForConnectionFormat2, service.ConnectionData.Name, currentFilePath);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionExportedAppliationRibbonFormat2, service.ConnectionData.Name, currentFilePath);
             }
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, currentFilePath);
@@ -1496,7 +1496,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 File.WriteAllText(currentFilePath, ribbonDiffXml, new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityRibbonDiffXmlForConnectionFormat3, service.ConnectionData.Name, entityMetadata.LogicalName, currentFilePath);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionExportedEntityRibbonDiffXmlFormat3, service.ConnectionData.Name, entityMetadata.LogicalName, currentFilePath);
             }
             else if (ribbonCustomization != null)
             {
@@ -1505,7 +1505,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 File.WriteAllText(currentFilePath, ribbonDiffXml, new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedAppliationRibbonDiffXmlForConnectionFormat2, service.ConnectionData.Name, currentFilePath);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionExportedAppliationRibbonDiffXmlFormat2, service.ConnectionData.Name, currentFilePath);
             }
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, currentFilePath);

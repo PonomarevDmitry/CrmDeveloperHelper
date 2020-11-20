@@ -1583,7 +1583,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await solutionImage.SaveAsync(filePath);
 
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedSolutionImageForConnectionFormat2, service.ConnectionData.Name, filePath);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionExportedSolutionImageFormat2, service.ConnectionData.Name, filePath);
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
@@ -2630,7 +2630,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.ClearingSolutionFormat2, service.ConnectionData.Name, solution.UniqueName);
+                ToggleControls(service.ConnectionData, false, Properties.OutputStrings.InConnectionClearingSolutionFormat2, service.ConnectionData.Name, solution.UniqueName);
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
 
@@ -2672,13 +2672,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 SolutionComponentRepository repository = new SolutionComponentRepository(service);
                 await repository.ClearSolutionAsync(solution.UniqueName);
 
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ClearingSolutionCompletedFormat2, service.ConnectionData.Name, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.InConnectionClearingSolutionCompletedFormat2, service.ConnectionData.Name, solution.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.ClearingSolutionFailedFormat2, service.ConnectionData.Name, solution.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.InConnectionClearingSolutionFailedFormat2, service.ConnectionData.Name, solution.UniqueName);
             }
         }
 
@@ -2776,7 +2776,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, solutionFull, service.ConnectionData);
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData
-                    , Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
+                    , Properties.OutputStrings.InConnectionExportedEntityDescriptionFormat3
                     , service.ConnectionData.Name
                     , solutionFull.LogicalName
                     , filePath
@@ -3114,7 +3114,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await solutionImage.SaveAsync(filePath);
 
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedSolutionImageForConnectionFormat2, service.ConnectionData.Name, filePath);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionExportedSolutionImageFormat2, service.ConnectionData.Name, filePath);
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 

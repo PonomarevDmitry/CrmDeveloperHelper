@@ -123,7 +123,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (selectedFiles == null || !selectedFiles.Any())
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoWebResourcesToAddInSolutionFormat2, connectionData.Name, solutionUniqueName);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.InConnectionNoWebResourcesToAddInSolutionFormat2, connectionData.Name, solutionUniqueName);
                 return;
             }
 
@@ -200,7 +200,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (!dictForAdding.Any())
                 {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoWebResourcesToAddInSolutionFormat2, connectionData.Name, solutionUniqueName);
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.InConnectionNoWebResourcesToAddInSolutionFormat2, connectionData.Name, solutionUniqueName);
                     return;
                 }
 
@@ -231,7 +231,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (!dictForAdding.Any())
                 {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoWebResourcesToAddInSolutionAllAllreadyInSolutionFormat2, connectionData.Name, solution.UniqueName);
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.InConnectionNoWebResourcesToAddInSolutionAllAllreadyInSolutionFormat2, connectionData.Name, solution.UniqueName);
                     return;
                 }
 
@@ -333,7 +333,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         }
                         else
                         {
-                            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ReportNotFoundedInConnectionFormat2, connectionData.Name, selectedFile.FileName);
+                            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.InConnectionReportWasNotFoundFormat2, connectionData.Name, selectedFile.FileName);
                         }
                     }
                     else
@@ -1265,7 +1265,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (!dictForAdding.Any())
                 {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoSystemFormsToAddInSolutionAllAllreadyInSolutionFormat2, connectionData.Name, solution.UniqueName);
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.InConnectionNoSystemFormsToAddInSolutionAllAllreadyInSolutionFormat2, connectionData.Name, solution.UniqueName);
                     return;
                 }
 
@@ -1387,7 +1387,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (!dictForAdding.Any())
                 {
-                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoEntitiesToAddInSolutionAllAllreadyInSolutionFormat2, connectionData.Name, solution.UniqueName);
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.InConnectionNoEntitiesToAddInSolutionAllAllreadyInSolutionFormat2, connectionData.Name, solution.UniqueName);
                     return;
                 }
 

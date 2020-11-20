@@ -1297,7 +1297,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
 
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.CreatingRoleBackupFormat2, service.ConnectionData.Name, role.Role.Name);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.InConnectionCreatingRoleBackupFormat2, service.ConnectionData.Name, role.Role.Name);
 
             var repositoryRolePrivileges = new RolePrivilegesRepository(service);
             var repositoryPrivileges = new PrivilegeRepository(service);
@@ -1336,7 +1336,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await roleBackup.SaveAsync(filePath);
 
             _iWriteToOutput.WriteToOutput(service.ConnectionData
-                , Properties.OutputStrings.ExportedRoleBackupForConnectionFormat3
+                , Properties.OutputStrings.InConnectionExportedRoleBackupFormat3
                 , service.ConnectionData.Name
                 , role.Role.Name
                 , filePath
@@ -1344,7 +1344,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
-            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.CreatingRoleBackupCompletedFormat2, service.ConnectionData.Name, role.Role.Name);
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.InConnectionCreatingRoleBackupCompletedFormat2, service.ConnectionData.Name, role.Role.Name);
 
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
         }
@@ -1373,7 +1373,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
 
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.SavingChangesInRolesFormat1, service.ConnectionData.Name);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.InConnectionSavingChangesInRolesFormat1, service.ConnectionData.Name);
 
             var rolePrivileges = new RolePrivilegesRepository(service);
 
@@ -1395,7 +1395,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.SavingChangesInRolesCompletedFormat1, service.ConnectionData.Name);
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.InConnectionSavingChangesInRolesCompletedFormat1, service.ConnectionData.Name);
 
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
 

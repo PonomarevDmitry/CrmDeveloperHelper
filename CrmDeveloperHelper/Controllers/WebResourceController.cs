@@ -497,7 +497,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                                 File.WriteAllText(filePathBackUp, dependencyXml, new UTF8Encoding(false));
 
-                                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, WebResource.Schema.EntitySchemaName, webResource.Name, fieldTitle, filePathBackUp);
+                                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldExportedToFormat5, service.ConnectionData.Name, WebResource.Schema.EntitySchemaName, webResource.Name, fieldTitle, filePathBackUp);
                             }
                             catch (Exception ex)
                             {
@@ -506,7 +506,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         }
                         else
                         {
-                            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, WebResource.Schema.EntitySchemaName, webResource.Name, fieldTitle);
+                            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldIsEmptyFormat4, service.ConnectionData.Name, WebResource.Schema.EntitySchemaName, webResource.Name, fieldTitle);
                             this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                         }
                     }
@@ -852,7 +852,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                             File.WriteAllText(filePathBackUp, dependencyXml, new UTF8Encoding(false));
 
-                            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, WebResource.Schema.EntitySchemaName, webResource.Name, fieldTitle, filePathBackUp);
+                            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldExportedToFormat5, service.ConnectionData.Name, WebResource.Schema.EntitySchemaName, webResource.Name, fieldTitle, filePathBackUp);
                         }
                         catch (Exception ex)
                         {
@@ -861,7 +861,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     }
                     else
                     {
-                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, WebResource.Schema.EntitySchemaName, webResource.Name, fieldTitle);
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldIsEmptyFormat4, service.ConnectionData.Name, WebResource.Schema.EntitySchemaName, webResource.Name, fieldTitle);
                         this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                     }
                 }
@@ -947,7 +947,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                             File.WriteAllText(filePathBackUp, dependencyXml, new UTF8Encoding(false));
 
-                            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, WebResource.Schema.EntitySchemaName, webResource.Name, fieldTitle, filePathBackUp);
+                            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldExportedToFormat5, service.ConnectionData.Name, WebResource.Schema.EntitySchemaName, webResource.Name, fieldTitle, filePathBackUp);
                         }
                         catch (Exception ex)
                         {
@@ -956,7 +956,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     }
                     else
                     {
-                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, WebResource.Schema.EntitySchemaName, webResource.Name, fieldTitle);
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldIsEmptyFormat4, service.ConnectionData.Name, WebResource.Schema.EntitySchemaName, webResource.Name, fieldTitle);
                         this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                     }
                 }
@@ -1087,7 +1087,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                                     File.WriteAllText(filePathBackUp, formXml, new UTF8Encoding(false));
 
-                                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, SystemForm.Schema.EntitySchemaName, systemForm.Name, fieldTitle, filePathBackUp);
+                                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldExportedToFormat5, service.ConnectionData.Name, SystemForm.Schema.EntitySchemaName, systemForm.Name, fieldTitle, filePathBackUp);
                                 }
                                 catch (Exception ex)
                                 {
@@ -1096,7 +1096,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             }
                             else
                             {
-                                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, SystemForm.Schema.EntitySchemaName, systemForm.Name, fieldTitle);
+                                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldIsEmptyFormat4, service.ConnectionData.Name, SystemForm.Schema.EntitySchemaName, systemForm.Name, fieldTitle);
                                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                             }
                         }
@@ -1182,7 +1182,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     var entityNamesOrdered = string.Join(",", formsEntityNames.OrderBy(s => s));
 
-                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionPublishingEntitiesFormat2, service.ConnectionData.Name, entityNamesOrdered);
                     await repositoryPublish.PublishEntitiesAsync(formsEntityNames);
                 }
             }
@@ -1947,7 +1947,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, webResource, connectionData);
 
             this._iWriteToOutput.WriteToOutput(connectionData
-                , Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
+                , Properties.OutputStrings.InConnectionExportedEntityDescriptionFormat3
                 , connectionData.Name
                 , webResource.LogicalName
                 , filePath
@@ -2080,7 +2080,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (string.IsNullOrEmpty(xmlContent))
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionData.Name, WebResource.Schema.EntityLogicalName, webResource.Name, fieldTitle);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.InConnectionEntityFieldIsEmptyFormat4, connectionData.Name, WebResource.Schema.EntityLogicalName, webResource.Name, fieldTitle);
                 this._iWriteToOutput.ActivateOutputWindow(connectionData);
                 return;
             }
@@ -2109,7 +2109,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, WebResource.Schema.EntityLogicalName, webResource.Name, fieldTitle, filePath);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.InConnectionEntityFieldExportedToFormat5, connectionData.Name, WebResource.Schema.EntityLogicalName, webResource.Name, fieldTitle, filePath);
             }
             catch (Exception ex)
             {

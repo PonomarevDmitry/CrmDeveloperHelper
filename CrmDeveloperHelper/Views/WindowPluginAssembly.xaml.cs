@@ -265,7 +265,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _service.ConnectionData.AddAssemblyMapping(_assemblyLoad.Name, _assemblyLoad.FilePath);
             _service.ConnectionData.Save();
 
-            ToggleControls(false, Properties.OutputStrings.UpdatingPluginAssemblyFormat1, _service.ConnectionData.Name);
+            ToggleControls(false, Properties.OutputStrings.InConnectionUpdatingPluginAssemblyFormat1, _service.ConnectionData.Name);
 
             try
             {
@@ -275,7 +275,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     var assemblyRef = this.PluginAssembly.ToEntityReference();
 
-                    ToggleControls(false, Properties.OutputStrings.RegisteringNewPluginTypesFormat2, _service.ConnectionData.Name, listToRegister.Count);
+                    ToggleControls(false, Properties.OutputStrings.InConnectionRegisteringNewPluginTypesFormat2, _service.ConnectionData.Name, listToRegister.Count);
 
                     foreach (var pluginType in listToRegister)
                     {
@@ -301,17 +301,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         }
                         catch (Exception ex)
                         {
-                            ToggleControls(false, Properties.OutputStrings.RegisteringPluginTypeFailedFormat2, _service.ConnectionData.Name, pluginType.Name);
+                            ToggleControls(false, Properties.OutputStrings.InConnectionRegisteringPluginTypeFailedFormat2, _service.ConnectionData.Name, pluginType.Name);
 
                             _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
                             _iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
                         }
                     }
 
-                    ToggleControls(true, Properties.OutputStrings.RegisteringNewPluginTypesCompletedFormat2, _service.ConnectionData.Name, listToRegister.Count);
+                    ToggleControls(true, Properties.OutputStrings.InConnectionRegisteringNewPluginTypesCompletedFormat2, _service.ConnectionData.Name, listToRegister.Count);
                 }
 
-                ToggleControls(true, Properties.OutputStrings.UpdatingPluginAssemblyCompletedFormat1, _service.ConnectionData.Name);
+                ToggleControls(true, Properties.OutputStrings.InConnectionUpdatingPluginAssemblyCompletedFormat1, _service.ConnectionData.Name);
 
                 this.DialogResult = true;
 
@@ -319,7 +319,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                ToggleControls(true, Properties.OutputStrings.UpdatingPluginAssemblyFailedFormat1, _service.ConnectionData.Name);
+                ToggleControls(true, Properties.OutputStrings.InConnectionUpdatingPluginAssemblyFailedFormat1, _service.ConnectionData.Name);
 
                 _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
                 _iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);

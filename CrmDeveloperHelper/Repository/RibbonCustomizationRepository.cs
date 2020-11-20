@@ -686,7 +686,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 if (entityMetadata != null)
                 {
-                    iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.AddingInSolutionEntityFormat3, _service.ConnectionData.Name, solutionUniqueName, entityMetadata.LogicalName);
+                    iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.InConnectionAddingInSolutionEntityFormat3, _service.ConnectionData.Name, solutionUniqueName, entityMetadata.LogicalName);
 
                     {
                         var repositorySolutionComponent = new SolutionComponentRepository(_service);
@@ -703,7 +703,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
                 else if (ribbonCustomization != null)
                 {
-                    iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.AddingInSolutionApplicationRibbonFormat2, _service.ConnectionData.Name, solutionUniqueName);
+                    iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.InConnectionAddingInSolutionApplicationRibbonFormat2, _service.ConnectionData.Name, solutionUniqueName);
 
                     {
                         var repositorySolutionComponent = new SolutionComponentRepository(_service);
@@ -809,13 +809,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                     if (entityMetadata != null)
                     {
-                        iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.PublishingEntitiesFormat2, _service.ConnectionData.Name, entityMetadata.LogicalName);
+                        iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.InConnectionPublishingEntitiesFormat2, _service.ConnectionData.Name, entityMetadata.LogicalName);
 
                         await repositoryPublish.PublishEntitiesAsync(new[] { entityMetadata.LogicalName });
                     }
                     else if (ribbonCustomization != null)
                     {
-                        iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.PublishingApplicationRibbonFormat1, _service.ConnectionData.Name);
+                        iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.InConnectionPublishingApplicationRibbonFormat1, _service.ConnectionData.Name);
 
                         await repositoryPublish.PublishApplicationRibbonAsync();
                     }
@@ -879,7 +879,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 if (entityMetadata != null)
                 {
-                    iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.AddingInSolutionEntityFormat3, _service.ConnectionData.Name, solutionUniqueName, entityMetadata.LogicalName);
+                    iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.InConnectionAddingInSolutionEntityFormat3, _service.ConnectionData.Name, solutionUniqueName, entityMetadata.LogicalName);
 
                     await repositorySolutionComponent.AddSolutionComponentsAsync(solutionUniqueName, new[] { new SolutionComponent()
                     {
@@ -892,7 +892,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
                 else if (ribbonCustomization != null)
                 {
-                    iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.AddingInSolutionApplicationRibbonFormat2, _service.ConnectionData.Name, solutionUniqueName);
+                    iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.InConnectionAddingInSolutionApplicationRibbonFormat2, _service.ConnectionData.Name, solutionUniqueName);
 
                     await repositorySolutionComponent.AddSolutionComponentsAsync(solutionUniqueName, new[] { new SolutionComponent()
                     {

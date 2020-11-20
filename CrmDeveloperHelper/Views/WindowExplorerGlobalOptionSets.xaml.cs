@@ -521,7 +521,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 AddFileToVSProject(_selectedItem, filePath);
 
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service.ConnectionData.Name, optionSetsName, filePath);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionCreatedGlobalOptionSetMetadataFileFormat3, service.ConnectionData.Name, optionSetsName, filePath);
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
@@ -609,7 +609,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 AddFileToVSProject(_selectedItem, filePath);
 
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service.ConnectionData.Name, optionSetsName, filePath);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionCreatedGlobalOptionSetMetadataFileFormat3, service.ConnectionData.Name, optionSetsName, filePath);
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
@@ -736,7 +736,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.PublishingOptionSetFormat2, service.ConnectionData.Name, optionSetName);
 
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.PublishingOptionSetFormat2, service.ConnectionData.Name, optionSetName);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.InConnectionPublishingOptionSetFormat2, service.ConnectionData.Name, optionSetName);
 
             try
             {
@@ -744,13 +744,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await repository.PublishOptionSetsAsync(new[] { optionSetName });
 
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.PublishingOptionSetCompletedFormat2, service.ConnectionData.Name, optionSetName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.InConnectionPublishingOptionSetCompletedFormat2, service.ConnectionData.Name, optionSetName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.PublishingOptionSetFailedFormat2, service.ConnectionData.Name, optionSetName);
+                ToggleControls(service.ConnectionData, true, Properties.OutputStrings.InConnectionPublishingOptionSetFailedFormat2, service.ConnectionData.Name, optionSetName);
             }
 
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.PublishingOptionSetFormat2, service.ConnectionData.Name, optionSetName);

@@ -137,7 +137,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (pluginType == null)
             {
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PluginTypeNotFoundedInConnectionFormat2, service.ConnectionData.Name, pluginTypeName);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionPluginTypeWasNotFoundFormat2, service.ConnectionData.Name, pluginTypeName);
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
                 WindowHelper.OpenPluginTypeExplorer(_iWriteToOutput, service, commonConfig);
@@ -157,7 +157,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (string.IsNullOrEmpty(customWorkflowActivityInfo))
             {
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, PluginType.Schema.EntitySchemaName, pluginType.TypeName, fieldTitle);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldIsEmptyFormat4, service.ConnectionData.Name, PluginType.Schema.EntitySchemaName, pluginType.TypeName, fieldTitle);
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 return;
             }
@@ -173,7 +173,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 File.WriteAllText(filePath2, customWorkflowActivityInfo, new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, PluginType.Schema.EntitySchemaName, pluginType.TypeName, fieldTitle, filePath2);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldExportedToFormat5, service.ConnectionData.Name, PluginType.Schema.EntitySchemaName, pluginType.TypeName, fieldTitle, filePath2);
             }
             catch (Exception ex)
             {
@@ -199,7 +199,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (string.IsNullOrEmpty(customWorkflowActivityInfo))
             {
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, PluginType.Schema.EntitySchemaName, pluginType.TypeName, PluginType.Schema.Headers.customworkflowactivityinfo);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldIsEmptyFormat4, service.ConnectionData.Name, PluginType.Schema.EntitySchemaName, pluginType.TypeName, PluginType.Schema.Headers.customworkflowactivityinfo);
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 return;
             }
@@ -220,7 +220,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 File.WriteAllText(currentFilePath, customWorkflowActivityInfo, new UTF8Encoding(false));
 
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, PluginType.Schema.EntitySchemaName, pluginType.TypeName, PluginType.Schema.Headers.customworkflowactivityinfo, currentFilePath);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionEntityFieldExportedToFormat5, service.ConnectionData.Name, PluginType.Schema.EntitySchemaName, pluginType.TypeName, PluginType.Schema.Headers.customworkflowactivityinfo, currentFilePath);
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, currentFilePath);
 

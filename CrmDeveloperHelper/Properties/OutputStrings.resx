@@ -123,18 +123,18 @@
   <data name="ConnectionIsReadOnlyFormat1" xml:space="preserve">
     <value>Connection {0} is ReadOnly. Operation is prohibited.</value>
   </data>
-  <data name="CreatedEntityMetadataFileForConnectionFormat3" xml:space="preserve">
+  <data name="InConnectionCreatedEntityMetadataFileFormat3" xml:space="preserve">
     <value>{0}. For '{1}' created file with Metadata: {2}</value>
   </data>
-  <data name="CreatedEntityXmlFileForConnectionFormat3" xml:space="preserve">
+  <data name="InConnectionCreatedEntityXmlFileFormat3" xml:space="preserve">
     <value>{0}. For '{1}' created file with EntityXml: {2}</value>
   </data>
 
-  <data name="CreatedSdkMessageRequestFileForConnectionFormat3" xml:space="preserve">
+  <data name="InConnectionCreatedSdkMessageRequestFileFormat3" xml:space="preserve">
     <value>{0}. For SdkMessageRequest '{1}' created proxy class: {2}</value>
   </data>
 
-  <data name="CreatedGlobalOptionSetMetadataFileForConnectionFormat3" xml:space="preserve">
+  <data name="InConnectionCreatedGlobalOptionSetMetadataFileFormat3" xml:space="preserve">
     <value>{0}. For Global OptionSet '{1}' created file with Metadata: {2}</value>
   </data>
   <data name="CurrentConnectionFormat1" xml:space="preserve">
@@ -158,19 +158,19 @@
   <data name="EndOperationFormat2" xml:space="preserve">
     <value>***********   End {0} at {1} *******************************************************</value>
   </data>
-  <data name="ExportedAppliationRibbonDiffXmlForConnectionFormat2" xml:space="preserve">
+  <data name="InConnectionExportedAppliationRibbonDiffXmlFormat2" xml:space="preserve">
     <value>{0}. ApplicationRibbonDiffXml exported to file: {1}</value>
   </data>
-  <data name="ExportedAppliationRibbonForConnectionFormat2" xml:space="preserve">
+  <data name="InConnectionExportedAppliationRibbonFormat2" xml:space="preserve">
     <value>{0}. ApplicationRibbon exported to file: {1}</value>
   </data>
-  <data name="ExportedEntityDescriptionForConnectionFormat3" xml:space="preserve">
+  <data name="InConnectionExportedEntityDescriptionFormat3" xml:space="preserve">
     <value>{0}. {1} EntityDescription exported to {2}</value>
   </data>
-  <data name="ExportedEntityRibbonDiffXmlForConnectionFormat3" xml:space="preserve">
+  <data name="InConnectionExportedEntityRibbonDiffXmlFormat3" xml:space="preserve">
     <value>{0}. For '{1}' exported file with RibbonDiffXml: {2}</value>
   </data>
-  <data name="ExportedEntityRibbonForConnectionFormat3" xml:space="preserve">
+  <data name="InConnectionExportedEntityRibbonFormat3" xml:space="preserve">
     <value>{0}. For '{1}' exported file with Ribbon: {2}</value>
   </data>
   <data name="FileNotExistsFormat1" xml:space="preserve">
@@ -234,20 +234,20 @@
   <data name="NothingToPublish" xml:space="preserve">
     <value>Nothing to publish.</value>
   </data>
-  <data name="NoWebResourcesToAddInSolutionAllAllreadyInSolutionFormat2" xml:space="preserve">
-    <value>{0}: No WebResources to add. All WebResources already in Solution {1}.</value>
+  <data name="InConnectionNoWebResourcesToAddInSolutionAllAllreadyInSolutionFormat2" xml:space="preserve">
+    <value>{0}. No WebResources to add. All WebResources already in Solution {1}.</value>
   </data>
-  <data name="NoWebResourcesToAddInSolutionFormat2" xml:space="preserve">
-    <value>{0}: No WebResources to add in solution {1}.</value>
+  <data name="InConnectionNoWebResourcesToAddInSolutionFormat2" xml:space="preserve">
+    <value>{0}. No WebResources to add in solution {1}.</value>
   </data>
-  <data name="NoSystemFormsToAddInSolutionAllAllreadyInSolutionFormat2" xml:space="preserve">
-    <value>{0}: No SystemForms to add. All SystemForms already in Solution {1}.</value>
+  <data name="InConnectionNoSystemFormsToAddInSolutionAllAllreadyInSolutionFormat2" xml:space="preserve">
+    <value>{0}. No SystemForms to add. All SystemForms already in Solution {1}.</value>
   </data>
-  <data name="NoEntitiesToAddInSolutionAllAllreadyInSolutionFormat2" xml:space="preserve">
-    <value>{0}: No Entities to add. All Entities already in Solution {1}.</value>
+  <data name="InConnectionNoEntitiesToAddInSolutionAllAllreadyInSolutionFormat2" xml:space="preserve">
+    <value>{0}. No Entities to add. All Entities already in Solution {1}.</value>
   </data>
-  <data name="NoEntitiesToAddInSolutionFormat2" xml:space="preserve">
-    <value>{0}: No Entities to add in solution {1}.</value>
+  <data name="InConnectionNoEntitiesToAddInSolutionFormat2" xml:space="preserve">
+    <value>{0}. No Entities to add in solution {1}.</value>
   </data>
   <data name="ObjectsInCRMWereExportedToFormat1" xml:space="preserve">
     <value>Objects in CRM were exported to {0}</value>
@@ -261,8 +261,8 @@
   <data name="PublishListIsEmpty" xml:space="preserve">
     <value>Publish List is empty.</value>
   </data>
-  <data name="ReportNotFoundedInConnectionFormat2" xml:space="preserve">
-    <value>{0}: Report not founded in CRM: {1}</value>
+  <data name="InConnectionReportWasNotFoundFormat2" xml:space="preserve">
+    <value>{0}. Report was not found in CRM: {1}</value>
   </data>
   <data name="ShowingDifferenceIsNotAllowedForFormat1" xml:space="preserve">
     <value>Showing Difference is not allowed for {0}.</value>
@@ -288,13 +288,13 @@
   <data name="DecryptingPasswordErrorFormat1" xml:space="preserve">
     <value>Error while Decrypting Password for user {0}. Setting default password - 'empty'.</value>
   </data>
-  <data name="EntityFieldExportedToFormat5" xml:space="preserve">
+  <data name="InConnectionEntityFieldExportedToFormat5" xml:space="preserve">
     <value>{0}. {1} {2} {3} exported to file: {4}</value>
   </data>
-  <data name="EntityFieldIsEmptyFormat4" xml:space="preserve">
+  <data name="InConnectionEntityFieldIsEmptyFormat4" xml:space="preserve">
     <value>{0}. {1} {2} {3} is empty.</value>
   </data>
-  <data name="ExportedSolutionImageForConnectionFormat2" xml:space="preserve">
+  <data name="InConnectionExportedSolutionImageFormat2" xml:space="preserve">
     <value>{0}. SolutionImage exported to file: {1}</value>
   </data>
   <data name="SolutionComponentNotFoundInConnectionFormat1" xml:space="preserve">
@@ -357,14 +357,14 @@
   <data name="FileTextIsNotXmlFormat1" xml:space="preserve">
     <value>File text is not Xml: {0}</value>
   </data>
-  <data name="SiteMapNotFoundedFormat2" xml:space="preserve">
-    <value>{0}. SiteMap with unique name '{1}' not founded.</value>
+  <data name="InConnectionSiteMapWasNotFoundFormat2" xml:space="preserve">
+    <value>{0}. SiteMap with unique name '{1}' was not found.</value>
   </data>
-  <data name="ExportedEntityRibbonArchiveForConnectionFormat3" xml:space="preserve">
+  <data name="InConnectionExportedEntityRibbonArchiveFormat3" xml:space="preserve">
     <value>{0}. For '{1}' exported file with Ribbon Archive: {2}</value>
   </data>
-  <data name="SystemFormNotFoundedFormat2" xml:space="preserve">
-    <value>{0}. SystemForm with id '{1}' not founded.</value>
+  <data name="InConnectionSystemFormWasNotFoundFormat2" xml:space="preserve">
+    <value>{0}. SystemForm with id '{1}' was not found.</value>
   </data>
   <data name="XmlAttributeNotValidGuidFormat3" xml:space="preserve">
     <value>Xml Attribute {0} not Valid Guid "{1}" in file: {2}</value>
@@ -373,10 +373,10 @@
     <value>Xml Attribute {0} is empty in file: {1}</value>
   </data>
   <data name="XmlNodeIsEmptyOrNotFoundedFormat2" xml:space="preserve">
-    <value>Xml Node {0} is empty or not founded in file: {1}</value>
+    <value>Xml Node {0} is empty or was not found in file: {1}</value>
   </data>
-  <data name="SavedQueryNotFoundedFormat2" xml:space="preserve">
-    <value>{0}. SavedQuery with id '{1}' not founded.</value>
+  <data name="InConnectionSavedQueryWasNotFoundFormat2" xml:space="preserve">
+    <value>{0}. SavedQuery with id '{1}' was not found.</value>
   </data>
   <data name="ExceptionWhileOperationFormat1" xml:space="preserve">
     <value>Exception while {0}</value>
@@ -411,16 +411,16 @@
   <data name="PluginAssemblyNotFoundedByNameFormat1" xml:space="preserve">
     <value>PluginAssembly not founded by name '{0}'.</value>
   </data>
-  <data name="ExportedRoleBackupForConnectionFormat3" xml:space="preserve">
+  <data name="InConnectionExportedRoleBackupFormat3" xml:space="preserve">
     <value>{0}. Role backup {1} exported to file: {2}</value>
   </data>
-  <data name="AddedNewPrivilegesForConnectionFormat3" xml:space="preserve">
+  <data name="InConnectionAddedNewPrivilegesFormat3" xml:space="preserve">
     <value>{0}. Role {1} Added New Privileges exported to file: {2}</value>
   </data>
-  <data name="AllNewPrivilegesForConnectionFormat3" xml:space="preserve">
+  <data name="InConnectionAllNewPrivilegesFormat3" xml:space="preserve">
     <value>{0}. Role {1} All New Privileges exported to file: {2}</value>
   </data>
-  <data name="ChangedPrivilegesForConnectionFormat3" xml:space="preserve">
+  <data name="InConnectionChangedPrivilegesFormat3" xml:space="preserve">
     <value>{0}. Role {1} Changed Privileges exported to file: {2}</value>
   </data>
   <data name="SavingChangesInRoleFormat1" xml:space="preserve">
@@ -549,19 +549,19 @@
   </data>
 
   <data name="NoPluginTypesFounded" xml:space="preserve">
-    <value>No PluginTypes founded.</value>
+    <value>No PluginTypes found.</value>
   </data>
 
   <data name="PluginTypesNotFoundedByNameFormat1" xml:space="preserve">
-    <value>PluginTypes not founded by name {0}.</value>
+    <value>PluginTypes not found by name {0}.</value>
   </data>
 
   <data name="PluginAssembliesNotFoundedByNameFormat1" xml:space="preserve">
-    <value>PluginAssemblies not founded by name {0}.</value>
+    <value>PluginAssemblies not found by name {0}.</value>
   </data>
 
   <data name="PluginAssembliesNotFoundedByNameFormat1" xml:space="preserve">
-    <value>PluginAssemblies not founded by name {0}.</value>
+    <value>PluginAssemblies not found by name {0}.</value>
   </data>
 
   <data name="TryingToFindWebResourceByNameFormat1" xml:space="preserve">
@@ -569,27 +569,27 @@
   </data>
 
   <data name="WebResourceFoundedByNameFormat2" xml:space="preserve">
-    <value>WebResource founded by name. WebResourceId: {0} Name: {1}</value>
+    <value>WebResource found by name. WebResourceId: {0} Name: {1}</value>
   </data>
 
   <data name="InConnectionWebResourceFoundedByNameFormat3" xml:space="preserve">
-    <value>{0}. WebResource founded by name. WebResourceId: {1} Name: {2}</value>
+    <value>{0}. WebResource found by name. WebResourceId: {1} Name: {2}</value>
   </data>
 
   <data name="WebResourceNotFoundedByNameFormat1" xml:space="preserve">
-    <value>WebResource Not founded by name. FileName: {0}</value>
+    <value>WebResource was Not found by name. FileName: {0}</value>
   </data>
 
   <data name="WebResourceNotFoundedFormat1" xml:space="preserve">
-    <value>WebResource Not founded. FileName: {0}</value>
+    <value>WebResource was Not found. FileName: {0}</value>
   </data>
 
   <data name="ReportFoundedByNameFormat2" xml:space="preserve">
-    <value>Report founded by name. WebResourceId: {0} Name: {1}</value>
+    <value>Report found by name. WebResourceId: {0} Name: {1}</value>
   </data>
 
   <data name="ReportNotFoundedByNameFormat1" xml:space="preserve">
-    <value>Report Not founded by name. FileName: {0}</value>
+    <value>Report was Not found by name. FileName: {0}</value>
   </data>
 
   <data name="DeletedLastLinksFormat1" xml:space="preserve">
@@ -646,17 +646,17 @@
 
 
 
-  <data name="WorkflowNotFoundedFormat2" xml:space="preserve">
-    <value>{0}. Workflow with id '{1}' not founded.</value>
+  <data name="InConnectionWorkflowWasNotFoundFormat2" xml:space="preserve">
+    <value>{0}. Workflow with id '{1}' was not found.</value>
   </data>
 
-  <data name="UpdatingFieldFormat2" xml:space="preserve">
+  <data name="InConnectionUpdatingFieldFormat2" xml:space="preserve">
     <value>{0}. Updating Field {1}...</value>
   </data>
-  <data name="ActivatingWorkflowFormat2" xml:space="preserve">
+  <data name="InConnectionActivatingWorkflowFormat2" xml:space="preserve">
     <value>{0}. Activating Workflow {1}...</value>
   </data>
-  <data name="DeactivatingWorkflowFormat2" xml:space="preserve">
+  <data name="InConnectionDeactivatingWorkflowFormat2" xml:space="preserve">
     <value>{0}. Deactivating Workflow {1}...</value>
   </data>
 
@@ -681,13 +681,13 @@
     <value>Cannot update PluginAssembly {0}.</value>
   </data>
 
-  <data name="AddingComponentsToSolutionFormat3" xml:space="preserve">
+  <data name="InConnectionAddingComponentsToSolutionFormat3" xml:space="preserve">
     <value>{0}. Adding {1} components to Solution {2}...</value>
   </data>
-  <data name="AddingInSolutionApplicationRibbonFormat2" xml:space="preserve">
+  <data name="InConnectionAddingInSolutionApplicationRibbonFormat2" xml:space="preserve">
     <value>{0}. Adding to solution {1} ApplicationRibbon...</value>
   </data>
-  <data name="AddingInSolutionEntityFormat3" xml:space="preserve">
+  <data name="InConnectionAddingInSolutionEntityFormat3" xml:space="preserve">
     <value>{0}. Adding to solution {1} entity {2}...</value>
   </data>
   <data name="ComparingSolutionsCompletedFormat2" xml:space="preserve">
@@ -810,13 +810,13 @@
   <data name="CheckingWorkflowsWithDetailsFormat2" xml:space="preserve">
     <value>Checking Workflows with details in {0} and {1}...</value>
   </data>
-  <data name="ClearingSolutionCompletedFormat2" xml:space="preserve">
+  <data name="InConnectionClearingSolutionCompletedFormat2" xml:space="preserve">
     <value>{0}. Clearing solution {1} completed.</value>
   </data>
-  <data name="ClearingSolutionFailedFormat2" xml:space="preserve">
+  <data name="InConnectionClearingSolutionFailedFormat2" xml:space="preserve">
     <value>{0}. Clearing solution {1} failed.</value>
   </data>
-  <data name="ClearingSolutionFormat2" xml:space="preserve">
+  <data name="InConnectionClearingSolutionFormat2" xml:space="preserve">
     <value>{0}. Clearing solution {1}...</value>
   </data>
   <data name="ComparingConnectionsCompletedFormat2" xml:space="preserve">
@@ -1426,82 +1426,82 @@
   <data name="PreparingCreatingNewWebResource" xml:space="preserve">
     <value>Preparing for creating new WebResource...</value>
   </data>
-  <data name="PublishingApplicationRibbonFormat1" xml:space="preserve">
+  <data name="InConnectionPublishingApplicationRibbonFormat1" xml:space="preserve">
     <value>{0}. Publishing Application Ribbon...</value>
   </data>
-  <data name="PublishingApplicationRibbonCompletedFormat1" xml:space="preserve">
+  <data name="InConnectionPublishingApplicationRibbonCompletedFormat1" xml:space="preserve">
     <value>{0}. Publishing Application Ribbon completed.</value>
   </data>
-  <data name="PublishingApplicationRibbonFailedFormat1" xml:space="preserve">
+  <data name="InConnectionPublishingApplicationRibbonFailedFormat1" xml:space="preserve">
     <value>{0}. Publishing Application Ribbon failed.</value>
   </data>
-  <data name="PublishingEntitiesCompletedFormat2" xml:space="preserve">
+  <data name="InConnectionPublishingEntitiesCompletedFormat2" xml:space="preserve">
     <value>{0}. Published Entities: {1}.</value>
   </data>
-  <data name="PublishingEntitiesFailedFormat2" xml:space="preserve">
+  <data name="InConnectionPublishingEntitiesFailedFormat2" xml:space="preserve">
     <value>{0}. Publishing Entities: {1} failed.</value>
   </data>
-  <data name="PublishingEntitiesFormat2" xml:space="preserve">
+  <data name="InConnectionPublishingEntitiesFormat2" xml:space="preserve">
     <value>{0}. Publishing Entities: {1}...</value>
   </data>
-  <data name="PublishingOptionSetCompletedFormat2" xml:space="preserve">
+  <data name="InConnectionPublishingOptionSetCompletedFormat2" xml:space="preserve">
     <value>{0}. Publishing OptionSet {1} completed.</value>
   </data>
-  <data name="PublishingOptionSetFailedFormat2" xml:space="preserve">
+  <data name="InConnectionPublishingOptionSetFailedFormat2" xml:space="preserve">
     <value>{0}. Publishing OptionSet {1} failed.</value>
   </data>
-  <data name="PublishingOptionSetFormat2" xml:space="preserve">
+  <data name="InConnectionPublishingOptionSetFormat2" xml:space="preserve">
     <value>{0}. Publishing OptionSet {1}...</value>
   </data>
-  <data name="PublishingSiteMapCompletedFormat3" xml:space="preserve">
+  <data name="InConnectionPublishingSiteMapCompletedFormat3" xml:space="preserve">
     <value>{0}. Publishing SiteMap{1} {2} completed.</value>
   </data>
-  <data name="PublishingSiteMapFailedFormat3" xml:space="preserve">
+  <data name="InConnectionPublishingSiteMapFailedFormat3" xml:space="preserve">
     <value>{0}. Publishing SiteMap{1} {2} failed.</value>
   </data>
-  <data name="PublishingSiteMapFormat3" xml:space="preserve">
+  <data name="InConnectionPublishingSiteMapFormat3" xml:space="preserve">
     <value>{0}. Publishing SiteMap{1} {2}...</value>
   </data>
-  <data name="PublishingSystemFormCompletedFormat3" xml:space="preserve">
+  <data name="InConnectionPublishingSystemFormCompletedFormat3" xml:space="preserve">
     <value>{0}. Publishing SystemForm {1} - {2} completed.</value>
   </data>
-  <data name="PublishingSystemFormFailedFormat3" xml:space="preserve">
+  <data name="InConnectionPublishingSystemFormFailedFormat3" xml:space="preserve">
     <value>{0}. Publishing SystemForm {1} - {2} failed.</value>
   </data>
-  <data name="PublishingSystemFormFormat3" xml:space="preserve">
+  <data name="InConnectionPublishingSystemFormFormat3" xml:space="preserve">
     <value>{0}. Publishing SystemForm {1} - {2}...</value>
   </data>
-  <data name="PublishingWebResourceCompletedFormat2" xml:space="preserve">
+  <data name="InConnectionPublishingWebResourceCompletedFormat2" xml:space="preserve">
     <value>{0}. Publishing WebResource {1} completed.</value>
   </data>
-  <data name="PublishingWebResourceFailedFormat2" xml:space="preserve">
+  <data name="InConnectionPublishingWebResourceFailedFormat2" xml:space="preserve">
     <value>{0}. Publishing WebResource {1} failed.</value>
   </data>
-  <data name="PublishingWebResourceFormat2" xml:space="preserve">
+  <data name="InConnectionPublishingWebResourceFormat2" xml:space="preserve">
     <value>{0}. Publishing WebResource {1}...</value>
   </data>
-  <data name="RegisteringPluginStepsFormat1" xml:space="preserve">
+  <data name="InConnectionRegisteringPluginStepsFormat1" xml:space="preserve">
     <value>{0}. Registering Plugin Steps...</value>
   </data>
-  <data name="RegisteringPluginStepsCompletedFormat1" xml:space="preserve">
+  <data name="InConnectionRegisteringPluginStepsCompletedFormat1" xml:space="preserve">
     <value>{0}. Registering Plugin Steps completed.</value>
   </data>
-  <data name="RemovingSolutionComponentsFromSolutionCompletedFormat2" xml:space="preserve">
+  <data name="InConnectionRemovingSolutionComponentsFromSolutionCompletedFormat2" xml:space="preserve">
     <value>{0}. Removing solution components from {1} completed.</value>
   </data>
-  <data name="RemovingSolutionComponentsFromSolutionFailedFormat2" xml:space="preserve">
+  <data name="InConnectionRemovingSolutionComponentsFromSolutionFailedFormat2" xml:space="preserve">
     <value>{0}. Removing solution components from {1} failed.</value>
   </data>
-  <data name="RemovingSolutionComponentsFromSolutionFormat2" xml:space="preserve">
+  <data name="InConnectionRemovingSolutionComponentsFromSolutionFormat2" xml:space="preserve">
     <value>{0}. Removing solution components from {1}...</value>
   </data>
-  <data name="SavingChangesFormat1" xml:space="preserve">
+  <data name="InConnectionSavingChangesFormat1" xml:space="preserve">
     <value>{0}. Saving Changes...</value>
   </data>
-  <data name="SavingChangesCompletedFormat1" xml:space="preserve">
+  <data name="InConnectionSavingChangesCompletedFormat1" xml:space="preserve">
     <value>{0}. Changes saved.</value>
   </data>
-  <data name="SavingChangesFailedFormat1" xml:space="preserve">
+  <data name="InConnectionSavingChangesFailedFormat1" xml:space="preserve">
     <value>{0}. Saving Changes failed.</value>
   </data>
   <data name="ShowingDifferenceApplicationRibbons" xml:space="preserve">
@@ -1633,40 +1633,40 @@
   <data name="TransferingDataFormat2" xml:space="preserve">
     <value>Transferfing Data from {0} to {1}...</value>
   </data>
-  <data name="UpdatingApplicationRibbonDiffXmlFormat1" xml:space="preserve">
+  <data name="InConnectionUpdatingApplicationRibbonDiffXmlFormat1" xml:space="preserve">
     <value>{0}. Updating Application RibbonDiffXml...</value>
   </data>
-  <data name="UpdatingApplicationRibbonDiffXmlCanceledFormat1" xml:space="preserve">
+  <data name="InConnectionUpdatingApplicationRibbonDiffXmlCanceledFormat1" xml:space="preserve">
     <value>{0}. Updating Application RibbonDiffXml canceled.</value>
   </data>
-  <data name="UpdatingApplicationRibbonDiffXmlCompletedFormat1" xml:space="preserve">
+  <data name="InConnectionUpdatingApplicationRibbonDiffXmlCompletedFormat1" xml:space="preserve">
     <value>{0}. Updating Application RibbonDiffXml completed.</value>
   </data>
-  <data name="UpdatingApplicationRibbonDiffXmlFailedFormat1" xml:space="preserve">
+  <data name="InConnectionUpdatingApplicationRibbonDiffXmlFailedFormat1" xml:space="preserve">
     <value>{0}. Updating Application RibbonDiffXml failed.</value>
   </data>
-  <data name="UpdatingFieldCanceledFormat2" xml:space="preserve">
+  <data name="InConnectionUpdatingFieldCanceledFormat2" xml:space="preserve">
     <value>{0}. Updating Field {1} canceled.</value>
   </data>
-  <data name="UpdatingFieldCompletedFormat2" xml:space="preserve">
+  <data name="InConnectionUpdatingFieldCompletedFormat2" xml:space="preserve">
     <value>{0}. Updating Field {1} completed.</value>
   </data>
-  <data name="UpdatingFieldFailedFormat2" xml:space="preserve">
+  <data name="InConnectionUpdatingFieldFailedFormat2" xml:space="preserve">
     <value>{0}. Updating Field {1} failed.</value>
   </data>
-  <data name="UpdatingFieldFormat2" xml:space="preserve">
+  <data name="InConnectionUpdatingFieldFormat2" xml:space="preserve">
     <value>{0}. Updating Field {1}...</value>
   </data>
-  <data name="UpdatingRibbonDiffXmlForEntityCanceledFormat2" xml:space="preserve">
+  <data name="InConnectionUpdatingRibbonDiffXmlForEntityCanceledFormat2" xml:space="preserve">
     <value>{0}. Updating RibbonDiffXml for {1} canceled.</value>
   </data>
-  <data name="UpdatingRibbonDiffXmlForEntityCompletedFormat2" xml:space="preserve">
+  <data name="InConnectionUpdatingRibbonDiffXmlForEntityCompletedFormat2" xml:space="preserve">
     <value>{0}. Updating RibbonDiffXml for {1} completed.</value>
   </data>
-  <data name="UpdatingRibbonDiffXmlForEntityFailedFormat2" xml:space="preserve">
+  <data name="InConnectionUpdatingRibbonDiffXmlForEntityFailedFormat2" xml:space="preserve">
     <value>{0}. Updating RibbonDiffXml for {1} failed.</value>
   </data>
-  <data name="UpdatingRibbonDiffXmlForEntityFormat2" xml:space="preserve">
+  <data name="InConnectionUpdatingRibbonDiffXmlForEntityFormat2" xml:space="preserve">
     <value>{0}. Updating RibbonDiffXml for {1}...</value>
   </data>
   <data name="ValidatingApplicationRibbonDiffXml" xml:space="preserve">
@@ -1762,46 +1762,46 @@
   <data name="LoadingRoleTeamsCompletedFormat1" xml:space="preserve">
     <value>{0} security role teams loaded.</value>
   </data>
-  <data name="RemovingRolesFromUsersCompletedFormat3" xml:space="preserve">
+  <data name="InConnectionRemovingRolesFromUsersCompletedFormat3" xml:space="preserve">
     <value>{0}. Removing roles {1} from users {2} completed.</value>
   </data>
-  <data name="RemovingRolesFromUsersFormat3" xml:space="preserve">
+  <data name="InConnectionRemovingRolesFromUsersFormat3" xml:space="preserve">
     <value>{0}. Removing roles {1} from users {2}...</value>
   </data>
-  <data name="RemovingRolesFromTeamsCompletedFormat3" xml:space="preserve">
+  <data name="InConnectionRemovingRolesFromTeamsCompletedFormat3" xml:space="preserve">
     <value>{0}. Removing roles {1} from team {2} completed.</value>
   </data>
-  <data name="RemovingRolesFromTeamsFormat3" xml:space="preserve">
+  <data name="InConnectionRemovingRolesFromTeamsFormat3" xml:space="preserve">
     <value>{0}. Removing roles {1} from teams {2}...</value>
   </data>
-  <data name="RemovingUsersFromTeamsCompletedFormat3" xml:space="preserve">
+  <data name="InConnectionRemovingUsersFromTeamsCompletedFormat3" xml:space="preserve">
     <value>{0}. Removing users {1} from teams {2} completed.</value>
   </data>
-  <data name="RemovingUsersFromTeamsFormat3" xml:space="preserve">
+  <data name="InConnectionRemovingUsersFromTeamsFormat3" xml:space="preserve">
     <value>{0}. Removing users {1} from teams {2}...</value>
   </data>
-  <data name="AddingUsersToTeamsCompletedFormat3" xml:space="preserve">
+  <data name="InConnectionAddingUsersToTeamsCompletedFormat3" xml:space="preserve">
     <value>{0}. Adding users {1} to teams {2} completed.</value>
   </data>
-  <data name="AddingUsersToTeamsFormat3" xml:space="preserve">
+  <data name="InConnectionAddingUsersToTeamsFormat3" xml:space="preserve">
     <value>{0}. Adding users {1} to teams {2}...</value>
   </data>
-  <data name="AssigningRolesToTeamsCompletedFormat3" xml:space="preserve">
+  <data name="InConnectionAssigningRolesToTeamsCompletedFormat3" xml:space="preserve">
     <value>{0}. Assigning roles {1} to teams {2} completed.</value>
   </data>
-  <data name="AssigningRolesToTeamsFormat3" xml:space="preserve">
+  <data name="InConnectionAssigningRolesToTeamsFormat3" xml:space="preserve">
     <value>{0}. Assigning roles {1} to teams {2}...</value>
   </data>
-  <data name="AssigningRolesToUsersCompletedFormat3" xml:space="preserve">
+  <data name="InConnectionAssigningRolesToUsersCompletedFormat3" xml:space="preserve">
     <value>{0}. Assigning roles {1} to users {2} completed.</value>
   </data>
-  <data name="AssigningRolesToUsersFormat3" xml:space="preserve">
+  <data name="InConnectionAssigningRolesToUsersFormat3" xml:space="preserve">
     <value>{0}. Assigning roles {1} to users {2}...</value>
   </data>
-  <data name="SavingChangesInRolesCompletedFormat1" xml:space="preserve">
+  <data name="InConnectionSavingChangesInRolesCompletedFormat1" xml:space="preserve">
     <value>{0}. Saving Changes in Roles completed.</value>
   </data>
-  <data name="SavingChangesInRolesFormat1" xml:space="preserve">
+  <data name="InConnectionSavingChangesInRolesFormat1" xml:space="preserve">
     <value>{0}. Saving Changes in Roles...</value>
   </data>
   <data name="CheckingWorkflowsStatesFormat2" xml:space="preserve">
@@ -1834,40 +1834,40 @@
   <data name="DiscoveryServiceCouldNotBeReceived" xml:space="preserve">
     <value>DiscoveryService could not be received.</value>
   </data>
-  <data name="DeletingSdkMessageProcessingStepSecureConfigCompletedFormat1" xml:space="preserve">
+  <data name="InConnectionDeletingSdkMessageProcessingStepSecureConfigCompletedFormat1" xml:space="preserve">
     <value>{0}. Deleting Plugin Step SecureConfiguration completed.</value>
   </data>
-  <data name="DeletingSdkMessageProcessingStepSecureConfigFailedFormat1" xml:space="preserve">
+  <data name="InConnectionDeletingSdkMessageProcessingStepSecureConfigFailedFormat1" xml:space="preserve">
     <value>{0}. Deleting Plugin Step SecureConfiguration failed.</value>
   </data>
-  <data name="DeletingSdkMessageProcessingStepSecureConfigFormat1" xml:space="preserve">
+  <data name="InConnectionDeletingSdkMessageProcessingStepSecureConfigFormat1" xml:space="preserve">
     <value>{0}. Deleting Plugin Step SecureConfiguration...</value>
   </data>
-  <data name="UpdatingSdkMessageProcessingStepCompletedFormat1" xml:space="preserve">
+  <data name="InConnectionUpdatingSdkMessageProcessingStepCompletedFormat1" xml:space="preserve">
     <value>{0}. Updating Plugin Step completed.</value>
   </data>
-  <data name="UpdatingSdkMessageProcessingStepFailedFormat1" xml:space="preserve">
+  <data name="InConnectionUpdatingSdkMessageProcessingStepFailedFormat1" xml:space="preserve">
     <value>{0}. Updating Plugin Step failed.</value>
   </data>
-  <data name="UpdatingSdkMessageProcessingStepFormat1" xml:space="preserve">
+  <data name="InConnectionUpdatingSdkMessageProcessingStepFormat1" xml:space="preserve">
     <value>{0}. Updating Plugin Step...</value>
   </data>
-  <data name="UpdatingSdkMessageProcessingStepSecureConfigCompletedFormat1" xml:space="preserve">
+  <data name="InConnectionUpdatingSdkMessageProcessingStepSecureConfigCompletedFormat1" xml:space="preserve">
     <value>{0}. Updating Plugin Step SecureConfiguration completed.</value>
   </data>
-  <data name="UpdatingSdkMessageProcessingStepSecureConfigFailedFormat1" xml:space="preserve">
+  <data name="InConnectionUpdatingSdkMessageProcessingStepSecureConfigFailedFormat1" xml:space="preserve">
     <value>{0}. Updating Plugin Step SecureConfiguration failed.</value>
   </data>
-  <data name="UpdatingSdkMessageProcessingStepSecureConfigFormat1" xml:space="preserve">
+  <data name="InConnectionUpdatingSdkMessageProcessingStepSecureConfigFormat1" xml:space="preserve">
     <value>{0}. Updating Plugin Step SecureConfiguration...</value>
   </data>
-  <data name="UpdatingSdkMessageProcessingStepImageCompletedFormat1" xml:space="preserve">
+  <data name="InConnectionUpdatingSdkMessageProcessingStepImageCompletedFormat1" xml:space="preserve">
     <value>{0}. Updating Plugin Step Image completed.</value>
   </data>
-  <data name="UpdatingSdkMessageProcessingStepImageFailedFormat1" xml:space="preserve">
+  <data name="InConnectionUpdatingSdkMessageProcessingStepImageFailedFormat1" xml:space="preserve">
     <value>{0}. Updating Plugin Step Image failed.</value>
   </data>
-  <data name="UpdatingSdkMessageProcessingStepImageFormat1" xml:space="preserve">
+  <data name="InConnectionUpdatingSdkMessageProcessingStepImageFormat1" xml:space="preserve">
     <value>{0}. Updating Plugin Step Image...</value>
   </data>
   <data name="GettingMessages" xml:space="preserve">
@@ -1876,22 +1876,22 @@
   <data name="GettingMessagesCompleted" xml:space="preserve">
     <value>Getting messages completed.</value>
   </data>
-  <data name="UpdatingPluginAssemblyCompletedFormat1" xml:space="preserve">
+  <data name="InConnectionUpdatingPluginAssemblyCompletedFormat1" xml:space="preserve">
     <value>{0}. Updating Plugin Assembly completed.</value>
   </data>
-  <data name="UpdatingPluginAssemblyFailedFormat1" xml:space="preserve">
+  <data name="InConnectionUpdatingPluginAssemblyFailedFormat1" xml:space="preserve">
     <value>{0}. Updating Plugin Assembly failed.</value>
   </data>
-  <data name="UpdatingPluginAssemblyFormat1" xml:space="preserve">
+  <data name="InConnectionUpdatingPluginAssemblyFormat1" xml:space="preserve">
     <value>{0}. Updating Plugin Assembly...</value>
   </data>
-  <data name="RegisteringPluginTypeFailedFormat2" xml:space="preserve">
+  <data name="InConnectionRegisteringPluginTypeFailedFormat2" xml:space="preserve">
     <value>{0}. Registering PluginType {1} failed.</value>
   </data>
-  <data name="RegisteringNewPluginTypesCompletedFormat2" xml:space="preserve">
+  <data name="InConnectionRegisteringNewPluginTypesCompletedFormat2" xml:space="preserve">
     <value>{0}. Registering {1} New PluginTypes completed.</value>
   </data>
-  <data name="RegisteringNewPluginTypesFormat2" xml:space="preserve">
+  <data name="InConnectionRegisteringNewPluginTypesFormat2" xml:space="preserve">
     <value>{0}. Registering {1} New PluginTypes...</value>
   </data>
   <data name="LoadingAssemblyFromPathCompletedFormat1" xml:space="preserve">
@@ -1903,10 +1903,10 @@
   <data name="LoadingAssemblyFromPathFormat1" xml:space="preserve">
     <value>Loading Assembly from path {0}</value>
   </data>
-  <data name="CreatingRoleBackupCompletedFormat2" xml:space="preserve">
+  <data name="InConnectionCreatingRoleBackupCompletedFormat2" xml:space="preserve">
     <value>{0}. Creating Role backup {1} completed.</value>
   </data>
-  <data name="CreatingRoleBackupFormat2" xml:space="preserve">
+  <data name="InConnectionCreatingRoleBackupFormat2" xml:space="preserve">
     <value>{0}. Creating Role backup {1}...</value>
   </data>
   <data name="GettingAllRequiredComponentsCompletedFormat1" xml:space="preserve">
@@ -1939,24 +1939,24 @@
   <data name="LoadingImportJobsCompletedFormat1" xml:space="preserve">
     <value>{0} import jobs loaded.</value>
   </data>
-  <data name="AssigningEntitiesToTeamCompletedFormat4" xml:space="preserve">
+  <data name="InConnectionAssigningEntitiesToTeamCompletedFormat4" xml:space="preserve">
     <value>{0}. Assigning Entities {1} count {2} to Team {3} completed.</value>
   </data>
-  <data name="AssigningEntitiesToTeamFormat4" xml:space="preserve">
+  <data name="InConnectionAssigningEntitiesToTeamFormat4" xml:space="preserve">
     <value>{0}. Assigning Entities {1} count {2} to Team {3}...</value>
   </data>
 
-  <data name="SettingEntitiesStateCompletedFormat7" xml:space="preserve">
+  <data name="InConnectionSettingEntitiesStateCompletedFormat7" xml:space="preserve">
     <value>{0}. Setting Entities {1} count {2} State {3} - {4} Status {5} - {6} completed.</value>
   </data>
-  <data name="SettingEntitiesStateFormat7" xml:space="preserve">
+  <data name="InConnectionSettingEntitiesStateFormat7" xml:space="preserve">
     <value>{0}. Setting Entities {1} count {2} State {3} - {4} Status {5} - {6}...</value>
   </data>
 
-  <data name="AssigningEntitiesToUserCompletedFormat4" xml:space="preserve">
+  <data name="InConnectionAssigningEntitiesToUserCompletedFormat4" xml:space="preserve">
     <value>{0}. Assigning Entities {1} count {2} to User {3} completed.</value>
   </data>
-  <data name="AssigningEntitiesToUserFormat4" xml:space="preserve">
+  <data name="InConnectionAssigningEntitiesToUserFormat4" xml:space="preserve">
     <value>{0}. Assigning Entities {1} count {2} to User {3}...</value>
   </data>
   <data name="ExecutingWorkflowCompletedFormat4" xml:space="preserve">
@@ -1965,65 +1965,62 @@
   <data name="ExecutingWorkflowFailedFormat4" xml:space="preserve">
     <value>Executing Workflow {0} on Entities {2} count {3} failed.</value>
   </data>
-  <data name="ExecutingWorkflowFormat4" xml:space="preserve">
+  <data name="InConnectionExecutingWorkflowFormat4" xml:space="preserve">
     <value>{0}. Executing Workflow {1} on Entities {2} count {3}...</value>
   </data>
 
-  <data name="DeletingEntityCompletedFormat2" xml:space="preserve">
+  <data name="InConnectionDeletingEntityCompletedFormat2" xml:space="preserve">
     <value>{0}. Deleting Entity {1} completed.</value>
   </data>
-  <data name="DeletingEntityFailedFormat2" xml:space="preserve">
+  <data name="InConnectionDeletingEntityFailedFormat2" xml:space="preserve">
     <value>{0}. Deleting Entity {1} failed.</value>
   </data>
-  <data name="DeletingEntityFormat2" xml:space="preserve">
+  <data name="InConnectionDeletingEntityFormat2" xml:space="preserve">
     <value>{0}. Deleting Entity {1}...</value>
   </data>
 
-  <data name="DeletingEntitiesSetCompletedFormat3" xml:space="preserve">
+  <data name="InConnectionDeletingEntitiesSetCompletedFormat3" xml:space="preserve">
     <value>{0}. Deleting Entities {1} count {2} completed.</value>
   </data>
-  <data name="DeletingEntitiesSetFailedFormat3" xml:space="preserve">
+  <data name="InConnectionDeletingEntitiesSetFailedFormat3" xml:space="preserve">
     <value>{0}. Deleting Entities {1} count {2} failed.</value>
   </data>
-  <data name="DeletingEntitiesSetFormat3" xml:space="preserve">
+  <data name="InConnectionDeletingEntitiesSetFormat3" xml:space="preserve">
     <value>{0}. Deleting Entities {1} count {2}...</value>
   </data>
 
   <data name="NoPrivilegesToAdd" xml:space="preserve">
     <value>No Privileges to add.</value>
   </data>
-  <data name="ReplacingPrivilegesFromRoleToRoleCompletedFormat3" xml:space="preserve">
+  <data name="InConnectionReplacingPrivilegesFromRoleToRoleCompletedFormat3" xml:space="preserve">
     <value>{0}. Replacing Privileges from {1} to {2} completed.</value>
   </data>
-  <data name="ReplacingPrivilegesFromRoleToRoleFormat3" xml:space="preserve">
+  <data name="InConnectionReplacingPrivilegesFromRoleToRoleFormat3" xml:space="preserve">
     <value>{0}. Replacing Privileges from {1} to {2}...</value>
   </data>
   <data name="AnalizingRolesFormat2" xml:space="preserve">
     <value>Analizing Roles {0} and {1}...</value>
   </data>
-  <data name="AddingNewPrivilegesFromRoleToRoleCompletedFormat3" xml:space="preserve">
+  <data name="InConnectionAddingNewPrivilegesFromRoleToRoleCompletedFormat3" xml:space="preserve">
     <value>{0}. Add New Privileges from {1} to {2} completed.</value>
   </data>
-  <data name="AddingNewPrivilegesFromRoleToRoleFormat3" xml:space="preserve">
+  <data name="InConnectionAddingNewPrivilegesFromRoleToRoleFormat3" xml:space="preserve">
     <value>{0}. Add New Privileges from {1} to {2}...</value>
   </data>
-  <data name="ClearingRolePrivilegesCompletedFormat2" xml:space="preserve">
+  <data name="InConnectionClearingRolePrivilegesCompletedFormat2" xml:space="preserve">
     <value>{0}. Clearing Role Privileges {1} completed.</value>
   </data>
-  <data name="ClearingRolePrivilegesFormat2" xml:space="preserve">
+  <data name="InConnectionClearingRolePrivilegesFormat2" xml:space="preserve">
     <value>{0}. Clearing Role Privileges {1}...</value>
   </data>
-  <data name="MergingPrivilegesToMaximumFromRoleToRoleCompletedFormat3" xml:space="preserve">
+  <data name="InConnectionMergingPrivilegesToMaximumFromRoleToRoleCompletedFormat3" xml:space="preserve">
     <value>{0}. Merging Privileges to Maximum from {1} to {2} completed.</value>
   </data>
-  <data name="MergingPrivilegesToMaximumFromRoleToRoleFormat3" xml:space="preserve">
+  <data name="InConnectionMergingPrivilegesToMaximumFromRoleToRoleFormat3" xml:space="preserve">
     <value>{0}. Merging Privileges to Maximum from {1} to {2}...</value>
   </data>
   <data name="NoPrivilegesToChange" xml:space="preserve">
     <value>No Privileges to change.</value>
-  </data>
-  <data name="String1" xml:space="preserve">
-    <value>{0}. Clearing Role Privileges {1}...</value>
   </data>
 
   <data name="GettingEntityMetadataCompletedFormat1" xml:space="preserve">
@@ -2223,8 +2220,8 @@
     <value>Loading SdkMessageProcessingStep Images...</value>
   </data>
 
-  <data name="PluginTypeNotFoundedInConnectionFormat2" xml:space="preserve">
-    <value>{0}: PluginType not founded in CRM: {1}</value>
+  <data name="InConnectionPluginTypeWasNotFoundFormat2" xml:space="preserve">
+    <value>{0}. PluginType was not found in CRM: {1}</value>
   </data>
 
   <data name="CurrentConnectionPoolStateFormat2" xml:space="preserve">

@@ -181,13 +181,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (chart.PrimaryEntityTypeCode.IsValidEntityName())
             {
-                updateStatus(string.Format(Properties.OutputStrings.PublishingEntitiesFormat2, _service.ConnectionData.Name, chart.PrimaryEntityTypeCode));
+                updateStatus(string.Format(Properties.OutputStrings.InConnectionPublishingEntitiesFormat2, _service.ConnectionData.Name, chart.PrimaryEntityTypeCode));
 
                 var repositoryPublish = new PublishActionsRepository(_service);
 
                 await repositoryPublish.PublishEntitiesAsync(new[] { chart.PrimaryEntityTypeCode });
 
-                updateStatus(string.Format(Properties.OutputStrings.PublishingEntitiesCompletedFormat2, _service.ConnectionData.Name, chart.PrimaryEntityTypeCode));
+                updateStatus(string.Format(Properties.OutputStrings.InConnectionPublishingEntitiesCompletedFormat2, _service.ConnectionData.Name, chart.PrimaryEntityTypeCode));
             }
 
             return idEntity;

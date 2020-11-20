@@ -206,13 +206,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.Image.ImageType = new OptionSetValue(imageType);
 
-            ToggleControls(false, Properties.OutputStrings.UpdatingSdkMessageProcessingStepImageFormat1, _service.ConnectionData.Name);
+            ToggleControls(false, Properties.OutputStrings.InConnectionUpdatingSdkMessageProcessingStepImageFormat1, _service.ConnectionData.Name);
 
             try
             {
                 this.Image.Id = await _service.UpsertAsync(this.Image);
 
-                ToggleControls(true, Properties.OutputStrings.UpdatingSdkMessageProcessingStepImageCompletedFormat1, _service.ConnectionData.Name);
+                ToggleControls(true, Properties.OutputStrings.InConnectionUpdatingSdkMessageProcessingStepImageCompletedFormat1, _service.ConnectionData.Name);
 
                 this.DialogResult = true;
 
@@ -220,7 +220,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             catch (Exception ex)
             {
-                ToggleControls(true, Properties.OutputStrings.UpdatingSdkMessageProcessingStepImageFailedFormat1, _service.ConnectionData.Name);
+                ToggleControls(true, Properties.OutputStrings.InConnectionUpdatingSdkMessageProcessingStepImageFailedFormat1, _service.ConnectionData.Name);
 
                 _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
                 _iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);

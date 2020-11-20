@@ -1311,7 +1311,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, entityFull, service.ConnectionData);
 
-            _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
+            _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionExportedEntityDescriptionFormat3
                    , service.ConnectionData.Name
                    , entityFull.LogicalName
                    , filePath);
@@ -1454,7 +1454,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, entityFull, service.ConnectionData);
 
-            _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
+            _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionExportedEntityDescriptionFormat3
                    , service.ConnectionData.Name
                    , entityFull.LogicalName
                    , filePath);
@@ -1661,7 +1661,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
 
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.AssigningRolesToUsersFormat3, service.ConnectionData.Name, rolesName, usersName);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.InConnectionAssigningRolesToUsersFormat3, service.ConnectionData.Name, rolesName, usersName);
 
             var repositoryRolePrivileges = new RolePrivilegesRepository(service);
 
@@ -1677,7 +1677,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.AssigningRolesToUsersCompletedFormat3, service.ConnectionData.Name, rolesName, usersName);
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.InConnectionAssigningRolesToUsersCompletedFormat3, service.ConnectionData.Name, rolesName, usersName);
 
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
 
@@ -1711,7 +1711,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
 
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.RemovingRolesFromUsersFormat3, service.ConnectionData.Name, rolesName, usersName);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.InConnectionRemovingRolesFromUsersFormat3, service.ConnectionData.Name, rolesName, usersName);
 
             try
             {
@@ -1724,7 +1724,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
 
-            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.RemovingRolesFromUsersCompletedFormat3, service.ConnectionData.Name, rolesName, usersName);
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.InConnectionRemovingRolesFromUsersCompletedFormat3, service.ConnectionData.Name, rolesName, usersName);
 
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
 
@@ -1788,7 +1788,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
 
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.AddingUsersToTeamsFormat3, service.ConnectionData.Name, usersName, teamsName);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.InConnectionAddingUsersToTeamsFormat3, service.ConnectionData.Name, usersName, teamsName);
 
             try
             {
@@ -1799,7 +1799,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
 
-            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.AddingUsersToTeamsCompletedFormat3, service.ConnectionData.Name, usersName, teamsName);
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.InConnectionAddingUsersToTeamsCompletedFormat3, service.ConnectionData.Name, usersName, teamsName);
 
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
 
@@ -1833,7 +1833,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
 
-            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.RemovingUsersFromTeamsFormat3, service.ConnectionData.Name, usersName, teamsName);
+            ToggleControls(service.ConnectionData, false, Properties.OutputStrings.InConnectionRemovingUsersFromTeamsFormat3, service.ConnectionData.Name, usersName, teamsName);
 
             try
             {
@@ -1846,7 +1846,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
 
-            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.RemovingUsersFromTeamsCompletedFormat3, service.ConnectionData.Name, usersName, teamsName);
+            ToggleControls(service.ConnectionData, true, Properties.OutputStrings.InConnectionRemovingUsersFromTeamsCompletedFormat3, service.ConnectionData.Name, usersName, teamsName);
 
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
 
