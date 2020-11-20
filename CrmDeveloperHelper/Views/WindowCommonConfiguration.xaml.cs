@@ -168,14 +168,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             }
                             else
                             {
-                                if (!format.Contains("%f1"))
+                                if (!format.Contains(CommonConfiguration.placeholderFile1Path))
                                 {
                                     if (message.Length > 0) { message.AppendLine(); }
 
                                     message.Append(Properties.MessageBoxStrings.DifferenceTwoFilesArgumentsNotContainsF1);
                                 }
 
-                                if (!format.Contains("%f2"))
+                                if (!format.Contains(CommonConfiguration.placeholderFile2Path))
                                 {
                                     if (message.Length > 0) { message.AppendLine(); }
 
@@ -189,21 +189,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                             if (!string.IsNullOrEmpty(formatThreeWay))
                             {
-                                if (!formatThreeWay.Contains("%f1"))
+                                if (!formatThreeWay.Contains(CommonConfiguration.placeholderFile1Path))
                                 {
                                     if (message.Length > 0) { message.AppendLine(); }
 
                                     message.Append(Properties.MessageBoxStrings.ThreeWayDifferenceArgumentsNotContainsF1);
                                 }
 
-                                if (!formatThreeWay.Contains("%f2"))
+                                if (!formatThreeWay.Contains(CommonConfiguration.placeholderFile2Path))
                                 {
                                     if (message.Length > 0) { message.AppendLine(); }
 
                                     message.Append(Properties.MessageBoxStrings.ThreeWayDifferenceArgumentsNotContainsF2);
                                 }
 
-                                if (!formatThreeWay.Contains("%fl"))
+                                if (!formatThreeWay.Contains(CommonConfiguration.placeholderFileLocalPath))
                                 {
                                     if (message.Length > 0) { message.AppendLine(); }
 

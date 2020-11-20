@@ -43,7 +43,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         /// </summary>
         public Guid? SelectedWebResourceId { get; private set; }
 
-        public bool ShowNext { get; private set; }
+        public bool SkipFile { get; private set; }
 
         public bool ForAllOther { get; private set; }
 
@@ -588,7 +588,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this.SelectedWebResourceId = null;
 
-            this.ShowNext = true;
+            this.SkipFile = true;
 
             this.DialogResult = false;
         }

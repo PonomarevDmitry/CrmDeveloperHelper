@@ -52,7 +52,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             this.FriendlyFilePath = friendlyFilePath;
 
-            this.UrlFriendlyFilePath = string.Format("{0}:///{1}", UrlCommandFilter.PrefixOpenInVisualStudioRelativePath, friendlyFilePath.Replace('\\', '/').TrimStart('/'));
+            this.UrlFriendlyFilePath = UrlCommandFilter.GetUriOpenInVisualStudioRelativePath(friendlyFilePath);
 
             this.Extension = Path.GetExtension(filePath).ToLower();
         }

@@ -21,7 +21,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         protected const string _tabSpacer = "      ";
         protected const string _formatWithTabSpacer = "{0}{1}";
 
-        protected readonly TWriteToOutput _iWriteToOutput = default(TWriteToOutput);
+        protected const string headerFileName = "FileName";
+        protected const string headerFilePath = "FilePath";
+        protected const string headerFileFriendlyPath = "FriendlyFilePath";
+
+        protected const string headerWebResourceName = "WebResourceName";
+        protected const string headerWebResourceType = "WebResourceType";
+        protected const string headerWebResourceNewDependenciesCount = "New Dependencies Count";
+        protected const string headerWebResourceNewDependencies = "New Dependencies";
+        protected const string headerWebResourceDependencies = "Dependencies";
+
+        protected const string headerWebResourceInserts = "+Inserts";
+        protected const string headerWebResourceInsertsLength = "(+Length)";
+        protected const string headerWebResourceDeletes = "-Deletes";
+        protected const string headerWebResourceDeletesLength = "(-Length)";
+
+        protected const string formatWebResourceInserts = "+{0}";
+        protected const string formatWebResourceInsertsLength = "(+{0})";
+        protected const string formatWebResourceDeletes = "-{0}";
+        protected const string formatWebResourceDeletesLength = "(-{0})";
+
+        //protected const string header = "FileName";
+        //protected const string header = "FileName";
+        //protected const string header = "FileName";
+        //protected const string header = "FileName";
+        //protected const string header = "FileName";
+
+        protected readonly TWriteToOutput _iWriteToOutput;
 
         /// <summary>
         /// Конструктор контроллера
@@ -809,7 +835,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (listNotFoundedInCrmNoLink.Count > 0)
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                this._iWriteToOutput.WriteToOutput(connectionData, "File NOT FOUNDED in CRM: {0}", listNotFoundedInCrmNoLink.Count);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FilesNotFoundInCRMCountFormat1, listNotFoundedInCrmNoLink.Count);
 
                 listNotFoundedInCrmNoLink.Sort();
 
@@ -819,10 +845,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (listNotFoundedInCrmWithLink.Count > 0)
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                this._iWriteToOutput.WriteToOutput(connectionData, "File NOT FOUNDED in CRM, but has Last Link: {0}", listNotFoundedInCrmWithLink.Count);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FilesNotFoundInCRMWithLastLinkCountFormat1, listNotFoundedInCrmWithLink.Count);
 
                 FormatTextTableHandler tableLastLinkDifferent = new FormatTextTableHandler();
-                tableLastLinkDifferent.SetHeader("FriendlyFilePath", "WebResourceName");
+                tableLastLinkDifferent.SetHeader(headerFileFriendlyPath, headerWebResourceName);
 
                 listNotFoundedInCrmWithLink.ForEach(i => tableLastLinkDifferent.AddLine(i.Item1.FriendlyFilePath, i.Item2.Name));
 
@@ -842,7 +868,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (listNotFoundedInCrmNoLink.Count + listNotFoundedInCrmWithLink.Count == 0)
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                this._iWriteToOutput.WriteToOutput(connectionData, "No files not exists in Crm");
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoFilesNotInCRM);
             }
 
             return Tuple.Create(service, listNotFoundedInCrmNoLink, listNotFoundedInCrmWithLink);
@@ -871,56 +897,56 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             int countEqualByContent = 0;
 
-            FormatTextTableHandler tableEqualByText = new FormatTextTableHandler("FriendlyFilePath", "WebResourceName");
+            FormatTextTableHandler tableEqualByText = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName);
 
             FormatTextTableHandler tableDifferent = new FormatTextTableHandler();
 
             if (withDetails)
             {
-                tableDifferent.SetHeader("FriendlyFilePath", "WebResourceName", "+Inserts", "(+Length)", "-Deletes", "(-Length)");
+                tableDifferent.SetHeader(headerFileFriendlyPath, headerWebResourceName, headerWebResourceInserts, headerWebResourceInsertsLength, headerWebResourceDeletes, headerWebResourceDeletesLength);
             }
             else
             {
-                tableDifferent.SetHeader("FriendlyFilePath", "WebResourceName");
+                tableDifferent.SetHeader(headerFileFriendlyPath, headerWebResourceName);
             }
 
-            FormatTextTableHandler tableDifferentOnlyInserts = new FormatTextTableHandler("FriendlyFilePath", "WebResourceName", "+Inserts", "(+Length)");
+            FormatTextTableHandler tableDifferentOnlyInserts = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName, headerWebResourceInserts, headerWebResourceInsertsLength);
 
-            FormatTextTableHandler tableDifferentOnlyDeletes = new FormatTextTableHandler("FriendlyFilePath", "WebResourceName", "-Deletes", "(-Length)");
+            FormatTextTableHandler tableDifferentOnlyDeletes = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName, headerWebResourceDeletes, headerWebResourceDeletesLength);
 
-            FormatTextTableHandler tableDifferentComplexChanges = new FormatTextTableHandler("FriendlyFilePath", "WebResourceName", "+Inserts", "(+Length)", "-Deletes", "(-Length)");
+            FormatTextTableHandler tableDifferentComplexChanges = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName, headerWebResourceInserts, headerWebResourceInsertsLength, headerWebResourceDeletes, headerWebResourceDeletesLength);
 
-            FormatTextTableHandler tableDifferentMirror = new FormatTextTableHandler("FriendlyFilePath", "WebResourceName", "+Inserts", "(+Length)", "-Deletes", "(-Length)");
+            FormatTextTableHandler tableDifferentMirror = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName, headerWebResourceInserts, headerWebResourceInsertsLength, headerWebResourceDeletes, headerWebResourceDeletesLength);
 
-            FormatTextTableHandler tableDifferentMirrorWithInserts = new FormatTextTableHandler("FriendlyFilePath", "WebResourceName", "+Inserts", "(+Length)", "-Deletes", "(-Length)");
+            FormatTextTableHandler tableDifferentMirrorWithInserts = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName, headerWebResourceInserts, headerWebResourceInsertsLength, headerWebResourceDeletes, headerWebResourceDeletesLength);
 
-            FormatTextTableHandler tableDifferentMirrorWithDeletes = new FormatTextTableHandler("FriendlyFilePath", "WebResourceName", "+Inserts", "(+Length)", "-Deletes", "(-Length)");
+            FormatTextTableHandler tableDifferentMirrorWithDeletes = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName, headerWebResourceInserts, headerWebResourceInsertsLength, headerWebResourceDeletes, headerWebResourceDeletesLength);
 
-            FormatTextTableHandler tableLastLinkEqualByContent = new FormatTextTableHandler("FriendlyFilePath", "WebResourceName");
+            FormatTextTableHandler tableLastLinkEqualByContent = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName);
 
-            FormatTextTableHandler listLastLinkEqualByText = new FormatTextTableHandler("FriendlyFilePath", "WebResourceName");
+            FormatTextTableHandler listLastLinkEqualByText = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName);
 
             FormatTextTableHandler tableLastLinkDifferent = new FormatTextTableHandler();
             if (withDetails)
             {
-                tableLastLinkDifferent.SetHeader("FriendlyFilePath", "WebResourceName", "+Inserts", "(+Length)", "-Deletes", "(-Length)");
+                tableLastLinkDifferent.SetHeader(headerFileFriendlyPath, headerWebResourceName, headerWebResourceInserts, headerWebResourceInsertsLength, headerWebResourceDeletes, headerWebResourceDeletesLength);
             }
             else
             {
-                tableLastLinkDifferent.SetHeader("FriendlyFilePath", "WebResourceName");
+                tableLastLinkDifferent.SetHeader(headerFileFriendlyPath, headerWebResourceName);
             }
 
-            FormatTextTableHandler tableLastLinkDifferentOnlyInserts = new FormatTextTableHandler("FriendlyFilePath", "WebResourceName", "+Inserts", "(+Length)");
+            FormatTextTableHandler tableLastLinkDifferentOnlyInserts = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName, headerWebResourceInserts, headerWebResourceInsertsLength);
 
-            FormatTextTableHandler tableLastLinkDifferentOnlyDeletes = new FormatTextTableHandler("FriendlyFilePath", "WebResourceName", "-Deletes", "(-Length)");
+            FormatTextTableHandler tableLastLinkDifferentOnlyDeletes = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName, headerWebResourceDeletes, headerWebResourceDeletesLength);
 
-            FormatTextTableHandler tableLastLinkDifferentComplexChanges = new FormatTextTableHandler("FriendlyFilePath", "WebResourceName", "+Inserts", "(+Length)", "-Deletes", "(-Length)");
+            FormatTextTableHandler tableLastLinkDifferentComplexChanges = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName, headerWebResourceInserts, headerWebResourceInsertsLength, headerWebResourceDeletes, headerWebResourceDeletesLength);
 
-            FormatTextTableHandler tableLastLinkDifferentMirror = new FormatTextTableHandler("FriendlyFilePath", "WebResourceName", "+Inserts", "(+Length)", "-Deletes", "(-Length)");
+            FormatTextTableHandler tableLastLinkDifferentMirror = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName, headerWebResourceInserts, headerWebResourceInsertsLength, headerWebResourceDeletes, headerWebResourceDeletesLength);
 
-            FormatTextTableHandler tableLastLinkDifferentMirrorWithInserts = new FormatTextTableHandler("FriendlyFilePath", "+Inserts", "(+Length)", "-Deletes", "(-Length)");
+            FormatTextTableHandler tableLastLinkDifferentMirrorWithInserts = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceInserts, headerWebResourceInsertsLength, headerWebResourceDeletes, headerWebResourceDeletesLength);
 
-            FormatTextTableHandler tableLastLinkDifferentMirrorWithDeletes = new FormatTextTableHandler("FriendlyFilePath", "WebResourceName", "+Inserts", "(+Length)", "-Deletes", "(-Length)");
+            FormatTextTableHandler tableLastLinkDifferentMirrorWithDeletes = new FormatTextTableHandler(headerFileFriendlyPath, headerWebResourceName, headerWebResourceInserts, headerWebResourceInsertsLength, headerWebResourceDeletes, headerWebResourceDeletesLength);
 
             // Репозиторий для работы с веб-ресурсами
             WebResourceRepository webResourceRepository = new WebResourceRepository(service);
@@ -947,7 +973,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         continue;
                     }
 
-                    string urlShowDifference = string.Format("{0}:///{1}?ConnectionId={2}", UrlCommandFilter.PrefixShowDifference, selectedFile.FilePath.Replace('\\', '/'), connectionData.ConnectionId.ToString());
+                    string urlShowDifference = UrlCommandFilter.GetUrlShowDifference(connectionData.ConnectionId, selectedFile.FilePath);
 
                     string name = selectedFile.FriendlyFilePath.ToLower();
 
@@ -991,12 +1017,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                                 {
                                     string[] values = new string[]
                                     {
-                                            selectedFile.UrlFriendlyFilePath, nameWebResource
-                                                , string.Format("+{0}", compare.Inserts)
-                                                , string.Format("(+{0})", compare.InsertLength)
-                                                , string.Format("-{0}", compare.Deletes)
-                                                , string.Format("(-{0})", compare.DeleteLength)
-                                                , urlShowDifference
+                                        selectedFile.UrlFriendlyFilePath, nameWebResource
+                                        , string.Format(formatWebResourceInserts, compare.Inserts)
+                                        , string.Format(formatWebResourceInsertsLength, compare.InsertLength)
+                                        , string.Format(formatWebResourceDeletes, compare.Deletes)
+                                        , string.Format(formatWebResourceDeletesLength, compare.DeleteLength)
+                                        , urlShowDifference
                                     };
 
                                     tableDifferent.AddLine(values);
@@ -1004,8 +1030,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                                     if (compare.IsOnlyInserts)
                                     {
                                         tableDifferentOnlyInserts.AddLine(selectedFile.UrlFriendlyFilePath
-                                            , string.Format("+{0}", compare.Inserts)
-                                            , string.Format("(+{0})", compare.InsertLength)
+                                            , string.Format(formatWebResourceInserts, compare.Inserts)
+                                            , string.Format(formatWebResourceInsertsLength, compare.InsertLength)
                                             , urlShowDifference
                                         );
                                     }
@@ -1013,8 +1039,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                                     if (compare.IsOnlyDeletes)
                                     {
                                         tableDifferentOnlyDeletes.AddLine(selectedFile.UrlFriendlyFilePath
-                                            , string.Format("-{0}", compare.Deletes)
-                                            , string.Format("(-{0})", compare.DeleteLength)
+                                            , string.Format(formatWebResourceDeletes, compare.Deletes)
+                                            , string.Format(formatWebResourceDeletesLength, compare.DeleteLength)
                                             , urlShowDifference
                                         );
                                     }
@@ -1091,33 +1117,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                                         {
                                             string[] values = new string[]
                                             {
-                                                    selectedFile.UrlFriendlyFilePath, nameWebResource
-                                                        , string.Format("+{0}", compare.Inserts)
-                                                        , string.Format("(+{0})", compare.InsertLength)
-                                                        , string.Format("-{0}", compare.Deletes)
-                                                        , string.Format("(-{0})", compare.DeleteLength)
-                                                        , urlShowDifference
+                                                selectedFile.UrlFriendlyFilePath, nameWebResource
+                                                , string.Format(formatWebResourceInserts, compare.Inserts)
+                                                , string.Format(formatWebResourceInsertsLength, compare.InsertLength)
+                                                , string.Format(formatWebResourceDeletes, compare.Deletes)
+                                                , string.Format(formatWebResourceDeletesLength, compare.DeleteLength)
+                                                , urlShowDifference
                                             };
 
                                             tableLastLinkDifferent.AddLine(values);
 
-
                                             if (compare.IsOnlyInserts)
                                             {
                                                 tableLastLinkDifferentOnlyInserts.AddLine(selectedFile.UrlFriendlyFilePath, nameWebResource
-                                                    , string.Format("+{0}", compare.Inserts)
-                                                    , string.Format("(+{0})", compare.InsertLength)
+                                                    , string.Format(formatWebResourceInserts, compare.Inserts)
+                                                    , string.Format(formatWebResourceInsertsLength, compare.InsertLength)
                                                     , urlShowDifference
-                                                    );
+                                                );
                                             }
 
                                             if (compare.IsOnlyDeletes)
                                             {
                                                 tableLastLinkDifferentOnlyDeletes.AddLine(selectedFile.UrlFriendlyFilePath, nameWebResource
-                                                    , string.Format("-{0}", compare.Deletes)
-                                                    , string.Format("(-{0})", compare.DeleteLength)
+                                                    , string.Format(formatWebResourceDeletes, compare.Deletes)
+                                                    , string.Format(formatWebResourceDeletesLength, compare.DeleteLength)
                                                     , urlShowDifference
-                                                    );
+                                                );
                                             }
 
                                             if (compare.IsComplexChanges)
@@ -1227,7 +1252,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (listNotFoundedInCRMNoLink.Count > 0)
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                this._iWriteToOutput.WriteToOutput(connectionData, "File NOT FOUNDED in CRM: {0}", listNotFoundedInCRMNoLink.Count);
+                this._iWriteToOutput.WriteToOutput(connectionData, "File NOT FOUND in CRM: {0}", listNotFoundedInCRMNoLink.Count);
 
                 listNotFoundedInCRMNoLink.Sort();
 
@@ -1237,7 +1262,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (tableLastLinkDifferent.Count > 0)
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                this._iWriteToOutput.WriteToOutput(connectionData, "File NOT FOUNDED in CRM, but has Last Link, files DIFFERENT: {0}", tableLastLinkDifferent.Count);
+                this._iWriteToOutput.WriteToOutput(connectionData, "Files NOT FOUND in CRM, but has Last Link, files DIFFERENT: {0}", tableLastLinkDifferent.Count);
 
                 tableLastLinkDifferent.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
@@ -1246,7 +1271,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (tableLastLinkDifferentOnlyInserts.Count > 0)
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                this._iWriteToOutput.WriteToOutput(connectionData, "File NOT FOUNDED in CRM, but has Last Link, files DIFFERENT WITH ONLY INSERTS: {0}", tableLastLinkDifferentOnlyInserts.Count);
+                this._iWriteToOutput.WriteToOutput(connectionData, "Files NOT FOUND in CRM, but has Last Link, files DIFFERENT WITH ONLY INSERTS: {0}", tableLastLinkDifferentOnlyInserts.Count);
 
                 tableLastLinkDifferentOnlyInserts.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
@@ -1254,7 +1279,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (tableLastLinkDifferentOnlyDeletes.Count > 0)
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                this._iWriteToOutput.WriteToOutput(connectionData, "File NOT FOUNDED in CRM, but has Last Link, files DIFFERENT WITH ONLY DELETES: {0}", tableLastLinkDifferentOnlyDeletes.Count);
+                this._iWriteToOutput.WriteToOutput(connectionData, "Files NOT FOUND in CRM, but has Last Link, files DIFFERENT WITH ONLY DELETES: {0}", tableLastLinkDifferentOnlyDeletes.Count);
 
                 tableLastLinkDifferentOnlyDeletes.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
@@ -1262,7 +1287,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (tableLastLinkDifferentComplexChanges.Count > 0)
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                this._iWriteToOutput.WriteToOutput(connectionData, "File NOT FOUNDED in CRM, but has Last Link, files DIFFERENT WITH COMPLEX CHANGES: {0}", tableLastLinkDifferentComplexChanges.Count);
+                this._iWriteToOutput.WriteToOutput(connectionData, "Files NOT FOUND in CRM, but has Last Link, files DIFFERENT WITH COMPLEX CHANGES: {0}", tableLastLinkDifferentComplexChanges.Count);
 
                 tableLastLinkDifferentComplexChanges.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
@@ -1270,7 +1295,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (tableLastLinkDifferentMirror.Count > 0)
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                this._iWriteToOutput.WriteToOutput(connectionData, "File NOT FOUNDED in CRM, but has Last Link, files DIFFERENT WITH MIRROR CHANGES: {0}", tableLastLinkDifferentMirror.Count);
+                this._iWriteToOutput.WriteToOutput(connectionData, "Files NOT FOUND in CRM, but has Last Link, files DIFFERENT WITH MIRROR CHANGES: {0}", tableLastLinkDifferentMirror.Count);
 
                 tableLastLinkDifferentMirror.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
@@ -1278,7 +1303,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (tableLastLinkDifferentMirrorWithInserts.Count > 0)
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                this._iWriteToOutput.WriteToOutput(connectionData, "File NOT FOUNDED in CRM, but has Last Link, files DIFFERENT WITH MIRROR CHANGES AND INSERTS: {0}", tableLastLinkDifferentMirrorWithInserts.Count);
+                this._iWriteToOutput.WriteToOutput(connectionData, "Files NOT FOUND in CRM, but has Last Link, files DIFFERENT WITH MIRROR CHANGES AND INSERTS: {0}", tableLastLinkDifferentMirrorWithInserts.Count);
 
                 tableLastLinkDifferentMirrorWithInserts.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
@@ -1286,7 +1311,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (tableLastLinkDifferentMirrorWithDeletes.Count > 0)
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                this._iWriteToOutput.WriteToOutput(connectionData, "File NOT FOUNDED in CRM, but has Last Link, files DIFFERENT WITH MIRROR CHANGES AND DELETES: {0}", tableLastLinkDifferentMirrorWithDeletes.Count);
+                this._iWriteToOutput.WriteToOutput(connectionData, "Files NOT FOUND in CRM, but has Last Link, files DIFFERENT WITH MIRROR CHANGES AND DELETES: {0}", tableLastLinkDifferentMirrorWithDeletes.Count);
 
                 tableLastLinkDifferentMirrorWithDeletes.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
@@ -1294,7 +1319,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (listLastLinkEqualByText.Count > 0)
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                this._iWriteToOutput.WriteToOutput(connectionData, "File NOT FOUNDED in CRM, but has Last Link, files EQUALS BY TEXT: {0}", listLastLinkEqualByText.Count);
+                this._iWriteToOutput.WriteToOutput(connectionData, "Files NOT FOUND in CRM, but has Last Link, files EQUALS BY TEXT: {0}", listLastLinkEqualByText.Count);
 
                 listLastLinkEqualByText.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
@@ -1302,7 +1327,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (tableLastLinkEqualByContent.Count > 0)
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                this._iWriteToOutput.WriteToOutput(connectionData, "File NOT FOUNDED in CRM, but has Last Link, files EQUALS BY CONTENT: {0}", tableLastLinkEqualByContent.Count);
+                this._iWriteToOutput.WriteToOutput(connectionData, "Files NOT FOUND in CRM, but has Last Link, files EQUALS BY CONTENT: {0}", tableLastLinkEqualByContent.Count);
 
                 tableLastLinkEqualByContent.GetFormatedLines(true).ForEach(item => this._iWriteToOutput.WriteToOutput(connectionData, _tabSpacer + item));
             }
@@ -1310,7 +1335,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (listNotExistsOnDisk.Count > 0)
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, listNotExistsOnDisk.Count);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FilesNotExistsCountFormat1, listNotExistsOnDisk.Count);
 
                 listNotExistsOnDisk.Sort();
 
@@ -1327,14 +1352,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (countEqualByContent > 0)
             {
+                this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
+
                 if (countEqualByContent == selectedFiles.Count())
                 {
-                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
                     this._iWriteToOutput.WriteToOutput(connectionData, "All files and web-resources EQUALS BY CONTENT: {0}", countEqualByContent);
                 }
                 else
                 {
-                    this._iWriteToOutput.WriteToOutput(connectionData, string.Empty);
                     this._iWriteToOutput.WriteToOutput(connectionData, "File and web-resource EQUALS BY CONTENT: {0}", countEqualByContent);
                 }
             }

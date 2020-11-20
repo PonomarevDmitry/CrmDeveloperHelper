@@ -103,6 +103,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
+        public const string placeholderFile1Path = "%f1";
+        public const string placeholderFile2Path = "%f2";
+        public const string placeholderFileLocalPath = "%fl";
+
+        public const string placeholderFile1Title = "%ft1";
+        public const string placeholderFile2Title = "%ft2";
+        public const string placeholderFileLocalTitle = "%flt";
+
         private string _CompareArgumentsFormat;
         /// <summary>
         /// Формат аргументов для программы сравнения

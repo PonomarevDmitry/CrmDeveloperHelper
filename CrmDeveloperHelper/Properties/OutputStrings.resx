@@ -176,6 +176,12 @@
   <data name="FileNotExistsFormat1" xml:space="preserve">
     <value>File not exists: {0}</value>
   </data>
+  <data name="FilesNotExistsCountFormat1" xml:space="preserve">
+    <value>Files not exists: {0}</value>
+  </data>
+  <data name="NoFilesNotInCRM" xml:space="preserve">
+    <value>No files that are not in CRM.</value>
+  </data>
   <data name="GetAttributeMetadataByGuidFormat1" xml:space="preserve">
     <value>GetAttributeMetadata(Guid {0})</value>
   </data>
@@ -2257,7 +2263,7 @@
   <data name="PublishedWebResourcesFormat1" xml:space="preserve">
     <value>Published WebResources: {0}</value>
   </data>
-  
+
   <data name="WebResourcesNotCustomizableFormat1" xml:space="preserve">
     <value>WebResources are NOT Customizable, can't change WebResource's content: {0}</value>
   </data>
@@ -2291,7 +2297,7 @@
   <data name="UpdatingWebResourcesCompleted" xml:space="preserve">
     <value>Updating WebResources Completed.</value>
   </data>
-  
+
   <data name="UpdatingSystemFormFormXmlAndPublishing" xml:space="preserve">
     <value>Updating SystemForm FormXml and Publishing...</value>
   </data>
@@ -2310,12 +2316,12 @@
   <data name="NoFilesForRemovingFromPublishList" xml:space="preserve">
     <value>No files for removing from Publish List.</value>
   </data>
-  
-  <data name="FilesNotFoundInCRMFormat1" xml:space="preserve">
+
+  <data name="FilesNotFoundInCRMCountFormat1" xml:space="preserve">
     <value>Files NOT FOUND in CRM: {0}</value>
   </data>
-  <data name="FilesNotFoundInCRMWithLastLinkFormat1" xml:space="preserve">
-    <value>Files NOT FOUND in CRM, but has Last Link: {0}</value>
+  <data name="FilesNotFoundInCRMWithLastLinkCountFormat1" xml:space="preserve">
+    <value>Files NOT FOUND in CRM, but have Last Link: {0}</value>
   </data>
   <data name="FilesWithoutDependentComponentsFormat1" xml:space="preserve">
     <value>Files without dependent components: {0}</value>
@@ -2338,32 +2344,100 @@
   <data name="WebResourceWasNotFoundByNameAndDoesNotHaveLastLinkFormat1" xml:space="preserve">
     <value>WebResource was not found by name and does not have the Last Link. FileName: {0}</value>
   </data>
+
+  <data name="OpeningFileInVisualStudioFormat1" xml:space="preserve">
+    <value>Opening file in Visual Studio {0}</value>
+  </data>
+  <data name="OpeningFileInTextEditorFormat1" xml:space="preserve">
+    <value>Opening file in Text Editor {0}</value>
+  </data>
+  <data name="OpeningFileInExcelFormat1" xml:space="preserve">
+    <value>Opening file in Excel {0}</value>
+  </data>
+  <data name="SelectingFileInFolderFormat1" xml:space="preserve">
+    <value>Selecting file in folder {0}</value>
+  </data>
+  <data name="OpeningFolderFormat1" xml:space="preserve">
+    <value>Opening folder {0}</value>
+  </data>
+
+  <data name="EntityReferenceLogicalNameFormat1" xml:space="preserve">
+    <value>    LogicalName : {0}</value>
+  </data>
+  <data name="EntityReferenceIdFormat1" xml:space="preserve">
+    <value>    Id          : {0}</value>
+  </data>
+  <data name="EntityReferenceUrlFormat1" xml:space="preserve">
+    <value>    Url         : {0}</value>
+  </data>
+  <data name="EntityReferenceNameFormat1" xml:space="preserve">
+    <value>    Name        : {0}</value>
+  </data>
+
+  <data name="FileUriFormat1" xml:space="preserve">
+    <value>File Uri                   :    {0}</value>
+  </data>
+  <data name="OpenFileInVisualStudioUriFormat1" xml:space="preserve">
+    <value>Open File in Visual Studio :    {0}</value>
+  </data>
+  <data name="OpenFileInTextEditorUriFormat1" xml:space="preserve">
+    <value>Open File in TextEditor    :    {0}</value>
+  </data>
+  <data name="SelectFileInFolderUriFormat1" xml:space="preserve">
+    <value>Select File in Folder      :    {0}</value>
+  </data>
+  <data name="OpenFileInExcelUriFormat1" xml:space="preserve">
+    <value>Open File in Excel         :    {0}</value>
+  </data>
   
+  <data name="HeaderOpenInVisualStudio" xml:space="preserve">
+    <value>Open in Visual Studio</value>
+  </data>
+  <data name="HeaderOpenFileInTextEditor" xml:space="preserve">
+    <value>Open File in TextEditor</value>
+  </data>
+  
+  <data name="PublishListContentCountFormat1" xml:space="preserve">
+    <value>Publish List: {0}</value>
+  </data>
+  <data name="PublishListCleared" xml:space="preserve">
+    <value>Publish List cleared.</value>
+  </data>
+  
+  <data name="SelectedSolutionNameFormat1" xml:space="preserve">
+    <value>Selected Solution              : {0}</value>
+  </data>
+  <data name="OpenSolutionListInBrowserSolutionUriFormat1" xml:space="preserve">
+    <value>Open Solution List in Browser  : {0}</value>
+  </data>
+  <data name="OpenSolutionInBrowserSolutionUriFormat1" xml:space="preserve">
+    <value>Open Solution in Browser       : {0}</value>
+  </data>
+  <data name="OpenSolutionsExplorerSolutionUriFormat1" xml:space="preserve">
+    <value>Open Solutions Explorer        : {0}</value>
+  </data>
+  <data name="OpenSolutionInExplorerSolutionUriFormat1" xml:space="preserve">
+    <value>Open Solution in Explorer      : {0}</value>
+  </data>
+  
+  <data name="CannotGetOleMenuCommandService" xml:space="preserve">
+    <value>Cannot get OleMenuCommandService.</value>
+  </data>
+  <data name="CannotExecuteVisualStudioDiffProgram" xml:space="preserve">
+    <value>Cannot execute Visual Studio Diff Program.</value>
+  </data>
+
+  <data name="ExecutingDifferenceProgramForFiles" xml:space="preserve">
+    <value>Executing Difference Program for files:</value>
+  </data>
+  <data name="ExecutingThreeWayDifferenceProgramForFiles" xml:space="preserve">
+    <value>Executing ThreeWay Difference Program for files:</value>
+  </data>
+  <data name="NoValidConfigurationForThreeWayDifference" xml:space="preserve">
+    <value>There is no valid configuration for ThreeWay Difference.</value>
+  </data>
+
   <!--
-  <data name="111111" xml:space="preserve">
-    <value>2222222</value>
-  </data>
-  <data name="111111" xml:space="preserve">
-    <value>2222222</value>
-  </data>
-  <data name="111111" xml:space="preserve">
-    <value>2222222</value>
-  </data>
-  <data name="111111" xml:space="preserve">
-    <value>2222222</value>
-  </data>
-  <data name="111111" xml:space="preserve">
-    <value>2222222</value>
-  </data>
-  <data name="111111" xml:space="preserve">
-    <value>2222222</value>
-  </data>
-  <data name="111111" xml:space="preserve">
-    <value>2222222</value>
-  </data>
-  <data name="111111" xml:space="preserve">
-    <value>2222222</value>
-  </data>
   <data name="111111" xml:space="preserve">
     <value>2222222</value>
   </data>

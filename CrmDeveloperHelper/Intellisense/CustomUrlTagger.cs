@@ -26,14 +26,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
         private readonly char[] _trimChars = "_.,!@#%:;&*()[]{}?'\"".ToArray();
 
         private static readonly string patternUrl = "("
-            + UrlCommandFilter.PrefixOpenInVisualStudio
-            + "|" + UrlCommandFilter.PrefixOpenInVisualStudioRelativePath
-            + "|" + UrlCommandFilter.PrefixOpenInTextEditor
-            + "|" + UrlCommandFilter.PrefixOpenInExcel
-            + "|" + UrlCommandFilter.PrefixShowDifference
-            + "|" + UrlCommandFilter.PrefixSelectFileInFolder
-            + "|" + UrlCommandFilter.PrefixOpenSolution
-            + "|" + UrlCommandFilter.PrefixOpenSolutionList
+            + UrlCommandFilter.SchemeOpenInVisualStudio
+            + "|" + UrlCommandFilter.SchemeOpenInVisualStudioRelativePath
+            + "|" + UrlCommandFilter.SchemeOpenInTextEditor
+            + "|" + UrlCommandFilter.SchemeOpenInExcel
+            + "|" + UrlCommandFilter.SchemeShowDifference
+            + "|" + UrlCommandFilter.SchemeSelectFileInFolder
+            + "|" + UrlCommandFilter.SchemeOpenSolution
+            + "|" + UrlCommandFilter.SchemeOpenSolutionExplorer
             + @")\:\/\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9:;@!=&%#_\*\-\.\,\?\/\\\+\$\(\)\[\]\{\}]*)?";
 
         private static readonly Regex regexUrl = new Regex(patternUrl, RegexOptions.Compiled | RegexOptions.IgnoreCase);

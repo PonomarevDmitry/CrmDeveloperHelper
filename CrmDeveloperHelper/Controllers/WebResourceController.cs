@@ -23,14 +23,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 {
     public partial class WebResourceController : BaseController<IWriteToOutputAndPublishList>
     {
-        private const string headerFileName = "FileName";
-        private const string headerWebResourceName = "WebResourceName";
-        private const string headerWebResourceType = "WebResourceType";
-        private const string headerFilePath = "FilePath";
-        private const string headerNewDependenciesCount = "New Dependencies Count";
-        private const string headerNewDependencies = "New Dependencies";
-
-        private const string headerDependencies = "Dependencies";
         private const string headerFormEntity = "Form Entity";
         private const string headerFormType = "FormType";
         private const string headerFormName = "FormName";
@@ -114,7 +106,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var tableEqual = new FormatTextTableHandler(headerFileName, headerWebResourceName, headerWebResourceType);
 
-            var tableDependencyUpdated = new FormatTextTableHandler(headerFileName, headerNewDependenciesCount, headerWebResourceName, headerWebResourceType, headerNewDependencies);
+            var tableDependencyUpdated = new FormatTextTableHandler(headerFileName, headerWebResourceNewDependenciesCount, headerWebResourceName, headerWebResourceType, headerWebResourceNewDependencies);
 
             foreach (var element in list)
             {
@@ -307,7 +299,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         bool? dialogResult = null;
                         Guid? selectedWebResourceId = null;
 
-                        bool showNext = false;
+                        bool skipFile = false;
 
                         var t = new Thread(() =>
                         {
@@ -321,7 +313,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                                 allForOther = form.ForAllOther;
 
-                                showNext = form.ShowNext;
+                                skipFile = form.SkipFile;
 
                                 selectedWebResourceId = form.SelectedWebResourceId;
                             }
@@ -353,7 +345,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.WebResourceNotSelectedFormat1, selectedFile.Name);
                             }
                         }
-                        else if (!showNext)
+                        else if (!skipFile)
                         {
                             this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.WebResourcesUpdatingContentAndPublishingCancelled);
                             return Tuple.Create(false, (Dictionary<Guid, ElementForPublish>)null);
@@ -1126,7 +1118,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
 
                 {
-                    var tableUpdated = new FormatTextTableHandler(headerFileName, headerDependencies, headerFormEntity, headerFormType, headerFormName, headerNewDependencies);
+                    var tableUpdated = new FormatTextTableHandler(headerFileName, headerWebResourceDependencies, headerFormEntity, headerFormType, headerFormName, headerWebResourceNewDependencies);
 
                     foreach (var tuple in changedSystemForms
                         .OrderBy(e => e.Item2.ObjectTypeCode)
@@ -1430,9 +1422,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     connectionData.Save();
                 }
 
-                FindsController.WriteToContentList(listNotFoundedInCRMNoLink, content, Properties.OutputStrings.FilesNotFoundInCRMFormat1);
+                FindsController.WriteToContentList(listNotFoundedInCRMNoLink, content, Properties.OutputStrings.FilesNotFoundInCRMCountFormat1);
 
-                FindsController.WriteToContentList(listLastLinkEqualByContent, content, Properties.OutputStrings.FilesNotFoundInCRMWithLastLinkFormat1);
+                FindsController.WriteToContentList(listLastLinkEqualByContent, content, Properties.OutputStrings.FilesNotFoundInCRMWithLastLinkCountFormat1);
 
                 FindsController.WriteToContentList(listNotExistsOnDisk, content, Properties.OutputStrings.FileNotExistsFormat1);
 
@@ -2275,7 +2267,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 bool? dialogResult = null;
                 Guid? selectedWebResourceId = null;
 
-                bool showNext = false;
+                bool skipFile = false;
 
                 var t = new Thread((ThreadStart)(() =>
                 {
@@ -2286,7 +2278,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         dialogResult = form.ShowDialog();
                         selectedWebResourceId = form.SelectedWebResourceId;
-                        showNext = form.ShowNext;
+                        skipFile = form.SkipFile;
                     }
                     catch (Exception ex)
                     {
@@ -2315,7 +2307,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.WebResourceNotFoundedByNameFormat1, selectedFile.Name);
                     }
                 }
-                else if (!showNext)
+                else if (!skipFile)
                 {
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatingLastLinkWasCanceled);
                     return;

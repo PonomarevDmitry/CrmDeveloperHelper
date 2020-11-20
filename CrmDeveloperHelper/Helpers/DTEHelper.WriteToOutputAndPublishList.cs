@@ -6,7 +6,6 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model.XsdModels;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Properties;
 using NLog;
 using NLog.Config;
 using NLog.Targets;
@@ -54,11 +53,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private static readonly string _logLayoutFooter = "${newline}${newline}" + new string('-', 150);
         private static readonly string _logLayout = "$${longdate}|${level}${newline}${message}${newline}${newline}${exception}${newline}${newline}${stacktrace:format=Flat:topFrames=10000}${newline}${newline}${exception:format=toString,Data:exceptionDataSeparator=\r\n}${newline}${newline}";
 
+        private static readonly string _splitter = new string('-', 150);
+
         private readonly HashSet<string> _ListForPublish = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
         private static readonly ConditionalWeakTable<Exception, object> _logExceptions = new ConditionalWeakTable<Exception, object>();
 
         private static readonly ConditionalWeakTable<Exception, object> _outputExceptions = new ConditionalWeakTable<Exception, object>();
+
+        private const string _formatStringInQuotes = "\"{0}\"";
+
+        private const string _formatEntityFetchXmlFileName = "{0}.xml";
+
+        private const string _programExplorer = "explorer.exe";
+        private const string _programExcel = "Excel.exe";
 
         static DTEHelper()
         {
@@ -157,7 +165,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (!string.IsNullOrEmpty(entityRef.Name))
             {
-                this.WriteToOutput(connectionData, $"    Name:        {entityRef.Name}");
+                this.WriteToOutput(connectionData, Properties.OutputStrings.EntityReferenceNameFormat1, entityRef.Name);
             }
 
             return this;
@@ -165,12 +173,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public IWriteToOutput WriteToOutputEntityInstance(ConnectionData connectionData, string entityName, Guid id)
         {
-            this.WriteToOutput(connectionData, $"    LogicalName: {entityName}");
+            this.WriteToOutput(connectionData, Properties.OutputStrings.EntityReferenceLogicalNameFormat1, entityName);
 
-            this.WriteToOutput(connectionData, $"    Id         : {id}");
+            this.WriteToOutput(connectionData, Properties.OutputStrings.EntityReferenceIdFormat1, id);
             if (connectionData != null)
             {
-                this.WriteToOutput(connectionData, $"    Url        : {connectionData.GetEntityInstanceUrl(entityName, id)}");
+                this.WriteToOutput(connectionData, Properties.OutputStrings.EntityReferenceUrlFormat1, connectionData.GetEntityInstanceUrl(entityName, id));
             }
 
             return this;
@@ -187,7 +195,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             this.WriteToOutput(connectionData, string.Empty);
 
-            return this.WriteToOutput(connectionData, OutputStrings.StartOperationFormat2
+            return this.WriteToOutput(connectionData, Properties.OutputStrings.StartOperationFormat2
                 , message
                 , DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)
             );
@@ -202,7 +210,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 message = string.Format(format, args);
             }
 
-            var result = this.WriteToOutput(connectionData, OutputStrings.EndOperationFormat2
+            var result = this.WriteToOutput(connectionData, Properties.OutputStrings.EndOperationFormat2
                 , message
                 , DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture)
             );
@@ -225,7 +233,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 _logExceptions.Add(ex, new object());
 
-                Log.Info(new string('-', 150));
+                Log.Info(_splitter);
 
                 if (!string.IsNullOrEmpty(message))
                 {
@@ -233,7 +241,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 Log.Error(ex, description);
-                Log.Info(new string('-', 150));
+                Log.Info(_splitter);
             }
 
             if (!_outputExceptions.TryGetValue(ex, out _))
@@ -242,7 +250,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 this.WriteToOutput(connectionData, string.Empty);
 
-                this.WriteToOutput(connectionData, new string('-', 150));
+                this.WriteToOutput(connectionData, _splitter);
 
                 if (!string.IsNullOrEmpty(message))
                 {
@@ -250,7 +258,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 this.WriteToOutput(connectionData, description);
-                this.WriteToOutput(connectionData, new string('-', 150));
+                this.WriteToOutput(connectionData, _splitter);
 
                 this.ActivateOutputWindow(connectionData);
 
@@ -618,12 +626,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteToOutput(connectionData, string.Empty);
 
-            var tableAlreadyInPublishList = new FormatTextTableHandler(nameof(SelectedFile.FileName), nameof(SelectedFile.FriendlyFilePath), "Open in VisualStudio", "Open File in TextEditor");
-            var tableAddedInPublishList = new FormatTextTableHandler(nameof(SelectedFile.FileName), nameof(SelectedFile.FriendlyFilePath), "Open in VisualStudio", "Open File in TextEditor");
+            var tableAlreadyInPublishList = new FormatTextTableHandler(nameof(SelectedFile.FileName), nameof(SelectedFile.FriendlyFilePath), Properties.OutputStrings.HeaderOpenInVisualStudio, Properties.OutputStrings.HeaderOpenFileInTextEditor);
+            var tableAddedInPublishList = new FormatTextTableHandler(nameof(SelectedFile.FileName), nameof(SelectedFile.FriendlyFilePath), Properties.OutputStrings.HeaderOpenInVisualStudio, Properties.OutputStrings.HeaderOpenFileInTextEditor);
 
             var commonConfig = CommonConfiguration.Get();
-
-            var existTextEditor = File.Exists(commonConfig.TextEditorProgram);
 
             foreach (var selectedFile in selectedFiles.OrderBy(f => f.FriendlyFilePath).ThenBy(f => f.FileName))
             {
@@ -634,18 +640,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (!File.Exists(selectedFile.FilePath))
                 {
-                    WriteToOutput(connectionData, OutputStrings.FileNotExistsFormat1, selectedFile.FriendlyFilePath);
+                    WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FriendlyFilePath);
                     continue;
                 }
 
-                var uriFile = new Uri(selectedFile.FilePath, UriKind.Absolute).AbsoluteUri;
-                var uriFileOpenInVisualStudio = uriFile.Replace("file:", $"{UrlCommandFilter.PrefixOpenInVisualStudio}:");
+                string uriFileOpenInVisualStudio = UrlCommandFilter.GetUriOpenInVisualStudioByFilePath(selectedFile.FilePath);
 
                 var lines = new List<string>() { selectedFile.FileName, selectedFile.FriendlyFilePath, uriFileOpenInVisualStudio };
 
-                if (existTextEditor)
+                if (commonConfig.TextEditorProgramExists())
                 {
-                    var uriFileOpenInTextEditor = uriFile.Replace("file:", $"{UrlCommandFilter.PrefixOpenInTextEditor}:");
+                    string uriFileOpenInTextEditor = UrlCommandFilter.GetUriOpenInTextEditorByFilePath(selectedFile.FilePath);
                     lines.Add(uriFileOpenInTextEditor);
                 }
 
@@ -665,14 +670,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (tableAlreadyInPublishList.Count > 0)
             {
-                WriteToOutput(connectionData, OutputStrings.FilesAlreadyInPublishListFormat1, tableAlreadyInPublishList.Count);
+                WriteToOutput(connectionData, Properties.OutputStrings.FilesAlreadyInPublishListFormat1, tableAlreadyInPublishList.Count);
 
                 tableAlreadyInPublishList.GetFormatedLines(false).ForEach(s => WriteToOutput(connectionData, _tabSpacer + s));
             }
 
             if (tableAddedInPublishList.Count > 0)
             {
-                WriteToOutput(connectionData, OutputStrings.AddedInPublishListFormat1, tableAddedInPublishList.Count);
+                WriteToOutput(connectionData, Properties.OutputStrings.AddedInPublishListFormat1, tableAddedInPublishList.Count);
 
                 tableAddedInPublishList.GetFormatedLines(false).ForEach(s => WriteToOutput(connectionData, _tabSpacer + s));
             }
@@ -696,24 +701,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteToOutput(connectionData, string.Empty);
 
-            var tableNotInPublishList = new FormatTextTableHandler(nameof(SelectedFile.FileName), nameof(SelectedFile.FriendlyFilePath), "Open in VisualStudio", "Open File in TextEditor");
+            var tableNotInPublishList = new FormatTextTableHandler(nameof(SelectedFile.FileName), nameof(SelectedFile.FriendlyFilePath), Properties.OutputStrings.HeaderOpenInVisualStudio, Properties.OutputStrings.HeaderOpenFileInTextEditor);
 
-            var tableRemovedFromPublishList = new FormatTextTableHandler(nameof(SelectedFile.FileName), nameof(SelectedFile.FriendlyFilePath), "Open in VisualStudio", "Open File in TextEditor");
+            var tableRemovedFromPublishList = new FormatTextTableHandler(nameof(SelectedFile.FileName), nameof(SelectedFile.FriendlyFilePath), Properties.OutputStrings.HeaderOpenInVisualStudio, Properties.OutputStrings.HeaderOpenFileInTextEditor);
 
             var commonConfig = CommonConfiguration.Get();
 
-            var existTextEditor = File.Exists(commonConfig.TextEditorProgram);
-
             foreach (var selectedFile in selectedFiles.OrderBy(f => f.FriendlyFilePath).ThenBy(f => f.FileName))
             {
-                var uriFile = new Uri(selectedFile.FilePath, UriKind.Absolute).AbsoluteUri;
-                var uriFileOpenInVisualStudio = uriFile.Replace("file:", $"{UrlCommandFilter.PrefixOpenInVisualStudio}:");
+                string uriFileOpenInVisualStudio = UrlCommandFilter.GetUriOpenInVisualStudioByFilePath(selectedFile.FilePath);
 
                 var lines = new List<string>() { selectedFile.FileName, selectedFile.FriendlyFilePath, uriFileOpenInVisualStudio };
 
-                if (existTextEditor)
+                if (commonConfig.TextEditorProgramExists())
                 {
-                    var uriFileOpenInTextEditor = uriFile.Replace("file:", $"{UrlCommandFilter.PrefixOpenInTextEditor}:");
+                    string uriFileOpenInTextEditor = UrlCommandFilter.GetUriOpenInTextEditorByFilePath(selectedFile.FilePath);
                     lines.Add(uriFileOpenInTextEditor);
                 }
 
@@ -733,14 +735,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (tableNotInPublishList.Count > 0)
             {
-                WriteToOutput(connectionData, OutputStrings.FilesNotInPublishListFormat1, tableNotInPublishList.Count);
+                WriteToOutput(connectionData, Properties.OutputStrings.FilesNotInPublishListFormat1, tableNotInPublishList.Count);
 
                 tableNotInPublishList.GetFormatedLines(false).ForEach(s => WriteToOutput(connectionData, _tabSpacer + s));
             }
 
             if (tableRemovedFromPublishList.Count > 0)
             {
-                WriteToOutput(connectionData, OutputStrings.RemovedFromPublishListFormat1, tableRemovedFromPublishList.Count);
+                WriteToOutput(connectionData, Properties.OutputStrings.RemovedFromPublishListFormat1, tableRemovedFromPublishList.Count);
 
                 tableRemovedFromPublishList.GetFormatedLines(false).ForEach(s => WriteToOutput(connectionData, _tabSpacer + s));
             }
@@ -763,7 +765,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteToOutput(connectionData, string.Empty);
 
-            WriteToOutput(connectionData, "Publish List has cleaned.");
+            WriteToOutput(connectionData, Properties.OutputStrings.PublishListCleared);
 
             return this;
         }
@@ -783,35 +785,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (!_ListForPublish.Any())
             {
-                WriteToOutput(connectionData, OutputStrings.PublishListIsEmpty);
+                WriteToOutput(connectionData, Properties.OutputStrings.PublishListIsEmpty);
                 return this;
             }
 
             var commonConfig = CommonConfiguration.Get();
 
-            var existTextEditor = File.Exists(commonConfig.TextEditorProgram);
-
-            var tableInPublishList = new FormatTextTableHandler(nameof(SelectedFile.FileName), nameof(SelectedFile.FriendlyFilePath), "Open in VisualStudio", "Open File in TextEditor");
+            var tableInPublishList = new FormatTextTableHandler(nameof(SelectedFile.FileName), nameof(SelectedFile.FriendlyFilePath), Properties.OutputStrings.HeaderOpenInVisualStudio, Properties.OutputStrings.HeaderOpenFileInTextEditor);
 
             string solutionDirectoryPath = GetSolutionDirectory();
 
             foreach (var filePath in _ListForPublish.OrderBy(s => s))
             {
-                var uriFile = new Uri(filePath, UriKind.Absolute).AbsoluteUri;
-                var uriFileOpenInVisualStudio = uriFile.Replace("file:", $"{UrlCommandFilter.PrefixOpenInVisualStudio}:");
-                var uriFileOpenInTextEditor = uriFile.Replace("file:", $"{UrlCommandFilter.PrefixOpenInTextEditor}:");
+                string uriFileOpenInVisualStudio = UrlCommandFilter.GetUriOpenInVisualStudioByFilePath(filePath);
 
                 var lines = new List<string>() { Path.GetFileName(filePath), SelectedFile.GetFriendlyPath(filePath, solutionDirectoryPath), uriFileOpenInVisualStudio };
 
-                if (existTextEditor)
+                if (commonConfig.TextEditorProgramExists())
                 {
+                    string uriFileOpenInTextEditor = UrlCommandFilter.GetUriOpenInTextEditorByFilePath(filePath);
                     lines.Add(uriFileOpenInTextEditor);
                 }
 
                 tableInPublishList.AddLine(lines);
             }
 
-            WriteToOutput(connectionData, "Publish List: {0}", _ListForPublish.Count.ToString());
+            WriteToOutput(connectionData, Properties.OutputStrings.PublishListContentCountFormat1, _ListForPublish.Count.ToString());
 
             tableInPublishList.GetFormatedLines(false).ForEach(s => WriteToOutput(connectionData, _tabSpacer + s));
 
@@ -943,16 +942,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var uriFile = new Uri(filePath, UriKind.Absolute).AbsoluteUri;
 
             this.WriteToOutput(connectionData, string.Empty);
-            this.WriteToOutput(connectionData, "File Uri                   :    {0}", uriFile);
+            this.WriteToOutput(connectionData, Properties.OutputStrings.FileUriFormat1, uriFile);
             this.WriteToOutput(connectionData, string.Empty);
-            this.WriteToOutput(connectionData, "Open File in Visual Studio :    {0}", uriFile.Replace("file:", $"{Intellisense.UrlCommandFilter.PrefixOpenInVisualStudio}:"));
-            if (File.Exists(commonConfig.TextEditorProgram))
+            this.WriteToOutput(connectionData, Properties.OutputStrings.OpenFileInVisualStudioUriFormat1, UrlCommandFilter.GetUriOpenInVisualStudioByFileUri(uriFile));
+            if (commonConfig.TextEditorProgramExists())
             {
                 this.WriteToOutput(connectionData, string.Empty);
-                this.WriteToOutput(connectionData, "Open File in TextEditor    :    {0}", uriFile.Replace("file:", $"{Intellisense.UrlCommandFilter.PrefixOpenInTextEditor}:"));
+                this.WriteToOutput(connectionData, Properties.OutputStrings.OpenFileInTextEditorUriFormat1, UrlCommandFilter.GetUriOpenInTextEditorByFileUri(uriFile));
             }
             this.WriteToOutput(connectionData, string.Empty);
-            this.WriteToOutput(connectionData, "Select File in Folder      :    {0}", uriFile.Replace("file:", $"{Intellisense.UrlCommandFilter.PrefixSelectFileInFolder}:"));
+            this.WriteToOutput(connectionData, Properties.OutputStrings.SelectFileInFolderUriFormat1, UrlCommandFilter.GetUriSelectFileInFolderByFileUri(uriFile));
             this.WriteToOutput(connectionData, string.Empty);
 
             return this;
@@ -967,7 +966,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var uriFile = new Uri(filePath, UriKind.Absolute).AbsoluteUri;
 
-            this.WriteToOutput(connectionData, "Open File in Excel         :    {0}", uriFile.Replace("file:", $"{Intellisense.UrlCommandFilter.PrefixOpenInExcel}:"));
+            this.WriteToOutput(connectionData, Properties.OutputStrings.OpenFileInExcelUriFormat1, UrlCommandFilter.GetUriOpenInExcelByFileUri(uriFile));
             this.WriteToOutput(connectionData, string.Empty);
 
             return this;
@@ -982,32 +981,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string solutionUrl = connectionData.GetSolutionUrl(solutionId);
 
-            string urlOpenSolution = string.Format("{0}:///crm.com?ConnectionId={1}&SolutionUniqueName={2}"
-                , UrlCommandFilter.PrefixOpenSolution
-                , connectionData.ConnectionId.ToString()
-                , HttpUtility.UrlEncode(solutionUniqueName)
-            );
+            string uriOpenSolution = UrlCommandFilter.GetUriOpenSolution(connectionData.ConnectionId, solutionUniqueName);
 
-            string urlOpenSolutionList = string.Format("{0}:///crm.com?ConnectionId={1}"
-                , UrlCommandFilter.PrefixOpenSolutionList
-                , connectionData.ConnectionId.ToString()
-            );
-
+            string urlOpenSolutionExplorer = UrlCommandFilter.GetUriOpenSolutionExplorer(connectionData.ConnectionId);
 
             this.WriteToOutput(connectionData, string.Empty);
-            this.WriteToOutput(connectionData, "Selected Solution              : {0}", solutionUniqueName);
+            this.WriteToOutput(connectionData, Properties.OutputStrings.SelectedSolutionNameFormat1, solutionUniqueName);
 
             this.WriteToOutput(connectionData, string.Empty);
-            this.WriteToOutput(connectionData, "Open Solution List in Browser  : {0}", connectionData.GetOpenCrmWebSiteUrl(OpenCrmWebSiteType.Solutions));
+            this.WriteToOutput(connectionData, Properties.OutputStrings.OpenSolutionListInBrowserSolutionUriFormat1, connectionData.GetOpenCrmWebSiteUrl(OpenCrmWebSiteType.Solutions));
 
             this.WriteToOutput(connectionData, string.Empty);
-            this.WriteToOutput(connectionData, "Open Solution in Browser       : {0}", solutionUrl);
+            this.WriteToOutput(connectionData, Properties.OutputStrings.OpenSolutionInBrowserSolutionUriFormat1, solutionUrl);
 
             this.WriteToOutput(connectionData, string.Empty);
-            this.WriteToOutput(connectionData, "Open Solutions Explorer        : {0}", urlOpenSolutionList);
+            this.WriteToOutput(connectionData, Properties.OutputStrings.OpenSolutionsExplorerSolutionUriFormat1, urlOpenSolutionExplorer);
 
             this.WriteToOutput(connectionData, string.Empty);
-            this.WriteToOutput(connectionData, "Open Solution in Explorer      : {0}", urlOpenSolution);
+            this.WriteToOutput(connectionData, Properties.OutputStrings.OpenSolutionInExplorerSolutionUriFormat1, uriOpenSolution);
 
             this.WriteToOutput(connectionData, string.Empty);
 
@@ -1021,11 +1012,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return this;
             }
 
-            this.WriteToOutput(connectionData, "Selecting file in folder {0}", filePath);
+            this.WriteToOutput(connectionData, Properties.OutputStrings.SelectingFileInFolderFormat1, filePath);
 
-            ProcessStartInfo info = new ProcessStartInfo
+            var info = new ProcessStartInfo
             {
-                FileName = "explorer.exe",
+                FileName = _programExplorer,
                 Arguments = @"/select, """ + filePath + "\"",
 
                 UseShellExecute = true,
@@ -1056,16 +1047,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             if (!Directory.Exists(folderPath))
             {
-                this.WriteToOutput(connectionData, OutputStrings.FolderDoesNotExistsFormat1, folderPath);
+                this.WriteToOutput(connectionData, Properties.OutputStrings.FolderDoesNotExistsFormat1, folderPath);
                 return this;
             }
 
-            this.WriteToOutput(connectionData, "Opening folder {0}", folderPath);
+            this.WriteToOutput(connectionData, Properties.OutputStrings.OpeningFolderFormat1, folderPath);
 
-            ProcessStartInfo info = new ProcessStartInfo
+            var info = new ProcessStartInfo
             {
-                FileName = "explorer.exe",
-                Arguments = string.Format("\"{0}\"", folderPath),
+                FileName = _programExplorer,
+                Arguments = string.Format(_formatStringInQuotes, folderPath),
 
                 UseShellExecute = true,
                 WindowStyle = ProcessWindowStyle.Normal
@@ -1133,7 +1124,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             FileAction fileAction = commonConfig.GetFileActionByExtension(Path.GetExtension(filePath));
 
-            if (fileAction == FileAction.OpenFileInTextEditor && File.Exists(commonConfig.TextEditorProgram))
+            if (fileAction == FileAction.OpenFileInTextEditor && commonConfig.TextEditorProgramExists())
             {
                 OpenFileInTextEditor(connectionData, filePath);
             }
@@ -1154,7 +1145,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return this;
             }
 
-            this.WriteToOutput(connectionData, "Opening in Visual Studio file {0}", filePath);
+            this.WriteToOutput(connectionData, Properties.OutputStrings.OpeningFileInVisualStudioFormat1, filePath);
 
             ApplicationObject.ItemOperations.OpenFile(filePath);
             ApplicationObject.MainWindow.Activate();
@@ -1171,7 +1162,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             entityName = entityName.ToLower();
 
-            string fileName = $"{entityName}.xml";
+            string fileName = string.Format(_formatEntityFetchXmlFileName, entityName);
             string folder = FileOperations.GetConnectionFetchXmlFolderPath(connectionData.ConnectionId);
 
             string filePath = Path.Combine(folder, fileName);
@@ -1331,7 +1322,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return this;
             }
 
-            this.WriteToOutput(connectionData, "Opening in Visual Studio file {0}", filePath);
+            this.WriteToOutput(connectionData, Properties.OutputStrings.OpeningFileInVisualStudioFormat1, filePath);
 
             ApplicationObject.ItemOperations.OpenFile(filePath);
             ApplicationObject.MainWindow.Activate();
@@ -1357,11 +1348,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 var queryDictionary = HttpUtility.ParseQueryString(uri.Query);
 
-                if (queryDictionary.AllKeys.Contains("ConnectionId", StringComparer.InvariantCultureIgnoreCase)
-                    && !string.IsNullOrEmpty(queryDictionary["ConnectionId"])
-                    )
+                if (queryDictionary.AllKeys.Contains(UrlCommandFilter.uriComponentConnectionId, StringComparer.InvariantCultureIgnoreCase)
+                    && !string.IsNullOrEmpty(queryDictionary[UrlCommandFilter.uriComponentConnectionId])
+                )
                 {
-                    var idStr = queryDictionary["ConnectionId"];
+                    var idStr = queryDictionary[UrlCommandFilter.uriComponentConnectionId];
 
                     if (Guid.TryParse(idStr, out var tempGuid))
                     {
@@ -1371,18 +1362,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                 }
 
-                if (queryDictionary.AllKeys.Contains("fieldName", StringComparer.InvariantCultureIgnoreCase)
-                    && !string.IsNullOrEmpty(queryDictionary["fieldName"])
-                    )
+                if (queryDictionary.AllKeys.Contains(UrlCommandFilter.uriComponentFieldName, StringComparer.InvariantCultureIgnoreCase)
+                    && !string.IsNullOrEmpty(queryDictionary[UrlCommandFilter.uriComponentFieldName])
+                )
                 {
-                    fieldName = queryDictionary["fieldName"];
+                    fieldName = queryDictionary[UrlCommandFilter.uriComponentFieldName];
                 }
 
-                if (queryDictionary.AllKeys.Contains("fieldTitle", StringComparer.InvariantCultureIgnoreCase)
-                    && !string.IsNullOrEmpty(queryDictionary["fieldTitle"])
-                    )
+                if (queryDictionary.AllKeys.Contains(UrlCommandFilter.uriComponentFieldTitle, StringComparer.InvariantCultureIgnoreCase)
+                    && !string.IsNullOrEmpty(queryDictionary[UrlCommandFilter.uriComponentFieldTitle])
+                )
                 {
-                    fieldTitle = queryDictionary["fieldTitle"];
+                    fieldTitle = queryDictionary[UrlCommandFilter.uriComponentFieldTitle];
                 }
             }
 
@@ -1448,9 +1439,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 var queryDictionary = HttpUtility.ParseQueryString(uri.Query);
 
-                if (!string.IsNullOrEmpty(queryDictionary["ConnectionId"]))
+                if (queryDictionary.AllKeys.Contains(UrlCommandFilter.uriComponentConnectionId, StringComparer.InvariantCultureIgnoreCase)
+                    && !string.IsNullOrEmpty(queryDictionary[UrlCommandFilter.uriComponentConnectionId])
+                )
                 {
-                    var idStr = queryDictionary["ConnectionId"];
+                    var idStr = queryDictionary[UrlCommandFilter.uriComponentConnectionId];
 
                     if (Guid.TryParse(idStr, out var tempGuid))
                     {
@@ -1460,9 +1453,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                 }
 
-                if (!string.IsNullOrEmpty(queryDictionary["SolutionUniqueName"]))
+                if (queryDictionary.AllKeys.Contains(UrlCommandFilter.uriComponentSolutionUniqueName, StringComparer.InvariantCultureIgnoreCase)
+                    && !string.IsNullOrEmpty(queryDictionary[UrlCommandFilter.uriComponentSolutionUniqueName])
+                )
                 {
-                    solutionUniqueName = queryDictionary["SolutionUniqueName"];
+                    solutionUniqueName = queryDictionary[UrlCommandFilter.uriComponentSolutionUniqueName];
                 }
             }
 
@@ -1492,9 +1487,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 var queryDictionary = HttpUtility.ParseQueryString(uri.Query);
 
-                if (!string.IsNullOrEmpty(queryDictionary["ConnectionId"]))
+                if (queryDictionary.AllKeys.Contains(UrlCommandFilter.uriComponentConnectionId, StringComparer.InvariantCultureIgnoreCase)
+                    && !string.IsNullOrEmpty(queryDictionary[UrlCommandFilter.uriComponentConnectionId])
+                )
                 {
-                    var idStr = queryDictionary["ConnectionId"];
+                    var idStr = queryDictionary[UrlCommandFilter.uriComponentConnectionId];
 
                     if (Guid.TryParse(idStr, out var tempGuid))
                     {
@@ -1527,19 +1524,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!File.Exists(filePath)
-                || !File.Exists(commonConfig.TextEditorProgram)
-            )
+            if (!File.Exists(filePath) || !commonConfig.TextEditorProgramExists())
             {
                 return this;
             }
 
-            this.WriteToOutput(connectionData, "Opening in Text Editor file {0}", filePath);
+            this.WriteToOutput(connectionData, Properties.OutputStrings.OpeningFileInTextEditorFormat1, filePath);
 
-            ProcessStartInfo info = new ProcessStartInfo
+            var info = new ProcessStartInfo
             {
-                FileName = string.Format("\"{0}\"", commonConfig.TextEditorProgram),
-                Arguments = string.Format("\"{0}\"", filePath),
+                FileName = string.Format(_formatStringInQuotes, commonConfig.TextEditorProgram),
+                Arguments = string.Format(_formatStringInQuotes, filePath),
 
                 UseShellExecute = false,
                 WindowStyle = ProcessWindowStyle.Normal
@@ -1573,12 +1568,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             this.WriteToOutput(connectionData, string.Empty);
-            this.WriteToOutput(connectionData, "Opening in Excel file {0}", filePath);
+            this.WriteToOutput(connectionData, Properties.OutputStrings.OpeningFileInExcelFormat1, filePath);
 
-            ProcessStartInfo info = new ProcessStartInfo
+            var info = new ProcessStartInfo
             {
-                FileName = "Excel.exe",
-                Arguments = string.Format("\"{0}\"", filePath),
+                FileName = _programExcel,
+                Arguments = string.Format(_formatStringInQuotes, filePath),
 
                 UseShellExecute = true,
                 WindowStyle = ProcessWindowStyle.Normal
@@ -1616,7 +1611,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 this.WriteToOutput(connectionData1, string.Empty);
                 this.WriteToOutput(connectionData1, string.Empty);
 
-                this.WriteToOutput(connectionData1, "Starting Difference Programm for files:");
+                this.WriteToOutput(connectionData1, Properties.OutputStrings.ExecutingDifferenceProgramForFiles);
 
                 this.WriteToOutput(connectionData1, filePath1);
                 this.WriteToOutputFilePathUri(connectionData1, filePath1);
@@ -1632,7 +1627,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     this.WriteToOutput(connectionData2, string.Empty);
                     this.WriteToOutput(connectionData2, string.Empty);
 
-                    this.WriteToOutput(connectionData2, "Starting Difference Programm for files:");
+                    this.WriteToOutput(connectionData2, Properties.OutputStrings.ExecutingDifferenceProgramForFiles);
 
                     this.WriteToOutput(connectionData2, filePath1);
                     this.WriteToOutputFilePathUri(connectionData2, filePath1);
@@ -1647,16 +1642,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     var info = new ProcessStartInfo
                     {
-                        FileName = string.Format("\"{0}\"", commonConfig.CompareProgram)
+                        FileName = string.Format(_formatStringInQuotes, commonConfig.CompareProgram)
                     };
 
                     var arguments = new StringBuilder(commonConfig.CompareArgumentsFormat);
 
-                    arguments = arguments.Replace("%f1", filePath1);
-                    arguments = arguments.Replace("%f2", filePath2);
+                    arguments = arguments.Replace(CommonConfiguration.placeholderFile1Path, filePath1);
+                    arguments = arguments.Replace(CommonConfiguration.placeholderFile2Path, filePath2);
 
-                    arguments = arguments.Replace("%ft1", fileTitle1);
-                    arguments = arguments.Replace("%ft2", fileTitle2);
+                    arguments = arguments.Replace(CommonConfiguration.placeholderFile1Title, fileTitle1);
+                    arguments = arguments.Replace(CommonConfiguration.placeholderFile2Title, fileTitle2);
 
                     info.Arguments = arguments.ToString();
 
@@ -1707,11 +1702,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             }
                             else
                             {
-                                this.WriteToOutput(connectionData1, "Cannot get OleMenuCommandService.");
+                                this.WriteToOutput(connectionData1, Properties.OutputStrings.CannotGetOleMenuCommandService);
 
                                 if (connectionData2 != null)
                                 {
-                                    this.WriteToOutput(connectionData2, "Cannot get OleMenuCommandService.");
+                                    this.WriteToOutput(connectionData2, Properties.OutputStrings.CannotGetOleMenuCommandService);
                                 }
                             }
                         }
@@ -1732,11 +1727,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                     else
                     {
-                        this.WriteToOutput(connectionData1, "Cannot execute Visual Studio Diff Program.");
+                        this.WriteToOutput(connectionData1, Properties.OutputStrings.CannotExecuteVisualStudioDiffProgram);
 
                         if (connectionData2 != null)
                         {
-                            this.WriteToOutput(connectionData2, "Cannot execute Visual Studio Diff Program.");
+                            this.WriteToOutput(connectionData2, Properties.OutputStrings.CannotExecuteVisualStudioDiffProgram);
                         }
                     }
                 }
@@ -1755,7 +1750,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (!commonConfig.DifferenceThreeWayAvaliable())
             {
-                this.WriteToOutput(null, "There is no valid configuration for ThreeWay Difference.");
+                this.WriteToOutput(null, Properties.OutputStrings.NoValidConfigurationForThreeWayDifference);
                 return this;
             }
 
@@ -1765,7 +1760,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 this.WriteToOutput(null, string.Empty);
                 this.WriteToOutput(null, string.Empty);
 
-                this.WriteToOutput(null, "Starting ThreeWay Difference Programm for files:");
+                this.WriteToOutput(null, Properties.OutputStrings.ExecutingThreeWayDifferenceProgramForFiles);
 
                 this.WriteToOutput(null, fileLocalPath);
                 this.WriteToOutputFilePathUri(null, fileLocalPath);
@@ -1782,18 +1777,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 var info = new ProcessStartInfo
                 {
-                    FileName = string.Format("\"{0}\"", commonConfig.CompareProgram)
+                    FileName = string.Format(_formatStringInQuotes, commonConfig.CompareProgram)
                 };
 
                 var arguments = new StringBuilder(commonConfig.CompareArgumentsThreeWayFormat);
+                
+                arguments = arguments.Replace(CommonConfiguration.placeholderFileLocalPath, fileLocalPath);
+                arguments = arguments.Replace(CommonConfiguration.placeholderFile1Path, filePath1);
+                arguments = arguments.Replace(CommonConfiguration.placeholderFile2Path, filePath2);
 
-                arguments = arguments.Replace("%fl", fileLocalPath);
-                arguments = arguments.Replace("%f1", filePath1);
-                arguments = arguments.Replace("%f2", filePath2);
-
-                arguments = arguments.Replace("%flt", fileLocalTitle);
-                arguments = arguments.Replace("%ft1", fileTitle1);
-                arguments = arguments.Replace("%ft2", fileTitle2);
+                arguments = arguments.Replace(CommonConfiguration.placeholderFileLocalTitle, fileLocalTitle);
+                arguments = arguments.Replace(CommonConfiguration.placeholderFile1Title, fileTitle1);
+                arguments = arguments.Replace(CommonConfiguration.placeholderFile2Title, fileTitle2);
 
                 info.Arguments = arguments.ToString();
 

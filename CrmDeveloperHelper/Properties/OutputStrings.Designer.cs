@@ -196,6 +196,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot execute Visual Studio Diff Program..
+        /// </summary>
+        internal static string CannotExecuteVisualStudioDiffProgram {
+            get {
+                return ResourceManager.GetString("CannotExecuteVisualStudioDiffProgram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot get OleMenuCommandService..
+        /// </summary>
+        internal static string CannotGetOleMenuCommandService {
+            get {
+                return ResourceManager.GetString("CannotGetOleMenuCommandService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot update PluginAssembly {0}..
         /// </summary>
         internal static string CannotUpdatePluginAssemblyFormat1 {
@@ -1591,11 +1609,56 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to     Id          : {0}.
+        /// </summary>
+        internal static string EntityReferenceIdFormat1 {
+            get {
+                return ResourceManager.GetString("EntityReferenceIdFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to     LogicalName : {0}.
+        /// </summary>
+        internal static string EntityReferenceLogicalNameFormat1 {
+            get {
+                return ResourceManager.GetString("EntityReferenceLogicalNameFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to     Name        : {0}.
+        /// </summary>
+        internal static string EntityReferenceNameFormat1 {
+            get {
+                return ResourceManager.GetString("EntityReferenceNameFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to     Url         : {0}.
+        /// </summary>
+        internal static string EntityReferenceUrlFormat1 {
+            get {
+                return ResourceManager.GetString("EntityReferenceUrlFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exception while {0}.
         /// </summary>
         internal static string ExceptionWhileOperationFormat1 {
             get {
                 return ResourceManager.GetString("ExceptionWhileOperationFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Executing Difference Program for files:.
+        /// </summary>
+        internal static string ExecutingDifferenceProgramForFiles {
+            get {
+                return ResourceManager.GetString("ExecutingDifferenceProgramForFiles", resourceCulture);
             }
         }
         
@@ -1614,6 +1677,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string ExecutingOnEntityWorkflowFormat3 {
             get {
                 return ResourceManager.GetString("ExecutingOnEntityWorkflowFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Executing ThreeWay Difference Program for files:.
+        /// </summary>
+        internal static string ExecutingThreeWayDifferenceProgramForFiles {
+            get {
+                return ResourceManager.GetString("ExecutingThreeWayDifferenceProgramForFiles", resourceCulture);
             }
         }
         
@@ -2050,20 +2122,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Files NOT FOUND in CRM: {0}.
+        ///   Looks up a localized string similar to Files not exists: {0}.
         /// </summary>
-        internal static string FilesNotFoundInCRMFormat1 {
+        internal static string FilesNotExistsCountFormat1 {
             get {
-                return ResourceManager.GetString("FilesNotFoundInCRMFormat1", resourceCulture);
+                return ResourceManager.GetString("FilesNotExistsCountFormat1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Files NOT FOUND in CRM, but has Last Link: {0}.
+        ///   Looks up a localized string similar to Files NOT FOUND in CRM: {0}.
         /// </summary>
-        internal static string FilesNotFoundInCRMWithLastLinkFormat1 {
+        internal static string FilesNotFoundInCRMCountFormat1 {
             get {
-                return ResourceManager.GetString("FilesNotFoundInCRMWithLastLinkFormat1", resourceCulture);
+                return ResourceManager.GetString("FilesNotFoundInCRMCountFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Files NOT FOUND in CRM, but have Last Link: {0}.
+        /// </summary>
+        internal static string FilesNotFoundInCRMWithLastLinkCountFormat1 {
+            get {
+                return ResourceManager.GetString("FilesNotFoundInCRMWithLastLinkCountFormat1", resourceCulture);
             }
         }
         
@@ -2100,6 +2181,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string FileTextIsNotXmlFormat1 {
             get {
                 return ResourceManager.GetString("FileTextIsNotXmlFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File Uri                   :    {0}.
+        /// </summary>
+        internal static string FileUriFormat1 {
+            get {
+                return ResourceManager.GetString("FileUriFormat1", resourceCulture);
             }
         }
         
@@ -2487,6 +2577,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string GettingWebResources {
             get {
                 return ResourceManager.GetString("GettingWebResources", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open File in TextEditor.
+        /// </summary>
+        internal static string HeaderOpenFileInTextEditor {
+            get {
+                return ResourceManager.GetString("HeaderOpenFileInTextEditor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open in Visual Studio.
+        /// </summary>
+        internal static string HeaderOpenInVisualStudio {
+            get {
+                return ResourceManager.GetString("HeaderOpenInVisualStudio", resourceCulture);
             }
         }
         
@@ -4759,6 +4867,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No files that are not in CRM..
+        /// </summary>
+        internal static string NoFilesNotInCRM {
+            get {
+                return ResourceManager.GetString("NoFilesNotInCRM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No files to make a difference..
         /// </summary>
         internal static string NoFilesToMakeDifference {
@@ -4957,6 +5074,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There is no valid configuration for ThreeWay Difference..
+        /// </summary>
+        internal static string NoValidConfigurationForThreeWayDifference {
+            get {
+                return ResourceManager.GetString("NoValidConfigurationForThreeWayDifference", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Objects founded in CRM: {0}.
         /// </summary>
         internal static string ObjectsFoundedInCRMFormat1 {
@@ -4975,11 +5101,110 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open File in Excel         :    {0}.
+        /// </summary>
+        internal static string OpenFileInExcelUriFormat1 {
+            get {
+                return ResourceManager.GetString("OpenFileInExcelUriFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open File in TextEditor    :    {0}.
+        /// </summary>
+        internal static string OpenFileInTextEditorUriFormat1 {
+            get {
+                return ResourceManager.GetString("OpenFileInTextEditorUriFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open File in Visual Studio :    {0}.
+        /// </summary>
+        internal static string OpenFileInVisualStudioUriFormat1 {
+            get {
+                return ResourceManager.GetString("OpenFileInVisualStudioUriFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opening file in Excel {0}.
+        /// </summary>
+        internal static string OpeningFileInExcelFormat1 {
+            get {
+                return ResourceManager.GetString("OpeningFileInExcelFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opening file in Text Editor {0}.
+        /// </summary>
+        internal static string OpeningFileInTextEditorFormat1 {
+            get {
+                return ResourceManager.GetString("OpeningFileInTextEditorFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opening file in Visual Studio {0}.
+        /// </summary>
+        internal static string OpeningFileInVisualStudioFormat1 {
+            get {
+                return ResourceManager.GetString("OpeningFileInVisualStudioFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opening folder {0}.
+        /// </summary>
+        internal static string OpeningFolderFormat1 {
+            get {
+                return ResourceManager.GetString("OpeningFolderFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Opening a form for selecting WebResource....
         /// </summary>
         internal static string OpeningFormForSelectingWebResource {
             get {
                 return ResourceManager.GetString("OpeningFormForSelectingWebResource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Solution in Browser       : {0}.
+        /// </summary>
+        internal static string OpenSolutionInBrowserSolutionUriFormat1 {
+            get {
+                return ResourceManager.GetString("OpenSolutionInBrowserSolutionUriFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Solution in Explorer      : {0}.
+        /// </summary>
+        internal static string OpenSolutionInExplorerSolutionUriFormat1 {
+            get {
+                return ResourceManager.GetString("OpenSolutionInExplorerSolutionUriFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Solution List in Browser  : {0}.
+        /// </summary>
+        internal static string OpenSolutionListInBrowserSolutionUriFormat1 {
+            get {
+                return ResourceManager.GetString("OpenSolutionListInBrowserSolutionUriFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Solutions Explorer        : {0}.
+        /// </summary>
+        internal static string OpenSolutionsExplorerSolutionUriFormat1 {
+            get {
+                return ResourceManager.GetString("OpenSolutionsExplorerSolutionUriFormat1", resourceCulture);
             }
         }
         
@@ -5133,6 +5358,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string PublishingWebResources {
             get {
                 return ResourceManager.GetString("PublishingWebResources", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publish List cleared..
+        /// </summary>
+        internal static string PublishListCleared {
+            get {
+                return ResourceManager.GetString("PublishListCleared", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publish List: {0}.
+        /// </summary>
+        internal static string PublishListContentCountFormat1 {
+            get {
+                return ResourceManager.GetString("PublishListContentCountFormat1", resourceCulture);
             }
         }
         
@@ -5331,6 +5574,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string SavingEntityInstanceFormat2 {
             get {
                 return ResourceManager.GetString("SavingEntityInstanceFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selected Solution              : {0}.
+        /// </summary>
+        internal static string SelectedSolutionNameFormat1 {
+            get {
+                return ResourceManager.GetString("SelectedSolutionNameFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select File in Folder      :    {0}.
+        /// </summary>
+        internal static string SelectFileInFolderUriFormat1 {
+            get {
+                return ResourceManager.GetString("SelectFileInFolderUriFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selecting file in folder {0}.
+        /// </summary>
+        internal static string SelectingFileInFolderFormat1 {
+            get {
+                return ResourceManager.GetString("SelectingFileInFolderFormat1", resourceCulture);
             }
         }
         

@@ -6,28 +6,41 @@ using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Tagging;
 using Microsoft.VisualStudio.TextManager.Interop;
-using Microsoft.VisualStudio.Threading;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Web;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 {
     public class UrlCommandFilter : IOleCommandTarget
     {
-        public const string PrefixOpenInVisualStudio = "openinvisualstudio";
-        public const string PrefixOpenInVisualStudioRelativePath = "openinvisualstudiopath";
-        public const string PrefixOpenInTextEditor = "openintexteditor";
-        public const string PrefixOpenInExcel = "openinexcel";
-        public const string PrefixShowDifference = "showdifference";
-        public const string PrefixSelectFileInFolder = "selectfileinfolder";
-        public const string PrefixOpenSolution = "opensolution";
-        public const string PrefixOpenSolutionList = "opensolutionlist";
+        public const string SchemeOpenInVisualStudio = "openinvisualstudio";
+        public const string SchemeOpenInVisualStudioRelativePath = "openinvisualstudiopath";
+        public const string SchemeOpenInTextEditor = "openintexteditor";
+        public const string SchemeOpenInExcel = "openinexcel";
+        public const string SchemeShowDifference = "showdifference";
+        public const string SchemeSelectFileInFolder = "selectfileinfolder";
+        public const string SchemeOpenSolution = "opensolution";
+        public const string SchemeOpenSolutionExplorer = "opensolutionlist";
+
+        public const string protocolOpenInVisualStudio = SchemeOpenInVisualStudio + ":";
+        public const string protocolOpenInVisualStudioRelativePath = SchemeOpenInVisualStudioRelativePath + ":";
+        public const string protocolOpenInTextEditor = SchemeOpenInTextEditor + ":";
+        public const string protocolOpenInExcel = SchemeOpenInExcel + ":";
+        public const string protocolShowDifference = SchemeShowDifference + ":";
+        public const string protocolSelectFileInFolder = SchemeSelectFileInFolder + ":";
+        public const string protocolOpenSolution = SchemeOpenSolution + ":";
+        public const string protocolOpenSolutionExplorer = SchemeOpenSolutionExplorer + ":";
+
+        public const string uriComponentConnectionId = "ConnectionId";
+        public const string uriComponentSolutionUniqueName = "SolutionUniqueName";
+
+        public const string uriComponentFieldName = "fieldName";
+        public const string uriComponentFieldTitle = "fieldTitle";
 
         private IOleCommandTarget _nextCommandHandler;
         private ITextView _textView;
@@ -170,7 +183,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
         {
             if (uri == null) throw new ArgumentNullException(nameof(uri));
 
-            if (string.Equals(uri.Scheme, PrefixOpenInVisualStudio, StringComparison.InvariantCultureIgnoreCase))
+            if (string.Equals(uri.Scheme, SchemeOpenInVisualStudio, StringComparison.InvariantCultureIgnoreCase))
             {
                 if (File.Exists(uri.LocalPath))
                 {
@@ -180,14 +193,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 return true;
             }
 
-            if (string.Equals(uri.Scheme, PrefixOpenInVisualStudioRelativePath, StringComparison.InvariantCultureIgnoreCase))
+            if (string.Equals(uri.Scheme, SchemeOpenInVisualStudioRelativePath, StringComparison.InvariantCultureIgnoreCase))
             {
                 DTEHelper.Singleton?.OpenFileInVisualStudioRelativePath(null, uri.LocalPath);
 
                 return true;
             }
 
-            if (string.Equals(uri.Scheme, PrefixOpenInTextEditor, StringComparison.InvariantCultureIgnoreCase))
+            if (string.Equals(uri.Scheme, SchemeOpenInTextEditor, StringComparison.InvariantCultureIgnoreCase))
             {
                 if (File.Exists(uri.LocalPath))
                 {
@@ -197,7 +210,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 return true;
             }
 
-            if (string.Equals(uri.Scheme, PrefixOpenInExcel, StringComparison.InvariantCultureIgnoreCase))
+            if (string.Equals(uri.Scheme, SchemeOpenInExcel, StringComparison.InvariantCultureIgnoreCase))
             {
                 if (File.Exists(uri.LocalPath))
                 {
@@ -207,28 +220,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 return true;
             }
 
-            if (string.Equals(uri.Scheme, PrefixShowDifference, StringComparison.InvariantCultureIgnoreCase))
+            if (string.Equals(uri.Scheme, SchemeShowDifference, StringComparison.InvariantCultureIgnoreCase))
             {
                 DTEHelper.Singleton?.ShowDifference(uri);
 
                 return true;
             }
 
-            if (string.Equals(uri.Scheme, PrefixOpenSolution, StringComparison.InvariantCultureIgnoreCase))
+            if (string.Equals(uri.Scheme, SchemeOpenSolution, StringComparison.InvariantCultureIgnoreCase))
             {
                 DTEHelper.Singleton?.OpenSolution(uri);
 
                 return true;
             }
 
-            if (string.Equals(uri.Scheme, PrefixOpenSolutionList, StringComparison.InvariantCultureIgnoreCase))
+            if (string.Equals(uri.Scheme, SchemeOpenSolutionExplorer, StringComparison.InvariantCultureIgnoreCase))
             {
                 DTEHelper.Singleton?.OpenSolutionList(uri);
 
                 return true;
             }
 
-            if (string.Equals(uri.Scheme, PrefixSelectFileInFolder, StringComparison.InvariantCultureIgnoreCase))
+            if (string.Equals(uri.Scheme, SchemeSelectFileInFolder, StringComparison.InvariantCultureIgnoreCase))
             {
                 if (File.Exists(uri.LocalPath))
                 {
@@ -267,6 +280,86 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             }
 
             return false;
+        }
+
+        public static string GetUrlShowDifference(Guid connectionId, string filePath)
+        {
+            string refactoringFilePath = filePath.Replace('\\', '/');
+
+            return $"{protocolShowDifference}///{refactoringFilePath}?{uriComponentConnectionId}={connectionId}";
+        }
+
+        public static string GetUriOpenInVisualStudioByFilePath(string filePath)
+        {
+            string uriFile = new Uri(filePath, UriKind.Absolute).AbsoluteUri;
+
+            return GetUriOpenInVisualStudioByFileUri(uriFile);
+        }
+
+        public static string GetUriOpenInVisualStudioByFileUri(string uriFile)
+        {
+            string uriFileOpenInVisualStudio = uriFile.Replace("file:", protocolOpenInVisualStudio);
+
+            return uriFileOpenInVisualStudio;
+        }
+
+        public static string GetUriOpenInVisualStudioRelativePath(string friendlyFilePath)
+        {
+            string refactoringFriendlyFilePath = friendlyFilePath.Replace('\\', '/').TrimStart('/');
+
+            return $"{protocolOpenInVisualStudioRelativePath}///{refactoringFriendlyFilePath}";
+        }
+
+        public static string GetUriOpenInTextEditorByFilePath(string filePath)
+        {
+            string uriFile = new Uri(filePath, UriKind.Absolute).AbsoluteUri;
+
+            return GetUriOpenInTextEditorByFileUri(uriFile);
+        }
+
+        public static string GetUriOpenInTextEditorByFileUri(string uriFile)
+        {
+            string uriFileOpenInTextEditor = uriFile.Replace("file:", protocolOpenInTextEditor);
+
+            return uriFileOpenInTextEditor;
+        }
+
+        public static string GetUriSelectFileInFolderByFilePath(string filePath)
+        {
+            string uriFile = new Uri(filePath, UriKind.Absolute).AbsoluteUri;
+
+            return GetUriSelectFileInFolderByFileUri(uriFile);
+        }
+
+        public static string GetUriSelectFileInFolderByFileUri(string uriFile)
+        {
+            string uriFileSelectFileInFolder = uriFile.Replace("file:", protocolSelectFileInFolder);
+
+            return uriFileSelectFileInFolder;
+        }
+
+        public static string GetUriOpenInExcelByFilePath(string filePath)
+        {
+            string uriFile = new Uri(filePath, UriKind.Absolute).AbsoluteUri;
+
+            return GetUriOpenInExcelByFileUri(uriFile);
+        }
+
+        public static string GetUriOpenInExcelByFileUri(string uriFile)
+        {
+            string uriFileOpenInExcel = uriFile.Replace("file:", protocolOpenInExcel);
+
+            return uriFileOpenInExcel;
+        }
+
+        public static string GetUriOpenSolution(Guid connectionId, string solutionUniqueName)
+        {
+            return $"{protocolOpenSolution}///crm.com?{uriComponentConnectionId}={connectionId}&{uriComponentSolutionUniqueName}={HttpUtility.UrlEncode(solutionUniqueName)}";
+        }
+
+        public static string GetUriOpenSolutionExplorer(Guid connectionId)
+        {
+            return $"{protocolOpenSolutionExplorer}///crm.com?{uriComponentConnectionId}={connectionId}";
         }
     }
 }
