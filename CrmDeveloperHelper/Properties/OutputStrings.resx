@@ -149,6 +149,12 @@
   <data name="DifferenceWasCancelled" xml:space="preserve">
     <value>Difference was cancelled.</value>
   </data>
+  <data name="OperationWasCancelled" xml:space="preserve">
+    <value>Operation was cancelled.</value>
+  </data>
+  <data name="StartOperationFormat2" xml:space="preserve">
+    <value>*********** Start {0} at {1} *******************************************************</value>
+  </data>
   <data name="EndOperationFormat2" xml:space="preserve">
     <value>***********   End {0} at {1} *******************************************************</value>
   </data>
@@ -211,8 +217,11 @@
   <data name="NoCurrentCRMConnection" xml:space="preserve">
     <value>No current CRM Connection.</value>
   </data>
-  <data name="NoFilesForDifference" xml:space="preserve">
-    <value>No files for difference.</value>
+  <data name="NoFilesToMakeDifference" xml:space="preserve">
+    <value>No files to make a difference.</value>
+  </data>
+  <data name="NoFilesToOpen" xml:space="preserve">
+    <value>No files to open.</value>
   </data>
   <data name="NoObjectsInCRMWereFounded" xml:space="preserve">
     <value>No Objects in CRM were founded.</value>
@@ -264,14 +273,11 @@
   <data name="StartingCompareProgramForCountFilesFormat1" xml:space="preserve">
     <value>Starting Compare Program for {0} files.</value>
   </data>
-  <data name="StartOperationFormat2" xml:space="preserve">
-    <value>*********** Start {0} at {1} *******************************************************</value>
-  </data>
   <data name="TextIsNotValidForFieldFormat1" xml:space="preserve">
     <value>Text is not valid for {0}.</value>
   </data>
-  <data name="WebResourceNotFoundedInConnectionFormat2" xml:space="preserve">
-    <value>{0}: WebResource not founded in CRM: {1}</value>
+  <data name="InConnectionWebResourceWasNotFoundFormat2" xml:space="preserve">
+    <value>{0}. WebResource was not found in CRM: {1}</value>
   </data>
   <data name="XmlValidationMessageFormat2" xml:space="preserve">
     <value>Severity: {0}      Message: {1}</value>
@@ -566,8 +572,16 @@
     <value>WebResource founded by name. WebResourceId: {0} Name: {1}</value>
   </data>
 
+  <data name="InConnectionWebResourceFoundedByNameFormat3" xml:space="preserve">
+    <value>{0}. WebResource founded by name. WebResourceId: {1} Name: {2}</value>
+  </data>
+
   <data name="WebResourceNotFoundedByNameFormat1" xml:space="preserve">
     <value>WebResource Not founded by name. FileName: {0}</value>
+  </data>
+
+  <data name="WebResourceNotFoundedFormat1" xml:space="preserve">
+    <value>WebResource Not founded. FileName: {0}</value>
   </data>
 
   <data name="ReportFoundedByNameFormat2" xml:space="preserve">
@@ -2237,27 +2251,134 @@
     <value>OrganizationService returned to ConnectionPool.    Services in Use {0,4},   Services in Pool {1,4},   CacheTime   {2}.</value>
   </data>
 
+  <data name="UpdatingWebResourcesContent" xml:space="preserve">
+    <value>Updating WebResources Content...</value>
+  </data>
+  <data name="PublishingWebResources" xml:space="preserve">
+    <value>Publishing WebResources...</value>
+  </data>
+  <data name="PublishedWebResourcesFormat1" xml:space="preserve">
+    <value>Published WebResources: {0}</value>
+  </data>
+  
+  <data name="WebResourcesNotCustomizableFormat1" xml:space="preserve">
+    <value>WebResources are NOT Customizable, can't change WebResource's content: {0}</value>
+  </data>
+  <data name="WebResourcesEqualToFileContentFormat1" xml:space="preserve">
+    <value>WebResources equal to file content: {0}</value>
+  </data>
+  <data name="WebResourcesUpdatedFormat1" xml:space="preserve">
+    <value>Updated WebResources: {0}</value>
+  </data>
+  <data name="WebResourcesUpdatedDependencyXmlFormat1" xml:space="preserve">
+    <value>Updated WebResources DependencyXml: {0}</value>
+  </data>
+  <data name="TryToFindWebResourceByNameFormat1" xml:space="preserve">
+    <value>Try to find WebResource by name: {0}. Searching...</value>
+  </data>
+  <data name="WebResourceFoundedByNameWithConnectionPrefixFormat2" xml:space="preserve">
+    <value>WebResource founded by name with Connection Prefix. WebResourceId: {0} Name: {1}</value>
+  </data>
+  <data name="InConnectionWebResourceFoundedByNameWithConnectionPrefixFormat3" xml:space="preserve">
+    <value>{0}. WebResource founded by name with Connection Prefix. WebResourceId: {1} Name: {2}</value>
+  </data>
+  <data name="WebResourceWasNotFoundByNameOpeningFormForSelectingWebResourceFormat1" xml:space="preserve">
+    <value>WebResource was Not found by name. FileName: {0}. Opening a form for selecting WebResource...</value>
+  </data>
+  <data name="WebResourcesUpdatingContentAndPublishingCancelled" xml:space="preserve">
+    <value>Updating Content and Publishing was cancelled.</value>
+  </data>
+  <data name="WebResourceNotSelectedFormat1" xml:space="preserve">
+    <value>!Warning. WebResource not linked. name: {0}.</value>
+  </data>
+  <data name="UpdatingWebResourcesCompleted" xml:space="preserve">
+    <value>Updating WebResources Completed.</value>
+  </data>
+  
+  <data name="UpdatingSystemFormFormXmlAndPublishing" xml:space="preserve">
+    <value>Updating SystemForm FormXml and Publishing...</value>
+  </data>
+  <data name="UpdatingSystemFormFormXmlCompleted" xml:space="preserve">
+    <value>Update SystemForms FormXml Completed.</value>
+  </data>
+  <data name="PublishingSystemForms" xml:space="preserve">
+    <value>Publishing SystemForms</value>
+  </data>
+  <data name="PublishedSystemFormsFormat1" xml:space="preserve">
+    <value>Published SystemForms</value>
+  </data>
+  <data name="NoFilesForAddingToPublishList" xml:space="preserve">
+    <value>No files for adding to Publish List.</value>
+  </data>
+  <data name="NoFilesForRemovingFromPublishList" xml:space="preserve">
+    <value>No files for removing from Publish List.</value>
+  </data>
+  
+  <data name="FilesNotFoundInCRMFormat1" xml:space="preserve">
+    <value>Files NOT FOUND in CRM: {0}</value>
+  </data>
+  <data name="FilesNotFoundInCRMWithLastLinkFormat1" xml:space="preserve">
+    <value>Files NOT FOUND in CRM, but has Last Link: {0}</value>
+  </data>
+  <data name="FilesWithoutDependentComponentsFormat1" xml:space="preserve">
+    <value>Files without dependent components: {0}</value>
+  </data>
+  <data name="WebResourcesDependentComponentsFormat1" xml:space="preserve">
+    <value>WebResources dependent components: {0}</value>
+  </data>
+  <data name="WebResourceIsSelected" xml:space="preserve">
+    <value>WebResource is Selected.</value>
+  </data>
+  <data name="WebResourceWasNotFoundByNameLastLinkedWebResourceIsSelectedFormat2" xml:space="preserve">
+    <value>WebResource was Not found by name. Last linked WebResource is selected. WebResourceId: {0} Name: {1}</value>
+  </data>
+  <data name="InConnectionWebResourceWasNotFoundByNameLastLinkedWebResourceIsSelectedFormat3" xml:space="preserve">
+    <value>{0}. WebResource was Not found by name. Last linked WebResource is selected. WebResourceId: {1} Name: {2}</value>
+  </data>
+  <data name="OpeningFormForSelectingWebResource" xml:space="preserve">
+    <value>Opening a form for selecting WebResource...</value>
+  </data>
+  <data name="WebResourceWasNotFoundByNameAndDoesNotHaveLastLinkFormat1" xml:space="preserve">
+    <value>WebResource was not found by name and does not have the Last Link. FileName: {0}</value>
+  </data>
+  
   <!--
   <data name="111111" xml:space="preserve">
     <value>2222222</value>
   </data>
-  
   <data name="111111" xml:space="preserve">
     <value>2222222</value>
   </data>
-  
   <data name="111111" xml:space="preserve">
     <value>2222222</value>
   </data>
-  
   <data name="111111" xml:space="preserve">
     <value>2222222</value>
   </data>
-  
   <data name="111111" xml:space="preserve">
     <value>2222222</value>
   </data>
-  
+  <data name="111111" xml:space="preserve">
+    <value>2222222</value>
+  </data>
+  <data name="111111" xml:space="preserve">
+    <value>2222222</value>
+  </data>
+  <data name="111111" xml:space="preserve">
+    <value>2222222</value>
+  </data>
+  <data name="111111" xml:space="preserve">
+    <value>2222222</value>
+  </data>
+  <data name="111111" xml:space="preserve">
+    <value>2222222</value>
+  </data>
+  <data name="111111" xml:space="preserve">
+    <value>2222222</value>
+  </data>
+  <data name="111111" xml:space="preserve">
+    <value>2222222</value>
+  </data>
   <data name="111111" xml:space="preserve">
     <value>2222222</value>
   </data>

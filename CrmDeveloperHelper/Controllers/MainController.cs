@@ -710,67 +710,67 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         #region WebResource
 
         public void StartUpdateContentAndPublish(ConnectionData connectionData, List<SelectedFile> selectedFiles)
-            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteUpdateContentAndPublish, selectedFiles);
+            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteUpdateContentAndPublishAsync, selectedFiles);
 
         public void StartUpdateContentAndPublishEqualByText(ConnectionData connectionData, List<SelectedFile> selectedFiles)
-            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteUpdateContentAndPublishEqualByText, selectedFiles);
+            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteUpdateContentAndPublishEqualByTextAsync, selectedFiles);
 
         public void StartIncludeReferencesToDependencyXml(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
-            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteIncludeReferencesToDependencyXml, commonConfig, selectedFiles);
+            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteIncludeReferencesToDependencyXmlAsync, commonConfig, selectedFiles);
 
         public void StartUpdateContentIncludeReferencesToDependencyXml(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
-            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteUpdateContentIncludeReferencesToDependencyXml, commonConfig, selectedFiles);
+            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteUpdateContentIncludeReferencesToDependencyXmlAsync, commonConfig, selectedFiles);
 
         public void StartUpdateEqualByTextContentContentIncludeReferencesToDependencyXml(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
-            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteUpdateEqualByTextContentIncludeReferencesToDependencyXml, commonConfig, selectedFiles);
+            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteUpdateEqualByTextContentIncludeReferencesToDependencyXmlAsync, commonConfig, selectedFiles);
 
         public void StartIncludeReferencesToLinkedSystemFormsLibraries(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
-            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteIncludeReferencesToLinkedSystemFormsLibraries, commonConfig, selectedFiles);
+            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteIncludeReferencesToLinkedSystemFormsLibrariesAsync, commonConfig, selectedFiles);
 
         public void StartWebResourceComparing(ConnectionData connectionData, List<SelectedFile> selectedFiles, bool withDetails)
-            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteComparingFilesAndWebResources, selectedFiles, withDetails);
+            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteComparingFilesAndWebResourcesAsync, selectedFiles, withDetails);
 
         public void StartComparingFilesWithWrongEncoding(ConnectionData connectionData, List<SelectedFile> selectedFiles, bool withDetails)
-            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteComparingFilesWithWrongEncoding, selectedFiles, withDetails);
+            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteComparingFilesWithWrongEncodingAsync, selectedFiles, withDetails);
 
         public void ShowingWebResourcesDependentComponents(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
-            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteShowingWebResourcesDependentComponents, commonConfig, selectedFiles);
+            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteShowingWebResourcesDependentComponentsAsync, commonConfig, selectedFiles);
 
         public void StartWebResourceDifference(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, bool withSelect)
-            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteDifferenceWebResources, commonConfig, selectedFile, withSelect);
+            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteDifferenceWebResourcesAsync, commonConfig, selectedFile, withSelect);
 
         public void StartWebResourceCreateEntityDescription(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
-            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteCreatingWebResourceEntityDescription, commonConfig, selectedFile);
+            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteCreatingWebResourceEntityDescriptionAsync, commonConfig, selectedFile);
 
         public void StartWebResourceGetAttribute(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, string fieldName, string fieldTitle)
-            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteWebResourceGettingAttribute, commonConfig, selectedFile, fieldName, fieldTitle);
+            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteWebResourceGettingAttributeAsync, commonConfig, selectedFile, fieldName, fieldTitle);
 
         public void StartWebResourceChangeInEntityEditor(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
-            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteChangingWebResourceInEntityEditor, commonConfig, selectedFile);
+            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteChangingWebResourceInEntityEditorAsync, commonConfig, selectedFile);
 
         public void StartWebResourceThreeFileDifference(ConnectionData connectionData1, ConnectionData connectionData2, CommonConfiguration commonConfig, SelectedFile selectedFile, ShowDifferenceThreeFileType differenceType)
-            => ExecuteInThread(this._webResourceController.ExecuteThreeFileDifferenceWebResources, connectionData1, connectionData2, commonConfig, selectedFile, differenceType);
+            => ExecuteInThread(this._webResourceController.ExecuteThreeFileDifferenceWebResourcesAsync, connectionData1, connectionData2, commonConfig, selectedFile, differenceType);
 
         public void StartWebResourceMultiDifferenceFiles(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, OpenFilesType openFilesType)
-            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteWebResourceMultiDifferenceFiles, commonConfig, selectedFiles, openFilesType);
+            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteWebResourceMultiDifferenceFilesAsync, commonConfig, selectedFiles, openFilesType);
 
         public void StartWebResourceCreatingLastLinkMultiple(ConnectionData connectionData, List<SelectedFile> selectedFiles)
-            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteCreatingLastLinkWebResourceMultiple, selectedFiles);
+            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteCreatingLastLinkWebResourceMultipleAsync, selectedFiles);
 
         public void StartClearingLastLink(ConnectionData connectionData, List<SelectedFile> selectedFiles)
             => ExecuteWithConnectionInThreadVoid(connectionData, this._webResourceController.ExecuteClearingWebResourcesLinks, selectedFiles);
 
         public void StartWebResourcesGetContent(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
-            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteGettingContent, commonConfig, selectedFiles);
+            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteGettingContentAsync, commonConfig, selectedFiles);
 
         public void StartOpeningWebResource(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, ActionOnComponent actionOnComponent)
-            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteOpeningWebResource, commonConfig, selectedFile, actionOnComponent);
+            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteOpeningWebResourceAsync, commonConfig, selectedFile, actionOnComponent);
 
         public void StartAddingIntoPublishListFilesByType(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, OpenFilesType openFilesType)
-            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteAddingIntoPublishListFilesByType, commonConfig, selectedFiles, openFilesType);
+            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteAddingIntoPublishListFilesByTypeAsync, commonConfig, selectedFiles, openFilesType);
 
         public void StartRemovingFromPublishListFilesByType(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, OpenFilesType openFilesType)
-            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteRemovingIntoPublishListFilesByType, commonConfig, selectedFiles, openFilesType);
+            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteRemovingIntoPublishListFilesByTypeAsync, commonConfig, selectedFiles, openFilesType);
 
         public void StartWebResourceCheckFileEncoding(List<SelectedFile> selectedFiles)
             => ExecuteInThreadVoid(this._webResourceController.ExecuteCheckingFilesEncoding, selectedFiles);
@@ -779,7 +779,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             => ExecuteInThreadVoid(this._webResourceController.ExecuteOpenFilesWithoutUTF8Encoding, selectedFiles);
 
         public void StartWebResourceOpeningFiles(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, OpenFilesType openFilesType, bool isTextEditor)
-            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteOpenFiles, commonConfig, selectedFiles, openFilesType, isTextEditor);
+            => ExecuteWithConnectionInThread(connectionData, this._webResourceController.ExecuteOpenFilesAsync, commonConfig, selectedFiles, openFilesType, isTextEditor);
 
         #endregion WebResource
 

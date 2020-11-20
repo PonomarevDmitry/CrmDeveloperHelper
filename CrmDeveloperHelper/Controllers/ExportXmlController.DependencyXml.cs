@@ -185,7 +185,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (webResource == null)
             {
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.WebResourceNotFoundedInConnectionFormat2, service.ConnectionData.Name, webResourceName);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.InConnectionWebResourceWasNotFoundFormat2, service.ConnectionData.Name, webResourceName);
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
                 WindowHelper.OpenWebResourceExplorer(_iWriteToOutput, service, commonConfig);

@@ -23,6 +23,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 {
     public partial class WebResourceController : BaseController<IWriteToOutputAndPublishList>
     {
+        private const string headerFileName = "FileName";
+        private const string headerWebResourceName = "WebResourceName";
+        private const string headerWebResourceType = "WebResourceType";
+        private const string headerFilePath = "FilePath";
+        private const string headerNewDependenciesCount = "New Dependencies Count";
+        private const string headerNewDependencies = "New Dependencies";
+
+        private const string headerDependencies = "Dependencies";
+        private const string headerFormEntity = "Form Entity";
+        private const string headerFormType = "FormType";
+        private const string headerFormName = "FormName";
+
+        //private const string header = "FileName";
+        //private const string header = "FileName";
+
         public WebResourceController(IWriteToOutputAndPublishList iWriteToOutput)
             : base(iWriteToOutput)
         {
@@ -42,8 +57,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             public ElementForPublish(SelectedFile selectedFile, WebResource webResource)
             {
-                this.WebResource = webResource ?? throw new ArgumentException("Не задан веб-ресурс.");
-                this.SelectedFile = selectedFile ?? throw new ArgumentException("Не задан файл-источник.");
+                this.SelectedFile = selectedFile ?? throw new ArgumentNullException(nameof(selectedFile));
+                this.WebResource = webResource ?? throw new ArgumentNullException(nameof(webResource));
             }
         }
 
@@ -56,14 +71,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var listToUpdate = GetEntitesToUpdateContent(service.ConnectionData, elements.Values);
 
-            this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Updating WebResources Content...");
+            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.UpdatingWebResourcesContent);
 
             foreach (var entity in listToUpdate)
             {
                 await service.UpdateAsync(entity);
             }
 
-            this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Publishing WebResources...");
+            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PublishingWebResources);
 
             var repositoryPublish = new PublishActionsRepository(service);
             await repositoryPublish.PublishWebResourcesAsync(elements.Keys);
@@ -73,8 +88,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private void WriteToConsolePublishedWebResources(ConnectionData connectionData, IEnumerable<WebResource> elements)
         {
-            FormatTextTableHandler table = new FormatTextTableHandler();
-            table.SetHeader("WebResourceName", "WebResourceType");
+            var table = new FormatTextTableHandler(headerWebResourceName, headerWebResourceType);
 
             foreach (var webResource in elements.OrderBy(e => e.Name))
             {
@@ -82,10 +96,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 table.AddLine(webResource.Name, webresourcetype);
             }
 
-            this._iWriteToOutput.WriteToOutput(connectionData, "Published WebResources: {0}", table.Count);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.PublishedWebResourcesFormat1, table.Count);
 
             var lines = table.GetFormatedLines(false);
-            lines.ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, "{0}{1}", _tabSpacer, item));
+            lines.ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, _formatWithTabSpacer, _tabSpacer, item));
         }
 
         private List<WebResource> GetEntitesToUpdateContent(ConnectionData connectionData, IEnumerable<ElementForPublish> elements)
@@ -94,13 +108,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var list = elements.OrderBy(element => element.SelectedFile.FriendlyFilePath).ToList();
 
-            var tableNotCustomizable = new FormatTextTableHandler("FileName", "WebResourceName", "WebResourceType");
+            var tableNotCustomizable = new FormatTextTableHandler(headerFileName, headerWebResourceName, headerWebResourceType);
 
-            var tableUpdatedContent = new FormatTextTableHandler("FileName", "WebResourceName", "WebResourceType");
+            var tableUpdatedContent = new FormatTextTableHandler(headerFileName, headerWebResourceName, headerWebResourceType);
 
-            var tableEqual = new FormatTextTableHandler("FileName", "WebResourceName", "WebResourceType");
+            var tableEqual = new FormatTextTableHandler(headerFileName, headerWebResourceName, headerWebResourceType);
 
-            var tableDependencyUpdated = new FormatTextTableHandler("FileName", "New Dependencies Count", "WebResourceName", "WebResourceType", "New Dependencies");
+            var tableDependencyUpdated = new FormatTextTableHandler(headerFileName, headerNewDependenciesCount, headerWebResourceName, headerWebResourceType, headerNewDependencies);
 
             foreach (var element in list)
             {
@@ -159,34 +173,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (tableNotCustomizable.Count > 0)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, "WebResources are NOT Customizable, can't change WebResource's content: {0}", tableNotCustomizable.Count.ToString());
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WebResourcesNotCustomizableFormat1, tableNotCustomizable.Count.ToString());
 
                 var lines = tableNotCustomizable.GetFormatedLines(false);
 
-                lines.ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, "{0}{1}", _tabSpacer, item));
+                lines.ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, _formatWithTabSpacer, _tabSpacer, item));
             }
 
             if (tableEqual.Count > 0)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, "WebResources equal to file content: {0}", tableEqual.Count.ToString());
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WebResourcesEqualToFileContentFormat1, tableEqual.Count.ToString());
 
                 var lines = tableEqual.GetFormatedLines(false);
 
-                lines.ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, "{0}{1}", _tabSpacer, item));
+                lines.ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, _formatWithTabSpacer, _tabSpacer, item));
             }
 
             if (tableUpdatedContent.Count > 0)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, "Updated WebResources: {0}", tableUpdatedContent.Count.ToString());
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WebResourcesUpdatedFormat1, tableUpdatedContent.Count.ToString());
 
-                tableUpdatedContent.GetFormatedLines(false).ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, "{0}{1}", _tabSpacer, item));
+                tableUpdatedContent.GetFormatedLines(false).ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, _formatWithTabSpacer, _tabSpacer, item));
             }
 
             if (tableDependencyUpdated.Count > 0)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, "Updated WebResources DependencyXml: {0}", tableDependencyUpdated.Count.ToString());
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WebResourcesUpdatedDependencyXmlFormat1, tableDependencyUpdated.Count.ToString());
 
-                tableDependencyUpdated.GetFormatedLines(false).ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, "{0}{1}", _tabSpacer, item));
+                tableDependencyUpdated.GetFormatedLines(false).ForEach(item => _iWriteToOutput.WriteToOutput(connectionData, _formatWithTabSpacer, _tabSpacer, item));
             }
 
             return result;
@@ -194,29 +208,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Обновление веб-ресурсов и публикация.
 
-        /// <summary>
-        /// Запуск публикации ресурсов
-        /// </summary>
-        /// <param name="selectedFiles"></param>
-        /// <param name="config"></param>
-        public async Task ExecuteUpdateContentAndPublish(ConnectionData connectionData, List<SelectedFile> selectedFiles)
+        public async Task ExecuteUpdateContentAndPublishAsync(ConnectionData connectionData, List<SelectedFile> selectedFiles)
         {
             await CheckEncodingCheckReadOnlyConnectExecuteActionAsync(connectionData
                 , Properties.OperationNames.UpdatingContentAndPublishingFormat1
                 , selectedFiles
                 , true
-                , (service) => UpdatingContentAndPublish(service, selectedFiles)
+                , (service) => UpdatingContentAndPublishAsync(service, selectedFiles)
             );
         }
 
-        private async Task UpdatingContentAndPublish(IOrganizationServiceExtented service, List<SelectedFile> selectedFiles)
+        private async Task UpdatingContentAndPublishAsync(IOrganizationServiceExtented service, List<SelectedFile> selectedFiles)
         {
             using (service.Lock())
             {
                 // Репозиторий для работы с веб-ресурсами
                 var webResourceRepository = new WebResourceRepository(service);
 
-                var findResult = await FindWebResources(service, webResourceRepository, selectedFiles);
+                var findResult = await FindOrCreateWebResourcesAsync(service, webResourceRepository, selectedFiles);
 
                 if (!findResult.Item1)
                 {
@@ -235,7 +244,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task<Tuple<bool, Dictionary<Guid, ElementForPublish>>> FindWebResources(IOrganizationServiceExtented service, WebResourceRepository webResourceRepository, List<SelectedFile> selectedFiles)
+        private async Task<Tuple<bool, Dictionary<Guid, ElementForPublish>>> FindOrCreateWebResourcesAsync(IOrganizationServiceExtented service, WebResourceRepository webResourceRepository, List<SelectedFile> selectedFiles)
         {
             var elements = new Dictionary<Guid, ElementForPublish>();
 
@@ -253,11 +262,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     if (!File.Exists(selectedFile.FilePath))
                     {
-                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, "File not founded: {0}", selectedFile.FilePath);
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
                         continue;
                     }
 
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Try to find web-resource by name: {0}. Searching...", selectedFile.Name);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.TryToFindWebResourceByNameFormat1, selectedFile.Name);
 
                     string key = selectedFile.FriendlyFilePath.ToLower();
 
@@ -265,14 +274,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     if (webResource != null)
                     {
-                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, "WebResource founded by name. WebResourceId: {0} Name: {1}", webResource.Id, webResource.Name);
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.WebResourceFoundedByNameFormat2, webResource.Id, webResource.Name);
                     }
 
                     if (webResource == null)
                     {
-                        if (selectedFile.FileName.StartsWith(service.ConnectionData.Name + "."))
+                        if (selectedFile.FileName.StartsWith(service.ConnectionData.Name + ".", StringComparison.InvariantCultureIgnoreCase))
                         {
-                            string newFileName = selectedFile.FileName.Replace(service.ConnectionData.Name + ".", string.Empty);
+                            string newFileName = selectedFile.FileName.Substring(service.ConnectionData.Name.Length + 1);
 
                             string newFilePath = Path.Combine(Path.GetDirectoryName(selectedFile.FilePath), newFileName);
 
@@ -284,19 +293,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                             if (webResource != null)
                             {
-                                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "WebResource founded by name with Connection Prefix. WebResourceId: {0} Name: {1}", webResource.Id, webResource.Name);
+                                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.WebResourceFoundedByNameWithConnectionPrefixFormat2, webResource.Id, webResource.Name);
                             }
                         }
                     }
 
                     if (webResource == null)
                     {
-                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, "WebResource not founded by name. FileName: {0}. Open linking dialog...", selectedFile.Name);
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.WebResourceWasNotFoundByNameOpeningFormForSelectingWebResourceFormat1, selectedFile.Name);
 
                         Guid? webId = service.ConnectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
 
                         bool? dialogResult = null;
                         Guid? selectedWebResourceId = null;
+
+                        bool showNext = false;
 
                         var t = new Thread(() =>
                         {
@@ -304,10 +315,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             {
                                 var form = new Views.WindowWebResourceSelectOrCreate(this._iWriteToOutput, service, selectedFile, webId);
                                 form.ShowCreateButton(allForOther);
+                                form.ShowSkipButton();
 
                                 dialogResult = form.ShowDialog();
 
                                 allForOther = form.ForAllOther;
+
+                                showNext = form.ShowNext;
 
                                 selectedWebResourceId = form.SelectedWebResourceId;
                             }
@@ -336,12 +350,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             }
                             else
                             {
-                                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "!Warning. WebResource not linked. name: {0}.", selectedFile.Name);
+                                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.WebResourceNotSelectedFormat1, selectedFile.Name);
                             }
                         }
-                        else
+                        else if (!showNext)
                         {
-                            this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Updating Content and Publishing was cancelled.");
+                            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.WebResourcesUpdatingContentAndPublishingCancelled);
                             return Tuple.Create(false, (Dictionary<Guid, ElementForPublish>)null);
                         }
                     }
@@ -369,29 +383,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Публикация веб-ресурсов разных по содержанию, но одинаковых по тексту.
 
-        /// <summary>
-        /// Запуск публикации ресурсов
-        /// </summary>
-        /// <param name="selectedFiles"></param>
-        /// <param name="config"></param>
-        public async Task ExecuteUpdateContentAndPublishEqualByText(ConnectionData connectionData, List<SelectedFile> selectedFiles)
+        public async Task ExecuteUpdateContentAndPublishEqualByTextAsync(ConnectionData connectionData, List<SelectedFile> selectedFiles)
         {
             await CheckEncodingConnectFindWebResourceExecuteActionTaskAsync(connectionData
                 , Properties.OperationNames.UpdatingContentWebResourcesEqualByTextAndPublishingFormat1
                 , selectedFiles
                 , OpenFilesType.EqualByText
-                , UpdatingContentAndPublishEqualByText
+                , UpdatingContentAndPublishEqualByTextAsync
             );
         }
 
-        /// <summary>
-        /// Запуск публикации веб-ресурсов. 
-        /// Определяет ид веб-ресурсов
-        /// 1. в файле привязок
-        /// 2. по имени веб-ресурса
-        /// 3. ручное связывание
-        /// </summary>
-        private async Task UpdatingContentAndPublishEqualByText(ConnectionData connectionData, IOrganizationServiceExtented service, TupleList<SelectedFile, WebResource> filesToPublish)
+        private async Task UpdatingContentAndPublishEqualByTextAsync(ConnectionData connectionData, IOrganizationServiceExtented service, TupleList<SelectedFile, WebResource> filesToPublish)
         {
             if (service == null)
             {
@@ -407,8 +409,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     return;
                 }
 
-                // Менеджер для публикации в CRM.
-                Dictionary<Guid, ElementForPublish> elements = new Dictionary<Guid, ElementForPublish>();
+                var elements = new Dictionary<Guid, ElementForPublish>();
 
                 foreach (var item in filesToPublish)
                 {
@@ -426,23 +427,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Including References to WebResources DependencyXml
 
-        public async Task ExecuteIncludeReferencesToDependencyXml(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
+        public async Task ExecuteIncludeReferencesToDependencyXmlAsync(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
         {
             await CheckEncodingCheckReadOnlyConnectExecuteActionAsync(connectionData
                 , Properties.OperationNames.IncludeReferencesToDependencyXmlAndPublishingFormat1
                 , selectedFiles
                 , true
-                , (service) => IncludingReferencesToDependencyXml(service, commonConfig, selectedFiles)
+                , (service) => IncludingReferencesToDependencyXmlAsync(service, commonConfig, selectedFiles)
             );
         }
 
-        private async Task IncludingReferencesToDependencyXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
+        private async Task IncludingReferencesToDependencyXmlAsync(IOrganizationServiceExtented service, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
         {
             using (service.Lock())
             {
                 var webResourceRepository = new WebResourceRepository(service);
 
-                var findResult = await FindWebResources(service, webResourceRepository, selectedFiles);
+                var findResult = await FindOrCreateWebResourcesAsync(service, webResourceRepository, selectedFiles);
 
                 if (!findResult.Item1)
                 {
@@ -520,9 +521,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     await service.UpdateAsync(updateWebResource);
                 }
 
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Updating WebResources Completed.");
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.UpdatingWebResourcesCompleted);
 
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Publishing WebResources...");
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PublishingWebResources);
 
                 var repositoryPublish = new PublishActionsRepository(service);
                 await repositoryPublish.PublishWebResourcesAsync(webResourceToPublish.Select(e => e.WebResource.Id));
@@ -556,7 +557,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (!string.IsNullOrEmpty(webResource.DependencyXml))
                 {
-                    using (TextReader reader = new StringReader(webResource.DependencyXml))
+                    using (var reader = new StringReader(webResource.DependencyXml))
                     {
                         webResourceDependencies = serializer.Deserialize(reader) as Dependencies;
                     }
@@ -584,7 +585,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                                                             ;
                 }
 
-                HashSet<string> currentWebResourceDependencies = new HashSet<string>(currentWebResourceDependenciesStrings, StringComparer.InvariantCultureIgnoreCase);
+                var currentWebResourceDependencies = new HashSet<string>(currentWebResourceDependenciesStrings, StringComparer.InvariantCultureIgnoreCase);
 
                 var fileDependencies = new HashSet<string>(referenceWebResourceDictionary.Keys, StringComparer.InvariantCultureIgnoreCase);
 
@@ -617,7 +618,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             componentType = componentType.WebResource,
                         };
 
-                        List<DependenciesDependency> dependenciesDependencies = new List<DependenciesDependency>();
+                        var dependenciesDependencies = new List<DependenciesDependency>();
 
                         dependenciesDependencies.AddRange(webResourceDependencies.Dependency);
                         dependenciesDependencies.Add(dependenciesWebResource);
@@ -653,7 +654,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 var newDependencyXmlStringBuilder = new StringBuilder();
 
-                XmlSerializerNamespaces namespaces = new XmlSerializerNamespaces();
+                var namespaces = new XmlSerializerNamespaces();
                 namespaces.Add(string.Empty, string.Empty);
 
                 using (var writer = new StringWriter(newDependencyXmlStringBuilder))
@@ -680,17 +681,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private static Regex _regexReference = new Regex(@"^[\/]{3,}[\s]+<reference[\s]+path=\""(?<path>.+)\""[\s]+\/>[\s]*\r?$", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
+        private const string _regexPathGroup = "path";
+
         private static HashSet<string> GetFileReferencesFilePaths(string javaScriptCode, string selectedFileFolder, string solutionDirectoryPath)
         {
-            HashSet<string> result = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+            var result = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
             var matches = _regexReference.Matches(javaScriptCode);
 
             foreach (var match in matches.OfType<Match>())
             {
-                if (match.Success && match.Groups["path"] != null)
+                if (match.Success && match.Groups[_regexPathGroup] != null)
                 {
-                    var path = match.Groups["path"].Value;
+                    var path = match.Groups[_regexPathGroup].Value;
 
                     if (!string.IsNullOrEmpty(path))
                     {
@@ -710,7 +713,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             referenceFilePath = Path.Combine(selectedFileFolder, path);
                         }
 
-                        FileInfo fileInfo = new FileInfo(referenceFilePath);
+                        var fileInfo = new FileInfo(referenceFilePath);
 
                         if (fileInfo.Exists)
                         {
@@ -753,9 +756,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     if (webresource == null)
                     {
-                        if (fileName.StartsWith(connectionData.Name + "."))
+                        if (fileName.StartsWith(connectionData.Name + ".", StringComparison.InvariantCultureIgnoreCase))
                         {
-                            string newFileName = fileName.Replace(connectionData.Name + ".", string.Empty);
+                            string newFileName = fileName.Substring(connectionData.Name.Length + 1);
 
                             string newFilePath = Path.Combine(Path.GetDirectoryName(friendlyFilePath), newFileName);
 
@@ -789,23 +792,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Update Content and Include References to DependencyXml
 
-        public async Task ExecuteUpdateContentIncludeReferencesToDependencyXml(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
+        public async Task ExecuteUpdateContentIncludeReferencesToDependencyXmlAsync(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
         {
             await CheckEncodingCheckReadOnlyConnectExecuteActionAsync(connectionData
                 , Properties.OperationNames.UpdateContentIncludeReferencesToDependencyXmlFormat1
                 , selectedFiles
                 , true
-                , (service) => UpdatingContentIncludingReferencesToDependencyXml(service, commonConfig, selectedFiles)
+                , (service) => UpdatingContentIncludingReferencesToDependencyXmlAsync(service, commonConfig, selectedFiles)
             );
         }
 
-        private async Task UpdatingContentIncludingReferencesToDependencyXml(IOrganizationServiceExtented service, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
+        private async Task UpdatingContentIncludingReferencesToDependencyXmlAsync(IOrganizationServiceExtented service, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
         {
             using (service.Lock())
             {
                 var webResourceRepository = new WebResourceRepository(service);
 
-                var findResult = await FindWebResources(service, webResourceRepository, selectedFiles);
+                var findResult = await FindOrCreateWebResourcesAsync(service, webResourceRepository, selectedFiles);
 
                 if (!findResult.Item1)
                 {
@@ -871,17 +874,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Update Equal by Text Content and Include References to DependencyXml
 
-        public async Task ExecuteUpdateEqualByTextContentIncludeReferencesToDependencyXml(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
+        public async Task ExecuteUpdateEqualByTextContentIncludeReferencesToDependencyXmlAsync(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
         {
             await CheckEncodingConnectFindWebResourceExecuteActionTaskAsync(connectionData
                 , Properties.OperationNames.UpdateEqualByTextContentIncludeReferencesToDependencyXmlFormat1
                 , selectedFiles
                 , OpenFilesType.EqualByText
-                , (conn, service, filesToPublish) => UpdateEqualByTextContentIncludeReferencesToDependencyXml(conn, service, commonConfig, filesToPublish)
+                , (conn, service, filesToPublish) => UpdateEqualByTextContentIncludeReferencesToDependencyXmlAsync(conn, service, commonConfig, filesToPublish)
             );
         }
 
-        private async Task UpdateEqualByTextContentIncludeReferencesToDependencyXml(ConnectionData connectionData, IOrganizationServiceExtented service, CommonConfiguration commonConfig, TupleList<SelectedFile, WebResource> filesToPublish)
+        private async Task UpdateEqualByTextContentIncludeReferencesToDependencyXmlAsync(ConnectionData connectionData, IOrganizationServiceExtented service, CommonConfiguration commonConfig, TupleList<SelectedFile, WebResource> filesToPublish)
         {
             if (service == null)
             {
@@ -897,8 +900,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     return;
                 }
 
-                // Менеджер для публикации в CRM.
-                Dictionary<Guid, ElementForPublish> elements = new Dictionary<Guid, ElementForPublish>();
+                var elements = new Dictionary<Guid, ElementForPublish>();
 
                 foreach (var item in filesToPublish)
                 {
@@ -967,17 +969,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Including References to Linked SystemForms Libraries
 
-        public async Task ExecuteIncludeReferencesToLinkedSystemFormsLibraries(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
+        public async Task ExecuteIncludeReferencesToLinkedSystemFormsLibrariesAsync(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
         {
             await CheckEncodingCheckReadOnlyConnectExecuteActionAsync(connectionData
                 , Properties.OperationNames.IncludeReferencesToLinkedSystemFormsLibrariesFormat1
                 , selectedFiles
                 , true
-                , (service) => IncludingReferencesToLinkedSystemFormsLibraries(service, commonConfig, selectedFiles)
+                , (service) => IncludingReferencesToLinkedSystemFormsLibrariesAsync(service, commonConfig, selectedFiles)
             );
         }
 
-        private async Task IncludingReferencesToLinkedSystemFormsLibraries(IOrganizationServiceExtented service, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
+        private const string _formNodeformLibraries = "formLibraries";
+        private const string _formNodeLibrary = "Library";
+
+        private const string _formNodeLibraryAttrName = "name";
+        private const string _formNodeLibraryAttrLibraryUniqueId = "libraryUniqueId";
+
+        private async Task IncludingReferencesToLinkedSystemFormsLibrariesAsync(IOrganizationServiceExtented service, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
         {
             using (service.Lock())
             {
@@ -1027,17 +1035,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     var referenceWebResourceDictionary = GetRefernecedWebResources(service.ConnectionData, webResourceRepository, knownWebResources, selectedFile.SolutionDirectoryPath, referenceFilePathList);
 
-                    var formLibraries = docFormXml.Element("formLibraries");
+                    var formLibraries = docFormXml.Element(_formNodeformLibraries);
 
                     if (formLibraries != null)
                     {
-                        HashSet<string> currentWebResourceDependenciesStrings = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+                        var currentWebResourceDependenciesStrings = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
-                        var allLibraries = formLibraries.Descendants("Library");
+                        var allLibraries = formLibraries.Descendants(_formNodeLibrary);
 
                         foreach (var nodeLibrary in allLibraries)
                         {
-                            var name = (string)nodeLibrary.Attribute("name");
+                            var name = (string)nodeLibrary.Attribute(_formNodeLibraryAttrName);
 
                             if (!string.IsNullOrEmpty(name))
                             {
@@ -1096,9 +1104,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         foreach (var webResourceName in newDependencies)
                         {
                             formLibraries.Add(
-                                new XElement("Library"
-                                    , new XAttribute("name", webResourceName)
-                                    , new XAttribute("libraryUniqueId", Guid.NewGuid().ToString("B").ToLower())
+                                new XElement(_formNodeLibrary
+                                    , new XAttribute(_formNodeLibraryAttrName, webResourceName)
+                                    , new XAttribute(_formNodeLibraryAttrLibraryUniqueId, Guid.NewGuid().ToString("B").ToLower())
                                 )
                             );
                         }
@@ -1118,8 +1126,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
 
                 {
-                    FormatTextTableHandler tableUpdated = new FormatTextTableHandler();
-                    tableUpdated.SetHeader("FileName", "Dependencies", "Form Entity", "FormType", "FormName", "New Dependencies");
+                    var tableUpdated = new FormatTextTableHandler(headerFileName, headerDependencies, headerFormEntity, headerFormType, headerFormName, headerNewDependencies);
 
                     foreach (var tuple in changedSystemForms
                         .OrderBy(e => e.Item2.ObjectTypeCode)
@@ -1135,9 +1142,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         tableUpdated.AddLine(filePath, tuple.Item4.ToString(), systemForm.ObjectTypeCode, formTypeName, systemForm.Name, tuple.Item5);
                     }
 
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Updating SystemForm FormXml and Publishing...");
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.UpdatingSystemFormFormXmlAndPublishing);
 
-                    tableUpdated.GetFormatedLines(false).ForEach(item => _iWriteToOutput.WriteToOutput(service.ConnectionData, "{0}{1}", _tabSpacer, item));
+                    tableUpdated.GetFormatedLines(false).ForEach(item => _iWriteToOutput.WriteToOutput(service.ConnectionData, _formatWithTabSpacer, _tabSpacer, item));
                 }
 
                 foreach (var tuple in changedSystemForms
@@ -1160,14 +1167,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     await service.UpdateAsync(updateSystemForm);
                 }
 
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Update SystemForms FormXml Completed.");
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.UpdatingSystemFormFormXmlCompleted);
 
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Publishing SystemForms...");
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PublishingSystemForms);
 
                 var repositoryPublish = new PublishActionsRepository(service);
                 await repositoryPublish.PublishDashboardsAsync(changedSystemForms.Select(e => e.Item2.Id));
 
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Published SystemForms: {0}", changedSystemForms.Count);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PublishedSystemFormsFormat1, changedSystemForms.Count);
 
                 var formsEntityNames = new HashSet<string>(changedSystemForms.Where(e => e.Item2.ObjectTypeCode.IsValidEntityName()).Select(e => e.Item2.ObjectTypeCode), StringComparer.InvariantCultureIgnoreCase);
 
@@ -1185,7 +1192,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Сравнение с веб-ресурсами.
 
-        public async Task ExecuteComparingFilesAndWebResources(ConnectionData connectionData, List<SelectedFile> selectedFiles, bool withDetails)
+        public async Task ExecuteComparingFilesAndWebResourcesAsync(ConnectionData connectionData, List<SelectedFile> selectedFiles, bool withDetails)
         {
             string operation = string.Format(Properties.OperationNames.ComparingFilesAndWebResourcesFormat1, connectionData?.Name);
 
@@ -1211,7 +1218,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Добавление в список на публикацию идентичных по тексту, но не по содержанию файлов.
 
-        public async Task ExecuteAddingIntoPublishListFilesByType(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, OpenFilesType openFilesType)
+        public async Task ExecuteAddingIntoPublishListFilesByTypeAsync(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, OpenFilesType openFilesType)
         {
             await CheckEncodingConnectFindWebResourceExecuteActionAsync(connectionData
                 , Properties.OperationNames.AddingIntoPublishListFilesFormat2
@@ -1230,11 +1237,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, "No files for adding to Publish List.");
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoFilesForAddingToPublishList);
             }
         }
 
-        public async Task ExecuteRemovingIntoPublishListFilesByType(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, OpenFilesType openFilesType)
+        public async Task ExecuteRemovingIntoPublishListFilesByTypeAsync(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, OpenFilesType openFilesType)
         {
             await CheckEncodingConnectFindWebResourceExecuteActionAsync(connectionData
                 , Properties.OperationNames.AddingIntoPublishListFilesFormat2
@@ -1253,13 +1260,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, "No files for removing from Publish List.");
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoFilesForRemovingFromPublishList);
             }
         }
 
         #endregion Добавление в список на публикацию идентичных по тексту, но не по содержанию файлов.
 
-        public async Task ExecuteComparingFilesWithWrongEncoding(ConnectionData connectionData, List<SelectedFile> selectedFiles, bool withDetails)
+        public async Task ExecuteComparingFilesWithWrongEncodingAsync(ConnectionData connectionData, List<SelectedFile> selectedFiles, bool withDetails)
         {
             string operation = string.Format(Properties.OperationNames.ComparingFilesWithWrongEncodingAndWebResourcesFormat1, connectionData?.Name);
 
@@ -1285,7 +1292,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Отображение зависимых компонентов веб-ресурсов.
 
-        public async Task ExecuteShowingWebResourcesDependentComponents(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
+        public async Task ExecuteShowingWebResourcesDependentComponentsAsync(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
         {
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, Properties.OperationNames.CheckingCRMObjectsNamesAndShowDependentComponents);
 
@@ -1293,7 +1300,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 CheckingFilesEncodingAndWriteEmptyLines(connectionData, selectedFiles, out _);
 
-                await ShowingWebResourcesDependentComponents(connectionData, commonConfig, selectedFiles);
+                await ShowingWebResourcesDependentComponentsAsync(connectionData, commonConfig, selectedFiles);
             }
             catch (Exception ex)
             {
@@ -1305,7 +1312,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task ShowingWebResourcesDependentComponents(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
+        private async Task ShowingWebResourcesDependentComponentsAsync(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles)
         {
             var service = await ConnectAndWriteToOutputAsync(connectionData);
 
@@ -1343,8 +1350,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 var repositoryWebResource = new WebResourceRepository(service);
 
-                var tableWithoutDependenComponents = new FormatTextTableHandler();
-                tableWithoutDependenComponents.SetHeader("FilePath", "Web Resource Name", "Web Resource Type");
+                var tableWithoutDependenComponents = new FormatTextTableHandler(headerFilePath, headerWebResourceName, headerWebResourceType);
 
                 var groups = selectedFiles.GroupBy(sel => sel.Extension);
 
@@ -1424,15 +1430,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     connectionData.Save();
                 }
 
-                FindsController.WriteToContentList(listNotFoundedInCRMNoLink, content, "File NOT FOUNDED in CRM: {0}");
+                FindsController.WriteToContentList(listNotFoundedInCRMNoLink, content, Properties.OutputStrings.FilesNotFoundInCRMFormat1);
 
-                FindsController.WriteToContentList(listLastLinkEqualByContent, content, "Files NOT FOUNDED in CRM, but has Last Link: {0}");
+                FindsController.WriteToContentList(listLastLinkEqualByContent, content, Properties.OutputStrings.FilesNotFoundInCRMWithLastLinkFormat1);
 
                 FindsController.WriteToContentList(listNotExistsOnDisk, content, Properties.OutputStrings.FileNotExistsFormat1);
 
-                FindsController.WriteToContentList(tableWithoutDependenComponents.GetFormatedLines(true), content, "Files without dependent components: {0}");
+                FindsController.WriteToContentList(tableWithoutDependenComponents.GetFormatedLines(true), content, Properties.OutputStrings.FilesWithoutDependentComponentsFormat1);
 
-                FindsController.WriteToContentDictionary(descriptor, content, webResourceNames, webResourceDescriptions, "WebResource dependent components: {0}");
+                FindsController.WriteToContentDictionary(descriptor, content, webResourceNames, webResourceDescriptions, Properties.OutputStrings.WebResourcesDependentComponentsFormat1);
 
                 commonConfig.CheckFolderForExportExists(this._iWriteToOutput);
 
@@ -1449,6 +1455,67 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         }
 
         #endregion Отображение зависимых компонентов веб-ресурсов.
+
+        private async Task<WebResource> FindWebResourceAsync(IOrganizationServiceExtented service, WebResourceRepository webResourceRepository, SelectedFile selectedFile)
+        {
+            if (!File.Exists(selectedFile.FilePath))
+            {
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
+                return null;
+            }
+
+            var webResource = await webResourceRepository.FindByNameAsync(selectedFile.FriendlyFilePath, selectedFile.Extension);
+
+            if (webResource != null)
+            {
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.WebResourceFoundedByNameFormat2, webResource.Id, webResource.Name);
+            }
+            else
+            {
+                if (selectedFile.FileName.StartsWith(service.ConnectionData.Name + ".", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    string newFileName = selectedFile.FileName.Substring(service.ConnectionData.Name.Length + 1);
+
+                    string newFilePath = Path.Combine(Path.GetDirectoryName(selectedFile.FilePath), newFileName);
+
+                    var newSelectedFile = new SelectedFile(newFilePath, selectedFile.SolutionDirectoryPath);
+
+                    webResource = await webResourceRepository.FindByNameAsync(newSelectedFile.FriendlyFilePath, newSelectedFile.Extension);
+
+                    if (webResource != null)
+                    {
+                        this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.WebResourceFoundedByNameWithConnectionPrefixFormat2, webResource.Id, webResource.Name);
+                    }
+                }
+            }
+
+            Guid? lastLinkedWebResourceId = service.ConnectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
+
+            if (webResource == null && lastLinkedWebResourceId.HasValue)
+            {
+                webResource = await webResourceRepository.GetByIdAsync(lastLinkedWebResourceId.Value);
+
+                if (webResource != null)
+                {
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.WebResourceWasNotFoundByNameLastLinkedWebResourceIsSelectedFormat2, webResource.Id, webResource.Name);
+                }
+            }
+
+            if (webResource == null)
+            {
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.WebResourceWasNotFoundByNameAndDoesNotHaveLastLinkFormat1, selectedFile.FilePath);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.OpeningFormForSelectingWebResource);
+
+                if (SelecteWebResourceInWindow(service, selectedFile, lastLinkedWebResourceId, out Guid selectedWebResourceId))
+                {
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.WebResourceIsSelected);
+
+                    webResource = await webResourceRepository.GetByIdAsync(selectedWebResourceId);
+                }
+            }
+
+            return webResource;
+        }
 
         private bool SelecteWebResourceInWindow(IOrganizationServiceExtented service, SelectedFile selectedFile, Guid? lastLinkedWebResourceId, out Guid selectedWebResourceId)
         {
@@ -1480,13 +1547,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (dialogResult.GetValueOrDefault() == false)
             {
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.DifferenceWasCancelled);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.OperationWasCancelled);
                 return false;
             }
 
             if (!webResourceId.HasValue)
             {
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "!Warning. WebResource not exists. name: {0}.", selectedFile.Name);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.WebResourceNotSelectedFormat1, selectedFile.Name);
                 return false;
             }
 
@@ -1497,7 +1564,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Различия файла и веб-ресурса.
 
-        public async Task ExecuteDifferenceWebResources(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, bool withSelect)
+        public async Task ExecuteDifferenceWebResourcesAsync(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, bool withSelect)
         {
             string operation = string.Format(Properties.OperationNames.DifferenceWebResourceFormat1, connectionData?.Name);
 
@@ -1507,7 +1574,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 CheckingFilesEncodingAndWriteEmptyLines(connectionData, new[] { selectedFile }, out _);
 
-                await DifferenceWebResources(connectionData, commonConfig, selectedFile, withSelect);
+                await DifferenceWebResourcesAsync(connectionData, commonConfig, selectedFile, withSelect);
             }
             catch (Exception ex)
             {
@@ -1519,7 +1586,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task DifferenceWebResources(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, bool withSelect)
+        private async Task DifferenceWebResourcesAsync(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, bool withSelect)
         {
             if (!File.Exists(selectedFile.FilePath))
             {
@@ -1535,7 +1602,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             WebResource webResource = null;
-            Guid? lastLinkedWebResourceId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
 
             using (service.Lock())
             {
@@ -1544,28 +1610,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (!withSelect)
                 {
-                    webResource = await webResourceRepository.FindByNameAsync(selectedFile.FriendlyFilePath, selectedFile.Extension);
-
-                    if (webResource != null)
-                    {
-                        this._iWriteToOutput.WriteToOutput(connectionData, "WebResource founded by name.");
-                    }
-                    else if (lastLinkedWebResourceId.HasValue)
-                    {
-                        if (webResource != null)
-                        {
-                            this._iWriteToOutput.WriteToOutput(connectionData, "WebResource not founded by name. Last link WebResource is selected for difference.");
-                        }
-                        else
-                        {
-                            this._iWriteToOutput.WriteToOutput(connectionData, "WebResource not founded by name and has not Last link.");
-                            this._iWriteToOutput.WriteToOutput(connectionData, "Starting Custom WebResource selection form.");
-                        }
-                    }
+                    webResource = await FindWebResourceAsync(service, webResourceRepository, selectedFile);
                 }
 
                 if (webResource == null)
                 {
+                    Guid? lastLinkedWebResourceId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
+
                     if (SelecteWebResourceInWindow(service, selectedFile, lastLinkedWebResourceId, out Guid selectedWebResourceId))
                     {
                         this._iWriteToOutput.WriteToOutput(connectionData, "Custom WebResource is selected.");
@@ -1577,7 +1628,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (webResource == null)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, "WebResource not founded in CRM: {0}", selectedFile.FileName);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WebResourceNotFoundedFormat1, selectedFile.FileName);
                 return;
             }
 
@@ -1587,20 +1638,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string fileLocalPath = selectedFile.FilePath;
             string fileLocalTitle = selectedFile.FileName;
 
-            string filePath2 = string.Empty;
-            string fileTitle2 = string.Empty;
+            string filePath2 = FileOperations.GetNewTempFilePath(webResource.Name, selectedFile.Extension);
+            string fileTitle2 = connectionData.Name + "." + selectedFile.FileName + " - " + filePath2;
 
-            {
-                var contentWebResource = webResource.Content ?? string.Empty;
+            var contentWebResource = webResource.Content ?? string.Empty;
 
-                var array = Convert.FromBase64String(contentWebResource);
+            var array = Convert.FromBase64String(contentWebResource);
 
-                filePath2 = FileOperations.GetNewTempFilePath(webResource.Name, selectedFile.Extension);
-
-                File.WriteAllBytes(filePath2, array);
-
-                fileTitle2 = connectionData.Name + "." + selectedFile.FileName + " - " + filePath2;
-            }
+            File.WriteAllBytes(filePath2, array);
 
             await this._iWriteToOutput.ProcessStartProgramComparerAsync(connectionData, fileLocalPath, filePath2, fileLocalTitle, fileTitle2);
         }
@@ -1609,7 +1654,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Сравнение трех файлов вебресурсов.
 
-        public async Task ExecuteThreeFileDifferenceWebResources(ConnectionData connectionData1, ConnectionData connectionData2, CommonConfiguration commonConfig, SelectedFile selectedFile, ShowDifferenceThreeFileType differenceType)
+        public async Task ExecuteThreeFileDifferenceWebResourcesAsync(ConnectionData connectionData1, ConnectionData connectionData2, CommonConfiguration commonConfig, SelectedFile selectedFile, ShowDifferenceThreeFileType differenceType)
         {
             string operation = string.Format(Properties.OperationNames.DifferenceLocalFileAndTwoWebResourcesFormat3, differenceType, connectionData1?.Name, connectionData2?.Name);
 
@@ -1619,7 +1664,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 CheckingFilesEncodingAndWriteEmptyLines(null, new[] { selectedFile }, out _);
 
-                await ThreeFileDifferenceWebResources(connectionData1, connectionData2, commonConfig, selectedFile, differenceType);
+                await ThreeFileDifferenceWebResourcesAsync(connectionData1, connectionData2, commonConfig, selectedFile, differenceType);
             }
             catch (Exception ex)
             {
@@ -1631,7 +1676,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task ThreeFileDifferenceWebResources(ConnectionData connectionData1, ConnectionData connectionData2, CommonConfiguration commonConfig, SelectedFile selectedFile, ShowDifferenceThreeFileType differenceType)
+        private async Task ThreeFileDifferenceWebResourcesAsync(ConnectionData connectionData1, ConnectionData connectionData2, CommonConfiguration commonConfig, SelectedFile selectedFile, ShowDifferenceThreeFileType differenceType)
         {
             if (differenceType == ShowDifferenceThreeFileType.ThreeWay)
             {
@@ -1653,8 +1698,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             var service2 = doubleConnection.Item2;
 
             // Репозиторий для работы с веб-ресурсами
-            WebResourceRepository webResourceRepository1 = new WebResourceRepository(service1);
-            WebResourceRepository webResourceRepository2 = new WebResourceRepository(service2);
+            var webResourceRepository1 = new WebResourceRepository(service1);
+            var webResourceRepository2 = new WebResourceRepository(service2);
 
             var taskWebResource1 = webResourceRepository1.FindByNameAsync(selectedFile.FriendlyFilePath, selectedFile.Extension);
             var taskWebResource2 = webResourceRepository2.FindByNameAsync(selectedFile.FriendlyFilePath, selectedFile.Extension);
@@ -1662,59 +1707,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             WebResource webresource1 = await taskWebResource1;
             WebResource webresource2 = await taskWebResource2;
 
-            if (webresource1 != null)
-            {
-                this._iWriteToOutput.WriteToOutput(null, "{0}: WebResource founded by name.", connectionData1.Name);
-
-                connectionData1.AddMapping(webresource1.Id, selectedFile.FriendlyFilePath);
-
-                connectionData1.Save();
-            }
-            else
-            {
-                Guid? webId = connectionData1.GetLastLinkForFile(selectedFile.FriendlyFilePath);
-
-                if (webId.HasValue)
-                {
-                    webresource1 = await webResourceRepository1.GetByIdAsync(webId.Value);
-
-                    if (webresource1 != null)
-                    {
-                        this._iWriteToOutput.WriteToOutput(null, "{0}: WebResource not founded by name. Last link WebResource is selected for difference.", connectionData1.Name);
-
-                        connectionData1.AddMapping(webresource1.Id, selectedFile.FriendlyFilePath);
-
-                        connectionData1.Save();
-                    }
-                }
-            }
-
-            if (webresource2 != null)
-            {
-                this._iWriteToOutput.WriteToOutput(null, "{0}: WebResource founded by name.", connectionData2.Name);
-
-                connectionData2.AddMapping(webresource2.Id, selectedFile.FriendlyFilePath);
-
-                connectionData2.Save();
-            }
-            else
-            {
-                Guid? webId = connectionData2.GetLastLinkForFile(selectedFile.FriendlyFilePath);
-
-                if (webId.HasValue)
-                {
-                    webresource2 = await webResourceRepository2.GetByIdAsync(webId.Value);
-
-                    if (webresource2 != null)
-                    {
-                        this._iWriteToOutput.WriteToOutput(null, "{0}: WebResource not founded by name. Last link WebResource is selected for difference.", connectionData2.Name);
-
-                        connectionData2.AddMapping(webresource2.Id, selectedFile.FriendlyFilePath);
-
-                        connectionData2.Save();
-                    }
-                }
-            }
+            webresource1 = await FindWebResourceForDifference(connectionData1, selectedFile, webResourceRepository1, webresource1);
+            webresource2 = await FindWebResourceForDifference(connectionData2, selectedFile, webResourceRepository2, webresource2);
 
             if (!File.Exists(selectedFile.FilePath))
             {
@@ -1723,12 +1717,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (webresource1 == null)
             {
-                this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.WebResourceNotFoundedInConnectionFormat2, connectionData1.Name, selectedFile.FileName);
+                this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.InConnectionWebResourceWasNotFoundFormat2, connectionData1.Name, selectedFile.FileName);
+
+                connectionData1.AddMapping(webresource1.Id, selectedFile.FriendlyFilePath);
+                connectionData1.Save();
             }
 
             if (webresource2 == null)
             {
-                this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.WebResourceNotFoundedInConnectionFormat2, connectionData2.Name, selectedFile.FileName);
+                this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.InConnectionWebResourceWasNotFoundFormat2, connectionData2.Name, selectedFile.FileName);
+
+                connectionData2.AddMapping(webresource2.Id, selectedFile.FriendlyFilePath);
+                connectionData2.Save();
             }
 
             // string fileLocalPath, string fileLocalTitle, string filePath1, string fileTitle1, string filePath2, string fileTitle2,
@@ -1783,26 +1783,68 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
+        private async Task<WebResource> FindWebResourceForDifference(ConnectionData connectionData, SelectedFile selectedFile, WebResourceRepository webResourceRepository, WebResource webresource)
+        {
+            if (webresource != null)
+            {
+                this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.InConnectionWebResourceFoundedByNameFormat3, connectionData.Name, webresource.Id, webresource.Name);
+                return webresource;
+            }
+
+            if (selectedFile.FileName.StartsWith(connectionData.Name + ".", StringComparison.InvariantCultureIgnoreCase))
+            {
+                string newFileName = selectedFile.FileName.Substring(connectionData.Name.Length + 1);
+
+                string newFilePath = Path.Combine(Path.GetDirectoryName(selectedFile.FilePath), newFileName);
+
+                var newSelectedFile = new SelectedFile(newFilePath, selectedFile.SolutionDirectoryPath);
+
+                webresource = await webResourceRepository.FindByNameAsync(newSelectedFile.FriendlyFilePath, newSelectedFile.Extension);
+
+                if (webresource != null)
+                {
+                    this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.InConnectionWebResourceFoundedByNameWithConnectionPrefixFormat3, connectionData.Name, webresource.Id, webresource.Name);
+                }
+            }
+
+            if (webresource == null)
+            {
+                Guid? webId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
+
+                if (webId.HasValue)
+                {
+                    webresource = await webResourceRepository.GetByIdAsync(webId.Value);
+
+                    if (webresource != null)
+                    {
+                        this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.InConnectionWebResourceWasNotFoundByNameLastLinkedWebResourceIsSelectedFormat3, connectionData.Name, webresource.Id, webresource.Name);
+                    }
+                }
+            }
+
+            return webresource;
+        }
+
         #endregion Сравнение трех файлов вебресурсов.
 
         #region Сравнение файлов и веб-ресурсов по разным параметрам.
 
-        public async Task ExecuteWebResourceMultiDifferenceFiles(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, OpenFilesType openFilesType)
+        public async Task ExecuteWebResourceMultiDifferenceFilesAsync(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, OpenFilesType openFilesType)
         {
             await CheckEncodingConnectFindWebResourceExecuteActionTaskAsync(connectionData
                 , Properties.OperationNames.MultiDifferenceFormat2
                 , selectedFiles
                 , openFilesType
-                , MultiDifferenceFiles
+                , MultiDifferenceFilesAsync
                 , EnumDescriptionTypeConverter.GetEnumNameByDescriptionAttribute(openFilesType)
             );
         }
 
-        private async Task MultiDifferenceFiles(ConnectionData connectionData, IOrganizationServiceExtented service, TupleList<SelectedFile, WebResource> listFilesToDifference)
+        private async Task MultiDifferenceFilesAsync(ConnectionData connectionData, IOrganizationServiceExtented service, TupleList<SelectedFile, WebResource> listFilesToDifference)
         {
             if (!listFilesToDifference.Any())
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoFilesForDifference);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoFilesToMakeDifference);
                 return;
             }
 
@@ -1841,7 +1883,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Creating WebResources EntityDescription
 
-        public async Task ExecuteCreatingWebResourceEntityDescription(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+        public async Task ExecuteCreatingWebResourceEntityDescriptionAsync(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             string operation = string.Format(Properties.OperationNames.CreatingWebResourceEntityDescriptionFormat1, connectionData?.Name);
 
@@ -1851,7 +1893,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 CheckingFilesEncodingAndWriteEmptyLines(connectionData, new[] { selectedFile }, out _);
 
-                await CreatingWebResourceEntityDescription(selectedFile, connectionData, commonConfig);
+                await CreatingWebResourceEntityDescriptionAsync(selectedFile, connectionData, commonConfig);
             }
             catch (Exception ex)
             {
@@ -1863,7 +1905,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task CreatingWebResourceEntityDescription(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task CreatingWebResourceEntityDescriptionAsync(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             if (!File.Exists(selectedFile.FilePath))
             {
@@ -1885,40 +1927,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 // Репозиторий для работы с веб-ресурсами
                 var webResourceRepository = new WebResourceRepository(service);
 
-                webResource = await webResourceRepository.FindByNameAsync(selectedFile.FriendlyFilePath, selectedFile.Extension);
-                Guid? lastLinkedWebResourceId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
-
-                if (webResource != null)
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, "WebResource founded by name.");
-                }
-                else if (lastLinkedWebResourceId.HasValue)
-                {
-                    webResource = await webResourceRepository.GetByIdAsync(lastLinkedWebResourceId.Value);
-
-                    if (webResource != null)
-                    {
-                        this._iWriteToOutput.WriteToOutput(connectionData, "WebResource not founded by name. Last link WebResource is selected for difference.");
-                    }
-                }
-
-                if (webResource == null)
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, "WebResource not founded by name and has not Last link.");
-                    this._iWriteToOutput.WriteToOutput(connectionData, "Starting Custom WebResource selection form.");
-
-                    if (SelecteWebResourceInWindow(service, selectedFile, lastLinkedWebResourceId, out Guid selectedWebResourceId))
-                    {
-                        this._iWriteToOutput.WriteToOutput(connectionData, "Custom WebResource is selected.");
-
-                        webResource = await webResourceRepository.GetByIdAsync(selectedWebResourceId);
-                    }
-                }
+                webResource = await FindWebResourceAsync(service, webResourceRepository, selectedFile);
             }
 
             if (webResource == null)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, "WebResource not founded in CRM: {0}", selectedFile.FileName);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WebResourceNotFoundedFormat1, selectedFile.FileName);
                 return;
             }
 
@@ -1946,7 +1960,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Changing WebResource in EntityEditor
 
-        public async Task ExecuteChangingWebResourceInEntityEditor(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+        public async Task ExecuteChangingWebResourceInEntityEditorAsync(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
         {
             string operation = string.Format(Properties.OperationNames.ChangingWebResourceInEntityEditorFormat1, connectionData?.Name);
 
@@ -1956,7 +1970,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 CheckingFilesEncodingAndWriteEmptyLines(connectionData, new[] { selectedFile }, out _);
 
-                await ChangingWebResourceInEntityEditor(selectedFile, connectionData, commonConfig);
+                await ChangingWebResourceInEntityEditorAsync(selectedFile, connectionData, commonConfig);
             }
             catch (Exception ex)
             {
@@ -1968,7 +1982,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task ChangingWebResourceInEntityEditor(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task ChangingWebResourceInEntityEditorAsync(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             if (!File.Exists(selectedFile.FilePath))
             {
@@ -1983,46 +1997,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            WebResource webResource = null;
-
             // Репозиторий для работы с веб-ресурсами
             var webResourceRepository = new WebResourceRepository(service);
 
-            webResource = await webResourceRepository.FindByNameAsync(selectedFile.FriendlyFilePath, selectedFile.Extension);
-            Guid? lastLinkedWebResourceId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
-
-            if (webResource != null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, "WebResource founded by name.");
-            }
-            else if (lastLinkedWebResourceId.HasValue)
-            {
-                webResource = await webResourceRepository.GetByIdAsync(lastLinkedWebResourceId.Value);
-
-                if (webResource != null)
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, "WebResource not founded by name. Last link WebResource is selected for difference.");
-                }
-            }
-
-            if (webResource == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, "WebResource not founded by name and has not Last link.");
-                this._iWriteToOutput.WriteToOutput(connectionData, "Starting Custom WebResource selection form.");
-
-                if (SelecteWebResourceInWindow(service, selectedFile, lastLinkedWebResourceId, out Guid selectedWebResourceId))
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, "Custom WebResource is selected.");
-
-                    webResource = await webResourceRepository.GetByIdAsync(selectedWebResourceId);
-                }
-            }
+            WebResource webResource = await FindWebResourceAsync(service, webResourceRepository, selectedFile);
 
             if (webResource == null)
             {
                 service.TryDispose();
 
-                this._iWriteToOutput.WriteToOutput(connectionData, "WebResource not founded in CRM: {0}", selectedFile.FileName);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WebResourceNotFoundedFormat1, selectedFile.FileName);
                 return;
             }
 
@@ -2036,7 +2020,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Getting WebResource Attribute
 
-        public async Task ExecuteWebResourceGettingAttribute(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, string fieldName, string fieldTitle)
+        public async Task ExecuteWebResourceGettingAttributeAsync(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, string fieldName, string fieldTitle)
         {
             string operation = string.Format(Properties.OperationNames.GettingWebResourceAttributeFormat2, connectionData?.Name, fieldTitle);
 
@@ -2046,7 +2030,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 CheckingFilesEncodingAndWriteEmptyLines(connectionData, new[] { selectedFile }, out _);
 
-                await WebResourceGettingAttribute(selectedFile, fieldName, fieldTitle, connectionData, commonConfig);
+                await WebResourceGettingAttributeAsync(selectedFile, fieldName, fieldTitle, connectionData, commonConfig);
             }
             catch (Exception ex)
             {
@@ -2058,7 +2042,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task WebResourceGettingAttribute(SelectedFile selectedFile, string fieldName, string fieldTitle, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task WebResourceGettingAttributeAsync(SelectedFile selectedFile, string fieldName, string fieldTitle, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             if (!File.Exists(selectedFile.FilePath))
             {
@@ -2080,40 +2064,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 // Репозиторий для работы с веб-ресурсами
                 var webResourceRepository = new WebResourceRepository(service);
 
-                webResource = await webResourceRepository.FindByNameAsync(selectedFile.FriendlyFilePath, selectedFile.Extension);
-                Guid? lastLinkedWebResourceId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
-
-                if (webResource != null)
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, "WebResource founded by name.");
-                }
-                else if (lastLinkedWebResourceId.HasValue)
-                {
-                    webResource = await webResourceRepository.GetByIdAsync(lastLinkedWebResourceId.Value);
-
-                    if (webResource != null)
-                    {
-                        this._iWriteToOutput.WriteToOutput(connectionData, "WebResource not founded by name. Last link WebResource is selected for difference.");
-                    }
-                }
-
-                if (webResource == null)
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, "WebResource not founded by name and has not Last link.");
-                    this._iWriteToOutput.WriteToOutput(connectionData, "Starting Custom WebResource selection form.");
-
-                    if (SelecteWebResourceInWindow(service, selectedFile, lastLinkedWebResourceId, out Guid selectedWebResourceId))
-                    {
-                        this._iWriteToOutput.WriteToOutput(connectionData, "Custom WebResource is selected.");
-
-                        webResource = await webResourceRepository.GetByIdAsync(selectedWebResourceId);
-                    }
-                }
+                webResource = await FindWebResourceAsync(service, webResourceRepository, selectedFile);
             }
 
             if (webResource == null)
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, "WebResource not founded in CRM: {0}", selectedFile.FileName);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WebResourceNotFoundedFormat1, selectedFile.FileName);
                 return;
             }
 
@@ -2167,7 +2123,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Getting WebResource Current Content
 
-        public async Task ExecuteGettingContent(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles)
+        public async Task ExecuteGettingContentAsync(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles)
         {
             string operation = string.Format(Properties.OperationNames.GettingWebResourceContentFormat1, connectionData?.Name);
 
@@ -2175,7 +2131,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await GettingContent(selectedFiles, connectionData, commonConfig);
+                await GettingContentAsync(selectedFiles, connectionData, commonConfig);
 
                 CheckingFilesEncodingAndWriteEmptyLines(connectionData, selectedFiles, out _);
             }
@@ -2189,7 +2145,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task GettingContent(IEnumerable<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task GettingContentAsync(IEnumerable<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             if (!selectedFiles.Any())
             {
@@ -2205,50 +2161,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             using (service.Lock())
             {
+                // Репозиторий для работы с веб-ресурсами
+                var webResourceRepository = new WebResourceRepository(service);
+
                 foreach (var selectedFile in selectedFiles)
                 {
-                    if (!File.Exists(selectedFile.FilePath))
-                    {
-                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
-                        continue;
-                    }
-
-                    // Репозиторий для работы с веб-ресурсами
-                    var webResourceRepository = new WebResourceRepository(service);
-
-                    WebResource webResource = await webResourceRepository.FindByNameAsync(selectedFile.FriendlyFilePath, selectedFile.Extension);
-                    Guid? lastLinkedWebResourceId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
-
-                    if (webResource != null)
-                    {
-                        this._iWriteToOutput.WriteToOutput(connectionData, "WebResource founded by name.");
-                    }
-                    else if (lastLinkedWebResourceId.HasValue)
-                    {
-                        webResource = await webResourceRepository.GetByIdAsync(lastLinkedWebResourceId.Value);
-
-                        if (webResource != null)
-                        {
-                            this._iWriteToOutput.WriteToOutput(connectionData, "WebResource not founded by name. Last link WebResource is selected for getting content.");
-                        }
-                    }
+                    WebResource webResource = await FindWebResourceAsync(service, webResourceRepository, selectedFile);
 
                     if (webResource == null)
                     {
-                        this._iWriteToOutput.WriteToOutput(connectionData, "WebResource not founded by name and has not Last link.");
-                        this._iWriteToOutput.WriteToOutput(connectionData, "Starting Custom WebResource selection form.");
-
-                        if (SelecteWebResourceInWindow(service, selectedFile, lastLinkedWebResourceId, out Guid selectedWebResourceId))
-                        {
-                            this._iWriteToOutput.WriteToOutput(connectionData, "Custom WebResource is selected.");
-
-                            webResource = await webResourceRepository.GetByIdAsync(selectedWebResourceId);
-                        }
-                    }
-
-                    if (webResource == null)
-                    {
-                        this._iWriteToOutput.WriteToOutput(connectionData, "WebResource not founded in CRM: {0}", selectedFile.FileName);
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WebResourceNotFoundedFormat1, selectedFile.FileName);
                         continue;
                     }
 
@@ -2321,24 +2243,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Создание связи веб-ресурсов.
 
-        public async Task ExecuteCreatingLastLinkWebResourceMultiple(ConnectionData connectionData, List<SelectedFile> selectedFiles)
+        public async Task ExecuteCreatingLastLinkWebResourceMultipleAsync(ConnectionData connectionData, List<SelectedFile> selectedFiles)
         {
             await CheckEncodingCheckReadOnlyConnectExecuteActionAsync(connectionData
                 , Properties.OperationNames.CreatingLastLinkForWebResourcesFormat1
                 , selectedFiles
                 , false
-                , (service) => CreatingLastLinkWebResourceMultiple(service, selectedFiles)
+                , (service) => CreatingLastLinkWebResourceMultipleAsync(service, selectedFiles)
             );
         }
 
-        private async Task CreatingLastLinkWebResourceMultiple(IOrganizationServiceExtented service, List<SelectedFile> selectedFiles)
+        private async Task CreatingLastLinkWebResourceMultipleAsync(IOrganizationServiceExtented service, List<SelectedFile> selectedFiles)
         {
             if (!selectedFiles.Any())
             {
                 return;
             }
 
-            WebResourceRepository webResourceRepository = new WebResourceRepository(service);
+            var webResourceRepository = new WebResourceRepository(service);
 
             foreach (var selectedFile in selectedFiles)
             {
@@ -2405,7 +2327,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Открытие веб-ресурсов.
 
-        public async Task ExecuteOpeningWebResource(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, ActionOnComponent actionOnComponent)
+        public async Task ExecuteOpeningWebResourceAsync(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, ActionOnComponent actionOnComponent)
         {
             string operation = string.Format(
                 Properties.OperationNames.ActionOnComponentFormat3
@@ -2420,7 +2342,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 CheckingFilesEncodingAndWriteEmptyLines(connectionData, new[] { selectedFile }, out _);
 
-                await OpeningWebResource(commonConfig, connectionData, selectedFile, actionOnComponent);
+                await OpeningWebResourceAsync(commonConfig, connectionData, selectedFile, actionOnComponent);
             }
             catch (Exception ex)
             {
@@ -2432,7 +2354,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task OpeningWebResource(CommonConfiguration commonConfig, ConnectionData connectionData, SelectedFile selectedFile, ActionOnComponent actionOnComponent)
+        private async Task OpeningWebResourceAsync(CommonConfiguration commonConfig, ConnectionData connectionData, SelectedFile selectedFile, ActionOnComponent actionOnComponent)
         {
             if (!File.Exists(selectedFile.FilePath))
             {
@@ -2450,85 +2372,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             // Репозиторий для работы с веб-ресурсами
             var webResourceRepository = new WebResourceRepository(service);
 
-            WebResource webresource = await webResourceRepository.FindByNameAsync(selectedFile.FriendlyFilePath, selectedFile.Extension);
-
-            if (webresource != null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WebResourceFoundedByNameFormat2, webresource.Id.ToString(), webresource.Name);
-
-                connectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
-
-                connectionData.Save();
-            }
-            else
-            {
-                Guid? webId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
-
-                if (webId.HasValue)
-                {
-                    webresource = await webResourceRepository.GetByIdAsync(webId.Value);
-                }
-
-                if (webresource != null)
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource not founded by name. Last link web-resource is selected for opening.");
-
-                    connectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
-
-                    connectionData.Save();
-                }
-                else
-                {
-                    this._iWriteToOutput.WriteToOutput(connectionData, "Web-resource not founded by name and has not Last link.");
-                    this._iWriteToOutput.WriteToOutput(connectionData, "Starting Custom Web-resource selection form.");
-
-                    bool? dialogResult = null;
-                    Guid? selectedWebResourceId = null;
-
-                    string selectedPath = string.Empty;
-                    var t = new Thread((ThreadStart)(() =>
-                    {
-                        try
-                        {
-                            var form = new Views.WindowWebResourceSelectOrCreate(this._iWriteToOutput, service, selectedFile, webId);
-
-                            dialogResult = form.ShowDialog();
-                            selectedWebResourceId = form.SelectedWebResourceId;
-                        }
-                        catch (Exception ex)
-                        {
-                            DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                        }
-                    }));
-                    t.SetApartmentState(ApartmentState.STA);
-                    t.Start();
-
-                    t.Join();
-
-                    if (dialogResult.GetValueOrDefault())
-                    {
-                        if (selectedWebResourceId.HasValue)
-                        {
-                            this._iWriteToOutput.WriteToOutput(connectionData, "Custom Web-resource is selected.");
-
-                            webresource = await webResourceRepository.GetByIdAsync(selectedWebResourceId.Value);
-
-                            connectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
-
-                            connectionData.Save();
-                        }
-                        else
-                        {
-                            this._iWriteToOutput.WriteToOutput(connectionData, "!Warning. WebResource not exists. name: {0}.", selectedFile.Name);
-                        }
-                    }
-                    else
-                    {
-                        this._iWriteToOutput.WriteToOutput(connectionData, "Opening was cancelled.");
-                        return;
-                    }
-                }
-            }
+            WebResource webresource = await FindWebResourceAsync(service, webResourceRepository, selectedFile);
 
             if (webresource == null)
             {
@@ -2626,7 +2470,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region OpenFiles
 
-        public async Task ExecuteOpenFiles(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, OpenFilesType openFilesType, bool inTextEditor)
+        public async Task ExecuteOpenFilesAsync(ConnectionData connectionData, CommonConfiguration commonConfig, List<SelectedFile> selectedFiles, OpenFilesType openFilesType, bool inTextEditor)
         {
             await CheckEncodingConnectFindWebResourceExecuteActionAsync(connectionData
                 , Properties.OperationNames.OpeningFilesFormat2
@@ -2641,7 +2485,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (!filesToOpen.Any())
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, "No files for open.");
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoFilesToOpen);
                 this._iWriteToOutput.ActivateOutputWindow(connectionData);
                 return;
             }

@@ -19,7 +19,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class OutputStrings {
@@ -2509,11 +2509,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Files NOT FOUND in CRM: {0}.
+        /// </summary>
+        internal static string FilesNotFoundInCRMFormat1 {
+            get {
+                return ResourceManager.GetString("FilesNotFoundInCRMFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Files NOT FOUND in CRM, but has Last Link: {0}.
+        /// </summary>
+        internal static string FilesNotFoundInCRMWithLastLinkFormat1 {
+            get {
+                return ResourceManager.GetString("FilesNotFoundInCRMWithLastLinkFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Files not in Publish List: {0}.
         /// </summary>
         internal static string FilesNotInPublishListFormat1 {
             get {
                 return ResourceManager.GetString("FilesNotInPublishListFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Files without dependent components: {0}.
+        /// </summary>
+        internal static string FilesWithoutDependentComponentsFormat1 {
+            get {
+                return ResourceManager.GetString("FilesWithoutDependentComponentsFormat1", resourceCulture);
             }
         }
         
@@ -2928,6 +2955,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string ImportingSolutionFormat1 {
             get {
                 return ResourceManager.GetString("ImportingSolutionFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. WebResource founded by name. WebResourceId: {1} Name: {2}.
+        /// </summary>
+        internal static string InConnectionWebResourceFoundedByNameFormat3 {
+            get {
+                return ResourceManager.GetString("InConnectionWebResourceFoundedByNameFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. WebResource founded by name with Connection Prefix. WebResourceId: {1} Name: {2}.
+        /// </summary>
+        internal static string InConnectionWebResourceFoundedByNameWithConnectionPrefixFormat3 {
+            get {
+                return ResourceManager.GetString("InConnectionWebResourceFoundedByNameWithConnectionPrefixFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. WebResource was Not found by name. Last linked WebResource is selected. WebResourceId: {1} Name: {2}.
+        /// </summary>
+        internal static string InConnectionWebResourceWasNotFoundByNameLastLinkedWebResourceIsSelectedFormat3 {
+            get {
+                return ResourceManager.GetString("InConnectionWebResourceWasNotFoundByNameLastLinkedWebResourceIsSelectedFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. WebResource was not found in CRM: {1}.
+        /// </summary>
+        internal static string InConnectionWebResourceWasNotFoundFormat2 {
+            get {
+                return ResourceManager.GetString("InConnectionWebResourceWasNotFoundFormat2", resourceCulture);
             }
         }
         
@@ -4012,11 +4075,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No files for difference..
+        ///   Looks up a localized string similar to No files for adding to Publish List..
         /// </summary>
-        internal static string NoFilesForDifference {
+        internal static string NoFilesForAddingToPublishList {
             get {
-                return ResourceManager.GetString("NoFilesForDifference", resourceCulture);
+                return ResourceManager.GetString("NoFilesForAddingToPublishList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No files for removing from Publish List..
+        /// </summary>
+        internal static string NoFilesForRemovingFromPublishList {
+            get {
+                return ResourceManager.GetString("NoFilesForRemovingFromPublishList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No files to make a difference..
+        /// </summary>
+        internal static string NoFilesToMakeDifference {
+            get {
+                return ResourceManager.GetString("NoFilesToMakeDifference", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No files to open..
+        /// </summary>
+        internal static string NoFilesToOpen {
+            get {
+                return ResourceManager.GetString("NoFilesToOpen", resourceCulture);
             }
         }
         
@@ -4246,6 +4336,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Opening a form for selecting WebResource....
+        /// </summary>
+        internal static string OpeningFormForSelectingWebResource {
+            get {
+                return ResourceManager.GetString("OpeningFormForSelectingWebResource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Operation was cancelled..
+        /// </summary>
+        internal static string OperationWasCancelled {
+            get {
+                return ResourceManager.GetString("OperationWasCancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OrganizationService returned to ConnectionPool.    Services in Use {0,4},   Services in Pool {1,4},   CacheTime   {2}..
         /// </summary>
         internal static string OrganizationServiceReturnedToPoolFormat3 {
@@ -4341,6 +4449,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string ProgressReporterStep {
             get {
                 return ResourceManager.GetString("ProgressReporterStep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Published SystemForms.
+        /// </summary>
+        internal static string PublishedSystemFormsFormat1 {
+            get {
+                return ResourceManager.GetString("PublishedSystemFormsFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Published WebResources: {0}.
+        /// </summary>
+        internal static string PublishedWebResourcesFormat1 {
+            get {
+                return ResourceManager.GetString("PublishedWebResourcesFormat1", resourceCulture);
             }
         }
         
@@ -4498,6 +4624,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Publishing SystemForms.
+        /// </summary>
+        internal static string PublishingSystemForms {
+            get {
+                return ResourceManager.GetString("PublishingSystemForms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}. Publishing WebResource {1} completed..
         /// </summary>
         internal static string PublishingWebResourceCompletedFormat2 {
@@ -4521,6 +4656,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string PublishingWebResourceFormat2 {
             get {
                 return ResourceManager.GetString("PublishingWebResourceFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publishing WebResources....
+        /// </summary>
+        internal static string PublishingWebResources {
+            get {
+                return ResourceManager.GetString("PublishingWebResources", resourceCulture);
             }
         }
         
@@ -5542,6 +5686,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Try to find WebResource by name: {0}. Searching....
+        /// </summary>
+        internal static string TryToFindWebResourceByNameFormat1 {
+            get {
+                return ResourceManager.GetString("TryToFindWebResourceByNameFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}. Updating Application RibbonDiffXml canceled..
         /// </summary>
         internal static string UpdatingApplicationRibbonDiffXmlCanceledFormat1 {
@@ -5812,6 +5965,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Updating SystemForm FormXml and Publishing....
+        /// </summary>
+        internal static string UpdatingSystemFormFormXmlAndPublishing {
+            get {
+                return ResourceManager.GetString("UpdatingSystemFormFormXmlAndPublishing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update SystemForms FormXml Completed..
+        /// </summary>
+        internal static string UpdatingSystemFormFormXmlCompleted {
+            get {
+                return ResourceManager.GetString("UpdatingSystemFormFormXmlCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating WebResources Completed..
+        /// </summary>
+        internal static string UpdatingWebResourcesCompleted {
+            get {
+                return ResourceManager.GetString("UpdatingWebResourcesCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating WebResources Content....
+        /// </summary>
+        internal static string UpdatingWebResourcesContent {
+            get {
+                return ResourceManager.GetString("UpdatingWebResourcesContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Validating Application RibbonDiffXml....
         /// </summary>
         internal static string ValidatingApplicationRibbonDiffXml {
@@ -5893,7 +6082,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to WebResource is selected..
+        ///   Looks up a localized string similar to WebResource founded by name with Connection Prefix. WebResourceId: {0} Name: {1}.
+        /// </summary>
+        internal static string WebResourceFoundedByNameWithConnectionPrefixFormat2 {
+            get {
+                return ResourceManager.GetString("WebResourceFoundedByNameWithConnectionPrefixFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WebResource is Selected..
         /// </summary>
         internal static string WebResourceIsSelected {
             get {
@@ -5911,11 +6109,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: WebResource not founded in CRM: {1}.
+        ///   Looks up a localized string similar to WebResource Not founded. FileName: {0}.
         /// </summary>
-        internal static string WebResourceNotFoundedInConnectionFormat2 {
+        internal static string WebResourceNotFoundedFormat1 {
             get {
-                return ResourceManager.GetString("WebResourceNotFoundedInConnectionFormat2", resourceCulture);
+                return ResourceManager.GetString("WebResourceNotFoundedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to !Warning. WebResource not linked. name: {0}..
+        /// </summary>
+        internal static string WebResourceNotSelectedFormat1 {
+            get {
+                return ResourceManager.GetString("WebResourceNotSelectedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WebResources dependent components: {0}.
+        /// </summary>
+        internal static string WebResourcesDependentComponentsFormat1 {
+            get {
+                return ResourceManager.GetString("WebResourcesDependentComponentsFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WebResources equal to file content: {0}.
+        /// </summary>
+        internal static string WebResourcesEqualToFileContentFormat1 {
+            get {
+                return ResourceManager.GetString("WebResourcesEqualToFileContentFormat1", resourceCulture);
             }
         }
         
@@ -5929,6 +6154,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to WebResources are NOT Customizable, can&apos;t change WebResource&apos;s content: {0}.
+        /// </summary>
+        internal static string WebResourcesNotCustomizableFormat1 {
+            get {
+                return ResourceManager.GetString("WebResourcesNotCustomizableFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to WebResources to add to Solution {0}: {1}.
         /// </summary>
         internal static string WebResourcesToAddToSolutionFormat2 {
@@ -5938,11 +6172,65 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Updated WebResources DependencyXml: {0}.
+        /// </summary>
+        internal static string WebResourcesUpdatedDependencyXmlFormat1 {
+            get {
+                return ResourceManager.GetString("WebResourcesUpdatedDependencyXmlFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updated WebResources: {0}.
+        /// </summary>
+        internal static string WebResourcesUpdatedFormat1 {
+            get {
+                return ResourceManager.GetString("WebResourcesUpdatedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating Content and Publishing was cancelled..
+        /// </summary>
+        internal static string WebResourcesUpdatingContentAndPublishingCancelled {
+            get {
+                return ResourceManager.GetString("WebResourcesUpdatingContentAndPublishingCancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to WebResources names with prefix &apos;{0}&apos;: {1}.
         /// </summary>
         internal static string WebResourcesWithPrefixFormat2 {
             get {
                 return ResourceManager.GetString("WebResourcesWithPrefixFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WebResource was not found by name and does not have the Last Link. FileName: {0}.
+        /// </summary>
+        internal static string WebResourceWasNotFoundByNameAndDoesNotHaveLastLinkFormat1 {
+            get {
+                return ResourceManager.GetString("WebResourceWasNotFoundByNameAndDoesNotHaveLastLinkFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WebResource was Not found by name. Last linked WebResource is selected. WebResourceId: {0} Name: {1}.
+        /// </summary>
+        internal static string WebResourceWasNotFoundByNameLastLinkedWebResourceIsSelectedFormat2 {
+            get {
+                return ResourceManager.GetString("WebResourceWasNotFoundByNameLastLinkedWebResourceIsSelectedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WebResource was Not found by name. FileName: {0}. Opening a form for selecting WebResource....
+        /// </summary>
+        internal static string WebResourceWasNotFoundByNameOpeningFormForSelectingWebResourceFormat1 {
+            get {
+                return ResourceManager.GetString("WebResourceWasNotFoundByNameOpeningFormForSelectingWebResourceFormat1", resourceCulture);
             }
         }
         

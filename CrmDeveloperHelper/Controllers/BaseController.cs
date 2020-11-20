@@ -19,6 +19,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
     public abstract class BaseController<TWriteToOutput> where TWriteToOutput : IWriteToOutput
     {
         protected const string _tabSpacer = "      ";
+        protected const string _formatWithTabSpacer = "{0}{1}";
 
         protected readonly TWriteToOutput _iWriteToOutput = default(TWriteToOutput);
 
